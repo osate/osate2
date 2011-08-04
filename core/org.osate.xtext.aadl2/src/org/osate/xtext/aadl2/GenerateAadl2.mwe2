@@ -117,12 +117,16 @@ Workflow {
 //			}
 
 			// generates a more lightweight Antlr parser and lexer tailored for content assist  
-			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+//			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
+//				    options = {
+//        		ignoreCase = true
+//					classSplitting = true
+//				}
+//			}
 			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
 				    options = {
         		ignoreCase = true
-    		}
-				options = {
+        		backtrack = true
 					classSplitting = true
 				}
 			}

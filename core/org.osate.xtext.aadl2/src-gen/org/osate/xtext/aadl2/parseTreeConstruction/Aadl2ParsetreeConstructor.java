@@ -3,15 +3,11 @@
 */
 package org.osate.xtext.aadl2.parseTreeConstruction;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.Action;
-import org.eclipse.xtext.Alternatives;
-import org.eclipse.xtext.Assignment;
-import org.eclipse.xtext.Group;
-import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.RuleCall;
+import org.eclipse.emf.ecore.*;
+import org.eclipse.xtext.*;
 import org.eclipse.xtext.parsetree.reconstr.IEObjectConsumer;
 import org.eclipse.xtext.parsetree.reconstr.impl.AbstractParseTreeConstructor;
+
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
@@ -145,106 +141,107 @@ protected class ThisRootNode extends RootToken {
 			case 107: return new FeatureGroupConnection_Group(this, this, 107, inst);
 			case 108: return new FeatureConnection_Group(this, this, 108, inst);
 			case 109: return new ParameterConnection_Group(this, this, 109, inst);
-			case 110: return new FlowSpecification_Group(this, this, 110, inst);
+			case 110: return new FlowSpecification_Alternatives(this, this, 110, inst);
 			case 111: return new FlowSourceSpec_Group(this, this, 111, inst);
 			case 112: return new FlowSinkSpec_Group(this, this, 112, inst);
 			case 113: return new FlowPathSpec_Group(this, this, 113, inst);
 			case 114: return new FlowEnd_Group(this, this, 114, inst);
-			case 115: return new FlowSourceSpecRefinement_Group(this, this, 115, inst);
-			case 116: return new FlowSinkSpecRefinement_Group(this, this, 116, inst);
-			case 117: return new FlowPathSpecRefinement_Group(this, this, 117, inst);
-			case 118: return new FlowImplementation_Group(this, this, 118, inst);
-			case 119: return new FlowSourceImpl_Group(this, this, 119, inst);
-			case 120: return new FlowSinkImpl_Group(this, this, 120, inst);
-			case 121: return new FlowPathImpl_Group(this, this, 121, inst);
-			case 122: return new EndToEndFlow_Group(this, this, 122, inst);
-			case 123: return new EndToEndFlowRefinement_Group(this, this, 123, inst);
-			case 124: return new SubcomponentFlow_Group(this, this, 124, inst);
-			case 125: return new ConnectionFlow_FlowElementAssignment(this, this, 125, inst);
-			case 126: return new ETESubcomponentFlow_Group(this, this, 126, inst);
-			case 127: return new ETEConnectionFlow_FlowElementAssignment(this, this, 127, inst);
-			case 128: return new Mode_Group(this, this, 128, inst);
-			case 129: return new RequiresMode_Group(this, this, 129, inst);
-			case 130: return new ModeTransition_Group(this, this, 130, inst);
-			case 131: return new Trigger_Alternatives(this, this, 131, inst);
-			case 132: return new TriggerPort_Group(this, this, 132, inst);
-			case 133: return new ModeRef_Group(this, this, 133, inst);
-			case 134: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 134, inst);
-			case 135: return new DefaultAnnexLibrary_Group(this, this, 135, inst);
-			case 136: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 136, inst);
-			case 137: return new DefaultAnnexSubclause_Group(this, this, 137, inst);
-			case 138: return new PropertySet_Group(this, this, 138, inst);
-			case 139: return new PropertyType_Group(this, this, 139, inst);
-			case 140: return new UnnamedPropertyType_Alternatives(this, this, 140, inst);
-			case 141: return new BooleanType_Group(this, this, 141, inst);
-			case 142: return new UnnamedBooleanType_Group(this, this, 142, inst);
-			case 143: return new StringType_Group(this, this, 143, inst);
-			case 144: return new UnnamedStringType_Group(this, this, 144, inst);
-			case 145: return new EnumerationType_Group(this, this, 145, inst);
-			case 146: return new UnnamedEnumerationType_Group(this, this, 146, inst);
-			case 147: return new EnumerationLiteral_NameAssignment(this, this, 147, inst);
-			case 148: return new UnitsType_Group(this, this, 148, inst);
-			case 149: return new UnnamedUnitsType_Group(this, this, 149, inst);
-			case 150: return new UnitLiteral_NameAssignment(this, this, 150, inst);
-			case 151: return new UnitLiteralConversion_Group(this, this, 151, inst);
-			case 152: return new RealType_Group(this, this, 152, inst);
-			case 153: return new UnnamedRealType_Group(this, this, 153, inst);
-			case 154: return new IntegerType_Group(this, this, 154, inst);
-			case 155: return new UnnamedIntegerType_Group(this, this, 155, inst);
-			case 156: return new RangeType_Group(this, this, 156, inst);
-			case 157: return new UnnamedRangeType_Group(this, this, 157, inst);
-			case 158: return new ClassifierType_Group(this, this, 158, inst);
-			case 159: return new UnnamedClassifierType_Group(this, this, 159, inst);
-			case 160: return new QCReference_Group(this, this, 160, inst);
-			case 161: return new ReferenceType_Group(this, this, 161, inst);
-			case 162: return new UnnamedReferenceType_Group(this, this, 162, inst);
-			case 163: return new RecordType_Group(this, this, 163, inst);
-			case 164: return new UnnamedRecordType_Group(this, this, 164, inst);
-			case 165: return new RecordField_Group(this, this, 165, inst);
-			case 166: return new PropertyDefinition_Group(this, this, 166, inst);
-			case 167: return new AllReference_MetaclassNameAssignment(this, this, 167, inst);
-			case 168: return new ListType_Group(this, this, 168, inst);
-			case 169: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 169, inst);
-			case 170: return new PropertyConstant_Group(this, this, 170, inst);
-			case 171: return new NumberValue_Alternatives(this, this, 171, inst);
-			case 172: return new RealLit_ValueAssignment(this, this, 172, inst);
-			case 173: return new IntegerLit_ValueAssignment(this, this, 173, inst);
-			case 174: return new ConstantPropertyExpression_Alternatives(this, this, 174, inst);
-			case 175: return new IntegerRange_Group(this, this, 175, inst);
-			case 176: return new RealRange_Group(this, this, 176, inst);
-			case 177: return new PModel_Alternatives(this, this, 177, inst);
-			case 178: return new BasicPropertyAssociation_Group(this, this, 178, inst);
-			case 179: return new ContainedPropertyAssociation_Group(this, this, 179, inst);
-			case 180: return new PropertyAssociation_Group(this, this, 180, inst);
-			case 181: return new ContainmentPath_Group(this, this, 181, inst);
-			case 182: return new ModalPropertyValue_Group(this, this, 182, inst);
-			case 183: return new OptionalModalPropertyValue_Group(this, this, 183, inst);
-			case 184: return new PropertyValue_OwnedValueAssignment(this, this, 184, inst);
-			case 185: return new PropertyExpression_Alternatives(this, this, 185, inst);
-			case 186: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 186, inst);
-			case 187: return new ActualBooleanTerm_Alternatives(this, this, 187, inst);
-			case 188: return new ActualOrTerm_Group(this, this, 188, inst);
-			case 189: return new ActualAndTerm_Group(this, this, 189, inst);
-			case 190: return new BooleanTerm_OrTermParserRuleCall(this, this, 190, inst);
-			case 191: return new OrTerm_Group(this, this, 191, inst);
-			case 192: return new AndTerm_Group(this, this, 192, inst);
-			case 193: return new NotTerm_Group(this, this, 193, inst);
-			case 194: return new BooleanAtom_Alternatives(this, this, 194, inst);
-			case 195: return new BooleanLiteral_Group(this, this, 195, inst);
-			case 196: return new ConstantValue_NamedValueAssignment(this, this, 196, inst);
-			case 197: return new ReferenceTerm_Group(this, this, 197, inst);
-			case 198: return new RecordTerm_Group(this, this, 198, inst);
-			case 199: return new ComputedTerm_Group(this, this, 199, inst);
-			case 200: return new ComponentClassifierTerm_Group(this, this, 200, inst);
-			case 201: return new ListTerm_Group(this, this, 201, inst);
-			case 202: return new FieldPropertyAssociation_Group(this, this, 202, inst);
-			case 203: return new ContainmentPathElement_Alternatives(this, this, 203, inst);
-			case 204: return new StringTerm_ValueAssignment(this, this, 204, inst);
-			case 205: return new ArrayRange_Group(this, this, 205, inst);
-			case 206: return new SignedConstant_Group(this, this, 206, inst);
-			case 207: return new IntegerTerm_Group(this, this, 207, inst);
-			case 208: return new RealTerm_Group(this, this, 208, inst);
-			case 209: return new NumericRangeTerm_Group(this, this, 209, inst);
+			case 115: return new FlowSpecRefinement_Alternatives(this, this, 115, inst);
+			case 116: return new FlowSourceSpecRefinement_Group(this, this, 116, inst);
+			case 117: return new FlowSinkSpecRefinement_Group(this, this, 117, inst);
+			case 118: return new FlowPathSpecRefinement_Group(this, this, 118, inst);
+			case 119: return new FlowImplementation_Group(this, this, 119, inst);
+			case 120: return new FlowSourceImpl_Group(this, this, 120, inst);
+			case 121: return new FlowSinkImpl_Group(this, this, 121, inst);
+			case 122: return new FlowPathImpl_Group(this, this, 122, inst);
+			case 123: return new EndToEndFlow_Group(this, this, 123, inst);
+			case 124: return new EndToEndFlowRefinement_Alternatives(this, this, 124, inst);
+			case 125: return new SubcomponentFlow_Group(this, this, 125, inst);
+			case 126: return new ConnectionFlow_FlowElementAssignment(this, this, 126, inst);
+			case 127: return new ETESubcomponentFlow_Group(this, this, 127, inst);
+			case 128: return new ETEConnectionFlow_FlowElementAssignment(this, this, 128, inst);
+			case 129: return new Mode_Group(this, this, 129, inst);
+			case 130: return new RequiresMode_Group(this, this, 130, inst);
+			case 131: return new ModeTransition_Group(this, this, 131, inst);
+			case 132: return new Trigger_Alternatives(this, this, 132, inst);
+			case 133: return new TriggerPort_Group(this, this, 133, inst);
+			case 134: return new ModeRef_Group(this, this, 134, inst);
+			case 135: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 135, inst);
+			case 136: return new DefaultAnnexLibrary_Group(this, this, 136, inst);
+			case 137: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 137, inst);
+			case 138: return new DefaultAnnexSubclause_Group(this, this, 138, inst);
+			case 139: return new PropertySet_Group(this, this, 139, inst);
+			case 140: return new PropertyType_Group(this, this, 140, inst);
+			case 141: return new UnnamedPropertyType_Alternatives(this, this, 141, inst);
+			case 142: return new BooleanType_Group(this, this, 142, inst);
+			case 143: return new UnnamedBooleanType_Group(this, this, 143, inst);
+			case 144: return new StringType_Group(this, this, 144, inst);
+			case 145: return new UnnamedStringType_Group(this, this, 145, inst);
+			case 146: return new EnumerationType_Group(this, this, 146, inst);
+			case 147: return new UnnamedEnumerationType_Group(this, this, 147, inst);
+			case 148: return new EnumerationLiteral_NameAssignment(this, this, 148, inst);
+			case 149: return new UnitsType_Group(this, this, 149, inst);
+			case 150: return new UnnamedUnitsType_Group(this, this, 150, inst);
+			case 151: return new UnitLiteral_NameAssignment(this, this, 151, inst);
+			case 152: return new UnitLiteralConversion_Group(this, this, 152, inst);
+			case 153: return new RealType_Group(this, this, 153, inst);
+			case 154: return new UnnamedRealType_Group(this, this, 154, inst);
+			case 155: return new IntegerType_Group(this, this, 155, inst);
+			case 156: return new UnnamedIntegerType_Group(this, this, 156, inst);
+			case 157: return new RangeType_Group(this, this, 157, inst);
+			case 158: return new UnnamedRangeType_Group(this, this, 158, inst);
+			case 159: return new ClassifierType_Group(this, this, 159, inst);
+			case 160: return new UnnamedClassifierType_Group(this, this, 160, inst);
+			case 161: return new QCReference_Group(this, this, 161, inst);
+			case 162: return new ReferenceType_Group(this, this, 162, inst);
+			case 163: return new UnnamedReferenceType_Group(this, this, 163, inst);
+			case 164: return new RecordType_Group(this, this, 164, inst);
+			case 165: return new UnnamedRecordType_Group(this, this, 165, inst);
+			case 166: return new RecordField_Group(this, this, 166, inst);
+			case 167: return new PropertyDefinition_Group(this, this, 167, inst);
+			case 168: return new AllReference_MetaclassNameAssignment(this, this, 168, inst);
+			case 169: return new ListType_Group(this, this, 169, inst);
+			case 170: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 170, inst);
+			case 171: return new PropertyConstant_Group(this, this, 171, inst);
+			case 172: return new NumberValue_Alternatives(this, this, 172, inst);
+			case 173: return new RealLit_ValueAssignment(this, this, 173, inst);
+			case 174: return new IntegerLit_ValueAssignment(this, this, 174, inst);
+			case 175: return new ConstantPropertyExpression_Alternatives(this, this, 175, inst);
+			case 176: return new IntegerRange_Group(this, this, 176, inst);
+			case 177: return new RealRange_Group(this, this, 177, inst);
+			case 178: return new PModel_Alternatives(this, this, 178, inst);
+			case 179: return new BasicPropertyAssociation_Group(this, this, 179, inst);
+			case 180: return new ContainedPropertyAssociation_Group(this, this, 180, inst);
+			case 181: return new PropertyAssociation_Group(this, this, 181, inst);
+			case 182: return new ContainmentPath_Group(this, this, 182, inst);
+			case 183: return new ModalPropertyValue_Group(this, this, 183, inst);
+			case 184: return new OptionalModalPropertyValue_Group(this, this, 184, inst);
+			case 185: return new PropertyValue_OwnedValueAssignment(this, this, 185, inst);
+			case 186: return new PropertyExpression_Alternatives(this, this, 186, inst);
+			case 187: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 187, inst);
+			case 188: return new ActualBooleanTerm_Alternatives(this, this, 188, inst);
+			case 189: return new ActualOrTerm_Group(this, this, 189, inst);
+			case 190: return new ActualAndTerm_Group(this, this, 190, inst);
+			case 191: return new BooleanTerm_OrTermParserRuleCall(this, this, 191, inst);
+			case 192: return new OrTerm_Group(this, this, 192, inst);
+			case 193: return new AndTerm_Group(this, this, 193, inst);
+			case 194: return new NotTerm_Group(this, this, 194, inst);
+			case 195: return new BooleanAtom_Alternatives(this, this, 195, inst);
+			case 196: return new BooleanLiteral_Group(this, this, 196, inst);
+			case 197: return new ConstantValue_NamedValueAssignment(this, this, 197, inst);
+			case 198: return new ReferenceTerm_Group(this, this, 198, inst);
+			case 199: return new RecordTerm_Group(this, this, 199, inst);
+			case 200: return new ComputedTerm_Group(this, this, 200, inst);
+			case 201: return new ComponentClassifierTerm_Group(this, this, 201, inst);
+			case 202: return new ListTerm_Group(this, this, 202, inst);
+			case 203: return new FieldPropertyAssociation_Group(this, this, 203, inst);
+			case 204: return new ContainmentPathElement_Alternatives(this, this, 204, inst);
+			case 205: return new StringTerm_ValueAssignment(this, this, 205, inst);
+			case 206: return new ArrayRange_Group(this, this, 206, inst);
+			case 207: return new SignedConstant_Group(this, this, 207, inst);
+			case 208: return new IntegerTerm_Group(this, this, 208, inst);
+			case 209: return new RealTerm_Group(this, this, 209, inst);
+			case 210: return new NumericRangeTerm_Group(this, this, 210, inst);
 			default: return null;
 		}	
 	}	
@@ -4015,7 +4012,7 @@ protected class ComponentType_OwnedFlowSpecificationAssignment_1_1_0 extends Ass
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Group(this, this, 0, inst);
+			case 0: return new FlowSpecification_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -4837,6 +4834,16 @@ protected class ComponentType_SemicolonKeyword_8 extends KeywordToken  {
 
 /************ begin Rule AbstractType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * AbstractType returns aadl2::AbstractType:
  * 	"abstract" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
@@ -6031,6 +6038,16 @@ protected class AbstractType_OwnedAbstractFeatureAssignment_4_1_1_8 extends Assi
 
 /************ begin Rule SystemType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * SystemType returns aadl2::SystemType:
  * 	"system" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none"
@@ -7225,6 +7242,16 @@ protected class SystemType_SemicolonKeyword_4_1_1_1 extends KeywordToken  {
 
 /************ begin Rule ProcessType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * ProcessType returns aadl2::ProcessType:
  * 	"process" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
@@ -8369,6 +8396,16 @@ protected class ProcessType_OwnedAbstractFeatureAssignment_4_1_1_7 extends Assig
 
 /************ begin Rule ThreadGroupType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * ThreadGroupType returns aadl2::ThreadGroupType:
  * 	"thread" "group" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
@@ -9535,6 +9572,16 @@ protected class ThreadGroupType_OwnedAbstractFeatureAssignment_5_1_1_7 extends A
 
 /************ begin Rule ThreadType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * ThreadType returns aadl2::ThreadType:
  * 	"thread" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
@@ -10679,6 +10726,16 @@ protected class ThreadType_OwnedAbstractFeatureAssignment_4_1_1_7 extends Assign
 
 /************ begin Rule SubprogramType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * SubprogramType returns aadl2::SubprogramType:
  * 	"subprogram" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
@@ -12871,7 +12928,7 @@ protected class SubprogramGroupType_OwnedFlowSpecificationAssignment_6_1_0 exten
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Group(this, this, 0, inst);
+			case 0: return new FlowSpecification_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -13313,6 +13370,16 @@ protected class SubprogramGroupType_SemicolonKeyword_11 extends KeywordToken  {
 
 /************ begin Rule ProcessorType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * ProcessorType returns aadl2::ProcessorType:
  * 	"processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
@@ -14257,6 +14324,16 @@ protected class ProcessorType_OwnedAbstractFeatureAssignment_3_1_1_7 extends Ass
 
 /************ begin Rule DeviceType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * DeviceType returns aadl2::DeviceType:
  * 	"device" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
@@ -19126,6 +19203,16 @@ protected class VirtualBusType_SemicolonKeyword_10 extends KeywordToken  {
 
 /************ begin Rule VirtualProcessorType ****************
  *
+ * //	(=> 'flows'
+ * //	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+ * //	(=> 'requires' 'modes'
+ * //	((ownedMode+=RequiresMode)+))?
+ * //	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID ';'
  * VirtualProcessorType returns aadl2::VirtualProcessorType:
  * 	"virtual" "processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
  * 	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
@@ -20871,7 +20958,7 @@ protected class DataType_OwnedFlowSpecificationAssignment_4_1_0 extends Assignme
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Group(this, this, 0, inst);
+			case 0: return new FlowSpecification_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -22491,7 +22578,7 @@ protected class ComponentImplementation_OwnedEndToEndFlowAssignment_2_1_0_1 exte
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new EndToEndFlow_Group(this, this, 0, inst);
-			case 1: return new EndToEndFlowRefinement_Group(this, this, 1, inst);
+			case 1: return new EndToEndFlowRefinement_Alternatives(this, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -23300,6 +23387,23 @@ protected class Realization_ImplementedAssignment extends AssignmentToken  {
 
 /************ begin Rule AbstractImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * AbstractImplementation returns aadl2::AbstractImplementation:
  * 	"abstract" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -25024,6 +25128,23 @@ protected class AbstractImplementation_SemicolonKeyword_9_1_1_1 extends KeywordT
 
 /************ begin Rule SystemImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * SystemImplementation returns aadl2::SystemImplementation:
  * 	"system" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -26447,6 +26568,23 @@ protected class SystemImplementation_SemicolonKeyword_8_1_1_1 extends KeywordTok
 
 /************ begin Rule ProcessImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * ProcessImplementation returns aadl2::ProcessImplementation:
  * 	"process" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -27567,6 +27705,23 @@ protected class ProcessImplementation_SemicolonKeyword_8_1_1_1 extends KeywordTo
 
 /************ begin Rule ThreadGroupImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
  * 	"thread" "group" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension?
  * 	("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -28709,6 +28864,23 @@ protected class ThreadGroupImplementation_SemicolonKeyword_9_1_1_1 extends Keywo
 
 /************ begin Rule ThreadImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * ThreadImplementation returns aadl2::ThreadImplementation:
  * 	"thread" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -29929,6 +30101,23 @@ protected class ThreadImplementation_SemicolonKeyword_9_1_1_1 extends KeywordTok
 
 /************ begin Rule SubprogramImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * SubprogramImplementation returns aadl2::SubprogramImplementation:
  * 	"subprogram" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -32051,6 +32240,23 @@ protected class SubprogramGroupImplementation_SemicolonKeyword_9_1_1_1 extends K
 
 /************ begin Rule ProcessorImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * ProcessorImplementation returns aadl2::ProcessorImplementation:
  * 	"processor" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -33119,6 +33325,23 @@ protected class ProcessorImplementation_SemicolonKeyword_8_1_1_1 extends Keyword
 
 /************ begin Rule VirtualProcessorImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
  * 	"virtual" "processor" "implementation" ownedRealization=Realization "." name=INAME
  * 	ownedExtension=ImplementationExtension? ("(" ownedPrototypeBinding+=PrototypeBinding (","
@@ -34111,6 +34334,23 @@ protected class VirtualProcessorImplementation_SemicolonKeyword_9_1_1_1 extends 
 
 /************ begin Rule DeviceImplementation ****************
  *
+ * //	(=> 'connections'
+ * //	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+ * //	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+ * //	| ownedParameterConnection+=ParameterConnection
+ * //	)+
+ * //	| (noConnections?='none' ';')))?
+ * //	(=> 'flows'
+ * //		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+ * //	(noFlows?='none' ';')))?
+ * //	(=> 'modes'
+ * //	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+ * //	| (noModes?='none' ';')))?
+ * //	(=> 'properties'
+ * //	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+ * //	| (noProperties?='none' ';')))?
+ * //	(ownedAnnexSubclause+=AnnexSubclause)*
+ * //	'end' ID '.' INAME ';'
  * DeviceImplementation returns aadl2::DeviceImplementation:
  * 	"device" "implementation" ownedRealization=Realization "." name=INAME ownedExtension=ImplementationExtension? ("("
  * 	ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")? ("prototypes"
@@ -78720,67 +78960,86 @@ protected class ParameterConnection_SemicolonKeyword_7 extends KeywordToken  {
 /************ begin Rule FlowSpecification ****************
  *
  * FlowSpecification returns aadl2::FlowSpecification:
- * 	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
- * 	FlowPathSpecRefinement) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
- * 	inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
- * 	";";
+ * 	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
+ * 	"(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")? //| allModes?='all'
+ * 	";" | FlowSpecRefinement;
  *
  **/
 
-// (FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
-// FlowPathSpecRefinement) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "("
-// inMode+=[aadl2::Mode]+ ")")? //| allModes?='all'
-// ";"
-protected class FlowSpecification_Group extends GroupToken {
-	
-	public FlowSpecification_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// (FlowSourceSpec | FlowSinkSpec | FlowPathSpec) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
+// "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")? //| allModes?='all'
+// ";" | FlowSpecRefinement
+protected class FlowSpecification_Alternatives extends AlternativesToken {
+
+	public FlowSpecification_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getGroup();
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getAlternatives();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_Group_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_FlowSpecRefinementParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
     @Override
 	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getFlowPathSpecRefinementRule().getType().getClassifier())
+		if(getEObject().eClass() != grammarAccess.getFlowSpecRefinementRule().getType().getClassifier())
 			return null;
 		return eObjectConsumer;
 	}
 
 }
 
-// FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
-// FlowPathSpecRefinement
-protected class FlowSpecification_Alternatives_0 extends AlternativesToken {
-
-	public FlowSpecification_Alternatives_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// (FlowSourceSpec | FlowSinkSpec | FlowPathSpec) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
+// "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")? //| allModes?='all'
+// ";"
+protected class FlowSpecification_Group_0 extends GroupToken {
+	
+	public FlowSpecification_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Alternatives getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getAlternatives_0();
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getGroup_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_FlowSourceSpecParserRuleCall_0_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_FlowSinkSpecParserRuleCall_0_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new FlowSpecification_FlowPathSpecParserRuleCall_0_2(lastRuleCallOrigin, this, 2, inst);
-			case 3: return new FlowSpecification_FlowSourceSpecRefinementParserRuleCall_0_3(lastRuleCallOrigin, this, 3, inst);
-			case 4: return new FlowSpecification_FlowSinkSpecRefinementParserRuleCall_0_4(lastRuleCallOrigin, this, 4, inst);
-			case 5: return new FlowSpecification_FlowPathSpecRefinementParserRuleCall_0_5(lastRuleCallOrigin, this, 5, inst);
+			case 0: return new FlowSpecification_SemicolonKeyword_0_3(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// FlowSourceSpec | FlowSinkSpec | FlowPathSpec
+protected class FlowSpecification_Alternatives_0_0 extends AlternativesToken {
+
+	public FlowSpecification_Alternatives_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getAlternatives_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecification_FlowSourceSpecParserRuleCall_0_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_FlowSinkSpecParserRuleCall_0_0_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new FlowSpecification_FlowPathSpecParserRuleCall_0_0_2(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
@@ -78788,15 +79047,15 @@ protected class FlowSpecification_Alternatives_0 extends AlternativesToken {
 }
 
 // FlowSourceSpec
-protected class FlowSpecification_FlowSourceSpecParserRuleCall_0_0 extends RuleCallToken {
+protected class FlowSpecification_FlowSourceSpecParserRuleCall_0_0_0 extends RuleCallToken {
 	
-	public FlowSpecification_FlowSourceSpecParserRuleCall_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_FlowSourceSpecParserRuleCall_0_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowSourceSpecParserRuleCall_0_0();
+		return grammarAccess.getFlowSpecificationAccess().getFlowSourceSpecParserRuleCall_0_0_0();
 	}
 
     @Override
@@ -78822,15 +79081,15 @@ protected class FlowSpecification_FlowSourceSpecParserRuleCall_0_0 extends RuleC
 }
 
 // FlowSinkSpec
-protected class FlowSpecification_FlowSinkSpecParserRuleCall_0_1 extends RuleCallToken {
+protected class FlowSpecification_FlowSinkSpecParserRuleCall_0_0_1 extends RuleCallToken {
 	
-	public FlowSpecification_FlowSinkSpecParserRuleCall_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_FlowSinkSpecParserRuleCall_0_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowSinkSpecParserRuleCall_0_1();
+		return grammarAccess.getFlowSpecificationAccess().getFlowSinkSpecParserRuleCall_0_0_1();
 	}
 
     @Override
@@ -78856,15 +79115,15 @@ protected class FlowSpecification_FlowSinkSpecParserRuleCall_0_1 extends RuleCal
 }
 
 // FlowPathSpec
-protected class FlowSpecification_FlowPathSpecParserRuleCall_0_2 extends RuleCallToken {
+protected class FlowSpecification_FlowPathSpecParserRuleCall_0_0_2 extends RuleCallToken {
 	
-	public FlowSpecification_FlowPathSpecParserRuleCall_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_FlowPathSpecParserRuleCall_0_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowPathSpecParserRuleCall_0_2();
+		return grammarAccess.getFlowSpecificationAccess().getFlowPathSpecParserRuleCall_0_0_2();
 	}
 
     @Override
@@ -78889,125 +79148,23 @@ protected class FlowSpecification_FlowPathSpecParserRuleCall_0_2 extends RuleCal
 	}	
 }
 
-// FlowSourceSpecRefinement
-protected class FlowSpecification_FlowSourceSpecRefinementParserRuleCall_0_3 extends RuleCallToken {
-	
-	public FlowSpecification_FlowSourceSpecRefinementParserRuleCall_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowSourceSpecRefinementParserRuleCall_0_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(checkForRecursion(FlowSourceSpecRefinement_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// FlowSinkSpecRefinement
-protected class FlowSpecification_FlowSinkSpecRefinementParserRuleCall_0_4 extends RuleCallToken {
-	
-	public FlowSpecification_FlowSinkSpecRefinementParserRuleCall_0_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowSinkSpecRefinementParserRuleCall_0_4();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(checkForRecursion(FlowSinkSpecRefinement_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// FlowPathSpecRefinement
-protected class FlowSpecification_FlowPathSpecRefinementParserRuleCall_0_5 extends RuleCallToken {
-	
-	public FlowSpecification_FlowPathSpecRefinementParserRuleCall_0_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getFlowPathSpecRefinementParserRuleCall_0_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpecRefinement_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(checkForRecursion(FlowPathSpecRefinement_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
 
 // (=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-protected class FlowSpecification_Group_1 extends GroupToken {
+protected class FlowSpecification_Group_0_1 extends GroupToken {
 	
-	public FlowSpecification_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getGroup_1();
+		return grammarAccess.getFlowSpecificationAccess().getGroup_0_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_RightCurlyBracketKeyword_1_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_RightCurlyBracketKeyword_0_1_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79015,21 +79172,21 @@ protected class FlowSpecification_Group_1 extends GroupToken {
 }
 
 // => "{"
-protected class FlowSpecification_LeftCurlyBracketKeyword_1_0 extends KeywordToken  {
+protected class FlowSpecification_LeftCurlyBracketKeyword_0_1_0 extends KeywordToken  {
 	
-	public FlowSpecification_LeftCurlyBracketKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_LeftCurlyBracketKeyword_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getLeftCurlyBracketKeyword_1_0();
+		return grammarAccess.getFlowSpecificationAccess().getLeftCurlyBracketKeyword_0_1_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Alternatives_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_Alternatives_0_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79037,15 +79194,15 @@ protected class FlowSpecification_LeftCurlyBracketKeyword_1_0 extends KeywordTok
 }
 
 // ownedPropertyAssociation+=PropertyAssociation+
-protected class FlowSpecification_OwnedPropertyAssociationAssignment_1_1 extends AssignmentToken  {
+protected class FlowSpecification_OwnedPropertyAssociationAssignment_0_1_1 extends AssignmentToken  {
 	
-	public FlowSpecification_OwnedPropertyAssociationAssignment_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_OwnedPropertyAssociationAssignment_0_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationAssignment_1_1();
+		return grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationAssignment_0_1_1();
 	}
 
     @Override
@@ -79064,7 +79221,7 @@ protected class FlowSpecification_OwnedPropertyAssociationAssignment_1_1 extends
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0(); 
+				element = grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_1_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -79076,29 +79233,29 @@ protected class FlowSpecification_OwnedPropertyAssociationAssignment_1_1 extends
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new FlowSpecification_OwnedPropertyAssociationAssignment_1_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new FlowSpecification_LeftCurlyBracketKeyword_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new FlowSpecification_OwnedPropertyAssociationAssignment_0_1_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FlowSpecification_LeftCurlyBracketKeyword_0_1_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
 
 // "}"
-protected class FlowSpecification_RightCurlyBracketKeyword_1_2 extends KeywordToken  {
+protected class FlowSpecification_RightCurlyBracketKeyword_0_1_2 extends KeywordToken  {
 	
-	public FlowSpecification_RightCurlyBracketKeyword_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_RightCurlyBracketKeyword_0_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getRightCurlyBracketKeyword_1_2();
+		return grammarAccess.getFlowSpecificationAccess().getRightCurlyBracketKeyword_0_1_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_OwnedPropertyAssociationAssignment_1_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_OwnedPropertyAssociationAssignment_0_1_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79106,22 +79263,22 @@ protected class FlowSpecification_RightCurlyBracketKeyword_1_2 extends KeywordTo
 }
 
 
-// (=> "in" "modes" "(" inMode+=[aadl2::Mode]+ ")")?
-protected class FlowSpecification_Group_2 extends GroupToken {
+// (=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+protected class FlowSpecification_Group_0_2 extends GroupToken {
 	
-	public FlowSpecification_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_Group_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getGroup_2();
+		return grammarAccess.getFlowSpecificationAccess().getGroup_0_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_RightParenthesisKeyword_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_RightParenthesisKeyword_0_2_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79129,22 +79286,22 @@ protected class FlowSpecification_Group_2 extends GroupToken {
 }
 
 // => "in"
-protected class FlowSpecification_InKeyword_2_0 extends KeywordToken  {
+protected class FlowSpecification_InKeyword_0_2_0 extends KeywordToken  {
 	
-	public FlowSpecification_InKeyword_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_InKeyword_0_2_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getInKeyword_2_0();
+		return grammarAccess.getFlowSpecificationAccess().getInKeyword_0_2_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Group_1(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_Alternatives_0(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSpecification_Group_0_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_Alternatives_0_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -79152,21 +79309,21 @@ protected class FlowSpecification_InKeyword_2_0 extends KeywordToken  {
 }
 
 // "modes"
-protected class FlowSpecification_ModesKeyword_2_1 extends KeywordToken  {
+protected class FlowSpecification_ModesKeyword_0_2_1 extends KeywordToken  {
 	
-	public FlowSpecification_ModesKeyword_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_ModesKeyword_0_2_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getModesKeyword_2_1();
+		return grammarAccess.getFlowSpecificationAccess().getModesKeyword_0_2_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_InKeyword_2_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_InKeyword_0_2_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79174,44 +79331,125 @@ protected class FlowSpecification_ModesKeyword_2_1 extends KeywordToken  {
 }
 
 // "("
-protected class FlowSpecification_LeftParenthesisKeyword_2_2 extends KeywordToken  {
+protected class FlowSpecification_LeftParenthesisKeyword_0_2_2 extends KeywordToken  {
 	
-	public FlowSpecification_LeftParenthesisKeyword_2_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_LeftParenthesisKeyword_0_2_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getLeftParenthesisKeyword_2_2();
+		return grammarAccess.getFlowSpecificationAccess().getLeftParenthesisKeyword_0_2_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_ModesKeyword_2_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_ModesKeyword_0_2_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// inMode+=[aadl2::Mode]+
-protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  {
+// inMode+=[aadl2::Mode]
+protected class FlowSpecification_InModeAssignment_0_2_3 extends AssignmentToken  {
 	
-	public FlowSpecification_InModeAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_InModeAssignment_0_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_3();
+		return grammarAccess.getFlowSpecificationAccess().getInModeAssignment_0_2_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_InModeAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_LeftParenthesisKeyword_2_2(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSpecification_LeftParenthesisKeyword_0_2_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_0_2_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_0_2_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inMode+=[aadl2::Mode])*
+protected class FlowSpecification_Group_0_2_4 extends GroupToken {
+	
+	public FlowSpecification_Group_0_2_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getGroup_0_2_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecification_InModeAssignment_0_2_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class FlowSpecification_CommaKeyword_0_2_4_0 extends KeywordToken  {
+	
+	public FlowSpecification_CommaKeyword_0_2_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getCommaKeyword_0_2_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecification_Group_0_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_InModeAssignment_0_2_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class FlowSpecification_InModeAssignment_0_2_4_1 extends AssignmentToken  {
+	
+	public FlowSpecification_InModeAssignment_0_2_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getInModeAssignment_0_2_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecification_CommaKeyword_0_2_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -79222,9 +79460,9 @@ protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_0_2_4_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_3_0(); 
+				element = grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_0_2_4_1_0(); 
 				return obj;
 			}
 		}
@@ -79233,22 +79471,24 @@ protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  
 
 }
 
+
 // ")"
-protected class FlowSpecification_RightParenthesisKeyword_2_4 extends KeywordToken  {
+protected class FlowSpecification_RightParenthesisKeyword_0_2_5 extends KeywordToken  {
 	
-	public FlowSpecification_RightParenthesisKeyword_2_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_RightParenthesisKeyword_0_2_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getRightParenthesisKeyword_2_4();
+		return grammarAccess.getFlowSpecificationAccess().getRightParenthesisKeyword_0_2_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_InModeAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_Group_0_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_InModeAssignment_0_2_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -79257,27 +79497,62 @@ protected class FlowSpecification_RightParenthesisKeyword_2_4 extends KeywordTok
 
 
 // ";"
-protected class FlowSpecification_SemicolonKeyword_3 extends KeywordToken  {
+protected class FlowSpecification_SemicolonKeyword_0_3 extends KeywordToken  {
 	
-	public FlowSpecification_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_SemicolonKeyword_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getSemicolonKeyword_3();
+		return grammarAccess.getFlowSpecificationAccess().getSemicolonKeyword_0_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_Group_2(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_Group_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new FlowSpecification_Alternatives_0(lastRuleCallOrigin, this, 2, inst);
+			case 0: return new FlowSpecification_Group_0_2(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecification_Group_0_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new FlowSpecification_Alternatives_0_0(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
 
+}
+
+
+// FlowSpecRefinement
+protected class FlowSpecification_FlowSpecRefinementParserRuleCall_1 extends RuleCallToken {
+	
+	public FlowSpecification_FlowSpecRefinementParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSpecificationAccess().getFlowSpecRefinementParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(FlowSpecRefinement_Alternatives.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
 }
 
 
@@ -79286,6 +79561,9 @@ protected class FlowSpecification_SemicolonKeyword_3 extends KeywordToken  {
 
 /************ begin Rule FlowSourceSpec ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
  * FlowSourceSpec returns aadl2::FlowSpecification:
  * 	name=ID ":" "flow" kind=FlowSource outEnd=FlowEnd;
  *
@@ -79483,6 +79761,9 @@ protected class FlowSourceSpec_OutEndAssignment_4 extends AssignmentToken  {
 
 /************ begin Rule FlowSinkSpec ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
  * FlowSinkSpec returns aadl2::FlowSpecification:
  * 	name=ID ":" "flow" kind=FlowSink InEnd=FlowEnd;
  *
@@ -79680,6 +79961,9 @@ protected class FlowSinkSpec_InEndAssignment_4 extends AssignmentToken  {
 
 /************ begin Rule FlowPathSpec ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
  * FlowPathSpec returns aadl2::FlowSpecification:
  * 	name=ID ":" "flow" kind=FlowPath InEnd=FlowEnd "->" outEnd=FlowEnd;
  *
@@ -80101,16 +80385,841 @@ protected class FlowEnd_FeatureAssignment_1 extends AssignmentToken  {
 /************ end Rule FlowEnd ****************/
 
 
-/************ begin Rule FlowSourceSpecRefinement ****************
+/************ begin Rule FlowSpecRefinement ****************
  *
- * FlowSourceSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
+ * FlowSpecRefinement returns aadl2::FlowSpecification:
+ * 	(FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement) ("{"
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
+ * 	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+ * 	";";
  *
  **/
 
-// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// (FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement) ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
+// ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+// ";"
+protected class FlowSpecRefinement_Alternatives extends AlternativesToken {
+
+	public FlowSpecRefinement_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_Group_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getFlowSpecRefinementRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// (FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement) ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
+// ")")?)
+protected class FlowSpecRefinement_Group_0 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement
+protected class FlowSpecRefinement_Alternatives_0_0 extends AlternativesToken {
+
+	public FlowSpecRefinement_Alternatives_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getAlternatives_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_FlowSourceSpecRefinementParserRuleCall_0_0_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_FlowSinkSpecRefinementParserRuleCall_0_0_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new FlowSpecRefinement_FlowPathSpecRefinementParserRuleCall_0_0_2(lastRuleCallOrigin, this, 2, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// FlowSourceSpecRefinement
+protected class FlowSpecRefinement_FlowSourceSpecRefinementParserRuleCall_0_0_0 extends RuleCallToken {
+	
+	public FlowSpecRefinement_FlowSourceSpecRefinementParserRuleCall_0_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getFlowSourceSpecRefinementParserRuleCall_0_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSourceSpecRefinement_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(FlowSourceSpecRefinement_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// FlowSinkSpecRefinement
+protected class FlowSpecRefinement_FlowSinkSpecRefinementParserRuleCall_0_0_1 extends RuleCallToken {
+	
+	public FlowSpecRefinement_FlowSinkSpecRefinementParserRuleCall_0_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getFlowSinkSpecRefinementParserRuleCall_0_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSinkSpecRefinement_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(FlowSinkSpecRefinement_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// FlowPathSpecRefinement
+protected class FlowSpecRefinement_FlowPathSpecRefinementParserRuleCall_0_0_2 extends RuleCallToken {
+	
+	public FlowSpecRefinement_FlowPathSpecRefinementParserRuleCall_0_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getFlowPathSpecRefinementParserRuleCall_0_0_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowPathSpecRefinement_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(checkForRecursion(FlowPathSpecRefinement_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+// => "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
+// inMode+=[aadl2::Mode])* ")")?
+protected class FlowSpecRefinement_Group_0_1 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_0_1_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_RightCurlyBracketKeyword_0_1_2(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "{"
+protected class FlowSpecRefinement_LeftCurlyBracketKeyword_0_1_0 extends KeywordToken  {
+	
+	public FlowSpecRefinement_LeftCurlyBracketKeyword_0_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getLeftCurlyBracketKeyword_0_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Alternatives_0_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedPropertyAssociation+=PropertyAssociation+
+protected class FlowSpecRefinement_OwnedPropertyAssociationAssignment_0_1_1 extends AssignmentToken  {
+	
+	public FlowSpecRefinement_OwnedPropertyAssociationAssignment_0_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getOwnedPropertyAssociationAssignment_0_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getFlowSpecRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_1_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new FlowSpecRefinement_OwnedPropertyAssociationAssignment_0_1_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new FlowSpecRefinement_LeftCurlyBracketKeyword_0_1_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// "}"
+protected class FlowSpecRefinement_RightCurlyBracketKeyword_0_1_2 extends KeywordToken  {
+	
+	public FlowSpecRefinement_RightCurlyBracketKeyword_0_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getRightCurlyBracketKeyword_0_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_OwnedPropertyAssociationAssignment_0_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+protected class FlowSpecRefinement_Group_0_1_3 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_0_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_RightParenthesisKeyword_0_1_3_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "in"
+protected class FlowSpecRefinement_InKeyword_0_1_3_0 extends KeywordToken  {
+	
+	public FlowSpecRefinement_InKeyword_0_1_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInKeyword_0_1_3_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_RightCurlyBracketKeyword_0_1_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "modes"
+protected class FlowSpecRefinement_ModesKeyword_0_1_3_1 extends KeywordToken  {
+	
+	public FlowSpecRefinement_ModesKeyword_0_1_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getModesKeyword_0_1_3_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_InKeyword_0_1_3_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "("
+protected class FlowSpecRefinement_LeftParenthesisKeyword_0_1_3_2 extends KeywordToken  {
+	
+	public FlowSpecRefinement_LeftParenthesisKeyword_0_1_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getLeftParenthesisKeyword_0_1_3_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_ModesKeyword_0_1_3_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class FlowSpecRefinement_InModeAssignment_0_1_3_3 extends AssignmentToken  {
+	
+	public FlowSpecRefinement_InModeAssignment_0_1_3_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_0_1_3_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_LeftParenthesisKeyword_0_1_3_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_0_1_3_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_0_1_3_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inMode+=[aadl2::Mode])*
+protected class FlowSpecRefinement_Group_0_1_3_4 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_0_1_3_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_0_1_3_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_InModeAssignment_0_1_3_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class FlowSpecRefinement_CommaKeyword_0_1_3_4_0 extends KeywordToken  {
+	
+	public FlowSpecRefinement_CommaKeyword_0_1_3_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getCommaKeyword_0_1_3_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_0_1_3_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_InModeAssignment_0_1_3_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class FlowSpecRefinement_InModeAssignment_0_1_3_4_1 extends AssignmentToken  {
+	
+	public FlowSpecRefinement_InModeAssignment_0_1_3_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_0_1_3_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_CommaKeyword_0_1_3_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_0_1_3_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_0_1_3_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class FlowSpecRefinement_RightParenthesisKeyword_0_1_3_5 extends KeywordToken  {
+	
+	public FlowSpecRefinement_RightParenthesisKeyword_0_1_3_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getRightParenthesisKeyword_0_1_3_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_0_1_3_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_InModeAssignment_0_1_3_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+
+// (=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+// ";"
+protected class FlowSpecRefinement_Group_1 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_SemicolonKeyword_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
+protected class FlowSpecRefinement_Group_1_0 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_RightParenthesisKeyword_1_0_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "in"
+protected class FlowSpecRefinement_InKeyword_1_0_0 extends KeywordToken  {
+	
+	public FlowSpecRefinement_InKeyword_1_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInKeyword_1_0_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+}
+
+// "modes"
+protected class FlowSpecRefinement_ModesKeyword_1_0_1 extends KeywordToken  {
+	
+	public FlowSpecRefinement_ModesKeyword_1_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getModesKeyword_1_0_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_InKeyword_1_0_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "("
+protected class FlowSpecRefinement_LeftParenthesisKeyword_1_0_2 extends KeywordToken  {
+	
+	public FlowSpecRefinement_LeftParenthesisKeyword_1_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getLeftParenthesisKeyword_1_0_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_ModesKeyword_1_0_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class FlowSpecRefinement_InModeAssignment_1_0_3 extends AssignmentToken  {
+	
+	public FlowSpecRefinement_InModeAssignment_1_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_1_0_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_LeftParenthesisKeyword_1_0_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_1_0_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_1_0_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inMode+=[aadl2::Mode])*
+protected class FlowSpecRefinement_Group_1_0_4 extends GroupToken {
+	
+	public FlowSpecRefinement_Group_1_0_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getGroup_1_0_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_InModeAssignment_1_0_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class FlowSpecRefinement_CommaKeyword_1_0_4_0 extends KeywordToken  {
+	
+	public FlowSpecRefinement_CommaKeyword_1_0_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getCommaKeyword_1_0_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_1_0_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_InModeAssignment_1_0_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class FlowSpecRefinement_InModeAssignment_1_0_4_1 extends AssignmentToken  {
+	
+	public FlowSpecRefinement_InModeAssignment_1_0_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getInModeAssignment_1_0_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_CommaKeyword_1_0_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_1_0_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowSpecRefinementAccess().getInModeModeCrossReference_1_0_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class FlowSpecRefinement_RightParenthesisKeyword_1_0_5 extends KeywordToken  {
+	
+	public FlowSpecRefinement_RightParenthesisKeyword_1_0_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getRightParenthesisKeyword_1_0_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_1_0_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowSpecRefinement_InModeAssignment_1_0_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+// ";"
+protected class FlowSpecRefinement_SemicolonKeyword_1_1 extends KeywordToken  {
+	
+	public FlowSpecRefinement_SemicolonKeyword_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowSpecRefinementAccess().getSemicolonKeyword_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowSpecRefinement_Group_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+/************ end Rule FlowSpecRefinement ****************/
+
+
+/************ begin Rule FlowSourceSpecRefinement ****************
+ *
+ * //	 '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}'
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
+ * FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource;
+ *
+ **/
+
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource
 protected class FlowSourceSpecRefinement_Group extends GroupToken {
 	
 	public FlowSourceSpecRefinement_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -80125,8 +81234,7 @@ protected class FlowSourceSpecRefinement_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSourceSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSourceSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -80298,134 +81406,21 @@ protected class FlowSourceSpecRefinement_KindAssignment_5 extends AssignmentToke
 
 }
 
-// (=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-protected class FlowSourceSpecRefinement_Group_6 extends GroupToken {
-	
-	public FlowSourceSpecRefinement_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecRefinementAccess().getGroup_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_RightCurlyBracketKeyword_6_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// => "{"
-protected class FlowSourceSpecRefinement_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
-	
-	public FlowSourceSpecRefinement_LeftCurlyBracketKeyword_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecRefinementAccess().getLeftCurlyBracketKeyword_6_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ownedPropertyAssociation+=PropertyAssociation+
-protected class FlowSourceSpecRefinement_OwnedPropertyAssociationAssignment_6_1 extends AssignmentToken  {
-	
-	public FlowSourceSpecRefinement_OwnedPropertyAssociationAssignment_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowSourceSpecRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new FlowSourceSpecRefinement_LeftCurlyBracketKeyword_6_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// "}"
-protected class FlowSourceSpecRefinement_RightCurlyBracketKeyword_6_2 extends KeywordToken  {
-	
-	public FlowSourceSpecRefinement_RightCurlyBracketKeyword_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSourceSpecRefinementAccess().getRightCurlyBracketKeyword_6_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSourceSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-
 
 /************ end Rule FlowSourceSpecRefinement ****************/
 
 
 /************ begin Rule FlowSinkSpecRefinement ****************
  *
+ * //	 '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}'
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
  * FlowSinkSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink;
  *
  **/
 
-// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink
 protected class FlowSinkSpecRefinement_Group extends GroupToken {
 	
 	public FlowSinkSpecRefinement_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -80440,8 +81435,7 @@ protected class FlowSinkSpecRefinement_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSinkSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowSinkSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -80613,134 +81607,21 @@ protected class FlowSinkSpecRefinement_KindAssignment_5 extends AssignmentToken 
 
 }
 
-// (=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-protected class FlowSinkSpecRefinement_Group_6 extends GroupToken {
-	
-	public FlowSinkSpecRefinement_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecRefinementAccess().getGroup_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_RightCurlyBracketKeyword_6_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// => "{"
-protected class FlowSinkSpecRefinement_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
-	
-	public FlowSinkSpecRefinement_LeftCurlyBracketKeyword_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecRefinementAccess().getLeftCurlyBracketKeyword_6_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ownedPropertyAssociation+=PropertyAssociation+
-protected class FlowSinkSpecRefinement_OwnedPropertyAssociationAssignment_6_1 extends AssignmentToken  {
-	
-	public FlowSinkSpecRefinement_OwnedPropertyAssociationAssignment_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowSinkSpecRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new FlowSinkSpecRefinement_LeftCurlyBracketKeyword_6_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// "}"
-protected class FlowSinkSpecRefinement_RightCurlyBracketKeyword_6_2 extends KeywordToken  {
-	
-	public FlowSinkSpecRefinement_RightCurlyBracketKeyword_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowSinkSpecRefinementAccess().getRightCurlyBracketKeyword_6_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowSinkSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-
 
 /************ end Rule FlowSinkSpecRefinement ****************/
 
 
 /************ begin Rule FlowPathSpecRefinement ****************
  *
+ * //	 '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}'
+ * //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+ * //	';'
  * FlowPathSpecRefinement returns aadl2::FlowSpecification:
- * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")?;
+ * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath;
  *
  **/
 
-// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")?
+// refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath
 protected class FlowPathSpecRefinement_Group extends GroupToken {
 	
 	public FlowPathSpecRefinement_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -80755,8 +81636,7 @@ protected class FlowPathSpecRefinement_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowPathSpecRefinement_Group_6(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowPathSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowPathSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -80928,120 +81808,6 @@ protected class FlowPathSpecRefinement_KindAssignment_5 extends AssignmentToken 
 
 }
 
-// (=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-protected class FlowPathSpecRefinement_Group_6 extends GroupToken {
-	
-	public FlowPathSpecRefinement_Group_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getFlowPathSpecRefinementAccess().getGroup_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpecRefinement_RightCurlyBracketKeyword_6_2(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// => "{"
-protected class FlowPathSpecRefinement_LeftCurlyBracketKeyword_6_0 extends KeywordToken  {
-	
-	public FlowPathSpecRefinement_LeftCurlyBracketKeyword_6_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathSpecRefinementAccess().getLeftCurlyBracketKeyword_6_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpecRefinement_KindAssignment_5(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-// ownedPropertyAssociation+=PropertyAssociation+
-protected class FlowPathSpecRefinement_OwnedPropertyAssociationAssignment_6_1 extends AssignmentToken  {
-	
-	public FlowPathSpecRefinement_OwnedPropertyAssociationAssignment_6_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowPathSpecRefinementAccess().getOwnedPropertyAssociationAssignment_6_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new PropertyAssociation_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getFlowPathSpecRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new FlowPathSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new FlowPathSpecRefinement_LeftCurlyBracketKeyword_6_0(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// "}"
-protected class FlowPathSpecRefinement_RightCurlyBracketKeyword_6_2 extends KeywordToken  {
-	
-	public FlowPathSpecRefinement_RightCurlyBracketKeyword_6_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowPathSpecRefinementAccess().getRightCurlyBracketKeyword_6_2();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new FlowPathSpecRefinement_OwnedPropertyAssociationAssignment_6_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-}
-
-
 
 /************ end Rule FlowPathSpecRefinement ****************/
 
@@ -81050,13 +81816,13 @@ protected class FlowPathSpecRefinement_RightCurlyBracketKeyword_6_2 extends Keyw
  *
  * FlowImplementation returns aadl2::FlowImplementation:
  * 	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
- * 	"(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	"(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // (FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes"
-// "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+// "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 // ";"
 protected class FlowImplementation_Group extends GroupToken {
 	
@@ -81327,7 +82093,7 @@ protected class FlowImplementation_RightCurlyBracketKeyword_1_2 extends KeywordT
 }
 
 
-// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 protected class FlowImplementation_Group_2 extends GroupToken {
 	
 	public FlowImplementation_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81342,7 +82108,7 @@ protected class FlowImplementation_Group_2 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowImplementation_RightParenthesisKeyword_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowImplementation_RightParenthesisKeyword_2_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -81416,7 +82182,7 @@ protected class FlowImplementation_LeftParenthesisKeyword_2_2 extends KeywordTok
 
 }
 
-// inModeOrTransition+=[aadl2::ModeFeature]+
+// inModeOrTransition+=[aadl2::ModeFeature]
 protected class FlowImplementation_InModeOrTransitionAssignment_2_3 extends AssignmentToken  {
 	
 	public FlowImplementation_InModeOrTransitionAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -81431,15 +82197,14 @@ protected class FlowImplementation_InModeOrTransitionAssignment_2_3 extends Assi
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowImplementation_LeftParenthesisKeyword_2_2(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new FlowImplementation_LeftParenthesisKeyword_2_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
@@ -81454,22 +82219,106 @@ protected class FlowImplementation_InModeOrTransitionAssignment_2_3 extends Assi
 
 }
 
-// ")"
-protected class FlowImplementation_RightParenthesisKeyword_2_4 extends KeywordToken  {
+// ("," inModeOrTransition+=[aadl2::ModeFeature])*
+protected class FlowImplementation_Group_2_4 extends GroupToken {
 	
-	public FlowImplementation_RightParenthesisKeyword_2_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowImplementation_Group_2_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getFlowImplementationAccess().getRightParenthesisKeyword_2_4();
+	public Group getGrammarElement() {
+		return grammarAccess.getFlowImplementationAccess().getGroup_2_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowImplementation_InModeOrTransitionAssignment_2_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class FlowImplementation_CommaKeyword_2_4_0 extends KeywordToken  {
+	
+	public FlowImplementation_CommaKeyword_2_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowImplementationAccess().getCommaKeyword_2_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowImplementation_Group_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class FlowImplementation_InModeOrTransitionAssignment_2_4_1 extends AssignmentToken  {
+	
+	public FlowImplementation_InModeOrTransitionAssignment_2_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getFlowImplementationAccess().getInModeOrTransitionAssignment_2_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowImplementation_CommaKeyword_2_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class FlowImplementation_RightParenthesisKeyword_2_5 extends KeywordToken  {
+	
+	public FlowImplementation_RightParenthesisKeyword_2_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getFlowImplementationAccess().getRightParenthesisKeyword_2_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new FlowImplementation_Group_2_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FlowImplementation_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -81507,6 +82356,9 @@ protected class FlowImplementation_SemicolonKeyword_3 extends KeywordToken  {
 
 /************ begin Rule FlowSourceImpl ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+ * //	';'
  * FlowSourceImpl returns aadl2::FlowImplementation:
  * 	specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
  * 	ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
@@ -81848,6 +82700,9 @@ protected class FlowSourceImpl_IDTerminalRuleCall_6 extends UnassignedTextToken 
 
 /************ begin Rule FlowSinkImpl ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+ * //	';'
  * FlowSinkImpl returns aadl2::FlowImplementation:
  * 	specification= //name=ID 
  * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
@@ -82190,6 +83045,9 @@ protected class FlowSinkImpl_OwnedFlowSegmentAssignment_6_3 extends AssignmentTo
 
 /************ begin Rule FlowPathImpl ****************
  *
+ * //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+ * //	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+ * //	';'
  * FlowPathImpl returns aadl2::FlowImplementation:
  * 	specification= //name=ID 
  * 	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
@@ -82677,14 +83535,16 @@ protected class FlowPathImpl_IDTerminalRuleCall_9 extends UnassignedTextToken {
  * EndToEndFlow returns aadl2::EndToEndFlow:
  * 	name=ID ":" "end" "to" "end" "flow" ownedEndToEndFlowSegment+=ETESubcomponentFlow ("->"
  * 	ownedEndToEndFlowSegment+=ETEConnectionFlow "->" ownedEndToEndFlowSegment+=ETESubcomponentFlow)* ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+ * 	inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
  * 	";";
  *
  **/
 
 // name=ID ":" "end" "to" "end" "flow" ownedEndToEndFlowSegment+=ETESubcomponentFlow ("->"
 // ownedEndToEndFlowSegment+=ETEConnectionFlow "->" ownedEndToEndFlowSegment+=ETESubcomponentFlow)* ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
+// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+// inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 // ";"
 protected class EndToEndFlow_Group extends GroupToken {
 	
@@ -83178,7 +84038,7 @@ protected class EndToEndFlow_RightCurlyBracketKeyword_8_2 extends KeywordToken  
 }
 
 
-// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
+// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 protected class EndToEndFlow_Group_9 extends GroupToken {
 	
 	public EndToEndFlow_Group_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -83193,7 +84053,7 @@ protected class EndToEndFlow_Group_9 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_RightParenthesisKeyword_9_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_RightParenthesisKeyword_9_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83268,7 +84128,7 @@ protected class EndToEndFlow_LeftParenthesisKeyword_9_2 extends KeywordToken  {
 
 }
 
-// inModeOrTransition+=[aadl2::ModeFeature]+
+// inModeOrTransition+=[aadl2::ModeFeature]
 protected class EndToEndFlow_InModeOrTransitionAssignment_9_3 extends AssignmentToken  {
 	
 	public EndToEndFlow_InModeOrTransitionAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -83283,15 +84143,14 @@ protected class EndToEndFlow_InModeOrTransitionAssignment_9_3 extends Assignment
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlow_LeftParenthesisKeyword_9_2(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new EndToEndFlow_LeftParenthesisKeyword_9_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
@@ -83306,22 +84165,106 @@ protected class EndToEndFlow_InModeOrTransitionAssignment_9_3 extends Assignment
 
 }
 
-// ")"
-protected class EndToEndFlow_RightParenthesisKeyword_9_4 extends KeywordToken  {
+// ("," inModeOrTransition+=[aadl2::ModeFeature])*
+protected class EndToEndFlow_Group_9_4 extends GroupToken {
 	
-	public EndToEndFlow_RightParenthesisKeyword_9_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlow_Group_9_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowAccess().getRightParenthesisKeyword_9_4();
+	public Group getGrammarElement() {
+		return grammarAccess.getEndToEndFlowAccess().getGroup_9_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlow_InModeOrTransitionAssignment_9_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class EndToEndFlow_CommaKeyword_9_4_0 extends KeywordToken  {
+	
+	public EndToEndFlow_CommaKeyword_9_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowAccess().getCommaKeyword_9_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlow_Group_9_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class EndToEndFlow_InModeOrTransitionAssignment_9_4_1 extends AssignmentToken  {
+	
+	public EndToEndFlow_InModeOrTransitionAssignment_9_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionAssignment_9_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlow_CommaKeyword_9_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionModeFeatureCrossReference_9_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getEndToEndFlowAccess().getInModeOrTransitionModeFeatureCrossReference_9_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class EndToEndFlow_RightParenthesisKeyword_9_5 extends KeywordToken  {
+	
+	public EndToEndFlow_RightParenthesisKeyword_9_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowAccess().getRightParenthesisKeyword_9_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlow_Group_9_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlow_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -83362,30 +84305,32 @@ protected class EndToEndFlow_SemicolonKeyword_10 extends KeywordToken  {
  *
  * EndToEndFlowRefinement returns aadl2::EndToEndFlow:
  * 	refined=[aadl2::EndToEndFlow|REFINEDNAME] ":" "refined" "to" "end" "to" "end" "flow" ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
- * ;
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+ * 	inModeOrTransition+=[aadl2::ModeFeature])* ")")?) //| allModes?='all'
+ * 	| "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")";
  *
  **/
 
 // refined=[aadl2::EndToEndFlow|REFINEDNAME] ":" "refined" "to" "end" "to" "end" "flow" ("{"
-// ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")? //| allModes?='all'
-protected class EndToEndFlowRefinement_Group extends GroupToken {
-	
-	public EndToEndFlowRefinement_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+// ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+// inModeOrTransition+=[aadl2::ModeFeature])* ")")?) //| allModes?='all'
+// | "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")"
+protected class EndToEndFlowRefinement_Alternatives extends AlternativesToken {
+
+	public EndToEndFlowRefinement_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup();
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getAlternatives();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_Group_9(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlowRefinement_Group_8(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new EndToEndFlowRefinement_FlowKeyword_7(lastRuleCallOrigin, this, 2, inst);
+			case 0: return new EndToEndFlowRefinement_Group_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_Group_1(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -83399,16 +84344,40 @@ protected class EndToEndFlowRefinement_Group extends GroupToken {
 
 }
 
-// refined=[aadl2::EndToEndFlow|REFINEDNAME]
-protected class EndToEndFlowRefinement_RefinedAssignment_0 extends AssignmentToken  {
+// refined=[aadl2::EndToEndFlow|REFINEDNAME] ":" "refined" "to" "end" "to" "end" "flow" ("{"
+// ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+// inModeOrTransition+=[aadl2::ModeFeature])* ")")?)
+protected class EndToEndFlowRefinement_Group_0 extends GroupToken {
 	
-	public EndToEndFlowRefinement_RefinedAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_Group_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_Group_0_8(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// refined=[aadl2::EndToEndFlow|REFINEDNAME]
+protected class EndToEndFlowRefinement_RefinedAssignment_0_0 extends AssignmentToken  {
+	
+	public EndToEndFlowRefinement_RefinedAssignment_0_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getRefinedAssignment_0();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getRefinedAssignment_0_0();
 	}
 
     @Override
@@ -83424,9 +84393,9 @@ protected class EndToEndFlowRefinement_RefinedAssignment_0 extends AssignmentTok
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("refined");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getRefinedEndToEndFlowCrossReference_0_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getRefinedEndToEndFlowCrossReference_0_0_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEndToEndFlowRefinementAccess().getRefinedEndToEndFlowCrossReference_0_0(); 
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getRefinedEndToEndFlowCrossReference_0_0_0(); 
 				return obj;
 			}
 		}
@@ -83436,21 +84405,21 @@ protected class EndToEndFlowRefinement_RefinedAssignment_0 extends AssignmentTok
 }
 
 // ":"
-protected class EndToEndFlowRefinement_ColonKeyword_1 extends KeywordToken  {
+protected class EndToEndFlowRefinement_ColonKeyword_0_1 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_ColonKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_ColonKeyword_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getColonKeyword_1();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getColonKeyword_0_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_RefinedAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_RefinedAssignment_0_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83458,21 +84427,21 @@ protected class EndToEndFlowRefinement_ColonKeyword_1 extends KeywordToken  {
 }
 
 // "refined"
-protected class EndToEndFlowRefinement_RefinedKeyword_2 extends KeywordToken  {
+protected class EndToEndFlowRefinement_RefinedKeyword_0_2 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_RefinedKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_RefinedKeyword_0_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getRefinedKeyword_2();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getRefinedKeyword_0_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_ColonKeyword_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_ColonKeyword_0_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83480,21 +84449,21 @@ protected class EndToEndFlowRefinement_RefinedKeyword_2 extends KeywordToken  {
 }
 
 // "to"
-protected class EndToEndFlowRefinement_ToKeyword_3 extends KeywordToken  {
+protected class EndToEndFlowRefinement_ToKeyword_0_3 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_ToKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_ToKeyword_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getToKeyword_3();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getToKeyword_0_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_RefinedKeyword_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_RefinedKeyword_0_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83502,21 +84471,21 @@ protected class EndToEndFlowRefinement_ToKeyword_3 extends KeywordToken  {
 }
 
 // "end"
-protected class EndToEndFlowRefinement_EndKeyword_4 extends KeywordToken  {
+protected class EndToEndFlowRefinement_EndKeyword_0_4 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_EndKeyword_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_EndKeyword_0_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getEndKeyword_4();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getEndKeyword_0_4();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_ToKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_ToKeyword_0_3(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83524,21 +84493,21 @@ protected class EndToEndFlowRefinement_EndKeyword_4 extends KeywordToken  {
 }
 
 // "to"
-protected class EndToEndFlowRefinement_ToKeyword_5 extends KeywordToken  {
+protected class EndToEndFlowRefinement_ToKeyword_0_5 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_ToKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_ToKeyword_0_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getToKeyword_5();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getToKeyword_0_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_EndKeyword_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_EndKeyword_0_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83546,21 +84515,21 @@ protected class EndToEndFlowRefinement_ToKeyword_5 extends KeywordToken  {
 }
 
 // "end"
-protected class EndToEndFlowRefinement_EndKeyword_6 extends KeywordToken  {
+protected class EndToEndFlowRefinement_EndKeyword_0_6 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_EndKeyword_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_EndKeyword_0_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getEndKeyword_6();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getEndKeyword_0_6();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_ToKeyword_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_ToKeyword_0_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83568,43 +84537,45 @@ protected class EndToEndFlowRefinement_EndKeyword_6 extends KeywordToken  {
 }
 
 // "flow"
-protected class EndToEndFlowRefinement_FlowKeyword_7 extends KeywordToken  {
+protected class EndToEndFlowRefinement_FlowKeyword_0_7 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_FlowKeyword_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_FlowKeyword_0_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getFlowKeyword_7();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getFlowKeyword_0_7();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_EndKeyword_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_EndKeyword_0_6(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// (=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-protected class EndToEndFlowRefinement_Group_8 extends GroupToken {
+// => "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]
+// ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+protected class EndToEndFlowRefinement_Group_0_8 extends GroupToken {
 	
-	public EndToEndFlowRefinement_Group_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_Group_0_8(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_8();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_RightCurlyBracketKeyword_8_2(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_Group_0_8_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_RightCurlyBracketKeyword_0_8_2(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -83612,21 +84583,21 @@ protected class EndToEndFlowRefinement_Group_8 extends GroupToken {
 }
 
 // => "{"
-protected class EndToEndFlowRefinement_LeftCurlyBracketKeyword_8_0 extends KeywordToken  {
+protected class EndToEndFlowRefinement_LeftCurlyBracketKeyword_0_8_0 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_LeftCurlyBracketKeyword_8_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_LeftCurlyBracketKeyword_0_8_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getLeftCurlyBracketKeyword_8_0();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getLeftCurlyBracketKeyword_0_8_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_FlowKeyword_7(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_FlowKeyword_0_7(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83634,15 +84605,15 @@ protected class EndToEndFlowRefinement_LeftCurlyBracketKeyword_8_0 extends Keywo
 }
 
 // ownedPropertyAssociation+=PropertyAssociation+
-protected class EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1 extends AssignmentToken  {
+protected class EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_0_8_1 extends AssignmentToken  {
 	
-	public EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_0_8_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationAssignment_8_1();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationAssignment_0_8_1();
 	}
 
     @Override
@@ -83655,13 +84626,13 @@ protected class EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1 ex
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",false)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("ownedPropertyAssociation",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedPropertyAssociation");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
 			if(param.isInstanceOf(grammarAccess.getPropertyAssociationRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_8_1_0(); 
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_8_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -83673,75 +84644,73 @@ protected class EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1 ex
 	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
 		if(value == inst.getEObject() && !inst.isConsumed()) return null;
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1(lastRuleCallOrigin, next, actIndex, consumed);
-			case 1: return new EndToEndFlowRefinement_LeftCurlyBracketKeyword_8_0(lastRuleCallOrigin, next, actIndex, consumed);
+			case 0: return new EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_0_8_1(lastRuleCallOrigin, next, actIndex, consumed);
+			case 1: return new EndToEndFlowRefinement_LeftCurlyBracketKeyword_0_8_0(lastRuleCallOrigin, next, actIndex, consumed);
 			default: return null;
 		}	
 	}	
 }
 
 // "}"
-protected class EndToEndFlowRefinement_RightCurlyBracketKeyword_8_2 extends KeywordToken  {
+protected class EndToEndFlowRefinement_RightCurlyBracketKeyword_0_8_2 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_RightCurlyBracketKeyword_8_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_RightCurlyBracketKeyword_0_8_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getRightCurlyBracketKeyword_8_2();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getRightCurlyBracketKeyword_0_8_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_8_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_OwnedPropertyAssociationAssignment_0_8_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-
-// (=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]+ ")")?
-protected class EndToEndFlowRefinement_Group_9 extends GroupToken {
+// ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+protected class EndToEndFlowRefinement_Group_0_8_3 extends GroupToken {
 	
-	public EndToEndFlowRefinement_Group_9(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_Group_0_8_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Group getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_9();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_RightParenthesisKeyword_9_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_RightParenthesisKeyword_0_8_3_5(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// => "in"
-protected class EndToEndFlowRefinement_InKeyword_9_0 extends KeywordToken  {
+// "in"
+protected class EndToEndFlowRefinement_InKeyword_0_8_3_0 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_InKeyword_9_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_InKeyword_0_8_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getInKeyword_9_0();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInKeyword_0_8_3_0();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_Group_8(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlowRefinement_FlowKeyword_7(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new EndToEndFlowRefinement_RightCurlyBracketKeyword_0_8_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83749,21 +84718,21 @@ protected class EndToEndFlowRefinement_InKeyword_9_0 extends KeywordToken  {
 }
 
 // "modes"
-protected class EndToEndFlowRefinement_ModesKeyword_9_1 extends KeywordToken  {
+protected class EndToEndFlowRefinement_ModesKeyword_0_8_3_1 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_ModesKeyword_9_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_ModesKeyword_0_8_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getModesKeyword_9_1();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getModesKeyword_0_8_3_1();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_InKeyword_9_0(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_InKeyword_0_8_3_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83771,44 +84740,125 @@ protected class EndToEndFlowRefinement_ModesKeyword_9_1 extends KeywordToken  {
 }
 
 // "("
-protected class EndToEndFlowRefinement_LeftParenthesisKeyword_9_2 extends KeywordToken  {
+protected class EndToEndFlowRefinement_LeftParenthesisKeyword_0_8_3_2 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_LeftParenthesisKeyword_9_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_LeftParenthesisKeyword_0_8_3_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getLeftParenthesisKeyword_9_2();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getLeftParenthesisKeyword_0_8_3_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_ModesKeyword_9_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_ModesKeyword_0_8_3_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// inModeOrTransition+=[aadl2::ModeFeature]+
-protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_3 extends AssignmentToken  {
 	
-	public EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_9_3();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_0_8_3_3();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new EndToEndFlowRefinement_LeftParenthesisKeyword_9_2(lastRuleCallOrigin, this, 1, inst);
+			case 0: return new EndToEndFlowRefinement_LeftParenthesisKeyword_0_8_3_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_0_8_3_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_0_8_3_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inModeOrTransition+=[aadl2::ModeFeature])*
+protected class EndToEndFlowRefinement_Group_0_8_3_4 extends GroupToken {
+	
+	public EndToEndFlowRefinement_Group_0_8_3_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_0_8_3_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class EndToEndFlowRefinement_CommaKeyword_0_8_3_4_0 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_CommaKeyword_0_8_3_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getCommaKeyword_0_8_3_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_Group_0_8_3_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_4_1 extends AssignmentToken  {
+	
+	public EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_0_8_3_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_CommaKeyword_0_8_3_4_0(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83819,9 +84869,9 @@ protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3 extends 
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_0_8_3_4_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0(); 
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_0_8_3_4_1_0(); 
 				return obj;
 			}
 		}
@@ -83830,22 +84880,257 @@ protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3 extends 
 
 }
 
+
 // ")"
-protected class EndToEndFlowRefinement_RightParenthesisKeyword_9_4 extends KeywordToken  {
+protected class EndToEndFlowRefinement_RightParenthesisKeyword_0_8_3_5 extends KeywordToken  {
 	
-	public EndToEndFlowRefinement_RightParenthesisKeyword_9_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public EndToEndFlowRefinement_RightParenthesisKeyword_0_8_3_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getEndToEndFlowRefinementAccess().getRightParenthesisKeyword_9_4();
+		return grammarAccess.getEndToEndFlowRefinementAccess().getRightParenthesisKeyword_0_8_3_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_9_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new EndToEndFlowRefinement_Group_0_8_3_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_0_8_3_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+
+// => "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")"
+protected class EndToEndFlowRefinement_Group_1 extends GroupToken {
+	
+	public EndToEndFlowRefinement_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_RightParenthesisKeyword_1_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// => "in"
+protected class EndToEndFlowRefinement_InKeyword_1_0 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_InKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInKeyword_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+}
+
+// "modes"
+protected class EndToEndFlowRefinement_ModesKeyword_1_1 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_ModesKeyword_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getModesKeyword_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_InKeyword_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "("
+protected class EndToEndFlowRefinement_LeftParenthesisKeyword_1_2 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_LeftParenthesisKeyword_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getLeftParenthesisKeyword_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_ModesKeyword_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_1_3 extends AssignmentToken  {
+	
+	public EndToEndFlowRefinement_InModeOrTransitionAssignment_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_LeftParenthesisKeyword_1_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_1_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_1_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inModeOrTransition+=[aadl2::ModeFeature])*
+protected class EndToEndFlowRefinement_Group_1_4 extends GroupToken {
+	
+	public EndToEndFlowRefinement_Group_1_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getGroup_1_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_1_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class EndToEndFlowRefinement_CommaKeyword_1_4_0 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_CommaKeyword_1_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getCommaKeyword_1_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_Group_1_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_1_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class EndToEndFlowRefinement_InModeOrTransitionAssignment_1_4_1 extends AssignmentToken  {
+	
+	public EndToEndFlowRefinement_InModeOrTransitionAssignment_1_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionAssignment_1_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_CommaKeyword_1_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_1_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getEndToEndFlowRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_1_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class EndToEndFlowRefinement_RightParenthesisKeyword_1_5 extends KeywordToken  {
+	
+	public EndToEndFlowRefinement_RightParenthesisKeyword_1_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getEndToEndFlowRefinementAccess().getRightParenthesisKeyword_1_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new EndToEndFlowRefinement_Group_1_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new EndToEndFlowRefinement_InModeOrTransitionAssignment_1_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}

@@ -122,33 +122,43 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
 
 	
-//
-//private static PSNode psNode = new PSNode();
+
+private static PSNode psNode = new PSNode();
 	
 	public  List<EObject> getIndexedObjects(EObject context,
 			EReference reference, String crossRefString) {
-//		psNode.setText(crossRefString);
-//		return super.getLinkedObjects(context, reference, psNode);
-		final IScope scope = getScope(context, reference);
-		QualifiedName qualifiedLinkName =   QualifiedName.create(crossRefString);
-		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
-		if (eObjectDescription != null) 
-			return Collections.singletonList(eObjectDescription.getEObjectOrProxy());
-		return Collections.<EObject> emptyList();
+		psNode.setText(crossRefString);
+		return super.getLinkedObjects(context, reference, psNode);
+//		final IScope scope = getScope(context, reference);
+//		QualifiedName qualifiedLinkName =   QualifiedName.create(crossRefString);
+//		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
+//		if (eObjectDescription != null) 
+//			return Collections.singletonList(eObjectDescription.getEObjectOrProxy());
+//		return Collections.<EObject> emptyList();
 	}
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-//		psNode.setText(crossRefString);
-//		List<EObject> el = super.getLinkedObjects(context, reference, psNode);
-//		return (el.isEmpty()?null: el.get(0));
+		psNode.setText(crossRefString);
+		List<EObject> el = super.getLinkedObjects(context, reference, psNode);
+		return (el.isEmpty()?null: el.get(0));
 
-		final IScope scope = getScope(context, reference);
-		QualifiedName qualifiedLinkName =  QualifiedName.create(crossRefString);
-		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
-		if (eObjectDescription != null) 
-			return eObjectDescription.getEObjectOrProxy();
-		return null;
+//		final IScope scope = getScope(context, reference);
+//		QualifiedName qualifiedLinkName =  QualifiedName.create(crossRefString);
+//		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
+//		if (eObjectDescription != null) 
+//			return eObjectDescription.getEObjectOrProxy();
+//		return null;
+	}
+
+	@Override
+	public String getCrossRefNodeAsString(INode node)
+			throws IllegalNodeException {
+		if (node instanceof PSNode) {
+			return getLinkingHelper().getCrossRefNodeAsString(node, false);
+		} else {
+			return getLinkingHelper().getCrossRefNodeAsString(node, true);
+		}
 	}
 
 	@Override

@@ -3,16 +3,19 @@
  */
 package org.osate.xtext.aadl2.ui.internal;
 
-import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
+import static com.google.inject.Guice.createInjector;
 
 import org.apache.log4j.Logger;
+
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.osate.core.OsateCorePlugin;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
 import com.google.inject.Module;
+
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * This class was generated. Customizations should only happen in a newly
@@ -20,10 +23,11 @@ import com.google.inject.Module;
  */
 public class Aadl2Activator extends AbstractUIPlugin {
 
+	private Map<String,Injector> injectors = new HashMap<String,Injector>();
 	private static Aadl2Activator INSTANCE;
 
 	public Injector getInjector(String languageName) {
-		return OsateCorePlugin.getDefault().getInjector(languageName);
+		return injectors.get(languageName);
 	}
 	
 	@Override
@@ -40,13 +44,13 @@ public class Aadl2Activator extends AbstractUIPlugin {
 	}
 	
 	protected void registerInjectorFor(String language) throws Exception {
-		OsateCorePlugin.getDefault().registerInjectorFor(language, 
-				createInjector(
+		injectors.put(language, createInjector(
 		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 	
 	@Override
 	public void stop(BundleContext context) throws Exception {
+		injectors.clear();
 		INSTANCE = null;
 		super.stop(context);
 	}
