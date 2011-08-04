@@ -72,6 +72,7 @@ import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
@@ -533,6 +534,15 @@ private static PSNode psNode = new PSNode();
 			}
 			return Collections.<EObject> emptyList();
 
+		} else if (Aadl2Package.eINSTANCE.getModeFeature() == requiredType) {
+			// referenced by mode transition and inmodes
+			EObject searchResult = getContainingClassifier(context)
+					.findNamedElement(s);
+			if (searchResult != null && searchResult instanceof ModeFeature) {
+				return Collections.singletonList((EObject) searchResult);
+			}
+			return Collections.<EObject> emptyList();
+
 		} else if (Aadl2Package.eINSTANCE.getFlowSpecification() == requiredType) {
 			// refined flow spec
 			// referenced by flow implementation
@@ -625,6 +635,7 @@ private static PSNode psNode = new PSNode();
 
 		return Collections.emptyList();
 	}
+	
 	
 	public ComponentClassifier findComponentClassifier(EObject context,String name){
 		EReference reference = Aadl2Package.eINSTANCE.getComponentPrototype_ConstrainingClassifier();
