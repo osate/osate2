@@ -13,7 +13,11 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractType;
@@ -111,26 +115,40 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.xtext.aadl2.util.PSNode;
 
+import com.google.inject.Inject;
+
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
 	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
+
 	
-	private static PSNode psNode = new PSNode();
-
-
+//
+//private static PSNode psNode = new PSNode();
+	
 	public  List<EObject> getIndexedObjects(EObject context,
-			EReference reference, INode node) {
-		return super.getLinkedObjects(context, reference, node);
+			EReference reference, String crossRefString) {
+//		psNode.setText(crossRefString);
+//		return super.getLinkedObjects(context, reference, psNode);
+		final IScope scope = getScope(context, reference);
+		QualifiedName qualifiedLinkName =   QualifiedName.create(crossRefString);
+		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
+		if (eObjectDescription != null) 
+			return Collections.singletonList(eObjectDescription.getEObjectOrProxy());
+		return Collections.<EObject> emptyList();
 	}
 
-	@Override
-	public String getCrossRefNodeAsString(INode node)
-			throws IllegalNodeException {
-		if (node instanceof PSNode) {
-			return getLinkingHelper().getCrossRefNodeAsString(node, false);
-		} else {
-			return getLinkingHelper().getCrossRefNodeAsString(node, true);
-		}
+	public  EObject getIndexedObject(EObject context,
+			EReference reference, String crossRefString) {
+//		psNode.setText(crossRefString);
+//		List<EObject> el = super.getLinkedObjects(context, reference, psNode);
+//		return (el.isEmpty()?null: el.get(0));
+
+		final IScope scope = getScope(context, reference);
+		QualifiedName qualifiedLinkName =  QualifiedName.create(crossRefString);
+		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
+		if (eObjectDescription != null) 
+			return eObjectDescription.getEObjectOrProxy();
+		return null;
 	}
 
 	@Override
@@ -139,7 +157,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
-
+		
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
@@ -165,9 +183,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
-//			List<EObject> res = getIndexedObjects(context, reference, node);
-//			if (!res.isEmpty())
-//				return res;
 			AadlPackage pack = findAadlPackage(context, s);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
@@ -179,9 +194,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getAadlPackage() == requiredType) {
-//			List<EObject> res = getIndexedObjects(context, reference, node);
-//			if (!res.isEmpty())
-//				return res;
 			AadlPackage pack = findAadlPackage(context, s);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
@@ -189,9 +201,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getPropertySet() == requiredType) {
-//			List<EObject> res = getIndexedObjects(context, reference, node);
-//			if (!res.isEmpty())
-//				return res;
 			PropertySet ps = findPropertySet(context, s);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
@@ -619,10 +628,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	
 	protected EObject findClassifier(EObject context,
 			EReference reference,  String name){
-		psNode.setText(name);
-		List<EObject> res = getIndexedObjects(context, reference, psNode);
-		if (!res.isEmpty())
-			return res.get(0);
+		EObject res = getIndexedObject(context, reference, name);
+		if (res != null)
+			return res;
 		final int idx = name.lastIndexOf("::");
 		String packname = null;
 		String cname = name;
@@ -643,11 +651,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	protected EObject findPropertySetElement(EObject context,
 			EReference reference, String name){
 		// look for element in property set
-		psNode.setText(name);
-		List<EObject> res = Aadl2LinkingService.eInstance.getIndexedObjects(context, reference, psNode);
-		if (!res.isEmpty()){
-			return res.get(0);
-		}
+		EObject res = getIndexedObject(context, reference, name);
+		if (res != null)
+			return res;
 		String psname = null;
 		String pname = name;
 		final int idx = name.lastIndexOf("::");
@@ -1891,11 +1897,7 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 	public EObject findNamedElementInAadlPackage(String packageName,
 			String elementName, Namespace context) {
 		if (context instanceof PackageSection
-				&& (packageName == null || /*
-											 * phf:
-											 * ((AadlPackage)context.eContainer
-											 * ())
-											 */context.getName()
+				&& (packageName == null || context.getName()
 						.equalsIgnoreCase(packageName)))
 			return findNamedElementInAadlPackage(elementName,
 					(PackageSection) context);
@@ -1951,11 +1953,10 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 			String elementName, EObject context, EReference reference) {
 		if (propertySetName == null) {
 			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
-				psNode.setText(getQualifiedName(predeclaredPSName, elementName));
-				List<EObject> res = getIndexedObjects(context, reference,
-						psNode);
-				if (!res.isEmpty())
-					return res.get(0);
+				EObject res = getIndexedObject(context, reference,
+						getQualifiedName(predeclaredPSName, elementName));
+				if (res != null)
+					return res;
 			}
 			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
 				PropertySet predeclaredPropertySet = findPropertySet(context,
@@ -2075,13 +2076,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 
 	public AadlPackage findAadlPackage(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
-		psNode.setText(name);
-		List<EObject> res = getIndexedObjects(context, reference, psNode);
-		if (!res.isEmpty()){
-			EObject eres = res.get(0);
-			if (eres instanceof AadlPackage)
-				return (AadlPackage)eres;
-		}
+		EObject res = getIndexedObject(context, reference, name);
+		if (res instanceof AadlPackage)
+				return (AadlPackage)res;
 		if (name == null || name.length() == 0)
 			return null;
 		ResourceSet rs = context.eResource().getResourceSet();
@@ -2099,13 +2096,9 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 
 	public PropertySet findPropertySet(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
-		psNode.setText(name);
-		List<EObject> res = getIndexedObjects(context, reference, psNode);
-		if (!res.isEmpty()){
-			EObject eres = res.get(0);
-			if (eres instanceof PropertySet)
-				return (PropertySet)eres;
-		}
+		EObject res = getIndexedObject(context, reference, name);
+		if (res instanceof PropertySet)
+				return (PropertySet)res;
 		if (name == null || name.length() == 0)
 			return null;
 		ResourceSet rs = context.eResource().getResourceSet();
