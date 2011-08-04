@@ -98,7 +98,7 @@ property set Deployment_Properties is
 		applies to (processor);
 	
 	Thread_Limit: aadlinteger 0 .. Max_Thread_Limit
-		applies to (processor);
+		applies to (processor, virtual processor);
 	
 	Priority_Map: list of Priority_Mapping
 		applies to (processor);
@@ -108,5 +108,5 @@ property set Deployment_Properties is
 		RTOS_Priority: aadlinteger;);
 	
 	Priority_Range: range of aadlinteger
-		applies to (processor);
+		applies to (processor, virtual processor);
 end Deployment_Properties;
