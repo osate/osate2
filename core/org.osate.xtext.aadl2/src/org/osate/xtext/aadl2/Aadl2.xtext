@@ -8,7 +8,7 @@ import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
-Model returns aadl2::Element:
+Model returns aadl2::ModelUnit:
 	AadlPackage | PropertySet //| SystemInstance
 ;
 
