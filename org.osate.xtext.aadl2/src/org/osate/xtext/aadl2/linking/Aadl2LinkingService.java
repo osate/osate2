@@ -631,6 +631,8 @@ private static PSNode psNode = new PSNode();
 				}
 			}
 			return Collections.<EObject> emptyList();
+		} else {
+			System.out.println("previously unhandled reference");
 		}
 
 		return Collections.emptyList();
@@ -649,19 +651,18 @@ private static PSNode psNode = new PSNode();
 	
 	protected EObject findClassifier(EObject context,
 			EReference reference,  String name){
-		EObject res = getIndexedObject(context, reference, name);
-		if (res != null)
-			return res;
-		final int idx = name.lastIndexOf("::");
-		String packname = null;
-		String cname = name;
-		EObject e;
-		PackageSection scope = getContainingPackageSection(context);
-		if (idx != -1) {
-			packname = name.substring(0, idx);
-			cname = name.substring(idx + 2);
+		EObject e = getIndexedObject(context, reference, name);
+		if (e == null){
+			final int idx = name.lastIndexOf("::");
+			String packname = null;
+			String cname = name;
+			PackageSection scope = getContainingPackageSection(context);
+			if (idx != -1) {
+				packname = name.substring(0, idx);
+				cname = name.substring(idx + 2);
+			}
+			e = findNamedElementInAadlPackage(packname, cname, scope);
 		}
-		e = findNamedElementInAadlPackage(packname, cname, scope);
 		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 			// the result satisfied the expected class
 			return e;
@@ -673,7 +674,7 @@ private static PSNode psNode = new PSNode();
 			EReference reference, String name){
 		// look for element in property set
 		EObject res = getIndexedObject(context, reference, name);
-		if (res != null)
+		if (res instanceof PropertyType || res instanceof PropertyConstant || res instanceof Property)
 			return res;
 		String psname = null;
 		String pname = name;
