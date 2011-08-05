@@ -60,6 +60,14 @@ public class PredeclaredProperties {
 											+ PLUGIN_RESOURCES_DIRECTORY_NAME
 											+ "' is closed.");
 						}
+						IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
+						.getDescription();
+				pluginResourcesProjectDescription
+						.setNatureIds(new String[] { //"edu.cmu.sei.osate.core.aadlnature" , 
+								XtextProjectHelper.NATURE_ID});
+				pluginResourcesProject.setDescription(
+						pluginResourcesProjectDescription, null);
+						
 					} catch (IOException e) {
 						throw new InvocationTargetException(e);
 					}
@@ -117,12 +125,12 @@ public class PredeclaredProperties {
 				 * plugin dependencies. Perhaps this can be cleaned up at a
 				 * later date, but this solution is good enough for now.
 				 */
-				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
-						.getDescription();
-				pluginResourcesProjectDescription
-						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" , XtextProjectHelper.NATURE_ID});
-				pluginResourcesProject.setDescription(
-						pluginResourcesProjectDescription, null);
+//				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
+//						.getDescription();
+//				pluginResourcesProjectDescription
+//						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" , XtextProjectHelper.NATURE_ID});
+//				pluginResourcesProject.setDescription(
+//						pluginResourcesProjectDescription, null);
 			} catch (CoreException e) {
 				if (pluginResourcesProject.exists()) {
 					try {
