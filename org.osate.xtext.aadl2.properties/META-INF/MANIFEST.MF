@@ -20,9 +20,10 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.parseTreeConstruction,
  org.osate.xtext.aadl2.properties.parser.antlr,
  org.osate.xtext.aadl2.properties.parser.antlr.internal,
+ org.osate.xtext.aadl2.properties.parser.antlr.lexer,
+ org.osate.xtext.aadl2.properties.scoping,
  org.osate.xtext.aadl2.properties.services,
- org.osate.xtext.aadl2.properties.validation,
- org.osate.xtext.aadl2.properties.parser.antlr.lexer
+ org.osate.xtext.aadl2.properties.validation
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
  org.eclipse.xtext.xtend2.lib
