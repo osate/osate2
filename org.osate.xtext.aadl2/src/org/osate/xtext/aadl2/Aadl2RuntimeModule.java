@@ -25,7 +25,7 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 
 	
-	//	@Override
+//	//	@Override
 //	public Class<? extends org.eclipse.xtext.resource.IFragmentProvider> bindIFragmentProvider() {
 //		return org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider.class;
 //	}
