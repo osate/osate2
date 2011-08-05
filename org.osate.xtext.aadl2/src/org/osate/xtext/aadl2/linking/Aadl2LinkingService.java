@@ -118,6 +118,9 @@ import org.osate.xtext.aadl2.util.PSNode;
 
 import com.google.inject.Inject;
 
+import org.osate.aadl2.impl.Aadl2PackageImpl;
+import org.osate.aadl2.modelsupport.Activator;
+
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
 	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
@@ -632,7 +635,7 @@ private static PSNode psNode = new PSNode();
 			}
 			return Collections.<EObject> emptyList();
 		} else {
-			System.out.println("previously unhandled reference");
+			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService");
 		}
 
 		return Collections.emptyList();
@@ -766,13 +769,14 @@ private static PSNode psNode = new PSNode();
 	
 	
 	public UnitLiteral findUnitLiteral(NumberValue nv, String name){
-		return null;
+		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+		return findUnitLiteral(nv, reference, name);
 	}
 	
 	protected List<EObject> findUnitLiteralAsList(EObject context,
 			EReference reference, String name) {
 		EObject e = findUnitLiteral(context,reference,name);
-		if (e == null) Collections.<EObject> emptyList(); 
+		if (e == null) return Collections.<EObject> emptyList(); 
 		return Collections.singletonList((EObject) e);
 	}
 	
@@ -859,6 +863,12 @@ private static PSNode psNode = new PSNode();
 		return null;
 	}
 
+	public EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
+		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+		List<EObject> el = findEnumLiteral(nv, reference, name);
+		if (!el.isEmpty()&&el.get(0) instanceof EnumerationLiteral) return (EnumerationLiteral)el.get(0);
+		return null;
+	}
 	
 	protected List<EObject> findEnumLiteral(EObject context,
 			EReference reference, String name) {
