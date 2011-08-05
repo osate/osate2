@@ -194,25 +194,25 @@ private static PSNode psNode = new PSNode();
 			}
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, s);
+			AadlPackage pack = findAadlPackage(context, s, reference);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
 			}
-			PropertySet ps = findPropertySet(context, s);
+			PropertySet ps = findPropertySet(context, s, reference);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
 			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getAadlPackage() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, s);
+			AadlPackage pack = findAadlPackage(context, s, reference);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
 			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getPropertySet() == requiredType) {
-			PropertySet ps = findPropertySet(context, s);
+			PropertySet ps = findPropertySet(context, s, reference);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
 			}
@@ -1780,7 +1780,7 @@ private static PSNode psNode = new PSNode();
 		else
 			imports = ((PackageSection) context).getImportedUnits();
 		for (ModelUnit imported : imports) {
-			if (imported instanceof AadlPackage) {
+			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
 				String n = ((AadlPackage) imported).getName();
 				if (name.equalsIgnoreCase(n))
 					return (AadlPackage) imported;
@@ -1790,7 +1790,7 @@ private static PSNode psNode = new PSNode();
 				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
 			for (ModelUnit imported : ((AadlPackage) context.eContainer())
 					.getOwnedPublicSection().getImportedUnits())
-				if (imported instanceof AadlPackage
+				if (imported instanceof AadlPackage && !imported.eIsProxy()
 						&& ((AadlPackage) imported).getName().equalsIgnoreCase(
 								name))
 					return (AadlPackage) imported;
@@ -1811,7 +1811,7 @@ private static PSNode psNode = new PSNode();
 			importedPropertySets = ((PackageSection) context)
 					.getImportedUnits();
 		for (ModelUnit importedPropertySet : importedPropertySets)
-			if (importedPropertySet instanceof PropertySet
+			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
 					&& ((PropertySet) importedPropertySet).getName()
 							.equalsIgnoreCase(name))
 				return (PropertySet) importedPropertySet;
@@ -2097,7 +2097,12 @@ private static PSNode psNode = new PSNode();
 	}
 
 	public AadlPackage findAadlPackage(EObject context, String name) {
-		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
+		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
+		return findAadlPackage(context, name, reference);
+	}
+		
+		
+	public AadlPackage findAadlPackage(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObject(context, reference, name);
 		if (res instanceof AadlPackage)
 				return (AadlPackage)res;
@@ -2118,6 +2123,12 @@ private static PSNode psNode = new PSNode();
 
 	public PropertySet findPropertySet(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
+		return findPropertySet(context, name, reference);
+	}
+
+		
+		
+	public PropertySet findPropertySet(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObject(context, reference, name);
 		if (res instanceof PropertySet)
 				return (PropertySet)res;

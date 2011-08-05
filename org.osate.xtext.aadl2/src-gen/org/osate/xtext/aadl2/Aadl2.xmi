@@ -12,7 +12,7 @@
     </metamodelDeclarations>
     <rules xsi:type="xtext:ParserRule" name="Model">
       <type metamodel="/0/@metamodelDeclarations.0">
-        <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Element"/>
+        <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModelUnit"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
         <elements xsi:type="xtext:RuleCall" rule="/0/@rules.1"/>

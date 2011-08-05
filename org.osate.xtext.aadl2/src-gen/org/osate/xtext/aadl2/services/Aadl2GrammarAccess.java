@@ -23,7 +23,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cAadlPackageParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cPropertySetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//Model returns aadl2::Element:
+		//Model returns aadl2::ModelUnit:
 		//	AadlPackage | //| SystemInstance
 		//	PropertySet;
 		public ParserRule getRule() { return rule; }
@@ -25404,7 +25404,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	//Model returns aadl2::Element:
+	//Model returns aadl2::ModelUnit:
 	//	AadlPackage | //| SystemInstance
 	//	PropertySet;
 	public ModelElements getModelAccess() {
