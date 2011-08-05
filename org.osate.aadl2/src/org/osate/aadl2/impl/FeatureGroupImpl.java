@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
@@ -140,12 +141,11 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FeatureGroupType getFeatureGroupType() {
-		FeatureGroupType featureGroupType = basicGetFeatureGroupType();
-		return featureGroupType != null && ((EObject) featureGroupType).eIsProxy() ? (FeatureGroupType) eResolveProxy((InternalEObject) featureGroupType)
-				: featureGroupType;
+		EObject featureGroupType = getFeatureType();
+		return (FeatureGroupType)(featureGroupType instanceof FeatureGroupType&& !featureGroupType.eIsProxy() ? featureGroupType : null);
 	}
 
 	/**
@@ -160,12 +160,11 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FeatureGroupPrototype getFeatureGroupPrototype() {
-		FeatureGroupPrototype featureGroupPrototype = basicGetFeatureGroupPrototype();
-		return featureGroupPrototype != null && ((EObject) featureGroupPrototype).eIsProxy() ? (FeatureGroupPrototype) eResolveProxy((InternalEObject) featureGroupPrototype)
-				: featureGroupPrototype;
+		EObject featureGroupType = getFeatureType();
+		return (FeatureGroupPrototype)(featureGroupType instanceof FeatureGroupPrototype&& !featureGroupType.eIsProxy() ? featureGroupType : null);
 	}
 
 	/**
