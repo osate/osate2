@@ -51,6 +51,7 @@ import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
@@ -167,12 +168,11 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
+		EObject classifier = getFeatureClassifier();
+		return (ComponentClassifier)(classifier instanceof ComponentClassifier&& !classifier.eIsProxy() ? classifier : null);
 	}
 
 	/**
@@ -189,12 +189,11 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Prototype getPrototype() {
-		Prototype prototype = basicGetPrototype();
-		return prototype != null && ((EObject) prototype).eIsProxy() ? (Prototype) eResolveProxy((InternalEObject) prototype)
-				: prototype;
+		EObject prototype = getFeatureClassifier();
+		return (Prototype)(prototype instanceof Prototype&& !prototype.eIsProxy() ? prototype : null);
 	}
 
 	/**
