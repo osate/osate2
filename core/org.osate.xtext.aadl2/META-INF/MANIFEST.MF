@@ -29,4 +29,5 @@ Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.validation
 Import-Package: org.apache.log4j,
  org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib
+ org.eclipse.xtext.xtend2.lib,
+ org.osate.aadl2.modelsupport
