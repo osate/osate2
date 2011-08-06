@@ -29,12 +29,14 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.190"/>
         </elements>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Assignment" feature="ownedPublicSection" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
-            </elements>
-            <elements xsi:type="xtext:Assignment" cardinality="?" feature="ownedPrivateSection" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
+          <elements xsi:type="xtext:Group" predicated="true">
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedPublicSection" operator="=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.2"/>
+              </elements>
+              <elements xsi:type="xtext:Assignment" cardinality="?" feature="ownedPrivateSection" operator="=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.3"/>
+              </elements>
             </elements>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="ownedPrivateSection" operator="=">
@@ -2829,61 +2831,43 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CallSpecification"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ProcessorCall"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value="subprogram"/>
-            <elements xsi:type="xtext:Keyword" value="processor"/>
-            <elements xsi:type="xtext:Keyword" value="."/>
-            <elements xsi:type="xtext:Assignment" feature="subprogramAccessName" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
-            </elements>
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Action">
+            <type metamodel="/0/@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramCall"/>
+            </type>
           </elements>
-          <elements xsi:type="xtext:Group">
-            <elements xsi:type="xtext:Action">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//SubprogramCall"/>
-              </type>
-            </elements>
-            <elements xsi:type="xtext:Assignment" feature="name" operator="=">
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
-            </elements>
-            <elements xsi:type="xtext:Keyword" value="subprogram"/>
-            <elements xsi:type="xtext:Alternatives">
-              <elements xsi:type="xtext:Group">
-                <elements xsi:type="xtext:Assignment" feature="context" operator="=">
-                  <terminal xsi:type="xtext:CrossReference">
-                    <type metamodel="/0/@metamodelDeclarations.0">
-                      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CallContext"/>
-                    </type>
-                    <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.190"/>
-                  </terminal>
-                </elements>
-                <elements xsi:type="xtext:Keyword" predicated="true" value="."/>
-                <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
-                  <terminal xsi:type="xtext:CrossReference">
-                    <type metamodel="/0/@metamodelDeclarations.0">
-                      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
-                    </type>
-                    <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
-                  </terminal>
-                </elements>
+          <elements xsi:type="xtext:Assignment" feature="name" operator="=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value="subprogram"/>
+          <elements xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="context" operator="=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CallContext"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.190"/>
+                </terminal>
               </elements>
+              <elements xsi:type="xtext:Keyword" predicated="true" value="."/>
               <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
                 <terminal xsi:type="xtext:CrossReference">
                   <type metamodel="/0/@metamodelDeclarations.0">
                     <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
                   </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.190"/>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
                 </terminal>
               </elements>
+            </elements>
+            <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.190"/>
+              </terminal>
             </elements>
           </elements>
         </elements>
@@ -8295,14 +8279,14 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.21"/>
+        <elements xsi:type="xtext:RuleCall" predicated="true" rule="/1/@rules.21"/>
+        <elements xsi:type="xtext:RuleCall" predicated="true" rule="/1/@rules.20"/>
+        <elements xsi:type="xtext:RuleCall" predicated="true" rule="/1/@rules.23"/>
+        <elements xsi:type="xtext:RuleCall" predicated="true" rule="/1/@rules.22"/>
+        <elements xsi:type="xtext:RuleCall" predicated="true" rule="/1/@rules.33"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.41"/>
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.20"/>
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.22"/>
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.33"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.39"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.37"/>
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.23"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.24"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.10"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.9"/>

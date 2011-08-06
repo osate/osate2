@@ -48,10 +48,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNamePNAMEParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Assignment cOwnedPublicSectionAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
-		private final RuleCall cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0 = (RuleCall)cOwnedPublicSectionAssignment_2_0_0.eContents().get(0);
-		private final Assignment cOwnedPrivateSectionAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
-		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_0_1.eContents().get(0);
+		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
+		private final Assignment cOwnedPublicSectionAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
+		private final RuleCall cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0 = (RuleCall)cOwnedPublicSectionAssignment_2_0_0_0.eContents().get(0);
+		private final Assignment cOwnedPrivateSectionAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
+		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_0_0_1.eContents().get(0);
 		private final Assignment cOwnedPrivateSectionAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
@@ -69,12 +70,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
 		////;
 		//AadlPackage returns aadl2::AadlPackage:
-		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
+		//	"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
 		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//	"end" ID ("::" ID)* ";";
 		public ParserRule getRule() { return rule; }
 
-		//"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
+		//"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
 		//ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//"end" ID ("::" ID)* ";"
 		public Group getGroup() { return cGroup; }
@@ -88,24 +89,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PNAME
 		public RuleCall getNamePNAMEParserRuleCall_1_0() { return cNamePNAMEParserRuleCall_1_0; }
 
-		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
+		//=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
 		//ownedPrivateSection=PrivatePackageSection
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?
+		//=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?)
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
+		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?
+		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
+
 		//ownedPublicSection=PublicPackageSection
-		public Assignment getOwnedPublicSectionAssignment_2_0_0() { return cOwnedPublicSectionAssignment_2_0_0; }
+		public Assignment getOwnedPublicSectionAssignment_2_0_0_0() { return cOwnedPublicSectionAssignment_2_0_0_0; }
 
 		//PublicPackageSection
-		public RuleCall getOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0() { return cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0; }
+		public RuleCall getOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0() { return cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0; }
 
 		//ownedPrivateSection=PrivatePackageSection?
-		public Assignment getOwnedPrivateSectionAssignment_2_0_1() { return cOwnedPrivateSectionAssignment_2_0_1; }
+		public Assignment getOwnedPrivateSectionAssignment_2_0_0_1() { return cOwnedPrivateSectionAssignment_2_0_0_1; }
 
 		//PrivatePackageSection
-		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0; }
+		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0; }
 
 		//ownedPrivateSection=PrivatePackageSection
 		public Assignment getOwnedPrivateSectionAssignment_2_1() { return cOwnedPrivateSectionAssignment_2_1; }
@@ -8022,33 +8026,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class CallSpecificationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CallSpecification");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final Group cGroup_0_0 = (Group)cAlternatives_0.eContents().get(0);
-		private final Action cProcessorCallAction_0_0_0 = (Action)cGroup_0_0.eContents().get(0);
-		private final Assignment cNameAssignment_0_0_1 = (Assignment)cGroup_0_0.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0_0_1_0 = (RuleCall)cNameAssignment_0_0_1.eContents().get(0);
-		private final Keyword cSubprogramKeyword_0_0_2 = (Keyword)cGroup_0_0.eContents().get(2);
-		private final Keyword cProcessorKeyword_0_0_3 = (Keyword)cGroup_0_0.eContents().get(3);
-		private final Keyword cFullStopKeyword_0_0_4 = (Keyword)cGroup_0_0.eContents().get(4);
-		private final Assignment cSubprogramAccessNameAssignment_0_0_5 = (Assignment)cGroup_0_0.eContents().get(5);
-		private final RuleCall cSubprogramAccessNameIDTerminalRuleCall_0_0_5_0 = (RuleCall)cSubprogramAccessNameAssignment_0_0_5.eContents().get(0);
-		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
-		private final Action cSubprogramCallAction_0_1_0 = (Action)cGroup_0_1.eContents().get(0);
-		private final Assignment cNameAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cNameIDTerminalRuleCall_0_1_1_0 = (RuleCall)cNameAssignment_0_1_1.eContents().get(0);
-		private final Keyword cSubprogramKeyword_0_1_2 = (Keyword)cGroup_0_1.eContents().get(2);
-		private final Alternatives cAlternatives_0_1_3 = (Alternatives)cGroup_0_1.eContents().get(3);
-		private final Group cGroup_0_1_3_0 = (Group)cAlternatives_0_1_3.eContents().get(0);
-		private final Assignment cContextAssignment_0_1_3_0_0 = (Assignment)cGroup_0_1_3_0.eContents().get(0);
-		private final CrossReference cContextCallContextCrossReference_0_1_3_0_0_0 = (CrossReference)cContextAssignment_0_1_3_0_0.eContents().get(0);
-		private final RuleCall cContextCallContextPNAMEParserRuleCall_0_1_3_0_0_0_1 = (RuleCall)cContextCallContextCrossReference_0_1_3_0_0_0.eContents().get(1);
-		private final Keyword cFullStopKeyword_0_1_3_0_1 = (Keyword)cGroup_0_1_3_0.eContents().get(1);
-		private final Assignment cCalledSubprogramAssignment_0_1_3_0_2 = (Assignment)cGroup_0_1_3_0.eContents().get(2);
-		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_0_1_3_0_2_0 = (CrossReference)cCalledSubprogramAssignment_0_1_3_0_2.eContents().get(0);
-		private final RuleCall cCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_1_3_0_2_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_0_1_3_0_2_0.eContents().get(1);
-		private final Assignment cCalledSubprogramAssignment_0_1_3_1 = (Assignment)cAlternatives_0_1_3.eContents().get(1);
-		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_0_1_3_1_0 = (CrossReference)cCalledSubprogramAssignment_0_1_3_1.eContents().get(0);
-		private final RuleCall cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_1_3_1_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_0_1_3_1_0.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Action cSubprogramCallAction_0_0 = (Action)cGroup_0.eContents().get(0);
+		private final Assignment cNameAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
+		private final RuleCall cNameIDTerminalRuleCall_0_1_0 = (RuleCall)cNameAssignment_0_1.eContents().get(0);
+		private final Keyword cSubprogramKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
+		private final Alternatives cAlternatives_0_3 = (Alternatives)cGroup_0.eContents().get(3);
+		private final Group cGroup_0_3_0 = (Group)cAlternatives_0_3.eContents().get(0);
+		private final Assignment cContextAssignment_0_3_0_0 = (Assignment)cGroup_0_3_0.eContents().get(0);
+		private final CrossReference cContextCallContextCrossReference_0_3_0_0_0 = (CrossReference)cContextAssignment_0_3_0_0.eContents().get(0);
+		private final RuleCall cContextCallContextPNAMEParserRuleCall_0_3_0_0_0_1 = (RuleCall)cContextCallContextCrossReference_0_3_0_0_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_0_3_0_1 = (Keyword)cGroup_0_3_0.eContents().get(1);
+		private final Assignment cCalledSubprogramAssignment_0_3_0_2 = (Assignment)cGroup_0_3_0.eContents().get(2);
+		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_0_3_0_2_0 = (CrossReference)cCalledSubprogramAssignment_0_3_0_2.eContents().get(0);
+		private final RuleCall cCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_3_0_2_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_0_3_0_2_0.eContents().get(1);
+		private final Assignment cCalledSubprogramAssignment_0_3_1 = (Assignment)cAlternatives_0_3.eContents().get(1);
+		private final CrossReference cCalledSubprogramCalledSubprogramCrossReference_0_3_1_0 = (CrossReference)cCalledSubprogramAssignment_0_3_1.eContents().get(0);
+		private final RuleCall cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_3_1_0_1 = (RuleCall)cCalledSubprogramCalledSubprogramCrossReference_0_3_1_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cLeftCurlyBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -8057,100 +8051,68 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//CallSpecification returns aadl2::CallSpecification:
-		//	({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//	"subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
-		//	calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+		//	({aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext|PNAME] => "."
+		//	calledSubprogram=[aadl2::CalledSubprogram] | calledSubprogram=[aadl2::CalledSubprogram|PNAME])) //({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
+		//	("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//"subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
-		//calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
+		//({aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext|PNAME] => "."
+		//calledSubprogram=[aadl2::CalledSubprogram] | calledSubprogram=[aadl2::CalledSubprogram|PNAME])) //({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
-
-		//{aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-		//"subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
-		//calledSubprogram=[aadl2::CalledSubprogram|PNAME])
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
-
-		//{aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID
-		public Group getGroup_0_0() { return cGroup_0_0; }
-
-		//{aadl2::ProcessorCall}
-		public Action getProcessorCallAction_0_0_0() { return cProcessorCallAction_0_0_0; }
-
-		//name=ID
-		public Assignment getNameAssignment_0_0_1() { return cNameAssignment_0_0_1; }
-
-		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_0_1_0() { return cNameIDTerminalRuleCall_0_0_1_0; }
-
-		//"subprogram"
-		public Keyword getSubprogramKeyword_0_0_2() { return cSubprogramKeyword_0_0_2; }
-
-		//"processor"
-		public Keyword getProcessorKeyword_0_0_3() { return cProcessorKeyword_0_0_3; }
-
-		//"."
-		public Keyword getFullStopKeyword_0_0_4() { return cFullStopKeyword_0_0_4; }
-
-		//subprogramAccessName=ID
-		public Assignment getSubprogramAccessNameAssignment_0_0_5() { return cSubprogramAccessNameAssignment_0_0_5; }
-
-		//ID
-		public RuleCall getSubprogramAccessNameIDTerminalRuleCall_0_0_5_0() { return cSubprogramAccessNameIDTerminalRuleCall_0_0_5_0; }
 
 		//{aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext|PNAME] => "."
 		//calledSubprogram=[aadl2::CalledSubprogram] | calledSubprogram=[aadl2::CalledSubprogram|PNAME])
-		public Group getGroup_0_1() { return cGroup_0_1; }
+		public Group getGroup_0() { return cGroup_0; }
 
 		//{aadl2::SubprogramCall}
-		public Action getSubprogramCallAction_0_1_0() { return cSubprogramCallAction_0_1_0; }
+		public Action getSubprogramCallAction_0_0() { return cSubprogramCallAction_0_0; }
 
 		//name=ID
-		public Assignment getNameAssignment_0_1_1() { return cNameAssignment_0_1_1; }
+		public Assignment getNameAssignment_0_1() { return cNameAssignment_0_1; }
 
 		//ID
-		public RuleCall getNameIDTerminalRuleCall_0_1_1_0() { return cNameIDTerminalRuleCall_0_1_1_0; }
+		public RuleCall getNameIDTerminalRuleCall_0_1_0() { return cNameIDTerminalRuleCall_0_1_0; }
 
 		//"subprogram"
-		public Keyword getSubprogramKeyword_0_1_2() { return cSubprogramKeyword_0_1_2; }
+		public Keyword getSubprogramKeyword_0_2() { return cSubprogramKeyword_0_2; }
 
 		//context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]
-		public Alternatives getAlternatives_0_1_3() { return cAlternatives_0_1_3; }
+		public Alternatives getAlternatives_0_3() { return cAlternatives_0_3; }
 
 		//context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram]
-		public Group getGroup_0_1_3_0() { return cGroup_0_1_3_0; }
+		public Group getGroup_0_3_0() { return cGroup_0_3_0; }
 
 		//context=[aadl2::CallContext|PNAME]
-		public Assignment getContextAssignment_0_1_3_0_0() { return cContextAssignment_0_1_3_0_0; }
+		public Assignment getContextAssignment_0_3_0_0() { return cContextAssignment_0_3_0_0; }
 
 		//[aadl2::CallContext|PNAME]
-		public CrossReference getContextCallContextCrossReference_0_1_3_0_0_0() { return cContextCallContextCrossReference_0_1_3_0_0_0; }
+		public CrossReference getContextCallContextCrossReference_0_3_0_0_0() { return cContextCallContextCrossReference_0_3_0_0_0; }
 
 		//PNAME
-		public RuleCall getContextCallContextPNAMEParserRuleCall_0_1_3_0_0_0_1() { return cContextCallContextPNAMEParserRuleCall_0_1_3_0_0_0_1; }
+		public RuleCall getContextCallContextPNAMEParserRuleCall_0_3_0_0_0_1() { return cContextCallContextPNAMEParserRuleCall_0_3_0_0_0_1; }
 
 		//=> "."
-		public Keyword getFullStopKeyword_0_1_3_0_1() { return cFullStopKeyword_0_1_3_0_1; }
+		public Keyword getFullStopKeyword_0_3_0_1() { return cFullStopKeyword_0_3_0_1; }
 
 		//calledSubprogram=[aadl2::CalledSubprogram]
-		public Assignment getCalledSubprogramAssignment_0_1_3_0_2() { return cCalledSubprogramAssignment_0_1_3_0_2; }
+		public Assignment getCalledSubprogramAssignment_0_3_0_2() { return cCalledSubprogramAssignment_0_3_0_2; }
 
 		//[aadl2::CalledSubprogram]
-		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_0_1_3_0_2_0() { return cCalledSubprogramCalledSubprogramCrossReference_0_1_3_0_2_0; }
+		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_0_3_0_2_0() { return cCalledSubprogramCalledSubprogramCrossReference_0_3_0_2_0; }
 
 		//ID
-		public RuleCall getCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_1_3_0_2_0_1() { return cCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_1_3_0_2_0_1; }
+		public RuleCall getCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_3_0_2_0_1() { return cCalledSubprogramCalledSubprogramIDTerminalRuleCall_0_3_0_2_0_1; }
 
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]
-		public Assignment getCalledSubprogramAssignment_0_1_3_1() { return cCalledSubprogramAssignment_0_1_3_1; }
+		public Assignment getCalledSubprogramAssignment_0_3_1() { return cCalledSubprogramAssignment_0_3_1; }
 
 		//[aadl2::CalledSubprogram|PNAME]
-		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_0_1_3_1_0() { return cCalledSubprogramCalledSubprogramCrossReference_0_1_3_1_0; }
+		public CrossReference getCalledSubprogramCalledSubprogramCrossReference_0_3_1_0() { return cCalledSubprogramCalledSubprogramCrossReference_0_3_1_0; }
 
 		//PNAME
-		public RuleCall getCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_1_3_1_0_1() { return cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_1_3_1_0_1; }
+		public RuleCall getCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_3_1_0_1() { return cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_3_1_0_1; }
 
 		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_1() { return cGroup_1; }
@@ -20866,7 +20828,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
 	////;
 	//AadlPackage returns aadl2::AadlPackage:
-	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
+	//	"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
 	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 	//	"end" ID ("::" ID)* ";";
 	public AadlPackageElements getAadlPackageAccess() {
@@ -21777,9 +21739,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//CallSpecification returns aadl2::CallSpecification:
-	//	({aadl2::ProcessorCall} name=ID "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall} name=ID
-	//	"subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
-	//	calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
+	//	({aadl2::SubprogramCall} name=ID "subprogram" (context=[aadl2::CallContext|PNAME] => "."
+	//	calledSubprogram=[aadl2::CalledSubprogram] | calledSubprogram=[aadl2::CalledSubprogram|PNAME])) //({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
+	//	("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public CallSpecificationElements getCallSpecificationAccess() {
 		return (pCallSpecification != null) ? pCallSpecification : (pCallSpecification = new CallSpecificationElements());
 	}
@@ -23597,8 +23559,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm //| BooleanTerm
-	//	| NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-	//	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+	//	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
+	//	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
 	public PropertiesGrammarAccess.PropertyExpressionElements getPropertyExpressionAccess() {
 		return gaProperties.getPropertyExpressionAccess();
 	}

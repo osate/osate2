@@ -70,6 +70,7 @@ import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.Realization;
@@ -1143,8 +1144,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkComponentPrototypeActualComponentCategory(
 			ComponentPrototypeActual actual) {
-		SubcomponentType st = actual.getSubcomponentType();
-		if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
+		if (actual.eIsProxy()){
+			error(actual,
+					"The prototype actual could not be found.");
+		} else {
+			SubcomponentType st = actual.getSubcomponentType();
+			if (st == null){
+				error(actual,
+						"The classifier or prototype of the prototype actual could not be found.");
+			} else
+			if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
 				&& !actual
 						.getCategory()
 						.getName()
@@ -1152,6 +1161,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st))) {
 			error(actual,
 					"The category of the referenced classifier is not compatible the category specified in the prototype binding.");
+		}
 		}
 	}
 
@@ -2011,7 +2021,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkSubprogramAccessPrototypeReference(
 			SubprogramAccess subprogramAccess) {
-		if (!(subprogramAccess.getPrototype() instanceof SubprogramPrototype)) {
+		Prototype sp = subprogramAccess.getPrototype();
+		if (sp != null &&!(subprogramAccess.getPrototype() instanceof SubprogramPrototype)) {
 			error(subprogramAccess,
 					"The category of the referenced component prototype must be subprogram.");
 		}
@@ -2027,7 +2038,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkSubprogramGroupAccessPrototypeReference(
 			SubprogramGroupAccess subprogramGroupAccess) {
-		if (!(subprogramGroupAccess.getPrototype() instanceof SubprogramGroupPrototype)) {
+		Prototype sp = subprogramGroupAccess.getPrototype();
+		if (sp != null && !(sp instanceof SubprogramGroupPrototype)) {
 			error(subprogramGroupAccess,
 					"The category of the referenced component prototype must be subprogram group.");
 		}
@@ -2097,7 +2109,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * reference.
 	 */
 	private void checkDataAccessPrototypeReference(DataAccess dataAccess) {
-		if (!(dataAccess.getPrototype() instanceof DataPrototype)) {
+		Prototype dp = dataAccess.getPrototype();
+		if (dp != null && !(dp instanceof DataPrototype)) {
 			error(dataAccess,
 					"The category of the referenced component prototype must be data.");
 		}
