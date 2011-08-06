@@ -943,6 +943,7 @@ private static PSNode psNode = new PSNode();
 				propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
 						.getProperty().getPropertyType();
 			}
+			
 			propertyType = AadlUtil.getBasePropertyType(propertyType);
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
@@ -955,7 +956,7 @@ private static PSNode psNode = new PSNode();
 		return Collections.<EObject> emptyList();
 	}
 
-	public ConnectionEnd findPortConnectionEnd(PortConnection conn,
+	public PortConnectionEnd findPortConnectionEnd(PortConnection conn,
 			Context cxt, String portName) {
 		if (cxt == null) {
 			EObject searchResult = ((ComponentImplementation) getContainingClassifier(conn))
@@ -964,7 +965,7 @@ private static PSNode psNode = new PSNode();
 					|| searchResult instanceof DataSubcomponent
 					|| (searchResult instanceof DataAccess && ((DataAccess) searchResult)
 							.getKind() == AccessType.REQUIRED))
-				return ((ConnectionEnd) searchResult);
+				return ((PortConnectionEnd) searchResult);
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
 			while (subcomponent.getSubcomponentType() == null
@@ -979,16 +980,21 @@ private static PSNode psNode = new PSNode();
 						|| // data subcomponent . data subcomponent
 						(searchResult instanceof DataAccess && ((DataAccess) searchResult)
 								.getKind() == AccessType.PROVIDED))
-					return ((ConnectionEnd) searchResult);
+					return ((PortConnectionEnd) searchResult);
 			} else if (sct instanceof ComponentPrototype) {
-				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(conn),
-						((ComponentPrototype)sct));
+				ComponentClassifier classifier = ((ComponentPrototype)sct).getConstrainingClassifier();
+//						findClassifierForComponentPrototype(
+//						getContainingClassifier(conn),
+//						((ComponentPrototype)sct));
 				if (classifier != null) {
 					NamedElement searchResult = classifier
 							.findNamedElement(portName);
-					if (searchResult instanceof DataSubcomponent)
-						return ((DataSubcomponent) searchResult);
+					if (searchResult instanceof Port
+							|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
+							|| // data subcomponent . data subcomponent
+							(searchResult instanceof DataAccess && ((DataAccess) searchResult)
+									.getKind() == AccessType.PROVIDED))
+						return ((PortConnectionEnd) searchResult);
 				}
 			}
 		} else if (cxt instanceof DataPort || cxt instanceof EventDataPort)
