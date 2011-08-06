@@ -2138,7 +2138,7 @@ public final class AadlUtil {
 	 */
 	public static PropertyType getBasePropertyType(PropertyType pt){
 		while (pt instanceof ListType){
-			pt=((ListType)pt).getOwnedElementType();
+			pt=((ListType)pt).getElementType();
 		}
 		return pt;
 	}
