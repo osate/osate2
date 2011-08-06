@@ -121,6 +121,7 @@ import com.google.inject.Inject;
 
 import org.osate.aadl2.impl.Aadl2PackageImpl;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
@@ -479,9 +480,9 @@ private static PSNode psNode = new PSNode();
 				}
 				if (res.isEmpty() && s.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
-					res = findUnitLiteralAsList(context, reference, s);
+					res = findEnumLiteral(context, reference, s);
 					if (res.isEmpty())
-						res = findEnumLiteral(context, reference, s);
+						res = findUnitLiteralAsList(context, reference, s);
 				}
 				return res;
 			}
@@ -521,9 +522,7 @@ private static PSNode psNode = new PSNode();
 				} else if (parent instanceof PropertyConstant){
 					propertyType =((PropertyConstant)parent).getPropertyType();
 				}
-				while (propertyType instanceof ListType){
-					propertyType = ((ListType)propertyType).getElementType();
-				}
+				propertyType = AadlUtil.getBasePropertyType(propertyType);
 				
 				if (propertyType != null && propertyType instanceof RecordType) {
 					BasicProperty rf = (BasicProperty) ((RecordType) propertyType).findNamedElement(s);
@@ -767,7 +766,8 @@ private static PSNode psNode = new PSNode();
 		return Collections.<EObject> emptyList();
 	}
 	
-	public UnitLiteral findUnitLiteral(Property propertyType, String name){
+	public UnitLiteral findUnitLiteral(Property property, String name){
+		PropertyType propertyType = property.getPropertyType();
 		UnitsType unitsType= null;
 		if (propertyType instanceof NumberType)
 			unitsType = ((NumberType) propertyType).getUnitsType();
@@ -863,6 +863,7 @@ private static PSNode psNode = new PSNode();
 					propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
 							.getProperty().getPropertyType();
 				}
+				propertyType = AadlUtil.getBasePropertyType(propertyType);
 				if (propertyType instanceof NumberType)
 					unitsType = ((NumberType) propertyType).getUnitsType();
 				else if (propertyType instanceof RangeType)
@@ -877,6 +878,11 @@ private static PSNode psNode = new PSNode();
 		return null;
 	}
 
+	
+	public EnumerationLiteral findEnumerationLiteral(EnumerationType enumType, String name){
+			return (EnumerationLiteral) enumType.findNamedElement(name);
+	}
+	
 	public EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
 		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
 		List<EObject> el = findEnumLiteral(nv, reference, name);
@@ -921,8 +927,9 @@ private static PSNode psNode = new PSNode();
 				// definition is correct for the value.
 				// We should do this when the definition of the association
 				// is resolved in PropertyDefinitionReference.
-				propertyType = (PropertyType) ((PropertyAssociation) owner
-						.eContainer()).getProperty().getPropertyType();
+				Property p = ((PropertyAssociation) owner
+						.eContainer()).getProperty();
+				propertyType =  p.getPropertyType();
 			} else if (owner instanceof BasicPropertyAssociation) // Inner
 																	// value
 																	// of a
@@ -936,6 +943,7 @@ private static PSNode psNode = new PSNode();
 				propertyType = (PropertyType) ((BasicPropertyAssociation) owner)
 						.getProperty().getPropertyType();
 			}
+			propertyType = AadlUtil.getBasePropertyType(propertyType);
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
 				EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)

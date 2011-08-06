@@ -84,6 +84,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
@@ -94,6 +95,7 @@ import org.osate.aadl2.ProcessorSubcomponent;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
@@ -2130,5 +2132,14 @@ public final class AadlUtil {
 			}
 		}
 		return result;
+	}
+	/*
+	 * return the base type walking down ListTypes
+	 */
+	public static PropertyType getBasePropertyType(PropertyType pt){
+		while (pt instanceof ListType){
+			pt=((ListType)pt).getOwnedElementType();
+		}
+		return pt;
 	}
 }
