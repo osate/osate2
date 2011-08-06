@@ -2460,14 +2460,14 @@ protected class PropertyValue_OwnedValueAssignment extends AssignmentToken  {
  *
  * PropertyExpression returns aadl2::PropertyExpression:
  * 	RecordTerm //| BooleanTerm
- * 	| NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
- * 	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+ * 	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
+ * 	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
  *
  **/
 
-// RecordTerm //| BooleanTerm
-// | NumericRangeTerm | ReferenceTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-// ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
+// => RecordTerm //| BooleanTerm
+// | => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
+// IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
 protected class PropertyExpression_Alternatives extends AlternativesToken {
 
 	public PropertyExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2483,13 +2483,13 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new PropertyExpression_RecordTermParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new PropertyExpression_NumericRangeTermParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
-			case 2: return new PropertyExpression_ReferenceTermParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 1: return new PropertyExpression_ReferenceTermParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new PropertyExpression_ComponentClassifierTermParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
 			case 3: return new PropertyExpression_ComputedTermParserRuleCall_3(lastRuleCallOrigin, this, 3, inst);
 			case 4: return new PropertyExpression_StringTermParserRuleCall_4(lastRuleCallOrigin, this, 4, inst);
-			case 5: return new PropertyExpression_RealTermParserRuleCall_5(lastRuleCallOrigin, this, 5, inst);
-			case 6: return new PropertyExpression_IntegerTermParserRuleCall_6(lastRuleCallOrigin, this, 6, inst);
-			case 7: return new PropertyExpression_ComponentClassifierTermParserRuleCall_7(lastRuleCallOrigin, this, 7, inst);
+			case 5: return new PropertyExpression_NumericRangeTermParserRuleCall_5(lastRuleCallOrigin, this, 5, inst);
+			case 6: return new PropertyExpression_RealTermParserRuleCall_6(lastRuleCallOrigin, this, 6, inst);
+			case 7: return new PropertyExpression_IntegerTermParserRuleCall_7(lastRuleCallOrigin, this, 7, inst);
 			case 8: return new PropertyExpression_ListTermParserRuleCall_8(lastRuleCallOrigin, this, 8, inst);
 			case 9: return new PropertyExpression_ActualBooleanTermParserRuleCall_9(lastRuleCallOrigin, this, 9, inst);
 			case 10: return new PropertyExpression_LiteralorReferenceTermParserRuleCall_10(lastRuleCallOrigin, this, 10, inst);
@@ -2517,7 +2517,7 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 
 }
 
-// RecordTerm
+// => RecordTerm
 protected class PropertyExpression_RecordTermParserRuleCall_0 extends RuleCallToken {
 	
 	public PropertyExpression_RecordTermParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2553,52 +2553,16 @@ protected class PropertyExpression_RecordTermParserRuleCall_0 extends RuleCallTo
 	}	
 }
 
-// NumericRangeTerm
-protected class PropertyExpression_NumericRangeTermParserRuleCall_1 extends RuleCallToken {
+// => ReferenceTerm
+protected class PropertyExpression_ReferenceTermParserRuleCall_1 extends RuleCallToken {
 	
-	public PropertyExpression_NumericRangeTermParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyExpression_ReferenceTermParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new NumericRangeTerm_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getNumericRangeTermRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(NumericRangeTerm_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// ReferenceTerm
-protected class PropertyExpression_ReferenceTermParserRuleCall_2 extends RuleCallToken {
-	
-	public PropertyExpression_ReferenceTermParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_2();
+		return grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_1();
 	}
 
     @Override
@@ -2625,7 +2589,43 @@ protected class PropertyExpression_ReferenceTermParserRuleCall_2 extends RuleCal
 	}	
 }
 
-// ComputedTerm
+// => ComponentClassifierTerm
+protected class PropertyExpression_ComponentClassifierTermParserRuleCall_2 extends RuleCallToken {
+	
+	public PropertyExpression_ComponentClassifierTermParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ComponentClassifierTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getComponentClassifierTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ComponentClassifierTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// => ComputedTerm
 protected class PropertyExpression_ComputedTermParserRuleCall_3 extends RuleCallToken {
 	
 	public PropertyExpression_ComputedTermParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2661,7 +2661,7 @@ protected class PropertyExpression_ComputedTermParserRuleCall_3 extends RuleCall
 	}	
 }
 
-// StringTerm
+// => StringTerm
 protected class PropertyExpression_StringTermParserRuleCall_4 extends RuleCallToken {
 	
 	public PropertyExpression_StringTermParserRuleCall_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2697,16 +2697,52 @@ protected class PropertyExpression_StringTermParserRuleCall_4 extends RuleCallTo
 	}	
 }
 
-// RealTerm
-protected class PropertyExpression_RealTermParserRuleCall_5 extends RuleCallToken {
+// NumericRangeTerm
+protected class PropertyExpression_NumericRangeTermParserRuleCall_5 extends RuleCallToken {
 	
-	public PropertyExpression_RealTermParserRuleCall_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyExpression_NumericRangeTermParserRuleCall_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_5();
+		return grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new NumericRangeTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getNumericRangeTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(NumericRangeTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// RealTerm
+protected class PropertyExpression_RealTermParserRuleCall_6 extends RuleCallToken {
+	
+	public PropertyExpression_RealTermParserRuleCall_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_6();
 	}
 
     @Override
@@ -2734,15 +2770,15 @@ protected class PropertyExpression_RealTermParserRuleCall_5 extends RuleCallToke
 }
 
 // IntegerTerm
-protected class PropertyExpression_IntegerTermParserRuleCall_6 extends RuleCallToken {
+protected class PropertyExpression_IntegerTermParserRuleCall_7 extends RuleCallToken {
 	
-	public PropertyExpression_IntegerTermParserRuleCall_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyExpression_IntegerTermParserRuleCall_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_6();
+		return grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_7();
 	}
 
     @Override
@@ -2758,42 +2794,6 @@ protected class PropertyExpression_IntegerTermParserRuleCall_6 extends RuleCallT
 		if(getEObject().eClass() != grammarAccess.getIntegerTermRule().getType().getClassifier())
 			return null;
 		if(checkForRecursion(IntegerTerm_Group.class, eObjectConsumer)) return null;
-		return eObjectConsumer;
-	}
-	
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
-		}	
-	}	
-}
-
-// ComponentClassifierTerm
-protected class PropertyExpression_ComponentClassifierTermParserRuleCall_7 extends RuleCallToken {
-	
-	public PropertyExpression_ComponentClassifierTermParserRuleCall_7(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public RuleCall getGrammarElement() {
-		return grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_7();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new ComponentClassifierTerm_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getComponentClassifierTermRule().getType().getClassifier())
-			return null;
-		if(checkForRecursion(ComponentClassifierTerm_Group.class, eObjectConsumer)) return null;
 		return eObjectConsumer;
 	}
 	
