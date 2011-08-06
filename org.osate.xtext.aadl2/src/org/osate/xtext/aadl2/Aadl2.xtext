@@ -963,8 +963,8 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 
 
 CallSpecification returns aadl2::CallSpecification:
-	(//({aadl2::ProcessorCall}name=ID 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
-     ({aadl2::SubprogramCall}name=ID 'subprogram'
+	(({aadl2::ProcessorCall}name=ID ':' 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
+     ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
      	((context=[aadl2::CallContext|PNAME] => '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
      	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
      ))
@@ -1126,7 +1126,7 @@ PrototypeBinding returns aadl2::PrototypeBinding:
 
 
 FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
-	formal=[aadl2::Prototype|ID] '=>'  'feature' 'group' 
+	formal=[aadl2::Prototype|ID] '=>'  'feature' => 'group' 
 	actual=FeatureGroupPrototypeActual
 	;
 
@@ -1137,21 +1137,21 @@ FeatureGroupPrototypeActual returns aadl2::FeatureGroupPrototypeActual:
 
 
 FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
-	formal=[aadl2::Prototype|ID] '=>'  'feature'  
+	formal=[aadl2::Prototype|ID] '=>'   
 	actual=(PortSpecification|AccessSpecification|FeaturePrototypeReference)
 	;
 	
 PortSpecification returns aadl2::PortSpecification:
-	direction=PortDirection category=PortCategory 'port' classifier=[aadl2::ComponentClassifier|QCREF]
+	direction=PortDirection category=PortCategory => 'port' classifier=[aadl2::ComponentClassifier|QCREF]
 	;
 	
 AccessSpecification returns aadl2::AccessSpecification:
-	kind=AccessDirection category=AccessCategory 'access' classifier=[aadl2::ComponentClassifier|QCREF]
+	kind=AccessDirection category=AccessCategory => 'access' classifier=[aadl2::ComponentClassifier|QCREF]
 	;
 
 	
 FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	direction=InOutDirection 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	direction=InOutDirection => 'feature' prototype=[aadl2::FeaturePrototype|ID]
 	;
 
 
@@ -1512,7 +1512,7 @@ PortDirection returns aadl2::DirectionType: 'in' | 'out' |  'in' 'out';
 InOutDirection returns aadl2::DirectionType: 'in' | 'out' ;
 AccessDirection returns aadl2::AccessType: 'requires' | 'provides';
 
-PortCategory returns aadl2::PortCategory: 'data' | 'event' |  'event' 'data';
+PortCategory returns aadl2::PortCategory: 'data' | 'event' |  ('event' 'data');
 
 
 FeatureGroupType returns aadl2::FeatureGroupType:

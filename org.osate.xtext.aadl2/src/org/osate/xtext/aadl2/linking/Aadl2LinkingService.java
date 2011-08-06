@@ -18,103 +18,7 @@ import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IScope;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessConnectionEnd;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.CallContext;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.Connection;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.Context;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowElement;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureConnectionEnd;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeatureType;
-import org.osate.aadl2.FlowElement;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.ListType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.Namespace;
-import org.osate.aadl2.NumberType;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.ParameterConnectionEnd;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortConnectionEnd;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupSubcomponentType;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.*;
 import org.osate.xtext.aadl2.util.PSNode;
 
 import com.google.inject.Inject;
@@ -126,8 +30,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
 	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
-
-	
 
 private static PSNode psNode = new PSNode();
 	
@@ -305,14 +207,21 @@ private static PSNode psNode = new PSNode();
 				// connection context
 				EObject conn = context.eContainer();
 				if (((conn instanceof FeatureGroupConnection
-						|| conn instanceof FeatureConnection || conn instanceof AccessConnection) && (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof ParameterConnection) && (searchResult instanceof Parameter
-								|| searchResult instanceof SubprogramCall
-								|| searchResult instanceof DataPort
-								|| searchResult instanceof EventDataPort || searchResult instanceof FeatureGroup))
-						|| ((conn instanceof PortConnection) && (searchResult instanceof FeatureGroup
-								|| searchResult instanceof Subcomponent
-								|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
+						|| conn instanceof FeatureConnection ) 
+						&& (searchResult instanceof Subcomponent || searchResult instanceof FeatureGroup))
+					|| ((conn instanceof AccessConnection) 
+						&& (searchResult instanceof Subcomponent 
+							|| searchResult instanceof FeatureGroup
+							|| searchResult instanceof SubprogramCall))
+					|| ((conn instanceof ParameterConnection) 
+						&& (searchResult instanceof Parameter
+							|| searchResult instanceof SubprogramCall
+							|| searchResult instanceof DataPort
+							|| searchResult instanceof EventDataPort || searchResult instanceof FeatureGroup))
+					|| ((conn instanceof PortConnection) 
+						&& (searchResult instanceof FeatureGroup
+							|| searchResult instanceof Subcomponent || searchResult instanceof SubprogramCall
+							|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
 					return Collections.singletonList((EObject) searchResult);
 			} else if (context instanceof TriggerPort
 					|| context instanceof FlowSpecification
@@ -339,7 +248,8 @@ private static PSNode psNode = new PSNode();
 		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
 			// if cxt then search in context
 			Classifier ns = getContainingClassifier(context);
-			if (context == null){
+			CallContext callContext = ((SubprogramCall) context).getContext();
+			if (callContext == null){
 				// look for prototype, subprogramsubcomponent
 				EObject searchResult = ns.findNamedElement(s);
 				if (searchResult == null){
@@ -351,23 +261,22 @@ private static PSNode psNode = new PSNode();
 					return Collections.singletonList((EObject) searchResult);
 				}
 			} else {
-				CallContext cxt = ((SubprogramCall) context).getContext();
-				if (cxt instanceof ComponentType){
-					ns = (ComponentType)cxt;
-				} else if (cxt instanceof SubprogramGroupSubcomponent){
-					ns = ((SubprogramGroupSubcomponent)cxt).getComponentType();
+				if (callContext instanceof ComponentType){
+					ns = (ComponentType)callContext;
+				} else if (callContext instanceof SubprogramGroupSubcomponent){
+					ns = ((SubprogramGroupSubcomponent)callContext).getComponentType();
 					if (ns == null) {
 						return Collections.<EObject> emptyList();
 					}
-				} else if (cxt instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)cxt).getKind() == AccessType.REQUIRED){
-					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess)cxt).getSubprogramGroupFeatureClassifier();
+				} else if (callContext instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)callContext).getKind() == AccessType.REQUIRED){
+					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess)callContext).getSubprogramGroupFeatureClassifier();
 					if (sst instanceof Classifier)
 						ns = (Classifier) sst;;
 					if (ns == null) {
 						return Collections.<EObject> emptyList();
 					}
-				} else if (cxt instanceof FeatureGroup ){
-					ns = ((FeatureGroup)cxt).getFeatureGroupType();
+				} else if (callContext instanceof FeatureGroup ){
+					ns = ((FeatureGroup)callContext).getFeatureGroupType();
 					if (ns == null) {
 						return Collections.<EObject> emptyList();
 					}
@@ -1044,6 +953,29 @@ private static PSNode psNode = new PSNode();
 						return ((PortConnectionEnd) searchResult);
 				}
 			}
+		} else if (cxt instanceof SubprogramCall) {
+			SubprogramCall subprogramCall = (SubprogramCall) cxt;
+			if (subprogramCall.getCalledSubprogram() != null) {
+				CalledSubprogram calledSubprogram = subprogramCall.getCalledSubprogram();
+				NamedElement searchResult=null;
+				if (calledSubprogram instanceof SubprogramClassifier){
+					searchResult = ((SubprogramClassifier)calledSubprogram).findNamedElement(portName);
+				} else if (calledSubprogram instanceof SubprogramAccess){
+					SubprogramClassifier spc = (SubprogramClassifier)((SubprogramAccess)calledSubprogram).getAllClassifier();
+					if (spc != null)
+						searchResult = spc.findNamedElement(portName);
+					// TODO-phf: handle prototype reference in subprogram access feature
+				} else if (calledSubprogram instanceof SubprogramPrototype){
+					SubprogramPrototype spp = (SubprogramPrototype)calledSubprogram;
+					if (spp.getConstrainingClassifier() != null){
+						ComponentClassifier spcc=spp.getConstrainingClassifier();
+						if (spcc != null) 
+							searchResult = spcc.findNamedElement(portName);
+					}
+				}
+				if (searchResult instanceof PortConnectionEnd)
+					return ((PortConnectionEnd) searchResult);
+			}
 		}
 		return null;
 	}
@@ -1099,6 +1031,29 @@ private static PSNode psNode = new PSNode();
 					if (searchResult instanceof Access)
 						return (Access) searchResult;
 				}
+			}
+		} else if (cxt instanceof SubprogramCall) {
+			SubprogramCall subprogramCall = (SubprogramCall) cxt;
+			if (subprogramCall.getCalledSubprogram() != null) {
+				CalledSubprogram calledSubprogram = subprogramCall.getCalledSubprogram();
+				NamedElement searchResult=null;
+				if (calledSubprogram instanceof SubprogramClassifier){
+					searchResult = ((SubprogramClassifier)calledSubprogram).findNamedElement(name);
+				} else if (calledSubprogram instanceof SubprogramAccess){
+					SubprogramClassifier spc = (SubprogramClassifier)((SubprogramAccess)calledSubprogram).getAllClassifier();
+					if (spc != null)
+						searchResult = spc.findNamedElement(name);
+					// TODO-phf: handle prototype reference in subprogram access feature
+				} else if (calledSubprogram instanceof SubprogramPrototype){
+					SubprogramPrototype spp = (SubprogramPrototype)calledSubprogram;
+					if (spp.getConstrainingClassifier() != null){
+						ComponentClassifier spcc=spp.getConstrainingClassifier();
+						if (spcc != null) 
+							searchResult = spcc.findNamedElement(name);
+					}
+				}
+				if (searchResult instanceof PortConnectionEnd)
+					return ((PortConnectionEnd) searchResult);
 			}
 		}
 		return null;
