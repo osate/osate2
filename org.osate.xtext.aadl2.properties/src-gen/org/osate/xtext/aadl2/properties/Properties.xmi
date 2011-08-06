@@ -237,14 +237,14 @@
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.21"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.20"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.23"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.22"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.33"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.20"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.33"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.23"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.24"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.10"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.9"/>

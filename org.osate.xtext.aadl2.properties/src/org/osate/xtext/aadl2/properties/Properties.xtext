@@ -72,10 +72,10 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	  RecordTerm |NumericRangeTerm
-	| ReferenceTerm | ComputedTerm | StringTerm 
+	  => RecordTerm | => ReferenceTerm | => ComponentClassifierTerm
+	 | => ComputedTerm | => StringTerm | NumericRangeTerm
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| ListTerm |ActualBooleanTerm
+	  	| ListTerm |ActualBooleanTerm
 	 //| BooleanTerm
 	  | LiteralorReferenceTerm
 	;
