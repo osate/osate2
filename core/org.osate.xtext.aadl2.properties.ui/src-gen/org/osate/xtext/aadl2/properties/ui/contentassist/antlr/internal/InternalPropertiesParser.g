@@ -20,7 +20,6 @@ import java.io.InputStream;
 import org.eclipse.xtext.*;
 import org.eclipse.xtext.parser.*;
 import org.eclipse.xtext.parser.impl.*;
-import org.eclipse.xtext.parsetree.*;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
@@ -1490,50 +1489,50 @@ rule__PropertyExpression__Alternatives
 :
 (
 { before(grammarAccess.getPropertyExpressionAccess().getRecordTermParserRuleCall_0()); }
-	ruleRecordTerm
+(	ruleRecordTerm)
 { after(grammarAccess.getPropertyExpressionAccess().getRecordTermParserRuleCall_0()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1()); }
-	ruleNumericRangeTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_1()); }
+(	ruleReferenceTerm)
+{ after(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_1()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_2()); }
-	ruleReferenceTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getReferenceTermParserRuleCall_2()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); }
+(	ruleComponentClassifierTerm)
+{ after(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); }
 )
 
     |(
 { before(grammarAccess.getPropertyExpressionAccess().getComputedTermParserRuleCall_3()); }
-	ruleComputedTerm
+(	ruleComputedTerm)
 { after(grammarAccess.getPropertyExpressionAccess().getComputedTermParserRuleCall_3()); }
 )
 
     |(
 { before(grammarAccess.getPropertyExpressionAccess().getStringTermParserRuleCall_4()); }
-	ruleStringTerm
+(	ruleStringTerm)
 { after(grammarAccess.getPropertyExpressionAccess().getStringTermParserRuleCall_4()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_5()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); }
+	ruleNumericRangeTerm
+{ after(grammarAccess.getPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); }
+)
+
+    |(
+{ before(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_6()); }
 	ruleRealTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_5()); }
+{ after(grammarAccess.getPropertyExpressionAccess().getRealTermParserRuleCall_6()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_6()); }
+{ before(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); }
 	ruleIntegerTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_6()); }
-)
-
-    |(
-{ before(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_7()); }
-	ruleComponentClassifierTerm
-{ after(grammarAccess.getPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_7()); }
+{ after(grammarAccess.getPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); }
 )
 
     |(
