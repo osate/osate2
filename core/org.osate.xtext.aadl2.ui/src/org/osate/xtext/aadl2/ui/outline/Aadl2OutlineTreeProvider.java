@@ -8,8 +8,12 @@ import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -61,25 +65,25 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	// Uncomment the next set to limit outline for package and property set to 
 
-//	// Classifier nodes are leafs and not expandable
-//	protected boolean _isLeaf(Classifier feature) {
-//	    return true;
-//	}
-//
-//	// Property nodes are leafs and not expandable
-//	protected boolean _isLeaf(Property feature) {
-//	    return true;
-//	}
-//
-//	// PropertyConstant nodes are leafs and not expandable
-//	protected boolean _isLeaf(PropertyConstant feature) {
-//	    return true;
-//	}
-//
-//	// PropertyType nodes are leafs and not expandable
-//	protected boolean _isLeaf(PropertyType feature) {
-//	    return true;
-//	}
+	// Classifier nodes are leafs and not expandable
+	protected boolean _isLeaf(Classifier feature) {
+	    return true;
+	}
+
+	// Property nodes are leafs and not expandable
+	protected boolean _isLeaf(Property feature) {
+	    return true;
+	}
+
+	// PropertyConstant nodes are leafs and not expandable
+	protected boolean _isLeaf(PropertyConstant feature) {
+	    return true;
+	}
+
+	// PropertyType nodes are leafs and not expandable
+	protected boolean _isLeaf(PropertyType feature) {
+	    return true;
+	}
 
 	
 

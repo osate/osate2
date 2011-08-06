@@ -150,7 +150,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_8_1(), "rule__DataImplementation__Alternatives_8_1");
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_9_1(), "rule__DataImplementation__Alternatives_9_1");
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_9_1_0(), "rule__DataImplementation__Alternatives_9_1_0");
-					put(grammarAccess.getCallSpecificationAccess().getAlternatives_0_3(), "rule__CallSpecification__Alternatives_0_3");
+					put(grammarAccess.getCallSpecificationAccess().getAlternatives_0(), "rule__CallSpecification__Alternatives_0");
+					put(grammarAccess.getCallSpecificationAccess().getAlternatives_0_1_4(), "rule__CallSpecification__Alternatives_0_1_4");
 					put(grammarAccess.getPrototypeAccess().getAlternatives_0(), "rule__Prototype__Alternatives_0");
 					put(grammarAccess.getAbstractPrototypeAccess().getAlternatives_0(), "rule__AbstractPrototype__Alternatives_0");
 					put(grammarAccess.getBusPrototypeAccess().getAlternatives_0(), "rule__BusPrototype__Alternatives_0");
@@ -169,7 +170,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupPrototypeAccess().getAlternatives_0(), "rule__FeatureGroupPrototype__Alternatives_0");
 					put(grammarAccess.getFeaturePrototypeAccess().getAlternatives_0(), "rule__FeaturePrototype__Alternatives_0");
 					put(grammarAccess.getPrototypeBindingAccess().getAlternatives(), "rule__PrototypeBinding__Alternatives");
-					put(grammarAccess.getFeaturePrototypeBindingAccess().getActualAlternatives_3_0(), "rule__FeaturePrototypeBinding__ActualAlternatives_3_0");
+					put(grammarAccess.getFeaturePrototypeBindingAccess().getActualAlternatives_2_0(), "rule__FeaturePrototypeBinding__ActualAlternatives_2_0");
 					put(grammarAccess.getComponentPrototypeBindingAccess().getAlternatives_2(), "rule__ComponentPrototypeBinding__Alternatives_2");
 					put(grammarAccess.getAbstractSubcomponentAccess().getAlternatives_0(), "rule__AbstractSubcomponent__Alternatives_0");
 					put(grammarAccess.getAbstractSubcomponentAccess().getAlternatives_5_3(), "rule__AbstractSubcomponent__Alternatives_5_3");
@@ -543,8 +544,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramCallSequenceAccess().getGroup_4(), "rule__SubprogramCallSequence__Group_4__0");
 					put(grammarAccess.getSubprogramCallSequenceAccess().getGroup_5(), "rule__SubprogramCallSequence__Group_5__0");
 					put(grammarAccess.getCallSpecificationAccess().getGroup(), "rule__CallSpecification__Group__0");
-					put(grammarAccess.getCallSpecificationAccess().getGroup_0(), "rule__CallSpecification__Group_0__0");
-					put(grammarAccess.getCallSpecificationAccess().getGroup_0_3_0(), "rule__CallSpecification__Group_0_3_0__0");
+					put(grammarAccess.getCallSpecificationAccess().getGroup_0_0(), "rule__CallSpecification__Group_0_0__0");
+					put(grammarAccess.getCallSpecificationAccess().getGroup_0_1(), "rule__CallSpecification__Group_0_1__0");
+					put(grammarAccess.getCallSpecificationAccess().getGroup_0_1_4_0(), "rule__CallSpecification__Group_0_1_4_0__0");
 					put(grammarAccess.getCallSpecificationAccess().getGroup_1(), "rule__CallSpecification__Group_1__0");
 					put(grammarAccess.getPrototypeAccess().getGroup(), "rule__Prototype__Group__0");
 					put(grammarAccess.getPrototypeAccess().getGroup_1(), "rule__Prototype__Group_1__0");
@@ -1481,10 +1483,12 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramCallSequenceAccess().getOwnedCallSpecificationAssignment_2(), "rule__SubprogramCallSequence__OwnedCallSpecificationAssignment_2");
 					put(grammarAccess.getSubprogramCallSequenceAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__SubprogramCallSequence__OwnedPropertyAssociationAssignment_4_1");
 					put(grammarAccess.getSubprogramCallSequenceAccess().getInModeAssignment_5_3(), "rule__SubprogramCallSequence__InModeAssignment_5_3");
-					put(grammarAccess.getCallSpecificationAccess().getNameAssignment_0_1(), "rule__CallSpecification__NameAssignment_0_1");
-					put(grammarAccess.getCallSpecificationAccess().getContextAssignment_0_3_0_0(), "rule__CallSpecification__ContextAssignment_0_3_0_0");
-					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_3_0_2(), "rule__CallSpecification__CalledSubprogramAssignment_0_3_0_2");
-					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_3_1(), "rule__CallSpecification__CalledSubprogramAssignment_0_3_1");
+					put(grammarAccess.getCallSpecificationAccess().getNameAssignment_0_0_1(), "rule__CallSpecification__NameAssignment_0_0_1");
+					put(grammarAccess.getCallSpecificationAccess().getSubprogramAccessNameAssignment_0_0_6(), "rule__CallSpecification__SubprogramAccessNameAssignment_0_0_6");
+					put(grammarAccess.getCallSpecificationAccess().getNameAssignment_0_1_1(), "rule__CallSpecification__NameAssignment_0_1_1");
+					put(grammarAccess.getCallSpecificationAccess().getContextAssignment_0_1_4_0_0(), "rule__CallSpecification__ContextAssignment_0_1_4_0_0");
+					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_1_4_0_2(), "rule__CallSpecification__CalledSubprogramAssignment_0_1_4_0_2");
+					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_1_4_1(), "rule__CallSpecification__CalledSubprogramAssignment_0_1_4_1");
 					put(grammarAccess.getCallSpecificationAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__CallSpecification__OwnedPropertyAssociationAssignment_1_1");
 					put(grammarAccess.getPrototypeAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__Prototype__OwnedPropertyAssociationAssignment_1_1");
 					put(grammarAccess.getAbstractPrototypeAccess().getNameAssignment_0_0_0(), "rule__AbstractPrototype__NameAssignment_0_0_0");
@@ -1556,7 +1560,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingAssignment_1_1(), "rule__FeatureGroupPrototypeActual__BindingAssignment_1_1");
 					put(grammarAccess.getFeatureGroupPrototypeActualAccess().getBindingAssignment_1_2_1(), "rule__FeatureGroupPrototypeActual__BindingAssignment_1_2_1");
 					put(grammarAccess.getFeaturePrototypeBindingAccess().getFormalAssignment_0(), "rule__FeaturePrototypeBinding__FormalAssignment_0");
-					put(grammarAccess.getFeaturePrototypeBindingAccess().getActualAssignment_3(), "rule__FeaturePrototypeBinding__ActualAssignment_3");
+					put(grammarAccess.getFeaturePrototypeBindingAccess().getActualAssignment_2(), "rule__FeaturePrototypeBinding__ActualAssignment_2");
 					put(grammarAccess.getPortSpecificationAccess().getDirectionAssignment_0(), "rule__PortSpecification__DirectionAssignment_0");
 					put(grammarAccess.getPortSpecificationAccess().getCategoryAssignment_1(), "rule__PortSpecification__CategoryAssignment_1");
 					put(grammarAccess.getPortSpecificationAccess().getClassifierAssignment_3(), "rule__PortSpecification__ClassifierAssignment_3");
