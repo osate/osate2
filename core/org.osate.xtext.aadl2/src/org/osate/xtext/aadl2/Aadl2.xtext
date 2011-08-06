@@ -1563,7 +1563,7 @@ ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
 
 PortConnection returns aadl2::PortConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to'))
+	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'port' 
 	source=AbstractConnectionEnd
 	('->' | bidirectional?='<->')
@@ -1575,7 +1575,7 @@ PortConnection returns aadl2::PortConnection:
 
 AccessConnection returns aadl2::AccessConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to'))
+	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	accessCategory=AccessCategory 'access' 
 	source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
 	('->' | bidirectional?='<->')
@@ -1586,7 +1586,7 @@ AccessConnection returns aadl2::AccessConnection:
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'feature' 'group' 
 	source=ConnectedElement
 	( bidirectional?='<->')
@@ -1597,7 +1597,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 
 FeatureConnection returns aadl2::FeatureConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to'))
+	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'feature' 
 	source=ConnectedElement
 	('->' | bidirectional?='<->')
@@ -1608,7 +1608,7 @@ FeatureConnection returns aadl2::FeatureConnection:
 
 ParameterConnection returns aadl2::ParameterConnection:
 	((name=ID ':' )|
-	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' 'refined' 'to'))
+	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'parameter' 
 	source=ConnectedElement
 	 '->'

@@ -124,7 +124,8 @@ Workflow {
         		ignoreCase = true
 //        		backtrack = true
 					classSplitting = true
-				fieldsPerClass = "500"				}
+//				fieldsPerClass = "500"		
+				}
 			}
 
 			// generates junit test support classes into Generator#pathTestProject
