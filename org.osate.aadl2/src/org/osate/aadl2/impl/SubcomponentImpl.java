@@ -242,12 +242,13 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		subcomponentType= subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
+		return subcomponentType.eIsProxy() ? null : subcomponentType;
 	}
 
 	/**
@@ -266,7 +267,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentClassifier getClassifier() {
 		EObject classifier = getSubcomponentType();
-		return (ComponentClassifier)(classifier instanceof ComponentClassifier&& !classifier.eIsProxy() ? classifier : null);
+		return (ComponentClassifier)(classifier instanceof ComponentClassifier ? classifier : null);
 	}
 
 	/**
@@ -314,7 +315,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentPrototype getPrototype() {
 		EObject prototype = getSubcomponentType();
-		return (ComponentPrototype)(prototype instanceof ComponentPrototype&& !prototype.eIsProxy() ? prototype : null);
+		return (ComponentPrototype)(prototype instanceof ComponentPrototype ? prototype : null);
 	}
 
 	/**

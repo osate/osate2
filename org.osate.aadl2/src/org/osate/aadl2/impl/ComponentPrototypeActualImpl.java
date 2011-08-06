@@ -177,7 +177,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements Compone
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SubcomponentType getSubcomponentType() {
 		if (subcomponentType != null && ((EObject) subcomponentType).eIsProxy()) {
@@ -190,7 +190,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements Compone
 							subcomponentType));
 			}
 		}
-		return subcomponentType;
+		return subcomponentType.eIsProxy()?null:subcomponentType;
 	}
 
 	/**
