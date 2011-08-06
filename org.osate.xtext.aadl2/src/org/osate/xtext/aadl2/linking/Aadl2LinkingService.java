@@ -63,6 +63,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
@@ -196,6 +197,19 @@ private static PSNode psNode = new PSNode();
 				}
 			}
 			return Collections.<EObject> emptyList();
+		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
+			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
+			EObject e = findClassifier(context, reference,  s);
+			if (e == null){
+				// look for prototype
+				e = getContainingClassifier(context).findNamedElement(s);
+				// TODO-phf: this can be removed if the FeatureClassifier class handles it
+				if (! (e instanceof FeaturePrototype || e instanceof ComponentPrototype))
+					e = null;
+			}
+			if (requiredType.isSuperTypeOf(e.eClass())){
+				return Collections.singletonList((EObject) e);
+			}
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
 			AadlPackage pack = findAadlPackage(context, s, reference);
 			if (pack != null) {
@@ -635,7 +649,7 @@ private static PSNode psNode = new PSNode();
 			}
 			return Collections.<EObject> emptyList();
 		} else {
-			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService");
+			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService: "+reference.getName()+" to "+requiredType.getName());
 		}
 
 		return Collections.emptyList();
