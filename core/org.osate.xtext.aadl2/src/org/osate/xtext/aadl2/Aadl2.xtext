@@ -1449,7 +1449,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 		// default is inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
-	direction=InOutDirection 'feature' 'group' 
+	(direction=InOutDirection)? 'feature' 'group' 
 	( inverse?='inverse' 'of')?
 	featureType=[aadl2::FeatureType|QCREF] 
 	(arrayDimension+=ArrayDimension)?

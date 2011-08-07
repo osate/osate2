@@ -1580,98 +1580,89 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NumericRangeTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cMinimumAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final Alternatives cMinimumAlternatives_0_0 = (Alternatives)cMinimumAssignment_0.eContents().get(0);
-		private final RuleCall cMinimumRealTermParserRuleCall_0_0_0 = (RuleCall)cMinimumAlternatives_0_0.eContents().get(0);
-		private final RuleCall cMinimumIntegerTermParserRuleCall_0_0_1 = (RuleCall)cMinimumAlternatives_0_0.eContents().get(1);
-		private final RuleCall cMinimumSignedConstantParserRuleCall_0_0_2 = (RuleCall)cMinimumAlternatives_0_0.eContents().get(2);
-		private final RuleCall cMinimumConstantValueParserRuleCall_0_0_3 = (RuleCall)cMinimumAlternatives_0_0.eContents().get(3);
+		private final RuleCall cMinimumNumAltParserRuleCall_0_0 = (RuleCall)cMinimumAssignment_0.eContents().get(0);
 		private final Keyword cFullStopFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cMaximumAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final Alternatives cMaximumAlternatives_2_0 = (Alternatives)cMaximumAssignment_2.eContents().get(0);
-		private final RuleCall cMaximumRealTermParserRuleCall_2_0_0 = (RuleCall)cMaximumAlternatives_2_0.eContents().get(0);
-		private final RuleCall cMaximumIntegerTermParserRuleCall_2_0_1 = (RuleCall)cMaximumAlternatives_2_0.eContents().get(1);
-		private final RuleCall cMaximumSignedConstantParserRuleCall_2_0_2 = (RuleCall)cMaximumAlternatives_2_0.eContents().get(2);
-		private final RuleCall cMaximumConstantValueParserRuleCall_2_0_3 = (RuleCall)cMaximumAlternatives_2_0.eContents().get(3);
+		private final RuleCall cMaximumNumAltParserRuleCall_2_0 = (RuleCall)cMaximumAssignment_2.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cDeltaKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cDeltaAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final Alternatives cDeltaAlternatives_3_1_0 = (Alternatives)cDeltaAssignment_3_1.eContents().get(0);
-		private final RuleCall cDeltaRealTermParserRuleCall_3_1_0_0 = (RuleCall)cDeltaAlternatives_3_1_0.eContents().get(0);
-		private final RuleCall cDeltaIntegerTermParserRuleCall_3_1_0_1 = (RuleCall)cDeltaAlternatives_3_1_0.eContents().get(1);
-		private final RuleCall cDeltaSignedConstantParserRuleCall_3_1_0_2 = (RuleCall)cDeltaAlternatives_3_1_0.eContents().get(2);
-		private final RuleCall cDeltaConstantValueParserRuleCall_3_1_0_3 = (RuleCall)cDeltaAlternatives_3_1_0.eContents().get(3);
+		private final RuleCall cDeltaNumAltParserRuleCall_3_1_0 = (RuleCall)cDeltaAssignment_3_1.eContents().get(0);
 		
 		//NumericRangeTerm returns aadl2::RangeValue:
-		//	minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm |
-		//	SignedConstant | ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?;
+		//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//	NumAlt)?;
 		public ParserRule getRule() { return rule; }
 
-		//minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm | SignedConstant
-		//| ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?
+		//minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		//NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt)?
 		public Group getGroup() { return cGroup; }
 
-		//minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+		//minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		//NumAlt
 		public Assignment getMinimumAssignment_0() { return cMinimumAssignment_0; }
 
-		//RealTerm | IntegerTerm | SignedConstant | ConstantValue
-		public Alternatives getMinimumAlternatives_0_0() { return cMinimumAlternatives_0_0; }
-
-		//RealTerm
-		public RuleCall getMinimumRealTermParserRuleCall_0_0_0() { return cMinimumRealTermParserRuleCall_0_0_0; }
-
-		//IntegerTerm
-		public RuleCall getMinimumIntegerTermParserRuleCall_0_0_1() { return cMinimumIntegerTermParserRuleCall_0_0_1; }
-
-		//SignedConstant
-		public RuleCall getMinimumSignedConstantParserRuleCall_0_0_2() { return cMinimumSignedConstantParserRuleCall_0_0_2; }
-
-		//ConstantValue
-		public RuleCall getMinimumConstantValueParserRuleCall_0_0_3() { return cMinimumConstantValueParserRuleCall_0_0_3; }
+		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		//NumAlt
+		public RuleCall getMinimumNumAltParserRuleCall_0_0() { return cMinimumNumAltParserRuleCall_0_0; }
 
 		//".."
 		public Keyword getFullStopFullStopKeyword_1() { return cFullStopFullStopKeyword_1; }
 
-		//maximum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+		//maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt
 		public Assignment getMaximumAssignment_2() { return cMaximumAssignment_2; }
 
-		//RealTerm | IntegerTerm | SignedConstant | ConstantValue
-		public Alternatives getMaximumAlternatives_2_0() { return cMaximumAlternatives_2_0; }
+		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt
+		public RuleCall getMaximumNumAltParserRuleCall_2_0() { return cMaximumNumAltParserRuleCall_2_0; }
 
-		//RealTerm
-		public RuleCall getMaximumRealTermParserRuleCall_2_0_0() { return cMaximumRealTermParserRuleCall_2_0_0; }
-
-		//IntegerTerm
-		public RuleCall getMaximumIntegerTermParserRuleCall_2_0_1() { return cMaximumIntegerTermParserRuleCall_2_0_1; }
-
-		//SignedConstant
-		public RuleCall getMaximumSignedConstantParserRuleCall_2_0_2() { return cMaximumSignedConstantParserRuleCall_2_0_2; }
-
-		//ConstantValue
-		public RuleCall getMaximumConstantValueParserRuleCall_2_0_3() { return cMaximumConstantValueParserRuleCall_2_0_3; }
-
-		//("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?
+		//(=> "delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"delta"
+		//=> "delta"
 		public Keyword getDeltaKeyword_3_0() { return cDeltaKeyword_3_0; }
 
-		//delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+		//delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt
 		public Assignment getDeltaAssignment_3_1() { return cDeltaAssignment_3_1; }
 
-		//RealTerm | IntegerTerm | SignedConstant | ConstantValue
-		public Alternatives getDeltaAlternatives_3_1_0() { return cDeltaAlternatives_3_1_0; }
+		////(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//NumAlt
+		public RuleCall getDeltaNumAltParserRuleCall_3_1_0() { return cDeltaNumAltParserRuleCall_3_1_0; }
+	}
 
-		//RealTerm
-		public RuleCall getDeltaRealTermParserRuleCall_3_1_0_0() { return cDeltaRealTermParserRuleCall_3_1_0_0; }
+	public class NumAltElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NumAlt");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cRealTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cIntegerTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cSignedConstantParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cConstantValueParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//NumAlt returns aadl2::PropertyExpression:
+		//	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
+		public ParserRule getRule() { return rule; }
+
+		//=> RealTerm | IntegerTerm | SignedConstant | ConstantValue
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//=> RealTerm
+		public RuleCall getRealTermParserRuleCall_0() { return cRealTermParserRuleCall_0; }
 
 		//IntegerTerm
-		public RuleCall getDeltaIntegerTermParserRuleCall_3_1_0_1() { return cDeltaIntegerTermParserRuleCall_3_1_0_1; }
+		public RuleCall getIntegerTermParserRuleCall_1() { return cIntegerTermParserRuleCall_1; }
 
 		//SignedConstant
-		public RuleCall getDeltaSignedConstantParserRuleCall_3_1_0_2() { return cDeltaSignedConstantParserRuleCall_3_1_0_2; }
+		public RuleCall getSignedConstantParserRuleCall_2() { return cSignedConstantParserRuleCall_2; }
 
 		//ConstantValue
-		public RuleCall getDeltaConstantValueParserRuleCall_3_1_0_3() { return cDeltaConstantValueParserRuleCall_3_1_0_3; }
+		public RuleCall getConstantValueParserRuleCall_3() { return cConstantValueParserRuleCall_3; }
 	}
 
 	public class INTVALUEElements extends AbstractParserRuleElementFinder {
@@ -1861,6 +1852,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private RealTermElements pRealTerm;
 	private SignedRealElements pSignedReal;
 	private NumericRangeTermElements pNumericRangeTerm;
+	private NumAltElements pNumAlt;
 	private TerminalRule tSL_COMMENT;
 	private INTVALUEElements pINTVALUE;
 	private TerminalRule tEXPONENT;
@@ -2316,14 +2308,26 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NumericRangeTerm returns aadl2::RangeValue:
-	//	minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm |
-	//	SignedConstant | ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?;
+	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt)?;
 	public NumericRangeTermElements getNumericRangeTermAccess() {
 		return (pNumericRangeTerm != null) ? pNumericRangeTerm : (pNumericRangeTerm = new NumericRangeTermElements());
 	}
 	
 	public ParserRule getNumericRangeTermRule() {
 		return getNumericRangeTermAccess().getRule();
+	}
+
+	//NumAlt returns aadl2::PropertyExpression:
+	//	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
+	public NumAltElements getNumAltAccess() {
+		return (pNumAlt != null) ? pNumAlt : (pNumAlt = new NumAltElements());
+	}
+	
+	public ParserRule getNumAltRule() {
+		return getNumAltAccess().getRule();
 	}
 
 	//terminal SL_COMMENT:

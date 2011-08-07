@@ -79,10 +79,10 @@ private static PSNode psNode = new PSNode();
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
-		final String s = getCrossRefNodeAsString(node);
+		final String name = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
 			// resolve classifier reference
-			EObject e = findClassifier(context, reference,  s);
+			EObject e = findClassifier(context, reference,  name);
 			if (e != null ) {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
@@ -90,7 +90,7 @@ private static PSNode psNode = new PSNode();
 			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				NamedElement searchResult = getContainingClassifier(context)
-						.findNamedElement(s);
+						.findNamedElement(name);
 				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
 					if( searchResult instanceof DataPrototype ){
 						return Collections.singletonList((EObject) searchResult);
@@ -102,10 +102,10 @@ private static PSNode psNode = new PSNode();
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
-			EObject e = findClassifier(context, reference,  s);
+			EObject e = findClassifier(context, reference,  name);
 			if (e == null){
 				// look for prototype
-				e = getContainingClassifier(context).findNamedElement(s);
+				e = getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
 				if (! (e instanceof FeaturePrototype || e instanceof ComponentPrototype))
 					e = null;
@@ -114,25 +114,25 @@ private static PSNode psNode = new PSNode();
 				return Collections.singletonList((EObject) e);
 			}
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, s, reference);
+			AadlPackage pack = findAadlPackage(context, name, reference);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
 			}
-			PropertySet ps = findPropertySet(context, s, reference);
+			PropertySet ps = findPropertySet(context, name, reference);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
 			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getAadlPackage() == requiredType) {
-			AadlPackage pack = findAadlPackage(context, s, reference);
+			AadlPackage pack = findAadlPackage(context, name, reference);
 			if (pack != null) {
 				return Collections.singletonList((EObject) pack);
 			}
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getPropertySet() == requiredType) {
-			PropertySet ps = findPropertySet(context, s, reference);
+			PropertySet ps = findPropertySet(context, name, reference);
 			if (ps != null) {
 				return Collections.singletonList((EObject) ps);
 			}
@@ -145,19 +145,19 @@ private static PSNode psNode = new PSNode();
 			ConnectionEnd ce = null;
 			if (conn instanceof PortConnection) {
 				ce = findPortConnectionEnd(
-						(PortConnection) context.eContainer(), cxt, s);
+						(PortConnection) context.eContainer(), cxt, name);
 			} else if (conn instanceof AccessConnection) {
 				ce = findAccessConnectionEnd(
-						(AccessConnection) context.eContainer(), cxt, s);
+						(AccessConnection) context.eContainer(), cxt, name);
 			} else if (conn instanceof FeatureGroupConnection) {
 				ce = findFeatureGroupConnectionEnd(
-						(FeatureGroupConnection) context.eContainer(), cxt, s);
+						(FeatureGroupConnection) context.eContainer(), cxt, name);
 			} else if (conn instanceof FeatureConnection) {
 				ce = findFeatureConnectionEnd(
-						(FeatureConnection) context.eContainer(), cxt, s);
+						(FeatureConnection) context.eContainer(), cxt, name);
 			} else if (conn instanceof ParameterConnection) {
 				ce = findParameterConnectionEnd(
-						(ParameterConnection) context.eContainer(), cxt, s);
+						(ParameterConnection) context.eContainer(), cxt, name);
 			}
 			if (ce != null) {
 				return Collections.singletonList((EObject) ce);
@@ -174,7 +174,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Port) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -191,7 +191,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Feature) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -202,7 +202,7 @@ private static PSNode psNode = new PSNode();
 			// context
 			// also used in triggerport
 			EObject searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
+					.findNamedElement(name);
 			if (context instanceof ConnectedElement) {
 				// connection context
 				EObject conn = context.eContainer();
@@ -234,12 +234,12 @@ private static PSNode psNode = new PSNode();
 
 		} else if (Aadl2Package.eINSTANCE.getCallContext() == requiredType) {
 			EObject searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
+					.findNamedElement(name);
 			if (searchResult != null
 					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
 				return Collections.singletonList((EObject) searchResult);
 			}
-			searchResult = findClassifier(context, reference, s);
+			searchResult = findClassifier(context, reference, name);
 			if (searchResult != null ) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -251,10 +251,10 @@ private static PSNode psNode = new PSNode();
 			CallContext callContext = ((SubprogramCall) context).getContext();
 			if (callContext == null){
 				// look for prototype, subprogramsubcomponent
-				EObject searchResult = ns.findNamedElement(s);
+				EObject searchResult = ns.findNamedElement(name);
 				if (searchResult == null){
 					// look for subprogramclassifier
-					searchResult = findClassifier(context, reference,  s);
+					searchResult = findClassifier(context, reference,  name);
 				}
 				if (searchResult != null
 						&& requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -281,7 +281,7 @@ private static PSNode psNode = new PSNode();
 						return Collections.<EObject> emptyList();
 					}
 				}
-				EObject searchResult = ns.findNamedElement(s);
+				EObject searchResult = ns.findNamedElement(name);
 				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
 					return Collections.singletonList((EObject) searchResult);
 				}
@@ -300,7 +300,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Prototype) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -319,7 +319,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult instanceof Subcomponent) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -331,14 +331,14 @@ private static PSNode psNode = new PSNode();
 			Context flowContext = fs.getContext();
 			if (flowContext == null){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
-				EObject searchResult = cc.findNamedElement(s);
+				EObject searchResult = cc.findNamedElement(name);
 				if (searchResult instanceof FlowElement){
 					return Collections.singletonList((EObject) searchResult);
 				}
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
-					EObject searchResult = cc.findNamedElement(s);
+					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
 						return Collections.singletonList( searchResult);
 					}
@@ -352,14 +352,14 @@ private static PSNode psNode = new PSNode();
 			Context flowContext = fs.getContext();
 			if (flowContext == null){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
-				EObject searchResult = cc.findNamedElement(s);
+				EObject searchResult = cc.findNamedElement(name);
 				if (searchResult instanceof EndToEndFlowElement){
 					return Collections.singletonList((EObject) searchResult);
 				}
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
-					EObject searchResult = cc.findNamedElement(s);
+					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
 						return Collections.singletonList( searchResult);
 					}
@@ -369,40 +369,40 @@ private static PSNode psNode = new PSNode();
 
 		} else if (Aadl2Package.eINSTANCE.getProperty() == requiredType) {
 			// look for property definition in property set
-			return findPropertyDefinition(context, reference, s);
+			return findPropertyDefinition(context, reference, name);
 
 		} else if (pt.isSuperTypeOf(requiredType)) {
 			// look for property type in property set
-			return findPropertyType(context, reference, s);
+			return findPropertyType(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType
 				) {
 			// look for property constant in property set
-			return findPropertyConstant(context, reference, s);
+			return findPropertyConstant(context, reference, name);
 			
 		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
 			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
 			if (context instanceof NamedValue){
-				List<EObject> res = findPropertyConstant(context, reference, s);
+				List<EObject> res = findPropertyConstant(context, reference, name);
 				if (res.isEmpty()){
-					res = findPropertyDefinition(context, reference, s);
+					res = findPropertyDefinition(context, reference, name);
 				}
-				if (res.isEmpty() && s.indexOf("::")==-1){
+				if (res.isEmpty() && name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
-					res = findEnumLiteral(context, reference, s);
+					res = findEnumLiteral(context, reference, name);
 					if (res.isEmpty())
-						res = findUnitLiteralAsList(context, reference, s);
+						res = findUnitLiteralAsList(context, reference, name);
 				}
 				return res;
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
 			// look for unit literal pointed to by baseUnit
-			return findUnitLiteralAsList(context, reference, s);
+			return findUnitLiteralAsList(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
 			// look for enumeration literal
-			return findEnumLiteral(context, reference, s);
+			return findEnumLiteral(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getBasicProperty() == requiredType) {
 			// look for record field definition
@@ -434,7 +434,7 @@ private static PSNode psNode = new PSNode();
 				propertyType = AadlUtil.getBasePropertyType(propertyType);
 				
 				if (propertyType != null && propertyType instanceof RecordType) {
-					BasicProperty rf = (BasicProperty) ((RecordType) propertyType).findNamedElement(s);
+					BasicProperty rf = (BasicProperty) ((RecordType) propertyType).findNamedElement(name);
 					if (rf != null)
 						return Collections.singletonList((EObject) rf);
 				}
@@ -444,7 +444,7 @@ private static PSNode psNode = new PSNode();
 		} else if (Aadl2Package.eINSTANCE.getMode() == requiredType) {
 			// referenced by mode transition and inmodes
 			EObject searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
+					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Mode) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -453,7 +453,7 @@ private static PSNode psNode = new PSNode();
 		} else if (Aadl2Package.eINSTANCE.getModeTransition() == requiredType) {
 			// referenced by in modes
 			EObject searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
+					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeTransition) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -462,7 +462,7 @@ private static PSNode psNode = new PSNode();
 		} else if (Aadl2Package.eINSTANCE.getModeFeature() == requiredType) {
 			// referenced by mode transition and inmodes
 			EObject searchResult = getContainingClassifier(context)
-					.findNamedElement(s);
+					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeFeature) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -481,7 +481,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null
 					&& searchResult instanceof FlowSpecification) {
 				return Collections.singletonList((EObject) searchResult);
@@ -501,7 +501,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof EndToEndFlow) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -518,7 +518,7 @@ private static PSNode psNode = new PSNode();
 					return Collections.emptyList();
 				}
 			}
-			EObject searchResult = ns.findNamedElement(s);
+			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Connection) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -538,23 +538,33 @@ private static PSNode psNode = new PSNode();
 					if (ne instanceof Subcomponent) {
 						Classifier ns = ((Subcomponent) ne).getClassifier();
 						if (ns != null)
-							searchResult = ns.findNamedElement(s);
+							searchResult = ns.findNamedElement(name);
 					} else if (ne instanceof FeatureGroup) {
 						Classifier ns = ((FeatureGroup) ne)
 								.getFeatureGroupType();
 						if (ns != null)
-							searchResult = ns.findNamedElement(s);
+							searchResult = ns.findNamedElement(name);
 					}
 				} else {
 					Classifier ns = getContainingClassifier(context);
 					if (ns != null)
-						searchResult = ns.findNamedElement(s);
+						searchResult = ns.findNamedElement(name);
 				}
 				if (searchResult != null
 						&& searchResult instanceof NamedElement) {
 					return Collections.singletonList((EObject) searchResult);
 				}
 			}
+			return Collections.<EObject> emptyList();
+		} else if (Aadl2Package.eINSTANCE.getFeatureType() == requiredType) {
+			// feature group type or prototype
+			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
+			if (fgt == null){
+				// TODO-phf find the prototype
+			} else{
+				return Collections.singletonList((EObject) fgt);
+			}
+			
 			return Collections.<EObject> emptyList();
 		} else {
 			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService: "+reference.getName()+" to "+requiredType.getName());
@@ -571,6 +581,9 @@ private static PSNode psNode = new PSNode();
 	
 	public FeatureGroupType findFeatureGroupType(EObject context,String name){
 		EReference reference = Aadl2Package.eINSTANCE.getFeatureGroupPrototype_ConstrainingFeatureGroupType();
+		return (FeatureGroupType)findClassifier(context, reference, name);
+	}
+	public FeatureGroupType findFeatureGroupType(EObject context,String name, EReference reference){
 		return (FeatureGroupType)findClassifier(context, reference, name);
 	}
 	

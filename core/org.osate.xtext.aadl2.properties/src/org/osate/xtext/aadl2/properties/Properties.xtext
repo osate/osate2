@@ -73,7 +73,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 
 PropertyExpression returns aadl2::PropertyExpression:
 	  => RecordTerm | => ReferenceTerm | => ComponentClassifierTerm
-	 | => ComputedTerm | => StringTerm | NumericRangeTerm
+	 | => ComputedTerm | => StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
 	  	| ListTerm |ActualBooleanTerm
 	 //| BooleanTerm
@@ -225,12 +225,16 @@ SignedReal returns aadl2::Real:
 
 
 NumericRangeTerm returns aadl2::RangeValue:
-	minimum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
-		'..' maximum=(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	('delta' delta=(RealTerm|IntegerTerm| SignedConstant | ConstantValue))?
+	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	( => 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		
+	)?
 	;
 
-
+NumAlt  returns aadl2::PropertyExpression: 
+	=> RealTerm|IntegerTerm| SignedConstant | ConstantValue
+;
 
 terminal SL_COMMENT:
 	'--' !('\n' | '\r')* ('\r'? '\n')?;
@@ -280,6 +284,7 @@ QCREF:
 	(ID '::')* ID ('.' ID)?;
 	
 STAR : '*';
+
 
 
 terminal STRING	: 

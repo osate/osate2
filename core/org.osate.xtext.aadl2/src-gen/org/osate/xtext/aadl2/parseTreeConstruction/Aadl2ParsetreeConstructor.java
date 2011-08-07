@@ -242,6 +242,7 @@ protected class ThisRootNode extends RootToken {
 			case 208: return new IntegerTerm_Group(this, this, 208, inst);
 			case 209: return new RealTerm_Group(this, this, 209, inst);
 			case 210: return new NumericRangeTerm_Group(this, this, 210, inst);
+			case 211: return new NumAlt_Alternatives(this, this, 211, inst);
 			default: return null;
 		}	
 	}	
@@ -68855,14 +68856,14 @@ protected class EventPort_SemicolonKeyword_7 extends KeywordToken  {
  *
  * FeatureGroup returns aadl2::FeatureGroup:
  * 	(name=ID ":" // default is inout if no direction
- * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+ * 	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
  * 	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
  * 	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
  *
  **/
 
 // (name=ID ":" // default is inout if no direction
-// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+// | refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
 // (inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 // ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 protected class FeatureGroup_Group extends GroupToken {
@@ -69121,7 +69122,7 @@ protected class FeatureGroup_ToKeyword_0_1_3 extends KeywordToken  {
 
 
 
-// direction=InOutDirection
+// direction=InOutDirection?
 protected class FeatureGroup_DirectionAssignment_1 extends AssignmentToken  {
 	
 	public FeatureGroup_DirectionAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -69143,7 +69144,7 @@ protected class FeatureGroup_DirectionAssignment_1 extends AssignmentToken  {
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("direction",true)) == null) return null;
+		if((value = eObjectConsumer.getConsumable("direction",false)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("direction");
 		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getFeatureGroupAccess().getDirectionInOutDirectionParserRuleCall_1_0(), value, null)) {
 			type = AssignmentType.DATATYPE_RULE_CALL;
@@ -69171,6 +69172,7 @@ protected class FeatureGroup_FeatureKeyword_2 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new FeatureGroup_DirectionAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new FeatureGroup_Alternatives_0(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -103586,13 +103588,17 @@ protected class RealTerm_UnitAssignment_1 extends AssignmentToken  {
 /************ begin Rule NumericRangeTerm ****************
  *
  * NumericRangeTerm returns aadl2::RangeValue:
- * 	minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm |
- * 	SignedConstant | ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?;
+ * 	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+ * 	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+ * 	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+ * 	NumAlt)?;
  *
  **/
 
-// minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm | SignedConstant
-// | ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?
+// minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+// NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// NumAlt)?
 protected class NumericRangeTerm_Group extends GroupToken {
 	
 	public NumericRangeTerm_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103622,7 +103628,8 @@ protected class NumericRangeTerm_Group extends GroupToken {
 
 }
 
-// minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+// minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+// NumAlt
 protected class NumericRangeTerm_MinimumAssignment_0 extends AssignmentToken  {
 	
 	public NumericRangeTerm_MinimumAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103637,10 +103644,7 @@ protected class NumericRangeTerm_MinimumAssignment_0 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new RealTerm_Group(this, this, 0, inst);
-			case 1: return new IntegerTerm_Group(this, this, 1, inst);
-			case 2: return new SignedConstant_Group(this, this, 2, inst);
-			case 3: return new ConstantValue_NamedValueAssignment(this, this, 3, inst);
+			case 0: return new NumAlt_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -103651,36 +103655,9 @@ protected class NumericRangeTerm_MinimumAssignment_0 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("minimum");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getRealTermRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getNumAltRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMinimumRealTermParserRuleCall_0_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getIntegerTermRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMinimumIntegerTermParserRuleCall_0_0_1(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSignedConstantRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMinimumSignedConstantParserRuleCall_0_0_2(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getConstantValueRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMinimumConstantValueParserRuleCall_0_0_3(); 
+				element = grammarAccess.getNumericRangeTermAccess().getMinimumNumAltParserRuleCall_0_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -103719,7 +103696,8 @@ protected class NumericRangeTerm_FullStopFullStopKeyword_1 extends KeywordToken 
 
 }
 
-// maximum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+// maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// NumAlt
 protected class NumericRangeTerm_MaximumAssignment_2 extends AssignmentToken  {
 	
 	public NumericRangeTerm_MaximumAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103734,10 +103712,7 @@ protected class NumericRangeTerm_MaximumAssignment_2 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new RealTerm_Group(this, this, 0, inst);
-			case 1: return new IntegerTerm_Group(this, this, 1, inst);
-			case 2: return new SignedConstant_Group(this, this, 2, inst);
-			case 3: return new ConstantValue_NamedValueAssignment(this, this, 3, inst);
+			case 0: return new NumAlt_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -103748,36 +103723,9 @@ protected class NumericRangeTerm_MaximumAssignment_2 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("maximum");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getRealTermRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getNumAltRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMaximumRealTermParserRuleCall_2_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getIntegerTermRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMaximumIntegerTermParserRuleCall_2_0_1(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSignedConstantRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMaximumSignedConstantParserRuleCall_2_0_2(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getConstantValueRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getMaximumConstantValueParserRuleCall_2_0_3(); 
+				element = grammarAccess.getNumericRangeTermAccess().getMaximumNumAltParserRuleCall_2_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -103795,7 +103743,8 @@ protected class NumericRangeTerm_MaximumAssignment_2 extends AssignmentToken  {
 	}	
 }
 
-// ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?
+// (=> "delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// NumAlt)?
 protected class NumericRangeTerm_Group_3 extends GroupToken {
 	
 	public NumericRangeTerm_Group_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103817,7 +103766,7 @@ protected class NumericRangeTerm_Group_3 extends GroupToken {
 
 }
 
-// "delta"
+// => "delta"
 protected class NumericRangeTerm_DeltaKeyword_3_0 extends KeywordToken  {
 	
 	public NumericRangeTerm_DeltaKeyword_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103839,7 +103788,8 @@ protected class NumericRangeTerm_DeltaKeyword_3_0 extends KeywordToken  {
 
 }
 
-// delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue)
+// delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// NumAlt
 protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
 	
 	public NumericRangeTerm_DeltaAssignment_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -103854,10 +103804,7 @@ protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new RealTerm_Group(this, this, 0, inst);
-			case 1: return new IntegerTerm_Group(this, this, 1, inst);
-			case 2: return new SignedConstant_Group(this, this, 2, inst);
-			case 3: return new ConstantValue_NamedValueAssignment(this, this, 3, inst);
+			case 0: return new NumAlt_Alternatives(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -103868,36 +103815,9 @@ protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("delta");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getRealTermRule().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getNumAltRule().getType().getClassifier())) {
 				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getDeltaRealTermParserRuleCall_3_1_0_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getIntegerTermRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getDeltaIntegerTermParserRuleCall_3_1_0_1(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSignedConstantRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getDeltaSignedConstantParserRuleCall_3_1_0_2(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getConstantValueRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getNumericRangeTermAccess().getDeltaConstantValueParserRuleCall_3_1_0_3(); 
+				element = grammarAccess.getNumericRangeTermAccess().getDeltaNumAltParserRuleCall_3_1_0(); 
 				consumed = obj;
 				return param;
 			}
@@ -103918,6 +103838,196 @@ protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
 
 
 /************ end Rule NumericRangeTerm ****************/
+
+
+/************ begin Rule NumAlt ****************
+ *
+ * NumAlt returns aadl2::PropertyExpression:
+ * 	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
+ *
+ **/
+
+// => RealTerm | IntegerTerm | SignedConstant | ConstantValue
+protected class NumAlt_Alternatives extends AlternativesToken {
+
+	public NumAlt_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Alternatives getGrammarElement() {
+		return grammarAccess.getNumAltAccess().getAlternatives();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new NumAlt_RealTermParserRuleCall_0(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new NumAlt_IntegerTermParserRuleCall_1(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new NumAlt_SignedConstantParserRuleCall_2(lastRuleCallOrigin, this, 2, inst);
+			case 3: return new NumAlt_ConstantValueParserRuleCall_3(lastRuleCallOrigin, this, 3, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getIntegerTermRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getSignedConstantRule().getType().getClassifier() && 
+		   getEObject().eClass() != grammarAccess.getRealTermRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// => RealTerm
+protected class NumAlt_RealTermParserRuleCall_0 extends RuleCallToken {
+	
+	public NumAlt_RealTermParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getNumAltAccess().getRealTermParserRuleCall_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new RealTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getRealTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(RealTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// IntegerTerm
+protected class NumAlt_IntegerTermParserRuleCall_1 extends RuleCallToken {
+	
+	public NumAlt_IntegerTermParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getNumAltAccess().getIntegerTermParserRuleCall_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new IntegerTerm_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getIntegerTermRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(IntegerTerm_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// SignedConstant
+protected class NumAlt_SignedConstantParserRuleCall_2 extends RuleCallToken {
+	
+	public NumAlt_SignedConstantParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getNumAltAccess().getSignedConstantParserRuleCall_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SignedConstant_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getSignedConstantRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(SignedConstant_Group.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+// ConstantValue
+protected class NumAlt_ConstantValueParserRuleCall_3 extends RuleCallToken {
+	
+	public NumAlt_ConstantValueParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public RuleCall getGrammarElement() {
+		return grammarAccess.getNumAltAccess().getConstantValueParserRuleCall_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ConstantValue_NamedValueAssignment(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getConstantValueRule().getType().getClassifier())
+			return null;
+		if(checkForRecursion(ConstantValue_NamedValueAssignment.class, eObjectConsumer)) return null;
+		return eObjectConsumer;
+	}
+	
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, inst);
+		}	
+	}	
+}
+
+
+/************ end Rule NumAlt ****************/
 
 
 
