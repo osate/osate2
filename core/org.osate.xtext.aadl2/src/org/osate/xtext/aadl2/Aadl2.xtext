@@ -1722,7 +1722,7 @@ FlowSinkImpl returns aadl2::FlowImplementation:
 	':' 'flow' kind=FlowSink 
 //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 (ID '.')? ID
-//    ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
+    ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
 //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 //	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 //	';'

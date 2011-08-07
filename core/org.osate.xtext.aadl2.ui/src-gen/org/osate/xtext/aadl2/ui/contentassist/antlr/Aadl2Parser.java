@@ -892,6 +892,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSourceImplAccess().getGroup_5(), "rule__FlowSourceImpl__Group_5__0");
 					put(grammarAccess.getFlowSinkImplAccess().getGroup(), "rule__FlowSinkImpl__Group__0");
 					put(grammarAccess.getFlowSinkImplAccess().getGroup_4(), "rule__FlowSinkImpl__Group_4__0");
+					put(grammarAccess.getFlowSinkImplAccess().getGroup_6(), "rule__FlowSinkImpl__Group_6__0");
 					put(grammarAccess.getFlowPathImplAccess().getGroup(), "rule__FlowPathImpl__Group__0");
 					put(grammarAccess.getFlowPathImplAccess().getGroup_4(), "rule__FlowPathImpl__Group_4__0");
 					put(grammarAccess.getFlowPathImplAccess().getGroup_6(), "rule__FlowPathImpl__Group_6__0");
@@ -1886,6 +1887,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_2(), "rule__FlowSourceImpl__OwnedFlowSegmentAssignment_4_2");
 					put(grammarAccess.getFlowSinkImplAccess().getSpecificationAssignment_0(), "rule__FlowSinkImpl__SpecificationAssignment_0");
 					put(grammarAccess.getFlowSinkImplAccess().getKindAssignment_3(), "rule__FlowSinkImpl__KindAssignment_3");
+					put(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_6_1(), "rule__FlowSinkImpl__OwnedFlowSegmentAssignment_6_1");
+					put(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_6_3(), "rule__FlowSinkImpl__OwnedFlowSegmentAssignment_6_3");
 					put(grammarAccess.getFlowPathImplAccess().getSpecificationAssignment_0(), "rule__FlowPathImpl__SpecificationAssignment_0");
 					put(grammarAccess.getFlowPathImplAccess().getKindAssignment_3(), "rule__FlowPathImpl__KindAssignment_3");
 					put(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_6_0_1(), "rule__FlowPathImpl__OwnedFlowSegmentAssignment_6_0_1");
