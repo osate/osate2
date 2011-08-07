@@ -144,7 +144,7 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 			propertyType = ownedPropertyType;
 		}
 		PropertyType pt = getPropertyTypeGen();
-		return pt.eIsProxy()?null:pt;
+		return (pt==null||pt.eIsProxy())?null:pt;
 	}
 
 	/**
