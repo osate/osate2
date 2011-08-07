@@ -50,9 +50,7 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPlusMinusAccess().getAlternatives(), "rule__PlusMinus__Alternatives");
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMinimumAlternatives_0_0(), "rule__NumericRangeTerm__MinimumAlternatives_0_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMaximumAlternatives_2_0(), "rule__NumericRangeTerm__MaximumAlternatives_2_0");
-					put(grammarAccess.getNumericRangeTermAccess().getDeltaAlternatives_3_1_0(), "rule__NumericRangeTerm__DeltaAlternatives_3_1_0");
+					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
 					put(grammarAccess.getOperationKindAccess().getAlternatives(), "rule__OperationKind__Alternatives");
 					put(grammarAccess.getBasicPropertyAssociationAccess().getGroup(), "rule__BasicPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");

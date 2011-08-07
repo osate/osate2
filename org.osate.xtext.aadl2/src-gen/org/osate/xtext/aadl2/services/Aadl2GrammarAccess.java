@@ -14153,13 +14153,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FeatureGroup returns aadl2::FeatureGroup:
 		//	(name=ID ":" // default is inout if no direction
-		//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+		//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
 		//	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 		//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" // default is inout if no direction
-		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+		//| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
 		//(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
@@ -14201,7 +14201,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"to"
 		public Keyword getToKeyword_0_1_3() { return cToKeyword_0_1_3; }
 
-		//direction=InOutDirection
+		//direction=InOutDirection?
 		public Assignment getDirectionAssignment_1() { return cDirectionAssignment_1; }
 
 		//InOutDirection
@@ -22373,7 +22373,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FeatureGroup returns aadl2::FeatureGroup:
 	//	(name=ID ":" // default is inout if no direction
-	//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection "feature" "group"
+	//	| refined=[aadl2::FeatureGroup|REFINEDNAME] ":" "refined" "to") direction=InOutDirection? "feature" "group"
 	//	(inverse?="inverse" "of")? featureType=[aadl2::FeatureType|QCREF] arrayDimension+=ArrayDimension? ("{"
 	//	ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")? ";";
 	public FeatureGroupElements getFeatureGroupAccess() {
@@ -23941,14 +23941,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NumericRangeTerm returns aadl2::RangeValue:
-	//	minimum=(RealTerm | IntegerTerm | SignedConstant | ConstantValue) ".." maximum=(RealTerm | IntegerTerm |
-	//	SignedConstant | ConstantValue) ("delta" delta=(RealTerm | IntegerTerm | SignedConstant | ConstantValue))?;
+	//	minimum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
+	//	NumAlt ".." maximum= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	//	NumAlt)?;
 	public PropertiesGrammarAccess.NumericRangeTermElements getNumericRangeTermAccess() {
 		return gaProperties.getNumericRangeTermAccess();
 	}
 	
 	public ParserRule getNumericRangeTermRule() {
 		return getNumericRangeTermAccess().getRule();
+	}
+
+	//NumAlt returns aadl2::PropertyExpression:
+	//	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
+	public PropertiesGrammarAccess.NumAltElements getNumAltAccess() {
+		return gaProperties.getNumAltAccess();
+	}
+	
+	public ParserRule getNumAltRule() {
+		return getNumAltAccess().getRule();
 	}
 
 	//terminal SL_COMMENT:

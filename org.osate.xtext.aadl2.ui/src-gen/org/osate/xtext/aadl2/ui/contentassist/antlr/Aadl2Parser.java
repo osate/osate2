@@ -273,9 +273,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPlusMinusAccess().getAlternatives(), "rule__PlusMinus__Alternatives");
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMinimumAlternatives_0_0(), "rule__NumericRangeTerm__MinimumAlternatives_0_0");
-					put(grammarAccess.getNumericRangeTermAccess().getMaximumAlternatives_2_0(), "rule__NumericRangeTerm__MaximumAlternatives_2_0");
-					put(grammarAccess.getNumericRangeTermAccess().getDeltaAlternatives_3_1_0(), "rule__NumericRangeTerm__DeltaAlternatives_3_1_0");
+					put(grammarAccess.getNumAltAccess().getAlternatives(), "rule__NumAlt__Alternatives");
 					put(grammarAccess.getFlowKindAccess().getAlternatives(), "rule__FlowKind__Alternatives");
 					put(grammarAccess.getOperationKindAccess().getAlternatives(), "rule__OperationKind__Alternatives");
 					put(grammarAccess.getAadlPackageAccess().getGroup(), "rule__AadlPackage__Group__0");

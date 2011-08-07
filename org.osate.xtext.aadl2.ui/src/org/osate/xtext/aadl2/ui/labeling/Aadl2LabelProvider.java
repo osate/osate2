@@ -34,6 +34,7 @@ import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
@@ -249,6 +250,11 @@ public class Aadl2LabelProvider extends DefaultEObjectLabelProvider {
 		  return "Mode Transition "+ele.getSource().getName()+" -> "+ele.getDestination().getName();
 		}
 
+	String text(NamedValue ele) {
+		  return "NamedValue: "+ele.getNamedValue();
+	}
+
+	
 	String text(IntegerLiteral ele) {
 		  return "int "+ele.getValue();
 	}

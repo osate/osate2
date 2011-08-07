@@ -20195,7 +20195,7 @@ ruleFeatureGroup returns [EObject current=null]
 	    }
 
 )
-)
+)?
 	otherlv_7=KEYWORD_67
     {
     	newLeafNode(otherlv_7, grammarAccess.getFeatureGroupAccess().getFeatureKeyword_2());
@@ -32865,68 +32865,20 @@ ruleNumericRangeTerm returns [EObject current=null]
     @after { leaveRule(); }:
 ((
 (
-(
 		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumRealTermParserRuleCall_0_0_0()); 
+	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumNumAltParserRuleCall_0_0()); 
 	    }
-		lv_minimum_0_1=ruleRealTerm		{
+		lv_minimum_0_0=ruleNumAlt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
 	        }
        		set(
        			$current, 
        			"minimum",
-        		lv_minimum_0_1, 
-        		"RealTerm");
+        		lv_minimum_0_0, 
+        		"NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumIntegerTermParserRuleCall_0_0_1()); 
-	    }
-		lv_minimum_0_2=ruleIntegerTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"minimum",
-        		lv_minimum_0_2, 
-        		"IntegerTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumSignedConstantParserRuleCall_0_0_2()); 
-	    }
-		lv_minimum_0_3=ruleSignedConstant		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"minimum",
-        		lv_minimum_0_3, 
-        		"SignedConstant");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumConstantValueParserRuleCall_0_0_3()); 
-	    }
-		lv_minimum_0_4=ruleConstantValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"minimum",
-        		lv_minimum_0_4, 
-        		"ConstantValue");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
 
 )
 )
@@ -32936,142 +32888,120 @@ ruleNumericRangeTerm returns [EObject current=null]
     }
 (
 (
-(
 		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumRealTermParserRuleCall_2_0_0()); 
+	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumNumAltParserRuleCall_2_0()); 
 	    }
-		lv_maximum_2_1=ruleRealTerm		{
+		lv_maximum_2_0=ruleNumAlt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
 	        }
        		set(
        			$current, 
        			"maximum",
-        		lv_maximum_2_1, 
-        		"RealTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumIntegerTermParserRuleCall_2_0_1()); 
-	    }
-		lv_maximum_2_2=ruleIntegerTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"maximum",
-        		lv_maximum_2_2, 
-        		"IntegerTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumSignedConstantParserRuleCall_2_0_2()); 
-	    }
-		lv_maximum_2_3=ruleSignedConstant		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"maximum",
-        		lv_maximum_2_3, 
-        		"SignedConstant");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumConstantValueParserRuleCall_2_0_3()); 
-	    }
-		lv_maximum_2_4=ruleConstantValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"maximum",
-        		lv_maximum_2_4, 
-        		"ConstantValue");
+        		lv_maximum_2_0, 
+        		"NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-
-)
-)(
+)(((
+KEYWORD_48
+)=>
 	otherlv_3=KEYWORD_48
     {
     	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
     }
-(
-(
+)(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaRealTermParserRuleCall_3_1_0_0()); 
+	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaNumAltParserRuleCall_3_1_0()); 
 	    }
-		lv_delta_4_1=ruleRealTerm		{
+		lv_delta_4_0=ruleNumAlt		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
 	        }
        		set(
        			$current, 
        			"delta",
-        		lv_delta_4_1, 
-        		"RealTerm");
+        		lv_delta_4_0, 
+        		"NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaIntegerTermParserRuleCall_3_1_0_1()); 
-	    }
-		lv_delta_4_2=ruleIntegerTerm		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"delta",
-        		lv_delta_4_2, 
-        		"IntegerTerm");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaSignedConstantParserRuleCall_3_1_0_2()); 
-	    }
-		lv_delta_4_3=ruleSignedConstant		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"delta",
-        		lv_delta_4_3, 
-        		"SignedConstant");
-	        afterParserOrEnumRuleCall();
-	    }
-
-    |		{ 
-	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaConstantValueParserRuleCall_3_1_0_3()); 
-	    }
-		lv_delta_4_4=ruleConstantValue		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getNumericRangeTermRule());
-	        }
-       		set(
-       			$current, 
-       			"delta",
-        		lv_delta_4_4, 
-        		"ConstantValue");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
 
 )
 ))?)
+;
+
+
+
+
+
+// Entry rule entryRuleNumAlt
+entryRuleNumAlt returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getNumAltRule()); }
+	 iv_ruleNumAlt=ruleNumAlt 
+	 { $current=$iv_ruleNumAlt.current; } 
+	 EOF 
+;
+
+// Rule NumAlt
+ruleNumAlt returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(((ruleRealTerm)=>
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getNumAltAccess().getRealTermParserRuleCall_0()); 
+    }
+    this_RealTerm_0=ruleRealTerm
+    {
+        $current = $this_RealTerm_0.current;
+        afterParserOrEnumRuleCall();
+    }
+)
+    |
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getNumAltAccess().getIntegerTermParserRuleCall_1()); 
+    }
+    this_IntegerTerm_1=ruleIntegerTerm
+    {
+        $current = $this_IntegerTerm_1.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getNumAltAccess().getSignedConstantParserRuleCall_2()); 
+    }
+    this_SignedConstant_2=ruleSignedConstant
+    {
+        $current = $this_SignedConstant_2.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+	{ 
+	  /* */ 
+	}
+    { 
+        newCompositeNode(grammarAccess.getNumAltAccess().getConstantValueParserRuleCall_3()); 
+    }
+    this_ConstantValue_3=ruleConstantValue
+    {
+        $current = $this_ConstantValue_3.current;
+        afterParserOrEnumRuleCall();
+    }
+)
 ;
 
 
