@@ -17313,20 +17313,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_4_0 = (RuleCall)cGroup_4.eContents().get(0);
 		private final Keyword cFullStopKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cOwnedFlowSegmentAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0 = (RuleCall)cOwnedFlowSegmentAssignment_6_1.eContents().get(0);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Assignment cOwnedFlowSegmentAssignment_6_3 = (Assignment)cGroup_6.eContents().get(3);
+		private final RuleCall cOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0 = (RuleCall)cOwnedFlowSegmentAssignment_6_3.eContents().get(0);
 		
-		////    ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
 		////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 		////	';'
 		//FlowSinkImpl returns aadl2::FlowImplementation:
 		//	specification= //name=ID 
 		//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-		//	(ID ".")? ID;
+		//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*;
 		public ParserRule getRule() { return rule; }
 
 		//specification= //name=ID 
 		//[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-		//(ID ".")? ID
+		//(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
 		public Group getGroup() { return cGroup; }
 
 		//specification= //name=ID 
@@ -17363,6 +17369,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_5() { return cIDTerminalRuleCall_5; }
+
+		//("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*
+		public Group getGroup_6() { return cGroup_6; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_6_0() { return cHyphenMinusGreaterThanSignKeyword_6_0; }
+
+		//ownedFlowSegment+=ConnectionFlow
+		public Assignment getOwnedFlowSegmentAssignment_6_1() { return cOwnedFlowSegmentAssignment_6_1; }
+
+		//ConnectionFlow
+		public RuleCall getOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0() { return cOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_6_2() { return cHyphenMinusGreaterThanSignKeyword_6_2; }
+
+		//ownedFlowSegment+=SubcomponentFlow
+		public Assignment getOwnedFlowSegmentAssignment_6_3() { return cOwnedFlowSegmentAssignment_6_3; }
+
+		//SubcomponentFlow
+		public RuleCall getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0() { return cOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0; }
 	}
 
 	public class FlowPathImplElements extends AbstractParserRuleElementFinder {
@@ -22841,14 +22868,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFlowSourceImplAccess().getRule();
 	}
 
-	////    ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
 	////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	////	';'
 	//FlowSinkImpl returns aadl2::FlowImplementation:
 	//	specification= //name=ID 
 	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-	//	(ID ".")? ID;
+	//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)*;
 	public FlowSinkImplElements getFlowSinkImplAccess() {
 		return (pFlowSinkImpl != null) ? pFlowSinkImpl : (pFlowSinkImpl = new FlowSinkImplElements());
 	}
