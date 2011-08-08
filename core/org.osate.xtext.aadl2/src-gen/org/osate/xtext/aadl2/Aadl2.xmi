@@ -7551,7 +7551,7 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PortConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="name" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
@@ -7627,7 +7627,7 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//AccessConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="name" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
@@ -7706,7 +7706,7 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeatureGroupConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="name" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
@@ -7780,7 +7780,7 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeatureConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="name" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
@@ -7856,7 +7856,7 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ParameterConnection"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Assignment" feature="name" operator="=">
               <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
