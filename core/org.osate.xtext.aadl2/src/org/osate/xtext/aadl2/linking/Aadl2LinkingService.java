@@ -167,11 +167,21 @@ private static PSNode psNode = new PSNode();
 		} else if (Aadl2Package.eINSTANCE.getPort() == requiredType) {
 			Classifier ns = getContainingClassifier(context);
 			if (context instanceof Feature) {
-				// we need to resolve a refinement
+				// we need to resolve a  feature refinement, thus look up the feature in the 
+				// component being extended
 				if (ns.getExtended() != null) {
 					ns = ns.getExtended();
 				} else {
 					return Collections.emptyList();
+				}
+			} else if (context instanceof TriggerPort){
+				// we are a trigger port
+				Context TPContext = ((TriggerPort)context).getContext();
+				if (TPContext instanceof Subcomponent){
+					// look up the feature in the ComponentType
+					ComponentType ct = ((Subcomponent)TPContext).getComponentType();
+					if (ct != null)
+						ns = ct;
 				}
 			}
 			EObject searchResult = ns.findNamedElement(name);
@@ -446,6 +456,9 @@ private static PSNode psNode = new PSNode();
 			EObject searchResult = getContainingClassifier(context)
 					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Mode) {
+				return Collections.singletonList((EObject) searchResult);
+			}
+			if (context instanceof ModeBinding && Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()==reference ){
 				return Collections.singletonList((EObject) searchResult);
 			}
 			return Collections.<EObject> emptyList();

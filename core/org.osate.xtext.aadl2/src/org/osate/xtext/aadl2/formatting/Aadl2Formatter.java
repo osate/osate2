@@ -88,7 +88,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		    }
 	    for (Keyword end : f.findKeywords("end")) {
 		      c.setIndentationDecrement().before(end);
-//		      c.setLinewrap().before(end);
+		      c.setLinewrap().before(end);
 		    }
 	    for (Keyword is : f.findKeywords("is")) {
 		      c.setIndentationIncrement().after(is);
@@ -99,26 +99,43 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		      c.setLinewrap().before(applies);
 		      c.setIndentationDecrement().after(applies);
 		    }
+	    for (Keyword requires : f.findKeywords("requires")) {
+		      c.setIndentationDecrement().before(requires);
+		      c.setLinewrap().before(requires);
+		      c.setLinewrap(0,0,0).after(requires);
+		      c.setIndentationIncrement().after(requires);
+		    }
+	    for (Keyword modes : f.findKeywords("modes")) {
+		      c.setIndentationDecrement().before(modes);
+		      c.setLinewrap().before(modes);
+		      c.setLinewrap().after(modes);
+		      c.setIndentationIncrement().after(modes);
+		    }
+	    for (Keyword in : f.findKeywords("in")) {
+		      c.setLinewrap(0,0,0).after(in);
+		    }
 
 	      c.setLinewrap().around(f.getPublicPackageSectionAccess().getPublicKeyword_1());
 	      c.setLinewrap().around(f.getPrivatePackageSectionAccess().getPrivateKeyword_1());
 
 	      c.setLinewrap().before(f.getPublicPackageSectionAccess().getWithKeyword_2_0_0());
+	      
+	      
 	      // WE NEED IT THIS WAY BECAUSE "IN MODES" should not have new lines
 	      // modes, requires modes and in modes
-	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getModesKeyword_3_0());
-	      c.setLinewrap().around(f.getComponentTypeAccess().getModesKeyword_3_0());
-	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_3_0());
-
-	      c.setIndentationDecrement().before(f.getComponentImplementationAccess().getModesKeyword_3_0());
-	      c.setLinewrap().around(f.getComponentImplementationAccess().getModesKeyword_3_0());
-	      c.setIndentationIncrement().after(f.getComponentImplementationAccess().getModesKeyword_3_0());
-
-	      // requires modes
-	      c.setLinewrap().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
-	      c.setLinewrap().after(f.getComponentTypeAccess().getModesKeyword_2_1());
-	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
-	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_2_1());
+//	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getModesKeyword_3_0());
+//	      c.setLinewrap().around(f.getComponentTypeAccess().getModesKeyword_3_0());
+//	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_3_0());
+//
+//	      c.setIndentationDecrement().before(f.getComponentImplementationAccess().getModesKeyword_3_0());
+//	      c.setLinewrap().around(f.getComponentImplementationAccess().getModesKeyword_3_0());
+//	      c.setIndentationIncrement().after(f.getComponentImplementationAccess().getModesKeyword_3_0());
+//
+//	      // requires modes
+//	      c.setLinewrap().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
+//	      c.setLinewrap().after(f.getComponentTypeAccess().getModesKeyword_2_1());
+//	      c.setIndentationDecrement().before(f.getComponentTypeAccess().getRequiresKeyword_2_0());
+//	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_2_1());
 	      
 	      // component types and implementations
 	      c.setIndentationIncrement().before(f.getComponentTypeRule());
