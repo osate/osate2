@@ -28455,7 +28455,7 @@ rulePortConnection returns [EObject current=null]
     {
     	newLeafNode(otherlv_5, grammarAccess.getPortConnectionAccess().getToKeyword_0_1_3());
     }
-))
+))?
 	otherlv_6=KEYWORD_40
     {
     	newLeafNode(otherlv_6, grammarAccess.getPortConnectionAccess().getPortKeyword_1());
@@ -28690,7 +28690,7 @@ ruleAccessConnection returns [EObject current=null]
     {
     	newLeafNode(otherlv_5, grammarAccess.getAccessConnectionAccess().getToKeyword_0_1_3());
     }
-))(
+))?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getAccessCategoryAccessCategoryParserRuleCall_1_0()); 
@@ -28943,7 +28943,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
     {
     	newLeafNode(otherlv_5, grammarAccess.getFeatureGroupConnectionAccess().getToKeyword_0_1_3());
     }
-))
+))?
 	otherlv_6=KEYWORD_67
     {
     	newLeafNode(otherlv_6, grammarAccess.getFeatureGroupConnectionAccess().getFeatureKeyword_1());
@@ -29177,7 +29177,7 @@ ruleFeatureConnection returns [EObject current=null]
     {
     	newLeafNode(otherlv_5, grammarAccess.getFeatureConnectionAccess().getToKeyword_0_1_3());
     }
-))
+))?
 	otherlv_6=KEYWORD_67
     {
     	newLeafNode(otherlv_6, grammarAccess.getFeatureConnectionAccess().getFeatureKeyword_1());
@@ -29412,7 +29412,7 @@ ruleParameterConnection returns [EObject current=null]
     {
     	newLeafNode(otherlv_5, grammarAccess.getParameterConnectionAccess().getToKeyword_0_1_3());
     }
-))
+))?
 	otherlv_6=KEYWORD_84
     {
     	newLeafNode(otherlv_6, grammarAccess.getParameterConnectionAccess().getParameterKeyword_1());
