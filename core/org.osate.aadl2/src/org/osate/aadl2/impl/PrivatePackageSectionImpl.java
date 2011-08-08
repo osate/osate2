@@ -144,13 +144,13 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 			return findInternallyVisibleNamedElement(name);
 	}
 	
-//	/**
-//	 * Returns the name of the package.
-//	 */
-//	@Override
-//	public String getName() {
-//		return ((AadlPackage) getOwner()).getName()+"_private";
-//	}
+	/**
+	 * Returns the name of the package.
+	 */
+	@Override
+	public String getName() {
+		return ((AadlPackage) getOwner()).getName()+"_private";
+	}
 
 
 } //PrivatePackageSectionImpl
