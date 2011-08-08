@@ -1183,7 +1183,8 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
@@ -1199,7 +1200,8 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 ProcessSubcomponent returns aadl2::ProcessSubcomponent:
@@ -1215,7 +1217,8 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
@@ -1231,7 +1234,8 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 ThreadSubcomponent returns aadl2::ThreadSubcomponent:
@@ -1247,7 +1251,8 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
@@ -1263,7 +1268,8 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
@@ -1279,7 +1285,8 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
@@ -1295,7 +1302,8 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
@@ -1311,7 +1319,8 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 DeviceSubcomponent returns aadl2::DeviceSubcomponent:
@@ -1327,7 +1336,8 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 MemorySubcomponent returns aadl2::MemorySubcomponent:
@@ -1343,7 +1353,8 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 BusSubcomponent returns aadl2::BusSubcomponent:
@@ -1359,7 +1370,8 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
@@ -1375,7 +1387,8 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	  ')' )? 
 	 )?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 DataSubcomponent returns aadl2::DataSubcomponent:
@@ -1386,7 +1399,8 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' ((ownedModeBinding+=ModeRef)+ | allModes?='all') ')')?
+	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		| allModes?='all' ) ')')?
 	';';
 
 
@@ -1569,8 +1583,8 @@ PortConnection returns aadl2::PortConnection:
 	('->' | bidirectional?='<->')
 	destination=ProcessorConnectionEnd 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
-	// also needs to refer to transitions
+	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])+ 
+	) ')')? //| allModes?='all'
 	';';
 
 AccessConnection returns aadl2::AccessConnection:
@@ -1581,7 +1595,8 @@ AccessConnection returns aadl2::AccessConnection:
 	('->' | bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
+	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])+ 
+	) ')')? //| allModes?='all'
 	';';
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
@@ -1592,7 +1607,8 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	( bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
+	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])+ 
+	) ')')? //| allModes?='all'
 	';';
 
 FeatureConnection returns aadl2::FeatureConnection:
@@ -1603,7 +1619,8 @@ FeatureConnection returns aadl2::FeatureConnection:
 	('->' | bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
+	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])+ 
+	) ')')? //| allModes?='all'
 	';';
 
 ParameterConnection returns aadl2::ParameterConnection:
@@ -1614,7 +1631,8 @@ ParameterConnection returns aadl2::ParameterConnection:
 	 '->'
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' ((inModeOrTransition+=[aadl2::ModeFeature|ID])+ ) ')')? //| allModes?='all'
+	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])+ 
+	) ')')? //| allModes?='all'
 	';';
 
 AccessCategory returns aadl2::AccessCategory:
