@@ -3908,8 +3908,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4000,8 +4008,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4092,8 +4108,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4185,8 +4209,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4277,8 +4309,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4369,8 +4409,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4462,8 +4510,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4554,8 +4610,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4647,8 +4711,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4739,8 +4811,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4831,8 +4911,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -4923,8 +5011,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5016,8 +5112,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5090,8 +5194,16 @@
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
           <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedModeBinding" operator="+=">
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+            <elements xsi:type="xtext:Group">
+              <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+              </elements>
+              <elements xsi:type="xtext:Group" cardinality="*">
+                <elements xsi:type="xtext:Keyword" value=","/>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeBinding" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.144"/>
+                </elements>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Assignment" feature="allModes" operator="?=">
               <terminal xsi:type="xtext:Keyword" value="all"/>
@@ -5993,13 +6105,26 @@
           <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="inModeOrTransition" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
-            </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="+">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+                </terminal>
+              </elements>
+            </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
@@ -6059,13 +6184,26 @@
           <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="inModeOrTransition" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
-            </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="+">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+                </terminal>
+              </elements>
+            </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
@@ -6120,13 +6258,26 @@
           <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="inModeOrTransition" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
-            </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="+">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+                </terminal>
+              </elements>
+            </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
@@ -6183,13 +6334,26 @@
           <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="inModeOrTransition" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
-            </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="+">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+                </terminal>
+              </elements>
+            </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
@@ -6241,13 +6405,26 @@
           <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
           <elements xsi:type="xtext:Keyword" value="modes"/>
           <elements xsi:type="xtext:Keyword" value="("/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="inModeOrTransition" operator="+=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
-            </terminal>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+              </terminal>
+            </elements>
+            <elements xsi:type="xtext:Group" cardinality="+">
+              <elements xsi:type="xtext:Keyword" value=","/>
+              <elements xsi:type="xtext:Assignment" feature="inModeOrTransition" operator="+=">
+                <terminal xsi:type="xtext:CrossReference">
+                  <type metamodel="/0/@metamodelDeclarations.0">
+                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModeFeature"/>
+                  </type>
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.56"/>
+                </terminal>
+              </elements>
+            </elements>
           </elements>
           <elements xsi:type="xtext:Keyword" value=")"/>
         </elements>
