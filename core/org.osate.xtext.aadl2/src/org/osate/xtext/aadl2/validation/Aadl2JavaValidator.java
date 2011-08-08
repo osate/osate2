@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
@@ -69,6 +70,7 @@ import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
@@ -2264,38 +2266,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //
-//	/**
-//	 * Check constraints on the use of the "access" keyword on property
-//	 * definitions, as specified in SEction 10.1.2:
-//	 *
-//	 * <blockquote>The reserved word access is only permitted for property name
-//	 * whose applies to property category list contains categories of
-//	 * subcomponents that can be required or provided subcomponents. These
-//	 * categories are data and bus. </blockquote>
-//	 *
-//	 * @param pn
-//	 *            The property definition to check.
-//	 */
-//	private void checkAccessKeyword(final PropertyDefinition pn) {
-//		// Access allowed only if applies to data/bus only.
-//		if (pn.isAccess()) {
-//			final EList appliesTo = pn.getAppliesto();
-//
-//			final boolean containsData =
-//				appliesTo.contains(PropertyOwnerCategory.DATA_LITERAL);
-//			final boolean containsBus =
-//				appliesTo.contains(PropertyOwnerCategory.BUS_LITERAL);
-//			final int size = appliesTo.size();
-//			// Okay if set is {DATA}, {BUS}, {DATA, BUS}
-//			final boolean okay =
-//				((size == 1) && (containsBus || containsData))
-//					|| ((size == 2) && containsBus && containsData);
-//			if (!okay) {
-//				error(pn,
-//						"Access property only applies to data or bus");
-//			}
-//		}
-//	}
 //
 //	private void checkPropertyAssocs(final PropertyHolder element) {
 //		checkPropertyAssocs(element, false);
