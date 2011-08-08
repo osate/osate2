@@ -119,6 +119,66 @@ public class GetProperties {
 		}
 	}
 
+	public static double getRAMCapacityInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property RAMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_CAPACITY);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(RAMCapacity, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, RAMCapacity, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getRAMBudgetInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property RAMBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_BUDGET);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(RAMBudget, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, RAMBudget, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getRAMActualInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property RAMActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_ACTUAL);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(RAMActual, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, RAMActual, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getROMCapacityInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property ROMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_CAPACITY);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(ROMCapacity, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, ROMCapacity, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getROMBudgetInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property ROMBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_BUDGET);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(ROMBudget, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, ROMBudget, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getROMActualInKB(final NamedElement ne, final double defaultValue) {
+		try {
+			Property ROMActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_ACTUAL);
+			UnitLiteral kb = Aadl2LinkingService.eInstance.findUnitLiteral(ROMActual, AadlProject.KB_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, ROMActual, kb, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
 	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
 		try {
 			Property BandWidthCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_CAPACITY);
