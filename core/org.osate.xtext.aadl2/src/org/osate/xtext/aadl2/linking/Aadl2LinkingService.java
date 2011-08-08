@@ -1445,19 +1445,6 @@ private static PSNode psNode = new PSNode();
 		return null;
 	}
 
-	 private String reconstructPath(List<ContainmentPathElement> path)
-	 {
-	 if (path.size() == 0)
-	 throw new IllegalArgumentException("path cannot be an empty list.");
-	 StringBuilder pathAsString = new
-	 StringBuilder(path.get(0).getNamedElement().getName());
-	 for (int i = 1; i < path.size(); i++)
-	 {
-	 pathAsString.append('.');
-	 pathAsString.append(path.get(i).getNamedElement().getName());
-	 }
-	 return pathAsString.toString();
-	 }
 
 	/**
 	 * Dependencies: PrototypeFormalReference, ClassifierReference,
@@ -1561,104 +1548,6 @@ private static PSNode psNode = new PSNode();
 			return null;
 	}
 
-	/**
-	 * Dependencies: PrototypeFormalReference, ComponentTypeExtensionReference,
-	 * ComponentImplementationExtensionReference, RealizationReference,
-	 * ClassifierReference, PrototypeOrClassifierReference,
-	 * ComponentPrototypeClassifierReference,
-	 * ComponentPrototypeRefinementReference.
-	 */
-	/*
-	 * TODO: Check for circular dependencies with prototypes.
-	 */
-	 private ComponentClassifier
-	 findClassifierForComponentPrototype(Classifier topLevelClassifier,
-	 List<Subcomponent> subcomponents,
-	 ComponentPrototype prototype)
-	 {
-		 if (subcomponents.size() == 1)
-		 {
-			 ComponentPrototypeBinding binding =
-					 (ComponentPrototypeBinding)findPrototypeBinding(topLevelClassifier,
-							 prototype);
-			 if (binding != null && binding.getActuals().size() >= 1)
-			 {
-				 if (binding.getActuals().get(0) instanceof ComponentClassifier){
-					 SubcomponentType st = ((ComponentPrototypeActual) binding
-							 .getActuals().get(0)).getSubcomponentType();
-					 if (st instanceof ComponentClassifier)
-						 return (ComponentClassifier) st;
-					 else //It is a ComponentPrototypeReference
-					 {
-						 ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(
-								 topLevelClassifier, (ComponentPrototype) st);
-						 if (classifierForReferencedPrototype != null)
-							 return classifierForReferencedPrototype;
-					 }
-				 }
-			 }
-		 }
-	 else
-	 {
-	 ComponentPrototypeBinding binding =
-	 (ComponentPrototypeBinding)findPrototypeBinding(getContainingClassifier(subcomponents.get(subcomponents.size()
-	 - 1)),
-	 prototype);
-	 if (binding != null && binding.getActuals().size() >= 1)
-	 {
-		 {
-			 if (binding.getActuals().get(0) instanceof ComponentClassifier){
-				 SubcomponentType st = ((ComponentPrototypeActual) binding
-						 .getActuals().get(0)).getSubcomponentType();
-				 if (st instanceof ComponentClassifier)
-					 return (ComponentClassifier) st;
-				 else //It is a ComponentPrototypeReference
-				 {
-					 ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(
-							 topLevelClassifier, (ComponentPrototype) st);
-					 if (classifierForReferencedPrototype != null)
-						 return classifierForReferencedPrototype;
-				 }
-			 }
-		 }
-	 }
-	 else
-	 {
-	 binding =
-	 (ComponentPrototypeBinding)findPrototypeBinding(subcomponents.get(subcomponents.size()
-	 - 2), prototype);
-	 if (binding != null)
-	 {
-		 {
-			 if (binding.getActuals().get(0) instanceof ComponentClassifier){
-				 SubcomponentType st = ((ComponentPrototypeActual) binding
-						 .getActuals().get(0)).getSubcomponentType();
-				 if (st instanceof ComponentClassifier)
-					 return (ComponentClassifier) st;
-				 else //It is a ComponentPrototypeReference
-				 {
-					 ComponentClassifier classifierForReferencedPrototype = findClassifierForComponentPrototype(
-							 topLevelClassifier, (ComponentPrototype) st);
-					 if (classifierForReferencedPrototype != null)
-						 return classifierForReferencedPrototype;
-				 }
-			 }
-		 }
-	 }
-	 }
-	 }
-	 while (prototype.getConstrainingClassifier() == null &&
-	 prototype.getRefined() != null)
-	 {
-	 //TODO: Need to check that the component prototype refines a component prototype.
-	 // This should be done in ComponentPrototypeRefinementReference.
-	 prototype = (ComponentPrototype)prototype.getRefined();
-	 }
-	 if (prototype.getConstrainingClassifier() != null)
-	 return prototype.getConstrainingClassifier();
-	 else
-	 return null;
-	 }
 
 	/**
 	 * Dependencies: PrototypeFormalReference, FeatureGroupTypeReference,
@@ -1706,99 +1595,6 @@ private static PSNode psNode = new PSNode();
 			return null;
 	}
 
-	/**
-	 * Dependencies: PrototypeFormalReference, FeatureGroupTypeReference,
-	 * PrototypeOrFeatureGroupTypeReference,
-	 * FeatureGroupPrototypeClassifierReference,
-	 * FeatureGroupPrototypeRefinementReference. Based on the type of
-	 * topLevelClassifier: ComponentTypeExtensionReference,
-	 * ComponentImplementationExtensionReference, RealizationReference,
-	 * FeatureGroupTypeExtendReference.
-	 */
-	// TODO: Check for circular dependencies with prototypes.
-	 private FeatureGroupType
-	 findFeatureGroupTypeForFeatureGroupPrototype(Classifier
-	 topLevelClassifier,
-	 List<StructuralFeature> subcomponentsAndFeatureGroups,
-	 FeatureGroupPrototype prototype)
-	 {
-		 if (subcomponentsAndFeatureGroups.size() == 1)
-		 {
-			 FeatureGroupPrototypeBinding binding =
-					 (FeatureGroupPrototypeBinding)findPrototypeBinding(topLevelClassifier,
-							 prototype);
-			 if (binding != null)
-			 {
-				 if (binding.getActual() instanceof FeatureGroupPrototypeActual){
-					 FeatureType ft = ((FeatureGroupPrototypeActual) binding.getActual())
-							 .getFeatureType();
-					 if (ft instanceof FeatureGroupType){
-						 return (FeatureGroupType)ft;
-					 } else {
-						 FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(
-								 topLevelClassifier,
-								 ((FeatureGroupPrototype) ft));
-						 if (featureGroupTypeForReferencedPrototype != null)
-							 return featureGroupTypeForReferencedPrototype;
-					 }
-				 }
-			 }
-		 }
-		 else
-		 {
-			 FeatureGroupPrototypeBinding binding =
-					 (FeatureGroupPrototypeBinding)findPrototypeBinding(
-							 getContainingClassifier(subcomponentsAndFeatureGroups.get(subcomponentsAndFeatureGroups.size()
-									 - 1)), prototype);
-			 if (binding != null)
-			 {
-				 if (binding.getActual() instanceof FeatureGroupPrototypeActual){
-					 FeatureType ft = ((FeatureGroupPrototypeActual) binding.getActual())
-							 .getFeatureType();
-					 if (ft instanceof FeatureGroupType){
-						 return (FeatureGroupType)ft;
-					 } else {
-						 FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(
-								 topLevelClassifier,
-								 ((FeatureGroupPrototype) ft));
-						 if (featureGroupTypeForReferencedPrototype != null)
-							 return featureGroupTypeForReferencedPrototype;
-					 }
-				 }
-			 }
-			 else if
-			 (subcomponentsAndFeatureGroups.get(subcomponentsAndFeatureGroups.size() -
-					 2) instanceof Subcomponent)
-			 {
-				 binding = (FeatureGroupPrototypeBinding)findPrototypeBinding(
-						 (Subcomponent)subcomponentsAndFeatureGroups.get(subcomponentsAndFeatureGroups.size()
-								 - 2), prototype);
-				 if (binding != null)
-				 {
-					 if (binding.getActual() instanceof FeatureGroupPrototypeActual){
-						 FeatureType ft = ((FeatureGroupPrototypeActual) binding.getActual())
-								 .getFeatureType();
-						 if (ft instanceof FeatureGroupType){
-							 return (FeatureGroupType)ft;
-						 } else {
-							 FeatureGroupType featureGroupTypeForReferencedPrototype = findFeatureGroupTypeForFeatureGroupPrototype(
-									 topLevelClassifier,
-									 ((FeatureGroupPrototype) ft));
-							 if (featureGroupTypeForReferencedPrototype != null)
-								 return featureGroupTypeForReferencedPrototype;
-						 }
-					 }
-				 }
-			 }
-		 }
-		 while (prototype.getConstrainingFeatureGroupType() == null &&
-				 prototype.getRefined() != null)
-			 prototype = (FeatureGroupPrototype)prototype.getRefined();
-		 if (prototype.getConstrainingFeatureGroupType() != null)
-			 return prototype.getConstrainingFeatureGroupType();
-		 else
-			 return null;
-	 }
 
 	public AadlPackage findImportedPackage(String name, EObject context) {
 		EList<ModelUnit> imports;
@@ -1877,14 +1673,6 @@ private static PSNode psNode = new PSNode();
 		return (Namespace) container;
 	}
 
-	 private PropertyAssociation
-	 getContainingPropertyAssociation(ContainmentPathElement pathElement)
-	 {
-	 EObject container = pathElement.eContainer();
-	 while (container != null && !(container instanceof PropertyAssociation))
-	 container = container.eContainer();
-	 return (PropertyAssociation)container;
-	 }
 
 	/**
 	 * Search for a {@link NamedElement} in a package. If {@code context} is a
