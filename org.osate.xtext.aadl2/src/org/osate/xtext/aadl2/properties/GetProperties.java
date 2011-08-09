@@ -43,6 +43,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.IntegerLiteral;
@@ -51,6 +52,7 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -67,6 +69,38 @@ public class GetProperties {
 
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
 		return Aadl2LinkingService.eInstance.findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
+	}
+	/**
+	 * Retrieve the unit literal given a unit string for a property It is useful
+	 * when calling getScaledValue methods that require the literal as object
+	 * 
+	 * @param pd Property Definition
+	 * @param literalname String
+	 * @return UnitLiteral or null if the unit literal could not be found or the
+	 *         definition does not have a unit
+	 */
+	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
+		return Aadl2LinkingService.eInstance.findUnitLiteral(pd, literalname);
+	}
+	
+	public static UnitLiteral findUnitLiteral(NamedElement context,String unitsType, String literal){
+		PropertyType pt = Aadl2LinkingService.eInstance.findPropertyType(context, unitsType);
+		if (pt == null || ! (pt instanceof UnitsType)) return null;
+		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
+	}
+	
+	public static EnumerationLiteral findEnumerationLiteral(NamedElement context,String enumerationType, String literal){
+		PropertyType pt = Aadl2LinkingService.eInstance.findPropertyType(context, enumerationType);
+		if (pt == null || ! (pt instanceof EnumerationType)) return null;
+		return (EnumerationLiteral) ((EnumerationType)pt).findNamedElement(literal);
+	}
+	
+	public static UnitLiteral getKBUnitLiteral(NamedElement context){
+		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
+	}
+	
+	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
+		return findUnitLiteral(context, SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
@@ -114,6 +148,16 @@ public class GetProperties {
 			Property MIPSBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_BUDGET);
 			UnitLiteral MIPS = Aadl2LinkingService.eInstance.findUnitLiteral(MIPSBudget, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSBudget, MIPS, defaultValue);
+		} catch (Throwable e) {
+			return defaultValue;
+		}
+	}
+
+	public static double getMIPSActualInMIPS(final NamedElement ne, final double defaultValue) {
+		try {
+			Property MIPSActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_ACTUAL);
+			UnitLiteral MIPS = Aadl2LinkingService.eInstance.findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, MIPSActual, MIPS, defaultValue);
 		} catch (Throwable e) {
 			return defaultValue;
 		}
