@@ -1,0 +1,15 @@
+'instance'=4
+'sandbox'=5
+'system'=6
+'from'=7
+'::'=8
+'to'=9
+'.'=10
+';'=11
+RULE_ID=12
+RULE_INT=13
+RULE_STRING=14
+RULE_ML_COMMENT=15
+RULE_WS=17
+RULE_SL_COMMENT=16
+RULE_ANY_OTHER=18
