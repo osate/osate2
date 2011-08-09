@@ -1,0 +1,24 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: edu.cmu.sei.aadl.architecture; singleton:=true
+Bundle-Version: 2.0.0
+Bundle-ClassPath: .
+Bundle-Activator: edu.cmu.sei.aadl.architecture.ArchitecturePlugin
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: edu.cmu.sei.aadl.architecture,
+ edu.cmu.sei.aadl.architecture.actions
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.edit,
+ org.eclipse.emf.ecore,
+ org.eclipse.ui,
+ org.eclipse.core.resources,
+ edu.cmu.sei.aadl.properties.SEI,
+ org.osate.aadl2;bundle-version="2.0.0",
+ org.osate.aadl2.modelsupport;bundle-version="2.0.0",
+ org.osate.ui;bundle-version="2.0.0",
+ org.osate.pluginsupport;bundle-version="2.0.0",
+ org.osate.workspace;bundle-version="2.0.0",
+ org.osate.xtext.aadl2;bundle-version="1.0.0"
+Eclipse-LazyStart: true

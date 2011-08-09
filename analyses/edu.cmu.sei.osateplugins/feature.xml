@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="edu.cmu.sei.osate-plugins"
+      label="Open Source AADL Tool Environment Analysis Plug-ins"
+      version="2.0.0"
+      provider-name="sei.cmu.sei"
+      plugin="edu.cmu.sei.aadl"
+      image="icons/osateupdate_120.jpg"
+      application="org.eclipse.ui.ide.workbench">
+   <install-handler/>
+
+   <description url="OSATEXfer.html">
+      The Open Source AADL Tool Environment Analysis Plug-ins.
+   </description>
+
+   <copyright>
+      Copyright  2005-2006 by Carnegie Mellon University, all rights
+reserved.
+   </copyright>
+
+   <license url="OSATELicense.html">
+      Use of the Open Source AADL Tool Environment (OSATE) is subject
+to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
+   </license>
+
+   <url>
+      <update label="OSATE" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
+      <discovery label="OSATE Updates" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.edit"/>
+      <import plugin="edu.cmu.sei.osate.workspace"/>
+      <import plugin="edu.cmu.sei.osate.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.emf.common.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="edu.cmu.sei.aadl.aadl2" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="edu.cmu.sei.aadl.modelsupport" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="edu.cmu.sei.osate.pluginsupport"/>
+      <import feature="edu.cmu.sei.osate-frontend" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="edu.cmu.sei.aadl.instance" version="2.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="edu.cmu.sei.aadl.resourcemanagement"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.cmu.sei.timeweaver.binpacking"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.cmu.sei.aadl.architecture"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.cmu.sei.aadl.flowanalysis"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.cmu.sei.aadl.resourcebudgets"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="edu.cmu.sei.aadl.security"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

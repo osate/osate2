@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: edu.cmu.sei.aadl.flowanalysis; singleton:=true
+Bundle-Version: 2.0.0
+Bundle-ClassPath: .
+Bundle-Activator: edu.cmu.sei.aadl.flowanalysis.FlowanalysisPlugin
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: edu.cmu.sei.aadl.flowanalysis,
+ edu.cmu.sei.aadl.flowanalysis.actions
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.core.resources,
+ org.osate.aadl2;bundle-version="2.0.0",
+ org.osate.aadl2.modelsupport;bundle-version="2.0.0",
+ org.osate.ui;bundle-version="2.0.0"
+Eclipse-LazyStart: true

@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            label="%actionSet.label"
+            visible="false"
+            id="edu.cmu.sei.aadl.resourcebudgets.actionSet">
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.semantic"
+               label="%menu.semantic.label"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+
+         <menu
+               id="menu.arch"
+               label="%menu.arch.label"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+         <action
+               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoResourceBudget"
+               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoResourceBudget"
+               enablesFor="1"
+               icon="icons/budget.gif"
+               label="&amp;Analyze Resource Budgets"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
+               toolbarPath="arch.toolbar"
+               tooltip="Analyze Resource Budget Totals for Processors and Memories">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+               </or>
+            </enablement>
+         </action>
+         <action
+               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundResourceAnalysis"
+               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundResourceAnalysis"
+               enablesFor="1"
+               icon="icons/budgetB.gif"
+               label="&amp;Analyze Resource Allocations"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
+               toolbarPath="arch.toolbar"
+               tooltip="Analyze Resource Allocations for Processors and Memories">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+               </or>
+            </enablement>
+         </action>
+         <action
+               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoPowerAnalysis"
+               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoPowerAnalysis"
+               enablesFor="1"
+               icon="icons/power.gif"
+               label="&amp;Analyze Bus Power Draw"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
+               toolbarPath="arch.toolbar"
+               tooltip="Analyze Power Draw on Buses">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+               </or>
+            </enablement>
+         </action>
+         <action
+               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoSwitchBandWidthAnalysis"
+               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoSwitchBandWidthAnalysis"
+               enablesFor="1"
+               icon="icons/switch.gif"
+               label="&amp;Analyze Bus Load"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
+               toolbarPath="arch.toolbar"
+               tooltip="Analyze Bandwidth Load Totals on Buses">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+               </or>
+            </enablement>
+         </action>
+         <action
+               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundSwitchBandWidthAnalysis"
+               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundSwitchBandWidthAnalysis"
+               enablesFor="1"
+               icon="icons/switchB.gif"
+               label="&amp;Analyze Bound Bus Load"
+               menubarPath="menu.analyses/menu.arch/stuff.grp"
+               toolbarPath="arch.toolbar"
+               tooltip="Analyze Bandwidth Load for Bound Connections">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+               </or>
+            </enablement>
+         </action>
+      </actionSet>
+   </extension>
+
+   <extension
+         id="ResourceObjectMarker"
+         name="Resource Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
+         <actionSet id="edu.cmu.sei.aadl.resourcebudgets.actionSet"/>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.osate.ui.analysis">
+      <analysis
+            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoResourceBudgetAutoAnalysis"
+            id="edu.cmu.sei.aadl.resourcebudgets.resourcebudget.analysis"
+            name="Analyze Resource Budgets">
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+      <analysis
+            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoPowerAutoAnalysis"
+            id="edu.cmu.sei.aadl.resourcebudgets.poweranalysis.analysis"
+            name="Analyze Power Draw on Buses">
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+      <analysis
+            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoBoundResourceAutoAnalysis"
+            id="edu.cmu.sei.aadl.resourcebudgets.boundresource.analysis"
+            name="Analyze Resource Allocations of Bound Application Components">
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+      <analysis
+            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoSwitchBandWidthAutoAnalysis"
+            id="edu.cmu.sei.aadl.resourcebudgets.switchbandwidth.analysis"
+            name="Analyze Load on Switch for All Cross-Processor Connections and Loopback">
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+      <analysis
+            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoBoundSwitchBandWidthAutoAnalysis"
+            id="edu.cmu.sei.aadl.resourcebudgets.boundswitchbandwidth.analysis"
+            name="Analyze Load on Switch for Bound Cross-Processor Connections and Loopback">
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+   </extension>
+
+</plugin>

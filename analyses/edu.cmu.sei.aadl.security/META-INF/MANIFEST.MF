@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: %pluginName
+Bundle-SymbolicName: edu.cmu.sei.aadl.security; singleton:=true
+Bundle-Version: 2.0.0
+Bundle-ClassPath: .
+Bundle-Activator: edu.cmu.sei.aadl.security.SecurityPlugin
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
+Export-Package: edu.cmu.sei.aadl.security,
+ edu.cmu.sei.aadl.security.actions
+Require-Bundle: org.eclipse.core.runtime,
+ org.eclipse.emf.edit,
+ org.eclipse.emf.ecore,
+ org.eclipse.ui,
+ edu.cmu.sei.aadl.properties.SEI,
+ org.eclipse.core.resources,
+ org.osate.aadl2;bundle-version="2.0.0",
+ org.osate.ui;bundle-version="2.0.0",
+ org.osate.aadl2.modelsupport;bundle-version="2.0.0"
+Bundle-ActivationPolicy: lazy
+

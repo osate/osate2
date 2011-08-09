@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="edu.cmu.sei.aadl.flowanalysis.actionSet"
+            label="%actionSet.label"
+            visible="false">
+
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+         
+         <action
+               id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.action"
+               label="%CheckFlowLatency.label"
+               tooltip="%CheckFlowLatency.toolTip"
+               icon="%CheckFlowLatency.icon"
+               class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency"
+               menubarPath="menu.analyses/top.grp"
+               toolbarPath="edu.cmu.sei.aadl.architecture.actionSet/arch.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+      </actionSet>
+   </extension>
+   
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="edu.cmu.sei.aadl.flowanalysis.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="edu.cmu.sei.aadl.flowanalysis.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+            <or>
+               <and>
+                  <objectClass name="org.eclipse.core.resources.IFile"/>
+                  <objectState name="extension" value="aaxl2"/>
+               </and>
+               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+            </or>
+         </visibility>
+
+         <menu
+               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label"
+               path="additions">
+            <groupMarker name="anal.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <action
+               id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.popupAction"
+               label="%CheckFlowLatency.label"
+               tooltip="%CheckFlowLatency.toolTip"
+               icon="%CheckFlowLatency.icon"
+               class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/anal.grp"
+               enablesFor="1"/>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         id="FlowLatencyObjectMarker"
+         name="Flow Latency Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension point="org.osate.ui.analysis">
+      <analysis
+         id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.analysis"
+         name="Check Flow Latency"
+         class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatencyAnalysis">
+         <declarativeModel selectRootObject="false">
+             <selectedObject objectType="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
+         </declarativeModel>
+         <instanceModel selectRootObject="true"/>
+      </analysis>
+   </extension>
+</plugin>

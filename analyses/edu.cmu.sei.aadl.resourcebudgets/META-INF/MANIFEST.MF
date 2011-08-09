@@ -1,0 +1,22 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Resource Analysis Plug-in
+Bundle-SymbolicName: edu.cmu.sei.aadl.resourcebudgets; singleton:=true
+Bundle-Version: 2.0.0
+Bundle-ClassPath: .
+Bundle-Activator: edu.cmu.sei.aadl.resourcebudgets.ResourceBudgetPlugin
+Bundle-Vendor: sei.cmu.edu
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.emf.ecore,
+ org.eclipse.core.resources,
+ org.osate.aadl2;bundle-version="2.0.0",
+ org.osate.ui;bundle-version="2.0.0",
+ org.osate.aadl2.modelsupport;bundle-version="2.0.0",
+ org.osate.xtext.aadl2;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Export-Package: edu.cmu.sei.aadl.resourcebudgets,
+ edu.cmu.sei.aadl.resourcebudgets.actions,
+ edu.cmu.sei.aadl.resourcebudgets.autoanalyses,
+ edu.cmu.sei.aadl.resourcebudgets.logic

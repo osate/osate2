@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="edu.cmu.sei.aadl.resourcemanagement.actionSet"
+            label="%actionSet.label"
+            visible="false">
+
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.rsrc"
+               label="%menu.rsrc.label"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+         
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversion.action"
+               label="%CheckPriorityInversion.label"
+               tooltip="%CheckPriorityInversion.toolTip"
+               icon="%CheckPriorityInversion.icon"
+               disabledIcon="%CheckPriorityInversion.disabledIcon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversion"
+               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
+               toolbarPath="rsrc.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl"/>
+                  </and>
+                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+         
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.Schedule.action"
+               label="%Schedule.label"
+               tooltip="%Schedule.toolTip"
+               icon="%Schedule.icon"
+               disabledIcon="%Schedule.disabledIcon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.Schedule"
+               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
+               toolbarPath="rsrc.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                   <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl"/>
+                  </and>
+                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+         
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack.action"
+               label="%Binpack.label"
+               tooltip="%Binpack.toolTip"
+               icon="%Binpack.icon"
+               disabledIcon="%Binpack.disabledIcon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack"
+               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
+               toolbarPath="rsrc.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+      </actionSet>
+   </extension>
+   
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="edu.cmu.sei.aadl.resourcemanagement.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="edu.cmu.sei.aadl.resourcemanagement.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+            <or>
+               <and>
+                  <objectClass name="org.eclipse.core.resources.IFile"/>
+                  <objectState name="extension" value="aaxl"/>
+               </and>
+               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+            </or>
+         </visibility>
+         
+         <menu
+               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label"
+               path="additions">
+            <groupMarker name="anal.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <menu
+               id="edu.cmu.sei.aadl.resourcemanagement.popupMenu.Rsrc"
+               label="%popupMenu.Rsrc.label"
+               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+            <groupMarker name="anal.grp"/>
+         </menu>
+
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversion.popupAction"
+               label="%CheckPriorityInversion.label"
+               tooltip="%CheckPriorityInversion.toolTip"
+               icon="%CheckPriorityInversion.icon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversion"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.resourcemanagement.popupMenu.Rsrc/anal.grp"
+               enablesFor="1"/>
+         
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.Schedule.popupAction"
+               label="%Schedule.label"
+               tooltip="%Schedule.toolTip"
+               icon="%Schedule.icon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.Schedule"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.resourcemanagement.popupMenu.Rsrc/anal.grp"
+               enablesFor="1"/>
+         
+         <action
+               id="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack.popupAction"
+               label="%Binpack.label"
+               tooltip="%Binpack.toolTip"
+               icon="%Binpack.icon"
+               class="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.resourcemanagement.popupMenu.Rsrc/anal.grp"
+               enablesFor="1"/>
+      </objectContribution>
+   </extension>
+   
+   <extension
+         id="BinpackObjectMarker"
+         name="Thread Binding Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="ScheduleObjectMarker"
+         name="Scheduling Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension
+         id="InversionObjectMarker"
+         name="Priority Inversion Analysis Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension point="edu.cmu.sei.osate.ui.analysis">
+      <analysis
+   		 id="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack.analysis"
+   		 name="Bind and Schedule Threads"
+   		 class="edu.cmu.sei.aadl.resourcemanagement.actions.BinpackAnalysis">
+   		 <instanceModel selectRootObject="true"/>
+   	  </analysis>
+
+      <analysis
+   		 id="edu.cmu.sei.aadl.resourcemanagement.actions.Schedule.analysis"
+   		 name="Schedule a Bound System"
+   		 class="edu.cmu.sei.aadl.resourcemanagement.actions.ScheduleAnalysis">
+   		 <instanceModel selectRootObject="true"/>
+      </analysis>
+
+      <analysis
+   		 id="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversion.analysis"
+   		 name="Check Priority Inversion"
+   		 class="edu.cmu.sei.aadl.resourcemanagement.actions.CheckPriorityInversionAnalysis">
+   		 <instanceModel selectRootObject="true"/>
+   	  </analysis>
+   </extension>
+</plugin>
