@@ -37,6 +37,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -60,6 +61,7 @@ import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 /**
  * This class contains static methods for assisting in getting simple property
@@ -858,25 +860,5 @@ public class PropertyUtils {
 		return pv;
 	}
 
-	/**
-	 * Retrieve the unit literal given a unit string for a property It is useful
-	 * when calling getScaledValue methods that require the literal as object
-	 * 
-	 * @param pd Property Definition
-	 * @param literalname String
-	 * @return UnitLiteral or null if the unit literal could not be found or the
-	 *         definition does not have a unit
-	 */
-	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
-		PropertyType pt = (PropertyType) pd.getType();
-		if (pt instanceof NumberType) {
-			NumberType nt = (NumberType) pt;
-			UnitsType ut = nt.getUnitsType();
-			if (ut != null) {
-				return ut.findLiteral(literalname);
-			}
-		}
-		return null;
-	}
 
 }
