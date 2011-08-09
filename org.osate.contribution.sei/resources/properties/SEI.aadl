@@ -90,4 +90,6 @@ property set SEI is
   Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
   -- Data volume units : amount of data per second
   Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+  
+  Data_Rate : aadlreadl applies to (port);
 end SEI;
