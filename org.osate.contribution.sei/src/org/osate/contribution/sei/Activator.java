@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
 public class Activator extends Plugin {
 
 	// The plug-in ID
-	public static final String PLUGIN_ID = "edu.cmu.sei.aadl.properties.SEI";
+	public static final String PLUGIN_ID = "org.osate.contribution.sei";
 
 	// The shared instance
 	private static Activator plugin;

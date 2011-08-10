@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="edu.cmu.sei.osate-frontend"
+      id="org.osate.core.feature"
       label="Open Source AADL Tool Environment"
-      version="2.0.0"
-      provider-name="sei.cmu.edu"
-      plugin="edu.cmu.sei.aadl"
+      version="2.0.0.qualifier"
+      provider-name="CMU SEI"
+      plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
       application="org.eclipse.ui.ide.workbench">
    <install-handler/>
@@ -14,7 +14,7 @@
    </description>
 
    <copyright>
-      Copyright  2005-2006 by Carnegie Mellon University, all rights reserved.
+      Copyright  2005-2011 by Carnegie Mellon University, all rights reserved.
    </copyright>
 
    <license url="OSATELicense.html">
@@ -23,160 +23,167 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
    </license>
 
    <url>
-      <update label="OSATE" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
-      <discovery label="OSATE Updates" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
+      <update label="OSATE2" url="http://www.aadl.info/osate2/updates"/>
    </url>
 
    <requires>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.help"/>
       <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.uml2.uml"/>
+      <import plugin="org.eclipse.ocl.ecore"/>
+      <import plugin="org.eclipse.uml2.uml.edit"/>
+      <import plugin="org.eclipse.core.runtime" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.core.resources"/>
-      <import plugin="org.eclipse.emf.ecore.xmi"/>
+      <import plugin="org.eclipse.emf.transaction" version="1.3.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide"/>
-      <import plugin="org.eclipse.emf.edit.ui"/>
+      <import plugin="org.eclipse.emf.workspace"/>
+      <import plugin="org.eclipse.emf.workspace.ui"/>
+      <import plugin="org.eclipse.emf.transaction.ui" version="1.3.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.ui" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="com.google.inject" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.jface.text"/>
-      <import plugin="org.eclipse.emf.ecore.edit"/>
-      <import feature="org.eclipse.emf" version="2.3.0.v200705230200" match="compatible"/>
-      <import plugin="edu.cmu.sei.aadl.modelsupport" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.aadl2.edit" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.instance.edit" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.uml2.common"/>
-      <import plugin="org.eclipse.ocl.ecore"/>
-      <import plugin="org.eclipse.uml2.common.edit"/>
-      <import plugin="org.eclipse.ui.editors" version="3.4.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.properties.SEI" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.resources" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit" version="2.7.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.logging" version="1.1.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.util" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.antlr.runtime" version="3.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.xbase.lib"/>
+      <import plugin="org.eclipse.xtext.xtend2.lib"/>
+      <import plugin="org.eclipse.xtext.ui.shared" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.builder" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.editors" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.ui.ide" version="3.7.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtext.common.types.ui" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.compare" version="3.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xtend" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.xpand" version="1.1.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.edit.ui" version="2.7.0" match="greaterOrEqual"/>
    </requires>
 
    <plugin
-         id="edu.cmu.sei.aadl"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.aadl.help"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.aadl.instance"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.aadl.parser"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.core"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.ui"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.workspace"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.aadl.annex"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.reporter"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.wizards"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.osate.pluginsupport"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
-
-   <plugin
-         id="edu.cmu.sei.aadl.aadl2"
+         id="org.osate.aadl2"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.aadl2.edit"
+         id="org.osate.aadl2.edit"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.aadl2.editor"
+         id="org.osate.aadl2.instantiation"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.aadl2.model.editor"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.aadl2texteditor"
+         id="org.osate.aadl2.modelsupport"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.instance.edit"
+         id="org.osate.annexsupport"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.instance.editor"
+         id="org.osate.branding"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.modelsupport"
+         id="org.osate.core"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.properties.SEI"
+         id="org.osate.pluginsupport"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.reporter"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.wizards"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.workspace"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.properties"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.properties.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.xtext.aadl2.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.osate.contribution.sei"
          download-size="0"
          install-size="0"
          version="0.0.0"
