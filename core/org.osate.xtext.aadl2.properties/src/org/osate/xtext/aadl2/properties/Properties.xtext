@@ -242,10 +242,13 @@ terminal SL_COMMENT:
 
 
 INTVALUE returns aadl2::Integer:
-	INTEGER_LIT 	
+	NUMERAL 	
 ;
 
 
+terminal NUMERAL:
+	(DIGIT)+('_' (DIGIT)+)*
+;
 //terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 
 terminal fragment

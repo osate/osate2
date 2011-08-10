@@ -1,6 +1,0 @@
-Ui Improvement
---------------
-The Aadl Property View now has a more user friendly way of creating new
-property associations.  This includes things like drop down boxes for
-enumeration types and units as well as trees to assist with setting
-classifier and reference values.

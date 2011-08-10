@@ -2,15 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Annex Plug-in
 Bundle-SymbolicName: org.osate.annexsupport;singleton:=true
-Bundle-Version: 2.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.annexsupport.AnnexPlugin
-Bundle-Vendor: sei.cmu.edu
-Bundle-Localization: plugin
+Bundle-Vendor: CMU-SEI
 Export-Package: org.osate.annexsupport
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.osate.workspace,
  org.osate.aadl2,
  org.osate.aadl2.modelsupport
-Eclipse-LazyStart: true
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6

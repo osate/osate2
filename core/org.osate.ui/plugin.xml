@@ -520,8 +520,8 @@
             icon="icons/new_aadl_project.gif"
             category="edu.cmu.sei.osate.Wizard.category.ID"
             class="org.osate.ui.wizards.AadlProjectWizard"
-            preferredPerspectives="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
-            finalPerspective="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
+            preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
+            finalPerspective="org.osate.ui.perspective.AadlPerspective"
             project="true">
          <description>
             %_UI_AadlProjectWizard_description
@@ -564,7 +564,7 @@
    <extension 
         point="org.eclipse.ui.perspectives"> 
         <perspective 
-        	id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
+        	id="org.osate.ui.perspective.AadlPerspective"
             name="AADL" 
             class="org.osate.ui.perspective.AadlPerspectiveFactory" 
             icon="icons/aadl.gif"> 
@@ -576,17 +576,17 @@
     	<perspectiveExtension
     		targetID="org.eclipse.ui.resourcePerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     	<perspectiveExtension
     		targetID="org.eclipse.team.cvs.ui.cvsPerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     	<perspectiveExtension
     		targetID="org.eclipse.team.ui.TeamSynchronizingPerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     </extension>
     
