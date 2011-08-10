@@ -2,15 +2,15 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.model.editor;singleton:=true
-Bundle-Version: 2.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: org.osate.aadl2.model.editor.jar
 Bundle-Activator: org.osate.aadl2.presentation.Aadl2EditorPlugin$Implementation
-Bundle-Vendor: %providerName
+Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.aadl2.presentation
 Require-Bundle: org.osate.aadl2.edit;visibility:=reexport,
  org.eclipse.ui.ide;visibility:=reexport,
- org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.osate.aadl2.modelsupport,
  org.eclipse.emf.workspace,
  org.eclipse.emf.workspace.ui,
  org.eclipse.emf.transaction.ui;bundle-version="1.3.1",
