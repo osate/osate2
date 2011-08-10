@@ -28,8 +28,9 @@
                name="preferenceCustomization"
                value="plugin_customization.ini"/>
          <property
-               name="startupProgressRect"
-               value="20,10,400,20"/>
+               name="windowImages"
+               value="icons/16aadl.jpg,icons/32aadl.jpg">
+         </property>
       </product>
    </extension>
 

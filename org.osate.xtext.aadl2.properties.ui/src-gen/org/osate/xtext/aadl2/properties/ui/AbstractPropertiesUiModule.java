@@ -68,16 +68,6 @@ public abstract class AbstractPropertiesUiModule extends DefaultUiModule {
 		return org.eclipse.xtext.builder.impl.PersistentDataAwareDirtyResource.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.generator.GeneratorFragment
-	public Class<? extends org.eclipse.xtext.builder.IXtextBuilderParticipant> bindIXtextBuilderParticipant() {
-		return org.eclipse.xtext.builder.JavaProjectBasedBuilderParticipant.class;
-	}
-
-	// contributed by org.eclipse.xtext.generator.generator.GeneratorFragment
-	public org.eclipse.core.resources.IWorkspaceRoot bindIWorkspaceRootToInstance() {
-		return org.eclipse.core.resources.ResourcesPlugin.getWorkspace().getRoot();
-	}
-
 	// contributed by org.eclipse.xtext.ui.generator.labeling.LabelProviderFragment
 	public Class<? extends org.eclipse.jface.viewers.ILabelProvider> bindILabelProvider() {
 		return org.osate.xtext.aadl2.properties.ui.labeling.PropertiesLabelProvider.class;
