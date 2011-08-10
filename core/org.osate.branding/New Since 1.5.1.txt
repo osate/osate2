@@ -1,4 +1,0 @@
-Fixed Bug 729.  There was a race condition that occurred when importing large
-.aaxl files into the workspace.  The builder would unparse the models before they
-were completely loaded.  This resulted in incomplete text files, error markers
-on the model, and ConcurrentModificationExceptions.
