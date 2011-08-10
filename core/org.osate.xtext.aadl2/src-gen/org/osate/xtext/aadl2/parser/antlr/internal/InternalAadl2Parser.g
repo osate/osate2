@@ -39961,12 +39961,12 @@ ruleINTVALUE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken(
     }
     @after { leaveRule();
     }:
-    this_INTEGER_LIT_0=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_0);
+    this_NUMERAL_0=RULE_NUMERAL    {
+		$current.merge(this_NUMERAL_0);
     }
 
     { 
-    newLeafNode(this_INTEGER_LIT_0, grammarAccess.getINTVALUEAccess().getINTEGER_LITTerminalRuleCall()); 
+    newLeafNode(this_NUMERAL_0, grammarAccess.getINTVALUEAccess().getNUMERALTerminalRuleCall()); 
     }
 
     ;
