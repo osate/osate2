@@ -17,6 +17,7 @@ Workflow {
 //		registerGeneratedEPackage = "org.osate.aadl2.instance.InstancePackage"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/instance.genmodel"
+//		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/UML.genmodel"
     }
 
     component = DirectoryCleaner {

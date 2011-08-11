@@ -184,13 +184,13 @@ protected class Sandbox_SystemInstanceAssignment_2 extends AssignmentToken  {
 /************ begin Rule SystemConfiguration ****************
  *
  * SystemConfiguration:
- * 	"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF]
- * 	systemInstanceProxy=SystemInstanceProxy? ";";
+ * 	"system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
+ * 	[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";";
  *
  **/
 
-// "system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy?
-// ";"
+// "system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
+// [ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";"
 protected class SystemConfiguration_Group extends GroupToken {
 	
 	public SystemConfiguration_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -318,7 +318,8 @@ protected class SystemConfiguration_FromKeyword_3 extends KeywordToken  {
 
 }
 
-// systemImplementation=[ecore::EObject|QIREF]
+// systemImplementation= //[aadl2::SystemImplementation|QIREF]
+// [ecore::EObject|QIREF]
 protected class SystemConfiguration_SystemImplementationAssignment_4 extends AssignmentToken  {
 	
 	public SystemConfiguration_SystemImplementationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
