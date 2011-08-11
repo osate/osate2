@@ -65,12 +65,12 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SystemConfiguration:
-		//	"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF]
-		//	systemInstanceProxy=SystemInstanceProxy? ";";
+		//	"system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
+		//	[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";";
 		public ParserRule getRule() { return rule; }
 
-		//"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy?
-		//";"
+		//"system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
+		//[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";"
 		public Group getGroup() { return cGroup; }
 
 		//"system"
@@ -88,9 +88,11 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		//"from"
 		public Keyword getFromKeyword_3() { return cFromKeyword_3; }
 
-		//systemImplementation=[ecore::EObject|QIREF]
+		//systemImplementation= //[aadl2::SystemImplementation|QIREF]
+		//[ecore::EObject|QIREF]
 		public Assignment getSystemImplementationAssignment_4() { return cSystemImplementationAssignment_4; }
 
+		////[aadl2::SystemImplementation|QIREF]
 		//[ecore::EObject|QIREF]
 		public CrossReference getSystemImplementationEObjectCrossReference_4_0() { return cSystemImplementationEObjectCrossReference_4_0; }
 
@@ -239,8 +241,8 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SystemConfiguration:
-	//	"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF]
-	//	systemInstanceProxy=SystemInstanceProxy? ";";
+	//	"system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
+	//	[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";";
 	public SystemConfigurationElements getSystemConfigurationAccess() {
 		return (pSystemConfiguration != null) ? pSystemConfiguration : (pSystemConfiguration = new SystemConfigurationElements());
 	}
