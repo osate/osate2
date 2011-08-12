@@ -112,34 +112,6 @@ finally {
 
 
 
-// Entry rule entryRuleSystemInstanceProxy
-entryRuleSystemInstanceProxy 
-:
-{ before(grammarAccess.getSystemInstanceProxyRule()); }
-	 ruleSystemInstanceProxy
-{ after(grammarAccess.getSystemInstanceProxyRule()); } 
-	 EOF 
-;
-
-// Rule SystemInstanceProxy
-ruleSystemInstanceProxy
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getSystemInstanceProxyAccess().getGroup()); }
-(rule__SystemInstanceProxy__Group__0)
-{ after(grammarAccess.getSystemInstanceProxyAccess().getGroup()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-
 // Entry rule entryRuleQIREF
 entryRuleQIREF 
 :
@@ -395,7 +367,6 @@ rule__SystemConfiguration__Group__4
     }
 :
 	rule__SystemConfiguration__Group__4__Impl
-	rule__SystemConfiguration__Group__5
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -418,136 +389,10 @@ finally {
 }
 
 
-rule__SystemConfiguration__Group__5
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__SystemConfiguration__Group__5__Impl
-	rule__SystemConfiguration__Group__6
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemConfiguration__Group__5__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxyAssignment_5()); }
-(rule__SystemConfiguration__SystemInstanceProxyAssignment_5)?
-{ after(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxyAssignment_5()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__SystemConfiguration__Group__6
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__SystemConfiguration__Group__6__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemConfiguration__Group__6__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6()); }
-
-	';' 
-
-{ after(grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-rule__SystemInstanceProxy__Group__0
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__SystemInstanceProxy__Group__0__Impl
-	rule__SystemInstanceProxy__Group__1
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemInstanceProxy__Group__0__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0()); }
-
-	'to' 
-
-{ after(grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__SystemInstanceProxy__Group__1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__SystemInstanceProxy__Group__1__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemInstanceProxy__Group__1__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefAssignment_1()); }
-(rule__SystemInstanceProxy__InstanceRefAssignment_1)
-{ after(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefAssignment_1()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
 
 
 
@@ -796,46 +641,12 @@ rule__SystemConfiguration__SystemImplementationAssignment_4
     }
 :
 (
-{ before(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0()); }
+{ before(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); }
 (
-{ before(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectQIREFParserRuleCall_4_0_1()); }
-	ruleQIREF{ after(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectQIREFParserRuleCall_4_0_1()); }
+{ before(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationQIREFParserRuleCall_4_0_1()); }
+	ruleQIREF{ after(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationQIREFParserRuleCall_4_0_1()); }
 )
-{ after(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemConfiguration__SystemInstanceProxyAssignment_5
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0()); }
-	ruleSystemInstanceProxy{ after(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__SystemInstanceProxy__InstanceRefAssignment_1
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0()); }
-(
-{ before(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectIDTerminalRuleCall_1_0_1()); }
-	RULE_ID{ after(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectIDTerminalRuleCall_1_0_1()); }
-)
-{ after(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0()); }
+{ after(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); }
 )
 
 ;

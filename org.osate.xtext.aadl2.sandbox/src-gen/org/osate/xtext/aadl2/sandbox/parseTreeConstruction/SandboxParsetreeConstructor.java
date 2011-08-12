@@ -33,7 +33,6 @@ protected class ThisRootNode extends RootToken {
 		switch(index) {
 			case 0: return new Sandbox_Group(this, this, 0, inst);
 			case 1: return new SystemConfiguration_Group(this, this, 1, inst);
-			case 2: return new SystemInstanceProxy_Group(this, this, 2, inst);
 			default: return null;
 		}	
 	}	
@@ -42,6 +41,12 @@ protected class ThisRootNode extends RootToken {
 
 /************ begin Rule Sandbox ****************
  *
+ * //
+ * //import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
+ * //import "http://www.eclipse.org/uml2/2.2.0/UML" as uml
+ * //import "platform:/resource/org.osate.aadl2/model/UML.ecore" as uml
+ * //import "platform:/plugin/org.eclipse.emf.ecore/model/UML.ecore" as uml
+ * //import "http://www.eclipse.org/emf/2002/Ecore" as ecore
  * Sandbox:
  * 	"sandbox" name=ID systemInstance+=SystemConfiguration;
  *
@@ -183,14 +188,15 @@ protected class Sandbox_SystemInstanceAssignment_2 extends AssignmentToken  {
 
 /************ begin Rule SystemConfiguration ****************
  *
+ * //		(systemInstanceProxy=SystemInstanceProxy)? ";"
  * SystemConfiguration:
- * 	"system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
- * 	[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";";
+ * 	"system" "instance" name=ID "from" systemImplementation= //[em::ErrorTypeSet|QIREF]
+ * 	[aadl2::SystemImplementation|QIREF];
  *
  **/
 
-// "system" "instance" name=ID "from" systemImplementation= //[aadl2::SystemImplementation|QIREF]
-// [ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy? ";"
+// "system" "instance" name=ID "from" systemImplementation= //[em::ErrorTypeSet|QIREF]
+// [aadl2::SystemImplementation|QIREF]
 protected class SystemConfiguration_Group extends GroupToken {
 	
 	public SystemConfiguration_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -205,7 +211,7 @@ protected class SystemConfiguration_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemConfiguration_SemicolonKeyword_6(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -318,8 +324,8 @@ protected class SystemConfiguration_FromKeyword_3 extends KeywordToken  {
 
 }
 
-// systemImplementation= //[aadl2::SystemImplementation|QIREF]
-// [ecore::EObject|QIREF]
+// systemImplementation= //[em::ErrorTypeSet|QIREF]
+// [aadl2::SystemImplementation|QIREF]
 protected class SystemConfiguration_SystemImplementationAssignment_4 extends AssignmentToken  {
 	
 	public SystemConfiguration_SystemImplementationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -345,186 +351,19 @@ protected class SystemConfiguration_SystemImplementationAssignment_4 extends Ass
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemImplementation");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0(); 
+				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0(); 
 				return obj;
 			}
 		}
 		return null;
-	}
-
-}
-
-// systemInstanceProxy=SystemInstanceProxy?
-protected class SystemConfiguration_SystemInstanceProxyAssignment_5 extends AssignmentToken  {
-	
-	public SystemConfiguration_SystemInstanceProxyAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxyAssignment_5();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SystemInstanceProxy_Group(this, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("systemInstanceProxy",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemInstanceProxy");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemInstanceProxyRule().getType().getClassifier())) {
-				type = AssignmentType.PARSER_RULE_CALL;
-				element = grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0(); 
-				consumed = obj;
-				return param;
-			}
-		}
-		return null;
-	}
-
-    @Override
-	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
-		if(value == inst.getEObject() && !inst.isConsumed()) return null;
-		switch(index) {
-			case 0: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, next, actIndex, consumed);
-			default: return null;
-		}	
-	}	
-}
-
-// ";"
-protected class SystemConfiguration_SemicolonKeyword_6 extends KeywordToken  {
-	
-	public SystemConfiguration_SemicolonKeyword_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SystemConfiguration_SystemInstanceProxyAssignment_5(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, this, 1, inst);
-			default: return null;
-		}	
 	}
 
 }
 
 
 /************ end Rule SystemConfiguration ****************/
-
-
-/************ begin Rule SystemInstanceProxy ****************
- *
- * SystemInstanceProxy:
- * 	"to" instanceRef=[ecore::EObject];
- *
- **/
-
-// "to" instanceRef=[ecore::EObject]
-protected class SystemInstanceProxy_Group extends GroupToken {
-	
-	public SystemInstanceProxy_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Group getGrammarElement() {
-		return grammarAccess.getSystemInstanceProxyAccess().getGroup();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SystemInstanceProxy_InstanceRefAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override
-	public IEObjectConsumer tryConsume() {
-		if(getEObject().eClass() != grammarAccess.getSystemInstanceProxyRule().getType().getClassifier())
-			return null;
-		return eObjectConsumer;
-	}
-
-}
-
-// "to"
-protected class SystemInstanceProxy_ToKeyword_0 extends KeywordToken  {
-	
-	public SystemInstanceProxy_ToKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
-		}	
-	}
-
-}
-
-// instanceRef=[ecore::EObject]
-protected class SystemInstanceProxy_InstanceRefAssignment_1 extends AssignmentToken  {
-	
-	public SystemInstanceProxy_InstanceRefAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getSystemInstanceProxyAccess().getInstanceRefAssignment_1();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new SystemInstanceProxy_ToKeyword_0(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("instanceRef",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("instanceRef");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
-			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0(); 
-				return obj;
-			}
-		}
-		return null;
-	}
-
-}
-
-
-/************ end Rule SystemInstanceProxy ****************/
 
 
 

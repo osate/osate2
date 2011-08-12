@@ -12,22 +12,20 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalSandboxLexer extends Lexer {
-    public static final int RULE_ID=12;
-    public static final int RULE_STRING=14;
-    public static final int RULE_ANY_OTHER=18;
-    public static final int KEYWORD_6=6;
-    public static final int KEYWORD_7=5;
-    public static final int KEYWORD_8=4;
-    public static final int KEYWORD_1=10;
-    public static final int RULE_INT=13;
-    public static final int KEYWORD_5=7;
-    public static final int KEYWORD_4=9;
-    public static final int KEYWORD_3=8;
-    public static final int KEYWORD_2=11;
-    public static final int RULE_WS=17;
-    public static final int RULE_SL_COMMENT=16;
+    public static final int RULE_ID=10;
+    public static final int RULE_STRING=12;
+    public static final int RULE_ANY_OTHER=16;
+    public static final int KEYWORD_6=4;
+    public static final int KEYWORD_1=9;
+    public static final int RULE_INT=11;
+    public static final int KEYWORD_5=5;
+    public static final int KEYWORD_4=6;
+    public static final int KEYWORD_3=7;
+    public static final int KEYWORD_2=8;
+    public static final int RULE_WS=15;
+    public static final int RULE_SL_COMMENT=14;
     public static final int EOF=-1;
-    public static final int RULE_ML_COMMENT=15;
+    public static final int RULE_ML_COMMENT=13;
 
     // delegates
     // delegators
@@ -42,10 +40,10 @@ public class InternalSandboxLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g"; }
 
-    // $ANTLR start "KEYWORD_8"
-    public final void mKEYWORD_8() throws RecognitionException {
+    // $ANTLR start "KEYWORD_6"
+    public final void mKEYWORD_6() throws RecognitionException {
         try {
-            int _type = KEYWORD_8;
+            int _type = KEYWORD_6;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:19:11: ( ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:19:13: ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
@@ -131,12 +129,12 @@ public class InternalSandboxLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_8"
+    // $ANTLR end "KEYWORD_6"
 
-    // $ANTLR start "KEYWORD_7"
-    public final void mKEYWORD_7() throws RecognitionException {
+    // $ANTLR start "KEYWORD_5"
+    public final void mKEYWORD_5() throws RecognitionException {
         try {
-            int _type = KEYWORD_7;
+            int _type = KEYWORD_5;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:21:11: ( ( 'S' | 's' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'B' | 'b' ) ( 'O' | 'o' ) ( 'X' | 'x' ) )
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:21:13: ( 'S' | 's' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'B' | 'b' ) ( 'O' | 'o' ) ( 'X' | 'x' )
@@ -213,12 +211,12 @@ public class InternalSandboxLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_7"
+    // $ANTLR end "KEYWORD_5"
 
-    // $ANTLR start "KEYWORD_6"
-    public final void mKEYWORD_6() throws RecognitionException {
+    // $ANTLR start "KEYWORD_4"
+    public final void mKEYWORD_4() throws RecognitionException {
         try {
-            int _type = KEYWORD_6;
+            int _type = KEYWORD_4;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:23:11: ( ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' ) )
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:23:13: ( 'S' | 's' ) ( 'Y' | 'y' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'E' | 'e' ) ( 'M' | 'm' )
@@ -286,12 +284,12 @@ public class InternalSandboxLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_6"
+    // $ANTLR end "KEYWORD_4"
 
-    // $ANTLR start "KEYWORD_5"
-    public final void mKEYWORD_5() throws RecognitionException {
+    // $ANTLR start "KEYWORD_3"
+    public final void mKEYWORD_3() throws RecognitionException {
         try {
-            int _type = KEYWORD_5;
+            int _type = KEYWORD_3;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:25:11: ( ( 'F' | 'f' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'M' | 'm' ) )
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:25:13: ( 'F' | 'f' ) ( 'R' | 'r' ) ( 'O' | 'o' ) ( 'M' | 'm' )
@@ -341,12 +339,12 @@ public class InternalSandboxLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_5"
+    // $ANTLR end "KEYWORD_3"
 
-    // $ANTLR start "KEYWORD_3"
-    public final void mKEYWORD_3() throws RecognitionException {
+    // $ANTLR start "KEYWORD_2"
+    public final void mKEYWORD_2() throws RecognitionException {
         try {
-            int _type = KEYWORD_3;
+            int _type = KEYWORD_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:27:11: ( ':' ':' )
             // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:27:13: ':' ':'
@@ -362,52 +360,15 @@ public class InternalSandboxLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_3"
-
-    // $ANTLR start "KEYWORD_4"
-    public final void mKEYWORD_4() throws RecognitionException {
-        try {
-            int _type = KEYWORD_4;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:29:11: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:29:13: ( 'T' | 't' ) ( 'O' | 'o' )
-            {
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "KEYWORD_4"
+    // $ANTLR end "KEYWORD_2"
 
     // $ANTLR start "KEYWORD_1"
     public final void mKEYWORD_1() throws RecognitionException {
         try {
             int _type = KEYWORD_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:31:11: ( '.' )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:31:13: '.'
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:29:11: ( '.' )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:29:13: '.'
             {
             match('.'); 
 
@@ -421,35 +382,15 @@ public class InternalSandboxLexer extends Lexer {
     }
     // $ANTLR end "KEYWORD_1"
 
-    // $ANTLR start "KEYWORD_2"
-    public final void mKEYWORD_2() throws RecognitionException {
-        try {
-            int _type = KEYWORD_2;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:11: ( ';' )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:13: ';'
-            {
-            match(';'); 
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "KEYWORD_2"
-
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:11: ( '^' )?
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -458,7 +399,7 @@ public class InternalSandboxLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:11: '^'
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:11: '^'
                     {
                     match('^'); 
 
@@ -476,7 +417,7 @@ public class InternalSandboxLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:33:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -525,10 +466,10 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:35:10: ( ( '0' .. '9' )+ )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:35:12: ( '0' .. '9' )+
             {
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:12: ( '0' .. '9' )+
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:35:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -542,7 +483,7 @@ public class InternalSandboxLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:13: '0' .. '9'
+            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:35:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -574,10 +515,10 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -595,10 +536,10 @@ public class InternalSandboxLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -614,7 +555,7 @@ public class InternalSandboxLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -630,7 +571,7 @@ public class InternalSandboxLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -655,10 +596,10 @@ public class InternalSandboxLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -674,7 +615,7 @@ public class InternalSandboxLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -690,7 +631,7 @@ public class InternalSandboxLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:37:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -733,12 +674,12 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:24: ( options {greedy=false; } : . )*
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -763,7 +704,7 @@ public class InternalSandboxLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:52: .
+            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:39:52: .
             	    {
             	    matchAny(); 
 
@@ -793,12 +734,12 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -811,7 +752,7 @@ public class InternalSandboxLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -831,7 +772,7 @@ public class InternalSandboxLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -840,9 +781,9 @@ public class InternalSandboxLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -851,7 +792,7 @@ public class InternalSandboxLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:41: '\\r'
+                            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:41:41: '\\r'
                             {
                             match('\r'); 
 
@@ -883,10 +824,10 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:47:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:47:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:47:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:43:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -940,8 +881,8 @@ public class InternalSandboxLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:49:16: ( . )
-            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:49:18: .
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:16: ( . )
+            // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:45:18: .
             {
             matchAny(); 
 
@@ -956,110 +897,96 @@ public class InternalSandboxLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:8: ( KEYWORD_8 | KEYWORD_7 | KEYWORD_6 | KEYWORD_5 | KEYWORD_3 | KEYWORD_4 | KEYWORD_1 | KEYWORD_2 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=15;
+        // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:8: ( KEYWORD_6 | KEYWORD_5 | KEYWORD_4 | KEYWORD_3 | KEYWORD_2 | KEYWORD_1 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=13;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:10: KEYWORD_8
-                {
-                mKEYWORD_8(); 
-
-                }
-                break;
-            case 2 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:20: KEYWORD_7
-                {
-                mKEYWORD_7(); 
-
-                }
-                break;
-            case 3 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:30: KEYWORD_6
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:10: KEYWORD_6
                 {
                 mKEYWORD_6(); 
 
                 }
                 break;
-            case 4 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:40: KEYWORD_5
+            case 2 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:20: KEYWORD_5
                 {
                 mKEYWORD_5(); 
 
                 }
                 break;
-            case 5 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:50: KEYWORD_3
-                {
-                mKEYWORD_3(); 
-
-                }
-                break;
-            case 6 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:60: KEYWORD_4
+            case 3 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:30: KEYWORD_4
                 {
                 mKEYWORD_4(); 
 
                 }
                 break;
-            case 7 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:70: KEYWORD_1
+            case 4 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:40: KEYWORD_3
                 {
-                mKEYWORD_1(); 
+                mKEYWORD_3(); 
 
                 }
                 break;
-            case 8 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:80: KEYWORD_2
+            case 5 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:50: KEYWORD_2
                 {
                 mKEYWORD_2(); 
 
                 }
                 break;
-            case 9 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:90: RULE_ID
+            case 6 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:60: KEYWORD_1
+                {
+                mKEYWORD_1(); 
+
+                }
+                break;
+            case 7 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:70: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 10 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:98: RULE_INT
+            case 8 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:78: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 11 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:107: RULE_STRING
+            case 9 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:87: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 12 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:119: RULE_ML_COMMENT
+            case 10 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:99: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 13 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:135: RULE_SL_COMMENT
+            case 11 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:115: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 14 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:151: RULE_WS
+            case 12 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:131: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 15 :
-                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:159: RULE_ANY_OTHER
+            case 13 :
+                // ../org.osate.xtext.aadl2.sandbox.ui/src-gen/org/osate/xtext/aadl2/sandbox/ui/contentassist/antlr/lexer/InternalSandboxLexer.g:1:139: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1073,82 +1000,75 @@ public class InternalSandboxLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\3\21\1\17\1\21\2\uffff\1\17\2\uffff\3\17\2\uffff\1\21"+
-        "\1\uffff\3\21\1\uffff\1\42\7\uffff\4\21\1\uffff\3\21\1\52\3\21\1"+
-        "\uffff\2\21\1\60\1\21\1\62\1\uffff\1\63\2\uffff";
+        "\1\uffff\3\17\1\15\1\uffff\1\15\2\uffff\3\15\2\uffff\1\17\1\uffff"+
+        "\3\17\7\uffff\7\17\1\45\3\17\1\uffff\2\17\1\53\1\17\1\55\1\uffff"+
+        "\1\56\2\uffff";
     static final String DFA12_eofS =
-        "\64\uffff";
+        "\57\uffff";
     static final String DFA12_minS =
-        "\1\0\1\116\1\101\1\122\1\72\1\117\2\uffff\1\101\2\uffff\2\0\1\52"+
-        "\2\uffff\1\123\1\uffff\1\116\1\123\1\117\1\uffff\1\60\7\uffff\1"+
-        "\124\1\104\1\124\1\115\1\uffff\1\101\1\102\1\105\1\60\1\116\1\117"+
-        "\1\115\1\uffff\1\103\1\130\1\60\1\105\1\60\1\uffff\1\60\2\uffff";
+        "\1\0\1\116\1\101\1\122\1\72\1\uffff\1\101\2\uffff\2\0\1\52\2\uffff"+
+        "\1\123\1\uffff\1\116\1\123\1\117\7\uffff\1\124\1\104\1\124\1\115"+
+        "\1\101\1\102\1\105\1\60\1\116\1\117\1\115\1\uffff\1\103\1\130\1"+
+        "\60\1\105\1\60\1\uffff\1\60\2\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\156\1\171\1\162\1\72\1\157\2\uffff\1\172\2\uffff\2\uffff"+
-        "\1\57\2\uffff\1\163\1\uffff\1\156\1\163\1\157\1\uffff\1\172\7\uffff"+
-        "\1\164\1\144\1\164\1\155\1\uffff\1\141\1\142\1\145\1\172\1\156\1"+
-        "\157\1\155\1\uffff\1\143\1\170\1\172\1\145\1\172\1\uffff\1\172\2"+
-        "\uffff";
+        "\1\uffff\1\156\1\171\1\162\1\72\1\uffff\1\172\2\uffff\2\uffff\1"+
+        "\57\2\uffff\1\163\1\uffff\1\156\1\163\1\157\7\uffff\1\164\1\144"+
+        "\1\164\1\155\1\141\1\142\1\145\1\172\1\156\1\157\1\155\1\uffff\1"+
+        "\143\1\170\1\172\1\145\1\172\1\uffff\1\172\2\uffff";
     static final String DFA12_acceptS =
-        "\6\uffff\1\7\1\10\1\uffff\1\11\1\12\3\uffff\1\16\1\17\1\uffff\1"+
-        "\11\3\uffff\1\5\1\uffff\1\7\1\10\1\12\1\13\1\14\1\15\1\16\4\uffff"+
-        "\1\6\7\uffff\1\4\5\uffff\1\3\1\uffff\1\2\1\1";
+        "\5\uffff\1\6\1\uffff\1\7\1\10\3\uffff\1\14\1\15\1\uffff\1\7\3\uffff"+
+        "\1\5\1\6\1\10\1\11\1\12\1\13\1\14\13\uffff\1\4\5\uffff\1\3\1\uffff"+
+        "\1\2\1\1";
     static final String DFA12_specialS =
-        "\1\0\12\uffff\1\1\1\2\47\uffff}>";
+        "\1\0\10\uffff\1\2\1\1\44\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\17\2\16\2\17\1\16\22\17\1\16\1\17\1\13\4\17\1\14\6\17\1"+
-            "\6\1\15\12\12\1\4\1\7\5\17\5\11\1\3\2\11\1\1\11\11\1\2\1\5\6"+
-            "\11\3\17\1\10\1\11\1\17\5\11\1\3\2\11\1\1\11\11\1\2\1\5\6\11"+
-            "\uff85\17",
-            "\1\20\37\uffff\1\20",
-            "\1\22\27\uffff\1\23\7\uffff\1\22\27\uffff\1\23",
-            "\1\24\37\uffff\1\24",
-            "\1\25",
-            "\1\26\37\uffff\1\26",
+            "\11\15\2\14\2\15\1\14\22\15\1\14\1\15\1\11\4\15\1\12\6\15\1"+
+            "\5\1\13\12\10\1\4\6\15\5\7\1\3\2\7\1\1\11\7\1\2\7\7\3\15\1\6"+
+            "\1\7\1\15\5\7\1\3\2\7\1\1\11\7\1\2\7\7\uff85\15",
+            "\1\16\37\uffff\1\16",
+            "\1\20\27\uffff\1\21\7\uffff\1\20\27\uffff\1\21",
+            "\1\22\37\uffff\1\22",
+            "\1\23",
+            "",
+            "\32\17\4\uffff\1\17\1\uffff\32\17",
             "",
             "",
-            "\32\21\4\uffff\1\21\1\uffff\32\21",
+            "\0\26",
+            "\0\26",
+            "\1\27\4\uffff\1\30",
             "",
             "",
-            "\0\32",
-            "\0\32",
-            "\1\33\4\uffff\1\34",
+            "\1\32\37\uffff\1\32",
+            "",
+            "\1\33\37\uffff\1\33",
+            "\1\34\37\uffff\1\34",
+            "\1\35\37\uffff\1\35",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             "\1\36\37\uffff\1\36",
-            "",
             "\1\37\37\uffff\1\37",
             "\1\40\37\uffff\1\40",
             "\1\41\37\uffff\1\41",
-            "",
-            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\42\37\uffff\1\42",
             "\1\43\37\uffff\1\43",
             "\1\44\37\uffff\1\44",
-            "\1\45\37\uffff\1\45",
+            "\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
             "\1\46\37\uffff\1\46",
-            "",
             "\1\47\37\uffff\1\47",
             "\1\50\37\uffff\1\50",
+            "",
             "\1\51\37\uffff\1\51",
-            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
-            "\1\53\37\uffff\1\53",
+            "\1\52\37\uffff\1\52",
+            "\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
             "\1\54\37\uffff\1\54",
-            "\1\55\37\uffff\1\55",
+            "\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
             "",
-            "\1\56\37\uffff\1\56",
-            "\1\57\37\uffff\1\57",
-            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
-            "\1\61\37\uffff\1\61",
-            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
-            "",
-            "\12\21\7\uffff\32\21\4\uffff\1\21\1\uffff\32\21",
+            "\12\17\7\uffff\32\17\4\uffff\1\17\1\uffff\32\17",
             "",
             ""
     };
@@ -1183,7 +1103,7 @@ public class InternalSandboxLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KEYWORD_8 | KEYWORD_7 | KEYWORD_6 | KEYWORD_5 | KEYWORD_3 | KEYWORD_4 | KEYWORD_1 | KEYWORD_2 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( KEYWORD_6 | KEYWORD_5 | KEYWORD_4 | KEYWORD_3 | KEYWORD_2 | KEYWORD_1 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
@@ -1201,47 +1121,43 @@ public class InternalSandboxLexer extends Lexer {
 
                         else if ( (LA12_0==':') ) {s = 4;}
 
-                        else if ( (LA12_0=='T'||LA12_0=='t') ) {s = 5;}
+                        else if ( (LA12_0=='.') ) {s = 5;}
 
-                        else if ( (LA12_0=='.') ) {s = 6;}
+                        else if ( (LA12_0=='^') ) {s = 6;}
 
-                        else if ( (LA12_0==';') ) {s = 7;}
+                        else if ( ((LA12_0>='A' && LA12_0<='E')||(LA12_0>='G' && LA12_0<='H')||(LA12_0>='J' && LA12_0<='R')||(LA12_0>='T' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='h')||(LA12_0>='j' && LA12_0<='r')||(LA12_0>='t' && LA12_0<='z')) ) {s = 7;}
 
-                        else if ( (LA12_0=='^') ) {s = 8;}
+                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 8;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='E')||(LA12_0>='G' && LA12_0<='H')||(LA12_0>='J' && LA12_0<='R')||(LA12_0>='U' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='e')||(LA12_0>='g' && LA12_0<='h')||(LA12_0>='j' && LA12_0<='r')||(LA12_0>='u' && LA12_0<='z')) ) {s = 9;}
+                        else if ( (LA12_0=='\"') ) {s = 9;}
 
-                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 10;}
+                        else if ( (LA12_0=='\'') ) {s = 10;}
 
-                        else if ( (LA12_0=='\"') ) {s = 11;}
+                        else if ( (LA12_0=='/') ) {s = 11;}
 
-                        else if ( (LA12_0=='\'') ) {s = 12;}
+                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 12;}
 
-                        else if ( (LA12_0=='/') ) {s = 13;}
-
-                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 14;}
-
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='-')||(LA12_0>='<' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 15;}
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='&')||(LA12_0>='(' && LA12_0<='-')||(LA12_0>=';' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||(LA12_0>='{' && LA12_0<='\uFFFF')) ) {s = 13;}
 
                         if ( s>=0 ) return s;
                         break;
                     case 1 : 
-                        int LA12_11 = input.LA(1);
+                        int LA12_10 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_11>='\u0000' && LA12_11<='\uFFFF')) ) {s = 26;}
+                        if ( ((LA12_10>='\u0000' && LA12_10<='\uFFFF')) ) {s = 22;}
 
-                        else s = 15;
+                        else s = 13;
 
                         if ( s>=0 ) return s;
                         break;
                     case 2 : 
-                        int LA12_12 = input.LA(1);
+                        int LA12_9 = input.LA(1);
 
                         s = -1;
-                        if ( ((LA12_12>='\u0000' && LA12_12<='\uFFFF')) ) {s = 26;}
+                        if ( ((LA12_9>='\u0000' && LA12_9<='\uFFFF')) ) {s = 22;}
 
-                        else s = 15;
+                        else s = 13;
 
                         if ( s>=0 ) return s;
                         break;
