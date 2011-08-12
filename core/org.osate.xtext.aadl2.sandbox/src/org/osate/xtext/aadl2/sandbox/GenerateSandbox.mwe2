@@ -15,7 +15,9 @@ Workflow {
         platformUri = "${runtimeProject}/.."
 //		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
 //		registerGeneratedEPackage = "org.osate.aadl2.instance.InstancePackage"
-//		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+		registerEcoreFile = "platform:/resource/org.osate.xtext.aadl2.sandbox/model/GenModel.ecore"
+//		registerGenModelFile = "platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/instance.genmodel"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/UML.genmodel"
     }

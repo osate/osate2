@@ -72,7 +72,7 @@ ruleSandbox returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_7
+	otherlv_0=KEYWORD_5
     {
     	newLeafNode(otherlv_0, grammarAccess.getSandboxAccess().getSandboxKeyword_0());
     }
@@ -134,12 +134,12 @@ ruleSystemConfiguration returns [EObject current=null]
     }
     @after { leaveRule(); }:
 (
-	otherlv_0=KEYWORD_6
+	otherlv_0=KEYWORD_4
     {
     	newLeafNode(otherlv_0, grammarAccess.getSystemConfigurationAccess().getSystemKeyword_0());
     }
 
-	otherlv_1=KEYWORD_8
+	otherlv_1=KEYWORD_6
     {
     	newLeafNode(otherlv_1, grammarAccess.getSystemConfigurationAccess().getInstanceKeyword_1());
     }
@@ -162,7 +162,7 @@ ruleSystemConfiguration returns [EObject current=null]
 
 )
 )
-	otherlv_3=KEYWORD_5
+	otherlv_3=KEYWORD_3
     {
     	newLeafNode(otherlv_3, grammarAccess.getSystemConfigurationAccess().getFromKeyword_3());
     }
@@ -174,73 +174,11 @@ ruleSystemConfiguration returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0()); 
+	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); 
 	    }
 		ruleQIREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
-
-)
-)(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0()); 
-	    }
-		lv_systemInstanceProxy_5_0=ruleSystemInstanceProxy		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getSystemConfigurationRule());
-	        }
-       		set(
-       			$current, 
-       			"systemInstanceProxy",
-        		lv_systemInstanceProxy_5_0, 
-        		"SystemInstanceProxy");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)?
-	otherlv_6=KEYWORD_2
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6());
-    }
-)
-;
-
-
-
-
-
-// Entry rule entryRuleSystemInstanceProxy
-entryRuleSystemInstanceProxy returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getSystemInstanceProxyRule()); }
-	 iv_ruleSystemInstanceProxy=ruleSystemInstanceProxy 
-	 { $current=$iv_ruleSystemInstanceProxy.current; } 
-	 EOF 
-;
-
-// Rule SystemInstanceProxy
-ruleSystemInstanceProxy returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	otherlv_0=KEYWORD_4
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSystemInstanceProxyRule());
-	        }
-        }
-	otherlv_1=RULE_ID
-	{
-		newLeafNode(otherlv_1, grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0()); 
-	}
 
 )
 ))
@@ -273,7 +211,7 @@ ruleQIREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     newLeafNode(this_ID_0, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_0_0()); 
     }
 
-	kw=KEYWORD_3 
+	kw=KEYWORD_2 
     {
         $current.merge(kw);
         newLeafNode(kw, grammarAccess.getQIREFAccess().getColonColonKeyword_0_1()); 

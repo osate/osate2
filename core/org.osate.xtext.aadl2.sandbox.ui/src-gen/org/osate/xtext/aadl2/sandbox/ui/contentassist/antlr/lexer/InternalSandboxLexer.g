@@ -16,21 +16,17 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_8 : ('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_6 : ('I'|'i')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('C'|'c')('E'|'e');
 
-KEYWORD_7 : ('S'|'s')('A'|'a')('N'|'n')('D'|'d')('B'|'b')('O'|'o')('X'|'x');
+KEYWORD_5 : ('S'|'s')('A'|'a')('N'|'n')('D'|'d')('B'|'b')('O'|'o')('X'|'x');
 
-KEYWORD_6 : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
+KEYWORD_4 : ('S'|'s')('Y'|'y')('S'|'s')('T'|'t')('E'|'e')('M'|'m');
 
-KEYWORD_5 : ('F'|'f')('R'|'r')('O'|'o')('M'|'m');
+KEYWORD_3 : ('F'|'f')('R'|'r')('O'|'o')('M'|'m');
 
-KEYWORD_3 : ':'':';
-
-KEYWORD_4 : ('T'|'t')('O'|'o');
+KEYWORD_2 : ':'':';
 
 KEYWORD_1 : '.';
-
-KEYWORD_2 : ';';
 
 
 
