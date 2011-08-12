@@ -46,6 +46,7 @@
           <products>
             <product>
               <id>osate2</id>
+              <rootFolder>osate2</rootFolder>
             </product>
           </products>
         </configuration>

@@ -21,15 +21,17 @@
 
    <splash
       location="org.osate.branding" />
-   <launcher name="eclipse">
+   <launcher name="osate">
       <solaris/>
       <win useIco="false">
          <bmp/>
       </win>
    </launcher>
 
+
    <vm>
    </vm>
+
 
    <plugins>
       <plugin id="org.eclipse.ant.core"/>
