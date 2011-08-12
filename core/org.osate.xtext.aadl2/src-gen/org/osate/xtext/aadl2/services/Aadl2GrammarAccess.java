@@ -28679,8 +28679,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return gaProperties.getSL_COMMENTRule();
 	} 
 
-	//INTVALUE returns aadl2::Integer:
-	//	NUMERAL;
+	//INTVALUE returns aadl2::Integer: //NUMERAL 	
+	//	INTEGER_LIT;
 	public PropertiesGrammarAccess.INTVALUEElements getINTVALUEAccess() {
 		return gaProperties.getINTVALUEAccess();
 	}
@@ -28689,12 +28689,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getINTVALUEAccess().getRule();
 	}
 
-	//terminal NUMERAL:
-	//	DIGIT+ ("_" DIGIT+)*;
-	public TerminalRule getNUMERALRule() {
-		return gaProperties.getNUMERALRule();
-	} 
-
+	////terminal NUMERAL:
+	////	(DIGIT)+('_' (DIGIT)+)*
+	////;
 	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 	//terminal fragment EXPONENT:
 	//	"e" ("+" | "-")? DIGIT+;

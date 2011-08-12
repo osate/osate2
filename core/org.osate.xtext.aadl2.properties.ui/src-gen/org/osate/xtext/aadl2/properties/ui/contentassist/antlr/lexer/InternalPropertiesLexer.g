@@ -82,8 +82,6 @@ KEYWORD_12 : '}';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-RULE_NUMERAL : RULE_DIGIT+ ('_' RULE_DIGIT+)*;
-
 fragment RULE_EXPONENT : 'e' ('+'|'-')? RULE_DIGIT+;
 
 fragment RULE_INT_EXPONENT : 'e' '+'? RULE_DIGIT+;
