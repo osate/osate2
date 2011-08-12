@@ -1289,9 +1289,9 @@ ruleINTVALUE
     }
     :
 (
-{ before(grammarAccess.getINTVALUEAccess().getNUMERALTerminalRuleCall()); }
-	RULE_NUMERAL
-{ after(grammarAccess.getINTVALUEAccess().getNUMERALTerminalRuleCall()); }
+{ before(grammarAccess.getINTVALUEAccess().getINTEGER_LITTerminalRuleCall()); }
+	RULE_INTEGER_LIT
+{ after(grammarAccess.getINTVALUEAccess().getINTEGER_LITTerminalRuleCall()); }
 )
 
 ;
