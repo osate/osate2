@@ -1141,13 +1141,15 @@ FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 	formal=[aadl2::Prototype|ID] '=>'   
 	actual=(PortSpecification|AccessSpecification|FeaturePrototypeReference)
 	;
-	
+
+//TODO MM change -  then allow reference to prototype for classifier reference	
+// TODO how about binding with classifier
 PortSpecification returns aadl2::PortSpecification:
-	direction=PortDirection category=PortCategory => 'port' classifier=[aadl2::ComponentClassifier|QCREF]
+	direction=PortDirection category=PortCategory => 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 	
 AccessSpecification returns aadl2::AccessSpecification:
-	kind=AccessDirection category=AccessCategory => 'access' classifier=[aadl2::ComponentClassifier|QCREF]
+	kind=AccessDirection category=AccessCategory => 'access' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 
 	
@@ -1602,7 +1604,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'feature' 'group' 
 	source=ConnectedElement
-	( bidirectional?='<->')
+	( '->' | bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 

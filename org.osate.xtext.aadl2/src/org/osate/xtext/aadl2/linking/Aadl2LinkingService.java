@@ -226,7 +226,9 @@ private static PSNode psNode = new PSNode();
 					|| context instanceof FlowSpecification
 					|| context instanceof FlowSegment
 					|| context instanceof EndToEndFlowSegment) {
-				if (searchResult instanceof Subcomponent)
+				if (searchResult instanceof Subcomponent
+						|| searchResult instanceof FeatureGroup
+						|| searchResult instanceof SubprogramCall)
 					return Collections.singletonList((EObject) searchResult);
 			}
 			return Collections.<EObject> emptyList();

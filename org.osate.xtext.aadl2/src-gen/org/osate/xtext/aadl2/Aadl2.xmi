@@ -5206,7 +5206,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.102"/>
         </elements>
         <elements xsi:type="xtext:Keyword" predicated="true" value="port"/>
-        <elements xsi:type="xtext:Assignment" feature="classifier" operator="=">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="classifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ComponentClassifier"/>
@@ -5228,7 +5228,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.115"/>
         </elements>
         <elements xsi:type="xtext:Keyword" predicated="true" value="access"/>
-        <elements xsi:type="xtext:Assignment" feature="classifier" operator="=">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="classifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ComponentClassifier"/>
@@ -7735,8 +7735,11 @@
         <elements xsi:type="xtext:Assignment" feature="source" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.104"/>
         </elements>
-        <elements xsi:type="xtext:Assignment" feature="bidirectional" operator="?=">
-          <terminal xsi:type="xtext:Keyword" value="&lt;->"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Keyword" value="->"/>
+          <elements xsi:type="xtext:Assignment" feature="bidirectional" operator="?=">
+            <terminal xsi:type="xtext:Keyword" value="&lt;->"/>
+          </elements>
         </elements>
         <elements xsi:type="xtext:Assignment" feature="destination" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.104"/>

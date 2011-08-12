@@ -13955,11 +13955,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cClassifierComponentClassifierCrossReference_3_0 = (CrossReference)cClassifierAssignment_3.eContents().get(0);
 		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
 		
+		////TODO MM change -  then allow reference to prototype for classifier reference	
+		//// TODO how about binding with classifier
 		//PortSpecification returns aadl2::PortSpecification:
-		//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF];
+		//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]
+		//direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
 		//direction=PortDirection
@@ -13977,7 +13979,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//=> "port"
 		public Keyword getPortKeyword_2() { return cPortKeyword_2; }
 
-		//classifier=[aadl2::ComponentClassifier|QCREF]
+		//classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Assignment getClassifierAssignment_3() { return cClassifierAssignment_3; }
 
 		//[aadl2::ComponentClassifier|QCREF]
@@ -14000,10 +14002,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
 		
 		//AccessSpecification returns aadl2::AccessSpecification:
-		//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF];
+		//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]
+		//kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
 		//kind=AccessDirection
@@ -14021,7 +14023,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//=> "access"
 		public Keyword getAccessKeyword_2() { return cAccessKeyword_2; }
 
-		//classifier=[aadl2::ComponentClassifier|QCREF]
+		//classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Assignment getClassifierAssignment_3() { return cClassifierAssignment_3; }
 
 		//[aadl2::ComponentClassifier|QCREF]
@@ -20223,8 +20225,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGroupKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cSourceAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cSourceConnectedElementParserRuleCall_3_0 = (RuleCall)cSourceAssignment_3.eContents().get(0);
-		private final Assignment cBidirectionalAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final Keyword cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_0 = (Keyword)cBidirectionalAssignment_4.eContents().get(0);
+		private final Alternatives cAlternatives_4 = (Alternatives)cGroup.eContents().get(4);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_4_0 = (Keyword)cAlternatives_4.eContents().get(0);
+		private final Assignment cBidirectionalAssignment_4_1 = (Assignment)cAlternatives_4.eContents().get(1);
+		private final Keyword cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_1_0 = (Keyword)cBidirectionalAssignment_4_1.eContents().get(0);
 		private final Assignment cDestinationAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cDestinationConnectedElementParserRuleCall_5_0 = (RuleCall)cDestinationAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -20250,14 +20254,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 		//	(name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to")? "feature" "group"
-		//	source=ConnectedElement bidirectional?="<->" destination=ConnectedElement ("{"
+		//	source=ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
 		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 		//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? //| allModes?='all'
 		//	";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to")? "feature" "group"
-		//source=ConnectedElement bidirectional?="<->" destination=ConnectedElement ("{"
+		//source=ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 		//inModeOrTransition+=[aadl2::ModeFeature])*) ")")? //| allModes?='all'
 		//";"
@@ -20311,11 +20315,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectedElement
 		public RuleCall getSourceConnectedElementParserRuleCall_3_0() { return cSourceConnectedElementParserRuleCall_3_0; }
 
+		//"->" | bidirectional?="<->"
+		public Alternatives getAlternatives_4() { return cAlternatives_4; }
+
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_4_0() { return cHyphenMinusGreaterThanSignKeyword_4_0; }
+
 		//bidirectional?="<->"
-		public Assignment getBidirectionalAssignment_4() { return cBidirectionalAssignment_4; }
+		public Assignment getBidirectionalAssignment_4_1() { return cBidirectionalAssignment_4_1; }
 
 		//"<->"
-		public Keyword getBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_0() { return cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_0; }
+		public Keyword getBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_1_0() { return cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_4_1_0; }
 
 		//destination=ConnectedElement
 		public Assignment getDestinationAssignment_5() { return cDestinationAssignment_5; }
@@ -26752,8 +26762,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFeaturePrototypeBindingAccess().getRule();
 	}
 
+	////TODO MM change -  then allow reference to prototype for classifier reference	
+	//// TODO how about binding with classifier
 	//PortSpecification returns aadl2::PortSpecification:
-	//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF];
+	//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public PortSpecificationElements getPortSpecificationAccess() {
 		return (pPortSpecification != null) ? pPortSpecification : (pPortSpecification = new PortSpecificationElements());
 	}
@@ -26763,7 +26775,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AccessSpecification returns aadl2::AccessSpecification:
-	//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF];
+	//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public AccessSpecificationElements getAccessSpecificationAccess() {
 		return (pAccessSpecification != null) ? pAccessSpecification : (pAccessSpecification = new AccessSpecificationElements());
 	}
@@ -27332,7 +27344,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	//	(name=ID ":" | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ":" "refined" "to")? "feature" "group"
-	//	source=ConnectedElement bidirectional?="<->" destination=ConnectedElement ("{"
+	//	source=ConnectedElement ("->" | bidirectional?="<->") destination=ConnectedElement ("{"
 	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] (","
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ")")? //| allModes?='all'
 	//	";";
