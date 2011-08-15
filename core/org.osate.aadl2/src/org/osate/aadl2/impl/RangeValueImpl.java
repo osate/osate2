@@ -482,18 +482,41 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		return null;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		return (other instanceof RangeValue)
-				&& ((RangeValue) other).getMinimum().equals(minimum)
-				&& ((RangeValue) other).getMaximum().equals(maximum)
-				&& ((((RangeValue) other).getDelta() == null && delta == null) || (((RangeValue) other).getDelta() != null && ((RangeValue) other)
-						.getDelta().equals(delta))) && super.equals(other);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((delta == null) ? 0 : delta.hashCode());
+		result = prime * result + ((maximum == null) ? 0 : maximum.hashCode());
+		result = prime * result + ((minimum == null) ? 0 : minimum.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RangeValueImpl other = (RangeValueImpl) obj;
+		if (delta == null) {
+			if (other.delta != null)
+				return false;
+		} else if (!delta.equals(other.delta))
+			return false;
+		if (maximum == null) {
+			if (other.maximum != null)
+				return false;
+		} else if (!maximum.equals(other.maximum))
+			return false;
+		if (minimum == null) {
+			if (other.minimum != null)
+				return false;
+		} else if (!minimum.equals(other.minimum))
+			return false;
+		return true;
 	}
 
 } //RangeValueImpl

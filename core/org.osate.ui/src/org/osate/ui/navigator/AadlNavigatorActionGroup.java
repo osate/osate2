@@ -52,7 +52,8 @@ import org.eclipse.ui.actions.RefreshAction;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.views.navigator.IResourceNavigator;
 import org.eclipse.ui.views.navigator.MainActionGroup;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 
 
@@ -86,7 +87,7 @@ public class AadlNavigatorActionGroup extends MainActionGroup
 	{
 		Object selectedElement = ((IStructuredSelection)getContext().getSelection()).getFirstElement();
 		if (selectedElement instanceof IResource &&
-				((IResource)selectedElement).getProject().getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+				((IResource)selectedElement).getProject().getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 		{
 			if (selectedElement instanceof IFile)
 			{
@@ -156,7 +157,7 @@ public class AadlNavigatorActionGroup extends MainActionGroup
 				IFile file = (IFile)((IStructuredSelection)getNavigator().getViewer().getSelection()).getFirstElement();
 				try
 				{
-					OsateResourceManager.revertToContributed(file);
+					PredeclaredProperties.revertToContributed(file);
 					getNavigator().getViewer().update(file, null);
 				}
 				catch (IOException e)

@@ -242,12 +242,13 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		subcomponentType= subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
+		return subcomponentType.eIsProxy() ? null : subcomponentType;
 	}
 
 	/**
@@ -262,12 +263,11 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentClassifier getClassifier() {
-		ComponentClassifier classifier = basicGetClassifier();
-		return classifier != null && ((EObject) classifier).eIsProxy() ? (ComponentClassifier) eResolveProxy((InternalEObject) classifier)
-				: classifier;
+		EObject classifier = getSubcomponentType();
+		return (ComponentClassifier)(classifier instanceof ComponentClassifier ? classifier : null);
 	}
 
 	/**
@@ -278,6 +278,8 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
 		SubcomponentType st = basicGetSubcomponentType();
+		if (st instanceof ComponentClassifier )
+			return (ComponentClassifier) st;
 
 		return st instanceof ComponentClassifier ? (ComponentClassifier) st : null;
 	}
@@ -309,12 +311,11 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentPrototype getPrototype() {
-		ComponentPrototype prototype = basicGetPrototype();
-		return prototype != null && ((EObject) prototype).eIsProxy() ? (ComponentPrototype) eResolveProxy((InternalEObject) prototype)
-				: prototype;
+		EObject prototype = getSubcomponentType();
+		return (ComponentPrototype)(prototype instanceof ComponentPrototype ? prototype : null);
 	}
 
 	/**

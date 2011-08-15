@@ -51,7 +51,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -1123,7 +1122,6 @@ public class ForAllElement implements IProcessingMethod {
 			final Set<? super Resource> outputBad) {
 		final Set<Resource> good = new HashSet<Resource>();
 		for (final Resource r : inputResourceSet) {
-			if (!OsateResourceManager.isModelTaggedWithSyntaxErrors(r)) {
 				final EList<EObject> rc = r.getContents();
 				final AnalysisErrorReporter errReporter = errManager.getReporter(r);
 				final int errCountBefore = errReporter.getNumErrors();
@@ -1138,7 +1136,6 @@ public class ForAllElement implements IProcessingMethod {
 				} else {
 					good.add(r);
 				}
-			}
 		}
 		return Collections.unmodifiableSet(good);
 	}

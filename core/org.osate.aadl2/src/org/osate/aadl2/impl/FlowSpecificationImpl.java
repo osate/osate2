@@ -199,6 +199,16 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	public FlowEnd getOutEnd() {
 		return outEnd;
 	}
+	
+	public FlowEnd getAllOutEnd(){
+		FlowEnd res = getOutEnd();
+		FlowSpecification fs = this;
+		while (res == null && fs.getRefined() != null){
+			fs = fs.getRefined();
+			res = fs.getOutEnd();
+		}
+		return res;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -259,6 +269,16 @@ public class FlowSpecificationImpl extends FlowImpl implements FlowSpecification
 	 */
 	public FlowEnd getInEnd() {
 		return inEnd;
+	}
+	
+	public FlowEnd getAllInEnd(){
+		FlowEnd res = getInEnd();
+		FlowSpecification fs = this;
+		while (res == null && fs.getRefined() != null){
+			fs = fs.getRefined();
+			res = fs.getInEnd();
+		}
+		return res;
 	}
 
 	/**

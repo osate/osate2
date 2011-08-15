@@ -50,11 +50,8 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.SubProgressMonitor;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
@@ -74,20 +71,16 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.INewWizard;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.ContainerGenerator;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.FileEditorInput;
-import org.eclipse.ui.part.ISetSelectionTarget;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.IResourceUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -146,7 +139,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 			if (selectedElement instanceof IResource)
 			{
 				IProject project = ((IResource)selectedElement).getProject();
-				if (!project.getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+				if (!project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 					this.project = project;
 				else
 					this.project = null;
@@ -183,9 +176,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 	@Override
 	public boolean performFinish()
 	{
-		if (newObjectCreationPage.getFileType().equals(FileType.OBJECT_FILE))
-			return addAadlModel(newObjectRelativePath());
-		else
 			return addAadlSource(newObjectRelativePath());
 	}
 	
@@ -244,89 +234,6 @@ public class NewModelWizard extends Wizard implements INewWizard
 				WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR) + fileExtension);
 	}
 	
-	/**
-	 * Creates a new Aadl Object Model and adds it to the project.
-	 */
-	private boolean addAadlModel(IPath modelPath)
-	{
-		try
-		{
-			//Remember the file.
-			final IFile modelFile = ResourcesPlugin.getWorkspace().getRoot().getFile(modelPath);
-			
-			//Do the work within an operation.
-			WorkspaceModifyOperation operation = new WorkspaceModifyOperation()
-			{
-				@Override
-				protected void execute(IProgressMonitor monitor)
-				{
-					try
-					{
-						//Get the URI of the model file.
-						URI fileURI = URI.createPlatformResourceURI(modelFile.getFullPath().toString(), false);
-						
-						//Create a resource for this file.
-						Resource resource = OsateResourceManager.getEmptyResource(fileURI);
-						
-						//Add the initial model object to the contents.
-						NamedElement rootObject = createInitialModel();
-						resource.getContents().add(rootObject);
-						rootObject.setName(newObjectCreationPage.getNewObjectName());
-						
-						//Save the contents of the resource to the file system.
-						OsateResourceManager.save(resource);
-						IResourceUtility.setGenerated(OsateResourceManager.convertToIResource(resource), false);
-					}
-					catch (Exception exception)
-					{
-						OsateUiPlugin.log(exception);
-					}
-					finally
-					{
-						monitor.done();
-					}
-				}
-			};
-			
-			getContainer().run(false, false, operation);
-			
-			//Select the new file resource in the current view.
-			IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
-			IWorkbenchPage page = workbenchWindow.getActivePage();
-			final IWorkbenchPart activePart = page.getActivePart();
-			if (activePart instanceof ISetSelectionTarget)
-			{
-				final ISelection targetSelection = new StructuredSelection(modelFile);
-				getShell().getDisplay().asyncExec(
-						new Runnable()
-						{
-//							@Override
-							public void run()
-							{
-								((ISetSelectionTarget)activePart).selectReveal(targetSelection);
-							}
-						});
-			}
-			
-			//Open an editor on the new file.
-			try
-			{
-				page.openEditor(new FileEditorInput(modelFile),
-						workbench.getEditorRegistry().getDefaultEditor(modelFile.getFullPath().toString()).getId());
-			}
-			catch (PartInitException exception)
-			{
-				MessageDialog.openError(workbenchWindow.getShell(), "Open Editor", exception.getMessage());
-				return false;
-			}
-			return true;
-		}
-		catch (Exception exception)
-		{
-			OsateUiPlugin.log(exception);
-			return false;
-		}
-	}
 	
 	private boolean addAadlSource(final IPath sourcePath)
 	{
@@ -508,7 +415,7 @@ public class NewModelWizard extends Wizard implements INewWizard
 							IProject[] projects = ((IWorkspace)element).getRoot().getProjects();
 							ArrayList<IProject> openProjects = new ArrayList<IProject>();
 							for (IProject project : projects)
-								if (project.isOpen() && !project.getName().equals(OsateResourceManager.PLUGIN_RESOURCES_DIRECTORY_NAME))
+								if (project.isOpen() && !project.getName().equals(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME))
 									openProjects.add(project);
 							return openProjects.size() == 0 ? new Object[0] : openProjects.toArray();
 						}

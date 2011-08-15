@@ -189,16 +189,32 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 		return super.eIsSet(featureID);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
-	public boolean equals(Object other) {
-		if (other instanceof RecordValue) {
-			// TODO-LW: compare each field, what about missing fields?
-			return true;
-		}
-		return false;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime
+				* result
+				+ ((ownedFieldValues == null) ? 0 : ownedFieldValues.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		RecordValueImpl other = (RecordValueImpl) obj;
+		if (ownedFieldValues == null) {
+			if (other.ownedFieldValues != null)
+				return false;
+		} else if (!ownedFieldValues.equals(other.ownedFieldValues))
+			return false;
+		return true;
+	}
+
 
 } //RecordValueImpl

@@ -30,7 +30,7 @@ property set Timing_Properties is
 		applies to (thread);
 	
 	Deadline: inherit Time => Period
-		applies to (thread, thread group, process, system, device);
+		applies to (thread, thread group, process, system, device, virtual processor);
 	
 	First_Dispatch_Time: inherit Time
 		applies to (thread, thread group);

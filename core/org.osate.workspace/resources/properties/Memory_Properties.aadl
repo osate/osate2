@@ -51,7 +51,7 @@ property set Memory_Properties is
 	Source_Stack_Size: Size
 		applies to (thread, subprogram, processor, device);
 	
-	Byte_Count: aadlinteger 0 .. Max_Word_Count
+	Byte_Count: aadlinteger 0 .. Max_Byte_Count
 		applies to (memory);
 	
 	Word_Size: Size => 8 bits

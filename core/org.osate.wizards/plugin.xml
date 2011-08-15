@@ -54,12 +54,13 @@
       </command>
    </extension>
 
-   <extension point="org.eclipse.ui.bindings">
+<!--   <extension point="org.eclipse.ui.bindings">
       <key
             sequence="M1+F12"
             commandId="org.osate.wizards.commands.newAADLSpec"
             schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
    </extension>
+   -->
       
    <extension
    	   point="org.eclipse.ui.perspectiveExtensions">
