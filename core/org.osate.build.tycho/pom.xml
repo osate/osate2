@@ -3,10 +3,10 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>org.osate.build.tycho</artifactId>
+  <artifactId>org.osate.build.product</artifactId>
   <version>2.0.0-SNAPSHOT</version>
   <packaging>eclipse-repository</packaging>
-  <name>RCP OSATE2 Product</name>
+  <name>OSATE2 RCP Product</name>
 
   <parent>
     <artifactId>osate2-core</artifactId>
