@@ -2,12 +2,15 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.GetProperties;
+
 import EAnalysis.BinPacking.SoftwareNode;
-import edu.cmu.sei.aadl.aadl2.ClassifierValue;
-import edu.cmu.sei.aadl.aadl2.PropertyValue;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyLookupException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
 
 /**
  * SoftwareNode representing an AADL thread instance. Instances are created
@@ -25,13 +28,13 @@ public final class AADLThread extends SoftwareNode {
 		setSemanticObject(thr);
 	}
 	
-	public static AADLThread createInstance(final ComponentInstance thread, final BinpackProperties properties) {
-		final long period = (long)properties.getPeriodAsNanoSecond(thread);
+	public static AADLThread createInstance(final ComponentInstance thread) {
+		final long period = (long)GetProperties.getPeriodinNS(thread);
 
 		long deadline;
 		try
 		{
-			deadline = (long)properties.getDeadlineAsNanoSecond(thread);
+			deadline = (long)GetProperties.getDeadlineinNS(thread);
 		}
 		catch (PropertyNotPresentException e)
 		{
@@ -41,7 +44,7 @@ public final class AADLThread extends SoftwareNode {
 		double maxComputeTime;
 		try
 		{
-			maxComputeTime = properties.getComputeExecutionTime(thread);
+			maxComputeTime = GetProperties.getComputeExecutionTimeinSec(thread);
 		}
 		catch (PropertyNotPresentException e)
 		{
@@ -50,7 +53,7 @@ public final class AADLThread extends SoftwareNode {
 		if (maxComputeTime == 0){ // Choose deadline as WCET
 			try
 			{
-				maxComputeTime = properties.getDeadlineAsSecond(thread);
+				maxComputeTime = GetProperties.getDeadlineinSec(thread);
 			}
 			catch (PropertyNotPresentException e)
 			{
@@ -58,7 +61,7 @@ public final class AADLThread extends SoftwareNode {
 			}
 		}
 	
-		final long cycles = (long) (maxComputeTime / getReferenceCycleTime(thread, properties));
+		final long cycles = (long) (maxComputeTime / GetProperties.getReferenceCycleTimeinSec(thread));
 	
 		return new AADLThread(thread, cycles, period, deadline);
 	}
@@ -77,13 +80,10 @@ public final class AADLThread extends SoftwareNode {
 	 */
 	private static double getReferenceCycleTime(final ComponentInstance thread, BinpackProperties properties)
 	{
-		double defaultval = (properties.referenceCycleTimeExists())?
-			 properties.getReferenceCycleTime() : AADLProcessor.DEFAULT_CYCLE_TIME;
 			try {
-				PropertyValue refProcPV = properties.getReferenceProcessorPropertyValue(thread);
-				return properties.getCycleTime(((ClassifierValue)refProcPV).getClassifier(), defaultval);
+				return GetProperties.getReferenceCycleTimeinMS(thread);
 			} catch (PropertyLookupException e) {
-				return defaultval;
+				return GetProperties.getReferenceCycleTimeConstantinMS(thread);
 			}
 	}
 }

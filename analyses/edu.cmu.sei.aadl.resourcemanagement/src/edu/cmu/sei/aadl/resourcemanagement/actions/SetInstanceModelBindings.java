@@ -7,13 +7,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceFactory;
+import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 
-import edu.cmu.sei.aadl.aadl2.PropertyValue;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceFactory;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceReferenceValue;
-import edu.cmu.sei.aadl.aadl2.properties.InvalidModelException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 
 /**

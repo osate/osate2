@@ -1,10 +1,11 @@
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
+import org.osate.aadl2.instance.ComponentInstance;
+
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.CapacityComparator;
 import EAnalysis.BinPacking.EDFScheduler;
 import EAnalysis.BinPacking.Link;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
 
 
 public class AADLBus extends Link {

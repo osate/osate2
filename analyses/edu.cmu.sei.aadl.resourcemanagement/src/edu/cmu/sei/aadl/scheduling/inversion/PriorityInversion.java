@@ -5,21 +5,22 @@
 package edu.cmu.sei.aadl.scheduling.inversion;
 
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-
-import edu.cmu.sei.aadl.aadl2.ComponentCategory;
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.EnumerationLiteral;
-import edu.cmu.sei.aadl.aadl2.NamedElement;
-import edu.cmu.sei.aadl.aadl2.ThreadSubcomponent;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
-import edu.cmu.sei.aadl.modelsupport.QuickSort;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import edu.cmu.sei.aadl.modelsupport.modeltraversal.ForAllElement;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.QuickSort;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.AadlProject;
+import org.osate.xtext.aadl2.properties.GetProperties;
 
 /**
  * @author phf
@@ -27,13 +28,12 @@ import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
  */
 public class PriorityInversion {
 	private AnalysisErrorReporterManager errManager;
-	private final PriorityInversionProperties properties;
 	
 	//Only meant to be used with a list of Threads.
 	private QuickSort periodSort = new QuickSort() {
 		protected int compare(Object obj1, Object obj2) {
-			final double a = properties.getPeriod((ComponentInstance)obj1, 0.0);
-			final double b = properties.getPeriod((ComponentInstance)obj2, 0.0);
+			final double a = GetProperties.getPeriodinMS((ComponentInstance)obj1);
+			final double b = GetProperties.getPeriodinMS((ComponentInstance)obj2);
 			if (a > b)
 				return 1;
 			if (a == b)
@@ -42,8 +42,7 @@ public class PriorityInversion {
 		}
 	};
 
-	public PriorityInversion(final PriorityInversionProperties properties, AnalysisErrorReporterManager errMgr) {
-		this.properties = properties;
+	public PriorityInversion(AnalysisErrorReporterManager errMgr) {
 		errManager = errMgr;
 	}
 
@@ -69,16 +68,16 @@ public class PriorityInversion {
 			@Override
 			protected boolean suchThat(Element obj) {
 				if (!isPeriodicThread(obj)) return false;
-				ComponentInstance boundProcessor;
+				List<ComponentInstance> boundProcessor;
 				try
 				{
-					boundProcessor = properties.getActualProcessorBinding((ComponentInstance)obj);
+					boundProcessor = GetProperties.getActualProcessorBinding((ComponentInstance)obj);
 				}
 				catch (PropertyNotPresentException e)
 				{
 					return false;
 				}
-				return boundProcessor == currentProcessor;
+				return boundProcessor.contains(currentProcessor);
 			}
 		}.processPreOrderComponentInstance(root,
 				ComponentCategory.THREAD);
@@ -96,7 +95,7 @@ public class PriorityInversion {
 	private boolean isPeriodicThread(Element thread){
 		if (!isThread(thread)) return false;
 		
-		final EnumerationLiteral dp = properties.getDispatchProtocol((NamedElement) thread);
+		final EnumerationLiteral dp = GetProperties.getDispatchProtocol((NamedElement) thread);
 		if (dp != null) {
 			return dp.getName().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL);
 		} else { 
@@ -109,13 +108,13 @@ public class PriorityInversion {
 			return;
 		Iterator it = threadList.iterator();
 		ComponentInstance curThread = (ComponentInstance) it.next();
-		double currentPeriod = properties.getPeriod(curThread, 0.0);
-		long periodMaxPriority = properties.getPriority(curThread, 0);
+		double currentPeriod = GetProperties.getPeriodinMS(curThread);
+		long periodMaxPriority = GetProperties.getPriority(curThread, 0);
 		double prevRateGroupMaxPriority = periodMaxPriority;
 		while (it.hasNext()) {
 			ComponentInstance nextThread = (ComponentInstance) it.next();
-			double nextPeriod = properties.getPeriod(nextThread, 0.0);
-			long nextPriority = properties.getPriority(nextThread, -1);
+			double nextPeriod = GetProperties.getPeriodinMS(nextThread);
+			long nextPriority = GetProperties.getPriority(nextThread, -1);
 			if (nextPeriod == currentPeriod) {
 				// update max priority within period
 				if (nextPriority != -1 && nextPriority > periodMaxPriority) {

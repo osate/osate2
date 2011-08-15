@@ -40,26 +40,21 @@
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.xtext.aadl2.properties.AadlProject;
+import org.osate.xtext.aadl2.properties.DeploymentProperties;
+import org.osate.xtext.aadl2.properties.TimingProperties;
 import org.osgi.framework.Bundle;
 
-import edu.cmu.sei.aadl.aadl2.ComponentCategory;
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemOperationMode;
-import edu.cmu.sei.aadl.aadl2.properties.InvalidModelException;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import edu.cmu.sei.aadl.modelsupport.modeltraversal.ForAllElement;
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 import edu.cmu.sei.aadl.scheduling.TimingAnalysisInvocation;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
-import edu.cmu.sei.osate.ui.dialogs.Dialog;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.DeploymentProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
 
 
 public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActionAction {

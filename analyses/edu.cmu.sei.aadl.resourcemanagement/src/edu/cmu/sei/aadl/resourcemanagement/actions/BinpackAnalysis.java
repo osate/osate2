@@ -33,18 +33,14 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.PropertyConstant;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.UnitsType;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractAnalysis;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.CommunicationProperties;
-import edu.cmu.sei.osate.workspace.names.standard.DeploymentProperties;
-import edu.cmu.sei.osate.workspace.names.standard.MemoryProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.xtext.aadl2.properties.AadlProject;
+import org.osate.xtext.aadl2.properties.CommunicationProperties;
+import org.osate.xtext.aadl2.properties.DeploymentProperties;
+import org.osate.xtext.aadl2.properties.MemoryProperties;
+import org.osate.xtext.aadl2.properties.TimingProperties;
 
 public class BinpackAnalysis extends AbstractAnalysis
 {

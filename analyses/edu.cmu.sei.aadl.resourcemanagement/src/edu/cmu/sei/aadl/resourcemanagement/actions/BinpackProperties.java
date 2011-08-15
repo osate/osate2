@@ -35,82 +35,25 @@ package edu.cmu.sei.aadl.resourcemanagement.actions;
 
 import java.util.List;
 
-import edu.cmu.sei.aadl.aadl2.ConstantValue;
-import edu.cmu.sei.aadl.aadl2.NamedElement;
-import edu.cmu.sei.aadl.aadl2.NumberValue;
-import edu.cmu.sei.aadl.aadl2.Operation;
-import edu.cmu.sei.aadl.aadl2.OperationKind;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.PropertyAssociation;
-import edu.cmu.sei.aadl.aadl2.PropertyConstant;
-import edu.cmu.sei.aadl.aadl2.PropertyExpression;
-import edu.cmu.sei.aadl.aadl2.PropertyValue;
-import edu.cmu.sei.aadl.aadl2.RangeValue;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.properties.InvalidModelException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyDoesNotApplyToHolderException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyIsListException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyIsModalException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
-import edu.cmu.sei.aadl.modelsupport.properties.PropertyUtils;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.PropertyIsListException;
+import org.osate.aadl2.properties.PropertyIsModalException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
 
 public class BinpackProperties
 {
-	private final Property period;
-	private final Property deadline;
-	private final Property computeExecutionTime;
-	private final Property schedulingProtocol;
-	private final Property notCollocated;
-	private final Property actualProcessorBinding;
-	private final Property allowedProcessorBinding;
-	private final Property allowedProcessorBindingClass;
-	private final UnitLiteral second;
-	private final UnitLiteral nanoSecond;
-	
-	private final Property referenceProcessor;
-	private final PropertyConstant referenceCycleTime;
-	private final Property cycleTime;
-	
-	private final Property transmissionTime;
-	private final Property size; 
-	private final UnitLiteral bits;
-	
-
-
-	
-	public BinpackProperties(final Property period, final Property deadline, final Property computeExecutionTime,
-			final Property schedulingProtocol, final Property notCollocated, final Property actualProcessorBinding,
-			final Property allowedProcessorBinding, final Property allowedProcessorBindingClass, final UnitLiteral second,
-			final UnitLiteral nanoSecond, final Property referenceProcessor, final PropertyConstant referenceCycleTime,
-			final Property cycleTime, final Property transmissionTime, final Property size, final UnitLiteral bits)
-	{
-		this.period = period;
-		this.deadline = deadline;
-		this.computeExecutionTime = computeExecutionTime;
-		this.schedulingProtocol = schedulingProtocol;
-		this.notCollocated = notCollocated;
-		this.actualProcessorBinding = actualProcessorBinding;
-		this.allowedProcessorBinding = allowedProcessorBinding;
-		this.allowedProcessorBindingClass =allowedProcessorBindingClass;
-		this.second = second;
-		this.nanoSecond = nanoSecond;
-		this.referenceProcessor = referenceProcessor;
-		this.referenceCycleTime = referenceCycleTime;
-		this.cycleTime = cycleTime;
-		this.transmissionTime = transmissionTime;
-		this.size = size;
-		this.bits = bits;
-	}	
-
-	public double getSize(final NamedElement ph)
-	{
-		return PropertyUtils.getScaledNumberValue(ph, size, bits, 0.0);
-	}
-	
-	
-	public PropertyValue getPeriodPropertyValue(final NamedElement ph) {
-		return (PropertyValue) ph.getSimplePropertyValue(period);
-	}
 	
 	public double getPeriodAsNanoSecond(final NamedElement ph)
 	{
@@ -201,7 +144,7 @@ public class BinpackProperties
 				final RangeValue range = (RangeValue) list.get(1);	
 				PropertyExpression maximum = range.getMaximum().evaluate(null).first().getValue();
 				if (maximum instanceof NumberValue) {
-					return ((NumberValue)maximum).getScaledValue(second);
+					return ((NumberValue)maximum).getScaledValue(GetProperties.getSecUnitLiteral(ph));
 				} else {
 					return defaultValue;
 				}
@@ -213,15 +156,5 @@ public class BinpackProperties
 			return defaultValue;
 		}
 
-	}
-	
-	public double getCycleTime(final NamedElement ph, final double defaultValue)
-	{
-		return PropertyUtils.getScaledNumberValue(ph, cycleTime, second, defaultValue);
-	}
-	
-	public PropertyValue getCycleTimePropertyValue(final NamedElement ph)
-	{
-		return (PropertyValue)ph.getSimplePropertyValue(cycleTime);
 	}
 }

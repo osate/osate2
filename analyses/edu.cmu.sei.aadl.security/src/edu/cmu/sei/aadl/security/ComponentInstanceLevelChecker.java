@@ -42,6 +42,17 @@ package edu.cmu.sei.aadl.security;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
 
 /**
  * @author aarong

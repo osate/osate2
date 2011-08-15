@@ -43,9 +43,19 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.PropertyIsModalException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
 
 /**
  * Analysis the security levels of the declarative components, checking

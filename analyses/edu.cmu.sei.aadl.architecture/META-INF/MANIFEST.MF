@@ -14,11 +14,11 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.ui,
  org.eclipse.core.resources,
- edu.cmu.sei.aadl.properties.SEI,
- org.osate.aadl2;bundle-version="2.0.0",
- org.osate.aadl2.modelsupport;bundle-version="2.0.0",
- org.osate.ui;bundle-version="2.0.0",
- org.osate.pluginsupport;bundle-version="2.0.0",
- org.osate.workspace;bundle-version="2.0.0",
- org.osate.xtext.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2,
+ org.osate.aadl2.modelsupport,
+ org.osate.ui,
+ org.osate.pluginsupport,
+ org.osate.workspace,
+ org.osate.xtext.aadl2
 Eclipse-LazyStart: true
+Import-Package: org.osate.contribution.sei.names

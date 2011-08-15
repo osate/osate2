@@ -33,22 +33,18 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.UnitsType;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceObject;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
-import edu.cmu.sei.aadl.aadl2.properties.InvalidModelException;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.xtext.aadl2.properties.AadlProject;
+import org.osate.xtext.aadl2.properties.DeploymentProperties;
+import org.osate.xtext.aadl2.properties.ThreadProperties;
+import org.osate.xtext.aadl2.properties.TimingProperties;
+
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 import edu.cmu.sei.aadl.scheduling.inversion.PriorityInversion;
-import edu.cmu.sei.aadl.scheduling.inversion.PriorityInversionProperties;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractAnalysis;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.DeploymentProperties;
-import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
 
 public class CheckPriorityInversionAnalysis extends AbstractAnalysis
 {

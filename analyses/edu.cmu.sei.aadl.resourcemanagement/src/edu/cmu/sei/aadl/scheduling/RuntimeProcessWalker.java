@@ -49,13 +49,14 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.QuickSort;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.GetProperties;
 
-import edu.cmu.sei.aadl.aadl2.ComponentCategory;
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
-import edu.cmu.sei.aadl.modelsupport.QuickSort;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import edu.cmu.sei.aadl.resourcemanagement.actions.ScheduleProperties;
 
 public class RuntimeProcessWalker  {
@@ -71,8 +72,6 @@ public class RuntimeProcessWalker  {
   //some helper method can be put here
   final AnalysisErrorReporterManager errManager;
   
-  private final ScheduleProperties properties;
-  
   private QuickSort quick = new QuickSort(){
 	  	protected int compare(Object obj1, Object obj2){
 	  		int a = ( (RuntimeProcess) obj1 ).getPeriod();
@@ -83,10 +82,8 @@ public class RuntimeProcessWalker  {
 	  	}
 	  };
 
-  public RuntimeProcessWalker(final ScheduleProperties properties,
-		  final AnalysisErrorReporterManager errMgr) {
+  public RuntimeProcessWalker(final AnalysisErrorReporterManager errMgr) {
   	errManager = errMgr;
-  	this.properties = properties;
   }
 
   public void setCurrentProcessor(ComponentInstance processor) { currentProcessor = processor; }
@@ -126,7 +123,7 @@ public class RuntimeProcessWalker  {
   	//when all the timing properties are not null ! except the ARC related properties.
   	try
   	{
-  		properties.getActualProcessorBinding(elt);
+  		GetProperties.getActualProcessorBinding(elt);
   	}
   	catch (PropertyNotPresentException e)
   	{
@@ -139,7 +136,7 @@ public class RuntimeProcessWalker  {
   	double val;
   	try
   	{
-  		val = properties.getPeriod(elt);
+  		val = GetProperties.getPeriodinMS(elt);
   		curComponent.setPeriod((int)val);
   	}
   	catch (PropertyNotPresentException e)
@@ -148,13 +145,13 @@ public class RuntimeProcessWalker  {
   		return;
   	}
 
-  	double deadlineval = properties.getDeadline(elt);
+  	double deadlineval = GetProperties.getDeadlineinMS(elt);
   	curComponent.setDeadline((int) deadlineval);
 
   	double exectimeval;
   	try
   	{
-  		exectimeval = properties.getComputeExecutionTimeMaximumValue(elt);
+  		exectimeval = GetProperties.getComputeExecutionTimeinMS(elt);
   	}
   	catch (PropertyNotPresentException e)
   	{
@@ -165,7 +162,7 @@ public class RuntimeProcessWalker  {
   	curComponent.setPhaseOffset(0);
 
   	/* There is no standard Priority property */
-  	long priority = properties.getPriority(elt, 0);
+  	long priority = GetProperties.getPriority(elt, 0);
   	curComponent.setPriority((int) priority);
 
   	curComponent.setComponentName(elt.getInstanceObjectPath());

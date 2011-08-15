@@ -55,6 +55,39 @@ import org.eclipse.emf.edit.domain.AdapterFactoryEditingDomain;
 import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DataClassifier;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.ProcessorClassifier;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.SystemClassifier;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionKind;
+import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.properties.InstanceUtil;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
+import org.osate.xtext.aadl2.properties.AadlProject;
+import org.osate.xtext.aadl2.properties.CommunicationProperties;
+import org.osate.xtext.aadl2.properties.DeploymentProperties;
+import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.MemoryProperties;
+import org.osate.xtext.aadl2.properties.TimingProperties;
 import org.osgi.framework.Bundle;
 
 import EAnalysis.BinPacking.AssignmentResult;
@@ -79,41 +112,7 @@ import EAnalysis.BinPacking.Site;
 import EAnalysis.BinPacking.SiteArchitecture;
 import EAnalysis.BinPacking.SiteGuest;
 import EAnalysis.BinPacking.SoftwareNode;
-import edu.cmu.sei.aadl.aadl2.Classifier;
-import edu.cmu.sei.aadl.aadl2.ClassifierValue;
-import edu.cmu.sei.aadl.aadl2.ComponentCategory;
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
-import edu.cmu.sei.aadl.aadl2.DataClassifier;
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.Feature;
-import edu.cmu.sei.aadl.aadl2.ProcessorClassifier;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.PropertyConstant;
-import edu.cmu.sei.aadl.aadl2.SystemClassifier;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.ConnectionInstance;
-import edu.cmu.sei.aadl.aadl2.instance.ConnectionInstanceEnd;
-import edu.cmu.sei.aadl.aadl2.instance.ConnectionKind;
-import edu.cmu.sei.aadl.aadl2.instance.FeatureInstance;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceObject;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceReferenceValue;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemOperationMode;
-import edu.cmu.sei.aadl.aadl2.properties.InstanceUtil;
-import edu.cmu.sei.aadl.aadl2.properties.InvalidModelException;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyNotPresentException;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import edu.cmu.sei.aadl.modelsupport.modeltraversal.ForAllElement;
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.CommunicationProperties;
-import edu.cmu.sei.osate.workspace.names.standard.DeploymentProperties;
-import edu.cmu.sei.osate.workspace.names.standard.MemoryProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
 
 /**
  * Action performs a binpacking on all the threads in a given system.  Tries
@@ -131,36 +130,11 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 
 	private static final int MAX_MULTIPLIER = 10;
 	
-	private BinpackProperties properties;
 	private int partitionChoice;
 	
 	
 	
 	protected void initPropertyReferences() {
-		Property period = lookupPropertyDefinition(TimingProperties.PERIOD);
-		Property deadline = lookupPropertyDefinition(TimingProperties.DEADLINE);
-		Property computeExecutionTime = lookupPropertyDefinition(TimingProperties.COMPUTE_EXECUTION_TIME);
-		Property schedulingProtocol = lookupPropertyDefinition(DeploymentProperties.SCHEDULING_PROTOCOL);
-		Property notCollocated = lookupPropertyDefinition(DeploymentProperties.NOT_COLLOCATED);
-		Property actualProcessorBinding = lookupPropertyDefinition(DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		Property allowedProcessorBinding = lookupPropertyDefinition(DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
-		Property allowedProcessorBindingClass = lookupPropertyDefinition(DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		Property transmissionTime = lookupPropertyDefinition(CommunicationProperties.TRANSMISSION_TIME);
-		
-		UnitLiteral second = lookupUnitLiteral(AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
-		UnitLiteral nanoSecond = lookupUnitLiteral(AadlProject.TIME_UNITS, AadlProject.NS_LITERAL);
-				
-		Property referenceProcessor = lookupPropertyDefinition(SEI._NAME, SEI.REFERENCE_PROCESSOR);
-		PropertyConstant referenceCycleTime = lookupPropertyConstant(SEI._NAME, SEI.REFERENCE_CYCLE_TIME);
-		Property cycleTime = lookupPropertyDefinition(SEI._NAME, SEI.CYCLE_TIME);
-
-		Property size = OsateResourceManager.findProperty(MemoryProperties.SOURCE_DATA_SIZE);
-		UnitLiteral bits = lookupUnitLiteral(AadlProject.SIZE_UNITS, AadlProject.BITS_LITERAL);
-
-		properties = new BinpackProperties(period, deadline, computeExecutionTime, schedulingProtocol, notCollocated, actualProcessorBinding,
-				allowedProcessorBinding, allowedProcessorBindingClass, second, nanoSecond, referenceProcessor, referenceCycleTime, 
-				cycleTime, transmissionTime, size, bits);
-		
 	}
 	
 	protected Bundle getBundle() {
@@ -182,7 +156,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	
 	protected boolean initializeAnalysis() {
 		// Select the bin packing strategy
-		partitionChoice = edu.cmu.sei.osate.ui.dialogs.Dialog.askQuestion(
+		partitionChoice = org.osate.ui.dialogs.Dialog.askQuestion(
 				"Choose partitioning algorithm",
                 "This bin packing algorithm groups threads that "+
                 "communicate with each other in groups and try to fit them "+
@@ -203,7 +177,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	
 	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, Element declarativeObject) {
-		edu.cmu.sei.osate.ui.dialogs.Dialog.showError(
+		org.osate.ui.dialogs.Dialog.showError(
 				"Binding Error",
 				"Can only SW/HW bind (binpack) system instances");
 	}
@@ -221,7 +195,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			final EList incompleteprocessors = new ForAllElement() {
 				protected boolean suchThat(Element obj){
 					try {
-						properties.getCycleTimePropertyValue((ComponentInstance)obj);
+						GetProperties.getCycleTimePropertyValue((ComponentInstance)obj);
 						return false;
 					} catch (PropertyNotPresentException e) {
 						return true;
@@ -239,7 +213,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				public void process(Element obj){				
 					ComponentInstance bi = (ComponentInstance) obj;
 					try {
-						final List transTime = properties.getTransmissionTimePropertyValue(bi);
+						final List transTime = GetProperties.getTransmissionTimePropertyValue(bi);
 						if (transTime.size() < 2) {
 							warning(obj, "Bus has badly formed Transmission Time property (length of list is < 2), using default multiplier of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
 						}
@@ -258,7 +232,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 					final ComponentCategory cat = ((ComponentInstance) obj).getCategory();
 					if (cat == ComponentCategory.THREAD|| cat == ComponentCategory.DEVICE) {
 						try {
-							properties.getPeriodPropertyValue((ComponentInstance) obj);
+							GetProperties.getPeriodPropertyValue((ComponentInstance) obj);
 							return false;
 						} catch (PropertyNotPresentException e) {
 							return true;
@@ -279,7 +253,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			incompletethreads = new ForAllElement(){
 				protected boolean suchThat(Element obj){
 					try {
-						properties.getComputeExecutionTime((ComponentInstance)obj);
+						GetProperties.getComputeExecutionTimeinSec((ComponentInstance)obj);
 						return false;
 					} catch (PropertyNotPresentException e) {
 						return true;
@@ -307,7 +281,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 								DataClassifier srcDC = (DataClassifier) cl;
 
 								try {
-									properties.getSize(srcDC);
+									GetProperties.getSize(srcDC);
 								} catch(PropertyNotPresentException e) {
 									warning(obj,"Data size of port connection not specified");
 								}
@@ -417,7 +391,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addProcessors = new ForAllElement(errManager) {
 			public void process(Element obj) {			
 				ComponentInstance ci = (ComponentInstance) obj;
-				final Processor proc = AADLProcessor.createInstance(ci, processorMultiplier, properties);
+				final Processor proc = AADLProcessor.createInstance(ci, processorMultiplier);
 				if (proc != null) {
 					siteArchitecture.addSiteGuest(proc, theSite);
 					problem.hardwareGraph.add(proc);

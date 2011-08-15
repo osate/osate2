@@ -34,6 +34,11 @@
 package edu.cmu.sei.aadl.security.actions;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.ui.actions.AbstractAnalysis;
+import org.osate.xtext.aadl2.properties.GetProperties;
 
 import edu.cmu.sei.aadl.security.ComponentLevelChecker;
 import edu.cmu.sei.aadl.security.ConnectionLevelChecker;
@@ -61,7 +66,7 @@ public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis
 
 	protected boolean runImpl()
 	{
-		final Property theProperty = OsateResourceManager.findProperty(getLevelPropertyPropertySet(), getLevelPropertyName());
+		final Property theProperty = GetProperties.lookupPropertyDefinition(getParameter(),getLevelPropertyPropertySet(), getLevelPropertyName());
 		
 		/* ensure that enclosing component security level encompasses contained
 		 * security levels.  The switch acts as filter on the model object
@@ -89,7 +94,7 @@ public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis
 
 	protected boolean readyToRunImpl()
 	{
-		if (OsateResourceManager.findProperty(getLevelPropertyPropertySet(), getLevelPropertyName()) == null)
+		if (GetProperties.lookupPropertyDefinition(getParameter(),getLevelPropertyPropertySet(), getLevelPropertyName()) == null)
 		{
 			propertyDefinitionNotFound(getLevelPropertyPropertySet(), getLevelPropertyName());
 			return false;

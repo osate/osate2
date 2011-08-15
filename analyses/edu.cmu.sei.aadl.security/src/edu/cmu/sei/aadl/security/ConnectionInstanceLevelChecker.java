@@ -39,6 +39,17 @@
  */
 package edu.cmu.sei.aadl.security;
 
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionKind;
+import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
+
 
 
 /**
@@ -60,10 +71,10 @@ public class ConnectionInstanceLevelChecker extends AadlProcessingSwitch {
 
 	protected void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
-			public String caseConnectionInstance(final ConnectionInstance conn) {
-				if (conn.getKind().equals(ConnectionKind.PORT)) {
-					NamedElement scxt = conn.getSource().getContainingComponentInstance();
-					NamedElement dcxt = conn.getDestination().getContainingComponentInstance();
+			public String caseConnectionInstance(final ConnectionInstance conni) {
+				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
+					NamedElement scxt = conni.getSource().getContainingComponentInstance();
+					NamedElement dcxt = conni.getDestination().getContainingComponentInstance();
 					if (scxt == null || dcxt == null) return DONE;
 					try {
 						long slv;
@@ -79,7 +90,7 @@ public class ConnectionInstanceLevelChecker extends AadlProcessingSwitch {
 							dlv = 0;
 						}
 						if (!levelComp.compareLevels(slv, dlv)) {
-							error(conn, "Level violation for " + 
+							error(conni, "Level violation for " + 
 									property.getQualifiedName() + ": Source has level "
 									+ slv + " and destination has level " + dlv);
 						}

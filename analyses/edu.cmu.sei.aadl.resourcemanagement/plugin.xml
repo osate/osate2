@@ -170,7 +170,7 @@
          id="BinpackObjectMarker"
          name="Thread Binding Analysis Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    
@@ -178,7 +178,7 @@
          id="ScheduleObjectMarker"
          name="Scheduling Analysis Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    
@@ -186,11 +186,11 @@
          id="InversionObjectMarker"
          name="Priority Inversion Analysis Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    
-   <extension point="edu.cmu.sei.osate.ui.analysis">
+   <extension point="org.osate.ui.analysis">
       <analysis
    		 id="edu.cmu.sei.aadl.resourcemanagement.actions.Binpack.analysis"
    		 name="Bind and Schedule Threads"

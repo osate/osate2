@@ -23,13 +23,13 @@ import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
+import org.osate.aadl2.instance.ComponentInstance;
 
 import EAnalysis.BinPacking.HardwareNode;
 import EAnalysis.BinPacking.Link;
 import EAnalysis.BinPacking.Message;
 import EAnalysis.BinPacking.NetInterface;
 import EAnalysis.BinPacking.Processor;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
 
 /**
  * @author aarong

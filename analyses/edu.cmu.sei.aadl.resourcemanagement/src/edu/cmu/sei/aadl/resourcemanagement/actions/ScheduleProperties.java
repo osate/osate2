@@ -33,12 +33,10 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import edu.cmu.sei.aadl.aadl2.NamedElement;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.InstanceObject;
-import edu.cmu.sei.aadl.modelsupport.properties.PropertyUtils;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
 
 public class ScheduleProperties
 {

@@ -4,9 +4,10 @@
 
 package edu.cmu.sei.aadl.scheduling;
 
-import edu.cmu.sei.aadl.aadl2.ComponentCategory;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+
 import edu.cmu.sei.aadl.resourcemanagement.actions.ScheduleProperties;
 
 
@@ -19,12 +20,11 @@ public class TimingAnalysisInvocation {
 	 * @param processor
 	 */
 	public static boolean timingSchedulabilityAnalysis(
-			final ScheduleProperties properties,
 			final AnalysisErrorReporterManager errMgr, 
 			final ComponentInstance processor) {
 		if (processor.getCategory() != ComponentCategory.PROCESSOR)
 			return false;
-		RuntimeProcessWalker walker = new RuntimeProcessWalker(properties, errMgr);
+		RuntimeProcessWalker walker = new RuntimeProcessWalker( errMgr);
 		walker.cleanProcessHolder() ;
 		walker.setCurrentProcessor(processor);
 		walker.initWalker();
