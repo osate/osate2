@@ -537,11 +537,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-<<<<<<< HEAD
-	 * @generated
-=======
 	 * @generated NOT
->>>>>>> refs/remotes/osate2/master
 	 */
 	public ComponentImplementation getExtended() {
 		ComponentImplementation extended = basicGetExtended();
