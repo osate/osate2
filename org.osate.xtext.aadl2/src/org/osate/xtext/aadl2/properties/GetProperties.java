@@ -99,6 +99,14 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
 	
+	public static UnitLiteral getMSUnitLiteral(NamedElement context){
+		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
+	}
+	
+	public static UnitLiteral getSecUnitLiteral(NamedElement context){
+		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
+	}
+	
 	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
 		return findUnitLiteral(context, SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
@@ -256,11 +264,18 @@ public class GetProperties {
 		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 
 	}
+	// 10 picoseconds
+	public static final double DEFAULT_CYCLE_TIME = 1.0e-12;
 
 	public static double getCycleTimeinMS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(cycleTime, AadlProject.MS_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, 0.0);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME);
+	}
+	public static double getCycleTimeinSec(final NamedElement ne) {
+		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
+		UnitLiteral second = Aadl2LinkingService.eInstance.findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME);
 	}
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
@@ -269,7 +284,7 @@ public class GetProperties {
 	}
 
 	public static double getActualMIPS(ComponentInstance bci) {
-		double exectimeval = getComputeExecutionTimeInSec(bci, 0.0);
+		double exectimeval = getComputeExecutionTimeinSec(bci);
 		double period = getPeriodInSeconds(bci, 0.0);
 		if (exectimeval > 0 && period > 0) {
 			double mipspersec = getReferenceMIPS(bci);
@@ -300,12 +315,29 @@ public class GetProperties {
 		}
 		return cycleTime;
 	}
+	public static double getReferenceCycleTimeinSec(final ComponentInstance thread) {
+		double cycleTime = 0.0;
+		ComponentClassifier pci = null;
+		pci = getReferenceProcessor(thread);
+		if (pci != null) {
+			cycleTime = getCycleTimeinMS(pci);
+			cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
+		}
+		if (cycleTime == 0.0) {
+		}
+		cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
+		return cycleTime;
+	}
 
 	public static double getReferenceCycleTimeConstantinMS(EObject context) {
 		PropertyConstant referenceCycleTime = Aadl2LinkingService.eInstance.findPropertyConstant(context,SEI._NAME+ "::" +SEI.REFERENCE_CYCLE_TIME);
 		if (referenceCycleTime == null)
 			return 0.0;
 		return scaleValueToMicroSecond((NumberValue) referenceCycleTime.getConstantValue());
+	}
+	
+	public static double fromMStoSec(NamedElement ne, double value){
+		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
 
 	/**
@@ -395,6 +427,12 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
 	}
 
+	public static double getPeriodinNS(final NamedElement ne) {
+		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
+		UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(period, AadlProject.NS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
+	}
+
 	public static double getActualLatencyinMS(final NamedElement ne) {
 		Property actualLatency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.ACTUAL_LATENCY);
 		UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(actualLatency, AadlProject.MS_LITERAL);
@@ -410,10 +448,22 @@ public class GetProperties {
 		return getMIPSBudgetInMIPS(ne, 0.0);
 	}
 
+	public static double getDeadlineinSec(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
+		UnitLiteral second = Aadl2LinkingService.eInstance.findUnitLiteral(deadline, AadlProject.SEC_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, second, 0.0);
+	}
+
 	public static double getDeadlineinMS(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
 		UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, microSecond, 0.0);
+	}
+
+	public static double getDeadlineinNS(final NamedElement ne) {
+		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
+		UnitLiteral nanoSecond = Aadl2LinkingService.eInstance.findUnitLiteral(deadline, AadlProject.NS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, nanoSecond, 0.0);
 	}
 
 	public static double getComputeExecutionTimeinMS(final NamedElement ne) {
@@ -427,14 +477,15 @@ public class GetProperties {
 		return time;
 	}
 
-	public static double getComputeExecutionTimeInSec(final NamedElement ne, final double defaultValue) {
+	public static double getComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
 		UnitLiteral second = Aadl2LinkingService.eInstance.findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
-		try {
-			return PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, defaultValue);
-		} catch (Throwable e) {
-			return defaultValue;
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
+		if (ne instanceof ComponentInstance) {
+			double scale = getProcessorScalingFactor((ComponentInstance) ne);
+			return time * scale;
 		}
+		return time;
 	}
 
 	public static double getPeriodInSeconds(final NamedElement ne, final double defaultValue) {
@@ -448,12 +499,12 @@ public class GetProperties {
 		return PropertyUtils.getIntegerValue(ne, priority, defaultValue);
 	}
 
-	public static String getSchedulingProtocol(final NamedElement ne, final String defaultValue) {
+	public static String getSchedulingProtocol(final NamedElement ne) {
 		try {
 			Property schedulingprotocol = lookupPropertyDefinition(ne,DeploymentProperties._NAME, DeploymentProperties.SCHEDULING_PROTOCOL);
 			return PropertyUtils.getEnumLiteral(ne, schedulingprotocol).getName();
 		} catch (PropertyLookupException e) {
-			return defaultValue;
+			return null;
 		}
 	}
 

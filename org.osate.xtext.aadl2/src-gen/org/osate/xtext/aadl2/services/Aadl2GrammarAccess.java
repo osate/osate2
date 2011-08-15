@@ -20824,33 +20824,30 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowSourceSpecParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cFlowSinkSpecParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cFlowPathSpecParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cFlowSourceSpecRefinementParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cFlowSinkSpecRefinementParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cFlowPathSpecRefinementParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cFlowSpecRefinementParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
+		////| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 		//FlowSpecification returns aadl2::FlowSpecification: //	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
 		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
-		////	) | FlowSpecRefinement
-		//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
-		//	FlowPathSpecRefinement;
+		////	) 
+		//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement;
 		public ParserRule getRule() { return rule; }
 
 		////	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
 		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
-		////	) | FlowSpecRefinement
-		//FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
-		//FlowPathSpecRefinement
+		////	) 
+		//FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		////	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
 		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
-		////	) | FlowSpecRefinement
+		////	) 
 		//FlowSourceSpec
 		public RuleCall getFlowSourceSpecParserRuleCall_0() { return cFlowSourceSpecParserRuleCall_0; }
 
@@ -20860,14 +20857,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowPathSpec
 		public RuleCall getFlowPathSpecParserRuleCall_2() { return cFlowPathSpecParserRuleCall_2; }
 
-		//FlowSourceSpecRefinement
-		public RuleCall getFlowSourceSpecRefinementParserRuleCall_3() { return cFlowSourceSpecRefinementParserRuleCall_3; }
-
-		//FlowSinkSpecRefinement
-		public RuleCall getFlowSinkSpecRefinementParserRuleCall_4() { return cFlowSinkSpecRefinementParserRuleCall_4; }
-
-		//FlowPathSpecRefinement
-		public RuleCall getFlowPathSpecRefinementParserRuleCall_5() { return cFlowPathSpecRefinementParserRuleCall_5; }
+		//FlowSpecRefinement
+		public RuleCall getFlowSpecRefinementParserRuleCall_3() { return cFlowSpecRefinementParserRuleCall_3; }
 	}
 
 	public class FlowSourceSpecElements extends AbstractParserRuleElementFinder {
@@ -21298,8 +21289,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getFeatureFeatureIDTerminalRuleCall_1_0_1() { return cFeatureFeatureIDTerminalRuleCall_1_0_1; }
 	}
 
-	public class FlowSourceSpecRefinementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSourceSpecRefinement");
+	public class FlowSpecRefinementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSpecRefinement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
 		private final Assignment cRefinedAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
@@ -21310,7 +21301,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cToKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
 		private final Keyword cFlowKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
 		private final Assignment cKindAssignment_0_5 = (Assignment)cGroup_0.eContents().get(5);
-		private final RuleCall cKindFlowSourceParserRuleCall_0_5_0 = (RuleCall)cKindAssignment_0_5.eContents().get(0);
+		private final RuleCall cKindFlowKindEnumRuleCall_0_5_0 = (RuleCall)cKindAssignment_0_5.eContents().get(0);
 		private final Group cGroup_0_6 = (Group)cGroup_0.eContents().get(6);
 		private final Keyword cLeftCurlyBracketKeyword_0_6_0 = (Keyword)cGroup_0_6.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_0_6_1 = (Assignment)cGroup_0_6.eContents().get(1);
@@ -21345,31 +21336,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_1_0_5 = (Keyword)cGroup_1_0.eContents().get(5);
 		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		
-		////FlowSpecRefinement returns aadl2::FlowSpecification:
+		//FlowSpecRefinement returns aadl2::FlowSpecification: //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+		//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
+		//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+		//	";";
+		public ParserRule getRule() { return rule; }
+
 		////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
-		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-		////	';'
-		////	;
-		//FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-		//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
-		//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//	";";
-		public ParserRule getRule() { return rule; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
+		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
 		//")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
 		//";"
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
+		////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind ("{"
 		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
 		//")")?)
 		public Group getGroup_0() { return cGroup_0; }
 
+		////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 		//refined=[aadl2::FlowSpecification|REFINEDNAME]
 		public Assignment getRefinedAssignment_0_0() { return cRefinedAssignment_0_0; }
 
@@ -21391,399 +21378,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"flow"
 		public Keyword getFlowKeyword_0_4() { return cFlowKeyword_0_4; }
 
-		//kind=FlowSource
+		//kind=FlowKind
 		public Assignment getKindAssignment_0_5() { return cKindAssignment_0_5; }
 
-		//FlowSource
-		public RuleCall getKindFlowSourceParserRuleCall_0_5_0() { return cKindFlowSourceParserRuleCall_0_5_0; }
-
-		//=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//inMode+=[aadl2::Mode])* ")")?
-		public Group getGroup_0_6() { return cGroup_0_6; }
-
-		//=> "{"
-		public Keyword getLeftCurlyBracketKeyword_0_6_0() { return cLeftCurlyBracketKeyword_0_6_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_0_6_1() { return cOwnedPropertyAssociationAssignment_0_6_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_0_6_2() { return cRightCurlyBracketKeyword_0_6_2; }
-
-		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
-		public Group getGroup_0_6_3() { return cGroup_0_6_3; }
-
-		//"in"
-		public Keyword getInKeyword_0_6_3_0() { return cInKeyword_0_6_3_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_0_6_3_1() { return cModesKeyword_0_6_3_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_0_6_3_2() { return cLeftParenthesisKeyword_0_6_3_2; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_0_6_3_3() { return cInModeAssignment_0_6_3_3; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_0_6_3_3_0() { return cInModeModeCrossReference_0_6_3_3_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_0_6_3_3_0_1() { return cInModeModeIDTerminalRuleCall_0_6_3_3_0_1; }
-
-		//("," inMode+=[aadl2::Mode])*
-		public Group getGroup_0_6_3_4() { return cGroup_0_6_3_4; }
-
-		//","
-		public Keyword getCommaKeyword_0_6_3_4_0() { return cCommaKeyword_0_6_3_4_0; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_0_6_3_4_1() { return cInModeAssignment_0_6_3_4_1; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_0_6_3_4_1_0() { return cInModeModeCrossReference_0_6_3_4_1_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1() { return cInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_0_6_3_5() { return cRightParenthesisKeyword_0_6_3_5; }
-
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//";"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//=> "in"
-		public Keyword getInKeyword_1_0_0() { return cInKeyword_1_0_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_1_0_1() { return cModesKeyword_1_0_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_1_0_2() { return cLeftParenthesisKeyword_1_0_2; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_1_0_3() { return cInModeAssignment_1_0_3; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_1_0_3_0() { return cInModeModeCrossReference_1_0_3_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_0_3_0_1() { return cInModeModeIDTerminalRuleCall_1_0_3_0_1; }
-
-		//("," inMode+=[aadl2::Mode])*
-		public Group getGroup_1_0_4() { return cGroup_1_0_4; }
-
-		//","
-		public Keyword getCommaKeyword_1_0_4_0() { return cCommaKeyword_1_0_4_0; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_1_0_4_1() { return cInModeAssignment_1_0_4_1; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_1_0_4_1_0() { return cInModeModeCrossReference_1_0_4_1_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_0_4_1_0_1() { return cInModeModeIDTerminalRuleCall_1_0_4_1_0_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_1_0_5() { return cRightParenthesisKeyword_1_0_5; }
-
-		//";"
-		public Keyword getSemicolonKeyword_1_1() { return cSemicolonKeyword_1_1; }
-	}
-
-	public class FlowSinkSpecRefinementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowSinkSpecRefinement");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cRefinedAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final CrossReference cRefinedFlowSpecificationCrossReference_0_0_0 = (CrossReference)cRefinedAssignment_0_0.eContents().get(0);
-		private final RuleCall cRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1 = (RuleCall)cRefinedFlowSpecificationCrossReference_0_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Keyword cRefinedKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Keyword cToKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
-		private final Keyword cFlowKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
-		private final Assignment cKindAssignment_0_5 = (Assignment)cGroup_0.eContents().get(5);
-		private final RuleCall cKindFlowSinkParserRuleCall_0_5_0 = (RuleCall)cKindAssignment_0_5.eContents().get(0);
-		private final Group cGroup_0_6 = (Group)cGroup_0.eContents().get(6);
-		private final Keyword cLeftCurlyBracketKeyword_0_6_0 = (Keyword)cGroup_0_6.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_0_6_1 = (Assignment)cGroup_0_6.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_0_6_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_0_6_2 = (Keyword)cGroup_0_6.eContents().get(2);
-		private final Group cGroup_0_6_3 = (Group)cGroup_0_6.eContents().get(3);
-		private final Keyword cInKeyword_0_6_3_0 = (Keyword)cGroup_0_6_3.eContents().get(0);
-		private final Keyword cModesKeyword_0_6_3_1 = (Keyword)cGroup_0_6_3.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0_6_3_2 = (Keyword)cGroup_0_6_3.eContents().get(2);
-		private final Assignment cInModeAssignment_0_6_3_3 = (Assignment)cGroup_0_6_3.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_0_6_3_3_0 = (CrossReference)cInModeAssignment_0_6_3_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_0_6_3_3_0_1 = (RuleCall)cInModeModeCrossReference_0_6_3_3_0.eContents().get(1);
-		private final Group cGroup_0_6_3_4 = (Group)cGroup_0_6_3.eContents().get(4);
-		private final Keyword cCommaKeyword_0_6_3_4_0 = (Keyword)cGroup_0_6_3_4.eContents().get(0);
-		private final Assignment cInModeAssignment_0_6_3_4_1 = (Assignment)cGroup_0_6_3_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_0_6_3_4_1_0 = (CrossReference)cInModeAssignment_0_6_3_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1 = (RuleCall)cInModeModeCrossReference_0_6_3_4_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_0_6_3_5 = (Keyword)cGroup_0_6_3.eContents().get(5);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Keyword cInKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
-		private final Keyword cModesKeyword_1_0_1 = (Keyword)cGroup_1_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_1_0_2 = (Keyword)cGroup_1_0.eContents().get(2);
-		private final Assignment cInModeAssignment_1_0_3 = (Assignment)cGroup_1_0.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_1_0_3_0 = (CrossReference)cInModeAssignment_1_0_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_0_3_0_1 = (RuleCall)cInModeModeCrossReference_1_0_3_0.eContents().get(1);
-		private final Group cGroup_1_0_4 = (Group)cGroup_1_0.eContents().get(4);
-		private final Keyword cCommaKeyword_1_0_4_0 = (Keyword)cGroup_1_0_4.eContents().get(0);
-		private final Assignment cInModeAssignment_1_0_4_1 = (Assignment)cGroup_1_0_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_1_0_4_1_0 = (CrossReference)cInModeAssignment_1_0_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_0_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_0_4_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_1_0_5 = (Keyword)cGroup_1_0.eContents().get(5);
-		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		
-		//FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-		//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
-		//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//	";";
-		public ParserRule getRule() { return rule; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
-		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
-		//")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//";"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
-		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
-		//")")?)
-		public Group getGroup_0() { return cGroup_0; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME]
-		public Assignment getRefinedAssignment_0_0() { return cRefinedAssignment_0_0; }
-
-		//[aadl2::FlowSpecification|REFINEDNAME]
-		public CrossReference getRefinedFlowSpecificationCrossReference_0_0_0() { return cRefinedFlowSpecificationCrossReference_0_0_0; }
-
-		//REFINEDNAME
-		public RuleCall getRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1() { return cRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1; }
-
-		//":"
-		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
-
-		//"refined"
-		public Keyword getRefinedKeyword_0_2() { return cRefinedKeyword_0_2; }
-
-		//"to"
-		public Keyword getToKeyword_0_3() { return cToKeyword_0_3; }
-
-		//"flow"
-		public Keyword getFlowKeyword_0_4() { return cFlowKeyword_0_4; }
-
-		//kind=FlowSink
-		public Assignment getKindAssignment_0_5() { return cKindAssignment_0_5; }
-
-		//FlowSink
-		public RuleCall getKindFlowSinkParserRuleCall_0_5_0() { return cKindFlowSinkParserRuleCall_0_5_0; }
-
-		//=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//inMode+=[aadl2::Mode])* ")")?
-		public Group getGroup_0_6() { return cGroup_0_6; }
-
-		//=> "{"
-		public Keyword getLeftCurlyBracketKeyword_0_6_0() { return cLeftCurlyBracketKeyword_0_6_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_0_6_1() { return cOwnedPropertyAssociationAssignment_0_6_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_0_6_2() { return cRightCurlyBracketKeyword_0_6_2; }
-
-		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
-		public Group getGroup_0_6_3() { return cGroup_0_6_3; }
-
-		//"in"
-		public Keyword getInKeyword_0_6_3_0() { return cInKeyword_0_6_3_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_0_6_3_1() { return cModesKeyword_0_6_3_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_0_6_3_2() { return cLeftParenthesisKeyword_0_6_3_2; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_0_6_3_3() { return cInModeAssignment_0_6_3_3; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_0_6_3_3_0() { return cInModeModeCrossReference_0_6_3_3_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_0_6_3_3_0_1() { return cInModeModeIDTerminalRuleCall_0_6_3_3_0_1; }
-
-		//("," inMode+=[aadl2::Mode])*
-		public Group getGroup_0_6_3_4() { return cGroup_0_6_3_4; }
-
-		//","
-		public Keyword getCommaKeyword_0_6_3_4_0() { return cCommaKeyword_0_6_3_4_0; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_0_6_3_4_1() { return cInModeAssignment_0_6_3_4_1; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_0_6_3_4_1_0() { return cInModeModeCrossReference_0_6_3_4_1_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1() { return cInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_0_6_3_5() { return cRightParenthesisKeyword_0_6_3_5; }
-
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//";"
-		public Group getGroup_1() { return cGroup_1; }
-
-		//=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
-		public Group getGroup_1_0() { return cGroup_1_0; }
-
-		//=> "in"
-		public Keyword getInKeyword_1_0_0() { return cInKeyword_1_0_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_1_0_1() { return cModesKeyword_1_0_1; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_1_0_2() { return cLeftParenthesisKeyword_1_0_2; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_1_0_3() { return cInModeAssignment_1_0_3; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_1_0_3_0() { return cInModeModeCrossReference_1_0_3_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_0_3_0_1() { return cInModeModeIDTerminalRuleCall_1_0_3_0_1; }
-
-		//("," inMode+=[aadl2::Mode])*
-		public Group getGroup_1_0_4() { return cGroup_1_0_4; }
-
-		//","
-		public Keyword getCommaKeyword_1_0_4_0() { return cCommaKeyword_1_0_4_0; }
-
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_1_0_4_1() { return cInModeAssignment_1_0_4_1; }
-
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_1_0_4_1_0() { return cInModeModeCrossReference_1_0_4_1_0; }
-
-		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_1_0_4_1_0_1() { return cInModeModeIDTerminalRuleCall_1_0_4_1_0_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_1_0_5() { return cRightParenthesisKeyword_1_0_5; }
-
-		//";"
-		public Keyword getSemicolonKeyword_1_1() { return cSemicolonKeyword_1_1; }
-	}
-
-	public class FlowPathSpecRefinementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FlowPathSpecRefinement");
-		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
-		private final Assignment cRefinedAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final CrossReference cRefinedFlowSpecificationCrossReference_0_0_0 = (CrossReference)cRefinedAssignment_0_0.eContents().get(0);
-		private final RuleCall cRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1 = (RuleCall)cRefinedFlowSpecificationCrossReference_0_0_0.eContents().get(1);
-		private final Keyword cColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final Keyword cRefinedKeyword_0_2 = (Keyword)cGroup_0.eContents().get(2);
-		private final Keyword cToKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
-		private final Keyword cFlowKeyword_0_4 = (Keyword)cGroup_0.eContents().get(4);
-		private final Assignment cKindAssignment_0_5 = (Assignment)cGroup_0.eContents().get(5);
-		private final RuleCall cKindFlowPathParserRuleCall_0_5_0 = (RuleCall)cKindAssignment_0_5.eContents().get(0);
-		private final Group cGroup_0_6 = (Group)cGroup_0.eContents().get(6);
-		private final Keyword cLeftCurlyBracketKeyword_0_6_0 = (Keyword)cGroup_0_6.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_0_6_1 = (Assignment)cGroup_0_6.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_0_6_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_0_6_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_0_6_2 = (Keyword)cGroup_0_6.eContents().get(2);
-		private final Group cGroup_0_6_3 = (Group)cGroup_0_6.eContents().get(3);
-		private final Keyword cInKeyword_0_6_3_0 = (Keyword)cGroup_0_6_3.eContents().get(0);
-		private final Keyword cModesKeyword_0_6_3_1 = (Keyword)cGroup_0_6_3.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0_6_3_2 = (Keyword)cGroup_0_6_3.eContents().get(2);
-		private final Assignment cInModeAssignment_0_6_3_3 = (Assignment)cGroup_0_6_3.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_0_6_3_3_0 = (CrossReference)cInModeAssignment_0_6_3_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_0_6_3_3_0_1 = (RuleCall)cInModeModeCrossReference_0_6_3_3_0.eContents().get(1);
-		private final Group cGroup_0_6_3_4 = (Group)cGroup_0_6_3.eContents().get(4);
-		private final Keyword cCommaKeyword_0_6_3_4_0 = (Keyword)cGroup_0_6_3_4.eContents().get(0);
-		private final Assignment cInModeAssignment_0_6_3_4_1 = (Assignment)cGroup_0_6_3_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_0_6_3_4_1_0 = (CrossReference)cInModeAssignment_0_6_3_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_0_6_3_4_1_0_1 = (RuleCall)cInModeModeCrossReference_0_6_3_4_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_0_6_3_5 = (Keyword)cGroup_0_6_3.eContents().get(5);
-		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
-		private final Group cGroup_1_0 = (Group)cGroup_1.eContents().get(0);
-		private final Keyword cInKeyword_1_0_0 = (Keyword)cGroup_1_0.eContents().get(0);
-		private final Keyword cModesKeyword_1_0_1 = (Keyword)cGroup_1_0.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_1_0_2 = (Keyword)cGroup_1_0.eContents().get(2);
-		private final Assignment cInModeAssignment_1_0_3 = (Assignment)cGroup_1_0.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_1_0_3_0 = (CrossReference)cInModeAssignment_1_0_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_0_3_0_1 = (RuleCall)cInModeModeCrossReference_1_0_3_0.eContents().get(1);
-		private final Group cGroup_1_0_4 = (Group)cGroup_1_0.eContents().get(4);
-		private final Keyword cCommaKeyword_1_0_4_0 = (Keyword)cGroup_1_0_4.eContents().get(0);
-		private final Assignment cInModeAssignment_1_0_4_1 = (Assignment)cGroup_1_0_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_1_0_4_1_0 = (CrossReference)cInModeAssignment_1_0_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_1_0_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_0_4_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_1_0_5 = (Keyword)cGroup_1_0.eContents().get(5);
-		private final Keyword cSemicolonKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		
-		//FlowPathSpecRefinement returns aadl2::FlowSpecification:
-		//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
-		//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//	";";
-		public ParserRule getRule() { return rule; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
-		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
-		//")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-		//";"
-		public Alternatives getAlternatives() { return cAlternatives; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
-		//ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
-		//")")?)
-		public Group getGroup_0() { return cGroup_0; }
-
-		//refined=[aadl2::FlowSpecification|REFINEDNAME]
-		public Assignment getRefinedAssignment_0_0() { return cRefinedAssignment_0_0; }
-
-		//[aadl2::FlowSpecification|REFINEDNAME]
-		public CrossReference getRefinedFlowSpecificationCrossReference_0_0_0() { return cRefinedFlowSpecificationCrossReference_0_0_0; }
-
-		//REFINEDNAME
-		public RuleCall getRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1() { return cRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_0_1; }
-
-		//":"
-		public Keyword getColonKeyword_0_1() { return cColonKeyword_0_1; }
-
-		//"refined"
-		public Keyword getRefinedKeyword_0_2() { return cRefinedKeyword_0_2; }
-
-		//"to"
-		public Keyword getToKeyword_0_3() { return cToKeyword_0_3; }
-
-		//"flow"
-		public Keyword getFlowKeyword_0_4() { return cFlowKeyword_0_4; }
-
-		//kind=FlowPath
-		public Assignment getKindAssignment_0_5() { return cKindAssignment_0_5; }
-
-		//FlowPath
-		public RuleCall getKindFlowPathParserRuleCall_0_5_0() { return cKindFlowPathParserRuleCall_0_5_0; }
+		//FlowKind
+		public RuleCall getKindFlowKindEnumRuleCall_0_5_0() { return cKindFlowKindEnumRuleCall_0_5_0; }
 
 		//=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
 		//inMode+=[aadl2::Mode])* ")")?
@@ -21894,6 +21493,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowSinkImplParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cFlowPathImplParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
+		////
+		////FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+		////	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+		////	':' 'refined' 'to' 'flow' kind=FlowSource 
+		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+		////	';'
+		////;
+		////FlowSinkSpecRefinement returns aadl2::FlowSpecification:
+		////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
+		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+		////	';'
+		////;
+		////FlowPathSpecRefinement returns aadl2::FlowSpecification:
+		////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
+		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+		////	';'
+		////;
 		//////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 		////	';'
@@ -25671,9 +25293,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private FlowSinkSpecElements pFlowSinkSpec;
 	private FlowPathSpecElements pFlowPathSpec;
 	private FlowEndElements pFlowEnd;
-	private FlowSourceSpecRefinementElements pFlowSourceSpecRefinement;
-	private FlowSinkSpecRefinementElements pFlowSinkSpecRefinement;
-	private FlowPathSpecRefinementElements pFlowPathSpecRefinement;
+	private FlowSpecRefinementElements pFlowSpecRefinement;
 	private FlowImplementationElements pFlowImplementation;
 	private FlowSourceImplElements pFlowSourceImpl;
 	private FlowSinkImplElements pFlowSinkImpl;
@@ -27433,13 +27053,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFlowPathAccess().getRule();
 	}
 
+	////| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 	//FlowSpecification returns aadl2::FlowSpecification: //	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
 	////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 	////	';'
-	////	) | FlowSpecRefinement
-	//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement |
-	//	FlowPathSpecRefinement;
+	////	) 
+	//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement;
 	public FlowSpecificationElements getFlowSpecificationAccess() {
 		return (pFlowSpecification != null) ? pFlowSpecification : (pFlowSpecification = new FlowSpecificationElements());
 	}
@@ -27494,52 +27114,42 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFlowEndAccess().getRule();
 	}
 
-	////FlowSpecRefinement returns aadl2::FlowSpecification:
-	////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	//FlowSpecRefinement returns aadl2::FlowSpecification: //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
+	//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+	//	";";
+	public FlowSpecRefinementElements getFlowSpecRefinementAccess() {
+		return (pFlowSpecRefinement != null) ? pFlowSpecRefinement : (pFlowSpecRefinement = new FlowSpecRefinementElements());
+	}
+	
+	public ParserRule getFlowSpecRefinementRule() {
+		return getFlowSpecRefinementAccess().getRule();
+	}
+
+	////
+	////FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+	////	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+	////	':' 'refined' 'to' 'flow' kind=FlowSource 
 	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
 	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
 	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
 	////	';'
-	////	;
-	//FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSource ("{"
-	//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-	//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-	//	";";
-	public FlowSourceSpecRefinementElements getFlowSourceSpecRefinementAccess() {
-		return (pFlowSourceSpecRefinement != null) ? pFlowSourceSpecRefinement : (pFlowSourceSpecRefinement = new FlowSourceSpecRefinementElements());
-	}
-	
-	public ParserRule getFlowSourceSpecRefinementRule() {
-		return getFlowSourceSpecRefinementAccess().getRule();
-	}
-
-	//FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowSink ("{"
-	//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-	//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-	//	";";
-	public FlowSinkSpecRefinementElements getFlowSinkSpecRefinementAccess() {
-		return (pFlowSinkSpecRefinement != null) ? pFlowSinkSpecRefinement : (pFlowSinkSpecRefinement = new FlowSinkSpecRefinementElements());
-	}
-	
-	public ParserRule getFlowSinkSpecRefinementRule() {
-		return getFlowSinkSpecRefinementAccess().getRule();
-	}
-
-	//FlowPathSpecRefinement returns aadl2::FlowSpecification:
-	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowPath ("{"
-	//	ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-	//	inMode+=[aadl2::Mode])* ")")?) | ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
-	//	";";
-	public FlowPathSpecRefinementElements getFlowPathSpecRefinementAccess() {
-		return (pFlowPathSpecRefinement != null) ? pFlowPathSpecRefinement : (pFlowPathSpecRefinement = new FlowPathSpecRefinementElements());
-	}
-	
-	public ParserRule getFlowPathSpecRefinementRule() {
-		return getFlowPathSpecRefinementAccess().getRule();
-	}
-
+	////;
+	////FlowSinkSpecRefinement returns aadl2::FlowSpecification:
+	////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
+	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+	////	';'
+	////;
+	////FlowPathSpecRefinement returns aadl2::FlowSpecification:
+	////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
+	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+	////	';'
+	////;
 	//////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	////	';'

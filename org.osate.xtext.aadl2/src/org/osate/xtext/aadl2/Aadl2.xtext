@@ -1653,8 +1653,10 @@ FlowSpecification returns aadl2::FlowSpecification:
 //		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 //	';'
-//	) | FlowSpecRefinement
-	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
+//	) 
+	FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
+	| FlowSpecRefinement
+	//| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
@@ -1687,36 +1689,38 @@ FlowEnd returns aadl2::FlowEnd:
 	(context=[aadl2::Context|ID] '.' )? feature=[aadl2::Feature|ID]
 ;
 
-//FlowSpecRefinement returns aadl2::FlowSpecification:
+FlowSpecRefinement returns aadl2::FlowSpecification:
 //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+	':' 'refined' 'to' 'flow' kind=FlowKind 
+	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+	';'
+	;
+//
+//FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+//	':' 'refined' 'to' 'flow' kind=FlowSource 
 //	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
 //		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
 //	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
 //	';'
-//	;
-
-FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-	':' 'refined' 'to' 'flow' kind=FlowSource 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
-FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
-FlowPathSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
+//;
+//FlowSinkSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
+//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+//	';'
+//;
+//FlowPathSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
+//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+//	';'
+//;
 
 FlowImplementation returns aadl2::FlowImplementation:
 	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
