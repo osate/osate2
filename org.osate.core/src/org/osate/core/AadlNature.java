@@ -41,7 +41,6 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.core.builder.AadlBuilder;
 
 
 public class AadlNature implements IProjectNature {
@@ -87,9 +86,9 @@ public class AadlNature implements IProjectNature {
 //		command.setBuilderName("edu.cmu.sei.osate.autoanalysis.autoanalysisbuilder");
 //		setBuilderCommand(desc, command);
 		
-		ICommand command = desc.newCommand();
-		command.setBuilderName(AadlBuilder.BUILDER_ID);
-		setBuilderCommand(desc, command);
+//		ICommand command = desc.newCommand();
+//		command.setBuilderName(AadlBuilder.BUILDER_ID);
+//		setBuilderCommand(desc, command);
 	}
 
 	/**
@@ -104,15 +103,16 @@ public class AadlNature implements IProjectNature {
 		ICommand[] commands = desc.getBuildSpec();
 		for (int i = commands.length - 1; i >= 0; i--) {
 			String builderName = commands[i].getBuilderName();
-			if (builderName.equals(AadlBuilder.BUILDER_ID) || builderName.equals("edu.cmu.sei.osate.autoanalysis.autoanalysisbuilder")) {
-				ICommand[] newCommands = new ICommand[commands.length - 1];
-				System.arraycopy(commands, 0, newCommands, 0, i);
-				System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);
-				// Commit the spec change into the project
-				desc.setBuildSpec(newCommands);
-				project.setDescription(desc, null);
-				break;
-			}
+// commented out addition of Aadl builder additions
+//						if (builderName.equals(AadlBuilder.BUILDER_ID) || builderName.equals("edu.cmu.sei.osate.autoanalysis.autoanalysisbuilder")) {
+//				ICommand[] newCommands = new ICommand[commands.length - 1];
+//				System.arraycopy(commands, 0, newCommands, 0, i);
+//				System.arraycopy(commands, i + 1, newCommands, i, commands.length - i - 1);
+//				// Commit the spec change into the project
+//				desc.setBuildSpec(newCommands);
+//				project.setDescription(desc, null);
+//				break;
+//			}
 		}
 	}
 

@@ -61,13 +61,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osgi.framework.Bundle;
 
@@ -121,7 +121,7 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 		}
 		for (final Iterator rsrcs = currentSelection.iterator(); rsrcs.hasNext();) {
 			final IResource rsrc = (IResource) rsrcs.next();
-			final Resource res = OsateResourceManager.getResource(rsrc);
+			final Resource res = OsateResourceUtil.getResource(rsrc);
 			
 			/* Get the error reporter for the current resource.  This has the
 			 * effect of clearing the old error reports on the resource. 

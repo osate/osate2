@@ -4,14 +4,15 @@
 --Appendix A: Predeclared Property Sets
 
 property set AADL_Project is
-	Supported_Active_Thread_Handling_Protocols: type enumeration (stop);
+	Supported_Active_Thread_Handling_Protocols: type enumeration (abort);
 	
 	Supported_Connection_Patterns: type enumeration (One_To_One, All_To_All, One_To_All, All_To_One,
-													 Next, Previous, Cyclic_Next, Cyclic_Previous);
+			 Next, Previous, Cyclic_Next, Cyclic_Previous);
 	
-	Supported_Concurrency_Control_Protocols: type enumeration (None_Specified);
+	Supported_Concurrency_Control_Protocols: type enumeration (None_Specified, Interrupt_Masking, 
+	                Maximum_Priority, Priority_Inheritance, Priority_Ceiling, Spin_Lock, Semaphore);
 	
-	Supported_Dispatch_Protocols: type enumeration (Periodic);
+	Supported_Dispatch_Protocols: type enumeration (Periodic, Sporadic, Aperiodic, Timed, Hybrid, Background);
 	
 	Supported_Queue_Processing_Protocols: type enumeration (Fifo);
 	
@@ -23,7 +24,7 @@ property set AADL_Project is
 	
 	Supported_Source_Languages: type enumeration (Ada95, Ada2005, C, Simulink_6_5);
 	
-	Supported_Distributions: type enumeration (Fixed);
+	Supported_Distributions: type enumeration (Fixed, Poisson);
 	
 	Supported_Classifier_Substitutions: type enumeration (Classifier_Match, Type_Extension, Signature_Match);
 	
@@ -46,7 +47,7 @@ property set AADL_Project is
 	
 	Max_Urgency: constant aadlinteger => 12;
 	
-	Max_Word_Count: constant aadlinteger => 2#1#e32;
+	Max_Byte_Count: constant aadlinteger => 2#1#e32;
 	
 	Max_Word_Space: constant aadlinteger => 64;
 	

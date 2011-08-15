@@ -44,17 +44,14 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -65,10 +62,8 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.core.AadlNature;
-import org.osate.core.builder.AadlBuilder;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.workspace.IAadlProject;
 import org.osate.workspace.IAadlWorkspace;
 import org.osate.workspace.IResourceUtility;
 
@@ -122,31 +117,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
 			monitor.beginTask("Reinstantiate all instance models",
 					IProgressMonitor.UNKNOWN);
-			AadlBuilder build = new AadlBuilder();
-			IAadlProject[] projs = null;
-			if (currentSelection.isEmpty()) {
-				projs = workspace.getOpenAadlProjects();
-				for (int i = 0; i < projs.length; i++){
-					final IAadlProject project = projs[i];
-					EList<IFile> files = project.getAllInstanceModelFiles(null);
-					for (final IFile ires : files) {
-						boolean cancelled = build.doReinstantiate(ires, monitor);
-						
-						if (cancelled) {
-							throw new OperationCanceledException();
-						}
-					}
-				}
-			} else {
-				for (Iterator it = selection.iterator(); it.hasNext();) {
-					final IResource ires = (IResource) it.next();
-					boolean cancelled = build.doReinstantiate(ires, monitor);
-					
-					if (cancelled) {
-						throw new OperationCanceledException();
-					}
-				}
-			}
+			// to be done on instance descriptions
 			monitor.done();
 			return Status.OK_STATUS;
 		}

@@ -537,11 +537,17 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+<<<<<<< HEAD
 	 * @generated
+=======
+	 * @generated NOT
+>>>>>>> refs/remotes/osate2/master
 	 */
 	public ComponentImplementation getExtended() {
 		ComponentImplementation extended = basicGetExtended();
-		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
+		extended = extended != null && ((EObject) extended).eIsProxy() ? (ComponentImplementation) eResolveProxy((InternalEObject) extended)
+				: extended;
+		return extended != null && ((EObject) extended).eIsProxy() ? null // unresolved proxy
 				: extended;
 	}
 
@@ -640,11 +646,13 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public ComponentType getType() {
 		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
+		type = type != null && ((EObject) type).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) type)
+				: type;
+		return type != null && ((EObject) type).eIsProxy() ? null // unresolved proxy
 				: type;
 	}
 

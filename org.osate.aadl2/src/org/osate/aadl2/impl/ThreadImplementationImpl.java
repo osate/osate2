@@ -40,7 +40,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -243,8 +242,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 */
 	@Override
 	public ThreadType getType() {
-		ComponentType type = basicGetType();
-		return type != null && ((EObject) type).eIsProxy() ? null : (ThreadType) type;
+		return (ThreadType) super.getType();
 	}
 
 	/**

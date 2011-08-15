@@ -38,7 +38,7 @@ property set Programming_Properties is
 		applies to (thread, device);
 	
 	Finalize_Entrypoint_Source_Text: aadlstring
-		applies to (thread);
+		applies to (thread, device);
 	
 	Initialize_Entrypoint: classifier (subprogram classifier)
 		applies to (thread, device);
@@ -47,7 +47,7 @@ property set Programming_Properties is
 		applies to (thread, device);
 	
 	Initialize_Entrypoint_Source_Text: aadlstring
-		applies to (thread);
+		applies to (thread, device);
 	
 	Recover_Entrypoint: classifier (subprogram classifier)
 		applies to (thread, device);
@@ -56,17 +56,18 @@ property set Programming_Properties is
 		applies to (thread, device);
 	
 	Recover_Entrypoint_Source_Text: aadlstring
-		applies to (thread);
+		applies to (thread, device);
 	
 	Source_Language: inherit list of Supported_Source_Languages
-		applies to (subprogram, data, thread, thread group, process, system, bus, device, processor);
+		applies to (subprogram, data, thread, thread group, process, system, bus, device, 
+		processor, virtual processor, virtual bus);
 	
 	Source_Name: aadlstring
-		applies to (data, port, subprogram, parameter);
+		applies to (data, port, subprogram, parameter, virtual bus, virtual processor);
 	
 	Source_Text: inherit list of aadlstring
-		applies to (data, port, subprogram, thread, thread group, process, system,
-					memory, bus, device, processor, parameter, feature group, aadl package);
+		applies to (data, port, subprogram, thread, thread group, process, system, virtual bus, virtual processor,
+			memory, bus, device, processor, parameter, feature group, aadl package);
 	
 	Supported_Source_Language: list of Supported_Source_Languages
 		applies to (processor, virtual processor, system);

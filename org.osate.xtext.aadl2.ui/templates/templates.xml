@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.PropertySet" deleted="false" description="Property Set" enabled="true" name="PropertySet">property set ${name} is&#13;
+  ${cursor}&#13;
+end ${name};&#13;
+</template></templates>

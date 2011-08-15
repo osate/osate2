@@ -1,0 +1,1040 @@
+<?xml version="1.0" encoding="ASCII"?>
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.osate.xtext.aadl2.properties.Properties" definesHiddenTokens="true" hiddenTokens="//@rules.57 //@rules.43">
+  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
+    <ePackage href="http://aadl.info/AADL/2.0#/"/>
+  </metamodelDeclarations>
+  <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
+    <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
+  </metamodelDeclarations>
+  <rules xsi:type="xtext:ParserRule" name="PModel">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Element"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.2"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.1"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.3"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BasicPropertyAssociation">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyAssociation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="property" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Property"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="=>"/>
+      <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.7"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ContainedPropertyAssociation">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyAssociation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="property" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Property"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Keyword" value="=>"/>
+        <elements xsi:type="xtext:Assignment" feature="append" operator="?=">
+          <terminal xsi:type="xtext:Keyword" value="+=>"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="constant" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="constant"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="("/>
+          <elements xsi:type="xtext:Group" cardinality="*">
+            <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" predicated="true" value=","/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=")"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.7"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" predicated="true" value="applies"/>
+        <elements xsi:type="xtext:Keyword" value="to"/>
+        <elements xsi:type="xtext:Assignment" feature="appliesTo" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.4"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="appliesTo" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.4"/>
+          </elements>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PropertyAssociation">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyAssociation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="property" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Property"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Keyword" value="=>"/>
+        <elements xsi:type="xtext:Assignment" feature="append" operator="?=">
+          <terminal xsi:type="xtext:Keyword" value="+=>"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="constant" operator="?=">
+        <terminal xsi:type="xtext:Keyword" value="constant"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="("/>
+          <elements xsi:type="xtext:Group" cardinality="*">
+            <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
+            </elements>
+            <elements xsi:type="xtext:Keyword" predicated="true" value=","/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
+          </elements>
+          <elements xsi:type="xtext:Keyword" value=")"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.7"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ContainmentPath">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ContainedNamedElement"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ContainedNamedElement"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ModalPropertyValue">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModalPropertyValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
+      <elements xsi:type="xtext:Keyword" value="modes"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+          </terminal>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OptionalModalPropertyValue">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModalPropertyValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="in"/>
+        <elements xsi:type="xtext:Keyword" value="modes"/>
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+          </terminal>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
+            <terminal xsi:type="xtext:CrossReference">
+              <type metamodel="//@metamodelDeclarations.0">
+                <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
+              </type>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PropertyValue">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ModalPropertyValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="ownedValue" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PropertyExpression">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.21"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.20"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.23"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.22"/>
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.33"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.24"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.10"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.9"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="LiteralorReferenceTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="namedValue" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//AbstractNamedValue"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ActualBooleanTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.11"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ActualOrTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ActualAndTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BooleanTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.14"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OrTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Action" feature="ownedPropertyExpression" operator="+=">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.30"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.15"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="AndTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Action" feature="ownedPropertyExpression" operator="+=">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+          </type>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.29"/>
+        </elements>
+        <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NotTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.31"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.17"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BooleanAtom">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.18"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.16"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="("/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
+        <elements xsi:type="xtext:Keyword" value=")"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="BooleanLiteral">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BooleanLiteral"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BooleanLiteral"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Assignment" feature="value" operator="?=">
+          <terminal xsi:type="xtext:Keyword" value="true"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="false"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ConstantValue">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="namedValue" operator="=">
+      <terminal xsi:type="xtext:CrossReference">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyConstant"/>
+        </type>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.52"/>
+      </terminal>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ReferenceTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ReferenceValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="reference"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.26"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="RecordTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//RecordValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedFieldValue" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.25"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ComputedTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ComputedValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="compute"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="function" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ComponentClassifierTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ClassifierValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="classifier"/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="classifier" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ComponentClassifier"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.53"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ListTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ListValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Assignment" feature="ownedListElement" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value=","/>
+        <elements xsi:type="xtext:Assignment" feature="ownedListElement" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=")"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="FieldPropertyAssociation">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BasicPropertyAssociation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="property" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BasicProperty"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="=>"/>
+      <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=";"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ContainmentPathElement">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ContainmentPathElement"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Assignment" feature="namedElement" operator="=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+          </terminal>
+        </elements>
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="arrayRange" operator="+=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.35"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="annex"/>
+        <elements xsi:type="xtext:Assignment" feature="namedElement" operator="=">
+          <terminal xsi:type="xtext:CrossReference">
+            <type metamodel="//@metamodelDeclarations.0">
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
+            </type>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.27"/>
+          </terminal>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ANNEXREF">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="{"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.54"/>
+      <elements xsi:type="xtext:Keyword" value="}"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:EnumRule" name="OperationKind">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EEnum" href="http://aadl.info/AADL/2.0#//OperationKind"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://aadl.info/AADL/2.0#//OperationKind/and"/>
+        <literal value="and"/>
+      </elements>
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://aadl.info/AADL/2.0#//OperationKind/or"/>
+        <literal value="or"/>
+      </elements>
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://aadl.info/AADL/2.0#//OperationKind/not"/>
+        <literal value="not"/>
+      </elements>
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://aadl.info/AADL/2.0#//OperationKind/plus"/>
+        <literal value="+"/>
+      </elements>
+      <elements xsi:type="xtext:EnumLiteralDeclaration">
+        <enumLiteral href="http://aadl.info/AADL/2.0#//OperationKind/minus"/>
+        <literal value="-"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="AndOp">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EEnum" href="http://aadl.info/AADL/2.0#//OperationKind"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="and"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="OrOp">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EEnum" href="http://aadl.info/AADL/2.0#//OperationKind"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="or"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NotOp">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EEnum" href="http://aadl.info/AADL/2.0#//OperationKind"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="not"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="PlusMinus">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EEnum" href="http://aadl.info/AADL/2.0#//OperationKind"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Keyword" value="+"/>
+      <elements xsi:type="xtext:Keyword" value="-"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="StringTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//StringLiteral"/>
+    </type>
+    <alternatives xsi:type="xtext:Assignment" feature="value" operator="=">
+      <terminal xsi:type="xtext:RuleCall" rule="//@rules.34"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NoQuoteString">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.55"/>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="ArrayRange">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ArrayRange"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ArrayRange"/>
+        </type>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="["/>
+      <elements xsi:type="xtext:Assignment" feature="lowerBound" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value=".."/>
+        <elements xsi:type="xtext:Assignment" feature="upperBound" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+        </elements>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value="]"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SignedConstant">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Operation"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="op" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.32"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" feature="ownedPropertyExpression" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="IntegerTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//IntegerLiteral"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.38"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="unit" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//UnitLiteral"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        </terminal>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SignedInt">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://aadl.info/AADL/2.0#//Integer"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Alternatives" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="+"/>
+        <elements xsi:type="xtext:Keyword" value="-"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.48"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="RealTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//RealLiteral"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="value" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.40"/>
+      </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="unit" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//UnitLiteral"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        </terminal>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="SignedReal">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://aadl.info/AADL/2.0#//Real"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Alternatives" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="+"/>
+        <elements xsi:type="xtext:Keyword" value="-"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.47"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NumericRangeTerm">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//RangeValue"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="minimum" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
+      </elements>
+      <elements xsi:type="xtext:Keyword" value=".."/>
+      <elements xsi:type="xtext:Assignment" feature="maximum" operator="=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" predicated="true" value="delta"/>
+        <elements xsi:type="xtext:Assignment" feature="delta" operator="=">
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="NumAlt">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.39"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="SL_COMMENT">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="--"/>
+      <elements xsi:type="xtext:NegatedToken" cardinality="*">
+        <terminal xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+          <elements xsi:type="xtext:Keyword" value="&#xD;"/>
+        </terminal>
+      </elements>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" cardinality="?" value="&#xD;"/>
+        <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="INTVALUE">
+    <type metamodel="//@metamodelDeclarations.0">
+      <classifier xsi:type="ecore:EDataType" href="http://aadl.info/AADL/2.0#//Integer"/>
+    </type>
+    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.48"/>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="EXPONENT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="e"/>
+      <elements xsi:type="xtext:Alternatives" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="+"/>
+        <elements xsi:type="xtext:Keyword" value="-"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="INT_EXPONENT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="e"/>
+      <elements xsi:type="xtext:Keyword" cardinality="?" value="+"/>
+      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="REAL_LIT">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="_"/>
+        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value="_"/>
+          <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+        </elements>
+        <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.45"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="INTEGER_LIT">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" value="_"/>
+        <elements xsi:type="xtext:RuleCall" cardinality="+" rule="//@rules.49"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:Group">
+          <elements xsi:type="xtext:Keyword" value="#"/>
+          <elements xsi:type="xtext:RuleCall" rule="//@rules.51"/>
+          <elements xsi:type="xtext:Keyword" value="#"/>
+          <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.46"/>
+        </elements>
+        <elements xsi:type="xtext:RuleCall" cardinality="?" rule="//@rules.46"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="DIGIT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:CharacterRange">
+      <left value="0"/>
+      <right value="9"/>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="EXTENDED_DIGIT" fragment="true">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="0"/>
+        <right value="9"/>
+      </elements>
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="a"/>
+        <right value="f"/>
+      </elements>
+      <elements xsi:type="xtext:CharacterRange">
+        <left value="A"/>
+        <right value="F"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="BASED_INTEGER" fragment="true">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:Keyword" cardinality="?" value="_"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.50"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QPREF">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="::"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="QCREF">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Group" cardinality="*">
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+        <elements xsi:type="xtext:Keyword" value="::"/>
+      </elements>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      <elements xsi:type="xtext:Group" cardinality="?">
+        <elements xsi:type="xtext:Keyword" value="."/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.56"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:ParserRule" name="STAR">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Keyword" value="*"/>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="STRING">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives">
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="&quot;"/>
+        <elements xsi:type="xtext:Alternatives" cardinality="*">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="\"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="b"/>
+              <elements xsi:type="xtext:Keyword" value="t"/>
+              <elements xsi:type="xtext:Keyword" value="n"/>
+              <elements xsi:type="xtext:Keyword" value="f"/>
+              <elements xsi:type="xtext:Keyword" value="r"/>
+              <elements xsi:type="xtext:Keyword" value="u"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+              <elements xsi:type="xtext:Keyword" value="\"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:NegatedToken">
+            <terminal xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="\"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="&quot;"/>
+      </elements>
+      <elements xsi:type="xtext:Group">
+        <elements xsi:type="xtext:Keyword" value="'"/>
+        <elements xsi:type="xtext:Alternatives" cardinality="*">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="\"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="b"/>
+              <elements xsi:type="xtext:Keyword" value="t"/>
+              <elements xsi:type="xtext:Keyword" value="n"/>
+              <elements xsi:type="xtext:Keyword" value="f"/>
+              <elements xsi:type="xtext:Keyword" value="r"/>
+              <elements xsi:type="xtext:Keyword" value="u"/>
+              <elements xsi:type="xtext:Keyword" value="&quot;"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+              <elements xsi:type="xtext:Keyword" value="\"/>
+            </elements>
+          </elements>
+          <elements xsi:type="xtext:NegatedToken">
+            <terminal xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Keyword" value="\"/>
+              <elements xsi:type="xtext:Keyword" value="'"/>
+            </terminal>
+          </elements>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="'"/>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="ID">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" cardinality="?" value="^"/>
+      <elements xsi:type="xtext:Alternatives">
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="a"/>
+          <right value="z"/>
+        </elements>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="A"/>
+          <right value="Z"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="_"/>
+      </elements>
+      <elements xsi:type="xtext:Alternatives" cardinality="*">
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="a"/>
+          <right value="z"/>
+        </elements>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="A"/>
+          <right value="Z"/>
+        </elements>
+        <elements xsi:type="xtext:Keyword" value="_"/>
+        <elements xsi:type="xtext:CharacterRange">
+          <left value="0"/>
+          <right value="9"/>
+        </elements>
+      </elements>
+    </alternatives>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="WS">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Alternatives" cardinality="+">
+      <elements xsi:type="xtext:Keyword" value=" "/>
+      <elements xsi:type="xtext:Keyword" value="&#x9;"/>
+      <elements xsi:type="xtext:Keyword" value="&#xD;"/>
+      <elements xsi:type="xtext:Keyword" value="&#xA;"/>
+    </alternatives>
+  </rules>
+</xtext:Grammar>

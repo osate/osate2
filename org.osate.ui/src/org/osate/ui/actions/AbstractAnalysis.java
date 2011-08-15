@@ -41,11 +41,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.AadlConstants;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ui.OsateUiPlugin;
 
 
@@ -74,7 +74,7 @@ public abstract class AbstractAnalysis implements IAnalysis
 			case CREATED:
 				try
 				{
-					EObject parameterAsEObject = OsateResourceManager.getResourceSet().getEObject(parameterPath, true);
+					EObject parameterAsEObject = OsateResourceUtil.getResourceSet().getEObject(parameterPath, true);
 					if (parameterAsEObject instanceof Element)
 						parameter = (Element)parameterAsEObject;
 					else

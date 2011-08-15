@@ -49,16 +49,15 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.ArraySpecification;
+import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -70,20 +69,23 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupReference;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Numeral;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
@@ -98,13 +100,12 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
-import org.osate.workspace.IResourceUtility;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.workspace.WorkspacePlugin;
 
 
@@ -176,7 +177,7 @@ public class InstantiateModel {
 	// Methods
 
 	@SuppressWarnings("unchecked")
-	protected SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Aadl2ResourceImpl aadlResource) {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
@@ -214,9 +215,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	protected SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
-		boolean oldProp = OsateResourceManager.getResourceSet().isPropagateNameChange();
-		OsateResourceManager.getResourceSet().setPropagateNameChange(false);
+	public SystemInstance createSystemInstanceInt(SystemImplementation si, Aadl2ResourceImpl aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() + "_"
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
@@ -227,26 +226,41 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		OsateResourceManager.save(aadlResource);
+		aadlResource.save();
+		createXSystemInstance(root);
+		// We're done: Save the model.
+		// We don't respond to a cancel at this point
+
+		monitor.subTask("Saving instance model");
+		
+	aadlResource.save();
+		return root;
+	}
+		
+/** 
+ * Will create instance model under systeminstance but not save it
+ * @param root
+ */
+	public void createXSystemInstance(SystemInstance root){
 		this.populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		monitor.subTask("Creating system operation modes");
 		this.createSystemOperationModes(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		/*
@@ -275,27 +289,23 @@ public class InstantiateModel {
 		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
 		// retrieving that set is faster, but it may contain property definitions that are not used;
 		// this in that case the caching of those properties would be slower
-		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(si);
+		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(root.getSystemImplementation());
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				monitor, errManager);
 		ccpas.processPostOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
 				propertyDefinitionList, classifierCache, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return null;
+			return ;
 		}
 
-		// We're done: Save the model.
-		// We don't respond to a cancel at this point
-
-		monitor.subTask("Saving instance model");
-		OsateResourceManager.save(aadlResource);
-		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
+//		OsateResourceManager.save(aadlResource);
+//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
 		// Run some checks over the model.
 //		final SOMIterator soms = new SOMIterator(root);
 //		while (soms.hasNext()) {
@@ -305,7 +315,7 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return root;
+		return ;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -409,15 +419,15 @@ public class InstantiateModel {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
 						+ "' has already been instantiated as enclosing component.");
 			} else {
-				final ArraySpecification arraySpec = sub.getArraySpecification();
+				final EList<ArrayDimension> arraySpec = sub.getArrayDimensions();
 
-				if (arraySpec == null) {
+				if (arraySpec.isEmpty()) {
 					instantiateSubcomponent(ci, sub, sub, 0);
 				} else {
-					final int dimensions = arraySpec.getSizes().size();
+					final int dimensions = arraySpec.size();
 					class ArrayInstantiator {
 						void process(int dim) {
-							ArraySize arraySize = arraySpec.getSizes().get(dim);
+							ArraySize arraySize = (ArraySize)arraySpec.get(dim);
 							long count = getElementCount(arraySize);
 
 							for (long i = 0; i < count; i++) {
@@ -428,9 +438,6 @@ public class InstantiateModel {
 								}
 							}
 						}
-					}
-					if (arraySpec.getDimension() != dimensions) {
-						errManager.warning(ci, "Array dimension mismatch for subcomponent " + sub.getName());
 					}
 					new ArrayInstantiator().process(0);
 				}
@@ -499,9 +506,9 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) {
 		for (final Feature feature : getInstantiatedClassifier(ci, 0).classifier.getAllFeatures()) {
-			final ArraySpecification arraySpec = feature.getArraySpecification();
+			final EList<ArrayDimension> arraySpec = feature.getArrayDimensions();
 
-			if (arraySpec == null) {
+			if (arraySpec.isEmpty()) {
 				final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 
 				// must add before prototype resolution in fillFeatureInstance
@@ -513,10 +520,10 @@ public class InstantiateModel {
 				}
 				fillFeatureInstance(feature, fi, false);
 			} else {
-				final int dimensions = arraySpec.getSizes().size();
+				final int dimensions = arraySpec.size();
 				class ArrayInstantiator {
 					void process(int dim) {
-						ArraySize arraySize = arraySpec.getSizes().get(dim);
+						ArraySize arraySize = (ArraySize)arraySpec.get(dim);
 						long count = getElementCount(arraySize);
 
 						for (long i = 0; i < count; i++) {
@@ -536,9 +543,6 @@ public class InstantiateModel {
 							}
 						}
 					}
-				}
-				if (arraySpec.getDimension() != dimensions) {
-					errManager.warning(ci, "Array dimension mismatch for feature " + feature.getName());
 				}
 				new ArrayInstantiator().process(0);
 			}
@@ -611,21 +615,23 @@ public class InstantiateModel {
 	protected void expandFeatureGroupInstance(Feature feature, FeatureInstance fi, boolean inverse) {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
-			FeatureGroupType fgt = ((FeatureGroup) feature).getFeatureGroupType();
+			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
 
 			inverse ^= fg.isInverse();
 
-			if (fgt == null && feature.getPrototype() instanceof FeatureGroupPrototype) {
-				FeatureGroupReference fgr = InstanceUtil.resolveFeatureGroupPrototype(feature.getPrototype(), fi,
+			while (ft instanceof FeatureGroupPrototype) {
+				FeatureGroupPrototype fgp = (FeatureGroupPrototype)ft;
+				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi,
 						classifierCache);
 				if (fgr != null) {
-					fgt = fgr.getFeatureGroupType();
+					ft = fgr.getFeatureType();
 				}
 			}
-			if (fgt == null) {
+			if (ft == null) {
 				errManager.error(fi, "Could not resolve feature group type of " + fi.getInstanceObjectPath());
 				return;
 			}
+			FeatureGroupType fgt = (FeatureGroupType)ft;
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -691,93 +697,20 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	private long getElementCount(ArraySize as) {
-		long result = 0;
-
-		if (as instanceof Numeral) {
-			result = ((Numeral) as).getValue();
+		long result = 0L;
+		if (as.getSizeProperty() == null) {
+			result = as.getSize();
+		} else {
+			ArraySizeProperty asp = as.getSizeProperty();
+			if (asp instanceof PropertyConstant){
+				PropertyConstant pc = (PropertyConstant)asp;
+				PropertyExpression cv = pc.getConstantValue();
+				if (cv instanceof IntegerLiteral){
+					result = ((IntegerLiteral)cv).getValue();
+				}
+			}
 		}
 		return result;
-	}
-
-	/*
-	 * This method will construct an instance model, save it on disk and return
-	 * its root object This method has the knowledge of how the instance model
-	 * file name is constructed
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or <code>null</code> if cancelled.
-	 */
-	public SystemInstance buildInstanceModelFile(final SystemImplementation si) {
-		// add it to a resource; otherwise we cannot attach error messages to
-		// the instance file
-		URI instanceURI = getInstanceModelURI(si);
-		Resource aadlResource = OsateResourceManager.getEmptyResource(instanceURI);
-
-		// now instantiate the rest of the model
-		SystemInstance root = this.createSystemInstance(si, aadlResource);
-		IResourceUtility.tagAsInstanceModel(OsateResourceManager.convertToIResource(aadlResource));
-		if (root == null) {
-			// cancelled, clean up model file
-			OsateResourceManager.reload(aadlResource);
-		}
-		return root;
-	}
-
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist one will be constructed.
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance
-	 */
-	public SystemInstance getSystemInstance(final SystemImplementation si) {
-		SystemInstance systemInstance = findSystemInstance(si);
-		if (systemInstance == null) {
-			systemInstance = buildInstanceModelFile(si);
-		}
-		return systemInstance;
-	}
-
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist null is returned
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or null if it does not exist
-	 */
-	public SystemInstance findSystemInstance(final SystemImplementation si) {
-		URI instanceURI = getInstanceModelURI(si);
-		Resource instanceRes = OsateResourceManager.findResource(instanceURI);
-		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
-			return null;
-		} else {
-			SystemInstance systemInstance = (SystemInstance) instanceRes.getContents().get(0);
-			return systemInstance;
-		}
-	}
-
-	/*
-	 * returns the instance model URI for a given system implementation
-	 * 
-	 * @param si
-	 * 
-	 * @return URI for instance model file
-	 */
-	public URI getInstanceModelURI(SystemImplementation si) {
-		Resource res = si.eResource();
-		URI modeluri = res.getURI();
-		String last = modeluri.lastSegment();
-		String filename = last.substring(0, last.indexOf('.'));
-		URI instanceURI = modeluri.trimSegments(1).appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
-						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		return instanceURI;
 	}
 
 	// --------------------------------------------------------------------------------------------

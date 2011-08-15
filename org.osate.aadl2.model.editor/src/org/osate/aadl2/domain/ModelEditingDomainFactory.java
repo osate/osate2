@@ -52,8 +52,7 @@ import org.eclipse.emf.workspace.util.WorkspaceValidateEditSupport;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceManager;
-import org.osate.aadl2.modelsupport.eclipseinterface.OsateResourceSet;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 
 /**
@@ -64,10 +63,8 @@ public class ModelEditingDomainFactory implements TransactionalEditingDomain.Fac
 		// create an editing domain with an Osate resource set
 		//    and delegating command execution to the default (workbench)
 		//    operation history
-		OsateResourceSet rset = OsateResourceManager.getResourceSet();
+		ResourceSet rset = OsateResourceUtil.getResourceSet();
 		TransactionalEditingDomain result = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain(rset);
-		
-		rset.setEditingDomain(result);
 		
 		// add an exception handler to the editing domain's command stack
 		((TransactionalCommandStack) result.getCommandStack()).setExceptionHandler(
