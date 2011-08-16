@@ -554,7 +554,7 @@
       		id="aadl.view_category"
       		name="%aadl_view_category.label"/>
       <view
-      		id="edu.cmu.sei.osate.ui.navigator.AadlNavigator"
+      		id="org.osate.ui.navigator.AadlNavigator"
       		name="AADL Navigator"
       		icon="icons/aadlNav.gif"
       		category="aadl.view_category"
