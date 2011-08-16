@@ -39,6 +39,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
@@ -53,6 +54,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -110,6 +112,12 @@ public class GetProperties {
 	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
 		return findUnitLiteral(context, SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
+	
+	
+	public static Property getActualProcessorBindingProperty(final ComponentInstance io) {
+	return lookupPropertyDefinition(io, DeploymentProperties._NAME,
+			DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
+	}
 
 	public static List<ComponentInstance> getActualProcessorBinding(final ComponentInstance io) {
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
@@ -118,6 +126,28 @@ public class GetProperties {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		return components;
+	}
+
+
+	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
+		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
+		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(allowedProcessorBinding);
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		for (PropertyExpression propertyExpression : propertyValues)
+			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		return components;
+	}
+
+
+	public static List<ComponentClassifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
+		Property allowedProcessorBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
+		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
+		ArrayList<ComponentClassifier> components = new ArrayList<ComponentClassifier>();
+		for (PropertyExpression propertyExpression : propertyValues)
+			components.add((ComponentClassifier)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
 		return components;
 	}
 
@@ -283,6 +313,18 @@ public class GetProperties {
 		return nv.getScaledValue(microSecond);
 	}
 
+	
+
+	public static RecordValue getTransmissionTime(final NamedElement ne) {
+		Property xmissionTime = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.TRANSMISSION_TIME);
+		try {
+		return (RecordValue) PropertyUtils.getSimplePropertyValue(ne, xmissionTime);
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	
 	public static double getActualMIPS(ComponentInstance bci) {
 		double exectimeval = getComputeExecutionTimeinSec(bci);
 		double period = getPeriodInSeconds(bci, 0.0);
@@ -672,4 +714,15 @@ public class GetProperties {
 		}
 	}
 
+
+	public static RecordValue getNotCollocated(final NamedElement ne) {
+		try {
+			Property nocoll = lookupPropertyDefinition(ne,DeploymentProperties._NAME, DeploymentProperties.NOT_COLLOCATED);
+				return (RecordValue) PropertyUtils.getSimplePropertyValue(ne, nocoll);
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	
 }
