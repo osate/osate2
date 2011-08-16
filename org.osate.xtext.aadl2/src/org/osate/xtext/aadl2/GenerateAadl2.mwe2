@@ -57,7 +57,7 @@ Workflow {
         		ignoreCase = true
 					backtrack = true
 					classSplitting = true
-//				fieldsPerClass = "200"
+				fieldsPerClass = "200"
     		}
 			}
 
@@ -88,10 +88,10 @@ Workflow {
 
 			fragment = builder.BuilderIntegrationFragment {}
 			// generator API
-			fragment = generator.GeneratorFragment {
-				generateMwe = true
-				generateJavaMain = true
-			}
+//			fragment = generator.GeneratorFragment {
+//				generateMwe = true
+//				generateJavaMain = true
+//			}
 
 			// formatter API 
 			fragment = ecore2xtext.FormatterFragment {}
@@ -141,7 +141,8 @@ Workflow {
 			// generates the required bindings only if the grammar inherits from Xbase
 //			fragment = xbase.XbaseGeneratorFragment {}
 
-			
+// provides a preference page for template proposals
+//fragment = templates.CodetemplatesGeneratorFragment {}			
 			// rename refactoring  
 			fragment = refactoring.RefactorElementNameFragment {}
 //			// Code generator

@@ -1,0 +1,35 @@
+grammar org.osate.xtext.aadl2.sandbox.Sandbox with org.eclipse.xtext.common.Terminals
+
+generate sandbox "http://www.osate.org/xtext/aadl2/sandbox/Sandbox"
+
+
+
+//import "platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore" as em
+import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+//
+//import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
+//import "http://www.eclipse.org/uml2/2.2.0/UML" as uml
+//import "platform:/resource/org.osate.aadl2/model/UML.ecore" as uml
+//import "platform:/plugin/org.eclipse.emf.ecore/model/UML.ecore" as uml
+											
+//import "http://www.eclipse.org/emf/2002/Ecore" as ecore
+
+Sandbox:
+	"sandbox" name=ID systemInstance+=SystemConfiguration;
+	
+SystemConfiguration:
+	"system" "instance" name=ID "from" systemImplementation=[aadl2::SystemImplementation|QIREF]//[em::ErrorTypeSet|QIREF]
+//		(systemInstanceProxy=SystemInstanceProxy)? ";"
+;
+
+//SystemInstanceProxy:
+//	"to" instanceRef=[aadl2::sys|ID]
+//;
+	
+	// component implementation anme
+QIREF:
+	(ID '::')* ID '.' ID;
+
+	QPREF:
+	(ID '::')* ID ;
+	

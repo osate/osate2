@@ -33,17 +33,6 @@ public class Aadl2LinkingService extends DefaultLinkingService {
 
 private static PSNode psNode = new PSNode();
 	
-	public  List<EObject> getIndexedObjects(EObject context,
-			EReference reference, String crossRefString) {
-		psNode.setText(crossRefString);
-		return super.getLinkedObjects(context, reference, psNode);
-//		final IScope scope = getScope(context, reference);
-//		QualifiedName qualifiedLinkName =   QualifiedName.create(crossRefString);
-//		IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
-//		if (eObjectDescription != null) 
-//			return Collections.singletonList(eObjectDescription.getEObjectOrProxy());
-//		return Collections.<EObject> emptyList();
-	}
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
@@ -237,7 +226,9 @@ private static PSNode psNode = new PSNode();
 					|| context instanceof FlowSpecification
 					|| context instanceof FlowSegment
 					|| context instanceof EndToEndFlowSegment) {
-				if (searchResult instanceof Subcomponent)
+				if (searchResult instanceof Subcomponent
+						|| searchResult instanceof FeatureGroup
+						|| searchResult instanceof SubprogramCall)
 					return Collections.singletonList((EObject) searchResult);
 			}
 			return Collections.<EObject> emptyList();

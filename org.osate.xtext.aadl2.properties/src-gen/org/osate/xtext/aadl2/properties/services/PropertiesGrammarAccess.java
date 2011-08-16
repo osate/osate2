@@ -1669,10 +1669,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "INTVALUE");
 		private final RuleCall cINTEGER_LITTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//INTVALUE returns aadl2::Integer:
+		//INTVALUE returns aadl2::Integer: //NUMERAL 	
 		//	INTEGER_LIT;
 		public ParserRule getRule() { return rule; }
 
+		////NUMERAL 	
 		//INTEGER_LIT
 		public RuleCall getINTEGER_LITTerminalRuleCall() { return cINTEGER_LITTerminalRuleCall; }
 	}
@@ -2336,7 +2337,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return (tSL_COMMENT != null) ? tSL_COMMENT : (tSL_COMMENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "SL_COMMENT"));
 	} 
 
-	//INTVALUE returns aadl2::Integer:
+	//INTVALUE returns aadl2::Integer: //NUMERAL 	
 	//	INTEGER_LIT;
 	public INTVALUEElements getINTVALUEAccess() {
 		return (pINTVALUE != null) ? pINTVALUE : (pINTVALUE = new INTVALUEElements());
@@ -2346,6 +2347,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getINTVALUEAccess().getRule();
 	}
 
+	////terminal NUMERAL:
+	////	(DIGIT)+('_' (DIGIT)+)*
+	////;
 	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 	//terminal fragment EXPONENT:
 	//	"e" ("+" | "-")? DIGIT+;
