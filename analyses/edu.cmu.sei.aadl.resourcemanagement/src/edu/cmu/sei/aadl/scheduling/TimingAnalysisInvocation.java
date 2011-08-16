@@ -8,7 +8,6 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
-import edu.cmu.sei.aadl.resourcemanagement.actions.ScheduleProperties;
 
 
 public class TimingAnalysisInvocation {

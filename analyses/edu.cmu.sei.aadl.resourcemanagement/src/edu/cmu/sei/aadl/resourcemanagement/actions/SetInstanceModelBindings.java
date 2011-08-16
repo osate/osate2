@@ -7,12 +7,14 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.emf.common.command.AbstractCommand;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.properties.GetProperties;
 
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 
@@ -26,20 +28,18 @@ import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 class SetInstanceModelBindings extends AbstractCommand {
 	private final Map threadsToProc;
 	private final Map oldThreadsToProc;
-	private final BinpackProperties properties;
 	
-	public SetInstanceModelBindings(final Map bindings, final BinpackProperties properties) {
+	public SetInstanceModelBindings(final Map bindings) {
 		// Clone the input because we are going to modify the map
 		threadsToProc = new HashMap(bindings);
 		oldThreadsToProc = new HashMap();
-		this.properties = properties;
 	}
 	
 	public void execute() {
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
-			properties.setActualProcessorBindingPropertyValue(thread, val);
+			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
 		}
 	}
 	
@@ -48,7 +48,7 @@ class SetInstanceModelBindings extends AbstractCommand {
 		for (Iterator iter = threadsToProc.keySet().iterator(); iter.hasNext(); ) {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final InstanceReferenceValue val = (InstanceReferenceValue) threadsToProc.get(thread);
-			properties.setActualProcessorBindingPropertyValue(thread, val);
+			thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), val);
 		}
 	}
 	
@@ -62,9 +62,9 @@ class SetInstanceModelBindings extends AbstractCommand {
 			final ComponentInstance thread = (ComponentInstance) iter.next();
 			final PropertyValue oldVal = (PropertyValue) oldThreadsToProc.get(thread);
 			if (oldVal == null) {
-				properties.removeActualProcessorBindingPropertyAssociations(thread);
+				thread.removePropertyAssociations(GetProperties.getActualProcessorBindingProperty(thread));
 			} else {
-				properties.setActualProcessorBindingPropertyValue(thread, oldVal);
+				thread.setPropertyValue(GetProperties.getActualProcessorBindingProperty(thread), oldVal);
 			}
 		}
 	}
@@ -80,7 +80,7 @@ class SetInstanceModelBindings extends AbstractCommand {
 				PropertyValue oldVal;
 				try
 				{
-					oldVal = properties.getActualProcessorBindingPropertyValue(thread);
+					oldVal = (PropertyValue)thread.getSimplePropertyValue(GetProperties.getActualProcessorBindingProperty(thread));
 				}
 				catch (PropertyNotPresentException e)
 				{

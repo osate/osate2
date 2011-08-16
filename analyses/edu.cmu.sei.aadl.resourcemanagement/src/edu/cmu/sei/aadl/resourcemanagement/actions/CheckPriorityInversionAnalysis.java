@@ -33,22 +33,16 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.DeploymentProperties;
-import org.osate.xtext.aadl2.properties.ThreadProperties;
-import org.osate.xtext.aadl2.properties.TimingProperties;
+import org.osate.ui.actions.AbstractAnalysis;
 
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 import edu.cmu.sei.aadl.scheduling.inversion.PriorityInversion;
 
 public class CheckPriorityInversionAnalysis extends AbstractAnalysis
 {
-	private PriorityInversionProperties properties;
 	
 	protected boolean runImpl()
 	{
@@ -57,7 +51,7 @@ public class CheckPriorityInversionAnalysis extends AbstractAnalysis
 			try
 			{
 				SystemInstance root = ((InstanceObject)getParameter()).getSystemInstance();
-				final PriorityInversion pi = new PriorityInversion(properties, getErrorManager());
+				final PriorityInversion pi = new PriorityInversion( getErrorManager());
 				pi.checkSystemPriorityInversion(root);
 			}
 			catch (InvalidModelException e)
@@ -74,43 +68,6 @@ public class CheckPriorityInversionAnalysis extends AbstractAnalysis
 
 	protected boolean readyToRunImpl()
 	{
-		Property period = OsateResourceManager.findProperty(TimingProperties.PERIOD);
-		if (period == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.PERIOD);
-			return false;
-		}
-		Property actualProcessorBinding = OsateResourceManager.findProperty(DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		if (actualProcessorBinding == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-			return false;
-		}
-		UnitsType timeUnits = (UnitsType)OsateResourceManager.findPropertyType(AadlProject.TIME_UNITS);
-		if (timeUnits == null)
-		{
-			unitsTypeNotFound(AadlProject._NAME, AadlProject.TIME_UNITS);
-			return false;
-		}
-		UnitLiteral microSecond = (UnitLiteral) timeUnits.findNamedElement(AadlProject.US_LITERAL);
-		if (microSecond == null)
-		{
-			unitLiteralNotFound(AadlProject.US_LITERAL, timeUnits);
-			return false;
-		}
-		Property priority = OsateResourceManager.findProperty(SEI._NAME, SEI.PRIORITY);
-		if (priority == null)
-		{
-			propertyDefinitionNotFound(SEI._NAME, SEI.PRIORITY);
-			return false;
-		}
-		Property dispatchProtocol = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
-		if (dispatchProtocol == null)
-		{
-			propertyDefinitionNotFound(ThreadProperties._NAME, ThreadProperties.DISPATCH_PROTOCOL);
-			return false;
-		}
-		properties = new PriorityInversionProperties(period, actualProcessorBinding, microSecond, priority, dispatchProtocol);
 		return true;
 	}
 	

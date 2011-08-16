@@ -2,9 +2,6 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import java.util.List;
-
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.AadlProject;
@@ -105,9 +102,5 @@ public final class AADLProcessor extends Processor {
 				return null;
 			}
 		}
-	}
-
-	private static double getCycleTime(final ComponentInstance proc, BinpackProperties properties) {
-		return GetProperties.getCycleTimeinMS(proc);
 	}
 }

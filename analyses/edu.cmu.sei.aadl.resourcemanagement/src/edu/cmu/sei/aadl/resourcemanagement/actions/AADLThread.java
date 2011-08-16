@@ -2,11 +2,7 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.GetProperties;
 
@@ -71,19 +67,4 @@ public final class AADLThread extends SoftwareNode {
 		return (ComponentInstance) getSemanticObject();
 	}
 	
-	/**
-	 * Get the cycle time in seconds of the reference processor.  First
-	 * tries to find an explicit reference processor.  If it finds it, then
-	 * it gets the cycle time of that processor.  Otherwise it tries to find
-	 * an explicit reference_cycle_time value.  Failing that, it returns
-	 * a value corresponding to a 1GHz processor.
-	 */
-	private static double getReferenceCycleTime(final ComponentInstance thread, BinpackProperties properties)
-	{
-			try {
-				return GetProperties.getReferenceCycleTimeinMS(thread);
-			} catch (PropertyLookupException e) {
-				return GetProperties.getReferenceCycleTimeConstantinMS(thread);
-			}
-	}
 }

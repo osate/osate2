@@ -57,8 +57,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.GetProperties;
 
-import edu.cmu.sei.aadl.resourcemanagement.actions.ScheduleProperties;
-
 public class RuntimeProcessWalker  {
   //to record the invariants  visisted and put back to the system tree.
   private static EList runTimeComponents = new BasicEList ();

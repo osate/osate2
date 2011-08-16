@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 
 import EAnalysis.BinPacking.HardwareNode;
 import EAnalysis.BinPacking.Link;
@@ -55,7 +56,7 @@ public class PackingSuccessfulDialog extends MessageDialog {
 	final int processorMultiplier;
 	
 	public PackingSuccessfulDialog(final Shell parentShell,
-			final edu.cmu.sei.aadl.aadl2.instance.SystemOperationMode som, final String systemName, final Map bindings, 
+			final SystemOperationMode som, final String systemName, final Map bindings, 
 			final Set hwGraph, final String propText, final int processorMultiplier) {
 //		super(parentShell, TITLE, null, MESSAGE, INFORMATION,
 //				new String[] { OKAY_LABEL, INSTANCE_LABEL, DECLARATIVE_LABEL },

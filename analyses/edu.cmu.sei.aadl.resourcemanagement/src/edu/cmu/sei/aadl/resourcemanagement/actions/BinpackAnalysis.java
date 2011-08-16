@@ -33,18 +33,10 @@
  */
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.CommunicationProperties;
-import org.osate.xtext.aadl2.properties.DeploymentProperties;
-import org.osate.xtext.aadl2.properties.MemoryProperties;
-import org.osate.xtext.aadl2.properties.TimingProperties;
+import org.osate.ui.actions.AbstractAnalysis;
 
 public class BinpackAnalysis extends AbstractAnalysis
 {
-	private BinpackProperties properties;
 	
 	protected boolean runImpl()
 	{
@@ -53,105 +45,7 @@ public class BinpackAnalysis extends AbstractAnalysis
 
 	protected boolean readyToRunImpl()
 	{
-		Property period = OsateResourceManager.findProperty(TimingProperties.PERIOD);
-		if (period == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.PERIOD);
-			return false;
-		}
-		Property deadline = OsateResourceManager.findProperty(TimingProperties.DEADLINE);
-		if (deadline == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.DEADLINE);
-			return false;
-		}
-		Property computeExecutionTime = OsateResourceManager.findProperty(TimingProperties.COMPUTE_EXECUTION_TIME);
-		if (computeExecutionTime == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-			return false;
-		}
-		Property schedulingProtocol = OsateResourceManager.findProperty(DeploymentProperties.SCHEDULING_PROTOCOL);
-		if (schedulingProtocol == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.SCHEDULING_PROTOCOL);
-			return false;
-		}
-		Property notCollocated = OsateResourceManager.findProperty(DeploymentProperties.NOT_COLLOCATED);
-		if (notCollocated == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.NOT_COLLOCATED);
-			return false;
-		}
-		Property actualProcessorBinding = OsateResourceManager.findProperty(DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		if (actualProcessorBinding == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-			return false;
-		}
-		Property allowedProcessorBinding = OsateResourceManager.findProperty(DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
-		if (allowedProcessorBinding == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
-			return false;
-		}
-		Property allowedProcessorBindingClass =
-			OsateResourceManager.findProperty(DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		if (allowedProcessorBindingClass == null)
-		{
-			propertyDefinitionNotFound(DeploymentProperties._NAME, DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-			return false;
-		}
-		UnitsType timeUnits = (UnitsType)OsateResourceManager.findPropertyType(AadlProject.TIME_UNITS);
-		if (timeUnits == null)
-		{
-			unitsTypeNotFound(AadlProject._NAME, AadlProject.TIME_UNITS);
-			return false;
-		}
-		UnitLiteral second = (UnitLiteral) timeUnits.findNamedElement(AadlProject.SEC_LITERAL);
-		if (second == null)
-		{
-			unitLiteralNotFound(AadlProject.SEC_LITERAL, timeUnits);
-			return false;
-		}
-		UnitLiteral nanoSecond = (UnitLiteral) timeUnits.findNamedElement(AadlProject.NS_LITERAL);
-		if (nanoSecond == null)
-		{
-			unitLiteralNotFound(AadlProject.NS_LITERAL, timeUnits);
-			return false;
-		}
-		
-		Property referenceProcessor = OsateResourceManager.findProperty(SEI._NAME, SEI.REFERENCE_PROCESSOR);
-		if (referenceProcessor == null)
-		{
-			propertyDefinitionNotFound(SEI._NAME, SEI.REFERENCE_PROCESSOR);
-			return false;
-		}
-		//It is ok if referenceCycleTime cannot be found.
-		PropertyConstant referenceCycleTime = OsateResourceManager.findPropertyConstant(SEI._NAME, SEI.REFERENCE_CYCLE_TIME);
-		Property cycleTime = OsateResourceManager.findProperty(SEI._NAME, SEI.CYCLE_TIME);
-		if (cycleTime == null)
-		{
-			propertyDefinitionNotFound(SEI._NAME, SEI.CYCLE_TIME);
-			return false;
-		}
-		
-		Property transmissionTime = OsateResourceManager.findProperty(CommunicationProperties.TRANSMISSION_TIME);
-		if (transmissionTime == null)
-		{
-			propertyDefinitionNotFound(CommunicationProperties._NAME, CommunicationProperties.TRANSMISSION_TIME);
-			return false;
-		}
-		
-		Property size = OsateResourceManager.findProperty(MemoryProperties.SOURCE_DATA_SIZE);
-		UnitsType sizeUnits = (UnitsType)OsateResourceManager.findPropertyType(AadlProject.SIZE_UNITS);
-		UnitLiteral bits = (UnitLiteral) sizeUnits.findNamedElement(AadlProject.BITS_LITERAL);
-		
-		properties = new BinpackProperties(period, deadline, computeExecutionTime, schedulingProtocol, notCollocated, actualProcessorBinding,
-				allowedProcessorBinding, allowedProcessorBindingClass, second, nanoSecond, referenceProcessor, referenceCycleTime, cycleTime, 
-				transmissionTime, size, bits);
 		return true;
-		
 	}
 	
 	protected String getMarkerType()

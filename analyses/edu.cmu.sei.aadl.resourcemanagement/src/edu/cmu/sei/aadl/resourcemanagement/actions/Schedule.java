@@ -41,16 +41,15 @@ package edu.cmu.sei.aadl.resourcemanagement.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.DeploymentProperties;
-import org.osate.xtext.aadl2.properties.TimingProperties;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
@@ -58,17 +57,8 @@ import edu.cmu.sei.aadl.scheduling.TimingAnalysisInvocation;
 
 
 public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActionAction {
-	private ScheduleProperties properties = null;
 	
 	protected void initPropertyReferences() {
-		Property period = lookupPropertyDefinition(TimingProperties.PERIOD);
-		Property deadline = lookupPropertyDefinition(TimingProperties.DEADLINE);
-		Property computeExecutionTime = lookupPropertyDefinition(TimingProperties.COMPUTE_EXECUTION_TIME);
-		Property actualProcessorBinding = lookupPropertyDefinition(DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		UnitLiteral microSecond = lookupUnitLiteral(AadlProject.TIME_UNITS, AadlProject.US_LITERAL);
-		Property priority = lookupOptionalPropertyDefinition(SEI._NAME, SEI.PRIORITY);
-		
-		properties = new ScheduleProperties(period, deadline, computeExecutionTime, actualProcessorBinding, priority, microSecond);
 	}
 	
 	
@@ -101,8 +91,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				public void process(Element obj) {
 					ComponentInstance ci = (ComponentInstance) obj;
 					boolean schedulable =
-						TimingAnalysisInvocation.timingSchedulabilityAnalysis(properties,
-								this.getErrorManager(), ci);
+						TimingAnalysisInvocation.timingSchedulabilityAnalysis(this.getErrorManager(), ci);
 					if (schedulable) {
 						info(ci, ci.getInstanceObjectPath() + " is schedulable");
 					} else {

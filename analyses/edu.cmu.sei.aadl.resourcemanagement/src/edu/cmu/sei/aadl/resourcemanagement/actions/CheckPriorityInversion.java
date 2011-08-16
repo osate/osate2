@@ -40,32 +40,21 @@
 package edu.cmu.sei.aadl.resourcemanagement.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.DeploymentProperties;
-import org.osate.xtext.aadl2.properties.ThreadProperties;
-import org.osate.xtext.aadl2.properties.TimingProperties;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 import edu.cmu.sei.aadl.scheduling.inversion.PriorityInversion;
 
 public final class CheckPriorityInversion extends AbstractInstanceOrDeclarativeModelModifyActionAction {
-	private PriorityInversionProperties properties;
 	
 	protected void initPropertyReferences() {
-		Property period = lookupPropertyDefinition(TimingProperties.PERIOD);
-		Property actualProcessorBinding = lookupPropertyDefinition(DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
-		UnitLiteral microSecond = lookupUnitLiteral(AadlProject.TIME_UNITS, AadlProject.US_LITERAL);
-		
-		Property priority = lookupOptionalPropertyDefinition(SEI._NAME, SEI.PRIORITY);
-		Property dispatchProtocol = lookupPropertyDefinition(ThreadProperties.DISPATCH_PROTOCOL);
-		
-		properties = new PriorityInversionProperties(period, actualProcessorBinding, microSecond, priority, dispatchProtocol);
 	}
 	
 	protected Bundle getBundle() {
@@ -92,7 +81,7 @@ public final class CheckPriorityInversion extends AbstractInstanceOrDeclarativeM
 			final SystemInstance root, final SystemOperationMode som) {
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
 		try {
-			final PriorityInversion pi = new PriorityInversion(properties, errManager);
+			final PriorityInversion pi = new PriorityInversion( errManager);
 			pi.checkSystemPriorityInversion(root);
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());

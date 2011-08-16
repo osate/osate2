@@ -62,11 +62,11 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DataClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ProcessorClassifier;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.SystemClassifier;
-import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -82,12 +82,8 @@ import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.CommunicationProperties;
-import org.osate.xtext.aadl2.properties.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.MemoryProperties;
-import org.osate.xtext.aadl2.properties.TimingProperties;
+import org.osate.xtext.aadl2.properties.PropertyUtils;
 import org.osgi.framework.Bundle;
 
 import EAnalysis.BinPacking.AssignmentResult;
@@ -189,23 +185,6 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			monitor.beginTask("Binding threads to processors in " + root.getName(),
 					IProgressMonitor.UNKNOWN);
 			
-			/* Find and report all processor instances that don't have a
-			 * cycle time specified.
-			 */ 
-			final EList incompleteprocessors = new ForAllElement() {
-				protected boolean suchThat(Element obj){
-					try {
-						GetProperties.getCycleTimePropertyValue((ComponentInstance)obj);
-						return false;
-					} catch (PropertyNotPresentException e) {
-						return true;
-					}
-				}
-			}.processPreOrderComponentInstance(root,ComponentCategory.PROCESSOR);
-			for (final Iterator i = incompleteprocessors.iterator(); i.hasNext();) {
-				final Element o = (Element) i.next();
-				warning(o, "Processor (or SEI property set) is missing cycle time property. Using default of 1 ns");
-			}
 			
 			/* Verify that all the busses have a transmission time
 			 */
@@ -213,12 +192,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				public void process(Element obj){				
 					ComponentInstance bi = (ComponentInstance) obj;
 					try {
-						final List transTime = GetProperties.getTransmissionTimePropertyValue(bi);
-						if (transTime.size() < 2) {
-							warning(obj, "Bus has badly formed Transmission Time property (length of list is < 2), using default multiplier of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
+						final RecordValue transTime = GetProperties.getTransmissionTime(bi);
+						if (transTime == null) {
+							warning(obj, "Bus Transmission Time property not found");
 						}
 					} catch (PropertyNotPresentException e) {
-						warning(obj, "Bus is missing Transmission Time property, using default multiplier of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
+						warning(obj, "Bus is missing Transmission Time property, using default transmission time of " + AADLBus.DEFAULT_TRANSMISSION_TIME);
 					}
 				}
 			};
@@ -231,12 +210,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				protected boolean suchThat(Element obj){
 					final ComponentCategory cat = ((ComponentInstance) obj).getCategory();
 					if (cat == ComponentCategory.THREAD|| cat == ComponentCategory.DEVICE) {
-						try {
-							GetProperties.getPeriodPropertyValue((ComponentInstance) obj);
-							return false;
-						} catch (PropertyNotPresentException e) {
-							return true;
-						}							
+							return GetProperties.getPeriodinMS((ComponentInstance) obj) == 0.0;
 					} else {
 						return false;
 					}
@@ -252,12 +226,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			 */
 			incompletethreads = new ForAllElement(){
 				protected boolean suchThat(Element obj){
-					try {
-						GetProperties.getComputeExecutionTimeinSec((ComponentInstance)obj);
-						return false;
-					} catch (PropertyNotPresentException e) {
-						return true;
-					}
+						return GetProperties.getComputeExecutionTimeinMS((ComponentInstance)obj) == 0.0;
 				}
 			}.processPreOrderComponentInstance(root,ComponentCategory.THREAD);
 			for (final Iterator i = incompletethreads.iterator(); i.hasNext();) {
@@ -281,7 +250,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 								DataClassifier srcDC = (DataClassifier) cl;
 
 								try {
-									GetProperties.getSize(srcDC);
+									GetProperties.getSourceDataSizeInBytes(srcDC);
 								} catch(PropertyNotPresentException e) {
 									warning(obj,"Data size of port connection not specified");
 								}
@@ -411,7 +380,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			public void process(Element obj){				
 				ComponentInstance bi = (ComponentInstance) obj;
 				
-				final AADLBus bus = AADLBus.createInstance(bi,properties);
+				final AADLBus bus = AADLBus.createInstance(bi);
 				busToHardware.put(bi,bus);
 			}
 		};
@@ -463,31 +432,24 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		final ForAllElement addThreads = new ForAllElement(errManager) {
 			public void process(Element obj) {
 				final ComponentInstance ci = (ComponentInstance) obj;
-				final SoftwareNode thread = AADLThread.createInstance(ci, properties);
+				final SoftwareNode thread = AADLThread.createInstance(ci);
 				problem.softwareGraph.add(thread);
 				
 				// add reverse mapping
 				threadToSoftwareNode.put(ci, thread);
 
 				// Process NOT_COLLOCATED property. 
-				List disjunctFrom;
-				try
-				{
-					disjunctFrom = properties.getNotCollocated(ci);
-				}
-				catch (PropertyNotPresentException e)
-				{
-					//Ignore this situation and move on.
-					disjunctFrom = Collections.EMPTY_LIST;
-				}
+				RecordValue disjunctFrom = GetProperties.getNotCollocated(ci);
+				if (disjunctFrom == null) return;
 				final Set disjunctSet = new HashSet();
-				for (final Iterator i = disjunctFrom.iterator(); i.hasNext();) {
+				ListValue tvl = (ListValue)PropertyUtils.getRecordFieldValue(disjunctFrom, "Targets");
+				for (PropertyExpression ref: tvl.getOwnedListElements()) {
 					/* Add all the instances rooted at the named instance.
 					 * For example, the thread may be declared to be disjunct 
 					 * from another process, so we really want to be disjunct
 					 * from the other threads contained in that process.
 					 */
-					final InstanceReferenceValue rv = (InstanceReferenceValue) i.next();
+					final InstanceReferenceValue rv = (InstanceReferenceValue) ref;
 					final ComponentInstance refCI = (ComponentInstance) rv.getReferencedInstanceObject();
 					disjunctSet.addAll(refCI.getAllComponentInstances());
 				}
@@ -521,12 +483,12 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 						double dataSize=0.0;
 						double threadPeriod=0.0;
 						try {
-							dataSize= properties.getSize(srcDC);
+							dataSize= GetProperties.getSourceDataSizeInBytes(srcDC);
 						} catch (Exception e){
 							errManager.warning(connInst, "No Data Size for connection");
 						}
 						try{
-							threadPeriod = properties.getPeriodAsNanoSecond(ci);
+							threadPeriod = GetProperties.getPeriodinNS(ci);
 						} catch (Exception e){
 							errManager.warning(connInst, "No Period for connection");
 						}
@@ -642,7 +604,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	
 	public void showNoResults(
 			final SystemOperationMode som, final int processorMultiplier){
-		edu.cmu.sei.osate.ui.dialogs.Dialog.showError(
+		org.osate.ui.dialogs.Dialog.showError(
 				"Application Binding Results",
 				"In system operation mode " + som.getName() + 
 				"the application system is not schedulable with processor speed " +
@@ -677,7 +639,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 			AdapterFactoryEditingDomain.getEditingDomainFor(root);
 		if (editingDomain != null) {
 			final CommandStack cmdStack = editingDomain.getCommandStack();
-			final Command setBindings = new SetInstanceModelBindings(threadsToProc, properties);
+			final Command setBindings = new SetInstanceModelBindings(threadsToProc);
 			cmdStack.execute(setBindings);
 		} else {
 			internalError("Couldn't get editing domain");
@@ -758,7 +720,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		List allowedBindingsVals;
 		try
 		{
-			allowedBindingsVals = properties.getAllowedProcessorBinding(thread);
+			allowedBindingsVals = GetProperties.getAllowedProcessorBinding(thread);
 		}
 		catch (PropertyNotPresentException e)
 		{
@@ -768,7 +730,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		List allowedClassVals;
 		try
 		{
-			allowedClassVals = properties.getAllowedProcessorBindingClass(thread);
+			allowedClassVals = GetProperties.getAllowedProcessorBindingClass(thread);
 		}
 		catch (PropertyNotPresentException e)
 		{
