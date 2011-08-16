@@ -34,23 +34,15 @@
 package edu.cmu.sei.aadl.flowanalysis.actions;
 
 
-import edu.cmu.sei.aadl.aadl2.Aadl2Factory;
-import edu.cmu.sei.aadl.aadl2.EnumerationLiteral;
-import edu.cmu.sei.aadl.aadl2.IntegerLiteral;
-import edu.cmu.sei.aadl.aadl2.NamedElement;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.PropertyAssociation;
-import edu.cmu.sei.aadl.aadl2.PropertyType;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.UnitsType;
-import edu.cmu.sei.aadl.aadl2.properties.PropertyLookupException;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager;
-import edu.cmu.sei.aadl.modelsupport.properties.PropertyUtils;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.CommunicationProperties;
-import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.properties.PropertyLookupException;
 
 
 public class FlowLatencyProperties

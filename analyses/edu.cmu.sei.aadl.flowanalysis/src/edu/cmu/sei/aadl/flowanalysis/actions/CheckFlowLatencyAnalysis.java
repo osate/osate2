@@ -34,20 +34,12 @@
 package edu.cmu.sei.aadl.flowanalysis.actions;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.ui.actions.AbstractAnalysis;
 
-import edu.cmu.sei.aadl.aadl2.ComponentImplementation;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.UnitsType;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
 import edu.cmu.sei.aadl.flowanalysis.FlowLatencyAnalysisSwitch;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractAnalysis;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.CommunicationProperties;
-import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
 
 public class CheckFlowLatencyAnalysis extends AbstractAnalysis
 {
@@ -68,78 +60,6 @@ public class CheckFlowLatencyAnalysis extends AbstractAnalysis
 
 	protected boolean readyToRunImpl()
 	{
-		final Property partitionLatency =
-			OsateResourceManager.findProperty(
-					SEI._NAME, SEI.PARTITION_LATENCY);
-		if (partitionLatency == null)
-		{
-			propertyDefinitionNotFound(SEI._NAME, SEI.PARTITION_LATENCY);
-			return false;
-		}
-		final Property isPartition =
-			OsateResourceManager.findProperty(
-				SEI._NAME, SEI.IS_PARTITION);
-		if (isPartition == null)
-		{
-			propertyDefinitionNotFound(SEI._NAME, SEI.IS_PARTITION);
-			return false;
-		}
-		Property dispatchProtocol = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
-		if (dispatchProtocol == null)
-		{
-			propertyDefinitionNotFound(ThreadProperties._NAME, ThreadProperties.DISPATCH_PROTOCOL);
-			return false;
-		}
-		Property deviceDispatchProtocol = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
-		if (deviceDispatchProtocol == null)
-		{
-			propertyDefinitionNotFound(ThreadProperties._NAME, ThreadProperties.DISPATCH_PROTOCOL);
-			return false;
-		}
-		Property Latency = OsateResourceManager.findProperty(CommunicationProperties.LATENCY);
-		if (Latency == null)
-		{
-			propertyDefinitionNotFound(CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-			return false;
-		}
-		Property actualLatencyPD = OsateResourceManager.findProperty(CommunicationProperties.ACTUAL_LATENCY);
-		if (actualLatencyPD == null)
-		{
-			propertyDefinitionNotFound(CommunicationProperties._NAME, CommunicationProperties.ACTUAL_LATENCY);
-			return false;
-		}
-		Property deadlinePD = OsateResourceManager.findProperty(TimingProperties.DEADLINE);
-		if (deadlinePD == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.DEADLINE);
-			return false;
-		}
-		Property periodPD = OsateResourceManager.findProperty(TimingProperties.PERIOD);
-		if (periodPD == null)
-		{
-			propertyDefinitionNotFound(TimingProperties._NAME, TimingProperties.PERIOD);
-			return false;
-		}
-		Property queuesizePD = OsateResourceManager.findProperty(CommunicationProperties.QUEUE_SIZE);
-		if (queuesizePD == null)
-		{
-			propertyDefinitionNotFound(CommunicationProperties._NAME, CommunicationProperties.QUEUE_SIZE);
-			return false;
-		}
-		UnitsType TimeUnits = (UnitsType)OsateResourceManager.findPropertyType(AadlProject.TIME_UNITS);
-		if (TimeUnits == null)
-		{
-			unitsTypeNotFound(AadlProject._NAME, AadlProject.TIME_UNITS);
-			return false;
-		}
-		UnitLiteral MicroSec = (UnitLiteral) TimeUnits.findNamedElement(AadlProject.US_LITERAL);
-		if (MicroSec == null)
-		{
-			unitLiteralNotFound(AadlProject.US_LITERAL, TimeUnits);
-			return false;
-		}
-		properties = new FlowLatencyProperties(dispatchProtocol, partitionLatency, isPartition, Latency,
-				 actualLatencyPD, deadlinePD, periodPD, MicroSec,queuesizePD);
 		return true;
 	}
 	

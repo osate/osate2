@@ -41,40 +41,25 @@ package edu.cmu.sei.aadl.flowanalysis.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
+import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.Property;
-import edu.cmu.sei.aadl.aadl2.UnitLiteral;
-import edu.cmu.sei.aadl.aadl2.instance.ComponentInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemInstance;
-import edu.cmu.sei.aadl.aadl2.instance.SystemOperationMode;
 import edu.cmu.sei.aadl.flowanalysis.FlowLatencyAnalysisSwitch;
 import edu.cmu.sei.aadl.flowanalysis.FlowanalysisPlugin;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import edu.cmu.sei.aadl.modelsupport.util.AadlUtil;
-import edu.cmu.sei.contributes.sei.names.SEI;
-import edu.cmu.sei.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
-import edu.cmu.sei.osate.workspace.names.standard.AadlProject;
-import edu.cmu.sei.osate.workspace.names.standard.CommunicationProperties;
-import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
 	private FlowLatencyProperties properties;
 
 	protected void initPropertyReferences() {
-		Property partitionLatency = lookupPropertyDefinition(SEI._NAME, SEI.PARTITION_LATENCY);
-		Property isPartition = lookupPropertyDefinition(SEI._NAME, SEI.IS_PARTITION);
-		Property dispatchProtocol = lookupPropertyDefinition(ThreadProperties .DISPATCH_PROTOCOL);
-		Property Latency = lookupPropertyDefinition(CommunicationProperties.LATENCY);
-		Property actualLatencyPD = lookupPropertyDefinition(CommunicationProperties.ACTUAL_LATENCY);
-		Property deadlinePD = lookupPropertyDefinition(TimingProperties.DEADLINE);
-		Property periodPD = lookupPropertyDefinition(TimingProperties.PERIOD);
-		Property queuesizePD = lookupPropertyDefinition(CommunicationProperties.QUEUE_SIZE);
-		UnitLiteral microSec = lookupUnitLiteral(AadlProject.TIME_UNITS, AadlProject.US_LITERAL);
-		properties = new FlowLatencyProperties(dispatchProtocol, partitionLatency, isPartition, Latency,
-				 actualLatencyPD, deadlinePD, periodPD, microSec,queuesizePD);
 	}
 	
 	protected Bundle getBundle() {
@@ -89,32 +74,13 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		return "edu.cmu.sei.aadl.flowanalysis.FlowLatencyObjectMarker";
 	}
 
-//	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, AObject declarativeObject) {
-//		if (declarativeObject instanceof ComponentImpl) {
-//			try {
-//				final FlowLatencyAnalysisSwitch flowLatencySwitch =
-//					new FlowLatencyAnalysisSwitch(properties, monitor, errManager);
-//				monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-//				flowLatencySwitch.processBottomUpComponentImpl((ComponentImpl) declarativeObject);
-//			} catch (PropertyIsModalException e) {
-//				Dialog.showError("Latency analysis failed",
-//						"Encountered modal-valued \"" +
-//						e.getDefinition().getQualifiedName() +
-//						"\" property on " +
-//						e.getHolder().getName() + ".  Analysis aborted.");
-//			} finally {
-//				monitor.done();
-//			}
-//		} else {
-//			Dialog.showError("Flow Latency Error",
-//				"Please select a component implementation or an instance model");
-//		}
-//		
-//		if (monitor.isCanceled()) {
-//			throw new OperationCanceledException();
-//		}
-//	}
+	@Override
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, Element declarativeObject) {
+			Dialog.showError("Flow Latency Error",
+				"Please select an instance model");
+	}
 
+	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root, SystemOperationMode som) {
 		int count = AadlUtil.countElementsBySubclass(root, ComponentInstance.class);
 		monitor.beginTask(getActionName(), count);
@@ -127,10 +93,5 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		monitor.done();		
 	}
 
-@Override
-protected void analyzeDeclarativeModel(IProgressMonitor monitor,
-		AnalysisErrorReporterManager errManager, Element declarativeObject) {	
-	int i=0;
-}
 
 }
