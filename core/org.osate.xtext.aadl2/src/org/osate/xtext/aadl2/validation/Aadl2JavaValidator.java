@@ -2573,12 +2573,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		 */
 		final NumericRange range = nt.getRange();
 		if (range == null) return;
-		NumberValue	lowerNV = (NumberValue)range.getLowerBound();
-		NumberValue	upperNV = (NumberValue)range.getUpperBound();
+		PropertyExpression	lowerPE = (PropertyExpression)range.getLowerBound();
+		PropertyExpression	upperPE = (PropertyExpression)range.getUpperBound();
+		// TODO : handle NamedValue
+		if (lowerPE instanceof NamedValue){
+			if (((NamedValue)lowerPE).getNamedValue() instanceof PropertyConstant){
+				lowerPE=((PropertyConstant)((NamedValue)lowerPE).getNamedValue()).getConstantValue();
+			}
+		}
+		if (upperPE instanceof NamedValue){
+			if (((NamedValue)upperPE).getNamedValue() instanceof PropertyConstant){
+				upperPE=((PropertyConstant)((NamedValue)upperPE).getNamedValue()).getConstantValue();
+			}
+		}
+		NumberValue lowerNV = lowerPE instanceof NumberValue? (NumberValue)lowerPE: null;
+		NumberValue upperNV = upperPE instanceof NumberValue? (NumberValue)upperPE: null;
 		if (lowerNV != null && upperNV != null) {
 			/* Check: (1) the bounds have units if the type has units;
 			 * (2) the lower bounds is <= the upper bound.
 			 */
+			if (lowerNV instanceof NumberValue){
+				
+			}
 			if (nt.getUnitsType() != null) {
 				if (lowerNV.getUnit() == null) {
 					error(nt,
