@@ -813,7 +813,7 @@ DeviceImplementation returns aadl2::DeviceImplementation:
 	))?
 	(=> 'subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent
-	// missing in meta model:  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+    	| ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
@@ -1141,13 +1141,15 @@ FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 	formal=[aadl2::Prototype|ID] '=>'   
 	actual=(PortSpecification|AccessSpecification|FeaturePrototypeReference)
 	;
-	
+
+//TODO MM change -  then allow reference to prototype for classifier reference	
+// TODO how about binding with classifier
 PortSpecification returns aadl2::PortSpecification:
-	direction=PortDirection category=PortCategory => 'port' classifier=[aadl2::ComponentClassifier|QCREF]
+	direction=PortDirection category=PortCategory => 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 	
 AccessSpecification returns aadl2::AccessSpecification:
-	kind=AccessDirection category=AccessCategory => 'access' classifier=[aadl2::ComponentClassifier|QCREF]
+	kind=AccessDirection category=AccessCategory => 'access' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 
 	
@@ -1406,12 +1408,10 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 
 
 ArrayDimension returns aadl2::ArrayDimension:
-	// dimension is the same as the size of a list recording '[' or size if we put a dummy object
 	{aadl2::ArrayDimension}'[' (size=ArraySize)? ']'
 ;
 
 ArraySize returns aadl2::ArraySize:
-	// dimension is the same as the size of a list recording '[' or size if we put a dummy object
 	{aadl2::ArraySize} size=INTVALUE | sizeProperty=[aadl2::ArraySizeProperty|QPREF] 
 ;
 
@@ -1483,7 +1483,7 @@ Parameter returns aadl2::Parameter:
 SubprogramAccess returns aadl2::SubprogramAccess: 
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramAccess|REFINEDNAME] ':' 'refined' 'to'))
-	kind=AccessDirection // refined to with reference to access feature being refined.
+	kind=AccessDirection 
 	'subprogram' 'access' (subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1491,7 +1491,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
 	((name=ID ':' )|
 	(refined=[aadl2::SubprogramGroupAccess|REFINEDNAME] ':' 'refined' 'to'))
-	kind=AccessDirection // refined to with reference to access feature being refined.
+	kind=AccessDirection 
 	'subprogram' 'group' 'access' (subprogramGroupFeatureClassifier=[aadl2::SubprogramGroupSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1499,7 +1499,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 BusAccess returns aadl2::BusAccess: 
 	((name=ID ':' )|
 	(refined=[aadl2::BusAccess|REFINEDNAME] ':' 'refined' 'to'))
-	kind=AccessDirection  // refined to with reference to access feature being refined.
+	kind=AccessDirection  
 	'bus' 'access' (busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1507,7 +1507,7 @@ BusAccess returns aadl2::BusAccess:
 DataAccess returns aadl2::DataAccess: 
 	((name=ID ':' )|
 	(refined=[aadl2::DataAccess|REFINEDNAME] ':' 'refined' 'to'))
-	kind=AccessDirection // refined to with reference to access feature being refined.
+	kind=AccessDirection 
 	'data' 'access' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
@@ -1523,7 +1523,6 @@ AbstractFeature returns aadl2::AbstractFeature:
 
 
 PortDirection returns aadl2::DirectionType: 'in' | 'out' |  'in' 'out';
-//enum DirectionType returns aadl2::DirectionType: in | out | inOut = 'in out';
 InOutDirection returns aadl2::DirectionType: 'in' | 'out' ;
 AccessDirection returns aadl2::AccessType: 'requires' | 'provides';
 
@@ -1605,7 +1604,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))?
 	'feature' 'group' 
 	source=ConnectedElement
-	( bidirectional?='<->')
+	( '->' | bidirectional?='<->')
 	destination=ConnectedElement 
 	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
@@ -1654,8 +1653,10 @@ FlowSpecification returns aadl2::FlowSpecification:
 //		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 //	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 //	';'
-//	) | FlowSpecRefinement
-	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
+//	) 
+	FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
+	| FlowSpecRefinement
+	//| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
@@ -1688,40 +1689,42 @@ FlowEnd returns aadl2::FlowEnd:
 	(context=[aadl2::Context|ID] '.' )? feature=[aadl2::Feature|ID]
 ;
 
-//FlowSpecRefinement returns aadl2::FlowSpecification:
+FlowSpecRefinement returns aadl2::FlowSpecification:
 //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+	':' 'refined' 'to' 'flow' kind=FlowKind 
+	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+	';'
+	;
+//
+//FlowSourceSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] 
+//	':' 'refined' 'to' 'flow' kind=FlowSource 
 //	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
 //		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
 //	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
 //	';'
-//	;
-
-FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-	':' 'refined' 'to' 'flow' kind=FlowSource 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
-FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
-FlowPathSpecRefinement returns aadl2::FlowSpecification:
-	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
-;
+//;
+//FlowSinkSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
+//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+//	';'
+//;
+//FlowPathSpecRefinement returns aadl2::FlowSpecification:
+//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
+//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
+//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
+//	';'
+//;
 
 FlowImplementation returns aadl2::FlowImplementation:
 	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
-//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 //	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 //	';'
 ;
@@ -1732,7 +1735,7 @@ FlowSourceImpl returns aadl2::FlowImplementation:
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
 //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
 (ID '.')? ID
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	';'
 ;
@@ -1742,7 +1745,7 @@ FlowSinkImpl returns aadl2::FlowImplementation:
 //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 (ID '.')? ID
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	';'
 ;
@@ -1755,7 +1758,7 @@ FlowPathImpl returns aadl2::FlowImplementation:
 	    '->' ownedFlowSegment+=ConnectionFlow )?
 //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
  '->' (ID '.')? ID
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	';'
 ;
@@ -2056,7 +2059,6 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| ListTerm |ActualBooleanTerm
-	 //| BooleanTerm
 	  | LiteralorReferenceTerm
 	;
 
