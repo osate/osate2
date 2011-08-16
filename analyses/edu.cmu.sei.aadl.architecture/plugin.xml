@@ -92,12 +92,12 @@
                class="edu.cmu.sei.aadl.architecture.actions.DoModelStatistics"
                menubarPath="menu.analyses/menu.arch/stuff.grp"
                toolbarPath="arch.toolbar"
-               enablesFor="1">
+               enablesFor="*">
             <enablement>
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
                   <objectState name="AADLMetaModelClass" value="org.osate.aadl2.ModelUnit"/>
                   <objectState name="AADLMetaModelClass" value="org.osate.aadl2.instance.SystemInstance"/>
@@ -125,12 +125,12 @@
             <or>
                <and>
                   <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl"/>
+                  <objectState name="extension" value="aaxl2"/>
                </and>
                <objectState name="AADLMetaModelClass" value="org.osate.aadl2.ModelUnit"/>
                <objectState name="AADLMetaModelClass" value="org.osate.aadl2.instance.SystemInstance"/>
             </or>
-         </visibility>
+         </visibility> 
 
          <menu
                id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
