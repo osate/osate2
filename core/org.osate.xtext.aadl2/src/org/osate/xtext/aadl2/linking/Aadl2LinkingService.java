@@ -11,8 +11,11 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
+import org.eclipse.xtext.linking.impl.LinkingHelper;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
@@ -24,21 +27,53 @@ import org.osate.xtext.aadl2.util.PSNode;
 import com.google.inject.Inject;
 
 import org.osate.aadl2.impl.Aadl2PackageImpl;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 
 public class Aadl2LinkingService extends DefaultLinkingService {
 	
-	public static Aadl2LinkingService eInstance = new Aadl2LinkingService();
+	private static Aadl2LinkingService eInstance = null;//new Aadl2LinkingService();
+	
+	public Aadl2LinkingService(){
+		super();
+	}
 
 private static PSNode psNode = new PSNode();
-	
+
+public static Aadl2LinkingService getAadl2LinkingService(Element context){
+	if (eInstance == null) {
+		if (context.eResource() instanceof Aadl2ResourceImpl){
+			Element root = context.getElementRoot();
+			if (root instanceof SystemInstance){
+				SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
+				LazyLinkingResource r = (LazyLinkingResource)si.eResource();
+				eInstance = (Aadl2LinkingService)r.getLinkingService();
+			}
+		} else {
+			LazyLinkingResource r = (LazyLinkingResource)context.eResource();
+			eInstance = (Aadl2LinkingService)r.getLinkingService();
+		}
+	}
+	return eInstance;
+}
+
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
 		psNode.setText(crossRefString);
-		List<EObject> el = super.getLinkedObjects(context, reference, psNode);
-		return (el.isEmpty()?null: el.get(0));
+		List<EObject> el;
+		try {
+			el = super.getLinkedObjects(context, reference, psNode);
+		} catch (Exception e) {
+			return null;
+		}
+		EObject res = (el.isEmpty()?null: el.get(0));
+		if (res != null&&res.eIsProxy()){
+			res = EcoreUtil.resolve(res,context);
+		}
+		return res;
 
 //		final IScope scope = getScope(context, reference);
 //		QualifiedName qualifiedLinkName =  QualifiedName.create(crossRefString);
@@ -615,9 +650,9 @@ private static PSNode psNode = new PSNode();
 	protected EObject findPropertySetElement(EObject context,
 			EReference reference, String name){
 		// look for element in property set
-		EObject res = getIndexedObject(context, reference, name);
-		if (res instanceof PropertyType || res instanceof PropertyConstant || res instanceof Property)
-			return res;
+//		EObject res = getIndexedObject(context, reference, name);
+//		if (res instanceof PropertyType || res instanceof PropertyConstant || res instanceof Property)
+//			return res;
 		String psname = null;
 		String pname = name;
 		final int idx = name.lastIndexOf("::");
@@ -702,7 +737,7 @@ private static PSNode psNode = new PSNode();
 	public UnitLiteral findUnitLiteral(Property property, String name){
 		PropertyType propertyType = property.getPropertyType();
 		UnitsType unitsType= null;
-		if (propertyType instanceof NumberType)
+				if (propertyType instanceof NumberType)
 			unitsType = ((NumberType) propertyType).getUnitsType();
 		else if (propertyType instanceof RangeType)
 			unitsType = ((RangeType) propertyType).getNumberType()
@@ -1808,7 +1843,7 @@ private static PSNode psNode = new PSNode();
 			}
 			return null;
 		} else {
-			PropertySet propertySet = getContainingPropertySet(context);
+			PropertySet propertySet = findPropertySet(context, propertySetName);//getContainingPropertySet(context);
 			if (propertySet == null || 
 					(propertySet != null && !propertySet.getName().equalsIgnoreCase(propertySetName))){
 				propertySet = findImportedPropertySet(propertySetName, context);
