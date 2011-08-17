@@ -56,11 +56,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 
 
-	/**
-	 * Flag to indicate the resource is a plug-in property set that has been
-	 * shadowed by a property set with the same name in the workspace.
-	 */
-	private boolean isShadowed = false;
 
 	/**
 	 * Creates an instance of the resource.
@@ -71,11 +66,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 	 */
 	public Aadl2ResourceImpl(URI uri) {
 		super(uri);
-	}
-
-
-	public void setShadowed(final boolean s) {
-		isShadowed = s;
 	}
 
 
