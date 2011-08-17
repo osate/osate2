@@ -41,7 +41,7 @@
                      <objectClass name="org.eclipse.core.resources.IFile"/>
                      <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -68,7 +68,7 @@
                   <objectClass name="org.eclipse.core.resources.IFile"/>
                   <objectState name="extension" value="aaxl2"/>
                </and>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>
          </visibility>
 
@@ -105,7 +105,7 @@
          name="Check Flow Latency"
          class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatencyAnalysis">
          <declarativeModel selectRootObject="false">
-             <selectedObject objectType="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
+             <selectedObject objectType="org.osate.aadl2.instance.SystemInstance"/>
          </declarativeModel>
          <instanceModel selectRootObject="true"/>
       </analysis>
