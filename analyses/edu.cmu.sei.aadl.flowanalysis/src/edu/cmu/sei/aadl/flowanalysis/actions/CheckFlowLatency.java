@@ -57,7 +57,6 @@ import edu.cmu.sei.aadl.flowanalysis.FlowLatencyAnalysisSwitch;
 import edu.cmu.sei.aadl.flowanalysis.FlowanalysisPlugin;
 
 public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
-	private FlowLatencyProperties properties;
 
 	protected void initPropertyReferences() {
 	}
@@ -85,7 +84,7 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		int count = AadlUtil.countElementsBySubclass(root, ComponentInstance.class);
 		monitor.beginTask(getActionName(), count);
 		final FlowLatencyAnalysisSwitch flowLatencySwitch =
-			new FlowLatencyAnalysisSwitch(properties, monitor, errManager);
+			new FlowLatencyAnalysisSwitch( monitor, errManager);
 		flowLatencySwitch.processPreOrderComponentInstance(root);
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
