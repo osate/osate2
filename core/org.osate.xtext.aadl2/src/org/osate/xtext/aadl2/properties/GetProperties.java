@@ -39,10 +39,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ConnectionTiming;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.Feature;
@@ -50,6 +50,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
@@ -91,6 +92,10 @@ public class GetProperties {
 		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
 	}
 	
+	public static EnumerationLiteral findEnumerationLiteral(Property pd, String literalname) {
+		return Aadl2LinkingService.eInstance.findEnumerationLiteral(pd, literalname);
+	}
+	
 	public static EnumerationLiteral findEnumerationLiteral(NamedElement context,String enumerationType, String literal){
 		PropertyType pt = Aadl2LinkingService.eInstance.findPropertyType(context, enumerationType);
 		if (pt == null || ! (pt instanceof EnumerationType)) return null;
@@ -123,6 +128,16 @@ public class GetProperties {
 		Property actualProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		for (PropertyExpression propertyExpression : propertyValues)
+			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		return components;
+	}
+
+	public static List<ComponentInstance> getActualConnectionBinding(final ComponentInstance io) {
+		Property actualConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ACTUAL_CONNECTION_BINDING);
+		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualConnectionBinding);
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		for (PropertyExpression propertyExpression : propertyValues)
 			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
@@ -307,6 +322,23 @@ public class GetProperties {
 		UnitLiteral second = Aadl2LinkingService.eInstance.findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME);
 	}
+	
+	
+	
+	public static double getPartitionLatency(final NamedElement ph, final double defaultValue)
+	{
+		try
+		{
+			Property pl =lookupPropertyDefinition(ph,SEI._NAME, SEI.PARTITION_LATENCY);
+			return PropertyUtils.getScaledNumberValue(ph, pl, 
+					Aadl2LinkingService.eInstance.findUnitLiteral(pl, AadlProject.MS_LITERAL), defaultValue);
+		}
+		catch (PropertyLookupException e)
+		{
+			return defaultValue;
+		}
+	}
+
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
 		UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(nv, AadlProject.MS_LITERAL);
@@ -605,7 +637,7 @@ public class GetProperties {
 	}
 
 
-	public static double getPartitionLatencyInMS(final NamedElement ne, final double defaultValue) {
+	public static double getPartitionLatencyinMS(final NamedElement ne, final double defaultValue) {
 		try {
 			Property partitionLatency = lookupPropertyDefinition(ne,SEI._NAME, SEI.PARTITION_LATENCY);
 			UnitLiteral microSecond = Aadl2LinkingService.eInstance.findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
@@ -722,6 +754,23 @@ public class GetProperties {
 		} catch (PropertyLookupException e) {
 			return null;
 		}
+	}
+
+	public static EnumerationLiteral getConnectionTiming(final PortConnection pc) {
+		try {
+			Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+				return PropertyUtils.getEnumLiteral(pc, timing);
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+	public static UnitLiteral getDelayedUnitLiteral(PortConnection pc){
+		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+		return findUnitLiteral(timing, CommunicationProperties.DELAYED);
+	}
+	public static EnumerationLiteral getImmediateUnitLiteral(PortConnection pc){
+		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
+		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
 
 	

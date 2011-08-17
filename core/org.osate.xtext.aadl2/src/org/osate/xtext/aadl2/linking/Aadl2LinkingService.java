@@ -692,6 +692,13 @@ private static PSNode psNode = new PSNode();
 		return Collections.<EObject> emptyList();
 	}
 	
+	public EnumerationLiteral findEnumerationLiteral(Property property, String name){
+		PropertyType propertyType = property.getPropertyType();
+		if (propertyType instanceof EnumerationType)
+			return ((EnumerationType)propertyType).findLiteral(name);
+		return null;
+	}
+	
 	public UnitLiteral findUnitLiteral(Property property, String name){
 		PropertyType propertyType = property.getPropertyType();
 		UnitsType unitsType= null;
