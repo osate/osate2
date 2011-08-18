@@ -751,7 +751,6 @@ ProcessorImplementation returns aadl2::ProcessorImplementation:
 	(=> 'connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
 	)+
 	| (noConnections?='none' ';')))?
 	(=> 'flows'
@@ -786,7 +785,6 @@ VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
 	(=> 'connections'
 	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
 	)+
 	| (noConnections?='none' ';')))?
 	(=> 'flows'
