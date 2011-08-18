@@ -34,13 +34,8 @@
     <module>org.osate.aadl2.modelsupport</module>
     <module>org.osate.annexsupport</module>
     <module>org.osate.branding</module>
-<<<<<<< HEAD
     <module>org.osate.build.product</module>
     <module>org.osate.build.target</module>
-=======
-    <module>org.osate.build.target</module>
-    <module>org.osate.build.tycho</module>
->>>>>>> 1a87e3f46c94d37951250bf4e1535db3685ddf1d
     <module>org.osate.contribution.sei</module>
     <module>org.osate.core</module>
     <module>org.osate.core.feature</module>
