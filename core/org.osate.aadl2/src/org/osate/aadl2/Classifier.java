@@ -343,7 +343,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
-	 * not self.allParents()->includes(self)
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
 	 * <!-- end-model-doc -->
@@ -357,7 +356,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A classifier may only specialize classifiers of a valid type.
-	 * self.parents()->forAll(c | self.maySpecializeType(c))
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
 	 * <!-- end-model-doc -->
@@ -371,7 +369,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
-	 * result = member->select(oclIsKindOf(Feature))
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = member->select(oclIsKindOf(Feature))'"
@@ -384,7 +381,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The inheritedMember association is derived by inheriting the inheritable members of the parents.
-	 * result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))'"
@@ -397,7 +393,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query parents() gives all of the immediate ancestors of a generalized Classifier.
-	 * result = general
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = general'"
@@ -410,7 +405,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
-	 * result = self.parents()->union(self.parents()->collect(p | p.allParents())
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = self.parents()->union(self.parents()->collect(p | p.allParents())'"
@@ -423,8 +417,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
-	 * c.allParents()->includes(self)
-	 * result = member->select(m | c.hasVisibilityOf(m))
 	 * <!-- end-model-doc -->
 	 * @model ordered="false" cRequired="true" cOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = member->select(m | c.hasVisibilityOf(m))'"
@@ -437,8 +429,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
-	 * self.allParents()->collect(c | c.member)->includes(n)
-	 * result = if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false" nRequired="true" nOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true'"
@@ -451,7 +441,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
-	 * result = inhs
 	 * <!-- end-model-doc -->
 	 * @model ordered="false" inhsMany="true" inhsOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = inhs'"
@@ -464,7 +453,6 @@ public interface Classifier extends Namespace, Type {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
-	 * result = self.oclIsKindOf(c.oclType)
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false" cRequired="true" cOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='result = self.oclIsKindOf(c.oclType)'"

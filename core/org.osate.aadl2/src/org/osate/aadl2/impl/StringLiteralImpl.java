@@ -215,5 +215,4 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 		return true;
 	}
 
-
 } //StringLiteralImpl

@@ -92,7 +92,6 @@ public class TypeOperations extends NamedElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query conformsTo() gives true for a type that conforms to another. By default, two types do not conform to each other. This query is intended to be redefined for specific conformance situations.
-	 * result = false
 	 * @param type The receiving '<em><b>Type</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

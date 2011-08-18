@@ -172,7 +172,8 @@ public class Aadl2Validator extends EObjectValidator {
 	}
 
 	/**
-	 * Calls <code>validateXXX</code> for the corresponding classifier of the model. <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * @generated
 	 */
 	protected boolean validateGen(int classifierID, Object value, DiagnosticChain diagnostics,
@@ -279,6 +280,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFlowSpecification((FlowSpecification) value, diagnostics, context);
 		case Aadl2Package.FLOW:
 			return validateFlow((Flow) value, diagnostics, context);
+		case Aadl2Package.MODAL_PATH:
+			return validateModalPath((ModalPath) value, diagnostics, context);
 		case Aadl2Package.FLOW_ELEMENT:
 			return validateFlowElement((FlowElement) value, diagnostics, context);
 		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
@@ -358,8 +361,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateModeBinding((ModeBinding) value, diagnostics, context);
 		case Aadl2Package.FLOW_IMPLEMENTATION:
 			return validateFlowImplementation((FlowImplementation) value, diagnostics, context);
-		case Aadl2Package.MODAL_PATH:
-			return validateModalPath((ModalPath) value, diagnostics, context);
 		case Aadl2Package.FLOW_SEGMENT:
 			return validateFlowSegment((FlowSegment) value, diagnostics, context);
 		case Aadl2Package.CONNECTION:
