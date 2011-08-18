@@ -388,5 +388,4 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 		return true;
 	}
 
-
 } //IntegerLiteralImpl

@@ -144,7 +144,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 */
 	public FeatureGroupType getFeatureGroupType() {
 		EObject featureGroupType = getFeatureType();
-		return (FeatureGroupType)(featureGroupType instanceof FeatureGroupType&& !featureGroupType.eIsProxy() ? featureGroupType : null);
+		return (FeatureGroupType) (featureGroupType instanceof FeatureGroupType && !featureGroupType.eIsProxy() ? featureGroupType
+				: null);
 	}
 
 	/**
@@ -163,7 +164,8 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 	 */
 	public FeatureGroupPrototype getFeatureGroupPrototype() {
 		EObject featureGroupType = getFeatureType();
-		return (FeatureGroupPrototype)(featureGroupType instanceof FeatureGroupPrototype&& !featureGroupType.eIsProxy() ? featureGroupType : null);
+		return (FeatureGroupPrototype) (featureGroupType instanceof FeatureGroupPrototype
+				&& !featureGroupType.eIsProxy() ? featureGroupType : null);
 	}
 
 	/**

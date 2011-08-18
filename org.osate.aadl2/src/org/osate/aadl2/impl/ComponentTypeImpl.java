@@ -373,9 +373,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	public ComponentType getExtended() {
 		ComponentType extended = basicGetExtended();
-		extended = extended != null && ((EObject) extended).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) extended)
-				: extended;
-		return extended != null && ((EObject) extended).eIsProxy() ? null //unresolved proxy
+		return extended != null && ((EObject) extended).eIsProxy() ? (ComponentType) eResolveProxy((InternalEObject) extended)
 				: extended;
 	}
 

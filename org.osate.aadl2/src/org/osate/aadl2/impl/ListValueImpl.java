@@ -193,10 +193,7 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((ownedListElements == null) ? 0 : ownedListElements
-						.hashCode());
+		result = prime * result + ((ownedListElements == null) ? 0 : ownedListElements.hashCode());
 		return result;
 	}
 
@@ -216,6 +213,5 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 			return false;
 		return true;
 	}
-
 
 } //ListValueImpl
