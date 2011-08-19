@@ -199,7 +199,7 @@
       </actionSet>
    </extension>
    
-   <extension
+   <!--extension
          point="org.eclipse.ui.propertyPages">
       <page
             id="edu.cmu.sei.osate.ui.preferences.ProjectPropertyPage"
@@ -215,7 +215,7 @@
             </instanceof>
          </enabledWhen>
       </page>
-   </extension>
+   </extension-->
    
    <extension
          point="org.eclipse.ui.preferencePages">
