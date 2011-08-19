@@ -668,14 +668,18 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	public final List<PropertyExpression> getPropertyValueList(final Property property) throws InvalidModelException,
 			IllegalArgumentException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException {
-		PropertyExpression pe = this.getNonModalPropertyValue(property);
-		if (pe instanceof ListValue) {
-			return ((ListValue) pe).getOwnedListElements();
-		} else {
-			List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
+		try {
+			PropertyExpression pe = this.getNonModalPropertyValue(property);
+			if (pe instanceof ListValue) {
+				return ((ListValue) pe).getOwnedListElements();
+			} else {
+				List<PropertyExpression> pes = new BasicEList<PropertyExpression>();
 
-			pes.add(pe);
-			return pes;
+				pes.add(pe);
+				return pes;
+			}
+		} catch (Exception e) {
+			return Collections.EMPTY_LIST;
 		}
 	}
 
