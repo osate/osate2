@@ -2156,7 +2156,7 @@ public class AadlBaTypeChecker
         			                             (FeaturePrototypeBinding) el) ;
          }
         	 
-    	   String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
+    	 String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
          String typeFound = ((Enumerator) testedEnum).getLiteral();
          reportTypeError(bel, name, expectedTypes, typeFound) ;
       }

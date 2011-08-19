@@ -1054,8 +1054,8 @@ public class AadlBaNameResolver
    }
 
    private boolean featurePrototypeResolver(Identifier id,
-		                             ComponentClassifier component,
-		                             boolean hasToReport)
+		                             		ComponentClassifier component,
+		                             		boolean hasToReport)
    {
       String nameToFind = id.getId() ;
 
@@ -1063,7 +1063,7 @@ public class AadlBaNameResolver
             (component, nameToFind);
       
       // first: try to find any prototype binding that matches the given
-      // identifier.
+      // identifier. Prototype binding means prototype refining.
       if(pb != null)
       {
          id.setAadlRef(pb);
