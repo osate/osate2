@@ -65,7 +65,7 @@
             <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
               <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
             </elements>
-            <elements xsi:type="xtext:Keyword" predicated="true" value=","/>
+            <elements xsi:type="xtext:Keyword" value=","/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
@@ -77,7 +77,7 @@
         </elements>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="applies"/>
+        <elements xsi:type="xtext:Keyword" value="applies"/>
         <elements xsi:type="xtext:Keyword" value="to"/>
         <elements xsi:type="xtext:Assignment" feature="appliesTo" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.4"/>
@@ -121,7 +121,7 @@
             <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
               <terminal xsi:type="xtext:RuleCall" rule="//@rules.5"/>
             </elements>
-            <elements xsi:type="xtext:Keyword" predicated="true" value=","/>
+            <elements xsi:type="xtext:Keyword" value=","/>
           </elements>
           <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="//@rules.6"/>
@@ -164,7 +164,7 @@
       <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="=">
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
       </elements>
-      <elements xsi:type="xtext:Keyword" predicated="true" value="in"/>
+      <elements xsi:type="xtext:Keyword" value="in"/>
       <elements xsi:type="xtext:Keyword" value="modes"/>
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="inMode" operator="+=">
@@ -237,11 +237,11 @@
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.21"/>
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.20"/>
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.23"/>
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.22"/>
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.33"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.21"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.20"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.23"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.22"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.33"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.41"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
@@ -752,7 +752,7 @@
         <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="?">
-        <elements xsi:type="xtext:Keyword" predicated="true" value="delta"/>
+        <elements xsi:type="xtext:Keyword" value="delta"/>
         <elements xsi:type="xtext:Assignment" feature="delta" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.42"/>
         </elements>
@@ -764,7 +764,7 @@
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" predicated="true" rule="//@rules.39"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.39"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.37"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.36"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.19"/>

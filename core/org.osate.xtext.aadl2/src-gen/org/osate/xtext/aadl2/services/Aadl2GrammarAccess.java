@@ -48,11 +48,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNamePNAMEParserRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
 		private final Group cGroup_2_0 = (Group)cAlternatives_2.eContents().get(0);
-		private final Group cGroup_2_0_0 = (Group)cGroup_2_0.eContents().get(0);
-		private final Assignment cOwnedPublicSectionAssignment_2_0_0_0 = (Assignment)cGroup_2_0_0.eContents().get(0);
-		private final RuleCall cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0 = (RuleCall)cOwnedPublicSectionAssignment_2_0_0_0.eContents().get(0);
-		private final Assignment cOwnedPrivateSectionAssignment_2_0_0_1 = (Assignment)cGroup_2_0_0.eContents().get(1);
-		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_0_0_1.eContents().get(0);
+		private final Assignment cOwnedPublicSectionAssignment_2_0_0 = (Assignment)cGroup_2_0.eContents().get(0);
+		private final RuleCall cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0 = (RuleCall)cOwnedPublicSectionAssignment_2_0_0.eContents().get(0);
+		private final Assignment cOwnedPrivateSectionAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
+		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_0_1.eContents().get(0);
 		private final Assignment cOwnedPrivateSectionAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
@@ -70,12 +69,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
 		////;
 		//AadlPackage returns aadl2::AadlPackage:
-		//	"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
+		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//	"end" ID ("::" ID)* ";";
 		public ParserRule getRule() { return rule; }
 
-		//"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
+		//"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 		//ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 		//"end" ID ("::" ID)* ";"
 		public Group getGroup() { return cGroup; }
@@ -89,27 +88,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PNAME
 		public RuleCall getNamePNAMEParserRuleCall_1_0() { return cNamePNAMEParserRuleCall_1_0; }
 
-		//=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
+		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 		//ownedPrivateSection=PrivatePackageSection
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?)
+		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?
-		public Group getGroup_2_0_0() { return cGroup_2_0_0; }
-
 		//ownedPublicSection=PublicPackageSection
-		public Assignment getOwnedPublicSectionAssignment_2_0_0_0() { return cOwnedPublicSectionAssignment_2_0_0_0; }
+		public Assignment getOwnedPublicSectionAssignment_2_0_0() { return cOwnedPublicSectionAssignment_2_0_0; }
 
 		//PublicPackageSection
-		public RuleCall getOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0() { return cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0_0; }
+		public RuleCall getOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0() { return cOwnedPublicSectionPublicPackageSectionParserRuleCall_2_0_0_0; }
 
 		//ownedPrivateSection=PrivatePackageSection?
-		public Assignment getOwnedPrivateSectionAssignment_2_0_0_1() { return cOwnedPrivateSectionAssignment_2_0_0_1; }
+		public Assignment getOwnedPrivateSectionAssignment_2_0_1() { return cOwnedPrivateSectionAssignment_2_0_1; }
 
 		//PrivatePackageSection
-		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_0_1_0; }
+		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0; }
 
 		//ownedPrivateSection=PrivatePackageSection
 		public Assignment getOwnedPrivateSectionAssignment_2_1() { return cOwnedPrivateSectionAssignment_2_1; }
@@ -117,10 +113,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PrivatePackageSection
 		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0; }
 
-		//(=> "properties" ownedPropertyAssociation+=BasicPropertyAssociation+)?
+		//("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_3_0() { return cPropertiesKeyword_3_0; }
 
 		//ownedPropertyAssociation+=BasicPropertyAssociation+
@@ -198,16 +194,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"public"
 		public Keyword getPublicKeyword_1() { return cPublicKeyword_1; }
 
-		//(=> "with" importedUnit+=[aadl2::ModelUnit|PNAME] //AadlPackage or PropertySet 
+		//("with" importedUnit+=[aadl2::ModelUnit|PNAME] //AadlPackage or PropertySet 
 		//("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
 		//ownedPackageRename+=PackageRenameAll | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//=> "with" importedUnit+=[aadl2::ModelUnit|PNAME] //AadlPackage or PropertySet 
+		//"with" importedUnit+=[aadl2::ModelUnit|PNAME] //AadlPackage or PropertySet 
 		//("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";"
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//=> "with"
+		//"with"
 		public Keyword getWithKeyword_2_0_0() { return cWithKeyword_2_0_0; }
 
 		//importedUnit+=[aadl2::ModelUnit|PNAME]
@@ -327,16 +323,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"private"
 		public Keyword getPrivateKeyword_1() { return cPrivateKeyword_1; }
 
-		//(=> "with" importedUnit+=[aadl2::ModelUnit|PNAME] // AadlPackage or PropertySet 
+		//("with" importedUnit+=[aadl2::ModelUnit|PNAME] // AadlPackage or PropertySet 
 		//("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
 		//ownedPackageRename+=PackageRenameAll | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
-		//=> "with" importedUnit+=[aadl2::ModelUnit|PNAME] // AadlPackage or PropertySet 
+		//"with" importedUnit+=[aadl2::ModelUnit|PNAME] // AadlPackage or PropertySet 
 		//("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";"
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
-		//=> "with"
+		//"with"
 		public Keyword getWithKeyword_2_0_0() { return cWithKeyword_2_0_0; }
 
 		//importedUnit+=[aadl2::ModelUnit|PNAME]
@@ -828,12 +824,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDeviceTypeParserRuleCall_12 = (RuleCall)cAlternatives.eContents().get(12);
 		private final RuleCall cSubprogramTypeParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		
-		////	(=> 'flows'
+		////	('flows'
 		////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-		////	(=> 'requires' 'modes'
+		////	('requires' 'modes'
 		////	((ownedMode+=RequiresMode)+))?
-		////	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-		////	(=> 'properties'
+		////	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+		////	('properties'
 		////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 		////	| (noProperties?='none' ';')))?
 		////	(ownedAnnexSubclause+=AnnexSubclause)*
@@ -1028,10 +1024,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -1055,10 +1051,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -1082,13 +1078,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 		//| ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -1169,10 +1165,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_8_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_8_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -1196,10 +1192,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -1211,10 +1207,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -1247,10 +1243,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -1428,10 +1424,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -1455,10 +1451,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -1482,13 +1478,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_3_1_1_1() { return cSemicolonKeyword_3_1_1_1; }
 
-		//(=> "features" ((ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//("features" ((ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+ | noFeatures?="none" ";"))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -1569,10 +1565,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_4_1_1_1() { return cSemicolonKeyword_4_1_1_1; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -1596,10 +1592,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -1611,10 +1607,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -1647,10 +1643,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -1826,10 +1822,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -1853,10 +1849,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -1880,13 +1876,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -1959,10 +1955,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -1986,10 +1982,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -2001,10 +1997,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -2037,10 +2033,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -2220,10 +2216,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_3_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_3_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -2247,10 +2243,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_4_0() { return cPrototypesKeyword_4_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -2274,13 +2270,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_5_0() { return cFeaturesKeyword_5_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -2353,10 +2349,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_6_0() { return cFlowsKeyword_6_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -2380,10 +2376,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_7_0() { return cRequiresKeyword_7_0; }
 
 		//"modes"
@@ -2395,10 +2391,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_7_2_0() { return cOwnedModeRequiresModeParserRuleCall_7_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_8_0() { return cModesKeyword_8_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -2431,10 +2427,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_9_0() { return cPropertiesKeyword_9_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -2610,10 +2606,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -2637,10 +2633,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -2664,13 +2660,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -2743,10 +2739,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -2770,10 +2766,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -2785,10 +2781,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -2821,10 +2817,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -3000,10 +2996,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -3027,10 +3023,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -3054,13 +3050,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedParameter+=Parameter | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedParameter+=Parameter | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//noFeatures?="none" ";" | (ownedParameter+=Parameter | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -3133,10 +3129,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -3160,10 +3156,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -3175,10 +3171,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -3211,10 +3207,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -3363,10 +3359,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_3_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_3_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -3390,10 +3386,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_4_0() { return cPrototypesKeyword_4_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -3417,11 +3413,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedSubprogramAccess+=SubprogramAccess | ownedFeatureGroup+=FeatureGroup |
+		//("features" (noFeatures?="none" ";" | (ownedSubprogramAccess+=SubprogramAccess | ownedFeatureGroup+=FeatureGroup |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_5_0() { return cFeaturesKeyword_5_0; }
 
 		//noFeatures?="none" ";" | (ownedSubprogramAccess+=SubprogramAccess | ownedFeatureGroup+=FeatureGroup |
@@ -3468,10 +3464,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_3_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_3_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_6_0() { return cFlowsKeyword_6_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -3495,10 +3491,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_7_0() { return cPropertiesKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -3663,10 +3659,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -3690,13 +3686,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -3769,10 +3765,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_4_0() { return cFlowsKeyword_4_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -3796,10 +3792,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_4_1_1_1() { return cSemicolonKeyword_4_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_5_0() { return cRequiresKeyword_5_0; }
 
 		//"modes"
@@ -3811,10 +3807,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_5_2_0() { return cOwnedModeRequiresModeParserRuleCall_5_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_6_0() { return cModesKeyword_6_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -3847,10 +3843,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_7_0() { return cPropertiesKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -4015,10 +4011,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -4042,13 +4038,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -4121,10 +4117,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_4_0() { return cFlowsKeyword_4_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -4148,10 +4144,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_4_1_1_1() { return cSemicolonKeyword_4_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_5_0() { return cRequiresKeyword_5_0; }
 
 		//"modes"
@@ -4163,10 +4159,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_5_2_0() { return cOwnedModeRequiresModeParserRuleCall_5_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_6_0() { return cModesKeyword_6_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -4199,10 +4195,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_6_1_1_1() { return cSemicolonKeyword_6_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_7_0() { return cPropertiesKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -4344,10 +4340,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -4371,11 +4367,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 		//| ownedBusAccess+=BusAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
 
 		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
@@ -4416,10 +4412,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_2_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_2_0; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_4_0() { return cRequiresKeyword_4_0; }
 
 		//"modes"
@@ -4431,10 +4427,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_4_2_0() { return cOwnedModeRequiresModeParserRuleCall_4_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_5_0() { return cModesKeyword_5_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -4467,10 +4463,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_6_0() { return cPropertiesKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -4612,10 +4608,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -4639,11 +4635,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 		//| ownedBusAccess+=BusAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
 
 		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup // to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
@@ -4684,10 +4680,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_2_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_2_0; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_4_0() { return cRequiresKeyword_4_0; }
 
 		//"modes"
@@ -4699,10 +4695,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_4_2_0() { return cOwnedModeRequiresModeParserRuleCall_4_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_5_0() { return cModesKeyword_5_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -4735,10 +4731,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_6_0() { return cPropertiesKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -4866,10 +4862,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_3_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_3_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -4893,10 +4889,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_4_0() { return cRequiresKeyword_4_0; }
 
 		//"modes"
@@ -4908,10 +4904,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_4_2_0() { return cOwnedModeRequiresModeParserRuleCall_4_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_5_0() { return cModesKeyword_5_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -4944,10 +4940,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_6_0() { return cPropertiesKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -5114,10 +5110,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_3_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_3_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -5141,12 +5137,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
 
 		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -5213,10 +5209,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_6_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_6_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_5_0() { return cFlowsKeyword_5_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -5240,10 +5236,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_5_1_1_1() { return cSemicolonKeyword_5_1_1_1; }
 
-		//(=> "requires" "modes" ownedMode+=RequiresMode+)?
+		//("requires" "modes" ownedMode+=RequiresMode+)?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "requires"
+		//"requires"
 		public Keyword getRequiresKeyword_6_0() { return cRequiresKeyword_6_0; }
 
 		//"modes"
@@ -5255,10 +5251,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//RequiresMode
 		public RuleCall getOwnedModeRequiresModeParserRuleCall_6_2_0() { return cOwnedModeRequiresModeParserRuleCall_6_2_0; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_7_0() { return cModesKeyword_7_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -5291,10 +5287,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_8_0() { return cPropertiesKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -5430,10 +5426,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//TypeExtension
 		public RuleCall getOwnedExtensionTypeExtensionParserRuleCall_2_0_0() { return cOwnedExtensionTypeExtensionParserRuleCall_2_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -5457,11 +5453,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
 
 		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
@@ -5508,10 +5504,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_3_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_3_0; }
 
-		//(=> "flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
+		//("flows" (ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_4_0() { return cFlowsKeyword_4_0; }
 
 		//ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"
@@ -5535,10 +5531,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_4_1_1_1() { return cSemicolonKeyword_4_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_5_0() { return cPropertiesKeyword_5_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -5597,19 +5593,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cDataImplementationParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		
 		//// Component Implementations: add calls for threads and subprograms
-		////	(=> 'connections'
+		////	('connections'
 		////	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 		////	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
 		////	| ownedParameterConnection+=ParameterConnection
 		////	)+
 		////	| (noConnections?='none' ';')))?
-		////	(=> 'flows'
+		////	('flows'
 		////		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
 		////	(noFlows?='none' ';')))?
-		////	(=> 'modes'
+		////	('modes'
 		////	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 		////	| (noModes?='none' ';')))?
-		////	(=> 'properties'
+		////	('properties'
 		////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 		////	| (noProperties?='none' ';')))?
 		////	(ownedAnnexSubclause+=AnnexSubclause)*
@@ -5894,10 +5890,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -5921,10 +5917,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -5948,8 +5944,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedSystemSubcomponent+=SystemSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent
-		//| ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
+		//("subcomponents" ((ownedSystemSubcomponent+=SystemSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
+		//ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
 		//ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedProcessSubcomponent+=ProcessSubcomponent |
 		//ownedProcessorSubcomponent+=ProcessorSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent |
 		//ownedMemorySubcomponent+=MemorySubcomponent | ownedDeviceSubcomponent+=DeviceSubcomponent |
@@ -5958,7 +5954,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedSystemSubcomponent+=SystemSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
@@ -6076,10 +6072,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
+		//("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "calls"
+		//"calls"
 		public Keyword getCallsKeyword_9_0() { return cCallsKeyword_9_0; }
 
 		//ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
@@ -6103,12 +6099,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -6163,11 +6159,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -6207,10 +6203,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -6243,10 +6239,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -6479,10 +6475,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -6506,10 +6502,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -6646,12 +6642,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -6706,11 +6702,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_10_0() { return cFlowsKeyword_10_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -6750,10 +6746,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_11_0() { return cModesKeyword_11_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -6786,10 +6782,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_12_0() { return cPropertiesKeyword_12_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -7004,10 +7000,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -7031,10 +7027,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -7058,13 +7054,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent |
-		//ownedThreadSubcomponent+=ThreadSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
-		//ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
-		//ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none" ";"))?
+		//("subcomponents" ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
+		//ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
+		//ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
+		//";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
@@ -7126,12 +7122,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -7186,11 +7182,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_10_0() { return cFlowsKeyword_10_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -7230,10 +7226,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_11_0() { return cModesKeyword_11_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -7266,10 +7262,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_12_0() { return cPropertiesKeyword_12_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -7488,10 +7484,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_6_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_6_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_7_0() { return cLeftParenthesisKeyword_7_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -7515,10 +7511,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7_3() { return cRightParenthesisKeyword_7_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_8_0() { return cPrototypesKeyword_8_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -7542,13 +7538,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "subcomponents" ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent |
-		//ownedThreadSubcomponent+=ThreadSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent |
-		//ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
-		//ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none" ";"))?
+		//("subcomponents" ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
+		//ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
+		//ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none"
+		//";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_9_0() { return cSubcomponentsKeyword_9_0; }
 
 		//(ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent |
@@ -7610,12 +7606,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -7670,11 +7666,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -7714,10 +7710,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -7750,10 +7746,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -7973,10 +7969,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -8000,10 +7996,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -8027,12 +8023,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent |
+		//("subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent |
 		//ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
 		//ownedAbstractSubcomponent+=AbstractSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent |
@@ -8080,10 +8076,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
+		//("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "calls"
+		//"calls"
 		public Keyword getCallsKeyword_9_0() { return cCallsKeyword_9_0; }
 
 		//ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
@@ -8107,12 +8103,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -8167,11 +8163,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -8211,10 +8207,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -8247,10 +8243,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -8464,10 +8460,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -8491,10 +8487,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -8518,11 +8514,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ |
 		//noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?="none"
@@ -8556,10 +8552,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
+		//("calls" (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "calls"
+		//"calls"
 		public Keyword getCallsKeyword_9_0() { return cCallsKeyword_9_0; }
 
 		//ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?="none" ";"
@@ -8583,12 +8579,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -8643,11 +8639,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -8687,10 +8683,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -8723,10 +8719,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -8901,10 +8897,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_6_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_6_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_7_0() { return cLeftParenthesisKeyword_7_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -8928,10 +8924,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7_3() { return cRightParenthesisKeyword_7_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_8_0() { return cPrototypesKeyword_8_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -8955,12 +8951,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent // allow-errata:  |ownedDataSubcomponent+=DataSubcomponent 
+		//("subcomponents" ((ownedSubprogramSubcomponent+=SubprogramSubcomponent // allow-errata:  |ownedDataSubcomponent+=DataSubcomponent 
 		//| ownedAbstractSubcomponent+=AbstractSubcomponent | ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent)+ |
 		//noSubcomponents?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_9_0() { return cSubcomponentsKeyword_9_0; }
 
 		//(ownedSubprogramSubcomponent+=SubprogramSubcomponent // allow-errata:  |ownedDataSubcomponent+=DataSubcomponent 
@@ -9002,11 +8998,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
+		//("connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
 		//ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
@@ -9047,10 +9043,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_11_0() { return cPropertiesKeyword_11_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -9260,10 +9256,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -9287,10 +9283,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -9314,12 +9310,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent |
+		//("subcomponents" ((ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent |
 		//ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent |
 		//ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent |
@@ -9374,12 +9370,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
 		//noConnections?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -9427,11 +9423,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_10_0() { return cFlowsKeyword_10_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -9471,10 +9467,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_11_0() { return cModesKeyword_11_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -9507,10 +9503,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_12_0() { return cPropertiesKeyword_12_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -9720,10 +9716,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_6_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_6_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_7_0() { return cLeftParenthesisKeyword_7_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -9747,10 +9743,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7_3() { return cRightParenthesisKeyword_7_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_8_0() { return cPrototypesKeyword_8_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -9774,12 +9770,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
-		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)+
-		//| noSubcomponents?="none" ";"))?
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
+		//| ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_9_0() { return cSubcomponentsKeyword_9_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent |
@@ -9820,12 +9815,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ |
 		//noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -9873,11 +9868,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -9917,10 +9912,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -9953,10 +9948,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -10165,10 +10160,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -10192,10 +10187,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -10219,12 +10214,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
 		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | noSubcomponents?="none"
 		//";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
@@ -10272,12 +10267,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
+		//("connections" ((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
 		//ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection |
 		//ownedParameterConnection+=ParameterConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 
 		//(ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection |
@@ -10332,11 +10327,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_10_0() { return cFlowsKeyword_10_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -10376,10 +10371,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_11_0() { return cModesKeyword_11_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -10412,10 +10407,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_12_0() { return cPropertiesKeyword_12_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -10600,10 +10595,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -10627,10 +10622,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -10654,11 +10649,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent |
 		//ownedBusSubcomponent+=BusSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent |
@@ -10699,11 +10694,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
+		//("connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
 		//ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_9_0() { return cConnectionsKeyword_9_0; }
 
 		//(ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
@@ -10744,10 +10739,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_10_0() { return cModesKeyword_10_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -10780,10 +10775,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_11_0() { return cPropertiesKeyword_11_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -10946,10 +10941,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_5_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_5_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_6_0() { return cLeftParenthesisKeyword_6_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -10973,10 +10968,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_6_3() { return cRightParenthesisKeyword_6_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_7_0() { return cPrototypesKeyword_7_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -11000,11 +10995,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_7_1_1_1() { return cSemicolonKeyword_7_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
 		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_8_0() { return cSubcomponentsKeyword_8_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ |
@@ -11038,10 +11033,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_9_0() { return cModesKeyword_9_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -11074,10 +11069,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_10_0() { return cPropertiesKeyword_10_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -11244,10 +11239,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_6_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_6_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_7_0() { return cLeftParenthesisKeyword_7_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -11271,10 +11266,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7_3() { return cRightParenthesisKeyword_7_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_8_0() { return cPrototypesKeyword_8_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -11298,11 +11293,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent |
 		//ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_9_0() { return cSubcomponentsKeyword_9_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ |
@@ -11336,10 +11331,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_10_0() { return cModesKeyword_10_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -11372,10 +11367,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_11_0() { return cPropertiesKeyword_11_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -11580,10 +11575,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ImplementationExtension
 		public RuleCall getOwnedExtensionImplementationExtensionParserRuleCall_6_0() { return cOwnedExtensionImplementationExtensionParserRuleCall_6_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_7_0() { return cLeftParenthesisKeyword_7_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -11607,10 +11602,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7_3() { return cRightParenthesisKeyword_7_3; }
 
-		//(=> "prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
+		//("prototypes" (ownedPrototype+=Prototype+ | noPrototypes?="none" ";"))?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_8_0() { return cPrototypesKeyword_8_0; }
 
 		//ownedPrototype+=Prototype+ | noPrototypes?="none" ";"
@@ -11634,11 +11629,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_8_1_1_1() { return cSemicolonKeyword_8_1_1_1; }
 
-		//(=> "subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
+		//("subcomponents" ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
 		//ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | noSubcomponents?="none" ";"))?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "subcomponents"
+		//"subcomponents"
 		public Keyword getSubcomponentsKeyword_9_0() { return cSubcomponentsKeyword_9_0; }
 
 		//(ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent |
@@ -11679,11 +11674,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_9_1_1_1() { return cSemicolonKeyword_9_1_1_1; }
 
-		//(=> "connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
+		//("connections" ((ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
 		//ownedFeatureConnection+=FeatureConnection)+ | noConnections?="none" ";"))?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "connections"
+		//"connections"
 		public Keyword getConnectionsKeyword_10_0() { return cConnectionsKeyword_10_0; }
 
 		//(ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection |
@@ -11724,11 +11719,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_10_1_1_1() { return cSemicolonKeyword_10_1_1_1; }
 
-		//(=> "flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+
-		//| noFlows?="none" ";"))?
+		//("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
+		//noFlows?="none" ";"))?
 		public Group getGroup_11() { return cGroup_11; }
 
-		//=> "flows"
+		//"flows"
 		public Keyword getFlowsKeyword_11_0() { return cFlowsKeyword_11_0; }
 
 		//(ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=(EndToEndFlow | EndToEndFlowRefinement))+ |
@@ -11768,10 +11763,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_11_1_1_1() { return cSemicolonKeyword_11_1_1_1; }
 
-		//(=> "modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
+		//("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))?
 		public Group getGroup_12() { return cGroup_12; }
 
-		//=> "modes"
+		//"modes"
 		public Keyword getModesKeyword_12_0() { return cModesKeyword_12_0; }
 
 		//(ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"
@@ -11804,10 +11799,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_12_1_1_1() { return cSemicolonKeyword_12_1_1_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_13() { return cGroup_13; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_13_0() { return cPropertiesKeyword_13_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -11912,10 +11907,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -11927,10 +11922,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
+		//("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -12014,17 +12009,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//CallSpecification returns aadl2::CallSpecification:
 		//	({aadl2::ProcessorCall} name=ID ":" "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall}
-		//	name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
+		//	name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] |
 		//	calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//({aadl2::ProcessorCall} name=ID ":" "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall}
-		//name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
+		//name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] |
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ProcessorCall} name=ID ":" "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall}
-		//name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
+		//name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] |
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME])
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
@@ -12058,7 +12053,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getSubprogramAccessNameIDTerminalRuleCall_0_0_6_0() { return cSubprogramAccessNameIDTerminalRuleCall_0_0_6_0; }
 
-		//{aadl2::SubprogramCall} name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] => "."
+		//{aadl2::SubprogramCall} name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "."
 		//calledSubprogram=[aadl2::CalledSubprogram] | calledSubprogram=[aadl2::CalledSubprogram|PNAME])
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
@@ -12077,11 +12072,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"subprogram"
 		public Keyword getSubprogramKeyword_0_1_3() { return cSubprogramKeyword_0_1_3; }
 
-		//context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
+		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] |
 		//calledSubprogram=[aadl2::CalledSubprogram|PNAME]
 		public Alternatives getAlternatives_0_1_4() { return cAlternatives_0_1_4; }
 
-		//context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram]
+		//context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram]
 		public Group getGroup_0_1_4_0() { return cGroup_0_1_4_0; }
 
 		//context=[aadl2::CallContext|PNAME]
@@ -12093,7 +12088,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PNAME
 		public RuleCall getContextCallContextPNAMEParserRuleCall_0_1_4_0_0_0_1() { return cContextCallContextPNAMEParserRuleCall_0_1_4_0_0_0_1; }
 
-		//=> "."
+		//"."
 		public Keyword getFullStopKeyword_0_1_4_0_1() { return cFullStopKeyword_0_1_4_0_1; }
 
 		//calledSubprogram=[aadl2::CalledSubprogram]
@@ -12114,10 +12109,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PNAME
 		public RuleCall getCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_1_4_1_0_1() { return cCalledSubprogramCalledSubprogramPNAMEParserRuleCall_0_1_4_1_0_1; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -12227,10 +12222,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FeaturePrototype
 		public RuleCall getFeaturePrototypeParserRuleCall_0_15() { return cFeaturePrototypeParserRuleCall_0_15; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_1_0() { return cLeftCurlyBracketKeyword_1_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -13785,10 +13780,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cActualFeatureGroupPrototypeActualParserRuleCall_4_0 = (RuleCall)cActualAssignment_4.eContents().get(0);
 		
 		//FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
-		//	formal=[aadl2::Prototype] "=>" "feature" => "group" actual=FeatureGroupPrototypeActual;
+		//	formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual;
 		public ParserRule getRule() { return rule; }
 
-		//formal=[aadl2::Prototype] "=>" "feature" => "group" actual=FeatureGroupPrototypeActual
+		//formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual
 		public Group getGroup() { return cGroup; }
 
 		//formal=[aadl2::Prototype]
@@ -13806,7 +13801,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"feature"
 		public Keyword getFeatureKeyword_2() { return cFeatureKeyword_2; }
 
-		//=> "group"
+		//"group"
 		public Keyword getGroupKeyword_3() { return cGroupKeyword_3; }
 
 		//actual=FeatureGroupPrototypeActual
@@ -13848,10 +13843,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getFeatureTypeFeatureTypeQCREFParserRuleCall_0_0_1() { return cFeatureTypeFeatureTypeQCREFParserRuleCall_0_0_1; }
 
-		//(=> "(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?
+		//("(" binding+=PrototypeBinding ("," binding+=PrototypeBinding)* ")")?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_1_0() { return cLeftParenthesisKeyword_1_0; }
 
 		//binding+=PrototypeBinding
@@ -13939,10 +13934,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////TODO MM change -  then allow reference to prototype for classifier reference	
 		//// TODO how about binding with classifier
 		//PortSpecification returns aadl2::PortSpecification:
-		//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
+		//	direction=PortDirection category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?
+		//direction=PortDirection category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
 		//direction=PortDirection
@@ -13957,7 +13952,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PortCategory
 		public RuleCall getCategoryPortCategoryParserRuleCall_1_0() { return cCategoryPortCategoryParserRuleCall_1_0; }
 
-		//=> "port"
+		//"port"
 		public Keyword getPortKeyword_2() { return cPortKeyword_2; }
 
 		//classifier=[aadl2::ComponentClassifier|QCREF]?
@@ -13983,10 +13978,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_3_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_3_0.eContents().get(1);
 		
 		//AccessSpecification returns aadl2::AccessSpecification:
-		//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
+		//	kind=AccessDirection category=AccessCategory "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
 		public ParserRule getRule() { return rule; }
 
-		//kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?
+		//kind=AccessDirection category=AccessCategory "access" classifier=[aadl2::ComponentClassifier|QCREF]?
 		public Group getGroup() { return cGroup; }
 
 		//kind=AccessDirection
@@ -14001,7 +13996,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AccessCategory
 		public RuleCall getCategoryAccessCategoryParserRuleCall_1_0() { return cCategoryAccessCategoryParserRuleCall_1_0; }
 
-		//=> "access"
+		//"access"
 		public Keyword getAccessKeyword_2() { return cAccessKeyword_2; }
 
 		//classifier=[aadl2::ComponentClassifier|QCREF]?
@@ -14025,10 +14020,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPrototypeFeaturePrototypeIDTerminalRuleCall_2_0_1 = (RuleCall)cPrototypeFeaturePrototypeCrossReference_2_0.eContents().get(1);
 		
 		//FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-		//	direction=InOutDirection => "feature" prototype=[aadl2::FeaturePrototype];
+		//	direction=InOutDirection "feature" prototype=[aadl2::FeaturePrototype];
 		public ParserRule getRule() { return rule; }
 
-		//direction=InOutDirection => "feature" prototype=[aadl2::FeaturePrototype]
+		//direction=InOutDirection "feature" prototype=[aadl2::FeaturePrototype]
 		public Group getGroup() { return cGroup; }
 
 		//direction=InOutDirection
@@ -14037,7 +14032,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//InOutDirection
 		public RuleCall getDirectionInOutDirectionParserRuleCall_0_0() { return cDirectionInOutDirectionParserRuleCall_0_0; }
 
-		//=> "feature"
+		//"feature"
 		public Keyword getFeatureKeyword_1() { return cFeatureKeyword_1; }
 
 		//prototype=[aadl2::FeaturePrototype]
@@ -14333,10 +14328,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cAbstractSubcomponentTypeAbstractSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -14370,11 +14365,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -14398,10 +14393,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -14413,10 +14408,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -14595,10 +14590,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cSystemSubcomponentTypeSystemSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -14632,11 +14627,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -14660,10 +14655,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -14675,10 +14670,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -14857,10 +14852,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cProcessSubcomponentTypeProcessSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -14894,11 +14889,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -14922,10 +14917,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -14937,10 +14932,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -15123,10 +15118,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -15160,11 +15155,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_4_1_0() { return cLeftParenthesisKeyword_4_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -15188,10 +15183,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -15203,10 +15198,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -15385,10 +15380,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cThreadSubcomponentTypeThreadSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -15422,11 +15417,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -15450,10 +15445,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -15465,10 +15460,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -15647,10 +15642,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cSubprogramSubcomponentTypeSubprogramSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -15684,11 +15679,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -15712,10 +15707,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -15727,10 +15722,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -15913,10 +15908,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -15950,11 +15945,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_4_1_0() { return cLeftParenthesisKeyword_4_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -15978,10 +15973,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -15993,10 +15988,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -16175,10 +16170,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cProcessorSubcomponentTypeProcessorSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -16212,11 +16207,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -16240,10 +16235,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -16255,10 +16250,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -16441,10 +16436,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1() { return cVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeQCREFParserRuleCall_3_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -16478,11 +16473,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_4_1_0() { return cLeftParenthesisKeyword_4_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -16506,10 +16501,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -16521,10 +16516,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -16703,10 +16698,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cDeviceSubcomponentTypeDeviceSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -16740,11 +16735,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -16768,10 +16763,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -16783,10 +16778,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -16965,10 +16960,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cMemorySubcomponentTypeMemorySubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -17002,11 +16997,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -17030,10 +17025,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -17045,10 +17040,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -17227,10 +17222,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cBusSubcomponentTypeBusSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -17264,11 +17259,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -17292,10 +17287,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -17307,10 +17302,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
 
 		//"modes"
@@ -17493,10 +17488,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getVirtualBusSubcomponentTypeVirtualBusClassifierQCREFParserRuleCall_3_0_0_1() { return cVirtualBusSubcomponentTypeVirtualBusClassifierQCREFParserRuleCall_3_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -17530,11 +17525,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0_0; }
 
-		//(=> "(" implementationReference+=ComponentImplementationReference (","
+		//("(" implementationReference+=ComponentImplementationReference (","
 		//implementationReference+=ComponentImplementationReference)* ")")?
 		public Group getGroup_4_1() { return cGroup_4_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_4_1_0() { return cLeftParenthesisKeyword_4_1_0; }
 
 		//implementationReference+=ComponentImplementationReference
@@ -17558,10 +17553,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_4_1_3() { return cRightParenthesisKeyword_4_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -17573,10 +17568,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -17738,10 +17733,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1() { return cDataSubcomponentTypeDataSubcomponentTypeQCREFParserRuleCall_2_0_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_1_0() { return cLeftParenthesisKeyword_2_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -17765,10 +17760,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3_0() { return cLeftCurlyBracketKeyword_3_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -17780,10 +17775,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_3_2() { return cRightCurlyBracketKeyword_3_2; }
 
-		//(=> "in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)* | allModes?="all") ")")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_4_0() { return cInKeyword_4_0; }
 
 		//"modes"
@@ -17939,10 +17934,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getImplementationComponentImplementationQCREFParserRuleCall_1_0_1() { return cImplementationComponentImplementationQCREFParserRuleCall_1_0_1; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -18078,10 +18073,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_6_0() { return cArrayDimensionArrayDimensionParserRuleCall_6_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18210,10 +18205,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_7_0() { return cArrayDimensionArrayDimensionParserRuleCall_7_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18324,10 +18319,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18467,10 +18462,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_6_0() { return cArrayDimensionArrayDimensionParserRuleCall_6_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18587,10 +18582,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18712,10 +18707,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18840,10 +18835,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_6_0() { return cArrayDimensionArrayDimensionParserRuleCall_6_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -18964,10 +18959,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -19088,10 +19083,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_5_0() { return cArrayDimensionArrayDimensionParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -19211,10 +19206,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ArrayDimension
 		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_4_0() { return cArrayDimensionArrayDimensionParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=ContainedPropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+
@@ -19449,10 +19444,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//GroupExtension
 		public RuleCall getOwnedExtensionGroupExtensionParserRuleCall_3_0_0() { return cOwnedExtensionGroupExtensionParserRuleCall_3_0_0; }
 
-		//(=> "(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
+		//("(" ownedPrototypeBinding+=PrototypeBinding ("," ownedPrototypeBinding+=PrototypeBinding)* ")")?
 		public Group getGroup_3_1() { return cGroup_3_1; }
 
-		//=> "("
+		//"("
 		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
 		//ownedPrototypeBinding+=PrototypeBinding
@@ -19476,10 +19471,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//(=> "prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "prototypes"
+		//"prototypes"
 		public Keyword getPrototypesKeyword_4_0() { return cPrototypesKeyword_4_0; }
 
 		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
@@ -19503,14 +19498,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//Prototype
 		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
 
-		//(=> "features" // no none for FGT (noFeatures?='none' ';') |
+		//("features" // no none for FGT (noFeatures?='none' ';') |
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+)?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "features"
+		//"features"
 		public Keyword getFeaturesKeyword_5_0() { return cFeaturesKeyword_5_0; }
 
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
@@ -19573,10 +19568,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//AbstractFeature
 		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_8_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_8_0; }
 
-		//(=> "inverse" "of" inverse=[aadl2::FeatureGroupType|QCREF])?
+		//("inverse" "of" inverse=[aadl2::FeatureGroupType|QCREF])?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "inverse"
+		//"inverse"
 		public Keyword getInverseKeyword_6_0() { return cInverseKeyword_6_0; }
 
 		//"of"
@@ -19591,10 +19586,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//QCREF
 		public RuleCall getInverseFeatureGroupTypeQCREFParserRuleCall_6_2_0_1() { return cInverseFeatureGroupTypeQCREFParserRuleCall_6_2_0_1; }
 
-		//(=> "properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
+		//("properties" (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "properties"
+		//"properties"
 		public Keyword getPropertiesKeyword_7_0() { return cPropertiesKeyword_7_0; }
 
 		//ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"
@@ -19930,10 +19925,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ProcessorConnectionEnd
 		public RuleCall getDestinationProcessorConnectionEndParserRuleCall_4_0() { return cDestinationProcessorConnectionEndParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -19945,10 +19940,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
+		//("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -20126,10 +20121,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectedElement
 		public RuleCall getDestinationConnectedElementParserRuleCall_5_0() { return cDestinationConnectedElementParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -20141,10 +20136,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6_2() { return cRightCurlyBracketKeyword_6_2; }
 
-		//(=> "in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
+		//("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_7_0() { return cInKeyword_7_0; }
 
 		//"modes"
@@ -20314,10 +20309,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectedElement
 		public RuleCall getDestinationConnectedElementParserRuleCall_5_0() { return cDestinationConnectedElementParserRuleCall_5_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_6_0() { return cLeftCurlyBracketKeyword_6_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -20329,10 +20324,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_6_2() { return cRightCurlyBracketKeyword_6_2; }
 
-		//(=> "in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
+		//("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_7_0() { return cInKeyword_7_0; }
 
 		//"modes"
@@ -20496,10 +20491,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectedElement
 		public RuleCall getDestinationConnectedElementParserRuleCall_4_0() { return cDestinationConnectedElementParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -20511,10 +20506,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
+		//("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -20666,10 +20661,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectedElement
 		public RuleCall getDestinationConnectedElementParserRuleCall_4_0() { return cDestinationConnectedElementParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -20681,10 +20676,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
+		//("in" "modes" "(" (inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])*) ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -20809,24 +20804,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		////| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 		//FlowSpecification returns aadl2::FlowSpecification: //	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
-		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+		////		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		////	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
 		////	) 
 		//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement;
 		public ParserRule getRule() { return rule; }
 
 		////	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
-		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+		////		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		////	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
 		////	) 
 		//FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		////	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
-		////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-		////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+		////		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		////	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 		////	';'
 		////	) 
 		//FlowSourceSpec
@@ -20908,10 +20903,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowEnd
 		public RuleCall getOutEndFlowEndParserRuleCall_4_0() { return cOutEndFlowEndParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -20923,10 +20918,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -21032,10 +21027,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowEnd
 		public RuleCall getInEndFlowEndParserRuleCall_4_0() { return cInEndFlowEndParserRuleCall_4_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_5() { return cGroup_5; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -21047,10 +21042,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
 
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup_6() { return cGroup_6; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
@@ -21168,10 +21163,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowEnd
 		public RuleCall getOutEndFlowEndParserRuleCall_6_0() { return cOutEndFlowEndParserRuleCall_6_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -21183,10 +21178,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_7_2() { return cRightCurlyBracketKeyword_7_2; }
 
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_8_0() { return cInKeyword_8_0; }
 
 		//"modes"
@@ -21365,11 +21360,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowKind
 		public RuleCall getKindFlowKindEnumRuleCall_0_5_0() { return cKindFlowKindEnumRuleCall_0_5_0; }
 
-		//=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
+		//"{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inMode+=[aadl2::Mode] (","
 		//inMode+=[aadl2::Mode])* ")")?
 		public Group getGroup_0_6() { return cGroup_0_6; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_0_6_0() { return cLeftCurlyBracketKeyword_0_6_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -21420,14 +21415,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_0_6_3_5() { return cRightParenthesisKeyword_0_6_3_5; }
 
-		//(=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")") //| allModes?='all'
 		//";"
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
+		//"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_1_0_0() { return cInKeyword_1_0_0; }
 
 		//"modes"
@@ -21474,31 +21469,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cFlowSinkImplParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final RuleCall cFlowPathImplParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
-		////
-		////FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-		////	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-		////	':' 'refined' 'to' 'flow' kind=FlowSource 
-		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-		////	';'
-		////;
-		////FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-		////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
-		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-		////	';'
-		////;
-		////FlowPathSpecRefinement returns aadl2::FlowSpecification:
-		////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
-		////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-		////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-		////	';'
-		////;
-		//////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-		////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+		//////	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		////	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 		////	';'
 		//FlowImplementation returns aadl2::FlowImplementation:
 		//	FlowSourceImpl | FlowSinkImpl | FlowPathImpl;
@@ -21556,14 +21528,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSourceImpl returns aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
 		//	ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
-		//	(ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//	(ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//	";";
 		public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
 		//ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
-		//(ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//(ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//";"
 		public Group getGroup() { return cGroup; }
@@ -21622,10 +21594,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_6() { return cIDTerminalRuleCall_6; }
 
-		//(=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_7_0() { return cInKeyword_7_0; }
 
 		//"modes"
@@ -21704,14 +21676,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSinkImpl returns aadl2::FlowImplementation:
 		//	specification= //name=ID 
 		//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-		//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//	";";
 		public ParserRule getRule() { return rule; }
 
 		//specification= //name=ID 
 		//[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-		//(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//";"
 		public Group getGroup() { return cGroup; }
@@ -21772,10 +21744,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//SubcomponentFlow
 		public RuleCall getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0() { return cOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0; }
 
-		//(=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_7_0() { return cInKeyword_7_0; }
 
 		//"modes"
@@ -21865,7 +21837,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 		//	(ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
 		//	ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
-		//	"->" (ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//	"->" (ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//	";";
 		public ParserRule getRule() { return rule; }
@@ -21874,7 +21846,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 		//(ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
 		//ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
-		//"->" (ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+		//"->" (ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 		//";"
 		public Group getGroup() { return cGroup; }
@@ -21964,10 +21936,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getIDTerminalRuleCall_9() { return cIDTerminalRuleCall_9; }
 
-		//(=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_10() { return cGroup_10; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_10_0() { return cInKeyword_10_0; }
 
 		//"modes"
@@ -22109,10 +22081,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ETESubcomponentFlow
 		public RuleCall getOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_7_3_0() { return cOwnedEndToEndFlowSegmentETESubcomponentFlowParserRuleCall_7_3_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_8() { return cGroup_8; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_8_0() { return cLeftCurlyBracketKeyword_8_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -22124,10 +22096,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_8_2() { return cRightCurlyBracketKeyword_8_2; }
 
-		//(=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_9() { return cGroup_9; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_9_0() { return cInKeyword_9_0; }
 
 		//"modes"
@@ -22261,11 +22233,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"flow"
 		public Keyword getFlowKeyword_0_7() { return cFlowKeyword_0_7; }
 
-		//=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature]
-		//("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//"{" ownedPropertyAssociation+=PropertyAssociation+ "}" ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+		//inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_0_8() { return cGroup_0_8; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_0_8_0() { return cLeftCurlyBracketKeyword_0_8_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -22316,10 +22288,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_0_8_3_5() { return cRightParenthesisKeyword_0_8_3_5; }
 
-		//=> "in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")"
+		//"in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")"
 		public Group getGroup_1() { return cGroup_1; }
 
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
 
 		//"modes"
@@ -22526,10 +22498,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"mode"
 		public Keyword getModeKeyword_3() { return cModeKeyword_3; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -22590,10 +22562,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"mode"
 		public Keyword getDerivedModeKeyword_3_0() { return cDerivedModeKeyword_3_0; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -22700,10 +22672,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getDestinationModeIDTerminalRuleCall_6_0_1() { return cDestinationModeIDTerminalRuleCall_6_0_1; }
 
-		//(=> "{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		public Group getGroup_7() { return cGroup_7; }
 
-		//=> "{"
+		//"{"
 		public Keyword getLeftCurlyBracketKeyword_7_0() { return cLeftCurlyBracketKeyword_7_0; }
 
 		//ownedPropertyAssociation+=PropertyAssociation+
@@ -22986,10 +22958,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"is"
 		public Keyword getIsKeyword_3() { return cIsKeyword_3; }
 
-		//(=> "with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
+		//("with" importedUnit+=[aadl2::PropertySet] ("," importedUnit+=[aadl2::PropertySet])* ";")*
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "with"
+		//"with"
 		public Keyword getWithKeyword_4_0() { return cWithKeyword_4_0; }
 
 		//importedUnit+=[aadl2::PropertySet]
@@ -25376,7 +25348,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
 	////;
 	//AadlPackage returns aadl2::AadlPackage:
-	//	"package" name=PNAME (=> (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) |
+	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
 	//	"end" ID ("::" ID)* ";";
 	public AadlPackageElements getAadlPackageAccess() {
@@ -25506,12 +25478,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getClassifierAccess().getRule();
 	}
 
-	////	(=> 'flows'
+	////	('flows'
 	////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	////	(=> 'requires' 'modes'
+	////	('requires' 'modes'
 	////	((ownedMode+=RequiresMode)+))?
-	////	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	////	(=> 'properties'
+	////	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+	////	('properties'
 	////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	////	| (noProperties?='none' ';')))?
 	////	(ownedAnnexSubclause+=AnnexSubclause)*
@@ -25774,19 +25746,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// Component Implementations: add calls for threads and subprograms
-	////	(=> 'connections'
+	////	('connections'
 	////	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
 	////	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
 	////	| ownedParameterConnection+=ParameterConnection
 	////	)+
 	////	| (noConnections?='none' ';')))?
-	////	(=> 'flows'
+	////	('flows'
 	////		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
 	////	(noFlows?='none' ';')))?
-	////	(=> 'modes'
+	////	('modes'
 	////	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
 	////	| (noModes?='none' ';')))?
-	////	(=> 'properties'
+	////	('properties'
 	////	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	////	| (noProperties?='none' ';')))?
 	////	(ownedAnnexSubclause+=AnnexSubclause)*
@@ -26121,7 +26093,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//CallSpecification returns aadl2::CallSpecification:
 	//	({aadl2::ProcessorCall} name=ID ":" "subprogram" "processor" "." subprogramAccessName=ID | {aadl2::SubprogramCall}
-	//	name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] => "." calledSubprogram=[aadl2::CalledSubprogram] |
+	//	name=ID ":" "subprogram" (context=[aadl2::CallContext|PNAME] "." calledSubprogram=[aadl2::CalledSubprogram] |
 	//	calledSubprogram=[aadl2::CalledSubprogram|PNAME])) ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ";";
 	public CallSpecificationElements getCallSpecificationAccess() {
 		return (pCallSpecification != null) ? pCallSpecification : (pCallSpecification = new CallSpecificationElements());
@@ -26334,7 +26306,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
-	//	formal=[aadl2::Prototype] "=>" "feature" => "group" actual=FeatureGroupPrototypeActual;
+	//	formal=[aadl2::Prototype] "=>" "feature" "group" actual=FeatureGroupPrototypeActual;
 	public FeatureGroupPrototypeBindingElements getFeatureGroupPrototypeBindingAccess() {
 		return (pFeatureGroupPrototypeBinding != null) ? pFeatureGroupPrototypeBinding : (pFeatureGroupPrototypeBinding = new FeatureGroupPrototypeBindingElements());
 	}
@@ -26366,7 +26338,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////TODO MM change -  then allow reference to prototype for classifier reference	
 	//// TODO how about binding with classifier
 	//PortSpecification returns aadl2::PortSpecification:
-	//	direction=PortDirection category=PortCategory => "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
+	//	direction=PortDirection category=PortCategory "port" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public PortSpecificationElements getPortSpecificationAccess() {
 		return (pPortSpecification != null) ? pPortSpecification : (pPortSpecification = new PortSpecificationElements());
 	}
@@ -26376,7 +26348,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AccessSpecification returns aadl2::AccessSpecification:
-	//	kind=AccessDirection category=AccessCategory => "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
+	//	kind=AccessDirection category=AccessCategory "access" classifier=[aadl2::ComponentClassifier|QCREF]?;
 	public AccessSpecificationElements getAccessSpecificationAccess() {
 		return (pAccessSpecification != null) ? pAccessSpecification : (pAccessSpecification = new AccessSpecificationElements());
 	}
@@ -26386,7 +26358,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	//	direction=InOutDirection => "feature" prototype=[aadl2::FeaturePrototype];
+	//	direction=InOutDirection "feature" prototype=[aadl2::FeaturePrototype];
 	public FeaturePrototypeReferenceElements getFeaturePrototypeReferenceAccess() {
 		return (pFeaturePrototypeReference != null) ? pFeaturePrototypeReference : (pFeaturePrototypeReference = new FeaturePrototypeReferenceElements());
 	}
@@ -27036,8 +27008,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	////| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
 	//FlowSpecification returns aadl2::FlowSpecification: //	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
-	////		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	////	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
+	////		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	////	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
 	////	';'
 	////	) 
 	//	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement;
@@ -27108,31 +27080,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getFlowSpecRefinementAccess().getRule();
 	}
 
-	////
-	////FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-	////	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-	////	':' 'refined' 'to' 'flow' kind=FlowSource 
-	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	////	';'
-	////;
-	////FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-	////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
-	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	////	';'
-	////;
-	////FlowPathSpecRefinement returns aadl2::FlowSpecification:
-	////	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
-	////	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-	////		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	////	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	////	';'
-	////;
-	//////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	////	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+	//////	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	////	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
 	////	';'
 	//FlowImplementation returns aadl2::FlowImplementation:
 	//	FlowSourceImpl | FlowSinkImpl | FlowPathImpl;
@@ -27147,7 +27096,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSourceImpl returns aadl2::FlowImplementation:
 	//	specification=[aadl2::FlowSpecification] ":" "flow" kind=FlowSource (ownedFlowSegment+=SubcomponentFlow "->"
 	//	ownedFlowSegment+=ConnectionFlow "->")* //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
-	//	(ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	//	(ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 	//	";";
 	public FlowSourceImplElements getFlowSourceImplAccess() {
@@ -27161,7 +27110,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSinkImpl returns aadl2::FlowImplementation:
 	//	specification= //name=ID 
 	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowSink //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
-	//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	//	(ID ".")? ID ("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 	//	";";
 	public FlowSinkImplElements getFlowSinkImplAccess() {
@@ -27177,7 +27126,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	[aadl2::FlowSpecification] ":" "flow" kind=FlowPath //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 	//	(ID ".")? ID (("->" ownedFlowSegment+=ConnectionFlow "->" ownedFlowSegment+=SubcomponentFlow)* "->"
 	//	ownedFlowSegment+=ConnectionFlow)? //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
-	//	"->" (ID ".")? ID //	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	//	"->" (ID ".")? ID //	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	//	("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")? //| allModes?='all'
 	//	";";
 	public FlowPathImplElements getFlowPathImplAccess() {
@@ -27850,7 +27799,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 	//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
 	//	appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
@@ -27862,7 +27811,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 	//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";";
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
@@ -27885,7 +27834,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-	//	=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
+	//	"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
 		return gaProperties.getModalPropertyValueAccess();
 	}
@@ -27918,8 +27867,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm //| BooleanTerm
-	//	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
-	//	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+	//	| ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+	//	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
 	public PropertiesGrammarAccess.PropertyExpressionElements getPropertyExpressionAccess() {
 		return gaProperties.getPropertyExpressionAccess();
 	}
