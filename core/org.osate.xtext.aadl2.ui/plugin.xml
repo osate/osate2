@@ -9,7 +9,7 @@
             class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.editor.XtextEditor"
             contributorClass="org.eclipse.ui.editors.text.TextEditorActionContributor"
             default="true"
-            extensions="aadl2"
+            extensions="aadl,aadl2"
             id="org.osate.xtext.aadl2.Aadl2"
             name="Aadl2 Editor">
         </editor>
