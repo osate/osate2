@@ -422,7 +422,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<FlowSpecification> getInstantiatedObjects() {
-		return Collections.singletonList(flowSpecification);
+		return Collections.singletonList(getFlowSpecification());
 	}
 
 	public boolean isActive(SystemOperationMode som) {
