@@ -22,12 +22,12 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue => ',')*
+	'(' ( ownedValue+=ModalPropertyValue ',')*
 	ownedValue+=OptionalModalPropertyValue
 	')' )
 	| ownedValue+=PropertyValue
 	)
-	(=> 'applies' 'to' appliesTo+=ContainmentPath 
+	('applies' 'to' appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
 	)?
 	';';
@@ -36,7 +36,7 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue => ',')*
+	'(' ( ownedValue+=ModalPropertyValue ',')*
 	ownedValue+=OptionalModalPropertyValue
 	')' )
 	| ownedValue+=PropertyValue
@@ -53,7 +53,7 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	// phf made this optional: need to check separately that only the last one is optional
-	=> 'in' 'modes' '(' 
+	'in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')'
 	;
@@ -72,8 +72,8 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	  => RecordTerm | => ReferenceTerm | => ComponentClassifierTerm
-	 | => ComputedTerm | => StringTerm |  NumericRangeTerm
+	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
+	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
 	  	| ListTerm |ActualBooleanTerm
 	 //| BooleanTerm
@@ -227,13 +227,13 @@ SignedReal returns aadl2::Real:
 NumericRangeTerm returns aadl2::RangeValue:
 	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
 		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	( => 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 		
 	)?
 	;
 
 NumAlt  returns aadl2::PropertyExpression: 
-	=> RealTerm|IntegerTerm| SignedConstant | ConstantValue
+	RealTerm|IntegerTerm| SignedConstant | ConstantValue
 ;
 
 terminal SL_COMMENT:

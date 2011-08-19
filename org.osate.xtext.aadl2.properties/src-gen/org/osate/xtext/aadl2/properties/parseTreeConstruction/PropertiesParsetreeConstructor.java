@@ -385,15 +385,15 @@ protected class BasicPropertyAssociation_SemicolonKeyword_3 extends KeywordToken
 /************ begin Rule ContainedPropertyAssociation ****************
  *
  * ContainedPropertyAssociation returns aadl2::PropertyAssociation:
- * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+ * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
  * 	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
  * 	appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
  *
  **/
 
-// property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
-// ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
-// appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
+// property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue ",")*
+// ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
+// appliesTo+=ContainmentPath)*)? ";"
 protected class ContainedPropertyAssociation_Group extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -572,7 +572,7 @@ protected class ContainedPropertyAssociation_ConstantAssignment_2 extends Assign
 
 }
 
-// "(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
+// "(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
 protected class ContainedPropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 	public ContainedPropertyAssociation_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -595,7 +595,7 @@ protected class ContainedPropertyAssociation_Alternatives_3 extends Alternatives
 
 }
 
-// "(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")"
+// "(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")"
 protected class ContainedPropertyAssociation_Group_3_0 extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -640,7 +640,7 @@ protected class ContainedPropertyAssociation_LeftParenthesisKeyword_3_0_0 extend
 
 }
 
-// (ownedValue+=ModalPropertyValue => ",")*
+// (ownedValue+=ModalPropertyValue ",")*
 protected class ContainedPropertyAssociation_Group_3_0_1 extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -709,7 +709,7 @@ protected class ContainedPropertyAssociation_OwnedValueAssignment_3_0_1_0 extend
 	}	
 }
 
-// => ","
+// ","
 protected class ContainedPropertyAssociation_CommaKeyword_3_0_1_1 extends KeywordToken  {
 	
 	public ContainedPropertyAssociation_CommaKeyword_3_0_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -850,7 +850,7 @@ protected class ContainedPropertyAssociation_OwnedValueAssignment_3_1 extends As
 }
 
 
-// (=> "applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
+// ("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
 protected class ContainedPropertyAssociation_Group_4 extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -873,7 +873,7 @@ protected class ContainedPropertyAssociation_Group_4 extends GroupToken {
 
 }
 
-// => "applies"
+// "applies"
 protected class ContainedPropertyAssociation_AppliesKeyword_4_0 extends KeywordToken  {
 	
 	public ContainedPropertyAssociation_AppliesKeyword_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1086,13 +1086,13 @@ protected class ContainedPropertyAssociation_SemicolonKeyword_5 extends KeywordT
 /************ begin Rule PropertyAssociation ****************
  *
  * PropertyAssociation returns aadl2::PropertyAssociation:
- * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+ * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
  * 	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";";
  *
  **/
 
-// property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
-// ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";"
+// property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue ",")*
+// ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";"
 protected class PropertyAssociation_Group extends GroupToken {
 	
 	public PropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1271,7 +1271,7 @@ protected class PropertyAssociation_ConstantAssignment_2 extends AssignmentToken
 
 }
 
-// "(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
+// "(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
 protected class PropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 	public PropertyAssociation_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1294,7 +1294,7 @@ protected class PropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 }
 
-// "(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")"
+// "(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")"
 protected class PropertyAssociation_Group_3_0 extends GroupToken {
 	
 	public PropertyAssociation_Group_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1339,7 +1339,7 @@ protected class PropertyAssociation_LeftParenthesisKeyword_3_0_0 extends Keyword
 
 }
 
-// (ownedValue+=ModalPropertyValue => ",")*
+// (ownedValue+=ModalPropertyValue ",")*
 protected class PropertyAssociation_Group_3_0_1 extends GroupToken {
 	
 	public PropertyAssociation_Group_3_0_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1408,7 +1408,7 @@ protected class PropertyAssociation_OwnedValueAssignment_3_0_1_0 extends Assignm
 	}	
 }
 
-// => ","
+// ","
 protected class PropertyAssociation_CommaKeyword_3_0_1_1 extends KeywordToken  {
 	
 	public PropertyAssociation_CommaKeyword_3_0_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1786,12 +1786,12 @@ protected class ContainmentPath_ContainmentPathElementAssignment_2_1 extends Ass
  *
  * ModalPropertyValue returns aadl2::ModalPropertyValue:
  * 	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
- * 	=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
+ * 	"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
  *
  **/
 
 // ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-// => "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
+// "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
 protected class ModalPropertyValue_Group extends GroupToken {
 	
 	public ModalPropertyValue_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -1866,7 +1866,7 @@ protected class ModalPropertyValue_OwnedValueAssignment_0 extends AssignmentToke
 }
 
 // // phf made this optional: need to check separately that only the last one is optional
-// => "in"
+// "in"
 protected class ModalPropertyValue_InKeyword_1 extends KeywordToken  {
 	
 	public ModalPropertyValue_InKeyword_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2461,14 +2461,14 @@ protected class PropertyValue_OwnedValueAssignment extends AssignmentToken  {
  *
  * PropertyExpression returns aadl2::PropertyExpression:
  * 	RecordTerm //| BooleanTerm
- * 	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
- * 	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+ * 	| ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+ * 	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
  *
  **/
 
-// => RecordTerm //| BooleanTerm
-// | => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
-// IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
+// RecordTerm //| BooleanTerm
+// | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+// ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
 protected class PropertyExpression_Alternatives extends AlternativesToken {
 
 	public PropertyExpression_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2518,7 +2518,7 @@ protected class PropertyExpression_Alternatives extends AlternativesToken {
 
 }
 
-// => RecordTerm
+// RecordTerm
 protected class PropertyExpression_RecordTermParserRuleCall_0 extends RuleCallToken {
 	
 	public PropertyExpression_RecordTermParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2554,7 +2554,7 @@ protected class PropertyExpression_RecordTermParserRuleCall_0 extends RuleCallTo
 	}	
 }
 
-// => ReferenceTerm
+// ReferenceTerm
 protected class PropertyExpression_ReferenceTermParserRuleCall_1 extends RuleCallToken {
 	
 	public PropertyExpression_ReferenceTermParserRuleCall_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2590,7 +2590,7 @@ protected class PropertyExpression_ReferenceTermParserRuleCall_1 extends RuleCal
 	}	
 }
 
-// => ComponentClassifierTerm
+// ComponentClassifierTerm
 protected class PropertyExpression_ComponentClassifierTermParserRuleCall_2 extends RuleCallToken {
 	
 	public PropertyExpression_ComponentClassifierTermParserRuleCall_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2626,7 +2626,7 @@ protected class PropertyExpression_ComponentClassifierTermParserRuleCall_2 exten
 	}	
 }
 
-// => ComputedTerm
+// ComputedTerm
 protected class PropertyExpression_ComputedTermParserRuleCall_3 extends RuleCallToken {
 	
 	public PropertyExpression_ComputedTermParserRuleCall_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -2662,7 +2662,7 @@ protected class PropertyExpression_ComputedTermParserRuleCall_3 extends RuleCall
 	}	
 }
 
-// => StringTerm
+// StringTerm
 protected class PropertyExpression_StringTermParserRuleCall_4 extends RuleCallToken {
 	
 	public PropertyExpression_StringTermParserRuleCall_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6835,7 +6835,7 @@ protected class NumericRangeTerm_MaximumAssignment_2 extends AssignmentToken  {
 	}	
 }
 
-// (=> "delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+// ("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 // NumAlt)?
 protected class NumericRangeTerm_Group_3 extends GroupToken {
 	
@@ -6858,7 +6858,7 @@ protected class NumericRangeTerm_Group_3 extends GroupToken {
 
 }
 
-// => "delta"
+// "delta"
 protected class NumericRangeTerm_DeltaKeyword_3_0 extends KeywordToken  {
 	
 	public NumericRangeTerm_DeltaKeyword_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6939,7 +6939,7 @@ protected class NumericRangeTerm_DeltaAssignment_3_1 extends AssignmentToken  {
  *
  **/
 
-// => RealTerm | IntegerTerm | SignedConstant | ConstantValue
+// RealTerm | IntegerTerm | SignedConstant | ConstantValue
 protected class NumAlt_Alternatives extends AlternativesToken {
 
 	public NumAlt_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -6974,7 +6974,7 @@ protected class NumAlt_Alternatives extends AlternativesToken {
 
 }
 
-// => RealTerm
+// RealTerm
 protected class NumAlt_RealTermParserRuleCall_0 extends RuleCallToken {
 	
 	public NumAlt_RealTermParserRuleCall_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {

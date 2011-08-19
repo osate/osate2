@@ -283,14 +283,12 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 	    }
 
 )
-)((
-KEYWORD_5
-)=>
+)
 	otherlv_6=KEYWORD_5
     {
     	newLeafNode(otherlv_6, grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_0_1_1());
     }
-))*(
+)*(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_2_0()); 
@@ -332,14 +330,12 @@ KEYWORD_5
 	    }
 
 )
-))(((
-KEYWORD_27
-)=>
+))(
 	otherlv_10=KEYWORD_27
     {
     	newLeafNode(otherlv_10, grammarAccess.getContainedPropertyAssociationAccess().getAppliesKeyword_4_0());
     }
-)
+
 	otherlv_11=KEYWORD_18
     {
     	newLeafNode(otherlv_11, grammarAccess.getContainedPropertyAssociationAccess().getToKeyword_4_1());
@@ -490,14 +486,12 @@ rulePropertyAssociation returns [EObject current=null]
 	    }
 
 )
-)((
-KEYWORD_5
-)=>
+)
 	otherlv_6=KEYWORD_5
     {
     	newLeafNode(otherlv_6, grammarAccess.getPropertyAssociationAccess().getCommaKeyword_3_0_1_1());
     }
-))*(
+)*(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_2_0()); 
@@ -654,14 +648,12 @@ ruleModalPropertyValue returns [EObject current=null]
 	    }
 
 )
-)((
-KEYWORD_16
-)=>
+)
 	otherlv_1=KEYWORD_16
     {
     	newLeafNode(otherlv_1, grammarAccess.getModalPropertyValueAccess().getInKeyword_1());
     }
-)
+
 	otherlv_2=KEYWORD_26
     {
     	newLeafNode(otherlv_2, grammarAccess.getModalPropertyValueAccess().getModesKeyword_2());
@@ -869,7 +861,7 @@ rulePropertyExpression returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((ruleRecordTerm)=>
+(
 	{ 
 	  /* */ 
 	}
@@ -881,8 +873,8 @@ rulePropertyExpression returns [EObject current=null]
         $current = $this_RecordTerm_0.current;
         afterParserOrEnumRuleCall();
     }
-)
-    |((ruleReferenceTerm)=>
+
+    |
 	{ 
 	  /* */ 
 	}
@@ -894,8 +886,8 @@ rulePropertyExpression returns [EObject current=null]
         $current = $this_ReferenceTerm_1.current;
         afterParserOrEnumRuleCall();
     }
-)
-    |((ruleComponentClassifierTerm)=>
+
+    |
 	{ 
 	  /* */ 
 	}
@@ -907,8 +899,8 @@ rulePropertyExpression returns [EObject current=null]
         $current = $this_ComponentClassifierTerm_2.current;
         afterParserOrEnumRuleCall();
     }
-)
-    |((ruleComputedTerm)=>
+
+    |
 	{ 
 	  /* */ 
 	}
@@ -920,8 +912,8 @@ rulePropertyExpression returns [EObject current=null]
         $current = $this_ComputedTerm_3.current;
         afterParserOrEnumRuleCall();
     }
-)
-    |((ruleStringTerm)=>
+
+    |
 	{ 
 	  /* */ 
 	}
@@ -933,7 +925,7 @@ rulePropertyExpression returns [EObject current=null]
         $current = $this_StringTerm_4.current;
         afterParserOrEnumRuleCall();
     }
-)
+
     |
 	{ 
 	  /* */ 
@@ -2892,14 +2884,12 @@ ruleNumericRangeTerm returns [EObject current=null]
 	    }
 
 )
-)(((
-KEYWORD_24
-)=>
+)(
 	otherlv_3=KEYWORD_24
     {
     	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
     }
-)(
+(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getDeltaNumAltParserRuleCall_3_1_0()); 
@@ -2938,7 +2928,7 @@ ruleNumAlt returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((ruleRealTerm)=>
+(
 	{ 
 	  /* */ 
 	}
@@ -2950,7 +2940,7 @@ ruleNumAlt returns [EObject current=null]
         $current = $this_RealTerm_0.current;
         afterParserOrEnumRuleCall();
     }
-)
+
     |
 	{ 
 	  /* */ 

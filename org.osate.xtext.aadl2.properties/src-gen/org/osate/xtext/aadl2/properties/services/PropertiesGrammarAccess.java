@@ -117,14 +117,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 		//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
 		//	appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 		public ParserRule getRule() { return rule; }
 
-		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
-		//",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
-		//appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
+		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue ",")*
+		//ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
+		//appliesTo+=ContainmentPath)*)? ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -154,16 +154,16 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//"(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
+		//"(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//"(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")"
+		//"(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")"
 		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_3_0_0() { return cLeftParenthesisKeyword_3_0_0; }
 
-		//(ownedValue+=ModalPropertyValue => ",")*
+		//(ownedValue+=ModalPropertyValue ",")*
 		public Group getGroup_3_0_1() { return cGroup_3_0_1; }
 
 		//ownedValue+=ModalPropertyValue
@@ -172,7 +172,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ModalPropertyValue
 		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_1_0_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0_0; }
 
-		//=> ","
+		//","
 		public Keyword getCommaKeyword_3_0_1_1() { return cCommaKeyword_3_0_1_1; }
 
 		//ownedValue+=OptionalModalPropertyValue
@@ -190,10 +190,10 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//PropertyValue
 		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_0; }
 
-		//(=> "applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
+		//("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//=> "applies"
+		//"applies"
 		public Keyword getAppliesKeyword_4_0() { return cAppliesKeyword_4_0; }
 
 		//"to"
@@ -248,12 +248,12 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//PropertyAssociation returns aadl2::PropertyAssociation:
-		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 		//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";";
 		public ParserRule getRule() { return rule; }
 
-		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
-		//",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";"
+		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue ",")*
+		//ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -283,16 +283,16 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//"(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
+		//"(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//"(" (ownedValue+=ModalPropertyValue => ",")* ownedValue+=OptionalModalPropertyValue ")"
+		//"(" (ownedValue+=ModalPropertyValue ",")* ownedValue+=OptionalModalPropertyValue ")"
 		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_3_0_0() { return cLeftParenthesisKeyword_3_0_0; }
 
-		//(ownedValue+=ModalPropertyValue => ",")*
+		//(ownedValue+=ModalPropertyValue ",")*
 		public Group getGroup_3_0_1() { return cGroup_3_0_1; }
 
 		//ownedValue+=ModalPropertyValue
@@ -301,7 +301,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ModalPropertyValue
 		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_1_0_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0_0; }
 
-		//=> ","
+		//","
 		public Keyword getCommaKeyword_3_0_1_1() { return cCommaKeyword_3_0_1_1; }
 
 		//ownedValue+=OptionalModalPropertyValue
@@ -385,11 +385,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//ModalPropertyValue returns aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-		//	=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
+		//	"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 		public ParserRule getRule() { return rule; }
 
 		//ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-		//=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
+		//"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")"
 		public Group getGroup() { return cGroup; }
 
 		//ownedValue=PropertyExpression
@@ -399,7 +399,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getOwnedValuePropertyExpressionParserRuleCall_0_0() { return cOwnedValuePropertyExpressionParserRuleCall_0_0; }
 
 		//// phf made this optional: need to check separately that only the last one is optional
-		//=> "in"
+		//"in"
 		public Keyword getInKeyword_1() { return cInKeyword_1; }
 
 		//"modes"
@@ -544,28 +544,28 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PropertyExpression returns aadl2::PropertyExpression:
 		//	RecordTerm //| BooleanTerm
-		//	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
-		//	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+		//	| ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+		//	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
-		//=> RecordTerm //| BooleanTerm
-		//| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
-		//IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
+		//RecordTerm //| BooleanTerm
+		//| ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+		//ListTerm | ActualBooleanTerm | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//=> RecordTerm
+		//RecordTerm
 		public RuleCall getRecordTermParserRuleCall_0() { return cRecordTermParserRuleCall_0; }
 
-		//=> ReferenceTerm
+		//ReferenceTerm
 		public RuleCall getReferenceTermParserRuleCall_1() { return cReferenceTermParserRuleCall_1; }
 
-		//=> ComponentClassifierTerm
+		//ComponentClassifierTerm
 		public RuleCall getComponentClassifierTermParserRuleCall_2() { return cComponentClassifierTermParserRuleCall_2; }
 
-		//=> ComputedTerm
+		//ComputedTerm
 		public RuleCall getComputedTermParserRuleCall_3() { return cComputedTermParserRuleCall_3; }
 
-		//=> StringTerm
+		//StringTerm
 		public RuleCall getStringTermParserRuleCall_4() { return cStringTermParserRuleCall_4; }
 
 		//NumericRangeTerm
@@ -1621,11 +1621,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//NumAlt
 		public RuleCall getMaximumNumAltParserRuleCall_2_0() { return cMaximumNumAltParserRuleCall_2_0; }
 
-		//(=> "delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+		//("delta" delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 		//NumAlt)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//=> "delta"
+		//"delta"
 		public Keyword getDeltaKeyword_3_0() { return cDeltaKeyword_3_0; }
 
 		//delta= //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
@@ -1649,10 +1649,10 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//	RealTerm | IntegerTerm | SignedConstant | ConstantValue;
 		public ParserRule getRule() { return rule; }
 
-		//=> RealTerm | IntegerTerm | SignedConstant | ConstantValue
+		//RealTerm | IntegerTerm | SignedConstant | ConstantValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//=> RealTerm
+		//RealTerm
 		public RuleCall getRealTermParserRuleCall_0() { return cRealTermParserRuleCall_0; }
 
 		//IntegerTerm
@@ -1905,7 +1905,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 	//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ("applies" "to"
 	//	appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 	public ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
@@ -1917,7 +1917,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue =>
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" (ownedValue+=ModalPropertyValue
 	//	",")* ownedValue+=OptionalModalPropertyValue ")" | ownedValue+=PropertyValue) ";";
 	public PropertyAssociationElements getPropertyAssociationAccess() {
 		return (pPropertyAssociation != null) ? pPropertyAssociation : (pPropertyAssociation = new PropertyAssociationElements());
@@ -1940,7 +1940,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-	//	=> "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
+	//	"in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 	public ModalPropertyValueElements getModalPropertyValueAccess() {
 		return (pModalPropertyValue != null) ? pModalPropertyValue : (pModalPropertyValue = new ModalPropertyValueElements());
 	}
@@ -1973,8 +1973,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyExpression returns aadl2::PropertyExpression:
 	//	RecordTerm //| BooleanTerm
-	//	| => ReferenceTerm | => ComponentClassifierTerm | => ComputedTerm | => StringTerm | NumericRangeTerm | RealTerm |
-	//	IntegerTerm | ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
+	//	| ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm | IntegerTerm |
+	//	ListTerm | ActualBooleanTerm | LiteralorReferenceTerm;
 	public PropertyExpressionElements getPropertyExpressionAccess() {
 		return (pPropertyExpression != null) ? pPropertyExpression : (pPropertyExpression = new PropertyExpressionElements());
 	}
