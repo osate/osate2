@@ -4,7 +4,7 @@
 --Appendix A: Predeclared Property Sets
 
 property set Memory_Properties is
-	Size: type aadlinteger 0Bytes .. Max_Memory_Size units Size_Units;
+	Size: type aadlinteger 0 Bytes .. Max_Memory_Size units Size_Units;
 	
 	Size_Range: type range of Size;
 	
