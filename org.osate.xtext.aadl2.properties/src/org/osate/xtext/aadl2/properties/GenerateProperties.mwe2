@@ -113,9 +113,8 @@ Workflow {
 //			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
 //				    options = {
 //        		ignoreCase = true
-//    		}
-////				options = {
-////					classSplitting = true
+//				backtrack = true
+////			classSplitting = true
 ////				}
 //			}
 
