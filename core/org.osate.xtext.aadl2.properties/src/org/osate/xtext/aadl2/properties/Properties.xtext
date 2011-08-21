@@ -8,22 +8,19 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 PModel returns aadl2::Element:
-	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
+	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation
+	;
 
 
 // Properties
-
-BasicPropertyAssociation returns aadl2::PropertyAssociation:
-	property=[aadl2::Property|QPREF] 
-	'=>' ownedValue+=PropertyValue ';'
-	;
 
 ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue ',')*
-	ownedValue+=OptionalModalPropertyValue
+	'(' ownedValue+=ModalPropertyValue
+	( ',' ownedValue+=ModalPropertyValue )*
+	
 	')' )
 	| ownedValue+=PropertyValue
 	)
@@ -36,13 +33,19 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue ',')*
-	ownedValue+=OptionalModalPropertyValue
+	'(' ownedValue+=ModalPropertyValue
+	 ( ',' ownedValue+=ModalPropertyValue )*
+	
 	')' )
 	| ownedValue+=PropertyValue
-	)
-	';';
+	) ';'
+	;
 
+
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' ownedValue+=PropertyValue ';'
+	;
 
 ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
@@ -58,13 +61,13 @@ ModalPropertyValue returns aadl2::ModalPropertyValue:
 	')'
 	;
 
-OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-	ownedValue=PropertyExpression 
-	// phf made this optional: need to check separately that only the last one is optional
-	( 'in' 'modes' '(' 
-	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-	')')?
-	;
+//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+//	ownedValue=PropertyExpression 
+//	// phf made this optional: need to check separately that only the last one is optional
+//	( 'in' 'modes' '(' 
+//	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+//	')')?
+//	;
 	// &&&&&&&&&& handling of in binding
 
 PropertyValue returns aadl2::ModalPropertyValue:
@@ -76,7 +79,7 @@ PropertyExpression returns aadl2::PropertyExpression:
 	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
 	  	| ListTerm |ActualBooleanTerm
-	 //| BooleanTerm
+//	 | BooleanTerm
 	  | LiteralorReferenceTerm
 	;
 
