@@ -1,0 +1,3 @@
+instructions.configure=\
+  addRepository(type:0,location:http${#58}//aadl.info/osate/repository);\
+  addRepository(type:1,location:http${#58}//aadl.info/osate/repository);
