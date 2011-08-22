@@ -352,7 +352,7 @@ MemoryType returns aadl2::MemoryType:
 	)?
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
-	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
 	('requires' 'modes'
@@ -372,7 +372,7 @@ BusType returns aadl2::BusType:
 	)?
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
-	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
 	('requires' 'modes'
@@ -390,6 +390,11 @@ VirtualBusType returns aadl2::VirtualBusType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('features' ((noFeatures?='none' ';') |
+	(ownedFeatureGroup+=FeatureGroup 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
 	('requires' 'modes'
 	((ownedMode+=RequiresMode)+))?
 	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
@@ -1662,7 +1667,7 @@ FlowSourceSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowSource 
 	outEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? 
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
 	';'
 ;
 FlowSinkSpec returns aadl2::FlowSpecification:
@@ -1670,7 +1675,7 @@ FlowSinkSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowSink 
 	InEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? 
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
 	';'
 ;
 FlowPathSpec returns aadl2::FlowSpecification:
@@ -1679,7 +1684,7 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? 
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
 	';'
 ;
 

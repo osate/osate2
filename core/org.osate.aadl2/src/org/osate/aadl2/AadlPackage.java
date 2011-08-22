@@ -48,7 +48,6 @@ package org.osate.aadl2;
  *   <li>{@link org.osate.aadl2.AadlPackage#getOwnedPrivateSection <em>Owned Private Section</em>}</li>
  *   <li>{@link org.osate.aadl2.AadlPackage#getPublicSection <em>Public Section</em>}</li>
  *   <li>{@link org.osate.aadl2.AadlPackage#getPrivateSection <em>Private Section</em>}</li>
- *   <li>{@link org.osate.aadl2.AadlPackage#isNoProperties <em>No Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -194,31 +193,5 @@ public interface AadlPackage extends ModelUnit {
 	 * @generated
 	 */
 	void setPrivateSection(PrivatePackageSection value);
-
-	/**
-	 * Returns the value of the '<em><b>No Properties</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>No Properties</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>No Properties</em>' attribute.
-	 * @see #setNoProperties(boolean)
-	 * @see org.osate.aadl2.Aadl2Package#getAadlPackage_NoProperties()
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
-	 * @generated
-	 */
-	boolean isNoProperties();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.AadlPackage#isNoProperties <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>No Properties</em>' attribute.
-	 * @see #isNoProperties()
-	 * @generated
-	 */
-	void setNoProperties(boolean value);
 
 } // AadlPackage

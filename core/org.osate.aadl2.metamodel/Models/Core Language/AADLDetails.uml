@@ -461,6 +461,21 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Bus-BusType-ownedBusAccess-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_Lp26sMjwEeC-j-B11sm6hg" name="ownedDataPort" type="Features-DataPort" aggregation="composite" association="_LqWp8MjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Lp26scjwEeC-j-B11sm6hg" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Lp26ssjwEeC-j-B11sm6hg"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_MUVbEMjwEeC-j-B11sm6hg" name="ownedEventDataPort" type="Features-EventDataPort" aggregation="composite" association="_MU2_gMjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MUVbEcjwEeC-j-B11sm6hg" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MUVbEsjwEeC-j-B11sm6hg"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_M-BRQMjwEeC-j-B11sm6hg" name="ownedEventPort" type="Features-EventPort" aggregation="composite" association="_M-dWIMjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_M-BRQcjwEeC-j-B11sm6hg" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M-BRQsjwEeC-j-B11sm6hg"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Bus-BusImplementation" name="BusImplementation">
           <generalization xmi:id="Components-Bus-BusImplementation-_generalization.0" general="Components-Bus-BusClassifier"/>
@@ -517,6 +532,24 @@
           <generalization xmi:id="_U-cEAKc8EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_LqWp8MjwEeC-j-B11sm6hg" name="A_busType_ownedDataPort" memberEnd="_LqWp8cjwEeC-j-B11sm6hg _Lp26sMjwEeC-j-B11sm6hg">
+          <ownedEnd xmi:id="_LqWp8cjwEeC-j-B11sm6hg" name="owner" type="Components-Bus-BusType" association="_LqWp8MjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LqWp8sjwEeC-j-B11sm6hg" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LqWp88jwEeC-j-B11sm6hg"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_MU2_gMjwEeC-j-B11sm6hg" name="A_busType_ownedEventDataPort" memberEnd="_MU2_gcjwEeC-j-B11sm6hg _MUVbEMjwEeC-j-B11sm6hg">
+          <ownedEnd xmi:id="_MU2_gcjwEeC-j-B11sm6hg" name="owner" type="Components-Bus-BusType" association="_MU2_gMjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MU2_gsjwEeC-j-B11sm6hg" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_MU2_g8jwEeC-j-B11sm6hg"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_M-dWIMjwEeC-j-B11sm6hg" name="A_busType_ownedEventPort" memberEnd="_M-dWIcjwEeC-j-B11sm6hg _M-BRQMjwEeC-j-B11sm6hg">
+          <ownedEnd xmi:id="_M-dWIcjwEeC-j-B11sm6hg" name="owner" type="Components-Bus-BusType" association="_M-dWIMjwEeC-j-B11sm6hg">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_M-dWIsjwEeC-j-B11sm6hg" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_M-dWI8jwEeC-j-B11sm6hg"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Data" name="Data">
@@ -822,6 +855,21 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-Memory-MemoryType-ownedBusAccess-_lowerValue"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_kgBGgMjxEeCKY-_8-OsxgA" name="ownedDataPort" type="Features-DataPort" aggregation="composite" association="_kgJCWsjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kgBGgcjxEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kgBGgsjxEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_k3w4IMjxEeCKY-_8-OsxgA" name="ownedEventDataPort" type="Features-EventDataPort" aggregation="composite" association="_k4AIusjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k3w4IcjxEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k3w4IsjxEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_ldeNQMjxEeCKY-_8-OsxgA" name="ownedEventPort" type="Features-EventPort" aggregation="composite" association="_ldmwKsjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ldeNQcjxEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ldeNQsjxEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-Memory-MemorySubcomponent" name="MemorySubcomponent">
           <generalization xmi:id="Components-Memory-MemorySubcomponent-_generalization.0" general="Components-Memory-Memory"/>
@@ -896,6 +944,24 @@
           <generalization xmi:id="_67uUgKf1EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_kgJCWsjxEeCKY-_8-OsxgA" name="A_memoryType_ownedDataPort" memberEnd="_kgJCW8jxEeCKY-_8-OsxgA _kgBGgMjxEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_kgJCW8jxEeCKY-_8-OsxgA" name="owner" type="Components-Memory-MemoryType" association="_kgJCWsjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kgJCXMjxEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kgJCXcjxEeCKY-_8-OsxgA"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_k4AIusjxEeCKY-_8-OsxgA" name="A_memoryType_ownedEventDataPort" memberEnd="_k4AIu8jxEeCKY-_8-OsxgA _k3w4IMjxEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_k4AIu8jxEeCKY-_8-OsxgA" name="owner" type="Components-Memory-MemoryType" association="_k4AIusjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_k4AIvMjxEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_k4AIvcjxEeCKY-_8-OsxgA"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ldmwKsjxEeCKY-_8-OsxgA" name="A_memoryType_ownedEventPort" memberEnd="_ldmwK8jxEeCKY-_8-OsxgA _ldeNQMjxEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_ldmwK8jxEeCKY-_8-OsxgA" name="owner" type="Components-Memory-MemoryType" association="_ldmwKsjxEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ldmwLMjxEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ldmwLcjxEeCKY-_8-OsxgA"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-Process" name="Process">
@@ -2150,6 +2216,21 @@
           <generalization xmi:id="Components-VirtualBus-VirtualBusType-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentType"/>
           </generalization>
+          <ownedAttribute xmi:id="_j1KWMMjyEeCKY-_8-OsxgA" name="ownedDataPort" type="Features-DataPort" aggregation="composite" association="_j1oQQMjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j1KWMcjyEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j1KWMsjyEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_kNR7QMjyEeCKY-_8-OsxgA" name="ownedEventDataPort" type="Features-EventDataPort" aggregation="composite" association="_kN178MjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kNR7QcjyEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kNR7QsjyEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_kf_b4MjyEeCKY-_8-OsxgA" name="ownedEventPort" type="Features-EventPort" aggregation="composite" association="_kgsmgMjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kf_b4cjyEeCKY-_8-OsxgA" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kf_b4sjyEeCKY-_8-OsxgA"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualBus-VirtualBusSubcomponent" name="VirtualBusSubcomponent">
           <generalization xmi:id="Components-VirtualBus-VirtualBusSubcomponent-_generalization.0" general="Components-VirtualBus-VirtualBus"/>
@@ -2207,6 +2288,24 @@
           <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_j1oQQMjyEeCKY-_8-OsxgA" name="A_virtualBusType_ownedDataPort" memberEnd="_j1oQQcjyEeCKY-_8-OsxgA _j1KWMMjyEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_j1oQQcjyEeCKY-_8-OsxgA" name="owner" type="Components-VirtualBus-VirtualBusType" association="_j1oQQMjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_j1oQQsjyEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_j1oQQ8jyEeCKY-_8-OsxgA"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_kN178MjyEeCKY-_8-OsxgA" name="A_virtualBusType_ownedEventDataPort" memberEnd="_kN178cjyEeCKY-_8-OsxgA _kNR7QMjyEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_kN178cjyEeCKY-_8-OsxgA" name="owner" type="Components-VirtualBus-VirtualBusType" association="_kN178MjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kN178sjyEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kN1788jyEeCKY-_8-OsxgA"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_kgsmgMjyEeCKY-_8-OsxgA" name="A_virtualBusType_ownedEventPort" memberEnd="_kgsmgcjyEeCKY-_8-OsxgA _kf_b4MjyEeCKY-_8-OsxgA">
+          <ownedEnd xmi:id="_kgsmgcjyEeCKY-_8-OsxgA" name="owner" type="Components-VirtualBus-VirtualBusType" association="_kgsmgMjyEeCKY-_8-OsxgA">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kgtNkMjyEeCKY-_8-OsxgA" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kgtNkcjyEeCKY-_8-OsxgA"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-VirtualProcessor" name="VirtualProcessor">

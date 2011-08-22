@@ -119,7 +119,6 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An element may not directly or indirectly own itself.
-	 * not self.allOwnedElements()->includes(self)
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
 	 * <!-- end-model-doc -->
@@ -133,7 +132,6 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Elements that must be owned must have an owner.
-	 * self.mustBeOwned() implies owner->notEmpty()
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
 	 * <!-- end-model-doc -->
@@ -155,7 +153,6 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
-	 * ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))
 	 * <!-- end-model-doc -->
 	 * @model ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))'"
@@ -168,7 +165,6 @@ public interface Element extends AObject {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
-	 * true
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='true'"

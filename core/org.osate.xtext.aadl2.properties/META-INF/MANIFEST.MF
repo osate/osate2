@@ -12,8 +12,8 @@ Require-Bundle: org.osate.aadl2,
  org.eclipse.xtext,
  org.eclipse.xtext.util,
  org.antlr.runtime,
- org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,
- org.eclipse.xtext.generator;bundle-version="2.0.1";resolution:=optional
+ org.eclipse.xtext.generator;bundle-version="2.0.1";resolution:=optional,
+ org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.linking,

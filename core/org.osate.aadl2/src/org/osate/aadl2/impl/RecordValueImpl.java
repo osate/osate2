@@ -193,9 +193,7 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime
-				* result
-				+ ((ownedFieldValues == null) ? 0 : ownedFieldValues.hashCode());
+		result = prime * result + ((ownedFieldValues == null) ? 0 : ownedFieldValues.hashCode());
 		return result;
 	}
 
@@ -215,6 +213,5 @@ public class RecordValueImpl extends PropertyValueImpl implements RecordValue {
 			return false;
 		return true;
 	}
-
 
 } //RecordValueImpl

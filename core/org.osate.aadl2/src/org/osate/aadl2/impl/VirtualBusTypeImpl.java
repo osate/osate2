@@ -35,8 +35,22 @@
  */
 package org.osate.aadl2.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.uml2.common.util.CacheAdapter;
+import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.VirtualBusType;
 
 /**
@@ -44,11 +58,46 @@ import org.osate.aadl2.VirtualBusType;
  * An implementation of the model object '<em><b>Virtual Bus Type</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedFeatures <em>Owned Feature</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedDataPorts <em>Owned Data Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.VirtualBusTypeImpl#getOwnedEventPorts <em>Owned Event Port</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusType {
+	/**
+	 * The cached value of the '{@link #getOwnedDataPorts() <em>Owned Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataPort> ownedDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventDataPorts() <em>Owned Event Data Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventDataPort> ownedEventDataPorts;
+	/**
+	 * The cached value of the '{@link #getOwnedEventPorts() <em>Owned Event Port</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<EventPort> ownedEventPorts;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -66,6 +115,227 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getVirtualBusType();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EList<Feature> getOwnedFeatures() {
+		CacheAdapter cache = getCacheAdapter();
+		if (cache != null) {
+			Resource eResource = eResource();
+			@SuppressWarnings("unchecked")
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
+			if (ownedFeatures == null) {
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+								Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+			}
+			return ownedFeatures;
+		}
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE,
+				OWNED_FEATURE_ESUBSETS);
+	}
+
+	/**
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedFeatures()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_FEATURE_GROUP, Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_ABSTRACT_FEATURE,
+			Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT, Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT,
+			Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<DataPort> getOwnedDataPorts() {
+		if (ownedDataPorts == null) {
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
+					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT);
+		}
+		return ownedDataPorts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataPort createOwnedDataPort() {
+		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
+		getOwnedDataPorts().add(newOwnedDataPort);
+		return newOwnedDataPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EventDataPort> getOwnedEventDataPorts() {
+		if (ownedEventDataPorts == null) {
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
+					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT);
+		}
+		return ownedEventDataPorts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventDataPort createOwnedEventDataPort() {
+		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
+		getOwnedEventDataPorts().add(newOwnedEventDataPort);
+		return newOwnedEventDataPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<EventPort> getOwnedEventPorts() {
+		if (ownedEventPorts == null) {
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
+					Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
+		}
+		return ownedEventPorts;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EventPort createOwnedEventPort() {
+		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
+		getOwnedEventPorts().add(newOwnedEventPort);
+		return newOwnedEventPort;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
+			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public Object eGet(int featureID, boolean resolve, boolean coreType) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
+			return getOwnedDataPorts();
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
+			return getOwnedEventDataPorts();
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+			return getOwnedEventPorts();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public void eSet(int featureID, Object newValue) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
+			getOwnedDataPorts().clear();
+			getOwnedDataPorts().addAll((Collection<? extends DataPort>) newValue);
+			return;
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
+			getOwnedEventDataPorts().clear();
+			getOwnedEventDataPorts().addAll((Collection<? extends EventDataPort>) newValue);
+			return;
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+			getOwnedEventPorts().clear();
+			getOwnedEventPorts().addAll((Collection<? extends EventPort>) newValue);
+			return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void eUnset(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
+			getOwnedDataPorts().clear();
+			return;
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
+			getOwnedEventDataPorts().clear();
+			return;
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+			getOwnedEventPorts().clear();
+			return;
+		}
+		super.eUnset(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean eIsSet(int featureID) {
+		switch (featureID) {
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
+			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
+			return ownedEventDataPorts != null && !ownedEventDataPorts.isEmpty();
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
+		}
+		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isSetOwnedFeatures() {
+		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT)
+				|| eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT)
+				|| eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
 	}
 
 	public String getCategory() {

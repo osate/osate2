@@ -46,6 +46,9 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.BusType#getOwnedBusAccesses <em>Owned Bus Access</em>}</li>
+ *   <li>{@link org.osate.aadl2.BusType#getOwnedDataPorts <em>Owned Data Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.BusType#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.BusType#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,5 +88,101 @@ public interface BusType extends ComponentType, BusClassifier {
 	 * @generated
 	 */
 	BusAccess createOwnedBusAccess();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.DataPort}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Data Port</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Data Port</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getBusType_OwnedDataPort()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<DataPort> getOwnedDataPorts();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.DataPort} and appends it to the '<em><b>Owned Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.DataPort}.
+	 * @see #getOwnedDataPorts()
+	 * @generated
+	 */
+	DataPort createOwnedDataPort();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.EventDataPort}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Event Data Port</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Event Data Port</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getBusType_OwnedEventDataPort()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<EventDataPort> getOwnedEventDataPorts();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.EventDataPort} and appends it to the '<em><b>Owned Event Data Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.EventDataPort}.
+	 * @see #getOwnedEventDataPorts()
+	 * @generated
+	 */
+	EventDataPort createOwnedEventDataPort();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.EventPort}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Event Port</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Event Port</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getBusType_OwnedEventPort()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<EventPort> getOwnedEventPorts();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.EventPort} and appends it to the '<em><b>Owned Event Port</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.EventPort}.
+	 * @see #getOwnedEventPorts()
+	 * @generated
+	 */
+	EventPort createOwnedEventPort();
 
 } // BusType
