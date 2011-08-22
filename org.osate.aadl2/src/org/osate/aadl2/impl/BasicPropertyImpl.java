@@ -129,7 +129,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 			propertyType = ownedPropertyType;
 		}
 		PropertyType pt = getPropertyTypeGen();
-		return (pt==null||pt.eIsProxy())?null:pt;
+		return (pt == null || pt.eIsProxy()) ? null : pt;
 	}
 
 	/**

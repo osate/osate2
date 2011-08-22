@@ -108,7 +108,6 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * All the members of a Namespace are distinguishable within it.
-	 * membersAreDistinguishable()
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
 	 * <!-- end-model-doc -->
@@ -122,11 +121,6 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query getNamesOfMember() gives a set of all of the names that a member would have in a Namespace. In general a member can have multiple names in a Namespace if it is imported more than once with different aliases. Those semantics are specified by overriding the getNamesOfMember operation. The specification here simply returns a set containing a single name, or the empty set if no name.
-	 * if member->includes(element) then
-	 *   Set{}->including(element.name)
-	 * else
-	 *   Set{}
-	 * endif
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.String" ordered="false" elementRequired="true" elementOrdered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='if member->includes(element) then\r\n  Set{}->including(element.name)\r\nelse\r\n  Set{}\r\nendif'"
@@ -139,7 +133,6 @@ public interface Namespace extends NamedElement {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The Boolean query membersAreDistinguishable() determines whether all of the namespaces members are distinguishable within it.
-	 * self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))
 	 * <!-- end-model-doc -->
 	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.member->forAll( memb | self.member->excluding(memb)->forAll(other | memb.isDistinguishableFrom(other, self)))'"

@@ -131,7 +131,9 @@
         </ownedComment>
         <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-has_qualified_name-_specification">
           <language>OCL</language>
-          <body>(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;&#xA;implies &#xD;&#xA;self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))</body>
+          <body>(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) &#xD;
+implies &#xD;
+self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))</body>
         </specification>
       </ownedRule>
       <generalization xmi:id="NamedElement-_generalization.0" general="Element"/>
@@ -162,7 +164,11 @@
         <ownedRule xmi:id="NamedElement-allNamespaces-spec" name="spec" constrainedElement="NamedElement-allNamespaces">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-allNamespaces-spec-_specification">
             <language>OCL</language>
-            <body>if self.namespace->isEmpty() then &#xD;&#xA;  Sequence{}&#xD;&#xA;else&#xD;&#xA;  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;&#xA;endif</body>
+            <body>if self.namespace->isEmpty() then &#xD;
+  Sequence{}&#xD;
+else&#xD;
+  self.namespace.allNamespaces()->prepend(self.namespace)&#xD;
+endif</body>
           </specification>
         </ownedRule>
         <ownedParameter xmi:id="NamedElement-allNamespaces-_ownedParameter.0" type="Namespace" isOrdered="true" direction="return">
@@ -177,7 +183,11 @@
         <ownedRule xmi:id="NamedElement-isDistinguishableFrom-spec" name="spec" constrainedElement="NamedElement-isDistinguishableFrom">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-isDistinguishableFrom-spec-_specification">
             <language>OCL</language>
-            <body>if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;&#xA;  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;&#xA;else&#xD;&#xA;  true&#xD;&#xA;endif</body>
+            <body>if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then&#xD;
+  ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()&#xD;
+else&#xD;
+  true&#xD;
+endif</body>
           </specification>
         </ownedRule>
         <ownedParameter xmi:id="NamedElement-isDistinguishableFrom-_ownedParameter.0" type="Boolean" direction="return"/>
@@ -203,7 +213,11 @@
         <ownedRule xmi:id="NamedElement-qualifiedName.1-spec" name="spec" constrainedElement="NamedElement-qualifiedName.1 NamedElement-qualifiedName">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="NamedElement-qualifiedName.1-spec-_specification">
             <language>OCL</language>
-            <body>if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then&#xD;&#xA;  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))&#xD;&#xA;else &#xD;&#xA;  '' &#xD;&#xA;endif</body>
+            <body>if self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty() then&#xD;
+  self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))&#xD;
+else &#xD;
+  '' &#xD;
+endif</body>
           </specification>
         </ownedRule>
         <ownedParameter xmi:id="NamedElement-qualifiedName.1-_ownedParameter.0" type="String" direction="return"/>
@@ -250,7 +264,11 @@
         <ownedRule xmi:id="Namespace-getNamesOfMember-spec" name="spec" constrainedElement="Namespace-getNamesOfMember">
           <specification xmi:type="uml:OpaqueExpression" xmi:id="Namespace-getNamesOfMember-spec-_specification">
             <language>OCL</language>
-            <body>if member->includes(element) then&#xD;&#xA;  Set{}->including(element.name)&#xD;&#xA;else&#xD;&#xA;  Set{}&#xD;&#xA;endif</body>
+            <body>if member->includes(element) then&#xD;
+  Set{}->including(element.name)&#xD;
+else&#xD;
+  Set{}&#xD;
+endif</body>
           </specification>
         </ownedRule>
         <ownedParameter xmi:id="Namespace-getNamesOfMember-_ownedParameter.0" type="String" direction="return">

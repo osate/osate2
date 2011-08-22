@@ -422,6 +422,11 @@
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/InEnd"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Flow"/>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowElement"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EndToEndFlowElement"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FlowEnd">
@@ -574,11 +579,6 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/ownedFlowSegment"/>
     </genClasses>
-    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
-      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
-      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
-    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FlowSegment">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSegment/flowElement"/>
@@ -668,6 +668,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" propertySortChoices="true"
           ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedUnit"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noAnnexes"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noProperties"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PackageRename">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -683,7 +684,6 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/publicSection"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/privateSection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AadlPackage/noProperties"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModelUnit"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//PrivatePackageSection">
@@ -888,6 +888,12 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//BusType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedBusAccess"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedEventDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedEventPort"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//BusImplementation">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
@@ -936,6 +942,12 @@
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MemoryType">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedBusAccess"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedEventDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedEventPort"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//MemoryImplementation">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
@@ -1127,7 +1139,14 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//ThreadGroupPrototype"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//VirtualBusClassifier"/>
-    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//VirtualBusType"/>
+    <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//VirtualBusType">
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedEventDataPort"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedEventPort"/>
+    </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//VirtualBusImplementation">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusImplementation/ownedVirtualBusSubcomponent"/>

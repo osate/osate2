@@ -1835,7 +1835,7 @@ The context owns the connection end instance.</body>
           <body>The specification of a flow of a component.</body>
         </ownedComment>
         <generalization xmi:id="Flows-FlowSpecification-_generalization.0" general="_W64jmFEMEd6kWIIn_VWR1g"/>
-        <generalization xmi:id="Flows-FlowSpecification-_generalization.1" general="Modes-ModalElement"/>
+        <generalization xmi:id="Flows-FlowSpecification-_generalization.1" general="Modes-ModalPath"/>
         <generalization xmi:id="Flows-SubcomponentFlow-_generalization.0" general="Flows-FlowElement"/>
         <ownedAttribute xmi:id="Flows-FlowSpecification-refined" name="refined" type="Flows-FlowSpecification" association="Flows-A_flowSpecification_refined">
           <ownedComment xmi:id="Flows-FlowSpecification-refined-_ownedComment.0">
@@ -1887,7 +1887,7 @@ The context owns the connection end instance.</body>
         </ownedAttribute>
         <ownedAttribute xmi:id="_xoODUKvbEeC0h7jzzZfZ7Q" name="ownedFlowSegment" type="_tDLx4KvbEeC0h7jzzZfZ7Q" isOrdered="true" aggregation="composite" association="_xpTocKvbEeC0h7jzzZfZ7Q">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoODUavbEeC0h7jzzZfZ7Q" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowElement" name="FlowElement" isAbstract="true">

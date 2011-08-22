@@ -347,6 +347,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseModalPath(ModalPath object) {
+			return createModalPathAdapter();
+		}
+
+		@Override
 		public Adapter caseFlowElement(FlowElement object) {
 			return createFlowElementAdapter();
 		}
@@ -539,11 +544,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFlowImplementation(FlowImplementation object) {
 			return createFlowImplementationAdapter();
-		}
-
-		@Override
-		public Adapter caseModalPath(ModalPath object) {
-			return createModalPathAdapter();
 		}
 
 		@Override

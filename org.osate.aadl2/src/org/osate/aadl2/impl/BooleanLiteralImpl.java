@@ -216,5 +216,4 @@ public class BooleanLiteralImpl extends PropertyValueImpl implements BooleanLite
 		return true;
 	}
 
-
 } //BooleanLiteralImpl
