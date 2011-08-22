@@ -1519,7 +1519,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	// need to set inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeatureClassifier|QCREF])? 
+	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeaturePrototype|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

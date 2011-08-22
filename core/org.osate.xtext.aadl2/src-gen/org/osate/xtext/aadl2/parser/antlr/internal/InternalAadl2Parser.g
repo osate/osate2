@@ -26897,7 +26897,7 @@ ruleAbstractFeature returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeatureClassifierCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeaturePrototypeCrossReference_3_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();

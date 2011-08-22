@@ -7266,7 +7266,7 @@
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="featureClassifier" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeatureClassifier"/>
+              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeaturePrototype"/>
             </type>
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.52"/>
           </terminal>
