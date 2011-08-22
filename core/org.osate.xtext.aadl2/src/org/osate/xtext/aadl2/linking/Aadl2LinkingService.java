@@ -134,9 +134,17 @@ public static Aadl2LinkingService getAadl2LinkingService(Element context){
 				if (! (e instanceof FeaturePrototype || e instanceof ComponentPrototype))
 					e = null;
 			}
-			if (requiredType.isSuperTypeOf(e.eClass())){
+			if (e!=null&&requiredType.isSuperTypeOf(e.eClass())){
 				return Collections.singletonList((EObject) e);
 			}
+			return Collections.<EObject> emptyList();
+		} else if (Aadl2Package.eINSTANCE.getFeaturePrototype() == requiredType) {
+				// look for prototype
+				EObject e = getContainingClassifier(context).findNamedElement(name);
+				// TODO-phf: this can be removed if the FeatureClassifier class handles it
+				if (e instanceof FeaturePrototype )
+					return Collections.singletonList((EObject) e);
+				return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
 			AadlPackage pack = findAadlPackage(context, name, reference);
 			if (pack != null) {
