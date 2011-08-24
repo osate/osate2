@@ -1775,8 +1775,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterConnectionAccess().getInModeOrTransitionAssignment_2_3_0(), "rule__ParameterConnection__InModeOrTransitionAssignment_2_3_0");
 					put(grammarAccess.getParameterConnectionAccess().getInModeOrTransitionAssignment_2_3_1_1(), "rule__ParameterConnection__InModeOrTransitionAssignment_2_3_1_1");
 					put(grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__FlowSpecification__OwnedPropertyAssociationAssignment_1_1");
-					put(grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_3(), "rule__FlowSpecification__InModeAssignment_2_3");
-					put(grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_4_1(), "rule__FlowSpecification__InModeAssignment_2_4_1");
+					put(grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionAssignment_2_3(), "rule__FlowSpecification__InModeOrTransitionAssignment_2_3");
+					put(grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionAssignment_2_4_1(), "rule__FlowSpecification__InModeOrTransitionAssignment_2_4_1");
 					put(grammarAccess.getFlowSourceSpecAccess().getNameAssignment_0(), "rule__FlowSourceSpec__NameAssignment_0");
 					put(grammarAccess.getFlowSourceSpecAccess().getKindAssignment_3(), "rule__FlowSourceSpec__KindAssignment_3");
 					put(grammarAccess.getFlowSourceSpecAccess().getOutEndAssignment_4(), "rule__FlowSourceSpec__OutEndAssignment_4");
