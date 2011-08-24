@@ -15929,25 +15929,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cInKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Keyword cModesKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
-		private final Assignment cInModeAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
-		private final CrossReference cInModeModeCrossReference_2_3_0 = (CrossReference)cInModeAssignment_2_3.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_2_3_0_1 = (RuleCall)cInModeModeCrossReference_2_3_0.eContents().get(1);
+		private final Assignment cInModeOrTransitionAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
+		private final CrossReference cInModeOrTransitionModeFeatureCrossReference_2_3_0 = (CrossReference)cInModeOrTransitionAssignment_2_3.eContents().get(0);
+		private final RuleCall cInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_1 = (RuleCall)cInModeOrTransitionModeFeatureCrossReference_2_3_0.eContents().get(1);
 		private final Group cGroup_2_4 = (Group)cGroup_2.eContents().get(4);
 		private final Keyword cCommaKeyword_2_4_0 = (Keyword)cGroup_2_4.eContents().get(0);
-		private final Assignment cInModeAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_2_4_1_0 = (CrossReference)cInModeAssignment_2_4_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_2_4_1_0_1 = (RuleCall)cInModeModeCrossReference_2_4_1_0.eContents().get(1);
+		private final Assignment cInModeOrTransitionAssignment_2_4_1 = (Assignment)cGroup_2_4.eContents().get(1);
+		private final CrossReference cInModeOrTransitionModeFeatureCrossReference_2_4_1_0 = (CrossReference)cInModeOrTransitionAssignment_2_4_1.eContents().get(0);
+		private final RuleCall cInModeOrTransitionModeFeatureIDTerminalRuleCall_2_4_1_0_1 = (RuleCall)cInModeOrTransitionModeFeatureCrossReference_2_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_2_5 = (Keyword)cGroup_2.eContents().get(5);
 		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//FlowSpecification returns aadl2::FlowSpecification:
 		//	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement) ("{"
-		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-		//	inMode+=[aadl2::Mode])* ")")? ";";
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+		//	inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement) ("{" ownedPropertyAssociation+=PropertyAssociation+
-		//"}")? ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")? ";"
+		//"}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+		//";"
 		public Group getGroup() { return cGroup; }
 
 		//FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement
@@ -15980,7 +15981,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_1_2() { return cRightCurlyBracketKeyword_1_2; }
 
-		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		//("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"in"
@@ -15992,29 +15993,29 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_2_2() { return cLeftParenthesisKeyword_2_2; }
 
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_2_3() { return cInModeAssignment_2_3; }
+		//inModeOrTransition+=[aadl2::ModeFeature]
+		public Assignment getInModeOrTransitionAssignment_2_3() { return cInModeOrTransitionAssignment_2_3; }
 
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_2_3_0() { return cInModeModeCrossReference_2_3_0; }
+		//[aadl2::ModeFeature]
+		public CrossReference getInModeOrTransitionModeFeatureCrossReference_2_3_0() { return cInModeOrTransitionModeFeatureCrossReference_2_3_0; }
 
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_2_3_0_1() { return cInModeModeIDTerminalRuleCall_2_3_0_1; }
+		public RuleCall getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_1() { return cInModeOrTransitionModeFeatureIDTerminalRuleCall_2_3_0_1; }
 
-		//("," inMode+=[aadl2::Mode])*
+		//("," inModeOrTransition+=[aadl2::ModeFeature])*
 		public Group getGroup_2_4() { return cGroup_2_4; }
 
 		//","
 		public Keyword getCommaKeyword_2_4_0() { return cCommaKeyword_2_4_0; }
 
-		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_2_4_1() { return cInModeAssignment_2_4_1; }
+		//inModeOrTransition+=[aadl2::ModeFeature]
+		public Assignment getInModeOrTransitionAssignment_2_4_1() { return cInModeOrTransitionAssignment_2_4_1; }
 
-		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_2_4_1_0() { return cInModeModeCrossReference_2_4_1_0; }
+		//[aadl2::ModeFeature]
+		public CrossReference getInModeOrTransitionModeFeatureCrossReference_2_4_1_0() { return cInModeOrTransitionModeFeatureCrossReference_2_4_1_0; }
 
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_2_4_1_0_1() { return cInModeModeIDTerminalRuleCall_2_4_1_0_1; }
+		public RuleCall getInModeOrTransitionModeFeatureIDTerminalRuleCall_2_4_1_0_1() { return cInModeOrTransitionModeFeatureIDTerminalRuleCall_2_4_1_0_1; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_2_5() { return cRightParenthesisKeyword_2_5; }
@@ -16237,15 +16238,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
 		////	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
 		////	';'
-		//FlowSpecRefinement returns aadl2::FlowSpecification: //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+		//FlowSpecRefinement returns aadl2::FlowSpecification:
 		//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind;
 		public ParserRule getRule() { return rule; }
 
-		////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 		//refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind
 		public Group getGroup() { return cGroup; }
 
-		////	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 		//refined=[aadl2::FlowSpecification|REFINEDNAME]
 		public Assignment getRefinedAssignment_0() { return cRefinedAssignment_0; }
 
@@ -21775,8 +21774,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FlowSpecification returns aadl2::FlowSpecification:
 	//	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement) ("{"
-	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode] (","
-	//	inMode+=[aadl2::Mode])* ")")? ";";
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+	//	inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
 	public FlowSpecificationElements getFlowSpecificationAccess() {
 		return (pFlowSpecification != null) ? pFlowSpecification : (pFlowSpecification = new FlowSpecificationElements());
 	}
@@ -21838,7 +21837,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
 	////	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
 	////	';'
-	//FlowSpecRefinement returns aadl2::FlowSpecification: //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+	//FlowSpecRefinement returns aadl2::FlowSpecification:
 	//	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind;
 	public FlowSpecRefinementElements getFlowSpecRefinementAccess() {
 		return (pFlowSpecRefinement != null) ? pFlowSpecRefinement : (pFlowSpecRefinement = new FlowSpecRefinementElements());

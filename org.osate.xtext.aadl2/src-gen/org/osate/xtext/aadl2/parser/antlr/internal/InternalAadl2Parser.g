@@ -22323,7 +22323,7 @@ ruleFlowSpecification returns [EObject current=null]
         }
 	otherlv_10=RULE_ID
 	{
-		newLeafNode(otherlv_10, grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_3_0()); 
+		newLeafNode(otherlv_10, grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0()); 
 	}
 
 )
@@ -22344,7 +22344,7 @@ ruleFlowSpecification returns [EObject current=null]
         }
 	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_12, grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_4_1_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0()); 
 	}
 
 )
