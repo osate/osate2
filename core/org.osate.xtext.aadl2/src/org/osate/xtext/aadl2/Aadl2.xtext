@@ -1651,7 +1651,7 @@ FlowSpecification returns aadl2::FlowSpecification:
 		| FlowSpecRefinement
 	)
 		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? 
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
 	';'
 	;
 
@@ -1688,7 +1688,6 @@ FlowEnd returns aadl2::FlowEnd:
 ;
 
 FlowSpecRefinement returns aadl2::FlowSpecification:
-//	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 	refined=[aadl2::FlowSpecification|REFINEDNAME] 
 	':' 'refined' 'to' 'flow' kind=FlowKind 
 //	( '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 

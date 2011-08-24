@@ -76525,13 +76525,14 @@ protected class ParameterConnection_SemicolonKeyword_3 extends KeywordToken  {
  *
  * FlowSpecification returns aadl2::FlowSpecification:
  * 	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement) ("{"
- * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inMode+=[aadl2::Mode] (","
- * 	inMode+=[aadl2::Mode])* ")")? ";";
+ * 	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] (","
+ * 	inModeOrTransition+=[aadl2::ModeFeature])* ")")? ";";
  *
  **/
 
 // (FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement) ("{" ownedPropertyAssociation+=PropertyAssociation+
-// "}")? ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")? ";"
+// "}")? ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
+// ";"
 protected class FlowSpecification_Group extends GroupToken {
 	
 	public FlowSpecification_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -76836,7 +76837,7 @@ protected class FlowSpecification_RightCurlyBracketKeyword_1_2 extends KeywordTo
 }
 
 
-// ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+// ("in" "modes" "(" inModeOrTransition+=[aadl2::ModeFeature] ("," inModeOrTransition+=[aadl2::ModeFeature])* ")")?
 protected class FlowSpecification_Group_2 extends GroupToken {
 	
 	public FlowSpecification_Group_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -76925,16 +76926,16 @@ protected class FlowSpecification_LeftParenthesisKeyword_2_2 extends KeywordToke
 
 }
 
-// inMode+=[aadl2::Mode]
-protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class FlowSpecification_InModeOrTransitionAssignment_2_3 extends AssignmentToken  {
 	
-	public FlowSpecification_InModeAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_InModeOrTransitionAssignment_2_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_3();
+		return grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionAssignment_2_3();
 	}
 
     @Override
@@ -76947,13 +76948,13 @@ protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_3_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_3_0(); 
+				element = grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0(); 
 				return obj;
 			}
 		}
@@ -76962,7 +76963,7 @@ protected class FlowSpecification_InModeAssignment_2_3 extends AssignmentToken  
 
 }
 
-// ("," inMode+=[aadl2::Mode])*
+// ("," inModeOrTransition+=[aadl2::ModeFeature])*
 protected class FlowSpecification_Group_2_4 extends GroupToken {
 	
 	public FlowSpecification_Group_2_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -76977,7 +76978,7 @@ protected class FlowSpecification_Group_2_4 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new FlowSpecification_InModeAssignment_2_4_1(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new FlowSpecification_InModeOrTransitionAssignment_2_4_1(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -77000,23 +77001,23 @@ protected class FlowSpecification_CommaKeyword_2_4_0 extends KeywordToken  {
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new FlowSpecification_Group_2_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_InModeAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new FlowSpecification_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
 
 }
 
-// inMode+=[aadl2::Mode]
-protected class FlowSpecification_InModeAssignment_2_4_1 extends AssignmentToken  {
+// inModeOrTransition+=[aadl2::ModeFeature]
+protected class FlowSpecification_InModeOrTransitionAssignment_2_4_1 extends AssignmentToken  {
 	
-	public FlowSpecification_InModeAssignment_2_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public FlowSpecification_InModeOrTransitionAssignment_2_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Assignment getGrammarElement() {
-		return grammarAccess.getFlowSpecificationAccess().getInModeAssignment_2_4_1();
+		return grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionAssignment_2_4_1();
 	}
 
     @Override
@@ -77029,13 +77030,13 @@ protected class FlowSpecification_InModeAssignment_2_4_1 extends AssignmentToken
 
     @Override	
 	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if((value = eObjectConsumer.getConsumable("inModeOrTransition",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inModeOrTransition");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_4_1_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getFlowSpecificationAccess().getInModeModeCrossReference_2_4_1_0(); 
+				element = grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0(); 
 				return obj;
 			}
 		}
@@ -77061,7 +77062,7 @@ protected class FlowSpecification_RightParenthesisKeyword_2_5 extends KeywordTok
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new FlowSpecification_Group_2_4(lastRuleCallOrigin, this, 0, inst);
-			case 1: return new FlowSpecification_InModeAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
+			case 1: return new FlowSpecification_InModeOrTransitionAssignment_2_3(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -77929,12 +77930,11 @@ protected class FlowEnd_FeatureAssignment_1 extends AssignmentToken  {
  * //		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
  * //	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
  * //	';'
- * FlowSpecRefinement returns aadl2::FlowSpecification: //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
+ * FlowSpecRefinement returns aadl2::FlowSpecification:
  * 	refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind;
  *
  **/
 
-// //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 // refined=[aadl2::FlowSpecification|REFINEDNAME] ":" "refined" "to" "flow" kind=FlowKind
 protected class FlowSpecRefinement_Group extends GroupToken {
 	
@@ -77964,7 +77964,6 @@ protected class FlowSpecRefinement_Group extends GroupToken {
 
 }
 
-// //	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 // refined=[aadl2::FlowSpecification|REFINEDNAME]
 protected class FlowSpecRefinement_RefinedAssignment_0 extends AssignmentToken  {
 	
