@@ -4,7 +4,6 @@
 
      <extension
          point="org.eclipse.ui.actionSets">
-         
       <actionSet
             id="edu.cmu.sei.osate.reporter.actionSet"
             label="Reporter"
@@ -47,8 +46,6 @@
          		<objectClass name="org.eclipse.core.resources.IResource"/>
          	</enablement>
          </action>
-         
-         
       </actionSet>
    </extension>
    
