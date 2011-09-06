@@ -39,7 +39,6 @@ package org.osate.ui.wizards;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
-
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -63,6 +62,7 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
+import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.osate.core.AadlNature;
@@ -75,333 +75,354 @@ import org.osate.workspace.WorkspacePlugin;
  * This is a simple wizard for creating a new Aadl project.
  */
 public class AadlProjectWizard extends BasicNewResourceWizard implements
-        IExecutableExtension
+IExecutableExtension
 {
 
-    /**
-     */
-    public class WizardNewAadlProjectCreationPage extends
-            WizardNewProjectCreationPage
-    {
-        /**
-         * the project to be created
-         */
-        protected IProject aadlProject;
+	private WizardNewProjectReferencePage referencePage;
 
-        /**
-         * Create the project creation page
-         */
-        public WizardNewAadlProjectCreationPage(String pageId)
-        {
-            super(pageId);
-        }
+	/**
+	 */
+	public class WizardNewAadlProjectCreationPage extends
+	WizardNewProjectCreationPage
+	{
+		/**
+		 * the project to be created
+		 */
+		protected IProject aadlProject;
 
-        /**
-         * The framework calls this to see if the project is correct.
-         */
-        protected boolean validatePage()
-        {
-            if (getProjectName().indexOf(' ') != -1)
-            {
-                setErrorMessage("The space is an invalid character in project name "
-                        + getProjectName() + '.');
-                return false;
-            } else
-                return super.validatePage();
-        }
+		/**
+		 * Create the project creation page
+		 */
+		public WizardNewAadlProjectCreationPage(String pageId)
+		{
+			super(pageId);
+		}
 
-    }
-    /**
-     */
-    public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+		/**
+		 * The framework calls this to see if the project is correct.
+		 */
+		protected boolean validatePage()
+		{
+			if (getProjectName().indexOf(' ') != -1)
+			{
+				setErrorMessage("The space is an invalid character in project name "
+						+ getProjectName() + '.');
+				return false;
+			} else
+				return super.validatePage();
+		}
 
-    /**
-     * The config element which declares this wizard.
-     */
-    private IConfigurationElement configElement;
+	}
+	/**
+	 */
+	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
 
-    //cache of newly-created project
-    private IProject newProject;
+	/**
+	 * The config element which declares this wizard.
+	 */
+	private IConfigurationElement configElement;
 
-    /**
-     * This is the project creation page.
-     */
-    protected WizardNewAadlProjectCreationPage newProjectCreationPage;
+	//cache of newly-created project
+	private IProject newProject;
 
-    /**
-     * Remember the workbench during initialization. <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * 
-     * @generated
-     */
-    protected IWorkbench workbench;
+	/**
+	 * This is the project creation page.
+	 */
+	protected WizardNewAadlProjectCreationPage newProjectCreationPage;
 
-    protected IWorkspace workspace = ResourcesPlugin.getWorkspace();
+	/**
+	 * Remember the workbench during initialization. <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	protected IWorkbench workbench;
 
-    /**
-     * Creates a wizard for creating a new project resource in the workspace.
-     */
-    public AadlProjectWizard()
-    {
-        IDialogSettings workbenchSettings = OsateUiPlugin.getDefault()
-                .getDialogSettings();
-        IDialogSettings section = workbenchSettings
-                .getSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
-        if (section == null)
-            section = workbenchSettings
-                    .addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
-        setDialogSettings(section);
-    }
+	protected IWorkspace workspace = ResourcesPlugin.getWorkspace();
 
-    /*
-     * (non-Javadoc) Method declared on IWizard.
-     */
-    public void addPages()
-    {
-        super.addPages();
+	/**
+	 * Creates a wizard for creating a new project resource in the workspace.
+	 */
+	public AadlProjectWizard()
+	{
+		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault()
+				.getDialogSettings();
+		IDialogSettings section = workbenchSettings
+				.getSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
+		if (section == null)
+			section = workbenchSettings
+			.addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
+		setDialogSettings(section);
+	}
 
-        newProjectCreationPage = new WizardNewAadlProjectCreationPage(
-                "basicNewProjectPage");//$NON-NLS-1$
-        newProjectCreationPage.setTitle("Aadl Project"); //$NON-NLS-1$
-        newProjectCreationPage
-                .setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
-        this.addPage(newProjectCreationPage);
-    }
+	/*
+	 * (non-Javadoc) Method declared on IWizard.
+	 */
+	public void addPages()
+	{
+		super.addPages();
 
-    /**
-     * Creates a new project resource with the selected name.
-     * <p>
-     * In normal usage, this method is invoked after the user has pressed Finish
-     * on the wizard; the enablement of the Finish button implies that all
-     * controls on the pages currently contain valid values.
-     * </p>
-     * <p>
-     * Note that this wizard caches the new project once it has been
-     * successfully created; subsequent invocations of this method will answer
-     * the same project resource without attempting to create it again.
-     * </p>
-     * 
-     * @return the created project resource, or <code>null</code> if the
-     *         project was not created
-     */
-    private IProject createNewProject()
-    {
-        if (newProject != null)
-            return newProject;
+		newProjectCreationPage = new WizardNewAadlProjectCreationPage(
+				"basicNewProjectPage");//$NON-NLS-1$
+		newProjectCreationPage.setTitle("Aadl Project"); //$NON-NLS-1$
+		newProjectCreationPage
+		.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
+		this.addPage(newProjectCreationPage);
 
-        // get a project handle
-        final IProject newProjectHandle = newProjectCreationPage
-                .getProjectHandle();
+		referencePage = new WizardNewProjectReferencePage("projectReferencePage");
+		referencePage.setTitle("AADL Settings");
+		referencePage.setDescription("Define the AADL Settings");
 
-        // get a project descriptor
-        IPath newPath = null;
-        if (!newProjectCreationPage.useDefaults())
-            newPath = newProjectCreationPage.getLocationPath();
+		this.addPage( referencePage );
 
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        final IProjectDescription description = workspace
-                .newProjectDescription(newProjectHandle.getName());
-        description.setLocation(newPath);
 
-        // create the new project operation
-        WorkspaceModifyOperation op = new WorkspaceModifyOperation()
-        {
-            protected void execute(IProgressMonitor monitor)
-                    throws CoreException
-            {
-                createProject(description, newProjectHandle, monitor);
-            }
-        };
+	}
 
-        // run the new project creation operation
-        try
-        {
-            getContainer().run(true, true, op);
-        } catch (InterruptedException e)
-        {
-            return null;
-        } catch (InvocationTargetException e)
-        {
-            // ie.- one of the steps resulted in a core exception
-            Throwable t = e.getTargetException();
-            if (t instanceof CoreException)
-            {
-                if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS)
-                {
-                    MessageDialog
-                            .openError(
-                                    getShell(),
-                                    "Creation Problems", //$NON-NLS-1$
-                                    MessageFormat
-                                            .format(
-                                                    "The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
-                            );
-                } else
-                {
-                    ErrorDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
-                            null, // no special message
-                            ((CoreException) t).getStatus());
-                }
-            } else
-            {
-                // CoreExceptions are handled above, but unexpected runtime
-                // exceptions and errors may still occur.
-            	OsateUiPlugin.log(
-            			new Status(IStatus.ERROR,
-            					OsateUiPlugin.getPluginId(), 0, t
-            							.toString(), t));
-                MessageDialog
-                        .openError(
-                                getShell(),
-                                "Creation Problems", //$NON-NLS-1$
-                                MessageFormat
-                                        .format(
-                                                "Internal error: {0}", new Object[] { t.getMessage() })); //$NON-NLS-1$
-            }
-            return null;
-        }
+	/**
+	 * Creates a new project resource with the selected name.
+	 * <p>
+	 * In normal usage, this method is invoked after the user has pressed Finish
+	 * on the wizard; the enablement of the Finish button implies that all
+	 * controls on the pages currently contain valid values.
+	 * </p>
+	 * <p>
+	 * Note that this wizard caches the new project once it has been
+	 * successfully created; subsequent invocations of this method will answer
+	 * the same project resource without attempting to create it again.
+	 * </p>
+	 * 
+	 * @return the created project resource, or <code>null</code> if the
+	 *         project was not created
+	 */
+	private IProject createNewProject()
+	{
+		if (newProject != null)
+			return newProject;
 
-        newProject = newProjectHandle;
+		// get a project handle
+		final IProject newProjectHandle = newProjectCreationPage
+				.getProjectHandle();
 
-        return newProject;
-    }
+		// get a project descriptor
+		IPath newPath = null;
+		if (!newProjectCreationPage.useDefaults())
+			newPath = newProjectCreationPage.getLocationPath();
 
-    /**
-     * Creates a project resource given the project handle and description.
-     * 
-     * @param description
-     *            the project description to create a project resource for
-     * @param projectHandle
-     *            the project handle to create a project resource for
-     * @param monitor
-     *            the progress monitor to show visual progress with
-     * 
-     * @exception CoreException
-     *                if the operation fails
-     * @exception OperationCanceledException
-     *                if the operation is canceled
-     */
-    void createProject(IProjectDescription description, IProject projectHandle,
-            IProgressMonitor monitor) throws CoreException,
-            OperationCanceledException
-    {
-        try
-        {
-            monitor.beginTask("", 2000);//$NON-NLS-1$
+		IWorkspace workspace = ResourcesPlugin.getWorkspace();
+		final IProjectDescription description = workspace
+				.newProjectDescription(newProjectHandle.getName());
+		description.setLocation(newPath);
 
-            projectHandle.create(description, new SubProgressMonitor(monitor,
-                    1000));
+		if( referencePage != null )
+		{
+			IProject[] refProjects = referencePage.getReferencedProjects();
 
-            if (monitor.isCanceled())
-                throw new OperationCanceledException();
+			if (refProjects.length > 0) 
+			{
+				description.setReferencedProjects( refProjects );
+			}
+		}
 
-            projectHandle.open(new SubProgressMonitor(monitor, 1000));
 
-        } finally
-        {
-            monitor.done();
-        }
-    }
+		// create the new project operation
+		WorkspaceModifyOperation op = new WorkspaceModifyOperation()
+		{
+			protected void execute(IProgressMonitor monitor)
+					throws CoreException
+					{
+				createProject(description, newProjectHandle, monitor);
+					}
+		};
 
-    /**
-     * Returns the newly created project.
-     * 
-     * @return the created project, or <code>null</code> if project not
-     *         created
-     */
-    public IProject getNewProject()
-    {
-        return newProject;
-    }
+		// run the new project creation operation
+		try
+		{
+			getContainer().run(true, true, op);
+		} catch (InterruptedException e)
+		{
+			return null;
+		} catch (InvocationTargetException e)
+		{
+			// ie.- one of the steps resulted in a core exception
+			Throwable t = e.getTargetException();
+			if (t instanceof CoreException)
+			{
+				if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS)
+				{
+					MessageDialog
+					.openError(
+							getShell(),
+							"Creation Problems", //$NON-NLS-1$
+							MessageFormat
+							.format(
+									"The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
+							);
+				} else
+				{
+					ErrorDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
+							null, // no special message
+							((CoreException) t).getStatus());
+				}
+			} else
+			{
+				// CoreExceptions are handled above, but unexpected runtime
+				// exceptions and errors may still occur.
+				OsateUiPlugin.log(
+						new Status(IStatus.ERROR,
+								OsateUiPlugin.getPluginId(), 0, t
+								.toString(), t));
+				MessageDialog
+				.openError(
+						getShell(),
+						"Creation Problems", //$NON-NLS-1$
+						MessageFormat
+						.format(
+								"Internal error: {0}", new Object[] { t.getMessage() })); //$NON-NLS-1$
+			}
+			return null;
+		}
 
-    /**
-     * This just records the information. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * 
-     * @generated
-     */
-    public void init(IWorkbench workbench, IStructuredSelection selection)
-    {
-        super.init(workbench, selection);
-        this.workbench = workbench;
-        setWindowTitle("New");
-    }
+		newProject = newProjectHandle;
 
-    /**
-     * Do the work after everything is specified. <!-- begin-user-doc --> <!--
-     * end-user-doc -->
-     * 
-     * @generated NOT
-     */
-    public boolean performFinish()
-    {
-        createNewProject();
-        if (newProject == null)
-            return false;
-        updatePerspective();
-        selectAndReveal(newProject);
-        final IProject p = getNewProject();
-        final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
-        final IFolder xmlPack = defModDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-        final IFolder xmlPSet = defModDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
-        final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
-        final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-        final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
-        
-        try
-        {
-            CoreUtility.createFolder(xmlPack, true, true, null);
-            CoreUtility.createFolder(xmlPSet, true, true, null);
-            CoreUtility.createFolder(srcPack, true, true, null);
-            CoreUtility.createFolder(srcPSet, true, true, null);
-        } catch (CoreException e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME)
-                .getRawLocation().toString();
+		return newProject;
+	}
 
-        PreferenceStore ps = new PreferenceStore(filepath);
-        ps.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR, 
-                WorkspacePlugin.DEFAULT_SOURCE_DIR);
-        ps.setValue(WorkspacePlugin.PROJECT_MODEL_DIR,
-                WorkspacePlugin.DEFAULT_MODEL_DIR);
-        try
-        {
-            ps.save();
-        } catch (IOException e1)
-        {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-        try
-        {
-            p.refreshLocal(1, null);
-        } catch (CoreException e2)
-        {
-            // TODO Auto-generated catch block
-            e2.printStackTrace();
-        }
-        AadlNature.addNature(p, null);
-        return true;
-    }
+	/**
+	 * Creates a project resource given the project handle and description.
+	 * 
+	 * @param description
+	 *            the project description to create a project resource for
+	 * @param projectHandle
+	 *            the project handle to create a project resource for
+	 * @param monitor
+	 *            the progress monitor to show visual progress with
+	 * 
+	 * @exception CoreException
+	 *                if the operation fails
+	 * @exception OperationCanceledException
+	 *                if the operation is canceled
+	 */
+	void createProject(IProjectDescription description, IProject projectHandle,
+			IProgressMonitor monitor) throws CoreException,
+			OperationCanceledException
+			{
+		try
+		{
+			monitor.beginTask("", 2000);//$NON-NLS-1$
 
-    /**
-     * Stores the configuration element for the wizard. The config element will
-     * be used in <code>performFinish</code> to set the result perspective.
-     */
-    public void setInitializationData(IConfigurationElement cfig,
-            String propertyName, Object data)
-    {
-        configElement = cfig;
-    }
+			projectHandle.create(description, new SubProgressMonitor(monitor,
+					1000));
 
-    /**
-     * Updates the perspective for the active page within the window.
-     */
-    protected void updatePerspective()
-    {
-        BasicNewProjectResourceWizard.updatePerspective(configElement);
-    }
+			if (monitor.isCanceled())
+				throw new OperationCanceledException();
+
+			projectHandle.open(new SubProgressMonitor(monitor, 1000));
+
+		} finally
+		{
+			monitor.done();
+		}
+			}
+
+	/**
+	 * Returns the newly created project.
+	 * 
+	 * @return the created project, or <code>null</code> if project not
+	 *         created
+	 */
+	public IProject getNewProject()
+	{
+		return newProject;
+	}
+
+	/**
+	 * This just records the information. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated
+	 */
+	public void init(IWorkbench workbench, IStructuredSelection selection)
+	{
+		super.init(workbench, selection);
+		this.workbench = workbench;
+		setWindowTitle("New");
+	}
+
+	/**
+	 * Do the work after everything is specified. <!-- begin-user-doc --> <!--
+	 * end-user-doc -->
+	 * 
+	 * @generated NOT
+	 */
+	public boolean performFinish()
+	{
+		createNewProject();
+		if (newProject == null)
+			return false;
+		updatePerspective();
+		selectAndReveal(newProject);
+		final IProject p = getNewProject();
+		final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
+		final IFolder xmlPack = defModDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
+		final IFolder xmlPSet = defModDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
+		final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
+		final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
+		final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
+
+		try
+		{
+			CoreUtility.createFolder(xmlPack, true, true, null);
+			CoreUtility.createFolder(xmlPSet, true, true, null);
+			CoreUtility.createFolder(srcPack, true, true, null);
+			CoreUtility.createFolder(srcPSet, true, true, null);
+		} catch (CoreException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME)
+				.getRawLocation().toString();
+
+		PreferenceStore ps = new PreferenceStore(filepath);
+		ps.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR, 
+				WorkspacePlugin.DEFAULT_SOURCE_DIR);
+		ps.setValue(WorkspacePlugin.PROJECT_MODEL_DIR,
+				WorkspacePlugin.DEFAULT_MODEL_DIR);
+		try
+		{
+			ps.save();
+		} catch (IOException e1)
+		{
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try
+		{
+			p.refreshLocal(1, null);
+		} catch (CoreException e2)
+		{
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		AadlNature.addNature(p, null);
+		return true;
+	}
+
+	/**
+	 * Stores the configuration element for the wizard. The config element will
+	 * be used in <code>performFinish</code> to set the result perspective.
+	 */
+	public void setInitializationData(IConfigurationElement cfig,
+			String propertyName, Object data)
+	{
+		configElement = cfig;
+	}
+
+	/**
+	 * Updates the perspective for the active page within the window.
+	 */
+	protected void updatePerspective()
+	{
+		BasicNewProjectResourceWizard.updatePerspective(configElement);
+	}
 }
