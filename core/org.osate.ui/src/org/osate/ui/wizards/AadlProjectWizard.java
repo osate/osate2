@@ -39,6 +39,8 @@ package org.osate.ui.wizards;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
+import java.util.ArrayList;
+
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -58,11 +60,13 @@ import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.dialogs.WizardNewProjectCreationPage;
 import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
+import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
 import org.osate.core.AadlNature;
@@ -169,7 +173,7 @@ IExecutableExtension
 		.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
 		this.addPage(newProjectCreationPage);
 
-		referencePage = new WizardNewProjectReferencePage("projectReferencePage");
+		referencePage = new AADLWizardReferencePage("projectReferencePage");
 		referencePage.setTitle("AADL Settings");
 		referencePage.setDescription("Define the AADL Settings");
 
@@ -424,5 +428,53 @@ IExecutableExtension
 	protected void updatePerspective()
 	{
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
+	}
+	
+	
+	
+	
+	class AADLWizardReferencePage extends WizardNewProjectReferencePage{
+
+		public AADLWizardReferencePage( String pageName )
+		{
+			super(pageName);
+		}
+		
+		@Override
+	    protected IStructuredContentProvider getContentProvider() {
+			
+	        return new WorkbenchContentProvider() {
+	            public Object[] getChildren(Object element) {
+	                if (!(element instanceof IWorkspace)) {
+						return new Object[0];
+					}
+	                IProject[] projects = ((IWorkspace) element).getRoot()
+	                        .getProjects();
+	                
+	                IProject project;
+	                ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
+	                for( int i =0 ; i < projects.length; i++ )
+	                {
+	                	project= projects[i];
+	                	System.out.println( project.toString() );
+	                	try
+	                	{
+							if( project.hasNature(AadlNature.ID))
+							{
+								projectsWithNatures.add( project );
+							}
+						} catch (CoreException e)
+						{
+							e.printStackTrace();
+						}
+	                }
+	                
+	                return projectsWithNatures.toArray();
+	                
+	               // return projects == null ? new Object[0] : projects;
+	            }
+	        };
+	    }
+		
 	}
 }
