@@ -41,9 +41,9 @@ import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IProjectNature;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.xtext.builder.nature.XtextNature;
 
-
-public class AadlNature implements IProjectNature {
+public class AadlNature extends XtextNature implements IProjectNature{
 
 	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
 
