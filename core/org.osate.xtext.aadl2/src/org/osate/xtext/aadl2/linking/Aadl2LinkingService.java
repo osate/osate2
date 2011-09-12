@@ -1803,6 +1803,29 @@ public static Aadl2LinkingService getAadl2LinkingService(Element context){
 				return null;
 		}
 	}
+	
+	public AadlPackage findAadlPackageReference(String packageName, Namespace context) {
+		if (context instanceof PackageSection
+				&& (packageName == null || context.getName()
+						.equalsIgnoreCase(packageName)))
+			return 	(AadlPackage)((PackageSection) context).eContainer();
+		else {
+			AadlPackage aadlPackage = null;
+
+			if (context instanceof PackageSection) {
+				PackageRename packageRename = findPackageRename(packageName,
+						(PackageSection) context);
+				if (packageRename != null)
+					aadlPackage = packageRename.getRenamedPackage();
+				else
+					aadlPackage = findImportedPackage(packageName, context);
+			} else
+				aadlPackage = findImportedPackage(packageName, context);
+
+			
+			return aadlPackage;
+		}
+	}
 
 	private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
 
