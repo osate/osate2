@@ -1639,6 +1639,7 @@ public static Aadl2LinkingService getAadl2LinkingService(Element context){
 
 	public AadlPackage findImportedPackage(String name, EObject context) {
 		EList<ModelUnit> imports;
+		if (name == null) return null;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
 			context = getContainingTopLevelNamespace(context);
 		}
@@ -1669,6 +1670,7 @@ public static Aadl2LinkingService getAadl2LinkingService(Element context){
 	public PropertySet findImportedPropertySet(String name,
 			EObject context) {
 		EList<ModelUnit> importedPropertySets;
+		if (name == null) return null;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
 			context = getContainingTopLevelNamespace(context);
 		}
