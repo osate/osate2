@@ -184,13 +184,13 @@ protected class Sandbox_SystemInstanceAssignment_2 extends AssignmentToken  {
 /************ begin Rule SystemConfiguration ****************
  *
  * SystemConfiguration:
- * 	"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF]
- * 	systemInstanceProxy=SystemInstanceProxy? ";";
+ * 	"system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
+ * 	[aadl2::SystemImplementation] systemInstanceProxy=SystemInstanceProxy? ";";
  *
  **/
 
-// "system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF] systemInstanceProxy=SystemInstanceProxy?
-// ";"
+// "system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
+// [aadl2::SystemImplementation] systemInstanceProxy=SystemInstanceProxy? ";"
 protected class SystemConfiguration_Group extends GroupToken {
 	
 	public SystemConfiguration_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -318,7 +318,8 @@ protected class SystemConfiguration_FromKeyword_3 extends KeywordToken  {
 
 }
 
-// systemImplementation=[ecore::EObject|QIREF]
+// systemImplementation= //[ecore::EObject|QIREF]
+// [aadl2::SystemImplementation]
 protected class SystemConfiguration_SystemImplementationAssignment_4 extends AssignmentToken  {
 	
 	public SystemConfiguration_SystemImplementationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -344,9 +345,9 @@ protected class SystemConfiguration_SystemImplementationAssignment_4 extends Ass
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemImplementation");
 		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0().getType().getClassifier())) {
+			if(param.isInstanceOf(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0().getType().getClassifier())) {
 				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0(); 
+				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0(); 
 				return obj;
 			}
 		}

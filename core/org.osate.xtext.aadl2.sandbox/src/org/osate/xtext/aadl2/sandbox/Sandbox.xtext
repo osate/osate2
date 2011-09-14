@@ -3,7 +3,7 @@ grammar org.osate.xtext.aadl2.sandbox.Sandbox with org.eclipse.xtext.common.Term
 generate sandbox "http://www.osate.org/xtext/aadl2/sandbox/Sandbox"
 
 
-//import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
+import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 //
 //import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
 											
@@ -13,7 +13,7 @@ Sandbox:
 	"sandbox" name=ID systemInstance+=SystemConfiguration;
 	
 SystemConfiguration:
-	"system" "instance" name=ID "from" systemImplementation=[ecore::EObject|QIREF]
+	"system" "instance" name=ID "from" systemImplementation=[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
 		(systemInstanceProxy=SystemInstanceProxy)? ";"
 ;
 

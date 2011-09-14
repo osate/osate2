@@ -173,12 +173,10 @@ ruleSystemConfiguration returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getSystemConfigurationRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0()); 
-	    }
-		ruleQIREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); 
+	}
 
 )
 )(
@@ -247,59 +245,6 @@ ruleSystemInstanceProxy returns [EObject current=null]
 ;
 
 
-
-
-
-// Entry rule entryRuleQIREF
-entryRuleQIREF returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getQIREFRule()); } 
-	 iv_ruleQIREF=ruleQIREF 
-	 { $current=$iv_ruleQIREF.current.getText(); }  
-	 EOF 
-;
-
-// Rule QIREF
-ruleQIREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-((    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_0_0()); 
-    }
-
-	kw=KEYWORD_3 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getQIREFAccess().getColonColonKeyword_0_1()); 
-    }
-)*    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_1()); 
-    }
-
-	kw=KEYWORD_1 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getQIREFAccess().getFullStopKeyword_2()); 
-    }
-    this_ID_4=RULE_ID    {
-		$current.merge(this_ID_4);
-    }
-
-    { 
-    newLeafNode(this_ID_4, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_3()); 
-    }
-)
-    ;
 
 
 

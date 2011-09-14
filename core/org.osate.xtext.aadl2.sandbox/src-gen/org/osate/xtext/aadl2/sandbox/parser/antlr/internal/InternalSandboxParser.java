@@ -252,7 +252,7 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSystemConfiguration"
-    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:132:1: ruleSystemConfiguration returns [EObject current=null] : (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( ( ruleQIREF ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 ) ;
+    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:132:1: ruleSystemConfiguration returns [EObject current=null] : (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( (otherlv_4= RULE_ID ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 ) ;
     public final EObject ruleSystemConfiguration() throws RecognitionException {
         EObject current = null;
 
@@ -260,6 +260,7 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
         Token otherlv_1=null;
         Token lv_name_2_0=null;
         Token otherlv_3=null;
+        Token otherlv_4=null;
         Token otherlv_6=null;
         EObject lv_systemInstanceProxy_5_0 = null;
 
@@ -267,11 +268,11 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:135:28: ( (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( ( ruleQIREF ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:136:1: (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( ( ruleQIREF ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:135:28: ( (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( (otherlv_4= RULE_ID ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:136:1: (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( (otherlv_4= RULE_ID ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 )
             {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:136:1: (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( ( ruleQIREF ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:137:2: otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( ( ruleQIREF ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:136:1: (otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( (otherlv_4= RULE_ID ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2 )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:137:2: otherlv_0= KEYWORD_6 otherlv_1= KEYWORD_8 ( (lv_name_2_0= RULE_ID ) ) otherlv_3= KEYWORD_5 ( (otherlv_4= RULE_ID ) ) ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )? otherlv_6= KEYWORD_2
             {
             otherlv_0=(Token)match(input,KEYWORD_6,FOLLOW_KEYWORD_6_in_ruleSystemConfiguration240); 
 
@@ -311,35 +312,28 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_3, grammarAccess.getSystemConfigurationAccess().getFromKeyword_3());
                 
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:169:1: ( ( ruleQIREF ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:170:1: ( ruleQIREF )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:169:1: ( (otherlv_4= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:170:1: (otherlv_4= RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:170:1: ( ruleQIREF )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:171:3: ruleQIREF
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:170:1: (otherlv_4= RULE_ID )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:171:3: otherlv_4= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getSystemConfigurationRule());
             	        }
                     
-             
-            	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemImplementationEObjectCrossReference_4_0()); 
-            	    
-            pushFollow(FOLLOW_ruleQIREF_in_ruleSystemConfiguration308);
-            ruleQIREF();
+            otherlv_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSystemConfiguration305); 
 
-            state._fsp--;
-
-             
-            	        afterParserOrEnumRuleCall();
-            	    
+            		newLeafNode(otherlv_4, grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); 
+            	
 
             }
 
 
             }
 
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:184:2: ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )?
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:182:2: ( (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy ) )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -348,15 +342,15 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:185:1: (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy )
+                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:183:1: (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy )
                     {
-                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:185:1: (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy )
-                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:186:3: lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy
+                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:183:1: (lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy )
+                    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:184:3: lv_systemInstanceProxy_5_0= ruleSystemInstanceProxy
                     {
                      
                     	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleSystemInstanceProxy_in_ruleSystemConfiguration329);
+                    pushFollow(FOLLOW_ruleSystemInstanceProxy_in_ruleSystemConfiguration326);
                     lv_systemInstanceProxy_5_0=ruleSystemInstanceProxy();
 
                     state._fsp--;
@@ -381,7 +375,7 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_6=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleSystemConfiguration343); 
+            otherlv_6=(Token)match(input,KEYWORD_2,FOLLOW_KEYWORD_2_in_ruleSystemConfiguration340); 
 
                 	newLeafNode(otherlv_6, grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6());
                 
@@ -406,7 +400,7 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSystemInstanceProxy"
-    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:215:1: entryRuleSystemInstanceProxy returns [EObject current=null] : iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF ;
+    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:213:1: entryRuleSystemInstanceProxy returns [EObject current=null] : iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF ;
     public final EObject entryRuleSystemInstanceProxy() throws RecognitionException {
         EObject current = null;
 
@@ -414,17 +408,17 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:216:2: (iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:217:2: iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:214:2: (iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:215:2: iv_ruleSystemInstanceProxy= ruleSystemInstanceProxy EOF
             {
              newCompositeNode(grammarAccess.getSystemInstanceProxyRule()); 
-            pushFollow(FOLLOW_ruleSystemInstanceProxy_in_entryRuleSystemInstanceProxy377);
+            pushFollow(FOLLOW_ruleSystemInstanceProxy_in_entryRuleSystemInstanceProxy374);
             iv_ruleSystemInstanceProxy=ruleSystemInstanceProxy();
 
             state._fsp--;
 
              current =iv_ruleSystemInstanceProxy; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleSystemInstanceProxy387); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSystemInstanceProxy384); 
 
             }
 
@@ -442,7 +436,7 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSystemInstanceProxy"
-    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:224:1: ruleSystemInstanceProxy returns [EObject current=null] : (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) ) ;
+    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:222:1: ruleSystemInstanceProxy returns [EObject current=null] : (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) ) ;
     public final EObject ruleSystemInstanceProxy() throws RecognitionException {
         EObject current = null;
 
@@ -452,28 +446,28 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:227:28: ( (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:228:1: (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:225:28: ( (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:226:1: (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) )
             {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:228:1: (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:229:2: otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:226:1: (otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:227:2: otherlv_0= KEYWORD_4 ( (otherlv_1= RULE_ID ) )
             {
-            otherlv_0=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleSystemInstanceProxy425); 
+            otherlv_0=(Token)match(input,KEYWORD_4,FOLLOW_KEYWORD_4_in_ruleSystemInstanceProxy422); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0());
                 
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:233:1: ( (otherlv_1= RULE_ID ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:234:1: (otherlv_1= RULE_ID )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:231:1: ( (otherlv_1= RULE_ID ) )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:232:1: (otherlv_1= RULE_ID )
             {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:234:1: (otherlv_1= RULE_ID )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:235:3: otherlv_1= RULE_ID
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:232:1: (otherlv_1= RULE_ID )
+            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:233:3: otherlv_1= RULE_ID
             {
 
             			if (current==null) {
             	            current = createModelElement(grammarAccess.getSystemInstanceProxyRule());
             	        }
                     
-            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSystemInstanceProxy444); 
+            otherlv_1=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSystemInstanceProxy441); 
 
             		newLeafNode(otherlv_1, grammarAccess.getSystemInstanceProxyAccess().getInstanceRefEObjectCrossReference_1_0()); 
             	
@@ -502,143 +496,6 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
     }
     // $ANTLR end "ruleSystemInstanceProxy"
 
-
-    // $ANTLR start "entryRuleQIREF"
-    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:254:1: entryRuleQIREF returns [String current=null] : iv_ruleQIREF= ruleQIREF EOF ;
-    public final String entryRuleQIREF() throws RecognitionException {
-        String current = null;
-
-        AntlrDatatypeRuleToken iv_ruleQIREF = null;
-
-
-        try {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:255:1: (iv_ruleQIREF= ruleQIREF EOF )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:256:2: iv_ruleQIREF= ruleQIREF EOF
-            {
-             newCompositeNode(grammarAccess.getQIREFRule()); 
-            pushFollow(FOLLOW_ruleQIREF_in_entryRuleQIREF480);
-            iv_ruleQIREF=ruleQIREF();
-
-            state._fsp--;
-
-             current =iv_ruleQIREF.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQIREF491); 
-
-            }
-
-        }
-         
-        	catch (RecognitionException re) { 
-        	    recover(input,re); 
-        	    appendSkippedTokens();
-        	}
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleQIREF"
-
-
-    // $ANTLR start "ruleQIREF"
-    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:263:1: ruleQIREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (this_ID_0= RULE_ID kw= KEYWORD_3 )* this_ID_2= RULE_ID kw= KEYWORD_1 this_ID_4= RULE_ID ) ;
-    public final AntlrDatatypeRuleToken ruleQIREF() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
-
-        Token this_ID_0=null;
-        Token kw=null;
-        Token this_ID_2=null;
-        Token this_ID_4=null;
-
-         enterRule(); 
-            
-        try {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:267:6: ( ( (this_ID_0= RULE_ID kw= KEYWORD_3 )* this_ID_2= RULE_ID kw= KEYWORD_1 this_ID_4= RULE_ID ) )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:268:1: ( (this_ID_0= RULE_ID kw= KEYWORD_3 )* this_ID_2= RULE_ID kw= KEYWORD_1 this_ID_4= RULE_ID )
-            {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:268:1: ( (this_ID_0= RULE_ID kw= KEYWORD_3 )* this_ID_2= RULE_ID kw= KEYWORD_1 this_ID_4= RULE_ID )
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:268:2: (this_ID_0= RULE_ID kw= KEYWORD_3 )* this_ID_2= RULE_ID kw= KEYWORD_1 this_ID_4= RULE_ID
-            {
-            // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:268:2: (this_ID_0= RULE_ID kw= KEYWORD_3 )*
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
-
-                if ( (LA2_0==RULE_ID) ) {
-                    int LA2_1 = input.LA(2);
-
-                    if ( (LA2_1==KEYWORD_3) ) {
-                        alt2=1;
-                    }
-
-
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // ../org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/parser/antlr/internal/InternalSandboxParser.g:268:7: this_ID_0= RULE_ID kw= KEYWORD_3
-            	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQIREF532); 
-
-            	    		current.merge(this_ID_0);
-            	        
-            	     
-            	        newLeafNode(this_ID_0, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_0_0()); 
-            	        
-            	    kw=(Token)match(input,KEYWORD_3,FOLLOW_KEYWORD_3_in_ruleQIREF550); 
-
-            	            current.merge(kw);
-            	            newLeafNode(kw, grammarAccess.getQIREFAccess().getColonColonKeyword_0_1()); 
-            	        
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop2;
-                }
-            } while (true);
-
-            this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQIREF567); 
-
-            		current.merge(this_ID_2);
-                
-             
-                newLeafNode(this_ID_2, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_1()); 
-                
-            kw=(Token)match(input,KEYWORD_1,FOLLOW_KEYWORD_1_in_ruleQIREF585); 
-
-                    current.merge(kw);
-                    newLeafNode(kw, grammarAccess.getQIREFAccess().getFullStopKeyword_2()); 
-                
-            this_ID_4=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQIREF600); 
-
-            		current.merge(this_ID_4);
-                
-             
-                newLeafNode(this_ID_4, grammarAccess.getQIREFAccess().getIDTerminalRuleCall_3()); 
-                
-
-            }
-
-
-            }
-
-             leaveRule();
-                
-        }
-         
-        	catch (RecognitionException re) { 
-        	    recover(input,re); 
-        	    appendSkippedTokens();
-        	}
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleQIREF"
-
     // Delegated rules
 
 
@@ -655,19 +512,12 @@ public class InternalSandboxParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_KEYWORD_8_in_ruleSystemConfiguration252 = new BitSet(new long[]{0x0000000000001000L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleSystemConfiguration268 = new BitSet(new long[]{0x0000000000000080L});
     public static final BitSet FOLLOW_KEYWORD_5_in_ruleSystemConfiguration286 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_ruleQIREF_in_ruleSystemConfiguration308 = new BitSet(new long[]{0x0000000000000A00L});
-    public static final BitSet FOLLOW_ruleSystemInstanceProxy_in_ruleSystemConfiguration329 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_KEYWORD_2_in_ruleSystemConfiguration343 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSystemInstanceProxy_in_entryRuleSystemInstanceProxy377 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleSystemInstanceProxy387 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_KEYWORD_4_in_ruleSystemInstanceProxy425 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleSystemInstanceProxy444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQIREF_in_entryRuleQIREF480 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQIREF491 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQIREF532 = new BitSet(new long[]{0x0000000000000100L});
-    public static final BitSet FOLLOW_KEYWORD_3_in_ruleQIREF550 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQIREF567 = new BitSet(new long[]{0x0000000000000400L});
-    public static final BitSet FOLLOW_KEYWORD_1_in_ruleQIREF585 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQIREF600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSystemConfiguration305 = new BitSet(new long[]{0x0000000000000A00L});
+    public static final BitSet FOLLOW_ruleSystemInstanceProxy_in_ruleSystemConfiguration326 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_KEYWORD_2_in_ruleSystemConfiguration340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSystemInstanceProxy_in_entryRuleSystemInstanceProxy374 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSystemInstanceProxy384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_KEYWORD_4_in_ruleSystemInstanceProxy422 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSystemInstanceProxy441 = new BitSet(new long[]{0x0000000000000002L});
 
 }
