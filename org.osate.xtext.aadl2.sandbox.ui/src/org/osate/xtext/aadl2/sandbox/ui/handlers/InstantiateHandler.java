@@ -87,7 +87,7 @@ public class InstantiateHandler extends AbstractHandler {
 										.getSystemImplementation();
 								if (si != null) {
 									URI instanceURI = OsateResourceUtil
-											.getInstanceModelURI(sc.getName(),sc);
+											.getInstanceModelURI(si);
 									Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
 									Aadl2ResourceImpl aadlResource = (Aadl2ResourceImpl) resFactory
 											.createResource(instanceURI);
