@@ -314,25 +314,17 @@ public class OsateResourceUtil {
 		URI modeluri = res.getURI();
 		String last = modeluri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
-		URI instanceURI = modeluri.trimSegments(1).appendSegment(
+		URI path = modeluri.trimSegments(1);
+		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)){
+			path = path.trimSegments(1);
+		}
+		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
+				.appendSegment(
 				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
 						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
 
-	/**
-	 * 
-	 * @param siName System Instance name. to be used as file name
-	 * @param context Model object, whose resource location is to be used to place the instance model
-	 * @return URI that places the instance model in an instances folder relative to the given context resource
-	 */
-	public static URI getInstanceModelURI(String siName, EObject context) {
-		Resource res = context.eResource();
-		URI modeluri = res.getURI();
-		URI instanceURI = modeluri.trimSegments(1).appendSegment("instances").appendSegment(siName);
-		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		return instanceURI;
-	}
 
 }

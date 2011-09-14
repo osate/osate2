@@ -111,7 +111,6 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * If there is no name, or one of the containing namespaces has no name, there is no qualified name.
-	 * (self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -173,9 +172,6 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * When there is a name, and all of the containing namespaces have a name, the qualified name is constructed from the names of the containing namespaces.
-	 * (self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) 
-	 * implies 
-	 * self.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -246,11 +242,6 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allNamespaces() gives the sequence of namespaces in which the NamedElement is nested, working outwards.
-	 * if self.namespace->isEmpty() then 
-	 *   Sequence{}
-	 * else
-	 *   self.namespace.allNamespaces()->prepend(self.namespace)
-	 * endif
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -301,11 +292,6 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query isDistinguishableFrom() determines whether two NamedElements may logically co-exist within a Namespace. By default, two named elements are distinguishable if (a) they have unrelated types or (b) they have related types but different names.
-	 * if self.oclIsKindOf(n.oclType) or n.oclIsKindOf(self.oclType) then
-	 *   ns.getNamesOfMember(self)->intersection(ns.getNamesOfMember(n))->isEmpty()
-	 * else
-	 *   true
-	 * endif
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -354,7 +340,6 @@ public class NamedElementOperations extends ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query separator() gives the string that is used to separate names when constructing a qualified name.
-	 * '.'
 	 * @param namedElement The receiving '<em><b>Named Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

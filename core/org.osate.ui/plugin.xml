@@ -33,21 +33,6 @@
             <groupMarker name="anal.grp"/>
          </menu>
          
-         <!--action
-               id="edu.cmu.sei.osate.ui.CheckModelSanity.popupAction"
-               label="%CheckModelSanity.label"
-               tooltip="%CheckModelSanity.toolTip"
-               class="edu.cmu.sei.osate.ui.actions.CheckModelSanity"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.architecture.popupMenu.Semantic/anal.grp"
-               enablesFor="1"/-->
-         
-         <!--action
-               id="edu.cmu.sei.osate.ui.CheckModelSemantics.popupAction"
-               label="%CheckModelSemantics.label"
-               tooltip="%CheckModelSemantics.toolTip"
-               class="edu.cmu.sei.osate.ui.actions.CheckModelSemantics"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.architecture.popupMenu.Semantic/anal.grp"
-               enablesFor="1"/-->
       </objectContribution>
 
       <objectContribution
@@ -78,83 +63,8 @@
                enablesFor="*"/>
      </objectContribution>         
                
-      <objectContribution
-            id="edu.cmu.sei.osate.ui.oc3"
-            objectClass="org.eclipse.core.resources.IFile">
-         <visibility>
-            <and>
-               <objectState name="extension" value="aadl"/>
-               <objectState name="projectNature" value="org.osate.core.aadlnature"/>
-            </and>
-         </visibility>
-         <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <action
-               id="edu.cmu.sei.osate.ui.actions.ParseAction.popupAction"
-               label="%ParseAction.label"
-               tooltip="%ParseAction.toolTip"
-               icon="%ParseAction.icon"
-               class="org.osate.ui.actions.ParseAction"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Aadl/file.grp"
-               enablesFor="1"/>
-      </objectContribution>         
                
-      <objectContribution
-            id="edu.cmu.sei.osate.ui.oc4"
-            objectClass="org.eclipse.core.resources.IFile">
-         <visibility>
-            <objectState name="extension" value="aaxl"/>
-         </visibility>
-         <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <!--action
-               id="edu.cmu.sei.osate.ui.actions.UnparseAadl.popupAction"
-               label="%UnparseAadl.label"
-               tooltip="%UnparseAadl.toolTip"
-               icon="%UnparseAadl.icon"
-               class="edu.cmu.sei.osate.ui.actions.UnparseAadl"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Aadl/file.grp"
-               enablesFor="1"/-->
-      </objectContribution>
 
-      <objectContribution
-            id="edu.cmu.sei.osate.ui.oc5"
-            objectClass="org.eclipse.core.resources.IFile">
-         <visibility>
-            <objectState name="extension" value="aaxl"/>
-         </visibility>
-         <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <!--action
-               id="edu.cmu.sei.osate.ui.actions.UnparseAadlAs.popupAction"
-               label="%UnparseAadlAs.label"
-               tooltip="%UnparseAadlAs.toolTip"
-               icon="%UnparseAadlAs.icon"
-               class="edu.cmu.sei.osate.ui.actions.UnparseAadlAs"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Aadl/file.grp"
-               enablesFor="1"/-->
-      </objectContribution>
       
       <objectContribution
             id="edu.cmu.sei.osate.ui.oc6"
@@ -208,31 +118,6 @@
                class="org.osate.ui.actions.ConversionAction"
                enablesFor="1"/>
       </objectContribution>
-      <objectContribution
-            id="edu.cmu.sei.osate.ui.oc8"
-            objectClass="java.lang.Object"
-            adaptable="true">
-         <visibility>
-            <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.component.SystemImpl"/>
-         </visibility>
-         <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <action
-               id="edu.cmu.sei.osate.ui.actions.InstantiateAadl.popupAction"
-               label="%InstantiateAadl.label"
-               tooltip="%InstantiateAadl.toolTip"
-               icon="%InstantiateAadl.icon"
-               class="org.osate.ui.actions.InstantiateAadl"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Aadl/instance.grp"
-               enablesFor="1"/>
-      </objectContribution>
    </extension>
 
    <extension
@@ -266,131 +151,7 @@
             <groupMarker name="stuff.grp"/>
          </menu>
 
-         <!--action
-               id="edu.cmu.sei.osate.ui.CheckModelSanity.action"
-               label="%CheckModelSanity.label"
-               tooltip="%CheckModelSanity.toolTip"
-               class="edu.cmu.sei.osate.ui.actions.CheckModelSanity"
-               menubarPath="menu.analyses/menu.semantic/stuff.grp"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
-                  </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
-               </or>
-            </enablement>
-         </action-->
 
-         <!--action
-               id="edu.cmu.sei.osate.ui.CheckModelSemantics.action"
-               label="%CheckModelSemantics.label"
-               tooltip="%CheckModelSemantics.toolTip"
-               class="edu.cmu.sei.osate.ui.actions.CheckModelSemantics"
-               menubarPath="menu.analyses/menu.semantic/stuff.grp"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
-                  </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
-               </or>
-            </enablement>
-         </action-->
-
-         <action
-               id="edu.cmu.sei.osate.ui.actions.ParseAction.action"
-               label="%ParseAction.label"
-               tooltip="%ParseAction.toolTip"
-               icon="%ParseAction.icon"
-               disabledIcon="%ParseAction.disabledIcon"
-               class="org.osate.ui.actions.ParseAction"
-               menubarPath="menu.osate/file.grp"
-               toolbarPath="OSATE.toolbar/general.grp"
-               enablesFor="1">
-            <enablement>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aadl"/>
-                  </and>
-            </enablement>
-         </action>
-         <action
-               class="org.osate.ui.actions.ParseAllAction"
-               id="edu.cmu.sei.osate.ui.actions.ParseAllAction.action"
-               label="Build All Aadl Files"
-               menubarPath="menu.osate/file.grp"
-               style="push">
-         </action>
-         
-         <action
-               id="edu.cmu.sei.osate.ui.actions.InstantiateAadl.action"
-               label="%InstantiateAadl.label"
-               tooltip="%InstantiateAadl.toolTip"
-               icon="%InstantiateAadl.icon"
-               class="org.osate.ui.actions.InstantiateAadl"
-               menubarPath="menu.osate/instance.grp"
-               toolbarPath="OSATE.toolbar/instance.grp"
-               enablesFor="1">
-            <!--enablement>
-               <objectState name="AADLMetaModelClass" value="org.osate.aadl2.SystemImplementation"/>
-            </enablement-->
-         </action>
-         
-       
-         
-         <!--action
-               id="edu.cmu.sei.osate.ui.actions.UnparseAadl.action"
-               label="%UnparseAadl.label"
-               tooltip="%UnparseAadl.toolTip"
-               icon="%UnparseAadl.icon"
-               class="edu.cmu.sei.osate.ui.actions.UnparseAadl"
-               menubarPath="menu.osate/file.grp"
-               toolbarPath="OSATE.toolbar/general.grp"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
-                  </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AObject"/>
-               </or>
-            </enablement>
-         </action-->
-         <!--action
-               id="edu.cmu.sei.osate.ui.actions.UnparseAadlAs.action"
-               label="%UnparseAadlAs.label"
-               tooltip="%UnparseAadlAs.toolTip"
-               icon="%UnparseAadlAs.icon"
-               class="edu.cmu.sei.osate.ui.actions.UnparseAadlAs"
-               menubarPath="menu.osate/file.grp"
-               toolbarPath="OSATE.toolbar/general.grp"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
-                  </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AObject"/>
-               </or>
-            </enablement>
-         </action-->
-         
-         <action
-               id="edu.cmu.sei.osate.ui.actions.RemoveUnresolvedInstancesAction.action"
-               label="%RemoveUnresolvedInstancesAction.label"
-               tooltip="%RemoveUnresolvedInstancesAction.toolTip"
-               icon="%RemoveUnresolvedInstancesAction.icon"
-               class="org.osate.ui.actions.RemoveUnresolvedInstancesAction"
-               menubarPath="menu.osate/instance.grp"
-               toolbarPath="OSATE.toolbar/instance.grp"
-               enablesFor="*"/>
          
           
          <action
@@ -404,50 +165,7 @@
                enablesFor="*"/>
          
          
-         <action
-               id="edu.cmu.sei.osate.ui.actions.ReloadResourceSet.action"
-               label="%ReloadResourceSet.label"
-               tooltip="%ReloadResourceSet.toolTip"
-               icon="%ReloadResourceSet.icon"
-               class="org.osate.ui.actions.ReloadResourceSet"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/selfDebug.grp"
-               enablesFor="1">
-         </action> 
-         
-         <action
-               id="edu.cmu.sei.osate.ui.actions.CheckUnresolvedProxies.action"
-               label="%CheckUnresolvedProxies.label"
-               tooltip="%CheckUnresolvedProxies.toolTip"
-               icon="%CheckUnresolvedProxies.icon"
-               class="org.osate.ui.actions.CheckUnresolvedProxies"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/selfDebug.grp"
-               enablesFor="1">
-         </action> 
-         
-         <!--action
-               id="edu.cmu.sei.osate.ui.actions.SaveInEMFXML.action"
-               label="%SaveInEMFXML.label"
-               tooltip="%SaveInEMFXML.toolTip"
-               icon="%SaveInEMFXML.icon"
-               class="edu.cmu.sei.osate.ui.actions.SaveInEMFXML"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/selfDebug.grp"
-               enablesFor="1">
-         </action--> 
-
-         <action
-               id="edu.cmu.sei.osate.ui.actions.PrintResourceSet.action"
-               label="%PrintResourceSet.label"
-               tooltip="%PrintResourceSet.toolTip"
-               icon="%PrintResourceSet.icon"
-               class="org.osate.ui.actions.PrintResourceSet"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/selfDebug.grp"
-               enablesFor="1">
-         </action> 
-         <action
+        <action
                id="edu.cmu.sei.osate.ui.actions.ClearHistory.action"
                label="%ClearHistory.label"
                tooltip="%ClearHistory.toolTip"
@@ -481,7 +199,7 @@
       </actionSet>
    </extension>
    
-   <extension
+   <!--extension
          point="org.eclipse.ui.propertyPages">
       <page
             id="edu.cmu.sei.osate.ui.preferences.ProjectPropertyPage"
@@ -497,7 +215,7 @@
             </instanceof>
          </enabledWhen>
       </page>
-   </extension>
+   </extension-->
    
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -520,8 +238,8 @@
             icon="icons/new_aadl_project.gif"
             category="edu.cmu.sei.osate.Wizard.category.ID"
             class="org.osate.ui.wizards.AadlProjectWizard"
-            preferredPerspectives="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
-            finalPerspective="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
+            preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
+            finalPerspective="org.osate.ui.perspective.AadlPerspective"
             project="true">
          <description>
             %_UI_AadlProjectWizard_description
@@ -564,7 +282,7 @@
    <extension 
         point="org.eclipse.ui.perspectives"> 
         <perspective 
-        	id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"
+        	id="org.osate.ui.perspective.AadlPerspective"
             name="AADL" 
             class="org.osate.ui.perspective.AadlPerspectiveFactory" 
             icon="icons/aadl.gif"> 
@@ -576,17 +294,17 @@
     	<perspectiveExtension
     		targetID="org.eclipse.ui.resourcePerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     	<perspectiveExtension
     		targetID="org.eclipse.team.cvs.ui.cvsPerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     	<perspectiveExtension
     		targetID="org.eclipse.team.ui.TeamSynchronizingPerspective">
     		<perspectiveShortcut
-    			id="edu.cmu.sei.osate.ui.perspective.AadlPerspective"/>
+    			id="org.osate.ui.perspective.AadlPerspective"/>
     	</perspectiveExtension>
     </extension>
     

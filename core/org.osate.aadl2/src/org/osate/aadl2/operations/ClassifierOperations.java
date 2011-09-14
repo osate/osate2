@@ -113,7 +113,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Generalization hierarchies must be directed and acyclical. A classifier can not be both a transitively general and transitively specific classifier of the same classifier.
-	 * not self.allParents()->includes(self)
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -174,7 +173,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * A classifier may only specialize classifiers of a valid type.
-	 * self.parents()->forAll(c | self.maySpecializeType(c))
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -234,7 +232,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allFeatures() gives all of the features in the namespace of the classifier. In general, through mechanisms such as inheritance, this will be a larger set than feature.
-	 * result = member->select(oclIsKindOf(Feature))
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -281,7 +278,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The inheritedMember association is derived by inheriting the inheritable members of the parents.
-	 * result = self.inherit(self.parents()->collect(p | p.inheritableMembers(self))
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -328,7 +324,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query parents() gives all of the immediate ancestors of a generalized Classifier.
-	 * result = general
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -375,7 +370,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allParents() gives all of the direct and indirect ancestors of a generalized Classifier.
-	 * result = self.parents()->union(self.parents()->collect(p | p.allParents())
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -422,8 +416,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inheritableMembers() gives all of the members of a classifier that may be inherited in one of its descendants, subject to whatever visibility restrictions apply.
-	 * c.allParents()->includes(self)
-	 * result = member->select(m | c.hasVisibilityOf(m))
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -473,8 +465,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query hasVisibilityOf() determines whether a named element is visible in the classifier. By default all are visible. It is only called when the argument is something owned by a parent.
-	 * self.allParents()->collect(c | c.member)->includes(n)
-	 * result = if (self.inheritedMember->includes (n)) then (n.visibility <> #private) else true
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -522,7 +512,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query inherit() defines how to inherit a set of elements. Here the operation is defined to inherit them all. It is intended to be redefined in circumstances where inheritance is affected by redefinition.
-	 * result = inhs
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -571,7 +560,6 @@ public class ClassifierOperations extends NamespaceOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query maySpecializeType() determines whether this classifier may have a generalization relationship to classifiers of the specified type. By default a classifier may specialize classifiers of the same or a more general type. It is intended to be redefined by classifiers that have different specialization constraints.
-	 * result = self.oclIsKindOf(c.oclType)
 	 * @param classifier The receiving '<em><b>Classifier</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

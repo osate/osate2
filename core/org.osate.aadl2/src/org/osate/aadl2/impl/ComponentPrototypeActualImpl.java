@@ -190,7 +190,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements Compone
 							subcomponentType));
 			}
 		}
-		return subcomponentType.eIsProxy()?null:subcomponentType;
+		return subcomponentType.eIsProxy() ? null : subcomponentType;
 	}
 
 	/**
