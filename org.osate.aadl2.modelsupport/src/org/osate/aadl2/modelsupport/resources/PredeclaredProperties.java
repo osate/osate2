@@ -151,7 +151,7 @@ public class PredeclaredProperties {
 		URIConverter uricvt = OsateResourceUtil.getResourceSet().getURIConverter();
 		InputStream contributedResourceContentsAsStream = uricvt
 				.createInputStream(contributedResourceUri.trimFileExtension()
-						.appendFileExtension(WorkspacePlugin.OLD_SOURCE_FILE_EXT));
+						.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT));
 		if (contributedResourceInWorkspace.exists()) {
 			// Temporarily make it read-write.
 			ResourceAttributes attributes = contributedResourceInWorkspace
@@ -180,7 +180,7 @@ public class PredeclaredProperties {
 		for (final URI contributedResourceUri : PluginSupportUtil
 				.getContributedAadl()) {
 			if (contributedResourceUri.trimFileExtension().appendFileExtension(
-					WorkspacePlugin.OLD_SOURCE_FILE_EXT).lastSegment().equals(
+					WorkspacePlugin.SOURCE_FILE_EXT).lastSegment().equals(
 					contributedResourceInWorkspace.getName())) {
 				try {
 					new WorkspaceModifyOperation() {

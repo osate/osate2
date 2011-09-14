@@ -3,6 +3,7 @@
 	<name>org.osate.xtext.aadl2</name>
 	<comment></comment>
 	<projects>
+		<project>org.osate.xtext.aadl2.errormodel</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

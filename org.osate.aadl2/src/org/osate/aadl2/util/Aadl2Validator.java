@@ -173,13 +173,574 @@ public class Aadl2Validator extends EObjectValidator {
 
 	/**
 	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
+	 * <!-- begin-user-doc --> <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected boolean validateGen(int classifierID, Object value, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		switch (classifierID) {
+		case Aadl2Package.ELEMENT:
+			return validateElement((Element) value, diagnostics, context);
+		case Aadl2Package.COMMENT:
+			return validateComment((Comment) value, diagnostics, context);
+		case Aadl2Package.TYPE:
+			return validateType((Type) value, diagnostics, context);
+		case Aadl2Package.NAMED_ELEMENT:
+			return validateNamedElement((NamedElement) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_ASSOCIATION:
+			return validatePropertyAssociation((PropertyAssociation) value, diagnostics, context);
+		case Aadl2Package.PROPERTY:
+			return validateProperty((Property) value, diagnostics, context);
+		case Aadl2Package.BASIC_PROPERTY:
+			return validateBasicProperty((BasicProperty) value, diagnostics, context);
+		case Aadl2Package.TYPED_ELEMENT:
+			return validateTypedElement((TypedElement) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_TYPE:
+			return validatePropertyType((PropertyType) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_NAMED_VALUE:
+			return validateAbstractNamedValue((AbstractNamedValue) value, diagnostics, context);
+		case Aadl2Package.ARRAY_SIZE_PROPERTY:
+			return validateArraySizeProperty((ArraySizeProperty) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_EXPRESSION:
+			return validatePropertyExpression((PropertyExpression) value, diagnostics, context);
+		case Aadl2Package.METACLASS_REFERENCE:
+			return validateMetaclassReference((MetaclassReference) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_OWNER:
+			return validatePropertyOwner((PropertyOwner) value, diagnostics, context);
+		case Aadl2Package.CLASSIFIER:
+			return validateClassifier((Classifier) value, diagnostics, context);
+		case Aadl2Package.NAMESPACE:
+			return validateNamespace((Namespace) value, diagnostics, context);
+		case Aadl2Package.CLASSIFIER_FEATURE:
+			return validateClassifierFeature((ClassifierFeature) value, diagnostics, context);
+		case Aadl2Package.GENERALIZATION:
+			return validateGeneralization((Generalization) value, diagnostics, context);
+		case Aadl2Package.DIRECTED_RELATIONSHIP:
+			return validateDirectedRelationship((DirectedRelationship) value, diagnostics, context);
+		case Aadl2Package.RELATIONSHIP:
+			return validateRelationship((Relationship) value, diagnostics, context);
+		case Aadl2Package.ANNEX_SUBCLAUSE:
+			return validateAnnexSubclause((AnnexSubclause) value, diagnostics, context);
+		case Aadl2Package.MODAL_ELEMENT:
+			return validateModalElement((ModalElement) value, diagnostics, context);
+		case Aadl2Package.MODE:
+			return validateMode((Mode) value, diagnostics, context);
+		case Aadl2Package.MODE_FEATURE:
+			return validateModeFeature((ModeFeature) value, diagnostics, context);
+		case Aadl2Package.PROTOTYPE:
+			return validatePrototype((Prototype) value, diagnostics, context);
+		case Aadl2Package.STRUCTURAL_FEATURE:
+			return validateStructuralFeature((StructuralFeature) value, diagnostics, context);
+		case Aadl2Package.REFINABLE_ELEMENT:
+			return validateRefinableElement((RefinableElement) value, diagnostics, context);
+		case Aadl2Package.FEATURE_CLASSIFIER:
+			return validateFeatureClassifier((FeatureClassifier) value, diagnostics, context);
+		case Aadl2Package.CALLED_SUBPROGRAM:
+			return validateCalledSubprogram((CalledSubprogram) value, diagnostics, context);
+		case Aadl2Package.PROTOTYPE_BINDING:
+			return validatePrototypeBinding((PrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.CONTAINED_NAMED_ELEMENT:
+			return validateContainedNamedElement((ContainedNamedElement) value, diagnostics, context);
+		case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
+			return validateContainmentPathElement((ContainmentPathElement) value, diagnostics, context);
+		case Aadl2Package.ARRAY_RANGE:
+			return validateArrayRange((ArrayRange) value, diagnostics, context);
+		case Aadl2Package.MODAL_PROPERTY_VALUE:
+			return validateModalPropertyValue((ModalPropertyValue) value, diagnostics, context);
+		case Aadl2Package.BEHAVIORAL_FEATURE:
+			return validateBehavioralFeature((BehavioralFeature) value, diagnostics, context);
+		case Aadl2Package.ARRAY_DIMENSION:
+			return validateArrayDimension((ArrayDimension) value, diagnostics, context);
+		case Aadl2Package.ARRAY_SIZE:
+			return validateArraySize((ArraySize) value, diagnostics, context);
+		case Aadl2Package.ARRAYABLE_ELEMENT:
+			return validateArrayableElement((ArrayableElement) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
+			return validateComponentImplementationReference((ComponentImplementationReference) value, diagnostics,
+					context);
+		case Aadl2Package.COMPONENT_IMPLEMENTATION:
+			return validateComponentImplementation((ComponentImplementation) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_CLASSIFIER:
+			return validateComponentClassifier((ComponentClassifier) value, diagnostics, context);
+		case Aadl2Package.SUBCOMPONENT_TYPE:
+			return validateSubcomponentType((SubcomponentType) value, diagnostics, context);
+		case Aadl2Package.MODE_TRANSITION:
+			return validateModeTransition((ModeTransition) value, diagnostics, context);
+		case Aadl2Package.MODE_TRANSITION_TRIGGER:
+			return validateModeTransitionTrigger((ModeTransitionTrigger) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_TYPE:
+			return validateComponentType((ComponentType) value, diagnostics, context);
+		case Aadl2Package.FEATURE:
+			return validateFeature((Feature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_CONNECTION_END:
+			return validateFeatureConnectionEnd((FeatureConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.CONNECTION_END:
+			return validateConnectionEnd((ConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.FLOW_SPECIFICATION:
+			return validateFlowSpecification((FlowSpecification) value, diagnostics, context);
+		case Aadl2Package.FLOW:
+			return validateFlow((Flow) value, diagnostics, context);
+		case Aadl2Package.MODAL_PATH:
+			return validateModalPath((ModalPath) value, diagnostics, context);
+		case Aadl2Package.FLOW_ELEMENT:
+			return validateFlowElement((FlowElement) value, diagnostics, context);
+		case Aadl2Package.END_TO_END_FLOW_ELEMENT:
+			return validateEndToEndFlowElement((EndToEndFlowElement) value, diagnostics, context);
+		case Aadl2Package.FLOW_END:
+			return validateFlowEnd((FlowEnd) value, diagnostics, context);
+		case Aadl2Package.CONTEXT:
+			return validateContext((Context) value, diagnostics, context);
+		case Aadl2Package.TYPE_EXTENSION:
+			return validateTypeExtension((TypeExtension) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP:
+			return validateFeatureGroup((FeatureGroup) value, diagnostics, context);
+		case Aadl2Package.CALL_CONTEXT:
+			return validateCallContext((CallContext) value, diagnostics, context);
+		case Aadl2Package.DIRECTED_FEATURE:
+			return validateDirectedFeature((DirectedFeature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_CONNECTION_END:
+			return validateFeatureGroupConnectionEnd((FeatureGroupConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.FEATURE_TYPE:
+			return validateFeatureType((FeatureType) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_TYPE:
+			return validateFeatureGroupType((FeatureGroupType) value, diagnostics, context);
+		case Aadl2Package.GROUP_EXTENSION:
+			return validateGroupExtension((GroupExtension) value, diagnostics, context);
+		case Aadl2Package.BUS_ACCESS:
+			return validateBusAccess((BusAccess) value, diagnostics, context);
+		case Aadl2Package.ACCESS:
+			return validateAccess((Access) value, diagnostics, context);
+		case Aadl2Package.ACCESS_CONNECTION_END:
+			return validateAccessConnectionEnd((AccessConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
+			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.BUS:
+			return validateBus((Bus) value, diagnostics, context);
+		case Aadl2Package.DATA_ACCESS:
+			return validateDataAccess((DataAccess) value, diagnostics, context);
+		case Aadl2Package.PARAMETER_CONNECTION_END:
+			return validateParameterConnectionEnd((ParameterConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.PORT_CONNECTION_END:
+			return validatePortConnectionEnd((PortConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.DATA_SUBCOMPONENT_TYPE:
+			return validateDataSubcomponentType((DataSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.DATA:
+			return validateData((Data) value, diagnostics, context);
+		case Aadl2Package.DATA_PORT:
+			return validateDataPort((DataPort) value, diagnostics, context);
+		case Aadl2Package.PORT:
+			return validatePort((Port) value, diagnostics, context);
+		case Aadl2Package.EVENT_DATA_PORT:
+			return validateEventDataPort((EventDataPort) value, diagnostics, context);
+		case Aadl2Package.EVENT_PORT:
+			return validateEventPort((EventPort) value, diagnostics, context);
+		case Aadl2Package.PARAMETER:
+			return validateParameter((Parameter) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_ACCESS:
+			return validateSubprogramAccess((SubprogramAccess) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT_TYPE:
+			return validateSubprogramSubcomponentType((SubprogramSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM:
+			return validateSubprogram((Subprogram) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
+			return validateSubprogramGroupAccess((SubprogramGroupAccess) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE:
+			return validateSubprogramGroupSubcomponentType((SubprogramGroupSubcomponentType) value, diagnostics,
+					context);
+		case Aadl2Package.SUBPROGRAM_GROUP:
+			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_FEATURE:
+			return validateAbstractFeature((AbstractFeature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
+		case Aadl2Package.SUBCOMPONENT:
+			return validateSubcomponent((Subcomponent) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE:
+			return validateComponentPrototype((ComponentPrototype) value, diagnostics, context);
+		case Aadl2Package.MODE_BINDING:
+			return validateModeBinding((ModeBinding) value, diagnostics, context);
+		case Aadl2Package.FLOW_IMPLEMENTATION:
+			return validateFlowImplementation((FlowImplementation) value, diagnostics, context);
+		case Aadl2Package.FLOW_SEGMENT:
+			return validateFlowSegment((FlowSegment) value, diagnostics, context);
+		case Aadl2Package.CONNECTION:
+			return validateConnection((Connection) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_CONNECTION_END:
+			return validateAbstractConnectionEnd((AbstractConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.IMPLEMENTATION_EXTENSION:
+			return validateImplementationExtension((ImplementationExtension) value, diagnostics, context);
+		case Aadl2Package.REALIZATION:
+			return validateRealization((Realization) value, diagnostics, context);
+		case Aadl2Package.END_TO_END_FLOW:
+			return validateEndToEndFlow((EndToEndFlow) value, diagnostics, context);
+		case Aadl2Package.END_TO_END_FLOW_SEGMENT:
+			return validateEndToEndFlowSegment((EndToEndFlowSegment) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT:
+			return validateAbstractSubcomponent((AbstractSubcomponent) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT:
+			return validateAbstract((Abstract) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_SUBCOMPONENT_TYPE:
+			return validateAbstractSubcomponentType((AbstractSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.ACCESS_CONNECTION:
+			return validateAccessConnection((AccessConnection) value, diagnostics, context);
+		case Aadl2Package.PARAMETER_CONNECTION:
+			return validateParameterConnection((ParameterConnection) value, diagnostics, context);
+		case Aadl2Package.PORT_CONNECTION:
+			return validatePortConnection((PortConnection) value, diagnostics, context);
+		case Aadl2Package.FEATURE_CONNECTION:
+			return validateFeatureConnection((FeatureConnection) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_CONNECTION:
+			return validateFeatureGroupConnection((FeatureGroupConnection) value, diagnostics, context);
+		case Aadl2Package.CONNECTED_ELEMENT:
+			return validateConnectedElement((ConnectedElement) value, diagnostics, context);
+		case Aadl2Package.ELEMENT_NAME:
+			return validateElementName((ElementName) value, diagnostics, context);
+		case Aadl2Package.ANNEX_LIBRARY:
+			return validateAnnexLibrary((AnnexLibrary) value, diagnostics, context);
+		case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
+			return validateDefaultAnnexLibrary((DefaultAnnexLibrary) value, diagnostics, context);
+		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
+			return validateDefaultAnnexSubclause((DefaultAnnexSubclause) value, diagnostics, context);
+		case Aadl2Package.TRIGGER_PORT:
+			return validateTriggerPort((TriggerPort) value, diagnostics, context);
+		case Aadl2Package.PUBLIC_PACKAGE_SECTION:
+			return validatePublicPackageSection((PublicPackageSection) value, diagnostics, context);
+		case Aadl2Package.PACKAGE_SECTION:
+			return validatePackageSection((PackageSection) value, diagnostics, context);
+		case Aadl2Package.PACKAGE_RENAME:
+			return validatePackageRename((PackageRename) value, diagnostics, context);
+		case Aadl2Package.AADL_PACKAGE:
+			return validateAadlPackage((AadlPackage) value, diagnostics, context);
+		case Aadl2Package.MODEL_UNIT:
+			return validateModelUnit((ModelUnit) value, diagnostics, context);
+		case Aadl2Package.PRIVATE_PACKAGE_SECTION:
+			return validatePrivatePackageSection((PrivatePackageSection) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_TYPE_RENAME:
+			return validateComponentTypeRename((ComponentTypeRename) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
+			return validateFeatureGroupTypeRename((FeatureGroupTypeRename) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
+			return validateComponentPrototypeBinding((ComponentPrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
+			return validateComponentPrototypeActual((ComponentPrototypeActual) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
+			return validateFeatureGroupPrototypeBinding((FeatureGroupPrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
+			return validateFeatureGroupPrototypeActual((FeatureGroupPrototypeActual) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL:
+			return validateFeaturePrototypeActual((FeaturePrototypeActual) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return validateFeaturePrototype((FeaturePrototype) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
+			return validateFeaturePrototypeBinding((FeaturePrototypeBinding) value, diagnostics, context);
+		case Aadl2Package.ACCESS_SPECIFICATION:
+			return validateAccessSpecification((AccessSpecification) value, diagnostics, context);
+		case Aadl2Package.PORT_SPECIFICATION:
+			return validatePortSpecification((PortSpecification) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
+			return validateFeaturePrototypeReference((FeaturePrototypeReference) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+			return validateSubprogramCallSequence((SubprogramCallSequence) value, diagnostics, context);
+		case Aadl2Package.CALL_SPECIFICATION:
+			return validateCallSpecification((CallSpecification) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_CALL:
+			return validateProcessorCall((ProcessorCall) value, diagnostics, context);
+		case Aadl2Package.BEHAVIORED_IMPLEMENTATION:
+			return validateBehavioredImplementation((BehavioredImplementation) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CALL:
+			return validateSubprogramCall((SubprogramCall) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_TYPE:
+			return validateAbstractType((AbstractType) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_CLASSIFIER:
+			return validateAbstractClassifier((AbstractClassifier) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE:
+			return validateVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType) value, diagnostics,
+					context);
+		case Aadl2Package.VIRTUAL_PROCESSOR:
+			return validateVirtualProcessor((VirtualProcessor) value, diagnostics, context);
+		case Aadl2Package.VITUAL_BUS_SUBCOMPONENT_TYPE:
+			return validateVitualBusSubcomponentType((VitualBusSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS:
+			return validateVirtualBus((VirtualBus) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT_TYPE:
+			return validateThreadGroupSubcomponentType((ThreadGroupSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP:
+			return validateThreadGroup((org.osate.aadl2.ThreadGroup) value, diagnostics, context);
+		case Aadl2Package.THREAD_SUBCOMPONENT_TYPE:
+			return validateThreadSubcomponentType((ThreadSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.THREAD:
+			return validateThread((org.osate.aadl2.Thread) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_SUBCOMPONENT_TYPE:
+			return validateSystemSubcomponentType((SystemSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.SYSTEM:
+			return validateSystem((org.osate.aadl2.System) value, diagnostics, context);
+		case Aadl2Package.PROCESS_SUBCOMPONENT_TYPE:
+			return validateProcessSubcomponentType((ProcessSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.PROCESS:
+			return validateProcess((org.osate.aadl2.Process) value, diagnostics, context);
+		case Aadl2Package.MEMORY_SUBCOMPONENT_TYPE:
+			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
+		case Aadl2Package.MEMORY:
+			return validateMemory((Memory) value, diagnostics, context);
+		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE:
+			return validateDeviceSubcomponentType((DeviceSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.DEVICE:
+			return validateDevice((Device) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE:
+			return validateProcessorSubcomponentType((ProcessorSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR:
+			return validateProcessor((Processor) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
+			return validateAbstractImplementation((AbstractImplementation) value, diagnostics, context);
+		case Aadl2Package.BUS_SUBCOMPONENT:
+			return validateBusSubcomponent((BusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.DATA_SUBCOMPONENT:
+			return validateDataSubcomponent((DataSubcomponent) value, diagnostics, context);
+		case Aadl2Package.DEVICE_SUBCOMPONENT:
+			return validateDeviceSubcomponent((DeviceSubcomponent) value, diagnostics, context);
+		case Aadl2Package.MEMORY_SUBCOMPONENT:
+			return validateMemorySubcomponent((MemorySubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESS_SUBCOMPONENT:
+			return validateProcessSubcomponent((ProcessSubcomponent) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_SUBCOMPONENT:
+			return validateProcessorSubcomponent((ProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_SUBCOMPONENT:
+			return validateSystemSubcomponent((SystemSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_SUBCOMPONENT:
+			return validateSubprogramSubcomponent((SubprogramSubcomponent) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
+			return validateSubprogramGroupSubcomponent((SubprogramGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD_SUBCOMPONENT:
+			return validateThreadSubcomponent((ThreadSubcomponent) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
+			return validateThreadGroupSubcomponent((ThreadGroupSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
+			return validateVirtualBusSubcomponent((VirtualBusSubcomponent) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
+			return validateVirtualProcessorSubcomponent((VirtualProcessorSubcomponent) value, diagnostics, context);
+		case Aadl2Package.ABSTRACT_PROTOTYPE:
+			return validateAbstractPrototype((AbstractPrototype) value, diagnostics, context);
+		case Aadl2Package.BUS_CLASSIFIER:
+			return validateBusClassifier((BusClassifier) value, diagnostics, context);
+		case Aadl2Package.BUS_TYPE:
+			return validateBusType((BusType) value, diagnostics, context);
+		case Aadl2Package.BUS_IMPLEMENTATION:
+			return validateBusImplementation((BusImplementation) value, diagnostics, context);
+		case Aadl2Package.BUS_PROTOTYPE:
+			return validateBusPrototype((BusPrototype) value, diagnostics, context);
+		case Aadl2Package.DATA_CLASSIFIER:
+			return validateDataClassifier((DataClassifier) value, diagnostics, context);
+		case Aadl2Package.DATA_TYPE:
+			return validateDataType((DataType) value, diagnostics, context);
+		case Aadl2Package.DATA_IMPLEMENTATION:
+			return validateDataImplementation((DataImplementation) value, diagnostics, context);
+		case Aadl2Package.DATA_PROTOTYPE:
+			return validateDataPrototype((DataPrototype) value, diagnostics, context);
+		case Aadl2Package.DEVICE_CLASSIFIER:
+			return validateDeviceClassifier((DeviceClassifier) value, diagnostics, context);
+		case Aadl2Package.DEVICE_TYPE:
+			return validateDeviceType((DeviceType) value, diagnostics, context);
+		case Aadl2Package.DEVICE_IMPLEMENTATION:
+			return validateDeviceImplementation((DeviceImplementation) value, diagnostics, context);
+		case Aadl2Package.DEVICE_PROTOTYPE:
+			return validateDevicePrototype((DevicePrototype) value, diagnostics, context);
+		case Aadl2Package.MEMORY_CLASSIFIER:
+			return validateMemoryClassifier((MemoryClassifier) value, diagnostics, context);
+		case Aadl2Package.MEMORY_TYPE:
+			return validateMemoryType((MemoryType) value, diagnostics, context);
+		case Aadl2Package.MEMORY_IMPLEMENTATION:
+			return validateMemoryImplementation((MemoryImplementation) value, diagnostics, context);
+		case Aadl2Package.MEMORY_PROTOTYPE:
+			return validateMemoryPrototype((MemoryPrototype) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_CLASSIFIER:
+			return validateSubprogramClassifier((SubprogramClassifier) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_TYPE:
+			return validateSubprogramType((SubprogramType) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
+			return validateSubprogramImplementation((SubprogramImplementation) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_PROTOTYPE:
+			return validateSubprogramPrototype((SubprogramPrototype) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_CLASSIFIER:
+			return validateSubprogramGroupClassifier((SubprogramGroupClassifier) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_TYPE:
+			return validateSubprogramGroupType((SubprogramGroupType) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION:
+			return validateSubprogramGroupImplementation((SubprogramGroupImplementation) value, diagnostics, context);
+		case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
+			return validateSubprogramGroupPrototype((SubprogramGroupPrototype) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_CLASSIFIER:
+			return validateSystemClassifier((SystemClassifier) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_TYPE:
+			return validateSystemType((SystemType) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_IMPLEMENTATION:
+			return validateSystemImplementation((SystemImplementation) value, diagnostics, context);
+		case Aadl2Package.SYSTEM_PROTOTYPE:
+			return validateSystemPrototype((SystemPrototype) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_CLASSIFIER:
+			return validateProcessorClassifier((ProcessorClassifier) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_TYPE:
+			return validateProcessorType((ProcessorType) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_IMPLEMENTATION:
+			return validateProcessorImplementation((ProcessorImplementation) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_PROTOTYPE:
+			return validateProcessorPrototype((ProcessorPrototype) value, diagnostics, context);
+		case Aadl2Package.PROCESS_CLASSIFIER:
+			return validateProcessClassifier((ProcessClassifier) value, diagnostics, context);
+		case Aadl2Package.PROCESS_TYPE:
+			return validateProcessType((ProcessType) value, diagnostics, context);
+		case Aadl2Package.PROCESS_IMPLEMENTATION:
+			return validateProcessImplementation((ProcessImplementation) value, diagnostics, context);
+		case Aadl2Package.PROCESS_PROTOTYPE:
+			return validateProcessPrototype((ProcessPrototype) value, diagnostics, context);
+		case Aadl2Package.THREAD_CLASSIFIER:
+			return validateThreadClassifier((ThreadClassifier) value, diagnostics, context);
+		case Aadl2Package.THREAD_TYPE:
+			return validateThreadType((ThreadType) value, diagnostics, context);
+		case Aadl2Package.THREAD_IMPLEMENTATION:
+			return validateThreadImplementation((ThreadImplementation) value, diagnostics, context);
+		case Aadl2Package.THREAD_PROTOTYPE:
+			return validateThreadPrototype((ThreadPrototype) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_CLASSIFIER:
+			return validateThreadGroupClassifier((ThreadGroupClassifier) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_TYPE:
+			return validateThreadGroupType((ThreadGroupType) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_IMPLEMENTATION:
+			return validateThreadGroupImplementation((ThreadGroupImplementation) value, diagnostics, context);
+		case Aadl2Package.THREAD_GROUP_PROTOTYPE:
+			return validateThreadGroupPrototype((ThreadGroupPrototype) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS_CLASSIFIER:
+			return validateVirtualBusClassifier((VirtualBusClassifier) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS_TYPE:
+			return validateVirtualBusType((VirtualBusType) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION:
+			return validateVirtualBusImplementation((VirtualBusImplementation) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
+			return validateVirtualBusPrototype((VirtualBusPrototype) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_CLASSIFIER:
+			return validateVirtualProcessorClassifier((VirtualProcessorClassifier) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE:
+			return validateVirtualProcessorType((VirtualProcessorType) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
+			return validateVirtualProcessorImplementation((VirtualProcessorImplementation) value, diagnostics, context);
+		case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
+			return validateVirtualProcessorPrototype((VirtualProcessorPrototype) value, diagnostics, context);
+		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
+			return validateBasicPropertyAssociation((BasicPropertyAssociation) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_CONSTANT:
+			return validatePropertyConstant((PropertyConstant) value, diagnostics, context);
+		case Aadl2Package.STRING_LITERAL:
+			return validateStringLiteral((StringLiteral) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_VALUE:
+			return validatePropertyValue((PropertyValue) value, diagnostics, context);
+		case Aadl2Package.NUMBER_VALUE:
+			return validateNumberValue((NumberValue) value, diagnostics, context);
+		case Aadl2Package.UNIT_LITERAL:
+			return validateUnitLiteral((UnitLiteral) value, diagnostics, context);
+		case Aadl2Package.ENUMERATION_LITERAL:
+			return validateEnumerationLiteral((EnumerationLiteral) value, diagnostics, context);
+		case Aadl2Package.CLASSIFIER_VALUE:
+			return validateClassifierValue((ClassifierValue) value, diagnostics, context);
+		case Aadl2Package.REFERENCE_VALUE:
+			return validateReferenceValue((ReferenceValue) value, diagnostics, context);
+		case Aadl2Package.BOOLEAN_LITERAL:
+			return validateBooleanLiteral((BooleanLiteral) value, diagnostics, context);
+		case Aadl2Package.RANGE_VALUE:
+			return validateRangeValue((RangeValue) value, diagnostics, context);
+		case Aadl2Package.INTEGER_LITERAL:
+			return validateIntegerLiteral((IntegerLiteral) value, diagnostics, context);
+		case Aadl2Package.REAL_LITERAL:
+			return validateRealLiteral((RealLiteral) value, diagnostics, context);
+		case Aadl2Package.OPERATION:
+			return validateOperation((Operation) value, diagnostics, context);
+		case Aadl2Package.RECORD_VALUE:
+			return validateRecordValue((RecordValue) value, diagnostics, context);
+		case Aadl2Package.COMPUTED_VALUE:
+			return validateComputedValue((ComputedValue) value, diagnostics, context);
+		case Aadl2Package.LIST_VALUE:
+			return validateListValue((ListValue) value, diagnostics, context);
+		case Aadl2Package.NAMED_VALUE:
+			return validateNamedValue((NamedValue) value, diagnostics, context);
+		case Aadl2Package.PROPERTY_SET:
+			return validatePropertySet((PropertySet) value, diagnostics, context);
+		case Aadl2Package.GLOBAL_NAMESPACE:
+			return validateGlobalNamespace((GlobalNamespace) value, diagnostics, context);
+		case Aadl2Package.NON_LIST_TYPE:
+			return validateNonListType((NonListType) value, diagnostics, context);
+		case Aadl2Package.AADL_BOOLEAN:
+			return validateAadlBoolean((AadlBoolean) value, diagnostics, context);
+		case Aadl2Package.AADL_STRING:
+			return validateAadlString((AadlString) value, diagnostics, context);
+		case Aadl2Package.AADL_INTEGER:
+			return validateAadlInteger((AadlInteger) value, diagnostics, context);
+		case Aadl2Package.NUMBER_TYPE:
+			return validateNumberType((NumberType) value, diagnostics, context);
+		case Aadl2Package.UNITS_TYPE:
+			return validateUnitsType((UnitsType) value, diagnostics, context);
+		case Aadl2Package.ENUMERATION_TYPE:
+			return validateEnumerationType((EnumerationType) value, diagnostics, context);
+		case Aadl2Package.NUMERIC_RANGE:
+			return validateNumericRange((NumericRange) value, diagnostics, context);
+		case Aadl2Package.AADL_REAL:
+			return validateAadlReal((AadlReal) value, diagnostics, context);
+		case Aadl2Package.CLASSIFIER_TYPE:
+			return validateClassifierType((ClassifierType) value, diagnostics, context);
+		case Aadl2Package.RANGE_TYPE:
+			return validateRangeType((RangeType) value, diagnostics, context);
+		case Aadl2Package.RECORD_TYPE:
+			return validateRecordType((RecordType) value, diagnostics, context);
+		case Aadl2Package.RECORD_FIELD:
+			return validateRecordField((RecordField) value, diagnostics, context);
+		case Aadl2Package.REFERENCE_TYPE:
+			return validateReferenceType((ReferenceType) value, diagnostics, context);
+		case Aadl2Package.LIST_TYPE:
+			return validateListType((ListType) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_PORT:
+			return validateProcessorPort((ProcessorPort) value, diagnostics, context);
+		case Aadl2Package.INTERNAL_EVENT:
+			return validateInternalEvent((InternalEvent) value, diagnostics, context);
+		case Aadl2Package.PROCESSOR_SUBPROGRAM:
+			return validateProcessorSubprogram((ProcessorSubprogram) value, diagnostics, context);
+		case Aadl2Package.FLOW_KIND:
+			return validateFlowKind((FlowKind) value, diagnostics, context);
+		case Aadl2Package.DIRECTION_TYPE:
+			return validateDirectionType((DirectionType) value, diagnostics, context);
+		case Aadl2Package.ACCESS_TYPE:
+			return validateAccessType((AccessType) value, diagnostics, context);
+		case Aadl2Package.ACCESS_CATEGORY:
+			return validateAccessCategory((AccessCategory) value, diagnostics, context);
+		case Aadl2Package.PORT_CATEGORY:
+			return validatePortCategory((PortCategory) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_CATEGORY:
+			return validateComponentCategory((ComponentCategory) value, diagnostics, context);
+		case Aadl2Package.CONNECTION_KIND:
+			return validateConnectionKind((ConnectionKind) value, diagnostics, context);
+		case Aadl2Package.ELEMENT_NAME_KIND:
+			return validateElementNameKind((ElementNameKind) value, diagnostics, context);
+		case Aadl2Package.OPERATION_KIND:
+			return validateOperationKind((OperationKind) value, diagnostics, context);
+		case Aadl2Package.STRING:
+			return validateString((String) value, diagnostics, context);
+		case Aadl2Package.BOOLEAN:
+			return validateBoolean((Boolean) value, diagnostics, context);
+		case Aadl2Package.INTEGER:
+			return validateInteger((Long) value, diagnostics, context);
+		case Aadl2Package.REAL:
+			return validateReal((Double) value, diagnostics, context);
+		default:
+			return true;
+		}
+	}
+
+	/**
+	 * Calls <code>validateXXX</code> for the corresponding classifier of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	protected boolean validate(int classifierID, Object value, DiagnosticChain diagnostics, Map<Object, Object> context) {
-return true;	}
+		return true;
+	}
 
 	/**
 	 * <!-- begin-user-doc -->

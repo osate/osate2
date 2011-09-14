@@ -58,13 +58,18 @@ public abstract class AaxlModifyActionAsJob extends AaxlReadOnlyActionAsJob {
 	 */
 	final void processAaxlAction(final IProgressMonitor monitor, 
 			final Resource resource, final Element root){
-		boolean prev = resource.isTrackingModification();
-		// turn on modification tracking since we may make changes
-		resource.setTrackingModification(true);
-		doAaxlAction(monitor, root);
-		if (resource.isModified()){
-			OsateResourceUtil.save(resource);
+		try {
+			boolean prev = resource.isTrackingModification();
+			// turn on modification tracking since we may make changes
+			resource.setTrackingModification(true);
+			doAaxlAction(monitor, root);
+			if (resource.isModified()){
+				OsateResourceUtil.save(resource);
+			}
+			resource.setTrackingModification(prev);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		resource.setTrackingModification(prev);
 	}
 }

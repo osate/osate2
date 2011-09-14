@@ -2,12 +2,12 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.edit;singleton:=true
-Bundle-Version: 2.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: org.osate.aadl2.edit.jar
 Bundle-Activator: org.osate.aadl2.provider.Aadl2EditPlugin$Implementation
-Bundle-Vendor: %providerName
+Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.aadl2.instance.provider,
  org.osate.aadl2.provider
 Require-Bundle: org.osate.aadl2;visibility:=reexport,

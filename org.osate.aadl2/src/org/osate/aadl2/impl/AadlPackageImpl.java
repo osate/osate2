@@ -64,7 +64,6 @@ import org.osate.aadl2.PublicPackageSection;
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getPrivateSection <em>Private Section</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getOwnedPublicSection <em>Owned Public Section</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#getOwnedPrivateSection <em>Owned Private Section</em>}</li>
- *   <li>{@link org.osate.aadl2.impl.AadlPackageImpl#isNoProperties <em>No Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -110,26 +109,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * @ordered
 	 */
 	protected PrivatePackageSection ownedPrivateSection;
-
-	/**
-	 * The default value of the '{@link #isNoProperties() <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNoProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final boolean NO_PROPERTIES_EDEFAULT = false;
-
-	/**
-	 * The cached value of the '{@link #isNoProperties() <em>No Properties</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isNoProperties()
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean noProperties = NO_PROPERTIES_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -460,28 +439,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isNoProperties() {
-		return noProperties;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNoProperties(boolean newNoProperties) {
-		boolean oldNoProperties = noProperties;
-		noProperties = newNoProperties;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.AADL_PACKAGE__NO_PROPERTIES,
-					oldNoProperties, noProperties));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -513,8 +470,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 			return getOwnedPublicSection();
 		case Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION:
 			return getOwnedPrivateSection();
-		case Aadl2Package.AADL_PACKAGE__NO_PROPERTIES:
-			return isNoProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -539,9 +494,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 		case Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION:
 			setOwnedPrivateSection((PrivatePackageSection) newValue);
 			return;
-		case Aadl2Package.AADL_PACKAGE__NO_PROPERTIES:
-			setNoProperties((Boolean) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -565,9 +517,6 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 			return;
 		case Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION:
 			setOwnedPrivateSection((PrivatePackageSection) null);
-			return;
-		case Aadl2Package.AADL_PACKAGE__NO_PROPERTIES:
-			setNoProperties(NO_PROPERTIES_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -595,27 +544,8 @@ public class AadlPackageImpl extends ModelUnitImpl implements AadlPackage {
 			return ownedPublicSection != null;
 		case Aadl2Package.AADL_PACKAGE__OWNED_PRIVATE_SECTION:
 			return ownedPrivateSection != null;
-		case Aadl2Package.AADL_PACKAGE__NO_PROPERTIES:
-			return noProperties != NO_PROPERTIES_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (noProperties: ");
-		result.append(noProperties);
-		result.append(')');
-		return result.toString();
 	}
 
 	/**

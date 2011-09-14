@@ -341,19 +341,21 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements
         updatePerspective();
         selectAndReveal(newProject);
         final IProject p = getNewProject();
-        final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
-        final IFolder xmlPack = defModDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-        final IFolder xmlPSet = defModDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
-        final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
-        final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-        final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
+//        final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
+        final IFolder packageFolder = p.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
+        final IFolder propertysetFolder = p.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
+        final IFolder instancesFolder = p.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
+//        final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
+//        final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
+//        final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
         
         try
         {
-            CoreUtility.createFolder(xmlPack, true, true, null);
-            CoreUtility.createFolder(xmlPSet, true, true, null);
-            CoreUtility.createFolder(srcPack, true, true, null);
-            CoreUtility.createFolder(srcPSet, true, true, null);
+            CoreUtility.createFolder(packageFolder, true, true, null);
+            CoreUtility.createFolder(propertysetFolder, true, true, null);
+            CoreUtility.createFolder(instancesFolder, true, true, null);
+//            CoreUtility.createFolder(srcPack, true, true, null);
+//            CoreUtility.createFolder(srcPSet, true, true, null);
         } catch (CoreException e)
         {
             // TODO Auto-generated catch block

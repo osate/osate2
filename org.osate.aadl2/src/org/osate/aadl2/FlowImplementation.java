@@ -93,7 +93,7 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Owned Flow Segment</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OwnedFlowSegment()
-	 * @model containment="true" required="true"
+	 * @model containment="true"
 	 * @generated
 	 */
 	EList<FlowSegment> getOwnedFlowSegments();
