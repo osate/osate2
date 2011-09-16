@@ -1,0 +1,1298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" copyrightText="&lt;copyright>&#xD;&#xA;Copyright  2011 by Carnegie Mellon University, all rights reserved.&#xD;&#xA;&#xD;&#xA;Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth&#xD;&#xA;at http://www.eclipse.org/org/documents/epl-v10.html.&#xD;&#xA;&#xD;&#xA;NO WARRANTY&#xD;&#xA;&#xD;&#xA;ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY&#xD;&#xA;CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.&#xD;&#xA;CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,&#xD;&#xA;BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,&#xD;&#xA;NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR&#xD;&#xA;CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,&#xD;&#xA;REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT&#xD;&#xA;MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE&#xD;&#xA;APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.&#xD;&#xA;&#xD;&#xA;Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,&#xD;&#xA;employees, and agents from all claims or demands made against them (and any related losses, expenses, or&#xD;&#xA;attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful&#xD;&#xA;misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or&#xD;&#xA;assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of&#xD;&#xA;product liability, personal injury, death, damage to property, or violation of any laws or regulations.&#xD;&#xA;&#xD;&#xA;Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department&#xD;&#xA;of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced&#xD;&#xA;under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these&#xD;&#xA;documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license&#xD;&#xA;under the contract clause at 252.227.7013.&#xD;&#xA;&lt;/copyright>&#xD;&#xA;"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" 
+    modelDirectory="/org.osate.aadl2/src" creationSubmenus="true" editorDirectory=""
+    modelPluginID="org.osate.aadl2" templateDirectory="/JET/templates" runtimeJar="true"
+    dynamicTemplates="true" redirection="" modelName="Aadl2" modelPluginClass="" editPluginClass="org.osate.aadl2.provider.Aadl2EditPlugin"
+    editorPluginClass="" rootExtendsInterface="org.osate.aadl2.parsesupport.AObject"
+    rootExtendsClass="org.osate.aadl2.parsesupport.AObjectImpl" rootImplementsInterface=""
+    featureMapWrapperInterface="" codeFormatting="true" testsDirectory="" testSuiteClass=""
+    booleanFlagsField="" importerID="org.eclipse.uml2.uml.ecore.importer" complianceLevel="5.0"
+    copyrightFields="false" providerRootExtendsClass="" testsPluginID="org.osate.aadl2.editor"
+    language="" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+>
+   <genPackages prefix="Aadl2" basePackage="org.osate"
+      resource="XMI" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
+      contentTypeIdentifier="" ecorePackage="aadl2.ecore#/" >
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//FlowKind">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//FlowKind/source"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//FlowKind/path"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//FlowKind/sink"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//DirectionType">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//DirectionType/in"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//DirectionType/out"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//DirectionType/inOut"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//AccessType">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessType/provided"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessType/required"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//AccessCategory">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessCategory/bus"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessCategory/data"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessCategory/subprogram"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//AccessCategory/subprogramGroup"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//PortCategory">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//PortCategory/data"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//PortCategory/event"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//PortCategory/eventData"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ComponentCategory">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/abstract"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/bus"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/data"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/device"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/memory"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/process"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/processor"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/subprogram"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/subprogramGroup"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/system"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/thread"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/threadGroup"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualBus"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ComponentCategory/virtualProcessor"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ConnectionKind">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Access"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Feature"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/FeatureGroup"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Parameter"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ConnectionKind/Port"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//ElementNameKind">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/InternalEvent"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/ProcessorPort"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//ElementNameKind/ProcessorSubprogram"/>
+    </genEnums>
+    <genEnums  typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//OperationKind">
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//OperationKind/and"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//OperationKind/or"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//OperationKind/not"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//OperationKind/plus"/>
+      <genEnumLiterals  ecoreEnumLiteral="aadl2.ecore#//OperationKind/minus"/>
+    </genEnums>
+    <genDataTypes  ecoreDataType="aadl2.ecore#//String"/>
+    <genDataTypes  ecoreDataType="aadl2.ecore#//Boolean"/>
+    <genDataTypes  ecoreDataType="aadl2.ecore#//Integer"/>
+    <genDataTypes  ecoreDataType="aadl2.ecore#//Real"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Element">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedElement"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Element/ownedComment"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Element/not_own_self">
+        <genParameters ecoreParameter="aadl2.ecore#//Element/not_own_self/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Element/not_own_self/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Element/has_owner">
+        <genParameters ecoreParameter="aadl2.ecore#//Element/has_owner/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Element/has_owner/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Element/getOwner"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Element/allOwnedElements"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Element/mustBeOwned"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//Comment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Comment/body"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Type">
+      <genOperations ecoreOperation="aadl2.ecore#//Type/conformsTo">
+        <genParameters ecoreParameter="aadl2.ecore#//Type/conformsTo/other"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/name"/>
+      <genFeatures property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//NamedElement/qualifiedName.1"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NamedElement/ownedPropertyAssociation"/>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/has_no_qualified_name">
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/has_no_qualified_name/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/has_no_qualified_name/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/has_qualified_name">
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/has_qualified_name/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/getNamespace"/>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/allNamespaces"/>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/isDistinguishableFrom">
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/isDistinguishableFrom/n"/>
+        <genParameters ecoreParameter="aadl2.ecore#//NamedElement/isDistinguishableFrom/ns"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/separator"/>
+      <genOperations ecoreOperation="aadl2.ecore#//NamedElement/qualifiedName"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PropertyAssociation">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyAssociation/property"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyAssociation/appliesTo"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyAssociation/inBinding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PropertyAssociation/append"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PropertyAssociation/constant"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyAssociation/ownedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Property/inherit"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Property/defaultValue"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Property/appliesToMetaclass"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Property/appliesToClassifier"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Property/appliesTo"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Property/emptyListDefault"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//BasicProperty">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/propertyType"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicProperty/ownedPropertyType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//TypedElement">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//TypedElement/type"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PropertyType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AbstractNamedValue"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ArraySizeProperty"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PropertyExpression"/>
+    <genClasses ecoreClass="aadl2.ecore#//MetaclassReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//MetaclassReference/annexName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//MetaclassReference/metaclassName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PropertyOwner"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Classifier">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/classifierFeature"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/inheritedMember.1"/>
+      <genFeatures property="None" children="true"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/generalization"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/general"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/ownedAnnexSubclause"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/ownedPrototype"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Classifier/ownedPrototypeBinding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noPrototypes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noAnnexes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Classifier/noProperties"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/no_cycles_in_generalization">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/no_cycles_in_generalization/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/no_cycles_in_generalization/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/specialize_type">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/specialize_type/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/specialize_type/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/allFeatures"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/inheritedMember"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/parents"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/allParents"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/inheritableMembers">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/inheritableMembers/c"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/hasVisibilityOf">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/hasVisibilityOf/n"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/inherit">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/inherit/inhs"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Classifier/maySpecializeType">
+        <genParameters ecoreParameter="aadl2.ecore#//Classifier/maySpecializeType/c"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Namespace">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/ownedMember"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Namespace/member"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Namespace/members_distinguishable">
+        <genParameters ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Namespace/members_distinguishable/context"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Namespace/getNamesOfMember">
+        <genParameters ecoreParameter="aadl2.ecore#//Namespace/getNamesOfMember/element"/>
+      </genOperations>
+      <genOperations ecoreOperation="aadl2.ecore#//Namespace/membersAreDistinguishable"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ClassifierFeature">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ClassifierFeature/featuringClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Generalization">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Generalization/general"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//Generalization/specific"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DirectedRelationship">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//DirectedRelationship/source"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//DirectedRelationship/target"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Relationship">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Relationship/relatedElement"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AnnexSubclause"/>
+    <genClasses ecoreClass="aadl2.ecore#//ModalElement">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalElement/inMode"/>
+      <genOperations ecoreOperation="aadl2.ecore#//ModalElement/getAllInModes"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//Mode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Mode/initial"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Mode/derived"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ModeFeature"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Prototype">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Prototype/refined"/>
+      <genOperations ecoreOperation="aadl2.ecore#//Prototype/categoryConstraint">
+        <genParameters ecoreParameter="aadl2.ecore#//Prototype/categoryConstraint/diagnostics"/>
+        <genParameters ecoreParameter="aadl2.ecore#//Prototype/categoryConstraint/context"/>
+      </genOperations>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//StructuralFeature"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//RefinableElement">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//RefinableElement/refinementContext"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//RefinableElement/refinedElement"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FeatureClassifier"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//CalledSubprogram"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PrototypeBinding">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PrototypeBinding/formal"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ContainedNamedElement">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainedNamedElement/containmentPathElement"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ContainmentPathElement">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainmentPathElement/arrayRange"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ContainmentPathElement/namedElement"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ArrayRange">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArrayRange/lowerBound"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArrayRange/upperBound"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ModalPropertyValue">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPropertyValue/ownedValue"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//BehavioralFeature"/>
+    <genClasses ecoreClass="aadl2.ecore#//ArrayDimension">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArrayDimension/size"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ArraySize">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ArraySize/size"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArraySize/sizeProperty"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ArrayableElement">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ArrayableElement/arrayDimension"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ComponentImplementationReference">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementationReference/implementation"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementationReference/ownedPrototypeBinding"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ComponentImplementation">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/type"/>
+      <genFeatures property="None" children="true"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedSubcomponent"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/extended"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
+      <genFeatures property="None" children="true"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedConnection"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedExtension"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedRealization"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAbstractSubcomponent"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noSubcomponents"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noConnections"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noCalls"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ComponentClassifier">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentClassifier/ownedMode"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentClassifier/ownedModeTransition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentClassifier/noFlows"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentClassifier/noModes"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubcomponentType"/>
+    <genClasses ecoreClass="aadl2.ecore#//ModeTransition">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModeTransition/source"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModeTransition/destination"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModeTransition/ownedTrigger"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ModeTransitionTrigger"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ComponentType">
+      <genFeatures property="None" children="true"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/ownedFeature"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/extended"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/ownedFlowSpecification"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/ownedExtension"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/ownedFeatureGroup"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentType/ownedAbstractFeature"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentType/noFeatures"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Feature">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Feature/prototype"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Feature/refined"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Feature/classifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FeatureConnectionEnd"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ConnectionEnd"/>
+    <genClasses ecoreClass="aadl2.ecore#//FlowSpecification">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/refined"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FlowSpecification/kind"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/outEnd"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/InEnd"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Flow"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ModalPath">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
+      <genOperations ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FlowElement"/>
+    <genClasses ecoreClass="aadl2.ecore#//EndToEndFlowElement"/>
+    <genClasses ecoreClass="aadl2.ecore#//FlowEnd">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowEnd/context"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowEnd/feature"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Context"/>
+    <genClasses ecoreClass="aadl2.ecore#//TypeExtension">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//TypeExtension/extended"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroup">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FeatureGroup/inverse"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroup/featureType"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroup/featureGroupType"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroup/featureGroupPrototype"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//CallContext"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DirectedFeature">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DirectedFeature/direction"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupConnectionEnd"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FeatureType"/>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupType">
+      <genFeatures property="None" children="true"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedFeature"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/extended"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/inverse"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedExtension"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedBusAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedFeatureGroup"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedParameter"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedSubprogramGroupAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupType/ownedAbstractFeature"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//GroupExtension">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//GroupExtension/extended"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//BusAccess">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusAccess/busFeatureClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Access">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/category"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AccessConnectionEnd"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//BusSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Bus"/>
+    <genClasses ecoreClass="aadl2.ecore#//DataAccess">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataAccess/dataFeatureClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ParameterConnectionEnd"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PortConnectionEnd"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DataSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Data"/>
+    <genClasses ecoreClass="aadl2.ecore#//DataPort">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataPort/dataFeatureClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Port">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//EventDataPort">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EventDataPort/dataFeatureClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//EventPort"/>
+    <genClasses ecoreClass="aadl2.ecore#//Parameter">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Parameter/dataFeatureClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramAccess">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramAccess/subprogramFeatureClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SubprogramSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Subprogram"/>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramGroupAccess">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupAccess/subprogramGroupFeatureClassifier"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SubprogramGroupSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SubprogramGroup"/>
+    <genClasses ecoreClass="aadl2.ecore#//AbstractFeature">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AbstractFeature/featureClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupPrototype">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupPrototype/constrainingFeatureGroupType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Subcomponent">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/subcomponentType"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/ownedPrototypeBinding"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/prototype"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/ownedModeBinding"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Subcomponent/allModes"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/implementationReference"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/refined"/>
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//Subcomponent/classifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ComponentPrototype">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentPrototype/array"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototype/constrainingClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ModeBinding">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModeBinding/parentMode"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModeBinding/derivedMode"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FlowImplementation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FlowImplementation/kind"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/specification"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/ownedFlowSegment"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FlowSegment">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSegment/flowElement"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSegment/context"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Connection">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Connection/destination"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Connection/source"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Connection/bidirectional"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Connection/refined"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AbstractConnectionEnd"/>
+    <genClasses ecoreClass="aadl2.ecore#//ImplementationExtension">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ImplementationExtension/extended"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//Realization">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//Realization/implemented"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//EndToEndFlow">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EndToEndFlow/refined"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//EndToEndFlow/ownedEndToEndFlowSegment"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//EndToEndFlowSegment">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EndToEndFlowSegment/flowElement"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//EndToEndFlowSegment/context"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AbstractSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AbstractSubcomponent/abstractSubcomponentType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Abstract"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AbstractSubcomponentType"/>
+    <genClasses ecoreClass="aadl2.ecore#//AccessConnection">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AccessConnection/accessCategory"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ParameterConnection"/>
+    <genClasses ecoreClass="aadl2.ecore#//PortConnection"/>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureConnection"/>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupConnection"/>
+    <genClasses ecoreClass="aadl2.ecore#//ConnectedElement">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/context"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ConnectedElement/connectionEnd"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ElementName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ElementName/kind"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AnnexLibrary"/>
+    <genClasses ecoreClass="aadl2.ecore#//DefaultAnnexLibrary">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DefaultAnnexLibrary/sourceText"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DefaultAnnexSubclause">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//DefaultAnnexSubclause/sourceText"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//TriggerPort">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//TriggerPort/context"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//TriggerPort/port"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PublicPackageSection">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//PublicPackageSection/privateSection"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PackageSection">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedPackageRename"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedComponentTypeRename"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedClassifier"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedFeatureGroupTypeRename"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/ownedAnnexLibrary"/>
+      <genFeatures createChild="false" propertySortChoices="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PackageSection/importedUnit"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noAnnexes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageSection/noProperties"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PackageRename">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PackageRename/renamedPackage"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PackageRename/renameAll"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AadlPackage">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/ownedPublicSection"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/ownedPrivateSection"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/publicSection"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AadlPackage/privateSection"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ModelUnit"/>
+    <genClasses ecoreClass="aadl2.ecore#//PrivatePackageSection">
+      <genFeatures property="Readonly" notify="false"
+          createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//PrivatePackageSection/publicSection"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ComponentTypeRename">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentTypeRename/category"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentTypeRename/renamedComponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupTypeRename">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupTypeRename/renamedFeatureGroupType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ComponentPrototypeBinding">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeBinding/actual"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ComponentPrototypeActual">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentPrototypeActual/category"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeActual/binding"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentPrototypeActual/subcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeatureGroupPrototypeBinding">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupPrototypeBinding/actual"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FeatureGroupPrototypeActual">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupPrototypeActual/binding"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeatureGroupPrototypeActual/featureType"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//FeaturePrototypeActual"/>
+    <genClasses ecoreClass="aadl2.ecore#//FeaturePrototype">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FeaturePrototype/direction"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeaturePrototype/constrainingClassifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeaturePrototypeBinding">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeaturePrototypeBinding/actual"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AccessSpecification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AccessSpecification/kind"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//AccessSpecification/category"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//AccessSpecification/classifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PortSpecification">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PortSpecification/direction"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//PortSpecification/category"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PortSpecification/classifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//FeaturePrototypeReference">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//FeaturePrototypeReference/direction"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FeaturePrototypeReference/prototype"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramCallSequence">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramCallSequence/ownedCallSpecification"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//CallSpecification"/>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorCall">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ProcessorCall/subprogramAccessName"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//BehavioredImplementation">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BehavioredImplementation/callSpecification"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BehavioredImplementation/ownedSubprogramCallSequence"/>
+      <genOperations ecoreOperation="aadl2.ecore#//BehavioredImplementation/callSpecifications"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramCall">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramCall/calledSubprogram"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramCall/context"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AbstractType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedBusAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//AbstractClassifier"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VirtualProcessorSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VirtualProcessor"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VitualBusSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VirtualBus"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ThreadGroupSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ThreadGroup"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ThreadSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Thread"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SystemSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//System"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ProcessSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Process"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//MemorySubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Memory"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DeviceSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Device"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ProcessorSubcomponentType"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//Processor"/>
+    <genClasses ecoreClass="aadl2.ecore#//AbstractImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedDeviceSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedMemorySubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedProcessSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedProcessorSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedSystemSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedSubprogramGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedThreadSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedThreadGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedVirtualBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//AbstractImplementation/ownedVirtualProcessorSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//BusSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusSubcomponent/busSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DataSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataSubcomponent/dataSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DeviceSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DeviceSubcomponent/deviceSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//MemorySubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemorySubcomponent/memorySubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ProcessSubcomponent/processSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorSubcomponent/processorSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SystemSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SystemSubcomponent/systemSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramSubcomponent/subprogramSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramGroupSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupSubcomponent/subprogramGroupSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ThreadSubcomponent/threadSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadGroupSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupSubcomponent/threadGroupSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualBusSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusSubcomponent/virtualBusSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualProcessorSubcomponent">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorSubcomponent/virtualProcessorSubcomponentType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AbstractPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//BusClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//BusType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedBusAccess"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedEventDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BusType/ownedEventPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//BusImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//BusImplementation/ownedVirtualBusSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//BusPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DataClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//DataType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DataType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DataImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DataImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DataImplementation/ownedSubprogramSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DataPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//DeviceClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//DeviceType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedBusAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DeviceImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedBusSubcomponent"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//DeviceImplementation/ownedVirtualBusSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//DevicePrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//MemoryClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//MemoryType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedBusAccess"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedEventDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//MemoryType/ownedEventPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//MemoryImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//MemoryImplementation/ownedMemorySubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//MemoryPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SubprogramClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedParameter"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramImplementation/ownedDataSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SubprogramGroupClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramGroupType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramGroupImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//SubprogramGroupImplementation/ownedSubprogramGroupSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SubprogramGroupPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//SystemClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//SystemType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedBusAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedSubprogramGroupAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemType/ownedEventDataPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SystemImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedDeviceSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedMemorySubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedProcessSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedProcessorSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedSubprogramGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedSystemSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedVirtualBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//SystemImplementation/ownedVirtualProcessorSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//SystemPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ProcessorClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedBusAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorImplementation/ownedBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorImplementation/ownedMemorySubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorImplementation/ownedVirtualBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessorImplementation/ownedVirtualProcessorSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ProcessClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessImplementation/ownedSubprogramGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessImplementation/ownedThreadSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ProcessImplementation/ownedThreadGroupSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ThreadClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadImplementation/ownedSubprogramGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadImplementation/ownedDataSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//ThreadGroupClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadGroupType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedDataAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadGroupImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupImplementation/ownedDataSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupImplementation/ownedThreadSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupImplementation/ownedThreadGroupSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupImplementation/ownedSubprogramSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ThreadGroupImplementation/ownedSubprogramGroupSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ThreadGroupPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VirtualBusClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualBusType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedEventDataPort"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusType/ownedEventPort"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualBusImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualBusImplementation/ownedVirtualBusSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualBusPrototype"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//VirtualProcessorClassifier"/>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualProcessorType">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorType/ownedDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorType/ownedEventDataPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorType/ownedEventPort"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorType/ownedSubprogramAccess"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorType/ownedSubprogramGroupAccess"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualProcessorImplementation">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorImplementation/ownedVirtualBusSubcomponent"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//VirtualProcessorImplementation/ownedVirtualProcessorSubcomponent"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//VirtualProcessorPrototype"/>
+    <genClasses ecoreClass="aadl2.ecore#//BasicPropertyAssociation">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicPropertyAssociation/property"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//BasicPropertyAssociation/ownedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PropertyConstant">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/propertyType"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/ownedPropertyType"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertyConstant/constantValue"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//StringLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//StringLiteral/value"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//PropertyValue"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//NumberValue">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberValue/unit"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//UnitLiteral">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//UnitLiteral/baseUnit"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//UnitLiteral/factor"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//EnumerationLiteral"/>
+    <genClasses ecoreClass="aadl2.ecore#//ClassifierValue">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ClassifierValue/classifier"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ReferenceValue"/>
+    <genClasses ecoreClass="aadl2.ecore#//BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//BooleanLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RangeValue">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeValue/minimum"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeValue/maximum"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeValue/delta"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//IntegerLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//IntegerLiteral/base"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//IntegerLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RealLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//RealLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//Operation">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Operation/op"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//Operation/ownedPropertyExpression"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RecordValue">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RecordValue/ownedFieldValue"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ComputedValue">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComputedValue/function"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ListValue">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListValue/ownedListElement"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//NamedValue">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NamedValue/namedValue"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//PropertySet">
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyType"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedProperty"/>
+      <genFeatures property="None" notify="false" createChild="false"
+          ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/ownedPropertyConstant"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//PropertySet/importedUnit"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//GlobalNamespace">
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//GlobalNamespace/package"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//GlobalNamespace/propertySet"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//NonListType"/>
+    <genClasses ecoreClass="aadl2.ecore#//AadlBoolean"/>
+    <genClasses ecoreClass="aadl2.ecore#//AadlString"/>
+    <genClasses ecoreClass="aadl2.ecore#//AadlInteger"/>
+    <genClasses image="false" ecoreClass="aadl2.ecore#//NumberType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/ownedUnitsType"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/unitsType"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumberType/range"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//UnitsType"/>
+    <genClasses ecoreClass="aadl2.ecore#//EnumerationType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//EnumerationType/ownedLiteral"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//NumericRange">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumericRange/upperBound"/>
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//NumericRange/lowerBound"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//AadlReal"/>
+    <genClasses ecoreClass="aadl2.ecore#//ClassifierType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ClassifierType/classifierReference"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RangeType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeType/ownedNumberType"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//RangeType/numberType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RecordType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//RecordType/ownedField"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//RecordField"/>
+    <genClasses ecoreClass="aadl2.ecore#//ReferenceType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ReferenceType/namedElementReference"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ListType">
+      <genFeatures property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/ownedElementType"/>
+      <genFeatures notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ListType/elementType"/>
+    </genClasses>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorPort"/>
+    <genClasses ecoreClass="aadl2.ecore#//InternalEvent"/>
+    <genClasses ecoreClass="aadl2.ecore#//ProcessorSubprogram"/>
+  </genPackages>
+</genmodel:GenModel>
