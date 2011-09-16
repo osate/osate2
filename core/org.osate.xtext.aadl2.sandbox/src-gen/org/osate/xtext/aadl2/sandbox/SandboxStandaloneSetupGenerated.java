@@ -15,7 +15,7 @@ import com.google.inject.Injector;
 public class SandboxStandaloneSetupGenerated implements ISetup {
 
 	public Injector createInjectorAndDoEMFRegistration() {
-		org.eclipse.xtext.common.TerminalsStandaloneSetup.doSetup();
+		org.osate.xtext.aadl2.Aadl2StandaloneSetup.doSetup();
 
 		Injector injector = createInjector();
 		register(injector);
