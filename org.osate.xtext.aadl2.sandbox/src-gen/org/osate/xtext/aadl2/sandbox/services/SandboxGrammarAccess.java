@@ -59,19 +59,18 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cFromKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cSystemImplementationAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cSystemImplementationSystemImplementationCrossReference_4_0 = (CrossReference)cSystemImplementationAssignment_4.eContents().get(0);
-		private final RuleCall cSystemImplementationSystemImplementationIDTerminalRuleCall_4_0_1 = (RuleCall)cSystemImplementationSystemImplementationCrossReference_4_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cSystemImplementationAadlPackageParserRuleCall_4_0 = (RuleCall)cSystemImplementationAssignment_4.eContents().get(0);
+		private final Assignment cSystemInstanceProxyAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0 = (RuleCall)cSystemInstanceProxyAssignment_5.eContents().get(0);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SystemConfiguration:
-		//	"system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
-		//	[SystemImplementation] //		(systemInstanceProxy=SystemInstanceProxy)? 
-		//	";";
+		//	"system" "instance" name=ID "from" systemImplementation=AadlPackage //[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
+		//	systemInstanceProxy=SystemInstanceProxy? ";";
 		public ParserRule getRule() { return rule; }
 
-		//"system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
-		//[SystemImplementation] //		(systemInstanceProxy=SystemInstanceProxy)? 
-		//";"
+		//"system" "instance" name=ID "from" systemImplementation=AadlPackage //[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
+		//systemInstanceProxy=SystemInstanceProxy? ";"
 		public Group getGroup() { return cGroup; }
 
 		//"system"
@@ -89,20 +88,48 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		//"from"
 		public Keyword getFromKeyword_3() { return cFromKeyword_3; }
 
-		//systemImplementation= //[ecore::EObject|QIREF]
-		//[SystemImplementation]
+		//systemImplementation=AadlPackage
 		public Assignment getSystemImplementationAssignment_4() { return cSystemImplementationAssignment_4; }
 
-		////[ecore::EObject|QIREF]
-		//[SystemImplementation]
-		public CrossReference getSystemImplementationSystemImplementationCrossReference_4_0() { return cSystemImplementationSystemImplementationCrossReference_4_0; }
+		//AadlPackage
+		public RuleCall getSystemImplementationAadlPackageParserRuleCall_4_0() { return cSystemImplementationAadlPackageParserRuleCall_4_0; }
+
+		//systemInstanceProxy=SystemInstanceProxy?
+		public Assignment getSystemInstanceProxyAssignment_5() { return cSystemInstanceProxyAssignment_5; }
+
+		//SystemInstanceProxy
+		public RuleCall getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0() { return cSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+	}
+
+	public class SystemInstanceProxyElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SystemInstanceProxy");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cToKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cInstanceRefAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cInstanceRefSystemImplementationCrossReference_1_0 = (CrossReference)cInstanceRefAssignment_1.eContents().get(0);
+		private final RuleCall cInstanceRefSystemImplementationIDTerminalRuleCall_1_0_1 = (RuleCall)cInstanceRefSystemImplementationCrossReference_1_0.eContents().get(1);
+		
+		//SystemInstanceProxy:
+		//	"to" instanceRef=[aadl2::SystemImplementation];
+		public ParserRule getRule() { return rule; }
+
+		//"to" instanceRef=[aadl2::SystemImplementation]
+		public Group getGroup() { return cGroup; }
+
+		//"to"
+		public Keyword getToKeyword_0() { return cToKeyword_0; }
+
+		//instanceRef=[aadl2::SystemImplementation]
+		public Assignment getInstanceRefAssignment_1() { return cInstanceRefAssignment_1; }
+
+		//[aadl2::SystemImplementation]
+		public CrossReference getInstanceRefSystemImplementationCrossReference_1_0() { return cInstanceRefSystemImplementationCrossReference_1_0; }
 
 		//ID
-		public RuleCall getSystemImplementationSystemImplementationIDTerminalRuleCall_4_0_1() { return cSystemImplementationSystemImplementationIDTerminalRuleCall_4_0_1; }
-
-		////		(systemInstanceProxy=SystemInstanceProxy)? 
-		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public RuleCall getInstanceRefSystemImplementationIDTerminalRuleCall_1_0_1() { return cInstanceRefSystemImplementationIDTerminalRuleCall_1_0_1; }
 	}
 
 	public class QIREFElements extends AbstractParserRuleElementFinder {
@@ -115,9 +142,6 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final RuleCall cIDTerminalRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
 		
-		////SystemInstanceProxy:
-		////	"to" instanceRef=[ecore::EObject|ID]
-		////;
 		//// component implementation anme
 		//QIREF:
 		//	(ID "::")* ID "." ID;
@@ -176,6 +200,7 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private SandboxElements pSandbox;
 	private SystemConfigurationElements pSystemConfiguration;
+	private SystemInstanceProxyElements pSystemInstanceProxy;
 	private QIREFElements pQIREF;
 	private QPREFElements pQPREF;
 	
@@ -211,9 +236,8 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SystemConfiguration:
-	//	"system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
-	//	[SystemImplementation] //		(systemInstanceProxy=SystemInstanceProxy)? 
-	//	";";
+	//	"system" "instance" name=ID "from" systemImplementation=AadlPackage //[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
+	//	systemInstanceProxy=SystemInstanceProxy? ";";
 	public SystemConfigurationElements getSystemConfigurationAccess() {
 		return (pSystemConfiguration != null) ? pSystemConfiguration : (pSystemConfiguration = new SystemConfigurationElements());
 	}
@@ -222,9 +246,16 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		return getSystemConfigurationAccess().getRule();
 	}
 
-	////SystemInstanceProxy:
-	////	"to" instanceRef=[ecore::EObject|ID]
-	////;
+	//SystemInstanceProxy:
+	//	"to" instanceRef=[aadl2::SystemImplementation];
+	public SystemInstanceProxyElements getSystemInstanceProxyAccess() {
+		return (pSystemInstanceProxy != null) ? pSystemInstanceProxy : (pSystemInstanceProxy = new SystemInstanceProxyElements());
+	}
+	
+	public ParserRule getSystemInstanceProxyRule() {
+		return getSystemInstanceProxyAccess().getRule();
+	}
+
 	//// component implementation anme
 	//QIREF:
 	//	(ID "::")* ID "." ID;

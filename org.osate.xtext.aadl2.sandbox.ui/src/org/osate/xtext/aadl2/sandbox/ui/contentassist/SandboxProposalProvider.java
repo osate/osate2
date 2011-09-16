@@ -3,7 +3,6 @@
 */
 package org.osate.xtext.aadl2.sandbox.ui.contentassist;
 
-import org.osate.xtext.aadl2.sandbox.ui.contentassist.AbstractSandboxProposalProvider;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */

@@ -13,58 +13,40 @@ Workflow {
     bean = StandaloneSetup {
         scanClassPath = true
         platformUri = "${runtimeProject}/.."
-		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
-//		registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
-		registerGenModelFile = "platform:/resource/org.osate.xtext.aadl2.sandbox/model/GenModel.ecore"
-		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
-       uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-	            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
-	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-	            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
-	        }
-	        uriMap = {
-	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
-	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
-	        }
-	        //
-	        registerGeneratedEPackage = "org.eclipse.emf.ecore.EcorePackage"
-	        registerGeneratedEPackage = "org.eclipse.uml2.uml.UMLPackage"
-	        registerGeneratedEPackage = "org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage"
-	        registerGeneratedEPackage = "org.eclipse.uml2.codegen.ecore.genmodel.GenModelPackage"
-	        registerGenModelFile = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
-	        registerGenModelFile = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
-	//uriMap = { from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
-// to = "platform:/resource/org.osate.xtext.aadl2.sandbox/model/Ecore.ecore"
-// }
-// 
-//uriMap = { from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
-// to = "platform:/resource/org.osate.xtext.aadl2.sandbox/model/Ecore.genmodel"
-// }
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/ecoremodel/aadl2.genmodel"
+//       uriMap = {
+//	            from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+//	            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.genmodel"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel"
+//	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.genmodel"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+//	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.genmodel"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.genmodel"
+//	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.genmodel"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+//	            to = "platform:/resource/org.eclipse.emf.codegen.ecore/model/GenModel.ecore"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"
+//	            to = "platform:/resource/org.eclipse.emf.ecore/model/Ecore.ecore"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+//	            to = "platform:/resource/org.eclipse.uml2.codegen.ecore/model/GenModel.ecore"
+//	        }
+//	        uriMap = {
+//	            from = "platform:/plugin/org.eclipse.uml2.uml/model/UML.ecore"
+//	            to = "platform:/resource/org.eclipse.uml2.uml/model/UML.ecore"
+//	        }
+//	        //
     }
 
     component = DirectoryCleaner {
@@ -89,8 +71,8 @@ Workflow {
             fragment = grammarAccess.GrammarAccessFragment {}
 
             // generates Java API for the generated EPackages
-//            fragment = ecore.EcoreGeneratorFragment {
-//            }
+            fragment = ecore.EcoreGeneratorFragment {
+            }
 
 //            // Serializer 2.0
 //            fragment = serializer.SerializerFragment {}
@@ -151,11 +133,11 @@ Workflow {
             // quickfix API
 //            fragment = quickfix.QuickfixProviderFragment {}
 //
-//            // content assist API
-//            fragment = contentAssist.JavaBasedContentAssistFragment {}
+            // content assist API
+            fragment = contentAssist.JavaBasedContentAssistFragment {}
 //
             // generates a more lightweight Antlr parser and lexer tailored for content assist
-            fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
+//            fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
 			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
 				    options = {
         		ignoreCase = true
