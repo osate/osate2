@@ -33,212 +33,213 @@ protected class ThisRootNode extends RootToken {
 		switch(index) {
 			case 0: return new Sandbox_Group(this, this, 0, inst);
 			case 1: return new SystemConfiguration_Group(this, this, 1, inst);
-			case 2: return new Model_Alternatives(this, this, 2, inst);
-			case 3: return new AadlPackage_Group(this, this, 3, inst);
-			case 4: return new PublicPackageSection_Group(this, this, 4, inst);
-			case 5: return new PrivatePackageSection_Group(this, this, 5, inst);
-			case 6: return new PackageRename_Group(this, this, 6, inst);
-			case 7: return new FGTRename_Group(this, this, 7, inst);
-			case 8: return new CTRename_Group(this, this, 8, inst);
-			case 9: return new TypeExtension_Group(this, this, 9, inst);
-			case 10: return new ImplementationExtension_Group(this, this, 10, inst);
-			case 11: return new GroupExtension_Group(this, this, 11, inst);
-			case 12: return new Classifier_Alternatives(this, this, 12, inst);
-			case 13: return new ComponentType_Group(this, this, 13, inst);
-			case 14: return new AbstractType_Group(this, this, 14, inst);
-			case 15: return new SystemType_Group(this, this, 15, inst);
-			case 16: return new ProcessType_Group(this, this, 16, inst);
-			case 17: return new ThreadGroupType_Group(this, this, 17, inst);
-			case 18: return new ThreadType_Group(this, this, 18, inst);
-			case 19: return new SubprogramType_Group(this, this, 19, inst);
-			case 20: return new SubprogramGroupType_Group(this, this, 20, inst);
-			case 21: return new ProcessorType_Group(this, this, 21, inst);
-			case 22: return new DeviceType_Group(this, this, 22, inst);
-			case 23: return new MemoryType_Group(this, this, 23, inst);
-			case 24: return new BusType_Group(this, this, 24, inst);
-			case 25: return new VirtualBusType_Group(this, this, 25, inst);
-			case 26: return new VirtualProcessorType_Group(this, this, 26, inst);
-			case 27: return new DataType_Group(this, this, 27, inst);
-			case 28: return new ComponentImplementation_Group(this, this, 28, inst);
-			case 29: return new Realization_ImplementedAssignment(this, this, 29, inst);
-			case 30: return new AbstractImplementation_Group(this, this, 30, inst);
-			case 31: return new SystemImplementation_Group(this, this, 31, inst);
-			case 32: return new ProcessImplementation_Group(this, this, 32, inst);
-			case 33: return new ThreadGroupImplementation_Group(this, this, 33, inst);
-			case 34: return new ThreadImplementation_Group(this, this, 34, inst);
-			case 35: return new SubprogramImplementation_Group(this, this, 35, inst);
-			case 36: return new SubprogramGroupImplementation_Group(this, this, 36, inst);
-			case 37: return new ProcessorImplementation_Group(this, this, 37, inst);
-			case 38: return new VirtualProcessorImplementation_Group(this, this, 38, inst);
-			case 39: return new DeviceImplementation_Group(this, this, 39, inst);
-			case 40: return new MemoryImplementation_Group(this, this, 40, inst);
-			case 41: return new BusImplementation_Group(this, this, 41, inst);
-			case 42: return new VirtualBusImplementation_Group(this, this, 42, inst);
-			case 43: return new DataImplementation_Group(this, this, 43, inst);
-			case 44: return new SubprogramCallSequence_Group(this, this, 44, inst);
-			case 45: return new CallSpecification_Group(this, this, 45, inst);
-			case 46: return new Prototype_Group(this, this, 46, inst);
-			case 47: return new AbstractPrototype_Group(this, this, 47, inst);
-			case 48: return new BusPrototype_Group(this, this, 48, inst);
-			case 49: return new DataPrototype_Group(this, this, 49, inst);
-			case 50: return new DevicePrototype_Group(this, this, 50, inst);
-			case 51: return new MemoryPrototype_Group(this, this, 51, inst);
-			case 52: return new ProcessPrototype_Group(this, this, 52, inst);
-			case 53: return new ProcessorPrototype_Group(this, this, 53, inst);
-			case 54: return new SubprogramPrototype_Group(this, this, 54, inst);
-			case 55: return new SubprogramGroupPrototype_Group(this, this, 55, inst);
-			case 56: return new SystemPrototype_Group(this, this, 56, inst);
-			case 57: return new ThreadPrototype_Group(this, this, 57, inst);
-			case 58: return new ThreadGroupPrototype_Group(this, this, 58, inst);
-			case 59: return new VirtualBusPrototype_Group(this, this, 59, inst);
-			case 60: return new VirtualProcessorPrototype_Group(this, this, 60, inst);
-			case 61: return new FeatureGroupPrototype_Group(this, this, 61, inst);
-			case 62: return new FeaturePrototype_Group(this, this, 62, inst);
-			case 63: return new PrototypeBinding_Alternatives(this, this, 63, inst);
-			case 64: return new FeatureGroupPrototypeBinding_Group(this, this, 64, inst);
-			case 65: return new FeatureGroupPrototypeActual_Group(this, this, 65, inst);
-			case 66: return new FeaturePrototypeBinding_Group(this, this, 66, inst);
-			case 67: return new PortSpecification_Group(this, this, 67, inst);
-			case 68: return new AccessSpecification_Group(this, this, 68, inst);
-			case 69: return new FeaturePrototypeReference_Group(this, this, 69, inst);
-			case 70: return new ComponentPrototypeBinding_Group(this, this, 70, inst);
-			case 71: return new ComponentReference_Group(this, this, 71, inst);
-			case 72: return new AbstractSubcomponent_Group(this, this, 72, inst);
-			case 73: return new SystemSubcomponent_Group(this, this, 73, inst);
-			case 74: return new ProcessSubcomponent_Group(this, this, 74, inst);
-			case 75: return new ThreadGroupSubcomponent_Group(this, this, 75, inst);
-			case 76: return new ThreadSubcomponent_Group(this, this, 76, inst);
-			case 77: return new SubprogramSubcomponent_Group(this, this, 77, inst);
-			case 78: return new SubprogramGroupSubcomponent_Group(this, this, 78, inst);
-			case 79: return new ProcessorSubcomponent_Group(this, this, 79, inst);
-			case 80: return new VirtualProcessorSubcomponent_Group(this, this, 80, inst);
-			case 81: return new DeviceSubcomponent_Group(this, this, 81, inst);
-			case 82: return new MemorySubcomponent_Group(this, this, 82, inst);
-			case 83: return new BusSubcomponent_Group(this, this, 83, inst);
-			case 84: return new VirtualBusSubcomponent_Group(this, this, 84, inst);
-			case 85: return new DataSubcomponent_Group(this, this, 85, inst);
-			case 86: return new ArrayDimension_Group(this, this, 86, inst);
-			case 87: return new ArraySize_Alternatives(this, this, 87, inst);
-			case 88: return new ComponentImplementationReference_Group(this, this, 88, inst);
-			case 89: return new DataPort_Group(this, this, 89, inst);
-			case 90: return new EventDataPort_Group(this, this, 90, inst);
-			case 91: return new EventPort_Group(this, this, 91, inst);
-			case 92: return new FeatureGroup_Group(this, this, 92, inst);
-			case 93: return new Parameter_Group(this, this, 93, inst);
-			case 94: return new SubprogramAccess_Group(this, this, 94, inst);
-			case 95: return new SubprogramGroupAccess_Group(this, this, 95, inst);
-			case 96: return new BusAccess_Group(this, this, 96, inst);
-			case 97: return new DataAccess_Group(this, this, 97, inst);
-			case 98: return new AbstractFeature_Group(this, this, 98, inst);
-			case 99: return new FeatureGroupType_Group(this, this, 99, inst);
-			case 100: return new ConnectedElement_Group(this, this, 100, inst);
-			case 101: return new ProcessorPort_Group(this, this, 101, inst);
-			case 102: return new InternalEventPort_Group(this, this, 102, inst);
-			case 103: return new ProcessorSubprogram_Group(this, this, 103, inst);
-			case 104: return new AbstractConnectionEnd_Alternatives(this, this, 104, inst);
-			case 105: return new ProcessorConnectionEnd_Alternatives(this, this, 105, inst);
-			case 106: return new PortConnection_Group(this, this, 106, inst);
-			case 107: return new AccessConnection_Group(this, this, 107, inst);
-			case 108: return new FeatureGroupConnection_Group(this, this, 108, inst);
-			case 109: return new FeatureConnection_Group(this, this, 109, inst);
-			case 110: return new ParameterConnection_Group(this, this, 110, inst);
-			case 111: return new FlowSpecification_Group(this, this, 111, inst);
-			case 112: return new FlowSourceSpec_Group(this, this, 112, inst);
-			case 113: return new FlowSinkSpec_Group(this, this, 113, inst);
-			case 114: return new FlowPathSpec_Group(this, this, 114, inst);
-			case 115: return new FlowEnd_Group(this, this, 115, inst);
-			case 116: return new FlowSpecRefinement_Group(this, this, 116, inst);
-			case 117: return new FlowImplementation_Group(this, this, 117, inst);
-			case 118: return new FlowSourceImpl_Group(this, this, 118, inst);
-			case 119: return new FlowSinkImpl_Group(this, this, 119, inst);
-			case 120: return new FlowPathImpl_Group(this, this, 120, inst);
-			case 121: return new EndToEndFlow_Group(this, this, 121, inst);
-			case 122: return new SubcomponentFlow_Group(this, this, 122, inst);
-			case 123: return new ConnectionFlow_FlowElementAssignment(this, this, 123, inst);
-			case 124: return new ETESubcomponentFlow_Group(this, this, 124, inst);
-			case 125: return new ETEConnectionFlow_FlowElementAssignment(this, this, 125, inst);
-			case 126: return new Mode_Group(this, this, 126, inst);
-			case 127: return new RequiresMode_Group(this, this, 127, inst);
-			case 128: return new ModeTransition_Group(this, this, 128, inst);
-			case 129: return new Trigger_Alternatives(this, this, 129, inst);
-			case 130: return new TriggerPort_Group(this, this, 130, inst);
-			case 131: return new ModeRef_Group(this, this, 131, inst);
-			case 132: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 132, inst);
-			case 133: return new DefaultAnnexLibrary_Group(this, this, 133, inst);
-			case 134: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 134, inst);
-			case 135: return new DefaultAnnexSubclause_Group(this, this, 135, inst);
-			case 136: return new PropertySet_Group(this, this, 136, inst);
-			case 137: return new PropertyType_Group(this, this, 137, inst);
-			case 138: return new UnnamedPropertyType_Alternatives(this, this, 138, inst);
-			case 139: return new BooleanType_Group(this, this, 139, inst);
-			case 140: return new UnnamedBooleanType_Group(this, this, 140, inst);
-			case 141: return new StringType_Group(this, this, 141, inst);
-			case 142: return new UnnamedStringType_Group(this, this, 142, inst);
-			case 143: return new EnumerationType_Group(this, this, 143, inst);
-			case 144: return new UnnamedEnumerationType_Group(this, this, 144, inst);
-			case 145: return new EnumerationLiteral_NameAssignment(this, this, 145, inst);
-			case 146: return new UnitsType_Group(this, this, 146, inst);
-			case 147: return new UnnamedUnitsType_Group(this, this, 147, inst);
-			case 148: return new UnitLiteral_NameAssignment(this, this, 148, inst);
-			case 149: return new UnitLiteralConversion_Group(this, this, 149, inst);
-			case 150: return new RealType_Group(this, this, 150, inst);
-			case 151: return new UnnamedRealType_Group(this, this, 151, inst);
-			case 152: return new IntegerType_Group(this, this, 152, inst);
-			case 153: return new UnnamedIntegerType_Group(this, this, 153, inst);
-			case 154: return new RangeType_Group(this, this, 154, inst);
-			case 155: return new UnnamedRangeType_Group(this, this, 155, inst);
-			case 156: return new ClassifierType_Group(this, this, 156, inst);
-			case 157: return new UnnamedClassifierType_Group(this, this, 157, inst);
-			case 158: return new QCReference_Group(this, this, 158, inst);
-			case 159: return new ReferenceType_Group(this, this, 159, inst);
-			case 160: return new UnnamedReferenceType_Group(this, this, 160, inst);
-			case 161: return new RecordType_Group(this, this, 161, inst);
-			case 162: return new UnnamedRecordType_Group(this, this, 162, inst);
-			case 163: return new RecordField_Group(this, this, 163, inst);
-			case 164: return new PropertyDefinition_Group(this, this, 164, inst);
-			case 165: return new AllReference_MetaclassNameAssignment(this, this, 165, inst);
-			case 166: return new ListType_Group(this, this, 166, inst);
-			case 167: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 167, inst);
-			case 168: return new PropertyConstant_Group(this, this, 168, inst);
-			case 169: return new NumberValue_Alternatives(this, this, 169, inst);
-			case 170: return new RealLit_ValueAssignment(this, this, 170, inst);
-			case 171: return new IntegerLit_ValueAssignment(this, this, 171, inst);
-			case 172: return new ConstantPropertyExpression_Alternatives(this, this, 172, inst);
-			case 173: return new IntegerRange_Group(this, this, 173, inst);
-			case 174: return new RealRange_Group(this, this, 174, inst);
-			case 175: return new PModel_Alternatives(this, this, 175, inst);
-			case 176: return new ContainedPropertyAssociation_Group(this, this, 176, inst);
-			case 177: return new PropertyAssociation_Group(this, this, 177, inst);
-			case 178: return new BasicPropertyAssociation_Group(this, this, 178, inst);
-			case 179: return new ContainmentPath_Group(this, this, 179, inst);
-			case 180: return new ModalPropertyValue_Group(this, this, 180, inst);
-			case 181: return new PropertyValue_OwnedValueAssignment(this, this, 181, inst);
-			case 182: return new PropertyExpression_Alternatives(this, this, 182, inst);
-			case 183: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 183, inst);
-			case 184: return new ActualBooleanTerm_Alternatives(this, this, 184, inst);
-			case 185: return new ActualOrTerm_Group(this, this, 185, inst);
-			case 186: return new ActualAndTerm_Group(this, this, 186, inst);
-			case 187: return new BooleanTerm_OrTermParserRuleCall(this, this, 187, inst);
-			case 188: return new OrTerm_Group(this, this, 188, inst);
-			case 189: return new AndTerm_Group(this, this, 189, inst);
-			case 190: return new NotTerm_Group(this, this, 190, inst);
-			case 191: return new BooleanAtom_Alternatives(this, this, 191, inst);
-			case 192: return new BooleanLiteral_Group(this, this, 192, inst);
-			case 193: return new ConstantValue_NamedValueAssignment(this, this, 193, inst);
-			case 194: return new ReferenceTerm_Group(this, this, 194, inst);
-			case 195: return new RecordTerm_Group(this, this, 195, inst);
-			case 196: return new ComputedTerm_Group(this, this, 196, inst);
-			case 197: return new ComponentClassifierTerm_Group(this, this, 197, inst);
-			case 198: return new ListTerm_Group(this, this, 198, inst);
-			case 199: return new FieldPropertyAssociation_Group(this, this, 199, inst);
-			case 200: return new ContainmentPathElement_Alternatives(this, this, 200, inst);
-			case 201: return new StringTerm_ValueAssignment(this, this, 201, inst);
-			case 202: return new ArrayRange_Group(this, this, 202, inst);
-			case 203: return new SignedConstant_Group(this, this, 203, inst);
-			case 204: return new IntegerTerm_Group(this, this, 204, inst);
-			case 205: return new RealTerm_Group(this, this, 205, inst);
-			case 206: return new NumericRangeTerm_Group(this, this, 206, inst);
-			case 207: return new NumAlt_Alternatives(this, this, 207, inst);
+			case 2: return new SystemInstanceProxy_Group(this, this, 2, inst);
+			case 3: return new Model_Alternatives(this, this, 3, inst);
+			case 4: return new AadlPackage_Group(this, this, 4, inst);
+			case 5: return new PublicPackageSection_Group(this, this, 5, inst);
+			case 6: return new PrivatePackageSection_Group(this, this, 6, inst);
+			case 7: return new PackageRename_Group(this, this, 7, inst);
+			case 8: return new FGTRename_Group(this, this, 8, inst);
+			case 9: return new CTRename_Group(this, this, 9, inst);
+			case 10: return new TypeExtension_Group(this, this, 10, inst);
+			case 11: return new ImplementationExtension_Group(this, this, 11, inst);
+			case 12: return new GroupExtension_Group(this, this, 12, inst);
+			case 13: return new Classifier_Alternatives(this, this, 13, inst);
+			case 14: return new ComponentType_Group(this, this, 14, inst);
+			case 15: return new AbstractType_Group(this, this, 15, inst);
+			case 16: return new SystemType_Group(this, this, 16, inst);
+			case 17: return new ProcessType_Group(this, this, 17, inst);
+			case 18: return new ThreadGroupType_Group(this, this, 18, inst);
+			case 19: return new ThreadType_Group(this, this, 19, inst);
+			case 20: return new SubprogramType_Group(this, this, 20, inst);
+			case 21: return new SubprogramGroupType_Group(this, this, 21, inst);
+			case 22: return new ProcessorType_Group(this, this, 22, inst);
+			case 23: return new DeviceType_Group(this, this, 23, inst);
+			case 24: return new MemoryType_Group(this, this, 24, inst);
+			case 25: return new BusType_Group(this, this, 25, inst);
+			case 26: return new VirtualBusType_Group(this, this, 26, inst);
+			case 27: return new VirtualProcessorType_Group(this, this, 27, inst);
+			case 28: return new DataType_Group(this, this, 28, inst);
+			case 29: return new ComponentImplementation_Group(this, this, 29, inst);
+			case 30: return new Realization_ImplementedAssignment(this, this, 30, inst);
+			case 31: return new AbstractImplementation_Group(this, this, 31, inst);
+			case 32: return new SystemImplementation_Group(this, this, 32, inst);
+			case 33: return new ProcessImplementation_Group(this, this, 33, inst);
+			case 34: return new ThreadGroupImplementation_Group(this, this, 34, inst);
+			case 35: return new ThreadImplementation_Group(this, this, 35, inst);
+			case 36: return new SubprogramImplementation_Group(this, this, 36, inst);
+			case 37: return new SubprogramGroupImplementation_Group(this, this, 37, inst);
+			case 38: return new ProcessorImplementation_Group(this, this, 38, inst);
+			case 39: return new VirtualProcessorImplementation_Group(this, this, 39, inst);
+			case 40: return new DeviceImplementation_Group(this, this, 40, inst);
+			case 41: return new MemoryImplementation_Group(this, this, 41, inst);
+			case 42: return new BusImplementation_Group(this, this, 42, inst);
+			case 43: return new VirtualBusImplementation_Group(this, this, 43, inst);
+			case 44: return new DataImplementation_Group(this, this, 44, inst);
+			case 45: return new SubprogramCallSequence_Group(this, this, 45, inst);
+			case 46: return new CallSpecification_Group(this, this, 46, inst);
+			case 47: return new Prototype_Group(this, this, 47, inst);
+			case 48: return new AbstractPrototype_Group(this, this, 48, inst);
+			case 49: return new BusPrototype_Group(this, this, 49, inst);
+			case 50: return new DataPrototype_Group(this, this, 50, inst);
+			case 51: return new DevicePrototype_Group(this, this, 51, inst);
+			case 52: return new MemoryPrototype_Group(this, this, 52, inst);
+			case 53: return new ProcessPrototype_Group(this, this, 53, inst);
+			case 54: return new ProcessorPrototype_Group(this, this, 54, inst);
+			case 55: return new SubprogramPrototype_Group(this, this, 55, inst);
+			case 56: return new SubprogramGroupPrototype_Group(this, this, 56, inst);
+			case 57: return new SystemPrototype_Group(this, this, 57, inst);
+			case 58: return new ThreadPrototype_Group(this, this, 58, inst);
+			case 59: return new ThreadGroupPrototype_Group(this, this, 59, inst);
+			case 60: return new VirtualBusPrototype_Group(this, this, 60, inst);
+			case 61: return new VirtualProcessorPrototype_Group(this, this, 61, inst);
+			case 62: return new FeatureGroupPrototype_Group(this, this, 62, inst);
+			case 63: return new FeaturePrototype_Group(this, this, 63, inst);
+			case 64: return new PrototypeBinding_Alternatives(this, this, 64, inst);
+			case 65: return new FeatureGroupPrototypeBinding_Group(this, this, 65, inst);
+			case 66: return new FeatureGroupPrototypeActual_Group(this, this, 66, inst);
+			case 67: return new FeaturePrototypeBinding_Group(this, this, 67, inst);
+			case 68: return new PortSpecification_Group(this, this, 68, inst);
+			case 69: return new AccessSpecification_Group(this, this, 69, inst);
+			case 70: return new FeaturePrototypeReference_Group(this, this, 70, inst);
+			case 71: return new ComponentPrototypeBinding_Group(this, this, 71, inst);
+			case 72: return new ComponentReference_Group(this, this, 72, inst);
+			case 73: return new AbstractSubcomponent_Group(this, this, 73, inst);
+			case 74: return new SystemSubcomponent_Group(this, this, 74, inst);
+			case 75: return new ProcessSubcomponent_Group(this, this, 75, inst);
+			case 76: return new ThreadGroupSubcomponent_Group(this, this, 76, inst);
+			case 77: return new ThreadSubcomponent_Group(this, this, 77, inst);
+			case 78: return new SubprogramSubcomponent_Group(this, this, 78, inst);
+			case 79: return new SubprogramGroupSubcomponent_Group(this, this, 79, inst);
+			case 80: return new ProcessorSubcomponent_Group(this, this, 80, inst);
+			case 81: return new VirtualProcessorSubcomponent_Group(this, this, 81, inst);
+			case 82: return new DeviceSubcomponent_Group(this, this, 82, inst);
+			case 83: return new MemorySubcomponent_Group(this, this, 83, inst);
+			case 84: return new BusSubcomponent_Group(this, this, 84, inst);
+			case 85: return new VirtualBusSubcomponent_Group(this, this, 85, inst);
+			case 86: return new DataSubcomponent_Group(this, this, 86, inst);
+			case 87: return new ArrayDimension_Group(this, this, 87, inst);
+			case 88: return new ArraySize_Alternatives(this, this, 88, inst);
+			case 89: return new ComponentImplementationReference_Group(this, this, 89, inst);
+			case 90: return new DataPort_Group(this, this, 90, inst);
+			case 91: return new EventDataPort_Group(this, this, 91, inst);
+			case 92: return new EventPort_Group(this, this, 92, inst);
+			case 93: return new FeatureGroup_Group(this, this, 93, inst);
+			case 94: return new Parameter_Group(this, this, 94, inst);
+			case 95: return new SubprogramAccess_Group(this, this, 95, inst);
+			case 96: return new SubprogramGroupAccess_Group(this, this, 96, inst);
+			case 97: return new BusAccess_Group(this, this, 97, inst);
+			case 98: return new DataAccess_Group(this, this, 98, inst);
+			case 99: return new AbstractFeature_Group(this, this, 99, inst);
+			case 100: return new FeatureGroupType_Group(this, this, 100, inst);
+			case 101: return new ConnectedElement_Group(this, this, 101, inst);
+			case 102: return new ProcessorPort_Group(this, this, 102, inst);
+			case 103: return new InternalEventPort_Group(this, this, 103, inst);
+			case 104: return new ProcessorSubprogram_Group(this, this, 104, inst);
+			case 105: return new AbstractConnectionEnd_Alternatives(this, this, 105, inst);
+			case 106: return new ProcessorConnectionEnd_Alternatives(this, this, 106, inst);
+			case 107: return new PortConnection_Group(this, this, 107, inst);
+			case 108: return new AccessConnection_Group(this, this, 108, inst);
+			case 109: return new FeatureGroupConnection_Group(this, this, 109, inst);
+			case 110: return new FeatureConnection_Group(this, this, 110, inst);
+			case 111: return new ParameterConnection_Group(this, this, 111, inst);
+			case 112: return new FlowSpecification_Group(this, this, 112, inst);
+			case 113: return new FlowSourceSpec_Group(this, this, 113, inst);
+			case 114: return new FlowSinkSpec_Group(this, this, 114, inst);
+			case 115: return new FlowPathSpec_Group(this, this, 115, inst);
+			case 116: return new FlowEnd_Group(this, this, 116, inst);
+			case 117: return new FlowSpecRefinement_Group(this, this, 117, inst);
+			case 118: return new FlowImplementation_Group(this, this, 118, inst);
+			case 119: return new FlowSourceImpl_Group(this, this, 119, inst);
+			case 120: return new FlowSinkImpl_Group(this, this, 120, inst);
+			case 121: return new FlowPathImpl_Group(this, this, 121, inst);
+			case 122: return new EndToEndFlow_Group(this, this, 122, inst);
+			case 123: return new SubcomponentFlow_Group(this, this, 123, inst);
+			case 124: return new ConnectionFlow_FlowElementAssignment(this, this, 124, inst);
+			case 125: return new ETESubcomponentFlow_Group(this, this, 125, inst);
+			case 126: return new ETEConnectionFlow_FlowElementAssignment(this, this, 126, inst);
+			case 127: return new Mode_Group(this, this, 127, inst);
+			case 128: return new RequiresMode_Group(this, this, 128, inst);
+			case 129: return new ModeTransition_Group(this, this, 129, inst);
+			case 130: return new Trigger_Alternatives(this, this, 130, inst);
+			case 131: return new TriggerPort_Group(this, this, 131, inst);
+			case 132: return new ModeRef_Group(this, this, 132, inst);
+			case 133: return new AnnexLibrary_DefaultAnnexLibraryParserRuleCall(this, this, 133, inst);
+			case 134: return new DefaultAnnexLibrary_Group(this, this, 134, inst);
+			case 135: return new AnnexSubclause_DefaultAnnexSubclauseParserRuleCall(this, this, 135, inst);
+			case 136: return new DefaultAnnexSubclause_Group(this, this, 136, inst);
+			case 137: return new PropertySet_Group(this, this, 137, inst);
+			case 138: return new PropertyType_Group(this, this, 138, inst);
+			case 139: return new UnnamedPropertyType_Alternatives(this, this, 139, inst);
+			case 140: return new BooleanType_Group(this, this, 140, inst);
+			case 141: return new UnnamedBooleanType_Group(this, this, 141, inst);
+			case 142: return new StringType_Group(this, this, 142, inst);
+			case 143: return new UnnamedStringType_Group(this, this, 143, inst);
+			case 144: return new EnumerationType_Group(this, this, 144, inst);
+			case 145: return new UnnamedEnumerationType_Group(this, this, 145, inst);
+			case 146: return new EnumerationLiteral_NameAssignment(this, this, 146, inst);
+			case 147: return new UnitsType_Group(this, this, 147, inst);
+			case 148: return new UnnamedUnitsType_Group(this, this, 148, inst);
+			case 149: return new UnitLiteral_NameAssignment(this, this, 149, inst);
+			case 150: return new UnitLiteralConversion_Group(this, this, 150, inst);
+			case 151: return new RealType_Group(this, this, 151, inst);
+			case 152: return new UnnamedRealType_Group(this, this, 152, inst);
+			case 153: return new IntegerType_Group(this, this, 153, inst);
+			case 154: return new UnnamedIntegerType_Group(this, this, 154, inst);
+			case 155: return new RangeType_Group(this, this, 155, inst);
+			case 156: return new UnnamedRangeType_Group(this, this, 156, inst);
+			case 157: return new ClassifierType_Group(this, this, 157, inst);
+			case 158: return new UnnamedClassifierType_Group(this, this, 158, inst);
+			case 159: return new QCReference_Group(this, this, 159, inst);
+			case 160: return new ReferenceType_Group(this, this, 160, inst);
+			case 161: return new UnnamedReferenceType_Group(this, this, 161, inst);
+			case 162: return new RecordType_Group(this, this, 162, inst);
+			case 163: return new UnnamedRecordType_Group(this, this, 163, inst);
+			case 164: return new RecordField_Group(this, this, 164, inst);
+			case 165: return new PropertyDefinition_Group(this, this, 165, inst);
+			case 166: return new AllReference_MetaclassNameAssignment(this, this, 166, inst);
+			case 167: return new ListType_Group(this, this, 167, inst);
+			case 168: return new PropertyOwner_QCReferenceParserRuleCall(this, this, 168, inst);
+			case 169: return new PropertyConstant_Group(this, this, 169, inst);
+			case 170: return new NumberValue_Alternatives(this, this, 170, inst);
+			case 171: return new RealLit_ValueAssignment(this, this, 171, inst);
+			case 172: return new IntegerLit_ValueAssignment(this, this, 172, inst);
+			case 173: return new ConstantPropertyExpression_Alternatives(this, this, 173, inst);
+			case 174: return new IntegerRange_Group(this, this, 174, inst);
+			case 175: return new RealRange_Group(this, this, 175, inst);
+			case 176: return new PModel_Alternatives(this, this, 176, inst);
+			case 177: return new ContainedPropertyAssociation_Group(this, this, 177, inst);
+			case 178: return new PropertyAssociation_Group(this, this, 178, inst);
+			case 179: return new BasicPropertyAssociation_Group(this, this, 179, inst);
+			case 180: return new ContainmentPath_Group(this, this, 180, inst);
+			case 181: return new ModalPropertyValue_Group(this, this, 181, inst);
+			case 182: return new PropertyValue_OwnedValueAssignment(this, this, 182, inst);
+			case 183: return new PropertyExpression_Alternatives(this, this, 183, inst);
+			case 184: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 184, inst);
+			case 185: return new ActualBooleanTerm_Alternatives(this, this, 185, inst);
+			case 186: return new ActualOrTerm_Group(this, this, 186, inst);
+			case 187: return new ActualAndTerm_Group(this, this, 187, inst);
+			case 188: return new BooleanTerm_OrTermParserRuleCall(this, this, 188, inst);
+			case 189: return new OrTerm_Group(this, this, 189, inst);
+			case 190: return new AndTerm_Group(this, this, 190, inst);
+			case 191: return new NotTerm_Group(this, this, 191, inst);
+			case 192: return new BooleanAtom_Alternatives(this, this, 192, inst);
+			case 193: return new BooleanLiteral_Group(this, this, 193, inst);
+			case 194: return new ConstantValue_NamedValueAssignment(this, this, 194, inst);
+			case 195: return new ReferenceTerm_Group(this, this, 195, inst);
+			case 196: return new RecordTerm_Group(this, this, 196, inst);
+			case 197: return new ComputedTerm_Group(this, this, 197, inst);
+			case 198: return new ComponentClassifierTerm_Group(this, this, 198, inst);
+			case 199: return new ListTerm_Group(this, this, 199, inst);
+			case 200: return new FieldPropertyAssociation_Group(this, this, 200, inst);
+			case 201: return new ContainmentPathElement_Alternatives(this, this, 201, inst);
+			case 202: return new StringTerm_ValueAssignment(this, this, 202, inst);
+			case 203: return new ArrayRange_Group(this, this, 203, inst);
+			case 204: return new SignedConstant_Group(this, this, 204, inst);
+			case 205: return new IntegerTerm_Group(this, this, 205, inst);
+			case 206: return new RealTerm_Group(this, this, 206, inst);
+			case 207: return new NumericRangeTerm_Group(this, this, 207, inst);
+			case 208: return new NumAlt_Alternatives(this, this, 208, inst);
 			default: return null;
 		}	
 	}	
@@ -389,15 +390,13 @@ protected class Sandbox_SystemInstanceAssignment_2 extends AssignmentToken  {
 /************ begin Rule SystemConfiguration ****************
  *
  * SystemConfiguration:
- * 	"system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
- * 	[SystemImplementation] //		(systemInstanceProxy=SystemInstanceProxy)? 
- * 	";";
+ * 	"system" "instance" name=ID "from" systemImplementation=AadlPackage //[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
+ * 	systemInstanceProxy=SystemInstanceProxy? ";";
  *
  **/
 
-// "system" "instance" name=ID "from" systemImplementation= //[ecore::EObject|QIREF]
-// [SystemImplementation] //		(systemInstanceProxy=SystemInstanceProxy)? 
-// ";"
+// "system" "instance" name=ID "from" systemImplementation=AadlPackage //[aadl2::SystemImplementation]//[ecore::EObject|QIREF]
+// systemInstanceProxy=SystemInstanceProxy? ";"
 protected class SystemConfiguration_Group extends GroupToken {
 	
 	public SystemConfiguration_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -412,7 +411,7 @@ protected class SystemConfiguration_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemConfiguration_SemicolonKeyword_5(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemConfiguration_SemicolonKeyword_6(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -525,8 +524,7 @@ protected class SystemConfiguration_FromKeyword_3 extends KeywordToken  {
 
 }
 
-// systemImplementation= //[ecore::EObject|QIREF]
-// [SystemImplementation]
+// systemImplementation=AadlPackage
 protected class SystemConfiguration_SystemImplementationAssignment_4 extends AssignmentToken  {
 	
 	public SystemConfiguration_SystemImplementationAssignment_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -541,7 +539,7 @@ protected class SystemConfiguration_SystemImplementationAssignment_4 extends Ass
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemConfiguration_FromKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new AadlPackage_Group(this, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -550,36 +548,91 @@ protected class SystemConfiguration_SystemImplementationAssignment_4 extends Ass
 	public IEObjectConsumer tryConsume() {
 		if((value = eObjectConsumer.getConsumable("systemImplementation",true)) == null) return null;
 		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemImplementation");
-		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
 			IEObjectConsumer param = createEObjectConsumer((EObject)value);
-			if(param.isInstanceOf(grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0().getType().getClassifier())) {
-				type = AssignmentType.CROSS_REFERENCE;
-				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0(); 
-				return obj;
+			if(param.isInstanceOf(grammarAccess.getAadlPackageRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getSystemConfigurationAccess().getSystemImplementationAadlPackageParserRuleCall_4_0(); 
+				consumed = obj;
+				return param;
 			}
 		}
 		return null;
 	}
 
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new SystemConfiguration_FromKeyword_3(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
 }
 
-// //		(systemInstanceProxy=SystemInstanceProxy)? 
-// ";"
-protected class SystemConfiguration_SemicolonKeyword_5 extends KeywordToken  {
+// systemInstanceProxy=SystemInstanceProxy?
+protected class SystemConfiguration_SystemInstanceProxyAssignment_5 extends AssignmentToken  {
 	
-	public SystemConfiguration_SemicolonKeyword_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public SystemConfiguration_SystemInstanceProxyAssignment_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_5();
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxyAssignment_5();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new SystemInstanceProxy_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("systemInstanceProxy",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("systemInstanceProxy");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSystemInstanceProxyRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+// ";"
+protected class SystemConfiguration_SemicolonKeyword_6 extends KeywordToken  {
+	
+	public SystemConfiguration_SemicolonKeyword_6(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SystemConfiguration_SystemInstanceProxyAssignment_5(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new SystemConfiguration_SystemImplementationAssignment_4(lastRuleCallOrigin, this, 1, inst);
 			default: return null;
 		}	
 	}
@@ -588,6 +641,104 @@ protected class SystemConfiguration_SemicolonKeyword_5 extends KeywordToken  {
 
 
 /************ end Rule SystemConfiguration ****************/
+
+
+/************ begin Rule SystemInstanceProxy ****************
+ *
+ * SystemInstanceProxy:
+ * 	"to" instanceRef=[aadl2::SystemImplementation];
+ *
+ **/
+
+// "to" instanceRef=[aadl2::SystemImplementation]
+protected class SystemInstanceProxy_Group extends GroupToken {
+	
+	public SystemInstanceProxy_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getSystemInstanceProxyAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SystemInstanceProxy_InstanceRefAssignment_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getSystemInstanceProxyRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// "to"
+protected class SystemInstanceProxy_ToKeyword_0 extends KeywordToken  {
+	
+	public SystemInstanceProxy_ToKeyword_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(this, index, index, inst);
+		}	
+	}
+
+}
+
+// instanceRef=[aadl2::SystemImplementation]
+protected class SystemInstanceProxy_InstanceRefAssignment_1 extends AssignmentToken  {
+	
+	public SystemInstanceProxy_InstanceRefAssignment_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getSystemInstanceProxyAccess().getInstanceRefAssignment_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new SystemInstanceProxy_ToKeyword_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("instanceRef",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("instanceRef");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefSystemImplementationCrossReference_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getSystemInstanceProxyAccess().getInstanceRefSystemImplementationCrossReference_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+/************ end Rule SystemInstanceProxy ****************/
 
 
 

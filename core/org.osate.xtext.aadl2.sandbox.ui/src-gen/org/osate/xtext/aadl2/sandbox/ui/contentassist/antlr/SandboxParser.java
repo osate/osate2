@@ -251,6 +251,7 @@ public class SandboxParser extends AbstractContentAssistParser {
 					put(grammarAccess.getOperationKindAccess().getAlternatives(), "rule__OperationKind__Alternatives");
 					put(grammarAccess.getSandboxAccess().getGroup(), "rule__Sandbox__Group__0");
 					put(grammarAccess.getSystemConfigurationAccess().getGroup(), "rule__SystemConfiguration__Group__0");
+					put(grammarAccess.getSystemInstanceProxyAccess().getGroup(), "rule__SystemInstanceProxy__Group__0");
 					put(grammarAccess.getQIREFAccess().getGroup(), "rule__QIREF__Group__0");
 					put(grammarAccess.getQIREFAccess().getGroup_0(), "rule__QIREF__Group_0__0");
 					put(grammarAccess.getQPREFAccess().getGroup(), "rule__QPREF__Group__0");
@@ -1003,6 +1004,8 @@ public class SandboxParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSandboxAccess().getSystemInstanceAssignment_2(), "rule__Sandbox__SystemInstanceAssignment_2");
 					put(grammarAccess.getSystemConfigurationAccess().getNameAssignment_2(), "rule__SystemConfiguration__NameAssignment_2");
 					put(grammarAccess.getSystemConfigurationAccess().getSystemImplementationAssignment_4(), "rule__SystemConfiguration__SystemImplementationAssignment_4");
+					put(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxyAssignment_5(), "rule__SystemConfiguration__SystemInstanceProxyAssignment_5");
+					put(grammarAccess.getSystemInstanceProxyAccess().getInstanceRefAssignment_1(), "rule__SystemInstanceProxy__InstanceRefAssignment_1");
 					put(grammarAccess.getAadlPackageAccess().getNameAssignment_1(), "rule__AadlPackage__NameAssignment_1");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPublicSectionAssignment_2_0_0(), "rule__AadlPackage__OwnedPublicSectionAssignment_2_0_0");
 					put(grammarAccess.getAadlPackageAccess().getOwnedPrivateSectionAssignment_2_0_1(), "rule__AadlPackage__OwnedPrivateSectionAssignment_2_0_1");

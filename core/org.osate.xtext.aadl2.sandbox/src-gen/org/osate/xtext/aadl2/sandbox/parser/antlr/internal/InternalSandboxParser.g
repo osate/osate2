@@ -176,25 +176,87 @@ ruleSystemConfiguration returns [EObject current=null]
 (
 (
 		{ 
+	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemImplementationAadlPackageParserRuleCall_4_0()); 
+	    }
+		lv_systemImplementation_4_0=ruleAadlPackage		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSystemConfigurationRule());
+	        }
+       		set(
+       			$current, 
+       			"systemImplementation",
+        		lv_systemImplementation_4_0, 
+        		"AadlPackage");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSystemConfigurationAccess().getSystemInstanceProxySystemInstanceProxyParserRuleCall_5_0()); 
+	    }
+		lv_systemInstanceProxy_5_0=ruleSystemInstanceProxy		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSystemConfigurationRule());
+	        }
+       		set(
+       			$current, 
+       			"systemInstanceProxy",
+        		lv_systemInstanceProxy_5_0, 
+        		"SystemInstanceProxy");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)?
+	otherlv_6=KEYWORD_9
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_6());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleSystemInstanceProxy
+entryRuleSystemInstanceProxy returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getSystemInstanceProxyRule()); }
+	 iv_ruleSystemInstanceProxy=ruleSystemInstanceProxy 
+	 { $current=$iv_ruleSystemInstanceProxy.current; } 
+	 EOF 
+;
+
+// Rule SystemInstanceProxy
+ruleSystemInstanceProxy returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=KEYWORD_23
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getSystemInstanceProxyAccess().getToKeyword_0());
+    }
+(
+(
+		{ 
 		  /* */ 
 		}
 		{
 			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getSystemConfigurationRule());
+	            $current = createModelElement(grammarAccess.getSystemInstanceProxyRule());
 	        }
         }
-	otherlv_4=RULE_ID
+	otherlv_1=RULE_ID
 	{
-		newLeafNode(otherlv_4, grammarAccess.getSystemConfigurationAccess().getSystemImplementationSystemImplementationCrossReference_4_0()); 
+		newLeafNode(otherlv_1, grammarAccess.getSystemInstanceProxyAccess().getInstanceRefSystemImplementationCrossReference_1_0()); 
 	}
 
 )
-)
-	otherlv_5=KEYWORD_9
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getSystemConfigurationAccess().getSemicolonKeyword_5());
-    }
-)
+))
 ;
 
 
