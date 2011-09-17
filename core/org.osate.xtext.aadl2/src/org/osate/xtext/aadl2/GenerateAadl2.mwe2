@@ -12,7 +12,8 @@ var runtimeProject = "../${projectName}"
 Workflow {
 	bean = StandaloneSetup {
 		platformUri = "${runtimeProject}/.."
-	//	registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+//		registerGeneratedEPackage = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
+//		registerGenModelFile = "platform:/resource/org.osate.aadl2.errormodel/src-gen/or/osate/xtext/aadl2/errormodel/ErrorModel.genmodel"
 	}
 
 	component = DirectoryCleaner {

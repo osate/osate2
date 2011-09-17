@@ -17380,10 +17380,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AnnexLibrary");
 		private final RuleCall cDefaultAnnexLibraryParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//AnnexLibrary returns aadl2::AnnexLibrary:
+		//AnnexLibrary returns aadl2::AnnexLibrary: //	 ErrorModelLibrary | 
 		//	DefaultAnnexLibrary;
 		public ParserRule getRule() { return rule; }
 
+		////	 ErrorModelLibrary | 
 		//DefaultAnnexLibrary
 		public RuleCall getDefaultAnnexLibraryParserRuleCall() { return cDefaultAnnexLibraryParserRuleCall; }
 	}
@@ -17394,15 +17395,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAnnexKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cSourceTextAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSourceTextANNEXTEXTTerminalRuleCall_2_0 = (RuleCall)cSourceTextAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
-		//	"annex" name=ID sourceText=ANNEXTEXT ";";
+		//	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+		//	";";
 		public ParserRule getRule() { return rule; }
 
-		//"annex" name=ID sourceText=ANNEXTEXT ";"
+		//"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+		//";"
 		public Group getGroup() { return cGroup; }
 
 		//"annex"
@@ -17414,24 +17415,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//sourceText=ANNEXTEXT
-		public Assignment getSourceTextAssignment_2() { return cSourceTextAssignment_2; }
-
-		//ANNEXTEXT
-		public RuleCall getSourceTextANNEXTEXTTerminalRuleCall_2_0() { return cSourceTextANNEXTEXTTerminalRuleCall_2_0; }
-
+		////	'{**'	sourceText=ANNEXTEXT 
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 	}
 
 	public class AnnexSubclauseElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "AnnexSubclause");
 		private final RuleCall cDefaultAnnexSubclauseParserRuleCall = (RuleCall)rule.eContents().get(1);
 		
-		//AnnexSubclause returns aadl2::AnnexSubclause:
+		//AnnexSubclause returns aadl2::AnnexSubclause: //	 ErrorModelSubclause | 
 		//	DefaultAnnexSubclause;
 		public ParserRule getRule() { return rule; }
 
+		////	 ErrorModelSubclause | 
 		//DefaultAnnexSubclause
 		public RuleCall getDefaultAnnexSubclauseParserRuleCall() { return cDefaultAnnexSubclauseParserRuleCall; }
 	}
@@ -17442,15 +17439,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAnnexKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Assignment cSourceTextAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSourceTextANNEXTEXTTerminalRuleCall_2_0 = (RuleCall)cSourceTextAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
 		//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-		//	"annex" name=ID sourceText=ANNEXTEXT ";";
+		//	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+		//	";";
 		public ParserRule getRule() { return rule; }
 
-		//"annex" name=ID sourceText=ANNEXTEXT ";"
+		//"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+		//";"
 		public Group getGroup() { return cGroup; }
 
 		//"annex"
@@ -17462,14 +17459,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//sourceText=ANNEXTEXT
-		public Assignment getSourceTextAssignment_2() { return cSourceTextAssignment_2; }
-
-		//ANNEXTEXT
-		public RuleCall getSourceTextANNEXTEXTTerminalRuleCall_2_0() { return cSourceTextANNEXTEXTTerminalRuleCall_2_0; }
-
+		////	'{**'	sourceText=ANNEXTEXT 
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 	}
 
 	public class PropertySetElements extends AbstractParserRuleElementFinder {
@@ -17502,6 +17494,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
+		////terminal ANNEXTEXT:
+		////	'{**'->'**}';
+		////terminal ANNEXTEXT	: 
+		////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+		////		; 
 		//// **************
 		//// Properties
 		//PropertySet returns aadl2::PropertySet:
@@ -19648,10 +19645,848 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
 		
 		//// name of refined entity. Used to set name field by value converter	
+		////// &&&&&&&&&&&&&& Error Model
+		////
+		////
+		////ErrorModelLibrary returns EM::ErrorModelLibrary:
+		////	{EM::ErrorModelLibrary}
+		////    'annex'   'error_model'   '{**'
+		////    (typeLibrary=ErrorTypeLibrary)? 
+		////	(transformations+=TypeTransformationSet | mappings+=TypeMappingSet  | behaviors+=ErrorBehaviorStateMachine )*
+		////	'**}'
+		////	';' ;
+		////	
+		////
+		////ErrorModelSubclause returns EM::ErrorModelSubclause:
+		////    'annex'   'error_model'   '{**'
+		////	( propagation=ErrorPropagations|componentBehavior=ComponentErrorBehavior
+		////		|compositeBehavior=CompositeErrorBehavior | connectionTransformation=ConnectionTransformation
+		////	)+
+		////	'**}'
+		////	';' ;
+		////  
+		////ErrorTypeLibrary returns EM::ErrorTypeLibrary: 
+		////    'error' 'types' {EM::ErrorTypeLibrary}
+		////    ('extends' extend+=[EM::ErrorTypeLibrary|QEMREF] (','extend+=[EM::ErrorTypeLibrary|QEMREF])*
+		////    'with')?     
+		////    ((types+=ErrorTypes))* 
+		//////    (features+=Feature)* // not part of error model but core model
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////     'end' 'types' ';';
+		////
+		//////
+		//////EMElement returns aadl2::Element:
+		//////	ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
+		//////	| ErrorBehaviorStateMachine | ErrorPropagation | ErrorFlow
+		//////;
+		////
+		////ErrorTypes returns EM::ErrorTypes:
+		////	TypeDefinition | TypeSetDefinition | TypeAlias | TypeSetAlias
+		////;
+		////
+		////TypeDefinition returns EM::ErrorType: 
+		////    name=ID ':' 'type' 
+		////      ( 'extends' superType=[EM::ErrorType|QEMREF] )? 
+		////    ';';
+		////
+		////TypeAlias returns EM::ErrorType: 
+		////    name=ID ':' 'renames' 'type' 
+		////       aliasedType=[EM::ErrorType|QEMREF]
+		////      ';';
+		////
+		////
+		////TypeSetDefinition returns EM::TypeSet: 
+		////     name=ID ':' 'type' 'set'
+		////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+		////          ';';
+		////
+		////
+		////TypeSet returns EM::TypeSet: 
+		////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+		////          ;
+		////
+		////  
+		////TypeSetAlias returns EM::TypeSet: 
+		////     name=ID ':' 'renames' 'type' 'set' aliasedType=[EM::TypeSet|QEMREF]
+		////    
+		////      ';';
+		////      
+		////TypeSetElement returns EM::TypeSetElement :
+		////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset
+		////;
+		////     
+		////TypeSubset returns EM::TypeSubset:
+		////	{EM::TypeSubset}
+		////	'(' type+=[EM::ErrorType|QEMREF] (',' type+=[EM::ErrorType|QEMREF])* ')'
+		////	;
+		////
+		////
+		////
+		////TupleConstraint returns EM::TypeSet: 
+		////     '[' element+=TupleElementConstraint (',' element+=TupleElementConstraint)* ']'
+		////          ;
+		////      
+		////TupleElementConstraint returns EM::TypeSetElement :
+		////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset | noError?='noerror'
+		////;
+		////
+		////TypeTuple returns EM::TypeSet:
+		////     '[' element+=TupleElement (',' element+=TupleElement)* ']'
+		////;
+		////      
+		////TupleElement returns EM::TypeSetElement :
+		////	type=[EM::ErrorType|QEMREF] | noError?='noerror'
+		////;
+		////
+		////TypeUseContext returns EM::TypeUseContext:
+		////	TypeTransformationSet | TypeMappingSet | ErrorPropagations | ErrorBehaviorStateMachine
+		////	| EBSMUseContext
+		////;
+		////
+		////TypeTransformationSet returns EM::TypeTransformationSet: 
+		////	'type' 'transformations' name=ID  
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////      ( transformation+=TypeTransformation )* 
+		////      'end' 'transformations' ';'
+		////          ;
+		////
+		////TypeTransformation returns EM::TypeTransformation: 
+		////	target=TypeTuple 'when' source=TupleConstraint 'and' contributor=TupleConstraint   ';'
+		////          ;
+		////
+		////
+		////TypeMappingSet returns EM::TypeMappingSet:
+		////	'type' 'mappings' name=ID
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////	(mapping+=TypeMapping)+	
+		////	'end' 'mappings' ';'
+		////;
+		////
+		////TypeMapping returns EM::TypeMapping:
+		////	target=TypeTuple 'when' source=TupleConstraint  ';'
+		////;
+		//////     
+		//////Feature returns aadl2::Feature: 'feature' name=ID ';' ; // core model construct
+		////
+		////ErrorPropagations returns EM::ErrorPropagations: 
+		////   'error' 'propagations'
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   (propagations+=ErrorPropagation)+ 
+		////   ( => 'flows'
+		////   (flows+=ErrorFlow)+)? 
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////   'end' 'propagations' ';'
+		////   ;
+		////   
+		////ErrorPropagation returns EM::ErrorPropagation:
+		////	{EM::ErrorPropagation}
+		////   ( kind=PropagationKind | feature=[aadl2::Feature|ID]) ':' (not?='not')? (direction=PropagationDirection)?  
+		////   'propagation' 
+		////    typeSet=TypeSet 
+		////   ';';
+		////  
+		////enum PropagationDirection returns EM::PropagationDirection:  IN = 'in' |  OUT = 'out' ;
+		////
+		////PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus')|('virtual' 'processor')|'binding' | 'bindings'|'access'); // virtual bus, virtual processor
+		////
+		////enum PropKind returns EM::PropKind: PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
+		////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
+		////;
+		////
+		////  ErrorFlow returns EM::ErrorFlow:
+		////  ErrorSource | ErrorSink | ErrorPath; 
+		////
+		////ErrorSource returns EM::ErrorSource:
+		////  'error' 'source' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+		////  ';';
+		////
+		////ErrorSink returns EM::ErrorSink:
+		////  'error' 'sink' incoming=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+		////  ';';
+		////
+		////ErrorPath returns EM::ErrorPath:
+		////  'error' 'path' ((incoming=[EM::ErrorPropagation|ErrorPropagationPoint] '->' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint]) | flow=[aadl2::FlowSpecification|ID] )
+		////  ( tupleConstraint=TupleConstraint | 'mapping' typeMappingSet=[EM::TypeMappingSet|QEMREF])
+		////  ';';
+		////
+		////  
+		////ErrorPropagationPoint :
+		////   PropagationKind | ID  
+		////   ;
+		////
+		////ErrorBehaviorStateMachine returns EM::ErrorBehaviorStateMachine: 
+		////  'error' 'behavior' name=ID
+		////  ( => 'extends' extends=[EM::ErrorBehaviorStateMachine|QEMREF] )?
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+		////  ( => 'events' (events+=ErrorBehaviorEvent )+ )?
+		////  ( => 'states' (states+=ErrorBehaviorState )+ )?
+		////  ( => 'transitions' (transitions+=ErrorBehaviorTransition )+ )?
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////  'end' 'behavior' ';';
+		////  
+		////ErrorBehaviorEvent returns EM::ErrorBehaviorEvent: 
+		////  ErrorEvent | RepairEvent | RecoverEvent;
+		////  
+		////ErrorEvent returns EM::ErrorEvent:
+		////    name=ID ':' 'error' 'event' 
+		////    ( typeSet=TypeSet )?
+		////    ('when' condition=STRING)?
+		////    ';'; // add event condition 
+		////    
+		////RepairEvent returns EM::RepairEvent:
+		////    name=ID ':' 'repair' 'event' 
+		////    ('when' condition=STRING)?
+		////    ';'; //add repair initiator 
+		////    
+		////RecoverEvent returns EM::RecoverEvent:
+		////    name=ID ':' 'recover' 'event' 
+		////    ('when' condition=STRING)?
+		////    ';'; //add recover initiator 
+		////
+		////ErrorBehaviorState returns EM::ErrorBehaviorState: 
+		////    name=ID ':' (intial?='initial')? 'state'
+		////    ( typeSet=TypeSet)?
+		////    ';'  ;
+		////
+		////ErrorBehaviorTransition returns EM::ErrorBehaviorTransition:
+		////  name = ID ':' source=TypeConstrainedState
+		////  ( '->' | '-[' events+=TypeConstrainedEvent ( ',' events+=TypeConstrainedEvent)* ']->') 
+		////  (destination=TupledState 
+		////  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )* ')')
+		////  )';';
+		////
+		////TransitionBranch returns EM::TransitionBranch:  destination=TupledState 'with' value=BranchValue;
+		////
+		////BranchValue : 
+		////  REAL_LIT | ID | 'others';
+		////  
+		////TypeConstrainedState returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////  
+		////TupledState returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorState|ID] (typeTuple=TypeTuple)?
+		////;
+		////  
+		////TypeConstrainedEvent returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorEvent|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////  
+		////TypeConstrainedPropagation returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint )?
+		////;
+		//////  
+		//////TupledPropagation returns EM::TypeConstrainedModelElement:
+		//////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=TypeTuple)?
+		//////;
+		////
+		////ConnectionTransformation returns EM::ConnectionTransformation:
+		////	'connections' 'use' 'transformations' typeTransformationSet=[EM::TypeTransformationSet|QEMREF] ';'
+		////;
+		////
+		////EBSMUseContext returns EM::EBSMUseContext:
+		////	ComponentErrorBehavior | CompositeErrorBehavior
+		////;
+		////  
+		////ComponentErrorBehavior returns EM::ComponentErrorBehavior: 
+		////	'component' 'error' 'behavior' 
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|QEMREF] ';' 
+		////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+		////   (  'transition' 'conditions'
+		////    ( transitionCondition+=TransitionCondition )+ )?
+		////   (  'propagation' 'conditions'
+		////    ( propagationCondition+=PropagationCondition )+ )?
+		////   (  'detection' 'events'
+		////    ( detectionEvent+=DetectionEvent )+ )?
+		//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+		////   'end' 'component' ';'
+		////;  
+		////
+		////TransitionCondition returns EM::TransitionCondition: 
+		////	( (errorTransition=[EM::ErrorBehaviorTransition|ID] (typeTuple=TypeTuple)?)
+		////		| mask?='mask'
+		////	)
+		////	('in' 'state' state=TypeConstrainedState)?
+		////	'when' condition=LogicalConditionExpression ';'
+		////;
+		//////
+		//////TriggerConditionExpression returns EM::LogicalConditionExpression: 
+		//////	LogicalConditionExpression
+		////////	| OthersExpression 
+		//////;
+		////
+		////LogicalConditionExpression returns EM::LogicalConditionExpression: 
+		////	OrExpression
+		////    | OrmoreExpression
+		////    | OrlessExpression
+		////;
+		////
+		////
+		////AndExpression returns EM::LogicalConditionExpression:
+		////  Primary ({EM::AndExpression.operands+=current} 'and' operands+=Primary)*;
+		////  
+		////OrExpression returns EM::LogicalConditionExpression:
+		////  AndExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndExpression)*;
+		////  
+		////OrmoreExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionExpression
+		////	            ( ',' operands+=LogicalConditionExpression)* ')'
+		////;
+		////  
+		////OrlessExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionExpression
+		////	            ( ',' operands+=LogicalConditionExpression)* ')'
+		////;
+		////  
+		////OthersExpression returns EM::OthersExpression: {EM::OthersExpression}'others';
+		////  
+		////Primary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedEventorPropagation  |
+		////  '(' LogicalConditionExpression ')';
+		////
+		////TypeConstrainedEventorPropagation returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorEventorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint)?
+		////; 
+		////
+		////ErrorEventorPropagation returns EM::ErrorEventorPropagation: ErrorBehaviorEvent|ErrorPropagation;
+		////
+		////MaskTuple returns EM::TypeSet:
+		////     '[' element+=MaskElement  ']'
+		////;
+		////      
+		////MaskElement returns EM::TypeSetElement :
+		////	 noError?='mask'
+		////;
+		////
+		////PropagationCondition returns EM::PropagationCondition: 
+		////	(propagation=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=(TypeTuple|MaskTuple))?)
+		////	'when' condition=LogicalConditionPExpression 
+		////	 ';'
+		////;
+		////
+		////LogicalConditionPExpression returns EM::LogicalConditionExpression: 
+		////	OrPExpression
+		////    | OrmorePExpression
+		////    | OrlessPExpression
+		////;
+		////
+		////
+		////AndPExpression returns EM::LogicalConditionExpression:
+		////  PPrimary ({EM::AndExpression.operands+=current} 'and' operands+=PPrimary)*;
+		////  
+		////OrPExpression returns EM::LogicalConditionExpression:
+		////  AndPExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndPExpression)*;
+		////  
+		////OrmorePExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionPExpression
+		////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+		////;
+		////  
+		////OrlessPExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionPExpression
+		////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+		////;
+		////  
+		////PPrimary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedPropagation  |
+		////  '(' LogicalConditionPExpression ')';
+		////
+		////DetectionEvent returns EM::DetectionEvent: 
+		////	(self?='self' '.')? eventPort=[aadl2::Feature|ID] // TODO self.ID should point to implicit self port
+		////	(('in' 'state' state=TypeConstrainedState ('when' condition=LogicalConditionPExpression)?)
+		////	| ('when' condition=LogicalConditionPExpression)) ';'
+		////;
+		////
+		////CompositeErrorBehavior returns EM::CompositeErrorBehavior: 
+		////	'composite' 'error' 'behavior' 
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|ID] ';' 
+		////   ( 'states' 
+		////    ( state+=CompositeState )+ 
+		////    )?
+		//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+		////   'end' 'composite' ';'
+		////; 
+		////
+		////CompositeState returns EM::CompositeState:
+		////	state=TupledState 'when' condition=LogicalConditionSExpression ';';
+		////
+		////
+		////LogicalConditionSExpression returns EM::LogicalConditionExpression: 
+		////	OrSExpression
+		////    | OrmoreSExpression
+		////    | OrlessSExpression
+		////;
+		////
+		////
+		////AndSExpression returns EM::LogicalConditionExpression:
+		////  SPrimary ({EM::AndExpression.operands+=current} 'and' operands+=SPrimary)*;
+		////  
+		////OrSExpression returns EM::LogicalConditionExpression:
+		////  AndSExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndSExpression)*;
+		////  
+		////OrmoreSExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionSExpression
+		////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+		////;
+		////  
+		////OrlessSExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionSExpression
+		////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+		////;
+		////  
+		////SPrimary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedSubcomponentState  |
+		////  '(' LogicalConditionPExpression ')';
+		////  
+		////TypeConstrainedSubcomponentState returns EM::TypeConstrainedModelElement:
+		////	subcomponent=[aadl2::Subcomponent|ID] 'in' 'state' element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////
+		////
+		//////ContainedPropertyAssociation returns EM::ContainedPropertyAssociation:
+		//////	name=ID '=>' ';';//value=PropertyExpression 'applies' 'to' appliesTo+=[EM::EMElement|QEMREF]';';
+		////
+		//////PropertyExpression returns EM::PropertyExpression:
+		//////	ProbabilityValue;
+		////
+		//////Literal:
+		//////	name=ID;
+		//////
+		//////ProbabilityValue returns EM::ProbabilityValue:
+		//////	distribution=ID number=REAL_LIT ;
+		////
+		////QEMREF:
+		////	 (ID '::')* ID ;//('.' ID )?;
+		////	
 		//REFINEDNAME:
 		//	ID;
 		public ParserRule getRule() { return rule; }
 
+		////// &&&&&&&&&&&&&& Error Model
+		////
+		////
+		////ErrorModelLibrary returns EM::ErrorModelLibrary:
+		////	{EM::ErrorModelLibrary}
+		////    'annex'   'error_model'   '{**'
+		////    (typeLibrary=ErrorTypeLibrary)? 
+		////	(transformations+=TypeTransformationSet | mappings+=TypeMappingSet  | behaviors+=ErrorBehaviorStateMachine )*
+		////	'**}'
+		////	';' ;
+		////	
+		////
+		////ErrorModelSubclause returns EM::ErrorModelSubclause:
+		////    'annex'   'error_model'   '{**'
+		////	( propagation=ErrorPropagations|componentBehavior=ComponentErrorBehavior
+		////		|compositeBehavior=CompositeErrorBehavior | connectionTransformation=ConnectionTransformation
+		////	)+
+		////	'**}'
+		////	';' ;
+		////  
+		////ErrorTypeLibrary returns EM::ErrorTypeLibrary: 
+		////    'error' 'types' {EM::ErrorTypeLibrary}
+		////    ('extends' extend+=[EM::ErrorTypeLibrary|QEMREF] (','extend+=[EM::ErrorTypeLibrary|QEMREF])*
+		////    'with')?     
+		////    ((types+=ErrorTypes))* 
+		//////    (features+=Feature)* // not part of error model but core model
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////     'end' 'types' ';';
+		////
+		//////
+		//////EMElement returns aadl2::Element:
+		//////	ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
+		//////	| ErrorBehaviorStateMachine | ErrorPropagation | ErrorFlow
+		//////;
+		////
+		////ErrorTypes returns EM::ErrorTypes:
+		////	TypeDefinition | TypeSetDefinition | TypeAlias | TypeSetAlias
+		////;
+		////
+		////TypeDefinition returns EM::ErrorType: 
+		////    name=ID ':' 'type' 
+		////      ( 'extends' superType=[EM::ErrorType|QEMREF] )? 
+		////    ';';
+		////
+		////TypeAlias returns EM::ErrorType: 
+		////    name=ID ':' 'renames' 'type' 
+		////       aliasedType=[EM::ErrorType|QEMREF]
+		////      ';';
+		////
+		////
+		////TypeSetDefinition returns EM::TypeSet: 
+		////     name=ID ':' 'type' 'set'
+		////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+		////          ';';
+		////
+		////
+		////TypeSet returns EM::TypeSet: 
+		////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+		////          ;
+		////
+		////  
+		////TypeSetAlias returns EM::TypeSet: 
+		////     name=ID ':' 'renames' 'type' 'set' aliasedType=[EM::TypeSet|QEMREF]
+		////    
+		////      ';';
+		////      
+		////TypeSetElement returns EM::TypeSetElement :
+		////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset
+		////;
+		////     
+		////TypeSubset returns EM::TypeSubset:
+		////	{EM::TypeSubset}
+		////	'(' type+=[EM::ErrorType|QEMREF] (',' type+=[EM::ErrorType|QEMREF])* ')'
+		////	;
+		////
+		////
+		////
+		////TupleConstraint returns EM::TypeSet: 
+		////     '[' element+=TupleElementConstraint (',' element+=TupleElementConstraint)* ']'
+		////          ;
+		////      
+		////TupleElementConstraint returns EM::TypeSetElement :
+		////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset | noError?='noerror'
+		////;
+		////
+		////TypeTuple returns EM::TypeSet:
+		////     '[' element+=TupleElement (',' element+=TupleElement)* ']'
+		////;
+		////      
+		////TupleElement returns EM::TypeSetElement :
+		////	type=[EM::ErrorType|QEMREF] | noError?='noerror'
+		////;
+		////
+		////TypeUseContext returns EM::TypeUseContext:
+		////	TypeTransformationSet | TypeMappingSet | ErrorPropagations | ErrorBehaviorStateMachine
+		////	| EBSMUseContext
+		////;
+		////
+		////TypeTransformationSet returns EM::TypeTransformationSet: 
+		////	'type' 'transformations' name=ID  
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////      ( transformation+=TypeTransformation )* 
+		////      'end' 'transformations' ';'
+		////          ;
+		////
+		////TypeTransformation returns EM::TypeTransformation: 
+		////	target=TypeTuple 'when' source=TupleConstraint 'and' contributor=TupleConstraint   ';'
+		////          ;
+		////
+		////
+		////TypeMappingSet returns EM::TypeMappingSet:
+		////	'type' 'mappings' name=ID
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////	(mapping+=TypeMapping)+	
+		////	'end' 'mappings' ';'
+		////;
+		////
+		////TypeMapping returns EM::TypeMapping:
+		////	target=TypeTuple 'when' source=TupleConstraint  ';'
+		////;
+		//////     
+		//////Feature returns aadl2::Feature: 'feature' name=ID ';' ; // core model construct
+		////
+		////ErrorPropagations returns EM::ErrorPropagations: 
+		////   'error' 'propagations'
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   (propagations+=ErrorPropagation)+ 
+		////   ( => 'flows'
+		////   (flows+=ErrorFlow)+)? 
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////   'end' 'propagations' ';'
+		////   ;
+		////   
+		////ErrorPropagation returns EM::ErrorPropagation:
+		////	{EM::ErrorPropagation}
+		////   ( kind=PropagationKind | feature=[aadl2::Feature|ID]) ':' (not?='not')? (direction=PropagationDirection)?  
+		////   'propagation' 
+		////    typeSet=TypeSet 
+		////   ';';
+		////  
+		////enum PropagationDirection returns EM::PropagationDirection:  IN = 'in' |  OUT = 'out' ;
+		////
+		////PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus')|('virtual' 'processor')|'binding' | 'bindings'|'access'); // virtual bus, virtual processor
+		////
+		////enum PropKind returns EM::PropKind: PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
+		////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
+		////;
+		////
+		////  ErrorFlow returns EM::ErrorFlow:
+		////  ErrorSource | ErrorSink | ErrorPath; 
+		////
+		////ErrorSource returns EM::ErrorSource:
+		////  'error' 'source' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+		////  ';';
+		////
+		////ErrorSink returns EM::ErrorSink:
+		////  'error' 'sink' incoming=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+		////  ';';
+		////
+		////ErrorPath returns EM::ErrorPath:
+		////  'error' 'path' ((incoming=[EM::ErrorPropagation|ErrorPropagationPoint] '->' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint]) | flow=[aadl2::FlowSpecification|ID] )
+		////  ( tupleConstraint=TupleConstraint | 'mapping' typeMappingSet=[EM::TypeMappingSet|QEMREF])
+		////  ';';
+		////
+		////  
+		////ErrorPropagationPoint :
+		////   PropagationKind | ID  
+		////   ;
+		////
+		////ErrorBehaviorStateMachine returns EM::ErrorBehaviorStateMachine: 
+		////  'error' 'behavior' name=ID
+		////  ( => 'extends' extends=[EM::ErrorBehaviorStateMachine|QEMREF] )?
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+		////  ( => 'events' (events+=ErrorBehaviorEvent )+ )?
+		////  ( => 'states' (states+=ErrorBehaviorState )+ )?
+		////  ( => 'transitions' (transitions+=ErrorBehaviorTransition )+ )?
+		//////    ('properties'
+		////// 	(properties+=ContainedPropertyAssociation )+)?
+		////  'end' 'behavior' ';';
+		////  
+		////ErrorBehaviorEvent returns EM::ErrorBehaviorEvent: 
+		////  ErrorEvent | RepairEvent | RecoverEvent;
+		////  
+		////ErrorEvent returns EM::ErrorEvent:
+		////    name=ID ':' 'error' 'event' 
+		////    ( typeSet=TypeSet )?
+		////    ('when' condition=STRING)?
+		////    ';'; // add event condition 
+		////    
+		////RepairEvent returns EM::RepairEvent:
+		////    name=ID ':' 'repair' 'event' 
+		////    ('when' condition=STRING)?
+		////    ';'; //add repair initiator 
+		////    
+		////RecoverEvent returns EM::RecoverEvent:
+		////    name=ID ':' 'recover' 'event' 
+		////    ('when' condition=STRING)?
+		////    ';'; //add recover initiator 
+		////
+		////ErrorBehaviorState returns EM::ErrorBehaviorState: 
+		////    name=ID ':' (intial?='initial')? 'state'
+		////    ( typeSet=TypeSet)?
+		////    ';'  ;
+		////
+		////ErrorBehaviorTransition returns EM::ErrorBehaviorTransition:
+		////  name = ID ':' source=TypeConstrainedState
+		////  ( '->' | '-[' events+=TypeConstrainedEvent ( ',' events+=TypeConstrainedEvent)* ']->') 
+		////  (destination=TupledState 
+		////  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )* ')')
+		////  )';';
+		////
+		////TransitionBranch returns EM::TransitionBranch:  destination=TupledState 'with' value=BranchValue;
+		////
+		////BranchValue : 
+		////  REAL_LIT | ID | 'others';
+		////  
+		////TypeConstrainedState returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////  
+		////TupledState returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorState|ID] (typeTuple=TypeTuple)?
+		////;
+		////  
+		////TypeConstrainedEvent returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorBehaviorEvent|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////  
+		////TypeConstrainedPropagation returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint )?
+		////;
+		//////  
+		//////TupledPropagation returns EM::TypeConstrainedModelElement:
+		//////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=TypeTuple)?
+		//////;
+		////
+		////ConnectionTransformation returns EM::ConnectionTransformation:
+		////	'connections' 'use' 'transformations' typeTransformationSet=[EM::TypeTransformationSet|QEMREF] ';'
+		////;
+		////
+		////EBSMUseContext returns EM::EBSMUseContext:
+		////	ComponentErrorBehavior | CompositeErrorBehavior
+		////;
+		////  
+		////ComponentErrorBehavior returns EM::ComponentErrorBehavior: 
+		////	'component' 'error' 'behavior' 
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|QEMREF] ';' 
+		////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+		////   (  'transition' 'conditions'
+		////    ( transitionCondition+=TransitionCondition )+ )?
+		////   (  'propagation' 'conditions'
+		////    ( propagationCondition+=PropagationCondition )+ )?
+		////   (  'detection' 'events'
+		////    ( detectionEvent+=DetectionEvent )+ )?
+		//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+		////   'end' 'component' ';'
+		////;  
+		////
+		////TransitionCondition returns EM::TransitionCondition: 
+		////	( (errorTransition=[EM::ErrorBehaviorTransition|ID] (typeTuple=TypeTuple)?)
+		////		| mask?='mask'
+		////	)
+		////	('in' 'state' state=TypeConstrainedState)?
+		////	'when' condition=LogicalConditionExpression ';'
+		////;
+		//////
+		//////TriggerConditionExpression returns EM::LogicalConditionExpression: 
+		//////	LogicalConditionExpression
+		////////	| OthersExpression 
+		//////;
+		////
+		////LogicalConditionExpression returns EM::LogicalConditionExpression: 
+		////	OrExpression
+		////    | OrmoreExpression
+		////    | OrlessExpression
+		////;
+		////
+		////
+		////AndExpression returns EM::LogicalConditionExpression:
+		////  Primary ({EM::AndExpression.operands+=current} 'and' operands+=Primary)*;
+		////  
+		////OrExpression returns EM::LogicalConditionExpression:
+		////  AndExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndExpression)*;
+		////  
+		////OrmoreExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionExpression
+		////	            ( ',' operands+=LogicalConditionExpression)* ')'
+		////;
+		////  
+		////OrlessExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionExpression
+		////	            ( ',' operands+=LogicalConditionExpression)* ')'
+		////;
+		////  
+		////OthersExpression returns EM::OthersExpression: {EM::OthersExpression}'others';
+		////  
+		////Primary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedEventorPropagation  |
+		////  '(' LogicalConditionExpression ')';
+		////
+		////TypeConstrainedEventorPropagation returns EM::TypeConstrainedModelElement:
+		////	element=[EM::ErrorEventorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint)?
+		////; 
+		////
+		////ErrorEventorPropagation returns EM::ErrorEventorPropagation: ErrorBehaviorEvent|ErrorPropagation;
+		////
+		////MaskTuple returns EM::TypeSet:
+		////     '[' element+=MaskElement  ']'
+		////;
+		////      
+		////MaskElement returns EM::TypeSetElement :
+		////	 noError?='mask'
+		////;
+		////
+		////PropagationCondition returns EM::PropagationCondition: 
+		////	(propagation=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=(TypeTuple|MaskTuple))?)
+		////	'when' condition=LogicalConditionPExpression 
+		////	 ';'
+		////;
+		////
+		////LogicalConditionPExpression returns EM::LogicalConditionExpression: 
+		////	OrPExpression
+		////    | OrmorePExpression
+		////    | OrlessPExpression
+		////;
+		////
+		////
+		////AndPExpression returns EM::LogicalConditionExpression:
+		////  PPrimary ({EM::AndExpression.operands+=current} 'and' operands+=PPrimary)*;
+		////  
+		////OrPExpression returns EM::LogicalConditionExpression:
+		////  AndPExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndPExpression)*;
+		////  
+		////OrmorePExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionPExpression
+		////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+		////;
+		////  
+		////OrlessPExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionPExpression
+		////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+		////;
+		////  
+		////PPrimary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedPropagation  |
+		////  '(' LogicalConditionPExpression ')';
+		////
+		////DetectionEvent returns EM::DetectionEvent: 
+		////	(self?='self' '.')? eventPort=[aadl2::Feature|ID] // TODO self.ID should point to implicit self port
+		////	(('in' 'state' state=TypeConstrainedState ('when' condition=LogicalConditionPExpression)?)
+		////	| ('when' condition=LogicalConditionPExpression)) ';'
+		////;
+		////
+		////CompositeErrorBehavior returns EM::CompositeErrorBehavior: 
+		////	'composite' 'error' 'behavior' 
+		////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+		////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|ID] ';' 
+		////   ( 'states' 
+		////    ( state+=CompositeState )+ 
+		////    )?
+		//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+		////   'end' 'composite' ';'
+		////; 
+		////
+		////CompositeState returns EM::CompositeState:
+		////	state=TupledState 'when' condition=LogicalConditionSExpression ';';
+		////
+		////
+		////LogicalConditionSExpression returns EM::LogicalConditionExpression: 
+		////	OrSExpression
+		////    | OrmoreSExpression
+		////    | OrlessSExpression
+		////;
+		////
+		////
+		////AndSExpression returns EM::LogicalConditionExpression:
+		////  SPrimary ({EM::AndExpression.operands+=current} 'and' operands+=SPrimary)*;
+		////  
+		////OrSExpression returns EM::LogicalConditionExpression:
+		////  AndSExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndSExpression)*;
+		////  
+		////OrmoreSExpression returns EM::OrmoreExpression: 
+		////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionSExpression
+		////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+		////;
+		////  
+		////OrlessSExpression returns EM::OrlessExpression: 
+		////	count=INTVALUE 'orless' '(' operands+=LogicalConditionSExpression
+		////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+		////;
+		////  
+		////SPrimary returns EM::LogicalConditionExpression:
+		////  TypeConstrainedSubcomponentState  |
+		////  '(' LogicalConditionPExpression ')';
+		////  
+		////TypeConstrainedSubcomponentState returns EM::TypeConstrainedModelElement:
+		////	subcomponent=[aadl2::Subcomponent|ID] 'in' 'state' element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+		////;
+		////
+		////
+		//////ContainedPropertyAssociation returns EM::ContainedPropertyAssociation:
+		//////	name=ID '=>' ';';//value=PropertyExpression 'applies' 'to' appliesTo+=[EM::EMElement|QEMREF]';';
+		////
+		//////PropertyExpression returns EM::PropertyExpression:
+		//////	ProbabilityValue;
+		////
+		//////Literal:
+		//////	name=ID;
+		//////
+		//////ProbabilityValue returns EM::ProbabilityValue:
+		//////	distribution=ID number=REAL_LIT ;
+		////
+		////QEMREF:
+		////	 (ID '::')* ID ;//('.' ID )?;
+		////	
 		//ID
 		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
@@ -19838,7 +20673,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private DefaultAnnexLibraryElements pDefaultAnnexLibrary;
 	private AnnexSubclauseElements pAnnexSubclause;
 	private DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
-	private TerminalRule tANNEXTEXT;
 	private PropertySetElements pPropertySet;
 	private PropertyTypeElements pPropertyType;
 	private UnnamedPropertyTypeElements pUnnamedPropertyType;
@@ -22029,7 +22863,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getModeRefAccess().getRule();
 	}
 
-	//AnnexLibrary returns aadl2::AnnexLibrary:
+	//AnnexLibrary returns aadl2::AnnexLibrary: //	 ErrorModelLibrary | 
 	//	DefaultAnnexLibrary;
 	public AnnexLibraryElements getAnnexLibraryAccess() {
 		return (pAnnexLibrary != null) ? pAnnexLibrary : (pAnnexLibrary = new AnnexLibraryElements());
@@ -22040,7 +22874,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
-	//	"annex" name=ID sourceText=ANNEXTEXT ";";
+	//	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+	//	";";
 	public DefaultAnnexLibraryElements getDefaultAnnexLibraryAccess() {
 		return (pDefaultAnnexLibrary != null) ? pDefaultAnnexLibrary : (pDefaultAnnexLibrary = new DefaultAnnexLibraryElements());
 	}
@@ -22049,7 +22884,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getDefaultAnnexLibraryAccess().getRule();
 	}
 
-	//AnnexSubclause returns aadl2::AnnexSubclause:
+	//AnnexSubclause returns aadl2::AnnexSubclause: //	 ErrorModelSubclause | 
 	//	DefaultAnnexSubclause;
 	public AnnexSubclauseElements getAnnexSubclauseAccess() {
 		return (pAnnexSubclause != null) ? pAnnexSubclause : (pAnnexSubclause = new AnnexSubclauseElements());
@@ -22060,7 +22895,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-	//	"annex" name=ID sourceText=ANNEXTEXT ";";
+	//	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+	//	";";
 	public DefaultAnnexSubclauseElements getDefaultAnnexSubclauseAccess() {
 		return (pDefaultAnnexSubclause != null) ? pDefaultAnnexSubclause : (pDefaultAnnexSubclause = new DefaultAnnexSubclauseElements());
 	}
@@ -22069,12 +22905,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getDefaultAnnexSubclauseAccess().getRule();
 	}
 
-	//terminal ANNEXTEXT:
-	//	"{**"->"**}";
-	public TerminalRule getANNEXTEXTRule() {
-		return (tANNEXTEXT != null) ? tANNEXTEXT : (tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT"));
-	} 
-
+	////terminal ANNEXTEXT:
+	////	'{**'->'**}';
+	////terminal ANNEXTEXT	: 
+	////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+	////		; 
 	//// **************
 	//// Properties
 	//PropertySet returns aadl2::PropertySet:
@@ -22530,6 +23365,425 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// name of refined entity. Used to set name field by value converter	
+	////// &&&&&&&&&&&&&& Error Model
+	////
+	////
+	////ErrorModelLibrary returns EM::ErrorModelLibrary:
+	////	{EM::ErrorModelLibrary}
+	////    'annex'   'error_model'   '{**'
+	////    (typeLibrary=ErrorTypeLibrary)? 
+	////	(transformations+=TypeTransformationSet | mappings+=TypeMappingSet  | behaviors+=ErrorBehaviorStateMachine )*
+	////	'**}'
+	////	';' ;
+	////	
+	////
+	////ErrorModelSubclause returns EM::ErrorModelSubclause:
+	////    'annex'   'error_model'   '{**'
+	////	( propagation=ErrorPropagations|componentBehavior=ComponentErrorBehavior
+	////		|compositeBehavior=CompositeErrorBehavior | connectionTransformation=ConnectionTransformation
+	////	)+
+	////	'**}'
+	////	';' ;
+	////  
+	////ErrorTypeLibrary returns EM::ErrorTypeLibrary: 
+	////    'error' 'types' {EM::ErrorTypeLibrary}
+	////    ('extends' extend+=[EM::ErrorTypeLibrary|QEMREF] (','extend+=[EM::ErrorTypeLibrary|QEMREF])*
+	////    'with')?     
+	////    ((types+=ErrorTypes))* 
+	//////    (features+=Feature)* // not part of error model but core model
+	//////    ('properties'
+	////// 	(properties+=ContainedPropertyAssociation )+)?
+	////     'end' 'types' ';';
+	////
+	//////
+	//////EMElement returns aadl2::Element:
+	//////	ErrorTypes | ErrorBehaviorEvent | ErrorBehaviorState | ErrorBehaviorTransition
+	//////	| ErrorBehaviorStateMachine | ErrorPropagation | ErrorFlow
+	//////;
+	////
+	////ErrorTypes returns EM::ErrorTypes:
+	////	TypeDefinition | TypeSetDefinition | TypeAlias | TypeSetAlias
+	////;
+	////
+	////TypeDefinition returns EM::ErrorType: 
+	////    name=ID ':' 'type' 
+	////      ( 'extends' superType=[EM::ErrorType|QEMREF] )? 
+	////    ';';
+	////
+	////TypeAlias returns EM::ErrorType: 
+	////    name=ID ':' 'renames' 'type' 
+	////       aliasedType=[EM::ErrorType|QEMREF]
+	////      ';';
+	////
+	////
+	////TypeSetDefinition returns EM::TypeSet: 
+	////     name=ID ':' 'type' 'set'
+	////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+	////          ';';
+	////
+	////
+	////TypeSet returns EM::TypeSet: 
+	////     '[' element+=TypeSetElement (',' element+=TypeSetElement)* ']'
+	////          ;
+	////
+	////  
+	////TypeSetAlias returns EM::TypeSet: 
+	////     name=ID ':' 'renames' 'type' 'set' aliasedType=[EM::TypeSet|QEMREF]
+	////    
+	////      ';';
+	////      
+	////TypeSetElement returns EM::TypeSetElement :
+	////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset
+	////;
+	////     
+	////TypeSubset returns EM::TypeSubset:
+	////	{EM::TypeSubset}
+	////	'(' type+=[EM::ErrorType|QEMREF] (',' type+=[EM::ErrorType|QEMREF])* ')'
+	////	;
+	////
+	////
+	////
+	////TupleConstraint returns EM::TypeSet: 
+	////     '[' element+=TupleElementConstraint (',' element+=TupleElementConstraint)* ']'
+	////          ;
+	////      
+	////TupleElementConstraint returns EM::TypeSetElement :
+	////	type=[EM::ErrorTypes|QEMREF]| typesubset=TypeSubset | noError?='noerror'
+	////;
+	////
+	////TypeTuple returns EM::TypeSet:
+	////     '[' element+=TupleElement (',' element+=TupleElement)* ']'
+	////;
+	////      
+	////TupleElement returns EM::TypeSetElement :
+	////	type=[EM::ErrorType|QEMREF] | noError?='noerror'
+	////;
+	////
+	////TypeUseContext returns EM::TypeUseContext:
+	////	TypeTransformationSet | TypeMappingSet | ErrorPropagations | ErrorBehaviorStateMachine
+	////	| EBSMUseContext
+	////;
+	////
+	////TypeTransformationSet returns EM::TypeTransformationSet: 
+	////	'type' 'transformations' name=ID  
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////      ( transformation+=TypeTransformation )* 
+	////      'end' 'transformations' ';'
+	////          ;
+	////
+	////TypeTransformation returns EM::TypeTransformation: 
+	////	target=TypeTuple 'when' source=TupleConstraint 'and' contributor=TupleConstraint   ';'
+	////          ;
+	////
+	////
+	////TypeMappingSet returns EM::TypeMappingSet:
+	////	'type' 'mappings' name=ID
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////	(mapping+=TypeMapping)+	
+	////	'end' 'mappings' ';'
+	////;
+	////
+	////TypeMapping returns EM::TypeMapping:
+	////	target=TypeTuple 'when' source=TupleConstraint  ';'
+	////;
+	//////     
+	//////Feature returns aadl2::Feature: 'feature' name=ID ';' ; // core model construct
+	////
+	////ErrorPropagations returns EM::ErrorPropagations: 
+	////   'error' 'propagations'
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////   (propagations+=ErrorPropagation)+ 
+	////   ( => 'flows'
+	////   (flows+=ErrorFlow)+)? 
+	//////    ('properties'
+	////// 	(properties+=ContainedPropertyAssociation )+)?
+	////   'end' 'propagations' ';'
+	////   ;
+	////   
+	////ErrorPropagation returns EM::ErrorPropagation:
+	////	{EM::ErrorPropagation}
+	////   ( kind=PropagationKind | feature=[aadl2::Feature|ID]) ':' (not?='not')? (direction=PropagationDirection)?  
+	////   'propagation' 
+	////    typeSet=TypeSet 
+	////   ';';
+	////  
+	////enum PropagationDirection returns EM::PropagationDirection:  IN = 'in' |  OUT = 'out' ;
+	////
+	////PropagationKind  : ('processor'|'memory'|'bus'|'device'|'system'|('virtual' 'bus')|('virtual' 'processor')|'binding' | 'bindings'|'access'); // virtual bus, virtual processor
+	////
+	////enum PropKind returns EM::PropKind: PROCESSOR='processor'|MEMORY='memory'|BUS='bus'|DEVICE='device'|SYSTEM='system'
+	////	            |VIRTUALBUS='virtual bus'|VIRTUALPROCESSOR='virtual processor'|BINDING='binding' | BINDINGS='bindings'|ACCESS='access'
+	////;
+	////
+	////  ErrorFlow returns EM::ErrorFlow:
+	////  ErrorSource | ErrorSink | ErrorPath; 
+	////
+	////ErrorSource returns EM::ErrorSource:
+	////  'error' 'source' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+	////  ';';
+	////
+	////ErrorSink returns EM::ErrorSink:
+	////  'error' 'sink' incoming=[EM::ErrorPropagation|ErrorPropagationPoint] tupleConstraint=TupleConstraint
+	////  ';';
+	////
+	////ErrorPath returns EM::ErrorPath:
+	////  'error' 'path' ((incoming=[EM::ErrorPropagation|ErrorPropagationPoint] '->' outgoing=[EM::ErrorPropagation|ErrorPropagationPoint]) | flow=[aadl2::FlowSpecification|ID] )
+	////  ( tupleConstraint=TupleConstraint | 'mapping' typeMappingSet=[EM::TypeMappingSet|QEMREF])
+	////  ';';
+	////
+	////  
+	////ErrorPropagationPoint :
+	////   PropagationKind | ID  
+	////   ;
+	////
+	////ErrorBehaviorStateMachine returns EM::ErrorBehaviorStateMachine: 
+	////  'error' 'behavior' name=ID
+	////  ( => 'extends' extends=[EM::ErrorBehaviorStateMachine|QEMREF] )?
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+	////  ( => 'events' (events+=ErrorBehaviorEvent )+ )?
+	////  ( => 'states' (states+=ErrorBehaviorState )+ )?
+	////  ( => 'transitions' (transitions+=ErrorBehaviorTransition )+ )?
+	//////    ('properties'
+	////// 	(properties+=ContainedPropertyAssociation )+)?
+	////  'end' 'behavior' ';';
+	////  
+	////ErrorBehaviorEvent returns EM::ErrorBehaviorEvent: 
+	////  ErrorEvent | RepairEvent | RecoverEvent;
+	////  
+	////ErrorEvent returns EM::ErrorEvent:
+	////    name=ID ':' 'error' 'event' 
+	////    ( typeSet=TypeSet )?
+	////    ('when' condition=STRING)?
+	////    ';'; // add event condition 
+	////    
+	////RepairEvent returns EM::RepairEvent:
+	////    name=ID ':' 'repair' 'event' 
+	////    ('when' condition=STRING)?
+	////    ';'; //add repair initiator 
+	////    
+	////RecoverEvent returns EM::RecoverEvent:
+	////    name=ID ':' 'recover' 'event' 
+	////    ('when' condition=STRING)?
+	////    ';'; //add recover initiator 
+	////
+	////ErrorBehaviorState returns EM::ErrorBehaviorState: 
+	////    name=ID ':' (intial?='initial')? 'state'
+	////    ( typeSet=TypeSet)?
+	////    ';'  ;
+	////
+	////ErrorBehaviorTransition returns EM::ErrorBehaviorTransition:
+	////  name = ID ':' source=TypeConstrainedState
+	////  ( '->' | '-[' events+=TypeConstrainedEvent ( ',' events+=TypeConstrainedEvent)* ']->') 
+	////  (destination=TupledState 
+	////  	| ('('destinationBranches+=TransitionBranch (',' destinationBranches+=TransitionBranch )* ')')
+	////  )';';
+	////
+	////TransitionBranch returns EM::TransitionBranch:  destination=TupledState 'with' value=BranchValue;
+	////
+	////BranchValue : 
+	////  REAL_LIT | ID | 'others';
+	////  
+	////TypeConstrainedState returns EM::TypeConstrainedModelElement:
+	////	element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+	////;
+	////  
+	////TupledState returns EM::TypeConstrainedModelElement:
+	////	element=[EM::ErrorBehaviorState|ID] (typeTuple=TypeTuple)?
+	////;
+	////  
+	////TypeConstrainedEvent returns EM::TypeConstrainedModelElement:
+	////	element=[EM::ErrorBehaviorEvent|ID] (tupleConstraint=TupleConstraint)?
+	////;
+	////  
+	////TypeConstrainedPropagation returns EM::TypeConstrainedModelElement:
+	////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint )?
+	////;
+	//////  
+	//////TupledPropagation returns EM::TypeConstrainedModelElement:
+	//////	element=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=TypeTuple)?
+	//////;
+	////
+	////ConnectionTransformation returns EM::ConnectionTransformation:
+	////	'connections' 'use' 'transformations' typeTransformationSet=[EM::TypeTransformationSet|QEMREF] ';'
+	////;
+	////
+	////EBSMUseContext returns EM::EBSMUseContext:
+	////	ComponentErrorBehavior | CompositeErrorBehavior
+	////;
+	////  
+	////ComponentErrorBehavior returns EM::ComponentErrorBehavior: 
+	////	'component' 'error' 'behavior' 
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|QEMREF] ';' 
+	////   ('use' 'transformations' useTransformation+=[EM::TypeTransformationSet|QEMREF] ';')?
+	////   (  'transition' 'conditions'
+	////    ( transitionCondition+=TransitionCondition )+ )?
+	////   (  'propagation' 'conditions'
+	////    ( propagationCondition+=PropagationCondition )+ )?
+	////   (  'detection' 'events'
+	////    ( detectionEvent+=DetectionEvent )+ )?
+	//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+	////   'end' 'component' ';'
+	////;  
+	////
+	////TransitionCondition returns EM::TransitionCondition: 
+	////	( (errorTransition=[EM::ErrorBehaviorTransition|ID] (typeTuple=TypeTuple)?)
+	////		| mask?='mask'
+	////	)
+	////	('in' 'state' state=TypeConstrainedState)?
+	////	'when' condition=LogicalConditionExpression ';'
+	////;
+	//////
+	//////TriggerConditionExpression returns EM::LogicalConditionExpression: 
+	//////	LogicalConditionExpression
+	////////	| OthersExpression 
+	//////;
+	////
+	////LogicalConditionExpression returns EM::LogicalConditionExpression: 
+	////	OrExpression
+	////    | OrmoreExpression
+	////    | OrlessExpression
+	////;
+	////
+	////
+	////AndExpression returns EM::LogicalConditionExpression:
+	////  Primary ({EM::AndExpression.operands+=current} 'and' operands+=Primary)*;
+	////  
+	////OrExpression returns EM::LogicalConditionExpression:
+	////  AndExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndExpression)*;
+	////  
+	////OrmoreExpression returns EM::OrmoreExpression: 
+	////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionExpression
+	////	            ( ',' operands+=LogicalConditionExpression)* ')'
+	////;
+	////  
+	////OrlessExpression returns EM::OrlessExpression: 
+	////	count=INTVALUE 'orless' '(' operands+=LogicalConditionExpression
+	////	            ( ',' operands+=LogicalConditionExpression)* ')'
+	////;
+	////  
+	////OthersExpression returns EM::OthersExpression: {EM::OthersExpression}'others';
+	////  
+	////Primary returns EM::LogicalConditionExpression:
+	////  TypeConstrainedEventorPropagation  |
+	////  '(' LogicalConditionExpression ')';
+	////
+	////TypeConstrainedEventorPropagation returns EM::TypeConstrainedModelElement:
+	////	element=[EM::ErrorEventorPropagation|ErrorPropagationPoint] (tupleConstraint=TupleConstraint)?
+	////; 
+	////
+	////ErrorEventorPropagation returns EM::ErrorEventorPropagation: ErrorBehaviorEvent|ErrorPropagation;
+	////
+	////MaskTuple returns EM::TypeSet:
+	////     '[' element+=MaskElement  ']'
+	////;
+	////      
+	////MaskElement returns EM::TypeSetElement :
+	////	 noError?='mask'
+	////;
+	////
+	////PropagationCondition returns EM::PropagationCondition: 
+	////	(propagation=[EM::ErrorPropagation|ErrorPropagationPoint] (typeTuple=(TypeTuple|MaskTuple))?)
+	////	'when' condition=LogicalConditionPExpression 
+	////	 ';'
+	////;
+	////
+	////LogicalConditionPExpression returns EM::LogicalConditionExpression: 
+	////	OrPExpression
+	////    | OrmorePExpression
+	////    | OrlessPExpression
+	////;
+	////
+	////
+	////AndPExpression returns EM::LogicalConditionExpression:
+	////  PPrimary ({EM::AndExpression.operands+=current} 'and' operands+=PPrimary)*;
+	////  
+	////OrPExpression returns EM::LogicalConditionExpression:
+	////  AndPExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndPExpression)*;
+	////  
+	////OrmorePExpression returns EM::OrmoreExpression: 
+	////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionPExpression
+	////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+	////;
+	////  
+	////OrlessPExpression returns EM::OrlessExpression: 
+	////	count=INTVALUE 'orless' '(' operands+=LogicalConditionPExpression
+	////	            ( ',' operands+=LogicalConditionPExpression)* ')'
+	////;
+	////  
+	////PPrimary returns EM::LogicalConditionExpression:
+	////  TypeConstrainedPropagation  |
+	////  '(' LogicalConditionPExpression ')';
+	////
+	////DetectionEvent returns EM::DetectionEvent: 
+	////	(self?='self' '.')? eventPort=[aadl2::Feature|ID] // TODO self.ID should point to implicit self port
+	////	(('in' 'state' state=TypeConstrainedState ('when' condition=LogicalConditionPExpression)?)
+	////	| ('when' condition=LogicalConditionPExpression)) ';'
+	////;
+	////
+	////CompositeErrorBehavior returns EM::CompositeErrorBehavior: 
+	////	'composite' 'error' 'behavior' 
+	////   ('use' 'types' useType+=[EM::ErrorTypeLibrary|QEMREF] (',' useType+=[EM::ErrorTypeLibrary|QEMREF] )* ';')?
+	////   'use' 'behavior' useBehavior=[EM::ErrorBehaviorStateMachine|ID] ';' 
+	////   ( 'states' 
+	////    ( state+=CompositeState )+ 
+	////    )?
+	//////  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
+	////   'end' 'composite' ';'
+	////; 
+	////
+	////CompositeState returns EM::CompositeState:
+	////	state=TupledState 'when' condition=LogicalConditionSExpression ';';
+	////
+	////
+	////LogicalConditionSExpression returns EM::LogicalConditionExpression: 
+	////	OrSExpression
+	////    | OrmoreSExpression
+	////    | OrlessSExpression
+	////;
+	////
+	////
+	////AndSExpression returns EM::LogicalConditionExpression:
+	////  SPrimary ({EM::AndExpression.operands+=current} 'and' operands+=SPrimary)*;
+	////  
+	////OrSExpression returns EM::LogicalConditionExpression:
+	////  AndSExpression ( {EM::OrExpression.operands+=current} 'or' operands+=AndSExpression)*;
+	////  
+	////OrmoreSExpression returns EM::OrmoreExpression: 
+	////	count=INTVALUE 'ormore' '(' operands+=LogicalConditionSExpression
+	////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+	////;
+	////  
+	////OrlessSExpression returns EM::OrlessExpression: 
+	////	count=INTVALUE 'orless' '(' operands+=LogicalConditionSExpression
+	////	            ( ',' operands+=LogicalConditionSExpression)* ')'
+	////;
+	////  
+	////SPrimary returns EM::LogicalConditionExpression:
+	////  TypeConstrainedSubcomponentState  |
+	////  '(' LogicalConditionPExpression ')';
+	////  
+	////TypeConstrainedSubcomponentState returns EM::TypeConstrainedModelElement:
+	////	subcomponent=[aadl2::Subcomponent|ID] 'in' 'state' element=[EM::ErrorBehaviorState|ID] (tupleConstraint=TupleConstraint)?
+	////;
+	////
+	////
+	//////ContainedPropertyAssociation returns EM::ContainedPropertyAssociation:
+	//////	name=ID '=>' ';';//value=PropertyExpression 'applies' 'to' appliesTo+=[EM::EMElement|QEMREF]';';
+	////
+	//////PropertyExpression returns EM::PropertyExpression:
+	//////	ProbabilityValue;
+	////
+	//////Literal:
+	//////	name=ID;
+	//////
+	//////ProbabilityValue returns EM::ProbabilityValue:
+	//////	distribution=ID number=REAL_LIT ;
+	////
+	////QEMREF:
+	////	 (ID '::')* ID ;//('.' ID )?;
+	////	
 	//REFINEDNAME:
 	//	ID;
 	public REFINEDNAMEElements getREFINEDNAMEAccess() {

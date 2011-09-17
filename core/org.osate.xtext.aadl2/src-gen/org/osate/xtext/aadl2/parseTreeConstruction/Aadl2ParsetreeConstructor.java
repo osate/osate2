@@ -82753,11 +82753,12 @@ protected class ModeRef_DerivedModeAssignment_1_1 extends AssignmentToken  {
 
 /************ begin Rule AnnexLibrary ****************
  *
- * AnnexLibrary returns aadl2::AnnexLibrary:
+ * AnnexLibrary returns aadl2::AnnexLibrary: //	 ErrorModelLibrary | 
  * 	DefaultAnnexLibrary;
  *
  **/
 
+// //	 ErrorModelLibrary | 
 // DefaultAnnexLibrary
 protected class AnnexLibrary_DefaultAnnexLibraryParserRuleCall extends RuleCallToken {
 	
@@ -82800,11 +82801,13 @@ protected class AnnexLibrary_DefaultAnnexLibraryParserRuleCall extends RuleCallT
 /************ begin Rule DefaultAnnexLibrary ****************
  *
  * DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
- * 	"annex" name=ID sourceText=ANNEXTEXT ";";
+ * 	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+ * 	";";
  *
  **/
 
-// "annex" name=ID sourceText=ANNEXTEXT ";"
+// "annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+// ";"
 protected class DefaultAnnexLibrary_Group extends GroupToken {
 	
 	public DefaultAnnexLibrary_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -82819,7 +82822,7 @@ protected class DefaultAnnexLibrary_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DefaultAnnexLibrary_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DefaultAnnexLibrary_SemicolonKeyword_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82888,56 +82891,23 @@ protected class DefaultAnnexLibrary_NameAssignment_1 extends AssignmentToken  {
 
 }
 
-// sourceText=ANNEXTEXT
-protected class DefaultAnnexLibrary_SourceTextAssignment_2 extends AssignmentToken  {
+// //	'{**'	sourceText=ANNEXTEXT 
+// ";"
+protected class DefaultAnnexLibrary_SemicolonKeyword_2 extends KeywordToken  {
 	
-	public DefaultAnnexLibrary_SourceTextAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DefaultAnnexLibrary_SemicolonKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DefaultAnnexLibrary_NameAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sourceText",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sourceText");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0(), value, null)) {
-			type = AssignmentType.TERMINAL_RULE_CALL;
-			element = grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// ";"
-protected class DefaultAnnexLibrary_SemicolonKeyword_3 extends KeywordToken  {
-	
-	public DefaultAnnexLibrary_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DefaultAnnexLibrary_SourceTextAssignment_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82950,11 +82920,12 @@ protected class DefaultAnnexLibrary_SemicolonKeyword_3 extends KeywordToken  {
 
 /************ begin Rule AnnexSubclause ****************
  *
- * AnnexSubclause returns aadl2::AnnexSubclause:
+ * AnnexSubclause returns aadl2::AnnexSubclause: //	 ErrorModelSubclause | 
  * 	DefaultAnnexSubclause;
  *
  **/
 
+// //	 ErrorModelSubclause | 
 // DefaultAnnexSubclause
 protected class AnnexSubclause_DefaultAnnexSubclauseParserRuleCall extends RuleCallToken {
 	
@@ -82997,11 +82968,13 @@ protected class AnnexSubclause_DefaultAnnexSubclauseParserRuleCall extends RuleC
 /************ begin Rule DefaultAnnexSubclause ****************
  *
  * DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
- * 	"annex" name=ID sourceText=ANNEXTEXT ";";
+ * 	"annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+ * 	";";
  *
  **/
 
-// "annex" name=ID sourceText=ANNEXTEXT ";"
+// "annex" name=ID //	'{**'	sourceText=ANNEXTEXT 
+// ";"
 protected class DefaultAnnexSubclause_Group extends GroupToken {
 	
 	public DefaultAnnexSubclause_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -83016,7 +82989,7 @@ protected class DefaultAnnexSubclause_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DefaultAnnexSubclause_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DefaultAnnexSubclause_SemicolonKeyword_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83085,56 +83058,23 @@ protected class DefaultAnnexSubclause_NameAssignment_1 extends AssignmentToken  
 
 }
 
-// sourceText=ANNEXTEXT
-protected class DefaultAnnexSubclause_SourceTextAssignment_2 extends AssignmentToken  {
+// //	'{**'	sourceText=ANNEXTEXT 
+// ";"
+protected class DefaultAnnexSubclause_SemicolonKeyword_2 extends KeywordToken  {
 	
-	public DefaultAnnexSubclause_SourceTextAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DefaultAnnexSubclause_SemicolonKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextAssignment_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DefaultAnnexSubclause_NameAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sourceText",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sourceText");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0(), value, null)) {
-			type = AssignmentType.TERMINAL_RULE_CALL;
-			element = grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// ";"
-protected class DefaultAnnexSubclause_SemicolonKeyword_3 extends KeywordToken  {
-	
-	public DefaultAnnexSubclause_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DefaultAnnexSubclause_SourceTextAssignment_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -83147,6 +83087,11 @@ protected class DefaultAnnexSubclause_SemicolonKeyword_3 extends KeywordToken  {
 
 /************ begin Rule PropertySet ****************
  *
+ * //terminal ANNEXTEXT:
+ * //	'{**'->'**}';
+ * //terminal ANNEXTEXT	: 
+ * //			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+ * //		; 
  * // **************
  * // Properties
  * PropertySet returns aadl2::PropertySet:

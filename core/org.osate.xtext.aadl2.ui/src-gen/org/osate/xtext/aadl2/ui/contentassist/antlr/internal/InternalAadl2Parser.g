@@ -79825,7 +79825,6 @@ rule__DefaultAnnexLibrary__Group__2
     }
 :
 	rule__DefaultAnnexLibrary__Group__2__Impl
-	rule__DefaultAnnexLibrary__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -79837,47 +79836,17 @@ rule__DefaultAnnexLibrary__Group__2__Impl
     }
 :
 (
-{ before(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2()); }
-(rule__DefaultAnnexLibrary__SourceTextAssignment_2)
-{ after(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__DefaultAnnexLibrary__Group__3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__DefaultAnnexLibrary__Group__3__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__DefaultAnnexLibrary__Group__3__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_3()); }
+{ before(grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_2()); }
 
 	KEYWORD_9 
 
-{ after(grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_3()); }
+{ after(grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_2()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -79952,7 +79921,6 @@ rule__DefaultAnnexSubclause__Group__2
     }
 :
 	rule__DefaultAnnexSubclause__Group__2__Impl
-	rule__DefaultAnnexSubclause__Group__3
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -79964,47 +79932,17 @@ rule__DefaultAnnexSubclause__Group__2__Impl
     }
 :
 (
-{ before(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextAssignment_2()); }
-(rule__DefaultAnnexSubclause__SourceTextAssignment_2)
-{ after(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextAssignment_2()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-
-rule__DefaultAnnexSubclause__Group__3
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-	rule__DefaultAnnexSubclause__Group__3__Impl
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__DefaultAnnexSubclause__Group__3__Impl
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3()); }
+{ before(grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_2()); }
 
 	KEYWORD_9 
 
-{ after(grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3()); }
+{ after(grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_2()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
-
-
 
 
 
@@ -104985,21 +104923,6 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__DefaultAnnexLibrary__SourceTextAssignment_2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); }
-	RULE_ANNEXTEXT{ after(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 rule__DefaultAnnexSubclause__NameAssignment_1
     @init {
 		int stackSize = keepStackSize();
@@ -105008,21 +104931,6 @@ rule__DefaultAnnexSubclause__NameAssignment_1
 (
 { before(grammarAccess.getDefaultAnnexSubclauseAccess().getNameIDTerminalRuleCall_1_0()); }
 	RULE_ID{ after(grammarAccess.getDefaultAnnexSubclauseAccess().getNameIDTerminalRuleCall_1_0()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
-rule__DefaultAnnexSubclause__SourceTextAssignment_2
-    @init {
-		int stackSize = keepStackSize();
-    }
-:
-(
-{ before(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); }
-	RULE_ANNEXTEXT{ after(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); }
 )
 
 ;

@@ -1,12 +1,12 @@
 grammar org.osate.xtext.aadl2.Aadl2 with org.osate.xtext.aadl2.properties.Properties
-
+//with org.osate.xtext.aadl2.errormodel.ErrorModel
 //generate aadl2 "http://www.osate.org/aadl2/Aadl2"
 
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 //import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
 
 
-import "platform:/resource/org.osate.xtext.aadl2.errormodel/model/ErrorModel.ecore" as EM
+//import "platform:/resource/org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/ErrorModel.ecore" as EM
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
@@ -1811,25 +1811,33 @@ ModeRef returns aadl2::ModeBinding:
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
+//	 ErrorModelLibrary | 
 	 DefaultAnnexLibrary;
 
 DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 	'annex' name=ID
-	sourceText=ANNEXTEXT
+//	'{**'	sourceText=ANNEXTEXT 
 	';';
 
 
 AnnexSubclause returns aadl2::AnnexSubclause:
+//	 ErrorModelSubclause | 
 	 DefaultAnnexSubclause;
 
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	'annex' name=ID
-	sourceText=ANNEXTEXT
+//	'{**'	sourceText=ANNEXTEXT 
 	';';
 
 
-terminal ANNEXTEXT:
-	'{**'->'**}';
+//terminal ANNEXTEXT:
+//	'{**'->'**}';
+
+
+//terminal ANNEXTEXT	: 
+//			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+//		; 
+
 	// **************
 
 // Properties
@@ -2093,6 +2101,14 @@ REFINEDNAME:
 //	'**}'
 //	';' ;
 //	
+//
+//ErrorModelSubclause returns EM::ErrorModelSubclause:
+//    'annex'   'error_model'   '{**'
+//	( propagation=ErrorPropagations|componentBehavior=ComponentErrorBehavior
+//		|compositeBehavior=CompositeErrorBehavior | connectionTransformation=ConnectionTransformation
+//	)+
+//	'**}'
+//	';' ;
 //  
 //ErrorTypeLibrary returns EM::ErrorTypeLibrary: 
 //    'error' 'types' {EM::ErrorTypeLibrary}
@@ -2486,9 +2502,9 @@ REFINEDNAME:
 //
 ////Literal:
 ////	name=ID;
-//
-//ProbabilityValue returns EM::ProbabilityValue:
-//	distribution=ID number=REAL_LIT ;
+////
+////ProbabilityValue returns EM::ProbabilityValue:
+////	distribution=ID number=REAL_LIT ;
 //
 //QEMREF:
 //	 (ID '::')* ID ;//('.' ID )?;
