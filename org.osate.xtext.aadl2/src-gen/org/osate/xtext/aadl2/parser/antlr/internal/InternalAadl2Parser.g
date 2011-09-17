@@ -24386,28 +24386,10 @@ ruleDefaultAnnexLibrary returns [EObject current=null]
 	    }
 
 )
-)(
-(
-		lv_sourceText_2_0=RULE_ANNEXTEXT
-		{
-			newLeafNode(lv_sourceText_2_0, grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDefaultAnnexLibraryRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"sourceText",
-        		lv_sourceText_2_0, 
-        		"ANNEXTEXT");
-	    }
-
 )
-)
-	otherlv_3=KEYWORD_9
+	otherlv_2=KEYWORD_9
     {
-    	newLeafNode(otherlv_3, grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_2, grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_2());
     }
 )
 ;
@@ -24486,28 +24468,10 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
 	    }
 
 )
-)(
-(
-		lv_sourceText_2_0=RULE_ANNEXTEXT
-		{
-			newLeafNode(lv_sourceText_2_0, grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0()); 
-		}
-		{
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getDefaultAnnexSubclauseRule());
-	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"sourceText",
-        		lv_sourceText_2_0, 
-        		"ANNEXTEXT");
-	    }
-
 )
-)
-	otherlv_3=KEYWORD_9
+	otherlv_2=KEYWORD_9
     {
-    	newLeafNode(otherlv_3, grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_2, grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_2());
     }
 )
 ;
