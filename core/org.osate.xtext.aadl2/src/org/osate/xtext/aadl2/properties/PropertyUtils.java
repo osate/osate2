@@ -33,10 +33,13 @@
  */
 package org.osate.xtext.aadl2.properties;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -48,6 +51,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -60,6 +64,7 @@ import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 /**
  * This class contains static methods for assisting in getting simple property
@@ -205,6 +210,17 @@ public class PropertyUtils {
 		} catch (PropertyLookupException e) {
 			return "";
 		}
+	}
+	
+	public static PropertyExpression getRecordFieldValue(final RecordValue rv, final String fieldName) {
+		final EList<BasicPropertyAssociation> pvl = rv.getOwnedFieldValues();
+		for (BasicPropertyAssociation ba : pvl){
+			if (ba.getProperty().getName().equalsIgnoreCase(fieldName))
+			{
+				return ba.getValue();
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -805,7 +821,7 @@ public class PropertyUtils {
 	 *             to ph.
 	 * @throws PropertyIsListException Thrown if the property is not scalar.
 	 */
-	private static PropertyExpression getSimplePropertyValue(final NamedElement ph, final Property pd)
+	public static PropertyExpression getSimplePropertyValue(final NamedElement ph, final Property pd)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
 		if (ph == null) {
@@ -858,25 +874,5 @@ public class PropertyUtils {
 		return pv;
 	}
 
-	/**
-	 * Retrieve the unit literal given a unit string for a property It is useful
-	 * when calling getScaledValue methods that require the literal as object
-	 * 
-	 * @param pd Property Definition
-	 * @param literalname String
-	 * @return UnitLiteral or null if the unit literal could not be found or the
-	 *         definition does not have a unit
-	 */
-	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
-		PropertyType pt = (PropertyType) pd.getType();
-		if (pt instanceof NumberType) {
-			NumberType nt = (NumberType) pt;
-			UnitsType ut = nt.getUnitsType();
-			if (ut != null) {
-				return ut.findLiteral(literalname);
-			}
-		}
-		return null;
-	}
 
 }

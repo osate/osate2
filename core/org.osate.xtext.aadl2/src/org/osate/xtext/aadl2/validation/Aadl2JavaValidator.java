@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.validation;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,89 +13,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.Access;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentPrototype;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ConnectionEnd;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeFeature;
-import org.osate.aadl2.NumberValue;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.Port;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.Prototype;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.*;
 import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
@@ -350,9 +269,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1) {
 			psname = s.substring(0, idx);
-			if (Aadl2LinkingService.eInstance.isPredeclaredPropertySet(psname))
+			if (Aadl2LinkingService.getAadl2LinkingService(pa).isPredeclaredPropertySet(psname))
 				return;
-			EObject propertySet = Aadl2LinkingService.eInstance.findImportedPropertySet(
+			EObject propertySet = Aadl2LinkingService.getAadl2LinkingService(pa).findImportedPropertySet(
 					psname, pa);
 			if (propertySet == null) {
 				error(pa,
@@ -399,53 +318,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-//	@Check(CheckType.FAST)
-//	public void caseClassifierValue(ClassifierValue cv) {
-//		final Classifier cc = cv.getClassifier();
-//		if (cc == null) {
-//			return;
-//		}
-//		final boolean good;
-//		switch (cv.getValue().getValue()) {
-//		case ComponentCategory.DATA:
-//			good = cc instanceof DataClassifier;
-//			break;
-//		case ComponentCategory.SUBPROGRAM:
-//			good = cc instanceof SubprogramClassifier;
-//			break;
-//		case ComponentCategory.THREAD:
-//			good = cc instanceof ThreadClassifier;
-//			break;
-//		case ComponentCategory.THREAD_GROUP:
-//			good = cc instanceof ThreadGroupClassifier;
-//			break;
-//		case ComponentCategory.PROCESS:
-//			good = cc instanceof ProcessClassifier;
-//			break;
-//		case ComponentCategory.MEMORY:
-//			good = cc instanceof MemoryClassifier;
-//			break;
-//		case ComponentCategory.PROCESSOR:
-//			good = cc instanceof ProcessorClassifier;
-//			break;
-//		case ComponentCategory.BUS:
-//			good = cc instanceof BusClassifier;
-//			break;
-//		case ComponentCategory.DEVICE:
-//			good = cc instanceof DeviceClassifier;
-//			break;
-//		case ComponentCategory.SYSTEM:
-//			good = cc instanceof SystemClassifier;
-//			break;
-//		default:
-//			good = true;
-//		}
-//
-//		if (!good) {
-//			error(cv,
-//					"Category of component classifier doesn't match the category of the classifier value");
-//		}
-//	}
 //
 //	/**
 //	 * Check that PropertyReference elements that are referenced in boolean
@@ -464,16 +336,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * Check ranges for correctness.
 	 */
-//	@Check(CheckType.FAST)
-//	public void caseNumberType(NumberType nt) {
-//		checkNumberType(nt);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseAadlinteger(final AadlInteger ai) {
-//		checkAadlinteger(ai);
-//		// TODO-phf: fall through to NumberType
-//	}
+	@Check(CheckType.FAST)
+	public void caseNumberType(NumberType nt) {
+		checkNumberType(nt);
+	}
+
+	@Check(CheckType.FAST)
+	public void caseAadlinteger(final AadlInteger ai) {
+		checkAadlinteger(ai);
+		// TODO-phf: fall through to NumberType
+	}
 //
 //	@Check(CheckType.FAST)
 //	public void caseFlowSpec(FlowSpecification fs) {
@@ -2264,38 +2136,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //
-//	/**
-//	 * Check constraints on the use of the "access" keyword on property
-//	 * definitions, as specified in SEction 10.1.2:
-//	 *
-//	 * <blockquote>The reserved word access is only permitted for property name
-//	 * whose applies to property category list contains categories of
-//	 * subcomponents that can be required or provided subcomponents. These
-//	 * categories are data and bus. </blockquote>
-//	 *
-//	 * @param pn
-//	 *            The property definition to check.
-//	 */
-//	private void checkAccessKeyword(final PropertyDefinition pn) {
-//		// Access allowed only if applies to data/bus only.
-//		if (pn.isAccess()) {
-//			final EList appliesTo = pn.getAppliesto();
-//
-//			final boolean containsData =
-//				appliesTo.contains(PropertyOwnerCategory.DATA_LITERAL);
-//			final boolean containsBus =
-//				appliesTo.contains(PropertyOwnerCategory.BUS_LITERAL);
-//			final int size = appliesTo.size();
-//			// Okay if set is {DATA}, {BUS}, {DATA, BUS}
-//			final boolean okay =
-//				((size == 1) && (containsBus || containsData))
-//					|| ((size == 2) && containsBus && containsData);
-//			if (!okay) {
-//				error(pn,
-//						"Access property only applies to data or bus");
-//			}
-//		}
-//	}
 //
 //	private void checkPropertyAssocs(final PropertyHolder element) {
 //		checkPropertyAssocs(element, false);
@@ -2716,77 +2556,83 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //
-//	/**
-//	 * Check that a number type is well formed.  The range values (if any)
-//	 * should be such that the lower bound is not greater than the upper bound.
-//	 * Satisfies legality rule from Section 10.1.1:
-//	 *
-//	 * <blockquote>
-//	 * The value of the first numeric literal that appears in a range of a
-//	 * number_type must not be greater than the value of the second numeric
-//	 * literal.
-//	 * </blockquote>
-//	 */
-//	private void checkNumberType(final NumberType nt) {
-//		/* NOTE: NumericResolver + Parser already make sure the bounds are
-//		 * both reals or both integers, as appropriate.
-//		 */
-//		final NumberOrPropertyReference lowerref = nt.getLower();
-//		final NumberOrPropertyReference upperref = nt.getUpper();
-//		NumberValue lowerNV = null;
-//		NumberValue upperNV = null;
-//		if (lowerref != null) lowerNV = lowerref.getNumberValue();
-//		if (upperref != null) upperNV = upperref.getNumberValue();
-//		/* Both of lowerref and upperref should be set, or both should be null.
-//		 * But even if both lowerref and upperref are non-null it is possible
-//		 * for one of lowerNV or upperNV to be null because getNumberValue()
-//		 * will return null if the NumberOrPropertyReference is a
-//		 * PropertyReference whose ReferencedProperty is a property declaration
-//		 * insteads of a property constant.  Thus, we must check both of
-//		 * lowerNv and upperNV against null.
-//		 */
-//		if (lowerNV != null && upperNV != null) {
-//			/* Check: (1) the bounds have units if the type has units;
-//			 * (2) the lower bounds is <= the upper bound.
-//			 */
-//			if (nt.getTheUnitsType() != null) {
-//				if (lowerNV.getUnitLiteral() == null) {
-//					error(nt,
-//							"lower bound is missing a unit");
-//				}
-//				if (upperNV.getUnitLiteral() == null) {
-//					error(nt,
-//							"upper bound is missing a unit");
-//				}
-//			}
-//			final double lower = lowerNV.getScaledValue();
-//			final double upper = upperNV.getScaledValue();
-//			if (lower > upper) {
-//				error(nt,
-//						"Range lower bound is greater than range upper bound");
-//			}
-//		}
-//	}
-//
-//	/**
-//	 * Check that if an aadlinteger type has units that the units have only
-//	 * integer multipliers.
-//	 */
-//	private void checkAadlinteger(final Aadlinteger ai) {
-//		final UnitsType units = ai.getTheUnitsType();
-//		if (units != null) {
-//			for (Iterator i = units.getUnitLiteral().iterator(); i.hasNext();) {
-//				final UnitLiteral ul = (UnitLiteral) i.next();
-//				final NumberValue factor = ul.getFactor();
-//				if (factor != null && !(factor instanceof IntegerValue)) {
-//					error(ai,
-//							"Integer type has unit (" + ul.getName() +
-//							") with non-integer factor (" +
-//							ul.getFactor().getValueString() + ")");
-//				}
-//			}
-//		}
-//	}
+	/**
+	 * Check that a number type is well formed.  The range values (if any)
+	 * should be such that the lower bound is not greater than the upper bound.
+	 * Satisfies legality rule from Section 10.1.1:
+	 *
+	 * <blockquote>
+	 * The value of the first numeric literal that appears in a range of a
+	 * number_type must not be greater than the value of the second numeric
+	 * literal.
+	 * </blockquote>
+	 */
+	private void checkNumberType(final NumberType nt) {
+		/* NOTE: NumericResolver + Parser already make sure the bounds are
+		 * both reals or both integers, as appropriate.
+		 */
+		final NumericRange range = nt.getRange();
+		if (range == null) return;
+		PropertyExpression	lowerPE = (PropertyExpression)range.getLowerBound();
+		PropertyExpression	upperPE = (PropertyExpression)range.getUpperBound();
+		// TODO : handle NamedValue
+		if (lowerPE instanceof NamedValue){
+			if (((NamedValue)lowerPE).getNamedValue() instanceof PropertyConstant){
+				lowerPE=((PropertyConstant)((NamedValue)lowerPE).getNamedValue()).getConstantValue();
+			}
+		}
+		if (upperPE instanceof NamedValue){
+			if (((NamedValue)upperPE).getNamedValue() instanceof PropertyConstant){
+				upperPE=((PropertyConstant)((NamedValue)upperPE).getNamedValue()).getConstantValue();
+			}
+		}
+		NumberValue lowerNV = lowerPE instanceof NumberValue? (NumberValue)lowerPE: null;
+		NumberValue upperNV = upperPE instanceof NumberValue? (NumberValue)upperPE: null;
+		if (lowerNV != null && upperNV != null) {
+			/* Check: (1) the bounds have units if the type has units;
+			 * (2) the lower bounds is <= the upper bound.
+			 */
+			if (lowerNV instanceof NumberValue){
+				
+			}
+			if (nt.getUnitsType() != null) {
+				if (lowerNV.getUnit() == null) {
+					error(nt,
+							"lower bound is missing a unit");
+				}
+				if (upperNV.getUnit() == null) {
+					error(nt,
+							"upper bound is missing a unit");
+				}
+			}
+			final double lower = lowerNV.getScaledValue();
+			final double upper = upperNV.getScaledValue();
+			if (lower > upper) {
+				error(nt,
+						"Range lower bound is greater than range upper bound");
+			}
+		}
+	}
+
+	/**
+	 * Check that if an aadlinteger type has units that the units have only
+	 * integer multipliers.
+	 */
+	private void checkAadlinteger(final AadlInteger ai) {
+		final UnitsType units = ai.getUnitsType();
+		if (units != null) {
+			for (Iterator i = units.getOwnedLiterals().iterator(); i.hasNext();) {
+				final UnitLiteral ul = (UnitLiteral) i.next();
+				final NumberValue factor = ul.getFactor();
+				if (factor != null && !(factor instanceof IntegerLiteral)) {
+					error(ai,
+							"Integer type has unit (" + ul.getName() +
+							") with non-integer factor (" +
+							ul.getFactor().toString() + ")");
+				}
+			}
+		}
+	}
 //
 //	private static String unparseAppliesTo(final PropertyDefinition pd) {
 //		final StringBuffer sb = new StringBuffer();
