@@ -214,6 +214,8 @@ KEYWORD_13 : '}';
 
 
 
+RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
+
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 fragment RULE_EXPONENT : 'e' ('+'|'-')? RULE_DIGIT+;

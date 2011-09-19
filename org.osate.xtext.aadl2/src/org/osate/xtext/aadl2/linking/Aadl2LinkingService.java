@@ -1927,7 +1927,7 @@ public static Aadl2LinkingService getAadl2LinkingService(Element context){
 	}
 
 	public Classifier getContainingClassifier(EObject element) {
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof Classifier))
 			container = container.eContainer();
 		return (Classifier) container;
