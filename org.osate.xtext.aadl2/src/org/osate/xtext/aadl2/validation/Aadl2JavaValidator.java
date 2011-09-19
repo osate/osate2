@@ -886,6 +886,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * "If an abstract component implementation is refined to a concrete
 	 * category, the subcomponents of the abstract component implementation must
 	 * be acceptable for the concrete component implementation."
+	 * Note: this also covers rule L5 in section 4.6.
 	 */
 	private void checkSubcomponentsHierarchy(Subcomponent subcomponent) {
 		if (subcomponent.getCategory().equals(ComponentCategory.ABSTRACT))
@@ -958,9 +959,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the category of the prototype is identical to the category of
-	 * the specified component classifier. This requirement is not in the
-	 * standard yet. Peter has been informed and it should be in a future
-	 * errata.
+	 * the specified component classifier. 
+	 * Rule L2 in section 4.7 (revised AADLV2)
+	 * "The component category of the optional component classifier reference in the component prototype declaration must match
+	 * the category in the prototype declaration."
 	 */
 	private void checkComponentPrototypeCategory(ComponentPrototype prototype) {
 		if (prototype.getConstrainingClassifier() != null
@@ -975,15 +977,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56. "The
 	 * component category declared in the component prototype binding must match
-	 * the component category of the prototype or classifier being referenced,
-	 * i.e., they must be identical, or the declared category component category
-	 * of the prototype must be abstract." Peter needs to rewrite this rule into
-	 * two separate rules. The first will specify that the category of the
-	 * formal prototype and the category specified in the binding must match
-	 * (match also means that abstract can be refined to a concrete type). The
-	 * second will specify that the category specified in the binding and the
-	 * category of the referenced classifier or prototype must match. This
-	 * method does the first check.
+	 * the component category of the prototype, or the declared category component category
+	 * of the prototype must be abstract." 
 	 */
 	private void checkComponentPrototypeBindingCategory(
 			ComponentPrototypeBinding binding) {
@@ -1002,17 +997,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56. "The
-	 * component category declared in the component prototype binding must match
-	 * the component category of the prototype or classifier being referenced,
-	 * i.e., they must be identical, or the declared category component category
-	 * of the prototype must be abstract." Peter needs to rewrite this rule into
-	 * two separate rules. The first will specify that the category of the
-	 * formal prototype and the category specified in the binding must match
-	 * (match also means that abstract can be refined to a concrete type). The
-	 * second will specify that the category specified in the binding and the
-	 * category of the referenced classifier or prototype must match. This
-	 * method does the second check.
+	 * Checks legality rule 10 in section 4.7 (Prototypes) on page 56. "(L10)	The component category of the classifier reference 
+	 * or prototype reference in a prototype binding declaration must match the category of the prototype."
 	 */
 	private void checkComponentPrototypeActualComponentCategory(
 			ComponentPrototypeActual actual) {
@@ -1048,12 +1034,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Peter is going to change the wording of this to make parts of it less
 	 * restrictive.
 	 * 
-	 * Checks semantic rule 3 in section 4.7 (Prototypes) on page 57.
-	 * "Prototypes can specify a parameterization of abstract features (feature)
-	 * as well as feature group types for feature groups. The prototype binding
-	 * of an abstract feature can supply concrete features. If a direction is
-	 * specified for the abstract feature, the direction of the supplied feature
-	 * must match."
+	 * Checks legality rule 11 in section 4.7 (Prototypes) on page 57.
+	 * "(L11)	If a direction is specified for an abstract feature in a prototype declaration, 
+	 * then the direction of the prototype actual must match that declared in the prototype."
 	 */
 	private void checkFeaturePrototypeBindingDirection(
 			FeaturePrototypeBinding binding) {
@@ -1080,7 +1063,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a ComponentPrototypeBinding is a
-	 * ComponentPrototype. This requirement is not explicitly in the standard.
+	 * ComponentPrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfComponentPrototypeBinding(
 			ComponentPrototypeBinding binding) {
@@ -1091,8 +1074,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a FeatureGroupPrototypeBinding is a
-	 * FeatureGroupPrototype. This requirement is not explicitly in the
-	 * standard.
+	 * FeatureGroupPrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfFeatureGroupPrototypeBinding(
 			FeatureGroupPrototypeBinding binding) {
@@ -1103,7 +1085,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a FeaturePrototypeBinding is a
-	 * FeaturePrototype. This requirement is not explicitly in the standard.
+	 * FeaturePrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfFeaturePrototypeBinding(
 			FeaturePrototypeBinding binding) {
@@ -1114,7 +1096,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that component prototype refinements only refine component
-	 * prototypes. This requirement is not explicitly in the standard.
+	 * prototypes. Rule L13 in Section 4.7.
 	 */
 	private void checkRefinedOfComponentPrototype(ComponentPrototype prototype) {
 		if (prototype.getRefined() != null
@@ -1125,7 +1107,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that feature group prototype refinements only refine feature group
-	 * prototypes. This requirement is not explicitly in the standard.
+	 * prototypes. Rule L12 in Section 4.7.
 	 */
 	private void checkRefinedOfFeatureGroupPrototype(
 			FeatureGroupPrototype prototype) {
@@ -1137,7 +1119,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that feature prototype refinements only refine feature prototypes.
-	 * This requirement is not explicitly in the standard.
+	 * Rule L12 in Section 4.7.
 	 */
 	private void checkRefinedOfFeaturePrototype(FeaturePrototype prototype) {
 		if (prototype.getRefined() != null
@@ -1727,7 +1709,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 5 in section 8.1 (Abstract Features) on page 127.
+	 * Checks legality rule 4 in section 8.1 (Abstract Features) on page 127.
 	 * "An abstract feature refinement declaration of a feature with a feature
 	 * prototype reference must only add property associations."
 	 */
@@ -1748,7 +1730,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 5 in section 8.1 (Abstract Features) on page 127.
+	 * Checks legality rule 4 in section 8.1 (Abstract Features) on page 127.
 	 * "An abstract feature refinement declaration of a feature with a feature
 	 * prototype reference must only add property associations."
 	 */
@@ -1884,7 +1866,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L1 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "If a subprogram access refers to a component
 	 * classifier or a component prototype, then the category of the classifier
 	 * or prototype must be subprogram." For references to classifiers, the
@@ -1901,7 +1883,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L2 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "If a subprogram group access refers to a
 	 * component classifier or a component prototype, then the category of the
 	 * classifier or prototype must be subprogram group." For references to
@@ -1918,16 +1900,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L3 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "An abstract feature can be refined into a
 	 * subprogram access or a subprogram group access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 * 
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L4 for section 8.6 (Data Component Access)
 	 * "An abstract feature can be refined into a data access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 * 
-	 * Checks a proposed legality rule for section 8.7 (Bus Component Access)
+	 * Checks legality rule L4 for section 8.7 (Bus Component Access)
 	 * "An abstract feature can be refined into a bus access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 */
@@ -1942,7 +1924,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L6 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "A provides subprogram access cannot be refined
 	 * to a requires subprogram access and a requires subprogram access cannot
 	 * be refined to a provides subprogram access. Similarly, a provides
@@ -1950,11 +1932,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * access and a requires subprogram group access cannot be refined to a
 	 * provides subprogram group access."
 	 * 
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L3 for section 8.6 (Data Component Access)
 	 * "A provides data access cannot be refined to a requires data access and a
 	 * requires data access cannot be refined to a provides data access."
 	 * 
-	 * Checks a proposed legality rule for section 8.7 (Bus Component Access) "A
+	 * Checks rule L3 for section 8.7 (Bus Component Access) "A
 	 * provides bus access cannot be refined to a requires bus access and a
 	 * requires bus access cannot be refined to a provides bus access."
 	 */
@@ -1973,7 +1955,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L1 for section 8.6 (Data Component Access)
 	 * "If a data access refers to a component classifier or a component
 	 * prototype, then the category of the classifier or prototype must be
 	 * data." For references to classifiers, the meta-model only allows for a
