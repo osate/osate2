@@ -106,9 +106,11 @@ ComponentType returns aadl2::ComponentType:
 	) 
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	('requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+	(('requires' 'modes'
+	 ((ownedMode+=RequiresMode)+))
+	|
+	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
+	)?
 	('properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
@@ -1816,7 +1818,7 @@ AnnexLibrary returns aadl2::AnnexLibrary:
 
 DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 	'annex' name=ID
-//	'{**'	sourceText=ANNEXTEXT 
+	 sourceText=ANNEXTEXT 
 	';';
 
 
@@ -1826,12 +1828,12 @@ AnnexSubclause returns aadl2::AnnexSubclause:
 
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	'annex' name=ID
-//	'{**'	sourceText=ANNEXTEXT 
+		sourceText=ANNEXTEXT 
 	';';
 
 
-//terminal ANNEXTEXT:
-//	'{**'->'**}';
+terminal ANNEXTEXT:
+	'{**'->'**}';
 
 
 //terminal ANNEXTEXT	: 
