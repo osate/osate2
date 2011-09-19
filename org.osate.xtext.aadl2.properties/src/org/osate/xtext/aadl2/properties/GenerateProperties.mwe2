@@ -83,11 +83,11 @@ Workflow {
 			fragment = exporting.QualifiedNamesFragment {}
 			fragment = builder.BuilderIntegrationFragment {}
 
-			// generator API
-			fragment = generator.GeneratorFragment {
-				generateMwe = true
-				generateJavaMain = true
-			}
+//			// generator API
+//			fragment = generator.GeneratorFragment {
+//				generateMwe = true
+//				generateJavaMain = true
+//			}
 			
 			// formatter API 
 			fragment = formatting.FormatterFragment {}
@@ -110,14 +110,13 @@ Workflow {
 
 			// generates a more lightweight Antlr parser and lexer tailored for content assist  
 //			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
-			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-				    options = {
-        		ignoreCase = true
-    		}
-//				options = {
-//					classSplitting = true
-//				}
-			}
+//			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+//				    options = {
+//        		ignoreCase = true
+//				backtrack = true
+////			classSplitting = true
+////				}
+//			}
 
 			// generates junit test support classes into Generator#pathTestProject
 //			fragment = junit.Junit4Fragment {}

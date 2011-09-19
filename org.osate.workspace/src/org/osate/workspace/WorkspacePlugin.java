@@ -35,11 +35,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * File extension of AADL source text files
 	 */
-	public static final String SOURCE_FILE_EXT = "aadl2";
-	/**
-	 * File extension of AADL source text files
-	 */
-	public static final String OLD_SOURCE_FILE_EXT = "aadl";
+	public static final String SOURCE_FILE_EXT = "aadl";
 
 	/**
 	 * File extension of AADL model files
@@ -104,6 +100,10 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * Default model directory.
 	 */
 	public static final String PROPERTY_SETS_DIR = "propertysets";
+	/**
+	 * Default Aadl instances directory.
+	 */
+	public static final String AADL_INSTANCES_DIR = "instances";
 
 	/**
 	 * instance model name postfix
@@ -206,7 +206,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 		PreferenceStore projectProperties;
 		String settingspath = project.getFile(AADLPATH_FILENAME).getRawLocation().toString();
 		final String projectname = project.getName();
-
 		/*
 		 * Paths are stored using the canonical IPath format in the properties
 		 * file. That is, we use "/" as the separator character.

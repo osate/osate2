@@ -9,6 +9,8 @@ property set Thread_Properties is
 	
 	Dispatch_Trigger: list of reference (port)
 		applies to (device, thread);
+		
+	Dispatch_Able: aadlboolean applies to (thread);
 	
 	POSIX_Scheduling_Policy: enumeration (SCHED_FIFO, SCHED_RR, SCHED_OTHERS)
 		applies to (thread, thread group);
@@ -52,7 +54,7 @@ property set Thread_Properties is
 		applies to (thread, process, virtual processor, processor);
 	
 	Runtime_Protection: inherit aadlboolean
-		applies to (process, system);
+		applies to (process, system, virtual processor);
 	
 	Subprogram_Call_Type: enumeration (Synchronous, SemiSynchronous)
 		=> Synchronous

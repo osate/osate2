@@ -8,26 +8,23 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 PModel returns aadl2::Element:
-	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
+	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation
+	;
 
 
 // Properties
-
-BasicPropertyAssociation returns aadl2::PropertyAssociation:
-	property=[aadl2::Property|QPREF] 
-	'=>' ownedValue+=PropertyValue ';'
-	;
 
 ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue => ',')*
-	ownedValue+=OptionalModalPropertyValue
+	'(' ownedValue+=ModalPropertyValue
+	( ',' ownedValue+=ModalPropertyValue )*
+	
 	')' )
 	| ownedValue+=PropertyValue
 	)
-	(=> 'applies' 'to' appliesTo+=ContainmentPath 
+	('applies' 'to' appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
 	)?
 	';';
@@ -36,13 +33,19 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
 	(( 
-	'(' ( ownedValue+=ModalPropertyValue => ',')*
-	ownedValue+=OptionalModalPropertyValue
+	'(' ownedValue+=ModalPropertyValue
+	 ( ',' ownedValue+=ModalPropertyValue )*
+	
 	')' )
 	| ownedValue+=PropertyValue
-	)
-	';';
+	) ';'
+	;
 
+
+BasicPropertyAssociation returns aadl2::PropertyAssociation:
+	property=[aadl2::Property|QPREF] 
+	'=>' ownedValue+=PropertyValue ';'
+	;
 
 ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
@@ -53,18 +56,18 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	// phf made this optional: need to check separately that only the last one is optional
-	=> 'in' 'modes' '(' 
+	'in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')'
 	;
 
-OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-	ownedValue=PropertyExpression 
-	// phf made this optional: need to check separately that only the last one is optional
-	( 'in' 'modes' '(' 
-	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-	')')?
-	;
+//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+//	ownedValue=PropertyExpression 
+//	// phf made this optional: need to check separately that only the last one is optional
+//	( 'in' 'modes' '(' 
+//	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+//	')')?
+//	;
 	// &&&&&&&&&& handling of in binding
 
 PropertyValue returns aadl2::ModalPropertyValue:
@@ -72,11 +75,11 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	  => RecordTerm | => ReferenceTerm | => ComponentClassifierTerm
-	 | => ComputedTerm | => StringTerm |  NumericRangeTerm
+	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
+	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
 	  	| ListTerm |ActualBooleanTerm
-	 //| BooleanTerm
+//	 | BooleanTerm
 	  | LiteralorReferenceTerm
 	;
 
@@ -227,13 +230,13 @@ SignedReal returns aadl2::Real:
 NumericRangeTerm returns aadl2::RangeValue:
 	minimum=NumAlt //(RealTerm|IntegerTerm| SignedConstant | ConstantValue)  
 		'..' maximum=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
-	( => 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
+	( 'delta' delta=NumAlt//(RealTerm|IntegerTerm| SignedConstant | ConstantValue)
 		
 	)?
 	;
 
 NumAlt  returns aadl2::PropertyExpression: 
-	=> RealTerm|IntegerTerm| SignedConstant | ConstantValue
+	RealTerm|IntegerTerm| SignedConstant | ConstantValue
 ;
 
 terminal SL_COMMENT:
@@ -242,10 +245,13 @@ terminal SL_COMMENT:
 
 
 INTVALUE returns aadl2::Integer:
-	INTEGER_LIT 	
+	INTEGER_LIT //NUMERAL 	
 ;
 
 
+//terminal NUMERAL:
+//	(DIGIT)+('_' (DIGIT)+)*
+//;
 //terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 
 terminal fragment
