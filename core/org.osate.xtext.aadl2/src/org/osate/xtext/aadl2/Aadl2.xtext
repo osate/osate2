@@ -1810,7 +1810,7 @@ AnnexLibrary returns aadl2::AnnexLibrary:
 
 DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 	'annex' name=ID
-//	 sourceText=ANNEXTEXT 
+	 sourceText=ANNEXTEXT 
 	';';
 
 

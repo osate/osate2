@@ -17394,15 +17394,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cAnnexKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cSourceTextAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cSourceTextANNEXTEXTTerminalRuleCall_2_0 = (RuleCall)cSourceTextAssignment_2.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
-		//	"annex" name=ID //	 sourceText=ANNEXTEXT 
-		//	";";
+		//	"annex" name=ID sourceText=ANNEXTEXT ";";
 		public ParserRule getRule() { return rule; }
 
-		//"annex" name=ID //	 sourceText=ANNEXTEXT 
-		//";"
+		//"annex" name=ID sourceText=ANNEXTEXT ";"
 		public Group getGroup() { return cGroup; }
 
 		//"annex"
@@ -17414,9 +17414,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		////	 sourceText=ANNEXTEXT 
+		//sourceText=ANNEXTEXT
+		public Assignment getSourceTextAssignment_2() { return cSourceTextAssignment_2; }
+
+		//ANNEXTEXT
+		public RuleCall getSourceTextANNEXTEXTTerminalRuleCall_2_0() { return cSourceTextANNEXTEXTTerminalRuleCall_2_0; }
+
 		//";"
-		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
+		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
 	}
 
 	public class AnnexSubclauseElements extends AbstractParserRuleElementFinder {
@@ -22035,8 +22040,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
-	//	"annex" name=ID //	 sourceText=ANNEXTEXT 
-	//	";";
+	//	"annex" name=ID sourceText=ANNEXTEXT ";";
 	public DefaultAnnexLibraryElements getDefaultAnnexLibraryAccess() {
 		return (pDefaultAnnexLibrary != null) ? pDefaultAnnexLibrary : (pDefaultAnnexLibrary = new DefaultAnnexLibraryElements());
 	}
