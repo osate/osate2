@@ -2280,13 +2280,13 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	////;
 	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 	//terminal fragment EXPONENT:
-	//	"e" ("+" | "-")? DIGIT+;
+	//	("e" | "E") ("+" | "-")? DIGIT+;
 	public TerminalRule getEXPONENTRule() {
 		return (tEXPONENT != null) ? tEXPONENT : (tEXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "EXPONENT"));
 	} 
 
 	//terminal fragment INT_EXPONENT:
-	//	"e" "+"? DIGIT+;
+	//	("e" | "E") "+"? DIGIT+;
 	public TerminalRule getINT_EXPONENTRule() {
 		return (tINT_EXPONENT != null) ? tINT_EXPONENT : (tINT_EXPONENT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "INT_EXPONENT"));
 	} 
