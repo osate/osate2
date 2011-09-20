@@ -246,13 +246,11 @@ protected class ThisRootNode extends RootToken {
 /************ begin Rule Model ****************
  *
  * Model returns aadl2::ModelUnit:
- * 	AadlPackage | //| SystemInstance
- * 	PropertySet;
+ * 	AadlPackage | PropertySet;
  *
  **/
 
-// AadlPackage | //| SystemInstance
-// PropertySet
+// AadlPackage | PropertySet
 protected class Model_Alternatives extends AlternativesToken {
 
 	public Model_Alternatives(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -319,7 +317,6 @@ protected class Model_AadlPackageParserRuleCall_0 extends RuleCallToken {
 	}	
 }
 
-// //| SystemInstance
 // PropertySet
 protected class Model_PropertySetParserRuleCall_1 extends RuleCallToken {
 	
@@ -362,9 +359,6 @@ protected class Model_PropertySetParserRuleCall_1 extends RuleCallToken {
 
 /************ begin Rule AadlPackage ****************
  *
- * //SystemInstance returns instance::SystemInstance:
- * //	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
- * //;
  * AadlPackage returns aadl2::AadlPackage:
  * 	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
  * 	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
@@ -82822,11 +82816,13 @@ protected class AnnexLibrary_DefaultAnnexLibraryParserRuleCall extends RuleCallT
 /************ begin Rule DefaultAnnexLibrary ****************
  *
  * DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
- * 	"annex" name=ID sourceText=ANNEXTEXT ";";
+ * 	"annex" name=ID //	 sourceText=ANNEXTEXT 
+ * 	";";
  *
  **/
 
-// "annex" name=ID sourceText=ANNEXTEXT ";"
+// "annex" name=ID //	 sourceText=ANNEXTEXT 
+// ";"
 protected class DefaultAnnexLibrary_Group extends GroupToken {
 	
 	public DefaultAnnexLibrary_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -82841,7 +82837,7 @@ protected class DefaultAnnexLibrary_Group extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new DefaultAnnexLibrary_SemicolonKeyword_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new DefaultAnnexLibrary_SemicolonKeyword_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -82910,56 +82906,23 @@ protected class DefaultAnnexLibrary_NameAssignment_1 extends AssignmentToken  {
 
 }
 
-// sourceText=ANNEXTEXT
-protected class DefaultAnnexLibrary_SourceTextAssignment_2 extends AssignmentToken  {
+// //	 sourceText=ANNEXTEXT 
+// ";"
+protected class DefaultAnnexLibrary_SemicolonKeyword_2 extends KeywordToken  {
 	
-	public DefaultAnnexLibrary_SourceTextAssignment_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public DefaultAnnexLibrary_SemicolonKeyword_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
-	public Assignment getGrammarElement() {
-		return grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2();
+	public Keyword getGrammarElement() {
+		return grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_2();
 	}
 
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
 			case 0: return new DefaultAnnexLibrary_NameAssignment_1(lastRuleCallOrigin, this, 0, inst);
-			default: return null;
-		}	
-	}
-
-    @Override	
-	public IEObjectConsumer tryConsume() {
-		if((value = eObjectConsumer.getConsumable("sourceText",true)) == null) return null;
-		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("sourceText");
-		if(valueSerializer.isValid(obj.getEObject(), grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0(), value, null)) {
-			type = AssignmentType.TERMINAL_RULE_CALL;
-			element = grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextANNEXTEXTTerminalRuleCall_2_0();
-			return obj;
-		}
-		return null;
-	}
-
-}
-
-// ";"
-protected class DefaultAnnexLibrary_SemicolonKeyword_3 extends KeywordToken  {
-	
-	public DefaultAnnexLibrary_SemicolonKeyword_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
-		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
-	}
-	
-	@Override
-	public Keyword getGrammarElement() {
-		return grammarAccess.getDefaultAnnexLibraryAccess().getSemicolonKeyword_3();
-	}
-
-    @Override
-	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
-		switch(index) {
-			case 0: return new DefaultAnnexLibrary_SourceTextAssignment_2(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
