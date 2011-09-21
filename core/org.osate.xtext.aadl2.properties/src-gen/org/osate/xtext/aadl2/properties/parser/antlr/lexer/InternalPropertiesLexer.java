@@ -1465,11 +1465,19 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:24: ( 'e' ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:26: 'e' ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
-            match('e'); 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:30: ( '+' | '-' )?
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:36: ( '+' | '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1495,7 +1503,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:41: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:47: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1509,7 +1517,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:41: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1537,11 +1545,19 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:28: ( 'e' ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:30: 'e' ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
-            match('e'); 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:34: ( '+' )?
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:40: ( '+' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1550,7 +1566,7 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:34: '+'
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:40: '+'
                     {
                     match('+'); 
 
@@ -1559,7 +1575,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:39: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:45: ( RULE_DIGIT )+
             int cnt7=0;
             loop7:
             do {
@@ -1573,7 +1589,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:39: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1781,7 +1797,7 @@ public class InternalPropertiesLexer extends Lexer {
             int alt14=2;
             int LA14_0 = input.LA(1);
 
-            if ( (LA14_0=='e') ) {
+            if ( (LA14_0=='E'||LA14_0=='e') ) {
                 alt14=1;
             }
             switch (alt14) {
@@ -1919,7 +1935,7 @@ public class InternalPropertiesLexer extends Lexer {
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
-                    if ( (LA18_0=='e') ) {
+                    if ( (LA18_0=='E'||LA18_0=='e') ) {
                         alt18=1;
                     }
                     switch (alt18) {
@@ -1943,7 +1959,7 @@ public class InternalPropertiesLexer extends Lexer {
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
-                    if ( (LA19_0=='e') ) {
+                    if ( (LA19_0=='E'||LA19_0=='e') ) {
                         alt19=1;
                     }
                     switch (alt19) {

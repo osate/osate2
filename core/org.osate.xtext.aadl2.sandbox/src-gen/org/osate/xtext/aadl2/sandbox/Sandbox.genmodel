@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.xtext.aadl2.sandbox/src-gen"
+    editDirectory="/org.osate.xtext.aadl2.sandbox.edit/src" editorDirectory="/org.osate.xtext.aadl2.sandbox.editor/src"
+    modelPluginID="org.osate.xtext.aadl2.sandbox" forceOverwrite="true" modelName="Sandbox"
+    updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.xtext.aadl2.sandbox.edit"
+    editorPluginID="org.osate.xtext.aadl2.sandbox.editor" usedGenPackages="platform:/resource/org.osate.aadl2/ecoremodel/aadl2.genmodel#//aadl2">
+  <genPackages prefix="Sandbox" basePackage="org.osate.xtext.aadl2.sandbox" resource="XML"
+      disposableProviderFactory="true" ecorePackage="platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#/">
+    <genClasses ecoreClass="platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//Sandbox">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//Sandbox/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//Sandbox/systemInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemConfiguration">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemConfiguration/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemConfiguration/systemImplementation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemConfiguration/systemInstanceProxy"/>
+    </genClasses>
+    <genClasses ecoreClass="platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemInstanceProxy">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference platform:/resource/org.osate.xtext.aadl2.sandbox/src-gen/org/osate/xtext/aadl2/sandbox/Sandbox.ecore#//SystemInstanceProxy/instanceRef"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
