@@ -278,8 +278,7 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Model returns aadl2::ModelUnit:
-	//	AadlPackage | //| SystemInstance
-	//	PropertySet;
+	//	AadlPackage | PropertySet;
 	public Aadl2GrammarAccess.ModelElements getModelAccess() {
 		return gaAadl2.getModelAccess();
 	}
@@ -288,9 +287,6 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelAccess().getRule();
 	}
 
-	////SystemInstance returns instance::SystemInstance:
-	////	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
-	////;
 	//AadlPackage returns aadl2::AadlPackage:
 	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
 	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+)? //| (noProperties?='none' ';')
@@ -415,8 +411,8 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	//ComponentType returns aadl2::ComponentType:
 	//	(AbstractType | SystemType | VirtualProcessorType | SubprogramGroupType | DataType | BusType | VirtualBusType |
 	//	MemoryType | ProcessorType | ProcessType | ThreadGroupType | ThreadType | DeviceType | SubprogramType) ("flows"
-	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+)?
-	//	("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
+	//	(ownedFlowSpecification+=FlowSpecification+ | noFlows?="none" ";"))? ("requires" "modes" ownedMode+=RequiresMode+ |
+	//	"modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
 	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID ";";
 	public Aadl2GrammarAccess.ComponentTypeElements getComponentTypeAccess() {
@@ -2402,7 +2398,7 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		return getModeRefAccess().getRule();
 	}
 
-	//AnnexLibrary returns aadl2::AnnexLibrary:
+	//AnnexLibrary returns aadl2::AnnexLibrary: //	 ErrorModelLibrary | 
 	//	DefaultAnnexLibrary;
 	public Aadl2GrammarAccess.AnnexLibraryElements getAnnexLibraryAccess() {
 		return gaAadl2.getAnnexLibraryAccess();
@@ -2422,7 +2418,7 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		return getDefaultAnnexLibraryAccess().getRule();
 	}
 
-	//AnnexSubclause returns aadl2::AnnexSubclause:
+	//AnnexSubclause returns aadl2::AnnexSubclause: //	 ErrorModelSubclause | 
 	//	DefaultAnnexSubclause;
 	public Aadl2GrammarAccess.AnnexSubclauseElements getAnnexSubclauseAccess() {
 		return gaAadl2.getAnnexSubclauseAccess();
@@ -2448,6 +2444,9 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 		return gaAadl2.getANNEXTEXTRule();
 	} 
 
+	////terminal ANNEXTEXT	: 
+	////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+	////		; 
 	//// **************
 	//// Properties
 	//PropertySet returns aadl2::PropertySet:
@@ -3378,13 +3377,13 @@ public class SandboxGrammarAccess extends AbstractGrammarElementFinder {
 	////;
 	////terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 	//terminal fragment EXPONENT:
-	//	"e" ("+" | "-")? DIGIT+;
+	//	("e" | "E") ("+" | "-")? DIGIT+;
 	public TerminalRule getEXPONENTRule() {
 		return gaAadl2.getEXPONENTRule();
 	} 
 
 	//terminal fragment INT_EXPONENT:
-	//	"e" "+"? DIGIT+;
+	//	("e" | "E") "+"? DIGIT+;
 	public TerminalRule getINT_EXPONENTRule() {
 		return gaAadl2.getINT_EXPONENTRule();
 	} 

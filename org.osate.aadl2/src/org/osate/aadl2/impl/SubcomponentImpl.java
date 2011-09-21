@@ -74,6 +74,7 @@ import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.AadlUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -770,7 +771,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public ComponentImplementation getComponentImplementation() {
 		ComponentClassifier cc = getClassifier();
-		if (cc == null)
+		if (AadlUtil.isNull(cc))
 			return null;
 		if (cc instanceof ComponentImplementation)
 			return (ComponentImplementation) cc;
@@ -784,10 +785,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public ComponentType getComponentType() {
 		ComponentClassifier cc = getClassifier();
-		if (cc == null)
+		if (AadlUtil.isNull(cc))
 			return null;
-		if (cc instanceof ComponentImplementation)
-			return ((ComponentImplementation) cc).getType();
+		if (cc instanceof ComponentImplementation){
+			ComponentType ct = ((ComponentImplementation) cc).getType();
+			return AadlUtil.isNull(ct)?null:ct;
+		}
 		if (cc instanceof ComponentType)
 			return (ComponentType) cc;
 		return null;
@@ -801,7 +804,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public EList<Subcomponent> getAllSubcomponentRefinements() {
 		BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		Subcomponent more = this;
-		while (more != null) {
+		while (!AadlUtil.isNull(more) ) {
 			returnlist.add(more);
 			more = more.getRefined();
 		}
@@ -812,7 +815,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentClassifier getAllClassifier() {
 		ComponentClassifier cc = getClassifier();
 		Subcomponent sub = this;
-		while (cc == null && sub.getRefined() != null) {
+		while (AadlUtil.isNull(cc) && !AadlUtil.isNull(sub.getRefined())) {
 			sub = sub.getRefined();
 			cc = sub.getClassifier();
 		}

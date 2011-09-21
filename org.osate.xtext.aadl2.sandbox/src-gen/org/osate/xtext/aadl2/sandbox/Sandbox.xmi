@@ -91,9 +91,6 @@
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
       <ePackage href="http://aadl.info/AADL/2.0#/"/>
     </metamodelDeclarations>
-    <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="instance">
-      <ePackage href="http://aadl.info/AADL/2.0/instance#/"/>
-    </metamodelDeclarations>
     <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="ecore">
       <ePackage href="http://www.eclipse.org/emf/2002/Ecore#/"/>
     </metamodelDeclarations>
@@ -451,29 +448,31 @@
             </elements>
           </elements>
         </elements>
-        <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Keyword" value="requires"/>
-          <elements xsi:type="xtext:Keyword" value="modes"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedMode" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.135"/>
-          </elements>
-        </elements>
-        <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Keyword" value="modes"/>
-          <elements xsi:type="xtext:Alternatives">
-            <elements xsi:type="xtext:Alternatives" cardinality="+">
-              <elements xsi:type="xtext:Assignment" feature="ownedMode" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.134"/>
-              </elements>
-              <elements xsi:type="xtext:Assignment" feature="ownedModeTransition" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.136"/>
-              </elements>
+        <elements xsi:type="xtext:Alternatives" cardinality="?">
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="requires"/>
+            <elements xsi:type="xtext:Keyword" value="modes"/>
+            <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedMode" operator="+=">
+              <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.135"/>
             </elements>
-            <elements xsi:type="xtext:Group">
-              <elements xsi:type="xtext:Assignment" feature="noModes" operator="?=">
-                <terminal xsi:type="xtext:Keyword" value="none"/>
+          </elements>
+          <elements xsi:type="xtext:Group">
+            <elements xsi:type="xtext:Keyword" value="modes"/>
+            <elements xsi:type="xtext:Alternatives">
+              <elements xsi:type="xtext:Alternatives" cardinality="+">
+                <elements xsi:type="xtext:Assignment" feature="ownedMode" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.134"/>
+                </elements>
+                <elements xsi:type="xtext:Assignment" feature="ownedModeTransition" operator="+=">
+                  <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.136"/>
+                </elements>
               </elements>
-              <elements xsi:type="xtext:Keyword" value=";"/>
+              <elements xsi:type="xtext:Group">
+                <elements xsi:type="xtext:Assignment" feature="noModes" operator="?=">
+                  <terminal xsi:type="xtext:Keyword" value="none"/>
+                </elements>
+                <elements xsi:type="xtext:Keyword" value=";"/>
+              </elements>
             </elements>
           </elements>
         </elements>
@@ -6829,7 +6828,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:TerminalRule" name="ANNEXTEXT">
-      <type metamodel="/1/@metamodelDeclarations.2">
+      <type metamodel="/1/@metamodelDeclarations.1">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -7681,7 +7680,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="CoreKeyWord">
-      <type metamodel="/1/@metamodelDeclarations.2">
+      <type metamodel="/1/@metamodelDeclarations.1">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
@@ -7715,7 +7714,7 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="PNAME">
-      <type metamodel="/1/@metamodelDeclarations.2">
+      <type metamodel="/1/@metamodelDeclarations.1">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
@@ -7727,13 +7726,13 @@
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="INAME">
-      <type metamodel="/1/@metamodelDeclarations.2">
+      <type metamodel="/1/@metamodelDeclarations.1">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/2/@rules.55"/>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="REFINEDNAME">
-      <type metamodel="/1/@metamodelDeclarations.2">
+      <type metamodel="/1/@metamodelDeclarations.1">
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:RuleCall" rule="/2/@rules.55"/>
@@ -8504,7 +8503,10 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="e"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Keyword" value="e"/>
+          <elements xsi:type="xtext:Keyword" value="E"/>
+        </elements>
         <elements xsi:type="xtext:Alternatives" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="+"/>
           <elements xsi:type="xtext:Keyword" value="-"/>
@@ -8517,7 +8519,10 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="e"/>
+        <elements xsi:type="xtext:Alternatives">
+          <elements xsi:type="xtext:Keyword" value="e"/>
+          <elements xsi:type="xtext:Keyword" value="E"/>
+        </elements>
         <elements xsi:type="xtext:Keyword" cardinality="?" value="+"/>
         <elements xsi:type="xtext:RuleCall" cardinality="+" rule="/2/@rules.48"/>
       </alternatives>

@@ -255,10 +255,10 @@ INTVALUE returns aadl2::Integer:
 //terminal INT returns ecore::EInt: (DIGIT)+('_' (DIGIT)+)*;
 
 terminal fragment
-EXPONENT  :  ('e') ('+'|'-')? ( DIGIT )+  ;
+EXPONENT  :  ('e'|'E') ('+'|'-')? ( DIGIT )+  ;
 
 terminal fragment
-INT_EXPONENT :  ('e') ('+')? ( DIGIT )+ ;
+INT_EXPONENT :  ('e'|'E') ('+')? ( DIGIT )+ ;
 
 
 terminal REAL_LIT : 	

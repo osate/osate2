@@ -6522,11 +6522,19 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:24: ( 'e' ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:26: 'e' ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
-            match('e'); 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:30: ( '+' | '-' )?
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:36: ( '+' | '-' )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -6552,7 +6560,7 @@ public class InternalAadl2Lexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:41: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:47: ( RULE_DIGIT )+
             int cnt6=0;
             loop6:
             do {
@@ -6566,7 +6574,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:41: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:221:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6594,11 +6602,19 @@ public class InternalAadl2Lexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:28: ( 'e' ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:30: 'e' ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
-            match('e'); 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:34: ( '+' )?
+            if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:40: ( '+' )?
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -6607,7 +6623,7 @@ public class InternalAadl2Lexer extends Lexer {
             }
             switch (alt7) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:34: '+'
+                    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:40: '+'
                     {
                     match('+'); 
 
@@ -6616,7 +6632,7 @@ public class InternalAadl2Lexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:39: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:45: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -6630,7 +6646,7 @@ public class InternalAadl2Lexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:39: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2/src-gen/org/osate/xtext/aadl2/parser/antlr/lexer/InternalAadl2Lexer.g:223:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -6838,7 +6854,7 @@ public class InternalAadl2Lexer extends Lexer {
             int alt15=2;
             int LA15_0 = input.LA(1);
 
-            if ( (LA15_0=='e') ) {
+            if ( (LA15_0=='E'||LA15_0=='e') ) {
                 alt15=1;
             }
             switch (alt15) {
@@ -6976,7 +6992,7 @@ public class InternalAadl2Lexer extends Lexer {
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
-                    if ( (LA19_0=='e') ) {
+                    if ( (LA19_0=='E'||LA19_0=='e') ) {
                         alt19=1;
                     }
                     switch (alt19) {
@@ -7000,7 +7016,7 @@ public class InternalAadl2Lexer extends Lexer {
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
-                    if ( (LA20_0=='e') ) {
+                    if ( (LA20_0=='E'||LA20_0=='e') ) {
                         alt20=1;
                     }
                     switch (alt20) {
