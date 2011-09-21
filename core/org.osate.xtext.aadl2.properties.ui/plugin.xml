@@ -138,14 +138,6 @@
     </extension>
 
 
-
-   <extension
-         point="org.eclipse.xtext.builder.participant">
-      <participant
-            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.builder.IXtextBuilderParticipant">
-      </participant>
-   </extension>
-
 	<!-- Quick Outline -->
 	<extension
 		point="org.eclipse.ui.handlers">
