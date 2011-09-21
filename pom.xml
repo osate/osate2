@@ -92,7 +92,7 @@
               <ws>win32</ws>
               <arch>x86_64</arch>
             </environment>
-<!-- macosx build fails on linux with tycho 0.12.0 -->
+<!-- macosx build succeeds but does not run 
             <environment>
               <os>macosx</os>
               <ws>cocoa</ws>
@@ -103,7 +103,7 @@
               <ws>cocoa</ws>
               <arch>x86_64</arch>
             </environment>
-<!-- -->
+-->
           </environments>
         </configuration>
       </plugin>
