@@ -20,7 +20,10 @@
    <windowImages i16="/org.osate.branding/icons/16aadl.jpg" i32="/org.osate.branding/icons/32aadl.jpg"/>
 
    <splash
-      location="org.osate.branding" />
+      location="org.osate.branding"
+      startupProgressRect="5,275,445,15"
+      startupMessageRect="7,252,445,20"
+      startupForegroundColor="000000" />
    <launcher name="osate">
       <solaris/>
       <win useIco="false">
@@ -34,31 +37,6 @@
 
 
    <plugins>
-      <plugin id="org.eclipse.ant.core"/>
-      <plugin id="org.eclipse.core.commands"/>
-      <plugin id="org.eclipse.core.expressions"/>
-      <plugin id="org.eclipse.core.resources"/>
-      <plugin id="org.eclipse.core.resources.compatibility" fragment=""/>
-      <plugin id="org.eclipse.core.resources.win32" fragment=""/>
-      <plugin id="org.eclipse.core.runtime"/>
-      <plugin id="org.eclipse.core.runtime.compatibility"/>
-      <plugin id="org.eclipse.core.variables"/>
-      <plugin id="org.eclipse.help"/>
-      <plugin id="org.eclipse.jface"/>
-      <plugin id="org.eclipse.osgi"/>
-      <plugin id="org.eclipse.swt"/>
-      <plugin id="org.eclipse.swt.win32.win32.x86" fragment=""/>
-      <plugin id="org.eclipse.ui"/>
-      <plugin id="org.eclipse.ui.forms"/>
-      <plugin id="org.eclipse.ui.ide"/>
-      <plugin id="org.eclipse.ui.views"/>
-      <plugin id="org.eclipse.ui.win32" fragment=""/>
-      <plugin id="org.eclipse.ui.workbench"/>
-      <plugin id="org.eclipse.update.configurator"/>
-      <plugin id="org.eclipse.update.core"/>
-      <plugin id="org.eclipse.update.core.win32" fragment=""/>
-      <plugin id="org.eclipse.update.ui"/>
-      <plugin id="org.osate.branding"/>
    </plugins>
 
    <features>

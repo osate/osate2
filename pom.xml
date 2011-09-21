@@ -8,24 +8,18 @@
   <packaging>pom</packaging>
 
   <properties>
-    <tycho-version>0.12.0</tycho-version>
+    <tycho-version>0.13.0-SNAPSHOT</tycho-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-  <!-- for tycho snapshot but doesn't work
+<!-- for tycho snapshot -->
   <pluginRepositories>
     <pluginRepository>
       <id>tycho</id>
-      <url>http://repository.sonatype.org/content/repositories/snapshots/</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
+      <url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
     </pluginRepository>
   </pluginRepositories>
-  -->
+<!-- -->
 
   <modules>
     <module>org.osate.aadl2</module>
@@ -98,13 +92,18 @@
               <ws>win32</ws>
               <arch>x86_64</arch>
             </environment>
-<!-- macosx build fails on linux with tycho 0.12.0
+<!-- macosx build fails on linux with tycho 0.12.0 -->
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86</arch>
+            </environment>
             <environment>
               <os>macosx</os>
               <ws>cocoa</ws>
               <arch>x86_64</arch>
             </environment>
--->
+<!-- -->
           </environments>
         </configuration>
       </plugin>
