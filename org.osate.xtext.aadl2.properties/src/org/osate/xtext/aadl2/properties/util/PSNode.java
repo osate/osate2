@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.util;
+package org.osate.xtext.aadl2.properties.util;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.BidiTreeIterable;
