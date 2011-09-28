@@ -304,7 +304,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
 			// look for enumeration literal
-			return findEnumLiteral(context, reference, name);
+			return findEnumLiteralAsList(context, reference, name);
 
 		} else if (Aadl2Package.eINSTANCE.getModeTransition() == requiredType) {
 			// referenced by in modes
@@ -391,12 +391,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		} else {
 			
- 			List<EObject> res = super.getLinkedObjects(context, reference, node);
- 			return res;
+// 			List<EObject> res = super.getLinkedObjects(context, reference, node);
+// 			return res;
 //			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService: "+reference.getName()+" to "+requiredType.getName());
 		}
 
-//		return Collections.emptyList();
+		return Collections.emptyList();
 	}
 	
 

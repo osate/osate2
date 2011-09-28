@@ -179,7 +179,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getProperty() == requiredType) {
 			// look for property definition in property set
-			return findPropertyDefinition(context, reference, name);
+			return findPropertyDefinitionAsList(context, reference, name);
 
 
 		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
@@ -187,11 +187,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (context instanceof NamedValue){
 				List<EObject> res = findPropertyConstant(context, reference, name);
 				if (res.isEmpty()){
-					res = findPropertyDefinition(context, reference, name);
+					res = findPropertyDefinitionAsList(context, reference, name);
 				}
 				if (res.isEmpty() && name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
-					res = findEnumLiteral(context, reference, name);
+					res = findEnumLiteralAsList(context, reference, name);
 					if (res.isEmpty())
 						res = findUnitLiteralAsList(context, reference, name);
 				}
@@ -244,7 +244,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (context instanceof ModeBinding && Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()==reference ){
 				return Collections.singletonList((EObject) searchResult);
 			}
-			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
 			// containment path element
@@ -278,7 +277,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					searchResult = res;
 				}
 			}
-			return Collections.<EObject> emptyList();
 		} else {
 			Activator.logErrorMessage("Unhandled reference in LinkingService: "+reference.getName()+" to "+requiredType.getName());
 		}
@@ -550,7 +548,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	protected List<EObject> findPropertyDefinition(EObject context,
+	protected List<EObject> findPropertyDefinitionAsList(EObject context,
 			EReference reference, String name) {
 		// look for property definition in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -686,12 +684,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
 		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
-		List<EObject> el = findEnumLiteral(nv, reference, name);
+		List<EObject> el = findEnumLiteralAsList(nv, reference, name);
 		if (!el.isEmpty()&&el.get(0) instanceof EnumerationLiteral) return (EnumerationLiteral)el.get(0);
 		return null;
 	}
 
-	protected List<EObject> findEnumLiteral(EObject context,
+	protected List<EObject> findEnumLiteralAsList(EObject context,
 			EReference reference, String name) {
 		// look for enumeration literal
 		if (context instanceof NamedValue) {

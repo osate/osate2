@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.osate.xtext.aadl2.parsing.AnnexParser;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 
 /**
@@ -23,6 +24,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameProvider.class;
 	}
 
+	@Override
+	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+		return AnnexParser.class;
+	}
 
 	
 //	//	@Override

@@ -77,7 +77,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.framework.Bundle;
 
 

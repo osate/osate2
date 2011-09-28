@@ -31,14 +31,11 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
-public final class ThreadProperties {
-	private ThreadProperties() {
+public final class ModelingProperties {
+	private ModelingProperties() {
 	}
 
-	public static final String _NAME = "Thread_Properties";
-
-	public static final String DISPATCH_PROTOCOL = "Dispatch_Protocol";
-	public static final String PRIORITY = "Priority";
+	public static final String _NAME = "Modeling_Properties";
 }

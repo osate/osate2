@@ -37,7 +37,7 @@
  * @version $Id: AadlProject.java,v 1.3 2009-10-09 18:49:33 lwrage Exp $
  */
 
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
 /**
  * @author aarong

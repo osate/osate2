@@ -31,11 +31,11 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
-public final class ModelingProperties {
-	private ModelingProperties() {
+public final class ProgrammingProperties {
+	private ProgrammingProperties() {
 	}
 
-	public static final String _NAME = "Modeling_Properties";
+	public static final String _NAME = "Programming_Properties";
 }

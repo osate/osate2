@@ -31,19 +31,15 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
-public final class CommunicationProperties {
-	private CommunicationProperties() {
+public final class TimingProperties {
+	private TimingProperties() {
 	}
 
-	public static final String _NAME = "Communication_Properties";
-	public static final String TRANSMISSION_TIME = "Transmission_Time";
-	public static final String LATENCY = "Latency";
-	public static final String ACTUAL_LATENCY = "Actual_Latency";
-	public static final String QUEUE_SIZE = "Queue_Size";
-	public static final String REQUIRED_CONNECTION = "Required_Connection";
-	public static final String TIMING = "Timing";
-	public static final String DELAYED = "delayed";
-	public static final String IMMEDIATE = "immediate";
+	public static final String _NAME = "Timing_Properties";
+
+	public static final String PERIOD = "Period";
+	public static final String DEADLINE = "Deadline";
+	public static final String COMPUTE_EXECUTION_TIME = "Compute_Execution_Time";
 }
