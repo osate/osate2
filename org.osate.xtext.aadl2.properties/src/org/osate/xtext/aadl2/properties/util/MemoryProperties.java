@@ -31,15 +31,15 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
-public final class TimingProperties {
-	private TimingProperties() {
+public final class MemoryProperties {
+	private MemoryProperties() {
 	}
 
-	public static final String _NAME = "Timing_Properties";
-
-	public static final String PERIOD = "Period";
-	public static final String DEADLINE = "Deadline";
-	public static final String COMPUTE_EXECUTION_TIME = "Compute_Execution_Time";
+	public static final String _NAME = "Memory_Properties";
+	public static final String SOURCE_DATA_SIZE = "Source_Data_Size";
+	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
+	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";
+	public static final String BYTE_COUNT = "Byte_Count";
 }

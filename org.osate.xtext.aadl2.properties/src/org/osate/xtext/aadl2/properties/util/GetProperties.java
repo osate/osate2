@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.properties;
+package org.osate.xtext.aadl2.properties.util;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -65,7 +65,6 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.util.ConnectionBindingUtil;
 
 
 public class GetProperties {

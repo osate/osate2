@@ -17,7 +17,8 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.0.0";resolution:=o
  org.eclipse.xtext.util;bundle-version="2.0.0",
  org.antlr.runtime;bundle-version="3.2.0",
  org.osate.aadl2.modelsupport,
- org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional
+ org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,
+ org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.linking,
@@ -25,13 +26,8 @@ Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.parser.antlr,
  org.osate.xtext.aadl2.parser.antlr.internal,
  org.osate.xtext.aadl2.parser.antlr.lexer,
- org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.scoping,
  org.osate.xtext.aadl2.services,
  org.osate.xtext.aadl2.util,
  org.osate.xtext.aadl2.validation,
  org.osate.xtext.aadl2.valueconversion
-Import-Package: org.apache.log4j,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib,
- org.osate.aadl2.modelsupport

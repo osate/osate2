@@ -37,7 +37,7 @@
  *
  * @version $Id: ConnectionBindingUtil.java,v 1.3 2010-05-07 20:01:18 lwrage Exp $
  */
-package org.osate.xtext.aadl2.util;
+package org.osate.xtext.aadl2.properties.util;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -51,7 +51,6 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.xtext.aadl2.properties.GetProperties;
 
 
 /**
