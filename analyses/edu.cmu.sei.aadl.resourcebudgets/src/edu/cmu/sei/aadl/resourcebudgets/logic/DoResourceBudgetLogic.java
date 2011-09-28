@@ -47,7 +47,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
 	private final StringBuffer reportMessage;

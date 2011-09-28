@@ -52,7 +52,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsModalException;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf

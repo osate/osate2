@@ -60,9 +60,9 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
-import org.osate.xtext.aadl2.properties.CommunicationProperties;
-import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osgi.framework.Bundle;
 
 import edu.cmu.sei.aadl.architecture.ArchitecturePlugin;

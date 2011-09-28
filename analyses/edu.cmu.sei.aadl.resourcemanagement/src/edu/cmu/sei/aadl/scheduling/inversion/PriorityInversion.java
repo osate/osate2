@@ -19,8 +19,8 @@ import org.osate.aadl2.modelsupport.QuickSort;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @author phf

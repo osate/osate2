@@ -62,7 +62,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoPowerAnalysisLogic {
 	private static final ComponentCategory category = ComponentCategory.BUS;

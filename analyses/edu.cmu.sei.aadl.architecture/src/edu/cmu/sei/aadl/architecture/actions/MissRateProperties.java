@@ -42,7 +42,7 @@ import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.SEI;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 
 

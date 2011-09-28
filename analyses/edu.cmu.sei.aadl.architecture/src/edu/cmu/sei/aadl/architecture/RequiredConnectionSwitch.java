@@ -72,8 +72,8 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.util.Aadl2Switch;
-import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 /**
  * @author phf This class provides for checking whether the required_connection

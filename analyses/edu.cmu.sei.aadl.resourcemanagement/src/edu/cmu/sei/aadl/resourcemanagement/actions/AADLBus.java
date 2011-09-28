@@ -4,8 +4,8 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 import EAnalysis.BinPacking.BandwidthComparator;
 import EAnalysis.BinPacking.CapacityComparator;

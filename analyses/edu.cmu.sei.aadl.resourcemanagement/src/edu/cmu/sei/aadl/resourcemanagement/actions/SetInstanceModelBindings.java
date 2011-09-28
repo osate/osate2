@@ -14,7 +14,7 @@ import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin;
 

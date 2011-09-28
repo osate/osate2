@@ -23,8 +23,8 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class FlowLatencyUtil {
 	/**

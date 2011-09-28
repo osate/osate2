@@ -22,7 +22,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.osate.aadl2,
  org.osate.aadl2.modelsupport,
- org.osate.xtext.aadl2;bundle-version="1.0.0",
- org.osate.ui;bundle-version="1.0.0"
+ org.osate.ui;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Eclipse-LazyStart: true
 Import-Package: edu.cmu.sei.aadl.resourcemanagement.actions

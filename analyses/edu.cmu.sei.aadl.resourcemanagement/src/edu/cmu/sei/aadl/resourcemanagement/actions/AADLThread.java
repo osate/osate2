@@ -4,7 +4,7 @@ package edu.cmu.sei.aadl.resourcemanagement.actions;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import EAnalysis.BinPacking.SoftwareNode;
 

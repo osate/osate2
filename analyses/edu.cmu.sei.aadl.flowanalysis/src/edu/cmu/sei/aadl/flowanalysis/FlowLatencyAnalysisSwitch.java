@@ -72,8 +72,8 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.parsesupport.AObject;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
-import org.osate.xtext.aadl2.properties.AadlProject;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @author phf

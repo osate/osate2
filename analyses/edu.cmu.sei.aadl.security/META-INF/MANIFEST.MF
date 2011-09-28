@@ -17,7 +17,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.aadl2,
  org.osate.ui,
  org.osate.aadl2.modelsupport,
- org.osate.xtext.aadl2;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.contribution.sei.names
 

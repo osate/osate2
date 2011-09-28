@@ -82,8 +82,8 @@ import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
-import org.osate.xtext.aadl2.properties.GetProperties;
-import org.osate.xtext.aadl2.properties.PropertyUtils;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osgi.framework.Bundle;
 
 import EAnalysis.BinPacking.AssignmentResult;

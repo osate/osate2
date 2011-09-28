@@ -55,7 +55,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.QuickSort;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class RuntimeProcessWalker  {
   //to record the invariants  visisted and put back to the system tree.

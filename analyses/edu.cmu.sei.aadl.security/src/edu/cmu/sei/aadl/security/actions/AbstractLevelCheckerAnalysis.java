@@ -38,7 +38,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AbstractAnalysis;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 import edu.cmu.sei.aadl.security.ComponentLevelChecker;
 import edu.cmu.sei.aadl.security.ConnectionLevelChecker;
