@@ -11,6 +11,8 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -36,6 +38,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Port;
@@ -47,20 +50,42 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.modelsupport.util.AnnexLanguageServices;
+import org.osate.aadl2.util.AadlUtil;
+import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl;
+import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
+//	private  ErrorModelLanguageServices emLS  = new ErrorModelLanguageServices();
+	private EMLinkingService emLS = new EMLinkingService();
 
-
+	public NamedElement getContainingAnnex(EObject obj){
+		while (obj != null ){
+			if (obj instanceof AnnexLibrary || obj instanceof AnnexSubclause)
+				return (NamedElement)obj;
+			obj = obj.eContainer();
+		}
+		return null;
+	}
+	
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
+		NamedElement annex = getContainingAnnex(context);
+		if (annex != null){
+			String annexName = annex.getName();
+			if (annexName.equalsIgnoreCase("error_model")){
+				return emLS.getLinkedObjects(context, reference, node);
+						//emLS.getLinkingService().getLinkedObjects(context, reference, node);
+			}
+		}
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
 		
-		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
-		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
 		final String name = getCrossRefNodeAsString(node);
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
@@ -253,6 +278,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			Context flowContext = fs.getContext();
 			if (flowContext == null){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
+				if (AadlUtil.isNull(cc)) return Collections.<EObject> emptyList();;
 				EObject searchResult = cc.findNamedElement(name);
 				if (searchResult instanceof FlowElement){
 					return Collections.singletonList((EObject) searchResult);
@@ -260,6 +286,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
+					if (AadlUtil.isNull(cc)) return Collections.<EObject> emptyList();;
 					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
 						return Collections.singletonList( searchResult);
