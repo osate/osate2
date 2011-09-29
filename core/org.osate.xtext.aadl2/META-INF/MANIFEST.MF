@@ -18,7 +18,10 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.0.0";resolution:=o
  org.antlr.runtime;bundle-version="3.2.0",
  org.osate.aadl2.modelsupport,
  org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,
- org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0",
+ org.osate.annexsupport;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.errormodel.ui;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.linking,
