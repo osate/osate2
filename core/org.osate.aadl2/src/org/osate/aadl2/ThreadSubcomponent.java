@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ThreadSubcomponent extends Subcomponent, org.osate.aadl2.Thread {
+public interface ThreadSubcomponent extends Subcomponent,
+		org.osate.aadl2.Thread {
 
 	/**
 	 * Returns the value of the '<em><b>Thread Subcomponent Type</b></em>' reference.

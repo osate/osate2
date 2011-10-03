@@ -57,7 +57,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface VirtualProcessorType extends ComponentType, VirtualProcessorClassifier {
+public interface VirtualProcessorType extends ComponentType,
+		VirtualProcessorClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Data Port</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.DataPort}.

@@ -58,7 +58,8 @@ import org.osate.aadl2.FeatureClassifier;
  *
  * @generated
  */
-public class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
+public class AbstractFeatureImpl extends DirectedFeatureImpl implements
+		AbstractFeature {
 	/**
 	 * The cached value of the '{@link #getFeatureClassifier() <em>Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -95,13 +96,15 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 */
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
-		if (featureClassifier != null && ((EObject) featureClassifier).eIsProxy()) {
+		if (featureClassifier != null
+				&& ((EObject) featureClassifier).eIsProxy()) {
 			InternalEObject oldFeatureClassifier = (InternalEObject) featureClassifier;
 			featureClassifier = (FeatureClassifier) eResolveProxy(oldFeatureClassifier);
 			if (featureClassifier != oldFeatureClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER, oldFeatureClassifier, featureClassifier));
+							Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER,
+							oldFeatureClassifier, featureClassifier));
 			}
 		}
 		return featureClassifier;
@@ -126,7 +129,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 		FeatureClassifier oldFeatureClassifier = featureClassifier;
 		featureClassifier = newFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER,
 					oldFeatureClassifier, featureClassifier));
 	}
 

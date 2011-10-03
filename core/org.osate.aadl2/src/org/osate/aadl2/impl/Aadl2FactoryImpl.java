@@ -40,6 +40,173 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.impl.EFactoryImpl;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractPrototype;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.AccessCategory;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusPrototype;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.ConnectionKind;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DevicePrototype;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.ElementName;
+import org.osate.aadl2.ElementNameKind;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.GlobalNamespace;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ListType;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.OperationKind;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.PortCategory;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessPrototype;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorCall;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPort;
+import org.osate.aadl2.ProcessorPrototype;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordField;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemPrototype;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupPrototype;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadPrototype;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusPrototype;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorPrototype;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.*;
 
 /**
@@ -399,7 +566,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.PROCESSOR_SUBPROGRAM:
 			return (EObject) createProcessorSubprogram();
 		default:
-			throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The class '" + eClass.getName()
+					+ "' is not a valid classifier");
 		}
 	}
 
@@ -438,7 +606,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.REAL:
 			return createRealFromString(eDataType, initialValue);
 		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The datatype '"
+					+ eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -477,7 +646,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 		case Aadl2Package.REAL:
 			return convertRealToString(eDataType, instanceValue);
 		default:
-			throw new IllegalArgumentException("The datatype '" + eDataType.getName() + "' is not a valid classifier");
+			throw new IllegalArgumentException("The datatype '"
+					+ eDataType.getName() + "' is not a valid classifier");
 		}
 	}
 
@@ -2046,11 +2216,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public DirectionType createDirectionTypeFromString(EDataType eDataType, String initialValue) {
+	public DirectionType createDirectionTypeFromString(EDataType eDataType,
+			String initialValue) {
 		DirectionType result = DirectionType.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2059,7 +2231,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertDirectionTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertDirectionTypeToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2068,11 +2241,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PortCategory createPortCategoryFromString(EDataType eDataType, String initialValue) {
+	public PortCategory createPortCategoryFromString(EDataType eDataType,
+			String initialValue) {
 		PortCategory result = PortCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2081,7 +2256,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertPortCategoryToString(EDataType eDataType, Object instanceValue) {
+	public String convertPortCategoryToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2090,11 +2266,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FlowKind createFlowKindFromString(EDataType eDataType, String initialValue) {
+	public FlowKind createFlowKindFromString(EDataType eDataType,
+			String initialValue) {
 		FlowKind result = FlowKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2103,7 +2281,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertFlowKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertFlowKindToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2112,11 +2291,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AccessType createAccessTypeFromString(EDataType eDataType, String initialValue) {
+	public AccessType createAccessTypeFromString(EDataType eDataType,
+			String initialValue) {
 		AccessType result = AccessType.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2125,7 +2306,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertAccessTypeToString(EDataType eDataType, Object instanceValue) {
+	public String convertAccessTypeToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2134,11 +2316,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public AccessCategory createAccessCategoryFromString(EDataType eDataType, String initialValue) {
+	public AccessCategory createAccessCategoryFromString(EDataType eDataType,
+			String initialValue) {
 		AccessCategory result = AccessCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2147,7 +2331,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertAccessCategoryToString(EDataType eDataType, Object instanceValue) {
+	public String convertAccessCategoryToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2156,11 +2341,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ComponentCategory createComponentCategoryFromString(EDataType eDataType, String initialValue) {
+	public ComponentCategory createComponentCategoryFromString(
+			EDataType eDataType, String initialValue) {
 		ComponentCategory result = ComponentCategory.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2169,7 +2356,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertComponentCategoryToString(EDataType eDataType, Object instanceValue) {
+	public String convertComponentCategoryToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2178,11 +2366,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ConnectionKind createConnectionKindFromString(EDataType eDataType, String initialValue) {
+	public ConnectionKind createConnectionKindFromString(EDataType eDataType,
+			String initialValue) {
 		ConnectionKind result = ConnectionKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2191,7 +2381,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertConnectionKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertConnectionKindToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2200,11 +2391,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public ElementNameKind createElementNameKindFromString(EDataType eDataType, String initialValue) {
+	public ElementNameKind createElementNameKindFromString(EDataType eDataType,
+			String initialValue) {
 		ElementNameKind result = ElementNameKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2213,7 +2406,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertElementNameKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertElementNameKindToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2222,11 +2416,13 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public OperationKind createOperationKindFromString(EDataType eDataType, String initialValue) {
+	public OperationKind createOperationKindFromString(EDataType eDataType,
+			String initialValue) {
 		OperationKind result = OperationKind.get(initialValue);
 		if (result == null)
-			throw new IllegalArgumentException("The value '" + initialValue + "' is not a valid enumerator of '"
-					+ eDataType.getName() + "'");
+			throw new IllegalArgumentException("The value '" + initialValue
+					+ "' is not a valid enumerator of '" + eDataType.getName()
+					+ "'");
 		return result;
 	}
 
@@ -2235,7 +2431,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertOperationKindToString(EDataType eDataType, Object instanceValue) {
+	public String convertOperationKindToString(EDataType eDataType,
+			Object instanceValue) {
 		return instanceValue == null ? null : instanceValue.toString();
 	}
 
@@ -2244,7 +2441,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String createStringFromString(EDataType eDataType, String initialValue) {
+	public String createStringFromString(EDataType eDataType,
+			String initialValue) {
 		return (String) super.createFromString(eDataType, initialValue);
 	}
 
@@ -2253,7 +2451,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertStringToString(EDataType eDataType, Object instanceValue) {
+	public String convertStringToString(EDataType eDataType,
+			Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
@@ -2262,7 +2461,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public Boolean createBooleanFromString(EDataType eDataType, String initialValue) {
+	public Boolean createBooleanFromString(EDataType eDataType,
+			String initialValue) {
 		return (Boolean) super.createFromString(eDataType, initialValue);
 	}
 
@@ -2271,7 +2471,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertBooleanToString(EDataType eDataType, Object instanceValue) {
+	public String convertBooleanToString(EDataType eDataType,
+			Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 
@@ -2289,7 +2490,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String convertIntegerToString(EDataType eDataType, Object instanceValue) {
+	public String convertIntegerToString(EDataType eDataType,
+			Object instanceValue) {
 		return super.convertToString(eDataType, instanceValue);
 	}
 

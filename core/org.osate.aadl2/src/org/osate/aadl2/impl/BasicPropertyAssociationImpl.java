@@ -60,7 +60,8 @@ import org.osate.aadl2.PropertyExpression;
  *
  * @generated
  */
-public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPropertyAssociation {
+public class BasicPropertyAssociationImpl extends ElementImpl implements
+		BasicPropertyAssociation {
 	/**
 	 * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -123,7 +124,8 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 			if (property != oldProperty) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY, oldProperty, property));
+							Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY,
+							oldProperty, property));
 			}
 		}
 		return property;
@@ -147,7 +149,8 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 		BasicProperty oldProperty = property;
 		property = newProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BASIC_PROPERTY_ASSOCIATION__PROPERTY,
 					oldProperty, property));
 	}
 
@@ -165,12 +168,15 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedValue(PropertyExpression newOwnedValue, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedValue(
+			PropertyExpression newOwnedValue, NotificationChain msgs) {
 		PropertyExpression oldOwnedValue = ownedValue;
 		ownedValue = newOwnedValue;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, oldOwnedValue, newOwnedValue);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
+					oldOwnedValue, newOwnedValue);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -188,16 +194,25 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
 			if (ownedValue != null)
-				msgs = ((InternalEObject) ownedValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) ownedValue)
+						.eInverseRemove(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
+								null, msgs);
 			if (newOwnedValue != null)
-				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE, null, msgs);
+				msgs = ((InternalEObject) newOwnedValue)
+						.eInverseAdd(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
+								null, msgs);
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE,
 					newOwnedValue, newOwnedValue));
 	}
 
@@ -207,7 +222,8 @@ public class BasicPropertyAssociationImpl extends ElementImpl implements BasicPr
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY_ASSOCIATION__OWNED_VALUE:
 			return basicSetOwnedValue(null, msgs);

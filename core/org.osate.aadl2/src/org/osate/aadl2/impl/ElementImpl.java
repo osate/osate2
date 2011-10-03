@@ -113,17 +113,21 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.ELEMENT__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(
+								Element.class, this,
+								Aadl2Package.ELEMENT__OWNED_ELEMENT,
+								OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.ELEMENT__OWNED_ELEMENT,
-				OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+				Aadl2Package.ELEMENT__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -143,8 +147,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 */
 	public EList<Comment> getOwnedComments() {
 		if (ownedComments == null) {
-			ownedComments = new EObjectContainmentEList<Comment>(Comment.class, this,
-					Aadl2Package.ELEMENT__OWNED_COMMENT);
+			ownedComments = new EObjectContainmentEList<Comment>(Comment.class,
+					this, Aadl2Package.ELEMENT__OWNED_COMMENT);
 		}
 		return ownedComments;
 	}
@@ -155,7 +159,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	public Comment createOwnedComment() {
-		Comment newOwnedComment = (Comment) create(Aadl2Package.eINSTANCE.getComment());
+		Comment newOwnedComment = (Comment) create(Aadl2Package.eINSTANCE
+				.getComment());
 		getOwnedComments().add(newOwnedComment);
 		return newOwnedComment;
 	}
@@ -165,7 +170,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean not_own_self(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return ElementOperations.not_own_self(this, diagnostics, context);
 	}
 
@@ -174,7 +180,8 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean has_owner(DiagnosticChain diagnostics, Map<Object, Object> context) {
+	public boolean has_owner(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
 		return ElementOperations.has_owner(this, diagnostics, context);
 	}
 
@@ -211,10 +218,12 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
-			return ((InternalEList<?>) getOwnedComments()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedComments()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}

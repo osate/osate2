@@ -97,7 +97,8 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null
+				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -120,14 +121,15 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * @generated
 	 */
 	public DataSubcomponentType getDataFeatureClassifier() {
-		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
+		if (dataFeatureClassifier != null
+				&& ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
 			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
 			if (dataFeatureClassifier != oldDataFeatureClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
-							dataFeatureClassifier));
+							Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER,
+							oldDataFeatureClassifier, dataFeatureClassifier));
 			}
 		}
 		return dataFeatureClassifier;
@@ -147,11 +149,13 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
+	public void setDataFeatureClassifier(
+			DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER,
 					oldDataFeatureClassifier, dataFeatureClassifier));
 	}
 
@@ -222,7 +226,8 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER);
+		return super.isSetFeatureClassifier()
+				|| eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER);
 	}
 
 } //DataPortImpl
