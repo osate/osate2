@@ -58,7 +58,8 @@ import org.osate.aadl2.PackageRename;
  *
  * @generated
  */
-public class PackageRenameImpl extends NamedElementImpl implements PackageRename {
+public class PackageRenameImpl extends NamedElementImpl implements
+		PackageRename {
 	/**
 	 * The cached value of the '{@link #getRenamedPackage() <em>Renamed Package</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -120,7 +121,8 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 			if (renamedPackage != oldRenamedPackage) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE, oldRenamedPackage, renamedPackage));
+							Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE,
+							oldRenamedPackage, renamedPackage));
 			}
 		}
 		return renamedPackage;
@@ -144,7 +146,8 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 		AadlPackage oldRenamedPackage = renamedPackage;
 		renamedPackage = newRenamedPackage;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PACKAGE_RENAME__RENAMED_PACKAGE,
 					oldRenamedPackage, renamedPackage));
 	}
 
@@ -166,8 +169,9 @@ public class PackageRenameImpl extends NamedElementImpl implements PackageRename
 		boolean oldRenameAll = renameAll;
 		renameAll = newRenameAll;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PACKAGE_RENAME__RENAME_ALL,
-					oldRenameAll, renameAll));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PACKAGE_RENAME__RENAME_ALL, oldRenameAll,
+					renameAll));
 	}
 
 	/**

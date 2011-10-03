@@ -61,7 +61,8 @@ import org.osate.aadl2.ContainmentPathElement;
  *
  * @generated
  */
-public class ContainedNamedElementImpl extends ElementImpl implements ContainedNamedElement {
+public class ContainedNamedElementImpl extends ElementImpl implements
+		ContainedNamedElement {
 	/**
 	 * The cached value of the '{@link #getContainmentPathElements() <em>Containment Path Element</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -98,8 +99,10 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 */
 	public EList<ContainmentPathElement> getContainmentPathElements() {
 		if (containmentPathElements == null) {
-			containmentPathElements = new EObjectContainmentEList<ContainmentPathElement>(ContainmentPathElement.class,
-					this, Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT);
+			containmentPathElements = new EObjectContainmentEList<ContainmentPathElement>(
+					ContainmentPathElement.class,
+					this,
+					Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT);
 		}
 		return containmentPathElements;
 	}
@@ -122,10 +125,12 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT:
-			return ((InternalEList<?>) getContainmentPathElements()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getContainmentPathElements())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -155,7 +160,8 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT:
 			getContainmentPathElements().clear();
-			getContainmentPathElements().addAll((Collection<? extends ContainmentPathElement>) newValue);
+			getContainmentPathElements().addAll(
+					(Collection<? extends ContainmentPathElement>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -185,7 +191,8 @@ public class ContainedNamedElementImpl extends ElementImpl implements ContainedN
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINED_NAMED_ELEMENT__CONTAINMENT_PATH_ELEMENT:
-			return containmentPathElements != null && !containmentPathElements.isEmpty();
+			return containmentPathElements != null
+					&& !containmentPathElements.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

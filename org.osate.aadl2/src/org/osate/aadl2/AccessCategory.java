@@ -158,8 +158,8 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] { BUS, DATA, SUBPROGRAM,
-			SUBPROGRAM_GROUP, };
+	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] {
+			BUS, DATA, SUBPROGRAM, SUBPROGRAM_GROUP, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Access Category</b></em>' enumerators.
@@ -167,7 +167,8 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<AccessCategory> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<AccessCategory> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Access Category</b></em>' literal with the specified literal value.

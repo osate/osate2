@@ -55,7 +55,8 @@ import org.eclipse.emf.common.util.DiagnosticChain;
  * @model abstract="true"
  * @generated
  */
-public interface Prototype extends StructuralFeature, CalledSubprogram, FeatureClassifier {
+public interface Prototype extends StructuralFeature, CalledSubprogram,
+		FeatureClassifier {
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>
@@ -98,5 +99,6 @@ public interface Prototype extends StructuralFeature, CalledSubprogram, FeatureC
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory'"
 	 * @generated
 	 */
-	boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean categoryConstraint(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 } // Prototype

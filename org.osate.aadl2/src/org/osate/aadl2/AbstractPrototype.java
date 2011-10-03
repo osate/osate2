@@ -44,9 +44,12 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface AbstractPrototype extends ComponentPrototype, AbstractSubcomponentType, BusSubcomponentType,
-		DataSubcomponentType, DeviceSubcomponentType, MemorySubcomponentType, ProcessorSubcomponentType,
-		ProcessSubcomponentType, SubprogramGroupSubcomponentType, SubprogramSubcomponentType, SystemSubcomponentType,
-		ThreadGroupSubcomponentType, ThreadSubcomponentType, VirtualProcessorSubcomponentType,
+public interface AbstractPrototype extends ComponentPrototype,
+		AbstractSubcomponentType, BusSubcomponentType, DataSubcomponentType,
+		DeviceSubcomponentType, MemorySubcomponentType,
+		ProcessorSubcomponentType, ProcessSubcomponentType,
+		SubprogramGroupSubcomponentType, SubprogramSubcomponentType,
+		SystemSubcomponentType, ThreadGroupSubcomponentType,
+		ThreadSubcomponentType, VirtualProcessorSubcomponentType,
 		VitualBusSubcomponentType {
 } // AbstractPrototype

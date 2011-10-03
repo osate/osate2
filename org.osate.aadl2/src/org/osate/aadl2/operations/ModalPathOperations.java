@@ -73,7 +73,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 */
 	public static EList<Mode> getInModes(ModalPath modalPath) {
 		// DONE: implement this method
-		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, (InternalEObject) modalPath,
+		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class,
+				(InternalEObject) modalPath,
 				Aadl2Package.MODAL_ELEMENT__IN_MODE);
 		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
 			if (mf instanceof Mode) {

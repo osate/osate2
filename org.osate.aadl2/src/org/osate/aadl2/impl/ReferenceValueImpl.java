@@ -58,7 +58,8 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * @generated
  */
-public class ReferenceValueImpl extends ContainedNamedElementImpl implements ReferenceValue {
+public class ReferenceValueImpl extends ContainedNamedElementImpl implements
+		ReferenceValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,15 +79,20 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		return Aadl2Package.eINSTANCE.getReferenceValue();
 	}
 
-	public PropertyExpression instantiate(ComponentInstance root) throws InvalidModelException {
-		final Collection<? extends InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
+	public PropertyExpression instantiate(ComponentInstance root)
+			throws InvalidModelException {
+		final Collection<? extends InstanceObject> iol = root
+				.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
-			throw new InvalidModelException(this, "Reference does not refer to an instance object");
+			throw new InvalidModelException(this,
+					"Reference does not refer to an instance object");
 		} else if (iol.size() > 1) {
-			throw new InvalidModelException(this, "Reference refers to more than one instance object");
+			throw new InvalidModelException(this,
+					"Reference refers to more than one instance object");
 		} else {
 			final InstanceObject io = iol.iterator().next();
-			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
+			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE
+					.createInstanceReferenceValue();
 			irv.setReferencedInstanceObject(io);
 			return irv;
 		}

@@ -155,7 +155,8 @@ public interface NamedElement extends Element {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='(self.name->isEmpty() or self.allNamespaces()->select(ns | ns.name->isEmpty())->notEmpty()) implies self.qualifiedName->isEmpty()'"
 	 * @generated
 	 */
-	boolean has_no_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean has_no_qualified_name(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc --> <!-- end-user-doc --> <!-- begin-model-doc -->
@@ -173,7 +174,8 @@ public interface NamedElement extends Element {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='(self.name->notEmpty() and self.allNamespaces()->select(ns | ns.name->isEmpty())->isEmpty()) \r\nimplies \r\nself.qualifiedName = self.allNamespaces()->iterate(ns: Namespace; result: String = self.name | ns.name.concat(self.separator()).concat(result))'"
 	 * @generated
 	 */
-	boolean has_qualified_name(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean has_qualified_name(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -274,9 +276,11 @@ public interface NamedElement extends Element {
 	 * @throws PropertyIsListException Thrown if the property is not scalar.
 	 * @see org.osate.aadl2.instance.SystemInstance#setCurrentSystemOperationMode(org.osate.aadl2.instance.SystemOperationMode)
 	 */
-	PropertyExpression getSimplePropertyValue(Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-			PropertyDoesNotApplyToHolderException, PropertyIsListException;
+	PropertyExpression getSimplePropertyValue(Property property)
+			throws InvalidModelException, PropertyNotPresentException,
+			PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException,
+			PropertyIsListException;
 
 	/**
 	 * Get the property value for a particular model element and property. The
@@ -297,7 +301,8 @@ public interface NamedElement extends Element {
 	 *             .
 	 * @throws IllegalArgumentException Thrown if property is <code>null</code>.
 	 */
-	PropertyAcc getPropertyValue(Property property) throws IllegalStateException, InvalidModelException,
+	PropertyAcc getPropertyValue(Property property)
+			throws IllegalStateException, InvalidModelException,
 			PropertyDoesNotApplyToHolderException, IllegalArgumentException;
 
 	/**
@@ -346,8 +351,8 @@ public interface NamedElement extends Element {
 	 *             retrieved because the model is incomplete or otherwise
 	 *             invalid.
 	 */
-	void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
-			throws InvalidModelException;
+	void getPropertyValueInternal(Property property, PropertyAcc pas,
+			boolean fromInstanceSlaveCall) throws InvalidModelException;
 
 	/**
 	 * Set property association for given property definition with specified
@@ -374,7 +379,8 @@ public interface NamedElement extends Element {
 	 *                list-valued and the given list does not have exactly 1
 	 *                element, or because of type mismatch issues.
 	 */
-	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl);
+	PropertyAssociation setPropertyValue(Property pd,
+			List<? extends PropertyExpression> pvl);
 
 	/**
 	 * Check that the proposed association is legal for this property holder. If
@@ -383,7 +389,8 @@ public interface NamedElement extends Element {
 	 * 
 	 * @throws IllegalArgumentException (see description)
 	 */
-	void checkPropertyAssociation(final Property pd, final Collection<? extends PropertyExpression> vals);
+	void checkPropertyAssociation(final Property pd,
+			final Collection<? extends PropertyExpression> vals);
 
 	/**
 	 * Remove all the local property associations for the given property
@@ -435,10 +442,13 @@ public interface NamedElement extends Element {
 	 *                list-valued and the given list does not have exactly 1
 	 *                element, or because of type mismatch issues.
 	 */
-	PropertyAssociation setPropertyValue(Property pd, List<? extends PropertyExpression> pvl, List<? extends Mode> modes);
+	PropertyAssociation setPropertyValue(Property pd,
+			List<? extends PropertyExpression> pvl, List<? extends Mode> modes);
 
-	public List<? extends PropertyExpression> getPropertyValueList(final Property property);
+	public List<? extends PropertyExpression> getPropertyValueList(
+			final Property property);
 
-	public PropertyAssociation setPropertyValue(final Property pd, final PropertyValue pv);
+	public PropertyAssociation setPropertyValue(final Property pd,
+			final PropertyValue pv);
 
 } // NamedElement

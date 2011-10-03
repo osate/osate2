@@ -44,5 +44,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface DataSubcomponentType extends Data, SubcomponentType, FeatureClassifier {
+public interface DataSubcomponentType extends Data, SubcomponentType,
+		FeatureClassifier {
 } // DataSubcomponentType
