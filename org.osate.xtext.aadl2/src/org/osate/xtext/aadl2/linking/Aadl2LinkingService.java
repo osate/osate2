@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
@@ -50,17 +51,14 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.modelsupport.util.AnnexLanguageServices;
 import org.osate.aadl2.util.AadlUtil;
-import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
-import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl;
 import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
+import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
-//	private  ErrorModelLanguageServices emLS  = new ErrorModelLanguageServices();
-	private EMLinkingService emLS = new EMLinkingService();
+	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
+	private ILinkingService emLS = emLangS.getLinkingService();
 
 	public NamedElement getContainingAnnex(EObject obj){
 		while (obj != null ){
@@ -286,7 +284,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
-					if (AadlUtil.isNull(cc)) return Collections.<EObject> emptyList();;
+					if (AadlUtil.isNull(cc)) 
+						return Collections.<EObject> emptyList();;
 					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
 						return Collections.singletonList( searchResult);
@@ -308,6 +307,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
+					if (AadlUtil.isNull(cc)) 
+						return Collections.<EObject> emptyList();
 					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
 						return Collections.singletonList( searchResult);
@@ -418,12 +419,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		} else {
 			
-// 			List<EObject> res = super.getLinkedObjects(context, reference, node);
-// 			return res;
+ 			List<EObject> res = super.getLinkedObjects(context, reference, node);
+ 			return res;
 //			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService: "+reference.getName()+" to "+requiredType.getName());
 		}
 
-		return Collections.emptyList();
+//		return Collections.emptyList();
 	}
 	
 
