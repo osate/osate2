@@ -29,6 +29,15 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return AnnexParserAgent.class;
 	}
 
+	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindITokenSerializer$IValueSerializer() {
+		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
+		return org.osate.xtext.aadl2.serializing.Aadl2TransientValueService.class;
+	}
+
 	
 //	//	@Override
 //	public Class<? extends org.eclipse.xtext.resource.IFragmentProvider> bindIFragmentProvider() {
