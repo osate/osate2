@@ -75,6 +75,24 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
         };
     }
 
+    @ValueConverter(rule = "PNAME")
+    public IValueConverter<String> PNAME() {
+        return new IValueConverter<String>() {
+            public String toValue(String string, INode node) {
+            	if (node == null ) return string;
+            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
+            	if (e instanceof NamedElement){
+            		((NamedElement)e).setName(string);
+            	}
+				return string;
+			}
+
+            public String toString(String value) {
+                return value;
+            }
+        };
+    }
+
     @ValueConverter(rule = "NoQuoteString")
     public IValueConverter<String> NoQuoteString() {
         return new IValueConverter<String>() {
