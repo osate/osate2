@@ -84,7 +84,7 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								
 								ISerializer serializer = resource.getSerializer();
 								SaveOptions.Builder sb = SaveOptions.newBuilder();
-//								sb = sb.noValidation();
+								sb = sb.noValidation();
 //								String textualRepresentation = serializer.serialize(eobject,sb.getOptions());
 
 								
