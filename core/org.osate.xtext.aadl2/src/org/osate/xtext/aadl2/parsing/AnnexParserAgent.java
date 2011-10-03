@@ -39,7 +39,7 @@ public class AnnexParserAgent  extends LazyLinker {
 				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
 
 					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-					EObject res = empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText());
+					EObject res = empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText(),line,offset);
 					if (res != null){
 					}
 				} else {
@@ -76,7 +76,7 @@ public class AnnexParserAgent  extends LazyLinker {
 			List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
 			for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
 				final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-				EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText());
+				EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
 				if (res != null){
 
 				}
