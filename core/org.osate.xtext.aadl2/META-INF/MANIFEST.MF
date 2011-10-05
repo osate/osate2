@@ -25,12 +25,13 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.0.0";resolution:=o
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.linking,
- org.osate.xtext.aadl2.parseTreeConstruction,
  org.osate.xtext.aadl2.parser.antlr,
  org.osate.xtext.aadl2.parser.antlr.internal,
  org.osate.xtext.aadl2.parser.antlr.lexer,
  org.osate.xtext.aadl2.scoping,
+ org.osate.xtext.aadl2.serializer,
  org.osate.xtext.aadl2.services,
  org.osate.xtext.aadl2.util,
  org.osate.xtext.aadl2.validation,
  org.osate.xtext.aadl2.valueconversion
+Import-Package: org.apache.log4j

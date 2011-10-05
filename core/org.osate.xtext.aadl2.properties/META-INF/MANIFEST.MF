@@ -21,7 +21,6 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.formatting,
  org.osate.xtext.aadl2.properties.linking,
  org.osate.xtext.aadl2.properties.naming,
- org.osate.xtext.aadl2.properties.parseTreeConstruction,
  org.osate.xtext.aadl2.properties.parser.antlr,
  org.osate.xtext.aadl2.properties.parser.antlr.internal,
  org.osate.xtext.aadl2.properties.parser.antlr.lexer,
@@ -29,4 +28,6 @@ Export-Package: org.osate.xtext.aadl2.properties,
  org.osate.xtext.aadl2.properties.services,
  org.osate.xtext.aadl2.properties.util,
  org.osate.xtext.aadl2.properties.validation,
- org.osate.xtext.aadl2.properties.valueconversion
+ org.osate.xtext.aadl2.properties.valueconversion,
+ org.osate.xtext.aadl2.properties.serializer
+Import-Package: org.apache.log4j
