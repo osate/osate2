@@ -14,6 +14,7 @@ Workflow {
 		platformUri = "${runtimeProject}/.."
 //		registerGeneratedEPackage = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2.errormodel/src-gen/or/osate/xtext/aadl2/errormodel/ErrorModel.genmodel"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 	}
 
 	component = DirectoryCleaner {
@@ -43,8 +44,10 @@ Workflow {
 //			 		referencedGenModels = "platform:/resource/edu.cmu.sei.aadl.aadl2/model/aadl2.genmodel"
 //			 }
 
-			// the serialization component
-			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+//			// the serialization component
+//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // Serializer 2.0
+            fragment = serializer.SerializerFragment {}
 
 			// a custom ResourceFactory for use with EMF 
 			fragment = resourceFactory.ResourceFactoryFragment {

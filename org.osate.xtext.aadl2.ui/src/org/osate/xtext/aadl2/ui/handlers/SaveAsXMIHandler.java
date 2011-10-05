@@ -69,6 +69,11 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								ResourceSet rss = resource.getResourceSet();
 								EObject eobject = content.get(0);
 								
+								SaveOptions.Builder sb = SaveOptions.newBuilder();
+//								sb = sb.noValidation();
+								ISerializer serializer = resource.getSerializer();
+								String textualRepresentation = serializer.serialize(eobject,sb.getOptions());
+
 								// save XMI
 								URI xtxturi = resource.getURI();
 								URI xmiuri = xtxturi.trimFileExtension()
@@ -82,11 +87,6 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								aaxlresource.save();
 
 								
-								ISerializer serializer = resource.getSerializer();
-								SaveOptions.Builder sb = SaveOptions.newBuilder();
-								sb = sb.noValidation();
-//								String textualRepresentation = serializer.serialize(eobject,sb.getOptions());
-
 								
 								// persist xmi resource
 								xmiuri = xtxturi.trimSegments(1).appendSegment("mine").appendFileExtension("aadl");
