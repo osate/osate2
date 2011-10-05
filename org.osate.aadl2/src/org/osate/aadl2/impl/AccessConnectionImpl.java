@@ -55,8 +55,7 @@ import org.osate.aadl2.AccessConnection;
  *
  * @generated
  */
-public class AccessConnectionImpl extends ConnectionImpl implements
-		AccessConnection {
+public class AccessConnectionImpl extends ConnectionImpl implements AccessConnection {
 	/**
 	 * The default value of the '{@link #getAccessCategory() <em>Access Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -112,11 +111,9 @@ public class AccessConnectionImpl extends ConnectionImpl implements
 	 */
 	public void setAccessCategory(AccessCategory newAccessCategory) {
 		AccessCategory oldAccessCategory = accessCategory;
-		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT
-				: newAccessCategory;
+		accessCategory = newAccessCategory == null ? ACCESS_CATEGORY_EDEFAULT : newAccessCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_CONNECTION__ACCESS_CATEGORY,
 					oldAccessCategory, accessCategory));
 	}
 

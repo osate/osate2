@@ -51,8 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ThreadGroupSubcomponent extends Subcomponent,
-		org.osate.aadl2.ThreadGroup {
+public interface ThreadGroupSubcomponent extends Subcomponent, org.osate.aadl2.ThreadGroup {
 
 	/**
 	 * Returns the value of the '<em><b>Thread Group Subcomponent Type</b></em>' reference.

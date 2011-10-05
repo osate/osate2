@@ -97,8 +97,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null
-				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -121,15 +120,14 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	public BusSubcomponentType getBusFeatureClassifier() {
-		if (busFeatureClassifier != null
-				&& ((EObject) busFeatureClassifier).eIsProxy()) {
+		if (busFeatureClassifier != null && ((EObject) busFeatureClassifier).eIsProxy()) {
 			InternalEObject oldBusFeatureClassifier = (InternalEObject) busFeatureClassifier;
 			busFeatureClassifier = (BusSubcomponentType) eResolveProxy(oldBusFeatureClassifier);
 			if (busFeatureClassifier != oldBusFeatureClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER,
-							oldBusFeatureClassifier, busFeatureClassifier));
+							Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER, oldBusFeatureClassifier,
+							busFeatureClassifier));
 			}
 		}
 		return busFeatureClassifier;
@@ -149,13 +147,11 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setBusFeatureClassifier(
-			BusSubcomponentType newBusFeatureClassifier) {
+	public void setBusFeatureClassifier(BusSubcomponentType newBusFeatureClassifier) {
 		BusSubcomponentType oldBusFeatureClassifier = busFeatureClassifier;
 		busFeatureClassifier = newBusFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER,
 					oldBusFeatureClassifier, busFeatureClassifier));
 	}
 
@@ -226,8 +222,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier()
-				|| eIsSet(Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER);
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER);
 	}
 
 } //BusAccessImpl

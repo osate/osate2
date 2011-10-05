@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface VirtualProcessorSubcomponentType extends SubcomponentType,
-		VirtualProcessor {
+public interface VirtualProcessorSubcomponentType extends SubcomponentType, VirtualProcessor {
 } // VirtualProcessorSubcomponentType

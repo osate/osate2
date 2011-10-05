@@ -110,8 +110,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			parentMode = (Mode) eResolveProxy(oldParentMode);
 			if (parentMode != oldParentMode) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.MODE_BINDING__PARENT_MODE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__PARENT_MODE,
 							oldParentMode, parentMode));
 			}
 		}
@@ -136,9 +135,8 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 		Mode oldParentMode = parentMode;
 		parentMode = newParentMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE_BINDING__PARENT_MODE, oldParentMode,
-					parentMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__PARENT_MODE,
+					oldParentMode, parentMode));
 	}
 
 	/**
@@ -152,8 +150,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 			derivedMode = (Mode) eResolveProxy(oldDerivedMode);
 			if (derivedMode != oldDerivedMode) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.MODE_BINDING__DERIVED_MODE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_BINDING__DERIVED_MODE,
 							oldDerivedMode, derivedMode));
 			}
 		}
@@ -178,9 +175,8 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 		Mode oldDerivedMode = derivedMode;
 		derivedMode = newDerivedMode;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODE_BINDING__DERIVED_MODE, oldDerivedMode,
-					derivedMode));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_BINDING__DERIVED_MODE,
+					oldDerivedMode, derivedMode));
 	}
 
 	/**
