@@ -114,8 +114,7 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 		PortCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT__CATEGORY, oldCategory, category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT__CATEGORY, oldCategory, category));
 	}
 
 	/**

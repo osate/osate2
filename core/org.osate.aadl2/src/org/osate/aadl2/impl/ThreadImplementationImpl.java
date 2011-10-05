@@ -40,7 +40,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -73,8 +72,7 @@ import org.osate.aadl2.ThreadType;
  *
  * @generated
  */
-public class ThreadImplementationImpl extends BehavioredImplementationImpl
-		implements ThreadImplementation {
+public class ThreadImplementationImpl extends BehavioredImplementationImpl implements ThreadImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedSubprogramGroupSubcomponents() <em>Owned Subprogram Group Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -133,26 +131,17 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
-								Subcomponent.class,
-								this,
-								Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-								OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+								Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
-				this, Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-				OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -177,8 +166,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
 			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
-					SubprogramGroupSubcomponent.class,
-					this,
+					SubprogramGroupSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}
 		return ownedSubprogramGroupSubcomponents;
@@ -192,8 +180,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupSubcomponent());
-		getOwnedSubprogramGroupSubcomponents().add(
-				newOwnedSubprogramGroupSubcomponent);
+		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}
 
@@ -205,8 +192,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
-					SubprogramSubcomponent.class,
-					this,
+					SubprogramSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
 		return ownedSubprogramSubcomponents;
@@ -231,8 +217,7 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(
-					DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
 					Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -297,18 +282,14 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedDataSubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -342,18 +323,15 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			getOwnedSubprogramGroupSubcomponents().clear();
-			getOwnedSubprogramGroupSubcomponents()
-					.addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
+			getOwnedSubprogramGroupSubcomponents().addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
 			return;
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			getOwnedSubprogramSubcomponents().clear();
-			getOwnedSubprogramSubcomponents().addAll(
-					(Collection<? extends SubprogramSubcomponent>) newValue);
+			getOwnedSubprogramSubcomponents().addAll((Collection<? extends SubprogramSubcomponent>) newValue);
 			return;
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
-			getOwnedDataSubcomponents().addAll(
-					(Collection<? extends DataSubcomponent>) newValue);
+			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -389,14 +367,11 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ownedSubprogramGroupSubcomponents != null
-					&& !ownedSubprogramGroupSubcomponents.isEmpty();
+			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ownedSubprogramSubcomponents != null
-					&& !ownedSubprogramSubcomponents.isEmpty();
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.THREAD_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ownedDataSubcomponents != null
-					&& !ownedDataSubcomponents.isEmpty();
+			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
