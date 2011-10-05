@@ -61,11 +61,11 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
     public IValueConverter<String> REFINEDNAME() {
         return new IValueConverter<String>() {
             public String toValue(String string, INode node) {
-            	if (node == null ) return string;
-            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
-            	if (e instanceof NamedElement){
-            		((NamedElement)e).setName(string);
-            	}
+//            	if (node == null ) return string;
+//            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
+//            	if (e instanceof NamedElement){
+//            		((NamedElement)e).setName(string);
+//            	}
 				return string;
 			}
 
@@ -79,11 +79,11 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
     public IValueConverter<String> PNAME() {
         return new IValueConverter<String>() {
             public String toValue(String string, INode node) {
-            	if (node == null ) return string;
-            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
-            	if (e instanceof NamedElement){
-            		((NamedElement)e).setName(string);
-            	}
+//            	if (node == null ) return string;
+//            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
+//            	if (e instanceof NamedElement){
+//            		((NamedElement)e).setName(string);
+//            	}
 				return string;
 			}
 
