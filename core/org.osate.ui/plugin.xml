@@ -85,11 +85,12 @@
             <groupMarker name="subMenus.grp"/>
          </menu>
          <action
+               class="org.osate.ui.actions.ConversionAction"
+               enablesFor="1"
                id="edu.cmu.sei.osate.ui.actions.RemoveAADLNature.popupAction"
                label="%RemoveAADLNature.label"
-               tooltip="%RemoveAADLNature.toolTip"
-               class="org.osate.ui.actions.ConversionAction"
-               enablesFor="1"/>
+               menubarPath="org.eclipse.ui.projectConfigure/additions"
+               tooltip="%RemoveAADLNature.toolTip"/>
       </objectContribution>
       <objectContribution
             id="edu.cmu.sei.osate.ui.oc7"
@@ -112,11 +113,12 @@
             <groupMarker name="subMenus.grp"/>
          </menu>
          <action
+               class="org.osate.ui.actions.ConversionAction"
+               enablesFor="1"
                id="edu.cmu.sei.osate.ui.actions.EnableAADLNature.popupAction"
                label="%EnableAADLNature.label"
-               tooltip="%EnableAADLNature.toolTip"
-               class="org.osate.ui.actions.ConversionAction"
-               enablesFor="1"/>
+               menubarPath="org.eclipse.ui.projectConfigure/additions"
+               tooltip="%EnableAADLNature.toolTip"/>
       </objectContribution>
    </extension>
 
@@ -272,7 +274,7 @@
       		id="aadl.view_category"
       		name="%aadl_view_category.label"/>
       <view
-      		id="edu.cmu.sei.osate.ui.navigator.AadlNavigator"
+      		id="org.osate.ui.navigator.AadlNavigator"
       		name="AADL Navigator"
       		icon="icons/aadlNav.gif"
       		category="aadl.view_category"
