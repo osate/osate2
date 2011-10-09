@@ -15,6 +15,7 @@
             id="org.osate.core.aadlbuilder">
       </builder-->
    </extension>
+   
    <extension
          point="org.eclipse.ui.ide.projectNatureImages">
       <image
