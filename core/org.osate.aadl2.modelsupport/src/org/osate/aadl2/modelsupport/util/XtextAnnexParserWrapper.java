@@ -84,11 +84,6 @@ public class XtextAnnexParserWrapper  {
 					resal.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
 				return resal;
 			} else {
-				Iterator<INode> pe = parseResult.getSyntaxErrors().iterator();
-				while (pe.hasNext()) {
-					INode syntaxError = pe.next();
-					System.out.println(syntaxError.getSyntaxErrorMessage().getMessage());
-				}
 				element.eResource().getErrors().addAll(consumer.getResult(Severity.ERROR));
 				element.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
 				return null;
