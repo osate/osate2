@@ -15,7 +15,7 @@ import org.osate.aadl2.modelsupport.util.AnnexLanguageServices;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
+//import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 
 
 public class AnnexParserAgent  extends LazyLinker {
@@ -36,13 +36,14 @@ public class AnnexParserAgent  extends LazyLinker {
 			String filename = model.eResource().getURI().lastSegment();
 			List<DefaultAnnexLibrary> all=EcoreUtil2.eAllOfType(model, DefaultAnnexLibrary.class);
 			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
-				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
-
-					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-					EObject res = empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText(),line,offset);
-					if (res != null){
-					}
-				} else {
+//				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
+//
+//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+//					EObject res = empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText(),line,offset);
+//					if (res != null){
+//					}
+//				} else
+				{
 					// look for plug-in parser
 					String annexText = defaultAnnexLibrary.getSourceText();
 					String annexName = defaultAnnexLibrary.getName();
@@ -75,11 +76,11 @@ public class AnnexParserAgent  extends LazyLinker {
 			}
 			List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
 			for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
-				final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-				EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
-				if (res != null){
-
-				}
+//				final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+//				EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
+//				if (res != null){
+//
+//				}
 			}
 		}
 		// from XtextResource:
