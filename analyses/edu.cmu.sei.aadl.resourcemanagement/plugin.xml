@@ -47,9 +47,9 @@
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -68,9 +68,9 @@
                <or>
                    <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -91,7 +91,7 @@
                      <objectClass name="org.eclipse.core.resources.IFile"/>
                      <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.aadl2.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -116,9 +116,9 @@
             <or>
                <and>
                   <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl"/>
+                  <objectState name="extension" value="aaxl2"/>
                </and>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>
          </visibility>
          

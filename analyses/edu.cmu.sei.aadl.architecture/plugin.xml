@@ -53,10 +53,9 @@
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="org.osate.aadl2.ModelUnit"/>
-                   <objectState name="AADLMetaModelClass" value="org.osate.aadl2.instance.SystemInstance"/>
+                   <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -74,10 +73,9 @@
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="org.osate.aadl2.ModelUnit"/>
-                  <objectState name="AADLMetaModelClass" value="org.osate.aadl2.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -126,7 +124,6 @@
                   <objectClass name="org.eclipse.core.resources.IFile"/>
                   <objectState name="extension" value="aaxl2"/>
                </and>
-               <objectClass name="org.osate.aadl2.ModelUnit"/>
                <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>
          </visibility> 
@@ -181,7 +178,7 @@
                   <objectClass name="org.eclipse.core.resources.IFile"/>
                   <objectState name="extension" value="aaxl"/>
                </and>
-               <objectState name="AADLMetaModelClass" value="org.osate.aadl2.ModelUnit"/>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>
          </visibility>
 

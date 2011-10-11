@@ -47,11 +47,9 @@
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -70,11 +68,9 @@
                <or>
                   <and>
                      <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl"/>
+                     <objectState name="extension" value="aaxl2"/>
                   </and>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
-                  <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -99,11 +95,9 @@
             <or>
                <and>
                   <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl"/>
+                  <objectState name="extension" value="aaxl2"/>
                </and>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.instance.SystemInstance"/>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>
          </visibility>
                  
@@ -147,7 +141,7 @@
          id="SafetyCheckerObjectMarker"
          name="Safety Level Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
 
@@ -155,7 +149,7 @@
          id="SecurityCheckerObjectMarker"
          name="Security Level Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    

@@ -95,7 +95,7 @@
          id="FlowLatencyObjectMarker"
          name="Flow Latency Analysis Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    

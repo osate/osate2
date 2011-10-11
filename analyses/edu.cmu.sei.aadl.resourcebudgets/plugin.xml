@@ -58,7 +58,7 @@
                            value="aaxl2">
                      </objectState>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -82,7 +82,7 @@
                            value="aaxl2">
                      </objectState>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -106,7 +106,7 @@
                            value="aaxl2">
                      </objectState>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -130,7 +130,7 @@
                            value="aaxl2">
                      </objectState>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -154,7 +154,7 @@
                            value="aaxl2">
                      </objectState>
                   </and>
-                  <objectClass name="edu.cmu.sei.aadl.aadl2.instance.InstanceObject"/>
+                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
          </action>
@@ -165,7 +165,7 @@
          id="ResourceObjectMarker"
          name="Resource Analysis Marker"
          point="org.eclipse.core.resources.markers">
-      <super type="edu.cmu.sei.aadl.modelsupport.AadlObjectMarker"/>
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
    <extension
