@@ -72,6 +72,14 @@ public class GetProperties {
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
 		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
 	}
+
+	public static PropertyType lookupPropertyType(EObject context,String ps, String name) {
+		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyType(context,ps != null?(ps+ "::" +name):name);
+	}
+
+	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
+		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
+	}
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
@@ -114,7 +122,7 @@ public class GetProperties {
 	}
 	
 	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
-		return findUnitLiteral(context, SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
+		return findUnitLiteral(context, "SEI::"+SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
 	
 	
@@ -348,7 +356,7 @@ public class GetProperties {
 	}
 
 	public static double getReferenceCycleTimeConstantinMS(Element context) {
-		PropertyConstant referenceCycleTime = PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,SEI._NAME+ "::" +SEI.REFERENCE_CYCLE_TIME);
+		PropertyConstant referenceCycleTime = lookupPropertyConstant(context,SEI._NAME,SEI.REFERENCE_CYCLE_TIME);
 		if (referenceCycleTime == null)
 			return 0.0;
 		return scaleValueToMicroSecond((NumberValue) referenceCycleTime.getConstantValue());
