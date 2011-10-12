@@ -211,13 +211,14 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		String label = ((ComponentInstance) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_ComponentInstance_type") : //$NON-NLS-1$
-				getString("_UI_ComponentInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
+		String ctype = ((ComponentInstance) object).getCategory().getName();
+		return (ctype == null || ctype.length() == 0?getString("_UI_ComponentInstance_type"): ctype+" instance")+(label == null || label.length() == 0 ? "" : //$NON-NLS-1$
+				" "+label); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
