@@ -664,7 +664,7 @@ public class GetProperties {
 	
 	public static boolean getRequiredConnection(final NamedElement ne) {
 		try {
-			Property requiredConnection = lookupPropertyDefinition(ne,DeploymentProperties._NAME, DeploymentProperties.REQUIRED_CONNECTION);
+			Property requiredConnection = lookupPropertyDefinition(ne,CommunicationProperties._NAME, DeploymentProperties.REQUIRED_CONNECTION);
 			return PropertyUtils.getBooleanValue(ne, requiredConnection);
 		} catch (PropertyLookupException e) {
 			return false;
