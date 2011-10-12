@@ -67,6 +67,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -200,7 +201,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
-		AbstractAaxlAction.this.context = root;
+		AbstractAaxlAction.this.context = root instanceof SystemInstance? ((SystemInstance)root).getSystemImplementation():root;
 
 		// Init the properties
 		notFound.clear();
