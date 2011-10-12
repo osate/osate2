@@ -769,33 +769,37 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			pi.setFlowSpecification(f);
 			pi.setName(f.getName());
 			FlowEnd inend = f.getAllInEnd();
-			Feature srcfp = inend.getFeature();
-			Context srcpg = inend.getContext();
-			if (srcpg == null) {
-				FeatureInstance fi = ci.findFeatureInstance(srcfp);
-				if (fi != null)
-					pi.setSource(fi);
-			} else if (srcpg instanceof FeatureGroup) {
-				FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
-				if (pgi != null) {
-					FeatureInstance fi = pgi.findFeatureInstance(srcfp);
+			if (inend != null){
+				Feature srcfp = inend.getFeature();
+				Context srcpg = inend.getContext();
+				if (srcpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(srcfp);
 					if (fi != null)
 						pi.setSource(fi);
+				} else if (srcpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) srcpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(srcfp);
+						if (fi != null)
+							pi.setSource(fi);
+					}
 				}
 			}
 			FlowEnd outend = f.getAllOutEnd();
-			Feature dstfp = outend.getFeature();
-			Context dstpg = outend.getContext();
-			if (dstpg == null) {
-				FeatureInstance fi = ci.findFeatureInstance(dstfp);
-				if (fi != null)
-					pi.setDestination(fi);
-			} else if (dstpg instanceof FeatureGroup) {
-				FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
-				if (pgi != null) {
-					FeatureInstance fi = pgi.findFeatureInstance(dstfp);
+			if (outend != null){
+				Feature dstfp = outend.getFeature();
+				Context dstpg = outend.getContext();
+				if (dstpg == null) {
+					FeatureInstance fi = ci.findFeatureInstance(dstfp);
 					if (fi != null)
 						pi.setDestination(fi);
+				} else if (dstpg instanceof FeatureGroup) {
+					FeatureInstance pgi = ci.findFeatureInstance((FeatureGroup) dstpg);
+					if (pgi != null) {
+						FeatureInstance fi = pgi.findFeatureInstance(dstfp);
+						if (fi != null)
+							pi.setDestination(fi);
+					}
 				}
 			}
 			ci.getFlowSpecifications().add(pi);
