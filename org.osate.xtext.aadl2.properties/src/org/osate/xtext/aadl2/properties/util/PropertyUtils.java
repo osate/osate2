@@ -35,6 +35,7 @@ package org.osate.xtext.aadl2.properties.util;
 
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
@@ -45,6 +46,7 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
@@ -822,10 +824,19 @@ public class PropertyUtils {
 	public static PropertyExpression getSimplePropertyValue(final NamedElement ph, final Property pd)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
-		if (ph == null) {
+ 		if (ph == null) {
 			throw new IllegalArgumentException("NamedElement ph cannot be null.");
 		}
-		return ph.getSimplePropertyValue(pd);
+		PropertyExpression res = ph.getSimplePropertyValue(pd);
+		if (res instanceof NamedValue){
+			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
+			if (nv instanceof Property){
+				res = ph.getSimplePropertyValue((Property)nv);
+			} else if (nv instanceof PropertyConstant){
+				res = ((PropertyConstant)nv).getConstantValue();
+			} 
+		}
+		return res;
 	}
 
 	/**
