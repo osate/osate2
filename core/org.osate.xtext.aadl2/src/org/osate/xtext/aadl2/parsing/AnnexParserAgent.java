@@ -69,12 +69,15 @@ public class AnnexParserAgent  extends LazyLinker {
 					//				ParserErrorReporter errReporter
 					try {
 						al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, null);
-						if (al != null) al.setName(annexName);
-						// replace default annex library with the new one. 
-						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
-						int idx = ael.indexOf(defaultAnnexLibrary);
-						ael.add(idx, al);
-						ael.remove(defaultAnnexLibrary);
+						if (al != null) 
+						{ 
+							al.setName(annexName);
+							// replace default annex library with the new one. 
+							EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
+							int idx = ael.indexOf(defaultAnnexLibrary);
+							ael.add(idx, al);
+							ael.remove(defaultAnnexLibrary);
+						}
 					} catch (RecognitionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -111,12 +114,15 @@ public class AnnexParserAgent  extends LazyLinker {
 					try {
 						AnnexSubclause al;
 						al = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, null);
-						if (al != null) al.setName(annexName);
-						// replace default annex library with the new one. 
-						EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
-						int idx = ael.indexOf(defaultAnnexSubclause);
-						ael.add(idx, al);
-						ael.remove(defaultAnnexSubclause);
+						if (al != null) 
+						{
+							al.setName(annexName);
+							// replace default annex library with the new one. 
+							EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
+							int idx = ael.indexOf(defaultAnnexSubclause);
+							ael.add(idx, al);
+							ael.remove(defaultAnnexSubclause);
+						}
 					} catch (RecognitionException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
