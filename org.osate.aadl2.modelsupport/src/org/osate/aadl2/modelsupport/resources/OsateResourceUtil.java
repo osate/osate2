@@ -47,6 +47,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.eclipse.xtext.resource.XtextResource;
@@ -113,7 +114,7 @@ public class OsateResourceUtil {
 	}
 	
 	public static ResourceSet getResourceSet(){
-		return ModelLoadingAdapter.getResourceSet();
+		return ModelLoadingAdapter.getResourceSet(); //new ResourceSetImpl();
 	}
 
 
@@ -196,7 +197,7 @@ public class OsateResourceUtil {
 
 	/**
 	 * creates a Resource for file name with path within Eclipse If it exists,
-	 * it will empty its content.
+	 * it will delete the file before creating the resource.
 	 * 
 	 * @param uri
 	 *            uri
@@ -204,41 +205,22 @@ public class OsateResourceUtil {
 	 */
 	public static Aadl2ResourceImpl getEmptyAadl2Resource(URI uri) {
 		Resource res = null;
-
-		/*
-		 * XXX: THis try-catch block is out of date: Both the try and catch do
-		 * the same thing. This needs to be rethough?
-		 */
-		try {
-			res = getResourceSet().getResource(uri, false);
-		} catch (RuntimeException e) {
-			// the resource may have been created but load failed
-			// let's retrieve the resource without loading
-			// NOTE: since demandload is false it will not even be created if it
-			// does not already
-			// exist
-			res = getResourceSet().getResource(uri, false);
-		}
-		if (res == null) {
-			res = getResourceSet().createResource(uri);
-		} else {
-			if (res.isLoaded()) {
-				res.unload();
-			}
-			if (!res.getContents().isEmpty())
-				res.getContents().clear();
-
-			// now clear all markers
-			final IResource iResource = convertToIResource(res);
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		if (uri != null) {
+			IPath path = getOsatePath(uri);
+			IResource iResource =  myWorkspaceRoot.getFile(path);
 			if (iResource != null && iResource.exists()) {
 				try {
-					iResource.deleteMarkers(null, true,
-							IResource.DEPTH_INFINITE);
-				} catch (CoreException e1) {
-					Activator.logThrowable(e1);
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-			}
+				}
 		}
+
+		res = getResourceSet().createResource(uri);
 		return (Aadl2ResourceImpl)res;
 	}
 
