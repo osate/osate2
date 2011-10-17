@@ -48,7 +48,7 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 			}
 
             public String toString(String value) {
-            	int idx = value.indexOf(".");
+            	int idx = value.lastIndexOf(".");
             	if (idx > -1){
             		return value.substring(idx+1);
             	}
@@ -71,6 +71,26 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
 
             public String toString(String value) {
                 return value;
+            }
+        };
+    }
+
+    @ValueConverter(rule = "ID")
+    public IValueConverter<String> ID() {
+        return new IValueConverter<String>() {
+            public String toValue(String string, INode node) {
+//            	if (node == null ) return string;
+//            	EObject e = NodeModelUtils.findActualSemanticObjectFor(node);
+//            	if (e instanceof NamedElement){
+//            		((NamedElement)e).setName(string);
+//            	}
+				return string;
+			}
+
+            public String toString(String value) {
+                int idx = value.lastIndexOf("::");
+                if (idx < 0 ) return value;
+            	return value.substring(idx+2);
             }
         };
     }
