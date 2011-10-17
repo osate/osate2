@@ -40,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
@@ -474,5 +475,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @return
 	 */
 	EList<ComponentInstance> getAllComponentInstances();
+	
+	ComponentType getComponentType();
 
 } // ComponentInstance
