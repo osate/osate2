@@ -11,6 +11,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -86,32 +87,33 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								resource.getContents().add(eobject);
 								rss.getResources().remove(aaxlresource);
 
-// code to experiment with serialization								
-//								Resource lres = rss.getResource(xmiuri, true);
-//								EList<EObject> ccontent = lres.getContents();
-//								if (!ccontent.isEmpty()) {
-//									EObject eeobject = ccontent.get(0);
-//
-//								SaveOptions.Builder sb = SaveOptions.newBuilder();
-////								sb = sb.noValidation();
-//								ISerializer serializer = resource.getSerializer();
-//								String textualRepresentation = serializer.serialize(eeobject,sb.getOptions());
-//
-//								
-//								
-//								// persist xmi resource
-//								xmiuri = xtxturi.trimSegments(1).appendSegment("mine").appendFileExtension("aadl");
-//								XtextResource aadlresource = (XtextResource) rss.createResource(xmiuri);
-//								aadlresource.getContents().add(eeobject);
-//								rss.getResources().add(aadlresource);
-//
-//								Map<Object,Object> options = new HashMap();
-//								sb.getOptions().addTo(options);
-// 								aadlresource.save(options);
-//								// put the root object back into the original resource
-//								resource.getContents().add(eobject);
-//								rss.getResources().remove(aadlresource);
-//								}
+// code to experiment with serialization	
+								rss = new ResourceSetImpl();
+								Resource lres = rss.getResource(xmiuri, true);
+								EList<EObject> ccontent = lres.getContents();
+								if (!ccontent.isEmpty()) {
+									EObject eeobject = ccontent.get(0);
+
+								SaveOptions.Builder sb = SaveOptions.newBuilder();
+//								sb = sb.noValidation();
+								ISerializer serializer = resource.getSerializer();
+								String textualRepresentation = serializer.serialize(eeobject,sb.getOptions());
+
+								
+								
+								// persist xmi resource
+								xmiuri = xtxturi.trimSegments(1).appendSegment("mine").appendFileExtension("aadl");
+								XtextResource aadlresource = (XtextResource) rss.createResource(xmiuri);
+								aadlresource.getContents().add(eeobject);
+								rss.getResources().add(aadlresource);
+
+								Map<Object,Object> options = new HashMap();
+								sb.getOptions().addTo(options);
+ 								aadlresource.save(options);
+								// put the root object back into the original resource
+								resource.getContents().add(eobject);
+								rss.getResources().remove(aadlresource);
+								}
 
 							}
 

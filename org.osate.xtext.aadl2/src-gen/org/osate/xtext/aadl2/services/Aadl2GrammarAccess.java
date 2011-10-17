@@ -3913,10 +3913,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedAnnexSubclauseAssignment_5 = (Assignment)cGroup.eContents().get(5);
 		private final RuleCall cOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_5_0 = (RuleCall)cOwnedAnnexSubclauseAssignment_5.eContents().get(0);
 		private final Keyword cEndKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final RuleCall cIDTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
-		private final Keyword cFullStopKeyword_8 = (Keyword)cGroup.eContents().get(8);
-		private final RuleCall cINAMEParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
-		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
+		private final RuleCall cFULLINAMEParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//// Component Implementations: add calls for threads and subprograms
 		//ComponentImplementation returns aadl2::ComponentImplementation:
@@ -3929,7 +3927,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none"
 		//	";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-		//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";";
+		//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 		public ParserRule getRule() { return rule; }
 
 		//(AbstractImplementation | SystemImplementation | ProcessorImplementation | ProcessImplementation |
@@ -3941,7 +3939,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none"
 		//";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 		//(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-		//ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";"
+		//ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";"
 		public Group getGroup() { return cGroup; }
 
 		//AbstractImplementation | SystemImplementation | ProcessorImplementation | ProcessImplementation |
@@ -4160,17 +4158,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//"end"
 		public Keyword getEndKeyword_6() { return cEndKeyword_6; }
 
-		//ID
-		public RuleCall getIDTerminalRuleCall_7() { return cIDTerminalRuleCall_7; }
-
-		//"."
-		public Keyword getFullStopKeyword_8() { return cFullStopKeyword_8; }
-
-		//INAME
-		public RuleCall getINAMEParserRuleCall_9() { return cINAMEParserRuleCall_9; }
+		//FULLINAME
+		public RuleCall getFULLINAMEParserRuleCall_7() { return cFULLINAMEParserRuleCall_7; }
 
 		//";"
-		public Keyword getSemicolonKeyword_10() { return cSemicolonKeyword_10; }
+		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
 	public class RealizationElements extends AbstractParserRuleElementFinder {
@@ -19647,6 +19639,31 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall() { return cIDTerminalRuleCall; }
 	}
 
+	public class FULLINAMEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FULLINAME");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		
+		//// implementation name (used by value converter)
+		//FULLINAME:
+		//	ID "." ID;
+		public ParserRule getRule() { return rule; }
+
+		//ID "." ID
+		public Group getGroup() { return cGroup; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+
+		//"."
+		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
+	}
+
 	public class REFINEDNAMEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "REFINEDNAME");
 		private final RuleCall cIDTerminalRuleCall = (RuleCall)rule.eContents().get(1);
@@ -19885,6 +19902,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private CoreKeyWordElements pCoreKeyWord;
 	private PNAMEElements pPNAME;
 	private INAMEElements pINAME;
+	private FULLINAMEElements pFULLINAME;
 	private REFINEDNAMEElements pREFINEDNAME;
 	
 	private final GrammarProvider grammarProvider;
@@ -20391,7 +20409,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	";"))? ("flows" ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?="none"
 	//	";"))? ("modes" ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?="none" ";"))? ("properties"
 	//	(ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?="none" ";"))?
-	//	ownedAnnexSubclause+=AnnexSubclause* "end" ID "." INAME ";";
+	//	ownedAnnexSubclause+=AnnexSubclause* "end" FULLINAME ";";
 	public ComponentImplementationElements getComponentImplementationAccess() {
 		return (pComponentImplementation != null) ? pComponentImplementation : (pComponentImplementation = new ComponentImplementationElements());
 	}
@@ -22530,6 +22548,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getINAMERule() {
 		return getINAMEAccess().getRule();
+	}
+
+	//// implementation name (used by value converter)
+	//FULLINAME:
+	//	ID "." ID;
+	public FULLINAMEElements getFULLINAMEAccess() {
+		return (pFULLINAME != null) ? pFULLINAME : (pFULLINAME = new FULLINAMEElements());
+	}
+	
+	public ParserRule getFULLINAMERule() {
+		return getFULLINAMEAccess().getRule();
 	}
 
 	//// name of refined entity. Used to set name field by value converter	
