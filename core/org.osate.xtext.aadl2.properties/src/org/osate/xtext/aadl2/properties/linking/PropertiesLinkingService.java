@@ -26,6 +26,7 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.osate.aadl2.*;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
@@ -105,6 +106,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				
 			final IScope scope = getScope(context, ref);
 			QualifiedName qualifiedLinkName =  qualifiedNameConverter.toQualifiedName(crossRefString);
+			Iterable<IEObjectDescription> el = scope.getAllElements();
+			for (IEObjectDescription ieObjectDescription : el) {
+				java.lang.System.out.println(ieObjectDescription.getQualifiedName().toString());
+			}
 			Iterable<IEObjectDescription> elist = scope.getElements(qualifiedLinkName);
 			Iterator<IEObjectDescription> it = elist.iterator();
 			if (it.hasNext()) {
@@ -338,6 +343,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	
 	public boolean hasDuplicatesAadlPackage(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
+		boolean res = hasDuplicateLinkedObjects(context, reference, name);
+		return res;
+	}
+	
+	public boolean hasDuplicatesClassifier(EObject context, String name) {
+		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier();
 		boolean res = hasDuplicateLinkedObjects(context, reference, name);
 		return res;
 	}

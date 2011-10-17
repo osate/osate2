@@ -280,13 +280,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
-//	@Check(CheckType.FAST)
-//	public void caseAadlPackage(AadlPackage pack){
-//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack, pack.getName())){
-//			error(pack,"Duplicate packages "+ pack.getName());
-//		}
-//	}
-//
+	@Check(CheckType.FAST)
+	public void caseAadlPackage(AadlPackage pack){
+		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack, pack.getName())){
+			error(pack,"Duplicate packages "+ pack.getName());
+		}
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseClassifier(Classifier pack){
+		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesClassifier(pack, pack.getQualifiedName())){
+			error(pack,"Duplicate classifiers "+ pack.getName());
+		}
+	}
+
 //	@Check(CheckType.FAST)
 //	public void caseAadlPackageSection(PackageSection ps) {
 //		checkPropertyAssocs(ps);
