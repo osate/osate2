@@ -36,7 +36,7 @@ import org.osate.workspace.WorkspacePlugin;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class SaveAsXMIHandler extends AbstractHandler {
+public class SerializeHandler extends AbstractHandler {
 
 
 	@Inject
@@ -77,15 +77,35 @@ public class SaveAsXMIHandler extends AbstractHandler {
 								URI xmiuri = xtxturi.trimFileExtension()
 										.appendFileExtension(
 												WorkspacePlugin.MODEL_FILE_EXT);
-								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-										.createResource(xmiuri);
-								aaxlresource.getContents().add(eobject);
-								rss.getResources().add(aaxlresource);
-								aaxlresource.save();
+// code to experiment with serialization	
+								rss = new ResourceSetImpl();
+								Resource lres = rss.getResource(xmiuri, true);
+								EList<EObject> ccontent = lres.getContents();
+								if (!ccontent.isEmpty()) {
+									EObject eeobject = ccontent.get(0);
+
+								SaveOptions.Builder sb = SaveOptions.newBuilder();
+//								sb = sb.noValidation();
+								ISerializer serializer = resource.getSerializer();
+								String textualRepresentation = serializer.serialize(eeobject,sb.getOptions());
+								System.out.println(textualRepresentation);
+
+								
+								
+								// persist xmi resource
+								String name = xtxturi.trimFileExtension().lastSegment();
+								URI txturi = xtxturi.trimFileExtension().trimSegments(1).appendSegment(name+"_serialize").appendFileExtension("aadl");
+								XtextResource aadlresource = (XtextResource) rss.createResource(txturi);
+								aadlresource.getContents().add(eeobject);
+								rss.getResources().add(aadlresource);
+
+								Map<Object,Object> options = new HashMap();
+								sb.getOptions().addTo(options);
+ 								aadlresource.save(options);
 								// put the root object back into the original resource
 								resource.getContents().add(eobject);
-								rss.getResources().remove(aaxlresource);
+								rss.getResources().remove(aadlresource);
+								}
 
 							}
 
