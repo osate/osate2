@@ -832,6 +832,10 @@ public class AadlBaUtils {
             }
          }
          
+         System.out.println(el.getLocationReference().getLine() + " expre dim = " + exprDim);
+         
+         System.out.println(el.getLocationReference().getLine() + " delcaredDim = " + delcaredDim);
+         
          if(exprDim <= delcaredDim)
          {
             result.dimension = delcaredDim - exprDim ;
@@ -1667,6 +1671,7 @@ public class AadlBaUtils {
 	   {
 		   pe = lpe.get(lpe.size() -1) ;
 		   
+		   // Syntax with ()
 		   if(pe instanceof ListValue)
 		   {
 			   le = ((ListValue) pe).getOwnedListElements() ;
@@ -1680,6 +1685,11 @@ public class AadlBaUtils {
 					   return (ClassifierValue) el ;
 				   }
 			   }
+		   }
+		   // Syntax without ()
+		   else if(pe instanceof ClassifierValue)
+		   {
+		       return (ClassifierValue) pe ;
 		   }
 	   }
 	   
