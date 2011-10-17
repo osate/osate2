@@ -19,7 +19,7 @@ public class PropertiesRuntimeModule extends org.osate.xtext.aadl2.properties.Ab
 //	}
 	@Override
 	public Class<? extends org.eclipse.xtext.naming.IQualifiedNameProvider> bindIQualifiedNameProvider() {
-		return org.osate.xtext.aadl2.properties.naming.MyQualifiedNameProvider.class;
+		return org.osate.xtext.aadl2.properties.naming.PropertiesQualifiedNameProvider.class;
 	}
 
 }
