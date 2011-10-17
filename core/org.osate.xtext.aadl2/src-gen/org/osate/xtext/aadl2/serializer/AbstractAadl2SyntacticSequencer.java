@@ -40,21 +40,21 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getIDRule())
+		if(ruleCall.getRule() == grammarAccess.getFULLINAMERule())
+			return getFULLINAMEToken(semanticObject, ruleCall, node);
+		else if(ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getINAMERule())
-			return getINAMEToken(semanticObject, ruleCall, node);
 		else if(ruleCall.getRule() == grammarAccess.getSTARRule())
 			return getSTARToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
-	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
-		return "";
+		return ".";
 	}
-	protected String getINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "";

@@ -947,6 +947,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRealRangeAccess().getGroup(), "rule__RealRange__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
+					put(grammarAccess.getFULLINAMEAccess().getGroup(), "rule__FULLINAME__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0(), "rule__ContainedPropertyAssociation__Group_3_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0_2(), "rule__ContainedPropertyAssociation__Group_3_0_2__0");

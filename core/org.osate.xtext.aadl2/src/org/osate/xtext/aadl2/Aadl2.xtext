@@ -462,7 +462,7 @@ ComponentImplementation returns aadl2::ComponentImplementation:
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+	'end' FULLINAME ';'
 ;
 
 Realization returns aadl2::Realization:
@@ -1850,7 +1850,8 @@ PropertyType returns aadl2::PropertyType:
 	';';
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(ListType|UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	(ListType|
+		UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
 	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
@@ -2078,6 +2079,9 @@ PNAME:
 // implementation name (used by value converter)
 INAME:
 	ID;
+// implementation name (used by value converter)
+FULLINAME:
+	ID '.' ID;
 
 // name of refined entity. Used to set name field by value converter	
 REFINEDNAME:
