@@ -20,13 +20,13 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 		return "::";
 	}
 	
-	@Override
-	public QualifiedName getFullyQualifiedName(final EObject obj) {
-		if (obj instanceof AadlPackage || obj instanceof Classifier
-				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
-			return super.getFullyQualifiedName(obj);
-	   return null;
-	}
+//	@Override
+//	public QualifiedName getFullyQualifiedName(final EObject obj) {
+//		if (obj instanceof AadlPackage || obj instanceof Classifier
+//				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
+//			return super.getFullyQualifiedName(obj);
+//	   return null;
+//	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
 		return getConverter().toQualifiedName(getTheName(obj));
@@ -38,9 +38,8 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	public QualifiedName qualifiedName(final NamedElement obj) {
-//return null;
-				return getConverter().toQualifiedName(obj.getName());
-		//getConverter().toQualifiedName(obj.getQualifiedName());
+		//		return getConverter().toQualifiedName(obj.getName());
+		return getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 //	
 //	public QualifiedName qualifiedName(final UnitLiteral obj) {
