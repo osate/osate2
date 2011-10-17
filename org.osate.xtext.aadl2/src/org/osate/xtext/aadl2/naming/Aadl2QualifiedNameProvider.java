@@ -19,7 +19,9 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	public String getDelimiter() {
 		return "::";
 	}
-	
+
+	// Enable to limit indexing to global items
+	// Duplicates checking only applies to global items
 //	@Override
 //	public QualifiedName getFullyQualifiedName(final EObject obj) {
 //		if (obj instanceof AadlPackage || obj instanceof Classifier
