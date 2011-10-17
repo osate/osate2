@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.naming;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.osate.aadl2.AadlPackage;
@@ -19,23 +20,38 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 		return "::";
 	}
 	
+	@Override
+	public QualifiedName getFullyQualifiedName(final EObject obj) {
+		if (obj instanceof AadlPackage || obj instanceof Classifier
+				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
+			return super.getFullyQualifiedName(obj);
+	   return null;
+	}
+	
 	public QualifiedName qualifiedName(final Classifier obj) {
 		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	
 	public QualifiedName qualifiedName(final Element obj) {
-		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
+		return null;
+		//getConverter().toQualifiedName(obj.getQualifiedName());
 	}
-//	
-//	public QualifiedName qualifiedName(final NamedElement obj) {
-//		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
-//	}
+	
+	public QualifiedName qualifiedName(final NamedElement obj) {
+//return null;
+				return getConverter().toQualifiedName(obj.getName());
+		//getConverter().toQualifiedName(obj.getQualifiedName());
+	}
 //	
 //	public QualifiedName qualifiedName(final UnitLiteral obj) {
 //		return null;//getConverter().toQualifiedName(obj.getQualifiedName());
 //	}
 	
 	public QualifiedName qualifiedName(final AadlPackage obj) {
+		return getConverter().toQualifiedName(obj.getName());
+	}
+	
+	public QualifiedName qualifiedName(final PackageSection obj) {
 		return getConverter().toQualifiedName(obj.getName());
 	}
 	
@@ -56,12 +72,19 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	protected String getTheName(NamedElement namedElement){
-		Namespace namespace = namedElement.getNamespace();
-		if (namespace != null && namespace.hasName()) {
-			if (namespace instanceof PackageSection || namespace instanceof PropertySet)
-				return namespace.getName() + "::" + namedElement.getName();
-		}
-		return namedElement.getName();
+			if (namedElement.hasName()) {
+				Namespace namespace = namedElement.getNamespace();
+				if (namespace != null ) {
+					if (namespace instanceof PropertySet && namespace.hasName())
+						return namespace.getName() + "::" + namedElement.getName();
+					else if (namespace instanceof PackageSection && ((AadlPackage)namespace.getOwner()).hasName())
+						return ((AadlPackage)namespace.getOwner()).getName() + "::" + namedElement.getName();
+					else
+						return namedElement.getName();
+				} else
+					return namedElement.getName();
+			} else
+				return null;
 	}
 
 
