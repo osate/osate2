@@ -618,13 +618,13 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 				|| eIsSet(Aadl2Package.PACKAGE_SECTION__OWNED_ANNEX_LIBRARY);
 	}
 
-//	/**
-//	 * Returns the name of the package.
-//	 */
-//	@Override
-//	public String getName() {
-//		return ((AadlPackage) getOwner()).getName();
-//	}
+	/**
+	 * Returns the name of the package.
+	 */
+	@Override
+	public String getName() {
+		return ((AadlPackage) getOwner()).getName();
+	}
 
 	/**
 	 * <!-- begin-user-doc -->
