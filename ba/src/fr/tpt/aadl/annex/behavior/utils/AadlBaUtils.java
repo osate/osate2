@@ -832,10 +832,6 @@ public class AadlBaUtils {
             }
          }
          
-         System.out.println(el.getLocationReference().getLine() + " expre dim = " + exprDim);
-         
-         System.out.println(el.getLocationReference().getLine() + " delcaredDim = " + delcaredDim);
-         
          if(exprDim <= delcaredDim)
          {
             result.dimension = delcaredDim - exprDim ;
