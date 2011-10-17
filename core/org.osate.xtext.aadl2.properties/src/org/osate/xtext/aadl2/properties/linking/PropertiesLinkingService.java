@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.properties.linking;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -16,7 +17,12 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IScope;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.osate.aadl2.*;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
@@ -24,11 +30,13 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
+import com.google.inject.Inject;
+
 
 public class PropertiesLinkingService extends DefaultLinkingService {
 
 
-	private static PropertiesLinkingService eInstance = null;//new Aadl2LinkingService();
+	private static PropertiesLinkingService eInstance = null;
 
 	public PropertiesLinkingService(){
 		super();
@@ -65,6 +73,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		EObject res = (el.isEmpty()?null: el.get(0));
 		if (res != null&&res.eIsProxy()){
 			res = EcoreUtil.resolve(res,context);
+			if (res.eIsProxy()) return null;
 		}
 		return res;
 
@@ -76,6 +85,39 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		//	return null;
 	}
 
+
+	
+	
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
+	
+	/**
+	 * @return the all elements returned from the injected {@link IScopeProvider} which matches the text of the passed
+	 *         {@link LeafNode}
+	 */
+	public boolean hasDuplicateLinkedObjects(EObject context, EReference ref, String crossRefString)
+			throws IllegalNodeException {
+		final EClass requiredType = ref.getEReferenceType();
+		if (requiredType == null)
+			return false;
+
+		if (crossRefString != null && !crossRefString.equals("")) {
+				
+			final IScope scope = getScope(context, ref);
+			QualifiedName qualifiedLinkName =  qualifiedNameConverter.toQualifiedName(crossRefString);
+			Iterable<IEObjectDescription> elist = scope.getElements(qualifiedLinkName);
+			Iterator<IEObjectDescription> it = elist.iterator();
+			if (it.hasNext()) {
+				it.next();
+				if (it.hasNext())
+					return true;
+
+			}
+		}
+		return false;
+	}
+
+	
 	@Override
 	public String getCrossRefNodeAsString(INode node)
 			throws IllegalNodeException {
@@ -87,7 +129,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 
-
+	/**
+	 * returns the first linked object
+	 */
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
@@ -290,6 +334,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public AadlPackage findAadlPackage(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
 		return findAadlPackage(context, name, reference);
+	}
+	
+	public boolean hasDuplicatesAadlPackage(EObject context, String name) {
+		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
+		boolean res = hasDuplicateLinkedObjects(context, reference, name);
+		return res;
 	}
 
 
