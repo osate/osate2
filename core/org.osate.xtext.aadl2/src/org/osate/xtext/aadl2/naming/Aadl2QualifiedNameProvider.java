@@ -53,7 +53,8 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	public QualifiedName qualifiedName(final PackageSection obj) {
-		return getConverter().toQualifiedName(obj.getName());
+		return null;
+		//return getConverter().toQualifiedName(obj.getQualifiedName());
 	}
 	
 	public QualifiedName qualifiedName(final PropertyType obj) {
