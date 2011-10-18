@@ -54,6 +54,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainmentPathElement;
@@ -994,10 +995,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 	
-	public ComponentType getComponentType(){
+	public ComponentClassifier getComponentClassifier(){
 		Subcomponent sub = getSubcomponent();
 		if (AadlUtil.isNull(sub)) return null;
-		return sub.getComponentType();
+		return sub.getClassifier();
 		
 	}
 
