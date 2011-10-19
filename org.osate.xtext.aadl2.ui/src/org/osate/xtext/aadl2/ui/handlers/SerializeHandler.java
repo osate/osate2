@@ -65,10 +65,6 @@ public class SerializeHandler extends AbstractHandler {
 				aadlresource.getContents().add(rl.get(0));
 				SaveOptions.Builder sb = SaveOptions.newBuilder();
 
-				ISerializer serializer = aadlresource.getSerializer();
-				String textualRepresentation = serializer.serialize(rl.get(0),sb.getOptions());
-				System.out.println(textualRepresentation);
-
 
 				
 				Map<Object,Object> options = new HashMap();
