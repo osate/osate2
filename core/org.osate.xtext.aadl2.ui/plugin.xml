@@ -347,32 +347,18 @@
 			name="Save Model As Text">
 		</command>
 	</extension>
-    <extension point="org.eclipse.ui.menus">
-         <menuContribution
-		 allPopups="false"
-         locationURI="popup:#TextEditorContext?after=additions">
-        <command commandId="org.osate.xtext.aadl2.ui.serialize"
-		 tooltip="Do Save (aaxl2) As Text" 
-		 style="push">
-         <visibleWhen checkEnabled="false">
-               <reference
-                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
-               </reference>
-         </visibleWhen>
-        </command>
-      </menuContribution> 
-   </extension>
-    <extension point="org.eclipse.ui.menus">
-		<menuContribution
-		allPopups="false"
-		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions ">
-		<command
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+         <command
 		commandId="org.osate.xtext.aadl2.ui.serialize"
+               label="Do Save (aaxl2) As Text"
 		tooltip="Do Save (aaxl2) As Text" 
-		style="push">
-		</command>
-	</menuContribution>
-   </extension> 
+               style="push">
+         </command>
+      </menuContribution>
+   </extension>
 
 <!-- Create Plugin Resource project -->
    <extension
