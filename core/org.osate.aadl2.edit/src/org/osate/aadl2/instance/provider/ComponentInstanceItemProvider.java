@@ -51,8 +51,10 @@ import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
 import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
 import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
 import org.eclipse.emf.edit.provider.ViewerNotification;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.SystemInstance;
 
 /**
  * This is the item provider adapter for a {@link org.osate.aadl2.instance.ComponentInstance} object.
@@ -200,11 +202,25 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 * This returns ComponentInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComponentInstance")); //$NON-NLS-1$
+        ComponentCategory cat =((ComponentInstance)object).getCategory();
+        String name = "ComponentInstance";
+        if (cat != null){
+        	name = cat.getLiteral();
+        	int idx = name.indexOf(" ");
+        	if (idx < 0){
+               name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()+".gif";
+        	} else {
+        		name = name.substring(0, 1).toUpperCase() + name.substring(1,idx).toLowerCase()
+        		+ name.substring(idx+1, idx+2).toUpperCase()+ name.substring(idx+2).toLowerCase()+".gif";
+        	}
+        }
+        if (object instanceof SystemInstance)
+        	name = "System";
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/"+name)); //$NON-NLS-1$
 	}
 
 	/**
