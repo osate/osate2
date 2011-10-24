@@ -214,12 +214,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FlowKind getKind() {
-		// TODO: implement this method to return the 'Kind' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Kind' attribute
+		return specification.getKind();
 	}
 
 	/**
