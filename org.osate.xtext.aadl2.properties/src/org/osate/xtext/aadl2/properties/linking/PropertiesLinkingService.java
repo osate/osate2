@@ -249,6 +249,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res.isEmpty()){
 					res = findPropertyDefinitionAsList(context, reference, name);
 				}
+				if (res.isEmpty()){
+					res = Collections.singletonList(findClassifier(context, reference,  name));
+				}
 				if (res.isEmpty() && name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
 					res = findEnumLiteralAsList(context, reference, name);
