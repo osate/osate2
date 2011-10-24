@@ -462,7 +462,7 @@ ComponentImplementation returns aadl2::ComponentImplementation:
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+	'end' FULLINAME ';'
 ;
 
 Realization returns aadl2::Realization:
@@ -1850,7 +1850,8 @@ PropertyType returns aadl2::PropertyType:
 	';';
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(ListType|UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	(ListType|
+		UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
 	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
@@ -1935,29 +1936,33 @@ UnnamedRangeType returns aadl2::RangeType:
 ClassifierType returns aadl2::ClassifierType:
 	name=ID ':' 'type' 
 	'classifier' 
-	('(' classifierReference+=QCReference (',' classifierReference+=QCReference)*')')?
+	('(' classifierReference+=QMReference (',' classifierReference+=QMReference)*')')?
 	 ;
 
 UnnamedClassifierType returns aadl2::ClassifierType:
 	{aadl2::ClassifierType}
 	'classifier' 
-	('(' classifierReference+=QCReference (',' classifierReference+=QCReference)*')')?
+	('(' classifierReference+=QMReference (',' classifierReference+=QMReference)*')')?
 	 ;
 
-QCReference returns aadl2::MetaclassReference:
+QMReference returns aadl2::MetaclassReference:
 	('{'  annexName=ID '}' STAR STAR )?
 	( metaclassName+=(CoreKeyWord|ID) )+
 	 ;
 
+QCReference returns aadl2::ClassifierValue:
+   classifier=[aadl2::ComponentClassifier|QCREF]
+  ;
+
 ReferenceType returns aadl2::ReferenceType:
 	name=ID ':' 'type' 
 	'reference' 
-	('(' namedElementReference+=QCReference (',' namedElementReference+=QCReference)* ')')?
+	('(' namedElementReference+=QMReference (',' namedElementReference+=QMReference)* ')')?
 	 ;
 
 UnnamedReferenceType returns aadl2::ReferenceType:
 	'reference' {aadl2::ReferenceType}
-	('(' namedElementReference+=QCReference (',' namedElementReference+=QCReference)* ')')?
+	('(' namedElementReference+=QMReference (',' namedElementReference+=QMReference)* ')')?
 	 ;
 
 RecordType returns aadl2::RecordType:
@@ -2008,7 +2013,7 @@ ListType returns aadl2::ListType:
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// classifier value is always qualified by a package name
-	QCReference
+	QCReference | QMReference
 	 ;
 
 
@@ -2074,10 +2079,16 @@ CoreKeyWord :
 // package anme
 PNAME:
 	ID ('::' ID)*;
+// package anme
+QTNAME:
+	ID ('::' ID)+;
 
 // implementation name (used by value converter)
 INAME:
 	ID;
+// implementation name (used by value converter)
+FULLINAME:
+	ID '.' ID;
 
 // name of refined entity. Used to set name field by value converter	
 REFINEDNAME:

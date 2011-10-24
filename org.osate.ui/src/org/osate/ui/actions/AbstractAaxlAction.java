@@ -67,6 +67,7 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -76,8 +77,8 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
-import org.osate.xtext.aadl2.properties.GetProperties;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osgi.framework.Bundle;
 
 
@@ -200,7 +201,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 		
 		// Root cannot be null (see above)
 		// init the context object. It is used by the lookup methods for initializing property references
-		AbstractAaxlAction.this.context = root;
+		AbstractAaxlAction.this.context = root instanceof SystemInstance? ((SystemInstance)root).getSystemImplementation():root;
 
 		// Init the properties
 		notFound.clear();
@@ -280,7 +281,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyType lookupPropertyType(
 			final String ps, final String name) {
 		final PropertyType pt = 
-				Aadl2LinkingService.getAadl2LinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
+				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
 		if (pt == null) notFound.add(PROP_TYPE + ps + COLON_COLON + name);
 		return pt;
 	}
@@ -341,7 +342,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupOptionalPropertyType(
 			final String ps, final String name) {
-		return Aadl2LinkingService.getAadl2LinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
+		return PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
 	}
 
 	/**
@@ -352,7 +353,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(final String name) {
 		final PropertyType pt = 
-				Aadl2LinkingService.getAadl2LinkingService(context).findPropertyType(context,name);
+				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,name);
 		if (pt == null) notFound.add(PREDECLARED + PROP_TYPE + name);
 		return pt;
 	}
@@ -412,7 +413,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupPropertyConstant(final String name) {
 		final PropertyConstant pc =
-				Aadl2LinkingService.getAadl2LinkingService(context).findPropertyConstant(context,name);
+				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,name);
 		if (pc == null) notFound.add(PREDECLARED + PROP_CONST + name);
 		return pc;
 	}
@@ -426,7 +427,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyConstant lookupPropertyConstant(
 			final String ps, final String name) {
 		final PropertyConstant pc =
-				Aadl2LinkingService.getAadl2LinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
+				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
 		if (pc == null) notFound.add(PROP_CONST + ps + COLON_COLON + name);
 		return pc;
 	}
@@ -441,7 +442,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupOptionalPropertyConstant(
 			final String ps, final String name) {
-		return Aadl2LinkingService.getAadl2LinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
+		return PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
 	}
 
 	/**

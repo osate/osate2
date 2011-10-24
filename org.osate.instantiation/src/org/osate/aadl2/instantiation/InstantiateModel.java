@@ -401,8 +401,6 @@ public class InstantiateModel {
 			if (monitor.isCanceled()) {
 				return;
 			}
-			// TODO: NPE with prototypes
-			// ci.doFlowSpecInstances();
 		}
 
 		return;

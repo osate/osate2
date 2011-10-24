@@ -13,6 +13,7 @@ Workflow {
     bean = StandaloneSetup {
 	    scanClassPath = true
 		platformUri = "${runtimeProject}/.."
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 	}
 
 	component = DirectoryCleaner {
@@ -45,8 +46,10 @@ Workflow {
 //			// "
 //			}
 
-			// the serialization component
-			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+//			// the serialization component
+//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // Serializer 2.0
+            fragment = serializer.SerializerFragment {}
 
 			// a custom ResourceFactory for use with EMF 
 			fragment = resourceFactory.ResourceFactoryFragment {
@@ -110,13 +113,13 @@ Workflow {
 
 			// generates a more lightweight Antlr parser and lexer tailored for content assist  
 //			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {}
-//			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
-//				    options = {
-//        		ignoreCase = true
-//				backtrack = true
-////			classSplitting = true
-////				}
-//			}
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+				    options = {
+        		ignoreCase = true
+				backtrack = true
+			classSplitting = true
+				}
+			}
 
 			// generates junit test support classes into Generator#pathTestProject
 //			fragment = junit.Junit4Fragment {}
