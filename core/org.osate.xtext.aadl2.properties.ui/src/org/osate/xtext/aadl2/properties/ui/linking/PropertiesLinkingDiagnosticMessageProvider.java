@@ -5,6 +5,7 @@ import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
+import org.osate.aadl2.Aadl2Package;
 
 public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider{
 
@@ -12,7 +13,7 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 	public DiagnosticMessage getUnresolvedProxyMessage(ILinkingDiagnosticContext context) {
 		EClass referenceType = context.getReference().getEReferenceType();
 		String targetName = referenceType.getName();
-		if (targetName.equalsIgnoreCase("AbstractNamedValue")){
+		if (Aadl2Package.eINSTANCE.getAbstractNamedValue() == referenceType){
 			targetName = "Property Constant, Property Definition, Enumeration or Unit literal";
 		}
 		String msg = "Couldn't resolve reference to " + targetName + " '" + context.getLinkText() + "'.";
