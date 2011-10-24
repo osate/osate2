@@ -90,13 +90,11 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public Classifier basicGetRefinementContext() {
-		// TODO: implement this method to return the 'Refinement Context' reference
-		// -> do not perform proxy resolution
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Refinement Context' reference
+		return null;
 	}
 
 	/**
