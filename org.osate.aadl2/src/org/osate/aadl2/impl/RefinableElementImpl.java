@@ -35,11 +35,9 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.RefinableElement;
@@ -59,16 +57,6 @@ import org.osate.aadl2.RefinableElement;
  * @generated
  */
 public abstract class RefinableElementImpl extends NamedElementImpl implements RefinableElement {
-	/**
-	 * The cached value of the '{@link #getRefinementContext() <em>Refinement Context</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRefinementContext()
-	 * @generated
-	 * @ordered
-	 */
-	protected Classifier refinementContext;
-
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,16 +82,9 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @generated
 	 */
 	public Classifier getRefinementContext() {
-		if (refinementContext != null && ((EObject) refinementContext).eIsProxy()) {
-			InternalEObject oldRefinementContext = (InternalEObject) refinementContext;
-			refinementContext = (Classifier) eResolveProxy(oldRefinementContext);
-			if (refinementContext != oldRefinementContext) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT, oldRefinementContext, refinementContext));
-			}
-		}
-		return refinementContext;
+		Classifier refinementContext = basicGetRefinementContext();
+		return refinementContext != null && ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
+				: refinementContext;
 	}
 
 	/**
@@ -112,7 +93,10 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	 * @generated
 	 */
 	public Classifier basicGetRefinementContext() {
-		return refinementContext;
+		// TODO: implement this method to return the 'Refinement Context' reference
+		// -> do not perform proxy resolution
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -166,7 +150,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 		case Aadl2Package.REFINABLE_ELEMENT__REFINED_ELEMENT:
 			return isSetRefinedElement();
 		case Aadl2Package.REFINABLE_ELEMENT__REFINEMENT_CONTEXT:
-			return refinementContext != null;
+			return basicGetRefinementContext() != null;
 		}
 		return super.eIsSet(featureID);
 	}

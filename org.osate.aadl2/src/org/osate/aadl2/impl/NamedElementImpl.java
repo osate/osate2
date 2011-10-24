@@ -439,8 +439,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		PropertyAssociation pa = getPropertyValue(property).first();
 
 		if (pa == null) {
-			if (property.getDefaultValue()==null){
-				throw new PropertyNotPresentException(this, property, "No property association was found" );
+			if (property.getDefaultValue() == null) {
+				throw new PropertyNotPresentException(this, property, "No property association was found");
 			}
 			return property.getDefaultValue();
 		} else {

@@ -36,9 +36,7 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PortCategory;
@@ -68,16 +66,6 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	protected static final PortCategory CATEGORY_EDEFAULT = PortCategory.DATA;
 
 	/**
-	 * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCategory()
-	 * @generated
-	 * @ordered
-	 */
-	protected PortCategory category = CATEGORY_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -102,7 +90,9 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * @generated
 	 */
 	public PortCategory getCategory() {
-		return category;
+		// TODO: implement this method to return the 'Category' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -111,10 +101,9 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * @generated
 	 */
 	public void setCategory(PortCategory newCategory) {
-		PortCategory oldCategory = category;
-		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT__CATEGORY, oldCategory, category));
+		// TODO: implement this method to set the 'Category' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -170,26 +159,9 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.PORT__CATEGORY:
-			return category != CATEGORY_EDEFAULT;
+			return getCategory() != CATEGORY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (category: ");
-		result.append(category);
-		result.append(')');
-		return result.toString();
 	}
 
 } //PortImpl

@@ -90,16 +90,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	protected static final AccessCategory CATEGORY_EDEFAULT = AccessCategory.BUS;
 
 	/**
-	 * The cached value of the '{@link #getCategory() <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getCategory()
-	 * @generated
-	 * @ordered
-	 */
-	protected AccessCategory category = CATEGORY_EDEFAULT;
-
-	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -145,7 +135,9 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * @generated
 	 */
 	public AccessCategory getCategory() {
-		return category;
+		// TODO: implement this method to return the 'Category' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -154,10 +146,9 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * @generated
 	 */
 	public void setCategory(AccessCategory newCategory) {
-		AccessCategory oldCategory = category;
-		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS__CATEGORY, oldCategory, category));
+		// TODO: implement this method to set the 'Category' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -223,7 +214,7 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		case Aadl2Package.ACCESS__KIND:
 			return kind != KIND_EDEFAULT;
 		case Aadl2Package.ACCESS__CATEGORY:
-			return category != CATEGORY_EDEFAULT;
+			return getCategory() != CATEGORY_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -241,8 +232,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (kind: ");
 		result.append(kind);
-		result.append(", category: ");
-		result.append(category);
 		result.append(')');
 		return result.toString();
 	}
