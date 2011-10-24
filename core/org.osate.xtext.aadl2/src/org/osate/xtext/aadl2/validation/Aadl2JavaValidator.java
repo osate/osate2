@@ -14,7 +14,7 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.*;
-import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
@@ -269,9 +269,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		final int idx = s.lastIndexOf("::");
 		if (idx != -1) {
 			psname = s.substring(0, idx);
-			if (Aadl2LinkingService.getAadl2LinkingService(pa).isPredeclaredPropertySet(psname))
+			if (PropertiesLinkingService.getPropertiesLinkingService(pa).isPredeclaredPropertySet(psname))
 				return;
-			EObject propertySet = Aadl2LinkingService.getAadl2LinkingService(pa).findImportedPropertySet(
+			EObject propertySet = PropertiesLinkingService.getPropertiesLinkingService(pa).findImportedPropertySet(
 					psname, pa);
 			if (propertySet == null) {
 				error(pa,
@@ -279,6 +279,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+//	@Check(CheckType.FAST)
+//	public void caseAadlPackage(AadlPackage pack){
+//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack)){
+//			error(pack,"Duplicate packages "+ pack.getName());
+//		}
+//	}
+//	
+//	@Check(CheckType.FAST)
+//	public void caseClassifier(Classifier pack){
+//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesClassifier(pack)){
+//			error(pack,"Duplicate classifiers "+ pack.getName());
+//		}
+//	}
 
 //	@Check(CheckType.FAST)
 //	public void caseAadlPackageSection(PackageSection ps) {
