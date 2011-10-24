@@ -63,7 +63,7 @@ public interface RefinableElement extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refinement Context</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getRefinableElement_RefinementContext()
-	 * @model changeable="false" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	Classifier getRefinementContext();
@@ -78,7 +78,7 @@ public interface RefinableElement extends NamedElement {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Refined Element</em>' reference.
 	 * @see org.osate.aadl2.Aadl2Package#getRefinableElement_RefinedElement()
-	 * @model changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	RefinableElement getRefinedElement();

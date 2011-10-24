@@ -84,16 +84,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	protected static final FlowKind KIND_EDEFAULT = FlowKind.SOURCE;
 
 	/**
-	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected FlowKind kind = KIND_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getSpecification() <em>Specification</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -227,7 +217,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	public FlowKind getKind() {
-		return kind;
+		// TODO: implement this method to return the 'Kind' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -236,10 +228,9 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	public void setKind(FlowKind newKind) {
-		FlowKind oldKind = kind;
-		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+		// TODO: implement this method to set the 'Kind' attribute
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -319,7 +310,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
 			return !getFeaturingClassifiers().isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			return kind != KIND_EDEFAULT;
+			return getKind() != KIND_EDEFAULT;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			return specification != null;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
@@ -362,22 +353,5 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (kind: ");
-		result.append(kind);
-		result.append(')');
-		return result.toString();
 	}
 } //FlowImplementationImpl

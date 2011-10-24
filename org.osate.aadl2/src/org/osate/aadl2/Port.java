@@ -66,7 +66,7 @@ public interface Port extends DirectedFeature, PortConnectionEnd {
 	 * @see org.osate.aadl2.PortCategory
 	 * @see #setCategory(PortCategory)
 	 * @see org.osate.aadl2.Aadl2Package#getPort_Category()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	PortCategory getCategory();

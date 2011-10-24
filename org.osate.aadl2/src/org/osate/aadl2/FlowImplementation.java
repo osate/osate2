@@ -121,7 +121,7 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature {
 	 * @see org.osate.aadl2.FlowKind
 	 * @see #setKind(FlowKind)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_Kind()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	FlowKind getKind();

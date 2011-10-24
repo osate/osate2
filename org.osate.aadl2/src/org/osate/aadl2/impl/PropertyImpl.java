@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -115,26 +114,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @ordered
 	 */
 	protected PropertyExpression defaultValue;
-
-	/**
-	 * The cached value of the '{@link #getAppliesToMetaclasses() <em>Applies To Metaclass</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAppliesToMetaclasses()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<MetaclassReference> appliesToMetaclasses;
-
-	/**
-	 * The cached value of the '{@link #getAppliesToClassifiers() <em>Applies To Classifier</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAppliesToClassifiers()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Classifier> appliesToClassifiers;
 
 	/**
 	 * The cached value of the '{@link #getAppliesTos() <em>Applies To</em>}' containment reference list.
@@ -332,11 +311,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @generated
 	 */
 	public EList<MetaclassReference> getAppliesToMetaclasses() {
-		if (appliesToMetaclasses == null) {
-			appliesToMetaclasses = new EObjectResolvingEList<MetaclassReference>(MetaclassReference.class, this,
-					Aadl2Package.PROPERTY__APPLIES_TO_METACLASS);
-		}
-		return appliesToMetaclasses;
+		// TODO: implement this method to return the 'Applies To Metaclass' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -345,11 +322,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @generated
 	 */
 	public EList<Classifier> getAppliesToClassifiers() {
-		if (appliesToClassifiers == null) {
-			appliesToClassifiers = new EObjectResolvingEList<Classifier>(Classifier.class, this,
-					Aadl2Package.PROPERTY__APPLIES_TO_CLASSIFIER);
-		}
-		return appliesToClassifiers;
+		// TODO: implement this method to return the 'Applies To Classifier' reference list
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
 	}
 
 	/**
@@ -469,9 +444,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
 			return defaultValue != null;
 		case Aadl2Package.PROPERTY__APPLIES_TO_METACLASS:
-			return appliesToMetaclasses != null && !appliesToMetaclasses.isEmpty();
+			return !getAppliesToMetaclasses().isEmpty();
 		case Aadl2Package.PROPERTY__APPLIES_TO_CLASSIFIER:
-			return appliesToClassifiers != null && !appliesToClassifiers.isEmpty();
+			return !getAppliesToClassifiers().isEmpty();
 		case Aadl2Package.PROPERTY__APPLIES_TO:
 			return appliesTos != null && !appliesTos.isEmpty();
 		case Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT:
