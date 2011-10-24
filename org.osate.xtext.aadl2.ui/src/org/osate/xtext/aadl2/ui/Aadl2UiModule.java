@@ -18,7 +18,7 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IContentOutlinePage> bindIContentOutlinePage() {
 	return Aadl2OutlinePage.class;
 	}
-	
+	// will need to add the same class to aadl2 and have it be an extension of the properties one.
 	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
 		return org.osate.xtext.aadl2.properties.ui.linking.PropertiesLinkingDiagnosticMessageProvider.class;
 	}
