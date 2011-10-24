@@ -41,6 +41,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
@@ -308,23 +309,35 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<MetaclassReference> getAppliesToMetaclasses() {
-		// TODO: implement this method to return the 'Applies To Metaclass' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Applies To Metaclass' reference list
+		EList<MetaclassReference> result = new BasicEList<MetaclassReference>();
+		
+		for (PropertyOwner po : getAppliesTos()) {
+			if (po instanceof MetaclassReference) {
+				result.add((MetaclassReference) po);
+			}
+		}
+		return result;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<Classifier> getAppliesToClassifiers() {
-		// TODO: implement this method to return the 'Applies To Classifier' reference list
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		// DONE: implement this method to return the 'Applies To Classifier' reference list
+		EList<Classifier> result = new BasicEList<Classifier>();
+		
+		for (PropertyOwner po : getAppliesTos()) {
+			if (po instanceof Classifier) {
+				result.add((Classifier) po);
+			}
+		}
+		return result;
 	}
 
 	/**
