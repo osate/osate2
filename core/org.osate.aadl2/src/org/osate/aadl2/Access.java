@@ -96,7 +96,7 @@ public interface Access extends Feature, AccessConnectionEnd {
 	 * @see org.osate.aadl2.AccessCategory
 	 * @see #setCategory(AccessCategory)
 	 * @see org.osate.aadl2.Aadl2Package#getAccess_Category()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	AccessCategory getCategory();

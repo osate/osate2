@@ -787,9 +787,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		ComponentClassifier cc = getClassifier();
 		if (AadlUtil.isNull(cc))
 			return null;
-		if (cc instanceof ComponentImplementation){
+		if (cc instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) cc).getType();
-			return AadlUtil.isNull(ct)?null:ct;
+			return AadlUtil.isNull(ct) ? null : ct;
 		}
 		if (cc instanceof ComponentType)
 			return (ComponentType) cc;
@@ -804,7 +804,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public EList<Subcomponent> getAllSubcomponentRefinements() {
 		BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		Subcomponent more = this;
-		while (!AadlUtil.isNull(more) ) {
+		while (!AadlUtil.isNull(more)) {
 			returnlist.add(more);
 			more = more.getRefined();
 		}
