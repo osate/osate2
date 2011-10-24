@@ -57,7 +57,7 @@ public class AnnexParserAgent  extends LazyLinker {
 					OsateCorePlugin.getDefault().getBundle());
 
 			final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(internalErrorLogger,
-					new MarkerParseErrorReporter.Factory("edu.cmu.sei.aadl.parser.ParseErrorMarker",
+					new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
 							parseErrorLoggerFactory));
 			final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
 
