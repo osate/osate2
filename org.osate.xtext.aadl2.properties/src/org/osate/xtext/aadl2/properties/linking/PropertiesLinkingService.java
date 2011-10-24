@@ -525,7 +525,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			final int idx = name.lastIndexOf("::");
 			String packname = null;
 			String cname = name;
-			PackageSection scope = getContainingPackageSection(context);
+			Namespace scope = getContainingPackageSection(context);
+			if (scope == null)
+				scope = getContainingPropertySet(context);
 			if (idx != -1) {
 				packname = name.substring(0, idx);
 				cname = name.substring(idx + 2);
@@ -1759,6 +1761,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	public Namespace getContainingTopLevelNamespace(EObject element) {
+		if (element.eContainer() == null) {
+			if (element instanceof Namespace) return (Namespace)element;
+			return null;
+		}
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof PackageSection)
 				&& !(container instanceof PropertySet))
