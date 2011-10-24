@@ -214,7 +214,7 @@ public class NamedElementOperations extends ElementOperations {
 	 */
 	public static Namespace getNamespace(NamedElement namedElement) {
 		// DONE: implement this method
-		return (Namespace) namedElement.getOwner();
+		return namedElement.getOwner() instanceof Namespace?(Namespace) namedElement.getOwner():null;
 	}
 
 	/**
