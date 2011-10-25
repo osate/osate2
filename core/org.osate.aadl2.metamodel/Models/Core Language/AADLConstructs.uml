@@ -1098,7 +1098,7 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies if the feature provides or requires access.</body>
           </ownedComment>
         </ownedAttribute>
-        <ownedAttribute xmi:id="Features-AccessFeature-category" name="category" type="Features-AccessCategory" isDerived="true">
+        <ownedAttribute xmi:id="Features-AccessFeature-category" name="category" type="Features-AccessCategory" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Features-AccessFeature-category-_ownedComment.0">
             <body>Specifies the category of the access feature.</body>
           </ownedComment>
@@ -1112,7 +1112,7 @@ For access features, the classifier specifies the type of the shared component.<
         <generalization xmi:id="Features-PortFeature-_generalization.1">
           <general xmi:type="uml:Class" href="AADLDetails.uml#Connections-PortConnectionEnd"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-PortFeature-category" name="category" type="Features-PortCategory" isDerived="true">
+        <ownedAttribute xmi:id="Features-PortFeature-category" name="category" type="Features-PortCategory" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Features-PortFeature-category-_ownedComment.0">
             <body>Specifies the category of the port.</body>
           </ownedComment>
@@ -1873,7 +1873,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_sl0SkK1eEeCEBvwFrdo_PA">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#ClassifierFeature"/>
         </generalization>
-        <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind" isDerived="true">
+        <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind" isReadOnly="true" isDerived="true">
           <ownedComment xmi:id="Flows-FlowImplementation-kind-_ownedComment.0">
             <body>Specifies if this flow specification is a source, path, or sink. Derived from the corresponding flow specification.</body>
           </ownedComment>

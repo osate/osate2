@@ -679,7 +679,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 				return pes;
 			}
 		} catch (Exception e) {
-			return Collections.EMPTY_LIST;
+			return Collections.emptyList();
 		}
 	}
 

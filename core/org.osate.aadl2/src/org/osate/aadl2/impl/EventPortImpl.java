@@ -38,6 +38,7 @@ package org.osate.aadl2.impl;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.EventPort;
+import org.osate.aadl2.PortCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -66,6 +67,14 @@ public class EventPortImpl extends PortImpl implements EventPort {
 	@Override
 	protected EClass eStaticClass() {
 		return Aadl2Package.eINSTANCE.getEventPort();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
+	 */
+	@Override
+	public PortCategory getCategory() {
+		return PortCategory.EVENT;
 	}
 
 } //EventPortImpl

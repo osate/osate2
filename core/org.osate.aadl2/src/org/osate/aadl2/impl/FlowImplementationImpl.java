@@ -226,17 +226,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setKind(FlowKind newKind) {
-		// TODO: implement this method to set the 'Kind' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -263,9 +252,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			setKind((FlowKind) newValue);
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) newValue);
 			return;
@@ -285,9 +271,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			setKind(KIND_EDEFAULT);
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) null);
 			return;
