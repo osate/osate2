@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusSubcomponentType;
 import org.osate.aadl2.FeatureClassifier;
@@ -223,6 +224,14 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.AccessImpl#getCategory()
+	 */
+	@Override
+	public AccessCategory getCategory() {
+		return AccessCategory.BUS;
 	}
 
 } //BusAccessImpl

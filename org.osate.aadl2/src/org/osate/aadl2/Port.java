@@ -64,22 +64,10 @@ public interface Port extends DirectedFeature, PortConnectionEnd {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Category</em>' attribute.
 	 * @see org.osate.aadl2.PortCategory
-	 * @see #setCategory(PortCategory)
 	 * @see org.osate.aadl2.Aadl2Package#getPort_Category()
-	 * @model required="true" transient="true" volatile="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	PortCategory getCategory();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Port#getCategory <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Category</em>' attribute.
-	 * @see org.osate.aadl2.PortCategory
-	 * @see #getCategory()
-	 * @generated
-	 */
-	void setCategory(PortCategory value);
 
 } // Port
