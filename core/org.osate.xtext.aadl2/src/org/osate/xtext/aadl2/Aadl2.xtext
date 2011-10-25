@@ -2013,7 +2013,7 @@ ListType returns aadl2::ListType:
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// classifier value is always qualified by a package name
-	QCReference | QMReference
+	QMReference | QCReference
 	 ;
 
 

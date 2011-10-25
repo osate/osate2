@@ -27412,11 +27412,11 @@ rulePropertyOwner returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_0()); 
     }
-    this_QCReference_0=ruleQCReference
+    this_QMReference_0=ruleQMReference
     {
-        $current = $this_QCReference_0.current;
+        $current = $this_QMReference_0.current;
         afterParserOrEnumRuleCall();
     }
 
@@ -27425,11 +27425,11 @@ rulePropertyOwner returns [EObject current=null]
 	  /* */ 
 	}
     { 
-        newCompositeNode(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_1()); 
     }
-    this_QMReference_1=ruleQMReference
+    this_QCReference_1=ruleQCReference
     {
-        $current = $this_QMReference_1.current;
+        $current = $this_QCReference_1.current;
         afterParserOrEnumRuleCall();
     }
 )
