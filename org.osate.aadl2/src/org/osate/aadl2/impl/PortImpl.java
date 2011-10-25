@@ -100,17 +100,6 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCategory(PortCategory newCategory) {
-		// TODO: implement this method to set the 'Category' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -118,36 +107,6 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 			return getCategory();
 		}
 		return super.eGet(featureID, resolve, coreType);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-		case Aadl2Package.PORT__CATEGORY:
-			setCategory((PortCategory) newValue);
-			return;
-		}
-		super.eSet(featureID, newValue);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-		case Aadl2Package.PORT__CATEGORY:
-			setCategory(CATEGORY_EDEFAULT);
-			return;
-		}
-		super.eUnset(featureID);
 	}
 
 	/**

@@ -314,7 +314,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public EList<MetaclassReference> getAppliesToMetaclasses() {
 		// DONE: implement this method to return the 'Applies To Metaclass' reference list
 		EList<MetaclassReference> result = new BasicEList<MetaclassReference>();
-		
+
 		for (PropertyOwner po : getAppliesTos()) {
 			if (po instanceof MetaclassReference) {
 				result.add((MetaclassReference) po);
@@ -331,7 +331,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public EList<Classifier> getAppliesToClassifiers() {
 		// DONE: implement this method to return the 'Applies To Classifier' reference list
 		EList<Classifier> result = new BasicEList<Classifier>();
-		
+
 		for (PropertyOwner po : getAppliesTos()) {
 			if (po instanceof Classifier) {
 				result.add((Classifier) po);
