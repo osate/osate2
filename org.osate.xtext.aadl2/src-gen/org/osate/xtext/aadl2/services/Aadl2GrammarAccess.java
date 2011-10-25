@@ -19186,23 +19186,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class PropertyOwnerElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyOwner");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cQCReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cQMReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cQMReferenceParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cQCReferenceParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
-		//	QCReference | QMReference;
+		//	QMReference | QCReference;
 		public ParserRule getRule() { return rule; }
 
 		//// classifier value is always qualified by a package name
-		//QCReference | QMReference
+		//QMReference | QCReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//// classifier value is always qualified by a package name
-		//QCReference
-		public RuleCall getQCReferenceParserRuleCall_0() { return cQCReferenceParserRuleCall_0; }
-
 		//QMReference
-		public RuleCall getQMReferenceParserRuleCall_1() { return cQMReferenceParserRuleCall_1; }
+		public RuleCall getQMReferenceParserRuleCall_0() { return cQMReferenceParserRuleCall_0; }
+
+		//QCReference
+		public RuleCall getQCReferenceParserRuleCall_1() { return cQCReferenceParserRuleCall_1; }
 	}
 
 	public class PropertyConstantElements extends AbstractParserRuleElementFinder {
@@ -22497,7 +22497,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyOwner returns aadl2::PropertyOwner: // classifier value is always qualified by a package name
-	//	QCReference | QMReference;
+	//	QMReference | QCReference;
 	public PropertyOwnerElements getPropertyOwnerAccess() {
 		return (pPropertyOwner != null) ? pPropertyOwner : (pPropertyOwner = new PropertyOwnerElements());
 	}

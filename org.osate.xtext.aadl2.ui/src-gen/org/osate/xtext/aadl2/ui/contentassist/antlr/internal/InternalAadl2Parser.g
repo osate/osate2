@@ -12533,15 +12533,15 @@ rule__PropertyOwner__Alternatives
     }
 :
 (
-{ before(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_0()); }
-	ruleQCReference
-{ after(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_0()); }
+{ before(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_0()); }
+	ruleQMReference
+{ after(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_0()); }
 )
 
     |(
-{ before(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_1()); }
-	ruleQMReference
-{ after(grammarAccess.getPropertyOwnerAccess().getQMReferenceParserRuleCall_1()); }
+{ before(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_1()); }
+	ruleQCReference
+{ after(grammarAccess.getPropertyOwnerAccess().getQCReferenceParserRuleCall_1()); }
 )
 
 ;
