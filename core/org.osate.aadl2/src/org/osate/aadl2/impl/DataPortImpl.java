@@ -44,6 +44,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DataSubcomponentType;
 import org.osate.aadl2.FeatureClassifier;
+import org.osate.aadl2.PortCategory;
 
 /**
  * <!-- begin-user-doc -->
@@ -223,6 +224,14 @@ public class DataPortImpl extends PortImpl implements DataPort {
 	@Override
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.DATA_PORT__DATA_FEATURE_CLASSIFIER);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.PortImpl#getCategory()
+	 */
+	@Override
+	public PortCategory getCategory() {
+		return PortCategory.DATA;
 	}
 
 } //DataPortImpl

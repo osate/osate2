@@ -145,17 +145,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setCategory(AccessCategory newCategory) {
-		// TODO: implement this method to set the 'Category' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -178,9 +167,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		case Aadl2Package.ACCESS__KIND:
 			setKind((AccessType) newValue);
 			return;
-		case Aadl2Package.ACCESS__CATEGORY:
-			setCategory((AccessCategory) newValue);
-			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -195,9 +181,6 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		switch (featureID) {
 		case Aadl2Package.ACCESS__KIND:
 			setKind(KIND_EDEFAULT);
-			return;
-		case Aadl2Package.ACCESS__CATEGORY:
-			setCategory(CATEGORY_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
