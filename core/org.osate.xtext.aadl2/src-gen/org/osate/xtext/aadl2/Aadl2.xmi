@@ -7727,9 +7727,6 @@
           <terminal xsi:type="xtext:Keyword" value="constant"/>
         </elements>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
-          </elements>
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Keyword" value="("/>
             <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
@@ -7741,13 +7738,10 @@
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.5"/>
               </elements>
             </elements>
-            <elements xsi:type="xtext:Group" cardinality="?">
-              <elements xsi:type="xtext:Keyword" value=","/>
-              <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
-              </elements>
-            </elements>
             <elements xsi:type="xtext:Keyword" value=")"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
@@ -7789,9 +7783,6 @@
           <terminal xsi:type="xtext:Keyword" value="constant"/>
         </elements>
         <elements xsi:type="xtext:Alternatives">
-          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
-            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
-          </elements>
           <elements xsi:type="xtext:Group">
             <elements xsi:type="xtext:Keyword" value="("/>
             <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
@@ -7803,13 +7794,10 @@
                 <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.5"/>
               </elements>
             </elements>
-            <elements xsi:type="xtext:Group" cardinality="?">
-              <elements xsi:type="xtext:Keyword" value=","/>
-              <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
-                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
-              </elements>
-            </elements>
             <elements xsi:type="xtext:Keyword" value=")"/>
+          </elements>
+          <elements xsi:type="xtext:Assignment" feature="ownedValue" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.6"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Keyword" value=";"/>
