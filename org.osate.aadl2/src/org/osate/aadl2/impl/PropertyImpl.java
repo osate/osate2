@@ -41,12 +41,12 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -115,26 +115,6 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	 * @ordered
 	 */
 	protected PropertyExpression defaultValue;
-
-	/**
-	 * The cached value of the '{@link #getAppliesToMetaclasses() <em>Applies To Metaclass</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAppliesToMetaclasses()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<MetaclassReference> appliesToMetaclasses;
-
-	/**
-	 * The cached value of the '{@link #getAppliesToClassifiers() <em>Applies To Classifier</em>}' reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getAppliesToClassifiers()
-	 * @generated
-	 * @ordered
-	 */
-	protected EList<Classifier> appliesToClassifiers;
 
 	/**
 	 * The cached value of the '{@link #getAppliesTos() <em>Applies To</em>}' containment reference list.
@@ -329,27 +309,35 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<MetaclassReference> getAppliesToMetaclasses() {
-		if (appliesToMetaclasses == null) {
-			appliesToMetaclasses = new EObjectResolvingEList<MetaclassReference>(MetaclassReference.class, this,
-					Aadl2Package.PROPERTY__APPLIES_TO_METACLASS);
+		// DONE: implement this method to return the 'Applies To Metaclass' reference list
+		EList<MetaclassReference> result = new BasicEList<MetaclassReference>();
+
+		for (PropertyOwner po : getAppliesTos()) {
+			if (po instanceof MetaclassReference) {
+				result.add((MetaclassReference) po);
+			}
 		}
-		return appliesToMetaclasses;
+		return result;
 	}
 
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public EList<Classifier> getAppliesToClassifiers() {
-		if (appliesToClassifiers == null) {
-			appliesToClassifiers = new EObjectResolvingEList<Classifier>(Classifier.class, this,
-					Aadl2Package.PROPERTY__APPLIES_TO_CLASSIFIER);
+		// DONE: implement this method to return the 'Applies To Classifier' reference list
+		EList<Classifier> result = new BasicEList<Classifier>();
+
+		for (PropertyOwner po : getAppliesTos()) {
+			if (po instanceof Classifier) {
+				result.add((Classifier) po);
+			}
 		}
-		return appliesToClassifiers;
+		return result;
 	}
 
 	/**
@@ -469,9 +457,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		case Aadl2Package.PROPERTY__DEFAULT_VALUE:
 			return defaultValue != null;
 		case Aadl2Package.PROPERTY__APPLIES_TO_METACLASS:
-			return appliesToMetaclasses != null && !appliesToMetaclasses.isEmpty();
+			return !getAppliesToMetaclasses().isEmpty();
 		case Aadl2Package.PROPERTY__APPLIES_TO_CLASSIFIER:
-			return appliesToClassifiers != null && !appliesToClassifiers.isEmpty();
+			return !getAppliesToClassifiers().isEmpty();
 		case Aadl2Package.PROPERTY__APPLIES_TO:
 			return appliesTos != null && !appliesTos.isEmpty();
 		case Aadl2Package.PROPERTY__EMPTY_LIST_DEFAULT:

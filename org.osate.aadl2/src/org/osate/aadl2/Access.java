@@ -94,22 +94,10 @@ public interface Access extends Feature, AccessConnectionEnd {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Category</em>' attribute.
 	 * @see org.osate.aadl2.AccessCategory
-	 * @see #setCategory(AccessCategory)
 	 * @see org.osate.aadl2.Aadl2Package#getAccess_Category()
-	 * @model required="true" derived="true" ordered="false"
+	 * @model required="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	AccessCategory getCategory();
-
-	/**
-	 * Sets the value of the '{@link org.osate.aadl2.Access#getCategory <em>Category</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Category</em>' attribute.
-	 * @see org.osate.aadl2.AccessCategory
-	 * @see #getCategory()
-	 * @generated
-	 */
-	void setCategory(AccessCategory value);
 
 } // Access

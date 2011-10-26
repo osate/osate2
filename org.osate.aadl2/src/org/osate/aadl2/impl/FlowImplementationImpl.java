@@ -84,16 +84,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	protected static final FlowKind KIND_EDEFAULT = FlowKind.SOURCE;
 
 	/**
-	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getKind()
-	 * @generated
-	 * @ordered
-	 */
-	protected FlowKind kind = KIND_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getSpecification() <em>Specification</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -224,22 +214,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public FlowKind getKind() {
-		return kind;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setKind(FlowKind newKind) {
-		FlowKind oldKind = kind;
-		kind = newKind == null ? KIND_EDEFAULT : newKind;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+		// DONE: implement this method to return the 'Kind' attribute
+		return specification.getKind();
 	}
 
 	/**
@@ -273,9 +252,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			setKind((FlowKind) newValue);
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) newValue);
 			return;
@@ -295,9 +271,6 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			setKind(KIND_EDEFAULT);
-			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			setSpecification((FlowSpecification) null);
 			return;
@@ -319,7 +292,7 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
 			return !getFeaturingClassifiers().isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
-			return kind != KIND_EDEFAULT;
+			return getKind() != KIND_EDEFAULT;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
 			return specification != null;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
@@ -362,22 +335,5 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			}
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy())
-			return super.toString();
-
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (kind: ");
-		result.append(kind);
-		result.append(')');
-		return result.toString();
 	}
 } //FlowImplementationImpl

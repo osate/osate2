@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
@@ -225,6 +226,14 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	public boolean isSetFeatureClassifier() {
 		return super.isSetFeatureClassifier()
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER);
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.impl.AccessImpl#getCategory()
+	 */
+	@Override
+	public AccessCategory getCategory() {
+		return AccessCategory.SUBPROGRAM_GROUP;
 	}
 
 } //SubprogramGroupAccessImpl

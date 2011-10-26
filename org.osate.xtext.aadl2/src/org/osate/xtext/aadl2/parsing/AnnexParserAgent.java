@@ -1,7 +1,10 @@
 package org.osate.xtext.aadl2.parsing;
+import java.util.Collections;
 import java.util.List;
 
-import org.antlr.runtime.RecognitionException;
+import antlr.RecognitionException;
+
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
@@ -15,11 +18,24 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
+import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.LogParseErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.MarkerParseErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AnnexLanguageServices;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexResolver;
+import org.osate.annexsupport.AnnexResolverRegistry;
 //import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
+import org.osate.core.OsateCorePlugin;
 
 
 public class AnnexParserAgent  extends LazyLinker {
@@ -38,9 +54,34 @@ public class AnnexParserAgent  extends LazyLinker {
 			int offset = node.getTotalOffset();
 			int line = node.getTotalStartLine();
 			String filename = model.eResource().getURI().lastSegment();
+			// set up reporter for ParseErrors
+			IResource file = OsateResourceUtil.convertToIResource(model.eResource());
+			final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
+					.getDefault().getBundle());
+			final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(
+					OsateCorePlugin.getDefault().getBundle());
+
+			final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(internalErrorLogger,
+					new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
+							parseErrorLoggerFactory));
+			final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
+			final AnalysisErrorReporterManager resolveErrManager = 
+					new AnalysisErrorReporterManager(
+							internalErrorLogger,
+							new AnalysisToParseErrorReporterAdapter.Factory(
+									new MarkerParseErrorReporter.Factory(
+											"edu.cmu.sei.aadl.parser.NameResolutionErrorMarker",
+											parseErrorLoggerFactory)));
+			
+			AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
+			AnnexResolverRegistry resolverregistry = (AnnexResolverRegistry) AnnexRegistry
+					.getRegistry(AnnexRegistry.ANNEX_RESOLVER_EXT_ID);
+
+
 			List<DefaultAnnexLibrary> all=EcoreUtil2.eAllOfType(model, DefaultAnnexLibrary.class);
 			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
 				AnnexLibrary al = null;
+				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
 //
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
@@ -50,42 +91,37 @@ public class AnnexParserAgent  extends LazyLinker {
 					// look for plug-in parser
 					String annexText = defaultAnnexLibrary.getSourceText();
 					String annexName = defaultAnnexLibrary.getName();
-					if (annexText.length() > 6) {
-						annexText = annexText.substring(3, annexText.length() - 3);
-					}
-					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-					AnnexParser ap = registry.getAnnexParser(annexName);
-
-					//				protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-					//						.getDefault().getBundle());
-					//				protected static final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(
-					//						OsateCorePlugin.getDefault().getBundle());
-					//
-					//				final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(internalErrorLogger,
-					//						new MarkerParseErrorReporter.Factory("edu.cmu.sei.aadl.parser.ParseErrorMarker",
-					//								parseErrorLoggerFactory));
-					//				final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
-					//
-					//				ParserErrorReporter errReporter
-					try {
-						al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, null);
-						if (al != null) 
-						{ 
-							al.setName(annexName);
-							// replace default annex library with the new one. 
-							EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
-							int idx = ael.indexOf(defaultAnnexLibrary);
-							ael.add(idx, al);
-							ael.remove(defaultAnnexLibrary);
+					if (annexText != null && annexName != null){
+						if (annexText.length() > 6) {
+							annexText = annexText.substring(3, annexText.length() - 3);
 						}
-					} catch (RecognitionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} // TODO: errReporter);
+						AnnexParser ap = registry.getAnnexParser(annexName);
+						try {
+							al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
+							if (al != null) 
+							{ 
+								al.setName(annexName);
+								// replace default annex library with the new one. 
+								EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
+								int idx = ael.indexOf(defaultAnnexLibrary);
+								ael.add(idx, al);
+								ael.remove(defaultAnnexLibrary);
+
+								if (errReporter.getNumErrors() == 0){
+									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
+									resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+								}
+							}
+						} catch (RecognitionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} // TODO: errReporter);
+					}
 				}
 			}
 			List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
 			for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
+				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexSubclause.getName().equalsIgnoreCase("error_model")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
@@ -94,42 +130,36 @@ public class AnnexParserAgent  extends LazyLinker {
 					// look for plug-in parser
 					String annexText = defaultAnnexSubclause.getSourceText();
 					String annexName = defaultAnnexSubclause.getName();
-					if (annexText.length() > 6) {
-						annexText = annexText.substring(3, annexText.length() - 3);
-					}
-					AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-					AnnexParser ap = registry.getAnnexParser(annexName);
-
-					//				protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-					//						.getDefault().getBundle());
-					//				protected static final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(
-					//						OsateCorePlugin.getDefault().getBundle());
-					//
-					//				final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(internalErrorLogger,
-					//						new MarkerParseErrorReporter.Factory("edu.cmu.sei.aadl.parser.ParseErrorMarker",
-					//								parseErrorLoggerFactory));
-					//				final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
-					//
-					//				ParserErrorReporter errReporter
-					try {
-						AnnexSubclause al;
-						al = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, null);
-						if (al != null) 
-						{
-							al.setName(annexName);
-							// replace default annex library with the new one. 
-							EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
-							int idx = ael.indexOf(defaultAnnexSubclause);
-							ael.add(idx, al);
-							ael.remove(defaultAnnexSubclause);
+					if (annexText != null && annexName != null){
+						if (annexText.length() > 6) {
+							annexText = annexText.substring(3, annexText.length() - 3);
 						}
-					} catch (RecognitionException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					} // TODO: errReporter);
+						AnnexParser ap = registry.getAnnexParser(annexName);
+						try {
+							AnnexSubclause al;
+							al = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, errReporter);
+							if (al != null) 
+							{
+								al.setName(annexName);
+								// replace default annex library with the new one. 
+								EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
+								int idx = ael.indexOf(defaultAnnexSubclause);
+								ael.add(idx, al);
+								ael.remove(defaultAnnexSubclause);
+								if (errReporter.getNumErrors() == 0){
+									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
+									resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+								}
+							}
+						} catch (RecognitionException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						} // TODO: errReporter);
+					}
 					
 				}
 			}
+			
 		}
 		// from XtextResource:
 //		if (parseResult == null || parseResult.getRootASTElement() == null)
