@@ -94,44 +94,44 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	@Inject
 	private IQualifiedNameConverter qualifiedNameConverter;
 	
-//	/**
-//	 * @return the all elements returned from the injected {@link IScopeProvider} which matches the text of the passed
-//	 *         {@link LeafNode}
-//	 */
-//	public boolean hasDuplicateLinkedObjects(EObject context, EReference ref)
-//			throws IllegalNodeException {
-//		final EClass requiredType = ref.getEReferenceType();
-//		if (requiredType == null)
-//			return false;
-//		if (!(context instanceof NamedElement)) return false;
-//			String crossRefString = ((NamedElement)context).getName();
-//			EObject eo = getIndexedObject(context, ref, crossRefString);
-//			final IScope scope = getScope(context, ref);
-//			if (scope instanceof ImportScope){
-//				ImportScope is = (ImportScope)scope;
-//				IScope ps = is.getParent();
-//				Iterable<IEObjectDescription> el = ((SelectableBasedScope)ps).getAllElements();
-//				for (IEObjectDescription ieObjectDescription : el) {
-//					String s = ieObjectDescription.getQualifiedName().toString();
-//					EObject eobj = ieObjectDescription.getEObjectOrProxy();
-//					if (crossRefString.equalsIgnoreCase(ieObjectDescription.getQualifiedName().toString())){
-//						Object e = ieObjectDescription.getEObjectOrProxy();
-//					}
-//				}
-//			}
-//		return false;
-//	}
+	/**
+	 * @return the all elements returned from the injected {@link IScopeProvider} which matches the text of the passed
+	 *         {@link LeafNode}
+	 */
+	public boolean hasDuplicateLinkedObjects(EObject context, EReference ref)
+			throws IllegalNodeException {
+		final EClass requiredType = ref.getEReferenceType();
+		if (requiredType == null)
+			return false;
+		if (!(context instanceof NamedElement)) return false;
+			String crossRefString = ((NamedElement)context).getName();
+			EObject eo = getIndexedObject(context, ref, crossRefString);
+			final IScope scope = getScope(context, ref);
+			if (scope instanceof ImportScope){
+				ImportScope is = (ImportScope)scope;
+				IScope ps = is.getParent();
+				Iterable<IEObjectDescription> el = ((SelectableBasedScope)ps).getAllElements();
+				for (IEObjectDescription ieObjectDescription : el) {
+					String s = ieObjectDescription.getQualifiedName().toString();
+					EObject eobj = ieObjectDescription.getEObjectOrProxy();
+					if (crossRefString.equalsIgnoreCase(ieObjectDescription.getQualifiedName().toString())){
+						Object e = ieObjectDescription.getEObjectOrProxy();
+					}
+				}
+			}
+		return false;
+	}
 //	public boolean hasDuplicatesAadlPackage(EObject context) {
 //	EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
 //	boolean res = hasDuplicateLinkedObjects(context, reference);
 //	return res;
 //}
-//
-//public boolean hasDuplicatesClassifier(EObject context) {
-//	EReference reference = Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier();
-//	boolean res = hasDuplicateLinkedObjects(context, reference);
-//	return res;
-//}
+
+public boolean hasDuplicatesClassifier(EObject context) {
+	EReference reference = Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier();
+	boolean res = hasDuplicateLinkedObjects(context, reference);
+	return res;
+}
 
 	
 	@Override
