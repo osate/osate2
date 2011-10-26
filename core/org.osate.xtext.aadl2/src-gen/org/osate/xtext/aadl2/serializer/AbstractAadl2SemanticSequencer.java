@@ -418,6 +418,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_ComponentClassifierTerm(context, (ClassifierValue) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getPropertyOwnerRule() ||
+				   context == grammarAccess.getQCReferenceRule()) {
+					sequence_QCReference(context, (ClassifierValue) semanticObject); 
+					return; 
+				}
 				else break;
 			case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
 				if(context == grammarAccess.getComponentImplementationReferenceRule()) {
@@ -846,8 +851,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPropertyOwnerRule() ||
-				   context == grammarAccess.getQCReferenceRule()) {
-					sequence_QCReference(context, (MetaclassReference) semanticObject); 
+				   context == grammarAccess.getQMReferenceRule()) {
+					sequence_QMReference(context, (MetaclassReference) semanticObject); 
 					return; 
 				}
 				else break;
@@ -2258,7 +2263,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (classifierReference+=QCReference classifierReference+=QCReference*)?)
+	 *     (name=ID (classifierReference+=QMReference classifierReference+=QMReference*)?)
 	 *
 	 * Features:
 	 *    name[1, 1]
@@ -7316,13 +7321,25 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     classifier=[ComponentClassifier|QCREF]
+	 *
+	 * Features:
+	 *    classifier[1, 1]
+	 */
+	protected void sequence_QCReference(EObject context, ClassifierValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (annexName=ID? (metaclassName+=CoreKeyWord | metaclassName+=ID)+)
 	 *
 	 * Features:
 	 *    annexName[0, 1]
 	 *    metaclassName[0, *]
 	 */
-	protected void sequence_QCReference(EObject context, MetaclassReference semanticObject) {
+	protected void sequence_QMReference(EObject context, MetaclassReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -7469,7 +7486,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID (namedElementReference+=QCReference namedElementReference+=QCReference*)?)
+	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
 	 *
 	 * Features:
 	 *    name[1, 1]
@@ -8510,7 +8527,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ((classifierReference+=QCReference classifierReference+=QCReference*)?)
+	 *     ((classifierReference+=QMReference classifierReference+=QMReference*)?)
 	 *
 	 * Features:
 	 *    classifierReference[0, *]
@@ -8616,7 +8633,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ((namedElementReference+=QCReference namedElementReference+=QCReference*)?)
+	 *     ((namedElementReference+=QMReference namedElementReference+=QMReference*)?)
 	 *
 	 * Features:
 	 *    namedElementReference[0, *]

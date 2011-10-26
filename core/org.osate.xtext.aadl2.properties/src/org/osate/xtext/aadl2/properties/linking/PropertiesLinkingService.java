@@ -249,6 +249,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res.isEmpty()){
 					res = findPropertyDefinitionAsList(context, reference, name);
 				}
+				// classifiers are handled by a ClassifierValue object
+//				if (res.isEmpty()){
+//					EObject clobj =findClassifier(context, reference,  name);
+//					if (clobj != null) res = Collections.singletonList(clobj);
+//				}
 				if (res.isEmpty() && name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
 					res = findEnumLiteralAsList(context, reference, name);
@@ -525,7 +530,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			final int idx = name.lastIndexOf("::");
 			String packname = null;
 			String cname = name;
-			PackageSection scope = getContainingPackageSection(context);
+			Namespace scope = getContainingPackageSection(context);
+			if (scope == null)
+				scope = getContainingPropertySet(context);
 			if (idx != -1) {
 				packname = name.substring(0, idx);
 				cname = name.substring(idx + 2);
@@ -1759,6 +1766,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	public Namespace getContainingTopLevelNamespace(EObject element) {
+		if (element.eContainer() == null) {
+			if (element instanceof Namespace) return (Namespace)element;
+			return null;
+		}
 		EObject container = element.eContainer();
 		while (container != null && !(container instanceof PackageSection)
 				&& !(container instanceof PropertySet))

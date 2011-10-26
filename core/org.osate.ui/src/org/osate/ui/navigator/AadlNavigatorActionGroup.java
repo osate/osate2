@@ -140,7 +140,7 @@ public class AadlNavigatorActionGroup extends MainActionGroup
 				{
 					file.setResourceAttributes(attributes);
 					getNavigator().getViewer().update(file, null);
-					IDE.openEditor(getNavigator().getViewSite().getPage(), file, "edu.cmu.sei.aadl.aadl2texteditor.Aadl2TextEditorID");
+					IDE.openEditor(getNavigator().getViewSite().getPage(), file, "org.osate.xtext.aadl2.Aadl2");
 				}
 				catch (CoreException e)
 				{
