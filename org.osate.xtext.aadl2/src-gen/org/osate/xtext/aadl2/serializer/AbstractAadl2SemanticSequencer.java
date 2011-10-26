@@ -4877,7 +4877,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *         (ownedValue+=PropertyValue | (ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=PropertyValue?)) 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *     )
 	 *
@@ -6264,7 +6264,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *             (ownedValue+=PropertyValue | (ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=PropertyValue?)) 
 	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *         ) | 
 	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
@@ -6272,7 +6272,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *             (ownedValue+=PropertyValue | (ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=PropertyValue?))
 	 *         )
 	 *     )
 	 *
@@ -6285,6 +6285,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         EXCLUDE_IF_SET property
 	 *         EXCLUDE_IF_SET append
 	 *         EXCLUDE_IF_SET constant
+	 *         EXCLUDE_IF_SET ownedValue
 	 *         EXCLUDE_IF_SET ownedValue
 	 *         EXCLUDE_IF_SET ownedValue
 	 *         EXCLUDE_IF_SET ownedValue
@@ -6828,7 +6829,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *         (ownedValue+=PropertyValue | (ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=PropertyValue?))
 	 *     )
 	 *
 	 * Features:
