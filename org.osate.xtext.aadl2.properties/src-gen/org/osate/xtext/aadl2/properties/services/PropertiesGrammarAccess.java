@@ -53,21 +53,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cConstantAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final Keyword cConstantConstantKeyword_2_0 = (Keyword)cConstantAssignment_2.eContents().get(0);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Assignment cOwnedValueAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
-		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_0_0 = (RuleCall)cOwnedValueAssignment_3_0.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_1_1_0 = (RuleCall)cOwnedValueAssignment_3_1_1.eContents().get(0);
-		private final Group cGroup_3_1_2 = (Group)cGroup_3_1.eContents().get(2);
-		private final Keyword cCommaKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
-		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0 = (RuleCall)cOwnedValueAssignment_3_1_2_1.eContents().get(0);
-		private final Group cGroup_3_1_3 = (Group)cGroup_3_1.eContents().get(3);
-		private final Keyword cCommaKeyword_3_1_3_0 = (Keyword)cGroup_3_1_3.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_3_1 = (Assignment)cGroup_3_1_3.eContents().get(1);
-		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_1_4 = (Keyword)cGroup_3_1.eContents().get(4);
+		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
+		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0 = (RuleCall)cOwnedValueAssignment_3_0_1.eContents().get(0);
+		private final Group cGroup_3_0_2 = (Group)cGroup_3_0.eContents().get(2);
+		private final Keyword cCommaKeyword_3_0_2_0 = (Keyword)cGroup_3_0_2.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_2_1 = (Assignment)cGroup_3_0_2.eContents().get(1);
+		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0 = (RuleCall)cOwnedValueAssignment_3_0_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_0_3 = (Keyword)cGroup_3_0.eContents().get(3);
+		private final Assignment cOwnedValueAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cAppliesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Keyword cToKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
@@ -81,14 +77,14 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// Properties
 		//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-		//	ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ("applies"
-		//	"to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
+		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+		//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
+		//	appliesTo+=ContainmentPath)*)? ";";
 		public ParserRule getRule() { return rule; }
 
-		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-		//ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ("applies"
-		//"to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
+		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+		//ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
+		//appliesTo+=ContainmentPath)*)? ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -118,54 +114,41 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//ownedValue+=PropertyValue | "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* (","
-		//ownedValue+=PropertyValue)? ")"
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//ownedValue+=PropertyValue
-		public Assignment getOwnedValueAssignment_3_0() { return cOwnedValueAssignment_3_0; }
-
-		//PropertyValue
-		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_0_0() { return cOwnedValuePropertyValueParserRuleCall_3_0_0; }
-
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")"
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
+		public Keyword getLeftParenthesisKeyword_3_0_0() { return cLeftParenthesisKeyword_3_0_0; }
 
 		//ownedValue+=ModalPropertyValue
-		public Assignment getOwnedValueAssignment_3_1_1() { return cOwnedValueAssignment_3_1_1; }
+		public Assignment getOwnedValueAssignment_3_0_1() { return cOwnedValueAssignment_3_0_1; }
 
 		//ModalPropertyValue
-		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_1_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_1_1_0; }
+		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0; }
 
 		//("," ownedValue+=ModalPropertyValue)*
-		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
+		public Group getGroup_3_0_2() { return cGroup_3_0_2; }
 
 		//","
-		public Keyword getCommaKeyword_3_1_2_0() { return cCommaKeyword_3_1_2_0; }
+		public Keyword getCommaKeyword_3_0_2_0() { return cCommaKeyword_3_0_2_0; }
 
 		//ownedValue+=ModalPropertyValue
-		public Assignment getOwnedValueAssignment_3_1_2_1() { return cOwnedValueAssignment_3_1_2_1; }
+		public Assignment getOwnedValueAssignment_3_0_2_1() { return cOwnedValueAssignment_3_0_2_1; }
 
 		//ModalPropertyValue
-		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0; }
-
-		//("," ownedValue+=PropertyValue)?
-		public Group getGroup_3_1_3() { return cGroup_3_1_3; }
-
-		//","
-		public Keyword getCommaKeyword_3_1_3_0() { return cCommaKeyword_3_1_3_0; }
-
-		//ownedValue+=PropertyValue
-		public Assignment getOwnedValueAssignment_3_1_3_1() { return cOwnedValueAssignment_3_1_3_1; }
-
-		//PropertyValue
-		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_3_1_0; }
+		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3_1_4() { return cRightParenthesisKeyword_3_1_4; }
+		public Keyword getRightParenthesisKeyword_3_0_3() { return cRightParenthesisKeyword_3_0_3; }
+
+		//ownedValue+=PropertyValue
+		public Assignment getOwnedValueAssignment_3_1() { return cOwnedValueAssignment_3_1; }
+
+		//PropertyValue
+		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_0; }
 
 		//("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)?
 		public Group getGroup_4() { return cGroup_4; }
@@ -211,30 +194,26 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cConstantAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final Keyword cConstantConstantKeyword_2_0 = (Keyword)cConstantAssignment_2.eContents().get(0);
 		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Assignment cOwnedValueAssignment_3_0 = (Assignment)cAlternatives_3.eContents().get(0);
-		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_0_0 = (RuleCall)cOwnedValueAssignment_3_0.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_1_1_0 = (RuleCall)cOwnedValueAssignment_3_1_1.eContents().get(0);
-		private final Group cGroup_3_1_2 = (Group)cGroup_3_1.eContents().get(2);
-		private final Keyword cCommaKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
-		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0 = (RuleCall)cOwnedValueAssignment_3_1_2_1.eContents().get(0);
-		private final Group cGroup_3_1_3 = (Group)cGroup_3_1.eContents().get(3);
-		private final Keyword cCommaKeyword_3_1_3_0 = (Keyword)cGroup_3_1_3.eContents().get(0);
-		private final Assignment cOwnedValueAssignment_3_1_3_1 = (Assignment)cGroup_3_1_3.eContents().get(1);
-		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1_3_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_1_4 = (Keyword)cGroup_3_1.eContents().get(4);
+		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
+		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0 = (RuleCall)cOwnedValueAssignment_3_0_1.eContents().get(0);
+		private final Group cGroup_3_0_2 = (Group)cGroup_3_0.eContents().get(2);
+		private final Keyword cCommaKeyword_3_0_2_0 = (Keyword)cGroup_3_0_2.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_2_1 = (Assignment)cGroup_3_0_2.eContents().get(1);
+		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0 = (RuleCall)cOwnedValueAssignment_3_0_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_0_3 = (Keyword)cGroup_3_0.eContents().get(3);
+		private final Assignment cOwnedValueAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
+		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//PropertyAssociation returns aadl2::PropertyAssociation:
-		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-		//	ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ";";
+		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+		//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
 		public ParserRule getRule() { return rule; }
 
-		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-		//ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ";"
+		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+		//ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -264,54 +243,41 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//ownedValue+=PropertyValue | "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* (","
-		//ownedValue+=PropertyValue)? ")"
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//ownedValue+=PropertyValue
-		public Assignment getOwnedValueAssignment_3_0() { return cOwnedValueAssignment_3_0; }
-
-		//PropertyValue
-		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_0_0() { return cOwnedValuePropertyValueParserRuleCall_3_0_0; }
-
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")"
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
+		public Keyword getLeftParenthesisKeyword_3_0_0() { return cLeftParenthesisKeyword_3_0_0; }
 
 		//ownedValue+=ModalPropertyValue
-		public Assignment getOwnedValueAssignment_3_1_1() { return cOwnedValueAssignment_3_1_1; }
+		public Assignment getOwnedValueAssignment_3_0_1() { return cOwnedValueAssignment_3_0_1; }
 
 		//ModalPropertyValue
-		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_1_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_1_1_0; }
+		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_1_0; }
 
 		//("," ownedValue+=ModalPropertyValue)*
-		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
+		public Group getGroup_3_0_2() { return cGroup_3_0_2; }
 
 		//","
-		public Keyword getCommaKeyword_3_1_2_0() { return cCommaKeyword_3_1_2_0; }
+		public Keyword getCommaKeyword_3_0_2_0() { return cCommaKeyword_3_0_2_0; }
 
 		//ownedValue+=ModalPropertyValue
-		public Assignment getOwnedValueAssignment_3_1_2_1() { return cOwnedValueAssignment_3_1_2_1; }
+		public Assignment getOwnedValueAssignment_3_0_2_1() { return cOwnedValueAssignment_3_0_2_1; }
 
 		//ModalPropertyValue
-		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_1_2_1_0; }
-
-		//("," ownedValue+=PropertyValue)?
-		public Group getGroup_3_1_3() { return cGroup_3_1_3; }
-
-		//","
-		public Keyword getCommaKeyword_3_1_3_0() { return cCommaKeyword_3_1_3_0; }
-
-		//ownedValue+=PropertyValue
-		public Assignment getOwnedValueAssignment_3_1_3_1() { return cOwnedValueAssignment_3_1_3_1; }
-
-		//PropertyValue
-		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_3_1_0; }
+		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3_1_4() { return cRightParenthesisKeyword_3_1_4; }
+		public Keyword getRightParenthesisKeyword_3_0_3() { return cRightParenthesisKeyword_3_0_3; }
+
+		//ownedValue+=PropertyValue
+		public Assignment getOwnedValueAssignment_3_1() { return cOwnedValueAssignment_3_1; }
+
+		//PropertyValue
+		public RuleCall getOwnedValuePropertyValueParserRuleCall_3_1_0() { return cOwnedValuePropertyValueParserRuleCall_3_1_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
@@ -1861,9 +1827,9 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// Properties
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-	//	ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ("applies"
-	//	"to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
+	//	appliesTo+=ContainmentPath)*)? ";";
 	public ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return (pContainedPropertyAssociation != null) ? pContainedPropertyAssociation : (pContainedPropertyAssociation = new ContainedPropertyAssociationElements());
 	}
@@ -1873,8 +1839,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
-	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=PropertyValue | "("
-	//	ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=PropertyValue)? ")") ";";
+	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
+	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
 	public PropertyAssociationElements getPropertyAssociationAccess() {
 		return (pPropertyAssociation != null) ? pPropertyAssociation : (pPropertyAssociation = new PropertyAssociationElements());
 	}

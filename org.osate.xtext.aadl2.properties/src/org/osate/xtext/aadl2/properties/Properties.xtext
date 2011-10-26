@@ -17,12 +17,12 @@ PModel returns aadl2::Element:
 ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
-	( ownedValue+=PropertyValue|( 
+	(( 
 	'(' ownedValue+=ModalPropertyValue
-	( ',' ownedValue+=ModalPropertyValue )* 
-	( ',' ownedValue+=PropertyValue)?
-	')' )
+	( ',' ownedValue+=ModalPropertyValue )*
 	
+	')' )
+	| ownedValue+=PropertyValue
 	)
 	('applies' 'to' appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
@@ -32,12 +32,12 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
-	(	ownedValue+=PropertyValue|
-	( 
+	(( 
 	'(' ownedValue+=ModalPropertyValue
 	 ( ',' ownedValue+=ModalPropertyValue )*
-	( ',' ownedValue+=PropertyValue)?
+	
 	')' )
+	| ownedValue+=PropertyValue
 	) ';'
 	;
 
