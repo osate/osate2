@@ -9,6 +9,11 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
 
@@ -25,6 +30,14 @@ public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
 			}
 //			String s = super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors);
 //			return s;
+		} else if (target instanceof Property || target instanceof PropertyType ||
+				target instanceof PropertyConstant){
+			PropertySet ps = (PropertySet)target.eContainer();
+			if (PropertiesLinkingService.isPredeclaredPropertySet(ps.getName())){
+				return ((NamedElement)target).getName();
+			} else {				
+				return ((NamedElement)target).getQualifiedName();
+			}
 		} else if (target instanceof NamedElement){
 			return ((NamedElement)target).getName();
 		} else return "<noname>";
