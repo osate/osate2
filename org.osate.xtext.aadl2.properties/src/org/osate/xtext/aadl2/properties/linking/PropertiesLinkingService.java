@@ -1628,7 +1628,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				.unmodifiableSet(predeclaredPropertySetNames);
 	}
 
-	public boolean isPredeclaredPropertySet(String psname){
+	public static boolean isPredeclaredPropertySet(String psname){
 		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
 			if (psname.equalsIgnoreCase(predeclaredPSName)) return true;
 		}
