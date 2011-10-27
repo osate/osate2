@@ -66,6 +66,7 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -801,7 +802,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	}
 
 	/**
-	 * Returns all the mode objects of a given implementation, including
+	 * Returns all the mode objects of a given type, including
 	 * ancestor.
 	 * 
 	 * @return EList of all mode objects
@@ -811,14 +812,14 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
-			final ComponentImplementation current = (ComponentImplementation) it.next();
+			final ComponentType current = (ComponentType) it.next();
 			returnlist.addAll(current.getOwnedModes());
 		}
 		return returnlist;
 	}
 
 	/**
-	 * Returns all the mode transition objects of a given implementation,
+	 * Returns all the mode transition objects of a given type,
 	 * including ancestor.
 	 * 
 	 * @return EList of all mode transition objects
@@ -828,8 +829,24 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
-			final ComponentImplementation current = (ComponentImplementation) it.next();
+			final ComponentType current = (ComponentType) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
+		}
+		return returnlist;
+	}
+	/**
+	 * Returns all the prototype objects of a given type, including
+	 * ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Prototype> getAllPrototypes() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentType current = (ComponentType) it.next();
+			returnlist.addAll(current.getOwnedPrototypes());
 		}
 		return returnlist;
 	}
