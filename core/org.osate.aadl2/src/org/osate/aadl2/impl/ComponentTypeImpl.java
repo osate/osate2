@@ -56,11 +56,14 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.TypeExtension;
@@ -793,6 +796,40 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 					returnlist.add(fe);
 				}
 			}
+		}
+		return returnlist;
+	}
+
+	/**
+	 * Returns all the mode objects of a given implementation, including
+	 * ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Mode> getAllModes() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Mode> returnlist = new BasicEList<Mode>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentImplementation current = (ComponentImplementation) it.next();
+			returnlist.addAll(current.getOwnedModes());
+		}
+		return returnlist;
+	}
+
+	/**
+	 * Returns all the mode transition objects of a given implementation,
+	 * including ancestor.
+	 * 
+	 * @return EList of all mode transition objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public EList<ModeTransition> getAllModeTransitions() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<ModeTransition> returnlist = new BasicEList<ModeTransition>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentImplementation current = (ComponentImplementation) it.next();
+			returnlist.addAll(current.getOwnedModeTransitions());
 		}
 		return returnlist;
 	}
