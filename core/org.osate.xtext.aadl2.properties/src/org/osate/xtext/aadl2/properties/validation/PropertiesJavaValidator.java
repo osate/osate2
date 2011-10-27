@@ -283,11 +283,15 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (pt instanceof AadlInteger){
 				if(!(pv instanceof IntegerLiteral)){
 					error(pv, "Expected an Integer value");
+				} else {
+					checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
 				}
 		} else
 		if (pt instanceof AadlReal){
 			if(!(pv instanceof RealLiteral)){
 				error(pv, "Expected a Real value");
+			} else {
+				checkUnits((AadlReal)pt,(RealLiteral)pv);
 			}
 		} else
 		if (pt instanceof RangeType){
@@ -319,6 +323,18 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	protected void typeMatch(PropertyType pt, EList<PropertyExpression> pel){
 		for (PropertyExpression propertyExpression : pel) {
 			typeCheckPropertyValues(pt,propertyExpression);
+		}
+	}
+	
+	protected void checkUnits(NumberType nt, NumberValue nv){
+		UnitsType ut = nt.getOwnedUnitsType();
+		UnitLiteral ul = nv.getUnit();
+		if (AadlUtil.isNull(ut) && AadlUtil.isNull(ul)) return;
+		if (ul == null){
+			error(nv, "Number value is missing a unit");
+		}
+		if (!ut.getOwnedLiterals().contains(ul)){
+			error(nv, "Unit '"+ul.getName()+"'of number value is not of Units type "+ut.getQualifiedName());
 		}
 	}
 	
