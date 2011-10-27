@@ -109,7 +109,8 @@ public class AnnexParserAgent  extends LazyLinker {
 
 								if (errReporter.getNumErrors() == 0){
 									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-									resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+									if (resolver != null)
+										resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
 								}
 							}
 						} catch (RecognitionException e) {
@@ -148,7 +149,7 @@ public class AnnexParserAgent  extends LazyLinker {
 								ael.remove(defaultAnnexSubclause);
 								if (errReporter.getNumErrors() == 0){
 									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-									resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
+									if (resolver != null) resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
 								}
 							}
 						} catch (RecognitionException e) {
