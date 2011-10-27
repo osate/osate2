@@ -47,6 +47,7 @@ package org.osate.aadl2.modelsupport.util;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -79,6 +80,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
@@ -194,29 +196,18 @@ public final class AadlUtil {
 	 */
 	public static EList<NamedElement> findDoubleNamedElementsInList(List<?> el) {
 		EList<NamedElement> result = new BasicEList<NamedElement>();
+		final Set seen = new HashSet();
 
 		if (el != null) {
-			ListIterator<?> it = el.listIterator();
-			while (it.hasNext()) {
-				Object o = it.next();
-
-				if (it.hasNext()) {
-					if (o instanceof NamedElement) {
-						NamedElement ne = (NamedElement) o;
-						String name = ne.getName();
-						if (name != null && name.length() > 0) {
-							ListIterator<?> itt = el.listIterator(it.nextIndex());
-
-							while (itt.hasNext()) {
-								Object oo = itt.next();
-
-								if (oo instanceof NamedElement) {
-									String mname = ((NamedElement) oo).getName();
-									if (mname != null && name.equalsIgnoreCase(mname))
-										result.add((NamedElement) oo);
-								}
-							}
-						}
+			for (final Iterator i = el.iterator(); i.hasNext();) {
+				final Object obj = i.next();
+				if (obj instanceof NamedElement){
+					final NamedElement lit = (NamedElement)obj;
+					final String name = lit.getName().toLowerCase();
+					if (seen.contains(name)) {
+						result.add(lit);
+					} else {
+						seen.add(name);
 					}
 				}
 			}
