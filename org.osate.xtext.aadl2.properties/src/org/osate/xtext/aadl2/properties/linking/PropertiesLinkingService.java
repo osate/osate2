@@ -249,11 +249,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res.isEmpty()){
 					res = findPropertyDefinitionAsList(context, reference, name);
 				}
-				// classifiers are handled by a ClassifierValue object
-//				if (res.isEmpty()){
-//					EObject clobj =findClassifier(context, reference,  name);
-//					if (clobj != null) res = Collections.singletonList(clobj);
-//				}
 				if (res.isEmpty() && name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
 					res = findEnumLiteralAsList(context, reference, name);
