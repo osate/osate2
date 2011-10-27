@@ -6,14 +6,15 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.*;
+import org.osate.aadl2.impl.FeatureConnectionImpl;
 import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
@@ -124,6 +125,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseThreadGroupImplementation(
 			ThreadGroupImplementation threadGroupImplementation) {
 		checkForInheritedCallSequenceFromAbstractImplementation(threadGroupImplementation);
+
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseProcessImplementation(
+			ProcessImplementation processImplementation) {
+		checkForInheritedCallSequenceFromAbstractImplementation(processImplementation);
 
 	}
 
@@ -582,6 +590,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					componentTypeRename,
 					Aadl2Package.eINSTANCE
 							.getComponentTypeRename_RenamedComponentType());
+			
 		}
 	}
 
@@ -1303,6 +1312,34 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					"A thread group implementation cannot extend an abstract implementation that contains subprogram calls.");
 		}
 	}
+	
+	
+	
+	
+	/**
+	 * Checks legality rule 4 in section 5.6 (Processes) on page 98.
+	 * "A process must not contain a subprogam calls subclause." This rule
+	 * is partly checked by the parser. This method checks for inherited members
+	 * from an AbstractImplementation.
+	 */
+	private void checkForInheritedCallSequenceFromAbstractImplementation(
+			ProcessImplementation processImplementation ) {
+		boolean parentHasCallSequence = false;
+		for (ComponentImplementation parentImplementation = processImplementation
+				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
+				.getExtended()) {
+			if (!((AbstractImplementation) parentImplementation)
+					.getOwnedSubprogramCallSequences().isEmpty())
+				parentHasCallSequence = true;
+		}
+		if (parentHasCallSequence) {
+			error(processImplementation.getOwnedExtension(),
+					"A process implementation cannot extend an abstract implementation that contains subprogram calls.");
+		}
+	}
+	
+	
+	
 
 	/**
 	 * Checks legality rule 5 in section 6.1 (Processors) on page 102.
@@ -1860,6 +1897,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							+ " contains an 'inverse of' declaration.");
 		}
 	}
+	
+	
+	//TODO - check with peter on what to do if complement / not complement
+/*	*//**
+	 * Checks legality rule 8 and 10 in section 8.2 (Feature Groups and Feature Group
+	 * Types) on page 129. " The number of feature or feature groups contained in the 
+	 * feature group and its complement must be identical" & "If both feature group 
+	 * types have zero features, then they are considered to complement each other"
+	 *//*
+	private void checkNumberOfFeatureGroupTypes( FeatureGroupType featureGroupType1, FeatureGroupType featureGroupType2 )
+	{
+		if( featureGroupType1.getAllFeatures().size() != featureGroupType2.getAllFeatures().size() )
+		{
+			//TODO feature group types do not complement each other
+		}
+	}*/
+	
 
 	/**
 	 * Checks legality rule 13 in section 8.2 (Feature Groups and Feature Group
@@ -2046,6 +2100,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
 
 //	/**
 //	 * Make sure that a PropertyReference object referenced as a
@@ -3223,5 +3278,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	ComponentCategory prototypeCategory = ComponentCategory.get(s.toLowerCase());
 	return prototypeCategory;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
