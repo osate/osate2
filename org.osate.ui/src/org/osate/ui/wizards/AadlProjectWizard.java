@@ -74,6 +74,8 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.CoreUtility;
 import org.osate.workspace.WorkspacePlugin;
 
+import sun.rmi.runtime.Log;
+
 
 /**
  * This is a simple wizard for creating a new Aadl project.
@@ -379,10 +381,19 @@ IExecutableExtension
 			CoreUtility.createFolder(xmlPSet, true, true, null);
 			CoreUtility.createFolder(srcPack, true, true, null);
 			CoreUtility.createFolder(srcPSet, true, true, null);
+			
 		} catch (CoreException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			MessageDialog
+			.openError(
+					getShell(),
+					"performFinish() Problems", 
+					MessageFormat
+					.format(
+							"Problem creating folder.",  e.getMessage() ) 
+					);
+			
 		}
 		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME)
 				.getRawLocation().toString();
@@ -398,15 +409,28 @@ IExecutableExtension
 		} catch (IOException e1)
 		{
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			MessageDialog
+			.openError(
+					getShell(),
+					"Save Problems", 
+					MessageFormat
+					.format(
+							"Problem saving PeferenceStore.",  e1.getMessage() ) 
+					);
 		}
 		try
 		{
 			p.refreshLocal(1, null);
 		} catch (CoreException e2)
 		{
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			MessageDialog
+			.openError(
+					getShell(),
+					"Refresh Problems", 
+					MessageFormat
+					.format(
+							"Problem refreshing resource hierarchy.",  e2.getMessage() ) 
+					);
 		}
 		AadlNature.addNature(p, null);
 		return true;
@@ -429,52 +453,52 @@ IExecutableExtension
 	{
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
 	}
-	
-	
-	
-	
+
+
+
+
 	class AADLWizardReferencePage extends WizardNewProjectReferencePage{
 
 		public AADLWizardReferencePage( String pageName )
 		{
 			super(pageName);
 		}
-		
+
 		@Override
-	    protected IStructuredContentProvider getContentProvider() {
-			
-	        return new WorkbenchContentProvider() {
-	            public Object[] getChildren(Object element) {
-	                if (!(element instanceof IWorkspace)) {
+		protected IStructuredContentProvider getContentProvider() {
+
+			return new WorkbenchContentProvider() {
+				public Object[] getChildren(Object element) {
+					if (!(element instanceof IWorkspace)) {
 						return new Object[0];
 					}
-	                IProject[] projects = ((IWorkspace) element).getRoot()
-	                        .getProjects();
-	                
-	                IProject project;
-	                ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
-	                for( int i =0 ; i < projects.length; i++ )
-	                {
-	                	project= projects[i];
-	                	System.out.println( project.toString() );
-	                	try
-	                	{
+					IProject[] projects = ((IWorkspace) element).getRoot()
+							.getProjects();
+
+					IProject project;
+					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
+					for( int i =0 ; i < projects.length; i++ )
+					{
+						project= projects[i];
+						System.out.println( project.toString() );
+						try
+						{
 							if( project.hasNature(AadlNature.ID))
 							{
 								projectsWithNatures.add( project );
 							}
 						} catch (CoreException e)
 						{
-							e.printStackTrace();
+
 						}
-	                }
-	                
-	                return projectsWithNatures.toArray();
-	                
-	               // return projects == null ? new Object[0] : projects;
-	            }
-	        };
-	    }
-		
+					}
+
+					return projectsWithNatures.toArray();
+
+					// return projects == null ? new Object[0] : projects;
+				}
+			};
+		}
+
 	}
 }
