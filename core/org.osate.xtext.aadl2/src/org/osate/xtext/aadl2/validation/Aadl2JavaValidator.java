@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -17,6 +18,7 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.*;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 
@@ -38,6 +40,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentType(ComponentType componentType) {
+		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
 	}
@@ -341,56 +344,51 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		checkProperty(pd);
 //	}
 
-	// NOTE: Handled by UniqueName checker of Xtext
-	// @Check(CheckType.FAST)
-	// public void caseUnitsType(final UnitsType ut) {
-	// final Set seen = new HashSet();
-	// final EList literals = ut.getOwnedLiterals();
-	// for (final Iterator i = literals.iterator(); i.hasNext();) {
-	// final UnitLiteral lit = (UnitLiteral) i.next();
-	// final String name = lit.getName();
-	// if (seen.contains(name)) {
-	// error(lit, "Unit '" + name
-	// + "' previously declared in units type");
-	// } else {
-	// seen.add(name);
-	// }
-	// }
-	// }
-	//
-	// @Check(CheckType.FAST)
-	// public void caseEnumerationType(final EnumerationType et) {
-	// final Set seen = new HashSet();
-	// final EList literals = et.getOwnedLiterals();
-	// for (final Iterator i = literals.iterator(); i.hasNext();) {
-	// final EnumerationLiteral lit = (EnumerationLiteral) i.next();
-	// final String name = lit.getName();
-	// if (seen.contains(name)) {
-	// error(lit, "Literal '" + name
-	// + "' previously declared in enumeration");
-	// } else {
-	// seen.add(name);
-	// }
-	// }
-	// }
-	// /**
-	// * check for unique feature names and flow spec names
-	// */
-	// @Check(CheckType.FAST)
-	// public void caseComponentType(ComponentType type) {
-	// // process in core package
-	// EList l = new BasicEList();
-	// l.addAll(type.getAllFlowSpec());
-	// l.addAll(type.allFeatures());
-	// EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
-	// if (doubles.size() > 0) {
-	// for (NamedElement ne : doubles) {
-	// error(ne,
-	// (ne instanceof Feature ? "feature " : "flow spec ") +
-	// " identifier '" + ne.getName() + "' previously defined");
-	// }
-	// }
-	// }
+	@Check(CheckType.FAST)
+	public void caseUnitsType(final UnitsType ut) {
+		final Set seen = new HashSet();
+		final EList literals = ut.getOwnedLiterals();
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne, "Unit '" + ne.getName()
+						+ "' previously declared in enumeration");
+			}
+		}
+	}
+
+	@Check(CheckType.FAST)
+	public void caseEnumerationType(final EnumerationType et) {
+		final Set seen = new HashSet();
+		final EList literals = et.getOwnedLiterals();
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne, "Literal '" + ne.getName()
+						+ "' previously declared in enumeration");
+			}
+		}
+	}
+	/**
+	 * check for unique names in component type
+	 */
+	public void checkComponentTypeUniqueNames(ComponentType type) {
+		// process in core package
+		EList l = new BasicEList();
+		l.addAll(type.getAllFlowSpecifications());	
+		l.addAll(type.getAllFeatures());
+		l.addAll(type.getAllModes());
+		l.addAll(type.getAllModeTransitions());
+		l.addAll(type.getAllPrototypes());
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne,
+						ne.eClass().getName() +
+						" identifier '" + ne.getName() + "' previously defined");
+			}
+		}
+	}
 	//
 	// /**
 	// * check for unique names in implementation

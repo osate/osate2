@@ -1481,6 +1481,28 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
+	 * Returns all the mode objects of a given implementation, including
+	 * ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	public EList<Prototype> getAllPrototypes() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentImplementation current = (ComponentImplementation) it.next();
+			returnlist.addAll(current.getOwnedPrototypes());
+		}
+		ancestors = getType().getAllExtendPlusSelf();
+		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
+			final ComponentType current = (ComponentType) it.next();
+			returnlist.addAll(current.getOwnedPrototypes());
+		}
+		return returnlist;
+	}
+
+	/**
 	 * get list of all end to end flows of a component impl, including ancestor
 	 * features In case of refined end to end flows the refined end to end flow
 	 * is returned in the list.
