@@ -1152,7 +1152,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
-        eType="#//FlowKind" changeable="false" volatile="true" transient="true" derived="true"/>
+        eType="#//FlowKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
         lowerBound="1" eType="#//FlowSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFlowSegment" upperBound="-1"
