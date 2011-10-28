@@ -179,5 +179,29 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * Returns the category ("abstract", "bus", "data", "device", etc.) for the classifier.
 	 */
 	String getCategory();
+	
+
+	/**
+	 * Returns all the mode objects of a given classifier, including
+	 * ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	EList<Mode> getAllModes();
+
+	/**
+	 * Returns all the mode transition objects of a given classifier,
+	 * including ancestor.
+	 * 
+	 * @return EList of all mode transition objects
+	 */
+	EList<ModeTransition> getAllModeTransitions();
+
+	/**
+	 * Returns all the prototypes, including  ancestor.
+	 * 
+	 * @return EList of all mode objects
+	 */
+	EList<Prototype> getAllPrototypes();
 
 } // ComponentClassifier

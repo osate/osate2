@@ -25,13 +25,13 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 
 	// Enable to limit indexing to global items
 	// Duplicates checking only applies to global items
-//	@Override
-//	public QualifiedName getFullyQualifiedName(final EObject obj) {
-//		if (obj instanceof AadlPackage || obj instanceof Classifier
-//				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
-//			return super.getFullyQualifiedName(obj);
-//	   return null;
-//	}
+	@Override
+	public QualifiedName getFullyQualifiedName(final EObject obj) {
+		if (obj instanceof AadlPackage || obj instanceof Classifier
+				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
+			return super.getFullyQualifiedName(obj);
+	   return null;
+	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
 		return getConverter().toQualifiedName(getTheName(obj));
