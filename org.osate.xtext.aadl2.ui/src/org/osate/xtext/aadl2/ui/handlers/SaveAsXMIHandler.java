@@ -1,12 +1,17 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
@@ -18,14 +23,18 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
+import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 
 import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public class SaveAsXMIHandler extends AbstractHandler {
 
@@ -61,21 +70,23 @@ public class SaveAsXMIHandler extends AbstractHandler {
 							if (!content.isEmpty()) {
 								ResourceSet rss = resource.getResourceSet();
 								EObject eobject = content.get(0);
-								// persist xmi resource
+								
+
+								// save XMI
 								URI xtxturi = resource.getURI();
 								URI xmiuri = xtxturi.trimFileExtension()
 										.appendFileExtension(
 												WorkspacePlugin.MODEL_FILE_EXT);
 								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-								Aadl2ResourceImpl aadlresource = (Aadl2ResourceImpl) resFactory
+								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
 										.createResource(xmiuri);
-								aadlresource.getContents().add(eobject);
-								rss.getResources().add(aadlresource);
-
-								aadlresource.save();
-								// put the root object back into the original resouorce
+								aaxlresource.getContents().add(eobject);
+								rss.getResources().add(aaxlresource);
+								aaxlresource.save();
+								// put the root object back into the original resource
 								resource.getContents().add(eobject);
-								rss.getResources().remove(aadlresource);
+								rss.getResources().remove(aaxlresource);
+
 							}
 
 							return null;
