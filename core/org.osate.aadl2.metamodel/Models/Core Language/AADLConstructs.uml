@@ -1873,7 +1873,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_sl0SkK1eEeCEBvwFrdo_PA">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#ClassifierFeature"/>
         </generalization>
-        <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind" isReadOnly="true" isDerived="true">
+        <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind">
           <ownedComment xmi:id="Flows-FlowImplementation-kind-_ownedComment.0">
             <body>Specifies if this flow specification is a source, path, or sink. Derived from the corresponding flow specification.</body>
           </ownedComment>
