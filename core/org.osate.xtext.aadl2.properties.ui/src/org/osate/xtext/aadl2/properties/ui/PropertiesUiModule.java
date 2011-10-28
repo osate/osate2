@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2.properties.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -11,5 +12,9 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class PropertiesUiModule extends org.osate.xtext.aadl2.properties.ui.AbstractPropertiesUiModule {
 	public PropertiesUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public Class<? extends org.eclipse.xtext.linking.ILinkingDiagnosticMessageProvider> bindILinkingDiagnosticMessageProvider() {
+		return org.osate.xtext.aadl2.properties.ui.linking.PropertiesLinkingDiagnosticMessageProvider.class;
 	}
 }

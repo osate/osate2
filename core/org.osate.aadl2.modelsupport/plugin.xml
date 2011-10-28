@@ -52,4 +52,13 @@
       </persistent>
    </extension>
 
+     <extension
+         id="ParseErrorMarker"
+         name="AADL Parse Error Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlTextMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+
 </plugin>

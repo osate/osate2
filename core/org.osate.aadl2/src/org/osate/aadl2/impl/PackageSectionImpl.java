@@ -59,6 +59,7 @@ import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PublicPackageSection;
 
 /**
  * <!-- begin-user-doc -->
@@ -645,14 +646,18 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		return true;
 	}
 
+	@Override
+	public NamedElement findNamedElement(String name) {
+		if (this instanceof PublicPackageSection){
+		return findNamedElement(name, true);
+		} else {
+			return findNamedElement(name, false);
+		}
+	}
+
 	/**
 	 * Default behavior for {@link PackageSection} is to search through all internally visible elements.
 	 */
-	@Override
-	public NamedElement findNamedElement(String name) {
-		return findNamedElement(name, false);
-	}
-
 	protected NamedElement findInternallyVisibleNamedElement(String name) {
 		NamedElement result = super.findNamedElement(name);
 		if (result instanceof ComponentTypeRename)

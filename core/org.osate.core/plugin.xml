@@ -11,9 +11,9 @@
                class="org.osate.core.AadlNature">
          </run>
       </runtime>
-      <builder
+      <!--builder
             id="org.osate.core.aadlbuilder">
-      </builder>
+      </builder-->
    </extension>
    
    <extension
@@ -24,7 +24,7 @@
             id="org.osate.core.natureimage">
       </image>
    </extension>
-   <extension
+   <!--extension
          id="aadlbuilder"
          name="%aadlBuilder"
          point="org.eclipse.core.resources.builders">
@@ -33,7 +33,7 @@
                class="org.osate.core.builder.AadlBuilder">
          </run>
       </builder>
-   </extension>
+   </extension-->
    <extension
          point="org.eclipse.team.core.fileTypes">
       <fileTypes

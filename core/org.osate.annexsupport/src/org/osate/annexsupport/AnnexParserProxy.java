@@ -33,11 +33,12 @@
  */
 package org.osate.annexsupport;
 
-import org.antlr.runtime.RecognitionException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
+
+import antlr.RecognitionException;
 
 
 /**

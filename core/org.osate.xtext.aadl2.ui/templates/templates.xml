@@ -1,4 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="Abstract Implementation">abstract implementation ${name}&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataFeatureClassifier')} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType">data ${name}&#13;
+  ${cursor}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventDataPort" deleted="false" description="Event Data Port" enabled="true" name="EventDataPort">${name} : ${direction:Enum('DirectionType')} event data port ${dataClassifier:CrossReference('EventDataPort.dataFeatureClassifier')} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventPort" deleted="false" description="Event Port" enabled="true" name="EventPort">${name} : ${direction:Enum('DirectionType')} event  port ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="Abstract Implementation">abstract implementation ${name}&#13;
 subcomponents&#13;
   ${cursor}&#13;
 connections&#13;
@@ -27,7 +34,8 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType">data ${name}&#13;
+end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.MemoryType" deleted="false" description="Memory Type" enabled="true" name="MemoryType">memory ${name}&#13;
+features&#13;
   ${cursor}&#13;
 end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DeviceType" deleted="false" description="Device Type" enabled="true" name="DeviceType">device ${name}&#13;
 features&#13;
@@ -38,9 +46,6 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventDataPort" deleted="false" description="Event Data Port" enabled="true" name="EventDataPort">${name} : ${direction:Enum('DirectionType')} event data port ${dataClassifier:CrossReference('EventDataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventPort" deleted="false" description="Event Port" enabled="true" name="EventPort">${name} : ${direction:Enum('DirectionType')} event port  ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.MemoryType" deleted="false" description="Memory Type" enabled="true" name="MemoryType">memory ${name}&#13;
-features&#13;
-  ${cursor}&#13;
 end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessorType" deleted="false" description="Processor Type" enabled="true" name="ProcessorType">processor ${name}&#13;
 features&#13;
   ${cursor}&#13;
