@@ -45,7 +45,7 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.util.AadlUtil;
+import org.osate.aadl2.util.Util;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
  
@@ -179,9 +179,9 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	
 	protected void checkPropertyAssociation(PropertyAssociation pa){
 		Property pdef = pa.getProperty();
-		if (AadlUtil.isNull(pdef)) return;
+		if (Util.isNull(pdef)) return;
 		PropertyType pt = pdef.getPropertyType();
-		if (AadlUtil.isNull(pt)) return;
+		if (Util.isNull(pt)) return;
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue());
@@ -260,7 +260,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
  * @param pv: PropertyExpression or null
  */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv){
-		if (AadlUtil.isNull(pt)) return;
+		if (Util.isNull(pt)) return;
 		if (pv == null) return;
 		if (pt instanceof ListType){
 			if (pv instanceof ListValue){
@@ -356,7 +356,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	protected void checkUnits(NumberType nt, NumberValue nv){
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
-		if (AadlUtil.isNull(ut) && AadlUtil.isNull(ul)) return;
+		if (Util.isNull(ut) && Util.isNull(ul)) return;
 		if (ul == null){
 			error(nv, "Number value is missing a unit");
 		} else

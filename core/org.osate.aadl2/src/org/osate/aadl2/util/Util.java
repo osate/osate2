@@ -2,7 +2,7 @@ package org.osate.aadl2.util;
 
 import org.eclipse.emf.ecore.EObject;
 
-public class AadlUtil {
+public class Util {
 	
 	/**
 	 * Xtext resolver leaves unresolved proxy when reference cannot be resolved.
