@@ -18,6 +18,8 @@ import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
@@ -268,24 +270,28 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			} else {
 				error(pv, "Expected a list");
 			}
-		} else
-		if(pt instanceof AadlBoolean ){
+		} else 	if(pt instanceof AadlBoolean ){
 			// TODO boolean property or constant reference
 			if(!(pv instanceof Operation || pv instanceof BooleanLiteral)) {
 				error(pv, "Expected a Boolean value");
 			}
-		} else
-		if (pt instanceof AadlString){
+		} else 	if (pt instanceof AadlString){
 			if (!(pv instanceof StringLiteral)){
 				error(pv, "Expected a String value");
 			}
-		} else
-		if (pt instanceof AadlInteger){
-				if(!(pv instanceof IntegerLiteral)){
-					error(pv, "Expected an Integer value");
-				} else {
-					checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
-				}
+		} else if (pt instanceof EnumerationType){
+			if (!(pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral))){
+				error(pv, "Expected a Enumeration literal");
+			}
+		} else if (pt instanceof UnitsType){
+			if (!(pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral))){
+				error(pv, "Expected a Enumeration literal");
+			}
+		} else 	if (pt instanceof AadlInteger){
+			if(!(pv instanceof IntegerLiteral)){
+				error(pv, "Expected an Integer value");
+			} else {			checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
+			}
 		} else
 		if (pt instanceof AadlReal){
 			if(!(pv instanceof RealLiteral)){
@@ -326,13 +332,33 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 	
+	protected void classMatch(PropertyExpression nv, Class cl){
+		if (nv instanceof NamedValue){
+			AbstractNamedValue ab = ((NamedValue)nv).getNamedValue();
+			if (ab instanceof PropertyConstant){
+				classMatch(((PropertyConstant)ab).getConstantValue(),cl);
+			} else
+			if (ab instanceof Property){
+//				classMatch(((Property)ab).get,cl);
+			} else {
+				if (nv.eClass().getClass() != cl){
+					error(nv, "Expected a "+cl.getSimpleName());
+				}
+			}
+		} else {
+			if (nv.eClass().getClass() != cl){
+				error(nv, "Expected a "+cl.getSimpleName());
+			}
+		}
+	}
+	
 	protected void checkUnits(NumberType nt, NumberValue nv){
-		UnitsType ut = nt.getOwnedUnitsType();
+		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
 		if (AadlUtil.isNull(ut) && AadlUtil.isNull(ul)) return;
 		if (ul == null){
 			error(nv, "Number value is missing a unit");
-		}
+		} else
 		if (!ut.getOwnedLiterals().contains(ul)){
 			error(nv, "Unit '"+ul.getName()+"'of number value is not of Units type "+ut.getQualifiedName());
 		}
