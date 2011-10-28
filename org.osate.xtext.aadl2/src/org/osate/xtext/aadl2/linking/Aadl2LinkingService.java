@@ -51,7 +51,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.util.AadlUtil;
+import org.osate.aadl2.util.Util;
 //import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 //import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
@@ -276,7 +276,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			Context flowContext = fs.getContext();
 			if (flowContext == null){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
-				if (AadlUtil.isNull(cc)) return Collections.<EObject> emptyList();;
+				if (Util.isNull(cc)) return Collections.<EObject> emptyList();;
 				EObject searchResult = cc.findNamedElement(name);
 				if (searchResult instanceof FlowElement){
 					return Collections.singletonList((EObject) searchResult);
@@ -284,7 +284,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
-					if (AadlUtil.isNull(cc)) 
+					if (Util.isNull(cc)) 
 						return Collections.<EObject> emptyList();;
 					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
@@ -307,7 +307,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			} else {
 				if (flowContext instanceof Subcomponent){
 					ComponentType cc = ((Subcomponent)flowContext).getComponentType();
-					if (AadlUtil.isNull(cc)) 
+					if (Util.isNull(cc)) 
 						return Collections.<EObject> emptyList();
 					EObject searchResult = cc.findNamedElement(name);
 					if (searchResult instanceof FlowSpecification){
