@@ -114,9 +114,6 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="FlowImplementation" name="FlowImplementation">
-      <ownedAttribute xmi:id="FlowImplementation-kind" name="kind" isDerived="true"/>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
       <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
@@ -303,6 +300,6 @@
   <Standard:Metaclass xmi:id="_viirgP51EeCNbuO0Qm4fmQ" base_Class="PackageSection"/>
   <Standard:Metaclass xmi:id="_vijSkP51EeCNbuO0Qm4fmQ" base_Class="Access"/>
   <Standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
-  <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="FlowImplementation-kind"/>
-  <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ" base_Class="FlowImplementation"/>
+  <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true"/>
+  <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ"/>
 </xmi:XMI>
