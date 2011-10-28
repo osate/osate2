@@ -333,23 +333,24 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 	
 	protected void classMatch(PropertyExpression nv, Class cl){
-		if (nv instanceof NamedValue){
-			AbstractNamedValue ab = ((NamedValue)nv).getNamedValue();
-			if (ab instanceof PropertyConstant){
-				classMatch(((PropertyConstant)ab).getConstantValue(),cl);
-			} else
-			if (ab instanceof Property){
-//				classMatch(((Property)ab).get,cl);
-			} else {
-				if (nv.eClass().getClass() != cl){
-					error(nv, "Expected a "+cl.getSimpleName());
-				}
-			}
-		} else {
-			if (nv.eClass().getClass() != cl){
-				error(nv, "Expected a "+cl.getSimpleName());
-			}
-		}
+		// TODO needs to be tested.
+//		if (nv instanceof NamedValue){
+//			AbstractNamedValue ab = ((NamedValue)nv).getNamedValue();
+//			if (ab instanceof PropertyConstant){
+//				classMatch(((PropertyConstant)ab).getConstantValue(),cl);
+//			} else
+//			if (ab instanceof Property){
+////				classMatch(((Property)ab).get,cl);
+//			} else {
+//				if (nv.eClass().getClass() != cl){
+//					error(nv, "Expected a "+cl.getSimpleName());
+//				}
+//			}
+//		} else {
+//			if (nv.eClass().getClass() != cl){
+//				error(nv, "Expected a "+cl.getSimpleName());
+//			}
+//		}
 	}
 	
 	protected void checkUnits(NumberType nt, NumberValue nv){
