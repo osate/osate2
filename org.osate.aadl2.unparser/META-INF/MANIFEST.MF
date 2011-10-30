@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Unparser
+Bundle-SymbolicName: org.osate.aadl2.unparser
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.osate.aadl2.unparser.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.7.100",
+ org.osate.annexsupport;bundle-version="1.0.0"
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
