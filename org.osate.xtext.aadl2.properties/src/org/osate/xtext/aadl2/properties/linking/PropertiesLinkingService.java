@@ -1612,28 +1612,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}
 	}
 
-	private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
-
-	static {
-		HashSet<String> predeclaredPropertySetNames = new HashSet<String>();
-		predeclaredPropertySetNames.add("AADL_Project");
-		predeclaredPropertySetNames.add("Deployment_Properties");
-		predeclaredPropertySetNames.add("Thread_Properties");
-		predeclaredPropertySetNames.add("Timing_Properties");
-		predeclaredPropertySetNames.add("Communication_Properties");
-		predeclaredPropertySetNames.add("Memory_Properties");
-		predeclaredPropertySetNames.add("Programming_Properties");
-		predeclaredPropertySetNames.add("Modeling_Properties");
-		PREDECLARED_PROPERTY_SET_NAMES = Collections
-				.unmodifiableSet(predeclaredPropertySetNames);
-	}
-
-	public static boolean isPredeclaredPropertySet(String psname){
-		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
-			if (psname.equalsIgnoreCase(predeclaredPSName)) return true;
-		}
-		return false;
-	}
 	/**
 	 * Dependencies: If propertySetName is the name of a different, non standard
 	 * property set: WithStatementReference.
@@ -1641,13 +1619,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public EObject findNamedElementInPropertySet(String propertySetName,
 			String elementName, EObject context, EReference reference) {
 		if (propertySetName == null) {
-			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 				EObject res = getIndexedObject(context, reference,
 						getQualifiedName(predeclaredPSName, elementName));
 				if (res != null)
 					return res;
 			}
-			for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 				PropertySet predeclaredPropertySet = findPropertySet(context,
 						predeclaredPSName);
 				if (predeclaredPropertySet != null) {

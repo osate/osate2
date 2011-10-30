@@ -73,27 +73,40 @@ import org.eclipse.emf.ecore.util.FeatureMap;
 import org.eclipse.emf.edit.provider.IWrapperItemProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractConnectionEnd;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EndToEndFlowElement;
+import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.InternalEvent;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubprogram;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
@@ -103,6 +116,7 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureInstance;
@@ -112,6 +126,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
+import org.osate.aadl2.util.Aadl2Util;
 
 
 /**
@@ -131,6 +146,33 @@ public final class AadlUtil {
 	private static final int PUBLIC = 0;
 
 	private static final int PRIVATE = 1;
+
+	private static final Set<String> PREDECLARED_PROPERTY_SET_NAMES;
+
+	static {
+		HashSet<String> predeclaredPropertySetNames = new HashSet<String>();
+		predeclaredPropertySetNames.add("AADL_Project");
+		predeclaredPropertySetNames.add("Deployment_Properties");
+		predeclaredPropertySetNames.add("Thread_Properties");
+		predeclaredPropertySetNames.add("Timing_Properties");
+		predeclaredPropertySetNames.add("Communication_Properties");
+		predeclaredPropertySetNames.add("Memory_Properties");
+		predeclaredPropertySetNames.add("Programming_Properties");
+		predeclaredPropertySetNames.add("Modeling_Properties");
+		PREDECLARED_PROPERTY_SET_NAMES = Collections
+				.unmodifiableSet(predeclaredPropertySetNames);
+	}
+	
+	public static Set<String> getPredeclaredPropertySetNames(){
+		return PREDECLARED_PROPERTY_SET_NAMES;
+	}
+
+	public static boolean isPredeclaredPropertySet(String psname){
+		for (String predeclaredPSName : PREDECLARED_PROPERTY_SET_NAMES) {
+			if (psname.equalsIgnoreCase(predeclaredPSName)) return true;
+		}
+		return false;
+	}
 
 	/**
 	 * find (first) Named Element matching name in the Elist; any elements that
@@ -1220,6 +1262,25 @@ public final class AadlUtil {
 		}
 		return null;
 	}
+	
+	public static String getClassifierName(Classifier cl, Element context){
+		if (Aadl2Util.isNull(cl)) return "";
+		if (cl.getElementRoot() == context.getElementRoot()){
+			return cl.getName();
+		} else {
+			return cl.getQualifiedName();
+		}
+	}
+	
+	public static String getPropertySetElementName(NamedElement el){
+		NamedElement ps = (NamedElement)el.eContainer();
+		if (isPredeclaredPropertySet(ps.getName())){
+			return el.getName();
+		} else {				
+			return el.getQualifiedName();
+		}
+
+	}
 
 	/**
 	 * Find the Element whose location reference is close to the line number.
@@ -2132,5 +2193,71 @@ public final class AadlUtil {
 			pt=((ListType)pt).getElementType();
 		}
 		return pt;
+	}
+	
+	public static String getConnectionEndName(AbstractConnectionEnd end){
+		if (end instanceof ConnectedElement){
+			ConnectedElement ce = (ConnectedElement) end;
+			Context cxt = ce.getContext();
+			ConnectionEnd cend = ce.getConnectionEnd();
+			if (cxt != null){
+				return cxt.getName()+'.'+cend.getName();
+			} else {
+				return cend.getName();
+			}
+		} else if (end instanceof ProcessorPort || end instanceof ProcessorSubprogram){
+			return "processor."+((NamedElement)end).getName();
+		} else if (end instanceof InternalEvent){
+			return "self."+((NamedElement)end).getName();
+		}
+		return "<?>";
+	}
+
+	public static String getFlowEndName(FlowEnd end){
+		Context cxt = end.getContext();
+		Feature cend = end.getFeature();
+		if (cxt != null){
+			return cxt.getName()+'.'+cend.getName();
+		} else {
+			return cend.getName();
+		}
+	}
+
+	public static String getFlowSegmentName(FlowSegment end){
+		Context cxt = end.getContext();
+		FlowElement cend = end.getFlowElement();
+		if (cxt != null){
+			return cxt.getName()+'.'+cend.getName();
+		} else {
+			return cend.getName();
+		}
+	}
+	public static String getFlowSegmentName(EndToEndFlowSegment end){
+		Context cxt = end.getContext();
+		EndToEndFlowElement cend = end.getFlowElement();
+		if (cxt != null){
+			return cxt.getName()+'.'+cend.getName();
+		} else {
+			return cend.getName();
+		}
+	}
+
+	
+	public static String getModeTransitionTriggerName(ModeTransitionTrigger end){
+		if (end instanceof TriggerPort){
+			TriggerPort ce = (TriggerPort) end;
+			Context cxt = ce.getContext();
+			Port cend = ce.getPort();
+			if (cxt != null){
+				return cxt.getName()+'.'+cend.getName();
+			} else {
+				return cend.getName();
+			}
+		} else if (end instanceof ProcessorPort ){
+			return "processor."+((NamedElement)end).getName();
+		} else if (end instanceof InternalEvent){
+			return "self."+((NamedElement)end).getName();
+		}
+		return "<?>";
 	}
 }
