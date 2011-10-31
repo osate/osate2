@@ -31,11 +31,14 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.serializing.*;
+import org.osate.xtext.aadl2.util.AadlUnparser;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -58,72 +61,13 @@ public class SerializeHandler extends AbstractHandler {
 			if (f instanceof IResource){
 				Resource res = OsateResourceUtil.getResource((IResource)f);
 				EList<EObject> rl = res.getContents();
-				URI xtxturi = res.getURI();
-				String name = xtxturi.trimFileExtension().lastSegment();
-				URI txturi = xtxturi.trimFileExtension().trimSegments(1).appendSegment(name+"_serialize").appendFileExtension("aadl");
-				XtextResource aadlresource = (XtextResource) res.getResourceSet().createResource(txturi);
-				aadlresource.getContents().add(rl.get(0));
-				SaveOptions.Builder sb = SaveOptions.newBuilder();
-
-
-				
-				Map<Object,Object> options = new HashMap();
-				sb.getOptions().addTo(options);
-				try {
-					aadlresource.save(options);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				AadlUnparser.getAadlUnparser().doUnparseToFile((Element)rl.get(0));
+//				AadlUnparser.getAadlUnparser().doUnparseToFile((IResource)f);
 			}
 			return null;
-		}
-			if (activeEditor == null) return null;
-		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-		if (xtextEditor != null) {
-			if (part instanceof ContentOutline) {
-				selection = ((ContentOutline) part).getSelection();
-			} else {
-				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-			}
-
 		}
 		return null;
 	}
 	
-//	@Override
-//	public boolean isEnabled() {
-//		IWorkbench wb = PlatformUI.getWorkbench();
-//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//		IWorkbenchPage page = win.getActivePage();
-//		IWorkbenchPart part = page.getActivePart();
-//		IEditorPart activeEditor = page.getActiveEditor();
-//		if (activeEditor == null)
-//			return false;
-//		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-//		final ISelection selection;
-//		if (xtextEditor != null) {
-//			if (part instanceof ContentOutline) {
-//				selection = ((ContentOutline) part).getSelection();
-//			} else {
-//				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-//			}
-//		}
-//		Resource resource = xtextEditor.getResource();
-//		Resource resource = xtextEditor.getEditorSite().g;
-//		EObject targetElement = null;
-//		if (selection instanceof IStructuredSelection) {
-//			IStructuredSelection ss = (IStructuredSelection) selection;
-//			Object eon = ss.getFirstElement();
-//			if (eon instanceof EObjectNode) {
-//				targetElement = ((EObjectNode)eon).getEObject(resource);
-//			}
-//		} else {
-//			targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-//					((ITextSelection)selection).getOffset());
-//		}
-//
-//		return  true;
-//	}
 
 }
