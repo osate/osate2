@@ -2009,9 +2009,10 @@ public final class AadlUtil {
 	 */
 	public static void makeSureFoldersExist(IPath path) {
 		path = path.removeLastSegments(1);
-		if (path.segmentCount() == 0)
+		if (path.segmentCount() <= 1)
 			return;
-		IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getFolder(path);
+		IPath folderpath = path.removeFirstSegments(1);
+		IFolder folder = ResourcesPlugin.getWorkspace().getRoot().getProject(path.segment(0)).getFolder(folderpath);
 		if (!folder.exists()) {
 			makeSureFoldersExist(path);
 			try {

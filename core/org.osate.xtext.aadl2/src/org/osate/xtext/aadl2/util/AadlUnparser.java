@@ -1938,7 +1938,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 	public void doUnparseToFile(IResource aaxlFile) {
 		IPath path = aaxlFile.getFullPath();
-		IPath txtpath = path.removeFileExtension().addFileExtension("aadl3");
+		IPath txtpath = path.removeFileExtension().addFileExtension("aadl");
 		Resource res = OsateResourceUtil.getResource(aaxlFile);
 		EList<EObject> rl = res.getContents();
 		doUnparseToFile((Element)rl.get(0), txtpath);
