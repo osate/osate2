@@ -948,7 +948,7 @@ DataImplementation returns aadl2::DataImplementation:
 /* subprogram calls */
 
 SubprogramCallSequence returns aadl2::SubprogramCallSequence:
-	name = ID '{'
+	name = ID ':' '{'
 	( ownedCallSpecification+=CallSpecification)+
 	'}'
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
