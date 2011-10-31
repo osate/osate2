@@ -44,7 +44,7 @@ import org.osate.xtext.aadl2.util.AadlUnparser;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class SerializeHandler extends AbstractHandler {
+public class SaveAsTextHandler extends AbstractHandler {
 
 
 	@Inject
@@ -62,7 +62,8 @@ public class SerializeHandler extends AbstractHandler {
 				Object f = (Object) iterator.next();
 				if (f instanceof IResource){
 					Resource res = OsateResourceUtil.getResource((IResource)f);
-					saveBySerialize2(res);
+					EList<EObject> rl = res.getContents();
+					AadlUnparser.getAadlUnparser().doUnparseToFile((Element)rl.get(0));
 				}
 			}
 			return null;
