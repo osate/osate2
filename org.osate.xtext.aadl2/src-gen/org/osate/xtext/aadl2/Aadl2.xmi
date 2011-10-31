@@ -2609,6 +2609,7 @@
         <elements xsi:type="xtext:Assignment" feature="name" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.55"/>
         </elements>
+        <elements xsi:type="xtext:Keyword" value=":"/>
         <elements xsi:type="xtext:Keyword" value="{"/>
         <elements xsi:type="xtext:Assignment" cardinality="+" feature="ownedCallSpecification" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.44"/>
