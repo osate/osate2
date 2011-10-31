@@ -250,7 +250,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * Does the bulk of subcomponent declarations
 			 */
 			public String caseSubcomponent(Subcomponent object) {
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(),object));
+				aadlText.addOutput(" "+AadlUtil.getClassifierName(object.getClassifier(),object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				processModalElement(object);
 				aadlText.addOutputNewline(";");
@@ -1313,10 +1313,19 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(object.getName() + ": ");
 				if (object.getRefined() != null)
 					aadlText.addOutput("refined to ");
-				aadlText.addOutput("flow "+object.getKind().getName());
-				if (object.getRefined() == null)
-					aadlText.addOutput(AadlUtil.getFlowEndName(object.getInEnd()) + " -> "
-							+ AadlUtil.getFlowEndName(object.getOutEnd()));
+				aadlText.addOutput("flow "+object.getKind().getName()+" ");
+				if (object.getRefined() == null){
+					FlowEnd inend = object.getInEnd();
+					FlowEnd outend = object.getOutEnd(); 
+					if (inend != null && outend != null){
+					aadlText.addOutput(AadlUtil.getFlowEndName(inend) + " -> "
+							+ AadlUtil.getFlowEndName(outend));
+					} else if (inend != null){
+						aadlText.addOutput(AadlUtil.getFlowEndName(inend));
+					} else {
+						aadlText.addOutput(AadlUtil.getFlowEndName(outend));
+					}
+					}
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1331,20 +1340,29 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				// add location counter
 				
 				aadlText.addOutput(object.getName() + ": ");
-				aadlText.addOutput("flow "+object.getKind().getName());
+				aadlText.addOutput("flow "+object.getKind().getName()+" ");
 				FlowSpecification fps = object.getSpecification();
-				aadlText.addOutput(AadlUtil.getFlowEndName(fps.getInEnd()));
+				FlowEnd inend = fps.getInEnd();
+				boolean doArrow = false;
+				if (inend != null){
+					aadlText.addOutput(AadlUtil.getFlowEndName(inend));
+					doArrow = true;
+				}
 				EList<FlowSegment> fel = object.getOwnedFlowSegments();
 				aadlText.incrementIndent();
 				boolean even = true;
 				for (FlowSegment flowSegment : fel) {
-					aadlText.addOutput(" -> " + AadlUtil.getFlowSegmentName(flowSegment));
+					aadlText.addOutput((doArrow?" -> ":"") + AadlUtil.getFlowSegmentName(flowSegment));
+					doArrow = true;
 					even = !even;
 					if (even) {
 						aadlText.addOutputNewline("");
 					}
 				}
-				aadlText.addOutput(" -> " + AadlUtil.getFlowEndName(fps.getOutEnd()));
+				FlowEnd outend = fps.getInEnd();
+				if (outend != null){
+					aadlText.addOutput((doArrow?" -> ":"") + AadlUtil.getFlowEndName(fps.getOutEnd()));
+				}
 				processCurlyList(object.getOwnedPropertyAssociations());
 				processModalElement(object);
 				aadlText.decrementIndent();
@@ -1358,8 +1376,6 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 */
 			public String caseEndToEndFlow(EndToEndFlow object) {
 				processComments(object);
-				
-				
 				aadlText.addOutput(object.getName() + ": ");
 				if (object.getRefined() != null)
 					aadlText.addOutput("refined to ");
@@ -1430,8 +1446,10 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				if (object.getRange() != null) {
 					process(object.getRange());
 				}
-				if (object.getUnitsType() != null)
-					process(object.getUnitsType());
+				if (object.getUnitsType() != null){
+					aadlText.addOutput(" units ");
+					processRef(object.getUnitsType());
+				}
 				if (isDecl)
 					aadlText.addOutputNewline(";");
 				return DONE;
@@ -1449,7 +1467,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					process(object.getRange());
 				}
 				if (object.getUnitsType() != null)
-					process(object.getUnitsType());
+					processRef(object.getUnitsType());
 				if (isDecl)
 					aadlText.addOutputNewline(";");
 				return DONE;
@@ -1554,9 +1572,15 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 
+			public String caseModalPropertyValue(ModalPropertyValue object) {
+				process(object.getOwnedValue());
+				processModalElement(object);
+				return DONE;
+			}
+
 			public String casePropertyAssociation(PropertyAssociation object) {
 				processComments(object);
-				aadlText.addOutput(object.getProperty().getQualifiedName());
+				aadlText.addOutput(AadlUtil.getPropertySetElementName(object.getProperty()));
 				aadlText.addOutput(object.isAppend() ? " +=> " : " => ");
 				final EList<ModalPropertyValue> pl = object.getOwnedValues();
 				boolean didParens = false;
@@ -1602,7 +1626,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processComments(object);
 				aadlText.addOutput(object.getName() + ": constant ");
 				if (object.getPropertyType() != null)
-					process(object.getPropertyType());
+					processRef(object.getPropertyType());
 				PropertyExpression pe = object.getConstantValue();
 				if (pe != null) {
 					aadlText.addOutput(" => ");
@@ -1618,7 +1642,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				if (object.isInherit())
 					aadlText.addOutput("inherit ");
 				if (object.getPropertyType() != null)
-					process(object.getPropertyType());
+					processRef(object.getPropertyType());
 				PropertyExpression pe = object.getDefaultValue();
 				if (pe != null) {
 					aadlText.addOutput(" => ");
@@ -1629,6 +1653,17 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutputNewline(");");
 				return DONE;
 			}
+			
+
+			public String caseBasicProperty(BasicProperty object) {
+				processComments(object);
+				aadlText.addOutput(object.getName() + ": ");
+				if (object.getPropertyType() != null)
+					processRef(object.getPropertyType());
+				aadlText.addOutputNewline(";");
+				return DONE;
+			}
+
 			
 			public String caseListType(ListType object){
 				aadlText.addOutput("list of ");
@@ -1680,12 +1715,22 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 
+			public String caseNamedValue(NamedValue object) {
+				AbstractNamedValue anv = object.getNamedValue();
+				if (anv instanceof EnumerationLiteral){
+					aadlText.addOutput(((EnumerationLiteral) anv).getName());
+				} else {
+					processRef((NamedElement)anv);
+				}
+				return DONE;
+			}
+
 			public String caseRangeType(RangeType object) {
 				if (object.getName() != null && object.getName().length() > 0)
 					aadlText.addOutput(object.getName() + ": type");
 				aadlText.addOutput(" range of ");
 				if (object.getNumberType() != null)
-					process(object.getNumberType());
+					processRef(object.getNumberType());
 				if (object.getName() != null)
 					aadlText.addOutputNewline(";");
 				return DONE;
@@ -1741,6 +1786,35 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				}
 				return DONE;
 			}
+			
+
+			public String caseRecordType(RecordType object) {
+				if (object.getName() != null && object.getName().length() > 0)
+					aadlText.addOutput(object.getName() + ": type");
+				aadlText.addOutputNewline(" record (");
+				processEList(object.getOwnedFields());
+				aadlText.addOutput(")");
+				if (object.getName() != null)
+					aadlText.addOutputNewline(";");
+				return DONE;
+			}
+			
+			public String caseRecordValue(RecordValue object) {
+				aadlText.incrementIndent();
+				aadlText.addOutputNewline("(");
+				processEList(object.getOwnedFieldValues());
+				aadlText.decrementIndent();
+				aadlText.addOutput(")");
+				return DONE;
+			}
+			
+			public String caseBasicPropertyAssociation(BasicPropertyAssociation object) {
+				aadlText.addOutput(object.getProperty().getName() + "=> ");
+				process(object.getOwnedValue());
+				aadlText.addOutputNewline(";");
+				return DONE;
+			}
+
 		};
 
 	}
@@ -1753,6 +1827,14 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	 */
 	private void unparse(Element obj) {
 		process(obj);
+	}
+	
+	private void processRef(NamedElement propref){
+		if (propref.getName() != null){
+			aadlText.addOutput(AadlUtil.getPropertySetElementName(propref));
+		} else {
+			process(propref);
+		}
 	}
 
 	/**
@@ -1787,6 +1869,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			else if (o instanceof AbstractEnumerator)
 				aadlText.addOutput(((AbstractEnumerator) o).getName()
 						.toLowerCase());
+			else if (o instanceof String)
+				aadlText.addOutput((String)o);
 			else
 				aadlText.addOutput("processEList: oh my, oh my!!");
 		}
