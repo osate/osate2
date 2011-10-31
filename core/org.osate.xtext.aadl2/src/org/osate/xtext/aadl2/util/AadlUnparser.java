@@ -170,7 +170,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 									.getExtended(),object));
 				}
 				processOptionalSection(object.getOwnedSubcomponents(), "subcomponents", AadlConstants.emptyString);
-//				process(object.getOwnedCallSequences());
+				if (object instanceof ThreadImplementation){
+					processEList(((ThreadImplementation)object).getOwnedSubprogramCallSequences());
+				} else if (object instanceof SubprogramImplementation){
+					processEList(((SubprogramImplementation)object).getOwnedSubprogramCallSequences());
+				}
 				processOptionalSection(object.getOwnedConnections(), "connections", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedEndToEndFlows(), "flows", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedModes(), "modes", AadlConstants.emptyString);
@@ -968,8 +972,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSubprogramCallSequence(SubprogramCallSequence object) {
 				processComments(object);
 				String n = object.getName();
-				if (n != null && n.length() > 0)
-					aadlText.addOutput(n + ": ");
+				aadlText.addOutput(n + ": ");
 				EList<CallSpecification> list = object.getOwnedCallSpecifications();
 				processComments(object);
 				if (list != null && !list.isEmpty()) {
@@ -979,6 +982,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput("}");
 					aadlText.decrementIndent();
 				}
+				aadlText.addOutputNewline(" ");
+				processCurlyList(object.getOwnedPropertyAssociations());
 				processModalElement(object);
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -992,12 +997,30 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processComments(object);
 				aadlText.addOutput(object.getName() + ": "
 						+ "subprogram");
+				CallContext cxt = object.getContext();
+				if (cxt != null){
+					if (cxt instanceof Classifier) {
+						aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cxt, object)+".");
+					} else {
+						aadlText.addOutput(((NamedElement)cxt).getName()+".");
+					}
+				}
 				CalledSubprogram cs = object.getCalledSubprogram();
 				if (cs instanceof Classifier) {
 					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cs, object));
 				} else {
 					aadlText.addOutput(((NamedElement)cs).getName());
 				}
+				processCurlyList(object.getOwnedPropertyAssociations());
+				aadlText.addOutputNewline(";");
+				return DONE;
+			}
+			
+			public String caseProcessorCall(
+					ProcessorCall object) {
+				processComments(object);
+				aadlText.addOutput(object.getName() + ": "
+						+ "subprogram processor."+object.getSubprogramAccessName());
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1016,7 +1039,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
 				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
+				processModalPath(object);
 				aadlText.addOutputNewline(";");
 				return DONE;
 			}
@@ -1035,7 +1058,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
 				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
+				processModalPath(object);
 				aadlText.addOutputNewline(";");
 				return DONE;
 			}
@@ -1053,7 +1076,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
 				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
+				processModalPath(object);
 				aadlText.addOutputNewline(";");
 				return DONE;
 			}
@@ -1071,7 +1094,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
 				processCurlyList(object.getOwnedPropertyAssociations());
-				processModalElement(object);
+				processModalPath(object);
 				aadlText.addOutputNewline(";");
 				return DONE;
 			}
