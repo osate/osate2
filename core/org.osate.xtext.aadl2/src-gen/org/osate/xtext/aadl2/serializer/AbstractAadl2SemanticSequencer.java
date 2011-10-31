@@ -5029,6 +5029,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         (name=ID | refined=[DataSubcomponent|REFINEDNAME]) 
 	 *         (dataSubcomponentType=[DataSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
@@ -5037,9 +5041,14 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    name[0, 1]
 	 *         EXCLUDE_IF_SET refined
 	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET dataSubcomponentType
 	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
 	 *    refined[0, 1]
 	 *         EXCLUDE_IF_SET name
 	 *    dataSubcomponentType[0, 1]

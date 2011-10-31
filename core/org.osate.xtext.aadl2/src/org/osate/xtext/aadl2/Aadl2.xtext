@@ -1397,6 +1397,11 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] 
 	 ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	 ( (arrayDimension+=ArrayDimension )+
+	  ( '(' implementationReference+=ComponentImplementationReference  
+	  (',' implementationReference+=ComponentImplementationReference)*
+	  ')' )? 
+	 )?
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
 	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
 		 ) ')')?

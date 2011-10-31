@@ -12739,35 +12739,52 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cLeftCurlyBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Assignment cArrayDimensionAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_3_0_0 = (RuleCall)cArrayDimensionAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cImplementationReferenceAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0 = (RuleCall)cImplementationReferenceAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_3_1_2 = (Group)cGroup_3_1.eContents().get(2);
+		private final Keyword cCommaKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
+		private final Assignment cImplementationReferenceAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
+		private final RuleCall cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0 = (RuleCall)cImplementationReferenceAssignment_3_1_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_1_3 = (Keyword)cGroup_3_1.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cInKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Keyword cModesKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
-		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
-		private final Assignment cOwnedModeBindingAssignment_4_3_0 = (Assignment)cGroup_4_3.eContents().get(0);
-		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_4_3_0_0 = (RuleCall)cOwnedModeBindingAssignment_4_3_0.eContents().get(0);
-		private final Group cGroup_4_3_1 = (Group)cGroup_4_3.eContents().get(1);
-		private final Keyword cCommaKeyword_4_3_1_0 = (Keyword)cGroup_4_3_1.eContents().get(0);
-		private final Assignment cOwnedModeBindingAssignment_4_3_1_1 = (Assignment)cGroup_4_3_1.eContents().get(1);
-		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0 = (RuleCall)cOwnedModeBindingAssignment_4_3_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cInKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cModesKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
+		private final Assignment cOwnedModeBindingAssignment_5_3_0 = (Assignment)cGroup_5_3.eContents().get(0);
+		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_5_3_0_0 = (RuleCall)cOwnedModeBindingAssignment_5_3_0.eContents().get(0);
+		private final Group cGroup_5_3_1 = (Group)cGroup_5_3.eContents().get(1);
+		private final Keyword cCommaKeyword_5_3_1_0 = (Keyword)cGroup_5_3_1.eContents().get(0);
+		private final Assignment cOwnedModeBindingAssignment_5_3_1_1 = (Assignment)cGroup_5_3_1.eContents().get(1);
+		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0 = (RuleCall)cOwnedModeBindingAssignment_5_3_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//DataSubcomponent returns aadl2::DataSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 		//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-		//	"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";";
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//	implementationReference+=ComponentImplementationReference (","
+		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
+		//	ownedModeBinding+=ModeRef)*) ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 		//(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-		//"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";"
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
+		//"}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to"
@@ -12849,59 +12866,97 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_3_0() { return cLeftCurlyBracketKeyword_3_0; }
+		//arrayDimension+=ArrayDimension+
+		public Assignment getArrayDimensionAssignment_3_0() { return cArrayDimensionAssignment_3_0; }
 
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_3_1() { return cOwnedPropertyAssociationAssignment_3_1; }
+		//ArrayDimension
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_3_2() { return cRightCurlyBracketKeyword_3_2; }
-
-		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"in"
-		public Keyword getInKeyword_4_0() { return cInKeyword_4_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_4_1() { return cModesKeyword_4_1; }
+		//("(" implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_4_2() { return cLeftParenthesisKeyword_4_2; }
+		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
-		//ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*
-		public Group getGroup_4_3() { return cGroup_4_3; }
+		//implementationReference+=ComponentImplementationReference
+		public Assignment getImplementationReferenceAssignment_3_1_1() { return cImplementationReferenceAssignment_3_1_1; }
 
-		//ownedModeBinding+=ModeRef
-		public Assignment getOwnedModeBindingAssignment_4_3_0() { return cOwnedModeBindingAssignment_4_3_0; }
+		//ComponentImplementationReference
+		public RuleCall getImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0() { return cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0; }
 
-		//ModeRef
-		public RuleCall getOwnedModeBindingModeRefParserRuleCall_4_3_0_0() { return cOwnedModeBindingModeRefParserRuleCall_4_3_0_0; }
-
-		//("," ownedModeBinding+=ModeRef)*
-		public Group getGroup_4_3_1() { return cGroup_4_3_1; }
+		//("," implementationReference+=ComponentImplementationReference)*
+		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
 
 		//","
-		public Keyword getCommaKeyword_4_3_1_0() { return cCommaKeyword_4_3_1_0; }
+		public Keyword getCommaKeyword_3_1_2_0() { return cCommaKeyword_3_1_2_0; }
 
-		//ownedModeBinding+=ModeRef
-		public Assignment getOwnedModeBindingAssignment_4_3_1_1() { return cOwnedModeBindingAssignment_4_3_1_1; }
+		//implementationReference+=ComponentImplementationReference
+		public Assignment getImplementationReferenceAssignment_3_1_2_1() { return cImplementationReferenceAssignment_3_1_2_1; }
 
-		//ModeRef
-		public RuleCall getOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0() { return cOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0; }
+		//ComponentImplementationReference
+		public RuleCall getImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0() { return cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_4_4() { return cRightParenthesisKeyword_4_4; }
+		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
+
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"in"
+		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
+
+		//"modes"
+		public Keyword getModesKeyword_5_1() { return cModesKeyword_5_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
+
+		//ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*
+		public Group getGroup_5_3() { return cGroup_5_3; }
+
+		//ownedModeBinding+=ModeRef
+		public Assignment getOwnedModeBindingAssignment_5_3_0() { return cOwnedModeBindingAssignment_5_3_0; }
+
+		//ModeRef
+		public RuleCall getOwnedModeBindingModeRefParserRuleCall_5_3_0_0() { return cOwnedModeBindingModeRefParserRuleCall_5_3_0_0; }
+
+		//("," ownedModeBinding+=ModeRef)*
+		public Group getGroup_5_3_1() { return cGroup_5_3_1; }
+
+		//","
+		public Keyword getCommaKeyword_5_3_1_0() { return cCommaKeyword_5_3_1_0; }
+
+		//ownedModeBinding+=ModeRef
+		public Assignment getOwnedModeBindingAssignment_5_3_1_1() { return cOwnedModeBindingAssignment_5_3_1_1; }
+
+		//ModeRef
+		public RuleCall getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0() { return cOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_5_4() { return cRightParenthesisKeyword_5_4; }
 
 		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class ArrayDimensionElements extends AbstractParserRuleElementFinder {
@@ -21453,8 +21508,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DataSubcomponent returns aadl2::DataSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 	//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-	//	"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";";
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+	//	implementationReference+=ComponentImplementationReference (","
+	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
+	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public DataSubcomponentElements getDataSubcomponentAccess() {
 		return (pDataSubcomponent != null) ? pDataSubcomponent : (pDataSubcomponent = new DataSubcomponentElements());
 	}
