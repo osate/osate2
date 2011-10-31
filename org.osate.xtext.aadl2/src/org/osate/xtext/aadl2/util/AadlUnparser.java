@@ -150,11 +150,40 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			}
 
 			public String casePackageSection(PackageSection object) {
+				if (!object.getImportedUnits().isEmpty()){
+					aadlText.addOutput("with ");
+					processRefEList(object.getImportedUnits(), ",", object);
+					aadlText.addOutputNewline(";");
+				}
+				processEList(object.getOwnedPackageRenames());
+				processEList(object.getOwnedFeatureGroupTypeRenames());
+				processEList(object.getOwnedComponentTypeRenames());
 				aadlText.incrementIndent();
 				processEList(object.getOwnedClassifiers(), NEWLINE);
+				processEList(object.getOwnedAnnexLibraries(), NEWLINE);
 				aadlText.decrementIndent();
 				return DONE;
 			}
+			
+			public String casePackageRename(PackageRename object) {
+				processComments(object);
+				aadlText.addOutputNewline(object.getName()+" renames package "+object.getRenamedPackage().getName()
+						+(object.isRenameAll()?"::all;":";"));
+				return DONE;
+			}
+			
+			public String caseComponentTypeRename(ComponentTypeRename object) {
+				processComments(object);
+				aadlText.addOutputNewline(object.getName()+" renames "+object.getCategory().getName()+" "+AadlUtil.getClassifierName(object.getRenamedComponentType(),object)+";");
+				return DONE;
+			}
+			
+			public String caseFeatureGroupTypeRename(FeatureGroupTypeRename object) {
+				processComments(object);
+				aadlText.addOutputNewline(object.getName()+" renames "+AadlUtil.getClassifierName(object.getRenamedFeatureGroupType(),object)+";");
+				return DONE;
+			}
+			
 
 			/**
 			 * outputs the content of a component implementation It picks up
@@ -165,10 +194,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutputNewline(object.getName());
 				aadlText.incrementIndent();
 				if (object.getExtended()!=null) {
-					aadlText.addOutputNewline("extends"
+					aadlText.addOutputNewline("extends "
 							+ AadlUtil.getClassifierName( object
 									.getExtended(),object));
 				}
+				processOptionalSection(object.getOwnedPrototypes(), "prototypes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedSubcomponents(), "subcomponents", AadlConstants.emptyString);
 				if (object instanceof ThreadImplementation){
 					processOptionalSection(((ThreadImplementation)object).getOwnedSubprogramCallSequences(),"calls",AadlConstants.emptyString);
@@ -193,9 +223,10 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutputNewline(object.getName());
 				aadlText.incrementIndent();
 				if (object.getExtended()!=null) {
-					aadlText.addOutputNewline("extends"
+					aadlText.addOutputNewline("extends "
 							+ AadlUtil.getClassifierName(object.getExtended(),object));
 				}
+				processOptionalSection(object.getOwnedPrototypes(), "prototypes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFeatures(), "features", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedFlowSpecifications(),"flows",AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedPropertyAssociations(),"properties",AadlConstants.emptyString);
@@ -251,9 +282,27 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 */
 			public String caseSubcomponent(Subcomponent object) {
 				aadlText.addOutput(" "+AadlUtil.getClassifierName(object.getClassifier(),object));
+				processOptionalEList(object.getOwnedPrototypeBindings(), ",");
+				processEList(object.getArrayDimensions(), AadlConstants.emptyString);
 				processCurlyList(object.getOwnedPropertyAssociations());
 				processModalElement(object);
 				aadlText.addOutputNewline(";");
+				return DONE;
+			}
+			
+			public String caseArrayDimension(ArrayDimension object){
+				aadlText.addOutput("[");
+				process(object.getSize());
+				aadlText.addOutput("]");
+				return DONE;
+			}
+			
+			public String caseArraySize(ArraySize object){
+				if (object.getSizeProperty()!= null){
+					aadlText.addOutput(AadlUtil.getPropertySetElementName((NamedElement) object.getSizeProperty()));
+				} else {
+					aadlText.addOutput(Long.toString(object.getSize()));
+				}
 				return DONE;
 			}
 
@@ -370,7 +419,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseBusSubcomponent(BusSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "bus");
 				return null;
 			}
@@ -400,7 +449,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseDataSubcomponent(DataSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "data");
 				return null;
 			}
@@ -431,7 +480,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseDeviceSubcomponent(DeviceSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "device");
 				return null;
 			}
@@ -460,7 +509,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseMemorySubcomponent(MemorySubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "memory");
 				return null;
 			}
@@ -557,7 +606,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseAbstractSubcomponent(AbstractSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "abstract");
 				return null;
 			}
@@ -586,7 +635,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseProcessorSubcomponent(ProcessorSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "processor");
 				return null;
 			}
@@ -606,7 +655,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseProcessSubcomponent(ProcessSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 								+ "process");
 				return null;
 			}
@@ -637,7 +686,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSystemSubcomponent(SystemSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "system");
 				return null;
 			}
@@ -667,7 +716,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					ThreadGroupSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "thread group");
 				return null;
 			}
@@ -697,7 +746,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseThreadSubcomponent(ThreadSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "thread");
 				return null;
 			}
@@ -735,7 +784,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSubprogramSubcomponent(SubprogramSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "subprogram");
 				return null;
 			}
@@ -764,7 +813,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSubprogramGroupSubcomponent(SubprogramGroupSubcomponent object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +" refined to "))
+					(object.getRefined().getName() +": refined to "))
 						+ "subprogram group");
 				return null;
 			}
@@ -934,9 +983,6 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 
-			/**
-			 * Does the bulk of prototype declarations
-			 */
 			public String caseFeatureGroupPrototype(FeatureGroupPrototype object) {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ":"):
@@ -950,7 +996,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			}
 
 			/**
-			 * Does the bulk of prototype declarations
+			 * Does the bulk of feature prototype declarations
 			 */
 			public String caseFeaturePrototype(FeaturePrototype object) {
 				processComments(object);
@@ -964,7 +1010,90 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				return DONE;
 			}
 
+			/**
+			 * Does the  prototype binding 
+			 */
+			public String caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
+				processComments(object);
+				aadlText.addOutput(object.getFormal().getName()+" => ");
+				if (object.getActuals().size() == 1){
+					process(object.getActuals().get(0));
+				} else {
+					processOptionalEList(object.getActuals(), ",");
+				}
+				return DONE;
+			}
 			
+			/**
+			 * Does the  prototype actual 
+			 */
+			public String caseComponentPrototypeActual(ComponentPrototypeActual object) {
+				processComments(object);
+				aadlText.addOutput(object.getCategory().getName()+" ");
+				SubcomponentType sct = object.getSubcomponentType();
+				if (sct instanceof Classifier){
+					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)sct,object));
+				} else {
+					aadlText.addOutput(((NamedElement)sct).getName());
+				}
+				processOptionalEList(object.getBindings(), ",");
+				return DONE;
+			}
+
+
+			/**
+			 * Does the  feature group prototype binding 
+			 */
+			public String caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
+				processComments(object);
+				aadlText.addOutput(object.getFormal().getName()+" => feature group ");
+				process(object.getActual());
+				return DONE;
+			}
+			
+			public String caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
+				FeatureType sct = object.getFeatureType();
+				if (sct instanceof Classifier){
+					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)sct,object));
+				} else {
+					aadlText.addOutput(((NamedElement)sct).getName());
+				}
+				processOptionalEList(object.getBindings(), ",");
+				return DONE;
+			}
+
+			/**
+			 * Does the  feature prototype binding 
+			 */
+			public String caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
+				processComments(object);
+				aadlText.addOutput(object.getFormal().getName()+" => ");
+				process(object.getActual());
+				return DONE;
+			}
+			
+			public String casePortSpecification(PortSpecification object) {
+				aadlText.addOutput(object.getDirection().getName()+" "+object.getCategory().getName()+" port ");
+				Classifier sct = object.getClassifier();
+				if (sct != null){
+					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)sct,object));
+				}
+				return DONE;
+			}
+
+			public String caseAccessSpecification(AccessSpecification object) {
+				aadlText.addOutput(object.getKind().getName()+" "+object.getCategory().getName()+" access ");
+				Classifier sct = object.getClassifier();
+				if (sct != null){
+					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)sct,object));
+				}
+				return DONE;
+			}
+
+			public String caseFeaturePrototypeReference(FeaturePrototypeReference object) {
+				aadlText.addOutput(object.getDirection().getName()+" feature "+object.getPrototype().getName());
+				return DONE;
+			}
 			
 			/**
 			 * call sequence processing.
@@ -1029,13 +1158,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 			public String casePortConnection(PortConnection object) {
 				processComments(object);
-				String cname = object.getName();
-				if (cname != null && cname.length() > 0) {
-					aadlText.addOutput(cname + ": ");
-				}
-				aadlText.addOutput((object.getRefined() != null ? "refined to " : "")
-						+ "port ");
-				if (object.getRefined()==null) {
+				if (object.getRefined()!=null) {
+					aadlText.addOutput(object.getRefined().getName()+": refined to "
+							+ "port ");
+				} else {
+					aadlText.addOutput(object.getName() + ": "+ "port ");
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getSource()) + (object.isBidirectional()?" <-> ":" -> "));
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
@@ -1048,13 +1175,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 			public String caseFeatureGroupConnection(FeatureGroupConnection object) {
 				processComments(object);
-				String cname = object.getName();
-				if (cname != null && cname.length() > 0) {
-					aadlText.addOutput(cname + ": ");
-				}
-				aadlText.addOutput((object.getRefined() != null ? "refined to " : "")
-						+ "feature group ");
-				if (object.getRefined() == null) {
+				if (object.getRefined()!=null) {
+					aadlText.addOutput(object.getRefined().getName()+": refined to "
+							+ "feature group ");
+				} else {
+					aadlText.addOutput(object.getName() + ": "+ "feature group ");
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getSource()) + (object.isBidirectional()?" <-> ":" -> "));
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
@@ -1066,13 +1191,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 			public String caseParameterConnection(ParameterConnection object) {
 				processComments(object);
-				String cname = object.getName();
-				if (cname != null && cname.length() > 0) {
-					aadlText.addOutput(cname + ": ");
-				}
-				aadlText.addOutput((object.getRefined() != null ? "refined to " : "")
-						+ "parameter ");
-				if (object.getRefined() == null) {
+				if (object.getRefined()!=null) {
+					aadlText.addOutput(object.getRefined().getName()+": refined to "
+							+ "parameter ");
+				} else {
+					aadlText.addOutput(object.getName() + ": "+ "parameter ");
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getSource()) + (object.isBidirectional()?" <-> ":" -> "));
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
@@ -1084,13 +1207,11 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 			public String caseAccessConnection(AccessConnection object) {
 				processComments(object);
-				String cname = object.getName();
-				if (cname != null && cname.length() > 0) {
-					aadlText.addOutput(cname + ": ");
-				}
-				aadlText.addOutput((object.getRefined() != null ? "refined to " : "")
-						+ "data access ");
-				if (object.getRefined() == null) {
+				if (object.getRefined()!=null) {
+					aadlText.addOutput(object.getRefined().getName()+": refined to "
+							+object.getAccessCategory().getName()+ " access ");
+				} else {
+					aadlText.addOutput(object.getName() + ": "+object.getAccessCategory().getName()+ " access ");
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getSource()) + (object.isBidirectional()?" <-> ":" -> "));
 					aadlText.addOutput(AadlUtil.getConnectionEndName(object.getDestination()));
 				}
@@ -1112,7 +1233,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+ " bus access ");
+						+d+ " bus access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1132,7 +1253,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+ "subprogram access ");
+						+d+ "subprogram access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1152,7 +1273,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+ "subprogram group access ");
+						+ d + "subprogram group access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1170,9 +1291,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "requires";
 				else
 					d = "provides";
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "") + d
-						+ " data access ");
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
+						+d+ " data access ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
@@ -1181,9 +1302,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 			public String caseDataPort(DataPort object) {
 				processComments(object);
-				aadlText
-						.addOutput(object.getName() + ": "
-								+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 								+ object.getDirection().getName()
 								+ " data port ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
@@ -1201,8 +1321,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					return DONE;
 				}
 				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 						+ object.getDirection().getName()
 						+ " event data port ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
@@ -1220,8 +1340,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					return DONE;
 				}
 				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 						+ object.getDirection().getName()
 						+ " event port ");
 				return null;
@@ -1231,6 +1351,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * Does the common part of port
 			 */
 			public String casePort(Port object) {
+				processEList(object.getArrayDimensions(), AadlConstants.emptyString);
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1241,8 +1362,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 */
 			public String caseParameter(Parameter object) {
 				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 						+ object.getDirection() + " parameter ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1255,8 +1376,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 */
 			public String caseFeatureGroup(FeatureGroup object) {
 				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 						+ "feature group ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1273,8 +1394,9 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutputNewline(object.getName());
 				aadlText.incrementIndent();
 				if (object.getExtended() != null) {
-					aadlText.addOutput(AadlUtil.getClassifierName(object.getExtended(), object));
+					aadlText.addOutput(" extends "+AadlUtil.getClassifierName(object.getExtended(), object));
 				}
+				processOptionalSection(object.getOwnedPrototypes(), "prototypes", AadlConstants.emptyString);
 				EList<Feature> features = object.getOwnedFeatures();
 				String invName = AadlUtil.getClassifierName(object.getInverse(),object);
 				if (!(invName != null && (object.getOwnedFeatures() == null || features
@@ -1297,8 +1419,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 */
 			public String caseAbstractFeature(AbstractFeature object) {
 				processComments(object);
-				aadlText.addOutput(object.getName() + ": "
-						+ (object.getRefined() != null ? "refined to " : "")
+				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
+					(object.getRefined().getName() +": refined to "))
 						+ "feature");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1854,6 +1976,21 @@ public class AadlUnparser extends AadlProcessingSwitch {
 		return aadlText.getParseOutput();
 	}
 
+
+	/**
+	 * Does processing of list with separators and parens if not empty
+	 * 
+	 * @param list
+	 * @param separator
+	 */
+	public void processOptionalEList(EList list, String separator) {
+		if (list.size() > 0) {
+			aadlText.addOutput("(");
+			processEList(list, ",");
+			aadlText.addOutput(")");
+		}
+	}
+	
 	/**
 	 * Does processing of list with separators
 	 * 
@@ -1881,6 +2018,34 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput((String)o);
 			else
 				aadlText.addOutput("processEList: oh my, oh my!!");
+		}
+	}
+
+	
+	/**
+	 * Does processing of list with separators
+	 * 
+	 * @param list
+	 * @param separator
+	 */
+	public void processRefEList(EList list, String separator, Element context) {
+		boolean first = true;
+		for (Iterator it = list.iterator(); it.hasNext();) {
+			if (!first) {
+				if (separator == AadlConstants.newlineChar) {
+					aadlText.addOutputNewline(AadlConstants.emptyString);
+				} else {
+					aadlText.addOutput(separator);
+				}
+			}
+			first = false;
+			Object obj = it.next();
+			if (obj instanceof Classifier){
+				aadlText.addOutput(AadlUtil.getClassifierName((Classifier)obj, context));
+			} else if (obj instanceof NamedElement) {
+				aadlText.addOutput(((NamedElement)obj).getName());
+
+			}
 		}
 	}
 
