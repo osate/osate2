@@ -31,7 +31,7 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 	
 	public void configureFileExtensions(Binder binder) {
 		if (properties == null || properties.getProperty(Constants.FILE_EXTENSIONS) == null)
-			binder.bind(String.class).annotatedWith(Names.named(Constants.FILE_EXTENSIONS)).toInstance("aadl2");
+			binder.bind(String.class).annotatedWith(Names.named(Constants.FILE_EXTENSIONS)).toInstance("aadl,aadl2");
 	}
 	
 	// contributed by org.eclipse.xtext.generator.grammarAccess.GrammarAccessFragment
@@ -39,9 +39,19 @@ public abstract class AbstractAadl2RuntimeModule extends DefaultRuntimeModule {
 		return org.osate.xtext.aadl2.services.Aadl2GrammarAccess.class;
 	}
 
-	// contributed by org.eclipse.xtext.generator.parseTreeConstructor.ParseTreeConstructorFragment
-	public Class<? extends org.eclipse.xtext.parsetree.reconstr.IParseTreeConstructor> bindIParseTreeConstructor() {
-		return org.osate.xtext.aadl2.parseTreeConstruction.Aadl2ParsetreeConstructor.class;
+	// contributed by org.eclipse.xtext.generator.serializer.SerializerFragment
+	public Class<? extends org.eclipse.xtext.serializer.sequencer.ISemanticSequencer> bindISemanticSequencer() {
+		return org.osate.xtext.aadl2.serializer.Aadl2SemanticSequencer.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.serializer.SerializerFragment
+	public Class<? extends org.eclipse.xtext.serializer.sequencer.ISyntacticSequencer> bindISyntacticSequencer() {
+		return org.osate.xtext.aadl2.serializer.Aadl2SyntacticSequencer.class;
+	}
+
+	// contributed by org.eclipse.xtext.generator.serializer.SerializerFragment
+	public Class<? extends org.eclipse.xtext.serializer.ISerializer> bindISerializer() {
+		return org.eclipse.xtext.serializer.impl.Serializer.class;
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment

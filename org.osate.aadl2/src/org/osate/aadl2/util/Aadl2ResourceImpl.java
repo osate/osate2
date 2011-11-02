@@ -55,8 +55,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 
 	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 
-
-
 	/**
 	 * Creates an instance of the resource.
 	 * <!-- begin-user-doc -->
@@ -67,7 +65,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 	public Aadl2ResourceImpl(URI uri) {
 		super(uri);
 	}
-
 
 	public void save() {
 		Map<String, Object> options = new HashMap<String, Object>();

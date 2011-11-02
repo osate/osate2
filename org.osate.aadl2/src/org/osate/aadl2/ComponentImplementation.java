@@ -652,22 +652,6 @@ public interface ComponentImplementation extends ComponentClassifier {
 	EList<Subcomponent> getAllSubcomponents();
 
 	/**
-	 * Returns all the mode objects of a given implementation, including
-	 * ancestor.
-	 * 
-	 * @return EList of all mode objects
-	 */
-	EList<Mode> getAllModes();
-
-	/**
-	 * Returns all the mode transition objects of a given implementation,
-	 * including ancestor.
-	 * 
-	 * @return EList of all mode transition objects
-	 */
-	EList<ModeTransition> getAllModeTransitions();
-
-	/**
 	 * Get all end to end flows, including inherited. In case of refined
 	 * end to end flows the refined end to end flow is returned in the list.
 	 * 

@@ -85,6 +85,7 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 
 			addImportedUnitPropertyDescriptor(object);
 			addNoAnnexesPropertyDescriptor(object);
+			addNoPropertiesPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -119,6 +120,22 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noAnnexes_feature",
 						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoAnnexes(), true, false,
 				false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the No Properties feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addNoPropertiesPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_PackageSection_noProperties_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_PackageSection_noProperties_feature",
+						"_UI_PackageSection_type"), Aadl2Package.eINSTANCE.getPackageSection_NoProperties(), true,
+				false, false, ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -182,6 +199,7 @@ public class PackageSectionItemProvider extends NamespaceItemProvider implements
 		switch (notification.getFeatureID(PackageSection.class)) {
 		case Aadl2Package.PACKAGE_SECTION__IMPORTED_UNIT:
 		case Aadl2Package.PACKAGE_SECTION__NO_ANNEXES:
+		case Aadl2Package.PACKAGE_SECTION__NO_PROPERTIES:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.PACKAGE_SECTION__OWNED_PACKAGE_RENAME:

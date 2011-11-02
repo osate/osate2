@@ -14,7 +14,7 @@
                   <objectClass name="org.eclipse.core.resources.IFile"/>
                   <objectState name="extension" value="aaxl"/>
                </and>
-               <objectState name="AADLMetaModelClass" value="edu.cmu.sei.aadl.model.core.AadlSpec"/>
+               <objectClass name="org.osate.aadl2.ModelUnit"/>
             </or>
          </visibility>
 
@@ -41,7 +41,7 @@
          <visibility>
             <or>
                <objectState name="extension" value="*"/>
-               <objectState name="extension" value="aaxl"/>
+               <objectState name="extension" value="aaxl2"/>
             </or>
          </visibility>
          <menu
@@ -201,7 +201,7 @@
       </actionSet>
    </extension>
    
-   <extension
+   <!--extension
          point="org.eclipse.ui.propertyPages">
       <page
             id="edu.cmu.sei.osate.ui.preferences.ProjectPropertyPage"
@@ -217,7 +217,7 @@
             </instanceof>
          </enabledWhen>
       </page>
-   </extension>
+   </extension-->
    
    <extension
          point="org.eclipse.ui.preferencePages">

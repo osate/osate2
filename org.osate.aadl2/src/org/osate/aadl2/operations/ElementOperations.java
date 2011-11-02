@@ -114,7 +114,6 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * An element may not directly or indirectly own itself.
-	 * not self.allOwnedElements()->includes(self)
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -174,7 +173,6 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * Elements that must be owned must have an owner.
-	 * self.mustBeOwned() implies owner->notEmpty()
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.
@@ -243,7 +241,6 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query allOwnedElements() gives all of the direct and indirect owned elements of an element.
-	 * ownedElement->union(ownedElement->collect(e | e.allOwnedElements()))
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated
@@ -290,7 +287,6 @@ public class ElementOperations {
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
 	 * The query mustBeOwned() indicates whether elements of this type must have an owner. Subclasses of Element that do not require an owner must override this operation.
-	 * true
 	 * @param element The receiving '<em><b>Element</b></em>' model object.
 	 * <!-- end-model-doc -->
 	 * @generated

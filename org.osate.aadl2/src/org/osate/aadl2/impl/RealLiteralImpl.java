@@ -268,11 +268,9 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		if (getClass() != obj.getClass())
 			return false;
 		RealLiteralImpl other = (RealLiteralImpl) obj;
-		if (Double.doubleToLongBits(value) != Double
-				.doubleToLongBits(other.value))
+		if (Double.doubleToLongBits(value) != Double.doubleToLongBits(other.value))
 			return false;
 		return true;
 	}
-
 
 } //RealLiteralImpl

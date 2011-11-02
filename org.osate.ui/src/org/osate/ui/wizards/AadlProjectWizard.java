@@ -74,23 +74,16 @@ import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.CoreUtility;
 import org.osate.workspace.WorkspacePlugin;
 
-import sun.rmi.runtime.Log;
-
-
 /**
  * This is a simple wizard for creating a new Aadl project.
  */
-public class AadlProjectWizard extends BasicNewResourceWizard implements
-IExecutableExtension
-{
+public class AadlProjectWizard extends BasicNewResourceWizard implements IExecutableExtension {
 
 	private WizardNewProjectReferencePage referencePage;
 
 	/**
 	 */
-	public class WizardNewAadlProjectCreationPage extends
-	WizardNewProjectCreationPage
-	{
+	public class WizardNewAadlProjectCreationPage extends WizardNewProjectCreationPage {
 		/**
 		 * the project to be created
 		 */
@@ -99,26 +92,23 @@ IExecutableExtension
 		/**
 		 * Create the project creation page
 		 */
-		public WizardNewAadlProjectCreationPage(String pageId)
-		{
+		public WizardNewAadlProjectCreationPage(String pageId) {
 			super(pageId);
 		}
 
 		/**
 		 * The framework calls this to see if the project is correct.
 		 */
-		protected boolean validatePage()
-		{
-			if (getProjectName().indexOf(' ') != -1)
-			{
-				setErrorMessage("The space is an invalid character in project name "
-						+ getProjectName() + '.');
+		protected boolean validatePage() {
+			if (getProjectName().indexOf(' ') != -1) {
+				setErrorMessage("The space is an invalid character in project name " + getProjectName() + '.');
 				return false;
 			} else
 				return super.validatePage();
 		}
 
 	}
+
 	/**
 	 */
 	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
@@ -149,38 +139,30 @@ IExecutableExtension
 	/**
 	 * Creates a wizard for creating a new project resource in the workspace.
 	 */
-	public AadlProjectWizard()
-	{
-		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault()
-				.getDialogSettings();
-		IDialogSettings section = workbenchSettings
-				.getSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
+	public AadlProjectWizard() {
+		IDialogSettings workbenchSettings = OsateUiPlugin.getDefault().getDialogSettings();
+		IDialogSettings section = workbenchSettings.getSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
 		if (section == null)
-			section = workbenchSettings
-			.addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
+			section = workbenchSettings.addNewSection("BasicNewProjectResourceWizard");//$NON-NLS-1$
 		setDialogSettings(section);
 	}
 
 	/*
 	 * (non-Javadoc) Method declared on IWizard.
 	 */
-	public void addPages()
-	{
+	public void addPages() {
 		super.addPages();
 
-		newProjectCreationPage = new WizardNewAadlProjectCreationPage(
-				"basicNewProjectPage");//$NON-NLS-1$
+		newProjectCreationPage = new WizardNewAadlProjectCreationPage("basicNewProjectPage");//$NON-NLS-1$
 		newProjectCreationPage.setTitle("Aadl Project"); //$NON-NLS-1$
-		newProjectCreationPage
-		.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
+		newProjectCreationPage.setDescription("Create a new Aadl project resource."); //$NON-NLS-1$
 		this.addPage(newProjectCreationPage);
 
 		referencePage = new AADLWizardReferencePage("projectReferencePage");
 		referencePage.setTitle("AADL Settings");
 		referencePage.setDescription("Define the AADL Settings");
 
-		this.addPage( referencePage );
-
+		this.addPage(referencePage);
 
 	}
 
@@ -200,14 +182,12 @@ IExecutableExtension
 	 * @return the created project resource, or <code>null</code> if the
 	 *         project was not created
 	 */
-	private IProject createNewProject()
-	{
+	private IProject createNewProject() {
 		if (newProject != null)
 			return newProject;
 
 		// get a project handle
-		final IProject newProjectHandle = newProjectCreationPage
-				.getProjectHandle();
+		final IProject newProjectHandle = newProjectCreationPage.getProjectHandle();
 
 		// get a project descriptor
 		IPath newPath = null;
@@ -215,75 +195,51 @@ IExecutableExtension
 			newPath = newProjectCreationPage.getLocationPath();
 
 		IWorkspace workspace = ResourcesPlugin.getWorkspace();
-		final IProjectDescription description = workspace
-				.newProjectDescription(newProjectHandle.getName());
+		final IProjectDescription description = workspace.newProjectDescription(newProjectHandle.getName());
 		description.setLocation(newPath);
 
-		if( referencePage != null )
-		{
+		if (referencePage != null) {
 			IProject[] refProjects = referencePage.getReferencedProjects();
 
-			if (refProjects.length > 0) 
-			{
-				description.setReferencedProjects( refProjects );
+			if (refProjects.length > 0) {
+				description.setReferencedProjects(refProjects);
 			}
 		}
 
-
 		// create the new project operation
-		WorkspaceModifyOperation op = new WorkspaceModifyOperation()
-		{
-			protected void execute(IProgressMonitor monitor)
-					throws CoreException
-					{
+		WorkspaceModifyOperation op = new WorkspaceModifyOperation() {
+			protected void execute(IProgressMonitor monitor) throws CoreException {
 				createProject(description, newProjectHandle, monitor);
-					}
+			}
 		};
 
 		// run the new project creation operation
-		try
-		{
+		try {
 			getContainer().run(true, true, op);
-		} catch (InterruptedException e)
-		{
+		} catch (InterruptedException e) {
 			return null;
-		} catch (InvocationTargetException e)
-		{
+		} catch (InvocationTargetException e) {
 			// ie.- one of the steps resulted in a core exception
 			Throwable t = e.getTargetException();
-			if (t instanceof CoreException)
-			{
-				if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS)
-				{
+			if (t instanceof CoreException) {
+				if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
 					MessageDialog
-					.openError(
-							getShell(),
+					.openError(getShell(),
 							"Creation Problems", //$NON-NLS-1$
 							MessageFormat
-							.format(
-									"The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
+							.format("The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
 							);
-				} else
-				{
+				} else {
 					ErrorDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
 							null, // no special message
 							((CoreException) t).getStatus());
 				}
-			} else
-			{
+			} else {
 				// CoreExceptions are handled above, but unexpected runtime
 				// exceptions and errors may still occur.
-				OsateUiPlugin.log(
-						new Status(IStatus.ERROR,
-								OsateUiPlugin.getPluginId(), 0, t
-								.toString(), t));
-				MessageDialog
-				.openError(
-						getShell(),
-						"Creation Problems", //$NON-NLS-1$
-						MessageFormat
-						.format(
-								"Internal error: {0}", new Object[] { t.getMessage() })); //$NON-NLS-1$
+				OsateUiPlugin.log(new Status(IStatus.ERROR, OsateUiPlugin.getPluginId(), 0, t.toString(), t));
+				MessageDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
+						MessageFormat.format("Internal error: {0}", new Object[] { t.getMessage() })); //$NON-NLS-1$
 			}
 			return null;
 		}
@@ -308,27 +264,22 @@ IExecutableExtension
 	 * @exception OperationCanceledException
 	 *                if the operation is canceled
 	 */
-	void createProject(IProjectDescription description, IProject projectHandle,
-			IProgressMonitor monitor) throws CoreException,
-			OperationCanceledException
-			{
-		try
-		{
+	void createProject(IProjectDescription description, IProject projectHandle, IProgressMonitor monitor)
+			throws CoreException, OperationCanceledException {
+		try {
 			monitor.beginTask("", 2000);//$NON-NLS-1$
 
-			projectHandle.create(description, new SubProgressMonitor(monitor,
-					1000));
+			projectHandle.create(description, new SubProgressMonitor(monitor, 1000));
 
 			if (monitor.isCanceled())
 				throw new OperationCanceledException();
 
 			projectHandle.open(new SubProgressMonitor(monitor, 1000));
 
-		} finally
-		{
+		} finally {
 			monitor.done();
 		}
-			}
+	}
 
 	/**
 	 * Returns the newly created project.
@@ -336,8 +287,7 @@ IExecutableExtension
 	 * @return the created project, or <code>null</code> if project not
 	 *         created
 	 */
-	public IProject getNewProject()
-	{
+	public IProject getNewProject() {
 		return newProject;
 	}
 
@@ -347,8 +297,7 @@ IExecutableExtension
 	 * 
 	 * @generated
 	 */
-	public void init(IWorkbench workbench, IStructuredSelection selection)
-	{
+	public void init(IWorkbench workbench, IStructuredSelection selection) {
 		super.init(workbench, selection);
 		this.workbench = workbench;
 		setWindowTitle("New");
@@ -360,8 +309,7 @@ IExecutableExtension
 	 * 
 	 * @generated NOT
 	 */
-	public boolean performFinish()
-	{
+	public boolean performFinish() {
 		createNewProject();
 		if (newProject == null)
 			return false;
@@ -375,16 +323,15 @@ IExecutableExtension
 		final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
 		final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
 
-		try
-		{
+		try {
 			CoreUtility.createFolder(xmlPack, true, true, null);
 			CoreUtility.createFolder(xmlPSet, true, true, null);
 			CoreUtility.createFolder(srcPack, true, true, null);
 			CoreUtility.createFolder(srcPSet, true, true, null);
-			
+
 		} catch (CoreException e)
 		{
-			
+
 			MessageDialog
 			.openError(
 					getShell(),
@@ -393,22 +340,18 @@ IExecutableExtension
 					.format(
 							"Problem creating folder.",  e.getMessage() ) 
 					);
-			
-		}
-		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME)
-				.getRawLocation().toString();
+
+
+		} 
+		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
 
 		PreferenceStore ps = new PreferenceStore(filepath);
-		ps.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR, 
-				WorkspacePlugin.DEFAULT_SOURCE_DIR);
-		ps.setValue(WorkspacePlugin.PROJECT_MODEL_DIR,
-				WorkspacePlugin.DEFAULT_MODEL_DIR);
-		try
-		{
+		ps.setValue(WorkspacePlugin.PROJECT_SOURCE_DIR, WorkspacePlugin.DEFAULT_SOURCE_DIR);
+		ps.setValue(WorkspacePlugin.PROJECT_MODEL_DIR, WorkspacePlugin.DEFAULT_MODEL_DIR);
+		try {
 			ps.save();
-		} catch (IOException e1)
-		{
-			// TODO Auto-generated catch block
+		} catch (IOException e1) {
+			// 
 			MessageDialog
 			.openError(
 					getShell(),
@@ -418,8 +361,7 @@ IExecutableExtension
 							"Problem saving PeferenceStore.",  e1.getMessage() ) 
 					);
 		}
-		try
-		{
+		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2)
 		{
@@ -440,27 +382,21 @@ IExecutableExtension
 	 * Stores the configuration element for the wizard. The config element will
 	 * be used in <code>performFinish</code> to set the result perspective.
 	 */
-	public void setInitializationData(IConfigurationElement cfig,
-			String propertyName, Object data)
-	{
+	public void setInitializationData(IConfigurationElement cfig, String propertyName, Object data) {
 		configElement = cfig;
 	}
 
 	/**
 	 * Updates the perspective for the active page within the window.
 	 */
-	protected void updatePerspective()
-	{
+	protected void updatePerspective() {
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
 	}
 
 
+	class AADLWizardReferencePage extends WizardNewProjectReferencePage {
 
-
-	class AADLWizardReferencePage extends WizardNewProjectReferencePage{
-
-		public AADLWizardReferencePage( String pageName )
-		{
+		public AADLWizardReferencePage(String pageName) {
 			super(pageName);
 		}
 
@@ -472,24 +408,28 @@ IExecutableExtension
 					if (!(element instanceof IWorkspace)) {
 						return new Object[0];
 					}
-					IProject[] projects = ((IWorkspace) element).getRoot()
-							.getProjects();
+
+					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
 
 					IProject project;
 					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
-					for( int i =0 ; i < projects.length; i++ )
-					{
-						project= projects[i];
-						System.out.println( project.toString() );
-						try
-						{
-							if( project.hasNature(AadlNature.ID))
-							{
-								projectsWithNatures.add( project );
+					for (int i = 0; i < projects.length; i++) {
+						project = projects[i];
+						System.out.println(project.toString());
+						try {
+							if (project.hasNature(AadlNature.ID)) {
+								projectsWithNatures.add(project);
 							}
-						} catch (CoreException e)
-						{
 
+						} catch (CoreException e) {
+							MessageDialog
+							.openError(
+									getShell(),
+									"Project does not exist or is not open", 
+									MessageFormat
+									.format(
+											"Core exception.",  e.getMessage() ) 
+									);
 						}
 					}
 

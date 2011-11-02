@@ -33,13 +33,14 @@
  */
 package org.osate.annexsupport;
 
-import org.antlr.runtime.RecognitionException;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
+
+import antlr.RecognitionException;
 
 
 /**

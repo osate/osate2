@@ -201,12 +201,12 @@ public class PropertyAssociationItemProvider extends ElementItemProvider impleme
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		PropertyAssociation propertyAssociation = (PropertyAssociation) object;
-		return getString("_UI_PropertyAssociation_type") + " " + propertyAssociation.isAppend();
+		return getString("_UI_PropertyAssociation_type") + " " + propertyAssociation.getProperty().getName();
 	}
 
 	/**

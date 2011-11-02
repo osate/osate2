@@ -1,27 +1,21 @@
 grammar org.osate.xtext.aadl2.Aadl2 with org.osate.xtext.aadl2.properties.Properties
 
-//generate aadl2 "http://www.osate.org/aadl2/Aadl2"
-
 import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
-import "platform:/resource/org.osate.aadl2/model/instance.ecore" as instance
 
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
 Model returns aadl2::ModelUnit:
-	AadlPackage | PropertySet //| SystemInstance
+	AadlPackage | PropertySet 
 ;
 
-//SystemInstance returns instance::SystemInstance:
-//	"system" "instance" name = ID "from" systemImplementation=[aadl2::SystemImplementation|QCREF]
-//;
 
 AadlPackage returns aadl2::AadlPackage:
 	'package' name=PNAME
-	(=>(ownedPublicSection=PublicPackageSection
+	((ownedPublicSection=PublicPackageSection
 	(ownedPrivateSection=PrivatePackageSection)?) |
 	ownedPrivateSection=PrivatePackageSection)
-	(=> 'properties'
+	('properties'
 	((ownedPropertyAssociation+=BasicPropertyAssociation)+ ))? //| (noProperties?='none' ';')
 	'end' ID ('::' ID)* ';';
 
@@ -29,9 +23,9 @@ AadlPackage returns aadl2::AadlPackage:
 PublicPackageSection returns aadl2::PublicPackageSection:
 	{aadl2::PublicPackageSection}
 	'public'
-	((=> 'with' (importedUnit+=[aadl2::ModelUnit|PNAME]) //AadlPackage or PropertySet 
+	(('with' (importedUnit+=[aadl2::ModelUnit|PNAME])  
 	    (',' importedUnit+=[aadl2::ModelUnit|PNAME])* ';')
-	 | ownedPackageRename+=PackageRename | ownedPackageRename+=PackageRenameAll 
+	 | ownedPackageRename+=PackageRename  
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
 	( ownedClassifier+=Classifier
@@ -43,9 +37,9 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 PrivatePackageSection returns aadl2::PrivatePackageSection:
 	{aadl2::PrivatePackageSection}
 	'private'
-	((=> 'with' (importedUnit+=[aadl2::ModelUnit|PNAME]) // AadlPackage or PropertySet 
+	(('with' (importedUnit+=[aadl2::ModelUnit|PNAME])  
 	    (',' importedUnit+=[aadl2::ModelUnit|PNAME])* ';')
-	 | ownedPackageRename+=PackageRename | ownedPackageRename+=PackageRenameAll 
+	 | ownedPackageRename+=PackageRename  
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
    ( ownedClassifier += Classifier
@@ -54,12 +48,7 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	;
 	
 PackageRename returns aadl2::PackageRename:
-	name=ID 'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME]
-	';'
-;
-	
-PackageRenameAll returns aadl2::PackageRename:
-	'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME] '::' renameAll?='all' ';'
+	name=ID 'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME] ('::' renameAll?='all')?
 	';'
 ;
 
@@ -107,54 +96,56 @@ ComponentType returns aadl2::ComponentType:
 		 VirtualBusType|MemoryType
 		| ProcessorType | ProcessType|ThreadGroupType|ThreadType|DeviceType|SubprogramType
 	) 
-//	(=> 'flows'
-//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-//	(=> 'requires' 'modes'
-//	((ownedMode+=RequiresMode)+))?
-//	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID ';'
+	('flows'
+	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+	(('requires' 'modes'
+	 ((ownedMode+=RequiresMode)+))
+	|
+	 ('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))
+	)?
+	('properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' ID ';'
 ;
 
 AbstractType returns aadl2::AbstractType:
 	'abstract' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 
 SystemType returns aadl2::SystemType:
 	'system' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' 
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'features' ( 
+	('features' ( 
 			(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 				| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
 			| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
@@ -162,286 +153,291 @@ SystemType returns aadl2::SystemType:
 			)+
 			| (noFeatures?='none' ';')
  	) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 
 ProcessType returns aadl2::ProcessType:
 	'process' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 
 ThreadGroupType returns aadl2::ThreadGroupType:
 	'thread' 'group' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 ThreadType returns aadl2::ThreadType:
 	'thread' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 SubprogramType returns aadl2::SubprogramType:
 	'subprogram' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedParameter+=Parameter| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 SubprogramGroupType returns aadl2::SubprogramGroupType:
 	'subprogram' 'group' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedSubprogramAccess+=SubprogramAccess
 		| ownedFeatureGroup+=FeatureGroup  
 	| ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 
 ProcessorType returns aadl2::ProcessorType:
 	'processor' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 DeviceType returns aadl2::DeviceType:
 	'device' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 MemoryType returns aadl2::MemoryType:
 	'memory' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
-	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 BusType returns aadl2::BusType:
 	'bus' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
-	// to trigger mode transitions: ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 VirtualBusType returns aadl2::VirtualBusType:
 	'virtual' 'bus' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+	('features' ((noFeatures?='none' ';') |
+	(ownedFeatureGroup+=FeatureGroup 
+	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
+	| ownedAbstractFeature+=AbstractFeature
+	)+ ) )?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 
 VirtualProcessorType returns aadl2::VirtualProcessorType:
 	'virtual' 'processor' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') |
+	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup  
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'requires' 'modes'
-	((ownedMode+=RequiresMode)+))?
-	(=> 'modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('requires' 'modes'
+//	((ownedMode+=RequiresMode)+))?
+//	('modes' ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 DataType returns aadl2::DataType:
 	'data' name=ID
 	(ownedExtension=TypeExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'features' ((noFeatures?='none' ';') 
+	('features' ((noFeatures?='none' ';') 
 	| (
 	ownedFeatureGroup+=FeatureGroup| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ )
 	 )?
-	(=> 'flows'
-	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID ';'
+//	('flows'
+//	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID ';'
 	;
 
 // Component Implementations: add calls for threads and subprograms
@@ -450,23 +446,23 @@ ComponentImplementation returns aadl2::ComponentImplementation:
 	(AbstractImplementation | SystemImplementation | ProcessorImplementation| ProcessImplementation|ThreadGroupImplementation|ThreadImplementation|DeviceImplementation|BusImplementation|
 		VirtualProcessorImplementation| VirtualBusImplementation|MemoryImplementation|SubprogramImplementation|SubprogramGroupImplementation|DataImplementation
 	) 
-//	(=> 'connections'
-//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-//	| ownedParameterConnection+=ParameterConnection
-//	)+
-//	| (noConnections?='none' ';')))?
-//	(=> 'flows'
-//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-//	(noFlows?='none' ';')))?
-//	(=> 'modes'
-//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-//	| (noModes?='none' ';')))?
-//	(=> 'properties'
-//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-//	| (noProperties?='none' ';')))?
-//	(ownedAnnexSubclause+=AnnexSubclause)*
-//	'end' ID '.' INAME ';'
+	('connections'
+	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+	| ownedParameterConnection+=ParameterConnection
+	)+
+	| (noConnections?='none' ';')))?
+	('flows'
+		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=EndToEndFlow)+ |
+	(noFlows?='none' ';')))?
+	('modes'
+	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+	| (noModes?='none' ';')))?
+	('properties'
+	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+	| (noProperties?='none' ';')))?
+	(ownedAnnexSubclause+=AnnexSubclause)*
+	'end' FULLINAME ';'
 ;
 
 Realization returns aadl2::Realization:
@@ -477,12 +473,12 @@ AbstractImplementation returns aadl2::AbstractImplementation:
 	'abstract' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedSystemSubcomponent+=SystemSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
 	  | ownedThreadSubcomponent+=ThreadSubcomponent | ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent
@@ -495,36 +491,36 @@ AbstractImplementation returns aadl2::AbstractImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'calls'
+	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
 	| noCalls?='none' ';'
 	)
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 SystemImplementation returns aadl2::SystemImplementation:
 	'system' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
@@ -540,382 +536,380 @@ SystemImplementation returns aadl2::SystemImplementation:
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 ProcessImplementation returns aadl2::ProcessImplementation:
 	'process' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 ThreadGroupImplementation returns aadl2::ThreadGroupImplementation:
 	'thread' 'group' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | ownedThreadSubcomponent+=ThreadSubcomponent
 	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 ThreadImplementation returns aadl2::ThreadImplementation:
 	'thread' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  |ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'calls'
+	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
 	 | noCalls?='none' ';'
 	))?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 SubprogramImplementation returns aadl2::SubprogramImplementation:
 	'subprogram' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'calls'
+	('calls'
 	((ownedSubprogramCallSequence+=SubprogramCallSequence)+
 	 | noCalls?='none' ';'
 	))?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
 	'subprogram' 'group' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	| ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent 
 	// allow-errata:  |ownedDataSubcomponent+=DataSubcomponent 
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	(( ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-    )+
-	| (noConnections?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	(( ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//    )+
+//	| (noConnections?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 ProcessorImplementation returns aadl2::ProcessorImplementation:
 	'processor' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedMemorySubcomponent+=MemorySubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 VirtualProcessorImplementation returns aadl2::VirtualProcessorImplementation:
 	'virtual' 'processor' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 DeviceImplementation returns aadl2::DeviceImplementation:
 	'device' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent
     	| ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	| ownedParameterConnection+=ParameterConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedPortConnection+=PortConnection | ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	| ownedParameterConnection+=ParameterConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 MemoryImplementation returns aadl2::MemoryImplementation:
 	'memory' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedMemorySubcomponent+=MemorySubcomponent
 	  | ownedBusSubcomponent+=BusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'connections'
-	((ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 BusImplementation returns aadl2::BusImplementation:
 	'bus' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 VirtualBusImplementation returns aadl2::VirtualBusImplementation:
 	'virtual' 'bus' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 DataImplementation returns aadl2::DataImplementation:
@@ -923,42 +917,42 @@ DataImplementation returns aadl2::DataImplementation:
 	'data' 'implementation' 
 	ownedRealization=Realization '.' name=INAME
 	(ownedExtension=ImplementationExtension )?
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
-	(=> 'prototypes' 
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('prototypes' 
 		(  (ownedPrototype+=Prototype)+
 		|(noPrototypes?='none' ';')
 	))?
-	(=> 'subcomponents'
+	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
 	  | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  )+
 	| (noSubcomponents?='none' ';')))?
-	(=> 'connections'
-	((ownedAccessConnection+=AccessConnection
-	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
-	)+
-	| (noConnections?='none' ';')))?
-	(=> 'flows'
-		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
-	(noFlows?='none' ';')))?
-	(=> 'modes'
-	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
-	| (noModes?='none' ';')))?
-	(=> 'properties'
-	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
-	| (noProperties?='none' ';')))?
-	(ownedAnnexSubclause+=AnnexSubclause)*
-	'end' ID '.' INAME ';'
+//	('connections'
+//	((ownedAccessConnection+=AccessConnection
+//	|ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection
+//	)+
+//	| (noConnections?='none' ';')))?
+//	('flows'
+//		((ownedFlowImplementation+=(FlowImplementation)|ownedEndToEndFlow+=(EndToEndFlow|EndToEndFlowRefinement))+ |
+//	(noFlows?='none' ';')))?
+//	('modes'
+//	((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+
+//	| (noModes?='none' ';')))?
+//	('properties'
+//	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
+//	| (noProperties?='none' ';')))?
+//	(ownedAnnexSubclause+=AnnexSubclause)*
+//	'end' ID '.' INAME ';'
 	;
 
 /* subprogram calls */
 
 SubprogramCallSequence returns aadl2::SubprogramCallSequence:
-	name = ID '{'
+	name = ID ':' '{'
 	( ownedCallSpecification+=CallSpecification)+
 	'}'
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? //| allModes?='all'
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? 
 	';'
 ;
 
@@ -966,10 +960,10 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 CallSpecification returns aadl2::CallSpecification:
 	(({aadl2::ProcessorCall}name=ID ':' 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
      ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
-     	((context=[aadl2::CallContext|PNAME] => '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
+     	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
      	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
      ))
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
 ;
 
@@ -978,12 +972,14 @@ CallSpecification returns aadl2::CallSpecification:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	( AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
+	((( AbstractPrototype | BusPrototype | DevicePrototype | MemoryPrototype | ProcessPrototype | ProcessorPrototype |
 		SubprogramPrototype | SubprogramGroupPrototype | ThreadPrototype | ThreadGroupPrototype | VirtualBusPrototype | VirtualProcessorPrototype | 
 	SystemPrototype | DataPrototype
-		| FeatureGroupPrototype | FeaturePrototype
 	)
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	( array?='[' ']')?
+	) | FeatureGroupPrototype | FeaturePrototype)
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
 ;
 
@@ -992,80 +988,80 @@ AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'abstract' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 BusPrototype returns aadl2::BusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'bus' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 DataPrototype returns aadl2::DataPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'data' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 DevicePrototype returns aadl2::DevicePrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'device' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 MemoryPrototype returns aadl2::MemoryPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'memory' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 ProcessPrototype returns aadl2::ProcessPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'process' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 ProcessorPrototype returns aadl2::ProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'processor' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 SubprogramPrototype returns aadl2::SubprogramPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 SystemPrototype returns aadl2::SystemPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'system' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 
@@ -1073,32 +1069,32 @@ ThreadPrototype returns aadl2::ThreadPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 VirtualBusPrototype returns aadl2::VirtualBusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'bus'
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor'
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
+//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+//	( array?='[' ']')?
 	;
 
 
@@ -1127,13 +1123,13 @@ PrototypeBinding returns aadl2::PrototypeBinding:
 
 
 FeatureGroupPrototypeBinding returns aadl2::FeatureGroupPrototypeBinding:
-	formal=[aadl2::Prototype|ID] '=>'  'feature' => 'group' 
+	formal=[aadl2::Prototype|ID] '=>'  'feature' 'group' 
 	actual=FeatureGroupPrototypeActual
 	;
 
 FeatureGroupPrototypeActual returns aadl2::FeatureGroupPrototypeActual:
 	featureType=[aadl2::FeatureType|QCREF]
-	  (=> '(' binding+=PrototypeBinding (','  binding+=PrototypeBinding)* ')')?
+	  ('(' binding+=PrototypeBinding (','  binding+=PrototypeBinding)* ')')?
 	;
 
 
@@ -1145,16 +1141,16 @@ FeaturePrototypeBinding returns aadl2::FeaturePrototypeBinding:
 //TODO MM change -  then allow reference to prototype for classifier reference	
 // TODO how about binding with classifier
 PortSpecification returns aadl2::PortSpecification:
-	direction=PortDirection category=PortCategory => 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
+	direction=PortDirection category=PortCategory 'port' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 	
 AccessSpecification returns aadl2::AccessSpecification:
-	kind=AccessDirection category=AccessCategory => 'access' (classifier=[aadl2::ComponentClassifier|QCREF])?
+	kind=AccessDirection category=AccessCategory 'access' (classifier=[aadl2::ComponentClassifier|QCREF])?
 	;
 
 	
 FeaturePrototypeReference returns aadl2::FeaturePrototypeReference:
-	direction=InOutDirection => 'feature' prototype=[aadl2::FeaturePrototype|ID]
+	direction=InOutDirection 'feature' prototype=[aadl2::FeaturePrototype|ID]
 	;
 
 
@@ -1178,16 +1174,16 @@ AbstractSubcomponent returns aadl2::AbstractSubcomponent:
 	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'abstract'
 	(abstractSubcomponentType=[aadl2::AbstractSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 SystemSubcomponent returns aadl2::SystemSubcomponent:
@@ -1195,16 +1191,16 @@ SystemSubcomponent returns aadl2::SystemSubcomponent:
 	(refined=[aadl2::SystemSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'system'
 	(systemSubcomponentType=[aadl2::SystemSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 ProcessSubcomponent returns aadl2::ProcessSubcomponent:
@@ -1212,16 +1208,16 @@ ProcessSubcomponent returns aadl2::ProcessSubcomponent:
 	(refined=[aadl2::ProcessSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'process'
 	(processSubcomponentType=[aadl2::ProcessSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
@@ -1229,16 +1225,16 @@ ThreadGroupSubcomponent returns aadl2::ThreadGroupSubcomponent:
 	(refined=[aadl2::ThreadGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
 	(threadGroupSubcomponentType=[aadl2::ThreadGroupSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 ThreadSubcomponent returns aadl2::ThreadSubcomponent:
@@ -1246,16 +1242,16 @@ ThreadSubcomponent returns aadl2::ThreadSubcomponent:
 	(refined=[aadl2::ThreadSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'thread'
 	(threadSubcomponentType=[aadl2::ThreadSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
@@ -1263,16 +1259,16 @@ SubprogramSubcomponent returns aadl2::SubprogramSubcomponent:
 	(refined=[aadl2::SubprogramSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram'
 	(subprogramSubcomponentType=[aadl2::SubprogramSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
@@ -1280,16 +1276,16 @@ SubprogramGroupSubcomponent returns aadl2::SubprogramGroupSubcomponent:
 	(refined=[aadl2::SubprogramGroupSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
 	(subprogramGroupSubcomponentType=[aadl2::SubprogramGroupSubcomponentType|QCREF] 
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
@@ -1297,16 +1293,16 @@ ProcessorSubcomponent returns aadl2::ProcessorSubcomponent:
 	(refined=[aadl2::ProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'processor' 
 	 (processorSubcomponentType=[aadl2::ProcessorSubcomponentType|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
@@ -1314,16 +1310,16 @@ VirtualProcessorSubcomponent returns aadl2::VirtualProcessorSubcomponent:
 	(refined=[aadl2::VirtualProcessorSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor' 
 	 (virtualProcessorSubcomponentType=[aadl2::VirtualProcessorSubcomponentType|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 DeviceSubcomponent returns aadl2::DeviceSubcomponent:
@@ -1331,16 +1327,16 @@ DeviceSubcomponent returns aadl2::DeviceSubcomponent:
 	(refined=[aadl2::DeviceSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'device' 
 	 (deviceSubcomponentType=[aadl2::DeviceSubcomponentType|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 MemorySubcomponent returns aadl2::MemorySubcomponent:
@@ -1348,16 +1344,16 @@ MemorySubcomponent returns aadl2::MemorySubcomponent:
 	(refined=[aadl2::MemorySubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'memory' 
 	 (memorySubcomponentType=[aadl2::MemorySubcomponentType|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 BusSubcomponent returns aadl2::BusSubcomponent:
@@ -1365,16 +1361,16 @@ BusSubcomponent returns aadl2::BusSubcomponent:
 	(refined=[aadl2::BusSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'bus' 
 	 (busSubcomponentType=[aadl2::BusSubcomponentType|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
@@ -1382,16 +1378,16 @@ VirtualBusSubcomponent returns aadl2::VirtualBusSubcomponent:
 	(refined=[aadl2::VirtualBusSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'bus' 
 	 (virtualBusSubcomponentType=[aadl2::VirtualBusClassifier|QCREF]
-	 	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	 )?
 	 ( (arrayDimension+=ArrayDimension )+
-	  ( => '(' implementationReference+=ComponentImplementationReference  
+	  ( '(' implementationReference+=ComponentImplementationReference  
 	  (',' implementationReference+=ComponentImplementationReference)*
 	  ')' )? 
 	 )?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 DataSubcomponent returns aadl2::DataSubcomponent:
@@ -1399,11 +1395,16 @@ DataSubcomponent returns aadl2::DataSubcomponent:
 	(refined=[aadl2::DataSubcomponent|REFINEDNAME] ':' 'refined' 'to'))
 	'data' 
 	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] 
-	 (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	 ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
-	(=> 'in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
-		| allModes?='all' ) ')')?
+	 ( (arrayDimension+=ArrayDimension )+
+	  ( '(' implementationReference+=ComponentImplementationReference  
+	  (',' implementationReference+=ComponentImplementationReference)*
+	  ')' )? 
+	 )?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?  
+	('in' 'modes' '(' (ownedModeBinding+=ModeRef(',' ownedModeBinding+=ModeRef)* 
+		 ) ')')?
 	';';
 
 
@@ -1419,7 +1420,7 @@ ArraySize returns aadl2::ArraySize:
 
 ComponentImplementationReference returns aadl2::ComponentImplementationReference:
 	{aadl2::ComponentImplementationReference}implementation=[aadl2::ComponentImplementation|QCREF] 
-	(=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 ;
 
 
@@ -1434,7 +1435,7 @@ DataPort returns aadl2::DataPort:
 	direction=PortDirection 
 	'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1445,7 +1446,7 @@ EventDataPort returns aadl2::EventDataPort:
 	direction=PortDirection 
 	'event' 'data' 'port' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1456,7 +1457,7 @@ EventPort returns aadl2::EventPort:
 	direction=PortDirection 
 	'event' 'port' 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? 
 	';' 
 	;
 
@@ -1468,7 +1469,7 @@ FeatureGroup returns aadl2::FeatureGroup:
 	( inverse?='inverse' 'of')?
 	featureType=[aadl2::FeatureType|QCREF] 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
 
 Parameter returns aadl2::Parameter:
@@ -1476,7 +1477,7 @@ Parameter returns aadl2::Parameter:
 	(refined=[aadl2::Parameter|REFINEDNAME] ':' 'refined' 'to'))
 	direction=PortDirection 'parameter' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
 
 // AccessCategory not set (is encoded in type)
@@ -1486,7 +1487,7 @@ SubprogramAccess returns aadl2::SubprogramAccess:
 	kind=AccessDirection 
 	'subprogram' 'access' (subprogramFeatureClassifier=[aadl2::SubprogramSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
 SubprogramGroupAccess returns aadl2::SubprogramGroupAccess: 
 	((name=ID ':' )|
@@ -1494,7 +1495,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 	kind=AccessDirection 
 	'subprogram' 'group' 'access' (subprogramGroupFeatureClassifier=[aadl2::SubprogramGroupSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
 BusAccess returns aadl2::BusAccess: 
 	((name=ID ':' )|
@@ -1502,7 +1503,7 @@ BusAccess returns aadl2::BusAccess:
 	kind=AccessDirection  
 	'bus' 'access' (busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
 DataAccess returns aadl2::DataAccess: 
 	((name=ID ':' )|
@@ -1510,15 +1511,15 @@ DataAccess returns aadl2::DataAccess:
 	kind=AccessDirection 
 	'data' 'access' (dataFeatureClassifier=[aadl2::DataSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 ;
 AbstractFeature returns aadl2::AbstractFeature:
 	// need to set inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeatureClassifier|QCREF])? 
+	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeaturePrototype|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
-	(=> '{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
+	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;
 
 
@@ -1532,18 +1533,18 @@ PortCategory returns aadl2::PortCategory: 'data' | 'event' |  ('event' 'data');
 FeatureGroupType returns aadl2::FeatureGroupType:
 	'feature' 'group' name=ID 
 	(  ownedExtension=GroupExtension
-	  (=> '(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
+	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
-	(=> 'prototypes' ((noPrototypes?='none' ';') |
+	('prototypes' ((noPrototypes?='none' ';') |
 	(ownedPrototype+=Prototype)+))?
-	(=> 'features' (// no none for FGT (noFeatures?='none' ';') |
+	('features' (// no none for FGT (noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 	| ownedFeatureGroup+=FeatureGroup | ownedDataAccess+=DataAccess | ownedBusAccess+=BusAccess
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 	| ownedAbstractFeature+=AbstractFeature
 	)+ ) )?
-	(=> 'inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
-	(=> 'properties'
+	('inverse' 'of' inverse=[aadl2::FeatureGroupType|QCREF])?
+	('properties'
 	((ownedPropertyAssociation+=ContainedPropertyAssociation)+
 	| (noProperties?='none' ';')))?
 	(ownedAnnexSubclause+=AnnexSubclause)*
@@ -1576,63 +1577,61 @@ ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
 ;
 
 PortConnection returns aadl2::PortConnection:
-	((name=ID ':' )|
-	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to'))?
-	'port' 
-	source=AbstractConnectionEnd
+	((name=ID ':' 'port' 
+			source=AbstractConnectionEnd
 	('->' | bidirectional?='<->')
-	destination=ProcessorConnectionEnd 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
-	) ')')? //| allModes?='all'
+	destination=ProcessorConnectionEnd )
+	|
+	(refined=[aadl2::PortConnection|REFINEDNAME] ':' 'refined' 'to' 'port'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
+	) ')')? 
 	';';
 
 AccessConnection returns aadl2::AccessConnection:
-	((name=ID ':' )|
-	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to'))?
-	accessCategory=AccessCategory 'access' 
-	source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
-	('->' | bidirectional?='<->')
-	destination=ConnectedElement 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
-	) ')')? //| allModes?='all'
+	((name=ID ':' accessCategory=AccessCategory 'access'
+			source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
+	        ('->' | bidirectional?='<->')
+	        destination=ConnectedElement )
+	|
+	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to' accessCategory=AccessCategory 'access'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
+	) ')')? 
 	';';
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
-	((name=ID ':' )|
-	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to'))?
-	'feature' 'group' 
+	((name=ID ':' 'feature' 'group'
 	source=ConnectedElement
 	( '->' | bidirectional?='<->')
-	destination=ConnectedElement 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
-	) ')')? //| allModes?='all'
+	destination=ConnectedElement )
+	|
+	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
+	) ')')? 
 	';';
 
 FeatureConnection returns aadl2::FeatureConnection:
-	((name=ID ':' )|
-	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to'))?
-	'feature' 
-	source=ConnectedElement
-	('->' | bidirectional?='<->')
-	destination=ConnectedElement 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
-	) ')')? //| allModes?='all'
+	((name=ID ':' 'feature' 
+			source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement )
+		|
+	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
+	) ')')? 
 	';';
 
 ParameterConnection returns aadl2::ParameterConnection:
-	((name=ID ':' )|
-	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' 'refined' 'to'))?
-	'parameter' 
+	((name=ID ':' 'parameter'
 	source=ConnectedElement
 	 '->'
 	destination=ConnectedElement 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
-	) ')')? //| allModes?='all'
+	)|
+	(refined=[aadl2::ParameterConnection|REFINEDNAME] ':' 'refined' 'to' 'parameter'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* 
+	) ')')? 
 	';';
 
 AccessCategory returns aadl2::AccessCategory:
@@ -1649,40 +1648,40 @@ FlowSink returns aadl2::FlowKind: 'sink';
 FlowPath returns aadl2::FlowKind: 'path';
 
 FlowSpecification returns aadl2::FlowSpecification:
-//	(( FlowSourceSpec | FlowSinkSpec | FlowPathSpec )
-//		(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
-//	';'
-//	) 
-	FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
-	| FlowSpecRefinement
-	//| FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement 
+	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
+		| FlowSpecRefinement
+	)
+		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	';'
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSource 
 	outEnd=FlowEnd
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
-	';'
+//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+//	';'
 ;
+
 FlowSinkSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSink 
 	InEnd=FlowEnd
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
-	';'
+//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+//	';'
 ;
+
 FlowPathSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowPath 
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID] )* ')')? //| allModes?='all'
-	';'
+//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+//	';'
 ;
 
 FlowEnd returns aadl2::FlowEnd:
@@ -1690,43 +1689,19 @@ FlowEnd returns aadl2::FlowEnd:
 ;
 
 FlowSpecRefinement returns aadl2::FlowSpecification:
-//	( FlowSourceSpecRefinement | FlowSinkSpecRefinement | FlowPathSpecRefinement )
 	refined=[aadl2::FlowSpecification|REFINEDNAME] 
 	':' 'refined' 'to' 'flow' kind=FlowKind 
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-	';'
+//	( '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
+//	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
+//	';'
 	;
-//
-//FlowSourceSpecRefinement returns aadl2::FlowSpecification:
-//	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-//	':' 'refined' 'to' 'flow' kind=FlowSource 
-//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-//	';'
-//;
-//FlowSinkSpecRefinement returns aadl2::FlowSpecification:
-//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowSink 
-//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-//	';'
-//;
-//FlowPathSpecRefinement returns aadl2::FlowSpecification:
-//	refined=[aadl2::FlowSpecification|REFINEDNAME] ':' 'refined' 'to' 'flow' kind=FlowPath 
-//	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-//		     (  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')')?	)|
-//	( =>  'in' 'modes' '(' inMode+=[aadl2::Mode|ID]( ',' inMode+=[aadl2::Mode|ID])*  ')') //| allModes?='all'
-//	';'
-//;
 
 FlowImplementation returns aadl2::FlowImplementation:
 	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
-////	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
-//	';'
+//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+	';'
 ;
 
 FlowSourceImpl returns aadl2::FlowImplementation:
@@ -1735,9 +1710,9 @@ FlowSourceImpl returns aadl2::FlowImplementation:
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
 //	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
 (ID '.')? ID
-//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
-	';'
+////	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+//	';'
 ;
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
@@ -1745,9 +1720,9 @@ FlowSinkImpl returns aadl2::FlowImplementation:
 //	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 (ID '.')? ID
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
-//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
-	';'
+////	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+//	';'
 ;
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
@@ -1758,28 +1733,30 @@ FlowPathImpl returns aadl2::FlowImplementation:
 	    '->' ownedFlowSegment+=ConnectionFlow )?
 //	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
  '->' (ID '.')? ID
-//	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
-	';'
+////	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+//	';'
 ;
+
 
 
 EndToEndFlow returns aadl2::EndToEndFlow: 
-    name=ID ':' 'end' 'to' 'end' 'flow'
+    ((name=ID ':' 'end' 'to' 'end' 'flow'
     ownedEndToEndFlowSegment+=ETESubcomponentFlow
-    ( '->' ownedEndToEndFlowSegment+=ETEConnectionFlow '->' ownedEndToEndFlowSegment+=ETESubcomponentFlow )*
-    
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( => 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? //| allModes?='all'
+    ( '->' ownedEndToEndFlowSegment+=ETEConnectionFlow '->' ownedEndToEndFlowSegment+=ETESubcomponentFlow )+)
+    | (refined=[aadl2::EndToEndFlow|REFINEDNAME] ':' 'refined' 'to' 'end' 'to' 'end' 'flow'))
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
     ';'
     ;
-    
-EndToEndFlowRefinement returns aadl2::EndToEndFlow:
-	refined=[aadl2::EndToEndFlow|REFINEDNAME] ':' 'refined' 'to' 'end' 'to' 'end' 'flow'  
-	( => '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
-	( =>  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') //| allModes?='all'
-;
+
+//// refinement should have at elast one of property or in mdoes. We perform a validation check    
+//EndToEndFlowRefinement returns aadl2::EndToEndFlow:
+//	refined=[aadl2::EndToEndFlow|REFINEDNAME] ':' 'refined' 'to' 'end' 'to' 'end' 'flow'  
+//	( '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
+//		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
+//	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
+//;
 
 SubcomponentFlow returns aadl2::FlowSegment:
 	(context=[aadl2::Subcomponent|ID] '.')? flowElement=[aadl2::FlowElement|ID]
@@ -1802,12 +1779,12 @@ ETEConnectionFlow returns aadl2::EndToEndFlowSegment:
 
 Mode returns aadl2::Mode:
 	name=ID ':' initial?='initial'? 'mode' 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
 
 RequiresMode returns aadl2::Mode:
 	name=ID ':' initial?='initial'? derived?='mode' 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
 
 ModeTransition returns aadl2::ModeTransition:
@@ -1816,7 +1793,7 @@ ModeTransition returns aadl2::ModeTransition:
 	ownedTrigger+=Trigger
 	(',' ownedTrigger+=Trigger)*
 	']->' destination=[aadl2::Mode|ID] 
-	(=> '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';';
 
 Trigger returns aadl2::ModeTransitionTrigger:
@@ -1833,32 +1810,40 @@ ModeRef returns aadl2::ModeBinding:
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
+//	 ErrorModelLibrary | 
 	 DefaultAnnexLibrary;
 
 DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 	'annex' name=ID
-	sourceText=ANNEXTEXT
+	 sourceText=ANNEXTEXT 
 	';';
 
 
 AnnexSubclause returns aadl2::AnnexSubclause:
+//	 ErrorModelSubclause | 
 	 DefaultAnnexSubclause;
 
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	'annex' name=ID
-	sourceText=ANNEXTEXT
+		sourceText=ANNEXTEXT 
 	';';
 
 
 terminal ANNEXTEXT:
 	'{**'->'**}';
+
+
+//terminal ANNEXTEXT	: 
+//			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
+//		; 
+
 	// **************
 
 // Properties
 
 PropertySet returns aadl2::PropertySet:
 	'property' 'set' name=ID 'is'
-	(=> 'with' (importedUnit+=[aadl2::PropertySet|ID])  
+	('with' (importedUnit+=[aadl2::PropertySet|ID])  
 	    (',' importedUnit+=[aadl2::PropertySet|ID])* ';')*
 	(ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition 
 	| ownedPropertyConstant+=PropertyConstant)*
@@ -1870,7 +1855,8 @@ PropertyType returns aadl2::PropertyType:
 	';';
 
 UnnamedPropertyType returns aadl2::PropertyType:
-	(ListType|UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
+	(ListType|
+		UnnamedBooleanType|UnnamedStringType|UnnamedEnumerationType|UnnamedUnitsType |UnnamedRealType
 	|UnnamedIntegerType|UnnamedRangeType|UnnamedClassifierType|UnnamedReferenceType|UnnamedRecordType) 
 	;
 
@@ -1955,29 +1941,33 @@ UnnamedRangeType returns aadl2::RangeType:
 ClassifierType returns aadl2::ClassifierType:
 	name=ID ':' 'type' 
 	'classifier' 
-	('(' classifierReference+=QCReference (',' classifierReference+=QCReference)*')')?
+	('(' classifierReference+=QMReference (',' classifierReference+=QMReference)*')')?
 	 ;
 
 UnnamedClassifierType returns aadl2::ClassifierType:
 	{aadl2::ClassifierType}
 	'classifier' 
-	('(' classifierReference+=QCReference (',' classifierReference+=QCReference)*')')?
+	('(' classifierReference+=QMReference (',' classifierReference+=QMReference)*')')?
 	 ;
 
-QCReference returns aadl2::MetaclassReference:
+QMReference returns aadl2::MetaclassReference:
 	('{'  annexName=ID '}' STAR STAR )?
 	( metaclassName+=(CoreKeyWord|ID) )+
 	 ;
 
+QCReference returns aadl2::ClassifierValue:
+   classifier=[aadl2::ComponentClassifier|QCREF]
+  ;
+
 ReferenceType returns aadl2::ReferenceType:
 	name=ID ':' 'type' 
 	'reference' 
-	('(' namedElementReference+=QCReference (',' namedElementReference+=QCReference)* ')')?
+	('(' namedElementReference+=QMReference (',' namedElementReference+=QMReference)* ')')?
 	 ;
 
 UnnamedReferenceType returns aadl2::ReferenceType:
 	'reference' {aadl2::ReferenceType}
-	('(' namedElementReference+=QCReference (',' namedElementReference+=QCReference)* ')')?
+	('(' namedElementReference+=QMReference (',' namedElementReference+=QMReference)* ')')?
 	 ;
 
 RecordType returns aadl2::RecordType:
@@ -2028,7 +2018,7 @@ ListType returns aadl2::ListType:
 
 PropertyOwner returns aadl2::PropertyOwner:
 	// classifier value is always qualified by a package name
-	QCReference
+	QMReference | QCReference
 	 ;
 
 
@@ -2058,8 +2048,9 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	 RecordTerm |NumericRangeTerm
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
-	 | ComponentClassifierTerm 	| ListTerm |ActualBooleanTerm
-	  | LiteralorReferenceTerm
+	 | ComponentClassifierTerm 	| ListTerm 
+	 |ActualBooleanTerm | LiteralorReferenceTerm
+	 //|BooleanTerm
 	;
 
 
@@ -2093,12 +2084,19 @@ CoreKeyWord :
 // package anme
 PNAME:
 	ID ('::' ID)*;
+// package anme
+QTNAME:
+	ID ('::' ID)+;
 
 // implementation name (used by value converter)
 INAME:
 	ID;
+// implementation name (used by value converter)
+FULLINAME:
+	ID '.' ID;
 
 // name of refined entity. Used to set name field by value converter	
 REFINEDNAME:
 	ID;
-	
+
+

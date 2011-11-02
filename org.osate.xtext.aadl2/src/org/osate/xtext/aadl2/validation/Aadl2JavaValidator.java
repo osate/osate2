@@ -3,19 +3,98 @@ package org.osate.xtext.aadl2.validation;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
-import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.*;
-import org.osate.aadl2.impl.FeatureConnectionImpl;
-import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
@@ -35,6 +114,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentType(ComponentType componentType) {
+		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
 	}
@@ -269,24 +349,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkDataAccessPrototypeReference(dataAccess);
 
 	}
-
-	@Check(CheckType.FAST)
-	public void casePropertyAssociation(PropertyAssociation pa) {
-		String s = pa.getProperty().getQualifiedName();
-		String psname = null;
-		final int idx = s.lastIndexOf("::");
-		if (idx != -1) {
-			psname = s.substring(0, idx);
-			if (Aadl2LinkingService.getAadl2LinkingService(pa).isPredeclaredPropertySet(psname))
-				return;
-			EObject propertySet = Aadl2LinkingService.getAadl2LinkingService(pa).findImportedPropertySet(
-					psname, pa);
-			if (propertySet == null) {
-				error(pa,
-						"Property set containing property is not listed in with clause");
-			}
-		}
-	}
+	
+//	@Check(CheckType.FAST)
+//	public void caseAadlPackage(AadlPackage pack){
+//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack)){
+//			error(pack,"Duplicate packages "+ pack.getName());
+//		}
+//	}
+//	
+//	@Check(CheckType.FAST)
+//	public void caseClassifier(Classifier pack){
+//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesClassifier(pack)){
+//			error(pack,"Duplicate classifiers "+ pack.getName());
+//		}
+//	}
 
 //	@Check(CheckType.FAST)
 //	public void caseAadlPackageSection(PackageSection ps) {
@@ -315,17 +391,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	// checkPropertyAssocs(conn);
 //	// }
 
-	@Check(CheckType.FAST)
-	public void caseRangeValue(final RangeValue rv) {
-		final NumberValue deltaNV = rv.getDeltaValue();
-		if (deltaNV != null) {
-			final double delta = deltaNV.getScaledValue();
-			if (delta < 0) {
-				error(rv, "Range value has a negative delta component");
-			}
-		}
-	}
-
 //
 //	/**
 //	 * Check that PropertyReference elements that are referenced in boolean
@@ -341,19 +406,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		checkPropertyConstant(pc);
 //	}
 
-	/**
-	 * Check ranges for correctness.
-	 */
-	@Check(CheckType.FAST)
-	public void caseNumberType(NumberType nt) {
-		checkNumberType(nt);
-	}
-
-	@Check(CheckType.FAST)
-	public void caseAadlinteger(final AadlInteger ai) {
-		checkAadlinteger(ai);
-		// TODO-phf: fall through to NumberType
-	}
 //
 //	@Check(CheckType.FAST)
 //	public void caseFlowSpec(FlowSpecification fs) {
@@ -369,60 +421,55 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 * check property definition
 //	 */
 //	@Check(CheckType.FAST)
-//	public void casePropertyDefinition(Property pd) {
-//		checkPropertyDefinition(pd);
+//	public void caseProperty(Property pd) {
+//		checkProperty(pd);
 //	}
 
-	// NOTE: Handled by UniqueName checker of Xtext
-	// @Check(CheckType.FAST)
-	// public void caseUnitsType(final UnitsType ut) {
-	// final Set seen = new HashSet();
-	// final EList literals = ut.getOwnedLiterals();
-	// for (final Iterator i = literals.iterator(); i.hasNext();) {
-	// final UnitLiteral lit = (UnitLiteral) i.next();
-	// final String name = lit.getName();
-	// if (seen.contains(name)) {
-	// error(lit, "Unit '" + name
-	// + "' previously declared in units type");
-	// } else {
-	// seen.add(name);
-	// }
-	// }
-	// }
-	//
-	// @Check(CheckType.FAST)
-	// public void caseEnumerationType(final EnumerationType et) {
-	// final Set seen = new HashSet();
-	// final EList literals = et.getOwnedLiterals();
-	// for (final Iterator i = literals.iterator(); i.hasNext();) {
-	// final EnumerationLiteral lit = (EnumerationLiteral) i.next();
-	// final String name = lit.getName();
-	// if (seen.contains(name)) {
-	// error(lit, "Literal '" + name
-	// + "' previously declared in enumeration");
-	// } else {
-	// seen.add(name);
-	// }
-	// }
-	// }
-	// /**
-	// * check for unique feature names and flow spec names
-	// */
-	// @Check(CheckType.FAST)
-	// public void caseComponentType(ComponentType type) {
-	// // process in core package
-	// EList l = new BasicEList();
-	// l.addAll(type.getAllFlowSpec());
-	// l.addAll(type.allFeatures());
-	// EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
-	// if (doubles.size() > 0) {
-	// for (NamedElement ne : doubles) {
-	// error(ne,
-	// (ne instanceof Feature ? "feature " : "flow spec ") +
-	// " identifier '" + ne.getName() + "' previously defined");
-	// }
-	// }
-	// }
+	@Check(CheckType.FAST)
+	public void caseUnitsType(final UnitsType ut) {
+		final Set seen = new HashSet();
+		final EList literals = ut.getOwnedLiterals();
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne, "Unit '" + ne.getName()
+						+ "' previously declared in enumeration");
+			}
+		}
+	}
+
+	@Check(CheckType.FAST)
+	public void caseEnumerationType(final EnumerationType et) {
+		final Set seen = new HashSet();
+		final EList literals = et.getOwnedLiterals();
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne, "Literal '" + ne.getName()
+						+ "' previously declared in enumeration");
+			}
+		}
+	}
+	/**
+	 * check for unique names in component type
+	 */
+	public void checkComponentTypeUniqueNames(ComponentType type) {
+		// process in core package
+		EList l = new BasicEList();
+		l.addAll(type.getAllFlowSpecifications());	
+		l.addAll(type.getAllFeatures());
+		l.addAll(type.getAllModes());
+		l.addAll(type.getAllModeTransitions());
+		l.addAll(type.getAllPrototypes());
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne,
+						ne.eClass().getName() +
+						" identifier '" + ne.getName() + "' previously defined");
+			}
+		}
+	}
 	//
 	// /**
 	// * check for unique names in implementation
@@ -895,6 +942,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * "If an abstract component implementation is refined to a concrete
 	 * category, the subcomponents of the abstract component implementation must
 	 * be acceptable for the concrete component implementation."
+	 * Note: this also covers rule L5 in section 4.6.
 	 */
 	private void checkSubcomponentsHierarchy(Subcomponent subcomponent) {
 		if (subcomponent.getCategory().equals(ComponentCategory.ABSTRACT))
@@ -967,9 +1015,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the category of the prototype is identical to the category of
-	 * the specified component classifier. This requirement is not in the
-	 * standard yet. Peter has been informed and it should be in a future
-	 * errata.
+	 * the specified component classifier. 
+	 * Rule L2 in section 4.7 (revised AADLV2)
+	 * "The component category of the optional component classifier reference in the component prototype declaration must match
+	 * the category in the prototype declaration."
 	 */
 	private void checkComponentPrototypeCategory(ComponentPrototype prototype) {
 		if (prototype.getConstrainingClassifier() != null
@@ -984,15 +1033,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56. "The
 	 * component category declared in the component prototype binding must match
-	 * the component category of the prototype or classifier being referenced,
-	 * i.e., they must be identical, or the declared category component category
-	 * of the prototype must be abstract." Peter needs to rewrite this rule into
-	 * two separate rules. The first will specify that the category of the
-	 * formal prototype and the category specified in the binding must match
-	 * (match also means that abstract can be refined to a concrete type). The
-	 * second will specify that the category specified in the binding and the
-	 * category of the referenced classifier or prototype must match. This
-	 * method does the first check.
+	 * the component category of the prototype, or the declared category component category
+	 * of the prototype must be abstract." 
 	 */
 	private void checkComponentPrototypeBindingCategory(
 			ComponentPrototypeBinding binding) {
@@ -1011,17 +1053,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 1 in section 4.7 (Prototypes) on page 56. "The
-	 * component category declared in the component prototype binding must match
-	 * the component category of the prototype or classifier being referenced,
-	 * i.e., they must be identical, or the declared category component category
-	 * of the prototype must be abstract." Peter needs to rewrite this rule into
-	 * two separate rules. The first will specify that the category of the
-	 * formal prototype and the category specified in the binding must match
-	 * (match also means that abstract can be refined to a concrete type). The
-	 * second will specify that the category specified in the binding and the
-	 * category of the referenced classifier or prototype must match. This
-	 * method does the second check.
+	 * Checks legality rule 10 in section 4.7 (Prototypes) on page 56. "(L10)	The component category of the classifier reference 
+	 * or prototype reference in a prototype binding declaration must match the category of the prototype."
 	 */
 	private void checkComponentPrototypeActualComponentCategory(
 			ComponentPrototypeActual actual) {
@@ -1057,12 +1090,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Peter is going to change the wording of this to make parts of it less
 	 * restrictive.
 	 * 
-	 * Checks semantic rule 3 in section 4.7 (Prototypes) on page 57.
-	 * "Prototypes can specify a parameterization of abstract features (feature)
-	 * as well as feature group types for feature groups. The prototype binding
-	 * of an abstract feature can supply concrete features. If a direction is
-	 * specified for the abstract feature, the direction of the supplied feature
-	 * must match."
+	 * Checks legality rule 11 in section 4.7 (Prototypes) on page 57.
+	 * "(L11)	If a direction is specified for an abstract feature in a prototype declaration, 
+	 * then the direction of the prototype actual must match that declared in the prototype."
 	 */
 	private void checkFeaturePrototypeBindingDirection(
 			FeaturePrototypeBinding binding) {
@@ -1089,7 +1119,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a ComponentPrototypeBinding is a
-	 * ComponentPrototype. This requirement is not explicitly in the standard.
+	 * ComponentPrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfComponentPrototypeBinding(
 			ComponentPrototypeBinding binding) {
@@ -1100,8 +1130,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a FeatureGroupPrototypeBinding is a
-	 * FeatureGroupPrototype. This requirement is not explicitly in the
-	 * standard.
+	 * FeatureGroupPrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfFeatureGroupPrototypeBinding(
 			FeatureGroupPrototypeBinding binding) {
@@ -1112,7 +1141,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that the formal prototype of a FeaturePrototypeBinding is a
-	 * FeaturePrototype. This requirement is not explicitly in the standard.
+	 * FeaturePrototype. Rule L12 in Section 4.7.
 	 */
 	private void checkFormalOfFeaturePrototypeBinding(
 			FeaturePrototypeBinding binding) {
@@ -1123,7 +1152,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that component prototype refinements only refine component
-	 * prototypes. This requirement is not explicitly in the standard.
+	 * prototypes. Rule L13 in Section 4.7.
 	 */
 	private void checkRefinedOfComponentPrototype(ComponentPrototype prototype) {
 		if (prototype.getRefined() != null
@@ -1134,7 +1163,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that feature group prototype refinements only refine feature group
-	 * prototypes. This requirement is not explicitly in the standard.
+	 * prototypes. Rule L12 in Section 4.7.
 	 */
 	private void checkRefinedOfFeatureGroupPrototype(
 			FeatureGroupPrototype prototype) {
@@ -1146,7 +1175,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	/**
 	 * Checks that feature prototype refinements only refine feature prototypes.
-	 * This requirement is not explicitly in the standard.
+	 * Rule L12 in Section 4.7.
 	 */
 	private void checkRefinedOfFeaturePrototype(FeaturePrototype prototype) {
 		if (prototype.getRefined() != null
@@ -1764,7 +1793,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 5 in section 8.1 (Abstract Features) on page 127.
+	 * Checks legality rule 4 in section 8.1 (Abstract Features) on page 127.
 	 * "An abstract feature refinement declaration of a feature with a feature
 	 * prototype reference must only add property associations."
 	 */
@@ -1785,7 +1814,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks legality rule 5 in section 8.1 (Abstract Features) on page 127.
+	 * Checks legality rule 4 in section 8.1 (Abstract Features) on page 127.
 	 * "An abstract feature refinement declaration of a feature with a feature
 	 * prototype reference must only add property associations."
 	 */
@@ -1938,7 +1967,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L1 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "If a subprogram access refers to a component
 	 * classifier or a component prototype, then the category of the classifier
 	 * or prototype must be subprogram." For references to classifiers, the
@@ -1955,7 +1984,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L2 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "If a subprogram group access refers to a
 	 * component classifier or a component prototype, then the category of the
 	 * classifier or prototype must be subprogram group." For references to
@@ -1972,16 +2001,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L3 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "An abstract feature can be refined into a
 	 * subprogram access or a subprogram group access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 * 
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L4 for section 8.6 (Data Component Access)
 	 * "An abstract feature can be refined into a data access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 * 
-	 * Checks a proposed legality rule for section 8.7 (Bus Component Access)
+	 * Checks legality rule L4 for section 8.7 (Bus Component Access)
 	 * "An abstract feature can be refined into a bus access. In this case, the
 	 * abstract feature must not have a direction specified."
 	 */
@@ -1996,7 +2025,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.4 (Subprogram and
+	 * Checks legality rule L6 for section 8.4 (Subprogram and
 	 * Subprogram Group Access) "A provides subprogram access cannot be refined
 	 * to a requires subprogram access and a requires subprogram access cannot
 	 * be refined to a provides subprogram access. Similarly, a provides
@@ -2004,11 +2033,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * access and a requires subprogram group access cannot be refined to a
 	 * provides subprogram group access."
 	 * 
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L3 for section 8.6 (Data Component Access)
 	 * "A provides data access cannot be refined to a requires data access and a
 	 * requires data access cannot be refined to a provides data access."
 	 * 
-	 * Checks a proposed legality rule for section 8.7 (Bus Component Access) "A
+	 * Checks rule L3 for section 8.7 (Bus Component Access) "A
 	 * provides bus access cannot be refined to a requires bus access and a
 	 * requires bus access cannot be refined to a provides bus access."
 	 */
@@ -2027,7 +2056,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	/**
-	 * Checks a proposed legality rule for section 8.6 (Data Component Access)
+	 * Checks legality rule L1 for section 8.6 (Data Component Access)
 	 * "If a data access refers to a component classifier or a component
 	 * prototype, then the category of the classifier or prototype must be
 	 * data." For references to classifiers, the meta-model only allows for a
@@ -2102,83 +2131,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 	
 
-//	/**
-//	 * Make sure that a PropertyReference object referenced as a
-//	 * subclause of a boolean expression actually refers to a boolean-valued
-//	 * property.  Also make sure that if the property reference is to a 
-//	 * property definition, then the property holder or property definition 
-//	 * that it is a part of should have a compatible applies to clause.
-//	 */
-//	protected void checkPropertyReference(final PropertyReference pr) {
-//		final EObject parent = pr.eContainer();
-//		final ReferencedProperty rp = pr.getReferencedProperty();
-//		if (parent instanceof BooleanValue) {
-//			final PropertyType pt = rp.getThePropertyType();
-//			if (!(pt instanceof Aadlboolean) || rp.isList()) {
-//				error(pr, "Not a reference to a boolean-valued property");
-//			}
-//		}
-//		
-//		if (rp instanceof PropertyDefinition) {
-//			final PropertyDefinition refPD = (PropertyDefinition) rp;
-//			/* Find the property making refernece to us.  It is either the PD
-//			 * from a property association, or the enclosing PD if our use is
-//			 * as a default value.
-//			 */
-//			PropertyDefinition pd = null;
-//			EObject current = parent;
-//			while (current != null) {
-//				if (current instanceof PropertyAssociation) {
-//					pd = ((PropertyAssociation) current).getPropertyDefinition();
-//					break;
-//				}
-//				if (current instanceof PropertyDefinition) {
-//					pd = (PropertyDefinition) current;
-//					break;
-//				}
-//				current = current.eContainer();
-//			}
-//			
-//			if (current == null) {
-//				internalError("Couldn't find enclosing property association or property definition for property reference");
-//			} else {
-//				final List refAppliesTo = refPD.getAppliesto();
-//				final List appliesTo = pd.getAppliesto();
-//				if (!refAppliesTo.containsAll(appliesTo)) {
-//					error(pr, "Referenced property definition does not apply to all the categories that the referring property applies to");
-//				}
-//
-//				final List refAppliesToClass = new ArrayList();
-//				for (final Iterator i = refPD.getAppliesToClassifier().iterator(); i.hasNext();) {
-//					final ClassifierValue cv = (ClassifierValue) i.next();
-//					refAppliesToClass.add(cv.getComponentClassifier());
-//				}
-//				final List appliesToClass = new ArrayList();
-//				for (final Iterator i = pd.getAppliesToClassifier().iterator(); i.hasNext();) {
-//					final ClassifierValue cv = (ClassifierValue) i.next();
-//					appliesToClass.add(cv.getComponentClassifier());
-//				}
-//				if (!refAppliesToClass.containsAll(appliesToClass)) {
-//					error(pr, "Referenced property definition does not apply to all the classifiers that the referring property applies to");
-//				}
-//				
-//			}
-//		}
-//	}
-//
-//	public void checkProperties(EList pslist) {
-//		this.processPreOrderAll(pslist);
-//	}
 //
 //	/**
 //	 * @param pn
 //	 */
-//	private void checkPropertyDefinition(final PropertyDefinition pn) {
-//		// Check the access keyword
-//		checkAccessKeyword(pn);
-//
+//	private void checkProperty(final Property pn) {
 //		// Check the type correctness of the default value, if any
-//		typeCheckPropertyValues(pn.getThePropertyType(), pn.isList(), pn.getDefaultpropertyValue());
+//		typeCheckPropertyValues(pn.getPropertyType(), pn.isList(), pn.getDefaultValue());
 //	}
 //
 //
@@ -2187,42 +2146,37 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		 * some of this, but can't do it if the type is given by reference,
 //		 * and it cannot check that a int or real is within range.
 //		 */
-//		typeCheckPropertyValues(pc.getThePropertyType(), pc.isList(), pc.getConstantValue());
+//		typeCheckPropertyValues(pc.getPropertyType(), pc.isList(), pc.getConstantValue());
 //	}
 //
-//
-//
-//	private void checkPropertyAssocs(final PropertyHolder element) {
-//		checkPropertyAssocs(element, false);
-//	}
 //
 //	/**
 //	 * check property associations for the aObject element
 //	 * @param element aObject. It may not have a Properties object.
 //	 */
 //	private void checkPropertyAssocs(
-//		final PropertyHolder element, final boolean isSubcomponent) {
+//		final NamedElement element, final boolean isSubcomponent) {
 //		final List assocs;
 //		if (element instanceof Classifier) {
 //			/* 15 February 2007: Not sure this what should really be done.
 //			 * This breaks list +=> for one thing.  Taking this out for
 //			 * the moment; it was put in on 6 Feb 2007.
 //			 */
-////			assocs = ((Classifier) element).getAllPropertyAssociation();
-//			assocs = element.getPropertyAssociation();
+////			assocs = ((Classifier) element).getAllPropertyAssociations();
+//			assocs = element.getOwnedPropertyAssociations();
 //		} else {
-//			assocs = element.getPropertyAssociation();
+//			assocs = element.getOwnedPropertyAssociations();
 //		}
 //		if (assocs == null) return;
 //
 //		// map: PropertyDeclaration -> set of mode-binding pairs
 //		final Map propsToModes = new HashMap();
-//		// 2 level map: PropertyDeclaration -> EList of propertry holders -> set of mode-binding pairs
+//		// 2 level map: PropertyDeclaration -> EList of property holders -> set of mode-binding pairs
 //		final Map containedPropsToModes = new HashMap();
 //		for (final Iterator iter = assocs.iterator(); iter.hasNext(); ) {
 //			final PropertyAssociation pa = (PropertyAssociation) iter.next();
 //			// check only if property name was resolved
-//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			final Property pd = pa.getProperty();
 //			if (pd != null)	{
 //				/* This is where we should check constant property
 //				 * associations, but it's too much work to do that.
@@ -2233,12 +2187,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //				}
 //				
 //				/* Check that the association follows the prop's  "applies to".
-//				 * We don't check this for package sections because they are
-//				 * allowed to declare assocations for any property.
 //				 */
-//				if (!(element instanceof AadlPackageSection)) {
-//					checkAssociationAppliesTo(element, pa);
-//				}
+//				checkAssociationAppliesTo(element, pa);
 //
 //				/* Check that this PA hasn't already associated a value with
 //				 * the property (modulo modes).
@@ -2249,11 +2199,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //				// Check that the association has good "in modes"
 //				checkInModes(element, pa);
 //				
-//				// Check that the assocation is type correct
-//				typeCheckPropertyValues(pd.getThePropertyType(), pd.isList(), pa.getPropertyValue());
-//
-//				// Check access assocs: only allowed on bus data access features
-//				checkAssociationAccess(element, pa);
+//				// Check that the association is type correct
+//				typeCheckPropertyValues(pd.getPropertyType(), pd.isList(), pa.getOwnedValues());
 //
 //				// Check "list of" issues
 //				checkListOf(pa);
@@ -2315,9 +2262,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //	
 //	private void checkUniqueAssociation(
-//			final PropertyHolder ph, final Map propsToModes, final PropertyAssociation pa) {
-//		if (pa.getAppliesTo() == null || pa.getAppliesTo().size() == 0) {
-//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			final NamedElement ph, final Map propsToModes, final PropertyAssociation pa) {
+//		if (pa.getAppliesTos() == null || pa.getAppliesTos().size() == 0) {
+//			final Property pd = pa.getProperty();
 //			Set definedInModes = (Set) propsToModes.get(pd);
 //			if (definedInModes == null) {
 //				definedInModes = new HashSet();
@@ -2328,11 +2275,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //	private void checkUniqueContainedAssociation(
-//			final PropertyHolder ph, 
+//			final NamedElement ph, 
 //			final Map containedPropsToModes, final PropertyAssociation pa) {
 //		final String appliesTo = unparseContainedAppliesToPath(pa);
 //		if (appliesTo.length() > 0) {
-//			final PropertyDefinition pd = pa.getPropertyDefinition();
+//			final Property pd = pa.getProperty();
 //			Map subMap = (Map) containedPropsToModes.get(pd);
 //			if (subMap == null) {
 //				subMap = new HashMap();
@@ -2352,10 +2299,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 * @param definedInModes
 //	 */
 //	private void checkForDuplicateAssociation(
-//			final PropertyHolder ph, 
+//			final NamedElement ph, 
 //			final PropertyAssociation pa, Set definedInModes) {
-//		final EList inModes = pa.getInModes();
-//		final EList inBinding = pa.getInBinding();
+//		final EList inBinding = pa.getInBindings();
 //		final Set pairs = createPairs(inModes, inBinding);
 //		final Set alreadyDefined = new HashSet();
 //		for (final Iterator i = pairs.iterator(); i.hasNext(); ) {
@@ -2372,7 +2318,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //				final ModeBindingPair mbp = (ModeBindingPair) i.next();
 //				error(ph,
 //						"\"" + ph.getName() + "\" has multiple property associations for \"" + 
-//						pa.getPropertyDefinition().getQualifiedName() + "\"" +
+//						pa.getProperty().getQualifiedName() + "\"" +
 //						((appliesTo.length() == 0) ? "" : (" applying to " + appliesTo)) +
 //						((mbp.mode == null) ? "" : (" in mode " + mbp.mode.getName())) +
 //						((mbp.binding == null) ? "" : (" in binding " + mbp.binding.getQualifiedName())));
@@ -2381,7 +2327,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //	private String unparseContainedAppliesToPath(final PropertyAssociation pa) {
-//		final List appliesTo = pa.getAppliesTo();
+//		final List appliesTo = pa.getAppliesTos();
 //		final StringBuffer sb = new StringBuffer();
 //		for (final Iterator i = appliesTo.iterator(); i.hasNext();) {
 //			final NamedElement ne = (NamedElement) i.next();
@@ -2408,7 +2354,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 *            The particular property association whose in_modes must be a
 //	 *            subset of the modes in which <code>element</code> exists.
 //	 */
-//	private void checkInModes(final PropertyHolder element, final PropertyAssociation pa) {
+//	private void checkInModes(final NamedElement element, final PropertyAssociation pa) {
 //		final EList innerModes = pa.getInModes();
 //		if (innerModes != null) {
 //			EList outerModes = null;
@@ -2416,12 +2362,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //				/* We need to treat SubprogramSubcomponents specially because
 //				 * the modes they exist in are controlled by the CallSequence.
 //				 */
-//				final CallSequence cs = (CallSequence) element.eContainer();
+//				final SubprogramCallSequence cs = (SubprogramCallSequence) element.eContainer();
 //				outerModes = cs.getInModes();
 //			} else if (element instanceof Subcomponent
 //					|| element instanceof Connection
-//					|| element instanceof FlowSequence) {
-//				outerModes = ((ModeMember) element).getInModes();
+//					|| element instanceof FlowElement) {
+//				outerModes = ((ModalElement) element).getInModes();
 //			}
 //
 //			if (outerModes != null) {
@@ -2455,10 +2401,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 * @param pa
 //	 */
 //	private void checkListOf(final PropertyAssociation pa) {
-//		final PropertyDefinition pn = pa.getPropertyDefinition();
+//		final Property pn = pa.getProperty();
 //		if (pn == null)
 //			return;
-//		final EList value = pa.getPropertyValue();
+//		final EList value = pa.getOwnedValues();
 //		if (!pn.isList()) {
 //			// Must only have one value associated with the property
 //			if (value == null || value.size() == 0) {
@@ -2496,15 +2442,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 * @param pa
 //	 *            The property association to check
 //	 */
-//	private void checkPortProperties(final PropertyHolder ph, final PropertyAssociation pa) {
+//	private void checkPortProperties(final NamedElement ph, final PropertyAssociation pa) {
 //		if (ph instanceof EventPort || ph instanceof EventDataPort) {
-//			final PropertyDefinition pd = pa.getPropertyDefinition();
-//			if (pd == OVERFLOW_HANDLING_PROTOCOL_PD ||
-//					pd == QUEUE_SIZE_PD ||
-//					pd == QUEUE_PROCESSING_PROTOTOCOL_PD ||
+//			final Property pd = pa.getProperty();
+//			if (pd == PropertiesLinkingService.getPropertiesLinkingService(ph).findPropertyDefinition(ph,CommunicationProperties.OVERFLOW_HANDLING_PROTOCOL) ||
+//					pd.getName().equalsIgnoreCase(CommunicationProperties.QUEUE_SIZE) ||
+//					pdgetName().equalsIgnoreCase(CommunicationProperties.UE_PROCESSING_PROTOTOCOL) ||
 //					pd == DEQUEUE_PROTOCOL_PD) {
-//				final PortDirection dir = ((Port) ph).getAllDirection();
-//				if (dir != PortDirection.IN_LITERAL) {
+//				final DirectionType dir = ((Port) ph).getDirection();
+//				if (dir != DirectionType.IN) {
 //					error(pa,
 //							"Property \"" + pd.getName() +
 //							"\" is only allowed on in event ports and in event data ports");
@@ -2513,33 +2459,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		}
 //	}
 //
-//	/**
-//	 * Check constraints on the use of access property associations.
-//	 *
-//	 * <blockquote>The reserved word access is only permitted and is required
-//	 * in property associations declared in required and provided access
-//	 * subcomponent declarations and refinements </blockquote>
-//	 *
-//	 * @param element
-//	 *            The property holder to check.
-//	 * @param pa
-//	 *            The property association to check.
-//	 */
-//	private void checkAssociationAccess(
-//		final EObject element,
-//		final PropertyAssociation pa) {
-//		if (element instanceof ComponentAccess) {
-//			if (!pa.isAccess()) {
-//				error(pa,
-//						"Property association for access features requires the keyword access before the value");
-//			}
-//		} else {
-//			if (pa.isAccess()) {
-//				error(pa,
-//						"Property association should not use the keyword access before the value");
-//			}
-//		}
-//	}
 //
 //	/**
 //	 * Check constraints that property applies to the element it is associated
@@ -2551,171 +2470,55 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	 * for in its Property_Owner_Category list. </blockquote>
 //	 */
 //	private void checkAssociationAppliesTo(
-//		final PropertyHolder element,
+//		final NamedElement element,
 //		final PropertyAssociation pa) {
-//		final PropertyDefinition pn = pa.getPropertyDefinition();
-//		final EList appliesTo = pa.getAppliesTo();
+//		final Property pn = pa.getProperty();
+//		final EList appliesTo = pa.getAppliesTos();
 //		if (appliesTo == null || appliesTo.size() == 0) {
 //			final boolean applies = element.acceptsProperty(pn);
 //			if (!applies) {
 //				error(pa,
-//						"Property "	+ pa.getQualifiedName() +
+//						"Property "	+ pa.getProperty().getQualifiedName() +
 //						" only applies to " + unparseAppliesTo(pn));
 ////				error(pa,
 ////						"Property "	+ pa.getQualifiedName() +
 ////						" does not apply to " + element.eClass().getName());
 //			}
 //		} else {
-//			// only the last value is interesing to us
-//			final PropertyHolder ph = (PropertyHolder) appliesTo.get(appliesTo.size()-1);
+//			// only the last value is interesting to us
+//			final NamedElement ph = (NamedElement) appliesTo.get(appliesTo.size()-1);
 //			final boolean applies = ph.acceptsProperty(pn);
 //			if (!applies) {
 //				error(pa,
-//						"Property " + pa.getQualifiedName() +
+//						"Property " + pa.getProperty().getQualifiedName() +
 //						" does not apply to named subcomponent");
 //			}
 //		}
 //	}
 //
-//	/**
-//	 * Check that a given list of PropertyValues are all of the given type.
-//	 *
-//	 * <blockquote>If a property expression list consists of a list of two or
-//	 * more property expressions, all of those property expressions must be of
-//	 * the same property type.
-//	 *
-//	 * In a property association, the type of the evaluated property expression
-//	 * must match the property type of the named property.
-//	 * </blockquote>
-//	 *
-//	 * @param pt
-//	 *            The property type to check the values against
-//	 * @param isList
-//	 *            Whether to accept a list of values or not
-//	 * @param values
-//	 *            The values to check.
-//	 */
-//	private void typeCheckPropertyValues(
-//			final PropertyType pt, final boolean isList, final EList values) {
-//		if (pt != null && values != null) {
-//			for (Iterator i = values.iterator(); i.hasNext();) {
-//				final PropertyValue pv = (PropertyValue) i.next();
-//				final String msg = pt.containsValue(isList, pv);
-//				if (msg != PropertyType.VALUE_OKAY) {
-//					error(pv,
-//							"Property expression '" + pv.getValueAsString() +
-//							"' has wrong type: " + msg);
-//				}
-//			}
-//		}
-//	}
 //
 //
-	/**
-	 * Check that a number type is well formed.  The range values (if any)
-	 * should be such that the lower bound is not greater than the upper bound.
-	 * Satisfies legality rule from Section 10.1.1:
-	 *
-	 * <blockquote>
-	 * The value of the first numeric literal that appears in a range of a
-	 * number_type must not be greater than the value of the second numeric
-	 * literal.
-	 * </blockquote>
-	 */
-	private void checkNumberType(final NumberType nt) {
-		/* NOTE: NumericResolver + Parser already make sure the bounds are
-		 * both reals or both integers, as appropriate.
-		 */
-		final NumericRange range = nt.getRange();
-		if (range == null) return;
-		PropertyExpression	lowerPE = (PropertyExpression)range.getLowerBound();
-		PropertyExpression	upperPE = (PropertyExpression)range.getUpperBound();
-		// TODO : handle NamedValue
-		if (lowerPE instanceof NamedValue){
-			if (((NamedValue)lowerPE).getNamedValue() instanceof PropertyConstant){
-				lowerPE=((PropertyConstant)((NamedValue)lowerPE).getNamedValue()).getConstantValue();
-			}
-		}
-		if (upperPE instanceof NamedValue){
-			if (((NamedValue)upperPE).getNamedValue() instanceof PropertyConstant){
-				upperPE=((PropertyConstant)((NamedValue)upperPE).getNamedValue()).getConstantValue();
-			}
-		}
-		NumberValue lowerNV = lowerPE instanceof NumberValue? (NumberValue)lowerPE: null;
-		NumberValue upperNV = upperPE instanceof NumberValue? (NumberValue)upperPE: null;
-		if (lowerNV != null && upperNV != null) {
-			/* Check: (1) the bounds have units if the type has units;
-			 * (2) the lower bounds is <= the upper bound.
-			 */
-			if (lowerNV instanceof NumberValue){
-				
-			}
-			if (nt.getUnitsType() != null) {
-				if (lowerNV.getUnit() == null) {
-					error(nt,
-							"lower bound is missing a unit");
-				}
-				if (upperNV.getUnit() == null) {
-					error(nt,
-							"upper bound is missing a unit");
-				}
-			}
-			final double lower = lowerNV.getScaledValue();
-			final double upper = upperNV.getScaledValue();
-			if (lower > upper) {
-				error(nt,
-						"Range lower bound is greater than range upper bound");
-			}
-		}
-	}
-
-	/**
-	 * Check that if an aadlinteger type has units that the units have only
-	 * integer multipliers.
-	 */
-	private void checkAadlinteger(final AadlInteger ai) {
-		final UnitsType units = ai.getUnitsType();
-		if (units != null) {
-			for (Iterator i = units.getOwnedLiterals().iterator(); i.hasNext();) {
-				final UnitLiteral ul = (UnitLiteral) i.next();
-				final NumberValue factor = ul.getFactor();
-				if (factor != null && !(factor instanceof IntegerLiteral)) {
-					error(ai,
-							"Integer type has unit (" + ul.getName() +
-							") with non-integer factor (" +
-							ul.getFactor().toString() + ")");
-				}
-			}
-		}
-	}
-//
-//	private static String unparseAppliesTo(final PropertyDefinition pd) {
+//	private static String unparseAppliesTo(final Property pd) {
 //		final StringBuffer sb = new StringBuffer();
-//		final EList at = pd.getAppliesto();
-//		if (at.size() == PropertyOwnerCategory.VALUES.size()) {
-//			sb.append("all");
-//		} else {
-//			for (final Iterator it = at.iterator(); it.hasNext();) {
-//				final PropertyOwnerCategory pc = (PropertyOwnerCategory) it.next();
-//				sb.append(pc.getUnparseName());
-//				if (it.hasNext()) sb.append(", ");
-//			}
-//			final EList el = pd.getAppliesToClassifier();
-//			for (final Iterator it = el.iterator(); it.hasNext();) {
-//				final ClassifierValue cv = (ClassifierValue) it.next();
-//				sb.append(", ");
-//				sb.append(cv.getValue().getUnparseName());
-//				final String qn = cv.getQualifiedClassifierName();
-//				if (qn != null && qn.length() > 0) {
-//					sb.append(' ');
-//					sb.append(qn);
-//				}
+//		final EList at = pd.getAppliesTos();
+//		for (final Iterator it = at.iterator(); it.hasNext();) {
+//			final PropertyOwner pc = (PropertyOwner) it.next();
+//			sb.append(pc.getUnparseName());
+//			if (it.hasNext()) sb.append(", ");
+//		}
+//		final EList el = pd.getAppliesToClassifier();
+//		for (final Iterator it = el.iterator(); it.hasNext();) {
+//			final ClassifierValue cv = (ClassifierValue) it.next();
+//			sb.append(", ");
+//			final String qn = cv.getClassifier().getQualifiedName();
+//			if (qn != null && qn.length() > 0) {
+//				sb.append(qn);
 //			}
 //		}
 //		return sb.toString();
 //	}
-
-	// XXX: End of check methods marker.
+//
+//	// XXX: End of check methods marker.
 
 	private static FeatureType getFeatureType(Feature feature) {
 		if (feature instanceof DataPort) {
@@ -2792,6 +2595,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			throw new AssertionError("Unhandled enum literal: " + accessType);
 		}
 	}
+	
+	
+
 
 	static {
 		HashMap<ComponentCategory, Set<FeatureType>> featuresForTypes = new HashMap<ComponentCategory, Set<FeatureType>>();
@@ -3221,39 +3027,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private static final Map<ComponentCategory, Set<ComponentCategory>> acceptableSubcomponentCategoriesForImplementations;
 	private static final Map<EClass, String> FEATURE_CLASS_NAMES_WITH_ARTICLE;
 
-	// helper methods
-
-	protected void error(String message, EObject source,
-			EStructuralFeature feature) {
-		error(message, source, feature,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-	}
-
-	protected void error(EObject source, String message) {
-		error(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-	}
-
-	protected void error(String message) {
-		error(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				null);
-	}
-
-	protected void warning(String message, EObject source,
-			EStructuralFeature feature) {
-		warning(message, source, feature,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-	}
-
-	protected void warning(EObject source, String message) {
-		warning(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-	}
-
-	protected void warning(String message) {
-		warning(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
-				null);
-	}
 
 	/**
 	 * Checks if {@code child} can extend {@code parent}.

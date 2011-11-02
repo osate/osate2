@@ -41,7 +41,12 @@ package org.osate.ui.actions;
 
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.RollbackException;
+import org.eclipse.emf.transaction.TransactionalCommandStack;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
@@ -58,13 +63,38 @@ public abstract class AaxlModifyActionAsJob extends AaxlReadOnlyActionAsJob {
 	 */
 	final void processAaxlAction(final IProgressMonitor monitor, 
 			final Resource resource, final Element root){
-		boolean prev = resource.isTrackingModification();
-		// turn on modification tracking since we may make changes
-		resource.setTrackingModification(true);
-		doAaxlAction(monitor, root);
-		if (resource.isModified()){
-			OsateResourceUtil.save(resource);
+		try {
+			boolean prev = resource.isTrackingModification();
+			// turn on modification tracking since we may make changes
+			resource.setTrackingModification(true);
+			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+			// We execute this command on the command stack because otherwise, we will not
+			//  have write permissions on the editing domain.
+			Command cmd = new RecordingCommand(domain) {
+
+				protected void doExecute() {
+					doAaxlAction(monitor, root);
+					if (resource.isModified()){
+						OsateResourceUtil.save(resource);
+					}
+				}
+
+			};
+
+			try {
+				((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RollbackException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			resource.setTrackingModification(prev);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		resource.setTrackingModification(prev);
 	}
 }

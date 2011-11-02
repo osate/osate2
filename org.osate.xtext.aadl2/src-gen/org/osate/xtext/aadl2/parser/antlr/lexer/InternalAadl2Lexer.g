@@ -218,9 +218,9 @@ RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
-fragment RULE_EXPONENT : 'e' ('+'|'-')? RULE_DIGIT+;
+fragment RULE_EXPONENT : ('e'|'E') ('+'|'-')? RULE_DIGIT+;
 
-fragment RULE_INT_EXPONENT : 'e' '+'? RULE_DIGIT+;
+fragment RULE_INT_EXPONENT : ('e'|'E') '+'? RULE_DIGIT+;
 
 RULE_REAL_LIT : RULE_DIGIT+ ('_' RULE_DIGIT+)* '.' RULE_DIGIT+ ('_' RULE_DIGIT+)* RULE_EXPONENT?;
 

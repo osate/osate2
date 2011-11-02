@@ -134,12 +134,13 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider implemen
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		IntegerLiteral integerLiteral = (IntegerLiteral) object;
-		return getString("_UI_IntegerLiteral_type") + " " + integerLiteral.getBase();
+		return getString("_UI_IntegerLiteral_type") + " " + integerLiteral.getValue()+
+				(integerLiteral.getUnit() != null?" "+integerLiteral.getUnit().getName():"");
 	}
 
 	/**

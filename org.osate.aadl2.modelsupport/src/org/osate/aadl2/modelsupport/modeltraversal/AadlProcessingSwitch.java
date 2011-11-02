@@ -40,6 +40,8 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -165,7 +167,8 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 			return;
 		}
 		EClass theEClass = theElement.eClass();
-		if (aadl2Switch != null && theEClass.eContainer() == Aadl2Package.eINSTANCE)
+		if (aadl2Switch != null && (theEClass.eContainer() == Aadl2Package.eINSTANCE||
+				theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause))
 			aadl2Switch.doSwitch(theElement);
 		else if (instanceSwitch != null && theEClass.eContainer() == InstancePackage.eINSTANCE)
 			instanceSwitch.doSwitch(theElement);

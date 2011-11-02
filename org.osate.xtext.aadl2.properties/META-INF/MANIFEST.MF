@@ -12,18 +12,22 @@ Require-Bundle: org.osate.aadl2,
  org.eclipse.xtext,
  org.eclipse.xtext.util,
  org.antlr.runtime,
- org.eclipse.xtext.generator;bundle-version="2.0.1",
- org.eclipse.emf.mwe2.launch;bundle-version="2.0.0"
+ org.eclipse.xtext.generator;bundle-version="2.0.1";resolution:=optional,
+ org.eclipse.emf.mwe2.launch;bundle-version="2.0.0";resolution:=optional,
+ org.osate.aadl2.modelsupport;bundle-version="1.0.0",
+ org.osate.contribution.sei;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2.properties,
+ org.osate.xtext.aadl2.properties.formatting,
  org.osate.xtext.aadl2.properties.linking,
- org.osate.xtext.aadl2.properties.parseTreeConstruction,
+ org.osate.xtext.aadl2.properties.naming,
  org.osate.xtext.aadl2.properties.parser.antlr,
  org.osate.xtext.aadl2.properties.parser.antlr.internal,
  org.osate.xtext.aadl2.properties.parser.antlr.lexer,
  org.osate.xtext.aadl2.properties.scoping,
  org.osate.xtext.aadl2.properties.services,
- org.osate.xtext.aadl2.properties.validation
-Import-Package: org.apache.log4j,
- org.eclipse.xtext.xbase.lib,
- org.eclipse.xtext.xtend2.lib
+ org.osate.xtext.aadl2.properties.util,
+ org.osate.xtext.aadl2.properties.validation,
+ org.osate.xtext.aadl2.properties.valueconversion,
+ org.osate.xtext.aadl2.properties.serializer
+Import-Package: org.apache.log4j
