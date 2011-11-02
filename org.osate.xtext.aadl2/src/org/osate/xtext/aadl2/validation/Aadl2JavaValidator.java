@@ -98,6 +98,7 @@ import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
+
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
