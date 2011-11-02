@@ -224,10 +224,10 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			if (t instanceof CoreException) {
 				if (((CoreException) t).getStatus().getCode() == IResourceStatus.CASE_VARIANT_EXISTS) {
 					MessageDialog
-					.openError(getShell(),
-							"Creation Problems", //$NON-NLS-1$
-							MessageFormat
-							.format("The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
+							.openError(getShell(),
+									"Creation Problems", //$NON-NLS-1$
+									MessageFormat
+											.format("The underlying file system is case insensitive. There is an existing project which conflicts with ''{0}''.", newProjectHandle.getName()) //$NON-NLS-1$,
 							);
 				} else {
 					ErrorDialog.openError(getShell(), "Creation Problems", //$NON-NLS-1$
@@ -328,21 +328,10 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			CoreUtility.createFolder(xmlPSet, true, true, null);
 			CoreUtility.createFolder(srcPack, true, true, null);
 			CoreUtility.createFolder(srcPSet, true, true, null);
-
-		} catch (CoreException e)
-		{
-
-			MessageDialog
-			.openError(
-					getShell(),
-					"performFinish() Problems", 
-					MessageFormat
-					.format(
-							"Problem creating folder.",  e.getMessage() ) 
-					);
-
-
-		} 
+		} catch (CoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
 
 		PreferenceStore ps = new PreferenceStore(filepath);
@@ -351,28 +340,14 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			ps.save();
 		} catch (IOException e1) {
-			// 
-			MessageDialog
-			.openError(
-					getShell(),
-					"Save Problems", 
-					MessageFormat
-					.format(
-							"Problem saving PeferenceStore.",  e1.getMessage() ) 
-					);
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 		try {
 			p.refreshLocal(1, null);
-		} catch (CoreException e2)
-		{
-			MessageDialog
-			.openError(
-					getShell(),
-					"Refresh Problems", 
-					MessageFormat
-					.format(
-							"Problem refreshing resource hierarchy.",  e2.getMessage() ) 
-					);
+		} catch (CoreException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
 		AadlNature.addNature(p, null);
 		return true;
@@ -393,7 +368,6 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		BasicNewProjectResourceWizard.updatePerspective(configElement);
 	}
 
-
 	class AADLWizardReferencePage extends WizardNewProjectReferencePage {
 
 		public AADLWizardReferencePage(String pageName) {
@@ -408,7 +382,6 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 					if (!(element instanceof IWorkspace)) {
 						return new Object[0];
 					}
-
 					IProject[] projects = ((IWorkspace) element).getRoot().getProjects();
 
 					IProject project;
@@ -420,16 +393,8 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 							if (project.hasNature(AadlNature.ID)) {
 								projectsWithNatures.add(project);
 							}
-
 						} catch (CoreException e) {
-							MessageDialog
-							.openError(
-									getShell(),
-									"Project does not exist or is not open", 
-									MessageFormat
-									.format(
-											"Core exception.",  e.getMessage() ) 
-									);
+							e.printStackTrace();
 						}
 					}
 
