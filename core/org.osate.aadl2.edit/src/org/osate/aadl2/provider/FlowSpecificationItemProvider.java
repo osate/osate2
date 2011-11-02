@@ -84,6 +84,7 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 			super.getPropertyDescriptors(object);
 
 			addInModePropertyDescriptor(object);
+			addInModeOrTransitionPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 		}
@@ -104,6 +105,22 @@ public class FlowSpecificationItemProvider extends FlowItemProvider implements I
 				getString("_UI_PropertyDescriptor_description", "_UI_ModalElement_inMode_feature",
 						"_UI_ModalElement_type"), Aadl2Package.eINSTANCE.getModalElement_InMode(), true, false, true,
 				null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In Mode Or Transition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInModeOrTransitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_ModalPath_inModeOrTransition_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_ModalPath_inModeOrTransition_feature",
+						"_UI_ModalPath_type"), Aadl2Package.eINSTANCE.getModalPath_InModeOrTransition(), true, false,
+				true, null, null, null));
 	}
 
 	/**

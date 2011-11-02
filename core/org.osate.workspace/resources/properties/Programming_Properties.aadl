@@ -80,4 +80,7 @@ property set Programming_Properties is
 	
 	Hardware_Source_Language: Supported_Hardware_Source_Languages
 		applies to (memory, bus, device, processor, system);
+		
+	Device_Driver: classifier (abstract implementation)
+		applies to (device);
 end Programming_Properties;

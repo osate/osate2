@@ -134,7 +134,12 @@ public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
 		}
 		
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
-			actionBody(monitor, root);
+			try {
+				actionBody(monitor, root);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return Status.OK_STATUS;
 		}
 	}

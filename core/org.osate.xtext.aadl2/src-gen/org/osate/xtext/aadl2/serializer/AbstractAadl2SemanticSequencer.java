@@ -1,0 +1,8946 @@
+package org.osate.xtext.aadl2.serializer;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlBoolean;
+import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AadlReal;
+import org.osate.aadl2.AadlString;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractPrototype;
+import org.osate.aadl2.AbstractSubcomponent;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.ArrayDimension;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ArraySize;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusPrototype;
+import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierType;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DevicePrototype;
+import org.osate.aadl2.DeviceSubcomponent;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.EndToEndFlow;
+import org.osate.aadl2.EndToEndFlowSegment;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureGroupTypeRename;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSegment;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.InternalEvent;
+import org.osate.aadl2.ListType;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryPrototype;
+import org.osate.aadl2.MemorySubcomponent;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.Operation;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessPrototype;
+import org.osate.aadl2.ProcessSubcomponent;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorCall;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorPort;
+import org.osate.aadl2.ProcessorPrototype;
+import org.osate.aadl2.ProcessorSubcomponent;
+import org.osate.aadl2.ProcessorSubprogram;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceType;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemPrototype;
+import org.osate.aadl2.SystemSubcomponent;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupPrototype;
+import org.osate.aadl2.ThreadGroupSubcomponent;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadPrototype;
+import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusPrototype;
+import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorPrototype;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorType;
+import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
+
+@SuppressWarnings("restriction")
+public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
+
+	@Inject
+	protected Aadl2GrammarAccess grammarAccess;
+	
+	@Inject
+	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
+	
+	@Inject
+	protected ITransientValueService transientValues;
+	
+	@Inject
+	@GenericSequencer
+	protected Provider<ISemanticSequencer> genericSequencerProvider;
+	
+	protected ISemanticSequencer genericSequencer;
+	
+	@Inject
+	protected Provider<PropertiesSemanticSequencer> superSequencerProvider;
+	 
+	protected PropertiesSemanticSequencer superSequencer; 
+	
+	@Override
+	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
+		super.init(sequencer, sequenceAcceptor, errorAcceptor);
+		this.genericSequencer = genericSequencerProvider.get();
+		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
+		this.superSequencer = superSequencerProvider.get();
+		this.superSequencer.init(sequencer, sequenceAcceptor, errorAcceptor); 
+	}
+	
+	public void createSequence(EObject context, EObject semanticObject) {
+		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+			case Aadl2Package.AADL_BOOLEAN:
+				if(context == grammarAccess.getBooleanTypeRule() ||
+				   context == grammarAccess.getPropertyTypeRule()) {
+					sequence_BooleanType(context, (AadlBoolean) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedBooleanTypeRule() ||
+				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
+					sequence_UnnamedPropertyType(context, (AadlBoolean) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.AADL_INTEGER:
+				if(context == grammarAccess.getIntegerTypeRule() ||
+				   context == grammarAccess.getPropertyTypeRule()) {
+					sequence_IntegerType(context, (AadlInteger) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedIntegerTypeRule() ||
+				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
+					sequence_UnnamedIntegerType(context, (AadlInteger) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.AADL_PACKAGE:
+				if(context == grammarAccess.getAadlPackageRule() ||
+				   context == grammarAccess.getModelRule()) {
+					sequence_AadlPackage(context, (AadlPackage) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.AADL_REAL:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getRealTypeRule()) {
+					sequence_RealType(context, (AadlReal) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedRealTypeRule()) {
+					sequence_UnnamedRealType(context, (AadlReal) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.AADL_STRING:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getStringTypeRule()) {
+					sequence_StringType(context, (AadlString) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedStringTypeRule()) {
+					sequence_UnnamedPropertyType(context, (AadlString) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ABSTRACT_FEATURE:
+				if(context == grammarAccess.getAbstractFeatureRule()) {
+					sequence_AbstractFeature(context, (AbstractFeature) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ABSTRACT_IMPLEMENTATION:
+				if(context == grammarAccess.getAbstractImplementationRule()) {
+					sequence_AbstractImplementation(context, (AbstractImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (AbstractImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ABSTRACT_PROTOTYPE:
+				if(context == grammarAccess.getAbstractPrototypeRule()) {
+					sequence_AbstractPrototype(context, (AbstractPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (AbstractPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ABSTRACT_SUBCOMPONENT:
+				if(context == grammarAccess.getAbstractSubcomponentRule()) {
+					sequence_AbstractSubcomponent(context, (AbstractSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ABSTRACT_TYPE:
+				if(context == grammarAccess.getAbstractTypeRule()) {
+					sequence_AbstractType(context, (AbstractType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (AbstractType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ACCESS_CONNECTION:
+				if(context == grammarAccess.getAccessConnectionRule()) {
+					sequence_AccessConnection(context, (AccessConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ACCESS_SPECIFICATION:
+				if(context == grammarAccess.getAccessSpecificationRule()) {
+					sequence_AccessSpecification(context, (AccessSpecification) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ARRAY_DIMENSION:
+				if(context == grammarAccess.getArrayDimensionRule()) {
+					sequence_ArrayDimension(context, (ArrayDimension) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ARRAY_RANGE:
+				if(context == grammarAccess.getArrayRangeRule()) {
+					sequence_ArrayRange(context, (ArrayRange) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ARRAY_SIZE:
+				if(context == grammarAccess.getArraySizeRule()) {
+					sequence_ArraySize(context, (ArraySize) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BASIC_PROPERTY:
+				if(context == grammarAccess.getRecordFieldRule()) {
+					sequence_RecordField(context, (BasicProperty) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BASIC_PROPERTY_ASSOCIATION:
+				if(context == grammarAccess.getFieldPropertyAssociationRule()) {
+					sequence_FieldPropertyAssociation(context, (BasicPropertyAssociation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BOOLEAN_LITERAL:
+				if(context == grammarAccess.getActualBooleanTermRule() ||
+				   context == grammarAccess.getAndTermRule() ||
+				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
+				   context == grammarAccess.getBooleanAtomRule() ||
+				   context == grammarAccess.getBooleanLiteralRule() ||
+				   context == grammarAccess.getBooleanTermRule() ||
+				   context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getOrTermRule() ||
+				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BUS_ACCESS:
+				if(context == grammarAccess.getBusAccessRule()) {
+					sequence_BusAccess(context, (BusAccess) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BUS_IMPLEMENTATION:
+				if(context == grammarAccess.getBusImplementationRule()) {
+					sequence_BusImplementation(context, (BusImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (BusImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BUS_PROTOTYPE:
+				if(context == grammarAccess.getBusPrototypeRule()) {
+					sequence_BusPrototype(context, (BusPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (BusPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BUS_SUBCOMPONENT:
+				if(context == grammarAccess.getBusSubcomponentRule()) {
+					sequence_BusSubcomponent(context, (BusSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.BUS_TYPE:
+				if(context == grammarAccess.getBusTypeRule()) {
+					sequence_BusType(context, (BusType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (BusType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.CLASSIFIER_TYPE:
+				if(context == grammarAccess.getClassifierTypeRule() ||
+				   context == grammarAccess.getPropertyTypeRule()) {
+					sequence_ClassifierType(context, (ClassifierType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedClassifierTypeRule() ||
+				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
+					sequence_UnnamedClassifierType(context, (ClassifierType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.CLASSIFIER_VALUE:
+				if(context == grammarAccess.getComponentClassifierTermRule() ||
+				   context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_ComponentClassifierTerm(context, (ClassifierValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyOwnerRule() ||
+				   context == grammarAccess.getQCReferenceRule()) {
+					sequence_QCReference(context, (ClassifierValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE:
+				if(context == grammarAccess.getComponentImplementationReferenceRule()) {
+					sequence_ComponentImplementationReference(context, (ComponentImplementationReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL:
+				if(context == grammarAccess.getComponentReferenceRule()) {
+					sequence_ComponentReference(context, (ComponentPrototypeActual) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.COMPONENT_PROTOTYPE_BINDING:
+				if(context == grammarAccess.getComponentPrototypeBindingRule() ||
+				   context == grammarAccess.getPrototypeBindingRule()) {
+					sequence_ComponentPrototypeBinding(context, (ComponentPrototypeBinding) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.COMPONENT_TYPE_RENAME:
+				if(context == grammarAccess.getCTRenameRule()) {
+					sequence_CTRename(context, (ComponentTypeRename) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.COMPUTED_VALUE:
+				if(context == grammarAccess.getComputedTermRule() ||
+				   context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_ComputedTerm(context, (ComputedValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.CONNECTED_ELEMENT:
+				if(context == grammarAccess.getAbstractConnectionEndRule() ||
+				   context == grammarAccess.getConnectedElementRule() ||
+				   context == grammarAccess.getProcessorConnectionEndRule()) {
+					sequence_ConnectedElement(context, (ConnectedElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.CONTAINED_NAMED_ELEMENT:
+				if(context == grammarAccess.getContainmentPathRule()) {
+					sequence_ContainmentPath(context, (ContainedNamedElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
+				if(context == grammarAccess.getContainmentPathElementRule()) {
+					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_ACCESS:
+				if(context == grammarAccess.getDataAccessRule()) {
+					sequence_DataAccess(context, (DataAccess) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (DataImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDataImplementationRule()) {
+					sequence_DataImplementation(context, (DataImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_PORT:
+				if(context == grammarAccess.getDataPortRule()) {
+					sequence_DataPort(context, (DataPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_PROTOTYPE:
+				if(context == grammarAccess.getDataPrototypeRule()) {
+					sequence_DataPrototype(context, (DataPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (DataPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_SUBCOMPONENT:
+				if(context == grammarAccess.getDataSubcomponentRule()) {
+					sequence_DataSubcomponent(context, (DataSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DATA_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (DataType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDataTypeRule()) {
+					sequence_DataType(context, (DataType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEFAULT_ANNEX_LIBRARY:
+				if(context == grammarAccess.getAnnexLibraryRule() ||
+				   context == grammarAccess.getDefaultAnnexLibraryRule()) {
+					sequence_DefaultAnnexLibrary(context, (DefaultAnnexLibrary) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE:
+				if(context == grammarAccess.getAnnexSubclauseRule() ||
+				   context == grammarAccess.getDefaultAnnexSubclauseRule()) {
+					sequence_DefaultAnnexSubclause(context, (DefaultAnnexSubclause) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEVICE_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (DeviceImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDeviceImplementationRule()) {
+					sequence_DeviceImplementation(context, (DeviceImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEVICE_PROTOTYPE:
+				if(context == grammarAccess.getDevicePrototypeRule()) {
+					sequence_DevicePrototype(context, (DevicePrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (DevicePrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEVICE_SUBCOMPONENT:
+				if(context == grammarAccess.getDeviceSubcomponentRule()) {
+					sequence_DeviceSubcomponent(context, (DeviceSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.DEVICE_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (DeviceType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getDeviceTypeRule()) {
+					sequence_DeviceType(context, (DeviceType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.END_TO_END_FLOW:
+				if(context == grammarAccess.getEndToEndFlowRule()) {
+					sequence_EndToEndFlow(context, (EndToEndFlow) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.END_TO_END_FLOW_SEGMENT:
+				if(context == grammarAccess.getETEConnectionFlowRule()) {
+					sequence_ETEConnectionFlow(context, (EndToEndFlowSegment) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getETESubcomponentFlowRule()) {
+					sequence_ETESubcomponentFlow(context, (EndToEndFlowSegment) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ENUMERATION_LITERAL:
+				if(context == grammarAccess.getEnumerationLiteralRule()) {
+					sequence_EnumerationLiteral(context, (EnumerationLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.ENUMERATION_TYPE:
+				if(context == grammarAccess.getEnumerationTypeRule() ||
+				   context == grammarAccess.getPropertyTypeRule()) {
+					sequence_EnumerationType(context, (EnumerationType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedEnumerationTypeRule() ||
+				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
+					sequence_UnnamedEnumerationType(context, (EnumerationType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.EVENT_DATA_PORT:
+				if(context == grammarAccess.getEventDataPortRule()) {
+					sequence_EventDataPort(context, (EventDataPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.EVENT_PORT:
+				if(context == grammarAccess.getEventPortRule()) {
+					sequence_EventPort(context, (EventPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_CONNECTION:
+				if(context == grammarAccess.getFeatureConnectionRule()) {
+					sequence_FeatureConnection(context, (FeatureConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP:
+				if(context == grammarAccess.getFeatureGroupRule()) {
+					sequence_FeatureGroup(context, (FeatureGroup) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_CONNECTION:
+				if(context == grammarAccess.getFeatureGroupConnectionRule()) {
+					sequence_FeatureGroupConnection(context, (FeatureGroupConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+				if(context == grammarAccess.getFeatureGroupPrototypeRule()) {
+					sequence_FeatureGroupPrototype(context, (FeatureGroupPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (FeatureGroupPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
+				if(context == grammarAccess.getFeatureGroupPrototypeActualRule()) {
+					sequence_FeatureGroupPrototypeActual(context, (FeatureGroupPrototypeActual) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_PROTOTYPE_BINDING:
+				if(context == grammarAccess.getFeatureGroupPrototypeBindingRule() ||
+				   context == grammarAccess.getPrototypeBindingRule()) {
+					sequence_FeatureGroupPrototypeBinding(context, (FeatureGroupPrototypeBinding) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getFeatureGroupTypeRule()) {
+					sequence_FeatureGroupType(context, (FeatureGroupType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_GROUP_TYPE_RENAME:
+				if(context == grammarAccess.getFGTRenameRule()) {
+					sequence_FGTRename(context, (FeatureGroupTypeRename) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_PROTOTYPE:
+				if(context == grammarAccess.getFeaturePrototypeRule()) {
+					sequence_FeaturePrototype(context, (FeaturePrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (FeaturePrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
+				if(context == grammarAccess.getFeaturePrototypeBindingRule() ||
+				   context == grammarAccess.getPrototypeBindingRule()) {
+					sequence_FeaturePrototypeBinding(context, (FeaturePrototypeBinding) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FEATURE_PROTOTYPE_REFERENCE:
+				if(context == grammarAccess.getFeaturePrototypeReferenceRule()) {
+					sequence_FeaturePrototypeReference(context, (FeaturePrototypeReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FLOW_END:
+				if(context == grammarAccess.getFlowEndRule()) {
+					sequence_FlowEnd(context, (FlowEnd) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FLOW_IMPLEMENTATION:
+				if(context == grammarAccess.getFlowImplementationRule()) {
+					sequence_FlowImplementation(context, (FlowImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowPathImplRule()) {
+					sequence_FlowPathImpl(context, (FlowImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSinkImplRule()) {
+					sequence_FlowSinkImpl(context, (FlowImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSourceImplRule()) {
+					sequence_FlowSourceImpl(context, (FlowImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FLOW_SEGMENT:
+				if(context == grammarAccess.getConnectionFlowRule()) {
+					sequence_ConnectionFlow(context, (FlowSegment) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubcomponentFlowRule()) {
+					sequence_SubcomponentFlow(context, (FlowSegment) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.FLOW_SPECIFICATION:
+				if(context == grammarAccess.getFlowPathSpecRule()) {
+					sequence_FlowPathSpec(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSinkSpecRule()) {
+					sequence_FlowSinkSpec(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSourceSpecRule()) {
+					sequence_FlowSourceSpec(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSpecRefinementRule()) {
+					sequence_FlowSpecRefinement(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowSpecificationRule()) {
+					sequence_FlowSpecification(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.GROUP_EXTENSION:
+				if(context == grammarAccess.getGroupExtensionRule()) {
+					sequence_GroupExtension(context, (GroupExtension) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.IMPLEMENTATION_EXTENSION:
+				if(context == grammarAccess.getImplementationExtensionRule()) {
+					sequence_ImplementationExtension(context, (ImplementationExtension) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.INTEGER_LITERAL:
+				if(context == grammarAccess.getIntegerLitRule() ||
+				   context == grammarAccess.getNumberValueRule()) {
+					sequence_IntegerLit(context, (IntegerLiteral) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getIntegerTermRule() ||
+				   context == grammarAccess.getNumAltRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_IntegerTerm(context, (IntegerLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.INTERNAL_EVENT:
+				if(context == grammarAccess.getAbstractConnectionEndRule() ||
+				   context == grammarAccess.getInternalEventPortRule() ||
+				   context == grammarAccess.getTriggerRule()) {
+					sequence_InternalEventPort(context, (InternalEvent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.LIST_TYPE:
+				if(context == grammarAccess.getListTypeRule() ||
+				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
+					sequence_ListType(context, (ListType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.LIST_VALUE:
+				if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getListTermRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_ListTerm(context, (ListValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MEMORY_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (MemoryImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getMemoryImplementationRule()) {
+					sequence_MemoryImplementation(context, (MemoryImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MEMORY_PROTOTYPE:
+				if(context == grammarAccess.getMemoryPrototypeRule()) {
+					sequence_MemoryPrototype(context, (MemoryPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (MemoryPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MEMORY_SUBCOMPONENT:
+				if(context == grammarAccess.getMemorySubcomponentRule()) {
+					sequence_MemorySubcomponent(context, (MemorySubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MEMORY_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (MemoryType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getMemoryTypeRule()) {
+					sequence_MemoryType(context, (MemoryType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.METACLASS_REFERENCE:
+				if(context == grammarAccess.getAllReferenceRule()) {
+					sequence_AllReference(context, (MetaclassReference) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyOwnerRule() ||
+				   context == grammarAccess.getQMReferenceRule()) {
+					sequence_QMReference(context, (MetaclassReference) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MODAL_PROPERTY_VALUE:
+				if(context == grammarAccess.getModalPropertyValueRule()) {
+					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyValueRule()) {
+					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MODE:
+				if(context == grammarAccess.getModeRule()) {
+					sequence_Mode(context, (Mode) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getRequiresModeRule()) {
+					sequence_RequiresMode(context, (Mode) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MODE_BINDING:
+				if(context == grammarAccess.getModeRefRule()) {
+					sequence_ModeRef(context, (ModeBinding) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.MODE_TRANSITION:
+				if(context == grammarAccess.getModeTransitionRule()) {
+					sequence_ModeTransition(context, (ModeTransition) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.NAMED_VALUE:
+				if(context == grammarAccess.getConstantPropertyExpressionRule()) {
+					sequence_ConstantPropertyExpression(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getActualBooleanTermRule() ||
+				   context == grammarAccess.getAndTermRule() ||
+				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
+				   context == grammarAccess.getBooleanAtomRule() ||
+				   context == grammarAccess.getBooleanTermRule() ||
+				   context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getNumAltRule() ||
+				   context == grammarAccess.getOrTermRule() ||
+				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
+					sequence_ConstantValue(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getLiteralorReferenceTermRule()) {
+					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_PropertyExpression(context, (NamedValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.NUMERIC_RANGE:
+				if(context == grammarAccess.getIntegerRangeRule()) {
+					sequence_IntegerRange(context, (NumericRange) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getRealRangeRule()) {
+					sequence_RealRange(context, (NumericRange) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.OPERATION:
+				if(context == grammarAccess.getActualAndTermRule()) {
+					sequence_ActualAndTerm(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getActualBooleanTermRule() ||
+				   context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_ActualBooleanTerm(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getActualOrTermRule()) {
+					sequence_ActualOrTerm(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getBooleanTermRule() ||
+				   context == grammarAccess.getOrTermRule() ||
+				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
+					sequence_AndTerm(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getAndTermRule() ||
+				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
+				   context == grammarAccess.getBooleanAtomRule()) {
+					sequence_BooleanAtom(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getNotTermRule()) {
+					sequence_NotTerm(context, (Operation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getNumAltRule() ||
+				   context == grammarAccess.getSignedConstantRule()) {
+					sequence_SignedConstant(context, (Operation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PACKAGE_RENAME:
+				if(context == grammarAccess.getPackageRenameRule()) {
+					sequence_PackageRename(context, (PackageRename) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PARAMETER:
+				if(context == grammarAccess.getParameterRule()) {
+					sequence_Parameter(context, (Parameter) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PARAMETER_CONNECTION:
+				if(context == grammarAccess.getParameterConnectionRule()) {
+					sequence_ParameterConnection(context, (ParameterConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PORT_CONNECTION:
+				if(context == grammarAccess.getPortConnectionRule()) {
+					sequence_PortConnection(context, (PortConnection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PORT_SPECIFICATION:
+				if(context == grammarAccess.getPortSpecificationRule()) {
+					sequence_PortSpecification(context, (PortSpecification) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PRIVATE_PACKAGE_SECTION:
+				if(context == grammarAccess.getPrivatePackageSectionRule()) {
+					sequence_PrivatePackageSection(context, (PrivatePackageSection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESS_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (ProcessImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessImplementationRule()) {
+					sequence_ProcessImplementation(context, (ProcessImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESS_PROTOTYPE:
+				if(context == grammarAccess.getProcessPrototypeRule()) {
+					sequence_ProcessPrototype(context, (ProcessPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (ProcessPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESS_SUBCOMPONENT:
+				if(context == grammarAccess.getProcessSubcomponentRule()) {
+					sequence_ProcessSubcomponent(context, (ProcessSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESS_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (ProcessType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessTypeRule()) {
+					sequence_ProcessType(context, (ProcessType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_CALL:
+				if(context == grammarAccess.getCallSpecificationRule()) {
+					sequence_CallSpecification(context, (ProcessorCall) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (ProcessorImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessorImplementationRule()) {
+					sequence_ProcessorImplementation(context, (ProcessorImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_PORT:
+				if(context == grammarAccess.getAbstractConnectionEndRule() ||
+				   context == grammarAccess.getProcessorConnectionEndRule() ||
+				   context == grammarAccess.getProcessorPortRule() ||
+				   context == grammarAccess.getTriggerRule()) {
+					sequence_ProcessorPort(context, (ProcessorPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_PROTOTYPE:
+				if(context == grammarAccess.getProcessorPrototypeRule()) {
+					sequence_ProcessorPrototype(context, (ProcessorPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (ProcessorPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_SUBCOMPONENT:
+				if(context == grammarAccess.getProcessorSubcomponentRule()) {
+					sequence_ProcessorSubcomponent(context, (ProcessorSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_SUBPROGRAM:
+				if(context == grammarAccess.getProcessorSubprogramRule()) {
+					sequence_ProcessorSubprogram(context, (ProcessorSubprogram) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROCESSOR_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (ProcessorType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProcessorTypeRule()) {
+					sequence_ProcessorType(context, (ProcessorType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROPERTY:
+				if(context == grammarAccess.getPropertyDefinitionRule()) {
+					sequence_PropertyDefinition(context, (Property) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROPERTY_ASSOCIATION:
+				if(context == grammarAccess.getBasicPropertyAssociationRule()) {
+					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getContainedPropertyAssociationRule()) {
+					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPModelRule()) {
+					sequence_PModel(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyAssociationRule()) {
+					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROPERTY_CONSTANT:
+				if(context == grammarAccess.getPropertyConstantRule()) {
+					sequence_PropertyConstant(context, (PropertyConstant) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PROPERTY_SET:
+				if(context == grammarAccess.getModelRule() ||
+				   context == grammarAccess.getPropertySetRule()) {
+					sequence_PropertySet(context, (PropertySet) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.PUBLIC_PACKAGE_SECTION:
+				if(context == grammarAccess.getPublicPackageSectionRule()) {
+					sequence_PublicPackageSection(context, (PublicPackageSection) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.RANGE_TYPE:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getRangeTypeRule()) {
+					sequence_RangeType(context, (RangeType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedRangeTypeRule()) {
+					sequence_UnnamedRangeType(context, (RangeType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.RANGE_VALUE:
+				if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getNumericRangeTermRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_NumericRangeTerm(context, (RangeValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.REAL_LITERAL:
+				if(context == grammarAccess.getNumberValueRule() ||
+				   context == grammarAccess.getRealLitRule()) {
+					sequence_RealLit(context, (RealLiteral) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getNumAltRule() ||
+				   context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getRealTermRule()) {
+					sequence_RealTerm(context, (RealLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.REALIZATION:
+				if(context == grammarAccess.getRealizationRule()) {
+					sequence_Realization(context, (Realization) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.RECORD_TYPE:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getRecordTypeRule()) {
+					sequence_RecordType(context, (RecordType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedRecordTypeRule()) {
+					sequence_UnnamedRecordType(context, (RecordType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.RECORD_VALUE:
+				if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getRecordTermRule()) {
+					sequence_RecordTerm(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.REFERENCE_TYPE:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getReferenceTypeRule()) {
+					sequence_ReferenceType(context, (ReferenceType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedReferenceTypeRule()) {
+					sequence_UnnamedReferenceType(context, (ReferenceType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.REFERENCE_VALUE:
+				if(context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getReferenceTermRule()) {
+					sequence_ReferenceTerm(context, (ReferenceValue) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.STRING_LITERAL:
+				if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getStringTermRule()) {
+					sequence_StringTerm(context, (StringLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_ACCESS:
+				if(context == grammarAccess.getSubprogramAccessRule()) {
+					sequence_SubprogramAccess(context, (SubprogramAccess) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_CALL:
+				if(context == grammarAccess.getCallSpecificationRule()) {
+					sequence_CallSpecification(context, (SubprogramCall) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_CALL_SEQUENCE:
+				if(context == grammarAccess.getSubprogramCallSequenceRule()) {
+					sequence_SubprogramCallSequence(context, (SubprogramCallSequence) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
+				if(context == grammarAccess.getSubprogramGroupAccessRule()) {
+					sequence_SubprogramGroupAccess(context, (SubprogramGroupAccess) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (SubprogramGroupImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramGroupImplementationRule()) {
+					sequence_SubprogramGroupImplementation(context, (SubprogramGroupImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (SubprogramGroupPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramGroupPrototypeRule()) {
+					sequence_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
+				if(context == grammarAccess.getSubprogramGroupSubcomponentRule()) {
+					sequence_SubprogramGroupSubcomponent(context, (SubprogramGroupSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_GROUP_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (SubprogramGroupType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramGroupTypeRule()) {
+					sequence_SubprogramGroupType(context, (SubprogramGroupType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (SubprogramImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramImplementationRule()) {
+					sequence_SubprogramImplementation(context, (SubprogramImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (SubprogramPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramPrototypeRule()) {
+					sequence_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_SUBCOMPONENT:
+				if(context == grammarAccess.getSubprogramSubcomponentRule()) {
+					sequence_SubprogramSubcomponent(context, (SubprogramSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SUBPROGRAM_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (SubprogramType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSubprogramTypeRule()) {
+					sequence_SubprogramType(context, (SubprogramType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SYSTEM_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (SystemImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSystemImplementationRule()) {
+					sequence_SystemImplementation(context, (SystemImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SYSTEM_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (SystemPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSystemPrototypeRule()) {
+					sequence_SystemPrototype(context, (SystemPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SYSTEM_SUBCOMPONENT:
+				if(context == grammarAccess.getSystemSubcomponentRule()) {
+					sequence_SystemSubcomponent(context, (SystemSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.SYSTEM_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (SystemType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getSystemTypeRule()) {
+					sequence_SystemType(context, (SystemType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_GROUP_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (ThreadGroupImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadGroupImplementationRule()) {
+					sequence_ThreadGroupImplementation(context, (ThreadGroupImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_GROUP_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (ThreadGroupPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadGroupPrototypeRule()) {
+					sequence_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
+				if(context == grammarAccess.getThreadGroupSubcomponentRule()) {
+					sequence_ThreadGroupSubcomponent(context, (ThreadGroupSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_GROUP_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (ThreadGroupType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadGroupTypeRule()) {
+					sequence_ThreadGroupType(context, (ThreadGroupType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (ThreadImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadImplementationRule()) {
+					sequence_ThreadImplementation(context, (ThreadImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (ThreadPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadPrototypeRule()) {
+					sequence_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_SUBCOMPONENT:
+				if(context == grammarAccess.getThreadSubcomponentRule()) {
+					sequence_ThreadSubcomponent(context, (ThreadSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.THREAD_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (ThreadType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getThreadTypeRule()) {
+					sequence_ThreadType(context, (ThreadType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.TRIGGER_PORT:
+				if(context == grammarAccess.getTriggerRule() ||
+				   context == grammarAccess.getTriggerPortRule()) {
+					sequence_TriggerPort(context, (TriggerPort) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.TYPE_EXTENSION:
+				if(context == grammarAccess.getTypeExtensionRule()) {
+					sequence_TypeExtension(context, (TypeExtension) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.UNIT_LITERAL:
+				if(context == grammarAccess.getUnitLiteralConversionRule()) {
+					sequence_UnitLiteralConversion(context, (UnitLiteral) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnitLiteralRule()) {
+					sequence_UnitLiteral(context, (UnitLiteral) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.UNITS_TYPE:
+				if(context == grammarAccess.getPropertyTypeRule() ||
+				   context == grammarAccess.getUnitsTypeRule()) {
+					sequence_UnitsType(context, (UnitsType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
+				   context == grammarAccess.getUnnamedUnitsTypeRule()) {
+					sequence_UnnamedUnitsType(context, (UnitsType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (VirtualBusImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualBusImplementationRule()) {
+					sequence_VirtualBusImplementation(context, (VirtualBusImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (VirtualBusPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualBusPrototypeRule()) {
+					sequence_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
+				if(context == grammarAccess.getVirtualBusSubcomponentRule()) {
+					sequence_VirtualBusSubcomponent(context, (VirtualBusSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_BUS_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (VirtualBusType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualBusTypeRule()) {
+					sequence_VirtualBusType(context, (VirtualBusType) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentImplementationRule()) {
+					sequence_ComponentImplementation(context, (VirtualProcessorImplementation) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualProcessorImplementationRule()) {
+					sequence_VirtualProcessorImplementation(context, (VirtualProcessorImplementation) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
+				if(context == grammarAccess.getPrototypeRule()) {
+					sequence_Prototype(context, (VirtualProcessorPrototype) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualProcessorPrototypeRule()) {
+					sequence_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
+				if(context == grammarAccess.getVirtualProcessorSubcomponentRule()) {
+					sequence_VirtualProcessorSubcomponent(context, (VirtualProcessorSubcomponent) semanticObject); 
+					return; 
+				}
+				else break;
+			case Aadl2Package.VIRTUAL_PROCESSOR_TYPE:
+				if(context == grammarAccess.getClassifierRule() ||
+				   context == grammarAccess.getComponentTypeRule()) {
+					sequence_ComponentType(context, (VirtualProcessorType) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getVirtualProcessorTypeRule()) {
+					sequence_VirtualProcessorType(context, (VirtualProcessorType) semanticObject); 
+					return; 
+				}
+				else break;
+			}
+		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+	}
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=PNAME 
+	 *         ((ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) | ownedPrivateSection=PrivatePackageSection) 
+	 *         ownedPropertyAssociation+=BasicPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    ownedPublicSection[0, 1]
+	 *         MANDATORY_IF_SET ownedPrivateSection
+	 *         EXCLUDE_IF_SET ownedPrivateSection
+	 *    ownedPrivateSection[0, 2]
+	 */
+	protected void sequence_AadlPackage(EObject context, AadlPackage semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
+	 *         direction=InOutDirection? 
+	 *         featureClassifier=[FeaturePrototype|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[0, 1]
+	 *    featureClassifier[0, 1]
+	 */
+	protected void sequence_AbstractFeature(EObject context, AbstractFeature semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
+	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDeviceSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSystemSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_AbstractImplementation(EObject context, AbstractImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_AbstractPrototype(EObject context, AbstractPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SystemSubcomponent|REFINEDNAME]) 
+	 *         (abstractSubcomponentType=[AbstractSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET abstractSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    abstractSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_AbstractSubcomponent(EObject context, AbstractSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_AbstractType(EObject context, AbstractType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (name=ID accessCategory=AccessCategory source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | 
+	 *             (refined=[AccessConnection|REFINEDNAME] accessCategory=AccessCategory)
+	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET accessCategory
+	 *         MANDATORY_IF_SET accessCategory
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET accessCategory
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    destination[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET accessCategory
+	 *         MANDATORY_IF_SET accessCategory
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET accessCategory
+	 *    source[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET accessCategory
+	 *         MANDATORY_IF_SET accessCategory
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET accessCategory
+	 *    bidirectional[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_UNSET accessCategory
+	 *         EXCLUDE_IF_UNSET source
+	 *         EXCLUDE_IF_UNSET destination
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET accessCategory
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_UNSET accessCategory
+	 *         MANDATORY_IF_SET accessCategory
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET accessCategory
+	 *         EXCLUDE_IF_SET source
+	 *         EXCLUDE_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET destination
+	 *    accessCategory[0, 2]
+	 */
+	protected void sequence_AccessConnection(EObject context, AccessConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (kind=AccessDirection category=AccessCategory classifier=[ComponentClassifier|QCREF]?)
+	 *
+	 * Features:
+	 *    kind[1, 1]
+	 *    category[1, 1]
+	 *    classifier[0, 1]
+	 */
+	protected void sequence_AccessSpecification(EObject context, AccessSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*)
+	 *
+	 * Features:
+	 *    op[1, *]
+	 *    ownedPropertyExpression[2, *]
+	 */
+	protected void sequence_ActualAndTerm(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*) | 
+	 *         (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*) | 
+	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom)
+	 *     )
+	 *
+	 * Features:
+	 *    op[0, *]
+	 *    ownedPropertyExpression[0, *]
+	 */
+	protected void sequence_ActualBooleanTerm(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*)
+	 *
+	 * Features:
+	 *    op[1, *]
+	 *    ownedPropertyExpression[2, *]
+	 */
+	protected void sequence_ActualOrTerm(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     metaclassName+='all'
+	 *
+	 * Features:
+	 *    metaclassName[1, 1]
+	 */
+	protected void sequence_AllReference(EObject context, MetaclassReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom) | 
+	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
+	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm)
+	 *     )
+	 *
+	 * Features:
+	 *    op[0, 3]
+	 *    ownedPropertyExpression[0, 5]
+	 */
+	protected void sequence_AndTerm(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (size=ArraySize?)
+	 *
+	 * Features:
+	 *    size[0, 1]
+	 */
+	protected void sequence_ArrayDimension(EObject context, ArrayDimension semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
+	 *
+	 * Features:
+	 *    lowerBound[1, 1]
+	 *    upperBound[0, 1]
+	 */
+	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     size=INTVALUE
+	 *
+	 * Features:
+	 *    size[1, 1]
+	 */
+	protected void sequence_ArraySize(EObject context, ArraySize semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
+	 *
+	 * Features:
+	 *    property[1, 1]
+	 *    ownedValue[1, 1]
+	 */
+	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
+	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm) | 
+	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom)
+	 *     )
+	 *
+	 * Features:
+	 *    op[0, 3]
+	 *    ownedPropertyExpression[0, 5]
+	 */
+	protected void sequence_BooleanAtom(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value?='true'?)
+	 *
+	 * Features:
+	 *    value[0, 1]
+	 */
+	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_BooleanType(EObject context, AadlBoolean semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[BusAccess|REFINEDNAME]) 
+	 *         kind=AccessDirection 
+	 *         busFeatureClassifier=[BusSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    kind[1, 1]
+	 *    busFeatureClassifier[0, 1]
+	 */
+	protected void sequence_BusAccess(EObject context, BusAccess semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_BusImplementation(EObject context, BusImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_BusPrototype(EObject context, BusPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[BusSubcomponent|REFINEDNAME]) 
+	 *         (busSubcomponentType=[BusSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET busSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    busSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_BusSubcomponent(EObject context, BusSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_BusType(EObject context, BusType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID? category=ComponentCategory renamedComponentType=[ComponentType|QCREF])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *    category[1, 1]
+	 *    renamedComponentType[1, 1]
+	 */
+	protected void sequence_CTRename(EObject context, ComponentTypeRename semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID subprogramAccessName=ID ownedPropertyAssociation+=PropertyAssociation*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    subprogramAccessName[1, 1]
+	 */
+	protected void sequence_CallSpecification(EObject context, ProcessorCall semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         ((context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | calledSubprogram=[CalledSubprogram|PNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    calledSubprogram[0, 2]
+	 *    context[0, 1]
+	 *         EXCLUDE_IF_UNSET calledSubprogram
+	 *         MANDATORY_IF_SET calledSubprogram
+	 *         EXCLUDE_IF_SET calledSubprogram
+	 */
+	protected void sequence_CallSpecification(EObject context, SubprogramCall semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (classifierReference+=QMReference classifierReference+=QMReference*)?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    classifierReference[0, *]
+	 */
+	protected void sequence_ClassifierType(EObject context, ClassifierType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     classifier=[ComponentClassifier|QCREF]
+	 *
+	 * Features:
+	 *    classifier[1, 1]
+	 */
+	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (implementation=[ComponentImplementation|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)
+	 *
+	 * Features:
+	 *    implementation[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 */
+	protected void sequence_ComponentImplementationReference(EObject context, ComponentImplementationReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
+	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDeviceSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSystemSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, AbstractImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, BusImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, DataImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, DeviceImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, MemoryImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, ProcessImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, ProcessorImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?='none')? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, SubprogramImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
+	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDeviceSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSystemSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, SystemImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, ThreadGroupImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, ThreadImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, VirtualBusImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowImplementation
+	 *         EXCLUDE_IF_SET ownedEndToEndFlow
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowImplementation[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedEndToEndFlow[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedAccessConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedParameterConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedPortConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    ownedFeatureGroupConnection[0, *]
+	 *         EXCLUDE_IF_SET noConnections
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *    noConnections[0, 1]
+	 *         EXCLUDE_IF_SET ownedPortConnection
+	 *         EXCLUDE_IF_SET ownedAccessConnection
+	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
+	 *         EXCLUDE_IF_SET ownedFeatureConnection
+	 *         EXCLUDE_IF_SET ownedParameterConnection
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ComponentImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (formal=[Prototype|ID] (actual+=ComponentReference | (actual+=ComponentReference actual+=ComponentReference*)))
+	 *
+	 * Features:
+	 *    formal[1, 1]
+	 *    actual[0, *]
+	 */
+	protected void sequence_ComponentPrototypeBinding(EObject context, ComponentPrototypeBinding semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (category=ComponentCategory subcomponentType=[SubcomponentType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
+	 *
+	 * Features:
+	 *    category[1, 1]
+	 *    binding[0, *]
+	 *    subcomponentType[1, 1]
+	 */
+	protected void sequence_ComponentReference(EObject context, ComponentPrototypeActual semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, AbstractType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, BusType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, DataType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, DeviceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, MemoryType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, ProcessType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, ProcessorType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, SubprogramGroupType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedParameter+=Parameter | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedParameter
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedParameter[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, SubprogramType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+ | 
+	 *             noFeatures?='none'
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, SystemType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, ThreadGroupType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, ThreadType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, VirtualBusType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    ownedMode[0, *]
+	 *         EXCLUDE_IF_SET noModes
+	 *    ownedModeTransition[0, *]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET noModes
+	 *    noFlows[0, 1]
+	 *         EXCLUDE_IF_SET ownedFlowSpecification
+	 *    noModes[0, 1]
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedMode
+	 *         EXCLUDE_IF_SET ownedModeTransition
+	 *    ownedFlowSpecification[0, *]
+	 *         EXCLUDE_IF_SET noFlows
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ComponentType(EObject context, VirtualProcessorType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     function=ID
+	 *
+	 * Features:
+	 *    function[1, 1]
+	 */
+	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID])
+	 *
+	 * Features:
+	 *    context[0, 1]
+	 *    connectionEnd[1, 1]
+	 */
+	protected void sequence_ConnectedElement(EObject context, ConnectedElement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     flowElement=[Connection|ID]
+	 *
+	 * Features:
+	 *    flowElement[1, 1]
+	 */
+	protected void sequence_ConnectionFlow(EObject context, FlowSegment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
+	 *
+	 * Features:
+	 *    namedValue[0, 2]
+	 */
+	protected void sequence_ConstantPropertyExpression(EObject context, NamedValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     namedValue=[PropertyConstant|QPREF]
+	 *
+	 * Features:
+	 *    namedValue[1, 1]
+	 */
+	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *     )
+	 *
+	 * Features:
+	 *    property[1, 1]
+	 *    appliesTo[0, *]
+	 *    append[0, 1]
+	 *    constant[0, 1]
+	 *    ownedValue[0, *]
+	 */
+	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((namedElement=[NamedElement|ID] arrayRange+=ArrayRange?) | namedElement=[NamedElement|ANNEXREF])
+	 *
+	 * Features:
+	 *    arrayRange[0, 1]
+	 *         EXCLUDE_IF_UNSET namedElement
+	 *         EXCLUDE_IF_SET namedElement
+	 *    namedElement[0, 2]
+	 */
+	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *
+	 * Features:
+	 *    containmentPathElement[1, *]
+	 */
+	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[DataAccess|REFINEDNAME]) 
+	 *         kind=AccessDirection 
+	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    kind[1, 1]
+	 *    dataFeatureClassifier[0, 1]
+	 */
+	protected void sequence_DataAccess(EObject context, DataAccess semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_DataImplementation(EObject context, DataImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[DataPort|REFINEDNAME]) 
+	 *         direction=PortDirection 
+	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[1, 1]
+	 *    dataFeatureClassifier[0, 1]
+	 */
+	protected void sequence_DataPort(EObject context, DataPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_DataPrototype(EObject context, DataPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[DataSubcomponent|REFINEDNAME]) 
+	 *         (dataSubcomponentType=[DataSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET dataSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    dataSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_DataSubcomponent(EObject context, DataSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_DataType(EObject context, DataType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID sourceText=ANNEXTEXT)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    sourceText[1, 1]
+	 */
+	protected void sequence_DefaultAnnexLibrary(EObject context, DefaultAnnexLibrary semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID sourceText=ANNEXTEXT)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    sourceText[1, 1]
+	 */
+	protected void sequence_DefaultAnnexSubclause(EObject context, DefaultAnnexSubclause semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_DeviceImplementation(EObject context, DeviceImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_DevicePrototype(EObject context, DevicePrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[DeviceSubcomponent|REFINEDNAME]) 
+	 *         (deviceSubcomponentType=[DeviceSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET deviceSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    deviceSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_DeviceSubcomponent(EObject context, DeviceSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_DeviceType(EObject context, DeviceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     flowElement=[Connection|ID]
+	 *
+	 * Features:
+	 *    flowElement[1, 1]
+	 */
+	protected void sequence_ETEConnectionFlow(EObject context, EndToEndFlowSegment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (context=[Subcomponent|ID]? flowElement=[EndToEndFlowElement|ID])
+	 *
+	 * Features:
+	 *    flowElement[1, 1]
+	 *    context[0, 1]
+	 */
+	protected void sequence_ETESubcomponentFlow(EObject context, EndToEndFlowSegment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (
+	 *                 name=ID 
+	 *                 ownedEndToEndFlowSegment+=ETESubcomponentFlow 
+	 *                 (ownedEndToEndFlowSegment+=ETEConnectionFlow ownedEndToEndFlowSegment+=ETESubcomponentFlow)+
+	 *             ) | 
+	 *             refined=[EndToEndFlow|REFINEDNAME]
+	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
+	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
+	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
+	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
+	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
+	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
+	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
+	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
+	 *    ownedEndToEndFlowSegment[0, *]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_SET refined
+	 */
+	protected void sequence_EndToEndFlow(EObject context, EndToEndFlow semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_EnumerationLiteral(EObject context, EnumerationLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedLiteral[1, *]
+	 */
+	protected void sequence_EnumerationType(EObject context, EnumerationType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[EventDataPort|REFINEDNAME]) 
+	 *         direction=PortDirection 
+	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[1, 1]
+	 *    dataFeatureClassifier[0, 1]
+	 */
+	protected void sequence_EventDataPort(EObject context, EventDataPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[EventPort|REFINEDNAME]) 
+	 *         direction=PortDirection 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[1, 1]
+	 */
+	protected void sequence_EventPort(EObject context, EventPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID? renamedFeatureGroupType=[FeatureGroupType|QCREF])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *    renamedFeatureGroupType[1, 1]
+	 */
+	protected void sequence_FGTRename(EObject context, FeatureGroupTypeRename semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ((name=ID source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureConnection|REFINEDNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    destination[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET refined
+	 *    source[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    bidirectional[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         EXCLUDE_IF_UNSET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET source
+	 *         EXCLUDE_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET destination
+	 */
+	protected void sequence_FeatureConnection(EObject context, FeatureConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ((name=ID source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | refined=[FeatureGroupConnection|REFINEDNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    destination[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET refined
+	 *    source[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    bidirectional[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         EXCLUDE_IF_UNSET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET source
+	 *         EXCLUDE_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET destination
+	 */
+	protected void sequence_FeatureGroupConnection(EObject context, FeatureGroupConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (featureType=[FeatureType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
+	 *
+	 * Features:
+	 *    binding[0, *]
+	 *    featureType[1, 1]
+	 */
+	protected void sequence_FeatureGroupPrototypeActual(EObject context, FeatureGroupPrototypeActual semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (formal=[Prototype|ID] actual=FeatureGroupPrototypeActual)
+	 *
+	 * Features:
+	 *    formal[1, 1]
+	 *    actual[1, 1]
+	 */
+	protected void sequence_FeatureGroupPrototypeBinding(EObject context, FeatureGroupPrototypeBinding semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) constrainingFeatureGroupType=[FeatureGroupType|QCREF]?)
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    constrainingFeatureGroupType[0, 1]
+	 */
+	protected void sequence_FeatureGroupPrototype(EObject context, FeatureGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=GroupExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             ownedDataPort+=DataPort | 
+	 *             ownedEventPort+=EventPort | 
+	 *             ownedEventDataPort+=EventDataPort | 
+	 *             ownedFeatureGroup+=FeatureGroup | 
+	 *             ownedDataAccess+=DataAccess | 
+	 *             ownedBusAccess+=BusAccess | 
+	 *             ownedSubprogramAccess+=SubprogramAccess | 
+	 *             ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *             ownedAbstractFeature+=AbstractFeature
+	 *         )* 
+	 *         inverse=[FeatureGroupType|QCREF]? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *         EXCLUDE_IF_SET noProperties
+	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    noProperties[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyAssociation
+	 *    inverse[0, 1]
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedBusAccess[0, *]
+	 *    ownedDataAccess[0, *]
+	 *    ownedDataPort[0, *]
+	 *    ownedEventDataPort[0, *]
+	 *    ownedEventPort[0, *]
+	 *    ownedFeatureGroup[0, *]
+	 *    ownedSubprogramAccess[0, *]
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *    ownedAbstractFeature[0, *]
+	 */
+	protected void sequence_FeatureGroupType(EObject context, FeatureGroupType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[FeatureGroup|REFINEDNAME]) 
+	 *         direction=InOutDirection? 
+	 *         inverse?='inverse'? 
+	 *         featureType=[FeatureType|QCREF] 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[0, 1]
+	 *    inverse[0, 1]
+	 *    featureType[1, 1]
+	 */
+	protected void sequence_FeatureGroup(EObject context, FeatureGroup semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (formal=[Prototype|ID] (actual=PortSpecification | actual=AccessSpecification | actual=FeaturePrototypeReference))
+	 *
+	 * Features:
+	 *    formal[1, 1]
+	 *    actual[0, 3]
+	 */
+	protected void sequence_FeaturePrototypeBinding(EObject context, FeaturePrototypeBinding semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (direction=InOutDirection prototype=[FeaturePrototype|ID])
+	 *
+	 * Features:
+	 *    direction[1, 1]
+	 *    prototype[1, 1]
+	 */
+	protected void sequence_FeaturePrototypeReference(EObject context, FeaturePrototypeReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((name=ID | refined=[FeaturePrototype|REFINEDNAME]) direction=InOutDirection? constrainingClassifier=[ComponentClassifier|QCREF]?)
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_FeaturePrototype(EObject context, FeaturePrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
+	 *
+	 * Features:
+	 *    property[1, 1]
+	 *    ownedValue[1, 1]
+	 */
+	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (context=[Context|ID]? feature=[Feature|ID])
+	 *
+	 * Features:
+	 *    context[0, 1]
+	 *    feature[1, 1]
+	 */
+	protected void sequence_FlowEnd(EObject context, FlowEnd semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*) | 
+	 *             (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*) | 
+	 *             (
+	 *                 specification=[FlowSpecification|ID] 
+	 *                 kind=FlowPath 
+	 *                 ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
+	 *             )
+	 *         ) 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    inModeOrTransition[0, *]
+	 *    kind[0, 3]
+	 *    specification[0, 3]
+	 *    ownedFlowSegment[0, *]
+	 */
+	protected void sequence_FlowImplementation(EObject context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         specification=[FlowSpecification|ID] 
+	 *         kind=FlowPath 
+	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
+	 *     )
+	 *
+	 * Features:
+	 *    kind[1, 1]
+	 *    specification[1, 1]
+	 *    ownedFlowSegment[0, *]
+	 */
+	protected void sequence_FlowPathImpl(EObject context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    kind[1, 1]
+	 *    outEnd[1, 1]
+	 *    InEnd[1, 1]
+	 */
+	protected void sequence_FlowPathSpec(EObject context, FlowSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*)
+	 *
+	 * Features:
+	 *    kind[1, 1]
+	 *    specification[1, 1]
+	 *    ownedFlowSegment[0, *]
+	 */
+	protected void sequence_FlowSinkImpl(EObject context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID kind=FlowSink InEnd=FlowEnd)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    kind[1, 1]
+	 *    InEnd[1, 1]
+	 */
+	protected void sequence_FlowSinkSpec(EObject context, FlowSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*)
+	 *
+	 * Features:
+	 *    kind[1, 1]
+	 *    specification[1, 1]
+	 *    ownedFlowSegment[0, *]
+	 */
+	protected void sequence_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID kind=FlowSource outEnd=FlowEnd)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    kind[1, 1]
+	 *    outEnd[1, 1]
+	 */
+	protected void sequence_FlowSourceSpec(EObject context, FlowSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
+	 *
+	 * Features:
+	 *    refined[1, 1]
+	 *    kind[1, 1]
+	 */
+	protected void sequence_FlowSpecRefinement(EObject context, FlowSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (name=ID kind=FlowSource outEnd=FlowEnd) | 
+	 *             (name=ID kind=FlowSink InEnd=FlowEnd) | 
+	 *             (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd) | 
+	 *             (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
+	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 3]
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET kind
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_UNSET kind
+	 *         MANDATORY_IF_SET kind
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET kind
+	 *         EXCLUDE_IF_SET outEnd
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET kind
+	 *         EXCLUDE_IF_SET InEnd
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET kind
+	 *         EXCLUDE_IF_SET InEnd
+	 *         EXCLUDE_IF_SET outEnd
+	 *    kind[0, 4]
+	 *    outEnd[0, 2]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET kind
+	 *         EXCLUDE_IF_SET InEnd
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET kind
+	 *    InEnd[0, 2]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET kind
+	 *         EXCLUDE_IF_SET outEnd
+	 *         EXCLUDE_IF_SET refined
+	 *         EXCLUDE_IF_SET kind
+	 */
+	protected void sequence_FlowSpecification(EObject context, FlowSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     extended=[FeatureGroupType|QCREF]
+	 *
+	 * Features:
+	 *    extended[1, 1]
+	 */
+	protected void sequence_GroupExtension(EObject context, GroupExtension semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     extended=[ComponentImplementation|QCREF]
+	 *
+	 * Features:
+	 *    extended[1, 1]
+	 */
+	protected void sequence_ImplementationExtension(EObject context, ImplementationExtension semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=SignedInt
+	 *
+	 * Features:
+	 *    value[1, 1]
+	 */
+	protected void sequence_IntegerLit(EObject context, IntegerLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (lowerBound=IntegerTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
+	 *         (upperBound=IntegerTerm | upperBound=SignedConstant | upperBound=ConstantValue)
+	 *     )
+	 *
+	 * Features:
+	 *    upperBound[0, 3]
+	 *    lowerBound[0, 3]
+	 */
+	protected void sequence_IntegerRange(EObject context, NumericRange semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
+	 *
+	 * Features:
+	 *    unit[0, 1]
+	 *    value[1, 1]
+	 */
+	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedUnitsType[0, 1]
+	 *         EXCLUDE_IF_SET unitsType
+	 *    unitsType[0, 1]
+	 *         EXCLUDE_IF_SET ownedUnitsType
+	 *    range[0, 1]
+	 */
+	protected void sequence_IntegerType(EObject context, AadlInteger semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_InternalEventPort(EObject context, InternalEvent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
+	 *
+	 * Features:
+	 *    ownedListElement[1, *]
+	 */
+	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (elementType=[PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
+	 *
+	 * Features:
+	 *    ownedElementType[0, 1]
+	 *         EXCLUDE_IF_SET elementType
+	 *    elementType[0, 1]
+	 *         EXCLUDE_IF_SET ownedElementType
+	 */
+	protected void sequence_ListType(EObject context, ListType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     namedValue=[AbstractNamedValue|QPREF]
+	 *
+	 * Features:
+	 *    namedValue[1, 1]
+	 */
+	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_MemoryImplementation(EObject context, MemoryImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_MemoryPrototype(EObject context, MemoryPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[MemorySubcomponent|REFINEDNAME]) 
+	 *         (memorySubcomponentType=[MemorySubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET memorySubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    memorySubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_MemorySubcomponent(EObject context, MemorySubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_MemoryType(EObject context, MemoryType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
+	 *
+	 * Features:
+	 *    inMode[1, *]
+	 *    ownedValue[1, 1]
+	 */
+	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (parentMode=[Mode|ID] derivedMode=[Mode|ID]?)
+	 *
+	 * Features:
+	 *    parentMode[1, 1]
+	 *    derivedMode[0, 1]
+	 */
+	protected void sequence_ModeRef(EObject context, ModeBinding semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID? 
+	 *         source=[Mode|ID] 
+	 *         ownedTrigger+=Trigger 
+	 *         ownedTrigger+=Trigger* 
+	 *         destination=[Mode|ID] 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    source[1, 1]
+	 *    destination[1, 1]
+	 *    ownedTrigger[1, *]
+	 */
+	protected void sequence_ModeTransition(EObject context, ModeTransition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID initial?='initial'? ownedPropertyAssociation+=PropertyAssociation*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    initial[0, 1]
+	 */
+	protected void sequence_Mode(EObject context, Mode semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (op=NotOp ownedPropertyExpression+=BooleanAtom)
+	 *
+	 * Features:
+	 *    op[1, 1]
+	 *    ownedPropertyExpression[1, 1]
+	 */
+	protected void sequence_NotTerm(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
+	 *
+	 * Features:
+	 *    minimum[1, 1]
+	 *    maximum[1, 1]
+	 *    delta[0, 1]
+	 */
+	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             append?='+=>'? 
+	 *             constant?='constant'? 
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *         ) | 
+	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
+	 *         (
+	 *             property=[Property|QPREF] 
+	 *             append?='+=>'? 
+	 *             constant?='constant'? 
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *         )
+	 *     )
+	 *
+	 * Features:
+	 *    property[0, 3]
+	 *    appliesTo[0, *]
+	 *         EXCLUDE_IF_UNSET property
+	 *         EXCLUDE_IF_SET property
+	 *         EXCLUDE_IF_SET ownedValue
+	 *         EXCLUDE_IF_SET property
+	 *         EXCLUDE_IF_SET append
+	 *         EXCLUDE_IF_SET constant
+	 *         EXCLUDE_IF_SET ownedValue
+	 *         EXCLUDE_IF_SET ownedValue
+	 *         EXCLUDE_IF_SET ownedValue
+	 *    append[0, 2]
+	 *         EXCLUDE_IF_SET property
+	 *         EXCLUDE_IF_SET ownedValue
+	 *    constant[0, 2]
+	 *         EXCLUDE_IF_SET property
+	 *         EXCLUDE_IF_SET ownedValue
+	 *    ownedValue[0, *]
+	 */
+	protected void sequence_PModel(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID renamedPackage=[AadlPackage|PNAME] renameAll?='all'?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    renamedPackage[1, 1]
+	 *    renameAll[0, 1]
+	 */
+	protected void sequence_PackageRename(EObject context, PackageRename semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ((name=ID source=ConnectedElement destination=ConnectedElement) | refined=[ParameterConnection|REFINEDNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    destination[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         EXCLUDE_IF_SET refined
+	 *    source[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET source
+	 *         EXCLUDE_IF_SET destination
+	 */
+	protected void sequence_ParameterConnection(EObject context, ParameterConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[Parameter|REFINEDNAME]) 
+	 *         direction=PortDirection 
+	 *         dataFeatureClassifier=[DataSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[1, 1]
+	 *    dataFeatureClassifier[0, 1]
+	 */
+	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ((name=ID source=AbstractConnectionEnd bidirectional?='<->'? destination=ProcessorConnectionEnd) | refined=[PortConnection|REFINEDNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    inModeOrTransition[0, *]
+	 *    destination[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         MANDATORY_IF_SET source
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET refined
+	 *    source[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         MANDATORY_IF_SET name
+	 *         MANDATORY_IF_SET bidirectional
+	 *         EXCLUDE_IF_UNSET destination
+	 *         MANDATORY_IF_SET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    bidirectional[0, 1]
+	 *         EXCLUDE_IF_UNSET name
+	 *         EXCLUDE_IF_UNSET source
+	 *         EXCLUDE_IF_UNSET destination
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *         EXCLUDE_IF_SET source
+	 *         EXCLUDE_IF_SET bidirectional
+	 *         EXCLUDE_IF_SET destination
+	 */
+	protected void sequence_PortConnection(EObject context, PortConnection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (direction=PortDirection category=PortCategory classifier=[ComponentClassifier|QCREF]?)
+	 *
+	 * Features:
+	 *    direction[1, 1]
+	 *    category[1, 1]
+	 *    classifier[0, 1]
+	 */
+	protected void sequence_PortSpecification(EObject context, PortSpecification semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
+	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedFeatureGroupTypeRename+=FGTRename | 
+	 *             ownedComponentTypeRename+=CTRename
+	 *         )* 
+	 *         (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
+	 *     )
+	 *
+	 * Features:
+	 *    ownedPackageRename[0, *]
+	 *    ownedComponentTypeRename[0, *]
+	 *    ownedClassifier[0, *]
+	 *    ownedFeatureGroupTypeRename[0, *]
+	 *    ownedAnnexLibrary[0, *]
+	 *    importedUnit[0, *]
+	 */
+	protected void sequence_PrivatePackageSection(EObject context, PrivatePackageSection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ProcessImplementation(EObject context, ProcessImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_ProcessPrototype(EObject context, ProcessPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ProcessSubcomponent|REFINEDNAME]) 
+	 *         (processSubcomponentType=[ProcessSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET processSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    processSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_ProcessSubcomponent(EObject context, ProcessSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ProcessType(EObject context, ProcessType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ProcessorImplementation(EObject context, ProcessorImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_ProcessorPort(EObject context, ProcessorPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_ProcessorPrototype(EObject context, ProcessorPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ProcessorSubcomponent|REFINEDNAME]) 
+	 *         (
+	 *             processorSubcomponentType=[ProcessorSubcomponentType|QCREF] 
+	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
+	 *         )? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET processorSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    processorSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_ProcessorSubcomponent(EObject context, ProcessorSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_ProcessorSubprogram(EObject context, ProcessorSubprogram semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ProcessorType(EObject context, ProcessorType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *     )
+	 *
+	 * Features:
+	 *    property[1, 1]
+	 *    append[0, 1]
+	 *    constant[0, 1]
+	 *    ownedValue[0, *]
+	 */
+	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    propertyType[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyType
+	 *    ownedPropertyType[0, 1]
+	 *         EXCLUDE_IF_SET propertyType
+	 *    constantValue[1, 1]
+	 */
+	protected void sequence_PropertyConstant(EObject context, PropertyConstant semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         inherit?='inherit'? 
+	 *         (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) 
+	 *         defaultValue=PropertyExpression? 
+	 *         ((appliesTo+=PropertyOwner appliesTo+=PropertyOwner*) | appliesTo+=AllReference)
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    propertyType[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyType
+	 *    ownedPropertyType[0, 1]
+	 *         EXCLUDE_IF_SET propertyType
+	 *    inherit[0, 1]
+	 *    defaultValue[0, 1]
+	 *    appliesTo[0, *]
+	 */
+	protected void sequence_PropertyDefinition(EObject context, Property semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
+	 *
+	 * Features:
+	 *    namedValue[0, 2]
+	 */
+	protected void sequence_PropertyExpression(EObject context, NamedValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (importedUnit+=[PropertySet|ID] importedUnit+=[PropertySet|ID]*)* 
+	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyType[0, *]
+	 *    ownedProperty[0, *]
+	 *    ownedPropertyConstant[0, *]
+	 *    importedUnit[0, *]
+	 */
+	protected void sequence_PropertySet(EObject context, PropertySet semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedValue=PropertyExpression
+	 *
+	 * Features:
+	 *    ownedValue[1, 1]
+	 */
+	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, AbstractPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, BusPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, DataPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, DevicePrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) 
+	 *         constrainingFeatureGroupType=[FeatureGroupType|QCREF]? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    constrainingFeatureGroupType[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, FeatureGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[FeaturePrototype|REFINEDNAME]) 
+	 *         direction=InOutDirection? 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    direction[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, FeaturePrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, MemoryPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, ProcessPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, ProcessorPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, SubprogramGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, SubprogramPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, SystemPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, ThreadGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, ThreadPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, VirtualBusPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    array[0, 1]
+	 *    constrainingClassifier[0, 1]
+	 */
+	protected void sequence_Prototype(EObject context, VirtualProcessorPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
+	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedFeatureGroupTypeRename+=FGTRename | 
+	 *             ownedComponentTypeRename+=CTRename
+	 *         )* 
+	 *         (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
+	 *     )
+	 *
+	 * Features:
+	 *    ownedPackageRename[0, *]
+	 *    ownedComponentTypeRename[0, *]
+	 *    ownedClassifier[0, *]
+	 *    ownedFeatureGroupTypeRename[0, *]
+	 *    ownedAnnexLibrary[0, *]
+	 *    importedUnit[0, *]
+	 */
+	protected void sequence_PublicPackageSection(EObject context, PublicPackageSection semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     classifier=[ComponentClassifier|QCREF]
+	 *
+	 * Features:
+	 *    classifier[1, 1]
+	 */
+	protected void sequence_QCReference(EObject context, ClassifierValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (annexName=ID? (metaclassName+=CoreKeyWord | metaclassName+=ID)+)
+	 *
+	 * Features:
+	 *    annexName[0, 1]
+	 *    metaclassName[0, *]
+	 */
+	protected void sequence_QMReference(EObject context, MetaclassReference semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF]))
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedNumberType[0, 2]
+	 *         EXCLUDE_IF_SET numberType
+	 *    numberType[0, 1]
+	 *         EXCLUDE_IF_SET ownedNumberType
+	 *         EXCLUDE_IF_SET ownedNumberType
+	 */
+	protected void sequence_RangeType(EObject context, RangeType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=SignedReal
+	 *
+	 * Features:
+	 *    value[1, 1]
+	 */
+	protected void sequence_RealLit(EObject context, RealLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (lowerBound=RealTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
+	 *         (upperBound=RealTerm | upperBound=SignedConstant | upperBound=ConstantValue)
+	 *     )
+	 *
+	 * Features:
+	 *    upperBound[0, 3]
+	 *    lowerBound[0, 3]
+	 */
+	protected void sequence_RealRange(EObject context, NumericRange semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
+	 *
+	 * Features:
+	 *    unit[0, 1]
+	 *    value[1, 1]
+	 */
+	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID range=RealRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedUnitsType[0, 1]
+	 *         EXCLUDE_IF_SET unitsType
+	 *    unitsType[0, 1]
+	 *         EXCLUDE_IF_SET ownedUnitsType
+	 *    range[0, 1]
+	 */
+	protected void sequence_RealType(EObject context, AadlReal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     implemented=[SystemType|ID]
+	 *
+	 * Features:
+	 *    implemented[1, 1]
+	 */
+	protected void sequence_Realization(EObject context, Realization semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType))
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    propertyType[0, 1]
+	 *         EXCLUDE_IF_SET ownedPropertyType
+	 *    ownedPropertyType[0, 1]
+	 *         EXCLUDE_IF_SET propertyType
+	 */
+	protected void sequence_RecordField(EObject context, BasicProperty semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedFieldValue+=FieldPropertyAssociation+
+	 *
+	 * Features:
+	 *    ownedFieldValue[1, *]
+	 */
+	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID ownedField+=RecordField+)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedField[1, *]
+	 */
+	protected void sequence_RecordType(EObject context, RecordType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *
+	 * Features:
+	 *    containmentPathElement[1, *]
+	 */
+	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    namedElementReference[0, *]
+	 */
+	protected void sequence_ReferenceType(EObject context, ReferenceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID initial?='initial'? derived?='mode' ownedPropertyAssociation+=PropertyAssociation*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    initial[0, 1]
+	 *    derived[1, 1]
+	 */
+	protected void sequence_RequiresMode(EObject context, Mode semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
+	 *
+	 * Features:
+	 *    op[1, 1]
+	 *    ownedPropertyExpression[1, 1]
+	 */
+	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=NoQuoteString
+	 *
+	 * Features:
+	 *    value[1, 1]
+	 */
+	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
+		superSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_StringType(EObject context, AadlString semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (context=[Subcomponent|ID]? flowElement=[FlowElement|ID])
+	 *
+	 * Features:
+	 *    flowElement[1, 1]
+	 *    context[0, 1]
+	 */
+	protected void sequence_SubcomponentFlow(EObject context, FlowSegment semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SubprogramAccess|REFINEDNAME]) 
+	 *         kind=AccessDirection 
+	 *         subprogramFeatureClassifier=[SubprogramSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    kind[1, 1]
+	 *    subprogramFeatureClassifier[0, 1]
+	 */
+	protected void sequence_SubprogramAccess(EObject context, SubprogramAccess semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID ownedCallSpecification+=CallSpecification+ ownedPropertyAssociation+=PropertyAssociation* (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPropertyAssociation[0, *]
+	 *    inMode[0, *]
+	 *    ownedCallSpecification[1, *]
+	 */
+	protected void sequence_SubprogramCallSequence(EObject context, SubprogramCallSequence semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SubprogramGroupAccess|REFINEDNAME]) 
+	 *         kind=AccessDirection 
+	 *         subprogramGroupFeatureClassifier=[SubprogramGroupSubcomponentType|QCREF]? 
+	 *         arrayDimension+=ArrayDimension? 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, 1]
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    kind[1, 1]
+	 *    subprogramGroupFeatureClassifier[0, 1]
+	 */
+	protected void sequence_SubprogramGroupAccess(EObject context, SubprogramGroupAccess semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_SubprogramGroupImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_SubprogramGroupPrototype(EObject context, SubprogramGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SubprogramGroupSubcomponent|REFINEDNAME]) 
+	 *         (
+	 *             subprogramGroupSubcomponentType=[SubprogramGroupSubcomponentType|QCREF] 
+	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
+	 *         )? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET subprogramGroupSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    subprogramGroupSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_SubprogramGroupSubcomponent(EObject context, SubprogramGroupSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_SubprogramGroupType(EObject context, SubprogramGroupType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?='none')? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_SubprogramImplementation(EObject context, SubprogramImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_SubprogramPrototype(EObject context, SubprogramPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SubprogramSubcomponent|REFINEDNAME]) 
+	 *         (
+	 *             subprogramSubcomponentType=[SubprogramSubcomponentType|QCREF] 
+	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
+	 *         )? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET subprogramSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    subprogramSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_SubprogramSubcomponent(EObject context, SubprogramSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedParameter+=Parameter | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedParameter
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedParameter[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_SubprogramType(EObject context, SubprogramType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
+	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
+	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
+	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
+	 *                 ownedBusSubcomponent+=BusSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
+	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
+	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
+	 *         EXCLUDE_IF_SET ownedBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    ownedBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDeviceSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedMemorySubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSystemSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_SystemImplementation(EObject context, SystemImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_SystemPrototype(EObject context, SystemPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[SystemSubcomponent|REFINEDNAME]) 
+	 *         (systemSubcomponentType=[SystemSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET systemSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    systemSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_SystemSubcomponent(EObject context, SystemSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedBusAccess+=BusAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+ | 
+	 *             noFeatures?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedBusAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedBusAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_SystemType(EObject context, SystemType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
+	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedThreadGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ThreadGroupImplementation(EObject context, ThreadGroupImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_ThreadGroupPrototype(EObject context, ThreadGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ThreadGroupSubcomponent|REFINEDNAME]) 
+	 *         (
+	 *             threadGroupSubcomponentType=[ThreadGroupSubcomponentType|QCREF] 
+	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
+	 *         )? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET threadGroupSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    threadGroupSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_ThreadGroupSubcomponent(EObject context, ThreadGroupSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ThreadGroupType(EObject context, ThreadGroupType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent | 
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )? 
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
+	 *         EXCLUDE_IF_SET ownedDataSubcomponent
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *    noCalls[0, 1]
+	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
+	 *    ownedSubprogramCallSequence[0, *]
+	 *         EXCLUDE_IF_SET noCalls
+	 *    ownedSubprogramGroupSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedSubprogramSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedDataSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_ThreadImplementation(EObject context, ThreadImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_ThreadPrototype(EObject context, ThreadPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ThreadSubcomponent|REFINEDNAME]) 
+	 *         (threadSubcomponentType=[ThreadSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET threadSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    threadSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_ThreadSubcomponent(EObject context, ThreadSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataAccess+=DataAccess | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedDataAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_ThreadType(EObject context, ThreadType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (context=[Context|ID]? port=[Port|ID])
+	 *
+	 * Features:
+	 *    context[0, 1]
+	 *    port[1, 1]
+	 */
+	protected void sequence_TriggerPort(EObject context, TriggerPort semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     extended=[ComponentType|QCREF]
+	 *
+	 * Features:
+	 *    extended[1, 1]
+	 */
+	protected void sequence_TypeExtension(EObject context, TypeExtension semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID baseUnit=[UnitLiteral|ID] factor=NumberValue)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    baseUnit[1, 1]
+	 *    factor[1, 1]
+	 */
+	protected void sequence_UnitLiteralConversion(EObject context, UnitLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     name=ID
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 */
+	protected void sequence_UnitLiteral(EObject context, UnitLiteral semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedLiteral[1, *]
+	 */
+	protected void sequence_UnitsType(EObject context, UnitsType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((classifierReference+=QMReference classifierReference+=QMReference*)?)
+	 *
+	 * Features:
+	 *    classifierReference[0, *]
+	 */
+	protected void sequence_UnnamedClassifierType(EObject context, ClassifierType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
+	 *
+	 * Features:
+	 *    ownedLiteral[1, *]
+	 */
+	protected void sequence_UnnamedEnumerationType(EObject context, EnumerationType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
+	 *
+	 * Features:
+	 *    ownedUnitsType[0, 1]
+	 *         EXCLUDE_IF_SET unitsType
+	 *    unitsType[0, 1]
+	 *         EXCLUDE_IF_SET ownedUnitsType
+	 *    range[0, 1]
+	 */
+	protected void sequence_UnnamedIntegerType(EObject context, AadlInteger semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlBoolean}
+	 *
+	 * Features:
+	 */
+	protected void sequence_UnnamedPropertyType(EObject context, AadlBoolean semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlString}
+	 *
+	 * Features:
+	 */
+	protected void sequence_UnnamedPropertyType(EObject context, AadlString semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF])
+	 *
+	 * Features:
+	 *    ownedNumberType[0, 2]
+	 *         EXCLUDE_IF_SET numberType
+	 *    numberType[0, 1]
+	 *         EXCLUDE_IF_SET ownedNumberType
+	 *         EXCLUDE_IF_SET ownedNumberType
+	 */
+	protected void sequence_UnnamedRangeType(EObject context, RangeType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (range=RealRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
+	 *
+	 * Features:
+	 *    ownedUnitsType[0, 1]
+	 *         EXCLUDE_IF_SET unitsType
+	 *    unitsType[0, 1]
+	 *         EXCLUDE_IF_SET ownedUnitsType
+	 *    range[0, 1]
+	 */
+	protected void sequence_UnnamedRealType(EObject context, AadlReal semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedField+=RecordField+
+	 *
+	 * Features:
+	 *    ownedField[1, *]
+	 */
+	protected void sequence_UnnamedRecordType(EObject context, RecordType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ((namedElementReference+=QMReference namedElementReference+=QMReference*)?)
+	 *
+	 * Features:
+	 *    namedElementReference[0, *]
+	 */
+	protected void sequence_UnnamedReferenceType(EObject context, ReferenceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
+	 *
+	 * Features:
+	 *    ownedLiteral[1, *]
+	 */
+	protected void sequence_UnnamedUnitsType(EObject context, UnitsType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_VirtualBusImplementation(EObject context, VirtualBusImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_VirtualBusPrototype(EObject context, VirtualBusPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[VirtualBusSubcomponent|REFINEDNAME]) 
+	 *         (virtualBusSubcomponentType=[VirtualBusClassifier|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET virtualBusSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    virtualBusSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_VirtualBusSubcomponent(EObject context, VirtualBusSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_VirtualBusType(EObject context, VirtualBusType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         ownedRealization=Realization 
+	 *         name=INAME 
+	 *         ownedExtension=ImplementationExtension? 
+	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
+	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
+	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
+	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
+	 *             )+ | 
+	 *             noSubcomponents?='none'
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
+	 *    ownedPrototypeBinding[0, *]
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
+	 *    ownedExtension[0, 1]
+	 *    ownedRealization[1, 1]
+	 *    ownedAbstractSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    noSubcomponents[0, 1]
+	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
+	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
+	 *    ownedVirtualBusSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 *    ownedVirtualProcessorSubcomponent[0, *]
+	 *         EXCLUDE_IF_SET noSubcomponents
+	 */
+	protected void sequence_VirtualProcessorImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 */
+	protected void sequence_VirtualProcessorPrototype(EObject context, VirtualProcessorPrototype semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[VirtualProcessorSubcomponent|REFINEDNAME]) 
+	 *         (
+	 *             virtualProcessorSubcomponentType=[VirtualProcessorSubcomponentType|QCREF] 
+	 *             (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?
+	 *         )? 
+	 *         (
+	 *             arrayDimension+=ArrayDimension+ 
+	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
+	 *         )? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
+	 *     )
+	 *
+	 * Features:
+	 *    name[0, 1]
+	 *         EXCLUDE_IF_SET refined
+	 *    ownedPropertyAssociation[0, *]
+	 *    arrayDimension[0, *]
+	 *         MANDATORY_IF_SET implementationReference
+	 *         MANDATORY_IF_SET implementationReference
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET virtualProcessorSubcomponentType
+	 *    ownedModeBinding[0, *]
+	 *    implementationReference[0, *]
+	 *         EXCLUDE_IF_UNSET arrayDimension
+	 *    refined[0, 1]
+	 *         EXCLUDE_IF_SET name
+	 *    virtualProcessorSubcomponentType[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 */
+	protected void sequence_VirtualProcessorSubcomponent(EObject context, VirtualProcessorSubcomponent semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         name=ID 
+	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (
+	 *             noFeatures?='none' | 
+	 *             (
+	 *                 ownedDataPort+=DataPort | 
+	 *                 ownedEventPort+=EventPort | 
+	 *                 ownedEventDataPort+=EventDataPort | 
+	 *                 ownedFeatureGroup+=FeatureGroup | 
+	 *                 ownedSubprogramAccess+=SubprogramAccess | 
+	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
+	 *                 ownedAbstractFeature+=AbstractFeature
+	 *             )+
+	 *         )?
+	 *     )
+	 *
+	 * Features:
+	 *    name[1, 1]
+	 *    ownedPrototypeBinding[0, *]
+	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    ownedExtension[0, 1]
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *         MANDATORY_IF_SET ownedPrototypeBinding
+	 *    ownedFeatureGroup[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedAbstractFeature[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    noFeatures[0, 1]
+	 *         EXCLUDE_IF_SET ownedDataPort
+	 *         EXCLUDE_IF_SET ownedEventPort
+	 *         EXCLUDE_IF_SET ownedEventDataPort
+	 *         EXCLUDE_IF_SET ownedFeatureGroup
+	 *         EXCLUDE_IF_SET ownedSubprogramAccess
+	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
+	 *         EXCLUDE_IF_SET ownedAbstractFeature
+	 *    ownedDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventDataPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedEventPort[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 *    ownedSubprogramGroupAccess[0, *]
+	 *         EXCLUDE_IF_SET noFeatures
+	 */
+	protected void sequence_VirtualProcessorType(EObject context, VirtualProcessorType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+}

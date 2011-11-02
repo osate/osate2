@@ -74,6 +74,7 @@ import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -246,7 +247,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		subcomponentType= subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		subcomponentType = subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 		return subcomponentType.eIsProxy() ? null : subcomponentType;
 	}
@@ -267,7 +268,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentClassifier getClassifier() {
 		EObject classifier = getSubcomponentType();
-		return (ComponentClassifier)(classifier instanceof ComponentClassifier ? classifier : null);
+		return (ComponentClassifier) (classifier instanceof ComponentClassifier ? classifier : null);
 	}
 
 	/**
@@ -278,7 +279,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentClassifier basicGetClassifier() {
 		// DONE: implement this method to return the 'Classifier' reference
 		SubcomponentType st = basicGetSubcomponentType();
-		if (st instanceof ComponentClassifier )
+		if (st instanceof ComponentClassifier)
 			return (ComponentClassifier) st;
 
 		return st instanceof ComponentClassifier ? (ComponentClassifier) st : null;
@@ -315,7 +316,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public ComponentPrototype getPrototype() {
 		EObject prototype = getSubcomponentType();
-		return (ComponentPrototype)(prototype instanceof ComponentPrototype ? prototype : null);
+		return (ComponentPrototype) (prototype instanceof ComponentPrototype ? prototype : null);
 	}
 
 	/**
@@ -770,7 +771,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public ComponentImplementation getComponentImplementation() {
 		ComponentClassifier cc = getClassifier();
-		if (cc == null)
+		if (Aadl2Util.isNull(cc))
 			return null;
 		if (cc instanceof ComponentImplementation)
 			return (ComponentImplementation) cc;
@@ -784,10 +785,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public ComponentType getComponentType() {
 		ComponentClassifier cc = getClassifier();
-		if (cc == null)
+		if (Aadl2Util.isNull(cc))
 			return null;
-		if (cc instanceof ComponentImplementation)
-			return ((ComponentImplementation) cc).getType();
+		if (cc instanceof ComponentImplementation) {
+			ComponentType ct = ((ComponentImplementation) cc).getType();
+			return Aadl2Util.isNull(ct) ? null : ct;
+		}
 		if (cc instanceof ComponentType)
 			return (ComponentType) cc;
 		return null;
@@ -801,7 +804,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public EList<Subcomponent> getAllSubcomponentRefinements() {
 		BasicEList<Subcomponent> returnlist = new BasicEList<Subcomponent>();
 		Subcomponent more = this;
-		while (more != null) {
+		while (!Aadl2Util.isNull(more)) {
 			returnlist.add(more);
 			more = more.getRefined();
 		}
@@ -812,7 +815,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	public ComponentClassifier getAllClassifier() {
 		ComponentClassifier cc = getClassifier();
 		Subcomponent sub = this;
-		while (cc == null && sub.getRefined() != null) {
+		while (Aadl2Util.isNull(cc) && !Aadl2Util.isNull(sub.getRefined())) {
 			sub = sub.getRefined();
 			cc = sub.getClassifier();
 		}

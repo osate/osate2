@@ -316,7 +316,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	}
 
 	/**
-	 * find the enclosing root object (aadlspec, package, propertyset, or system instance
+	 * find the enclosing root object ( package, propertyset, or system instance
 	 * @return the root object
 	 */
 	public Element getElementRoot() {

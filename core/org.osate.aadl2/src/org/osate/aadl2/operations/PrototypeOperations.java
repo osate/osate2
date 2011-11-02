@@ -95,7 +95,6 @@ public class PrototypeOperations extends NamedElementOperations {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * <!-- begin-model-doc -->
-	 * self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory
 	 * @param prototype The receiving '<em><b>Prototype</b></em>' model object.
 	 * @param diagnostics The chain of diagnostics to which problems are to be appended.
 	 * @param context The cache of context-specific information.

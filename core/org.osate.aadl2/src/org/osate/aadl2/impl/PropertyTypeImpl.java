@@ -37,7 +37,6 @@ package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.ListType;
 import org.osate.aadl2.PropertyType;
 
 /**

@@ -207,8 +207,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((classifier == null) ? 0 : classifier.hashCode());
+		result = prime * result + ((classifier == null) ? 0 : classifier.hashCode());
 		return result;
 	}
 
@@ -228,6 +227,5 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 			return false;
 		return true;
 	}
-
 
 } //ClassifierValueImpl

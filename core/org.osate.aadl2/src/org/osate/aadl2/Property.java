@@ -190,7 +190,7 @@ public interface Property extends BasicProperty, AbstractNamedValue, ArraySizePr
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Applies To Metaclass</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProperty_AppliesToMetaclass()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<MetaclassReference> getAppliesToMetaclasses();
@@ -206,7 +206,7 @@ public interface Property extends BasicProperty, AbstractNamedValue, ArraySizePr
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Applies To Classifier</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getProperty_AppliesToClassifier()
-	 * @model derived="true" ordered="false"
+	 * @model transient="true" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Classifier> getAppliesToClassifiers();

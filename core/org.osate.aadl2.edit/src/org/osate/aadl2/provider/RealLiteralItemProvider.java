@@ -118,12 +118,13 @@ public class RealLiteralItemProvider extends NumberValueItemProvider implements 
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
 		RealLiteral realLiteral = (RealLiteral) object;
-		return getString("_UI_RealLiteral_type") + " " + realLiteral.getValue();
+		return getString("_UI_RealLiteral_type") + " " + realLiteral.getValue() +
+				(realLiteral.getUnit() != null?" "+realLiteral.getUnit().getName():"");
 	}
 
 	/**

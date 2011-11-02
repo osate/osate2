@@ -4,6 +4,7 @@
 package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.valueconversion.Aadl2ValueConverter;
 
 /**
@@ -23,6 +24,23 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return org.osate.xtext.aadl2.naming.Aadl2QualifiedNameProvider.class;
 	}
 
+	@Override
+	public Class<? extends org.eclipse.xtext.linking.ILinker> bindILinker() {
+		return AnnexParserAgent.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
+		return org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer.class;
+	}
+
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindITokenSerializer$IValueSerializer() {
+		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
+	}
+
+	@Override
+	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
+		return org.osate.xtext.aadl2.serializing.Aadl2TransientValueService.class;
+	}
 
 	
 //	//	@Override
