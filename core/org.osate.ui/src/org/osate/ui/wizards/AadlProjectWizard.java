@@ -330,7 +330,11 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			CoreUtility.createFolder(srcPSet, true, true, null);
 		} catch (CoreException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			MessageDialog
+			.openError(getShell(),
+					"Creation Problems",
+					MessageFormat
+							.format("Problem creating folder", e.getStackTrace().toString() ));
 		}
 		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
 
@@ -341,13 +345,21 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			ps.save();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			MessageDialog
+			.openError(getShell(),
+					"Save Problem", //$NON-NLS-1$
+					MessageFormat
+							.format("Problem saving Preference Store", e1.getStackTrace().toString() ));
 		}
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
 			// TODO Auto-generated catch block
-			e2.printStackTrace();
+			MessageDialog
+			.openError(getShell(),
+					"Refresh Problems Problems", //$NON-NLS-1$
+					MessageFormat
+							.format("Resource changes are disallowed during certain types of resource change event notification", e2.getStackTrace().toString() ));
 		}
 		AadlNature.addNature(p, null);
 		return true;
@@ -394,7 +406,11 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 								projectsWithNatures.add(project);
 							}
 						} catch (CoreException e) {
-							e.printStackTrace();
+							MessageDialog
+							.openError(getShell(),
+									"Project Problems", //$NON-NLS-1$
+									MessageFormat
+											.format("Project does not exist or is not open", e.getStackTrace().toString() ));
 						}
 					}
 
