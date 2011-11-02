@@ -8,29 +8,18 @@
   <packaging>pom</packaging>
 
   <properties>
-    <tycho-version>0.12.0</tycho-version>
+    <tycho-version>0.13.0-SNAPSHOT</tycho-version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
-<!-- covered by target definition in org.osate.build.target
-  <repositories>
-    <repository>
-      <id>eclipse-indigo</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/releases/indigo</url>
-    </repository>
-    <repository>
-      <id>eclipse</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/eclipse/updates/3.7</url>
-    </repository>
-    <repository>
-      <id>mdt</id>
-      <layout>p2</layout>
-      <url>http://download.eclipse.org/modeling/mdt/updates</url>
-    </repository>
-  </repositories>
--->
+<!-- for tycho snapshot -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>tycho</id>
+      <url>http://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+    </pluginRepository>
+  </pluginRepositories>
+<!-- -->
 
   <modules>
     <module>org.osate.aadl2</module>
@@ -39,8 +28,8 @@
     <module>org.osate.aadl2.modelsupport</module>
     <module>org.osate.annexsupport</module>
     <module>org.osate.branding</module>
+    <module>org.osate.build.product</module>
     <module>org.osate.build.target</module>
-    <module>org.osate.build.tycho</module>
     <module>org.osate.contribution.sei</module>
     <module>org.osate.core</module>
     <module>org.osate.core.feature</module>
@@ -58,6 +47,7 @@
     <module>org.osate.xtext.aadl2.properties.ui</module>
     <module>org.osate.xtext.aadl2.ui</module>
   </modules>
+
   <build>
     <plugins>
       <plugin>
@@ -102,7 +92,12 @@
               <ws>win32</ws>
               <arch>x86_64</arch>
             </environment>
-<!-- build dies: chmod non-existing file
+<!-- macosx build succeeds but does not run 
+            <environment>
+              <os>macosx</os>
+              <ws>cocoa</ws>
+              <arch>x86</arch>
+            </environment>
             <environment>
               <os>macosx</os>
               <ws>cocoa</ws>
