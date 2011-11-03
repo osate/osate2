@@ -6,7 +6,7 @@
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="edu.cmu.sei.osate.ui.oc1"
+            id="org.osate.ui.oc1"
             objectClass="java.lang.Object">
          <visibility>
             <or>
@@ -19,7 +19,7 @@
          </visibility>
 
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               id="org.osate.ui.popupMenu.Analyses"
                label="%popupMenu.analyses.label"
                path="additions">
             <groupMarker name="anal.grp"/>
@@ -27,16 +27,16 @@
          </menu>
 
          <menu
-               id="edu.cmu.sei.aadl.architecture.popupMenu.Semantic"
+               id="org.aadl.architecture.popupMenu.Semantic"
                label="%popupMenu.Semantic.label"
-               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
          
       </objectContribution>
 
       <objectContribution
-            id="edu.cmu.sei.osate.ui.oc2"
+            id="org.osate.ui.oc2"
             objectClass="org.eclipse.core.resources.IFile">
          <visibility>
             <or>
@@ -45,7 +45,7 @@
             </or>
          </visibility>
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
+               id="org.osate.ui.popupMenu.Aadl"
                label="%popupMenu.aadl.label"
                path="additions">
             <groupMarker name="file.grp"/>
@@ -54,12 +54,12 @@
             <groupMarker name="subMenus.grp"/>
          </menu>
          <action
-               id="edu.cmu.sei.osate.ui.actions.ResetMarkers.popupAction"
+               id="org.osate.ui.actions.ResetMarkers.popupAction"
                label="%ResetMarkers.label"
                tooltip="%ResetMarkers.toolTip"
                icon="%ResetMarkers.icon"
                class="org.osate.ui.actions.ResetMarkers"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Aadl/general.grp"
+               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
                enablesFor="*"/>
      </objectContribution>         
                
@@ -67,7 +67,7 @@
 
       
       <objectContribution
-            id="edu.cmu.sei.osate.ui.oc6"
+            id="org.osate.ui.oc6"
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true">
          <visibility>
@@ -76,7 +76,7 @@
                   value="org.osate.core.aadlnature"/>
          </visibility>
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
+               id="org.osate.ui.popupMenu.Aadl"
                label="%popupMenu.aadl.label"
                path="additions">
             <groupMarker name="file.grp"/>
@@ -87,13 +87,13 @@
          <action
                class="org.osate.ui.actions.ConversionAction"
                enablesFor="1"
-               id="edu.cmu.sei.osate.ui.actions.RemoveAADLNature.popupAction"
+               id="org.osate.ui.actions.RemoveAADLNature.popupAction"
                label="%RemoveAADLNature.label"
                menubarPath="org.eclipse.ui.projectConfigure/additions"
                tooltip="%RemoveAADLNature.toolTip"/>
       </objectContribution>
       <objectContribution
-            id="edu.cmu.sei.osate.ui.oc7"
+            id="org.osate.ui.oc7"
             objectClass="org.eclipse.core.resources.IProject"
             adaptable="true">
          <visibility>
@@ -104,7 +104,7 @@
             </not>
          </visibility>
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Aadl"
+               id="org.osate.ui.popupMenu.Aadl"
                label="%popupMenu.aadl.label"
                path="additions">
             <groupMarker name="file.grp"/>
@@ -115,7 +115,7 @@
          <action
                class="org.osate.ui.actions.ConversionAction"
                enablesFor="1"
-               id="edu.cmu.sei.osate.ui.actions.EnableAADLNature.popupAction"
+               id="org.osate.ui.actions.EnableAADLNature.popupAction"
                label="%EnableAADLNature.label"
                menubarPath="org.eclipse.ui.projectConfigure/additions"
                tooltip="%EnableAADLNature.toolTip"/>
@@ -125,7 +125,7 @@
    <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="edu.cmu.sei.osate.ui.actionSet"
+            id="org.osate.ui.actionSet"
             label="%actionSet.label"
             visible="false">
 
@@ -157,7 +157,7 @@
          
           
          <action
-               id="edu.cmu.sei.osate.ui.actions.ReinstantiateAllAadl.action"
+               id="org.osate.ui.actions.ReinstantiateAllAadl.action"
                label="%ReinstantiateAllModelsAction.label"
                tooltip="%ReinstantiateAllModelsAction.toolTip"
                icon="%ReinstantiateAllModelsAction.icon"
@@ -168,7 +168,7 @@
          
          
         <action
-               id="edu.cmu.sei.osate.ui.actions.ClearHistory.action"
+               id="org.osate.ui.actions.ClearHistory.action"
                label="%ClearHistory.label"
                tooltip="%ClearHistory.toolTip"
                icon="%ClearHistory.icon"
@@ -178,7 +178,7 @@
                enablesFor="1">
          </action> 
          <action
-               id="edu.cmu.sei.osate.ui.actions.ResetMarkers.action"
+               id="org.osate.ui.actions.ResetMarkers.action"
                label="%ResetMarkers.label"
                tooltip="%ResetMarkers.toolTip"
                icon="%ResetMarkers.icon"
@@ -204,7 +204,7 @@
    <!--extension
          point="org.eclipse.ui.propertyPages">
       <page
-            id="edu.cmu.sei.osate.ui.preferences.ProjectPropertyPage"
+            id="org.osate.ui.preferences.ProjectPropertyPage"
             name="%buildPathPageName"
             class="org.osate.internal.ui.preferences.ProjectPropertyPage">
          <filter
@@ -222,7 +222,7 @@
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
-            id="edu.cmu.sei.osate.internal.ui.preferences.OsatePreferencePage"
+            id="org.osate.internal.ui.preferences.OsatePreferencePage"
             name="OSATE Preferences"
             class="org.osate.internal.ui.preferences.OsatePreferencePage">
       </page>
@@ -231,14 +231,14 @@
    <extension
          point="org.eclipse.ui.newWizards">
       <category
-            id="edu.cmu.sei.osate.Wizard.category.ID"
+            id="org.osate.Wizard.category.ID"
             name="%_Aadl_Wizard_category">
       </category>
       <wizard
-            id="edu.cmu.sei.osate.ui.wizards.AadlProjectWizardID"
+            id="org.osate.ui.wizards.AadlProjectWizardID"
             name="%_UI_AadlProjectWizard_label"
             icon="icons/new_aadl_project.gif"
-            category="edu.cmu.sei.osate.Wizard.category.ID"
+            category="org.osate.Wizard.category.ID"
             class="org.osate.ui.wizards.AadlProjectWizard"
             preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
             finalPerspective="org.osate.ui.perspective.AadlPerspective"
@@ -313,9 +313,9 @@
     <!--extension
        point="org.eclipse.ui.exportWizards">
        <wizard
-       	  id="edu.cmu.sei.osate.ui.wizards.exportTextWizard"
+       	  id="org.osate.ui.wizards.exportTextWizard"
        	  name="Aadl Text"
-       	  class="edu.cmu.sei.osate.ui.wizards.AadlTextExportWizard"
+       	  class="org.osate.ui.wizards.AadlTextExportWizard"
        	  icon="icons/makeaadltext.gif">
        	  <description>
        	     Exports an XML AADL Model to AADL Text.
@@ -323,7 +323,7 @@
        </wizard>
     </extension-->
    <extension
-         id="edu.cmu.sei.osate.views"
+         id="org.osate.views"
          point="org.eclipse.ui.views">
       <category
       		id="aadl.view_category"
@@ -332,7 +332,7 @@
             category="aadl.view_category"
             class="org.osate.ui.views.LoggerView"
             icon="icons/aadl.gif"
-            id="edu.cmu.sei.osate.ui.logger_view"
+            id="org.osate.ui.logger_view"
             name="%osate_logger_view.label">
       </view>
    </extension>
