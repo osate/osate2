@@ -61,7 +61,6 @@ Workflow {
         		ignoreCase = true
 					backtrack = true
 					classSplitting = true
-				fieldsPerClass = "500"
     		}
 			}
 
@@ -128,7 +127,6 @@ Workflow {
         		ignoreCase = true
         		backtrack = true
 					classSplitting = true
-				fieldsPerClass = "500"		
 				}
 			}
 
