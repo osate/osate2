@@ -69,7 +69,9 @@ import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.core.AadlNature;
+import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.CoreUtility;
 import org.osate.workspace.WorkspacePlugin;
@@ -329,7 +331,6 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 			CoreUtility.createFolder(srcPack, true, true, null);
 			CoreUtility.createFolder(srcPSet, true, true, null);
 		} catch (CoreException e) {
-			// TODO Auto-generated catch block
 			MessageDialog
 			.openError(getShell(),
 					"Creation Problems",
@@ -344,7 +345,6 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			ps.save();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			MessageDialog
 			.openError(getShell(),
 					"Save Problem", //$NON-NLS-1$
@@ -354,12 +354,24 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
-			// TODO Auto-generated catch block
 			MessageDialog
 			.openError(getShell(),
 					"Refresh Problems Problems", //$NON-NLS-1$
 					MessageFormat
 							.format("Resource changes are disallowed during certain types of resource change event notification", e2.getStackTrace().toString() ));
+		}
+		try {	
+			if (!p.hasNature(XtextProjectHelper.NATURE_ID)) {
+				IProjectDescription desc = p.getDescription();
+				String[] oldNatures = desc.getNatureIds();
+				String[] newNatures = new String[oldNatures.length + 1];
+				System.arraycopy(oldNatures, 0, newNatures, 0, oldNatures.length);
+				newNatures[oldNatures.length] = XtextProjectHelper.NATURE_ID;
+				desc.setNatureIds(newNatures);
+				p.setDescription(desc, null);
+			}
+		} catch (CoreException e) {
+			OsateCorePlugin.log(e);
 		}
 		AadlNature.addNature(p, null);
 		return true;
