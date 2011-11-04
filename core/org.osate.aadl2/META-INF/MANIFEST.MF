@@ -4,7 +4,7 @@ Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: org.osate.aadl2.jar
-Bundle-Vendor: CMU-SEI
+Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.aadl2,
