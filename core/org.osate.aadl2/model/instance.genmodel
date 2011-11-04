@@ -9,7 +9,7 @@
     editorPluginClass="org.osate.presentation.Aadl2EditorPlugin" nonNLSMarkers="true"
     codeFormatting="true" testsDirectory="" testSuiteClass="" 
     complianceLevel="5.0" copyrightFields="false" editPluginID="org.osate.aadl2.edit"
-    editorPluginID="org.osate.aadl2.editor" language="" usedGenPackages="aadl2.genmodel#//aadl2 platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore"
+    editorPluginID="org.osate.aadl2.editor" language="" usedGenPackages="aadl2.genmodel#//aadl2"
     >
    <genPackages xsi:type="genmodel:GenPackage" prefix="Instance" basePackage="org.osate.aadl2"
       resource="XML" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
