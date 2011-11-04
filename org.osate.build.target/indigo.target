@@ -13,16 +13,6 @@
 <repository location="file:/home/osate/osate2/platform-3.7"/>
 </location>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.xtext.ui.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.xbase.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.runtime.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.examples.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.docs.feature.group" version="2.0.1.v201108020636"/>
-<repository location="http://download.eclipse.org/modeling/tmf/updates/"/>
-</location>
-<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.cvs.feature.group" version="1.3.100.v20110520-0800-7B78FHk8sF7BB7SBB5EYD5"/>
 <unit id="org.eclipse.egit.feature.group" version="1.0.0.201106090707-r"/>
 <unit id="org.eclipse.jgit.feature.group" version="1.0.0.201106090707-r"/>
@@ -77,6 +67,13 @@
 <unit id="org.eclipse.uml2.sdk.feature.group" version="3.2.0.v201105231350"/>
 <unit id="org.eclipse.xpand.sdk.feature.group" version="1.1.0.v201106070515"/>
 <unit id="org.eclipse.xsd.sdk.feature.group" version="2.7.0.v20110606-0949"/>
+<unit id="org.eclipse.xtext.ui.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.xbase.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.runtime.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.sdk.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.examples.feature.group" version="2.0.1.v201108020636"/>
+<unit id="org.eclipse.xtext.docs.feature.group" version="2.0.1.v201108020636"/>
 <repository location="http://download.eclipse.org/releases/indigo"/>
 </location>
 </locations>

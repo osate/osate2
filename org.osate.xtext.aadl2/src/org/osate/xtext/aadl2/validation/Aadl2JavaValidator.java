@@ -1,11 +1,9 @@
+
 package org.osate.xtext.aadl2.validation;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,14 +11,93 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
-import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.*;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
+
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
@@ -2922,3 +2999,4 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 }
+
