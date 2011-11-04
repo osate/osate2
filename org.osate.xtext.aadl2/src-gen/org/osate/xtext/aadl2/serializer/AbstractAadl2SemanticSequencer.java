@@ -2166,6 +2166,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -2181,8 +2182,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -3805,6 +3810,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -3827,8 +3833,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -3877,6 +3887,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -3897,8 +3908,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -3941,6 +3956,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -3965,8 +3981,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -4021,6 +4041,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -4043,8 +4064,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -4178,6 +4203,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -4202,8 +4228,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -4671,6 +4701,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -4692,8 +4723,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -4739,6 +4774,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -4762,8 +4798,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *    ownedPropertyAssociation[0, *]
 	 *         EXCLUDE_IF_SET noProperties
 	 *    ownedAnnexSubclause[0, *]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    noProperties[0, 1]
 	 *         EXCLUDE_IF_SET ownedPropertyAssociation
 	 *    ownedMode[0, *]
@@ -5065,6 +5105,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -5078,8 +5119,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -5231,6 +5276,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -5248,8 +5294,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -6131,6 +6181,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -6146,8 +6197,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -6778,6 +6833,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -6795,8 +6851,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -8753,6 +8813,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -8767,8 +8828,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
@@ -8896,6 +8961,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
+	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
 	 *         (
 	 *             noFeatures?='none' | 
 	 *             (
@@ -8912,8 +8978,12 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *
 	 * Features:
 	 *    name[1, 1]
+	 *    ownedPrototype[0, *]
+	 *         EXCLUDE_IF_SET noPrototypes
 	 *    ownedPrototypeBinding[0, *]
 	 *         EXCLUDE_IF_UNSET ownedExtension
+	 *    noPrototypes[0, 1]
+	 *         EXCLUDE_IF_SET ownedPrototype
 	 *    ownedExtension[0, 1]
 	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 *         MANDATORY_IF_SET ownedPrototypeBinding

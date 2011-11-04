@@ -295,6 +295,8 @@ ProcessorType returns aadl2::ProcessorType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
@@ -318,6 +320,8 @@ DeviceType returns aadl2::DeviceType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess 
@@ -341,6 +345,8 @@ MemoryType returns aadl2::MemoryType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
@@ -361,6 +367,8 @@ BusType returns aadl2::BusType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup |ownedBusAccess+=BusAccess
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
@@ -381,6 +389,8 @@ VirtualBusType returns aadl2::VirtualBusType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup 
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
@@ -402,6 +412,8 @@ VirtualProcessorType returns aadl2::VirtualProcessorType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') |
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup  
@@ -425,6 +437,8 @@ DataType returns aadl2::DataType:
 	(ownedExtension=TypeExtension
 	  ('(' ownedPrototypeBinding+=PrototypeBinding (','  ownedPrototypeBinding+=PrototypeBinding)* ')')?
 	)?
+	('prototypes' ((noPrototypes?='none' ';') |
+	(ownedPrototype+=Prototype)+))?
 	('features' ((noFeatures?='none' ';') 
 	| (
 	ownedFeatureGroup+=FeatureGroup| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
