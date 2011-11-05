@@ -51,6 +51,7 @@ import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 //import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 //import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
@@ -153,7 +154,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 						ns = ct;
 				}
 			}
-			EObject searchResult = ns.findNamedElement(name);
+			EObject searchResult = AadlUtil.findNamedElementInList(ns.getAllFeatures(), name);
 			if (searchResult != null && searchResult instanceof Port) {
 				return Collections.singletonList((EObject) searchResult);
 			}
