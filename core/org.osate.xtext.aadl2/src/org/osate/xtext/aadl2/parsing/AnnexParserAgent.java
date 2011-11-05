@@ -78,8 +78,8 @@ public class AnnexParserAgent  extends LazyLinker {
 			List<DefaultAnnexLibrary> all=EcoreUtil2.eAllOfType(model, DefaultAnnexLibrary.class);
 			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
-				int offset = node.getTotalOffset();
-				int line = node.getTotalStartLine();
+				int offset = node.getOffset();
+				int line = node.getStartLine();
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
@@ -123,8 +123,8 @@ public class AnnexParserAgent  extends LazyLinker {
 			List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
 			for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
-				int offset = node.getTotalOffset();
-				int line = node.getTotalStartLine();
+				int offset = node.getOffset();
+				int line = node.getStartLine();
 				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexSubclause.getName().equalsIgnoreCase("error_model")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
