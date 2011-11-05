@@ -258,19 +258,6 @@ public final class AadlUtil {
 	}
 
 	/**
-	 * Check to see if all NamedElements in the Elist have a unique name. The
-	 * list can contain object that are not NamedElements. This implementation
-	 * utilizes List Iterators.
-	 * 
-	 * @param el EList or NamedELements or other objects
-	 * @return boolean true if the list is unique.
-	 */
-	public static boolean uniqueNamedElementList(List<?> el) {
-		EList<NamedElement> result = findDoubleNamedElementsInList(el);
-		return result.size() == 0;
-	}
-
-	/**
 	 * Compare the EClass of the two EObjects
 	 * 
 	 * @param c1 EObject
