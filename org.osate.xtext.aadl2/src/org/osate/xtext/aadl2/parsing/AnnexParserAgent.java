@@ -67,7 +67,7 @@ public class AnnexParserAgent  extends LazyLinker {
 							internalErrorLogger,
 							new AnalysisToParseErrorReporterAdapter.Factory(
 									new MarkerParseErrorReporter.Factory(
-											"edu.cmu.sei.aadl.parser.NameResolutionErrorMarker",
+											"org.osate.aadl2.modelsupport.ParseErrorMarker",
 											parseErrorLoggerFactory)));
 			
 			AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
