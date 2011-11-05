@@ -462,7 +462,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			for (NamedElement ne : doubles) {
 				error(ne,
 						ne.eClass().getName() +
-						" identifier '" + ne.getName() + "' previously defined");
+						" identifier '" + ne.getName() + "' previously defined. Maybe you forgot 'refined to'");
 			}
 		}
 	}
