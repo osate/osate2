@@ -77,6 +77,7 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupPrototype;
@@ -104,6 +105,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(
 			ComponentImplementation componentImplementation) {
+		checkComponentImplementationUniqueNames(componentImplementation);	
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
 	}
@@ -466,108 +468,45 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
-	//
-	// /**
-	// * check for unique names in implementation
-	// */
-	// @Check(CheckType.FAST)
-	// public Object caseComponentImplementation(ComponentImplementation impl) {
-	// // process in core package
-	// EList usedNames = new BasicEList();
-	// usedNames.addAll(impl.allFeatures());
-	// usedNames.addAll(impl.getSubcomponents());
-	// usedNames.addAll(impl.getAllConnection());
-	// usedNames.addAll(impl.getModes());
-	// usedNames.addAll(impl.getType().getAllFlowSpec());
-	//
-	// EList allFlowSeqs = impl.getAllFlowSequence();
-	// for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
-	// final FlowSequence fs = (FlowSequence) i.next();
-	// // Filter out flow impls
-	// if (fs instanceof EndToEndFlow) {
-	// usedNames.add(fs);
-	// }
-	// }
-	//
-	// EList callSequenceList = impl.getXAllCallSequence();
-	// usedNames.addAll(callSequenceList);
-	//
-	// // add all the calls from the call sequences
-	// for (Iterator callIter = callSequenceList.iterator();
-	// callIter.hasNext();){
-	// CallSequence cseq = (CallSequence) callIter.next();
-	// usedNames.addAll(cseq.getCall());
-	// }
-	//
-	// EList<NamedElement> doubles =
-	// AadlUtil.findDoubleNamedElementsInList(usedNames);
-	// boolean noRefinesType = impl.getRefinesType() == null;
-	// if (doubles.size() > 0) {
-	// for (NamedElement ne : doubles) {
-	// if (!((noRefinesType && ne instanceof Feature) ))
-	// error(impl, "Identifier '" + ne.getName() +
-	// "' names more than one subcomponent/connection/flow/feature/mode in component "
-	// + impl.getQualifiedName());
-	// }
-	// }
-	//
-	// // Check that no flow spec impl appears in a mode more than once
-	// EList localFlowSeqs = impl.getFlowSequence();
-	// final Map map = new HashMap();
-	// for (final Iterator i = localFlowSeqs.iterator(); i.hasNext();) {
-	// final FlowSequence fs = (FlowSequence) i.next();
-	// // Filter out end-to-end flows -- they do not implement a
-	// // flow spec
-	// if (fs instanceof FlowImpl) {
-	// final String name = fs.getName();
-	// EList s = (EList) map.get(name);
-	// if (s == null) {
-	// s = new BasicEList();
-	// map.put(name, s);
-	// }
-	// s.add(fs);
-	// }
-	// }
-	// for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-	// final String name = (String) i.next();
-	// final EList s = (EList) map.get(name);
-	// if (!AadlUtil.oncePerMode(s, impl.getModes())) {
-	// error(impl, "Flow spec " + name +
-	// " implemented more than once for a given mode");
-	// }
-	// }
-	//
-	// /* Check that no end to end flow appears in a mode more than once
-	// * and that its name isn't already used.
-	// */
-	// // map.clear();
-	// // EList allFlowSeqs = impl.getAllFlowSequence();
-	// // for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
-	// // final FlowSequence fs = (FlowSequence) i.next();
-	// // // Filter out flow impls
-	// // if (fs instanceof EndToEndFlow) {
-	// // final String name = fs.getName();
-	// // if (AadlUtil.findNamedElementInList(usedNames, name) != null) {
-	// // error(impl, "'" + name +
-	// "': identifier previously defined in component");
-	// // }
-	// // EList s = (EList) map.get(name);
-	// // if (s == null) {
-	// // s = new BasicEList();
-	// // map.put(name, s);
-	// // }
-	// // s.add(fs);
-	// // }
-	// // }
-	// // for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-	// // final String name = (String) i.next();
-	// // final EList s = (EList) map.get(name);
-	// // if (!AadlUtil.oncePerMode(s, impl.getAllMode())) {
-	// // error(impl, "End to End Flow " + name +
-	// " implemented more than once for a given mode");
-	// // }
-	// // }
-	// }
+	
+	/**
+	 * check for unique names in implementation
+	 */
+	public void checkComponentImplementationUniqueNames(ComponentImplementation impl) {
+		// process in core package
+		EList usedNames = new BasicEList();
+		usedNames.addAll(impl.getAllPrototypes());
+		usedNames.addAll(impl.getAllFeatures());
+		usedNames.addAll(impl.getAllSubcomponents());
+		usedNames.addAll(impl.getAllConnections());
+		usedNames.addAll(impl.getAllModes());
+		usedNames.addAll(impl.getAllModeTransitions());
+		usedNames.addAll(impl.getType().getAllFlowSpecifications());
+		usedNames.addAll( impl.getAllEndToEndFlows());
+		EList<SubprogramCallSequence> csl = null;
+		if (impl instanceof ThreadImplementation){
+			csl = ((ThreadImplementation)impl).getOwnedSubprogramCallSequences();
+		} else if (impl instanceof SubprogramImplementation){
+			csl = ((SubprogramImplementation)impl).getOwnedSubprogramCallSequences();
+		}
+		if (csl != null){
+			usedNames.addAll(csl);
+			for (SubprogramCallSequence subprogramCallSequence : csl) {
+				usedNames.addAll(subprogramCallSequence.getOwnedCallSpecifications());
+			}
+		}
+	
+		EList<NamedElement> doubles =
+				AadlUtil.findDoubleNamedElementsInList(usedNames);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(impl, "Identifier '" + ne.getName() +
+						"' has previously been defined in component implementation "
+						+ impl.getQualifiedName()+ " or its type.");
+			}
+		}
+	}
+
 
 	/*
 	 * supporting semantic check methods They can on the error reporter thus
