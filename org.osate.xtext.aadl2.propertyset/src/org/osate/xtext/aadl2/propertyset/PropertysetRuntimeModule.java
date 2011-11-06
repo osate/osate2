@@ -3,6 +3,9 @@
  */
 package org.osate.xtext.aadl2.propertyset;
 
+import org.eclipse.xtext.conversion.IValueConverterService;
+import org.osate.xtext.aadl2.propertyset.valueconversion.PropertysetValueConverter;
+
 /**
  * Use this class to register components to be used at runtime / without the Equinox extension registry.
  */
@@ -11,6 +14,10 @@ public class PropertysetRuntimeModule extends org.osate.xtext.aadl2.propertyset.
 	@Override
 	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
 		return org.osate.xtext.aadl2.propertyset.linking.PropertysetLinkingService.class;
+	}
+	@Override
+	public Class<? extends IValueConverterService> bindIValueConverterService() {
+	  return PropertysetValueConverter.class;
 	}
 	
 	@Override
