@@ -60,6 +60,7 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
@@ -71,6 +72,7 @@ import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Realization;
@@ -448,6 +450,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+	// enforced syntactically that all is by itself
+//	@Check(CheckType.FAST)
+//	public void caseProperty(final Property pdef) {
+//		// check whether all is the only/first element in applies to
+//		EList<MetaclassReference> mcl = pdef.getAppliesToMetaclasses();
+//		for (MetaclassReference metaclassReference : mcl) {
+//			if (metaclassReference.getMetaclassNames().size() > 0){
+//				if(metaclassReference.getMetaclassNames().get(0).equalsIgnoreCase("all")){
+//					if (mcl.size() > 1 || !pdef.getAppliesToClassifiers().isEmpty()){
+//						error(pdef, "applies to of property definition '"+pdef.getName()+"' must contain 'all' by itself.");
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+	
+	
 	/**
 	 * check for unique names in component type
 	 */
@@ -2348,65 +2369,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //
-//	/**
-//	 * Check constraints that property applies to the element it is associated
-//	 * with per Section 10.3:
-//	 *
-//	 * <blockquote>The property named by a property association must list the
-//	 * category of the component type, component implementation, subcomponent,
-//	 * feature, connection, flow, or mode the property association is declared
-//	 * for in its Property_Owner_Category list. </blockquote>
-//	 */
-//	private void checkAssociationAppliesTo(
-//		final NamedElement element,
-//		final PropertyAssociation pa) {
-//		final Property pn = pa.getProperty();
-//		final EList appliesTo = pa.getAppliesTos();
-//		if (appliesTo == null || appliesTo.size() == 0) {
-//			final boolean applies = element.acceptsProperty(pn);
-//			if (!applies) {
-//				error(pa,
-//						"Property "	+ pa.getProperty().getQualifiedName() +
-//						" only applies to " + unparseAppliesTo(pn));
-////				error(pa,
-////						"Property "	+ pa.getQualifiedName() +
-////						" does not apply to " + element.eClass().getName());
-//			}
-//		} else {
-//			// only the last value is interesting to us
-//			final NamedElement ph = (NamedElement) appliesTo.get(appliesTo.size()-1);
-//			final boolean applies = ph.acceptsProperty(pn);
-//			if (!applies) {
-//				error(pa,
-//						"Property " + pa.getProperty().getQualifiedName() +
-//						" does not apply to named subcomponent");
-//			}
-//		}
-//	}
-//
-//
-//
-//	private static String unparseAppliesTo(final Property pd) {
-//		final StringBuffer sb = new StringBuffer();
-//		final EList at = pd.getAppliesTos();
-//		for (final Iterator it = at.iterator(); it.hasNext();) {
-//			final PropertyOwner pc = (PropertyOwner) it.next();
-//			sb.append(pc.getUnparseName());
-//			if (it.hasNext()) sb.append(", ");
-//		}
-//		final EList el = pd.getAppliesToClassifier();
-//		for (final Iterator it = el.iterator(); it.hasNext();) {
-//			final ClassifierValue cv = (ClassifierValue) it.next();
-//			sb.append(", ");
-//			final String qn = cv.getClassifier().getQualifiedName();
-//			if (qn != null && qn.length() > 0) {
-//				sb.append(qn);
-//			}
-//		}
-//		return sb.toString();
-//	}
-//
-//	// XXX: End of check methods marker.
 
 	private static FeatureType getFeatureType(Feature feature) {
 		if (feature instanceof DataPort) {

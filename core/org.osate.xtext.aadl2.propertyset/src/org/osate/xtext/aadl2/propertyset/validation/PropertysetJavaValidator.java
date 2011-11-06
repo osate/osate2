@@ -7,7 +7,9 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
  
@@ -40,5 +42,21 @@ public class PropertysetJavaValidator extends AbstractPropertysetJavaValidator {
 			}
 		}
 	}
+
+	// enforced syntactically that all is by itself
+//	@Check(CheckType.FAST)
+//	public void caseProperty(final Property pdef) {
+//		// check whether all is the only/first element in applies to
+//		EList<MetaclassReference> mcl = pdef.getAppliesToMetaclasses();
+//		for (MetaclassReference metaclassReference : mcl) {
+//			if (metaclassReference.getMetaclassNames().size() > 0){
+//				if(metaclassReference.getMetaclassNames().get(0).equalsIgnoreCase("all")){
+//					if (mcl.size() > 1 || !pdef.getAppliesToClassifiers().isEmpty()){
+//						error(pdef, "applies to of property definition '"+pdef.getName()+"' must contain 'all' by itself.");
+//					}
+//				}
+//			}
+//		}
+//	}
 
 }

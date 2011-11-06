@@ -5,25 +5,34 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
@@ -33,6 +42,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RangeType;
@@ -43,6 +53,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.util.Aadl2Util;
@@ -178,6 +189,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 	
 	protected void checkPropertyAssociation(PropertyAssociation pa){
+		// type check value against type
 		Property pdef = pa.getProperty();
 		if (Aadl2Util.isNull(pdef)) return;
 		PropertyType pt = pdef.getPropertyType();
@@ -186,6 +198,59 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue());
 		}
+		// check applies to
+		NamedElement owner = (NamedElement)pa.getOwner();
+		checkAssociationAppliesTo(owner, pa);
+	}
+
+	/**
+	 * Check constraints that property applies to the element it is associated
+	 * with per Section 10.3:
+	 *
+	 * <blockquote>The property named by a property association must list the
+	 * category of the component type, component implementation, subcomponent,
+	 * feature, connection, flow, or mode the property association is declared
+	 * for in its Property_Owner_Category list. </blockquote>
+	 */
+	private void checkAssociationAppliesTo(
+		final NamedElement element,
+		final PropertyAssociation pa) {
+		final Property pn = pa.getProperty();
+		final EList<ContainedNamedElement> appliesTo = pa.getAppliesTos();
+		if (appliesTo == null || appliesTo.size() == 0) {
+			final boolean applies = element.acceptsProperty(pn);
+			if (!applies) {
+				error(pa,
+						"Property "	+ pa.getProperty().getQualifiedName() +
+						" does not apply to " + element.getName());
+//				error(pa,
+//						"Property "	+ pa.getQualifiedName() +
+//						" does not apply to " + element.eClass().getName());
+			}
+		} else {
+			for (ContainedNamedElement cna : appliesTo){
+				EList<ContainmentPathElement> path = cna.getContainmentPathElements();
+				// only the last value is interesting to us
+				final ContainmentPathElement ph = (ContainmentPathElement) path.get(path.size()-1);
+				final boolean applies = ph.getNamedElement().acceptsProperty(pn);
+				if (!applies) {
+					error(pa,
+							"Property " + pa.getProperty().getQualifiedName() +
+							" does not apply to "+unparseAppliesTo(cna));
+				}
+			}
+		}
+	}
+
+	private static String unparseAppliesTo(final ContainedNamedElement cna){
+		final StringBuffer sb = new StringBuffer();
+		EList<ContainmentPathElement> path = cna.getContainmentPathElements();
+		for (final Iterator it = path.iterator(); it.hasNext();) {
+			final ContainmentPathElement pc = (ContainmentPathElement) it.next();
+			sb.append(pc.getNamedElement().getName());
+			if (it.hasNext()) sb.append(".");
+		}
+		return sb.toString();
 	}
 
 	
