@@ -1560,17 +1560,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ((ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection?) | ownedPrivateSection=PrivatePackageSection) 
 	 *         ownedPropertyAssociation+=BasicPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    ownedPublicSection[0, 1]
-	 *         MANDATORY_IF_SET ownedPrivateSection
-	 *         EXCLUDE_IF_SET ownedPrivateSection
-	 *    ownedPrivateSection[0, 2]
 	 */
 	protected void sequence_AadlPackage(EObject context, AadlPackage semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1583,19 +1575,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[0, 1]
-	 *    featureClassifier[0, 1]
 	 */
 	protected void sequence_AbstractFeature(EObject context, AbstractFeature semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1628,81 +1610,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         )? 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDeviceSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSystemSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_AbstractImplementation(EObject context, AbstractImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_AbstractPrototype(EObject context, AbstractPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1718,27 +1637,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET abstractSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    abstractSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_AbstractSubcomponent(EObject context, AbstractSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1763,49 +1664,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_AbstractType(EObject context, AbstractType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1819,86 +1680,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET accessCategory
-	 *         MANDATORY_IF_SET accessCategory
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET accessCategory
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    destination[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET accessCategory
-	 *         MANDATORY_IF_SET accessCategory
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET accessCategory
-	 *    source[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET accessCategory
-	 *         MANDATORY_IF_SET accessCategory
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET accessCategory
-	 *    bidirectional[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_UNSET accessCategory
-	 *         EXCLUDE_IF_UNSET source
-	 *         EXCLUDE_IF_UNSET destination
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET accessCategory
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_UNSET accessCategory
-	 *         MANDATORY_IF_SET accessCategory
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET accessCategory
-	 *         EXCLUDE_IF_SET source
-	 *         EXCLUDE_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET destination
-	 *    accessCategory[0, 2]
 	 */
 	protected void sequence_AccessConnection(EObject context, AccessConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (kind=AccessDirection category=AccessCategory classifier=[ComponentClassifier|QCREF]?)
-	 *
-	 * Features:
-	 *    kind[1, 1]
-	 *    category[1, 1]
-	 *    classifier[0, 1]
 	 */
 	protected void sequence_AccessSpecification(EObject context, AccessSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*)
-	 *
-	 * Features:
-	 *    op[1, *]
-	 *    ownedPropertyExpression[2, *]
 	 */
 	protected void sequence_ActualAndTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1909,38 +1711,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*) | 
 	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, *]
-	 *    ownedPropertyExpression[0, *]
 	 */
 	protected void sequence_ActualBooleanTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*)
-	 *
-	 * Features:
-	 *    op[1, *]
-	 *    ownedPropertyExpression[2, *]
 	 */
 	protected void sequence_ActualOrTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     metaclassName+='all'
-	 *
-	 * Features:
-	 *    metaclassName[1, 1]
 	 */
 	protected void sequence_AllReference(EObject context, MetaclassReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1951,63 +1742,45 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
 	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, 3]
-	 *    ownedPropertyExpression[0, 5]
 	 */
 	protected void sequence_AndTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (size=ArraySize?)
-	 *
-	 * Features:
-	 *    size[0, 1]
 	 */
 	protected void sequence_ArrayDimension(EObject context, ArrayDimension semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
-	 *
-	 * Features:
-	 *    lowerBound[1, 1]
-	 *    upperBound[0, 1]
 	 */
 	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     size=INTVALUE
-	 *
-	 * Features:
-	 *    size[1, 1]
 	 */
 	protected void sequence_ArraySize(EObject context, ArraySize semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2018,37 +1791,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm) | 
 	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, 3]
-	 *    ownedPropertyExpression[0, 5]
 	 */
 	protected void sequence_BooleanAtom(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value?='true'?)
-	 *
-	 * Features:
-	 *    value[0, 1]
 	 */
 	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_BooleanType(EObject context, AadlBoolean semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2061,19 +1824,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    kind[1, 1]
-	 *    busFeatureClassifier[0, 1]
 	 */
 	protected void sequence_BusAccess(EObject context, BusAccess semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2087,41 +1840,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_BusImplementation(EObject context, BusImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_BusPrototype(EObject context, BusPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2137,27 +1867,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET busSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    busSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_BusSubcomponent(EObject context, BusSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2179,68 +1891,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_BusType(EObject context, BusType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID? category=ComponentCategory renamedComponentType=[ComponentType|QCREF])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *    category[1, 1]
-	 *    renamedComponentType[1, 1]
 	 */
 	protected void sequence_CTRename(EObject context, ComponentTypeRename semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID subprogramAccessName=ID ownedPropertyAssociation+=PropertyAssociation*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    subprogramAccessName[1, 1]
 	 */
 	protected void sequence_CallSpecification(EObject context, ProcessorCall semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2251,56 +1922,36 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ((context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | calledSubprogram=[CalledSubprogram|PNAME]) 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    calledSubprogram[0, 2]
-	 *    context[0, 1]
-	 *         EXCLUDE_IF_UNSET calledSubprogram
-	 *         MANDATORY_IF_SET calledSubprogram
-	 *         EXCLUDE_IF_SET calledSubprogram
 	 */
 	protected void sequence_CallSpecification(EObject context, SubprogramCall semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID (classifierReference+=QMReference classifierReference+=QMReference*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    classifierReference[0, *]
 	 */
 	protected void sequence_ClassifierType(EObject context, ClassifierType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|QCREF]
-	 *
-	 * Features:
-	 *    classifier[1, 1]
 	 */
 	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (implementation=[ComponentImplementation|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)
-	 *
-	 * Features:
-	 *    implementation[1, 1]
-	 *    ownedPrototypeBinding[0, *]
 	 */
 	protected void sequence_ComponentImplementationReference(EObject context, ComponentImplementationReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2347,101 +1998,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDeviceSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSystemSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, AbstractImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2469,61 +2028,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, BusImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2554,64 +2061,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, DataImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2647,67 +2099,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, DeviceImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2738,64 +2132,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, MemoryImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2833,73 +2172,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, ProcessImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2936,70 +2211,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, ProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3034,64 +2248,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3120,65 +2279,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, SubprogramImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3222,91 +2325,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDeviceSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSystemSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, SystemImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3344,73 +2365,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, ThreadGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3447,71 +2404,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, ThreadImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3539,61 +2434,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, VirtualBusImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3628,91 +2471,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowImplementation
-	 *         EXCLUDE_IF_SET ownedEndToEndFlow
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowImplementation[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedEndToEndFlow[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedAccessConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedParameterConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedPortConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    ownedFeatureGroupConnection[0, *]
-	 *         EXCLUDE_IF_SET noConnections
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *    noConnections[0, 1]
-	 *         EXCLUDE_IF_SET ownedPortConnection
-	 *         EXCLUDE_IF_SET ownedAccessConnection
-	 *         EXCLUDE_IF_SET ownedFeatureGroupConnection
-	 *         EXCLUDE_IF_SET ownedFeatureConnection
-	 *         EXCLUDE_IF_SET ownedParameterConnection
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ComponentImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (formal=[Prototype|ID] (actual+=ComponentReference | (actual+=ComponentReference actual+=ComponentReference*)))
-	 *
-	 * Features:
-	 *    formal[1, 1]
-	 *    actual[0, *]
 	 */
 	protected void sequence_ComponentPrototypeBinding(EObject context, ComponentPrototypeBinding semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (category=ComponentCategory subcomponentType=[SubcomponentType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
-	 *
-	 * Features:
-	 *    category[1, 1]
-	 *    binding[0, *]
-	 *    subcomponentType[1, 1]
 	 */
 	protected void sequence_ComponentReference(EObject context, ComponentPrototypeActual semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3741,67 +2520,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, AbstractType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3827,58 +2548,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, BusType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3902,52 +2574,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, DataType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3975,64 +2604,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, DeviceType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4058,58 +2632,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, MemoryType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4137,64 +2662,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, ProcessType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4222,64 +2692,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, ProcessorType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4303,52 +2718,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, SubprogramGroupType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4376,64 +2748,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedParameter
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedParameter[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, SubprogramType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4462,67 +2779,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, SystemType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4550,64 +2809,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, ThreadGroupType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4635,64 +2839,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, ThreadType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4717,55 +2866,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, VirtualBusType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4792,122 +2895,54 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    ownedMode[0, *]
-	 *         EXCLUDE_IF_SET noModes
-	 *    ownedModeTransition[0, *]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET noModes
-	 *    noFlows[0, 1]
-	 *         EXCLUDE_IF_SET ownedFlowSpecification
-	 *    noModes[0, 1]
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedMode
-	 *         EXCLUDE_IF_SET ownedModeTransition
-	 *    ownedFlowSpecification[0, *]
-	 *         EXCLUDE_IF_SET noFlows
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ComponentType(EObject context, VirtualProcessorType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     function=ID
-	 *
-	 * Features:
-	 *    function[1, 1]
 	 */
 	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID])
-	 *
-	 * Features:
-	 *    context[0, 1]
-	 *    connectionEnd[1, 1]
 	 */
 	protected void sequence_ConnectedElement(EObject context, ConnectedElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     flowElement=[Connection|ID]
-	 *
-	 * Features:
-	 *    flowElement[1, 1]
 	 */
 	protected void sequence_ConnectionFlow(EObject context, FlowSegment semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
-	 *
-	 * Features:
-	 *    namedValue[0, 2]
 	 */
 	protected void sequence_ConstantPropertyExpression(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     namedValue=[PropertyConstant|QPREF]
-	 *
-	 * Features:
-	 *    namedValue[1, 1]
 	 */
 	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4920,43 +2955,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *     )
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    appliesTo[0, *]
-	 *    append[0, 1]
-	 *    constant[0, 1]
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((namedElement=[NamedElement|ID] arrayRange+=ArrayRange?) | namedElement=[NamedElement|ANNEXREF])
-	 *
-	 * Features:
-	 *    arrayRange[0, 1]
-	 *         EXCLUDE_IF_UNSET namedElement
-	 *         EXCLUDE_IF_SET namedElement
-	 *    namedElement[0, 2]
 	 */
 	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 *
-	 * Features:
-	 *    containmentPathElement[1, *]
 	 */
 	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4969,19 +2988,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    kind[1, 1]
-	 *    dataFeatureClassifier[0, 1]
 	 */
 	protected void sequence_DataAccess(EObject context, DataAccess semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4998,29 +3007,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_DataImplementation(EObject context, DataImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5033,34 +3022,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[1, 1]
-	 *    dataFeatureClassifier[0, 1]
 	 */
 	protected void sequence_DataPort(EObject context, DataPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_DataPrototype(EObject context, DataPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5076,27 +3049,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET dataSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    dataSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_DataSubcomponent(EObject context, DataSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5116,60 +3071,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_DataType(EObject context, DataType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID sourceText=ANNEXTEXT)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    sourceText[1, 1]
 	 */
 	protected void sequence_DefaultAnnexLibrary(EObject context, DefaultAnnexLibrary semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID sourceText=ANNEXTEXT)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    sourceText[1, 1]
 	 */
 	protected void sequence_DefaultAnnexSubclause(EObject context, DefaultAnnexSubclause semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5191,47 +3113,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_DeviceImplementation(EObject context, DeviceImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_DevicePrototype(EObject context, DevicePrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5247,27 +3140,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET deviceSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    deviceSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_DeviceSubcomponent(EObject context, DeviceSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5291,71 +3166,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_DeviceType(EObject context, DeviceType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     flowElement=[Connection|ID]
-	 *
-	 * Features:
-	 *    flowElement[1, 1]
 	 */
 	protected void sequence_ETEConnectionFlow(EObject context, EndToEndFlowSegment semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (context=[Subcomponent|ID]? flowElement=[EndToEndFlowElement|ID])
-	 *
-	 * Features:
-	 *    flowElement[1, 1]
-	 *    context[0, 1]
 	 */
 	protected void sequence_ETESubcomponentFlow(EObject context, EndToEndFlowSegment semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5373,55 +3204,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
-	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
-	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
-	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
-	 *         EXCLUDE_IF_UNSET ownedEndToEndFlowSegment
-	 *         MANDATORY_IF_SET ownedEndToEndFlowSegment
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
-	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
-	 *         EXCLUDE_IF_SET ownedEndToEndFlowSegment
-	 *    ownedEndToEndFlowSegment[0, *]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_SET refined
 	 */
 	protected void sequence_EndToEndFlow(EObject context, EndToEndFlow semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_EnumerationLiteral(EObject context, EnumerationLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedLiteral[1, *]
 	 */
 	protected void sequence_EnumerationType(EObject context, EnumerationType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5434,19 +3237,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[1, 1]
-	 *    dataFeatureClassifier[0, 1]
 	 */
 	protected void sequence_EventDataPort(EObject context, EventDataPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5458,31 +3251,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[1, 1]
 	 */
 	protected void sequence_EventPort(EObject context, EventPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID? renamedFeatureGroupType=[FeatureGroupType|QCREF])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *    renamedFeatureGroupType[1, 1]
 	 */
 	protected void sequence_FGTRename(EObject context, FeatureGroupTypeRename semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5493,44 +3273,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    destination[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET refined
-	 *    source[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    bidirectional[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         EXCLUDE_IF_UNSET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET source
-	 *         EXCLUDE_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET destination
 	 */
 	protected void sequence_FeatureConnection(EObject context, FeatureConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5541,86 +3286,36 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    destination[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET refined
-	 *    source[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    bidirectional[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         EXCLUDE_IF_UNSET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET source
-	 *         EXCLUDE_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET destination
 	 */
 	protected void sequence_FeatureGroupConnection(EObject context, FeatureGroupConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (featureType=[FeatureType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
-	 *
-	 * Features:
-	 *    binding[0, *]
-	 *    featureType[1, 1]
 	 */
 	protected void sequence_FeatureGroupPrototypeActual(EObject context, FeatureGroupPrototypeActual semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (formal=[Prototype|ID] actual=FeatureGroupPrototypeActual)
-	 *
-	 * Features:
-	 *    formal[1, 1]
-	 *    actual[1, 1]
 	 */
 	protected void sequence_FeatureGroupPrototypeBinding(EObject context, FeatureGroupPrototypeBinding semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) constrainingFeatureGroupType=[FeatureGroupType|QCREF]?)
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    constrainingFeatureGroupType[0, 1]
 	 */
 	protected void sequence_FeatureGroupPrototype(EObject context, FeatureGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5645,36 +3340,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
 	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *         EXCLUDE_IF_SET noProperties
-	 *    ownedAnnexSubclause[0, *]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    noProperties[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyAssociation
-	 *    inverse[0, 1]
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedBusAccess[0, *]
-	 *    ownedDataAccess[0, *]
-	 *    ownedDataPort[0, *]
-	 *    ownedEventDataPort[0, *]
-	 *    ownedEventPort[0, *]
-	 *    ownedFeatureGroup[0, *]
-	 *    ownedSubprogramAccess[0, *]
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *    ownedAbstractFeature[0, *]
 	 */
 	protected void sequence_FeatureGroupType(EObject context, FeatureGroupType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5688,89 +3356,54 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[0, 1]
-	 *    inverse[0, 1]
-	 *    featureType[1, 1]
 	 */
 	protected void sequence_FeatureGroup(EObject context, FeatureGroup semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (formal=[Prototype|ID] (actual=PortSpecification | actual=AccessSpecification | actual=FeaturePrototypeReference))
-	 *
-	 * Features:
-	 *    formal[1, 1]
-	 *    actual[0, 3]
 	 */
 	protected void sequence_FeaturePrototypeBinding(EObject context, FeaturePrototypeBinding semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (direction=InOutDirection prototype=[FeaturePrototype|ID])
-	 *
-	 * Features:
-	 *    direction[1, 1]
-	 *    prototype[1, 1]
 	 */
 	protected void sequence_FeaturePrototypeReference(EObject context, FeaturePrototypeReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((name=ID | refined=[FeaturePrototype|REFINEDNAME]) direction=InOutDirection? constrainingClassifier=[ComponentClassifier|QCREF]?)
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_FeaturePrototype(EObject context, FeaturePrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (context=[Context|ID]? feature=[Feature|ID])
-	 *
-	 * Features:
-	 *    context[0, 1]
-	 *    feature[1, 1]
 	 */
 	protected void sequence_FlowEnd(EObject context, FlowEnd semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5788,15 +3421,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ) 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    inModeOrTransition[0, *]
-	 *    kind[0, 3]
-	 *    specification[0, 3]
-	 *    ownedFlowSegment[0, *]
 	 */
 	protected void sequence_FlowImplementation(EObject context, FlowImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5807,98 +3434,63 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         kind=FlowPath 
 	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
 	 *     )
-	 *
-	 * Features:
-	 *    kind[1, 1]
-	 *    specification[1, 1]
-	 *    ownedFlowSegment[0, *]
 	 */
 	protected void sequence_FlowPathImpl(EObject context, FlowImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    kind[1, 1]
-	 *    outEnd[1, 1]
-	 *    InEnd[1, 1]
 	 */
 	protected void sequence_FlowPathSpec(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*)
-	 *
-	 * Features:
-	 *    kind[1, 1]
-	 *    specification[1, 1]
-	 *    ownedFlowSegment[0, *]
 	 */
 	protected void sequence_FlowSinkImpl(EObject context, FlowImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID kind=FlowSink InEnd=FlowEnd)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    kind[1, 1]
-	 *    InEnd[1, 1]
 	 */
 	protected void sequence_FlowSinkSpec(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*)
-	 *
-	 * Features:
-	 *    kind[1, 1]
-	 *    specification[1, 1]
-	 *    ownedFlowSegment[0, *]
 	 */
 	protected void sequence_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID kind=FlowSource outEnd=FlowEnd)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    kind[1, 1]
-	 *    outEnd[1, 1]
 	 */
 	protected void sequence_FlowSourceSpec(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
-	 *
-	 * Features:
-	 *    refined[1, 1]
-	 *    kind[1, 1]
 	 */
 	protected void sequence_FlowSpecRefinement(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5914,78 +3506,36 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 3]
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET kind
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_UNSET kind
-	 *         MANDATORY_IF_SET kind
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET kind
-	 *         EXCLUDE_IF_SET outEnd
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET kind
-	 *         EXCLUDE_IF_SET InEnd
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET kind
-	 *         EXCLUDE_IF_SET InEnd
-	 *         EXCLUDE_IF_SET outEnd
-	 *    kind[0, 4]
-	 *    outEnd[0, 2]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET kind
-	 *         EXCLUDE_IF_SET InEnd
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET kind
-	 *    InEnd[0, 2]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET kind
-	 *         EXCLUDE_IF_SET outEnd
-	 *         EXCLUDE_IF_SET refined
-	 *         EXCLUDE_IF_SET kind
 	 */
 	protected void sequence_FlowSpecification(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     extended=[FeatureGroupType|QCREF]
-	 *
-	 * Features:
-	 *    extended[1, 1]
 	 */
 	protected void sequence_GroupExtension(EObject context, GroupExtension semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     extended=[ComponentImplementation|QCREF]
-	 *
-	 * Features:
-	 *    extended[1, 1]
 	 */
 	protected void sequence_ImplementationExtension(EObject context, ImplementationExtension semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     value=SignedInt
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_IntegerLit(EObject context, IntegerLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -5995,94 +3545,63 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (lowerBound=IntegerTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
 	 *         (upperBound=IntegerTerm | upperBound=SignedConstant | upperBound=ConstantValue)
 	 *     )
-	 *
-	 * Features:
-	 *    upperBound[0, 3]
-	 *    lowerBound[0, 3]
 	 */
 	protected void sequence_IntegerRange(EObject context, NumericRange semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
-	 *
-	 * Features:
-	 *    unit[0, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedUnitsType[0, 1]
-	 *         EXCLUDE_IF_SET unitsType
-	 *    unitsType[0, 1]
-	 *         EXCLUDE_IF_SET ownedUnitsType
-	 *    range[0, 1]
 	 */
 	protected void sequence_IntegerType(EObject context, AadlInteger semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_InternalEventPort(EObject context, InternalEvent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
-	 *
-	 * Features:
-	 *    ownedListElement[1, *]
 	 */
 	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (elementType=[PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
-	 *
-	 * Features:
-	 *    ownedElementType[0, 1]
-	 *         EXCLUDE_IF_SET elementType
-	 *    elementType[0, 1]
-	 *         EXCLUDE_IF_SET ownedElementType
 	 */
 	protected void sequence_ListType(EObject context, ListType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     namedValue=[AbstractNamedValue|QPREF]
-	 *
-	 * Features:
-	 *    namedValue[1, 1]
 	 */
 	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6099,44 +3618,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_MemoryImplementation(EObject context, MemoryImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_MemoryPrototype(EObject context, MemoryPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6152,27 +3645,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET memorySubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    memorySubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_MemorySubcomponent(EObject context, MemorySubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6194,66 +3669,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_MemoryType(EObject context, MemoryType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
-	 *
-	 * Features:
-	 *    inMode[1, *]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (parentMode=[Mode|ID] derivedMode=[Mode|ID]?)
-	 *
-	 * Features:
-	 *    parentMode[1, 1]
-	 *    derivedMode[0, 1]
 	 */
 	protected void sequence_ModeRef(EObject context, ModeBinding semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6267,57 +3703,36 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         destination=[Mode|ID] 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    source[1, 1]
-	 *    destination[1, 1]
-	 *    ownedTrigger[1, *]
 	 */
 	protected void sequence_ModeTransition(EObject context, ModeTransition semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID initial?='initial'? ownedPropertyAssociation+=PropertyAssociation*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    initial[0, 1]
 	 */
 	protected void sequence_Mode(EObject context, Mode semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (op=NotOp ownedPropertyExpression+=BooleanAtom)
-	 *
-	 * Features:
-	 *    op[1, 1]
-	 *    ownedPropertyExpression[1, 1]
 	 */
 	protected void sequence_NotTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
-	 *
-	 * Features:
-	 *    minimum[1, 1]
-	 *    maximum[1, 1]
-	 *    delta[0, 1]
 	 */
 	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6339,43 +3754,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
 	 *         )
 	 *     )
-	 *
-	 * Features:
-	 *    property[0, 3]
-	 *    appliesTo[0, *]
-	 *         EXCLUDE_IF_UNSET property
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET append
-	 *         EXCLUDE_IF_SET constant
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    append[0, 2]
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    constant[0, 2]
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_PModel(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID renamedPackage=[AadlPackage|PNAME] renameAll?='all'?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    renamedPackage[1, 1]
-	 *    renameAll[0, 1]
 	 */
 	protected void sequence_PackageRename(EObject context, PackageRename semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6386,35 +3776,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    destination[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         EXCLUDE_IF_SET refined
-	 *    source[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET source
-	 *         EXCLUDE_IF_SET destination
 	 */
 	protected void sequence_ParameterConnection(EObject context, ParameterConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6427,19 +3791,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[1, 1]
-	 *    dataFeatureClassifier[0, 1]
 	 */
 	protected void sequence_Parameter(EObject context, Parameter semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6450,58 +3804,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    inModeOrTransition[0, *]
-	 *    destination[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         MANDATORY_IF_SET source
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET refined
-	 *    source[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         MANDATORY_IF_SET name
-	 *         MANDATORY_IF_SET bidirectional
-	 *         EXCLUDE_IF_UNSET destination
-	 *         MANDATORY_IF_SET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    bidirectional[0, 1]
-	 *         EXCLUDE_IF_UNSET name
-	 *         EXCLUDE_IF_UNSET source
-	 *         EXCLUDE_IF_UNSET destination
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *         EXCLUDE_IF_SET source
-	 *         EXCLUDE_IF_SET bidirectional
-	 *         EXCLUDE_IF_SET destination
 	 */
 	protected void sequence_PortConnection(EObject context, PortConnection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (direction=PortDirection category=PortCategory classifier=[ComponentClassifier|QCREF]?)
-	 *
-	 * Features:
-	 *    direction[1, 1]
-	 *    category[1, 1]
-	 *    classifier[0, 1]
 	 */
 	protected void sequence_PortSpecification(EObject context, PortSpecification semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6516,17 +3830,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         )* 
 	 *         (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
 	 *     )
-	 *
-	 * Features:
-	 *    ownedPackageRename[0, *]
-	 *    ownedComponentTypeRename[0, *]
-	 *    ownedClassifier[0, *]
-	 *    ownedFeatureGroupTypeRename[0, *]
-	 *    ownedAnnexLibrary[0, *]
-	 *    importedUnit[0, *]
 	 */
 	protected void sequence_PrivatePackageSection(EObject context, PrivatePackageSection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6550,53 +3856,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ProcessImplementation(EObject context, ProcessImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_ProcessPrototype(EObject context, ProcessPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6612,27 +3883,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET processSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    processSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_ProcessSubcomponent(EObject context, ProcessSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6656,46 +3909,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ProcessType(EObject context, ProcessType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6718,62 +3934,27 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ProcessorImplementation(EObject context, ProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_ProcessorPort(EObject context, ProcessorPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_ProcessorPrototype(EObject context, ProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6792,39 +3973,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET processorSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    processorSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_ProcessorSubcomponent(EObject context, ProcessorSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_ProcessorSubprogram(EObject context, ProcessorSubprogram semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6848,46 +4008,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ProcessorType(EObject context, ProcessorType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6899,32 +4022,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         constant?='constant'? 
 	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
 	 *     )
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    append[0, 1]
-	 *    constant[0, 1]
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    propertyType[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyType
-	 *    ownedPropertyType[0, 1]
-	 *         EXCLUDE_IF_SET propertyType
-	 *    constantValue[1, 1]
 	 */
 	protected void sequence_PropertyConstant(EObject context, PropertyConstant semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6937,31 +4046,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         defaultValue=PropertyExpression? 
 	 *         ((appliesTo+=PropertyOwner appliesTo+=PropertyOwner*) | appliesTo+=AllReference)
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    propertyType[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyType
-	 *    ownedPropertyType[0, 1]
-	 *         EXCLUDE_IF_SET propertyType
-	 *    inherit[0, 1]
-	 *    defaultValue[0, 1]
-	 *    appliesTo[0, *]
 	 */
 	protected void sequence_PropertyDefinition(EObject context, Property semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
-	 *
-	 * Features:
-	 *    namedValue[0, 2]
 	 */
 	protected void sequence_PropertyExpression(EObject context, NamedValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -6972,28 +4068,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (importedUnit+=[PropertySet|ID] importedUnit+=[PropertySet|ID]*)* 
 	 *         (ownedPropertyType+=PropertyType | ownedProperty+=PropertyDefinition | ownedPropertyConstant+=PropertyConstant)*
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyType[0, *]
-	 *    ownedProperty[0, *]
-	 *    ownedPropertyConstant[0, *]
-	 *    importedUnit[0, *]
 	 */
 	protected void sequence_PropertySet(EObject context, PropertySet semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ownedValue=PropertyExpression
-	 *
-	 * Features:
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7005,18 +4091,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, AbstractPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7028,18 +4105,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, BusPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7051,18 +4119,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, DataPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7074,18 +4133,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, DevicePrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7096,17 +4146,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         constrainingFeatureGroupType=[FeatureGroupType|QCREF]? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    constrainingFeatureGroupType[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, FeatureGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7118,18 +4160,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    direction[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, FeaturePrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7141,18 +4174,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, MemoryPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7164,18 +4188,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, ProcessPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7187,18 +4202,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, ProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7210,18 +4216,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, SubprogramGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7233,18 +4230,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, SubprogramPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7256,18 +4244,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, SystemPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7279,18 +4258,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, ThreadGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7302,18 +4272,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, ThreadPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7325,18 +4286,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, VirtualBusPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7348,18 +4300,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         array?='['? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    array[0, 1]
-	 *    constrainingClassifier[0, 1]
 	 */
 	protected void sequence_Prototype(EObject context, VirtualProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7374,71 +4317,45 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         )* 
 	 *         (ownedClassifier+=Classifier | ownedAnnexLibrary+=AnnexLibrary)*
 	 *     )
-	 *
-	 * Features:
-	 *    ownedPackageRename[0, *]
-	 *    ownedComponentTypeRename[0, *]
-	 *    ownedClassifier[0, *]
-	 *    ownedFeatureGroupTypeRename[0, *]
-	 *    ownedAnnexLibrary[0, *]
-	 *    importedUnit[0, *]
 	 */
 	protected void sequence_PublicPackageSection(EObject context, PublicPackageSection semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|QCREF]
-	 *
-	 * Features:
-	 *    classifier[1, 1]
 	 */
 	protected void sequence_QCReference(EObject context, ClassifierValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (annexName=ID? (metaclassName+=CoreKeyWord | metaclassName+=ID)+)
-	 *
-	 * Features:
-	 *    annexName[0, 1]
-	 *    metaclassName[0, *]
 	 */
 	protected void sequence_QMReference(EObject context, MetaclassReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF]))
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedNumberType[0, 2]
-	 *         EXCLUDE_IF_SET numberType
-	 *    numberType[0, 1]
-	 *         EXCLUDE_IF_SET ownedNumberType
-	 *         EXCLUDE_IF_SET ownedNumberType
 	 */
 	protected void sequence_RangeType(EObject context, RangeType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     value=SignedReal
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_RealLit(EObject context, RealLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7448,186 +4365,126 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (lowerBound=RealTerm | lowerBound=SignedConstant | lowerBound=ConstantValue) 
 	 *         (upperBound=RealTerm | upperBound=SignedConstant | upperBound=ConstantValue)
 	 *     )
-	 *
-	 * Features:
-	 *    upperBound[0, 3]
-	 *    lowerBound[0, 3]
 	 */
 	protected void sequence_RealRange(EObject context, NumericRange semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
-	 *
-	 * Features:
-	 *    unit[0, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID range=RealRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedUnitsType[0, 1]
-	 *         EXCLUDE_IF_SET unitsType
-	 *    unitsType[0, 1]
-	 *         EXCLUDE_IF_SET ownedUnitsType
-	 *    range[0, 1]
 	 */
 	protected void sequence_RealType(EObject context, AadlReal semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     implemented=[SystemType|ID]
-	 *
-	 * Features:
-	 *    implemented[1, 1]
 	 */
 	protected void sequence_Realization(EObject context, Realization semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType))
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    propertyType[0, 1]
-	 *         EXCLUDE_IF_SET ownedPropertyType
-	 *    ownedPropertyType[0, 1]
-	 *         EXCLUDE_IF_SET propertyType
 	 */
 	protected void sequence_RecordField(EObject context, BasicProperty semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
-	 *
-	 * Features:
-	 *    ownedFieldValue[1, *]
 	 */
 	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID ownedField+=RecordField+)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedField[1, *]
 	 */
 	protected void sequence_RecordType(EObject context, RecordType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 *
-	 * Features:
-	 *    containmentPathElement[1, *]
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    namedElementReference[0, *]
 	 */
 	protected void sequence_ReferenceType(EObject context, ReferenceType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID initial?='initial'? derived?='mode' ownedPropertyAssociation+=PropertyAssociation*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    initial[0, 1]
-	 *    derived[1, 1]
 	 */
 	protected void sequence_RequiresMode(EObject context, Mode semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
-	 *
-	 * Features:
-	 *    op[1, 1]
-	 *    ownedPropertyExpression[1, 1]
 	 */
 	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     value=NoQuoteString
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
-		superSequencer.createSequence(context, semanticObject);
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_StringType(EObject context, AadlString semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (context=[Subcomponent|ID]? flowElement=[FlowElement|ID])
-	 *
-	 * Features:
-	 *    flowElement[1, 1]
-	 *    context[0, 1]
 	 */
 	protected void sequence_SubcomponentFlow(EObject context, FlowSegment semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7640,34 +4497,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    kind[1, 1]
-	 *    subprogramFeatureClassifier[0, 1]
 	 */
 	protected void sequence_SubprogramAccess(EObject context, SubprogramAccess semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID ownedCallSpecification+=CallSpecification+ ownedPropertyAssociation+=PropertyAssociation* (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPropertyAssociation[0, *]
-	 *    inMode[0, *]
-	 *    ownedCallSpecification[1, *]
 	 */
 	protected void sequence_SubprogramCallSequence(EObject context, SubprogramCallSequence semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7680,19 +4521,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, 1]
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    kind[1, 1]
-	 *    subprogramGroupFeatureClassifier[0, 1]
 	 */
 	protected void sequence_SubprogramGroupAccess(EObject context, SubprogramGroupAccess semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7713,44 +4544,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_SubprogramGroupImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_SubprogramGroupPrototype(EObject context, SubprogramGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7769,27 +4574,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET subprogramGroupSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    subprogramGroupSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_SubprogramGroupSubcomponent(EObject context, SubprogramGroupSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7809,34 +4596,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_SubprogramGroupType(EObject context, SubprogramGroupType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7851,45 +4613,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?='none')? 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_SubprogramImplementation(EObject context, SubprogramImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_SubprogramPrototype(EObject context, SubprogramPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7908,27 +4643,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET subprogramSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    subprogramSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_SubprogramSubcomponent(EObject context, SubprogramSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -7952,46 +4669,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedParameter
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedParameter[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_SubprogramType(EObject context, SubprogramType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8021,71 +4701,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSystemSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessSubcomponent
-	 *         EXCLUDE_IF_SET ownedProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *         EXCLUDE_IF_SET ownedMemorySubcomponent
-	 *         EXCLUDE_IF_SET ownedDeviceSubcomponent
-	 *         EXCLUDE_IF_SET ownedBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    ownedBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDeviceSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedMemorySubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSystemSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_SystemImplementation(EObject context, SystemImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_SystemPrototype(EObject context, SystemPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8101,27 +4728,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET systemSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    systemSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_SystemSubcomponent(EObject context, SystemSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8146,49 +4755,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noFeatures?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedBusAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedBusAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_SystemType(EObject context, SystemType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8212,53 +4781,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedThreadGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedThreadSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedThreadGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ThreadGroupImplementation(EObject context, ThreadGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_ThreadGroupPrototype(EObject context, ThreadGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8277,27 +4811,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET threadGroupSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    threadGroupSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_ThreadGroupSubcomponent(EObject context, ThreadGroupSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8321,46 +4837,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ThreadGroupType(EObject context, ThreadGroupType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8383,51 +4862,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         )? 
 	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramSubcomponent
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupSubcomponent
-	 *         EXCLUDE_IF_SET ownedDataSubcomponent
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *    noCalls[0, 1]
-	 *         EXCLUDE_IF_SET ownedSubprogramCallSequence
-	 *    ownedSubprogramCallSequence[0, *]
-	 *         EXCLUDE_IF_SET noCalls
-	 *    ownedSubprogramGroupSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedSubprogramSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedDataSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_ThreadImplementation(EObject context, ThreadImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_ThreadPrototype(EObject context, ThreadPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8443,27 +4889,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET threadSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    threadSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_ThreadSubcomponent(EObject context, ThreadSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8487,240 +4915,144 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedDataAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_ThreadType(EObject context, ThreadType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (context=[Context|ID]? port=[Port|ID])
-	 *
-	 * Features:
-	 *    context[0, 1]
-	 *    port[1, 1]
 	 */
 	protected void sequence_TriggerPort(EObject context, TriggerPort semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     extended=[ComponentType|QCREF]
-	 *
-	 * Features:
-	 *    extended[1, 1]
 	 */
 	protected void sequence_TypeExtension(EObject context, TypeExtension semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID baseUnit=[UnitLiteral|ID] factor=NumberValue)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    baseUnit[1, 1]
-	 *    factor[1, 1]
 	 */
 	protected void sequence_UnitLiteralConversion(EObject context, UnitLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     name=ID
-	 *
-	 * Features:
-	 *    name[1, 1]
 	 */
 	protected void sequence_UnitLiteral(EObject context, UnitLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedLiteral[1, *]
 	 */
 	protected void sequence_UnitsType(EObject context, UnitsType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((classifierReference+=QMReference classifierReference+=QMReference*)?)
-	 *
-	 * Features:
-	 *    classifierReference[0, *]
 	 */
 	protected void sequence_UnnamedClassifierType(EObject context, ClassifierType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedLiteral+=EnumerationLiteral ownedLiteral+=EnumerationLiteral*)
-	 *
-	 * Features:
-	 *    ownedLiteral[1, *]
 	 */
 	protected void sequence_UnnamedEnumerationType(EObject context, EnumerationType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
-	 *
-	 * Features:
-	 *    ownedUnitsType[0, 1]
-	 *         EXCLUDE_IF_SET unitsType
-	 *    unitsType[0, 1]
-	 *         EXCLUDE_IF_SET ownedUnitsType
-	 *    range[0, 1]
 	 */
 	protected void sequence_UnnamedIntegerType(EObject context, AadlInteger semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     {AadlBoolean}
-	 *
-	 * Features:
 	 */
 	protected void sequence_UnnamedPropertyType(EObject context, AadlBoolean semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     {AadlString}
-	 *
-	 * Features:
 	 */
 	protected void sequence_UnnamedPropertyType(EObject context, AadlString semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedNumberType=UnnamedIntegerType | ownedNumberType=UnnamedRealType | numberType=[NumberType|QPREF])
-	 *
-	 * Features:
-	 *    ownedNumberType[0, 2]
-	 *         EXCLUDE_IF_SET numberType
-	 *    numberType[0, 1]
-	 *         EXCLUDE_IF_SET ownedNumberType
-	 *         EXCLUDE_IF_SET ownedNumberType
 	 */
 	protected void sequence_UnnamedRangeType(EObject context, RangeType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (range=RealRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
-	 *
-	 * Features:
-	 *    ownedUnitsType[0, 1]
-	 *         EXCLUDE_IF_SET unitsType
-	 *    unitsType[0, 1]
-	 *         EXCLUDE_IF_SET ownedUnitsType
-	 *    range[0, 1]
 	 */
 	protected void sequence_UnnamedRealType(EObject context, AadlReal semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ownedField+=RecordField+
-	 *
-	 * Features:
-	 *    ownedField[1, *]
 	 */
 	protected void sequence_UnnamedRecordType(EObject context, RecordType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((namedElementReference+=QMReference namedElementReference+=QMReference*)?)
-	 *
-	 * Features:
-	 *    namedElementReference[0, *]
 	 */
 	protected void sequence_UnnamedReferenceType(EObject context, ReferenceType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedLiteral+=UnitLiteral ownedLiteral+=UnitLiteralConversion*)
-	 *
-	 * Features:
-	 *    ownedLiteral[1, *]
 	 */
 	protected void sequence_UnnamedUnitsType(EObject context, UnitsType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8734,41 +5066,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_VirtualBusImplementation(EObject context, VirtualBusImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_VirtualBusPrototype(EObject context, VirtualBusPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8784,27 +5093,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET virtualBusSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    virtualBusSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_VirtualBusSubcomponent(EObject context, VirtualBusSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8825,37 +5116,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_VirtualBusType(EObject context, VirtualBusType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8876,44 +5139,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             noSubcomponents?='none'
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *    ownedRealization[1, 1]
-	 *    ownedAbstractSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    noSubcomponents[0, 1]
-	 *         EXCLUDE_IF_SET ownedAbstractSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualBusSubcomponent
-	 *         EXCLUDE_IF_SET ownedVirtualProcessorSubcomponent
-	 *    ownedVirtualBusSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
-	 *    ownedVirtualProcessorSubcomponent[0, *]
-	 *         EXCLUDE_IF_SET noSubcomponents
 	 */
 	protected void sequence_VirtualProcessorImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
 	 */
 	protected void sequence_VirtualProcessorPrototype(EObject context, VirtualProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8932,27 +5169,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
-	 *
-	 * Features:
-	 *    name[0, 1]
-	 *         EXCLUDE_IF_SET refined
-	 *    ownedPropertyAssociation[0, *]
-	 *    arrayDimension[0, *]
-	 *         MANDATORY_IF_SET implementationReference
-	 *         MANDATORY_IF_SET implementationReference
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET virtualProcessorSubcomponentType
-	 *    ownedModeBinding[0, *]
-	 *    implementationReference[0, *]
-	 *         EXCLUDE_IF_UNSET arrayDimension
-	 *    refined[0, 1]
-	 *         EXCLUDE_IF_SET name
-	 *    virtualProcessorSubcomponentType[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
 	 */
 	protected void sequence_VirtualProcessorSubcomponent(EObject context, VirtualProcessorSubcomponent semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -8975,42 +5194,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+
 	 *         )?
 	 *     )
-	 *
-	 * Features:
-	 *    name[1, 1]
-	 *    ownedPrototype[0, *]
-	 *         EXCLUDE_IF_SET noPrototypes
-	 *    ownedPrototypeBinding[0, *]
-	 *         EXCLUDE_IF_UNSET ownedExtension
-	 *    noPrototypes[0, 1]
-	 *         EXCLUDE_IF_SET ownedPrototype
-	 *    ownedExtension[0, 1]
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *         MANDATORY_IF_SET ownedPrototypeBinding
-	 *    ownedFeatureGroup[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedAbstractFeature[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    noFeatures[0, 1]
-	 *         EXCLUDE_IF_SET ownedDataPort
-	 *         EXCLUDE_IF_SET ownedEventPort
-	 *         EXCLUDE_IF_SET ownedEventDataPort
-	 *         EXCLUDE_IF_SET ownedFeatureGroup
-	 *         EXCLUDE_IF_SET ownedSubprogramAccess
-	 *         EXCLUDE_IF_SET ownedSubprogramGroupAccess
-	 *         EXCLUDE_IF_SET ownedAbstractFeature
-	 *    ownedDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventDataPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedEventPort[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
-	 *    ownedSubprogramGroupAccess[0, *]
-	 *         EXCLUDE_IF_SET noFeatures
 	 */
 	protected void sequence_VirtualProcessorType(EObject context, VirtualProcessorType semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 }

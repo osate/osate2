@@ -34,5 +34,6 @@ Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.services,
  org.osate.xtext.aadl2.util,
  org.osate.xtext.aadl2.validation,
- org.osate.xtext.aadl2.valueconversion
+ org.osate.xtext.aadl2.valueconversion,
+ org.osate.xtext.aadl2.formatting
 Import-Package: org.apache.log4j
