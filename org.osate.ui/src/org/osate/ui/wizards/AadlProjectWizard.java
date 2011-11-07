@@ -69,6 +69,7 @@ import org.eclipse.ui.dialogs.WizardNewProjectReferencePage;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.eclipse.ui.wizards.newresource.BasicNewProjectResourceWizard;
 import org.eclipse.ui.wizards.newresource.BasicNewResourceWizard;
+import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.core.AadlNature;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.workspace.CoreUtility;
@@ -107,6 +108,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 				return super.validatePage();
 		}
 
+		
 	}
 
 	/**
@@ -316,26 +318,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		updatePerspective();
 		selectAndReveal(newProject);
 		final IProject p = getNewProject();
-		final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
-		final IFolder xmlPack = defModDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-		final IFolder xmlPSet = defModDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
-		final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
-		final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-		final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
 
-		try {
-			CoreUtility.createFolder(xmlPack, true, true, null);
-			CoreUtility.createFolder(xmlPSet, true, true, null);
-			CoreUtility.createFolder(srcPack, true, true, null);
-			CoreUtility.createFolder(srcPSet, true, true, null);
-		} catch (CoreException e) {
-			// TODO Auto-generated catch block
-			MessageDialog
-			.openError(getShell(),
-					"Creation Problems",
-					MessageFormat
-							.format("Problem creating folder", e.getStackTrace().toString() ));
-		}
 		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
 
 		PreferenceStore ps = new PreferenceStore(filepath);
@@ -344,20 +327,18 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		try {
 			ps.save();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			MessageDialog
 			.openError(getShell(),
-					"Save Problem", //$NON-NLS-1$
+					"Save Problem", 
 					MessageFormat
 							.format("Problem saving Preference Store", e1.getStackTrace().toString() ));
 		}
 		try {
 			p.refreshLocal(1, null);
 		} catch (CoreException e2) {
-			// TODO Auto-generated catch block
 			MessageDialog
 			.openError(getShell(),
-					"Refresh Problems Problems", //$NON-NLS-1$
+					"Refresh Problems Problems", 
 					MessageFormat
 							.format("Resource changes are disallowed during certain types of resource change event notification", e2.getStackTrace().toString() ));
 		}
@@ -400,7 +381,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
 					for (int i = 0; i < projects.length; i++) {
 						project = projects[i];
-						System.out.println(project.toString());
+						//System.out.println(project.toString());
 						try {
 							if (project.hasNature(AadlNature.ID)) {
 								projectsWithNatures.add(project);
