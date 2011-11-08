@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.product" application="org.eclipse.ui.ide.workbench" version="2.0.0.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.0.0.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
-      <image path="/org.osate.branding/icons/osateAbout_hc90.jpg"/>
+      <image path="icons/osateAbout_hc90.jpg"/>
       <text>
          %aboutText
       </text>
@@ -14,10 +14,13 @@
    </configIni>
 
    <launcherArgs>
-      <programArgs>-nl en -plugincustomization configuration/plugin_customization.ini</programArgs>
+      <programArgs>--launcher.XXPermSize 64M
+--launcher.XXMaxPermSize 256M
+-pluginCustomization configuration/plugin_customization.ini</programArgs>
+      <vmArgs>-XX:PermSize=64m -XX:MaxPermSize=256m -Xms40m -Xmx768m</vmArgs>
    </launcherArgs>
 
-   <windowImages i16="/org.osate.branding/icons/16aadl.jpg" i32="/org.osate.branding/icons/32aadl.jpg"/>
+   <windowImages i16="icons/16aadl.jpg" i32="icons/32aadl.jpg"/>
 
    <splash
       location="org.osate.branding"
