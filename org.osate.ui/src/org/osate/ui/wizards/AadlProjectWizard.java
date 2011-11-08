@@ -381,20 +381,22 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
 					for (int i = 0; i < projects.length; i++) {
 						project = projects[i];
-						//System.out.println(project.toString());
-						try {
-							if (project.hasNature(AadlNature.ID)) {
-								projectsWithNatures.add(project);
-							}
-						} catch (CoreException e) {
-							MessageDialog
-							.openError(getShell(),
-									"Project Problems", //$NON-NLS-1$
-									MessageFormat
-											.format("Project does not exist or is not open", e.getStackTrace().toString() ));
-						} 
+						if( project.isOpen() )
+						{
+							try {
+								if (project.hasNature(AadlNature.ID)) {
+									projectsWithNatures.add(project);
+								}
+							} catch (CoreException e) {
+								MessageDialog
+								.openError(getShell(),
+										"Project Problems", //$NON-NLS-1$
+										MessageFormat
+												.format("Project does not exist!", e.getStackTrace().toString() ));
+							} 
+							
+						}
 					}
-
 					return projectsWithNatures.toArray();
 
 					// return projects == null ? new Object[0] : projects;
