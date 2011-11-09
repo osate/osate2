@@ -11,6 +11,10 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.Aadl2Package;
@@ -24,6 +28,7 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
@@ -63,6 +68,7 @@ import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
@@ -73,6 +79,7 @@ import org.osate.aadl2.ProcessType;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.Realization;
@@ -107,6 +114,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(
 			ComponentImplementation componentImplementation) {
+		checkEndId(componentImplementation);
 		checkComponentImplementationUniqueNames(componentImplementation);	
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
@@ -121,6 +129,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentType(ComponentType componentType) {
+		checkEndId(componentType);
 		checkComponentTypeUniqueNames(componentType);
 		checkComponentTypeModes(componentType);
 		checkForInheritedFeatureArrays(componentType);
@@ -305,6 +314,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
+		checkEndId(featureGroupType);
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
 
 	}
@@ -352,10 +362,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	
 //	@Check(CheckType.FAST)
 //	public void caseAadlPackage(AadlPackage pack){
-//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack)){
-//			error(pack,"Duplicate packages "+ pack.getName());
-//		}
+////		checkEndId(pack);
+////		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesAadlPackage(pack)){
+////			error(pack,"Duplicate packages "+ pack.getName());
+////		}
 //	}
+
+	
+	
+	@Check(CheckType.FAST)
+	public void caseModelUnit(ModelUnit pack){
+		checkEndId(pack);
+	}
+
+	
 //	
 //	@Check(CheckType.FAST)
 //	public void caseClassifier(Classifier pack){
@@ -468,6 +488,55 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 	
+
+	
+	/**
+	 * check ID at after 'end'
+	 */
+	public void checkEndId(Classifier cl){
+		ICompositeNode n = NodeModelUtils.getNode(cl);
+		INode lln = getLastLeaf(n).getPreviousSibling();
+		while (lln instanceof HiddenLeafNode){
+			lln = lln.getPreviousSibling();
+		}
+		String ss = lln.getText();
+		if (!cl.getName().equalsIgnoreCase(ss)){
+			error(cl, "Ending '" + ss +
+					"' does not match defining identifier '"
+					+ cl.getName()+"'");
+		}
+	}
+	
+	public void checkEndId(ModelUnit mu){
+		ICompositeNode n = NodeModelUtils.getNode(mu);
+		INode lln =getPreviousNode(getLastLeaf(n));
+		String ss = lln.getText();
+		lln = getPreviousNode(lln);
+		while (lln.getText().equalsIgnoreCase("::")){
+			lln = getPreviousNode(lln);
+			ss = lln.getText()+"::"+ss;
+		}
+		if (!mu.getName().equalsIgnoreCase(ss)){
+			error(mu, "Ending '" + ss +
+					"' does not match defining identifier '"
+					+ mu.getName()+"'");
+		}
+	}
+
+	protected INode getLastLeaf(INode node) {
+		INode result = node;
+		while (result instanceof ICompositeNode)
+			result = ((ICompositeNode) result).getLastChild();
+		return result != null ? result : node;
+	}
+	
+	protected INode getPreviousNode(INode node) {
+		INode lln = node.getPreviousSibling();
+		while (lln instanceof HiddenLeafNode){
+			lln = lln.getPreviousSibling();
+		}
+		return lln;
+	}
 	
 	/**
 	 * check for unique names in component type
