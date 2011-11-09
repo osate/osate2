@@ -1,11 +1,9 @@
+
 package org.osate.xtext.aadl2.validation;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -13,20 +11,103 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
-import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.*;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.AbstractImplementation;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.BusImplementation;
+import org.osate.aadl2.BusType;
+import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataImplementation;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.DirectedFeature;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.EventPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.FeaturePrototypeReference;
+import org.osate.aadl2.GroupExtension;
+import org.osate.aadl2.ImplementationExtension;
+import org.osate.aadl2.MemoryImplementation;
+import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.MetaclassReference;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortSpecification;
+import org.osate.aadl2.ProcessImplementation;
+import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorImplementation;
+import org.osate.aadl2.ProcessorType;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.Realization;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupImplementation;
+import org.osate.aadl2.SubprogramGroupPrototype;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupImplementation;
+import org.osate.aadl2.ThreadGroupType;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadType;
+import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.VirtualBusImplementation;
+import org.osate.aadl2.VirtualBusType;
+import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.VirtualProcessorType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
+
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(
 			ComponentImplementation componentImplementation) {
+		checkComponentImplementationUniqueNames(componentImplementation);	
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
 	}
@@ -369,6 +450,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+	// enforced syntactically that all is by itself
+//	@Check(CheckType.FAST)
+//	public void caseProperty(final Property pdef) {
+//		// check whether all is the only/first element in applies to
+//		EList<MetaclassReference> mcl = pdef.getAppliesToMetaclasses();
+//		for (MetaclassReference metaclassReference : mcl) {
+//			if (metaclassReference.getMetaclassNames().size() > 0){
+//				if(metaclassReference.getMetaclassNames().get(0).equalsIgnoreCase("all")){
+//					if (mcl.size() > 1 || !pdef.getAppliesToClassifiers().isEmpty()){
+//						error(pdef, "applies to of property definition '"+pdef.getName()+"' must contain 'all' by itself.");
+//					}
+//				}
+//			}
+//		}
+//	}
+//
+	
+	
 	/**
 	 * check for unique names in component type
 	 */
@@ -385,112 +485,49 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			for (NamedElement ne : doubles) {
 				error(ne,
 						ne.eClass().getName() +
-						" identifier '" + ne.getName() + "' previously defined");
+						" identifier '" + ne.getName() + "' previously defined. Maybe you forgot 'refined to'");
 			}
 		}
 	}
-	//
-	// /**
-	// * check for unique names in implementation
-	// */
-	// @Check(CheckType.FAST)
-	// public Object caseComponentImplementation(ComponentImplementation impl) {
-	// // process in core package
-	// EList usedNames = new BasicEList();
-	// usedNames.addAll(impl.allFeatures());
-	// usedNames.addAll(impl.getSubcomponents());
-	// usedNames.addAll(impl.getAllConnection());
-	// usedNames.addAll(impl.getModes());
-	// usedNames.addAll(impl.getType().getAllFlowSpec());
-	//
-	// EList allFlowSeqs = impl.getAllFlowSequence();
-	// for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
-	// final FlowSequence fs = (FlowSequence) i.next();
-	// // Filter out flow impls
-	// if (fs instanceof EndToEndFlow) {
-	// usedNames.add(fs);
-	// }
-	// }
-	//
-	// EList callSequenceList = impl.getXAllCallSequence();
-	// usedNames.addAll(callSequenceList);
-	//
-	// // add all the calls from the call sequences
-	// for (Iterator callIter = callSequenceList.iterator();
-	// callIter.hasNext();){
-	// CallSequence cseq = (CallSequence) callIter.next();
-	// usedNames.addAll(cseq.getCall());
-	// }
-	//
-	// EList<NamedElement> doubles =
-	// AadlUtil.findDoubleNamedElementsInList(usedNames);
-	// boolean noRefinesType = impl.getRefinesType() == null;
-	// if (doubles.size() > 0) {
-	// for (NamedElement ne : doubles) {
-	// if (!((noRefinesType && ne instanceof Feature) ))
-	// error(impl, "Identifier '" + ne.getName() +
-	// "' names more than one subcomponent/connection/flow/feature/mode in component "
-	// + impl.getQualifiedName());
-	// }
-	// }
-	//
-	// // Check that no flow spec impl appears in a mode more than once
-	// EList localFlowSeqs = impl.getFlowSequence();
-	// final Map map = new HashMap();
-	// for (final Iterator i = localFlowSeqs.iterator(); i.hasNext();) {
-	// final FlowSequence fs = (FlowSequence) i.next();
-	// // Filter out end-to-end flows -- they do not implement a
-	// // flow spec
-	// if (fs instanceof FlowImpl) {
-	// final String name = fs.getName();
-	// EList s = (EList) map.get(name);
-	// if (s == null) {
-	// s = new BasicEList();
-	// map.put(name, s);
-	// }
-	// s.add(fs);
-	// }
-	// }
-	// for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-	// final String name = (String) i.next();
-	// final EList s = (EList) map.get(name);
-	// if (!AadlUtil.oncePerMode(s, impl.getModes())) {
-	// error(impl, "Flow spec " + name +
-	// " implemented more than once for a given mode");
-	// }
-	// }
-	//
-	// /* Check that no end to end flow appears in a mode more than once
-	// * and that its name isn't already used.
-	// */
-	// // map.clear();
-	// // EList allFlowSeqs = impl.getAllFlowSequence();
-	// // for (final Iterator i = allFlowSeqs.iterator(); i.hasNext();) {
-	// // final FlowSequence fs = (FlowSequence) i.next();
-	// // // Filter out flow impls
-	// // if (fs instanceof EndToEndFlow) {
-	// // final String name = fs.getName();
-	// // if (AadlUtil.findNamedElementInList(usedNames, name) != null) {
-	// // error(impl, "'" + name +
-	// "': identifier previously defined in component");
-	// // }
-	// // EList s = (EList) map.get(name);
-	// // if (s == null) {
-	// // s = new BasicEList();
-	// // map.put(name, s);
-	// // }
-	// // s.add(fs);
-	// // }
-	// // }
-	// // for (Iterator i = map.keySet().iterator(); i.hasNext();) {
-	// // final String name = (String) i.next();
-	// // final EList s = (EList) map.get(name);
-	// // if (!AadlUtil.oncePerMode(s, impl.getAllMode())) {
-	// // error(impl, "End to End Flow " + name +
-	// " implemented more than once for a given mode");
-	// // }
-	// // }
-	// }
+	
+	/**
+	 * check for unique names in implementation
+	 */
+	public void checkComponentImplementationUniqueNames(ComponentImplementation impl) {
+		// process in core package
+		EList usedNames = new BasicEList();
+		usedNames.addAll(impl.getAllPrototypes());
+		usedNames.addAll(impl.getAllFeatures());
+		usedNames.addAll(impl.getAllSubcomponents());
+		usedNames.addAll(impl.getAllConnections());
+		usedNames.addAll(impl.getAllModes());
+		usedNames.addAll(impl.getAllModeTransitions());
+		usedNames.addAll(impl.getType().getAllFlowSpecifications());
+		usedNames.addAll( impl.getAllEndToEndFlows());
+		EList<SubprogramCallSequence> csl = null;
+		if (impl instanceof ThreadImplementation){
+			csl = ((ThreadImplementation)impl).getOwnedSubprogramCallSequences();
+		} else if (impl instanceof SubprogramImplementation){
+			csl = ((SubprogramImplementation)impl).getOwnedSubprogramCallSequences();
+		}
+		if (csl != null){
+			usedNames.addAll(csl);
+			for (SubprogramCallSequence subprogramCallSequence : csl) {
+				usedNames.addAll(subprogramCallSequence.getOwnedCallSpecifications());
+			}
+		}
+	
+		EList<NamedElement> doubles =
+				AadlUtil.findDoubleNamedElementsInList(usedNames);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(impl, "Identifier '" + ne.getName() +
+						"' has previously been defined in component implementation "
+						+ impl.getQualifiedName()+ " or its type.");
+			}
+		}
+	}
+
 
 	/*
 	 * supporting semantic check methods They can on the error reporter thus
@@ -2332,65 +2369,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //	}
 //
 //
-//	/**
-//	 * Check constraints that property applies to the element it is associated
-//	 * with per Section 10.3:
-//	 *
-//	 * <blockquote>The property named by a property association must list the
-//	 * category of the component type, component implementation, subcomponent,
-//	 * feature, connection, flow, or mode the property association is declared
-//	 * for in its Property_Owner_Category list. </blockquote>
-//	 */
-//	private void checkAssociationAppliesTo(
-//		final NamedElement element,
-//		final PropertyAssociation pa) {
-//		final Property pn = pa.getProperty();
-//		final EList appliesTo = pa.getAppliesTos();
-//		if (appliesTo == null || appliesTo.size() == 0) {
-//			final boolean applies = element.acceptsProperty(pn);
-//			if (!applies) {
-//				error(pa,
-//						"Property "	+ pa.getProperty().getQualifiedName() +
-//						" only applies to " + unparseAppliesTo(pn));
-////				error(pa,
-////						"Property "	+ pa.getQualifiedName() +
-////						" does not apply to " + element.eClass().getName());
-//			}
-//		} else {
-//			// only the last value is interesting to us
-//			final NamedElement ph = (NamedElement) appliesTo.get(appliesTo.size()-1);
-//			final boolean applies = ph.acceptsProperty(pn);
-//			if (!applies) {
-//				error(pa,
-//						"Property " + pa.getProperty().getQualifiedName() +
-//						" does not apply to named subcomponent");
-//			}
-//		}
-//	}
-//
-//
-//
-//	private static String unparseAppliesTo(final Property pd) {
-//		final StringBuffer sb = new StringBuffer();
-//		final EList at = pd.getAppliesTos();
-//		for (final Iterator it = at.iterator(); it.hasNext();) {
-//			final PropertyOwner pc = (PropertyOwner) it.next();
-//			sb.append(pc.getUnparseName());
-//			if (it.hasNext()) sb.append(", ");
-//		}
-//		final EList el = pd.getAppliesToClassifier();
-//		for (final Iterator it = el.iterator(); it.hasNext();) {
-//			final ClassifierValue cv = (ClassifierValue) it.next();
-//			sb.append(", ");
-//			final String qn = cv.getClassifier().getQualifiedName();
-//			if (qn != null && qn.length() > 0) {
-//				sb.append(qn);
-//			}
-//		}
-//		return sb.toString();
-//	}
-//
-//	// XXX: End of check methods marker.
 
 	private static FeatureType getFeatureType(Feature feature) {
 		if (feature instanceof DataPort) {
@@ -2922,3 +2900,4 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 }
+

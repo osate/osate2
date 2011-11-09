@@ -77,7 +77,7 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
-import org.osate.aadl2.util.Util;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -997,7 +997,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	
 	public ComponentClassifier getComponentClassifier(){
 		Subcomponent sub = getSubcomponent();
-		if (Util.isNull(sub)) return null;
+		if (Aadl2Util.isNull(sub)) return null;
 		return sub.getClassifier();
 		
 	}

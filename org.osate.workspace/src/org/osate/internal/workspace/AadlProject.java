@@ -235,19 +235,9 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 */
 	public IPath getAadlPath(IFile file) {
 		IPath p = file.getProjectRelativePath();
-
-		PreferenceStore projectProperties = WorkspacePlugin.getPreferenceStore(project);
-		IPath mdl = new Path(projectProperties.getString(WorkspacePlugin.PROJECT_MODEL_DIR));
 		IPath result = new Path("/" + project.getName());
-		if (mdl.isPrefixOf(p)) {
-			int i = mdl.segmentCount();
-			result = result.append(new Path(projectProperties.getString(WorkspacePlugin.PROJECT_SOURCE_DIR))).append(
-					p.removeFirstSegments(i));
-			result = result.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
-		} else {
 			result = result.append(p);
 			result = result.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
-		}
 		return result;
 	}
 
