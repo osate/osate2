@@ -13,6 +13,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
@@ -23,21 +24,10 @@ public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
 		if (target instanceof AadlPackage){
 			return ((NamedElement)target).getName();
 		} else if (target instanceof Classifier){
-			if (((Classifier) target).getElementRoot() == ((Element)semanticObject).getElementRoot()){
-				return ((NamedElement)target).getName();
-			} else {
-				return ((NamedElement)target).getQualifiedName();
-			}
-//			String s = super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors);
-//			return s;
+			return AadlUtil.getClassifierName((Classifier)target, (Element) semanticObject);
 		} else if (target instanceof Property || target instanceof PropertyType ||
 				target instanceof PropertyConstant){
-			PropertySet ps = (PropertySet)target.eContainer();
-			if (PropertiesLinkingService.isPredeclaredPropertySet(ps.getName())){
-				return ((NamedElement)target).getName();
-			} else {				
-				return ((NamedElement)target).getQualifiedName();
-			}
+			return AadlUtil.getPropertySetElementName((NamedElement)target);
 		} else if (target instanceof NamedElement){
 			return ((NamedElement)target).getName();
 		} else return "<noname>";

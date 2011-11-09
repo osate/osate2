@@ -71,6 +71,19 @@
         </page>
     </extension>
     <extension
+            point="org.eclipse.ui.propertyPages">
+        <page
+            class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.editor.preferences.LanguageRootPreferencePage"
+            id="org.osate.xtext.aadl2.properties.Properties"
+            name="Properties">
+            <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
+            <enabledWhen>
+	            <adapt type="org.eclipse.core.resources.IProject"/>
+			</enabledWhen>
+	        <filter name="projectNature" value="org.eclipse.xtext.ui.shared.xtextNature"/>
+        </page>
+    </extension>
+    <extension
         point="org.eclipse.ui.keywords">
         <keyword
             id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"
@@ -182,7 +195,7 @@
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RenameElementHandler"
+			class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
@@ -204,5 +217,14 @@
          </command>
       </menuContribution>
    </extension>
+   <extension point="org.eclipse.ui.preferencePages">
+	    <page
+	        category="org.osate.xtext.aadl2.properties.Properties"
+	        class="org.osate.xtext.aadl2.properties.ui.PropertiesExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RefactoringPreferencePage"
+	        id="org.osate.xtext.aadl2.properties.Properties.refactoring"
+	        name="Refactoring">
+	        <keywordReference id="org.osate.xtext.aadl2.properties.ui.keyword_Properties"/>
+	    </page>
+	</extension>
 
 </plugin>

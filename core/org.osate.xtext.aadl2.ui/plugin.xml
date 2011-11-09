@@ -207,7 +207,7 @@
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.RenameElementHandler"
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.eclipse.xtext.ui.refactoring.ui.IRenameElementHandler"
 			commandId="org.eclipse.xtext.ui.refactoring.RenameElement">
 			<activeWhen>
 				<reference
@@ -330,8 +330,8 @@
    	<extension
 		point="org.eclipse.ui.handlers">
 		<handler 
-			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.SerializeHandler"
-			commandId="org.osate.xtext.aadl2.ui.serialize">
+			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.SaveAsTextHandler"
+			commandId="org.osate.xtext.aadl2.ui.saveastext">
 		<!--	<activeWhen>
 				<reference
 					definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
@@ -343,18 +343,18 @@
 		point="org.eclipse.ui.commands">
 		<command
 			description="Save model as text."
-			id="org.osate.xtext.aadl2.ui.serialize"
+			id="org.osate.xtext.aadl2.ui.saveastext"
 			name="Save Model As Text">
 		</command>
 	</extension>
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
-		commandId="org.osate.xtext.aadl2.ui.serialize"
-               label="Do Save (aaxl2) As Text"
-		tooltip="Do Save (aaxl2) As Text" 
+		commandId="org.osate.xtext.aadl2.ui.saveastext"
+               label="Do Save (aaxl2) As Text (aadl)"
+		tooltip="Do Save (aaxl2) As Text (aadl)" 
                style="push">
          </command>
       </menuContribution>
@@ -364,7 +364,7 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.jdt.ui.PackageExplorer">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
                commandId="org.osate.xtext.aadl2.ui.predeclaredproperties"
                label="Create Predeclared Properties"

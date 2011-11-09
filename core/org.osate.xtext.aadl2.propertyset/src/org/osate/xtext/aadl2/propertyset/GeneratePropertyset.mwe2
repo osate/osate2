@@ -1,0 +1,123 @@
+module org.osate.xtext.aadl2.propertyset.Propertyset
+
+import org.eclipse.emf.mwe.utils.*
+import org.eclipse.xtext.generator.*
+import org.eclipse.xtext.ui.generator.*
+
+var grammarURI = "classpath:/org/osate/xtext/aadl2/propertyset/Propertyset.xtext"
+var file.extensions = "aaps"
+var projectName = "org.osate.xtext.aadl2.propertyset"
+var runtimeProject = "../${projectName}"
+
+Workflow {
+	bean = StandaloneSetup {
+		scanClassPath  = true
+		platformUri = "${runtimeProject}/.."
+		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+	
+		// registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+	
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}/src-gen"
+	}
+
+	component = DirectoryCleaner {
+		directory = "${runtimeProject}.ui/src-gen"
+	}
+
+	component = Generator {
+		pathRtProject = runtimeProject
+		pathUiProject = "${runtimeProject}.ui"
+		projectNameRt = projectName
+		projectNameUi = "${projectName}.ui"
+		language = {
+			uri = grammarURI
+			fileExtensions = file.extensions
+
+			// Java API to access grammar elements (required by several other fragments)
+			fragment = grammarAccess.GrammarAccessFragment {}
+
+			// generates Java API for the generated EPackages
+			// fragment = ecore.EcoreGeneratorFragment {}
+
+			// the serialization component
+			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+
+			// a custom ResourceFactory for use with EMF 
+			fragment = resourceFactory.ResourceFactoryFragment {
+				fileExtensions = file.extensions
+			}
+
+			// the Antlr parser
+//			fragment = parser.antlr.XtextAntlrGeneratorFragment {
+			fragment = parser.antlr.ex.rt.AntlrGeneratorFragment {
+    		options = {
+        		ignoreCase = true
+					backtrack = true
+					classSplitting = true
+    		}
+			}
+
+			// the Ecore2Xtext specific terminal converter
+			fragment = ecore2xtext.Ecore2XtextValueConverterServiceFragment {}
+
+			// java-based API for validation 
+			fragment = validation.JavaValidatorFragment {
+			// composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
+			 composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+			}
+
+//			// scoping and exporting API
+//			fragment = scoping.ImportURIScopingFragment {}
+//			fragment = exporting.SimpleNamesFragment {}
+
+			// scoping and exporting API 
+
+			 fragment = scoping.ImportNamespacesScopingFragment {}
+			 fragment = exporting.QualifiedNamesFragment {}
+
+
+			// formatter API 
+			fragment = ecore2xtext.FormatterFragment {}
+
+			// labeling API 
+			fragment = labeling.LabelProviderFragment {}
+
+			// outline API 
+            fragment = outline.OutlineTreeProviderFragment {}
+            fragment = outline.QuickOutlineFragment {}
+
+			// java-based API for content assistance 
+			fragment = contentAssist.JavaBasedContentAssistFragment {}
+
+			// antlr parser generator tailored for content assist 
+//			fragment = parser.antlr.XtextAntlrUiGeneratorFragment {
+			fragment = parser.antlr.ex.ca.ContentAssistParserGeneratorFragment {
+				    options = {
+        		ignoreCase = true
+        		backtrack = true
+					classSplitting = true
+				}
+			}
+
+			// provides a compare view
+            fragment = compare.CompareFragment {
+                fileExtensions = file.extensions
+            }
+
+			fragment = builder.BuilderIntegrationFragment {}
+
+			// project wizard (optional) 
+
+			// fragment = projectWizard.SimpleProjectWizardFragment {
+			//		generatorProjectName = "${projectName}.generator" 
+			//		modelFileExtension = file.extensions
+			// }
+
+			// quickfix API 
+			fragment = quickfix.QuickfixProviderFragment {}
+		}
+	}
+}

@@ -2622,29 +2622,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFeaturesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cPrototypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Group cGroup_3_1_0 = (Group)cAlternatives_3_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_3_1_0_0_0 = (Keyword)cNoFeaturesAssignment_3_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_3_1_0_0_0 = (Keyword)cNoPrototypesAssignment_3_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1_0_1 = (Keyword)cGroup_3_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_3_1_1 = (Alternatives)cAlternatives_3_1.eContents().get(1);
-		private final Assignment cOwnedDataPortAssignment_3_1_1_0 = (Assignment)cAlternatives_3_1_1.eContents().get(0);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_3_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_3_1_1_0.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_3_1_1_1 = (Assignment)cAlternatives_3_1_1.eContents().get(1);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_3_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_3_1_1_1.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_3_1_1_2 = (Assignment)cAlternatives_3_1_1.eContents().get(2);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_3_1_1_2.eContents().get(0);
-		private final Assignment cOwnedFeatureGroupAssignment_3_1_1_3 = (Assignment)cAlternatives_3_1_1.eContents().get(3);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_3_1_1_3.eContents().get(0);
-		private final Assignment cOwnedBusAccessAssignment_3_1_1_4 = (Assignment)cAlternatives_3_1_1.eContents().get(4);
-		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0 = (RuleCall)cOwnedBusAccessAssignment_3_1_1_4.eContents().get(0);
-		private final Assignment cOwnedSubprogramAccessAssignment_3_1_1_5 = (Assignment)cAlternatives_3_1_1.eContents().get(5);
-		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0 = (RuleCall)cOwnedSubprogramAccessAssignment_3_1_1_5.eContents().get(0);
-		private final Assignment cOwnedSubprogramGroupAccessAssignment_3_1_1_6 = (Assignment)cAlternatives_3_1_1.eContents().get(6);
-		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_3_1_1_6.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_3_1_1_7 = (Assignment)cAlternatives_3_1_1.eContents().get(7);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0 = (RuleCall)cOwnedAbstractFeatureAssignment_3_1_1_7.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cOwnedDataPortAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_0.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedBusAccessAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
+		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedBusAccessAssignment_4_1_1_4.eContents().get(0);
+		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_5 = (Assignment)cAlternatives_4_1_1.eContents().get(5);
+		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_5.eContents().get(0);
+		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_6 = (Assignment)cAlternatives_4_1_1.eContents().get(6);
+		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_6.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_7 = (Assignment)cAlternatives_4_1_1.eContents().get(7);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_7.eContents().get(0);
 		
 		////	('flows'
 		////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -2658,14 +2667,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//ProcessorType returns aadl2::ProcessorType:
 		//	"processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 		//| ownedAbstractFeature+=AbstractFeature)+))?
@@ -2717,84 +2728,111 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
-		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
-		//ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
-		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_3_1_0() { return cGroup_3_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_3_1_0_0() { return cNoFeaturesAssignment_3_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_3_1_0_0() { return cNoPrototypesAssignment_3_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_3_1_0_0_0() { return cNoFeaturesNoneKeyword_3_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_3_1_0_0_0() { return cNoPrototypesNoneKeyword_3_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_1_0_1() { return cSemicolonKeyword_3_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_3_1_1() { return cOwnedPrototypeAssignment_3_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
+		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+
+		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
+
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_3_1_1() { return cAlternatives_3_1_1; }
+		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_3_1_1_0() { return cOwnedDataPortAssignment_3_1_1_0; }
+		public Assignment getOwnedDataPortAssignment_4_1_1_0() { return cOwnedDataPortAssignment_4_1_1_0; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_3_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_3_1_1_0_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_3_1_1_1() { return cOwnedEventPortAssignment_3_1_1_1; }
+		public Assignment getOwnedEventPortAssignment_4_1_1_1() { return cOwnedEventPortAssignment_4_1_1_1; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_3_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_3_1_1_1_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_3_1_1_2() { return cOwnedEventDataPortAssignment_3_1_1_2; }
+		public Assignment getOwnedEventDataPortAssignment_4_1_1_2() { return cOwnedEventDataPortAssignment_4_1_1_2; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_3_1_1_3() { return cOwnedFeatureGroupAssignment_3_1_1_3; }
+		public Assignment getOwnedFeatureGroupAssignment_4_1_1_3() { return cOwnedFeatureGroupAssignment_4_1_1_3; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0; }
 
 		//ownedBusAccess+=BusAccess
-		public Assignment getOwnedBusAccessAssignment_3_1_1_4() { return cOwnedBusAccessAssignment_3_1_1_4; }
+		public Assignment getOwnedBusAccessAssignment_4_1_1_4() { return cOwnedBusAccessAssignment_4_1_1_4; }
 
 		//BusAccess
-		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0() { return cOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0; }
+		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0() { return cOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0; }
 
 		//ownedSubprogramAccess+=SubprogramAccess
-		public Assignment getOwnedSubprogramAccessAssignment_3_1_1_5() { return cOwnedSubprogramAccessAssignment_3_1_1_5; }
+		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_5() { return cOwnedSubprogramAccessAssignment_4_1_1_5; }
 
 		//SubprogramAccess
-		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0; }
+		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0; }
 
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		public Assignment getOwnedSubprogramGroupAccessAssignment_3_1_1_6() { return cOwnedSubprogramGroupAccessAssignment_3_1_1_6; }
+		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_6() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_6; }
 
 		//SubprogramGroupAccess
-		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0; }
+		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_3_1_1_7() { return cOwnedAbstractFeatureAssignment_3_1_1_7; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_7() { return cOwnedAbstractFeatureAssignment_4_1_1_7; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0; }
 	}
 
 	public class DeviceTypeElements extends AbstractParserRuleElementFinder {
@@ -2816,29 +2854,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFeaturesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cPrototypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Group cGroup_3_1_0 = (Group)cAlternatives_3_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_3_1_0_0_0 = (Keyword)cNoFeaturesAssignment_3_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_3_1_0_0_0 = (Keyword)cNoPrototypesAssignment_3_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1_0_1 = (Keyword)cGroup_3_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_3_1_1 = (Alternatives)cAlternatives_3_1.eContents().get(1);
-		private final Assignment cOwnedDataPortAssignment_3_1_1_0 = (Assignment)cAlternatives_3_1_1.eContents().get(0);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_3_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_3_1_1_0.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_3_1_1_1 = (Assignment)cAlternatives_3_1_1.eContents().get(1);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_3_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_3_1_1_1.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_3_1_1_2 = (Assignment)cAlternatives_3_1_1.eContents().get(2);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_3_1_1_2.eContents().get(0);
-		private final Assignment cOwnedFeatureGroupAssignment_3_1_1_3 = (Assignment)cAlternatives_3_1_1.eContents().get(3);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_3_1_1_3.eContents().get(0);
-		private final Assignment cOwnedBusAccessAssignment_3_1_1_4 = (Assignment)cAlternatives_3_1_1.eContents().get(4);
-		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0 = (RuleCall)cOwnedBusAccessAssignment_3_1_1_4.eContents().get(0);
-		private final Assignment cOwnedSubprogramAccessAssignment_3_1_1_5 = (Assignment)cAlternatives_3_1_1.eContents().get(5);
-		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0 = (RuleCall)cOwnedSubprogramAccessAssignment_3_1_1_5.eContents().get(0);
-		private final Assignment cOwnedSubprogramGroupAccessAssignment_3_1_1_6 = (Assignment)cAlternatives_3_1_1.eContents().get(6);
-		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_3_1_1_6.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_3_1_1_7 = (Assignment)cAlternatives_3_1_1.eContents().get(7);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0 = (RuleCall)cOwnedAbstractFeatureAssignment_3_1_1_7.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cOwnedDataPortAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_0.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedBusAccessAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
+		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedBusAccessAssignment_4_1_1_4.eContents().get(0);
+		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_5 = (Assignment)cAlternatives_4_1_1.eContents().get(5);
+		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_5.eContents().get(0);
+		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_6 = (Assignment)cAlternatives_4_1_1.eContents().get(6);
+		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_6.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_7 = (Assignment)cAlternatives_4_1_1.eContents().get(7);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_7.eContents().get(0);
 		
 		////	('flows'
 		////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -2852,14 +2899,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//DeviceType returns aadl2::DeviceType:
 		//	"device" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"device" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
 		//| ownedAbstractFeature+=AbstractFeature)+))?
@@ -2911,84 +2960,111 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
-		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
-		//ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
-		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_3_1_0() { return cGroup_3_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_3_1_0_0() { return cNoFeaturesAssignment_3_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_3_1_0_0() { return cNoPrototypesAssignment_3_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_3_1_0_0_0() { return cNoFeaturesNoneKeyword_3_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_3_1_0_0_0() { return cNoPrototypesNoneKeyword_3_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_1_0_1() { return cSemicolonKeyword_3_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_3_1_1() { return cOwnedPrototypeAssignment_3_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
+		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+
+		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
+
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_3_1_1() { return cAlternatives_3_1_1; }
+		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_3_1_1_0() { return cOwnedDataPortAssignment_3_1_1_0; }
+		public Assignment getOwnedDataPortAssignment_4_1_1_0() { return cOwnedDataPortAssignment_4_1_1_0; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_3_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_3_1_1_0_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_3_1_1_1() { return cOwnedEventPortAssignment_3_1_1_1; }
+		public Assignment getOwnedEventPortAssignment_4_1_1_1() { return cOwnedEventPortAssignment_4_1_1_1; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_3_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_3_1_1_1_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_3_1_1_2() { return cOwnedEventDataPortAssignment_3_1_1_2; }
+		public Assignment getOwnedEventDataPortAssignment_4_1_1_2() { return cOwnedEventDataPortAssignment_4_1_1_2; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_2_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_3_1_1_3() { return cOwnedFeatureGroupAssignment_3_1_1_3; }
+		public Assignment getOwnedFeatureGroupAssignment_4_1_1_3() { return cOwnedFeatureGroupAssignment_4_1_1_3; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_3_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0; }
 
 		//ownedBusAccess+=BusAccess
-		public Assignment getOwnedBusAccessAssignment_3_1_1_4() { return cOwnedBusAccessAssignment_3_1_1_4; }
+		public Assignment getOwnedBusAccessAssignment_4_1_1_4() { return cOwnedBusAccessAssignment_4_1_1_4; }
 
 		//BusAccess
-		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0() { return cOwnedBusAccessBusAccessParserRuleCall_3_1_1_4_0; }
+		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0() { return cOwnedBusAccessBusAccessParserRuleCall_4_1_1_4_0; }
 
 		//ownedSubprogramAccess+=SubprogramAccess
-		public Assignment getOwnedSubprogramAccessAssignment_3_1_1_5() { return cOwnedSubprogramAccessAssignment_3_1_1_5; }
+		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_5() { return cOwnedSubprogramAccessAssignment_4_1_1_5; }
 
 		//SubprogramAccess
-		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_5_0; }
+		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_5_0; }
 
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		public Assignment getOwnedSubprogramGroupAccessAssignment_3_1_1_6() { return cOwnedSubprogramGroupAccessAssignment_3_1_1_6; }
+		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_6() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_6; }
 
 		//SubprogramGroupAccess
-		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_6_0; }
+		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_6_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_3_1_1_7() { return cOwnedAbstractFeatureAssignment_3_1_1_7; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_7() { return cOwnedAbstractFeatureAssignment_4_1_1_7; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_7_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_7_0; }
 	}
 
 	public class MemoryTypeElements extends AbstractParserRuleElementFinder {
@@ -3010,25 +3086,34 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFeaturesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cPrototypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Group cGroup_3_1_0 = (Group)cAlternatives_3_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_3_1_0_0_0 = (Keyword)cNoFeaturesAssignment_3_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_3_1_0_0_0 = (Keyword)cNoPrototypesAssignment_3_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1_0_1 = (Keyword)cGroup_3_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_3_1_1 = (Alternatives)cAlternatives_3_1.eContents().get(1);
-		private final Assignment cOwnedFeatureGroupAssignment_3_1_1_0 = (Assignment)cAlternatives_3_1_1.eContents().get(0);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_3_1_1_0.eContents().get(0);
-		private final Assignment cOwnedBusAccessAssignment_3_1_1_1 = (Assignment)cAlternatives_3_1_1.eContents().get(1);
-		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0 = (RuleCall)cOwnedBusAccessAssignment_3_1_1_1.eContents().get(0);
-		private final Assignment cOwnedDataPortAssignment_3_1_1_2 = (Assignment)cAlternatives_3_1_1.eContents().get(2);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_3_1_1_2_0 = (RuleCall)cOwnedDataPortAssignment_3_1_1_2.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_3_1_1_3 = (Assignment)cAlternatives_3_1_1.eContents().get(3);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_3_1_1_3_0 = (RuleCall)cOwnedEventPortAssignment_3_1_1_3.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_3_1_1_4 = (Assignment)cAlternatives_3_1_1.eContents().get(4);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0 = (RuleCall)cOwnedEventDataPortAssignment_3_1_1_4.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_3_1_1_5 = (Assignment)cAlternatives_3_1_1.eContents().get(5);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_3_1_1_5.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_0.eContents().get(0);
+		private final Assignment cOwnedBusAccessAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedBusAccessAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedDataPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_4.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_5 = (Assignment)cAlternatives_4_1_1.eContents().get(5);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_5.eContents().get(0);
 		
 		////	('requires' 'modes'
 		////	((ownedMode+=RequiresMode)+))?
@@ -3040,15 +3125,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//MemoryType returns aadl2::MemoryType:
 		//	"memory" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//	(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//	ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"memory" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup() { return cGroup; }
 
 		//"memory"
@@ -3097,69 +3184,96 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
-		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
-		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort |
-		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_3_1_0() { return cGroup_3_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_3_1_0_0() { return cNoFeaturesAssignment_3_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_3_1_0_0() { return cNoPrototypesAssignment_3_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_3_1_0_0_0() { return cNoFeaturesNoneKeyword_3_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_3_1_0_0_0() { return cNoPrototypesNoneKeyword_3_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_1_0_1() { return cSemicolonKeyword_3_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_3_1_1() { return cOwnedPrototypeAssignment_3_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
+		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+
+		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort |
+		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
+
 		//(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_3_1_1() { return cAlternatives_3_1_1; }
+		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_3_1_1_0() { return cOwnedFeatureGroupAssignment_3_1_1_0; }
+		public Assignment getOwnedFeatureGroupAssignment_4_1_1_0() { return cOwnedFeatureGroupAssignment_4_1_1_0; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0; }
 
 		//ownedBusAccess+=BusAccess
-		public Assignment getOwnedBusAccessAssignment_3_1_1_1() { return cOwnedBusAccessAssignment_3_1_1_1; }
+		public Assignment getOwnedBusAccessAssignment_4_1_1_1() { return cOwnedBusAccessAssignment_4_1_1_1; }
 
 		//BusAccess
-		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0() { return cOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0; }
+		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0() { return cOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_3_1_1_2() { return cOwnedDataPortAssignment_3_1_1_2; }
+		public Assignment getOwnedDataPortAssignment_4_1_1_2() { return cOwnedDataPortAssignment_4_1_1_2; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_3_1_1_2_0() { return cOwnedDataPortDataPortParserRuleCall_3_1_1_2_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_2_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_2_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_3_1_1_3() { return cOwnedEventPortAssignment_3_1_1_3; }
+		public Assignment getOwnedEventPortAssignment_4_1_1_3() { return cOwnedEventPortAssignment_4_1_1_3; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_3_1_1_3_0() { return cOwnedEventPortEventPortParserRuleCall_3_1_1_3_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_3_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_3_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_3_1_1_4() { return cOwnedEventDataPortAssignment_3_1_1_4; }
+		public Assignment getOwnedEventDataPortAssignment_4_1_1_4() { return cOwnedEventDataPortAssignment_4_1_1_4; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_3_1_1_5() { return cOwnedAbstractFeatureAssignment_3_1_1_5; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_5() { return cOwnedAbstractFeatureAssignment_4_1_1_5; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0; }
 	}
 
 	public class BusTypeElements extends AbstractParserRuleElementFinder {
@@ -3181,25 +3295,34 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFeaturesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cPrototypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Group cGroup_3_1_0 = (Group)cAlternatives_3_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_3_1_0_0_0 = (Keyword)cNoFeaturesAssignment_3_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_3_1_0_0_0 = (Keyword)cNoPrototypesAssignment_3_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1_0_1 = (Keyword)cGroup_3_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_3_1_1 = (Alternatives)cAlternatives_3_1.eContents().get(1);
-		private final Assignment cOwnedFeatureGroupAssignment_3_1_1_0 = (Assignment)cAlternatives_3_1_1.eContents().get(0);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_3_1_1_0.eContents().get(0);
-		private final Assignment cOwnedBusAccessAssignment_3_1_1_1 = (Assignment)cAlternatives_3_1_1.eContents().get(1);
-		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0 = (RuleCall)cOwnedBusAccessAssignment_3_1_1_1.eContents().get(0);
-		private final Assignment cOwnedDataPortAssignment_3_1_1_2 = (Assignment)cAlternatives_3_1_1.eContents().get(2);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_3_1_1_2_0 = (RuleCall)cOwnedDataPortAssignment_3_1_1_2.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_3_1_1_3 = (Assignment)cAlternatives_3_1_1.eContents().get(3);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_3_1_1_3_0 = (RuleCall)cOwnedEventPortAssignment_3_1_1_3.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_3_1_1_4 = (Assignment)cAlternatives_3_1_1.eContents().get(4);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0 = (RuleCall)cOwnedEventDataPortAssignment_3_1_1_4.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_3_1_1_5 = (Assignment)cAlternatives_3_1_1.eContents().get(5);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_3_1_1_5.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_0.eContents().get(0);
+		private final Assignment cOwnedBusAccessAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedBusAccessAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedDataPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_3.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_4.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_5 = (Assignment)cAlternatives_4_1_1.eContents().get(5);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_5.eContents().get(0);
 		
 		////	('requires' 'modes'
 		////	((ownedMode+=RequiresMode)+))?
@@ -3211,15 +3334,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//BusType returns aadl2::BusType:
 		//	"bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//	(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//	ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup() { return cGroup; }
 
 		//"bus"
@@ -3268,69 +3393,96 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
-		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
-		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort |
-		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_3_1_0() { return cGroup_3_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_3_1_0_0() { return cNoFeaturesAssignment_3_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_3_1_0_0() { return cNoPrototypesAssignment_3_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_3_1_0_0_0() { return cNoFeaturesNoneKeyword_3_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_3_1_0_0_0() { return cNoPrototypesNoneKeyword_3_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_1_0_1() { return cSemicolonKeyword_3_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_3_1_1() { return cOwnedPrototypeAssignment_3_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess |
+		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+
+		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort |
+		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
+
 		//(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_3_1_1() { return cAlternatives_3_1_1; }
+		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_3_1_1_0() { return cOwnedFeatureGroupAssignment_3_1_1_0; }
+		public Assignment getOwnedFeatureGroupAssignment_4_1_1_0() { return cOwnedFeatureGroupAssignment_4_1_1_0; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0; }
 
 		//ownedBusAccess+=BusAccess
-		public Assignment getOwnedBusAccessAssignment_3_1_1_1() { return cOwnedBusAccessAssignment_3_1_1_1; }
+		public Assignment getOwnedBusAccessAssignment_4_1_1_1() { return cOwnedBusAccessAssignment_4_1_1_1; }
 
 		//BusAccess
-		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0() { return cOwnedBusAccessBusAccessParserRuleCall_3_1_1_1_0; }
+		public RuleCall getOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0() { return cOwnedBusAccessBusAccessParserRuleCall_4_1_1_1_0; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_3_1_1_2() { return cOwnedDataPortAssignment_3_1_1_2; }
+		public Assignment getOwnedDataPortAssignment_4_1_1_2() { return cOwnedDataPortAssignment_4_1_1_2; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_3_1_1_2_0() { return cOwnedDataPortDataPortParserRuleCall_3_1_1_2_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_2_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_2_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_3_1_1_3() { return cOwnedEventPortAssignment_3_1_1_3; }
+		public Assignment getOwnedEventPortAssignment_4_1_1_3() { return cOwnedEventPortAssignment_4_1_1_3; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_3_1_1_3_0() { return cOwnedEventPortEventPortParserRuleCall_3_1_1_3_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_3_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_3_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_3_1_1_4() { return cOwnedEventDataPortAssignment_3_1_1_4; }
+		public Assignment getOwnedEventDataPortAssignment_4_1_1_4() { return cOwnedEventDataPortAssignment_4_1_1_4; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_3_1_1_4_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_4_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_3_1_1_5() { return cOwnedAbstractFeatureAssignment_3_1_1_5; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_5() { return cOwnedAbstractFeatureAssignment_4_1_1_5; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_5_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_5_0; }
 	}
 
 	public class VirtualBusTypeElements extends AbstractParserRuleElementFinder {
@@ -3353,23 +3505,32 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3_1_3 = (Keyword)cGroup_3_1.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cPrototypesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
 		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_4_1_0_0_0 = (Keyword)cNoPrototypesAssignment_4_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
-		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_0.eContents().get(0);
-		private final Assignment cOwnedDataPortAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_1.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_2.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_3.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_4.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_4_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_4_1_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cFeaturesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
+		private final Group cGroup_5_1_0 = (Group)cAlternatives_5_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_5_1_0_0 = (Assignment)cGroup_5_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_5_1_0_0_0 = (Keyword)cNoFeaturesAssignment_5_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5_1_0_1 = (Keyword)cGroup_5_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_5_1_1 = (Alternatives)cAlternatives_5_1.eContents().get(1);
+		private final Assignment cOwnedFeatureGroupAssignment_5_1_1_0 = (Assignment)cAlternatives_5_1_1.eContents().get(0);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_5_1_1_0.eContents().get(0);
+		private final Assignment cOwnedDataPortAssignment_5_1_1_1 = (Assignment)cAlternatives_5_1_1.eContents().get(1);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_5_1_1_1_0 = (RuleCall)cOwnedDataPortAssignment_5_1_1_1.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_5_1_1_2 = (Assignment)cAlternatives_5_1_1.eContents().get(2);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_5_1_1_2_0 = (RuleCall)cOwnedEventPortAssignment_5_1_1_2.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_5_1_1_3 = (Assignment)cAlternatives_5_1_1.eContents().get(3);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_3_0 = (RuleCall)cOwnedEventDataPortAssignment_5_1_1_3.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_5_1_1_4 = (Assignment)cAlternatives_5_1_1.eContents().get(4);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0 = (RuleCall)cOwnedAbstractFeatureAssignment_5_1_1_4.eContents().get(0);
 		
 		////	('requires' 'modes'
 		////	((ownedMode+=RequiresMode)+))?
@@ -3381,15 +3542,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//VirtualBusType returns aadl2::VirtualBusType:
 		//	"virtual" "bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//	(ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//	ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//	ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"virtual" "bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//(ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup() { return cGroup; }
 
 		//"virtual"
@@ -3441,62 +3604,89 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort |
-		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_4_0() { return cPrototypesKeyword_4_0; }
 
-		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_4_1_0_0() { return cNoPrototypesAssignment_4_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_4_1_0_0_0() { return cNoPrototypesNoneKeyword_4_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_4_1_1() { return cOwnedPrototypeAssignment_4_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort |
+		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_5_0() { return cFeaturesKeyword_5_0; }
+
+		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_5_1_0() { return cGroup_5_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_5_1_0_0() { return cNoFeaturesAssignment_5_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_5_1_0_0_0() { return cNoFeaturesNoneKeyword_5_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5_1_0_1() { return cSemicolonKeyword_5_1_0_1; }
+
 		//(ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
 		//ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
+		public Alternatives getAlternatives_5_1_1() { return cAlternatives_5_1_1; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_4_1_1_0() { return cOwnedFeatureGroupAssignment_4_1_1_0; }
+		public Assignment getOwnedFeatureGroupAssignment_5_1_1_0() { return cOwnedFeatureGroupAssignment_5_1_1_0; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_0_0; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_4_1_1_1() { return cOwnedDataPortAssignment_4_1_1_1; }
+		public Assignment getOwnedDataPortAssignment_5_1_1_1() { return cOwnedDataPortAssignment_5_1_1_1; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_1_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_1_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_5_1_1_1_0() { return cOwnedDataPortDataPortParserRuleCall_5_1_1_1_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_4_1_1_2() { return cOwnedEventPortAssignment_4_1_1_2; }
+		public Assignment getOwnedEventPortAssignment_5_1_1_2() { return cOwnedEventPortAssignment_5_1_1_2; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_2_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_2_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_5_1_1_2_0() { return cOwnedEventPortEventPortParserRuleCall_5_1_1_2_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_4_1_1_3() { return cOwnedEventDataPortAssignment_4_1_1_3; }
+		public Assignment getOwnedEventDataPortAssignment_5_1_1_3() { return cOwnedEventDataPortAssignment_5_1_1_3; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_3_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_3_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_3_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_3_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_4() { return cOwnedAbstractFeatureAssignment_4_1_1_4; }
+		public Assignment getOwnedAbstractFeatureAssignment_5_1_1_4() { return cOwnedAbstractFeatureAssignment_5_1_1_4; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_4_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_4_0; }
 	}
 
 	public class VirtualProcessorTypeElements extends AbstractParserRuleElementFinder {
@@ -3519,27 +3709,36 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_3_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_3_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3_1_3 = (Keyword)cGroup_3_1.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Keyword cPrototypesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
 		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_4_1_0_0_0 = (Keyword)cNoPrototypesAssignment_4_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
-		private final Assignment cOwnedDataPortAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
-		private final RuleCall cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_4_1_1_0.eContents().get(0);
-		private final Assignment cOwnedEventPortAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
-		private final RuleCall cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_4_1_1_1.eContents().get(0);
-		private final Assignment cOwnedEventDataPortAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
-		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_4_1_1_2.eContents().get(0);
-		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_3.eContents().get(0);
-		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_4 = (Assignment)cAlternatives_4_1_1.eContents().get(4);
-		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_4_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_4.eContents().get(0);
-		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_5 = (Assignment)cAlternatives_4_1_1.eContents().get(5);
-		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_5_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_5.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_6 = (Assignment)cAlternatives_4_1_1.eContents().get(6);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_6_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_6.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_4_1_1 = (Assignment)cAlternatives_4_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_4_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_4_1_1.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cFeaturesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Alternatives cAlternatives_5_1 = (Alternatives)cGroup_5.eContents().get(1);
+		private final Group cGroup_5_1_0 = (Group)cAlternatives_5_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_5_1_0_0 = (Assignment)cGroup_5_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_5_1_0_0_0 = (Keyword)cNoFeaturesAssignment_5_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5_1_0_1 = (Keyword)cGroup_5_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_5_1_1 = (Alternatives)cAlternatives_5_1.eContents().get(1);
+		private final Assignment cOwnedDataPortAssignment_5_1_1_0 = (Assignment)cAlternatives_5_1_1.eContents().get(0);
+		private final RuleCall cOwnedDataPortDataPortParserRuleCall_5_1_1_0_0 = (RuleCall)cOwnedDataPortAssignment_5_1_1_0.eContents().get(0);
+		private final Assignment cOwnedEventPortAssignment_5_1_1_1 = (Assignment)cAlternatives_5_1_1.eContents().get(1);
+		private final RuleCall cOwnedEventPortEventPortParserRuleCall_5_1_1_1_0 = (RuleCall)cOwnedEventPortAssignment_5_1_1_1.eContents().get(0);
+		private final Assignment cOwnedEventDataPortAssignment_5_1_1_2 = (Assignment)cAlternatives_5_1_1.eContents().get(2);
+		private final RuleCall cOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_2_0 = (RuleCall)cOwnedEventDataPortAssignment_5_1_1_2.eContents().get(0);
+		private final Assignment cOwnedFeatureGroupAssignment_5_1_1_3 = (Assignment)cAlternatives_5_1_1.eContents().get(3);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_3_0 = (RuleCall)cOwnedFeatureGroupAssignment_5_1_1_3.eContents().get(0);
+		private final Assignment cOwnedSubprogramAccessAssignment_5_1_1_4 = (Assignment)cAlternatives_5_1_1.eContents().get(4);
+		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_5_1_1_4_0 = (RuleCall)cOwnedSubprogramAccessAssignment_5_1_1_4.eContents().get(0);
+		private final Assignment cOwnedSubprogramGroupAccessAssignment_5_1_1_5 = (Assignment)cAlternatives_5_1_1.eContents().get(5);
+		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_5_1_1_5_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_5_1_1_5.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_5_1_1_6 = (Assignment)cAlternatives_5_1_1.eContents().get(6);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_6_0 = (RuleCall)cOwnedAbstractFeatureAssignment_5_1_1_6.eContents().get(0);
 		
 		////	('flows'
 		////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -3553,14 +3752,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//VirtualProcessorType returns aadl2::VirtualProcessorType:
 		//	"virtual" "processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//	ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"virtual" "processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 		//ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 		//ownedAbstractFeature+=AbstractFeature)+))?
@@ -3615,77 +3816,104 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_4_0() { return cPrototypesKeyword_4_0; }
 
-		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
-		//ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_4_1_0_0() { return cNoPrototypesAssignment_4_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_4_1_0_0_0() { return cNoPrototypesNoneKeyword_4_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_4_1_1() { return cOwnedPrototypeAssignment_4_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_4_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_4_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort |
+		//ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_5_0() { return cFeaturesKeyword_5_0; }
+
+		//noFeatures?="none" ";" | (ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+		//ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_5_1() { return cAlternatives_5_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_5_1_0() { return cGroup_5_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_5_1_0_0() { return cNoFeaturesAssignment_5_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_5_1_0_0_0() { return cNoFeaturesNoneKeyword_5_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5_1_0_1() { return cSemicolonKeyword_5_1_0_1; }
+
 		//(ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
 		//ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
+		public Alternatives getAlternatives_5_1_1() { return cAlternatives_5_1_1; }
 
 		//ownedDataPort+=DataPort
-		public Assignment getOwnedDataPortAssignment_4_1_1_0() { return cOwnedDataPortAssignment_4_1_1_0; }
+		public Assignment getOwnedDataPortAssignment_5_1_1_0() { return cOwnedDataPortAssignment_5_1_1_0; }
 
 		//DataPort
-		public RuleCall getOwnedDataPortDataPortParserRuleCall_4_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_4_1_1_0_0; }
+		public RuleCall getOwnedDataPortDataPortParserRuleCall_5_1_1_0_0() { return cOwnedDataPortDataPortParserRuleCall_5_1_1_0_0; }
 
 		//ownedEventPort+=EventPort
-		public Assignment getOwnedEventPortAssignment_4_1_1_1() { return cOwnedEventPortAssignment_4_1_1_1; }
+		public Assignment getOwnedEventPortAssignment_5_1_1_1() { return cOwnedEventPortAssignment_5_1_1_1; }
 
 		//EventPort
-		public RuleCall getOwnedEventPortEventPortParserRuleCall_4_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_4_1_1_1_0; }
+		public RuleCall getOwnedEventPortEventPortParserRuleCall_5_1_1_1_0() { return cOwnedEventPortEventPortParserRuleCall_5_1_1_1_0; }
 
 		//ownedEventDataPort+=EventDataPort
-		public Assignment getOwnedEventDataPortAssignment_4_1_1_2() { return cOwnedEventDataPortAssignment_4_1_1_2; }
+		public Assignment getOwnedEventDataPortAssignment_5_1_1_2() { return cOwnedEventDataPortAssignment_5_1_1_2; }
 
 		//EventDataPort
-		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_4_1_1_2_0; }
+		public RuleCall getOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_2_0() { return cOwnedEventDataPortEventDataPortParserRuleCall_5_1_1_2_0; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_4_1_1_3() { return cOwnedFeatureGroupAssignment_4_1_1_3; }
+		public Assignment getOwnedFeatureGroupAssignment_5_1_1_3() { return cOwnedFeatureGroupAssignment_5_1_1_3; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_3_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_3_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_5_1_1_3_0; }
 
 		//ownedSubprogramAccess+=SubprogramAccess
-		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_4() { return cOwnedSubprogramAccessAssignment_4_1_1_4; }
+		public Assignment getOwnedSubprogramAccessAssignment_5_1_1_4() { return cOwnedSubprogramAccessAssignment_5_1_1_4; }
 
 		//SubprogramAccess
-		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_4_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_4_0; }
+		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_5_1_1_4_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_5_1_1_4_0; }
 
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_5() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_5; }
+		public Assignment getOwnedSubprogramGroupAccessAssignment_5_1_1_5() { return cOwnedSubprogramGroupAccessAssignment_5_1_1_5; }
 
 		//SubprogramGroupAccess
-		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_5_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_5_0; }
+		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_5_1_1_5_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_5_1_1_5_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_6() { return cOwnedAbstractFeatureAssignment_4_1_1_6; }
+		public Assignment getOwnedAbstractFeatureAssignment_5_1_1_6() { return cOwnedAbstractFeatureAssignment_5_1_1_6; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_6_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_6_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_6_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_5_1_1_6_0; }
 	}
 
 	public class DataTypeElements extends AbstractParserRuleElementFinder {
@@ -3707,21 +3935,30 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cFeaturesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cPrototypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
 		private final Group cGroup_3_1_0 = (Group)cAlternatives_3_1.eContents().get(0);
-		private final Assignment cNoFeaturesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
-		private final Keyword cNoFeaturesNoneKeyword_3_1_0_0_0 = (Keyword)cNoFeaturesAssignment_3_1_0_0.eContents().get(0);
+		private final Assignment cNoPrototypesAssignment_3_1_0_0 = (Assignment)cGroup_3_1_0.eContents().get(0);
+		private final Keyword cNoPrototypesNoneKeyword_3_1_0_0_0 = (Keyword)cNoPrototypesAssignment_3_1_0_0.eContents().get(0);
 		private final Keyword cSemicolonKeyword_3_1_0_1 = (Keyword)cGroup_3_1_0.eContents().get(1);
-		private final Alternatives cAlternatives_3_1_1 = (Alternatives)cAlternatives_3_1.eContents().get(1);
-		private final Assignment cOwnedFeatureGroupAssignment_3_1_1_0 = (Assignment)cAlternatives_3_1_1.eContents().get(0);
-		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_3_1_1_0.eContents().get(0);
-		private final Assignment cOwnedSubprogramAccessAssignment_3_1_1_1 = (Assignment)cAlternatives_3_1_1.eContents().get(1);
-		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_1_0 = (RuleCall)cOwnedSubprogramAccessAssignment_3_1_1_1.eContents().get(0);
-		private final Assignment cOwnedSubprogramGroupAccessAssignment_3_1_1_2 = (Assignment)cAlternatives_3_1_1.eContents().get(2);
-		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_2_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_3_1_1_2.eContents().get(0);
-		private final Assignment cOwnedAbstractFeatureAssignment_3_1_1_3 = (Assignment)cAlternatives_3_1_1.eContents().get(3);
-		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_3_0 = (RuleCall)cOwnedAbstractFeatureAssignment_3_1_1_3.eContents().get(0);
+		private final Assignment cOwnedPrototypeAssignment_3_1_1 = (Assignment)cAlternatives_3_1.eContents().get(1);
+		private final RuleCall cOwnedPrototypePrototypeParserRuleCall_3_1_1_0 = (RuleCall)cOwnedPrototypeAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cFeaturesKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Alternatives cAlternatives_4_1 = (Alternatives)cGroup_4.eContents().get(1);
+		private final Group cGroup_4_1_0 = (Group)cAlternatives_4_1.eContents().get(0);
+		private final Assignment cNoFeaturesAssignment_4_1_0_0 = (Assignment)cGroup_4_1_0.eContents().get(0);
+		private final Keyword cNoFeaturesNoneKeyword_4_1_0_0_0 = (Keyword)cNoFeaturesAssignment_4_1_0_0.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4_1_0_1 = (Keyword)cGroup_4_1_0.eContents().get(1);
+		private final Alternatives cAlternatives_4_1_1 = (Alternatives)cAlternatives_4_1.eContents().get(1);
+		private final Assignment cOwnedFeatureGroupAssignment_4_1_1_0 = (Assignment)cAlternatives_4_1_1.eContents().get(0);
+		private final RuleCall cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0 = (RuleCall)cOwnedFeatureGroupAssignment_4_1_1_0.eContents().get(0);
+		private final Assignment cOwnedSubprogramAccessAssignment_4_1_1_1 = (Assignment)cAlternatives_4_1_1.eContents().get(1);
+		private final RuleCall cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0 = (RuleCall)cOwnedSubprogramAccessAssignment_4_1_1_1.eContents().get(0);
+		private final Assignment cOwnedSubprogramGroupAccessAssignment_4_1_1_2 = (Assignment)cAlternatives_4_1_1.eContents().get(2);
+		private final RuleCall cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0 = (RuleCall)cOwnedSubprogramGroupAccessAssignment_4_1_1_2.eContents().get(0);
+		private final Assignment cOwnedAbstractFeatureAssignment_4_1_1_3 = (Assignment)cAlternatives_4_1_1.eContents().get(3);
+		private final RuleCall cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0 = (RuleCall)cOwnedAbstractFeatureAssignment_4_1_1_3.eContents().get(0);
 		
 		////	('flows'
 		////	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -3732,15 +3969,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		////	'end' ID ';'
 		//DataType returns aadl2::DataType:
 		//	"data" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//	(ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//	ownedAbstractFeature+=AbstractFeature)+))?;
 		public ParserRule getRule() { return rule; }
 
 		//"data" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-		//(ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+		//ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+		//ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+		//ownedAbstractFeature+=AbstractFeature)+))?
 		public Group getGroup() { return cGroup; }
 
 		//"data"
@@ -3789,56 +4028,83 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		//("prototypes" (noPrototypes?="none" ";" | ownedPrototype+=Prototype+))?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"features"
-		public Keyword getFeaturesKeyword_3_0() { return cFeaturesKeyword_3_0; }
+		//"prototypes"
+		public Keyword getPrototypesKeyword_3_0() { return cPrototypesKeyword_3_0; }
 
-		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		//noPrototypes?="none" ";" | ownedPrototype+=Prototype+
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//noFeatures?="none" ";"
+		//noPrototypes?="none" ";"
 		public Group getGroup_3_1_0() { return cGroup_3_1_0; }
 
-		//noFeatures?="none"
-		public Assignment getNoFeaturesAssignment_3_1_0_0() { return cNoFeaturesAssignment_3_1_0_0; }
+		//noPrototypes?="none"
+		public Assignment getNoPrototypesAssignment_3_1_0_0() { return cNoPrototypesAssignment_3_1_0_0; }
 
 		//"none"
-		public Keyword getNoFeaturesNoneKeyword_3_1_0_0_0() { return cNoFeaturesNoneKeyword_3_1_0_0_0; }
+		public Keyword getNoPrototypesNoneKeyword_3_1_0_0_0() { return cNoPrototypesNoneKeyword_3_1_0_0_0; }
 
 		//";"
 		public Keyword getSemicolonKeyword_3_1_0_1() { return cSemicolonKeyword_3_1_0_1; }
 
+		//ownedPrototype+=Prototype+
+		public Assignment getOwnedPrototypeAssignment_3_1_1() { return cOwnedPrototypeAssignment_3_1_1; }
+
+		//Prototype
+		public RuleCall getOwnedPrototypePrototypeParserRuleCall_3_1_1_0() { return cOwnedPrototypePrototypeParserRuleCall_3_1_1_0; }
+
+		//("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"features"
+		public Keyword getFeaturesKeyword_4_0() { return cFeaturesKeyword_4_0; }
+
+		//noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
+		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
+		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
+
+		//noFeatures?="none" ";"
+		public Group getGroup_4_1_0() { return cGroup_4_1_0; }
+
+		//noFeatures?="none"
+		public Assignment getNoFeaturesAssignment_4_1_0_0() { return cNoFeaturesAssignment_4_1_0_0; }
+
+		//"none"
+		public Keyword getNoFeaturesNoneKeyword_4_1_0_0_0() { return cNoFeaturesNoneKeyword_4_1_0_0_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4_1_0_1() { return cSemicolonKeyword_4_1_0_1; }
+
 		//(ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+
-		public Alternatives getAlternatives_3_1_1() { return cAlternatives_3_1_1; }
+		public Alternatives getAlternatives_4_1_1() { return cAlternatives_4_1_1; }
 
 		//ownedFeatureGroup+=FeatureGroup
-		public Assignment getOwnedFeatureGroupAssignment_3_1_1_0() { return cOwnedFeatureGroupAssignment_3_1_1_0; }
+		public Assignment getOwnedFeatureGroupAssignment_4_1_1_0() { return cOwnedFeatureGroupAssignment_4_1_1_0; }
 
 		//FeatureGroup
-		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_3_1_1_0_0; }
+		public RuleCall getOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0() { return cOwnedFeatureGroupFeatureGroupParserRuleCall_4_1_1_0_0; }
 
 		//ownedSubprogramAccess+=SubprogramAccess
-		public Assignment getOwnedSubprogramAccessAssignment_3_1_1_1() { return cOwnedSubprogramAccessAssignment_3_1_1_1; }
+		public Assignment getOwnedSubprogramAccessAssignment_4_1_1_1() { return cOwnedSubprogramAccessAssignment_4_1_1_1; }
 
 		//SubprogramAccess
-		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_1_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_3_1_1_1_0; }
+		public RuleCall getOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0() { return cOwnedSubprogramAccessSubprogramAccessParserRuleCall_4_1_1_1_0; }
 
 		//ownedSubprogramGroupAccess+=SubprogramGroupAccess
-		public Assignment getOwnedSubprogramGroupAccessAssignment_3_1_1_2() { return cOwnedSubprogramGroupAccessAssignment_3_1_1_2; }
+		public Assignment getOwnedSubprogramGroupAccessAssignment_4_1_1_2() { return cOwnedSubprogramGroupAccessAssignment_4_1_1_2; }
 
 		//SubprogramGroupAccess
-		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_2_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_3_1_1_2_0; }
+		public RuleCall getOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0() { return cOwnedSubprogramGroupAccessSubprogramGroupAccessParserRuleCall_4_1_1_2_0; }
 
 		//ownedAbstractFeature+=AbstractFeature
-		public Assignment getOwnedAbstractFeatureAssignment_3_1_1_3() { return cOwnedAbstractFeatureAssignment_3_1_1_3; }
+		public Assignment getOwnedAbstractFeatureAssignment_4_1_1_3() { return cOwnedAbstractFeatureAssignment_4_1_1_3; }
 
 		//AbstractFeature
-		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_3_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_3_1_1_3_0; }
+		public RuleCall getOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0() { return cOwnedAbstractFeatureAbstractFeatureParserRuleCall_4_1_1_3_0; }
 	}
 
 	public class ComponentImplementationElements extends AbstractParserRuleElementFinder {
@@ -7447,37 +7713,38 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
-		private final Keyword cLeftCurlyBracketKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Assignment cOwnedCallSpecificationAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cOwnedCallSpecificationCallSpecificationParserRuleCall_2_0 = (RuleCall)cOwnedCallSpecificationAssignment_2.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cOwnedCallSpecificationAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cOwnedCallSpecificationCallSpecificationParserRuleCall_3_0 = (RuleCall)cOwnedCallSpecificationAssignment_3.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cInKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Keyword cModesKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
-		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
-		private final Assignment cInModeAssignment_5_3_0 = (Assignment)cGroup_5_3.eContents().get(0);
-		private final CrossReference cInModeModeCrossReference_5_3_0_0 = (CrossReference)cInModeAssignment_5_3_0.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_5_3_0_0_1 = (RuleCall)cInModeModeCrossReference_5_3_0_0.eContents().get(1);
-		private final Group cGroup_5_3_1 = (Group)cGroup_5_3.eContents().get(1);
-		private final Keyword cCommaKeyword_5_3_1_0 = (Keyword)cGroup_5_3_1.eContents().get(0);
-		private final Assignment cInModeAssignment_5_3_1_1 = (Assignment)cGroup_5_3_1.eContents().get(1);
-		private final CrossReference cInModeModeCrossReference_5_3_1_1_0 = (CrossReference)cInModeAssignment_5_3_1_1.eContents().get(0);
-		private final RuleCall cInModeModeIDTerminalRuleCall_5_3_1_1_0_1 = (RuleCall)cInModeModeCrossReference_5_3_1_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
-		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Keyword cLeftCurlyBracketKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cInKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Keyword cModesKeyword_6_1 = (Keyword)cGroup_6.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_6_2 = (Keyword)cGroup_6.eContents().get(2);
+		private final Group cGroup_6_3 = (Group)cGroup_6.eContents().get(3);
+		private final Assignment cInModeAssignment_6_3_0 = (Assignment)cGroup_6_3.eContents().get(0);
+		private final CrossReference cInModeModeCrossReference_6_3_0_0 = (CrossReference)cInModeAssignment_6_3_0.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_6_3_0_0_1 = (RuleCall)cInModeModeCrossReference_6_3_0_0.eContents().get(1);
+		private final Group cGroup_6_3_1 = (Group)cGroup_6_3.eContents().get(1);
+		private final Keyword cCommaKeyword_6_3_1_0 = (Keyword)cGroup_6_3_1.eContents().get(0);
+		private final Assignment cInModeAssignment_6_3_1_1 = (Assignment)cGroup_6_3_1.eContents().get(1);
+		private final CrossReference cInModeModeCrossReference_6_3_1_1_0 = (CrossReference)cInModeAssignment_6_3_1_1.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_6_3_1_1_0_1 = (RuleCall)cInModeModeCrossReference_6_3_1_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_6_4 = (Keyword)cGroup_6.eContents().get(4);
+		private final Keyword cSemicolonKeyword_7 = (Keyword)cGroup.eContents().get(7);
 		
 		/// * subprogram calls * / SubprogramCallSequence returns aadl2::SubprogramCallSequence:
-		//	name=ID "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		//	("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
+		//	name=ID ":" "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+
+		//	"}")? ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//name=ID "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//name=ID ":" "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
 		//("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";"
 		public Group getGroup() { return cGroup; }
 
@@ -7487,77 +7754,80 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
+		//":"
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_1() { return cLeftCurlyBracketKeyword_1; }
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 
 		//ownedCallSpecification+=CallSpecification+
-		public Assignment getOwnedCallSpecificationAssignment_2() { return cOwnedCallSpecificationAssignment_2; }
+		public Assignment getOwnedCallSpecificationAssignment_3() { return cOwnedCallSpecificationAssignment_3; }
 
 		//CallSpecification
-		public RuleCall getOwnedCallSpecificationCallSpecificationParserRuleCall_2_0() { return cOwnedCallSpecificationCallSpecificationParserRuleCall_2_0; }
+		public RuleCall getOwnedCallSpecificationCallSpecificationParserRuleCall_3_0() { return cOwnedCallSpecificationCallSpecificationParserRuleCall_3_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_3() { return cRightCurlyBracketKeyword_3; }
+		public Keyword getRightCurlyBracketKeyword_4() { return cRightCurlyBracketKeyword_4; }
 
 		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
-
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
-
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
-
-		//("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
 		public Group getGroup_5() { return cGroup_5; }
 
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_5_0() { return cLeftCurlyBracketKeyword_5_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_5_1() { return cOwnedPropertyAssociationAssignment_5_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
+		//("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
+		public Group getGroup_6() { return cGroup_6; }
+
 		//"in"
-		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
+		public Keyword getInKeyword_6_0() { return cInKeyword_6_0; }
 
 		//"modes"
-		public Keyword getModesKeyword_5_1() { return cModesKeyword_5_1; }
+		public Keyword getModesKeyword_6_1() { return cModesKeyword_6_1; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
+		public Keyword getLeftParenthesisKeyword_6_2() { return cLeftParenthesisKeyword_6_2; }
 
 		//inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
-		public Group getGroup_5_3() { return cGroup_5_3; }
+		public Group getGroup_6_3() { return cGroup_6_3; }
 
 		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_5_3_0() { return cInModeAssignment_5_3_0; }
+		public Assignment getInModeAssignment_6_3_0() { return cInModeAssignment_6_3_0; }
 
 		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_5_3_0_0() { return cInModeModeCrossReference_5_3_0_0; }
+		public CrossReference getInModeModeCrossReference_6_3_0_0() { return cInModeModeCrossReference_6_3_0_0; }
 
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_5_3_0_0_1() { return cInModeModeIDTerminalRuleCall_5_3_0_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_6_3_0_0_1() { return cInModeModeIDTerminalRuleCall_6_3_0_0_1; }
 
 		//("," inMode+=[aadl2::Mode])*
-		public Group getGroup_5_3_1() { return cGroup_5_3_1; }
+		public Group getGroup_6_3_1() { return cGroup_6_3_1; }
 
 		//","
-		public Keyword getCommaKeyword_5_3_1_0() { return cCommaKeyword_5_3_1_0; }
+		public Keyword getCommaKeyword_6_3_1_0() { return cCommaKeyword_6_3_1_0; }
 
 		//inMode+=[aadl2::Mode]
-		public Assignment getInModeAssignment_5_3_1_1() { return cInModeAssignment_5_3_1_1; }
+		public Assignment getInModeAssignment_6_3_1_1() { return cInModeAssignment_6_3_1_1; }
 
 		//[aadl2::Mode]
-		public CrossReference getInModeModeCrossReference_5_3_1_1_0() { return cInModeModeCrossReference_5_3_1_1_0; }
+		public CrossReference getInModeModeCrossReference_6_3_1_1_0() { return cInModeModeCrossReference_6_3_1_1_0; }
 
 		//ID
-		public RuleCall getInModeModeIDTerminalRuleCall_5_3_1_1_0_1() { return cInModeModeIDTerminalRuleCall_5_3_1_1_0_1; }
+		public RuleCall getInModeModeIDTerminalRuleCall_6_3_1_1_0_1() { return cInModeModeIDTerminalRuleCall_6_3_1_1_0_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_5_4() { return cRightParenthesisKeyword_5_4; }
+		public Keyword getRightParenthesisKeyword_6_4() { return cRightParenthesisKeyword_6_4; }
 
 		//";"
-		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
+		public Keyword getSemicolonKeyword_7() { return cSemicolonKeyword_7; }
 	}
 
 	public class CallSpecificationElements extends AbstractParserRuleElementFinder {
@@ -12735,35 +13005,52 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrototypeBindingPrototypeBindingParserRuleCall_2_1_2_1_0 = (RuleCall)cOwnedPrototypeBindingAssignment_2_1_2_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_2_1_3 = (Keyword)cGroup_2_1.eContents().get(3);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cLeftCurlyBracketKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Assignment cArrayDimensionAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cArrayDimensionArrayDimensionParserRuleCall_3_0_0 = (RuleCall)cArrayDimensionAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cImplementationReferenceAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0 = (RuleCall)cImplementationReferenceAssignment_3_1_1.eContents().get(0);
+		private final Group cGroup_3_1_2 = (Group)cGroup_3_1.eContents().get(2);
+		private final Keyword cCommaKeyword_3_1_2_0 = (Keyword)cGroup_3_1_2.eContents().get(0);
+		private final Assignment cImplementationReferenceAssignment_3_1_2_1 = (Assignment)cGroup_3_1_2.eContents().get(1);
+		private final RuleCall cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0 = (RuleCall)cImplementationReferenceAssignment_3_1_2_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_1_3 = (Keyword)cGroup_3_1.eContents().get(3);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cInKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Keyword cModesKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
-		private final Group cGroup_4_3 = (Group)cGroup_4.eContents().get(3);
-		private final Assignment cOwnedModeBindingAssignment_4_3_0 = (Assignment)cGroup_4_3.eContents().get(0);
-		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_4_3_0_0 = (RuleCall)cOwnedModeBindingAssignment_4_3_0.eContents().get(0);
-		private final Group cGroup_4_3_1 = (Group)cGroup_4_3.eContents().get(1);
-		private final Keyword cCommaKeyword_4_3_1_0 = (Keyword)cGroup_4_3_1.eContents().get(0);
-		private final Assignment cOwnedModeBindingAssignment_4_3_1_1 = (Assignment)cGroup_4_3_1.eContents().get(1);
-		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0 = (RuleCall)cOwnedModeBindingAssignment_4_3_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Keyword cLeftCurlyBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cInKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cModesKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
+		private final Assignment cOwnedModeBindingAssignment_5_3_0 = (Assignment)cGroup_5_3.eContents().get(0);
+		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_5_3_0_0 = (RuleCall)cOwnedModeBindingAssignment_5_3_0.eContents().get(0);
+		private final Group cGroup_5_3_1 = (Group)cGroup_5_3.eContents().get(1);
+		private final Keyword cCommaKeyword_5_3_1_0 = (Keyword)cGroup_5_3_1.eContents().get(0);
+		private final Assignment cOwnedModeBindingAssignment_5_3_1_1 = (Assignment)cGroup_5_3_1.eContents().get(1);
+		private final RuleCall cOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0 = (RuleCall)cOwnedModeBindingAssignment_5_3_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//DataSubcomponent returns aadl2::DataSubcomponent:
 		//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 		//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-		//	"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";";
+		//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//	implementationReference+=ComponentImplementationReference (","
+		//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
+		//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
+		//	ownedModeBinding+=ModeRef)*) ")")? ";";
 		public ParserRule getRule() { return rule; }
 
 		//(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 		//(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-		//"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";"
+		//ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+		//implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+
+		//"}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to"
@@ -12845,59 +13132,97 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_2_1_3() { return cRightParenthesisKeyword_2_1_3; }
 
-		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		//(arrayDimension+=ArrayDimension+ ("(" implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_3_0() { return cLeftCurlyBracketKeyword_3_0; }
+		//arrayDimension+=ArrayDimension+
+		public Assignment getArrayDimensionAssignment_3_0() { return cArrayDimensionAssignment_3_0; }
 
-		//ownedPropertyAssociation+=PropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_3_1() { return cOwnedPropertyAssociationAssignment_3_1; }
+		//ArrayDimension
+		public RuleCall getArrayDimensionArrayDimensionParserRuleCall_3_0_0() { return cArrayDimensionArrayDimensionParserRuleCall_3_0_0; }
 
-		//PropertyAssociation
-		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_3_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_3_2() { return cRightCurlyBracketKeyword_3_2; }
-
-		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"in"
-		public Keyword getInKeyword_4_0() { return cInKeyword_4_0; }
-
-		//"modes"
-		public Keyword getModesKeyword_4_1() { return cModesKeyword_4_1; }
+		//("(" implementationReference+=ComponentImplementationReference (","
+		//implementationReference+=ComponentImplementationReference)* ")")?
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_4_2() { return cLeftParenthesisKeyword_4_2; }
+		public Keyword getLeftParenthesisKeyword_3_1_0() { return cLeftParenthesisKeyword_3_1_0; }
 
-		//ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*
-		public Group getGroup_4_3() { return cGroup_4_3; }
+		//implementationReference+=ComponentImplementationReference
+		public Assignment getImplementationReferenceAssignment_3_1_1() { return cImplementationReferenceAssignment_3_1_1; }
 
-		//ownedModeBinding+=ModeRef
-		public Assignment getOwnedModeBindingAssignment_4_3_0() { return cOwnedModeBindingAssignment_4_3_0; }
+		//ComponentImplementationReference
+		public RuleCall getImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0() { return cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_1_0; }
 
-		//ModeRef
-		public RuleCall getOwnedModeBindingModeRefParserRuleCall_4_3_0_0() { return cOwnedModeBindingModeRefParserRuleCall_4_3_0_0; }
-
-		//("," ownedModeBinding+=ModeRef)*
-		public Group getGroup_4_3_1() { return cGroup_4_3_1; }
+		//("," implementationReference+=ComponentImplementationReference)*
+		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
 
 		//","
-		public Keyword getCommaKeyword_4_3_1_0() { return cCommaKeyword_4_3_1_0; }
+		public Keyword getCommaKeyword_3_1_2_0() { return cCommaKeyword_3_1_2_0; }
 
-		//ownedModeBinding+=ModeRef
-		public Assignment getOwnedModeBindingAssignment_4_3_1_1() { return cOwnedModeBindingAssignment_4_3_1_1; }
+		//implementationReference+=ComponentImplementationReference
+		public Assignment getImplementationReferenceAssignment_3_1_2_1() { return cImplementationReferenceAssignment_3_1_2_1; }
 
-		//ModeRef
-		public RuleCall getOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0() { return cOwnedModeBindingModeRefParserRuleCall_4_3_1_1_0; }
+		//ComponentImplementationReference
+		public RuleCall getImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0() { return cImplementationReferenceComponentImplementationReferenceParserRuleCall_3_1_2_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_4_4() { return cRightParenthesisKeyword_4_4; }
+		public Keyword getRightParenthesisKeyword_3_1_3() { return cRightParenthesisKeyword_3_1_3; }
+
+		//("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"{"
+		public Keyword getLeftCurlyBracketKeyword_4_0() { return cLeftCurlyBracketKeyword_4_0; }
+
+		//ownedPropertyAssociation+=PropertyAssociation+
+		public Assignment getOwnedPropertyAssociationAssignment_4_1() { return cOwnedPropertyAssociationAssignment_4_1; }
+
+		//PropertyAssociation
+		public RuleCall getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0() { return cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0; }
+
+		//"}"
+		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//("in" "modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//"in"
+		public Keyword getInKeyword_5_0() { return cInKeyword_5_0; }
+
+		//"modes"
+		public Keyword getModesKeyword_5_1() { return cModesKeyword_5_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_5_2() { return cLeftParenthesisKeyword_5_2; }
+
+		//ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*
+		public Group getGroup_5_3() { return cGroup_5_3; }
+
+		//ownedModeBinding+=ModeRef
+		public Assignment getOwnedModeBindingAssignment_5_3_0() { return cOwnedModeBindingAssignment_5_3_0; }
+
+		//ModeRef
+		public RuleCall getOwnedModeBindingModeRefParserRuleCall_5_3_0_0() { return cOwnedModeBindingModeRefParserRuleCall_5_3_0_0; }
+
+		//("," ownedModeBinding+=ModeRef)*
+		public Group getGroup_5_3_1() { return cGroup_5_3_1; }
+
+		//","
+		public Keyword getCommaKeyword_5_3_1_0() { return cCommaKeyword_5_3_1_0; }
+
+		//ownedModeBinding+=ModeRef
+		public Assignment getOwnedModeBindingAssignment_5_3_1_1() { return cOwnedModeBindingAssignment_5_3_1_1; }
+
+		//ModeRef
+		public RuleCall getOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0() { return cOwnedModeBindingModeRefParserRuleCall_5_3_1_1_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_5_4() { return cRightParenthesisKeyword_5_4; }
 
 		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class ArrayDimensionElements extends AbstractParserRuleElementFinder {
@@ -20315,7 +20640,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//ProcessorType returns aadl2::ProcessorType:
 	//	"processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
@@ -20339,7 +20665,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//DeviceType returns aadl2::DeviceType:
 	//	"device" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedBusAccess+=BusAccess | ownedSubprogramAccess+=SubprogramAccess |
 	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
@@ -20361,9 +20688,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//MemoryType returns aadl2::MemoryType:
 	//	"memory" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-	//	(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-	//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+	//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+	//	ownedAbstractFeature+=AbstractFeature)+))?;
 	public MemoryTypeElements getMemoryTypeAccess() {
 		return (pMemoryType != null) ? pMemoryType : (pMemoryType = new MemoryTypeElements());
 	}
@@ -20382,9 +20710,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//BusType returns aadl2::BusType:
 	//	"bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-	//	(ownedFeatureGroup+=FeatureGroup | ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-	//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+	//	ownedBusAccess+=BusAccess | ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+	//	ownedAbstractFeature+=AbstractFeature)+))?;
 	public BusTypeElements getBusTypeAccess() {
 		return (pBusType != null) ? pBusType : (pBusType = new BusTypeElements());
 	}
@@ -20403,9 +20732,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//VirtualBusType returns aadl2::VirtualBusType:
 	//	"virtual" "bus" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-	//	(ownedFeatureGroup+=FeatureGroup | ownedDataPort+=DataPort | ownedEventPort+=EventPort |
-	//	ownedEventDataPort+=EventDataPort | ownedAbstractFeature+=AbstractFeature)+))?;
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+	//	ownedDataPort+=DataPort | ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort |
+	//	ownedAbstractFeature+=AbstractFeature)+))?;
 	public VirtualBusTypeElements getVirtualBusTypeAccess() {
 		return (pVirtualBusType != null) ? pVirtualBusType : (pVirtualBusType = new VirtualBusTypeElements());
 	}
@@ -20426,7 +20756,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//VirtualProcessorType returns aadl2::VirtualProcessorType:
 	//	"virtual" "processor" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedDataPort+=DataPort |
 	//	ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort | ownedFeatureGroup+=FeatureGroup |
 	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
 	//	ownedAbstractFeature+=AbstractFeature)+))?;
@@ -20447,9 +20778,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	////	'end' ID ';'
 	//DataType returns aadl2::DataType:
 	//	"data" name=ID (ownedExtension=TypeExtension ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("features" (noFeatures?="none" ";" |
-	//	(ownedFeatureGroup+=FeatureGroup | ownedSubprogramAccess+=SubprogramAccess |
-	//	ownedSubprogramGroupAccess+=SubprogramGroupAccess | ownedAbstractFeature+=AbstractFeature)+))?;
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("prototypes" (noPrototypes?="none" ";" |
+	//	ownedPrototype+=Prototype+))? ("features" (noFeatures?="none" ";" | (ownedFeatureGroup+=FeatureGroup |
+	//	ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess |
+	//	ownedAbstractFeature+=AbstractFeature)+))?;
 	public DataTypeElements getDataTypeAccess() {
 		return (pDataType != null) ? pDataType : (pDataType = new DataTypeElements());
 	}
@@ -20913,8 +21245,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	/// * subprogram calls * / SubprogramCallSequence returns aadl2::SubprogramCallSequence:
-	//	name=ID "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")?
-	//	("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
+	//	name=ID ":" "{" ownedCallSpecification+=CallSpecification+ "}" ("{" ownedPropertyAssociation+=PropertyAssociation+
+	//	"}")? ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 	public SubprogramCallSequenceElements getSubprogramCallSequenceAccess() {
 		return (pSubprogramCallSequence != null) ? pSubprogramCallSequence : (pSubprogramCallSequence = new SubprogramCallSequenceElements());
 	}
@@ -21449,8 +21781,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//DataSubcomponent returns aadl2::DataSubcomponent:
 	//	(name=ID ":" | refined=[aadl2::DataSubcomponent|REFINEDNAME] ":" "refined" "to") "data"
 	//	(dataSubcomponentType=[aadl2::DataSubcomponentType|QCREF] ("(" ownedPrototypeBinding+=PrototypeBinding (","
-	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? ("{" ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in"
-	//	"modes" "(" (ownedModeBinding+=ModeRef ("," ownedModeBinding+=ModeRef)*) ")")? ";";
+	//	ownedPrototypeBinding+=PrototypeBinding)* ")")?)? (arrayDimension+=ArrayDimension+ ("("
+	//	implementationReference+=ComponentImplementationReference (","
+	//	implementationReference+=ComponentImplementationReference)* ")")?)? ("{"
+	//	ownedPropertyAssociation+=PropertyAssociation+ "}")? ("in" "modes" "(" (ownedModeBinding+=ModeRef (","
+	//	ownedModeBinding+=ModeRef)*) ")")? ";";
 	public DataSubcomponentElements getDataSubcomponentAccess() {
 		return (pDataSubcomponent != null) ? pDataSubcomponent : (pDataSubcomponent = new DataSubcomponentElements());
 	}

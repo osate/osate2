@@ -43,6 +43,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -201,7 +202,7 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	 */
 
 	public void setValue(String s) {
-		setValue(Double.parseDouble(s));
+		setValue(ParseUtil.parseAadlReal(s));
 	}
 
 	/* (non-Javadoc)

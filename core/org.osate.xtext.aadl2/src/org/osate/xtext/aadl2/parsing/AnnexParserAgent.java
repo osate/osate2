@@ -50,9 +50,6 @@ public class AnnexParserAgent  extends LazyLinker {
 		@Override
 		protected void afterModelLinked(EObject model, IDiagnosticConsumer diagnosticsConsumer) {
 			
-			INode node = NodeModelUtils.findActualNodeFor(model);
-			int offset = node.getTotalOffset();
-			int line = node.getTotalStartLine();
 			String filename = model.eResource().getURI().lastSegment();
 			// set up reporter for ParseErrors
 			IResource file = OsateResourceUtil.convertToIResource(model.eResource());
@@ -70,7 +67,7 @@ public class AnnexParserAgent  extends LazyLinker {
 							internalErrorLogger,
 							new AnalysisToParseErrorReporterAdapter.Factory(
 									new MarkerParseErrorReporter.Factory(
-											"edu.cmu.sei.aadl.parser.NameResolutionErrorMarker",
+											"org.osate.aadl2.modelsupport.ParseErrorMarker",
 											parseErrorLoggerFactory)));
 			
 			AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
@@ -80,6 +77,9 @@ public class AnnexParserAgent  extends LazyLinker {
 
 			List<DefaultAnnexLibrary> all=EcoreUtil2.eAllOfType(model, DefaultAnnexLibrary.class);
 			for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
+				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
+				int offset = node.getOffset();
+				int line = node.getStartLine();
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
@@ -122,6 +122,9 @@ public class AnnexParserAgent  extends LazyLinker {
 			}
 			List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
 			for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
+				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
+				int offset = node.getOffset();
+				int line = node.getStartLine();
 				// call the new error annex as a XText generated frontend
 //				if (defaultAnnexSubclause.getName().equalsIgnoreCase("error_model")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;

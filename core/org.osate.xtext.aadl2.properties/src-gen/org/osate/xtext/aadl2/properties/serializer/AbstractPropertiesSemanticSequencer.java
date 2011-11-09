@@ -255,13 +255,9 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*)
-	 *
-	 * Features:
-	 *    op[1, *]
-	 *    ownedPropertyExpression[2, *]
 	 */
 	protected void sequence_ActualAndTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -272,26 +268,18 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*) | 
 	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, *]
-	 *    ownedPropertyExpression[0, *]
 	 */
 	protected void sequence_ActualBooleanTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*)
-	 *
-	 * Features:
-	 *    op[1, *]
-	 *    ownedPropertyExpression[2, *]
 	 */
 	protected void sequence_ActualOrTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -302,39 +290,27 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
 	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, 3]
-	 *    ownedPropertyExpression[0, 5]
 	 */
 	protected void sequence_AndTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
-	 *
-	 * Features:
-	 *    lowerBound[1, 1]
-	 *    upperBound[0, 1]
 	 */
 	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -345,61 +321,45 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm) | 
 	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom)
 	 *     )
-	 *
-	 * Features:
-	 *    op[0, 3]
-	 *    ownedPropertyExpression[0, 5]
 	 */
 	protected void sequence_BooleanAtom(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value?='true'?)
-	 *
-	 * Features:
-	 *    value[0, 1]
 	 */
 	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|QCREF]
-	 *
-	 * Features:
-	 *    classifier[1, 1]
 	 */
 	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     function=ID
-	 *
-	 * Features:
-	 *    function[1, 1]
 	 */
 	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     namedValue=[PropertyConstant|QPREF]
-	 *
-	 * Features:
-	 *    namedValue[1, 1]
 	 */
 	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -412,133 +372,90 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *     )
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    appliesTo[0, *]
-	 *    append[0, 1]
-	 *    constant[0, 1]
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ((namedElement=[NamedElement|ID] arrayRange+=ArrayRange?) | namedElement=[NamedElement|ANNEXREF])
-	 *
-	 * Features:
-	 *    arrayRange[0, 1]
-	 *         EXCLUDE_IF_UNSET namedElement
-	 *         EXCLUDE_IF_SET namedElement
-	 *    namedElement[0, 2]
 	 */
 	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 *
-	 * Features:
-	 *    containmentPathElement[1, *]
 	 */
 	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
-	 *
-	 * Features:
-	 *    unit[0, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
-	 *
-	 * Features:
-	 *    ownedListElement[1, *]
 	 */
 	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     namedValue=[AbstractNamedValue|QPREF]
-	 *
-	 * Features:
-	 *    namedValue[1, 1]
 	 */
 	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
-	 *
-	 * Features:
-	 *    inMode[1, *]
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (op=NotOp ownedPropertyExpression+=BooleanAtom)
-	 *
-	 * Features:
-	 *    op[1, 1]
-	 *    ownedPropertyExpression[1, 1]
 	 */
 	protected void sequence_NotTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
-	 *
-	 * Features:
-	 *    minimum[1, 1]
-	 *    maximum[1, 1]
-	 *    delta[0, 1]
 	 */
 	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -560,29 +477,9 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
 	 *         )
 	 *     )
-	 *
-	 * Features:
-	 *    property[0, 3]
-	 *    appliesTo[0, *]
-	 *         EXCLUDE_IF_UNSET property
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET append
-	 *         EXCLUDE_IF_SET constant
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET ownedValue
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    append[0, 2]
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    constant[0, 2]
-	 *         EXCLUDE_IF_SET property
-	 *         EXCLUDE_IF_SET ownedValue
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_PModel(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -594,100 +491,71 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         constant?='constant'? 
 	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
 	 *     )
-	 *
-	 * Features:
-	 *    property[1, 1]
-	 *    append[0, 1]
-	 *    constant[0, 1]
-	 *    ownedValue[0, *]
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
-	 *
-	 * Features:
-	 *    namedValue[0, 2]
 	 */
 	protected void sequence_PropertyExpression(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ownedValue=PropertyExpression
-	 *
-	 * Features:
-	 *    ownedValue[1, 1]
 	 */
 	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
-	 *
-	 * Features:
-	 *    unit[0, 1]
-	 *    value[1, 1]
 	 */
 	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
-	 *
-	 * Features:
-	 *    ownedFieldValue[1, *]
 	 */
 	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 *
-	 * Features:
-	 *    containmentPathElement[1, *]
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
-	 *
-	 * Features:
-	 *    op[1, 1]
-	 *    ownedPropertyExpression[1, 1]
 	 */
 	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
 	 *     value=NoQuoteString
-	 *
-	 * Features:
-	 *    value[1, 1]
 	 */
 	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 }

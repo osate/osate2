@@ -43,6 +43,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.parsesupport.ParseUtil;
 
 /**
  * <!-- begin-user-doc -->
@@ -302,7 +303,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	 * @see org.osate.aadl2.NumberValue#setValue(java.lang.String)
 	 */
 	public void setValue(String s) {
-		setValue(parseInt(s));
+		long[] res = ParseUtil.parseAadlInteger(s);
+		Long.valueOf(res[1]);
+		setBase(Long.valueOf(res[0]));
+		setValue(Long.valueOf(res[1]));
 	}
 
 	/*

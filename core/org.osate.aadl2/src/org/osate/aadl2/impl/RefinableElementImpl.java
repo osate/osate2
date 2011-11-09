@@ -161,4 +161,13 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public boolean isSetRefinedElement() {
 		return false;
 	}
+	
+	@Override
+	public String getName(){
+		if (name == null){
+			return getRefinedElement().getName();
+		}
+		return name;
+	}
+	
 } //RefinableElementImpl
