@@ -261,13 +261,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.ABSTRACT_IMPLEMENTATION:
-				if(context == grammarAccess.getAbstractImplementationRule()) {
-					sequence_AbstractImplementation(context, (AbstractImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getClassifierRule() ||
+				if(context == grammarAccess.getAbstractImplementationRule() ||
+				   context == grammarAccess.getClassifierRule() ||
 				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (AbstractImplementation) semanticObject); 
+					sequence_AbstractImplementation(context, (AbstractImplementation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -288,13 +285,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.ABSTRACT_TYPE:
-				if(context == grammarAccess.getAbstractTypeRule()) {
-					sequence_AbstractType(context, (AbstractType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getClassifierRule() ||
+				if(context == grammarAccess.getAbstractTypeRule() ||
+				   context == grammarAccess.getClassifierRule() ||
 				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (AbstractType) semanticObject); 
+					sequence_AbstractType(context, (AbstractType) semanticObject); 
 					return; 
 				}
 				else break;
@@ -362,13 +356,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.BUS_IMPLEMENTATION:
-				if(context == grammarAccess.getBusImplementationRule()) {
-					sequence_BusImplementation(context, (BusImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getClassifierRule() ||
+				if(context == grammarAccess.getBusImplementationRule() ||
+				   context == grammarAccess.getClassifierRule() ||
 				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (BusImplementation) semanticObject); 
+					sequence_BusImplementation(context, (BusImplementation) semanticObject); 
 					return; 
 				}
 				else break;
@@ -389,13 +380,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.BUS_TYPE:
-				if(context == grammarAccess.getBusTypeRule()) {
-					sequence_BusType(context, (BusType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getClassifierRule() ||
+				if(context == grammarAccess.getBusTypeRule() ||
+				   context == grammarAccess.getClassifierRule() ||
 				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (BusType) semanticObject); 
+					sequence_BusType(context, (BusType) semanticObject); 
 					return; 
 				}
 				else break;
@@ -485,11 +473,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.DATA_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (DataImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getDataImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getDataImplementationRule()) {
 					sequence_DataImplementation(context, (DataImplementation) semanticObject); 
 					return; 
 				}
@@ -518,11 +503,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.DATA_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (DataType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getDataTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getDataTypeRule()) {
 					sequence_DataType(context, (DataType) semanticObject); 
 					return; 
 				}
@@ -543,11 +525,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.DEVICE_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (DeviceImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getDeviceImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getDeviceImplementationRule()) {
 					sequence_DeviceImplementation(context, (DeviceImplementation) semanticObject); 
 					return; 
 				}
@@ -570,11 +549,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.DEVICE_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (DeviceType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getDeviceTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getDeviceTypeRule()) {
 					sequence_DeviceType(context, (DeviceType) semanticObject); 
 					return; 
 				}
@@ -809,11 +785,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.MEMORY_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (MemoryImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getMemoryImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getMemoryImplementationRule()) {
 					sequence_MemoryImplementation(context, (MemoryImplementation) semanticObject); 
 					return; 
 				}
@@ -836,11 +809,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.MEMORY_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (MemoryType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getMemoryTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getMemoryTypeRule()) {
 					sequence_MemoryType(context, (MemoryType) semanticObject); 
 					return; 
 				}
@@ -999,11 +969,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.PROCESS_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (ProcessImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getProcessImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getProcessImplementationRule()) {
 					sequence_ProcessImplementation(context, (ProcessImplementation) semanticObject); 
 					return; 
 				}
@@ -1026,11 +993,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.PROCESS_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (ProcessType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getProcessTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getProcessTypeRule()) {
 					sequence_ProcessType(context, (ProcessType) semanticObject); 
 					return; 
 				}
@@ -1043,11 +1007,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.PROCESSOR_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (ProcessorImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getProcessorImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getProcessorImplementationRule()) {
 					sequence_ProcessorImplementation(context, (ProcessorImplementation) semanticObject); 
 					return; 
 				}
@@ -1085,11 +1046,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.PROCESSOR_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (ProcessorType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getProcessorTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getProcessorTypeRule()) {
 					sequence_ProcessorType(context, (ProcessorType) semanticObject); 
 					return; 
 				}
@@ -1250,11 +1208,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (SubprogramGroupImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSubprogramGroupImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getSubprogramGroupImplementationRule()) {
 					sequence_SubprogramGroupImplementation(context, (SubprogramGroupImplementation) semanticObject); 
 					return; 
 				}
@@ -1277,22 +1232,16 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SUBPROGRAM_GROUP_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (SubprogramGroupType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSubprogramGroupTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getSubprogramGroupTypeRule()) {
 					sequence_SubprogramGroupType(context, (SubprogramGroupType) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.SUBPROGRAM_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (SubprogramImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSubprogramImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getSubprogramImplementationRule()) {
 					sequence_SubprogramImplementation(context, (SubprogramImplementation) semanticObject); 
 					return; 
 				}
@@ -1315,22 +1264,16 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SUBPROGRAM_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (SubprogramType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSubprogramTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getSubprogramTypeRule()) {
 					sequence_SubprogramType(context, (SubprogramType) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.SYSTEM_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (SystemImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSystemImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getSystemImplementationRule()) {
 					sequence_SystemImplementation(context, (SystemImplementation) semanticObject); 
 					return; 
 				}
@@ -1353,22 +1296,16 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SYSTEM_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (SystemType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getSystemTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getSystemTypeRule()) {
 					sequence_SystemType(context, (SystemType) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.THREAD_GROUP_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (ThreadGroupImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getThreadGroupImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getThreadGroupImplementationRule()) {
 					sequence_ThreadGroupImplementation(context, (ThreadGroupImplementation) semanticObject); 
 					return; 
 				}
@@ -1391,22 +1328,16 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.THREAD_GROUP_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (ThreadGroupType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getThreadGroupTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getThreadGroupTypeRule()) {
 					sequence_ThreadGroupType(context, (ThreadGroupType) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.THREAD_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (ThreadImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getThreadImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getThreadImplementationRule()) {
 					sequence_ThreadImplementation(context, (ThreadImplementation) semanticObject); 
 					return; 
 				}
@@ -1429,11 +1360,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.THREAD_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (ThreadType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getThreadTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getThreadTypeRule()) {
 					sequence_ThreadType(context, (ThreadType) semanticObject); 
 					return; 
 				}
@@ -1475,11 +1403,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.VIRTUAL_BUS_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (VirtualBusImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getVirtualBusImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getVirtualBusImplementationRule()) {
 					sequence_VirtualBusImplementation(context, (VirtualBusImplementation) semanticObject); 
 					return; 
 				}
@@ -1502,22 +1427,16 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.VIRTUAL_BUS_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (VirtualBusType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getVirtualBusTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getVirtualBusTypeRule()) {
 					sequence_VirtualBusType(context, (VirtualBusType) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentImplementationRule()) {
-					sequence_ComponentImplementation(context, (VirtualProcessorImplementation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getVirtualProcessorImplementationRule()) {
+				   context == grammarAccess.getComponentImplementationRule() ||
+				   context == grammarAccess.getVirtualProcessorImplementationRule()) {
 					sequence_VirtualProcessorImplementation(context, (VirtualProcessorImplementation) semanticObject); 
 					return; 
 				}
@@ -1540,11 +1459,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.VIRTUAL_PROCESSOR_TYPE:
 				if(context == grammarAccess.getClassifierRule() ||
-				   context == grammarAccess.getComponentTypeRule()) {
-					sequence_ComponentType(context, (VirtualProcessorType) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getVirtualProcessorTypeRule()) {
+				   context == grammarAccess.getComponentTypeRule() ||
+				   context == grammarAccess.getVirtualProcessorTypeRule()) {
 					sequence_VirtualProcessorType(context, (VirtualProcessorType) semanticObject); 
 					return; 
 				}
@@ -1608,7 +1524,21 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+ | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_AbstractImplementation(EObject context, AbstractImplementation semanticObject) {
@@ -1662,7 +1592,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_AbstractType(EObject context, AbstractType semanticObject) {
@@ -1838,7 +1772,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedExtension=ImplementationExtension? 
 	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_BusImplementation(EObject context, BusImplementation semanticObject) {
@@ -1889,7 +1826,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedEventDataPort+=EventDataPort | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_BusType(EObject context, BusType semanticObject) {
@@ -1957,528 +1897,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
-	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
-	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
-	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
-	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
-	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
-	 *                 ownedBusSubcomponent+=BusSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, AbstractImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, BusImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, DataImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedBusSubcomponent+=BusSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, DeviceImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, MemoryImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
-	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, ProcessImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                 ownedBusSubcomponent+=BusSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, ProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?='none')? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, SubprogramImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedSystemSubcomponent+=SystemSubcomponent | 
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedProcessSubcomponent+=ProcessSubcomponent | 
-	 *                 ownedProcessorSubcomponent+=ProcessorSubcomponent | 
-	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent | 
-	 *                 ownedMemorySubcomponent+=MemorySubcomponent | 
-	 *                 ownedDeviceSubcomponent+=DeviceSubcomponent | 
-	 *                 ownedBusSubcomponent+=BusSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, SystemImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedThreadGroupSubcomponent+=ThreadGroupSubcomponent | 
-	 *                 ownedThreadSubcomponent+=ThreadSubcomponent | 
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, ThreadGroupImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
-	 *                 ownedDataSubcomponent+=DataSubcomponent | 
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, ThreadImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, VirtualBusImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         ownedRealization=Realization 
-	 *         name=INAME 
-	 *         ownedExtension=ImplementationExtension? 
-	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                 ownedVirtualBusSubcomponent+=VirtualBusSubcomponent | 
-	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
-	 *             )+ | 
-	 *             noSubcomponents?='none'
-	 *         )? 
-	 *         (
-	 *             (
-	 *                 ownedPortConnection+=PortConnection | 
-	 *                 ownedAccessConnection+=AccessConnection | 
-	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
-	 *                 ownedFeatureConnection+=FeatureConnection | 
-	 *                 ownedParameterConnection+=ParameterConnection
-	 *             )+ | 
-	 *             noConnections?='none'
-	 *         )? 
-	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
-	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (formal=[Prototype|ID] (actual+=ComponentReference | (actual+=ComponentReference actual+=ComponentReference*)))
 	 */
 	protected void sequence_ComponentPrototypeBinding(EObject context, ComponentPrototypeBinding semanticObject) {
@@ -2491,412 +1909,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (category=ComponentCategory subcomponentType=[SubcomponentType|QCREF] (binding+=PrototypeBinding binding+=PrototypeBinding*)?)
 	 */
 	protected void sequence_ComponentReference(EObject context, ComponentPrototypeActual semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, AbstractType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, BusType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, DataType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, DeviceType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, MemoryType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, ProcessType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, ProcessorType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, SubprogramGroupType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedParameter+=Parameter | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, SubprogramType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         (
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedBusAccess+=BusAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+ | 
-	 *             noFeatures?='none'
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, SystemType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, ThreadGroupType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataAccess+=DataAccess | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, ThreadType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, VirtualBusType semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         name=ID 
-	 *         (ownedExtension=TypeExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
-	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
-	 *         (
-	 *             noFeatures?='none' | 
-	 *             (
-	 *                 ownedDataPort+=DataPort | 
-	 *                 ownedEventPort+=EventPort | 
-	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedFeatureGroup+=FeatureGroup | 
-	 *                 ownedSubprogramAccess+=SubprogramAccess | 
-	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
-	 *             )+
-	 *         )? 
-	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
-	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
-	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
-	 *         ownedAnnexSubclause+=AnnexSubclause*
-	 *     )
-	 */
-	protected void sequence_ComponentType(EObject context, VirtualProcessorType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3005,7 +2017,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent | ownedSubprogramSubcomponent+=SubprogramSubcomponent)+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_DataImplementation(EObject context, DataImplementation semanticObject) {
@@ -3069,7 +2089,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_DataType(EObject context, DataType semanticObject) {
@@ -3111,7 +2135,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedBusSubcomponent+=BusSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_DeviceImplementation(EObject context, DeviceImplementation semanticObject) {
@@ -3164,7 +2201,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_DeviceType(EObject context, DeviceType semanticObject) {
@@ -3616,7 +2657,14 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (ownedAbstractSubcomponent+=AbstractSubcomponent | ownedMemorySubcomponent+=MemorySubcomponent | ownedBusSubcomponent+=BusSubcomponent)+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_MemoryImplementation(EObject context, MemoryImplementation semanticObject) {
@@ -3667,7 +2715,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedEventDataPort+=EventDataPort | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_MemoryType(EObject context, MemoryType semanticObject) {
@@ -3854,7 +2905,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ProcessImplementation(EObject context, ProcessImplementation semanticObject) {
@@ -3907,7 +2971,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ProcessType(EObject context, ProcessType semanticObject) {
@@ -3932,7 +3000,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ProcessorImplementation(EObject context, ProcessorImplementation semanticObject) {
@@ -4006,7 +3087,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ProcessorType(EObject context, ProcessorType semanticObject) {
@@ -4542,7 +3627,14 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (ownedAccessConnection+=AccessConnection | ownedFeatureGroupConnection+=FeatureGroupConnection | ownedFeatureConnection+=FeatureConnection)+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SubprogramGroupImplementation(EObject context, SubprogramGroupImplementation semanticObject) {
@@ -4594,7 +3686,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SubprogramGroupType(EObject context, SubprogramGroupType semanticObject) {
@@ -4611,7 +3706,21 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
 	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedDataSubcomponent+=DataSubcomponent)+ | noSubcomponents?='none')? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SubprogramImplementation(EObject context, SubprogramImplementation semanticObject) {
@@ -4667,7 +3776,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SubprogramType(EObject context, SubprogramType semanticObject) {
@@ -4699,7 +3812,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SystemImplementation(EObject context, SystemImplementation semanticObject) {
@@ -4753,7 +3879,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+ | 
 	 *             noFeatures?='none'
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_SystemType(EObject context, SystemType semanticObject) {
@@ -4779,7 +3909,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ThreadGroupImplementation(EObject context, ThreadGroupImplementation semanticObject) {
@@ -4835,7 +3978,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ThreadGroupType(EObject context, ThreadGroupType semanticObject) {
@@ -4860,7 +4007,21 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             )+ | 
 	 *             noSubcomponents?='none'
 	 *         )? 
-	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')?
+	 *         (ownedSubprogramCallSequence+=SubprogramCallSequence+ | noCalls?='none')? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection | 
+	 *                 ownedParameterConnection+=ParameterConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ThreadImplementation(EObject context, ThreadImplementation semanticObject) {
@@ -4913,7 +4074,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_ThreadType(EObject context, ThreadType semanticObject) {
@@ -5064,7 +4229,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedExtension=ImplementationExtension? 
 	 *         (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)? 
 	 *         (ownedPrototype+=Prototype+ | noPrototypes?='none')? 
-	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')?
+	 *         ((ownedAbstractSubcomponent+=AbstractSubcomponent | ownedVirtualBusSubcomponent+=VirtualBusSubcomponent)+ | noSubcomponents?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_VirtualBusImplementation(EObject context, VirtualBusImplementation semanticObject) {
@@ -5114,7 +4282,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedEventDataPort+=EventDataPort | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_VirtualBusType(EObject context, VirtualBusType semanticObject) {
@@ -5137,7 +4308,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedVirtualProcessorSubcomponent+=VirtualProcessorSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
-	 *         )?
+	 *         )? 
+	 *         (
+	 *             (
+	 *                 ownedPortConnection+=PortConnection | 
+	 *                 ownedAccessConnection+=AccessConnection | 
+	 *                 ownedFeatureGroupConnection+=FeatureGroupConnection | 
+	 *                 ownedFeatureConnection+=FeatureConnection
+	 *             )+ | 
+	 *             noConnections?='none'
+	 *         )? 
+	 *         ((ownedFlowImplementation+=FlowImplementation | ownedEndToEndFlow+=EndToEndFlow)+ | noFlows?='none')? 
+	 *         ((ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_VirtualProcessorImplementation(EObject context, VirtualProcessorImplementation semanticObject) {
@@ -5192,7 +4376,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
 	 *                 ownedAbstractFeature+=AbstractFeature
 	 *             )+
-	 *         )?
+	 *         )? 
+	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 
+	 *         (ownedMode+=RequiresMode+ | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
+	 *         (ownedPropertyAssociation+=ContainedPropertyAssociation+ | noProperties?='none')? 
+	 *         ownedAnnexSubclause+=AnnexSubclause*
 	 *     )
 	 */
 	protected void sequence_VirtualProcessorType(EObject context, VirtualProcessorType semanticObject) {
