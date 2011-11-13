@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -418,6 +419,15 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			
 			return Collections.<EObject> emptyList();
+		} else if (Aadl2Package.eINSTANCE.getArraySizeProperty() == requiredType) {
+			// reference to a property constant or property
+			// look for property definition in property set
+			List<EObject> result = findPropertyDefinitionAsList(context, reference, name);
+			if (result.isEmpty()){
+				result = findPropertyConstant(context, reference, name);
+
+			}
+			return result;
 		} else {
 			
  			List<EObject> res = super.getLinkedObjects(context, reference, node);
