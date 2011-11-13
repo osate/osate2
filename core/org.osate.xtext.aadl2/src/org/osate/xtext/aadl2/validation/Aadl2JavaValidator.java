@@ -500,6 +500,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			lln = lln.getPreviousSibling();
 		}
 		String ss = lln.getText();
+		while (ss.startsWith(" ")){
+			ss = ss.substring(1);
+		}
 		if (!cl.getName().equalsIgnoreCase(ss)){
 			error(cl, "Ending '" + ss +
 					"' does not match defining identifier '"
