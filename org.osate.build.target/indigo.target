@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?pde version="3.6"?>
 
-<target includeMode="feature" name="indigo" sequenceNumber="20">
+<target includeMode="feature" name="indigo" sequenceNumber="22">
 <locations>
 <location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
 <unit id="org.eclipse.platform.ide" version="3.7.0.I20110613-1736"/>
@@ -58,23 +58,17 @@
 <unit id="org.eclipse.papyrus.sdk.feature.group" version="0.8.0.v201106151827"/>
 <unit id="org.eclipse.emf.mint.sdk.feature.group" version="0.9.0.v201006142335"/>
 <unit id="org.eclipse.gmt.modisco.sdk.feature.group" version="0.9.0.v201106080847"/>
-<unit id="org.eclipse.emf.mwe2.language.sdk.feature.group" version="2.0.0.v201106070634"/>
-<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.0.0.v201106070424"/>
-<unit id="org.eclipse.emf.mwe.sdk.feature.group" version="1.1.0.v201106070424"/>
 <unit id="org.eclipse.net4j.sdk.feature.group" version="4.0.0.v20110608-1639"/>
 <unit id="org.eclipse.ocl.examples.feature.group" version="3.1.0.v20110606-1427"/>
 <unit id="org.eclipse.m2m.qvt.oml.sdk.feature.group" version="3.1.0.v20110314-1530-7U7A-CL5RuMpMxGq9lWcafWQlGUu"/>
 <unit id="org.eclipse.uml2.sdk.feature.group" version="3.2.0.v201105231350"/>
 <unit id="org.eclipse.xpand.sdk.feature.group" version="1.1.0.v201106070515"/>
 <unit id="org.eclipse.xsd.sdk.feature.group" version="2.7.0.v20110606-0949"/>
-<unit id="org.eclipse.xtext.ui.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.xbase.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.xtend2.sdk.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.runtime.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.examples.feature.group" version="2.0.1.v201108020636"/>
-<unit id="org.eclipse.xtext.docs.feature.group" version="2.0.1.v201108020636"/>
 <repository location="http://download.eclipse.org/releases/indigo"/>
+</location>
+<location includeAllPlatforms="false" includeMode="planner" includeSource="true" type="InstallableUnit">
+<unit id="org.eclipse.emf.mwe2.runtime.sdk.feature.group" version="2.1.0.v201110310946"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/composite/releases/"/>
 </location>
 </locations>
 </target>
