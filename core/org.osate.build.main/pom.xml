@@ -22,32 +22,33 @@
 <!-- -->
 
   <modules>
-    <module>org.osate.aadl2</module>
-    <module>org.osate.aadl2.edit</module>
-    <module>org.osate.aadl2.model.editor</module>
-    <module>org.osate.aadl2.modelsupport</module>
-    <module>org.osate.annexsupport</module>
-    <module>org.osate.branding</module>
-    <module>org.osate.build.product</module>
-    <module>org.osate.build.target</module>
-    <module>org.osate.contribution.sei</module>
-    <module>org.osate.core</module>
-    <module>org.osate.core.feature</module>
-    <module>org.osate.instantiation</module>
-    <module>org.osate.pluginsupport</module>
-    <module>org.osate.reporter</module>
+    <module>../org.osate.aadl2</module>
+    <module>../org.osate.aadl2.edit</module>
+    <module>../org.osate.aadl2.model.editor</module>
+    <module>../org.osate.aadl2.modelsupport</module>
+    <module>../org.osate.annexsupport</module>
+    <module>../org.osate.branding</module>
+    <module>../org.osate.build.product</module>
+    <module>../org.osate.build.target</module>
+    <module>../org.osate.contribution.sei</module>
+    <module>../org.osate.core</module>
+    <module>../org.osate.core.feature</module>
+    <module>../org.osate.core.source.feature</module>
+    <module>../org.osate.instantiation</module>
+    <module>../org.osate.pluginsupport</module>
+    <module>../org.osate.reporter</module>
 <!--
-    <module>org.osate.sdk.feature</module>
+    <module>../org.osate.sdk.feature</module>
 -->
-    <module>org.osate.ui</module>
-    <module>org.osate.wizards</module>
-    <module>org.osate.workspace</module>
-    <module>org.osate.xtext.aadl2</module>
-    <module>org.osate.xtext.aadl2.properties</module>
-    <module>org.osate.xtext.aadl2.properties.ui</module>
-    <module>org.osate.xtext.aadl2.propertyset</module>
-    <module>org.osate.xtext.aadl2.propertyset.ui</module>
-    <module>org.osate.xtext.aadl2.ui</module>
+    <module>../org.osate.ui</module>
+    <module>../org.osate.wizards</module>
+    <module>../org.osate.workspace</module>
+    <module>../org.osate.xtext.aadl2</module>
+    <module>../org.osate.xtext.aadl2.properties</module>
+    <module>../org.osate.xtext.aadl2.properties.ui</module>
+    <module>../org.osate.xtext.aadl2.propertyset</module>
+    <module>../org.osate.xtext.aadl2.propertyset.ui</module>
+    <module>../org.osate.xtext.aadl2.ui</module>
   </modules>
 
   <build>
@@ -57,6 +58,20 @@
         <artifactId>tycho-maven-plugin</artifactId>
         <version>${tycho-version}</version>
         <extensions>true</extensions>
+      </plugin>
+      <!-- enable source bundle generation -->
+      <plugin>
+        <groupId>org.eclipse.tycho</groupId>
+        <artifactId>tycho-source-plugin</artifactId>
+        <version>${tycho-version}</version>
+        <executions>
+          <execution>
+            <id>plugin-source</id>
+            <goals>
+              <goal>plugin-source</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.eclipse.tycho</groupId>
@@ -74,16 +89,19 @@
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>
           <environments>
+<!-- 
             <environment>
               <os>linux</os>
               <ws>gtk</ws>
               <arch>x86</arch>
             </environment>
+ -->
             <environment>
               <os>linux</os>
               <ws>gtk</ws>
               <arch>x86_64</arch>
             </environment>
+<!-- 
             <environment>
               <os>win32</os>
               <ws>win32</ws>
@@ -94,7 +112,6 @@
               <ws>win32</ws>
               <arch>x86_64</arch>
             </environment>
-<!-- macosx build succeeds but does not run 
             <environment>
               <os>macosx</os>
               <ws>cocoa</ws>
