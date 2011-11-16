@@ -49,7 +49,7 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.core.resources" version="3.7.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.edit" version="2.7.0" match="greaterOrEqual"/>
-      <import plugin="org.apache.commons.logging" version="1.1.1" match="greaterOrEqual"/>
+      <import plugin="org.apache.commons.logging" version="1.0.4" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.util" version="2.0.0" match="greaterOrEqual"/>
       <import plugin="org.antlr.runtime" version="3.2.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
