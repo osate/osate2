@@ -3410,7 +3410,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     classifier=[ComponentClassifier|QCREF]
+	 *     classifier=[ComponentClassifier|FQCREF]
 	 */
 	protected void sequence_QCReference(EObject context, ClassifierValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);

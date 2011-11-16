@@ -1998,7 +1998,7 @@ QMReference returns aadl2::MetaclassReference:
 	 ;
 
 QCReference returns aadl2::ClassifierValue:
-   classifier=[aadl2::ComponentClassifier|QCREF]
+   classifier=[aadl2::ComponentClassifier|FQCREF]
   ;
 
 ReferenceType returns aadl2::ReferenceType:
@@ -2126,9 +2126,11 @@ CoreKeyWord :
 // package anme
 PNAME:
 	ID ('::' ID)*;
-// package anme
-QTNAME:
-	ID ('::' ID)+;
+
+// fully qualified classifier name (always includes package name
+FQCREF:
+	(ID '::')+ ID ('.' ID)?;
+
 
 // implementation name (used by value converter)
 INAME:
