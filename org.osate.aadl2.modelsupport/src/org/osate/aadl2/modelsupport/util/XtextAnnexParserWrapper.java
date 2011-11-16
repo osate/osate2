@@ -10,6 +10,7 @@ package org.osate.aadl2.modelsupport.util;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.Arrays;
 import java.util.Iterator;
 
 import org.eclipse.emf.common.util.EList;
@@ -69,6 +70,9 @@ public class XtextAnnexParserWrapper  {
 			
 			
 			final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
+			// add lines in front to get right offset
+//			editString = prependLines(editString, line);
+			editString = genWhitespace(offset)+editString;
 			IParseResult parseResult = xtextParser.parse(parserRule, new StringReader(editString));
 			if (isValidParseResult(parseResult, element)) {
 				PackageSection pack = (PackageSection) element.eContainer();
@@ -99,5 +103,19 @@ public class XtextAnnexParserWrapper  {
 //				&& semanticElement.eClass() == rootASTElement.eClass()
 				;
 	}
+	
+	protected String prependLines(String s, int lines){
+		for (int i = 0; i < lines; i++) {
+			s = "\n\r"+s;
+		}
+		return s;
+	}
+	
+	protected String genWhitespace(int length){
+		char [] array = new char[length];
+		Arrays.fill(array,' ');
+		return new String(array);
+	}
+
 
 }
