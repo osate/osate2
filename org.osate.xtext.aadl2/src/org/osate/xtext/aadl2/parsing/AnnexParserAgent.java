@@ -36,6 +36,7 @@ import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 //import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.core.OsateCorePlugin;
+import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 
 
 public class AnnexParserAgent  extends LazyLinker {
@@ -80,13 +81,18 @@ public class AnnexParserAgent  extends LazyLinker {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
 				int offset = node.getOffset();
 				int line = node.getStartLine();
+				String sourceText = defaultAnnexLibrary.getSourceText();
+				if (sourceText == null) break;
+				int nlength = node.getLength();
+				int sourcelength = sourceText.length();
+				offset = offset + (nlength-sourcelength-1);
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
-//				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
-//
-//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-//					AnnexLibrary al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText(),line,offset);
-//				} else 
+				if (defaultAnnexLibrary.getName().equalsIgnoreCase("em2")){
+
+					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
+				} else 
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexLibrary.getSourceText();
@@ -123,11 +129,16 @@ public class AnnexParserAgent  extends LazyLinker {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
 				int offset = node.getOffset();
 				int line = node.getStartLine();
+				String sourceText = defaultAnnexSubclause.getSourceText();
+				if (sourceText == null) break;
+				int nlength = node.getLength();
+				int sourcelength = sourceText.length();
+				offset = offset + (nlength-sourcelength-1);
 				// call the new error annex as a XText generated frontend
-//				if (defaultAnnexSubclause.getName().equalsIgnoreCase("error_model")){
-//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-//					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
-//				} else
+				if (defaultAnnexSubclause.getName().equalsIgnoreCase("em2")){
+					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
+				} else
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexSubclause.getSourceText();
@@ -171,16 +182,6 @@ public class AnnexParserAgent  extends LazyLinker {
 //			getWarnings().addAll(consumer.getResult(Severity.WARNING));
 //		}
 
-// Calling annex plug-in parsers		
-//		String annexName = id.getText();
-//		String annexText = at.getText();
-//		if (annexText.length() > 6) {
-//	        annexText = annexText.substring(3, annexText.length() - 3);
-//		}
-//		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-//		AnnexParser ap = registry.getAnnexParser(annexName);
-//		al = ap.parseAnnexLibrary(id.getText(), annexText, getFilename(), at.getLine(), at.getCharPositionInLine() + 3, errReporter);
-//		al.setName(id.getText());
 
 		
 }
