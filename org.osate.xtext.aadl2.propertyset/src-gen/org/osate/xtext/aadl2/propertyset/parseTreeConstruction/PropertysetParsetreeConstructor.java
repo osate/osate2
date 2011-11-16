@@ -6128,11 +6128,11 @@ protected class QMReference_MetaclassNameAssignment_1 extends AssignmentToken  {
 /************ begin Rule QCReference ****************
  *
  * QCReference returns aadl2::ClassifierValue:
- * 	classifier=[aadl2::ComponentClassifier|QCREF];
+ * 	classifier=[aadl2::ComponentClassifier|FQCREF];
  *
  **/
 
-// classifier=[aadl2::ComponentClassifier|QCREF]
+// classifier=[aadl2::ComponentClassifier|FQCREF]
 protected class QCReference_ClassifierAssignment extends AssignmentToken  {
 	
 	public QCReference_ClassifierAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9787,6 +9787,7 @@ protected class RealRange_UpperBoundAssignment_2 extends AssignmentToken  {
 
 
 /************ end Rule RealRange ****************/
+
 
 
 

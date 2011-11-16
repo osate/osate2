@@ -129,6 +129,9 @@ public class PropertysetParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyConstantAccess().getGroup(), "rule__PropertyConstant__Group__0");
 					put(grammarAccess.getIntegerRangeAccess().getGroup(), "rule__IntegerRange__Group__0");
 					put(grammarAccess.getRealRangeAccess().getGroup(), "rule__RealRange__Group__0");
+					put(grammarAccess.getFQCREFAccess().getGroup(), "rule__FQCREF__Group__0");
+					put(grammarAccess.getFQCREFAccess().getGroup_0(), "rule__FQCREF__Group_0__0");
+					put(grammarAccess.getFQCREFAccess().getGroup_2(), "rule__FQCREF__Group_2__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup(), "rule__ContainedPropertyAssociation__Group__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0(), "rule__ContainedPropertyAssociation__Group_3_0__0");
 					put(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0_2(), "rule__ContainedPropertyAssociation__Group_3_0_2__0");

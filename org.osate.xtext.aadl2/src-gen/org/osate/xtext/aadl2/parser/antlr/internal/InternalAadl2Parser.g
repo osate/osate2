@@ -33217,7 +33217,7 @@ ruleQCReference returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getQCReferenceAccess().getClassifierComponentClassifierCrossReference_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleFQCREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34891,6 +34891,59 @@ rulePNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     ;
 
 
+
+
+
+// Entry rule entryRuleFQCREF
+entryRuleFQCREF returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getFQCREFRule()); } 
+	 iv_ruleFQCREF=ruleFQCREF 
+	 { $current=$iv_ruleFQCREF.current.getText(); }  
+	 EOF 
+;
+
+// Rule FQCREF
+ruleFQCREF returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_0_0()); 
+    }
+
+	kw=KEYWORD_17 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFQCREFAccess().getColonColonKeyword_0_1()); 
+    }
+)+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_1()); 
+    }
+(
+	kw=KEYWORD_7 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFQCREFAccess().getFullStopKeyword_2_0()); 
+    }
+    this_ID_4=RULE_ID    {
+		$current.merge(this_ID_4);
+    }
+
+    { 
+    newLeafNode(this_ID_4, grammarAccess.getFQCREFAccess().getIDTerminalRuleCall_2_1()); 
+    }
+)?)
+    ;
 
 
 

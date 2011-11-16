@@ -23433,20 +23433,20 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QCReference");
 		private final Assignment cClassifierAssignment = (Assignment)rule.eContents().get(1);
 		private final CrossReference cClassifierComponentClassifierCrossReference_0 = (CrossReference)cClassifierAssignment.eContents().get(0);
-		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_0.eContents().get(1);
+		private final RuleCall cClassifierComponentClassifierFQCREFParserRuleCall_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_0.eContents().get(1);
 		
 		//QCReference returns aadl2::ClassifierValue:
-		//	classifier=[aadl2::ComponentClassifier|QCREF];
+		//	classifier=[aadl2::ComponentClassifier|FQCREF];
 		public ParserRule getRule() { return rule; }
 
-		//classifier=[aadl2::ComponentClassifier|QCREF]
+		//classifier=[aadl2::ComponentClassifier|FQCREF]
 		public Assignment getClassifierAssignment() { return cClassifierAssignment; }
 
-		//[aadl2::ComponentClassifier|QCREF]
+		//[aadl2::ComponentClassifier|FQCREF]
 		public CrossReference getClassifierComponentClassifierCrossReference_0() { return cClassifierComponentClassifierCrossReference_0; }
 
-		//QCREF
-		public RuleCall getClassifierComponentClassifierQCREFParserRuleCall_0_1() { return cClassifierComponentClassifierQCREFParserRuleCall_0_1; }
+		//FQCREF
+		public RuleCall getClassifierComponentClassifierFQCREFParserRuleCall_0_1() { return cClassifierComponentClassifierFQCREFParserRuleCall_0_1; }
 	}
 
 	public class ReferenceTypeElements extends AbstractParserRuleElementFinder {
@@ -24384,33 +24384,45 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 
-	public class QTNAMEElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QTNAME");
+	public class FQCREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FQCREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cColonColonKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cColonColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		
-		//// package anme
-		//QTNAME:
-		//	ID ("::" ID)+;
+		//// fully qualified classifier name (always includes package name
+		//FQCREF:
+		//	(ID "::")+ ID ("." ID)?;
 		public ParserRule getRule() { return rule; }
 
-		//ID ("::" ID)+
+		//(ID "::")+ ID ("." ID)?
 		public Group getGroup() { return cGroup; }
 
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
+		//(ID "::")+
+		public Group getGroup_0() { return cGroup_0; }
 
-		//("::" ID)+
-		public Group getGroup_1() { return cGroup_1; }
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
 
 		//"::"
-		public Keyword getColonColonKeyword_1_0() { return cColonColonKeyword_1_0; }
+		public Keyword getColonColonKeyword_0_1() { return cColonColonKeyword_0_1; }
 
 		//ID
-		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
+
+		//("." ID)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
 	}
 
 	public class INAMEElements extends AbstractParserRuleElementFinder {
@@ -24689,7 +24701,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private RealRangeElements pRealRange;
 	private CoreKeyWordElements pCoreKeyWord;
 	private PNAMEElements pPNAME;
-	private QTNAMEElements pQTNAME;
+	private FQCREFElements pFQCREF;
 	private INAMEElements pINAME;
 	private FULLINAMEElements pFULLINAME;
 	private REFINEDNAMEElements pREFINEDNAME;
@@ -26951,7 +26963,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QCReference returns aadl2::ClassifierValue:
-	//	classifier=[aadl2::ComponentClassifier|QCREF];
+	//	classifier=[aadl2::ComponentClassifier|FQCREF];
 	public QCReferenceElements getQCReferenceAccess() {
 		return (pQCReference != null) ? pQCReference : (pQCReference = new QCReferenceElements());
 	}
@@ -27160,15 +27172,15 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getPNAMEAccess().getRule();
 	}
 
-	//// package anme
-	//QTNAME:
-	//	ID ("::" ID)+;
-	public QTNAMEElements getQTNAMEAccess() {
-		return (pQTNAME != null) ? pQTNAME : (pQTNAME = new QTNAMEElements());
+	//// fully qualified classifier name (always includes package name
+	//FQCREF:
+	//	(ID "::")+ ID ("." ID)?;
+	public FQCREFElements getFQCREFAccess() {
+		return (pFQCREF != null) ? pFQCREF : (pFQCREF = new FQCREFElements());
 	}
 	
-	public ParserRule getQTNAMERule() {
-		return getQTNAMEAccess().getRule();
+	public ParserRule getFQCREFRule() {
+		return getFQCREFAccess().getRule();
 	}
 
 	//// implementation name (used by value converter)
