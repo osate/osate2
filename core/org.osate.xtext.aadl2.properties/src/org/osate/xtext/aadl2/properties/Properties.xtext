@@ -20,7 +20,7 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	(( 
 	'(' ownedValue+=ModalPropertyValue
 	( ',' ownedValue+=ModalPropertyValue )*
-	
+	( ',' ownedValue+=OptionalModalPropertyValue)?
 	')' )
 	| ownedValue+=PropertyValue
 	)
@@ -35,7 +35,7 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	(( 
 	'(' ownedValue+=ModalPropertyValue
 	 ( ',' ownedValue+=ModalPropertyValue )*
-	
+	( ',' ownedValue+=OptionalModalPropertyValue)?
 	')' )
 	| ownedValue+=PropertyValue
 	) ';'
@@ -61,13 +61,13 @@ ModalPropertyValue returns aadl2::ModalPropertyValue:
 	')'
 	;
 
-//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-//	ownedValue=PropertyExpression 
-//	// phf made this optional: need to check separately that only the last one is optional
-//	( 'in' 'modes' '(' 
-//	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-//	')')?
-//	;
+OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	ownedValue=PropertyExpression 
+	// phf made this optional: need to check separately that only the last one is optional
+	( 'in' 'modes' '(' 
+	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
+	')')?
+	;
 	// &&&&&&&&&& handling of in binding
 
 PropertyValue returns aadl2::ModalPropertyValue:
