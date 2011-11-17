@@ -831,6 +831,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
 				else if(context == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
@@ -1964,7 +1968,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *     )
 	 */
@@ -2460,6 +2464,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *                 ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
 	 *             )
 	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
 	 */
@@ -2789,12 +2794,21 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 */
+	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
 	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *         ) | 
 	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
@@ -2802,7 +2816,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
 	 *         )
 	 *     )
 	 */
@@ -3105,7 +3119,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
 	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
