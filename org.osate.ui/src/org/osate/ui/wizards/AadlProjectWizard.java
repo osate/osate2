@@ -109,6 +109,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 				return super.validatePage();
 		}
 
+		
 	}
 
 	/**
@@ -318,25 +319,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		updatePerspective();
 		selectAndReveal(newProject);
 		final IProject p = getNewProject();
-		final IFolder defModDir = p.getFolder(WorkspacePlugin.DEFAULT_MODEL_DIR);
-		final IFolder xmlPack = defModDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-		final IFolder xmlPSet = defModDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
-		final IFolder defSrcDir = p.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR);
-		final IFolder srcPack = defSrcDir.getFolder(WorkspacePlugin.AADL_PACKAGES_DIR);
-		final IFolder srcPSet = defSrcDir.getFolder(WorkspacePlugin.PROPERTY_SETS_DIR);
 
-		try {
-			CoreUtility.createFolder(xmlPack, true, true, null);
-			CoreUtility.createFolder(xmlPSet, true, true, null);
-			CoreUtility.createFolder(srcPack, true, true, null);
-			CoreUtility.createFolder(srcPSet, true, true, null);
-		} catch (CoreException e) {
-			MessageDialog
-			.openError(getShell(),
-					"Creation Problems",
-					MessageFormat
-							.format("Problem creating folder", e.getStackTrace().toString() ));
-		}
 		String filepath = p.getFile(WorkspacePlugin.AADLPATH_FILENAME).getRawLocation().toString();
 
 		PreferenceStore ps = new PreferenceStore(filepath);
@@ -412,10 +395,12 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 					ArrayList<IProject> projectsWithNatures = new ArrayList<IProject>();
 					for (int i = 0; i < projects.length; i++) {
 						project = projects[i];
-						System.out.println(project.toString());
 						try {
-							if (project.hasNature(AadlNature.ID)) {
-								projectsWithNatures.add(project);
+							if( project.isOpen() )
+							{
+								if (project.hasNature(AadlNature.ID)) {
+									projectsWithNatures.add(project);
+								}
 							}
 						} catch (CoreException e) {
 							MessageDialog
