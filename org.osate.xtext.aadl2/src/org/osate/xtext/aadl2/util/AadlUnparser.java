@@ -392,7 +392,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 
 				if (unparser != null) {
 					processComments(das);
-					aadlText.addOutput("annex " + annexName + " {**");
+					aadlText.addOutputNewline("annex " + annexName + " {**");
 					aadlText.incrementIndent();
 					aadlText.addOutputNewline(unparser.unparseAnnexSubclause(
 							das, aadlText.getIndentString()));
@@ -1233,7 +1233,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+d+ " bus access ");
+						+ " bus access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1253,7 +1253,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+d+ "subprogram access ");
+						+ " subprogram access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1273,7 +1273,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
-						+ d + "subprogram group access ");
+						+ " subprogram group access ");
 
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -1293,7 +1293,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "provides";
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
 					(object.getRefined().getName() +": refined to "))
-						+d+ " data access ");
+						+ " data access ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
