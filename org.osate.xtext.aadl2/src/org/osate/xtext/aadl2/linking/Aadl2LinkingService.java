@@ -56,12 +56,12 @@ import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 //import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
-import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
+//import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
-	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
-	private ILinkingService emLS = emLangS.getLinkingService();
+//	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
+//	private ILinkingService emLS = emLangS.getLinkingService();
 
 	public NamedElement getContainingAnnex(EObject obj){
 		while (obj != null ){
@@ -79,7 +79,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (annex != null){
 			String annexName = annex.getName();
 			if (annexName != null && annexName.equalsIgnoreCase("em2")){
-				return emLS.getLinkedObjects(context, reference, node);
+//				return emLS.getLinkedObjects(context, reference, node);
 						//emLS.getLinkingService().getLinkedObjects(context, reference, node);
 			} else {
 				return super.getLinkedObjects(context, reference, node);
