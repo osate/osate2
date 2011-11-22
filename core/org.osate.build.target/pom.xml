@@ -13,6 +13,7 @@
 		<artifactId>osate2-core</artifactId>
 		<groupId>org.osate</groupId>
 		<version>2.0.0-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
 	</parent>
 
 	<build>
