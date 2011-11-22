@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature url="features/org.osate.core.feature_2.0.0.qualifier.jar" id="org.osate.core.feature" version="2.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <category-def name="osate2" label="OSATE2 for AADL2">
+      <description>
+         OSATE
+      </description>
+   </category-def>
+</site>
