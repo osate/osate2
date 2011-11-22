@@ -36,7 +36,6 @@ import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 //import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.core.OsateCorePlugin;
-import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 
 
 public class AnnexParserAgent  extends LazyLinker {
@@ -89,9 +88,9 @@ public class AnnexParserAgent  extends LazyLinker {
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
 				if (defaultAnnexLibrary.getName().equalsIgnoreCase("em2")){
-
-					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
+//
+//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+//					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
 				} else 
 				{
 					// look for plug-in parser
@@ -136,8 +135,8 @@ public class AnnexParserAgent  extends LazyLinker {
 				offset = offset + (nlength-sourcelength-1);
 				// call the new error annex as a XText generated frontend
 				if (defaultAnnexSubclause.getName().equalsIgnoreCase("em2")){
-					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
+//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+//					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
 				} else
 				{
 					// look for plug-in parser
