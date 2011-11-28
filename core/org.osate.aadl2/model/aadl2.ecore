@@ -1014,8 +1014,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//AccessType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//AccessCategory" changeable="false" volatile="true"
-        transient="true" derived="true"/>
+        lowerBound="1" eType="#//AccessCategory" volatile="true" transient="true"
+        derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
@@ -1052,8 +1052,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//DirectedFeature #//PortConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//PortCategory" changeable="false" volatile="true"
-        transient="true" derived="true"/>
+        lowerBound="1" eType="#//PortCategory" volatile="true" transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PortCategory">
     <eLiterals name="data"/>
@@ -1152,7 +1151,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
-        eType="#//FlowKind"/>
+        eType="#//FlowKind" volatile="true" transient="true" derived="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
         lowerBound="1" eType="#//FlowSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFlowSegment" upperBound="-1"

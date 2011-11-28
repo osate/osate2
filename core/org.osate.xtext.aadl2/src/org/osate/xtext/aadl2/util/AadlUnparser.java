@@ -82,7 +82,11 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.internal.workspace.AadlWorkspace;
-
+import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.nodemodel.BidiTreeIterator;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 /**
  * This class implements the converter from an AADL object model to textual
@@ -2079,6 +2083,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				}
 				aadlText.addOutputNewline(str);
 			}
+
+//			processComment(obj);
 		}
 	}
 
@@ -2266,6 +2272,26 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				.getAadlPath((IFile) aaxlFile);
 		doUnparseToFile(obj, path);
 	}
+	
+	public void processComment(EObject o){
+		INode node = NodeModelUtils.findActualNodeFor(o);
+		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
+		while (ti.hasNext()) {
+			INode next = ti.next();
+			if (isCommentNode(next))
+				aadlText.addOutputNewline("-- "+next.getText());
+		}
+	}
+	
+	public boolean isCommentNode(INode node) {
+		if (node instanceof ILeafNode && ((ILeafNode) node).isHidden()
+				&& node.getGrammarElement() instanceof AbstractRule)
+			return isComment((AbstractRule) node.getGrammarElement());
+		return false;
+	}
 
+	public boolean isComment(AbstractRule rule) {
+		return rule != null && ("ML_COMMENT".equals(rule.getName()) || "SL_COMMENT".equals(rule.getName()));
+	}
 
 }

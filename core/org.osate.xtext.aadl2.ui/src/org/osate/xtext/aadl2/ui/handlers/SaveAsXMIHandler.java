@@ -1,6 +1,7 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.eclipse.core.commands.AbstractHandler;
@@ -22,12 +23,20 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.nodemodel.BidiTreeIterator;
+import org.eclipse.xtext.nodemodel.ILeafNode;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Comment;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.core.OsateCorePlugin;
@@ -68,6 +77,17 @@ public class SaveAsXMIHandler extends AbstractHandler {
 							EcoreUtil.resolveAll(resource);
 							EList<EObject> content = resource.getContents();
 							if (!content.isEmpty()) {
+							    for (EObject eObject : content)
+							    {
+							    	if (eObject instanceof Element)
+							    			processComment((Element)eObject);
+							        for (Iterator<EObject> i = eObject.eAllContents(); i.hasNext(); ){
+							        	Object o = i.next();
+								    	if (o instanceof Element)
+							    			processComment((Element)o);
+							        }
+							    }
+								
 								ResourceSet rss = resource.getResourceSet();
 								EObject eobject = content.get(0);
 								
@@ -98,39 +118,34 @@ public class SaveAsXMIHandler extends AbstractHandler {
 		return null;
 	}
 	
-//	@Override
-//	public boolean isEnabled() {
-//		IWorkbench wb = PlatformUI.getWorkbench();
-//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//		IWorkbenchPage page = win.getActivePage();
-//		IWorkbenchPart part = page.getActivePart();
-//		IEditorPart activeEditor = page.getActiveEditor();
-//		if (activeEditor == null)
-//			return false;
-//		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-//		final ISelection selection;
-//		if (xtextEditor != null) {
-//			if (part instanceof ContentOutline) {
-//				selection = ((ContentOutline) part).getSelection();
-//			} else {
-//				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-//			}
-//		}
-//		Resource resource = xtextEditor.getResource();
-//		Resource resource = xtextEditor.getEditorSite().g;
-//		EObject targetElement = null;
-//		if (selection instanceof IStructuredSelection) {
-//			IStructuredSelection ss = (IStructuredSelection) selection;
-//			Object eon = ss.getFirstElement();
-//			if (eon instanceof EObjectNode) {
-//				targetElement = ((EObjectNode)eon).getEObject(resource);
-//			}
-//		} else {
-//			targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-//					((ITextSelection)selection).getOffset());
-//		}
-//
-//		return  true;
-//	}
+	public void processComment(Element o){
+		if (o instanceof Comment) return;
+		INode node = NodeModelUtils.findActualNodeFor(o);
+		if (node == null) 
+			return;
+		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
+		while (ti.hasNext()) {
+			INode next = ti.next();
+			if (isCommentNode(next)){
+				EObject eo = NodeModelUtils.findActualSemanticObjectFor(next);
+				if (eo==o){
+				Comment com = Aadl2Factory.eINSTANCE.createComment();
+				com.setBody(next.getText().replaceAll("\r\n", ""));
+				o.getOwnedComments().add(com);
+				}
+			}
+		}
+	}
+	
+	public boolean isCommentNode(INode node) {
+		if (node instanceof ILeafNode && ((ILeafNode) node).isHidden()
+				&& node.getGrammarElement() instanceof AbstractRule)
+			return isComment((AbstractRule) node.getGrammarElement());
+		return false;
+	}
+
+	public boolean isComment(AbstractRule rule) {
+		return rule != null && ( "SL_COMMENT".equals(rule.getName()));
+	}
 
 }
