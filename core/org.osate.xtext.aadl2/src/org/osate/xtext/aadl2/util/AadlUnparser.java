@@ -1295,8 +1295,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					d = "requires";
 				else
 					d = "provides";
-				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
-					(object.getRefined().getName() +": refined to "))
+				aadlText.addOutput(object.getName() + ": "
+						+ (object.getRefined() != null ? "refined to " : "") + d
 						+ " data access ");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
