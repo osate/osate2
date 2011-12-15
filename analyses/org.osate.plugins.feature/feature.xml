@@ -2,8 +2,8 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="2.0.0"
-      provider-name="sei.cmu.sei"
+      version="2.0.0.qualifier"
+      provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
       application="org.eclipse.ui.ide.workbench">
@@ -24,7 +24,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
    </license>
 
    <url>
-      <update label="OSATE" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
       <discovery label="OSATE Updates" url="http://la.sei.cmu.edu/aadlinfosite/OSATEUpdateSite/"/>
    </url>
 

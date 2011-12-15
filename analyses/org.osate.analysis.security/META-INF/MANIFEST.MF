@@ -2,10 +2,10 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.analysis.security;singleton:=true
-Bundle-Version: 2.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-ClassPath: .
 Bundle-Activator: org.osate.analysis.security.SecurityPlugin
-Bundle-Vendor: %providerName
+Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.analysis.security,
  org.osate.analysis.security.actions
