@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: edu.cmu.sei.aadl.flowanalysis; singleton:=true
+Bundle-SymbolicName: org.osate.analysis.flows;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: .
-Bundle-Activator: edu.cmu.sei.aadl.flowanalysis.FlowanalysisPlugin
+Bundle-Activator: org.osate.analysis.flows.FlowanalysisPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: edu.cmu.sei.aadl.flowanalysis,
- edu.cmu.sei.aadl.flowanalysis.actions
+Export-Package: org.osate.analysis.flows,
+ org.osate.analysis.flows.actions
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,

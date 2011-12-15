@@ -1,15 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: edu.cmu.sei.timeweaver.binpacking;singleton:=true
+Bundle-SymbolicName: org.osate.analysis.binpacking;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: .
-Bundle-Activator: edu.cmu.sei.timeweaver.binpacking.BinpackingPlugin
+Bundle-Activator: org.osate.analysis.binpacking.BinpackingPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Export-Package: EAnalysis.BinPacking,
- edu.cmu.sei.timeweaver.binpacking,
- edu.cmu.sei.timeweaver.binpacking.rma
+ org.osate.analysis.binpacking,
+ org.osate.analysis.binpacking.rma
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime
 Eclipse-LazyStart: true

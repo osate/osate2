@@ -5,7 +5,7 @@
      <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="edu.cmu.sei.aadl.flowanalysis.actionSet"
+            id="org.osate.analysis.flows.actionSet"
             label="%actionSet.label"
             visible="false">
 
@@ -27,13 +27,13 @@
          </menu>
          
          <action
-               id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.action"
+               id="org.osate.analysis.flows.actions.CheckFlowLatency.action"
                label="%CheckFlowLatency.label"
                tooltip="%CheckFlowLatency.toolTip"
                icon="%CheckFlowLatency.icon"
-               class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency"
+               class="org.osate.analysis.flows.actions.CheckFlowLatency"
                menubarPath="menu.analyses/top.grp"
-               toolbarPath="edu.cmu.sei.aadl.architecture.actionSet/arch.toolbar"
+               toolbarPath="org.aadl.architecture.actionSet/arch.toolbar"
                enablesFor="1">
             <enablement>
                <or>
@@ -51,16 +51,16 @@
    <extension
    	   point="org.eclipse.ui.perspectiveExtensions">
    	   <perspectiveExtension
-   		   targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
    		   <actionSet
-   		 	   id="edu.cmu.sei.aadl.flowanalysis.actionSet"/>
+   		 	   id="org.osate.analysis.flows.actionSet"/>
    	   </perspectiveExtension>
    </extension>
    
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="edu.cmu.sei.aadl.flowanalysis.oc1"
+            id="org.osate.analysis.flows.oc1"
             objectClass="java.lang.Object">
          <visibility>
             <or>
@@ -73,7 +73,7 @@
          </visibility>
 
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               id="org.osate.ui.popupMenu.Analyses"
                label="%popupMenu.analyses.label"
                path="additions">
             <groupMarker name="anal.grp"/>
@@ -81,12 +81,12 @@
          </menu>
 
          <action
-               id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.popupAction"
+               id="org.osate.analysis.flows.actions.CheckFlowLatency.popupAction"
                label="%CheckFlowLatency.label"
                tooltip="%CheckFlowLatency.toolTip"
                icon="%CheckFlowLatency.icon"
-               class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/anal.grp"
+               class="org.osate.analysis.flows.actions.CheckFlowLatency"
+               menubarPath="org.osate.ui.popupMenu.Analyses/anal.grp"
                enablesFor="1"/>
       </objectContribution>
    </extension>
@@ -101,9 +101,9 @@
    
    <extension point="org.osate.ui.analysis">
       <analysis
-         id="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatency.analysis"
+         id="org.osate.analysis.flows.actions.CheckFlowLatency.analysis"
          name="Check Flow Latency"
-         class="edu.cmu.sei.aadl.flowanalysis.actions.CheckFlowLatencyAnalysis">
+         class="org.osate.analysis.flows.actions.CheckFlowLatencyAnalysis">
          <declarativeModel selectRootObject="false">
              <selectedObject objectType="org.osate.aadl2.instance.SystemInstance"/>
          </declarativeModel>

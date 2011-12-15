@@ -5,6 +5,8 @@ package TestBinPacker;
 import java.util.Iterator;
 import java.util.TreeSet;
 
+import org.osate.analysis.binpacking.rma.RMASchedulerNew;
+
 import EAnalysis.BinPacking.AssignmentResult;
 import EAnalysis.BinPacking.BFCPBinPacker;
 import EAnalysis.BinPacking.BandwidthComparator;
@@ -23,7 +25,6 @@ import EAnalysis.BinPacking.Site;
 import EAnalysis.BinPacking.SiteArchitecture;
 import EAnalysis.BinPacking.SiteGuest;
 import EAnalysis.BinPacking.SoftwareNode;
-import edu.cmu.sei.timeweaver.binpacking.rma.RMASchedulerNew;
 
 /**
  * @author aarong

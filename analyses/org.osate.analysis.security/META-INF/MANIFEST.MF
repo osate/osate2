@@ -1,14 +1,14 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: edu.cmu.sei.aadl.security; singleton:=true
+Bundle-SymbolicName: org.osate.analysis.security;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: .
-Bundle-Activator: edu.cmu.sei.aadl.security.SecurityPlugin
+Bundle-Activator: org.osate.analysis.security.SecurityPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: edu.cmu.sei.aadl.security,
- edu.cmu.sei.aadl.security.actions
+Export-Package: org.osate.analysis.security,
+ org.osate.analysis.security.actions
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.edit,
  org.eclipse.emf.ecore,

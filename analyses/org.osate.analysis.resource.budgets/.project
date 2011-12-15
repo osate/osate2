@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>edu.cmu.sei.aadl.resourcebudgets</name>
+	<name>org.osate.analysis.resource.budgets</name>
 	<comment></comment>
 	<projects>
 	</projects>

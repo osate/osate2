@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>edu.cmu.sei.timeweaver.binpacking</name>
+	<name>org.osate.analysis.binpacking</name>
 	<comment></comment>
 	<projects>
 	</projects>

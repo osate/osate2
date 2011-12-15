@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>edu.cmu.sei.osateplugins</name>
+	<name>org.osate.plugins.feature</name>
 	<comment></comment>
 	<projects>
 	</projects>

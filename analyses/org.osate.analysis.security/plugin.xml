@@ -5,7 +5,7 @@
      <extension
          point="org.eclipse.ui.actionSets">
       <actionSet
-            id="edu.cmu.sei.aadl.security.actionSet"
+            id="org.osate.analysis.security.actionSet"
             label="%actionSet.label"
             visible="false">
 
@@ -34,12 +34,12 @@
          </menu>
          
          <action
-               id="edu.cmu.sei.aadl.security.actions.CheckSafety.action"
+               id="org.osate.analysis.security.actions.CheckSafety.action"
                label="%CheckSafety.label"
                tooltip="%CheckSafety.toolTip"
                icon="%CheckSafety.icon"
                disabledIcon="%CheckSafety.disabledIcon"
-               class="edu.cmu.sei.aadl.security.actions.CheckSafety"
+               class="org.osate.analysis.security.actions.CheckSafety"
                menubarPath="menu.analyses/menu.security/stuff.grp"
                toolbarPath="security.toolbar"
                enablesFor="1">
@@ -55,12 +55,12 @@
          </action>
          
          <action
-               id="edu.cmu.sei.aadl.security.actions.CheckSecurity.action"
+               id="org.osate.analysis.security.actions.CheckSecurity.action"
                label="%CheckSecurity.label"
                tooltip="%CheckSecurity.toolTip"
                icon="%CheckSecurity.icon"
                disabledIcon="%CheckSecurity.disabledIcon"
-               class="edu.cmu.sei.aadl.security.actions.CheckSecurity"
+               class="org.osate.analysis.security.actions.CheckSecurity"
                menubarPath="menu.analyses/menu.security/stuff.grp"
                toolbarPath="security.toolbar"
                enablesFor="1">
@@ -80,16 +80,16 @@
    <extension
    	   point="org.eclipse.ui.perspectiveExtensions">
    	   <perspectiveExtension
-   		   targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
    		   <actionSet
-   		 	   id="edu.cmu.sei.aadl.security.actionSet"/>
+   		 	   id="org.osate.analysis.security.actionSet"/>
    	   </perspectiveExtension>
    </extension>
 
    <extension
          point="org.eclipse.ui.popupMenus">
       <objectContribution
-            id="edu.cmu.sei.aadl.security.oc1"
+            id="org.osate.analysis.security.oc1"
             objectClass="java.lang.Object">
          <visibility>
             <or>
@@ -102,7 +102,7 @@
          </visibility>
                  
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               id="org.osate.ui.popupMenu.Analyses"
                label="%popupMenu.analyses.label"
                path="additions">
             <groupMarker name="anal.grp"/>
@@ -110,29 +110,29 @@
          </menu>
 
          <menu
-               id="edu.cmu.sei.aadl.security.popupMenu.Security"
+               id="org.osate.analysis.security.popupMenu.Security"
                label="%popupMenu.Security.label"
-               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
         
         
          <action
-               id="edu.cmu.sei.aadl.security.actions.CheckSafety.popupAction"
+               id="org.osate.analysis.security.actions.CheckSafety.popupAction"
                label="%CheckSafety.label"
                tooltip="%CheckSafety.toolTip"
                icon="%CheckSafety.icon"
-               class="edu.cmu.sei.aadl.security.actions.CheckSafety"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.security.popupMenu.Security/anal.grp"
+               class="org.osate.analysis.security.actions.CheckSafety"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.security.popupMenu.Security/anal.grp"
                enablesFor="1"/>
          
          <action
-               id="edu.cmu.sei.aadl.security.actions.CheckSecurity.popupAction"
+               id="org.osate.analysis.security.actions.CheckSecurity.popupAction"
                label="%CheckSecurity.label"
                tooltip="%CheckSecurity.toolTip"
                icon="%CheckSecurity.icon"
-               class="edu.cmu.sei.aadl.security.actions.CheckSecurity"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/edu.cmu.sei.aadl.security.popupMenu.Security/anal.grp"
+               class="org.osate.analysis.security.actions.CheckSecurity"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.security.popupMenu.Security/anal.grp"
                enablesFor="1"/>
       </objectContribution>
    </extension>
@@ -155,21 +155,21 @@
    
    <extension point="org.osate.ui.analysis">
       <analysis
-   		 id="edu.cmu.sei.aadl.security.actions.CheckSecurity.analysis"
+   		 id="org.osate.analysis.security.actions.CheckSecurity.analysis"
    		 name="Check Security Levels"
-   		 class="edu.cmu.sei.aadl.security.actions.CheckSecurityAnalysis">
+   		 class="org.osate.analysis.security.actions.CheckSecurityAnalysis">
    		 <declarativeModel selectRootObject="true">
-   		    <selectedObject objectType="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
+   		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
    		 </declarativeModel>
    		 <instanceModel selectRootObject="true"/>
    	  </analysis>
 
       <analysis
-   		 id="edu.cmu.sei.aadl.security.actions.CheckSafety.analysis"
+   		 id="org.osate.analysis.security.actions.CheckSafety.analysis"
    		 name="Check Safety Levels"
-   		 class="edu.cmu.sei.aadl.security.actions.CheckSafetyAnalysis">
+   		 class="org.osate.analysis.security.actions.CheckSafetyAnalysis">
    		 <declarativeModel selectRootObject="true">
-   		    <selectedObject objectType="edu.cmu.sei.aadl.model.core.ComponentImpl"/>
+   		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
    		 </declarativeModel>
    		 <instanceModel selectRootObject="true"/>
    	  </analysis>

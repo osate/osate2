@@ -7,7 +7,7 @@
       <actionSet
             label="%actionSet.label"
             visible="false"
-            id="edu.cmu.sei.aadl.resourcebudgets.actionSet">
+            id="org.osate.analysis.resource.budgets.actionSet">
          <menu
                id="menu.osate"
                label="%menu.osate.label"
@@ -39,8 +39,8 @@
             <groupMarker name="stuff.grp"/>
          </menu>
          <action
-               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoResourceBudget"
-               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoResourceBudget"
+               id="org.osate.analysis.resource.budgets.actions.DoResourceBudget"
+               class="org.osate.analysis.resource.budgets.actions.DoResourceBudget"
                enablesFor="1"
                icon="icons/budget.gif"
                label="&amp;Analyze Resource Budgets"
@@ -63,8 +63,8 @@
             </enablement>
          </action>
          <action
-               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundResourceAnalysis"
-               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundResourceAnalysis"
+               id="org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis"
+               class="org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis"
                enablesFor="1"
                icon="icons/budgetB.gif"
                label="&amp;Analyze Resource Allocations"
@@ -87,8 +87,8 @@
             </enablement>
          </action>
          <action
-               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoPowerAnalysis"
-               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoPowerAnalysis"
+               id="org.osate.analysis.resource.budgets.actions.DoPowerAnalysis"
+               class="org.osate.analysis.resource.budgets.actions.DoPowerAnalysis"
                enablesFor="1"
                icon="icons/power.gif"
                label="&amp;Analyze Bus Power Draw"
@@ -111,8 +111,8 @@
             </enablement>
          </action>
          <action
-               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoSwitchBandWidthAnalysis"
-               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoSwitchBandWidthAnalysis"
+               id="org.osate.analysis.resource.budgets.actions.DoSwitchBandWidthAnalysis"
+               class="org.osate.analysis.resource.budgets.actions.DoSwitchBandWidthAnalysis"
                enablesFor="1"
                icon="icons/switch.gif"
                label="&amp;Analyze Bus Load"
@@ -135,8 +135,8 @@
             </enablement>
          </action>
          <action
-               id="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundSwitchBandWidthAnalysis"
-               class="edu.cmu.sei.aadl.resourcebudgets.actions.DoBoundSwitchBandWidthAnalysis"
+               id="org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis"
+               class="org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis"
                enablesFor="1"
                icon="icons/switchB.gif"
                label="&amp;Analyze Bound Bus Load"
@@ -170,39 +170,39 @@
    </extension>
    <extension
          point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
-         <actionSet id="edu.cmu.sei.aadl.resourcebudgets.actionSet"/>
+      <perspectiveExtension targetID="org.osate.ui.perspective.AadlPerspective">
+         <actionSet id="org.osate.analysis.resource.budgets.actionSet"/>
       </perspectiveExtension>
    </extension>
    <extension
          point="org.osate.ui.analysis">
       <analysis
-            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoResourceBudgetAutoAnalysis"
-            id="edu.cmu.sei.aadl.resourcebudgets.resourcebudget.analysis"
+            class="org.osate.analysis.resource.budgets.autoanalyses.DoResourceBudgetAutoAnalysis"
+            id="org.osate.analysis.resource.budgets.resourcebudget.analysis"
             name="Analyze Resource Budgets">
          <instanceModel selectRootObject="true"/>
       </analysis>
       <analysis
-            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoPowerAutoAnalysis"
-            id="edu.cmu.sei.aadl.resourcebudgets.poweranalysis.analysis"
+            class="org.osate.analysis.resource.budgets.autoanalyses.DoPowerAutoAnalysis"
+            id="org.osate.analysis.resource.budgets.poweranalysis.analysis"
             name="Analyze Power Draw on Buses">
          <instanceModel selectRootObject="true"/>
       </analysis>
       <analysis
-            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoBoundResourceAutoAnalysis"
-            id="edu.cmu.sei.aadl.resourcebudgets.boundresource.analysis"
+            class="org.osate.analysis.resource.budgets.autoanalyses.DoBoundResourceAutoAnalysis"
+            id="org.osate.analysis.resource.budgets.boundresource.analysis"
             name="Analyze Resource Allocations of Bound Application Components">
          <instanceModel selectRootObject="true"/>
       </analysis>
       <analysis
-            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoSwitchBandWidthAutoAnalysis"
-            id="edu.cmu.sei.aadl.resourcebudgets.switchbandwidth.analysis"
+            class="org.osate.analysis.resource.budgets.autoanalyses.DoSwitchBandWidthAutoAnalysis"
+            id="org.osate.analysis.resource.budgets.switchbandwidth.analysis"
             name="Analyze Load on Switch for All Cross-Processor Connections and Loopback">
          <instanceModel selectRootObject="true"/>
       </analysis>
       <analysis
-            class="edu.cmu.sei.aadl.resourcebudgets.autoanalyses.DoBoundSwitchBandWidthAutoAnalysis"
-            id="edu.cmu.sei.aadl.resourcebudgets.boundswitchbandwidth.analysis"
+            class="org.osate.analysis.resource.budgets.autoanalyses.DoBoundSwitchBandWidthAutoAnalysis"
+            id="org.osate.analysis.resource.budgets.boundswitchbandwidth.analysis"
             name="Analyze Load on Switch for Bound Cross-Processor Connections and Loopback">
          <instanceModel selectRootObject="true"/>
       </analysis>

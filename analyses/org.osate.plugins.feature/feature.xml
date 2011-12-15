@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="edu.cmu.sei.osate-plugins"
+      id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
       version="2.0.0"
       provider-name="sei.cmu.sei"
-      plugin="edu.cmu.sei.aadl"
+      plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
       application="org.eclipse.ui.ide.workbench">
    <install-handler/>
@@ -14,7 +14,7 @@
    </description>
 
    <copyright>
-      Copyright  2005-2006 by Carnegie Mellon University, all rights
+      Copyright  2005-2011 by Carnegie Mellon University, all rights
 reserved.
    </copyright>
 
@@ -29,60 +29,62 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
    </url>
 
    <requires>
-      <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.common"/>
-      <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="edu.cmu.sei.osate.workspace"/>
-      <import plugin="edu.cmu.sei.osate.ui"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.osate.aadl2"/>
+      <import plugin="org.osate.aadl2.modelsupport"/>
+      <import plugin="org.osate.ui"/>
+      <import plugin="org.osate.pluginsupport"/>
+      <import plugin="org.osate.workspace"/>
+      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.contribution.sei"/>
+      <import plugin="org.eclipse.emf.common"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
-      <import plugin="edu.cmu.sei.aadl.aadl2" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.modelsupport" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.osate.pluginsupport"/>
-      <import feature="edu.cmu.sei.osate-frontend" version="1.5.0" match="greaterOrEqual"/>
-      <import plugin="edu.cmu.sei.aadl.instance" version="2.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import feature="org.osate.core.feature" version="2.0.0.qualifier"/>
    </requires>
 
    <plugin
-         id="edu.cmu.sei.aadl.resourcemanagement"
+         id="org.osate.analysis.architecture"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.timeweaver.binpacking"
+         id="org.osate.analysis.binpacking"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.architecture"
+         id="org.osate.analysis.flows"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.flowanalysis"
+         id="org.osate.analysis.resource.budgets"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.resourcebudgets"
+         id="org.osate.analysis.resource.management"
          download-size="0"
          install-size="0"
          version="0.0.0"
          unpack="false"/>
 
    <plugin
-         id="edu.cmu.sei.aadl.security"
+         id="org.osate.analysis.security"
          download-size="0"
          install-size="0"
          version="0.0.0"

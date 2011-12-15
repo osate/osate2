@@ -1,22 +1,22 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
-Bundle-SymbolicName: edu.cmu.sei.aadl.resourcemanagement; singleton:=true
+Bundle-SymbolicName: org.osate.analysis.resource.management;singleton:=true
 Bundle-Version: 2.0.0
 Bundle-ClassPath: .
-Bundle-Activator: edu.cmu.sei.aadl.resourcemanagement.ResourcemanagementPlugin
+Bundle-Activator: org.osate.analysis.resource.management.ResourcemanagementPlugin
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
-Export-Package: edu.cmu.sei.aadl.resourcemanagement,
- edu.cmu.sei.aadl.resourcemanagement.actions,
- edu.cmu.sei.aadl.scheduling,
- edu.cmu.sei.aadl.scheduling.inversion
+Export-Package: org.osate.analysis.resource.management,
+ org.osate.analysis.resource.management.actions,
+ org.osate.analysis.scheduling,
+ org.osate.analysis.scheduling.inversion
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.emf.common,
  org.eclipse.emf.ecore,
  org.eclipse.emf.edit,
- edu.cmu.sei.timeweaver.binpacking,
+ org.osate.analysis.binpacking,
  org.eclipse.ui.ide,
  org.eclipse.emf.common.ui,
  org.eclipse.core.resources,
@@ -25,4 +25,4 @@ Require-Bundle: org.eclipse.ui,
  org.osate.ui;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Eclipse-LazyStart: true
-Import-Package: edu.cmu.sei.aadl.resourcemanagement.actions
+Import-Package: org.osate.analysis.resource.management.actions
