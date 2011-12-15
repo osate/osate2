@@ -37,9 +37,6 @@
     <module>../org.osate.instantiation</module>
     <module>../org.osate.pluginsupport</module>
     <module>../org.osate.reporter</module>
-<!--
-    <module>../org.osate.sdk.feature</module>
--->
     <module>../org.osate.ui</module>
     <module>../org.osate.wizards</module>
     <module>../org.osate.workspace</module>
@@ -49,14 +46,14 @@
     <module>../org.osate.xtext.aadl2.propertyset</module>
     <module>../org.osate.xtext.aadl2.propertyset.ui</module>
     <module>../org.osate.xtext.aadl2.ui</module>
-    <module>../plugins/org.osate.analyses.architecture</module>
-    <module>../plugins/org.osate.analysis.flows</module>
-    <module>../plugins/org.osate.analysis.resource.budgets</module>
-    <module>../plugins/org.osate.analysis.resource.management</module>
-    <module>../plugins/org.osate.analysis.security</module>
-    <module>../plugins/org.osate.analysis.binpacking</module>
-    <module>../plugins/org.osate.plugins.feature</module>
-    <module>../plugins/org.osate.plugins.source.feature</module>
+    <module>../../plugins/org.osate.analysis.architecture</module>
+    <module>../../plugins/org.osate.analysis.flows</module>
+    <module>../../plugins/org.osate.analysis.resource.budgets</module>
+    <module>../../plugins/org.osate.analysis.resource.management</module>
+    <module>../../plugins/org.osate.analysis.security</module>
+    <module>../../plugins/org.osate.analysis.binpacking</module>
+    <module>../../plugins/org.osate.plugins.feature</module>
+    <module>../../plugins/org.osate.plugins.source.feature</module>
   </modules>
 
   <build>
