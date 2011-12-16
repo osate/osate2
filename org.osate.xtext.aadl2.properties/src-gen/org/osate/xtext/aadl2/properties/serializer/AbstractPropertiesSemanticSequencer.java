@@ -131,6 +131,10 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
+					return; 
+				}
 				else if(context == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
@@ -369,7 +373,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
 	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *     )
 	 */
@@ -461,12 +465,21 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 */
+	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue) 
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
 	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
 	 *         ) | 
 	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
@@ -474,7 +487,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *             property=[Property|QPREF] 
 	 *             append?='+=>'? 
 	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
 	 *         )
 	 *     )
 	 */
@@ -489,7 +502,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue*) | ownedValue+=PropertyValue)
+	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
 	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {

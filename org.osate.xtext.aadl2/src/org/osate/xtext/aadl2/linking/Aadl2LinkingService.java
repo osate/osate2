@@ -3,6 +3,7 @@ package org.osate.xtext.aadl2.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
@@ -24,6 +25,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -74,19 +76,44 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
 		NamedElement annex = getContainingAnnex(context);
-//		if (annex != null){
-//			String annexName = annex.getName();
-//			if (annexName.equalsIgnoreCase("error_model")){
+		if (annex != null){
+			String annexName = annex.getName();
+			if (annexName != null && annexName.equalsIgnoreCase("em2")){
 //				return emLS.getLinkedObjects(context, reference, node);
-//						//emLS.getLinkingService().getLinkedObjects(context, reference, node);
-//			}
-//		}
+						//emLS.getLinkingService().getLinkedObjects(context, reference, node);
+			} else {
+				return super.getLinkedObjects(context, reference, node);
+			}
+		}
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
 		
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
+		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
+		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final String name = getCrossRefNodeAsString(node);
+		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
+			// resolve classifier reference
+			EObject e = findClassifier(context, reference,  name);
+			if (e != null ) {
+				// the result satisfied the expected class
+				return Collections.singletonList((EObject) e);
+			}
+			if (sct.isSuperTypeOf(requiredType)){
+				// need to resolve prototype
+				EObject res = getContainingClassifier(context)
+						.findNamedElement(name);
+				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
+					if( res instanceof DataPrototype ){
+						return Collections.singletonList(res);
+					}
+				} else if ( res instanceof ComponentPrototype) {
+					return Collections.singletonList(res);
+				}
+			}
+			return Collections.<EObject> emptyList();
+		} else
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
@@ -418,6 +445,15 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			
 			return Collections.<EObject> emptyList();
+		} else if (Aadl2Package.eINSTANCE.getArraySizeProperty() == requiredType) {
+			// reference to a property constant or property
+			// look for property definition in property set
+			List<EObject> result = findPropertyDefinitionAsList(context, reference, name);
+			if (result.isEmpty()){
+				result = findPropertyConstant(context, reference, name);
+
+			}
+			return result;
 		} else {
 			
  			List<EObject> res = super.getLinkedObjects(context, reference, node);

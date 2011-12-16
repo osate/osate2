@@ -10,9 +10,10 @@
 	<version>2.0.0-SNAPSHOT</version>
 
 	<parent>
-		<artifactId>osate2-core</artifactId>
+		<artifactId>osate2</artifactId>
 		<groupId>org.osate</groupId>
 		<version>2.0.0-SNAPSHOT</version>
+		<relativePath>../org.osate.build.main/pom.xml</relativePath>
 	</parent>
 
 	<build>

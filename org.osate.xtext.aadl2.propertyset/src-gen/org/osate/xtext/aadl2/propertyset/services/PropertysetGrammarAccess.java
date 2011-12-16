@@ -1252,20 +1252,20 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QCReference");
 		private final Assignment cClassifierAssignment = (Assignment)rule.eContents().get(1);
 		private final CrossReference cClassifierComponentClassifierCrossReference_0 = (CrossReference)cClassifierAssignment.eContents().get(0);
-		private final RuleCall cClassifierComponentClassifierQCREFParserRuleCall_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_0.eContents().get(1);
+		private final RuleCall cClassifierComponentClassifierFQCREFParserRuleCall_0_1 = (RuleCall)cClassifierComponentClassifierCrossReference_0.eContents().get(1);
 		
 		//QCReference returns aadl2::ClassifierValue:
-		//	classifier=[aadl2::ComponentClassifier|QCREF];
+		//	classifier=[aadl2::ComponentClassifier|FQCREF];
 		public ParserRule getRule() { return rule; }
 
-		//classifier=[aadl2::ComponentClassifier|QCREF]
+		//classifier=[aadl2::ComponentClassifier|FQCREF]
 		public Assignment getClassifierAssignment() { return cClassifierAssignment; }
 
-		//[aadl2::ComponentClassifier|QCREF]
+		//[aadl2::ComponentClassifier|FQCREF]
 		public CrossReference getClassifierComponentClassifierCrossReference_0() { return cClassifierComponentClassifierCrossReference_0; }
 
-		//QCREF
-		public RuleCall getClassifierComponentClassifierQCREFParserRuleCall_0_1() { return cClassifierComponentClassifierQCREFParserRuleCall_0_1; }
+		//FQCREF
+		public RuleCall getClassifierComponentClassifierFQCREFParserRuleCall_0_1() { return cClassifierComponentClassifierFQCREFParserRuleCall_0_1; }
 	}
 
 	public class ReferenceTypeElements extends AbstractParserRuleElementFinder {
@@ -2173,6 +2173,47 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 		//"classifier"
 		public Keyword getClassifierKeyword_26() { return cClassifierKeyword_26; }
 	}
+
+	public class FQCREFElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "FQCREF");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
+		private final Keyword cColonColonKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		
+		//// fully qualified classifier name (always includes package name
+		//FQCREF:
+		//	(ID "::")+ ID ("." ID)?;
+		public ParserRule getRule() { return rule; }
+
+		//(ID "::")+ ID ("." ID)?
+		public Group getGroup() { return cGroup; }
+
+		//(ID "::")+
+		public Group getGroup_0() { return cGroup_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
+
+		//"::"
+		public Keyword getColonColonKeyword_0_1() { return cColonColonKeyword_0_1; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
+
+		//("." ID)?
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//ID
+		public RuleCall getIDTerminalRuleCall_2_1() { return cIDTerminalRuleCall_2_1; }
+	}
 	
 	
 	private PropertySetElements pPropertySet;
@@ -2216,6 +2257,7 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	private IntegerRangeElements pIntegerRange;
 	private RealRangeElements pRealRange;
 	private CoreKeyWordElements pCoreKeyWord;
+	private FQCREFElements pFQCREF;
 	
 	private final GrammarProvider grammarProvider;
 
@@ -2481,7 +2523,7 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QCReference returns aadl2::ClassifierValue:
-	//	classifier=[aadl2::ComponentClassifier|QCREF];
+	//	classifier=[aadl2::ComponentClassifier|FQCREF];
 	public QCReferenceElements getQCReferenceAccess() {
 		return (pQCReference != null) ? pQCReference : (pQCReference = new QCReferenceElements());
 	}
@@ -2679,6 +2721,17 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 		return getCoreKeyWordAccess().getRule();
 	}
 
+	//// fully qualified classifier name (always includes package name
+	//FQCREF:
+	//	(ID "::")+ ID ("." ID)?;
+	public FQCREFElements getFQCREFAccess() {
+		return (pFQCREF != null) ? pFQCREF : (pFQCREF = new FQCREFElements());
+	}
+	
+	public ParserRule getFQCREFRule() {
+		return getFQCREFAccess().getRule();
+	}
+
 	//PModel returns aadl2::Element:
 	//	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation;
 	public PropertiesGrammarAccess.PModelElements getPModelAccess() {
@@ -2692,8 +2745,8 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	//// Properties
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
-	//	appliesTo+=ContainmentPath)*)? ";";
+	//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+	//	("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
 	}
@@ -2704,7 +2757,7 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
+	//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";";
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
 	}
@@ -2745,13 +2798,17 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 		return getModalPropertyValueAccess().getRule();
 	}
 
-	////OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-	////	ownedValue=PropertyExpression 
-	////	// phf made this optional: need to check separately that only the last one is optional
-	////	( 'in' 'modes' '(' 
-	////	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-	////	')')?
-	////	;
+	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+	//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+	public PropertiesGrammarAccess.OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
+		return gaProperties.getOptionalModalPropertyValueAccess();
+	}
+	
+	public ParserRule getOptionalModalPropertyValueRule() {
+		return getOptionalModalPropertyValueAccess().getRule();
+	}
+
 	//// &&&&&&&&&& handling of in binding
 	//PropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;

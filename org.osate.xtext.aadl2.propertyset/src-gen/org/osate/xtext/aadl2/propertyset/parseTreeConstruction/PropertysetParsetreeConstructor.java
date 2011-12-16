@@ -77,33 +77,34 @@ protected class ThisRootNode extends RootToken {
 			case 43: return new BasicPropertyAssociation_Group(this, this, 43, inst);
 			case 44: return new ContainmentPath_Group(this, this, 44, inst);
 			case 45: return new ModalPropertyValue_Group(this, this, 45, inst);
-			case 46: return new PropertyValue_OwnedValueAssignment(this, this, 46, inst);
-			case 47: return new PropertyExpression_Alternatives(this, this, 47, inst);
-			case 48: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 48, inst);
-			case 49: return new ActualBooleanTerm_Alternatives(this, this, 49, inst);
-			case 50: return new ActualOrTerm_Group(this, this, 50, inst);
-			case 51: return new ActualAndTerm_Group(this, this, 51, inst);
-			case 52: return new BooleanTerm_OrTermParserRuleCall(this, this, 52, inst);
-			case 53: return new OrTerm_Group(this, this, 53, inst);
-			case 54: return new AndTerm_Group(this, this, 54, inst);
-			case 55: return new NotTerm_Group(this, this, 55, inst);
-			case 56: return new BooleanAtom_Alternatives(this, this, 56, inst);
-			case 57: return new BooleanLiteral_Group(this, this, 57, inst);
-			case 58: return new ConstantValue_NamedValueAssignment(this, this, 58, inst);
-			case 59: return new ReferenceTerm_Group(this, this, 59, inst);
-			case 60: return new RecordTerm_Group(this, this, 60, inst);
-			case 61: return new ComputedTerm_Group(this, this, 61, inst);
-			case 62: return new ComponentClassifierTerm_Group(this, this, 62, inst);
-			case 63: return new ListTerm_Group(this, this, 63, inst);
-			case 64: return new FieldPropertyAssociation_Group(this, this, 64, inst);
-			case 65: return new ContainmentPathElement_Alternatives(this, this, 65, inst);
-			case 66: return new StringTerm_ValueAssignment(this, this, 66, inst);
-			case 67: return new ArrayRange_Group(this, this, 67, inst);
-			case 68: return new SignedConstant_Group(this, this, 68, inst);
-			case 69: return new IntegerTerm_Group(this, this, 69, inst);
-			case 70: return new RealTerm_Group(this, this, 70, inst);
-			case 71: return new NumericRangeTerm_Group(this, this, 71, inst);
-			case 72: return new NumAlt_Alternatives(this, this, 72, inst);
+			case 46: return new OptionalModalPropertyValue_Group(this, this, 46, inst);
+			case 47: return new PropertyValue_OwnedValueAssignment(this, this, 47, inst);
+			case 48: return new PropertyExpression_Alternatives(this, this, 48, inst);
+			case 49: return new LiteralorReferenceTerm_NamedValueAssignment(this, this, 49, inst);
+			case 50: return new ActualBooleanTerm_Alternatives(this, this, 50, inst);
+			case 51: return new ActualOrTerm_Group(this, this, 51, inst);
+			case 52: return new ActualAndTerm_Group(this, this, 52, inst);
+			case 53: return new BooleanTerm_OrTermParserRuleCall(this, this, 53, inst);
+			case 54: return new OrTerm_Group(this, this, 54, inst);
+			case 55: return new AndTerm_Group(this, this, 55, inst);
+			case 56: return new NotTerm_Group(this, this, 56, inst);
+			case 57: return new BooleanAtom_Alternatives(this, this, 57, inst);
+			case 58: return new BooleanLiteral_Group(this, this, 58, inst);
+			case 59: return new ConstantValue_NamedValueAssignment(this, this, 59, inst);
+			case 60: return new ReferenceTerm_Group(this, this, 60, inst);
+			case 61: return new RecordTerm_Group(this, this, 61, inst);
+			case 62: return new ComputedTerm_Group(this, this, 62, inst);
+			case 63: return new ComponentClassifierTerm_Group(this, this, 63, inst);
+			case 64: return new ListTerm_Group(this, this, 64, inst);
+			case 65: return new FieldPropertyAssociation_Group(this, this, 65, inst);
+			case 66: return new ContainmentPathElement_Alternatives(this, this, 66, inst);
+			case 67: return new StringTerm_ValueAssignment(this, this, 67, inst);
+			case 68: return new ArrayRange_Group(this, this, 68, inst);
+			case 69: return new SignedConstant_Group(this, this, 69, inst);
+			case 70: return new IntegerTerm_Group(this, this, 70, inst);
+			case 71: return new RealTerm_Group(this, this, 71, inst);
+			case 72: return new NumericRangeTerm_Group(this, this, 72, inst);
+			case 73: return new NumAlt_Alternatives(this, this, 73, inst);
 			default: return null;
 		}	
 	}	
@@ -6128,11 +6129,11 @@ protected class QMReference_MetaclassNameAssignment_1 extends AssignmentToken  {
 /************ begin Rule QCReference ****************
  *
  * QCReference returns aadl2::ClassifierValue:
- * 	classifier=[aadl2::ComponentClassifier|QCREF];
+ * 	classifier=[aadl2::ComponentClassifier|FQCREF];
  *
  **/
 
-// classifier=[aadl2::ComponentClassifier|QCREF]
+// classifier=[aadl2::ComponentClassifier|FQCREF]
 protected class QCReference_ClassifierAssignment extends AssignmentToken  {
 	
 	public QCReference_ClassifierAssignment(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -9790,6 +9791,7 @@ protected class RealRange_UpperBoundAssignment_2 extends AssignmentToken  {
 
 
 
+
 /************ begin Rule PModel ****************
  *
  * PModel returns aadl2::Element:
@@ -9939,14 +9941,14 @@ protected class PModel_PropertyAssociationParserRuleCall_2 extends RuleCallToken
  * // Properties
  * ContainedPropertyAssociation returns aadl2::PropertyAssociation:
  * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
- * 	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
- * 	appliesTo+=ContainmentPath)*)? ";";
+ * 	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+ * 	("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
  *
  **/
 
 // property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-// ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
-// appliesTo+=ContainmentPath)*)? ";"
+// ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+// ("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
 protected class ContainedPropertyAssociation_Group extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10125,7 +10127,8 @@ protected class ContainedPropertyAssociation_ConstantAssignment_2 extends Assign
 
 }
 
-// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
+// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+// ")" | ownedValue+=PropertyValue
 protected class ContainedPropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 	public ContainedPropertyAssociation_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10148,7 +10151,8 @@ protected class ContainedPropertyAssociation_Alternatives_3 extends Alternatives
 
 }
 
-// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+// ")"
 protected class ContainedPropertyAssociation_Group_3_0 extends GroupToken {
 	
 	public ContainedPropertyAssociation_Group_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10163,7 +10167,7 @@ protected class ContainedPropertyAssociation_Group_3_0 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new ContainedPropertyAssociation_RightParenthesisKeyword_3_0_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new ContainedPropertyAssociation_RightParenthesisKeyword_3_0_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -10331,16 +10335,38 @@ protected class ContainedPropertyAssociation_OwnedValueAssignment_3_0_2_1 extend
 }
 
 
-// ")"
-protected class ContainedPropertyAssociation_RightParenthesisKeyword_3_0_3 extends KeywordToken  {
+// ("," ownedValue+=OptionalModalPropertyValue)?
+protected class ContainedPropertyAssociation_Group_3_0_3 extends GroupToken {
 	
-	public ContainedPropertyAssociation_RightParenthesisKeyword_3_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public ContainedPropertyAssociation_Group_3_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_0_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_OwnedValueAssignment_3_0_3_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class ContainedPropertyAssociation_CommaKeyword_3_0_3_0 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_CommaKeyword_3_0_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_3_0_3();
+		return grammarAccess.getContainedPropertyAssociationAccess().getCommaKeyword_3_0_3_0();
 	}
 
     @Override
@@ -10348,6 +10374,77 @@ protected class ContainedPropertyAssociation_RightParenthesisKeyword_3_0_3 exten
 		switch(index) {
 			case 0: return new ContainedPropertyAssociation_Group_3_0_2(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new ContainedPropertyAssociation_OwnedValueAssignment_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=OptionalModalPropertyValue
+protected class ContainedPropertyAssociation_OwnedValueAssignment_3_0_3_1 extends AssignmentToken  {
+	
+	public ContainedPropertyAssociation_OwnedValueAssignment_3_0_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueAssignment_3_0_3_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getOptionalModalPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getContainedPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_CommaKeyword_3_0_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ")"
+protected class ContainedPropertyAssociation_RightParenthesisKeyword_3_0_4 extends KeywordToken  {
+	
+	public ContainedPropertyAssociation_RightParenthesisKeyword_3_0_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getContainedPropertyAssociationAccess().getRightParenthesisKeyword_3_0_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new ContainedPropertyAssociation_Group_3_0_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new ContainedPropertyAssociation_Group_3_0_2(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new ContainedPropertyAssociation_OwnedValueAssignment_3_0_1(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
@@ -10640,12 +10737,12 @@ protected class ContainedPropertyAssociation_SemicolonKeyword_5 extends KeywordT
  *
  * PropertyAssociation returns aadl2::PropertyAssociation:
  * 	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
- * 	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
+ * 	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";";
  *
  **/
 
 // property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-// ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";"
+// ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";"
 protected class PropertyAssociation_Group extends GroupToken {
 	
 	public PropertyAssociation_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10824,7 +10921,8 @@ protected class PropertyAssociation_ConstantAssignment_2 extends AssignmentToken
 
 }
 
-// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
+// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+// ")" | ownedValue+=PropertyValue
 protected class PropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 	public PropertyAssociation_Alternatives_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10847,7 +10945,8 @@ protected class PropertyAssociation_Alternatives_3 extends AlternativesToken {
 
 }
 
-// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+// "(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+// ")"
 protected class PropertyAssociation_Group_3_0 extends GroupToken {
 	
 	public PropertyAssociation_Group_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
@@ -10862,7 +10961,7 @@ protected class PropertyAssociation_Group_3_0 extends GroupToken {
     @Override
 	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
 		switch(index) {
-			case 0: return new PropertyAssociation_RightParenthesisKeyword_3_0_3(lastRuleCallOrigin, this, 0, inst);
+			case 0: return new PropertyAssociation_RightParenthesisKeyword_3_0_4(lastRuleCallOrigin, this, 0, inst);
 			default: return null;
 		}	
 	}
@@ -11030,16 +11129,38 @@ protected class PropertyAssociation_OwnedValueAssignment_3_0_2_1 extends Assignm
 }
 
 
-// ")"
-protected class PropertyAssociation_RightParenthesisKeyword_3_0_3 extends KeywordToken  {
+// ("," ownedValue+=OptionalModalPropertyValue)?
+protected class PropertyAssociation_Group_3_0_3 extends GroupToken {
 	
-	public PropertyAssociation_RightParenthesisKeyword_3_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+	public PropertyAssociation_Group_3_0_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getPropertyAssociationAccess().getGroup_3_0_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyAssociation_OwnedValueAssignment_3_0_3_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class PropertyAssociation_CommaKeyword_3_0_3_0 extends KeywordToken  {
+	
+	public PropertyAssociation_CommaKeyword_3_0_3_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
 		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
 	}
 	
 	@Override
 	public Keyword getGrammarElement() {
-		return grammarAccess.getPropertyAssociationAccess().getRightParenthesisKeyword_3_0_3();
+		return grammarAccess.getPropertyAssociationAccess().getCommaKeyword_3_0_3_0();
 	}
 
     @Override
@@ -11047,6 +11168,77 @@ protected class PropertyAssociation_RightParenthesisKeyword_3_0_3 extends Keywor
 		switch(index) {
 			case 0: return new PropertyAssociation_Group_3_0_2(lastRuleCallOrigin, this, 0, inst);
 			case 1: return new PropertyAssociation_OwnedValueAssignment_3_0_1(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ownedValue+=OptionalModalPropertyValue
+protected class PropertyAssociation_OwnedValueAssignment_3_0_3_1 extends AssignmentToken  {
+	
+	public PropertyAssociation_OwnedValueAssignment_3_0_3_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getPropertyAssociationAccess().getOwnedValueAssignment_3_0_3_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_Group(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getOptionalModalPropertyValueRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getPropertyAssociationAccess().getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			case 0: return new PropertyAssociation_CommaKeyword_3_0_3_0(lastRuleCallOrigin, next, actIndex, consumed);
+			default: return null;
+		}	
+	}	
+}
+
+
+// ")"
+protected class PropertyAssociation_RightParenthesisKeyword_3_0_4 extends KeywordToken  {
+	
+	public PropertyAssociation_RightParenthesisKeyword_3_0_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getPropertyAssociationAccess().getRightParenthesisKeyword_3_0_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyAssociation_Group_3_0_3(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new PropertyAssociation_Group_3_0_2(lastRuleCallOrigin, this, 1, inst);
+			case 2: return new PropertyAssociation_OwnedValueAssignment_3_0_1(lastRuleCallOrigin, this, 2, inst);
 			default: return null;
 		}	
 	}
@@ -11798,15 +11990,328 @@ protected class ModalPropertyValue_RightParenthesisKeyword_6 extends KeywordToke
 /************ end Rule ModalPropertyValue ****************/
 
 
+/************ begin Rule OptionalModalPropertyValue ****************
+ *
+ * OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+ * 	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+ * 	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+ *
+ **/
+
+// ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+// ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+protected class OptionalModalPropertyValue_Group extends GroupToken {
+	
+	public OptionalModalPropertyValue_Group(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getGroup();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_Group_1(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new OptionalModalPropertyValue_OwnedValueAssignment_0(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+    @Override
+	public IEObjectConsumer tryConsume() {
+		if(getEObject().eClass() != grammarAccess.getOptionalModalPropertyValueRule().getType().getClassifier())
+			return null;
+		return eObjectConsumer;
+	}
+
+}
+
+// ownedValue=PropertyExpression
+protected class OptionalModalPropertyValue_OwnedValueAssignment_0 extends AssignmentToken  {
+	
+	public OptionalModalPropertyValue_OwnedValueAssignment_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValueAssignment_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new PropertyExpression_Alternatives(this, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("ownedValue",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("ownedValue");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::RuleCallImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getPropertyExpressionRule().getType().getClassifier())) {
+				type = AssignmentType.PARSER_RULE_CALL;
+				element = grammarAccess.getOptionalModalPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0_0(); 
+				consumed = obj;
+				return param;
+			}
+		}
+		return null;
+	}
+
+    @Override
+	public AbstractToken createFollowerAfterReturn(AbstractToken next,	int actIndex, int index, IEObjectConsumer inst) {
+		if(value == inst.getEObject() && !inst.isConsumed()) return null;
+		switch(index) {
+			default: return lastRuleCallOrigin.createFollowerAfterReturn(next, actIndex , index, consumed);
+		}	
+	}	
+}
+
+// ("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+protected class OptionalModalPropertyValue_Group_1 extends GroupToken {
+	
+	public OptionalModalPropertyValue_Group_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getGroup_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_RightParenthesisKeyword_1_5(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "in"
+protected class OptionalModalPropertyValue_InKeyword_1_0 extends KeywordToken  {
+	
+	public OptionalModalPropertyValue_InKeyword_1_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getInKeyword_1_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_OwnedValueAssignment_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "modes"
+protected class OptionalModalPropertyValue_ModesKeyword_1_1 extends KeywordToken  {
+	
+	public OptionalModalPropertyValue_ModesKeyword_1_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getModesKeyword_1_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_InKeyword_1_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// "("
+protected class OptionalModalPropertyValue_LeftParenthesisKeyword_1_2 extends KeywordToken  {
+	
+	public OptionalModalPropertyValue_LeftParenthesisKeyword_1_2(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getLeftParenthesisKeyword_1_2();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_ModesKeyword_1_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class OptionalModalPropertyValue_InModeAssignment_1_3 extends AssignmentToken  {
+	
+	public OptionalModalPropertyValue_InModeAssignment_1_3(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getInModeAssignment_1_3();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_LeftParenthesisKeyword_1_2(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",true)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+// ("," inMode+=[aadl2::Mode])*
+protected class OptionalModalPropertyValue_Group_1_4 extends GroupToken {
+	
+	public OptionalModalPropertyValue_Group_1_4(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Group getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getGroup_1_4();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_InModeAssignment_1_4_1(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// ","
+protected class OptionalModalPropertyValue_CommaKeyword_1_4_0 extends KeywordToken  {
+	
+	public OptionalModalPropertyValue_CommaKeyword_1_4_0(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getCommaKeyword_1_4_0();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_Group_1_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new OptionalModalPropertyValue_InModeAssignment_1_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+// inMode+=[aadl2::Mode]
+protected class OptionalModalPropertyValue_InModeAssignment_1_4_1 extends AssignmentToken  {
+	
+	public OptionalModalPropertyValue_InModeAssignment_1_4_1(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Assignment getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getInModeAssignment_1_4_1();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_CommaKeyword_1_4_0(lastRuleCallOrigin, this, 0, inst);
+			default: return null;
+		}	
+	}
+
+    @Override	
+	public IEObjectConsumer tryConsume() {
+		if((value = eObjectConsumer.getConsumable("inMode",false)) == null) return null;
+		IEObjectConsumer obj = eObjectConsumer.cloneAndConsume("inMode");
+		if(value instanceof EObject) { // org::eclipse::xtext::impl::CrossReferenceImpl
+			IEObjectConsumer param = createEObjectConsumer((EObject)value);
+			if(param.isInstanceOf(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0().getType().getClassifier())) {
+				type = AssignmentType.CROSS_REFERENCE;
+				element = grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0(); 
+				return obj;
+			}
+		}
+		return null;
+	}
+
+}
+
+
+// ")"
+protected class OptionalModalPropertyValue_RightParenthesisKeyword_1_5 extends KeywordToken  {
+	
+	public OptionalModalPropertyValue_RightParenthesisKeyword_1_5(AbstractToken lastRuleCallOrigin, AbstractToken next, int transitionIndex, IEObjectConsumer eObjectConsumer) {
+		super(lastRuleCallOrigin, next, transitionIndex, eObjectConsumer);
+	}
+	
+	@Override
+	public Keyword getGrammarElement() {
+		return grammarAccess.getOptionalModalPropertyValueAccess().getRightParenthesisKeyword_1_5();
+	}
+
+    @Override
+	public AbstractToken createFollower(int index, IEObjectConsumer inst) {
+		switch(index) {
+			case 0: return new OptionalModalPropertyValue_Group_1_4(lastRuleCallOrigin, this, 0, inst);
+			case 1: return new OptionalModalPropertyValue_InModeAssignment_1_3(lastRuleCallOrigin, this, 1, inst);
+			default: return null;
+		}	
+	}
+
+}
+
+
+
+/************ end Rule OptionalModalPropertyValue ****************/
+
+
 /************ begin Rule PropertyValue ****************
  *
- * //OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
- * //	ownedValue=PropertyExpression 
- * //	// phf made this optional: need to check separately that only the last one is optional
- * //	( 'in' 'modes' '(' 
- * //	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
- * //	')')?
- * //	;
  * // &&&&&&&&&& handling of in binding
  * PropertyValue returns aadl2::ModalPropertyValue:
  * 	ownedValue=PropertyExpression;

@@ -80,13 +80,18 @@ public class AnnexParserAgent  extends LazyLinker {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
 				int offset = node.getOffset();
 				int line = node.getStartLine();
+				String sourceText = defaultAnnexLibrary.getSourceText();
+				if (sourceText == null) break;
+				int nlength = node.getLength();
+				int sourcelength = sourceText.length();
+				offset = offset + (nlength-sourcelength-1);
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
-//				if (defaultAnnexLibrary.getName().equalsIgnoreCase("error_model")){
+				if (defaultAnnexLibrary.getName().equalsIgnoreCase("em2")){
 //
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-//					AnnexLibrary al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,defaultAnnexLibrary.getSourceText(),line,offset);
-//				} else 
+//					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
+				} else 
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexLibrary.getSourceText();
@@ -97,8 +102,9 @@ public class AnnexParserAgent  extends LazyLinker {
 						}
 						AnnexParser ap = registry.getAnnexParser(annexName);
 						try {
+							int errs = errReporter.getNumErrors();
 							al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
-							if (al != null) 
+							if (al != null && errReporter.getNumErrors() == errs) 
 							{ 
 								al.setName(annexName);
 								// replace default annex library with the new one. 
@@ -107,16 +113,13 @@ public class AnnexParserAgent  extends LazyLinker {
 								ael.add(idx, al);
 								ael.remove(defaultAnnexLibrary);
 
-								if (errReporter.getNumErrors() == 0){
-									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-									if (resolver != null)
-										resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
-								}
+								AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
+								if (resolver != null)
+									resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
 							}
 						} catch (RecognitionException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} // TODO: errReporter);
+							errReporter.error(filename, line, "Major parsing error");
+						}
 					}
 				}
 			}
@@ -125,11 +128,16 @@ public class AnnexParserAgent  extends LazyLinker {
 				INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
 				int offset = node.getOffset();
 				int line = node.getStartLine();
+				String sourceText = defaultAnnexSubclause.getSourceText();
+				if (sourceText == null) break;
+				int nlength = node.getLength();
+				int sourcelength = sourceText.length();
+				offset = offset + (nlength-sourcelength-1);
 				// call the new error annex as a XText generated frontend
-//				if (defaultAnnexSubclause.getName().equalsIgnoreCase("error_model")){
+				if (defaultAnnexSubclause.getName().equalsIgnoreCase("em2")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
-//				} else
+				} else
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexSubclause.getSourceText();
@@ -140,9 +148,9 @@ public class AnnexParserAgent  extends LazyLinker {
 						}
 						AnnexParser ap = registry.getAnnexParser(annexName);
 						try {
-							AnnexSubclause al;
-							al = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, errReporter);
-							if (al != null) 
+							int errs = errReporter.getNumErrors();
+							AnnexSubclause al = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, errReporter);
+							if (al != null && errReporter.getNumErrors() == errs) 
 							{
 								al.setName(annexName);
 								// replace default annex library with the new one. 
@@ -150,15 +158,12 @@ public class AnnexParserAgent  extends LazyLinker {
 								int idx = ael.indexOf(defaultAnnexSubclause);
 								ael.add(idx, al);
 								ael.remove(defaultAnnexSubclause);
-								if (errReporter.getNumErrors() == 0){
-									AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
-									if (resolver != null) resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
-								}
+								AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
+								if (resolver != null) resolver.resolveAnnex(annexName, Collections.singletonList(al), resolveErrManager);
 							}
 						} catch (RecognitionException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						} // TODO: errReporter);
+							errReporter.error(filename, line, "Major uncaught parsing error");
+						} 
 					}
 					
 				}
@@ -176,16 +181,6 @@ public class AnnexParserAgent  extends LazyLinker {
 //			getWarnings().addAll(consumer.getResult(Severity.WARNING));
 //		}
 
-// Calling annex plug-in parsers		
-//		String annexName = id.getText();
-//		String annexText = at.getText();
-//		if (annexText.length() > 6) {
-//	        annexText = annexText.substring(3, annexText.length() - 3);
-//		}
-//		AnnexParserRegistry registry = (AnnexParserRegistry) AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_PARSER_EXT_ID);
-//		AnnexParser ap = registry.getAnnexParser(annexName);
-//		al = ap.parseAnnexLibrary(id.getText(), annexText, getFilename(), at.getLine(), at.getCharPositionInLine() + 3, errReporter);
-//		al.setName(id.getText());
 
 		
 }

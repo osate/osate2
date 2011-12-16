@@ -56,20 +56,20 @@ public enum AccessType implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PROVIDED_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	PROVIDED(0, "provided", "provided"),
+	PROVIDED(0, "provides", "provides"),
 
 	/**
 	 * The '<em><b>Required</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #REQUIRED_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	REQUIRED(1, "required", "required");
+	REQUIRED(1, "requires", "requires");
 
 	/**
 	 * The '<em><b>Provided</b></em>' literal value.
