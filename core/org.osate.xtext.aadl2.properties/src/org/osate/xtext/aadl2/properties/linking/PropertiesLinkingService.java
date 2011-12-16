@@ -338,7 +338,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				}
 			}
 		} else {
-			Activator.logErrorMessage("Unhandled reference in LinkingService: "+reference.getName()+" to "+requiredType.getName());
+			List<EObject> superes = super.getLinkedObjects(context, reference, node);
+			if (superes.isEmpty()){
+				Activator.logErrorMessage("Unhandled reference in LinkingService: "+reference.getName()+" to "+requiredType.getName());
+			}
+			return superes;
 		}
 		if (searchResult != null) {
 			return Collections.singletonList(searchResult);

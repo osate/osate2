@@ -61,7 +61,11 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_3_0_2_0 = (Keyword)cGroup_3_0_2.eContents().get(0);
 		private final Assignment cOwnedValueAssignment_3_0_2_1 = (Assignment)cGroup_3_0_2.eContents().get(1);
 		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0 = (RuleCall)cOwnedValueAssignment_3_0_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_0_3 = (Keyword)cGroup_3_0.eContents().get(3);
+		private final Group cGroup_3_0_3 = (Group)cGroup_3_0.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0_3_0 = (Keyword)cGroup_3_0_3.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_3_1 = (Assignment)cGroup_3_0_3.eContents().get(1);
+		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0 = (RuleCall)cOwnedValueAssignment_3_0_3_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_0_4 = (Keyword)cGroup_3_0.eContents().get(4);
 		private final Assignment cOwnedValueAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
 		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
@@ -78,13 +82,13 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//// Properties
 		//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-		//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
-		//	appliesTo+=ContainmentPath)*)? ";";
+		//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+		//	("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 		public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-		//ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
-		//appliesTo+=ContainmentPath)*)? ";"
+		//ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+		//("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -114,10 +118,12 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+		//")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+		//")"
 		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
@@ -141,8 +147,20 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ModalPropertyValue
 		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0; }
 
+		//("," ownedValue+=OptionalModalPropertyValue)?
+		public Group getGroup_3_0_3() { return cGroup_3_0_3; }
+
+		//","
+		public Keyword getCommaKeyword_3_0_3_0() { return cCommaKeyword_3_0_3_0; }
+
+		//ownedValue+=OptionalModalPropertyValue
+		public Assignment getOwnedValueAssignment_3_0_3_1() { return cOwnedValueAssignment_3_0_3_1; }
+
+		//OptionalModalPropertyValue
+		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0; }
+
 		//")"
-		public Keyword getRightParenthesisKeyword_3_0_3() { return cRightParenthesisKeyword_3_0_3; }
+		public Keyword getRightParenthesisKeyword_3_0_4() { return cRightParenthesisKeyword_3_0_4; }
 
 		//ownedValue+=PropertyValue
 		public Assignment getOwnedValueAssignment_3_1() { return cOwnedValueAssignment_3_1; }
@@ -202,18 +220,22 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_3_0_2_0 = (Keyword)cGroup_3_0_2.eContents().get(0);
 		private final Assignment cOwnedValueAssignment_3_0_2_1 = (Assignment)cGroup_3_0_2.eContents().get(1);
 		private final RuleCall cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0 = (RuleCall)cOwnedValueAssignment_3_0_2_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3_0_3 = (Keyword)cGroup_3_0.eContents().get(3);
+		private final Group cGroup_3_0_3 = (Group)cGroup_3_0.eContents().get(3);
+		private final Keyword cCommaKeyword_3_0_3_0 = (Keyword)cGroup_3_0_3.eContents().get(0);
+		private final Assignment cOwnedValueAssignment_3_0_3_1 = (Assignment)cGroup_3_0_3.eContents().get(1);
+		private final RuleCall cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0 = (RuleCall)cOwnedValueAssignment_3_0_3_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3_0_4 = (Keyword)cGroup_3_0.eContents().get(4);
 		private final Assignment cOwnedValueAssignment_3_1 = (Assignment)cAlternatives_3.eContents().get(1);
 		private final RuleCall cOwnedValuePropertyValueParserRuleCall_3_1_0 = (RuleCall)cOwnedValueAssignment_3_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//PropertyAssociation returns aadl2::PropertyAssociation:
 		//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-		//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
+		//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";";
 		public ParserRule getRule() { return rule; }
 
 		//property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-		//ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";"
+		//ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";"
 		public Group getGroup() { return cGroup; }
 
 		//property=[aadl2::Property|QPREF]
@@ -243,10 +265,12 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//"constant"
 		public Keyword getConstantConstantKeyword_2_0() { return cConstantConstantKeyword_2_0; }
 
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+		//")" | ownedValue+=PropertyValue
 		public Alternatives getAlternatives_3() { return cAlternatives_3; }
 
-		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ")"
+		//"(" ownedValue+=ModalPropertyValue ("," ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)?
+		//")"
 		public Group getGroup_3_0() { return cGroup_3_0; }
 
 		//"("
@@ -270,8 +294,20 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ModalPropertyValue
 		public RuleCall getOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0() { return cOwnedValueModalPropertyValueParserRuleCall_3_0_2_1_0; }
 
+		//("," ownedValue+=OptionalModalPropertyValue)?
+		public Group getGroup_3_0_3() { return cGroup_3_0_3; }
+
+		//","
+		public Keyword getCommaKeyword_3_0_3_0() { return cCommaKeyword_3_0_3_0; }
+
+		//ownedValue+=OptionalModalPropertyValue
+		public Assignment getOwnedValueAssignment_3_0_3_1() { return cOwnedValueAssignment_3_0_3_1; }
+
+		//OptionalModalPropertyValue
+		public RuleCall getOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0() { return cOwnedValueOptionalModalPropertyValueParserRuleCall_3_0_3_1_0; }
+
 		//")"
-		public Keyword getRightParenthesisKeyword_3_0_3() { return cRightParenthesisKeyword_3_0_3; }
+		public Keyword getRightParenthesisKeyword_3_0_4() { return cRightParenthesisKeyword_3_0_4; }
 
 		//ownedValue+=PropertyValue
 		public Assignment getOwnedValueAssignment_3_1() { return cOwnedValueAssignment_3_1; }
@@ -436,18 +472,85 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_6() { return cRightParenthesisKeyword_6; }
 	}
 
+	public class OptionalModalPropertyValueElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "OptionalModalPropertyValue");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cOwnedValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_0_0 = (RuleCall)cOwnedValueAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cInKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Keyword cModesKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cInModeAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final CrossReference cInModeModeCrossReference_1_3_0 = (CrossReference)cInModeAssignment_1_3.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_1_3_0_1 = (RuleCall)cInModeModeCrossReference_1_3_0.eContents().get(1);
+		private final Group cGroup_1_4 = (Group)cGroup_1.eContents().get(4);
+		private final Keyword cCommaKeyword_1_4_0 = (Keyword)cGroup_1_4.eContents().get(0);
+		private final Assignment cInModeAssignment_1_4_1 = (Assignment)cGroup_1_4.eContents().get(1);
+		private final CrossReference cInModeModeCrossReference_1_4_1_0 = (CrossReference)cInModeAssignment_1_4_1.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_1_4_1_0_1 = (RuleCall)cInModeModeCrossReference_1_4_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_1_5 = (Keyword)cGroup_1.eContents().get(5);
+		
+		//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+		//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+		//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+		public ParserRule getRule() { return rule; }
+
+		//ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		public Group getGroup() { return cGroup; }
+
+		//ownedValue=PropertyExpression
+		public Assignment getOwnedValueAssignment_0() { return cOwnedValueAssignment_0; }
+
+		//PropertyExpression
+		public RuleCall getOwnedValuePropertyExpressionParserRuleCall_0_0() { return cOwnedValuePropertyExpressionParserRuleCall_0_0; }
+
+		//("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"in"
+		public Keyword getInKeyword_1_0() { return cInKeyword_1_0; }
+
+		//"modes"
+		public Keyword getModesKeyword_1_1() { return cModesKeyword_1_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_1_2() { return cLeftParenthesisKeyword_1_2; }
+
+		//inMode+=[aadl2::Mode]
+		public Assignment getInModeAssignment_1_3() { return cInModeAssignment_1_3; }
+
+		//[aadl2::Mode]
+		public CrossReference getInModeModeCrossReference_1_3_0() { return cInModeModeCrossReference_1_3_0; }
+
+		//ID
+		public RuleCall getInModeModeIDTerminalRuleCall_1_3_0_1() { return cInModeModeIDTerminalRuleCall_1_3_0_1; }
+
+		//("," inMode+=[aadl2::Mode])*
+		public Group getGroup_1_4() { return cGroup_1_4; }
+
+		//","
+		public Keyword getCommaKeyword_1_4_0() { return cCommaKeyword_1_4_0; }
+
+		//inMode+=[aadl2::Mode]
+		public Assignment getInModeAssignment_1_4_1() { return cInModeAssignment_1_4_1; }
+
+		//[aadl2::Mode]
+		public CrossReference getInModeModeCrossReference_1_4_1_0() { return cInModeModeCrossReference_1_4_1_0; }
+
+		//ID
+		public RuleCall getInModeModeIDTerminalRuleCall_1_4_1_0_1() { return cInModeModeIDTerminalRuleCall_1_4_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_1_5() { return cRightParenthesisKeyword_1_5; }
+	}
+
 	public class PropertyValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PropertyValue");
 		private final Assignment cOwnedValueAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cOwnedValuePropertyExpressionParserRuleCall_0 = (RuleCall)cOwnedValueAssignment.eContents().get(0);
 		
-		////OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-		////	ownedValue=PropertyExpression 
-		////	// phf made this optional: need to check separately that only the last one is optional
-		////	( 'in' 'modes' '(' 
-		////	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-		////	')')?
-		////	;
 		//// &&&&&&&&&& handling of in binding
 		//PropertyValue returns aadl2::ModalPropertyValue:
 		//	ownedValue=PropertyExpression;
@@ -1750,6 +1853,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	private BasicPropertyAssociationElements pBasicPropertyAssociation;
 	private ContainmentPathElements pContainmentPath;
 	private ModalPropertyValueElements pModalPropertyValue;
+	private OptionalModalPropertyValueElements pOptionalModalPropertyValue;
 	private PropertyValueElements pPropertyValue;
 	private PropertyExpressionElements pPropertyExpression;
 	private LiteralorReferenceTermElements pLiteralorReferenceTerm;
@@ -1828,8 +1932,8 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	//// Properties
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ("applies" "to" appliesTo+=ContainmentPath (","
-	//	appliesTo+=ContainmentPath)*)? ";";
+	//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue)
+	//	("applies" "to" appliesTo+=ContainmentPath ("," appliesTo+=ContainmentPath)*)? ";";
 	public ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return (pContainedPropertyAssociation != null) ? pContainedPropertyAssociation : (pContainedPropertyAssociation = new ContainedPropertyAssociationElements());
 	}
@@ -1840,7 +1944,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? ("(" ownedValue+=ModalPropertyValue (","
-	//	ownedValue+=ModalPropertyValue)* ")" | ownedValue+=PropertyValue) ";";
+	//	ownedValue+=ModalPropertyValue)* ("," ownedValue+=OptionalModalPropertyValue)? ")" | ownedValue+=PropertyValue) ";";
 	public PropertyAssociationElements getPropertyAssociationAccess() {
 		return (pPropertyAssociation != null) ? pPropertyAssociation : (pPropertyAssociation = new PropertyAssociationElements());
 	}
@@ -1881,13 +1985,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		return getModalPropertyValueAccess().getRule();
 	}
 
-	////OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
-	////	ownedValue=PropertyExpression 
-	////	// phf made this optional: need to check separately that only the last one is optional
-	////	( 'in' 'modes' '(' 
-	////	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
-	////	')')?
-	////	;
+	//OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
+	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
+	//	("in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")")?;
+	public OptionalModalPropertyValueElements getOptionalModalPropertyValueAccess() {
+		return (pOptionalModalPropertyValue != null) ? pOptionalModalPropertyValue : (pOptionalModalPropertyValue = new OptionalModalPropertyValueElements());
+	}
+	
+	public ParserRule getOptionalModalPropertyValueRule() {
+		return getOptionalModalPropertyValueAccess().getRule();
+	}
+
 	//// &&&&&&&&&& handling of in binding
 	//PropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;
