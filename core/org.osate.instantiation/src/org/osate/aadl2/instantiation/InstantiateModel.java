@@ -416,15 +416,15 @@ public class InstantiateModel {
 				errManager.error(ci, "Cyclic containment dependency: Subcomponent '" + sub.getName()
 						+ "' has already been instantiated as enclosing component.");
 			} else {
-				final EList<ArrayDimension> arraySpec = sub.getArrayDimensions();
+				final EList<ArrayDimension> dims = sub.getArrayDimensions();
 
-				if (arraySpec.isEmpty()) {
+				if (dims.isEmpty()) {
 					instantiateSubcomponent(ci, sub, sub, 0);
 				} else {
-					final int dimensions = arraySpec.size();
+					final int dimensions = dims.size();
 					class ArrayInstantiator {
 						void process(int dim) {
-							ArraySize arraySize = (ArraySize) arraySpec.get(dim);
+							ArraySize arraySize = dims.get(dim).getSize();
 							long count = getElementCount(arraySize);
 
 							for (long i = 0; i < count; i++) {
@@ -503,9 +503,9 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFeatures(final ComponentInstance ci) {
 		for (final Feature feature : getInstantiatedClassifier(ci, 0).classifier.getAllFeatures()) {
-			final EList<ArrayDimension> arraySpec = feature.getArrayDimensions();
+			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
-			if (arraySpec.isEmpty()) {
+			if (dims.isEmpty()) {
 				final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 
 				// must add before prototype resolution in fillFeatureInstance
@@ -517,10 +517,10 @@ public class InstantiateModel {
 				}
 				fillFeatureInstance(feature, fi, false);
 			} else {
-				final int dimensions = arraySpec.size();
+				final int dimensions = dims.size();
 				class ArrayInstantiator {
 					void process(int dim) {
-						ArraySize arraySize = (ArraySize) arraySpec.get(dim);
+						ArraySize arraySize = dims.get(dim).getSize();
 						long count = getElementCount(arraySize);
 
 						for (long i = 0; i < count; i++) {
@@ -694,6 +694,9 @@ public class InstantiateModel {
 
 	private long getElementCount(ArraySize as) {
 		long result = 0L;
+		if (as == null) {
+			return result;
+		}
 		if (as.getSizeProperty() == null) {
 			result = as.getSize();
 		} else {
