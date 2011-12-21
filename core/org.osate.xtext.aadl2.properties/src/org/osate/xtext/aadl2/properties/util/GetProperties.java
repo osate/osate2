@@ -592,7 +592,7 @@ public class GetProperties {
 	public static double getLatencyinMS(final NamedElement ne) {
 			Property Latency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
 			UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(Latency, AadlProject.MS_LITERAL);
-			return PropertyUtils.getScaledNumberValue(ne, Latency, microSecond,0.0);
+			return PropertyUtils.getScaledRangeMaximum(ne, Latency, microSecond,0.0);
 	}
 
 	public static double getAccessLatencyinMS(final ComponentInstance HWcomp, final ComponentInstance bus) {
@@ -601,7 +601,7 @@ public class GetProperties {
 			return 0.0;
 			Property Latency = lookupPropertyDefinition(aci,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
 			UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(aci).findUnitLiteral(Latency, AadlProject.MS_LITERAL);
-			return PropertyUtils.getScaledNumberValue(aci, Latency, microSecond,0.0);
+			return PropertyUtils.getScaledRangeMaximum(aci, Latency, microSecond,0.0);
 	}
 
 
