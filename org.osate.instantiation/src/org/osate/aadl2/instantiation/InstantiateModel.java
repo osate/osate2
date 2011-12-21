@@ -725,7 +725,7 @@ public class InstantiateModel {
 		 * can easily test if the component exists in the SOM being built.
 		 */
 		final ModeSearch modeSearch = new ModeSearch();
-		final List allInstances = modeSearch.processPreOrderComponentInstance(root);
+		final List<Element> allInstances = modeSearch.processPreOrderComponentInstance(root);
 		if (modeSearch.hasModalComponents) {
 			final ComponentInstance[] instances = (ComponentInstance[]) allInstances.toArray(new ComponentInstance[0]);
 			enumerateSystemOperationModes(root, instances);
