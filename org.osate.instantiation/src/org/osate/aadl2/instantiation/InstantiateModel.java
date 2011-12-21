@@ -108,7 +108,6 @@ import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.workspace.WorkspacePlugin;
 
-
 /**
  * This class implements the instantiation of models from a root system impl.
  * The class also contains a switch for performing checks on semantic
@@ -232,35 +231,35 @@ public class InstantiateModel {
 		// We don't respond to a cancel at this point
 
 		monitor.subTask("Saving instance model");
-		
-	aadlResource.save();
+
+		aadlResource.save();
 		return root;
 	}
-		
-/** 
- * Will create instance model under systeminstance but not save it
- * @param root
- */
-	public void createXSystemInstance(SystemInstance root){
+
+	/** 
+	 * Will create instance model under systeminstance but not save it
+	 * @param root
+	 */
+	public void createXSystemInstance(SystemInstance root) {
 		this.populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 		monitor.subTask("Creating system operation modes");
 		this.createSystemOperationModes(root);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 		new CreateConnectionsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 		new CreateEndToEndFlowsSwitch(monitor, errManager, classifierCache).processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 		/*
@@ -294,14 +293,14 @@ public class InstantiateModel {
 				monitor, errManager);
 		ccpas.processPostOrderAll(root);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
 				propertyDefinitionList, classifierCache, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
-			return ;
+			return;
 		}
 
 //		OsateResourceManager.save(aadlResource);
@@ -315,7 +314,7 @@ public class InstantiateModel {
 //					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
 //			semanticsSwitch.processPostOrderAll(root);
 //		}
-		return ;
+		return;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -425,7 +424,7 @@ public class InstantiateModel {
 					final int dimensions = arraySpec.size();
 					class ArrayInstantiator {
 						void process(int dim) {
-							ArraySize arraySize = (ArraySize)arraySpec.get(dim);
+							ArraySize arraySize = (ArraySize) arraySpec.get(dim);
 							long count = getElementCount(arraySize);
 
 							for (long i = 0; i < count; i++) {
@@ -521,7 +520,7 @@ public class InstantiateModel {
 				final int dimensions = arraySpec.size();
 				class ArrayInstantiator {
 					void process(int dim) {
-						ArraySize arraySize = (ArraySize)arraySpec.get(dim);
+						ArraySize arraySize = (ArraySize) arraySpec.get(dim);
 						long count = getElementCount(arraySize);
 
 						for (long i = 0; i < count; i++) {
@@ -618,9 +617,8 @@ public class InstantiateModel {
 			inverse ^= fg.isInverse();
 
 			while (ft instanceof FeatureGroupPrototype) {
-				FeatureGroupPrototype fgp = (FeatureGroupPrototype)ft;
-				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi,
-						classifierCache);
+				FeatureGroupPrototype fgp = (FeatureGroupPrototype) ft;
+				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache);
 				if (fgr != null) {
 					ft = fgr.getFeatureType();
 				}
@@ -629,7 +627,7 @@ public class InstantiateModel {
 				errManager.error(fi, "Could not resolve feature group type of " + fi.getInstanceObjectPath());
 				return;
 			}
-			FeatureGroupType fgt = (FeatureGroupType)ft;
+			FeatureGroupType fgt = (FeatureGroupType) ft;
 
 			List<Feature> localFeatures = fgt.getOwnedFeatures();
 			final FeatureGroupType inverseFgt = fgt.getInverse();
@@ -700,11 +698,11 @@ public class InstantiateModel {
 			result = as.getSize();
 		} else {
 			ArraySizeProperty asp = as.getSizeProperty();
-			if (asp instanceof PropertyConstant){
-				PropertyConstant pc = (PropertyConstant)asp;
+			if (asp instanceof PropertyConstant) {
+				PropertyConstant pc = (PropertyConstant) asp;
 				PropertyExpression cv = pc.getConstantValue();
-				if (cv instanceof IntegerLiteral){
-					result = ((IntegerLiteral)cv).getValue();
+				if (cv instanceof IntegerLiteral) {
+					result = ((IntegerLiteral) cv).getValue();
 				}
 			}
 		}
