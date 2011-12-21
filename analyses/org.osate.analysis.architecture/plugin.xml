@@ -151,26 +151,26 @@
          </menu>
          
          <action
-               id="org.osate.analysis..architecture.actions.CheckRequiredConnection.popupAction"
+               id="org.osate.analysis.architecture.actions.CheckRequiredConnection.popupAction"
                label="%CheckRequiredConnection.label"
                tooltip="%CheckRequiredConnection.toolTip"
                icon="%CheckRequiredConnection.icon"
                class="org.osate.analysis.architecture.actions.CheckRequiredConnection"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis..architecture.popupMenu.Semantic/anal.grp"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Semantic/anal.grp"
                enablesFor="1"/>
          
          <action
-               id="org.osate.analysis..architecture.actions.DoModelStatistics.popupAction"
+               id="org.osate.analysis.architecture.actions.DoModelStatistics.popupAction"
                label="%DoModelStatistics.label"
                tooltip="%DoModelStatistics.toolTip"
                icon="%DoModelStatistics.icon"
                class="org.osate.analysis.architecture.actions.DoModelStatistics"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis..architecture.popupMenu.Arch/anal.grp"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
                enablesFor="1"/>
       </objectContribution>
 
       <objectContribution
-            id="org.osate.analysis..architecture.oc2"
+            id="org.osate.analysis.architecture.oc2"
             objectClass="java.lang.Object">
          <visibility>
             <or>
@@ -191,19 +191,19 @@
          </menu>
 
          <menu
-               id="org.osate.analysis..architecture.popupMenu.Arch"
+               id="org.osate.analysis.architecture.popupMenu.Arch"
                label="%popupMenu.Arch.label"
                path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
 
          <action
-               id="org.osate.analysis..architecture.actions.CheckMissRate.popupAction"
+               id="org.osate.analysis.architecture.actions.CheckMissRate.popupAction"
                label="%CheckMissRate.label"
                tooltip="%CheckMissRate.toolTip"
                icon="%CheckMissRate.icon"
                class="org.osate.analysis.architecture.actions.CheckMissRate"
-               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis..architecture.popupMenu.Arch/anal.grp"
+               menubarPath="edu.cmu.sei.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Arch/anal.grp"
                enablesFor="1"/>
          
      </objectContribution>
