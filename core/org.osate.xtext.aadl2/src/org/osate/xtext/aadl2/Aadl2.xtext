@@ -2091,8 +2091,8 @@ ConstantPropertyExpression returns aadl2::PropertyExpression:
 	| ComputedTerm | StringTerm 
 	| RealTerm | IntegerTerm 
 	 | ComponentClassifierTerm 	| ListTerm 
-	 |ActualBooleanTerm | LiteralorReferenceTerm
-	 //|BooleanTerm
+	  | LiteralorReferenceTerm
+	 |BooleanLiteral
 	;
 
 

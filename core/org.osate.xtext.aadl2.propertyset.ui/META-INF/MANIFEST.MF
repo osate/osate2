@@ -21,5 +21,5 @@ Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.osate.core
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-Activator: org.osate.xtext.aadl2.propertyset.ui.internal.PropertysetActivator
-
+Bundle-Activator: org.osate.xtext.aadl2.propertyset.ui.MyPropertysetActivator
+Export-Package: org.osate.xtext.aadl2.propertyset.ui.contentassist

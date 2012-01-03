@@ -16,15 +16,17 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_31 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
+KEYWORD_32 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-KEYWORD_30 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_31 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-KEYWORD_29 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+KEYWORD_30 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
 
-KEYWORD_27 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_28 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
-KEYWORD_28 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+KEYWORD_29 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+
+KEYWORD_27 : ('O'|'o')('T'|'t')('H'|'h')('E'|'e')('R'|'r')('S'|'s');
 
 KEYWORD_23 : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
 
