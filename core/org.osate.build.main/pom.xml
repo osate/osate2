@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.osate</groupId>
-  <artifactId>osate2-core</artifactId>
+  <artifactId>osate2</artifactId>
   <version>2.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
@@ -37,9 +37,6 @@
     <module>../org.osate.instantiation</module>
     <module>../org.osate.pluginsupport</module>
     <module>../org.osate.reporter</module>
-<!--
-    <module>../org.osate.sdk.feature</module>
--->
     <module>../org.osate.ui</module>
     <module>../org.osate.wizards</module>
     <module>../org.osate.workspace</module>
@@ -49,6 +46,14 @@
     <module>../org.osate.xtext.aadl2.propertyset</module>
     <module>../org.osate.xtext.aadl2.propertyset.ui</module>
     <module>../org.osate.xtext.aadl2.ui</module>
+    <module>../../plugins/org.osate.analysis.architecture</module>
+    <module>../../plugins/org.osate.analysis.flows</module>
+    <module>../../plugins/org.osate.analysis.resource.budgets</module>
+    <module>../../plugins/org.osate.analysis.resource.management</module>
+    <module>../../plugins/org.osate.analysis.security</module>
+    <module>../../plugins/org.osate.analysis.binpacking</module>
+    <module>../../plugins/org.osate.plugins.feature</module>
+    <module>../../plugins/org.osate.plugins.source.feature</module>
   </modules>
 
   <build>

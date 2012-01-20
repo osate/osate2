@@ -26,10 +26,10 @@ public class IResourceUtility {
 	 * errors in text file
 	 */
 	public static final QualifiedName ResourceWithSyntaxErrors = new QualifiedName(
-			"edu.cmu.sei.osate.ResourceWithSyntaxErrors", "BadAadlFile");
-	public static final QualifiedName ResourceDerived = new QualifiedName("edu.cmu.sei.osate.ResourceDerived",
+			"org.osate.ResourceWithSyntaxErrors", "BadAadlFile");
+	public static final QualifiedName ResourceDerived = new QualifiedName("org.osate.ResourceDerived",
 			"IResourceDerived");
-	public static final QualifiedName IsInstanceModel = new QualifiedName("edu.cmu.sei.osate.IsInstanceModel",
+	public static final QualifiedName IsInstanceModel = new QualifiedName("org.osate.IsInstanceModel",
 			"IsInstanceModel");
 
 	/**

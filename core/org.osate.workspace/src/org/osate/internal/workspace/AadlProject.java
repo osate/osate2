@@ -35,7 +35,7 @@ import org.osate.workspace.WorkspacePlugin;
  */
 public class AadlProject extends AadlElement implements IAadlProject {
 
-	public static final String AADLNATURE_ID = "edu.cmu.sei.osate.core.aadlnature";
+	public static final String AADLNATURE_ID = "org.osate.core.aadlnature";
 
 	/**
 	 * The platform project this <code>IJavaProject</code> is based on
