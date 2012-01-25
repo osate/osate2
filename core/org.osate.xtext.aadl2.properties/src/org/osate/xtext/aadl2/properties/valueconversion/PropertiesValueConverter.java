@@ -17,7 +17,7 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
         return new IValueConverter<OperationKind>() {
             public OperationKind toValue(String string, INode node) {
             	
-				return OperationKind.get(string);
+				return OperationKind.get(string.toLowerCase());
 			}
 
             public String toString(OperationKind value) {
@@ -31,7 +31,7 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
         return new IValueConverter<OperationKind>() {
             public OperationKind toValue(String string, INode node) {
             	
-				return OperationKind.get(string);
+				return OperationKind.get(string.toLowerCase());
 			}
 
             public String toString(OperationKind value) {
@@ -45,7 +45,7 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
         return new IValueConverter<OperationKind>() {
             public OperationKind toValue(String string, INode node) {
             	
-				return OperationKind.get(string);
+				return OperationKind.get(string.toLowerCase());
 			}
 
             public String toString(OperationKind value) {
@@ -59,7 +59,7 @@ public class PropertiesValueConverter extends DefaultTerminalConverters {
         return new IValueConverter<OperationKind>() {
             public OperationKind toValue(String string, INode node) {
             	
-				return OperationKind.get(string);
+				return OperationKind.get(string.toLowerCase());
 			}
 
             public String toString(OperationKind value) {
