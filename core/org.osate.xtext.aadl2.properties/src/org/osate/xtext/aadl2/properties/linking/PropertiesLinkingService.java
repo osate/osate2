@@ -161,6 +161,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
 		final String name = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
+			// XXX: this code is replicated in Aadl2LinkingService as it is called often in the core
 			// resolve classifier reference
 			EObject e = findClassifier(context, reference,  name);
 			if (e != null ) {
@@ -179,7 +180,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					searchResult = res;
 				}
 			}
-		} else if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
+		} else 
+			if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
 			AadlPackage pack = findAadlPackage(context, name, reference);
 			if (pack != null) {
 				searchResult = pack;

@@ -94,13 +94,14 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final String name = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
+			// XXX: this code is replicated from PropertiesLinkingService as it is called often
 			// resolve classifier reference
 			EObject e = findClassifier(context, reference,  name);
 			if (e != null ) {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			if (sct.isSuperTypeOf(requiredType)){
+			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				EObject res = getContainingClassifier(context)
 						.findNamedElement(name);
