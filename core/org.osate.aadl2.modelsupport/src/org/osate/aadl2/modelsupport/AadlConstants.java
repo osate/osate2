@@ -53,13 +53,13 @@ public class AadlConstants {
 
 	public static final String NULL = "<null>";
 
-	public static final String AADLOBJECTMARKER = "edu.cmu.sei.aadl.model.AadlObjectMarker";
-	public static final String AADLGOTOMARKER = "edu.cmu.sei.aadl.model.AadlGotoMarker";
-	public static final String AADLTEXTMARKER = "edu.cmu.sei.aadl.model.AadlTextMarker";
-	public static final String AADLTEXTGOTOMARKER = "edu.cmu.sei.aadl.model.AadlTextGotoMarker";
+	public static final String AADLOBJECTMARKER = "org.osate.aadl2.modelsupport.AadlObjectMarker";
+	public static final String AADLGOTOMARKER = "org.osate.aadl2.modelsupport.AadlGotoMarker";
+	public static final String AADLTEXTMARKER = "org.osate.aadl2.modelsupport.AadlTextMarker";
+	public static final String AADLTEXTGOTOMARKER = "org.osate.aadl2.modelsupport.AadlTextGotoMarker";
 	
-	public static final String INSTANTIATION_OBJECT_MARKER = "edu.cmu.sei.osate.core.InstantiationObjectMarker";
-	public static final String DUPLICATE_FILE_MARKER = "edu.cmu.sei.osate.core.DuplicateFileMarker";
+	public static final String INSTANTIATION_OBJECT_MARKER = "org.osate.aadl2.modelsupport.InstantiationObjectMarker";
+	public static final String DUPLICATE_FILE_MARKER = "org.osate.aadl2.modelsupport.DuplicateFileMarker";
 	
 	public static final String AADLURI = "uri";
 
