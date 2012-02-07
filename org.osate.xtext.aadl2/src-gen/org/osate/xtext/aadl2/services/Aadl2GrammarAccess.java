@@ -156,7 +156,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportedUnitModelUnitPNAMEParserRuleCall_2_0_2_1_0_1 = (RuleCall)cImportedUnitModelUnitCrossReference_2_0_2_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_2_0_3 = (Keyword)cGroup_2_0.eContents().get(3);
 		private final Assignment cOwnedPackageRenameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0 = (RuleCall)cOwnedPackageRenameAssignment_2_1.eContents().get(0);
+		private final Alternatives cOwnedPackageRenameAlternatives_2_1_0 = (Alternatives)cOwnedPackageRenameAssignment_2_1.eContents().get(0);
+		private final RuleCall cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0 = (RuleCall)cOwnedPackageRenameAlternatives_2_1_0.eContents().get(0);
+		private final RuleCall cOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1 = (RuleCall)cOwnedPackageRenameAlternatives_2_1_0.eContents().get(1);
 		private final Assignment cOwnedFeatureGroupTypeRenameAssignment_2_2 = (Assignment)cAlternatives_2.eContents().get(2);
 		private final RuleCall cOwnedFeatureGroupTypeRenameFGTRenameParserRuleCall_2_2_0 = (RuleCall)cOwnedFeatureGroupTypeRenameAssignment_2_2.eContents().get(0);
 		private final Assignment cOwnedComponentTypeRenameAssignment_2_3 = (Assignment)cAlternatives_2.eContents().get(3);
@@ -169,13 +171,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PublicPackageSection returns aadl2::PublicPackageSection:
 		//	{aadl2::PublicPackageSection} "public" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-		//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+		//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 		//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 		//	ownedAnnexLibrary+=AnnexLibrary)*;
 		public ParserRule getRule() { return rule; }
 
 		//{aadl2::PublicPackageSection} "public" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-		//importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+		//importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 		//ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 		//ownedAnnexLibrary+=AnnexLibrary)*
 		public Group getGroup() { return cGroup; }
@@ -187,7 +189,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getPublicKeyword_1() { return cPublicKeyword_1; }
 
 		//("with" importedUnit+=[aadl2::ModelUnit|PNAME] ("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";" |
-		//ownedPackageRename+=PackageRename | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
+		//ownedPackageRename+=(PackageRename | RenameAll) | ownedFeatureGroupTypeRename+=FGTRename |
+		//ownedComponentTypeRename+=CTRename)*
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//"with" importedUnit+=[aadl2::ModelUnit|PNAME] ("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";"
@@ -223,11 +226,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_2_0_3() { return cSemicolonKeyword_2_0_3; }
 
-		//ownedPackageRename+=PackageRename
+		//ownedPackageRename+=(PackageRename | RenameAll)
 		public Assignment getOwnedPackageRenameAssignment_2_1() { return cOwnedPackageRenameAssignment_2_1; }
 
+		//PackageRename | RenameAll
+		public Alternatives getOwnedPackageRenameAlternatives_2_1_0() { return cOwnedPackageRenameAlternatives_2_1_0; }
+
 		//PackageRename
-		public RuleCall getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0() { return cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0; }
+		public RuleCall getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0() { return cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0; }
+
+		//RenameAll
+		public RuleCall getOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1() { return cOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1; }
 
 		//ownedFeatureGroupTypeRename+=FGTRename
 		public Assignment getOwnedFeatureGroupTypeRenameAssignment_2_2() { return cOwnedFeatureGroupTypeRenameAssignment_2_2; }
@@ -275,7 +284,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cImportedUnitModelUnitPNAMEParserRuleCall_2_0_2_1_0_1 = (RuleCall)cImportedUnitModelUnitCrossReference_2_0_2_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_2_0_3 = (Keyword)cGroup_2_0.eContents().get(3);
 		private final Assignment cOwnedPackageRenameAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0 = (RuleCall)cOwnedPackageRenameAssignment_2_1.eContents().get(0);
+		private final Alternatives cOwnedPackageRenameAlternatives_2_1_0 = (Alternatives)cOwnedPackageRenameAssignment_2_1.eContents().get(0);
+		private final RuleCall cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0 = (RuleCall)cOwnedPackageRenameAlternatives_2_1_0.eContents().get(0);
+		private final RuleCall cOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1 = (RuleCall)cOwnedPackageRenameAlternatives_2_1_0.eContents().get(1);
 		private final Assignment cOwnedFeatureGroupTypeRenameAssignment_2_2 = (Assignment)cAlternatives_2.eContents().get(2);
 		private final RuleCall cOwnedFeatureGroupTypeRenameFGTRenameParserRuleCall_2_2_0 = (RuleCall)cOwnedFeatureGroupTypeRenameAssignment_2_2.eContents().get(0);
 		private final Assignment cOwnedComponentTypeRenameAssignment_2_3 = (Assignment)cAlternatives_2.eContents().get(3);
@@ -288,13 +299,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//PrivatePackageSection returns aadl2::PrivatePackageSection:
 		//	{aadl2::PrivatePackageSection} "private" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-		//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+		//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 		//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 		//	ownedAnnexLibrary+=AnnexLibrary)*;
 		public ParserRule getRule() { return rule; }
 
 		//{aadl2::PrivatePackageSection} "private" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-		//importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+		//importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 		//ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 		//ownedAnnexLibrary+=AnnexLibrary)*
 		public Group getGroup() { return cGroup; }
@@ -306,7 +317,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getPrivateKeyword_1() { return cPrivateKeyword_1; }
 
 		//("with" importedUnit+=[aadl2::ModelUnit|PNAME] ("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";" |
-		//ownedPackageRename+=PackageRename | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)*
+		//ownedPackageRename+=(PackageRename | RenameAll) | ownedFeatureGroupTypeRename+=FGTRename |
+		//ownedComponentTypeRename+=CTRename)*
 		public Alternatives getAlternatives_2() { return cAlternatives_2; }
 
 		//"with" importedUnit+=[aadl2::ModelUnit|PNAME] ("," importedUnit+=[aadl2::ModelUnit|PNAME])* ";"
@@ -342,11 +354,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_2_0_3() { return cSemicolonKeyword_2_0_3; }
 
-		//ownedPackageRename+=PackageRename
+		//ownedPackageRename+=(PackageRename | RenameAll)
 		public Assignment getOwnedPackageRenameAssignment_2_1() { return cOwnedPackageRenameAssignment_2_1; }
 
+		//PackageRename | RenameAll
+		public Alternatives getOwnedPackageRenameAlternatives_2_1_0() { return cOwnedPackageRenameAlternatives_2_1_0; }
+
 		//PackageRename
-		public RuleCall getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0() { return cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0; }
+		public RuleCall getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0() { return cOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0; }
+
+		//RenameAll
+		public RuleCall getOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1() { return cOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1; }
 
 		//ownedFeatureGroupTypeRename+=FGTRename
 		public Assignment getOwnedFeatureGroupTypeRenameAssignment_2_2() { return cOwnedFeatureGroupTypeRenameAssignment_2_2; }
@@ -434,6 +452,50 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//";"
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+	}
+
+	public class RenameAllElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "RenameAll");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cRenamesKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cRenamedPackageAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cRenamedPackageAadlPackageCrossReference_1_0 = (CrossReference)cRenamedPackageAssignment_1.eContents().get(0);
+		private final RuleCall cRenamedPackageAadlPackagePNAMEParserRuleCall_1_0_1 = (RuleCall)cRenamedPackageAadlPackageCrossReference_1_0.eContents().get(1);
+		private final Keyword cColonColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cRenameAllAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final Keyword cRenameAllAllKeyword_3_0 = (Keyword)cRenameAllAssignment_3.eContents().get(0);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
+		
+		//RenameAll returns aadl2::PackageRename:
+		//	"renames" renamedPackage=[aadl2::AadlPackage|PNAME] "::" renameAll?="all" ";";
+		public ParserRule getRule() { return rule; }
+
+		//"renames" renamedPackage=[aadl2::AadlPackage|PNAME] "::" renameAll?="all" ";"
+		public Group getGroup() { return cGroup; }
+
+		//"renames"
+		public Keyword getRenamesKeyword_0() { return cRenamesKeyword_0; }
+
+		//renamedPackage=[aadl2::AadlPackage|PNAME]
+		public Assignment getRenamedPackageAssignment_1() { return cRenamedPackageAssignment_1; }
+
+		//[aadl2::AadlPackage|PNAME]
+		public CrossReference getRenamedPackageAadlPackageCrossReference_1_0() { return cRenamedPackageAadlPackageCrossReference_1_0; }
+
+		//PNAME
+		public RuleCall getRenamedPackageAadlPackagePNAMEParserRuleCall_1_0_1() { return cRenamedPackageAadlPackagePNAMEParserRuleCall_1_0_1; }
+
+		//"::"
+		public Keyword getColonColonKeyword_2() { return cColonColonKeyword_2; }
+
+		//renameAll?="all"
+		public Assignment getRenameAllAssignment_3() { return cRenameAllAssignment_3; }
+
+		//"all"
+		public Keyword getRenameAllAllKeyword_3_0() { return cRenameAllAllKeyword_3_0; }
+
+		//";"
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class FGTRenameElements extends AbstractParserRuleElementFinder {
@@ -24512,6 +24574,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private PublicPackageSectionElements pPublicPackageSection;
 	private PrivatePackageSectionElements pPrivatePackageSection;
 	private PackageRenameElements pPackageRename;
+	private RenameAllElements pRenameAll;
 	private FGTRenameElements pFGTRename;
 	private CTRenameElements pCTRename;
 	private TypeExtensionElements pTypeExtension;
@@ -24744,7 +24807,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//PublicPackageSection returns aadl2::PublicPackageSection:
 	//	{aadl2::PublicPackageSection} "public" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-	//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+	//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 	//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 	//	ownedAnnexLibrary+=AnnexLibrary)*;
 	public PublicPackageSectionElements getPublicPackageSectionAccess() {
@@ -24757,7 +24820,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//PrivatePackageSection returns aadl2::PrivatePackageSection:
 	//	{aadl2::PrivatePackageSection} "private" ("with" importedUnit+=[aadl2::ModelUnit|PNAME] (","
-	//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=PackageRename |
+	//	importedUnit+=[aadl2::ModelUnit|PNAME])* ";" | ownedPackageRename+=(PackageRename | RenameAll) |
 	//	ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename)* (ownedClassifier+=Classifier |
 	//	ownedAnnexLibrary+=AnnexLibrary)*;
 	public PrivatePackageSectionElements getPrivatePackageSectionAccess() {
@@ -24776,6 +24839,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPackageRenameRule() {
 		return getPackageRenameAccess().getRule();
+	}
+
+	//RenameAll returns aadl2::PackageRename:
+	//	"renames" renamedPackage=[aadl2::AadlPackage|PNAME] "::" renameAll?="all" ";";
+	public RenameAllElements getRenameAllAccess() {
+		return (pRenameAll != null) ? pRenameAll : (pRenameAll = new RenameAllElements());
+	}
+	
+	public ParserRule getRenameAllRule() {
+		return getRenameAllAccess().getRule();
 	}
 
 	//FGTRename returns aadl2::FeatureGroupTypeRename:

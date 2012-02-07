@@ -25,7 +25,7 @@ PublicPackageSection returns aadl2::PublicPackageSection:
 	'public'
 	(('with' (importedUnit+=[aadl2::ModelUnit|PNAME])  
 	    (',' importedUnit+=[aadl2::ModelUnit|PNAME])* ';')
-	 | ownedPackageRename+=PackageRename  
+	 | ownedPackageRename+=(PackageRename|RenameAll)  
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
 	( ownedClassifier+=Classifier
@@ -39,7 +39,7 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	'private'
 	(('with' (importedUnit+=[aadl2::ModelUnit|PNAME])  
 	    (',' importedUnit+=[aadl2::ModelUnit|PNAME])* ';')
-	 | ownedPackageRename+=PackageRename  
+	 | ownedPackageRename+=(PackageRename|RenameAll)  
 	 | ownedFeatureGroupTypeRename+=FGTRename | ownedComponentTypeRename+=CTRename
 	)*
    ( ownedClassifier += Classifier
@@ -49,6 +49,10 @@ PrivatePackageSection returns aadl2::PrivatePackageSection:
 	
 PackageRename returns aadl2::PackageRename:
 	name=ID 'renames' 'package' renamedPackage=[aadl2::AadlPackage|PNAME] ('::' renameAll?='all')?
+	';'
+;
+RenameAll returns aadl2::PackageRename:
+	'renames' renamedPackage=[aadl2::AadlPackage|PNAME] '::' renameAll?='all'
 	';'
 ;
 
