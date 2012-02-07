@@ -2744,7 +2744,7 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	//ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=OptionalModalPropertyValue
 	//	("," ownedValue+=OptionalModalPropertyValue)*) ("applies" "to" appliesTo+=ContainmentPath (","
-	//	appliesTo+=ContainmentPath)*)? ";";
+	//	appliesTo+=ContainmentPath)*)? ("in" "binding" "(" inBinding+=[aadl2::Classifier|QCREF] ")")? ";";
 	public PropertiesGrammarAccess.ContainedPropertyAssociationElements getContainedPropertyAssociationAccess() {
 		return gaProperties.getContainedPropertyAssociationAccess();
 	}
@@ -2755,7 +2755,7 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 
 	//PropertyAssociation returns aadl2::PropertyAssociation:
 	//	property=[aadl2::Property|QPREF] ("=>" | append?="+=>") constant?="constant"? (ownedValue+=OptionalModalPropertyValue
-	//	("," ownedValue+=OptionalModalPropertyValue)*) ";";
+	//	("," ownedValue+=OptionalModalPropertyValue)*) ("in" "binding" "(" inBinding+=[aadl2::Classifier|QCREF] ")")? ";";
 	public PropertiesGrammarAccess.PropertyAssociationElements getPropertyAssociationAccess() {
 		return gaProperties.getPropertyAssociationAccess();
 	}
@@ -2807,17 +2807,6 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// &&&&&&&&&& handling of in binding
-	//OtherPropertyValue returns aadl2::ModalPropertyValue:
-	//	ownedValue=PropertyExpression // phf made this optional: need to check separately that only the last one is optional
-	//	"in" "modes" "others";
-	public PropertiesGrammarAccess.OtherPropertyValueElements getOtherPropertyValueAccess() {
-		return gaProperties.getOtherPropertyValueAccess();
-	}
-	
-	public ParserRule getOtherPropertyValueRule() {
-		return getOtherPropertyValueAccess().getRule();
-	}
-
 	//PropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression;
 	public PropertiesGrammarAccess.PropertyValueElements getPropertyValueAccess() {
@@ -2828,7 +2817,6 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 		return getPropertyValueAccess().getRule();
 	}
 
-	////  	|ActualBooleanTerm  | BooleanTerm   | LiteralorReferenceTerm
 	//PropertyExpression returns aadl2::PropertyExpression:
 	//	OldRecordTerm | RecordTerm | ReferenceTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm |
 	//	RealTerm | IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
@@ -2961,47 +2949,6 @@ public class PropertysetGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getANNEXREFRule() {
 		return getANNEXREFAccess().getRule();
-	}
-
-	//enum OperationKind returns aadl2::OperationKind:
-	//	and | or | not | plus="+" | minus="-";
-	public PropertiesGrammarAccess.OperationKindElements getOperationKindAccess() {
-		return gaProperties.getOperationKindAccess();
-	}
-	
-	public EnumRule getOperationKindRule() {
-		return getOperationKindAccess().getRule();
-	}
-
-	//// Need Value Converters	
-	//AndOp returns aadl2::OperationKind:
-	//	"and";
-	public PropertiesGrammarAccess.AndOpElements getAndOpAccess() {
-		return gaProperties.getAndOpAccess();
-	}
-	
-	public ParserRule getAndOpRule() {
-		return getAndOpAccess().getRule();
-	}
-
-	//OrOp returns aadl2::OperationKind:
-	//	"or";
-	public PropertiesGrammarAccess.OrOpElements getOrOpAccess() {
-		return gaProperties.getOrOpAccess();
-	}
-	
-	public ParserRule getOrOpRule() {
-		return getOrOpAccess().getRule();
-	}
-
-	//NotOp returns aadl2::OperationKind:
-	//	"not";
-	public PropertiesGrammarAccess.NotOpElements getNotOpAccess() {
-		return gaProperties.getNotOpAccess();
-	}
-	
-	public ParserRule getNotOpRule() {
-		return getNotOpAccess().getRule();
 	}
 
 	//PlusMinus returns aadl2::OperationKind:
