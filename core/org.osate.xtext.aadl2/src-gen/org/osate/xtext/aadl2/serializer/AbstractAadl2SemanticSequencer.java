@@ -890,6 +890,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_PackageRename(context, (PackageRename) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getRenameAllRule()) {
+					sequence_RenameAll(context, (PackageRename) semanticObject); 
+					return; 
+				}
 				else break;
 			case Aadl2Package.PARAMETER:
 				if(context == grammarAccess.getParameterRule()) {
@@ -2756,6 +2760,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
 	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedPackageRename+=RenameAll | 
 	 *             ownedFeatureGroupTypeRename+=FGTRename | 
 	 *             ownedComponentTypeRename+=CTRename
 	 *         )* 
@@ -3279,6 +3284,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
 	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedPackageRename+=RenameAll | 
 	 *             ownedFeatureGroupTypeRename+=FGTRename | 
 	 *             ownedComponentTypeRename+=CTRename
 	 *         )* 
@@ -3406,6 +3412,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
 	 */
 	protected void sequence_ReferenceType(EObject context, ReferenceType semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (renamedPackage=[AadlPackage|PNAME] renameAll?='all')
+	 */
+	protected void sequence_RenameAll(EObject context, PackageRename semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	

@@ -316,20 +316,38 @@ rulePublicPackageSection returns [EObject current=null]
 )
     |(
 (
+(
 		{ 
-	        newCompositeNode(grammarAccess.getPublicPackageSectionAccess().getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getPublicPackageSectionAccess().getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0()); 
 	    }
-		lv_ownedPackageRename_7_0=rulePackageRename		{
+		lv_ownedPackageRename_7_1=rulePackageRename		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPublicPackageSectionRule());
 	        }
        		add(
        			$current, 
        			"ownedPackageRename",
-        		lv_ownedPackageRename_7_0, 
+        		lv_ownedPackageRename_7_1, 
         		"PackageRename");
 	        afterParserOrEnumRuleCall();
 	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getPublicPackageSectionAccess().getOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1()); 
+	    }
+		lv_ownedPackageRename_7_2=ruleRenameAll		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPublicPackageSectionRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPackageRename",
+        		lv_ownedPackageRename_7_2, 
+        		"RenameAll");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 
 )
 )
@@ -487,20 +505,38 @@ rulePrivatePackageSection returns [EObject current=null]
 )
     |(
 (
+(
 		{ 
-	        newCompositeNode(grammarAccess.getPrivatePackageSectionAccess().getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getPrivatePackageSectionAccess().getOwnedPackageRenamePackageRenameParserRuleCall_2_1_0_0()); 
 	    }
-		lv_ownedPackageRename_7_0=rulePackageRename		{
+		lv_ownedPackageRename_7_1=rulePackageRename		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPrivatePackageSectionRule());
 	        }
        		add(
        			$current, 
        			"ownedPackageRename",
-        		lv_ownedPackageRename_7_0, 
+        		lv_ownedPackageRename_7_1, 
         		"PackageRename");
 	        afterParserOrEnumRuleCall();
 	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getPrivatePackageSectionAccess().getOwnedPackageRenameRenameAllParserRuleCall_2_1_0_1()); 
+	    }
+		lv_ownedPackageRename_7_2=ruleRenameAll		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getPrivatePackageSectionRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPackageRename",
+        		lv_ownedPackageRename_7_2, 
+        		"RenameAll");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 
 )
 )
@@ -667,6 +703,73 @@ rulePackageRename returns [EObject current=null]
 	otherlv_6=KEYWORD_9
     {
     	newLeafNode(otherlv_6, grammarAccess.getPackageRenameAccess().getSemicolonKeyword_5());
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleRenameAll
+entryRuleRenameAll returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getRenameAllRule()); }
+	 iv_ruleRenameAll=ruleRenameAll 
+	 { $current=$iv_ruleRenameAll.current; } 
+	 EOF 
+;
+
+// Rule RenameAll
+ruleRenameAll returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=KEYWORD_73
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getRenameAllAccess().getRenamesKeyword_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRenameAllRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getRenameAllAccess().getRenamedPackageAadlPackageCrossReference_1_0()); 
+	    }
+		rulePNAME		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_2=KEYWORD_17
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getRenameAllAccess().getColonColonKeyword_2());
+    }
+(
+(
+		lv_renameAll_3_0=
+	KEYWORD_26
+    {
+        newLeafNode(lv_renameAll_3_0, grammarAccess.getRenameAllAccess().getRenameAllAllKeyword_3_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRenameAllRule());
+	        }
+       		setWithLastConsumed($current, "renameAll", true, "all");
+	    }
+
+)
+)
+	otherlv_4=KEYWORD_9
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getRenameAllAccess().getSemicolonKeyword_4());
     }
 )
 ;
