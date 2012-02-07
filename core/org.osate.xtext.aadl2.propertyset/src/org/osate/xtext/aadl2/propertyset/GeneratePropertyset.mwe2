@@ -13,9 +13,9 @@ Workflow {
 	bean = StandaloneSetup {
 		scanClassPath  = true
 		platformUri = "${runtimeProject}/.."
-		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
+//		registerGeneratedEPackage = "org.osate.aadl2.Aadl2Package"
 	
-		// registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+		 registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
 	
 	}
 
@@ -42,8 +42,10 @@ Workflow {
 			// generates Java API for the generated EPackages
 			// fragment = ecore.EcoreGeneratorFragment {}
 
-			// the serialization component
-			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+//			// the serialization component
+//			fragment = parseTreeConstructor.ParseTreeConstructorFragment {}
+            // Serializer 2.0
+            fragment = serializer.SerializerFragment {}
 
 			// a custom ResourceFactory for use with EMF 
 			fragment = resourceFactory.ResourceFactoryFragment {
@@ -75,12 +77,18 @@ Workflow {
 
 			// scoping and exporting API 
 
-			 fragment = scoping.ImportNamespacesScopingFragment {}
+			 fragment = scoping.ImportNamespacesScopingFragment {
+			 	ignoreCase = true
+			 }
 			 fragment = exporting.QualifiedNamesFragment {}
 
 
+			fragment = builder.BuilderIntegrationFragment {}
+
 			// formatter API 
 			fragment = ecore2xtext.FormatterFragment {}
+			// formatter API 
+			fragment = formatting.FormatterFragment {}
 
 			// labeling API 
 			fragment = labeling.LabelProviderFragment {}
@@ -88,6 +96,8 @@ Workflow {
 			// outline API 
             fragment = outline.OutlineTreeProviderFragment {}
             fragment = outline.QuickOutlineFragment {}
+			// quickfix API 
+			fragment = quickfix.QuickfixProviderFragment {}
 
 			// java-based API for content assistance 
 			fragment = contentAssist.JavaBasedContentAssistFragment {}
@@ -102,12 +112,10 @@ Workflow {
 				}
 			}
 
-			// provides a compare view
-            fragment = compare.CompareFragment {
-                fileExtensions = file.extensions
-            }
-
-			fragment = builder.BuilderIntegrationFragment {}
+//			// provides a compare view
+//            fragment = compare.CompareFragment {
+//                fileExtensions = file.extensions
+//            }
 
 			// project wizard (optional) 
 
@@ -115,9 +123,8 @@ Workflow {
 			//		generatorProjectName = "${projectName}.generator" 
 			//		modelFileExtension = file.extensions
 			// }
+			fragment = refactoring.RefactorElementNameFragment {}
 
-			// quickfix API 
-			fragment = quickfix.QuickfixProviderFragment {}
 		}
 	}
 }
