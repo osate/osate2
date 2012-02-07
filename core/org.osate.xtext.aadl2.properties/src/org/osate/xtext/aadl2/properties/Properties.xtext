@@ -24,6 +24,7 @@ ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	('applies' 'to' appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
 	)?
+	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	';';
 
 PropertyAssociation returns aadl2::PropertyAssociation:
@@ -33,6 +34,7 @@ PropertyAssociation returns aadl2::PropertyAssociation:
 	 ownedValue+=OptionalModalPropertyValue
 	( ',' ownedValue+=OptionalModalPropertyValue )*
 	)
+	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	';'
 	;
 
@@ -64,12 +66,6 @@ OptionalModalPropertyValue returns aadl2::ModalPropertyValue:
 	;
 	// &&&&&&&&&& handling of in binding
 
-OtherPropertyValue returns aadl2::ModalPropertyValue:
-	ownedValue=PropertyExpression 
-	// phf made this optional: need to check separately that only the last one is optional
-	 'in' 'modes' 'others' 
-	;
-
 PropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
 	;
@@ -81,7 +77,6 @@ PropertyExpression returns aadl2::PropertyExpression:
 	| RealTerm | IntegerTerm 
 	  	| ListTerm 
 	  	| BooleanLiteral | LiteralorReferenceTerm
-	//  	|ActualBooleanTerm  | BooleanTerm   | LiteralorReferenceTerm
 	;
 
 LiteralorReferenceTerm returns aadl2::NamedValue:
@@ -158,13 +153,6 @@ ANNEXREF :
 
   
 
-
-enum OperationKind returns aadl2::OperationKind:
-	 and='and' | or='or' | not='not' | plus='+' | minus = '-';
-// Need Value Converters	
-AndOp returns aadl2::OperationKind: 'and';
-OrOp returns aadl2::OperationKind: 'or';
-NotOp returns aadl2::OperationKind: 'not';
 PlusMinus returns aadl2::OperationKind: '+' | '-';
 
 

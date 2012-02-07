@@ -128,10 +128,6 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getOtherPropertyValueRule()) {
-					sequence_OtherPropertyValue(context, (ModalPropertyValue) semanticObject); 
-					return; 
-				}
 				else if(context == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
@@ -280,7 +276,8 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         constant?='constant'? 
 	 *         ownedValue+=OptionalModalPropertyValue 
 	 *         ownedValue+=OptionalModalPropertyValue* 
-	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -380,16 +377,14 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     ownedValue=PropertyExpression
-	 */
-	protected void sequence_OtherPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (property=[Property|QPREF] append?='+=>'? constant?='constant'? ownedValue+=OptionalModalPropertyValue ownedValue+=OptionalModalPropertyValue*)
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         inBinding+=[Classifier|QCREF]?
+	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
