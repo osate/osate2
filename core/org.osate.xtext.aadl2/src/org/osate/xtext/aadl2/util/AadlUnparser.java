@@ -1710,14 +1710,14 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(AadlUtil.getPropertySetElementName(object.getProperty()));
 				aadlText.addOutput(object.isAppend() ? " +=> " : " => ");
 				final EList<ModalPropertyValue> pl = object.getOwnedValues();
-				boolean didParens = false;
-				if (pl.size() > 1 || (pl.size()==1 && !((ModalPropertyValue)pl.get(0)).getInModes().isEmpty())){
-					aadlText.addOutput("(");
-					didParens = true;
-				}
+//				boolean didParens = false;
+//				if (pl.size() > 1 || (pl.size()==1 && !((ModalPropertyValue)pl.get(0)).getInModes().isEmpty())){
+//					aadlText.addOutput("(");
+//					didParens = true;
+//				}
 				processEList(pl, ", ");
-				if (didParens)
-					aadlText.addOutput(")");
+//				if (didParens)
+//					aadlText.addOutput(")");
 				EList<ContainedNamedElement> atl = object.getAppliesTos();
 
 				if (atl.size() > 0) {
@@ -1935,10 +1935,10 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			
 			public String caseRecordValue(RecordValue object) {
 				aadlText.incrementIndent();
-				aadlText.addOutputNewline("(");
+				aadlText.addOutputNewline("[");
 				processEList(object.getOwnedFieldValues());
 				aadlText.decrementIndent();
-				aadlText.addOutput(")");
+				aadlText.addOutput("]");
 				return DONE;
 			}
 			
