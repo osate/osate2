@@ -828,10 +828,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getOtherPropertyValueRule()) {
-					sequence_OtherPropertyValue(context, (ModalPropertyValue) semanticObject); 
-					return; 
-				}
 				else if(context == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
@@ -1526,7 +1522,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -1706,7 +1702,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -1862,7 +1858,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         constant?='constant'? 
 	 *         ownedValue+=OptionalModalPropertyValue 
 	 *         ownedValue+=OptionalModalPropertyValue* 
-	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -1963,7 +1960,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2071,7 +2068,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2588,7 +2585,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2690,15 +2687,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
 	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ownedValue=PropertyExpression
-	 */
-	protected void sequence_OtherPropertyValue(EObject context, ModalPropertyValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2836,7 +2824,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2943,7 +2931,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2993,7 +2981,14 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (property=[Property|QPREF] append?='+=>'? constant?='constant'? ownedValue+=OptionalModalPropertyValue ownedValue+=OptionalModalPropertyValue*)
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         inBinding+=[Classifier|QCREF]?
+	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
@@ -3550,7 +3545,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3636,7 +3631,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3738,7 +3733,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3838,7 +3833,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3934,7 +3929,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -4145,7 +4140,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -4237,7 +4232,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
