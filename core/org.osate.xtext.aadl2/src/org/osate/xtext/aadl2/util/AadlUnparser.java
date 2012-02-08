@@ -2272,6 +2272,13 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				.getAadlPath((IFile) aaxlFile);
 		doUnparseToFile(obj, path);
 	}
+
+	public void doUnparseToFile(Resource res) {
+		IResource aaxlFile = OsateResourceUtil.convertToIResource(res);
+		IPath path = AadlWorkspace.getAadlWorkspace().getAadlProject(aaxlFile)
+				.getAadlPath((IFile) aaxlFile);
+		doUnparseToFile((Element)res.getContents().get(0), path);
+	}
 	
 	public void processComment(EObject o){
 		INode node = NodeModelUtils.findActualNodeFor(o);
