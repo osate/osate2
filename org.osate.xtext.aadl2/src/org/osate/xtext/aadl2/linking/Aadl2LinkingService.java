@@ -34,6 +34,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FlowElement;
@@ -101,7 +102,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				EObject res = getContainingClassifier(context)
 						.findNamedElement(name);
@@ -112,7 +112,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				} else if ( res instanceof ComponentPrototype) {
 					return Collections.singletonList(res);
 				}
-			}
 			return Collections.<EObject> emptyList();
 		} else
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
@@ -440,11 +439,15 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// feature group type or prototype
 			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
 			if (fgt == null){
-				// TODO-phf find the prototype
+				// need to resolve prototype
+				EObject res = getContainingClassifier(context)
+						.findNamedElement(name);
+				 if ( res instanceof FeatureGroupPrototype) {
+					return Collections.singletonList(res);
+				}
 			} else{
 				return Collections.singletonList((EObject) fgt);
 			}
-			
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getArraySizeProperty() == requiredType) {
 			// reference to a property constant or property
