@@ -2,13 +2,9 @@ package org.osate.xtext.aadl2.serializing;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
-import org.eclipse.xtext.XtextPackage;
 import org.eclipse.xtext.parsetree.reconstr.impl.DefaultTransientValueService;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.TypeExtension;
 
 public class Aadl2TransientValueService  extends DefaultTransientValueService {
 

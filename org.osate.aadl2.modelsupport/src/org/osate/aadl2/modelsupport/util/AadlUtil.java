@@ -50,7 +50,6 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFolder;
@@ -86,7 +85,6 @@ import org.osate.aadl2.DeviceSubcomponent;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
@@ -101,6 +99,7 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessSubcomponent;
@@ -2247,5 +2246,45 @@ public final class AadlUtil {
 			return "self."+((NamedElement)end).getName();
 		}
 		return "<?>";
+	}
+
+	public static Classifier getContainingClassifier(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof Classifier))
+			container = container.eContainer();
+		return (Classifier) container;
+	}
+
+	public static Namespace getContainingNamespace(EObject element) {
+		EObject container = element.eContainer();
+		while (container != null && !(container instanceof Namespace))
+			container = container.eContainer();
+		return (Namespace) container;
+	}
+
+	public static PackageSection getContainingPackageSection(EObject element) {
+		EObject container = element.eContainer();
+		while (container != null && !(container instanceof PackageSection))
+			container = container.eContainer();
+		return (PackageSection) container;
+	}
+
+	public static PropertySet getContainingPropertySet(EObject element) {
+		EObject container = element.eContainer();
+		while (container != null && !(container instanceof PropertySet))
+			container = container.eContainer();
+		return (PropertySet) container;
+	}
+
+	public static Namespace getContainingTopLevelNamespace(EObject element) {
+		if (element.eContainer() == null) {
+			if (element instanceof Namespace) return (Namespace)element;
+			return null;
+		}
+		EObject container = element.eContainer();
+		while (container != null && !(container instanceof PackageSection)
+				&& !(container instanceof PropertySet))
+			container = container.eContainer();
+		return (Namespace) container;
 	}
 }

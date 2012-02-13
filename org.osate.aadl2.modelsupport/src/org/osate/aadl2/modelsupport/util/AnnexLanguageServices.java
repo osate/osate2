@@ -7,6 +7,8 @@
  *******************************************************************************/
 package org.osate.aadl2.modelsupport.util;
 
+import org.eclipse.xtext.parser.IParser;
+
 
 /**
  * Wraps a (partial) Xtext parser in a Osate Annex {@link IParser}.

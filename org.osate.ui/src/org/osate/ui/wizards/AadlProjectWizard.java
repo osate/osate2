@@ -41,7 +41,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IResourceStatus;
@@ -73,7 +72,6 @@ import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.core.AadlNature;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.OsateUiPlugin;
-import org.osate.workspace.CoreUtility;
 import org.osate.workspace.WorkspacePlugin;
 
 /**

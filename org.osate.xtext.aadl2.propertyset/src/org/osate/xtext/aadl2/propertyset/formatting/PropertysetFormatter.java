@@ -3,9 +3,9 @@
  */
 package org.osate.xtext.aadl2.propertyset.formatting;
 
+import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.formatting.impl.AbstractDeclarativeFormatter;
 import org.eclipse.xtext.formatting.impl.FormattingConfig;
-import org.eclipse.xtext.Keyword;
 import org.eclipse.xtext.util.Pair;
 
 /**

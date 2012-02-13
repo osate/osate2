@@ -3,7 +3,6 @@
 */
 package org.osate.xtext.aadl2.propertyset.ui.contentassist;
 
-import org.osate.xtext.aadl2.propertyset.ui.contentassist.AbstractPropertysetProposalProvider;
 /**
  * see http://www.eclipse.org/Xtext/documentation/latest/xtext.html#contentAssist on how to customize content assistant
  */
