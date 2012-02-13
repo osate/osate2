@@ -1,12 +1,12 @@
 package org.osate.xtext.aadl2.properties.ui;
 
+import static com.google.inject.Guice.createInjector;
+import static com.google.inject.util.Modules.override;
+
 import org.apache.log4j.Logger;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 import org.osgi.framework.BundleContext;
-
-import static com.google.inject.util.Modules.override;
-import static com.google.inject.Guice.createInjector;
 
 import com.google.inject.Injector;
 

@@ -3,11 +3,9 @@ package org.osate.xtext.aadl2.linking;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
@@ -56,8 +54,6 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-//import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
-//import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
@@ -103,7 +99,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				return Collections.singletonList((EObject) e);
 			}
 				// need to resolve prototype
-				EObject res = getContainingClassifier(context)
+				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
 				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
 					if( res instanceof DataPrototype ){
@@ -119,7 +115,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			EObject e = findClassifier(context, reference,  name);
 			if (e == null){
 				// look for prototype
-				e = getContainingClassifier(context).findNamedElement(name);
+				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
 				if (! (e instanceof FeaturePrototype || e instanceof ComponentPrototype))
 					e = null;
@@ -130,7 +126,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getFeaturePrototype() == requiredType) {
 				// look for prototype
-				EObject e = getContainingClassifier(context).findNamedElement(name);
+				EObject e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
 				if (e instanceof FeaturePrototype )
 					return Collections.singletonList((EObject) e);
@@ -162,7 +158,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getPort() == requiredType) {
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
 				// we need to resolve a  feature refinement, thus look up the feature in the 
 				// component being extended
@@ -191,7 +187,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// represents connection source/dest context as well as flowspec
 			// context
 			// also used in triggerport
-			EObject searchResult = getContainingClassifier(context)
+			EObject searchResult = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (context instanceof ConnectedElement) {
 				// connection context
@@ -225,7 +221,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getCallContext() == requiredType) {
-			EObject searchResult = getContainingClassifier(context)
+			EObject searchResult = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (searchResult != null
 					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
@@ -239,7 +235,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
 			// if cxt then search in context
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			CallContext callContext = ((SubprogramCall) context).getContext();
 			if (callContext == null){
 				// look for prototype, subprogramsubcomponent
@@ -283,7 +279,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getPrototype() == requiredType) {
 			// if context prototype then find in extension source (refined)
 			// prototype binding as context
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Prototype) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -364,7 +360,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getModeTransition() == requiredType) {
 			// referenced by in modes
-			EObject searchResult = getContainingClassifier(context)
+			EObject searchResult = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeTransition) {
 				return Collections.singletonList((EObject) searchResult);
@@ -373,7 +369,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getModeFeature() == requiredType) {
 			// referenced by mode transition and inmodes
-			EObject searchResult = getContainingClassifier(context)
+			EObject searchResult = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeFeature) {
 				return Collections.singletonList((EObject) searchResult);
@@ -384,7 +380,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// refined flow spec
 			// referenced by flow implementation
 			// also referenced in flow elements in impl and etef
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof FlowSpecification) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -404,7 +400,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// refined flow spec
 			// referenced by flow implementation
 			// also referenced in flow elements in impl and etef
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof EndToEndFlow) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -421,7 +417,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getConnection() == requiredType) {
 			// refined to, flow elements
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Connection) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -440,7 +436,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
 			if (fgt == null){
 				// need to resolve prototype
-				EObject res = getContainingClassifier(context)
+				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
 				 if ( res instanceof FeatureGroupPrototype) {
 					return Collections.singletonList(res);

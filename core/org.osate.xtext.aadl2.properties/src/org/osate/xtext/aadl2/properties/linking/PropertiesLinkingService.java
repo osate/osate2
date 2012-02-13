@@ -2,10 +2,7 @@ package org.osate.xtext.aadl2.properties.linking;
 
 
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -18,17 +15,96 @@ import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
-import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.scoping.IScopeProvider;
-import org.eclipse.xtext.scoping.impl.ImportScope;
-import org.eclipse.xtext.scoping.impl.SelectableBasedScope;
-import org.osate.aadl2.*;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AbstractType;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.AccessConnectionEnd;
+import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BasicProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CalledSubprogram;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Context;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.DataSubcomponent;
+import org.osate.aadl2.DataType;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.EnumerationType;
+import org.osate.aadl2.EventDataPort;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureConnection;
+import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeatureGroupConnectionEnd;
+import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
+import org.osate.aadl2.FeatureGroupPrototypeBinding;
+import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.Generalization;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Namespace;
+import org.osate.aadl2.NumberType;
+import org.osate.aadl2.NumberValue;
+import org.osate.aadl2.NumericRange;
+import org.osate.aadl2.PackageRename;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.ParameterConnectionEnd;
+import org.osate.aadl2.Port;
+import org.osate.aadl2.PortConnection;
+import org.osate.aadl2.PortConnectionEnd;
+import org.osate.aadl2.PrivatePackageSection;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.PrototypeBinding;
+import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.RangeType;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RecordType;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.SubprogramGroupSubcomponent;
+import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.Activator;
-import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
@@ -169,7 +245,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				return Collections.singletonList((EObject) e);
 			}
 				// need to resolve prototype
-				EObject res = getContainingClassifier(context)
+				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
 				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
 					if( res instanceof DataPrototype ){
@@ -205,7 +281,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
 			// Feature used in FlowSpec
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -223,7 +299,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			// if context Subcomponent then find in extension source (refined
 			// to)
 			// prototype binding as context
-			Classifier ns = getContainingClassifier(context);
+			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Subcomponent) {
 				// we need to resolve a refinement
 				if (ns.getExtended() != null) {
@@ -296,7 +372,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 		} else if (Aadl2Package.eINSTANCE.getMode() == requiredType) {
 			// referenced by mode transition and inmodes
-			EObject res = getContainingClassifier(context)
+			EObject res = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (res != null && res instanceof Mode) {
 				searchResult = res;
@@ -328,7 +404,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							res = ns.findNamedElement(name);
 					}
 				} else {
-					Classifier ns = getContainingClassifier(context);
+					Classifier ns = AadlUtil.getContainingClassifier(context);
 					if (ns != null)
 						res = ns.findNamedElement(name);
 				}
@@ -434,7 +510,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		EList<ModelUnit> imports;
 		if (name == null) return null;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
-			context = getContainingTopLevelNamespace(context);
+			context = AadlUtil.getContainingTopLevelNamespace(context);
 		}
 		if (context instanceof PropertySet)
 			imports = ((PropertySet) context).getImportedUnits();
@@ -465,7 +541,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		EList<ModelUnit> importedPropertySets;
 		if (name == null) return null;
 		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
-			context = getContainingTopLevelNamespace(context);
+			context = AadlUtil.getContainingTopLevelNamespace(context);
 		}
 		if (context instanceof PropertySet)
 			importedPropertySets = ((PropertySet) context).getImportedUnits();
@@ -529,9 +605,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			final int idx = name.lastIndexOf("::");
 			String packname = null;
 			String cname = name;
-			Namespace scope = getContainingPackageSection(context);
+			Namespace scope = AadlUtil.getContainingPackageSection(context);
 			if (scope == null)
-				scope = getContainingPropertySet(context);
+				scope = AadlUtil.getContainingPropertySet(context);
 			if (idx != -1) {
 				packname = name.substring(0, idx);
 				cname = name.substring(idx + 2);
@@ -825,7 +901,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public PortConnectionEnd findPortConnectionEnd(PortConnection conn,
 			Context cxt, String portName) {
 		if (cxt == null) {
-			EObject searchResult = ((ComponentImplementation) getContainingClassifier(conn))
+			EObject searchResult = ((ComponentImplementation) AadlUtil.getContainingClassifier(conn))
 					.findNamedElement(portName);
 			if (searchResult instanceof Port
 					|| searchResult instanceof DataSubcomponent
@@ -850,7 +926,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			} else if (sct instanceof ComponentPrototype) {
 				ComponentClassifier classifier = 
 						findClassifierForComponentPrototype(
-								getContainingClassifier(conn),
+								AadlUtil.getContainingClassifier(conn),
 								((ComponentPrototype)sct));
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -878,7 +954,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return ((DataSubcomponent) searchResult);
 			} else if (context.getPrototype() instanceof ComponentPrototype) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(ComponentPrototype) context.getPrototype());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -901,7 +977,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return ((PortConnectionEnd) searchResult);
 			} else if (featureGroup.getPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(FeatureGroupPrototype) featureGroup.getPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
@@ -940,7 +1016,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public ConnectionEnd findAccessConnectionEnd(AccessConnection conn,
 			Context cxt, String name) {
 		if (cxt == null) {
-			NamedElement searchResult = getContainingClassifier(conn)
+			NamedElement searchResult = AadlUtil.getContainingClassifier(conn)
 					.findNamedElement(name);
 			if (searchResult instanceof AccessConnectionEnd)
 				return (AccessConnectionEnd) searchResult;
@@ -957,7 +1033,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (Access) searchResult;
 			} else if (subcomponent.getPrototype() != null) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						subcomponent.getPrototype());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -980,7 +1056,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (Access) searchResult;
 			} else if (featureGroup.getPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(FeatureGroupPrototype) featureGroup.getPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
@@ -1019,7 +1095,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public ConnectionEnd findParameterConnectionEnd(
 			ParameterConnection conn, Context cxt, String name) {
 		if (cxt == null) {
-			NamedElement searchResult = getContainingClassifier(conn)
+			NamedElement searchResult = AadlUtil.getContainingClassifier(conn)
 					.findNamedElement(name);
 			if (searchResult instanceof ParameterConnectionEnd)
 				return (ParameterConnectionEnd) searchResult;
@@ -1037,7 +1113,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (ParameterConnectionEnd) searchResult;
 			} else if (featureGroup.getPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(FeatureGroupPrototype) featureGroup.getPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
@@ -1067,7 +1143,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						return (Parameter) searchResult;
 				} else if (subcomponent.getPrototype() != null) {
 					ComponentClassifier classifier = findClassifierForComponentPrototype(
-							getContainingClassifier(conn),
+							AadlUtil.getContainingClassifier(conn),
 							subcomponent.getPrototype());
 					if (classifier != null) {
 						NamedElement searchResult = classifier
@@ -1116,7 +1192,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							.getFeatureGroupType();
 						else if (callContextFeatureGroup.getPrototype() instanceof FeatureGroupPrototype) {
 							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
-									getContainingClassifier(conn),
+									AadlUtil.getContainingClassifier(conn),
 									(FeatureGroupPrototype) callContextFeatureGroup
 									.getPrototype());
 						} else
@@ -1145,7 +1221,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							.getClassifier();
 						else if (callContextAccess.getPrototype() instanceof ComponentPrototype) {
 							prototypeContext = findClassifierForComponentPrototype(
-									getContainingClassifier(conn),
+									AadlUtil.getContainingClassifier(conn),
 									(ComponentPrototype) callContextAccess
 									.getPrototype());
 						} else
@@ -1192,7 +1268,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							}
 						} else if (callContextSubcomponent.getPrototype() != null) {
 							Classifier prototypeContext = findClassifierForComponentPrototype(
-									getContainingClassifier(conn),
+									AadlUtil.getContainingClassifier(conn),
 									callContextSubcomponent.getPrototype());
 							if (prototypeContext != null) {
 								ComponentClassifier classifier = findClassifierForComponentPrototype(
@@ -1210,7 +1286,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					} else // callContext is null.
 					{
 						ComponentClassifier classifier = findClassifierForComponentPrototype(
-								getContainingClassifier(conn),
+								AadlUtil.getContainingClassifier(conn),
 								(ComponentPrototype) access.getPrototype());
 						if (classifier != null) {
 							NamedElement searchResult = classifier
@@ -1224,7 +1300,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				// subprogram call refers to a prototype.
 			{
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(ComponentPrototype) subprogramCall.getCalledSubprogram());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -1249,7 +1325,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (DataSubcomponent) searchResult;
 			} else if (sourceContext.getPrototype() instanceof ComponentPrototype) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(conn),
+						AadlUtil.getContainingClassifier(conn),
 						(ComponentPrototype) sourceContext.getPrototype());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -1265,7 +1341,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public ConnectionEnd findFeatureGroupConnectionEnd(
 			FeatureGroupConnection connection, Context cxt, String name) {
 		if (cxt == null) {
-			NamedElement searchResult = getContainingClassifier(connection)
+			NamedElement searchResult = AadlUtil.getContainingClassifier(connection)
 					.findNamedElement(name);
 			if (searchResult instanceof FeatureGroupConnectionEnd)
 				return (FeatureGroupConnectionEnd) searchResult;
@@ -1282,7 +1358,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (FeatureGroupConnectionEnd) searchResult;
 			} else if (subcomponent.getPrototype() != null) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(connection),
+						AadlUtil.getContainingClassifier(connection),
 						subcomponent.getPrototype());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -1306,7 +1382,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return (FeatureGroupConnectionEnd) searchResult;
 			} else if (featureGroup.getPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						getContainingClassifier(connection),
+						AadlUtil.getContainingClassifier(connection),
 						(FeatureGroupPrototype) featureGroup.getPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
@@ -1322,7 +1398,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public ConnectionEnd findFeatureConnectionEnd(
 			FeatureConnection connection, Context cxt, String name) {
 		if (cxt == null) {
-			NamedElement searchResult = getContainingClassifier(connection)
+			NamedElement searchResult = AadlUtil.getContainingClassifier(connection)
 					.findNamedElement(name);
 			if (searchResult instanceof FeatureConnectionEnd)
 				return ((FeatureConnectionEnd) searchResult);
@@ -1339,7 +1415,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return ((FeatureConnectionEnd) searchResult);
 			} else if (subcomponent.getPrototype() != null) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
-						getContainingClassifier(connection),
+						AadlUtil.getContainingClassifier(connection),
 						subcomponent.getPrototype());
 				if (classifier != null) {
 					NamedElement searchResult = classifier
@@ -1363,7 +1439,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					return ((FeatureConnectionEnd) searchResult);
 			} else if (featureGroup.getPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
-						getContainingClassifier(connection),
+						AadlUtil.getContainingClassifier(connection),
 						(FeatureGroupPrototype) featureGroup.getPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
@@ -1718,47 +1794,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (binding.getFormal().equals(prototype))
 				return binding;
 		return null;
-	}
-
-
-	public Classifier getContainingClassifier(EObject element) {
-		EObject container = element;
-		while (container != null && !(container instanceof Classifier))
-			container = container.eContainer();
-		return (Classifier) container;
-	}
-
-	public PackageSection getContainingPackageSection(EObject element) {
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof PackageSection))
-			container = container.eContainer();
-		return (PackageSection) container;
-	}
-
-	public PropertySet getContainingPropertySet(EObject element) {
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof PropertySet))
-			container = container.eContainer();
-		return (PropertySet) container;
-	}
-
-	public Namespace getContainingTopLevelNamespace(EObject element) {
-		if (element.eContainer() == null) {
-			if (element instanceof Namespace) return (Namespace)element;
-			return null;
-		}
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof PackageSection)
-				&& !(container instanceof PropertySet))
-			container = container.eContainer();
-		return (Namespace) container;
-	}
-
-	public Namespace getContainingNamespace(EObject element) {
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof Namespace))
-			container = container.eContainer();
-		return (Namespace) container;
 	}
 
 }
