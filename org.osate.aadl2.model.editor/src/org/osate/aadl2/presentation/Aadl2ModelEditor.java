@@ -658,7 +658,7 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 */
 	protected void updateProblemIndication() {
 		if (updateProblemIndication) {
-			BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, "edu.cmu.sei.aadl.instance.editor", //$NON-NLS-1$
+			BasicDiagnostic diagnostic = new BasicDiagnostic(Diagnostic.OK, "org.osate.aadl.instance.editor", //$NON-NLS-1$
 					0, null, new Object[] { editingDomain.getResourceSet() });
 			for (Diagnostic childDiagnostic : resourceToDiagnosticMap.values()) {
 				if (childDiagnostic.getSeverity() != Diagnostic.OK) {
@@ -990,13 +990,13 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 */
 	public Diagnostic analyzeResourceProblems(Resource resource, Exception exception) {
 		if (!resource.getErrors().isEmpty() || !resource.getWarnings().isEmpty()) {
-			BasicDiagnostic basicDiagnostic = new BasicDiagnostic(Diagnostic.ERROR, "edu.cmu.sei.aadl.instance.editor", //$NON-NLS-1$
+			BasicDiagnostic basicDiagnostic = new BasicDiagnostic(Diagnostic.ERROR, "org.osate.aadl.instance.editor", //$NON-NLS-1$
 					0, getString("_UI_CreateModelError_message", resource.getURI()), //$NON-NLS-1$
 					new Object[] { exception == null ? (Object) resource : exception });
 			basicDiagnostic.merge(EcoreUtil.computeDiagnostic(resource, true));
 			return basicDiagnostic;
 		} else if (exception != null) {
-			return new BasicDiagnostic(Diagnostic.ERROR, "edu.cmu.sei.aadl.instance.editor", //$NON-NLS-1$
+			return new BasicDiagnostic(Diagnostic.ERROR, "org.osate.aadl.instance.editor", //$NON-NLS-1$
 					0, getString("_UI_CreateModelError_message", resource.getURI()), //$NON-NLS-1$
 					new Object[] { exception });
 		} else {

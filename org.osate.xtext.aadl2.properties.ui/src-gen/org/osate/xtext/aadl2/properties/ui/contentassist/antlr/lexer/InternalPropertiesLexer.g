@@ -16,31 +16,29 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_31 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
+KEYWORD_29 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-KEYWORD_30 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_28 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-KEYWORD_29 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+KEYWORD_27 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
 
-KEYWORD_27 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_24 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
-KEYWORD_28 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+KEYWORD_25 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
 
-KEYWORD_23 : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
+KEYWORD_26 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
 
-KEYWORD_24 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
+KEYWORD_20 : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
 
-KEYWORD_25 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
+KEYWORD_21 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
 
-KEYWORD_26 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
+KEYWORD_22 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
-KEYWORD_22 : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
+KEYWORD_23 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
-KEYWORD_19 : '+''=''>';
+KEYWORD_19 : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
-KEYWORD_20 : ('A'|'a')('N'|'n')('D'|'d');
-
-KEYWORD_21 : ('N'|'n')('O'|'o')('T'|'t');
+KEYWORD_18 : '+''=''>';
 
 KEYWORD_13 : '.''.';
 
@@ -50,9 +48,7 @@ KEYWORD_15 : '=''>';
 
 KEYWORD_16 : ('I'|'i')('N'|'n');
 
-KEYWORD_17 : ('O'|'o')('R'|'r');
-
-KEYWORD_18 : ('T'|'t')('O'|'o');
+KEYWORD_17 : ('T'|'t')('O'|'o');
 
 KEYWORD_1 : '(';
 

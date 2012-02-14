@@ -2,59 +2,59 @@ package org.osate.xtext.aadl2.properties.parser.antlr.lexer;
 
 // Hack: Use our own Lexer superclass by means of import. 
 // Currently there is no other way to specify the superclass for the lexer.
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 import org.eclipse.xtext.parser.antlr.Lexer;
-
-
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalPropertiesLexer extends Lexer {
-    public static final int RULE_ID=44;
-    public static final int RULE_REAL_LIT=39;
-    public static final int RULE_INTEGER_LIT=41;
+    public static final int RULE_ID=42;
+    public static final int RULE_REAL_LIT=37;
+    public static final int RULE_INTEGER_LIT=39;
     public static final int KEYWORD_19=14;
-    public static final int KEYWORD_17=21;
-    public static final int KEYWORD_18=22;
-    public static final int KEYWORD_15=19;
-    public static final int KEYWORD_16=20;
-    public static final int KEYWORD_13=17;
-    public static final int KEYWORD_14=18;
-    public static final int KEYWORD_11=33;
+    public static final int KEYWORD_17=20;
+    public static final int KEYWORD_18=15;
+    public static final int KEYWORD_15=18;
+    public static final int KEYWORD_16=19;
+    public static final int KEYWORD_13=16;
+    public static final int KEYWORD_14=17;
+    public static final int KEYWORD_11=31;
     public static final int EOF=-1;
-    public static final int KEYWORD_12=34;
-    public static final int KEYWORD_10=32;
-    public static final int KEYWORD_6=28;
-    public static final int KEYWORD_7=29;
-    public static final int KEYWORD_8=30;
-    public static final int KEYWORD_9=31;
-    public static final int KEYWORD_28=8;
-    public static final int KEYWORD_29=6;
-    public static final int KEYWORD_24=10;
-    public static final int KEYWORD_25=11;
-    public static final int KEYWORD_26=12;
-    public static final int KEYWORD_27=7;
-    public static final int KEYWORD_20=15;
-    public static final int KEYWORD_21=16;
-    public static final int KEYWORD_22=13;
-    public static final int KEYWORD_23=9;
-    public static final int RULE_EXTENDED_DIGIT=42;
-    public static final int KEYWORD_30=5;
-    public static final int KEYWORD_1=23;
-    public static final int KEYWORD_5=27;
-    public static final int KEYWORD_4=26;
-    public static final int KEYWORD_3=25;
-    public static final int KEYWORD_31=4;
-    public static final int KEYWORD_2=24;
-    public static final int RULE_BASED_INTEGER=40;
-    public static final int RULE_SL_COMMENT=35;
-    public static final int RULE_STRING=43;
-    public static final int RULE_EXPONENT=37;
-    public static final int RULE_INT_EXPONENT=38;
-    public static final int RULE_WS=45;
-    public static final int RULE_DIGIT=36;
+    public static final int KEYWORD_12=32;
+    public static final int KEYWORD_10=30;
+    public static final int KEYWORD_6=26;
+    public static final int KEYWORD_7=27;
+    public static final int KEYWORD_8=28;
+    public static final int KEYWORD_9=29;
+    public static final int KEYWORD_28=5;
+    public static final int KEYWORD_29=4;
+    public static final int KEYWORD_24=7;
+    public static final int KEYWORD_25=8;
+    public static final int KEYWORD_26=9;
+    public static final int KEYWORD_27=6;
+    public static final int KEYWORD_20=10;
+    public static final int KEYWORD_21=11;
+    public static final int KEYWORD_22=12;
+    public static final int KEYWORD_23=13;
+    public static final int RULE_EXTENDED_DIGIT=40;
+    public static final int KEYWORD_1=21;
+    public static final int KEYWORD_5=25;
+    public static final int KEYWORD_4=24;
+    public static final int KEYWORD_3=23;
+    public static final int KEYWORD_2=22;
+    public static final int RULE_BASED_INTEGER=38;
+    public static final int RULE_SL_COMMENT=33;
+    public static final int RULE_STRING=41;
+    public static final int RULE_EXPONENT=35;
+    public static final int RULE_INT_EXPONENT=36;
+    public static final int RULE_WS=43;
+    public static final int RULE_DIGIT=34;
 
     // delegates
     // delegators
@@ -69,10 +69,10 @@ public class InternalPropertiesLexer extends Lexer {
     }
     public String getGrammarFileName() { return "../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g"; }
 
-    // $ANTLR start "KEYWORD_31"
-    public final void mKEYWORD_31() throws RecognitionException {
+    // $ANTLR start "KEYWORD_29"
+    public final void mKEYWORD_29() throws RecognitionException {
         try {
-            int _type = KEYWORD_31;
+            int _type = KEYWORD_29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:19:12: ( ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'R' | 'r' ) )
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:19:14: ( 'C' | 'c' ) ( 'L' | 'l' ) ( 'A' | 'a' ) ( 'S' | 's' ) ( 'S' | 's' ) ( 'I' | 'i' ) ( 'F' | 'f' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'R' | 'r' )
@@ -176,12 +176,12 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_31"
+    // $ANTLR end "KEYWORD_29"
 
-    // $ANTLR start "KEYWORD_30"
-    public final void mKEYWORD_30() throws RecognitionException {
+    // $ANTLR start "KEYWORD_28"
+    public final void mKEYWORD_28() throws RecognitionException {
         try {
-            int _type = KEYWORD_30;
+            int _type = KEYWORD_28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:21:12: ( ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' ) )
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:21:14: ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'F' | 'f' ) ( 'E' | 'e' ) ( 'R' | 'r' ) ( 'E' | 'e' ) ( 'N' | 'n' ) ( 'C' | 'c' ) ( 'E' | 'e' )
@@ -276,12 +276,12 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_30"
+    // $ANTLR end "KEYWORD_28"
 
-    // $ANTLR start "KEYWORD_29"
-    public final void mKEYWORD_29() throws RecognitionException {
+    // $ANTLR start "KEYWORD_27"
+    public final void mKEYWORD_27() throws RecognitionException {
         try {
-            int _type = KEYWORD_29;
+            int _type = KEYWORD_27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:23:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' ) )
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:23:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'N' | 'n' ) ( 'S' | 's' ) ( 'T' | 't' ) ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'T' | 't' )
@@ -367,12 +367,12 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_29"
+    // $ANTLR end "KEYWORD_27"
 
-    // $ANTLR start "KEYWORD_27"
-    public final void mKEYWORD_27() throws RecognitionException {
+    // $ANTLR start "KEYWORD_24"
+    public final void mKEYWORD_24() throws RecognitionException {
         try {
-            int _type = KEYWORD_27;
+            int _type = KEYWORD_24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:25:12: ( ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
             // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:25:14: ( 'A' | 'a' ) ( 'P' | 'p' ) ( 'P' | 'p' ) ( 'L' | 'l' ) ( 'I' | 'i' ) ( 'E' | 'e' ) ( 'S' | 's' )
@@ -449,15 +449,97 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_27"
+    // $ANTLR end "KEYWORD_24"
 
-    // $ANTLR start "KEYWORD_28"
-    public final void mKEYWORD_28() throws RecognitionException {
+    // $ANTLR start "KEYWORD_25"
+    public final void mKEYWORD_25() throws RecognitionException {
         try {
-            int _type = KEYWORD_28;
+            int _type = KEYWORD_25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:27:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:27:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:27:12: ( ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:27:14: ( 'B' | 'b' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'D' | 'd' ) ( 'I' | 'i' ) ( 'N' | 'n' ) ( 'G' | 'g' )
+            {
+            if ( input.LA(1)=='B'||input.LA(1)=='b' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+            if ( input.LA(1)=='G'||input.LA(1)=='g' ) {
+                input.consume();
+
+            }
+            else {
+                MismatchedSetException mse = new MismatchedSetException(null,input);
+                recover(mse);
+                throw mse;}
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "KEYWORD_25"
+
+    // $ANTLR start "KEYWORD_26"
+    public final void mKEYWORD_26() throws RecognitionException {
+        try {
+            int _type = KEYWORD_26;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:29:12: ( ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:29:14: ( 'C' | 'c' ) ( 'O' | 'o' ) ( 'M' | 'm' ) ( 'P' | 'p' ) ( 'U' | 'u' ) ( 'T' | 't' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='C'||input.LA(1)=='c' ) {
                 input.consume();
@@ -531,15 +613,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_28"
+    // $ANTLR end "KEYWORD_26"
 
-    // $ANTLR start "KEYWORD_23"
-    public final void mKEYWORD_23() throws RecognitionException {
+    // $ANTLR start "KEYWORD_20"
+    public final void mKEYWORD_20() throws RecognitionException {
         try {
-            int _type = KEYWORD_23;
+            int _type = KEYWORD_20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:29:12: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:29:14: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:31:12: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:31:14: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'N' | 'n' ) ( 'E' | 'e' ) ( 'X' | 'x' )
             {
             if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
                 input.consume();
@@ -595,15 +677,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_23"
+    // $ANTLR end "KEYWORD_20"
 
-    // $ANTLR start "KEYWORD_24"
-    public final void mKEYWORD_24() throws RecognitionException {
+    // $ANTLR start "KEYWORD_21"
+    public final void mKEYWORD_21() throws RecognitionException {
         try {
-            int _type = KEYWORD_24;
+            int _type = KEYWORD_21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:31:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:31:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:33:12: ( ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:33:14: ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'L' | 'l' ) ( 'T' | 't' ) ( 'A' | 'a' )
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
                 input.consume();
@@ -659,15 +741,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_24"
+    // $ANTLR end "KEYWORD_21"
 
-    // $ANTLR start "KEYWORD_25"
-    public final void mKEYWORD_25() throws RecognitionException {
+    // $ANTLR start "KEYWORD_22"
+    public final void mKEYWORD_22() throws RecognitionException {
         try {
-            int _type = KEYWORD_25;
+            int _type = KEYWORD_22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:33:12: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:33:14: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:35:12: ( ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:35:14: ( 'F' | 'f' ) ( 'A' | 'a' ) ( 'L' | 'l' ) ( 'S' | 's' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
                 input.consume();
@@ -723,15 +805,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_25"
+    // $ANTLR end "KEYWORD_22"
 
-    // $ANTLR start "KEYWORD_26"
-    public final void mKEYWORD_26() throws RecognitionException {
+    // $ANTLR start "KEYWORD_23"
+    public final void mKEYWORD_23() throws RecognitionException {
         try {
-            int _type = KEYWORD_26;
+            int _type = KEYWORD_23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:35:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:35:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:37:12: ( ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:37:14: ( 'M' | 'm' ) ( 'O' | 'o' ) ( 'D' | 'd' ) ( 'E' | 'e' ) ( 'S' | 's' )
             {
             if ( input.LA(1)=='M'||input.LA(1)=='m' ) {
                 input.consume();
@@ -787,15 +869,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_26"
+    // $ANTLR end "KEYWORD_23"
 
-    // $ANTLR start "KEYWORD_22"
-    public final void mKEYWORD_22() throws RecognitionException {
+    // $ANTLR start "KEYWORD_19"
+    public final void mKEYWORD_19() throws RecognitionException {
         try {
-            int _type = KEYWORD_22;
+            int _type = KEYWORD_19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:37:12: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:37:14: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:39:12: ( ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:39:14: ( 'T' | 't' ) ( 'R' | 'r' ) ( 'U' | 'u' ) ( 'E' | 'e' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -842,15 +924,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_22"
+    // $ANTLR end "KEYWORD_19"
 
-    // $ANTLR start "KEYWORD_19"
-    public final void mKEYWORD_19() throws RecognitionException {
+    // $ANTLR start "KEYWORD_18"
+    public final void mKEYWORD_18() throws RecognitionException {
         try {
-            int _type = KEYWORD_19;
+            int _type = KEYWORD_18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:39:12: ( '+' '=' '>' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:39:14: '+' '=' '>'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:41:12: ( '+' '=' '>' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:41:14: '+' '=' '>'
             {
             match('+'); 
             match('='); 
@@ -864,107 +946,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_19"
-
-    // $ANTLR start "KEYWORD_20"
-    public final void mKEYWORD_20() throws RecognitionException {
-        try {
-            int _type = KEYWORD_20;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:41:12: ( ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:41:14: ( 'A' | 'a' ) ( 'N' | 'n' ) ( 'D' | 'd' )
-            {
-            if ( input.LA(1)=='A'||input.LA(1)=='a' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "KEYWORD_20"
-
-    // $ANTLR start "KEYWORD_21"
-    public final void mKEYWORD_21() throws RecognitionException {
-        try {
-            int _type = KEYWORD_21;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:43:12: ( ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:43:14: ( 'N' | 'n' ) ( 'O' | 'o' ) ( 'T' | 't' )
-            {
-            if ( input.LA(1)=='N'||input.LA(1)=='n' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "KEYWORD_21"
+    // $ANTLR end "KEYWORD_18"
 
     // $ANTLR start "KEYWORD_13"
     public final void mKEYWORD_13() throws RecognitionException {
         try {
             int _type = KEYWORD_13;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:45:12: ( '.' '.' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:45:14: '.' '.'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:43:12: ( '.' '.' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:43:14: '.' '.'
             {
             match('.'); 
             match('.'); 
@@ -984,8 +974,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_14;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:47:12: ( ':' ':' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:47:14: ':' ':'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:45:12: ( ':' ':' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:45:14: ':' ':'
             {
             match(':'); 
             match(':'); 
@@ -1005,8 +995,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_15;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:49:12: ( '=' '>' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:49:14: '=' '>'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:47:12: ( '=' '>' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:47:14: '=' '>'
             {
             match('='); 
             match('>'); 
@@ -1026,8 +1016,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_16;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:51:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:51:14: ( 'I' | 'i' ) ( 'N' | 'n' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:49:12: ( ( 'I' | 'i' ) ( 'N' | 'n' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:49:14: ( 'I' | 'i' ) ( 'N' | 'n' )
             {
             if ( input.LA(1)=='I'||input.LA(1)=='i' ) {
                 input.consume();
@@ -1063,45 +1053,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:53:12: ( ( 'O' | 'o' ) ( 'R' | 'r' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:53:14: ( 'O' | 'o' ) ( 'R' | 'r' )
-            {
-            if ( input.LA(1)=='O'||input.LA(1)=='o' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-            if ( input.LA(1)=='R'||input.LA(1)=='r' ) {
-                input.consume();
-
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
-
-
-            }
-
-            state.type = _type;
-            state.channel = _channel;
-        }
-        finally {
-        }
-    }
-    // $ANTLR end "KEYWORD_17"
-
-    // $ANTLR start "KEYWORD_18"
-    public final void mKEYWORD_18() throws RecognitionException {
-        try {
-            int _type = KEYWORD_18;
-            int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:55:12: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:55:14: ( 'T' | 't' ) ( 'O' | 'o' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:51:12: ( ( 'T' | 't' ) ( 'O' | 'o' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:51:14: ( 'T' | 't' ) ( 'O' | 'o' )
             {
             if ( input.LA(1)=='T'||input.LA(1)=='t' ) {
                 input.consume();
@@ -1130,15 +1083,15 @@ public class InternalPropertiesLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "KEYWORD_18"
+    // $ANTLR end "KEYWORD_17"
 
     // $ANTLR start "KEYWORD_1"
     public final void mKEYWORD_1() throws RecognitionException {
         try {
             int _type = KEYWORD_1;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:57:11: ( '(' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:57:13: '('
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:53:11: ( '(' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:53:13: '('
             {
             match('('); 
 
@@ -1157,8 +1110,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_2;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:59:11: ( ')' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:59:13: ')'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:55:11: ( ')' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:55:13: ')'
             {
             match(')'); 
 
@@ -1177,8 +1130,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_3;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:61:11: ( '*' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:61:13: '*'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:57:11: ( '*' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:57:13: '*'
             {
             match('*'); 
 
@@ -1197,8 +1150,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_4;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:63:11: ( '+' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:63:13: '+'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:59:11: ( '+' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:59:13: '+'
             {
             match('+'); 
 
@@ -1217,8 +1170,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_5;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:65:11: ( ',' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:65:13: ','
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:61:11: ( ',' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:61:13: ','
             {
             match(','); 
 
@@ -1237,8 +1190,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_6;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:67:11: ( '-' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:67:13: '-'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:63:11: ( '-' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:63:13: '-'
             {
             match('-'); 
 
@@ -1257,8 +1210,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_7;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:69:11: ( '.' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:69:13: '.'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:65:11: ( '.' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:65:13: '.'
             {
             match('.'); 
 
@@ -1277,8 +1230,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_8;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:71:11: ( ';' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:71:13: ';'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:67:11: ( ';' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:67:13: ';'
             {
             match(';'); 
 
@@ -1297,8 +1250,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_9;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:73:11: ( '[' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:73:13: '['
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:69:11: ( '[' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:69:13: '['
             {
             match('['); 
 
@@ -1317,8 +1270,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_10;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:75:12: ( ']' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:75:14: ']'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:71:12: ( ']' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:71:14: ']'
             {
             match(']'); 
 
@@ -1337,8 +1290,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_11;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:77:12: ( '{' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:77:14: '{'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:73:12: ( '{' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:73:14: '{'
             {
             match('{'); 
 
@@ -1357,8 +1310,8 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = KEYWORD_12;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:12: ( '}' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:14: '}'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:75:12: ( '}' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:75:14: '}'
             {
             match('}'); 
 
@@ -1377,12 +1330,12 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:17: ( '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:19: '--' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("--"); 
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop1:
             do {
                 int alt1=2;
@@ -1395,7 +1348,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1415,7 +1368,7 @@ public class InternalPropertiesLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:40: ( ( '\\r' )? '\\n' )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:40: ( ( '\\r' )? '\\n' )?
             int alt3=2;
             int LA3_0 = input.LA(1);
 
@@ -1424,9 +1377,9 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt3) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:41: ( '\\r' )? '\\n'
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:41: ( '\\r' )?
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:41: ( '\\r' )?
                     int alt2=2;
                     int LA2_0 = input.LA(1);
 
@@ -1435,7 +1388,7 @@ public class InternalPropertiesLexer extends Lexer {
                     }
                     switch (alt2) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:41: '\\r'
+                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:79:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1465,8 +1418,8 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_EXPONENT"
     public final void mRULE_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:81:24: ( ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:81:26: ( 'e' | 'E' ) ( '+' | '-' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1477,7 +1430,7 @@ public class InternalPropertiesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:36: ( '+' | '-' )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:81:36: ( '+' | '-' )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -1503,7 +1456,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:47: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:81:47: ( RULE_DIGIT )+
             int cnt5=0;
             loop5:
             do {
@@ -1517,7 +1470,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt5) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:47: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:81:47: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1545,8 +1498,8 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_INT_EXPONENT"
     public final void mRULE_INT_EXPONENT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:28: ( ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+ )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:30: ( 'e' | 'E' ) ( '+' )? ( RULE_DIGIT )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -1557,7 +1510,7 @@ public class InternalPropertiesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:40: ( '+' )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:40: ( '+' )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1566,7 +1519,7 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:40: '+'
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:40: '+'
                     {
                     match('+'); 
 
@@ -1575,7 +1528,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             }
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:45: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:45: ( RULE_DIGIT )+
             int cnt7=0;
             loop7:
             do {
@@ -1589,7 +1542,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:45: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:83:45: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1619,10 +1572,10 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:15: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:17: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* '.' ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( RULE_EXPONENT )?
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:17: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:17: ( RULE_DIGIT )+
             int cnt8=0;
             loop8:
             do {
@@ -1636,7 +1589,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:17: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:17: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1652,7 +1605,7 @@ public class InternalPropertiesLexer extends Lexer {
                 cnt8++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:29: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:29: ( '_' ( RULE_DIGIT )+ )*
             loop10:
             do {
                 int alt10=2;
@@ -1665,10 +1618,10 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt10) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:30: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:30: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:34: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:34: ( RULE_DIGIT )+
             	    int cnt9=0;
             	    loop9:
             	    do {
@@ -1682,7 +1635,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             	        switch (alt9) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:34: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:34: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1708,7 +1661,7 @@ public class InternalPropertiesLexer extends Lexer {
             } while (true);
 
             match('.'); 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:52: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:52: ( RULE_DIGIT )+
             int cnt11=0;
             loop11:
             do {
@@ -1722,7 +1675,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:52: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:52: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1738,7 +1691,7 @@ public class InternalPropertiesLexer extends Lexer {
                 cnt11++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:64: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:64: ( '_' ( RULE_DIGIT )+ )*
             loop13:
             do {
                 int alt13=2;
@@ -1751,10 +1704,10 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:65: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:65: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:69: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:69: ( RULE_DIGIT )+
             	    int cnt12=0;
             	    loop12:
             	    do {
@@ -1768,7 +1721,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             	        switch (alt12) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:69: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:69: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1793,7 +1746,7 @@ public class InternalPropertiesLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:83: ( RULE_EXPONENT )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:83: ( RULE_EXPONENT )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -1802,7 +1755,7 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt14) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:83: RULE_EXPONENT
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:85:83: RULE_EXPONENT
                     {
                     mRULE_EXPONENT(); 
 
@@ -1827,10 +1780,10 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:18: ( ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:20: ( RULE_DIGIT )+ ( '_' ( RULE_DIGIT )+ )* ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:20: ( RULE_DIGIT )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:20: ( RULE_DIGIT )+
             int cnt15=0;
             loop15:
             do {
@@ -1844,7 +1797,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:20: RULE_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:20: RULE_DIGIT
             	    {
             	    mRULE_DIGIT(); 
 
@@ -1860,7 +1813,7 @@ public class InternalPropertiesLexer extends Lexer {
                 cnt15++;
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:32: ( '_' ( RULE_DIGIT )+ )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:32: ( '_' ( RULE_DIGIT )+ )*
             loop17:
             do {
                 int alt17=2;
@@ -1873,10 +1826,10 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt17) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:33: '_' ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:33: '_' ( RULE_DIGIT )+
             	    {
             	    match('_'); 
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:37: ( RULE_DIGIT )+
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:37: ( RULE_DIGIT )+
             	    int cnt16=0;
             	    loop16:
             	    do {
@@ -1890,7 +1843,7 @@ public class InternalPropertiesLexer extends Lexer {
 
             	        switch (alt16) {
             	    	case 1 :
-            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:37: RULE_DIGIT
+            	    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:37: RULE_DIGIT
             	    	    {
             	    	    mRULE_DIGIT(); 
 
@@ -1915,7 +1868,7 @@ public class InternalPropertiesLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:51: ( '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )? | ( RULE_INT_EXPONENT )? )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -1926,12 +1879,12 @@ public class InternalPropertiesLexer extends Lexer {
                 alt20=2;}
             switch (alt20) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:52: '#' RULE_BASED_INTEGER '#' ( RULE_INT_EXPONENT )?
                     {
                     match('#'); 
                     mRULE_BASED_INTEGER(); 
                     match('#'); 
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:79: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:79: ( RULE_INT_EXPONENT )?
                     int alt18=2;
                     int LA18_0 = input.LA(1);
 
@@ -1940,7 +1893,7 @@ public class InternalPropertiesLexer extends Lexer {
                     }
                     switch (alt18) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:79: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:79: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -1953,9 +1906,9 @@ public class InternalPropertiesLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:98: ( RULE_INT_EXPONENT )?
                     {
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:98: ( RULE_INT_EXPONENT )?
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:98: ( RULE_INT_EXPONENT )?
                     int alt19=2;
                     int LA19_0 = input.LA(1);
 
@@ -1964,7 +1917,7 @@ public class InternalPropertiesLexer extends Lexer {
                     }
                     switch (alt19) {
                         case 1 :
-                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:98: RULE_INT_EXPONENT
+                            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:87:98: RULE_INT_EXPONENT
                             {
                             mRULE_INT_EXPONENT(); 
 
@@ -1993,8 +1946,8 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_DIGIT"
     public final void mRULE_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:21: ( '0' .. '9' )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:23: '0' .. '9'
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:21: ( '0' .. '9' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:89:23: '0' .. '9'
             {
             matchRange('0','9'); 
 
@@ -2009,8 +1962,8 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_EXTENDED_DIGIT"
     public final void mRULE_EXTENDED_DIGIT() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:30: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:91:32: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -2033,11 +1986,11 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR start "RULE_BASED_INTEGER"
     public final void mRULE_BASED_INTEGER() throws RecognitionException {
         try {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:29: ( RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )* )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:31: RULE_EXTENDED_DIGIT ( ( '_' )? RULE_EXTENDED_DIGIT )*
             {
             mRULE_EXTENDED_DIGIT(); 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:51: ( ( '_' )? RULE_EXTENDED_DIGIT )*
             loop22:
             do {
                 int alt22=2;
@@ -2050,9 +2003,9 @@ public class InternalPropertiesLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:52: ( '_' )? RULE_EXTENDED_DIGIT
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:52: ( '_' )? RULE_EXTENDED_DIGIT
             	    {
-            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:52: ( '_' )?
+            	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:52: ( '_' )?
             	    int alt21=2;
             	    int LA21_0 = input.LA(1);
 
@@ -2061,7 +2014,7 @@ public class InternalPropertiesLexer extends Lexer {
             	    }
             	    switch (alt21) {
             	        case 1 :
-            	            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:52: '_'
+            	            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:93:52: '_'
             	            {
             	            match('_'); 
 
@@ -2094,10 +2047,10 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:13: ( ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:15: ( '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt25=2;
             int LA25_0 = input.LA(1);
 
@@ -2115,10 +2068,10 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt25) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:16: '\"' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:20: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop23:
                     do {
                         int alt23=3;
@@ -2134,7 +2087,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                         switch (alt23) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:21: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2150,7 +2103,7 @@ public class InternalPropertiesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:66: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:66: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2175,10 +2128,10 @@ public class InternalPropertiesLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:86: '\\'' ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:91: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' ) | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop24:
                     do {
                         int alt24=3;
@@ -2194,7 +2147,7 @@ public class InternalPropertiesLexer extends Lexer {
 
                         switch (alt24) {
                     	case 1 :
-                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
+                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:92: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | 'u' | '\"' | '\\'' | '\\\\' )
                     	    {
                     	    match('\\'); 
                     	    if ( input.LA(1)=='\"'||input.LA(1)=='\''||input.LA(1)=='\\'||input.LA(1)=='b'||input.LA(1)=='f'||input.LA(1)=='n'||input.LA(1)=='r'||(input.LA(1)>='t' && input.LA(1)<='u') ) {
@@ -2210,7 +2163,7 @@ public class InternalPropertiesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:137: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:95:137: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -2253,10 +2206,10 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:101:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:101:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:101:11: ( '^' )?
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:11: ( '^' )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -2265,7 +2218,7 @@ public class InternalPropertiesLexer extends Lexer {
             }
             switch (alt26) {
                 case 1 :
-                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:101:11: '^'
+                    // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:11: '^'
                     {
                     match('^'); 
 
@@ -2283,7 +2236,7 @@ public class InternalPropertiesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:101:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:97:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop27:
             do {
                 int alt27=2;
@@ -2332,10 +2285,10 @@ public class InternalPropertiesLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:103:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:103:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:103:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:99:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt28=0;
             loop28:
             do {
@@ -2385,77 +2338,77 @@ public class InternalPropertiesLexer extends Lexer {
     // $ANTLR end "RULE_WS"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:8: ( KEYWORD_31 | KEYWORD_30 | KEYWORD_29 | KEYWORD_27 | KEYWORD_28 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_22 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS )
-        int alt29=37;
+        // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:8: ( KEYWORD_29 | KEYWORD_28 | KEYWORD_27 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_19 | KEYWORD_18 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS )
+        int alt29=35;
         alt29 = dfa29.predict(input);
         switch (alt29) {
             case 1 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:10: KEYWORD_31
-                {
-                mKEYWORD_31(); 
-
-                }
-                break;
-            case 2 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:21: KEYWORD_30
-                {
-                mKEYWORD_30(); 
-
-                }
-                break;
-            case 3 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:32: KEYWORD_29
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:10: KEYWORD_29
                 {
                 mKEYWORD_29(); 
 
                 }
                 break;
-            case 4 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:43: KEYWORD_27
-                {
-                mKEYWORD_27(); 
-
-                }
-                break;
-            case 5 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:54: KEYWORD_28
+            case 2 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:21: KEYWORD_28
                 {
                 mKEYWORD_28(); 
 
                 }
                 break;
-            case 6 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:65: KEYWORD_23
+            case 3 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:32: KEYWORD_27
                 {
-                mKEYWORD_23(); 
+                mKEYWORD_27(); 
 
                 }
                 break;
-            case 7 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:76: KEYWORD_24
+            case 4 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:43: KEYWORD_24
                 {
                 mKEYWORD_24(); 
 
                 }
                 break;
-            case 8 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:87: KEYWORD_25
+            case 5 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:54: KEYWORD_25
                 {
                 mKEYWORD_25(); 
 
                 }
                 break;
-            case 9 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:98: KEYWORD_26
+            case 6 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:65: KEYWORD_26
                 {
                 mKEYWORD_26(); 
 
                 }
                 break;
-            case 10 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:109: KEYWORD_22
+            case 7 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:76: KEYWORD_20
+                {
+                mKEYWORD_20(); 
+
+                }
+                break;
+            case 8 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:87: KEYWORD_21
+                {
+                mKEYWORD_21(); 
+
+                }
+                break;
+            case 9 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:98: KEYWORD_22
                 {
                 mKEYWORD_22(); 
+
+                }
+                break;
+            case 10 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:109: KEYWORD_23
+                {
+                mKEYWORD_23(); 
 
                 }
                 break;
@@ -2467,182 +2420,168 @@ public class InternalPropertiesLexer extends Lexer {
                 }
                 break;
             case 12 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:131: KEYWORD_20
-                {
-                mKEYWORD_20(); 
-
-                }
-                break;
-            case 13 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:142: KEYWORD_21
-                {
-                mKEYWORD_21(); 
-
-                }
-                break;
-            case 14 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:153: KEYWORD_13
-                {
-                mKEYWORD_13(); 
-
-                }
-                break;
-            case 15 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:164: KEYWORD_14
-                {
-                mKEYWORD_14(); 
-
-                }
-                break;
-            case 16 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:175: KEYWORD_15
-                {
-                mKEYWORD_15(); 
-
-                }
-                break;
-            case 17 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:186: KEYWORD_16
-                {
-                mKEYWORD_16(); 
-
-                }
-                break;
-            case 18 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:197: KEYWORD_17
-                {
-                mKEYWORD_17(); 
-
-                }
-                break;
-            case 19 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:208: KEYWORD_18
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:131: KEYWORD_18
                 {
                 mKEYWORD_18(); 
 
                 }
                 break;
-            case 20 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:219: KEYWORD_1
+            case 13 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:142: KEYWORD_13
+                {
+                mKEYWORD_13(); 
+
+                }
+                break;
+            case 14 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:153: KEYWORD_14
+                {
+                mKEYWORD_14(); 
+
+                }
+                break;
+            case 15 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:164: KEYWORD_15
+                {
+                mKEYWORD_15(); 
+
+                }
+                break;
+            case 16 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:175: KEYWORD_16
+                {
+                mKEYWORD_16(); 
+
+                }
+                break;
+            case 17 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:186: KEYWORD_17
+                {
+                mKEYWORD_17(); 
+
+                }
+                break;
+            case 18 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:197: KEYWORD_1
                 {
                 mKEYWORD_1(); 
 
                 }
                 break;
-            case 21 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:229: KEYWORD_2
+            case 19 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:207: KEYWORD_2
                 {
                 mKEYWORD_2(); 
 
                 }
                 break;
-            case 22 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:239: KEYWORD_3
+            case 20 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:217: KEYWORD_3
                 {
                 mKEYWORD_3(); 
 
                 }
                 break;
-            case 23 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:249: KEYWORD_4
+            case 21 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:227: KEYWORD_4
                 {
                 mKEYWORD_4(); 
 
                 }
                 break;
-            case 24 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:259: KEYWORD_5
+            case 22 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:237: KEYWORD_5
                 {
                 mKEYWORD_5(); 
 
                 }
                 break;
-            case 25 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:269: KEYWORD_6
+            case 23 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:247: KEYWORD_6
                 {
                 mKEYWORD_6(); 
 
                 }
                 break;
-            case 26 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:279: KEYWORD_7
+            case 24 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:257: KEYWORD_7
                 {
                 mKEYWORD_7(); 
 
                 }
                 break;
-            case 27 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:289: KEYWORD_8
+            case 25 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:267: KEYWORD_8
                 {
                 mKEYWORD_8(); 
 
                 }
                 break;
-            case 28 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:299: KEYWORD_9
+            case 26 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:277: KEYWORD_9
                 {
                 mKEYWORD_9(); 
 
                 }
                 break;
-            case 29 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:309: KEYWORD_10
+            case 27 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:287: KEYWORD_10
                 {
                 mKEYWORD_10(); 
 
                 }
                 break;
-            case 30 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:320: KEYWORD_11
+            case 28 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:298: KEYWORD_11
                 {
                 mKEYWORD_11(); 
 
                 }
                 break;
-            case 31 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:331: KEYWORD_12
+            case 29 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:309: KEYWORD_12
                 {
                 mKEYWORD_12(); 
 
                 }
                 break;
-            case 32 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:342: RULE_SL_COMMENT
+            case 30 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:320: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 33 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:358: RULE_REAL_LIT
+            case 31 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:336: RULE_REAL_LIT
                 {
                 mRULE_REAL_LIT(); 
 
                 }
                 break;
-            case 34 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:372: RULE_INTEGER_LIT
+            case 32 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:350: RULE_INTEGER_LIT
                 {
                 mRULE_INTEGER_LIT(); 
 
                 }
                 break;
-            case 35 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:389: RULE_STRING
+            case 33 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:367: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 36 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:401: RULE_ID
+            case 34 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:379: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 37 :
-                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:409: RULE_WS
+            case 35 :
+                // ../org.osate.xtext.aadl2.properties/src-gen/org/osate/xtext/aadl2/properties/parser/antlr/lexer/InternalPropertiesLexer.g:1:387: RULE_WS
                 {
                 mRULE_WS(); 
 
@@ -2656,160 +2595,157 @@ public class InternalPropertiesLexer extends Lexer {
 
     protected DFA29 dfa29 = new DFA29(this);
     static final String DFA29_eotS =
-        "\1\uffff\7\33\1\50\1\33\1\53\2\uffff\2\33\4\uffff\1\57\5\uffff"+
-        "\1\60\3\uffff\11\33\1\76\2\uffff\1\33\2\uffff\1\100\1\101\5\uffff"+
-        "\6\33\1\111\4\33\1\uffff\1\116\2\uffff\1\60\6\33\1\uffff\3\33\1"+
-        "\130\1\uffff\5\33\1\136\1\137\1\140\1\141\1\uffff\5\33\4\uffff\2"+
-        "\33\1\151\1\33\1\153\1\33\1\155\1\uffff\1\33\1\uffff\1\33\1\uffff"+
-        "\1\160\1\161\2\uffff";
+        "\1\uffff\10\32\1\50\1\52\2\uffff\1\32\4\uffff\1\55\5\uffff\1\56"+
+        "\3\uffff\12\32\1\74\4\uffff\1\75\5\uffff\13\32\2\uffff\1\56\12\32"+
+        "\1\124\5\32\1\132\1\32\1\134\1\135\1\136\1\uffff\5\32\1\uffff\1"+
+        "\32\3\uffff\2\32\1\147\1\32\1\151\1\152\1\32\1\154\1\uffff\1\32"+
+        "\2\uffff\1\32\1\uffff\1\157\1\160\2\uffff";
     static final String DFA29_eofS =
-        "\162\uffff";
+        "\161\uffff";
     static final String DFA29_minS =
-        "\1\11\1\114\1\105\1\116\1\105\1\101\2\117\1\75\1\117\1\56\2\uffff"+
-        "\1\116\1\122\4\uffff\1\55\5\uffff\1\56\3\uffff\1\101\1\115\1\106"+
-        "\1\120\1\104\2\114\1\104\1\125\1\60\2\uffff\1\124\2\uffff\2\60\3"+
-        "\uffff\1\60\1\uffff\2\123\1\120\1\105\1\114\1\105\1\60\1\124\1\123"+
-        "\2\105\1\uffff\1\60\2\uffff\1\56\1\123\1\124\1\125\1\122\1\111\1"+
-        "\130\1\uffff\1\101\1\105\1\123\1\60\1\uffff\1\111\1\101\1\124\2"+
-        "\105\4\60\1\uffff\1\106\1\116\1\105\1\116\1\123\4\uffff\1\111\1"+
-        "\124\1\60\1\103\1\60\1\105\1\60\1\uffff\1\105\1\uffff\1\122\1\uffff"+
-        "\2\60\2\uffff";
+        "\1\11\1\114\1\105\1\116\1\111\1\105\1\101\2\117\1\75\1\56\2\uffff"+
+        "\1\116\4\uffff\1\55\5\uffff\1\56\3\uffff\1\101\1\115\1\106\1\120"+
+        "\2\116\2\114\1\104\1\125\1\60\4\uffff\1\60\3\uffff\1\60\1\uffff"+
+        "\2\123\1\120\1\105\1\114\1\105\1\104\1\124\1\123\2\105\2\uffff\1"+
+        "\56\1\123\1\124\1\125\1\122\1\111\1\130\1\111\1\101\1\105\1\123"+
+        "\1\60\1\111\1\101\1\124\2\105\1\60\1\116\3\60\1\uffff\1\106\1\116"+
+        "\1\105\1\116\1\123\1\uffff\1\107\3\uffff\1\111\1\124\1\60\1\103"+
+        "\2\60\1\105\1\60\1\uffff\1\105\2\uffff\1\122\1\uffff\2\60\2\uffff";
     static final String DFA29_maxS =
-        "\1\175\1\157\1\145\1\160\1\145\1\141\1\157\1\162\1\75\1\157\1\56"+
-        "\2\uffff\1\156\1\162\4\uffff\1\55\5\uffff\1\137\3\uffff\1\141\1"+
-        "\156\1\146\1\160\1\156\2\154\1\144\1\165\1\172\2\uffff\1\164\2\uffff"+
-        "\2\172\3\uffff\1\71\1\uffff\2\163\1\160\1\145\1\154\1\145\1\172"+
-        "\1\164\1\163\2\145\1\uffff\1\172\2\uffff\1\137\1\163\1\164\1\165"+
-        "\1\162\1\151\1\170\1\uffff\1\141\1\145\1\163\1\172\1\uffff\1\151"+
-        "\1\141\1\164\2\145\4\172\1\uffff\1\146\1\156\1\145\1\156\1\163\4"+
-        "\uffff\1\151\1\164\1\172\1\143\1\172\1\145\1\172\1\uffff\1\145\1"+
-        "\uffff\1\162\1\uffff\2\172\2\uffff";
+        "\1\175\1\157\1\145\1\160\1\151\1\145\1\141\1\157\1\162\1\75\1\56"+
+        "\2\uffff\1\156\4\uffff\1\55\5\uffff\1\137\3\uffff\1\141\1\156\1"+
+        "\146\1\160\2\156\2\154\1\144\1\165\1\172\4\uffff\1\172\3\uffff\1"+
+        "\71\1\uffff\2\163\1\160\1\145\1\154\1\145\1\144\1\164\1\163\2\145"+
+        "\2\uffff\1\137\1\163\1\164\1\165\1\162\1\151\1\170\1\151\1\141\1"+
+        "\145\1\163\1\172\1\151\1\141\1\164\2\145\1\172\1\156\3\172\1\uffff"+
+        "\1\146\1\156\1\145\1\156\1\163\1\uffff\1\147\3\uffff\1\151\1\164"+
+        "\1\172\1\143\2\172\1\145\1\172\1\uffff\1\145\2\uffff\1\162\1\uffff"+
+        "\2\172\2\uffff";
     static final String DFA29_acceptS =
-        "\13\uffff\1\17\1\20\2\uffff\1\24\1\25\1\26\1\30\1\uffff\1\33\1"+
-        "\34\1\35\1\36\1\37\1\uffff\1\43\1\44\1\45\12\uffff\1\13\1\27\1\uffff"+
-        "\1\16\1\32\2\uffff\1\40\1\31\1\42\1\uffff\1\41\13\uffff\1\23\1\uffff"+
-        "\1\21\1\22\7\uffff\1\14\4\uffff\1\15\11\uffff\1\12\5\uffff\1\6\1"+
-        "\7\1\10\1\11\7\uffff\1\5\1\uffff\1\4\1\uffff\1\3\2\uffff\1\2\1\1";
+        "\13\uffff\1\16\1\17\1\uffff\1\22\1\23\1\24\1\26\1\uffff\1\31\1"+
+        "\32\1\33\1\34\1\35\1\uffff\1\41\1\42\1\43\13\uffff\1\14\1\25\1\15"+
+        "\1\30\1\uffff\1\36\1\27\1\40\1\uffff\1\37\13\uffff\1\21\1\20\26"+
+        "\uffff\1\13\5\uffff\1\7\1\uffff\1\10\1\11\1\12\10\uffff\1\6\1\uffff"+
+        "\1\4\1\5\1\uffff\1\3\2\uffff\1\2\1\1";
     static final String DFA29_specialS =
-        "\162\uffff}>";
+        "\161\uffff}>";
     static final String[] DFA29_transitionS = {
-            "\2\34\2\uffff\1\34\22\uffff\1\34\1\uffff\1\32\4\uffff\1\32"+
-            "\1\17\1\20\1\21\1\10\1\22\1\23\1\12\1\uffff\12\31\1\13\1\24"+
-            "\1\uffff\1\14\3\uffff\1\3\1\33\1\1\1\4\1\33\1\5\2\33\1\15\3"+
-            "\33\1\6\1\11\1\16\2\33\1\2\1\33\1\7\6\33\1\25\1\uffff\1\26\2"+
-            "\33\1\uffff\1\3\1\33\1\1\1\4\1\33\1\5\2\33\1\15\3\33\1\6\1\11"+
-            "\1\16\2\33\1\2\1\33\1\7\6\33\1\27\1\uffff\1\30",
-            "\1\35\2\uffff\1\36\34\uffff\1\35\2\uffff\1\36",
-            "\1\37\37\uffff\1\37",
-            "\1\41\1\uffff\1\40\35\uffff\1\41\1\uffff\1\40",
+            "\2\33\2\uffff\1\33\22\uffff\1\33\1\uffff\1\31\4\uffff\1\31"+
+            "\1\16\1\17\1\20\1\11\1\21\1\22\1\12\1\uffff\12\30\1\13\1\23"+
+            "\1\uffff\1\14\3\uffff\1\3\1\4\1\1\1\5\1\32\1\6\2\32\1\15\3\32"+
+            "\1\7\4\32\1\2\1\32\1\10\6\32\1\24\1\uffff\1\25\2\32\1\uffff"+
+            "\1\3\1\4\1\1\1\5\1\32\1\6\2\32\1\15\3\32\1\7\4\32\1\2\1\32\1"+
+            "\10\6\32\1\26\1\uffff\1\27",
+            "\1\34\2\uffff\1\35\34\uffff\1\34\2\uffff\1\35",
+            "\1\36\37\uffff\1\36",
+            "\1\40\1\uffff\1\37\35\uffff\1\40\1\uffff\1\37",
+            "\1\41\37\uffff\1\41",
             "\1\42\37\uffff\1\42",
             "\1\43\37\uffff\1\43",
             "\1\44\37\uffff\1\44",
             "\1\46\2\uffff\1\45\34\uffff\1\46\2\uffff\1\45",
             "\1\47",
-            "\1\51\37\uffff\1\51",
-            "\1\52",
+            "\1\51",
             "",
             "",
-            "\1\54\37\uffff\1\54",
-            "\1\55\37\uffff\1\55",
+            "\1\53\37\uffff\1\53",
             "",
             "",
             "",
             "",
-            "\1\56",
+            "\1\54",
             "",
             "",
             "",
             "",
             "",
-            "\1\62\1\uffff\12\31\45\uffff\1\61",
+            "\1\60\1\uffff\12\30\45\uffff\1\57",
             "",
             "",
             "",
-            "\1\63\37\uffff\1\63",
-            "\1\65\1\64\36\uffff\1\65\1\64",
+            "\1\61\37\uffff\1\61",
+            "\1\63\1\62\36\uffff\1\63\1\62",
+            "\1\64\37\uffff\1\64",
+            "\1\65\37\uffff\1\65",
             "\1\66\37\uffff\1\66",
             "\1\67\37\uffff\1\67",
-            "\1\71\11\uffff\1\70\25\uffff\1\71\11\uffff\1\70",
+            "\1\70\37\uffff\1\70",
+            "\1\71\37\uffff\1\71",
             "\1\72\37\uffff\1\72",
             "\1\73\37\uffff\1\73",
-            "\1\74\37\uffff\1\74",
-            "\1\75\37\uffff\1\75",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
+            "",
+            "",
+            "",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "",
+            "",
+            "",
+            "\12\76",
             "",
             "\1\77\37\uffff\1\77",
-            "",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
-            "",
-            "",
-            "\12\102",
-            "",
+            "\1\100\37\uffff\1\100",
+            "\1\101\37\uffff\1\101",
+            "\1\102\37\uffff\1\102",
             "\1\103\37\uffff\1\103",
             "\1\104\37\uffff\1\104",
             "\1\105\37\uffff\1\105",
             "\1\106\37\uffff\1\106",
             "\1\107\37\uffff\1\107",
             "\1\110\37\uffff\1\110",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\1\111\37\uffff\1\111",
+            "",
+            "",
+            "\1\60\1\uffff\12\76\45\uffff\1\57",
             "\1\112\37\uffff\1\112",
             "\1\113\37\uffff\1\113",
             "\1\114\37\uffff\1\114",
             "\1\115\37\uffff\1\115",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
-            "",
-            "\1\62\1\uffff\12\102\45\uffff\1\61",
+            "\1\116\37\uffff\1\116",
             "\1\117\37\uffff\1\117",
             "\1\120\37\uffff\1\120",
             "\1\121\37\uffff\1\121",
             "\1\122\37\uffff\1\122",
             "\1\123\37\uffff\1\123",
-            "\1\124\37\uffff\1\124",
-            "",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\125\37\uffff\1\125",
             "\1\126\37\uffff\1\126",
             "\1\127\37\uffff\1\127",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
+            "\1\130\37\uffff\1\130",
             "\1\131\37\uffff\1\131",
-            "\1\132\37\uffff\1\132",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\133\37\uffff\1\133",
-            "\1\134\37\uffff\1\134",
-            "\1\135\37\uffff\1\135",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
+            "\1\137\37\uffff\1\137",
+            "\1\140\37\uffff\1\140",
+            "\1\141\37\uffff\1\141",
             "\1\142\37\uffff\1\142",
             "\1\143\37\uffff\1\143",
+            "",
             "\1\144\37\uffff\1\144",
+            "",
+            "",
+            "",
             "\1\145\37\uffff\1\145",
             "\1\146\37\uffff\1\146",
-            "",
-            "",
-            "",
-            "",
-            "\1\147\37\uffff\1\147",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "\1\150\37\uffff\1\150",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\1\152\37\uffff\1\152",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\1\154\37\uffff\1\154",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\1\153\37\uffff\1\153",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "",
+            "\1\155\37\uffff\1\155",
+            "",
             "",
             "\1\156\37\uffff\1\156",
             "",
-            "\1\157\37\uffff\1\157",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
+            "\12\32\7\uffff\32\32\4\uffff\1\32\1\uffff\32\32",
             "",
             ""
     };
@@ -2844,7 +2780,7 @@ public class InternalPropertiesLexer extends Lexer {
             this.transition = DFA29_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( KEYWORD_31 | KEYWORD_30 | KEYWORD_29 | KEYWORD_27 | KEYWORD_28 | KEYWORD_23 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_22 | KEYWORD_19 | KEYWORD_20 | KEYWORD_21 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_18 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS );";
+            return "1:1: Tokens : ( KEYWORD_29 | KEYWORD_28 | KEYWORD_27 | KEYWORD_24 | KEYWORD_25 | KEYWORD_26 | KEYWORD_20 | KEYWORD_21 | KEYWORD_22 | KEYWORD_23 | KEYWORD_19 | KEYWORD_18 | KEYWORD_13 | KEYWORD_14 | KEYWORD_15 | KEYWORD_16 | KEYWORD_17 | KEYWORD_1 | KEYWORD_2 | KEYWORD_3 | KEYWORD_4 | KEYWORD_5 | KEYWORD_6 | KEYWORD_7 | KEYWORD_8 | KEYWORD_9 | KEYWORD_10 | KEYWORD_11 | KEYWORD_12 | RULE_SL_COMMENT | RULE_REAL_LIT | RULE_INTEGER_LIT | RULE_STRING | RULE_ID | RULE_WS );";
         }
     }
  

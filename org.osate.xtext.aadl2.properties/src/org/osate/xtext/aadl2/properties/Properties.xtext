@@ -8,7 +8,7 @@ import "platform:/resource/org.osate.aadl2/model/aadl2.ecore" as aadl2
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 PModel returns aadl2::Element:
-	ContainedPropertyAssociation | BasicPropertyAssociation | PropertyAssociation
+	ContainedPropertyAssociation //| BasicPropertyAssociation | PropertyAssociation
 	;
 
 
@@ -17,28 +17,25 @@ PModel returns aadl2::Element:
 ContainedPropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
-	(( 
-	'(' ownedValue+=ModalPropertyValue
-	( ',' ownedValue+=ModalPropertyValue )*
-	( ',' ownedValue+=OptionalModalPropertyValue)?
-	')' )
-	| ownedValue+=PropertyValue
+	( 
+	 ownedValue+=OptionalModalPropertyValue
+	( ',' ownedValue+=OptionalModalPropertyValue )*
 	)
 	('applies' 'to' appliesTo+=ContainmentPath 
 		(',' appliesTo+=ContainmentPath)*
 	)?
+	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
 	';';
 
 PropertyAssociation returns aadl2::PropertyAssociation:
 	property=[aadl2::Property|QPREF] 
 	('=>' | append?='+=>') (constant?='constant')?
-	(( 
-	'(' ownedValue+=ModalPropertyValue
-	 ( ',' ownedValue+=ModalPropertyValue )*
-	( ',' ownedValue+=OptionalModalPropertyValue)?
-	')' )
-	| ownedValue+=PropertyValue
-	) ';'
+	( 
+	 ownedValue+=OptionalModalPropertyValue
+	( ',' ownedValue+=OptionalModalPropertyValue )*
+	)
+	('in' 'binding' '(' inBinding+=[aadl2::Classifier|QCREF]')')?
+	';'
 	;
 
 
@@ -55,7 +52,6 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
-	// phf made this optional: need to check separately that only the last one is optional
 	'in' 'modes' '(' 
 	inMode+=[aadl2::Mode|ID] (',' inMode+=[aadl2::Mode|ID])*
 	')'
@@ -75,49 +71,18 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
+	OldRecordTerm |
 	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
 	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
-	  	| ListTerm |ActualBooleanTerm
-//	 | BooleanTerm
-	  | LiteralorReferenceTerm
+	  	| ListTerm 
+	  	| BooleanLiteral | LiteralorReferenceTerm
 	;
 
 LiteralorReferenceTerm returns aadl2::NamedValue:
   namedValue=[aadl2::AbstractNamedValue|QPREF]
 ;
 
-ActualBooleanTerm returns aadl2::PropertyExpression:
-	ActualOrTerm | ActualAndTerm | BooleanLiteral  | NotTerm | ConstantValue;
-
-ActualOrTerm returns aadl2::Operation:
-  ownedPropertyExpression+=AndTerm  op=OrOp ownedPropertyExpression+=AndTerm (  op=OrOp ownedPropertyExpression+=AndTerm)*;
-
-ActualAndTerm returns aadl2::Operation:
-  ownedPropertyExpression+=BooleanAtom  op=AndOp ownedPropertyExpression+=BooleanAtom ( op=AndOp ownedPropertyExpression+=BooleanAtom)*;
-
-
-BooleanTerm returns aadl2::PropertyExpression:
-	OrTerm ;
-
-  
-OrTerm returns aadl2::PropertyExpression:
-  AndTerm ( {aadl2::Operation.ownedPropertyExpression+=current} op=OrOp ownedPropertyExpression+=AndTerm)*;
-
-
-AndTerm returns aadl2::PropertyExpression:
-  BooleanAtom ({aadl2::Operation.ownedPropertyExpression+=current} op=AndOp ownedPropertyExpression+=BooleanAtom)*;
-
-
-NotTerm returns aadl2::Operation:
-  op=NotOp ownedPropertyExpression+=BooleanAtom;
-
-
-
-BooleanAtom returns aadl2::PropertyExpression:
-	( BooleanLiteral  | NotTerm | ConstantValue
-	| ('(' BooleanTerm ')')
-	);
 
 BooleanLiteral returns aadl2::BooleanLiteral:
   {aadl2::BooleanLiteral}(value?='true'|'false')
@@ -135,6 +100,12 @@ ReferenceTerm returns aadl2::ReferenceValue:
   ;
 
 RecordTerm returns aadl2::RecordValue:
+   '['
+   (ownedFieldValue+=FieldPropertyAssociation)+
+  ']'
+  ;
+
+OldRecordTerm returns aadl2::RecordValue:
    '('
    (ownedFieldValue+=FieldPropertyAssociation)+
   ')'
@@ -182,13 +153,6 @@ ANNEXREF :
 
   
 
-
-enum OperationKind returns aadl2::OperationKind:
-	 and='and' | or='or' | not='not' | plus='+' | minus = '-';
-// Need Value Converters	
-AndOp returns aadl2::OperationKind: 'and';
-OrOp returns aadl2::OperationKind: 'or';
-NotOp returns aadl2::OperationKind: 'not';
 PlusMinus returns aadl2::OperationKind: '+' | '-';
 
 

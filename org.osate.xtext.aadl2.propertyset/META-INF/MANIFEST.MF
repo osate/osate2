@@ -22,11 +22,11 @@ Import-Package: org.apache.commons.logging,
  org.osate.aadl2.modelsupport.util
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.osate.xtext.aadl2.propertyset,
- org.osate.xtext.aadl2.propertyset.services,
- org.osate.xtext.aadl2.propertyset.parseTreeConstruction,
+ org.osate.xtext.aadl2.propertyset.formatting,
  org.osate.xtext.aadl2.propertyset.parser.antlr,
  org.osate.xtext.aadl2.propertyset.parser.antlr.internal,
  org.osate.xtext.aadl2.propertyset.parser.antlr.lexer,
- org.osate.xtext.aadl2.propertyset.validation,
  org.osate.xtext.aadl2.propertyset.scoping,
- org.osate.xtext.aadl2.propertyset.formatting
+ org.osate.xtext.aadl2.propertyset.serializer,
+ org.osate.xtext.aadl2.propertyset.services,
+ org.osate.xtext.aadl2.propertyset.validation

@@ -4,7 +4,6 @@
 package org.osate.xtext.aadl2.properties.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 
 /**
  * Use this class to register components to be used within the IDE.

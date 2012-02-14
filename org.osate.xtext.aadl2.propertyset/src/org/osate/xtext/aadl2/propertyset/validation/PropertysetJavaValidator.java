@@ -7,9 +7,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
  
