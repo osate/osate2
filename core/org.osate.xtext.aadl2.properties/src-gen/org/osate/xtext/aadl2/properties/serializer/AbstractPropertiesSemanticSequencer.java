@@ -1,7 +1,5 @@
 package org.osate.xtext.aadl2.properties.serializer;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
@@ -30,6 +28,9 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 @SuppressWarnings("restriction")
 public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequencer {
@@ -72,14 +73,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 				}
 				else break;
 			case Aadl2Package.BOOLEAN_LITERAL:
-				if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule() ||
-				   context == grammarAccess.getBooleanLiteralRule() ||
-				   context == grammarAccess.getBooleanTermRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
+				if(context == grammarAccess.getBooleanLiteralRule() ||
 				   context == grammarAccess.getPropertyExpressionRule()) {
 					sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
 					return; 
@@ -141,58 +135,19 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 				}
 				else break;
 			case Aadl2Package.NAMED_VALUE:
-				if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule() ||
-				   context == grammarAccess.getBooleanTermRule() ||
-				   context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getNumAltRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getNumAltRule()) {
 					sequence_ConstantValue(context, (NamedValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getLiteralorReferenceTermRule()) {
+				else if(context == grammarAccess.getLiteralorReferenceTermRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
 					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_PropertyExpression(context, (NamedValue) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.OPERATION:
-				if(context == grammarAccess.getActualAndTermRule()) {
-					sequence_ActualAndTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_ActualBooleanTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getActualOrTermRule()) {
-					sequence_ActualOrTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getBooleanTermRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
-					sequence_AndTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule()) {
-					sequence_BooleanAtom(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getNotTermRule()) {
-					sequence_NotTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getNumAltRule() ||
+				if(context == grammarAccess.getNumAltRule() ||
 				   context == grammarAccess.getSignedConstantRule()) {
 					sequence_SignedConstant(context, (Operation) semanticObject); 
 					return; 
@@ -203,12 +158,9 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContainedPropertyAssociationRule()) {
+				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
+				   context == grammarAccess.getPModelRule()) {
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPModelRule()) {
-					sequence_PModel(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getPropertyAssociationRule()) {
@@ -232,8 +184,15 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 				}
 				else break;
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getPropertyExpressionRule() ||
-				   context == grammarAccess.getRecordTermRule()) {
+				if(context == grammarAccess.getOldRecordTermRule()) {
+					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_PropertyExpression(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -258,50 +217,6 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*)
-	 */
-	protected void sequence_ActualAndTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*) | 
-	 *         (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*) | 
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom)
-	 *     )
-	 */
-	protected void sequence_ActualBooleanTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*)
-	 */
-	protected void sequence_ActualOrTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm)
-	 *     )
-	 */
-	protected void sequence_AndTerm(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
 	 */
 	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
@@ -314,19 +229,6 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
 	 */
 	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm) | 
-	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom)
-	 *     )
-	 */
-	protected void sequence_BooleanAtom(EObject context, Operation semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -373,8 +275,10 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
-	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -447,18 +351,18 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (op=NotOp ownedPropertyExpression+=BooleanAtom)
+	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
 	 */
-	protected void sequence_NotTerm(EObject context, Operation semanticObject) {
+	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
+	 *     ownedFieldValue+=FieldPropertyAssociation+
 	 */
-	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
+	protected void sequence_OldRecordTerm(EObject context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -475,34 +379,12 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	/**
 	 * Constraint:
 	 *     (
-	 *         (
-	 *             property=[Property|QPREF] 
-	 *             append?='+=>'? 
-	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
-	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
-	 *         ) | 
-	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
-	 *         (
-	 *             property=[Property|QPREF] 
-	 *             append?='+=>'? 
-	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
-	 *         )
-	 *     )
-	 */
-	protected void sequence_PModel(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -512,9 +394,9 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
+	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
 	 */
-	protected void sequence_PropertyExpression(EObject context, NamedValue semanticObject) {
+	protected void sequence_PropertyExpression(EObject context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	

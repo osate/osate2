@@ -5,7 +5,7 @@
          point="org.osate.pluginsupport.aadlcontribution">
       <aadlcontribution
             file="resources/properties/SEI.aadl"
-            id="edu.cmu.sei.contributes.SEI.aadlcontribution1">
+            id="org.osate.contributes.SEI.aadlcontribution1">
       </aadlcontribution>
    </extension>
 </plugin>

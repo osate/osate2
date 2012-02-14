@@ -5,32 +5,27 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EClassifier;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
-import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
@@ -42,9 +37,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.PropertyType;
-import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
@@ -53,11 +46,9 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
  
 
@@ -327,96 +318,91 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv){
 		if (Aadl2Util.isNull(pt)) return;
 		if (pv == null) return;
-		if (pt instanceof ListType){
-			if (pv instanceof ListValue){
-				typeMatch(((ListType)pt).getElementType(), ((ListValue)pv).getOwnedListElements());
-			} else if (pv instanceof PropertyConstant){
-				typeCheckPropertyValues(pt,((PropertyConstant)pv).getConstantValue());
+		if (pv instanceof ListValue ){
+			if (pt instanceof ListType){
+				typeMatchListElements(((ListType)pt).getElementType(), ((ListValue)pv).getOwnedListElements());
 			} else {
-				error(pv, "Expected a list");
+				error(pv, pt.eClass().getName()+" type of property does not match list");
 			}
-		} else 	if(pt instanceof AadlBoolean ){
-			// TODO boolean property or constant reference
-			if(!(pv instanceof Operation || pv instanceof BooleanLiteral)) {
-				error(pv, "Expected a Boolean value");
+		} else 	if(pv instanceof Operation || pv instanceof BooleanLiteral ){
+			if(!(pt instanceof AadlBoolean )) {
+				error(pv, pt.eClass().getName()+" type of property does not match Boolean value");
 			}
-		} else 	if (pt instanceof AadlString){
-			if (!(pv instanceof StringLiteral)){
-				error(pv, "Expected a String value");
+		} else 	if (pv instanceof StringLiteral){
+			if (!( pt instanceof AadlString)){
+				error(pv, pt.eClass().getName()+" type of property does not match String value");
 			}
-		} else if (pt instanceof EnumerationType){
-			if (!(pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral))){
-				error(pv, "Expected a Enumeration literal");
+		} else if (pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral) ){
+			if (!(pt instanceof EnumerationType)){
+				error(pv, pt.eClass().getName()+" type of property does not match Enumeration literal");
 			}
-		} else if (pt instanceof UnitsType){
-			if (!(pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral))){
-				error(pv, "Expected a Enumeration literal");
+		} else if (pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral) ){
+			if (!(pt instanceof UnitsType)){
+				error(pv, pt.eClass().getName()+" type of property does not match Unit literal");
 			}
-		} else 	if (pt instanceof AadlInteger){
-			if(!(pv instanceof IntegerLiteral)){
-				error(pv, "Expected an Integer value");
-			} else {			checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
+		} else 	if (pv instanceof IntegerLiteral ){
+			if(!(pt instanceof AadlInteger)){
+				error(pv, pt.eClass().getName()+" type of property does not match Integer value");
+			} else {
+				checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
 			}
-		} else
-		if (pt instanceof AadlReal){
-			if(!(pv instanceof RealLiteral)){
-				error(pv, "Expected a Real value");
+		} else if (pv instanceof RealLiteral ){
+			if(!(pt instanceof AadlReal)){
+				error(pv, pt.eClass().getName()+" type of property does not match Real value");
 			} else {
 				checkUnits((AadlReal)pt,(RealLiteral)pv);
 			}
-		} else
-		if (pt instanceof RangeType){
-			if(!(pv instanceof RangeValue)){
-				error(pv, "Expected a Range value");
+		} else if ( pv instanceof RangeValue){
+			if(!(pt instanceof RangeType)){
+				error(pv, pt.eClass().getName()+" type of property does not match Range value");
 			} else {
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMinimumValue());
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMaximumValue());
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getDeltaValue());
 			}
-		} else
-		if (pt instanceof ClassifierType){
-			if(!(pv instanceof ClassifierValue)){
-				error(pv, "Expected a reference to a classifier");
+		} else if (pv instanceof ClassifierValue ){
+			if(!(pt instanceof ClassifierType)){
+				error(pv, pt.eClass().getName()+" type of property does not match reference value to a classifier");
 			}
-		} else
-		if (pt instanceof RecordType){
-			if(!(pv instanceof RecordValue)){
-				error(pv, "Expected record value");
+		} else if (pv instanceof RecordValue){
+			if(!(pt instanceof RecordType )){
+				error(pv, pt.eClass().getName()+" type of property does not match record value");
+			} else {
+				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues());
 			}
-		} else
-		if (pt instanceof ReferenceType){
-			if(!(pv instanceof ReferenceValue)){
-				error(pv, "Expected a reference to a model element");
+		} else if (pv instanceof ReferenceValue ){
+			if(!(pt instanceof ReferenceType)){
+				error(pv, pt.eClass().getName()+" type of property does not match reference value to a model element");
 			}
-		}
+		} else if (pv instanceof NamedValue ){
+			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();
+			if (nv instanceof PropertyConstant){
+				typeCheckPropertyValues(pt,((PropertyConstant)pv).getConstantValue());
+			} else if (nv instanceof Property){
+				PropertyType pvt = ((Property)nv).getPropertyType();
+				if (pvt.eClass() != pt.eClass()){
+					error(pv, "Type "+pvt.eClass().getName()+" of referenced property does not match type "+pt.eClass().getName()+" of property");
+				}
+			} else {
+				error(pv, "Enum/Unit literal validation should have happened before");
+			}
+		} 
 	}
 	
-	protected void typeMatch(PropertyType pt, EList<PropertyExpression> pel){
+	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel){
 		for (PropertyExpression propertyExpression : pel) {
 			typeCheckPropertyValues(pt,propertyExpression);
 		}
 	}
 	
-	protected void classMatch(PropertyExpression nv, Class cl){
-		// TODO needs to be tested.
-//		if (nv instanceof NamedValue){
-//			AbstractNamedValue ab = ((NamedValue)nv).getNamedValue();
-//			if (ab instanceof PropertyConstant){
-//				classMatch(((PropertyConstant)ab).getConstantValue(),cl);
-//			} else
-//			if (ab instanceof Property){
-////				classMatch(((Property)ab).get,cl);
-//			} else {
-//				if (nv.eClass().getClass() != cl){
-//					error(nv, "Expected a "+cl.getSimpleName());
-//				}
-//			}
-//		} else {
-//			if (nv.eClass().getClass() != cl){
-//				error(nv, "Expected a "+cl.getSimpleName());
-//			}
-//		}
+	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl){
+		for (BasicPropertyAssociation field : rfl) {
+			if (field.getProperty() != null){
+				typeCheckPropertyValues(field.getProperty().getPropertyType(), field.getValue());
+			}
+		}
 	}
+	
 	
 	protected void checkUnits(NumberType nt, NumberValue nv){
 		UnitsType ut = nt.getUnitsType();

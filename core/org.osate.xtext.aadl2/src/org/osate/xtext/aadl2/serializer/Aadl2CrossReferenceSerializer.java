@@ -11,10 +11,8 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2CrossReferenceSerializer extends CrossReferenceSerializer {
 

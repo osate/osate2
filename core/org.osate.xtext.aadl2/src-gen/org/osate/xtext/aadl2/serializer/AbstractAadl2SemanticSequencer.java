@@ -1,7 +1,5 @@
 package org.osate.xtext.aadl2.serializer;
 
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
@@ -10,160 +8,12 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlBoolean;
-import org.osate.aadl2.AadlInteger;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AadlReal;
-import org.osate.aadl2.AadlString;
-import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.AbstractImplementation;
-import org.osate.aadl2.AbstractPrototype;
-import org.osate.aadl2.AbstractSubcomponent;
-import org.osate.aadl2.AbstractType;
-import org.osate.aadl2.AccessConnection;
-import org.osate.aadl2.AccessSpecification;
-import org.osate.aadl2.ArrayDimension;
-import org.osate.aadl2.ArrayRange;
-import org.osate.aadl2.ArraySize;
-import org.osate.aadl2.BasicProperty;
-import org.osate.aadl2.BasicPropertyAssociation;
-import org.osate.aadl2.BooleanLiteral;
-import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusImplementation;
-import org.osate.aadl2.BusPrototype;
-import org.osate.aadl2.BusSubcomponent;
-import org.osate.aadl2.BusType;
-import org.osate.aadl2.ClassifierType;
-import org.osate.aadl2.ClassifierValue;
-import org.osate.aadl2.ComponentImplementationReference;
-import org.osate.aadl2.ComponentPrototypeActual;
-import org.osate.aadl2.ComponentPrototypeBinding;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.ComputedValue;
-import org.osate.aadl2.ConnectedElement;
-import org.osate.aadl2.ContainedNamedElement;
-import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DataImplementation;
-import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
-import org.osate.aadl2.DataSubcomponent;
-import org.osate.aadl2.DataType;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.DeviceImplementation;
-import org.osate.aadl2.DevicePrototype;
-import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DeviceType;
-import org.osate.aadl2.EndToEndFlow;
-import org.osate.aadl2.EndToEndFlowSegment;
-import org.osate.aadl2.EnumerationLiteral;
-import org.osate.aadl2.EnumerationType;
-import org.osate.aadl2.EventDataPort;
-import org.osate.aadl2.EventPort;
-import org.osate.aadl2.FeatureConnection;
-import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FeatureGroupConnection;
-import org.osate.aadl2.FeatureGroupPrototype;
-import org.osate.aadl2.FeatureGroupPrototypeActual;
-import org.osate.aadl2.FeatureGroupPrototypeBinding;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.FeaturePrototype;
-import org.osate.aadl2.FeaturePrototypeBinding;
-import org.osate.aadl2.FeaturePrototypeReference;
-import org.osate.aadl2.FlowEnd;
-import org.osate.aadl2.FlowImplementation;
-import org.osate.aadl2.FlowSegment;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
-import org.osate.aadl2.IntegerLiteral;
-import org.osate.aadl2.InternalEvent;
-import org.osate.aadl2.ListType;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.MemoryImplementation;
-import org.osate.aadl2.MemoryPrototype;
-import org.osate.aadl2.MemorySubcomponent;
-import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.MetaclassReference;
-import org.osate.aadl2.ModalPropertyValue;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.NumericRange;
-import org.osate.aadl2.Operation;
-import org.osate.aadl2.PackageRename;
-import org.osate.aadl2.Parameter;
-import org.osate.aadl2.ParameterConnection;
-import org.osate.aadl2.PortConnection;
-import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.PrivatePackageSection;
-import org.osate.aadl2.ProcessImplementation;
-import org.osate.aadl2.ProcessPrototype;
-import org.osate.aadl2.ProcessSubcomponent;
-import org.osate.aadl2.ProcessType;
-import org.osate.aadl2.ProcessorCall;
-import org.osate.aadl2.ProcessorImplementation;
-import org.osate.aadl2.ProcessorPort;
-import org.osate.aadl2.ProcessorPrototype;
-import org.osate.aadl2.ProcessorSubcomponent;
-import org.osate.aadl2.ProcessorSubprogram;
-import org.osate.aadl2.ProcessorType;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyAssociation;
-import org.osate.aadl2.PropertyConstant;
-import org.osate.aadl2.PropertySet;
-import org.osate.aadl2.PublicPackageSection;
-import org.osate.aadl2.RangeType;
-import org.osate.aadl2.RangeValue;
-import org.osate.aadl2.RealLiteral;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.RecordType;
-import org.osate.aadl2.RecordValue;
-import org.osate.aadl2.ReferenceType;
-import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.SubprogramAccess;
-import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.SubprogramGroupImplementation;
-import org.osate.aadl2.SubprogramGroupPrototype;
-import org.osate.aadl2.SubprogramGroupSubcomponent;
-import org.osate.aadl2.SubprogramGroupType;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramPrototype;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramType;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.SystemPrototype;
-import org.osate.aadl2.SystemSubcomponent;
-import org.osate.aadl2.SystemType;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadGroupPrototype;
-import org.osate.aadl2.ThreadGroupSubcomponent;
-import org.osate.aadl2.ThreadGroupType;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.ThreadPrototype;
-import org.osate.aadl2.ThreadSubcomponent;
-import org.osate.aadl2.ThreadType;
-import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.UnitLiteral;
-import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.VirtualBusImplementation;
-import org.osate.aadl2.VirtualBusPrototype;
-import org.osate.aadl2.VirtualBusSubcomponent;
-import org.osate.aadl2.VirtualBusType;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.VirtualProcessorPrototype;
-import org.osate.aadl2.VirtualProcessorSubcomponent;
-import org.osate.aadl2.VirtualProcessorType;
+import org.osate.aadl2.*;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
+
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 @SuppressWarnings("restriction")
 public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
@@ -335,15 +185,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.BOOLEAN_LITERAL:
-				if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule() ||
-				   context == grammarAccess.getBooleanLiteralRule() ||
-				   context == grammarAccess.getBooleanTermRule() ||
+				if(context == grammarAccess.getBooleanLiteralRule() ||
 				   context == grammarAccess.getConstantPropertyExpressionRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
 				   context == grammarAccess.getPropertyExpressionRule()) {
 					sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
 					return; 
@@ -863,28 +706,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.NAMED_VALUE:
-				if(context == grammarAccess.getConstantPropertyExpressionRule()) {
-					sequence_ConstantPropertyExpression(context, (NamedValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule() ||
-				   context == grammarAccess.getBooleanTermRule() ||
-				   context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getNumAltRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
+				if(context == grammarAccess.getConstantValueRule() ||
+				   context == grammarAccess.getNumAltRule()) {
 					sequence_ConstantValue(context, (NamedValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getLiteralorReferenceTermRule()) {
+				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getLiteralorReferenceTermRule() ||
+				   context == grammarAccess.getPropertyExpressionRule()) {
 					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_PropertyExpression(context, (NamedValue) semanticObject); 
 					return; 
 				}
 				else break;
@@ -899,37 +729,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.OPERATION:
-				if(context == grammarAccess.getActualAndTermRule()) {
-					sequence_ActualAndTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getActualBooleanTermRule() ||
-				   context == grammarAccess.getConstantPropertyExpressionRule() ||
-				   context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_ActualBooleanTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getActualOrTermRule()) {
-					sequence_ActualOrTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getBooleanTermRule() ||
-				   context == grammarAccess.getOrTermRule() ||
-				   context == grammarAccess.getOrTermAccess().getOperationOwnedPropertyExpressionAction_1_0()) {
-					sequence_AndTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getAndTermRule() ||
-				   context == grammarAccess.getAndTermAccess().getOperationOwnedPropertyExpressionAction_1_0() ||
-				   context == grammarAccess.getBooleanAtomRule()) {
-					sequence_BooleanAtom(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getNotTermRule()) {
-					sequence_NotTerm(context, (Operation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getNumAltRule() ||
+				if(context == grammarAccess.getNumAltRule() ||
 				   context == grammarAccess.getSignedConstantRule()) {
 					sequence_SignedConstant(context, (Operation) semanticObject); 
 					return; 
@@ -938,6 +738,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 			case Aadl2Package.PACKAGE_RENAME:
 				if(context == grammarAccess.getPackageRenameRule()) {
 					sequence_PackageRename(context, (PackageRename) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getRenameAllRule()) {
+					sequence_RenameAll(context, (PackageRename) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1067,12 +871,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContainedPropertyAssociationRule()) {
+				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
+				   context == grammarAccess.getPModelRule()) {
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getPModelRule()) {
-					sequence_PModel(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getPropertyAssociationRule()) {
@@ -1152,8 +953,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getConstantPropertyExpressionRule() ||
-				   context == grammarAccess.getPropertyExpressionRule() ||
+				if(context == grammarAccess.getOldRecordTermRule()) {
+					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getPropertyExpressionRule()) {
+					sequence_PropertyExpression(context, (RecordValue) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
 				   context == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
@@ -1568,7 +1376,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -1635,54 +1443,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*)
-	 */
-	protected void sequence_ActualAndTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*) | 
-	 *         (ownedPropertyExpression+=BooleanAtom op=AndOp ownedPropertyExpression+=BooleanAtom (op=AndOp ownedPropertyExpression+=BooleanAtom)*) | 
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom)
-	 *     )
-	 */
-	protected void sequence_ActualBooleanTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedPropertyExpression+=AndTerm op=OrOp ownedPropertyExpression+=AndTerm (op=OrOp ownedPropertyExpression+=AndTerm)*)
-	 */
-	protected void sequence_ActualOrTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     metaclassName+='all'
 	 */
 	protected void sequence_AllReference(EObject context, MetaclassReference semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm)
-	 *     )
-	 */
-	protected void sequence_AndTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1718,19 +1482,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
 	 */
 	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (op=NotOp ownedPropertyExpression+=BooleanAtom) | 
-	 *         (ownedPropertyExpression+=OrTerm_Operation_1_0 op=OrOp ownedPropertyExpression+=AndTerm) | 
-	 *         (ownedPropertyExpression+=AndTerm_Operation_1_0 op=AndOp ownedPropertyExpression+=BooleanAtom)
-	 *     )
-	 */
-	protected void sequence_BooleanAtom(EObject context, Operation semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -1805,7 +1556,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -1946,15 +1697,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
-	 */
-	protected void sequence_ConstantPropertyExpression(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     namedValue=[PropertyConstant|QPREF]
 	 */
 	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
@@ -1968,8 +1710,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
-	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -2070,7 +1814,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2178,7 +1922,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2695,7 +2439,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -2776,15 +2520,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (op=NotOp ownedPropertyExpression+=BooleanAtom)
-	 */
-	protected void sequence_NotTerm(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
 	 */
 	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
@@ -2794,33 +2529,18 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 *     ownedFieldValue+=FieldPropertyAssociation+
 	 */
-	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+	protected void sequence_OldRecordTerm(EObject context, RecordValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             property=[Property|QPREF] 
-	 *             append?='+=>'? 
-	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue) 
-	 *             (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)?
-	 *         ) | 
-	 *         (property=[Property|QPREF] ownedValue+=PropertyValue) | 
-	 *         (
-	 *             property=[Property|QPREF] 
-	 *             append?='+=>'? 
-	 *             constant?='constant'? 
-	 *             ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
-	 *         )
-	 *     )
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
-	protected void sequence_PModel(EObject context, PropertyAssociation semanticObject) {
+	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2890,6 +2610,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
 	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedPackageRename+=RenameAll | 
 	 *             ownedFeatureGroupTypeRename+=FGTRename | 
 	 *             ownedComponentTypeRename+=CTRename
 	 *         )* 
@@ -2958,7 +2679,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3065,7 +2786,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3119,7 +2840,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         property=[Property|QPREF] 
 	 *         append?='+=>'? 
 	 *         constant?='constant'? 
-	 *         ((ownedValue+=ModalPropertyValue ownedValue+=ModalPropertyValue* ownedValue+=OptionalModalPropertyValue?) | ownedValue+=PropertyValue)
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
@@ -3153,9 +2876,9 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (namedValue=[PropertyConstant|QPREF] | namedValue=[AbstractNamedValue|QPREF])
+	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
 	 */
-	protected void sequence_PropertyExpression(EObject context, NamedValue semanticObject) {
+	protected void sequence_PropertyExpression(EObject context, RecordValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3411,6 +3134,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (
 	 *             (importedUnit+=[ModelUnit|PNAME] importedUnit+=[ModelUnit|PNAME]*) | 
 	 *             ownedPackageRename+=PackageRename | 
+	 *             ownedPackageRename+=RenameAll | 
 	 *             ownedFeatureGroupTypeRename+=FGTRename | 
 	 *             ownedComponentTypeRename+=CTRename
 	 *         )* 
@@ -3538,6 +3262,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (name=ID (namedElementReference+=QMReference namedElementReference+=QMReference*)?)
 	 */
 	protected void sequence_ReferenceType(EObject context, ReferenceType semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (renamedPackage=[AadlPackage|PNAME] renameAll?='all')
+	 */
+	protected void sequence_RenameAll(EObject context, PackageRename semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3677,7 +3410,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3763,7 +3496,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3865,7 +3598,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -3965,7 +3698,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -4061,7 +3794,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -4272,7 +4005,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */
@@ -4364,7 +4097,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             arrayDimension+=ArrayDimension+ 
 	 *             (implementationReference+=ComponentImplementationReference implementationReference+=ComponentImplementationReference*)?
 	 *         )? 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         ownedPropertyAssociation+=ContainedPropertyAssociation* 
 	 *         (ownedModeBinding+=ModeRef ownedModeBinding+=ModeRef*)?
 	 *     )
 	 */

@@ -75,7 +75,7 @@ public class AadlPerspectiveFactory implements IPerspectiveFactory
 		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
 		
 		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizard");
-		layout.addNewWizardShortcut("edu.cmu.sei.aadl.model.core.presentation.CoreModelWizardID");
+		//layout.addNewWizardShortcut("org.osate.CoreModelWizardID");
 		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");
 		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.file");
 		layout.addNewWizardShortcut("org.eclipse.ui.editors.wizards.UntitledTextFileWizard");
