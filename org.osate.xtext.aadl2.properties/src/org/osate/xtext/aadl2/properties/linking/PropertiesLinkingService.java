@@ -244,6 +244,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
+			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
@@ -254,6 +255,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				} else if ( res instanceof ComponentPrototype) {
 					searchResult = res;
 				}
+			}
 		} else 
 			if (Aadl2Package.eINSTANCE.getModelUnit() == requiredType) {
 			AadlPackage pack = findAadlPackage(context, name, reference);
