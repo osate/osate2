@@ -591,7 +591,15 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return (FeatureGroupType)findClassifier(context, reference, name);
 	}
 
-	protected EObject findClassifier(EObject context,
+	/**
+	 * find the classifier taking into account rename aliases
+	 * We do not check whether the referenced package is in the with clause. This is checked separately
+	 * @param context classifier reference context
+	 * @param reference identifying attribute of reference
+	 * @param name name to be resolved
+	 * @return Classifier or null
+	 */
+	public EObject findClassifier(EObject context,
 			EReference reference,  String name){
 		EObject e = getIndexedObject(context, reference, name);
 		String packname = null;
@@ -616,12 +624,9 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	protected EObject findPropertySetElement(EObject context,
+	public EObject findPropertySetElement(EObject context,
 			EReference reference, String name){
 		// look for element in property set
-		//			EObject res = getIndexedObject(context, reference, name);
-		//			if (res instanceof PropertyType || res instanceof PropertyConstant || res instanceof Property)
-		//				return res;
 		String psname = null;
 		String pname = name;
 		final int idx = name.lastIndexOf("::");
@@ -629,8 +634,11 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			psname = name.substring(0, idx);
 			pname = name.substring(idx + 2);
 		}
-		return findNamedElementInPropertySet(psname, pname,
-				context, reference);
+		if (psname == null){
+			return findNamedElementInPredeclaredPropertySets(pname, context,reference);
+		} else {
+			return getIndexedObject(context, reference, name);
+		}
 	}
 
 
@@ -1670,45 +1678,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * Find element in specified property set and make sure the property set has been imported by with clause
-	 * If property set name is null we look up the name in the context name space 
-	 * For predeclared properties we do not require the qualification
-	 * @param propertySetName
-	 * @param elementName
+	 * Find element in  predeclared property sets which do not require the qualification
+	 * @param propertyName
 	 * @param context
 	 * @param reference
 	 * @return
 	 */
-	public EObject findNamedElementInPropertySet(String propertySetName,
-			String elementName, EObject context, EReference reference) {
-		if (propertySetName == null) {
-			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
-				EObject res = getIndexedObject(context, reference,
-						getQualifiedName(predeclaredPSName, elementName));
-				if (res != null)
-					return res;
-			}
-			// XXX: these definitions should be in the index
-//			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
-//				PropertySet predeclaredPropertySet = findPropertySet(context,predeclaredPSName);
-//				if (predeclaredPropertySet != null) {
-//					NamedElement searchResult = predeclaredPropertySet.findNamedElement(elementName);
-//					if (searchResult != null)
-//						return searchResult;
-//				}
-//			}
-			return null;
-		} else {
-			PropertySet propertySet = AadlUtil.getContainingPropertySet(context);
-			if (propertySet == null || 
-					(propertySet != null && !propertySetName.equalsIgnoreCase(propertySet.getName()))){
-				propertySet = AadlUtil.findImportedPropertySet(propertySetName, context);
-			}
-			if (propertySet != null)
-				return propertySet.findNamedElement(elementName);
-			else
-				return null;
+	public EObject findNamedElementInPredeclaredPropertySets(String propertyName,
+			EObject context, EReference reference) {
+		for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
+			EObject res = getIndexedObject(context, reference,getQualifiedName(predeclaredPSName, propertyName));
+			if (res != null)
+				return res;
 		}
+		return null;
 	}
 
 	public String getQualifiedName(String packageOrPropertySetName,
