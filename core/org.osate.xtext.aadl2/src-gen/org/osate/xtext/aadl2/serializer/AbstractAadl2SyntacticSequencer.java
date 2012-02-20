@@ -1,7 +1,7 @@
 package org.osate.xtext.aadl2.serializer;
 
+import com.google.inject.Inject;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -13,8 +13,6 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
-
-import com.google.inject.Inject;
 
 @SuppressWarnings("restriction")
 public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer {
