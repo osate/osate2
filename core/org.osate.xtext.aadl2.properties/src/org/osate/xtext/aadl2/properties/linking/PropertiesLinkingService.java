@@ -237,7 +237,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		final EClass pt = Aadl2Package.eINSTANCE.getPropertyType();
 		final String name = getCrossRefNodeAsString(node);
 		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
-			// XXX: this code is replicated in Aadl2LinkingService as it is called often in the core
+			// XXX: this code can be replicated in Aadl2LinkingService as it is called often in the core
 			// resolve classifier reference
 			EObject e = findClassifier(context, reference,  name);
 			if (e != null ) {
@@ -429,6 +429,14 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 
+
+	/**
+	 * Look up package in EMF index or in resource set
+	 * NOTE: the resource set does not have all resources loaded
+	 * @param context Context of reference 
+	 * @param name Package name
+	 * @return aadl package or null
+	 */
 	public AadlPackage findAadlPackage(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
 		return findAadlPackage(context, name, reference);
@@ -436,25 +444,41 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	
 
 
+	/**
+	 * Look up package in EMF index or in resource set
+	 * NOTE: the resource set does not have all resources loaded
+	 * @param context Context of reference 
+	 * @param name Package name
+	 * @param reference Ereference identifying the type of the reference
+	 * @return aadl package or null
+	 */
 	public AadlPackage findAadlPackage(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObject(context, reference, name);
 		if (res instanceof AadlPackage)
 			return (AadlPackage)res;
 		if (name == null || name.length() == 0)
 			return null;
-		ResourceSet rs = context.eResource().getResourceSet();
-		for (Resource resource : rs.getResources()) {
-			if (!resource.getContents().isEmpty()) {
-				EObject rootObject = resource.getContents().get(0);
-				if ((rootObject instanceof AadlPackage)
-						&& ((AadlPackage) rootObject).getName()
-						.equalsIgnoreCase(name))
-					return (AadlPackage) rootObject;
-			}
-		}
+		// XXX: should be in the index. The resourceset is not always loaded with all resources
+//		ResourceSet rs = context.eResource().getResourceSet();
+//		for (Resource resource : rs.getResources()) {
+//			if (!resource.getContents().isEmpty()) {
+//				EObject rootObject = resource.getContents().get(0);
+//				if ((rootObject instanceof AadlPackage)
+//						&& ((AadlPackage) rootObject).getName()
+//						.equalsIgnoreCase(name))
+//					return (AadlPackage) rootObject;
+//			}
+//		}
 		return null;
 	}
 
+	/**
+	 * Find referenced Package by resolving renames first and then making sure it is listed in a with clause
+	 * If package name is null or that of the context return containing package
+	 * @param packageName
+	 * @param context location of the package reference
+	 * @return aadl package
+	 */
 	public AadlPackage findAadlPackageReference(String packageName, Namespace context) {
 		if (context instanceof PackageSection
 				&& (packageName == null || context.getName()
@@ -464,14 +488,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			AadlPackage aadlPackage = null;
 
 			if (context instanceof PackageSection) {
-				PackageRename packageRename = findPackageRename(packageName,
+				aadlPackage = resolvePackageRename(packageName,
 						(PackageSection) context);
-				if (packageRename != null)
-					aadlPackage = packageRename.getRenamedPackage();
-				else
-					aadlPackage = findImportedPackage(packageName, context);
+				if (aadlPackage == null)
+					aadlPackage = AadlUtil.findImportedPackage(packageName, context);
 			} else
-				aadlPackage = findImportedPackage(packageName, context);
+				aadlPackage = AadlUtil.findImportedPackage(packageName, context);
 
 
 			return aadlPackage;
@@ -479,86 +501,47 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	/**
-	 * Search for a {@link PackageRename} in a package. If {@code context} is a
-	 * {@link PrivatePackageSection}, then this method will also search through
-	 * the {@link PackageRename}s of the corresponding
-	 * {@link PublicPackageSection}. The {@link PackageRename#isRenameAll()
-	 * renameAll} flag of the returned {@link PackageRename} will be
-	 * {@code false}.
-	 * 
-	 * @param name
-	 *            The name of the {@link PackageRename} to search for.
-	 * @param context
-	 *            The {@link PackageSection} that contains the {@link Element}
-	 *            that needs a {@link PackageRename}.
-	 * @return The {@link PackageRename} or {@code null} if it cannot be found.
+	 * resolve package name by looking it up in PackageRename
+	 * @param name package name
+	 * @param context Package section with rename declarations
+	 * @return aadl package or null
 	 */
-	public PackageRename findPackageRename(String name,
+	public AadlPackage resolvePackageRename(String name,
 			PackageSection context) {
-		NamedElement searchResult = context.findNamedElement(name, false);
+		AadlPackage searchResult = resolvePackageRename(name, context.getOwnedPackageRenames());
 		if (searchResult == null
 				&& context instanceof PrivatePackageSection
 				&& ((AadlPackage) context.eContainer()).getPublicSection() != null) {
-			searchResult = ((AadlPackage) context.eContainer())
-					.getPublicSection().findNamedElement(name, false);
+			PublicPackageSection pubsec = ((AadlPackage) context.eContainer())
+					.getPublicSection();
+			searchResult = resolvePackageRename(name, pubsec.getOwnedPackageRenames());
 		}
-		if (searchResult instanceof PackageRename)
-			return (PackageRename) searchResult;
-		else
-			return null;
+			return searchResult;
 	}
-
-	public AadlPackage findImportedPackage(String name, EObject context) {
-		EList<ModelUnit> imports;
-		if (name == null) return null;
-		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
-			context = AadlUtil.getContainingTopLevelNamespace(context);
-		}
-		if (context instanceof PropertySet)
-			imports = ((PropertySet) context).getImportedUnits();
-		else
-			imports = ((PackageSection) context).getImportedUnits();
-		for (ModelUnit imported : imports) {
-			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
-				String n = ((AadlPackage) imported).getName();
-				if (name.equalsIgnoreCase(n))
-					return (AadlPackage) imported;
+	
+	/**
+	 * find and return renamed package in list of package renames
+	 * @param name package name to be resolved
+	 * @param packageRenames list of package renames
+	 * @return aadl package or null
+	 */
+	public AadlPackage resolvePackageRename(String name, EList<PackageRename> packageRenames){
+		for (PackageRename namedElement : packageRenames) {
+			if (namedElement.hasName() && namedElement.getName().equalsIgnoreCase(name)) {
+				return namedElement.getRenamedPackage();
 			}
 		}
-		if (context instanceof PrivatePackageSection
-				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
-			for (ModelUnit imported : ((AadlPackage) context.eContainer())
-					.getOwnedPublicSection().getImportedUnits())
-				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& ((AadlPackage) imported).getName().equalsIgnoreCase(
-								name))
-					return (AadlPackage) imported;
-		// TODO need to handle public section declared in a separate package
-		// declaration
-		return null;
-	}
-
-	public PropertySet findImportedPropertySet(String name,
-			EObject context) {
-		EList<ModelUnit> importedPropertySets;
-		if (name == null) return null;
-		if (!(context instanceof PropertySet || context instanceof PackageSection)) {
-			context = AadlUtil.getContainingTopLevelNamespace(context);
-		}
-		if (context instanceof PropertySet)
-			importedPropertySets = ((PropertySet) context).getImportedUnits();
-		else
-			importedPropertySets = ((PackageSection) context)
-			.getImportedUnits();
-		for (ModelUnit importedPropertySet : importedPropertySets)
-			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
-					&& ((PropertySet) importedPropertySet).getName()
-					.equalsIgnoreCase(name))
-				return (PropertySet) importedPropertySet;
 		return null;
 	}
 
 
+
+	/**
+	 * look up property set in EMF index or resource set
+	 * @param context
+	 * @param name
+	 * @return
+	 */
 	public PropertySet findPropertySet(EObject context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
 		return findPropertySet(context, name, reference);
@@ -566,22 +549,30 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 
+	/**
+	 * look property set up in EMF index, if not found search through resource set
+	 * NOTE: resource set does not have all resources loaded
+	 * @param context
+	 * @param name Property set name
+	 * @param reference Ereference used to identify the type of object we are looking for
+	 * @return
+	 */
 	public PropertySet findPropertySet(EObject context, String name, EReference reference) {
 		EObject res = getIndexedObject(context, reference, name);
 		if (res instanceof PropertySet)
 			return (PropertySet)res;
 		if (name == null || name.length() == 0)
 			return null;
-		ResourceSet rs = context.eResource().getResourceSet();
-		for (Resource resource : rs.getResources()) {
-			if (!resource.getContents().isEmpty()) {
-				EObject rootObject = resource.getContents().get(0);
-				if ((rootObject instanceof PropertySet)
-						&& ((PropertySet) rootObject).getName()
-						.equalsIgnoreCase(name))
-					return (PropertySet) rootObject;
-			}
-		}
+		// XXX: the resource set should be in the index. The resource set is not always loaded.
+//		ResourceSet rs = context.eResource().getResourceSet();
+//		for (Resource resource : rs.getResources()) {
+//			if (!resource.getContents().isEmpty()) {
+//				EObject rootObject = resource.getContents().get(0);
+//				if ((rootObject instanceof PropertySet)
+//						&& name.equalsIgnoreCase(((PropertySet) rootObject).getName()))
+//					return (PropertySet) rootObject;
+//			}
+//		}
 		return null;
 	}
 
@@ -603,18 +594,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	protected EObject findClassifier(EObject context,
 			EReference reference,  String name){
 		EObject e = getIndexedObject(context, reference, name);
+		String packname = null;
+		String cname = name;
+		final int idx = name.lastIndexOf("::");
+		if (idx != -1) {
+			packname = name.substring(0, idx);
+			cname = name.substring(idx + 2);
+			if (cname.equalsIgnoreCase("all")) return null;
+		}
+		// NOTE: checking whether the referenced package is imported is done by the validator.
 		if (e == null){
-			final int idx = name.lastIndexOf("::");
-			String packname = null;
-			String cname = name;
-			Namespace scope = AadlUtil.getContainingPackageSection(context);
-			if (scope == null)
-				scope = AadlUtil.getContainingPropertySet(context);
-			if (idx != -1) {
-				packname = name.substring(0, idx);
-				cname = name.substring(idx + 2);
+			Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
+			if (scope != null){
+			    e = findNamedElementInAadlPackage(packname, cname, scope);
 			}
-			e = findNamedElementInAadlPackage(packname, cname, scope);
 		}
 		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 			// the result satisfied the expected class
@@ -1606,19 +1599,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 	/**
-	 * Search for a {@link NamedElement} in a package. If {@code context} is a
+	 * Search for a {@link NamedElement} inside a package. If {@code context} is a
 	 * {@link PublicPackageSection}, then this method will search through the
 	 * {@link PublicPackageSection} only. If {@code context} is a
 	 * {@link PrivatePackageSection}, then this method will search through the
 	 * {@link PrivatePackageSection} and its corresponding
-	 * {@link PublicPackageSection}. This is different from
-	 * {@link PrivatePackageSection#findNamedElement(String)} and
-	 * {@link PrivatePackageSection#findNamedElement(String, boolean)} because
-	 * those methods will not search through the corresponding
-	 * {@link PublicPackageSection}. This method does use
-	 * {@link PackageSection#findNamedElement(String, boolean)}, so it will
-	 * search for {@link ComponentType}s and {@link FeatureGroupType}s in the
-	 * renames statements.
+	 * {@link PublicPackageSection}. 
+	 * It will resolve any renames since it is a package internal lookup.
 	 * 
 	 * Dependencies: RenamesAll, ComponentTypeRename, FeatureGroupTypeRename.
 	 * 
@@ -1629,35 +1616,26 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 *            that needs the search result.
 	 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 	 */
-	public NamedElement findNamedElementInAadlPackage(String name,
+	public NamedElement findNamedElementInsideAadlPackage(String name,
 			PackageSection context) {
-		NamedElement result = context.findNamedElement(name);
+		NamedElement result = context.findInternallyVisibleNamedElement(name);
 		if (result == null
 				&& context instanceof PrivatePackageSection
 				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
 			result = ((AadlPackage) context.eContainer())
-			.getOwnedPublicSection().findNamedElement(name);
+			.getOwnedPublicSection().findInternallyVisibleNamedElement(name);
 		return result;
 	}
 
 	/**
 	 * Search for a {@link NamedElement} with the name {@code elementName} in
-	 * the package specified by {@code packageName}. This method will first
-	 * check that the specified package is accessible within {@code context}.
-	 * This is done by checking that {@code packageName} appears in a with
-	 * statement or package rename of {@code context} or {@code context}'s
-	 * corresponding {@link PublicPackageSection} if {@code context} is a
-	 * {@link PrivatePackageSection}. If the package is not accessible, then
-	 * {@code null} will be returned. If the element cannot be found in the
-	 * specified package, then {@code null} will be returned.
+	 * the containing package, which is also the specified by {@code packageName}. 
+     * If the element cannot be found in the specified package, then {@code null} will be returned.
 	 * 
-	 * Dependencies: If packageName is null or refers to context: RenamesAll,
-	 * ComponentTypeRename, FeatureGroupTypeRename. If packageName refers to a
-	 * different package: WithStatementReference, PackageRenameReference.
 	 * 
 	 * @param packageName
 	 *            The name of the package that contains the element to search
-	 *            for.
+	 *            for, or null
 	 * @param elementName
 	 *            The name of the element to search for.
 	 * @param context
@@ -1665,38 +1643,41 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 *            specified {@link Element}.
 	 * @return The {@link NamedElement} or {@code null} if it cannot be found.
 	 */
-	public EObject findNamedElementInAadlPackage(String packageName,
+	public NamedElement findNamedElementInAadlPackage(String packageName,
 			String elementName, Namespace context) {
 		if (context instanceof PackageSection
 				&& (packageName == null || context.getName()
-				.equalsIgnoreCase(packageName)))
-			return findNamedElementInAadlPackage(elementName,
+				.equalsIgnoreCase(packageName))){
+			// lookup in package that has reference
+			NamedElement ne = findNamedElementInsideAadlPackage(elementName,
 					(PackageSection) context);
-		else {
+			return ne;
+		} else {
+			// lookup in another package as external reference
+			// we need to do this because references that use package aliases did not get picked up
 			AadlPackage aadlPackage = null;
-
 			if (context instanceof PackageSection) {
-				PackageRename packageRename = findPackageRename(packageName,
-						(PackageSection) context);
-				if (packageRename != null)
-					aadlPackage = packageRename.getRenamedPackage();
-				else
-					aadlPackage = findImportedPackage(packageName, context);
-			} else
-				aadlPackage = findImportedPackage(packageName, context);
-
+				aadlPackage = resolvePackageRename(packageName,	(PackageSection) context);
+				if (aadlPackage == null )
+					aadlPackage = AadlUtil.findImportedPackage(packageName, context);
+			} 
 			if (aadlPackage != null
 					&& aadlPackage.getOwnedPublicSection() != null)
-				return aadlPackage.getOwnedPublicSection().findNamedElement(
-						elementName);
+				return aadlPackage.getOwnedPublicSection().findNamedElement(elementName);
 			else
 				return null;
 		}
 	}
 
 	/**
-	 * Dependencies: If propertySetName is the name of a different, non standard
-	 * property set: WithStatementReference.
+	 * Find element in specified property set and make sure the property set has been imported by with clause
+	 * If property set name is null we look up the name in the context name space 
+	 * For predeclared properties we do not require the qualification
+	 * @param propertySetName
+	 * @param elementName
+	 * @param context
+	 * @param reference
+	 * @return
 	 */
 	public EObject findNamedElementInPropertySet(String propertySetName,
 			String elementName, EObject context, EReference reference) {
@@ -1707,22 +1688,21 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res != null)
 					return res;
 			}
-			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
-				PropertySet predeclaredPropertySet = findPropertySet(context,
-						predeclaredPSName);
-				if (predeclaredPropertySet != null) {
-					NamedElement searchResult = predeclaredPropertySet
-							.findNamedElement(elementName);
-					if (searchResult != null)
-						return searchResult;
-				}
-			}
+			// XXX: these definitions should be in the index
+//			for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
+//				PropertySet predeclaredPropertySet = findPropertySet(context,predeclaredPSName);
+//				if (predeclaredPropertySet != null) {
+//					NamedElement searchResult = predeclaredPropertySet.findNamedElement(elementName);
+//					if (searchResult != null)
+//						return searchResult;
+//				}
+//			}
 			return null;
 		} else {
-			PropertySet propertySet = findPropertySet(context, propertySetName);//getContainingPropertySet(context);
+			PropertySet propertySet = AadlUtil.getContainingPropertySet(context);
 			if (propertySet == null || 
-					(propertySet != null && !propertySet.getName().equalsIgnoreCase(propertySetName))){
-				propertySet = findImportedPropertySet(propertySetName, context);
+					(propertySet != null && !propertySetName.equalsIgnoreCase(propertySet.getName()))){
+				propertySet = AadlUtil.findImportedPropertySet(propertySetName, context);
 			}
 			if (propertySet != null)
 				return propertySet.findNamedElement(elementName);

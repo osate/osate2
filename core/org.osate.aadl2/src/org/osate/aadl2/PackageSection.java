@@ -301,25 +301,11 @@ public interface PackageSection extends Namespace {
 	 * @generated
 	 */
 	EList<ModelUnit> getImportedUnits();
-
+	
 	/**
-	 * Search the namespace for a specific name.  If searching from outside of the package, then
-	 * {@code externallyVisibleElementsOnly} should be {@code true}.  If searching from inside the
-	 * package, then {@code externallyVisibleElementsOnly} should be {@code false}.  If the flag is
-	 * set to {@code false}, then this method will search through all owned members.  It will also
-	 * search through all {@link PackageRename} objects that have the
-	 * {@link PackageRename#isRenameAll() renameAll} flag set to {@code true}.  If the result is a
-	 * {@link ComponentTypeRename} or a {@link FeatureGroupTypeRename}, then this method will
-	 * return the classifier that is renamed.  This means that when
-	 * {@code externallyVisibleElementsOnly} is {@code false}, this method can return a
-	 * {@link NamedElement} that is a member of a different {@link AadlPackage}.  If
-	 * {@code externallyVisibleElementsOnly} is {@code true} and this method is called on a
-	 * {@link PublicPackageSection}, then this method searches through some of the owned members.
-	 * The search will not include instances of {@link PackageRename}, {@link ComponentTypeRename},
-	 * or {@link FeatureGroupTypeRename}.  If {@code externallyVisibleElementsOnly} is {@code true}
-	 * and this method is called on a {@link PrivatePackageSection}, then this method will return
-	 * {@code null} because there are no elements of a {@link PrivatePackageSection} that are
-	 * externally visible.
+	 * name lookup from within package. 
+	 * It searches through all internally visible elements resolving renames as appropriate
 	 */
-	NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly);
+	NamedElement findInternallyVisibleNamedElement(String name);
+
 } // PackageSection
