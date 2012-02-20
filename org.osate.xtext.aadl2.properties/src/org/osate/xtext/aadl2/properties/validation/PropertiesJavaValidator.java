@@ -12,23 +12,29 @@ import org.eclipse.xtext.validation.CheckType;
 import org.eclipse.xtext.validation.ValidationMessageAcceptor;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AadlReal;
 import org.osate.aadl2.AadlString;
 import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierType;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListType;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Namespace;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.NumericRange;
@@ -37,6 +43,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
@@ -48,6 +55,7 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
  
@@ -89,99 +97,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	/**
 	 * Check ranges for correctness.
 	 */
-	@Check(CheckType.FAST)
-	public void caseNumberType(NumberType nt) {
-		checkNumberType(nt);
-	}
 
 	@Check(CheckType.FAST)
-	public void caseAadlinteger(final AadlInteger ai) {
-		checkAadlinteger(ai);
+	public void caseClassifierValue(ClassifierValue nt) {
+			checkClassifierReference(nt.getClassifier(), nt);
 	}
+
 	
 	// checking methods
 	
-	/**
-	 * Check that a number type is well formed.  The range values (if any)
-	 * should be such that the lower bound is not greater than the upper bound.
-	 * Satisfies legality rule from Section 10.1.1:
-	 *
-	 * <blockquote>
-	 * The value of the first numeric literal that appears in a range of a
-	 * number_type must not be greater than the value of the second numeric
-	 * literal.
-	 * </blockquote>
-	 */
-	private void checkNumberType(final NumberType nt) {
-		/* NOTE: NumericResolver + Parser already make sure the bounds are
-		 * both reals or both integers, as appropriate.
-		 */
-		final NumericRange range = nt.getRange();
-		if (range == null) return;
-		PropertyExpression	lowerPE = (PropertyExpression)range.getLowerBound();
-		PropertyExpression	upperPE = (PropertyExpression)range.getUpperBound();
-		// TODO : handle NamedValue
-		if (lowerPE instanceof NamedValue){
-			if (((NamedValue)lowerPE).getNamedValue() instanceof PropertyConstant){
-				lowerPE=((PropertyConstant)((NamedValue)lowerPE).getNamedValue()).getConstantValue();
-			}
-		}
-		if (upperPE instanceof NamedValue){
-			if (((NamedValue)upperPE).getNamedValue() instanceof PropertyConstant){
-				upperPE=((PropertyConstant)((NamedValue)upperPE).getNamedValue()).getConstantValue();
-			}
-		}
-		NumberValue lowerNV = lowerPE instanceof NumberValue? (NumberValue)lowerPE: null;
-		NumberValue upperNV = upperPE instanceof NumberValue? (NumberValue)upperPE: null;
-		if (lowerNV != null && upperNV != null) {
-			/* Check: (1) the bounds have units if the type has units;
-			 * (2) the lower bounds is <= the upper bound.
-			 */
-			if (lowerNV instanceof NumberValue){
-				
-			}
-			if (nt.getUnitsType() != null) {
-				if (lowerNV.getUnit() == null) {
-					error(nt,
-							"lower bound is missing a unit");
-				}
-				if (upperNV.getUnit() == null) {
-					error(nt,
-							"upper bound is missing a unit");
-				}
-			}
-			final double lower = lowerNV.getScaledValue();
-			final double upper = upperNV.getScaledValue();
-			if (lower > upper) {
-				error(nt,
-						"Range lower bound is greater than range upper bound");
-			}
-		}
-	}
-
-	/**
-	 * Check that if an aadlinteger type has units that the units have only
-	 * integer multipliers.
-	 */
-	private void checkAadlinteger(final AadlInteger ai) {
-		final UnitsType units = ai.getUnitsType();
-		if (units != null) {
-			for (Iterator i = units.getOwnedLiterals().iterator(); i.hasNext();) {
-				final UnitLiteral ul = (UnitLiteral) i.next();
-				final NumberValue factor = ul.getFactor();
-				if (factor != null && !(factor instanceof IntegerLiteral)) {
-					error(ai,
-							"Integer type has unit (" + ul.getName() +
-							") with non-integer factor (" +
-							ul.getFactor().toString() + ")");
-				}
-			}
-		}
-	}
 	
 	protected void checkPropertyAssociation(PropertyAssociation pa){
 		// type check value against type
 		Property pdef = pa.getProperty();
+		checkPropertySetElementReference(pdef, pa);
 		if (Aadl2Util.isNull(pdef)) return;
 		PropertyType pt = pdef.getPropertyType();
 		if (Aadl2Util.isNull(pt)) return;
@@ -192,6 +121,13 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		// check applies to
 		NamedElement owner = (NamedElement)pa.getOwner();
 		checkAssociationAppliesTo(owner, pa);
+		checkInBinding( pa);
+	}
+	
+	protected void checkInBinding(final PropertyAssociation pa){
+		for (Classifier c: pa.getInBindings()){
+			checkPropertySetElementReference(c, pa);
+		}
 	}
 
 	/**
@@ -416,6 +352,33 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 	
+
+	
+	public void checkClassifierReference(Classifier cl, Element context){
+		if (Aadl2Util.isNull(cl)) return;
+		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
+		Namespace referenceNS = AadlUtil.getContainingTopLevelNamespace(cl);
+		if (contextNS != referenceNS){
+			if (!AadlUtil.isImportedPackage(AadlUtil.getContainingPackage(referenceNS), contextNS)){
+				error(context, "The referenced package '" + AadlUtil.getContainingPackage(referenceNS).getName() +
+						"' of classifier '"+ cl.getName() +"' is not listed in a with clause.");
+			}
+		}
+	}
+
+	
+	public void checkPropertySetElementReference(NamedElement pse, Element context){
+		if (Aadl2Util.isNull(pse)) return;
+		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
+		Namespace referenceNS = AadlUtil.getContainingTopLevelNamespace(pse);
+		if (contextNS != referenceNS){
+			if (!AadlUtil.isImportedPropertySet(AadlUtil.getContainingPropertySet(referenceNS), contextNS)){
+				error(context, "The referenced property set '" + AadlUtil.getContainingPackage(referenceNS).getName() +
+						"' of "+ (pse instanceof Property ? "property '":(pse instanceof PropertyType? "property type '":"property constant '" ))
+						+ pse.getName() +"' is not listed in a with clause.");
+			}
+		}
+	}
 
 
 	

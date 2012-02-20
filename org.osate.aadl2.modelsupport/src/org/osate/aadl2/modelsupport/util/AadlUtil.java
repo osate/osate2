@@ -98,10 +98,12 @@ import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorSubcomponent;
@@ -2255,36 +2257,154 @@ public final class AadlUtil {
 		return (Classifier) container;
 	}
 
-	public static Namespace getContainingNamespace(EObject element) {
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof Namespace))
-			container = container.eContainer();
-		return (Namespace) container;
-	}
-
 	public static PackageSection getContainingPackageSection(EObject element) {
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PackageSection))
 			container = container.eContainer();
 		return (PackageSection) container;
 	}
 
+	public static AadlPackage getContainingPackage(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof AadlPackage))
+			container = container.eContainer();
+		return (AadlPackage) container;
+	}
+
 	public static PropertySet getContainingPropertySet(EObject element) {
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PropertySet))
 			container = container.eContainer();
 		return (PropertySet) container;
 	}
 
+	/**
+	 * get containing property set or package section
+	 * if element is already top level name space return itself
+	 * @param element a model element
+	 * @return property set or package section
+	 */
 	public static Namespace getContainingTopLevelNamespace(EObject element) {
 		if (element.eContainer() == null) {
 			if (element instanceof Namespace) return (Namespace)element;
 			return null;
 		}
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PackageSection)
 				&& !(container instanceof PropertySet))
 			container = container.eContainer();
 		return (Namespace) container;
 	}
+	
+	
+
+	/**
+	 * find package name in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param name Package name
+	 * @param context location at which package reference is encountered
+	 * @return aadl package or null if not in import list
+	 */
+	public static AadlPackage findImportedPackage(String name, Namespace context) {
+		EList<ModelUnit> imports;
+		if (name == null) return null;
+		if (context instanceof PropertySet)
+			imports = ((PropertySet) context).getImportedUnits();
+		else
+			imports = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit imported : imports) {
+			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
+				String n = ((AadlPackage) imported).getName();
+				if (name.equalsIgnoreCase(n))
+					return (AadlPackage) imported;
+			}
+		}
+		if (context instanceof PrivatePackageSection
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
+			for (ModelUnit imported : ((AadlPackage) context.eContainer())
+					.getOwnedPublicSection().getImportedUnits())
+				if (imported instanceof AadlPackage && !imported.eIsProxy()
+						&& name.equalsIgnoreCase(((AadlPackage) imported).getName()))
+					return (AadlPackage) imported;
+		// TODO need to handle public section declared in a separate package
+		// declaration
+		return null;
+	}
+
+	/**
+	 * check whether package is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param pack Aadl Package 
+	 * @param context location at which package reference is encountered
+	 * @return ture if found
+	 */
+	public static boolean isImportedPackage(AadlPackage pack, Namespace context) {
+		EList<ModelUnit> imports;
+		if (pack == null) return false;
+		if (context instanceof PropertySet)
+			imports = ((PropertySet) context).getImportedUnits();
+		else
+			imports = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit imported : imports) {
+			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
+				if (imported == pack)
+					return true;
+			}
+		}
+		if (context instanceof PrivatePackageSection
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
+			for (ModelUnit imported : ((AadlPackage) context.eContainer())
+					.getOwnedPublicSection().getImportedUnits())
+				if (imported instanceof AadlPackage && !imported.eIsProxy()
+						&& imported == pack)
+					return true;
+		// TODO need to handle public section declared in a separate package
+		// declaration
+		return false;
+	}
+
+
+	/**
+	 * find property set name in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param name Property set name
+	 * @param context location at which property set reference is encountered
+	 * @return aadl property set or null if not in import list
+	 */
+	public static PropertySet findImportedPropertySet(String name,
+			EObject context) {
+		EList<ModelUnit> importedPropertySets;
+		if (name == null) return null;
+		context = AadlUtil.getContainingTopLevelNamespace(context);
+		if (context instanceof PropertySet)
+			importedPropertySets = ((PropertySet) context).getImportedUnits();
+		else
+			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit importedPropertySet : importedPropertySets)
+			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
+					&& name.equalsIgnoreCase(((PropertySet) importedPropertySet).getName()))
+				return (PropertySet) importedPropertySet;
+		return null;
+	}
+
+	/**
+	 * check whether property set is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param ps Property set 
+	 * @param context location at which property set reference is encountered
+	 * @return aadl property set or null if not in import list
+	 */
+	public static boolean isImportedPropertySet(PropertySet ps,
+			EObject context) {
+		EList<ModelUnit> importedPropertySets;
+		if (ps == null) return false;
+		if (isPredeclaredPropertySet(ps.getName())) return true;
+		context = AadlUtil.getContainingTopLevelNamespace(context);
+		if (context instanceof PropertySet)
+			importedPropertySets = ((PropertySet) context).getImportedUnits();
+		else
+			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit importedPropertySet : importedPropertySets)
+			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
+					&& importedPropertySet == ps)
+				return true;
+		return false;
+	}
+
 }
