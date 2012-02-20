@@ -280,33 +280,38 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseFeatureGroup(FeatureGroup featureGroup) {
 		checkForInverseInFeatureGroup(featureGroup);
 		checkDirectionOfFeatureGroupMembers(featureGroup);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseSubprogramAccess(SubprogramAccess subprogramAccess) {
 		checkSubprogramAccessPrototypeReference(subprogramAccess);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseSubprogramGroupAccess(
 			SubprogramGroupAccess subprogramGroupAccess) {
 		checkSubprogramGroupAccessPrototypeReference(subprogramGroupAccess);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseAccess(Access access) {
 		checkForAbstractFeatureDirectionInAccessRefinement(access);
 		checkForAccessTypeInAccessRefinement(access);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void caseDataAccess(DataAccess dataAccess) {
 		checkDataAccessPrototypeReference(dataAccess);
+	}
 
+	@Check(CheckType.FAST)
+	public void caseSubprogramCall(SubprogramCall callSpec) {
+		if (callSpec.getCalledSubprogram() instanceof Classifier){
+			checkClassifierReference((Classifier)callSpec.getCalledSubprogram(),callSpec);
+		}
+		if (callSpec.getContext() instanceof Classifier){
+			checkClassifierReference((Classifier)callSpec.getContext(),callSpec);
+		}
 	}
 	
 //	@Check(CheckType.FAST)
