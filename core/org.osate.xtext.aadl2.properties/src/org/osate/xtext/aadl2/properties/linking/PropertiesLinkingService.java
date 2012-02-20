@@ -601,25 +601,32 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	public EObject findClassifier(EObject context,
 			EReference reference,  String name){
+		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObject(context, reference, name);
+		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+			// the result satisfied the expected class
+			Namespace ns = AadlUtil.getContainingTopLevelNamespace(e);
+			if (ns instanceof PrivatePackageSection && scope != ns) return null;
+			return e;
+		}
+		// need to do a local lookup as it was not found in the index.
 		String packname = null;
 		String cname = name;
 		final int idx = name.lastIndexOf("::");
 		if (idx != -1) {
 			packname = name.substring(0, idx);
 			cname = name.substring(idx + 2);
+			// if rename is not a package rename, but component type rename then all is treated as component ID
 			if (cname.equalsIgnoreCase("all")) return null;
 		}
 		// NOTE: checking whether the referenced package is imported is done by the validator.
-		if (e == null){
-			Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
-			if (scope != null){
-			    e = findNamedElementInAadlPackage(packname, cname, scope);
+		if (e == null && scope instanceof PackageSection){
+			// the reference is from inside a package section. Lookup by identifier without qualification
+			e = findNamedElementInAadlPackage(packname, cname, scope);
+			if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
+				// the result satisfied the expected class
+				return e;
 			}
-		}
-		if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
-			// the result satisfied the expected class
-			return e;
 		}
 		return null;
 	}
