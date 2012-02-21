@@ -60,6 +60,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -694,13 +695,13 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			}
 			// now we need to look in unnamed ComponentTypeRename or unnamed FeatureGroupRename
 			for (ComponentTypeRename ctRename : getOwnedComponentTypeRenames()) {
-				if (ctRename.getRenamedComponentType() != null  &&
+				if (ctRename.getName() == null && !Aadl2Util.isNull(ctRename.getRenamedComponentType())  &&
 						name.equalsIgnoreCase(ctRename.getRenamedComponentType().getName())) {
 					return ctRename.getRenamedComponentType();
 				}
 			}
 			for (FeatureGroupTypeRename fgtRename : getOwnedFeatureGroupTypeRenames()) {
-				if (fgtRename.getRenamedFeatureGroupType() != null &&
+				if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType()) &&
 						name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) {
 					return fgtRename.getRenamedFeatureGroupType();
 				}
