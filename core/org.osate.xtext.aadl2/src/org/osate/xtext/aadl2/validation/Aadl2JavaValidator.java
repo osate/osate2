@@ -655,7 +655,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkComponentTypeRenameCategory(
 			ComponentTypeRename componentTypeRename) {
 		if (Aadl2Util.isNull(componentTypeRename.getRenamedComponentType())){
-			error(componentTypeRename,"Component type rename does not refer to a component type");
+//			error(componentTypeRename,"Component type rename reference could not be resolved.");
 			return;
 		}
 		if (!componentTypeRename.getCategory().getName()
