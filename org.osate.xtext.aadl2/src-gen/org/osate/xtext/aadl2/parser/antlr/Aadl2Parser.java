@@ -3,10 +3,10 @@
 */
 package org.osate.xtext.aadl2.parser.antlr;
 
+import com.google.inject.Inject;
+
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
-
-import com.google.inject.Inject;
 
 public class Aadl2Parser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
 	

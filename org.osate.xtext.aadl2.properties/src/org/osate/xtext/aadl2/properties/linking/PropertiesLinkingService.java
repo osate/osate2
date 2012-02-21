@@ -621,7 +621,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}
 		// NOTE: checking whether the referenced package is imported is done by the validator.
 		if (e == null && scope instanceof PackageSection){
-			// the reference is from inside a package section. Lookup by identifier without qualification
+			// the reference is from inside a package section. Lookup by identifier with or without qualification
 			e = findNamedElementInAadlPackage(packname, cname, scope);
 			if (e != null && reference.getEReferenceType().isSuperTypeOf(e.eClass())) {
 				// the result satisfied the expected class
