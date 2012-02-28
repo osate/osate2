@@ -37,10 +37,13 @@ import java.util.Iterator;
 import java.util.Stack;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 
@@ -75,16 +78,16 @@ abstract class AbstractTopDownComponentTraversal extends AbstractTraversal {
 		}
 	}
 	
-	public final EList visitWorkspace() {
-		return visitWorkspaceDeclarativeModels();
+	public final EList visitWorkspace(Element obj) {
+		return visitWorkspaceDeclarativeModels(obj);
 	}
 	
-	public final EList visitWorkspaceDeclarativeModels() {
+	public final EList visitWorkspaceDeclarativeModels(Element obj) {
 		final Stack<ComponentImplementation> visited = new Stack<ComponentImplementation>();
 		/* Our roots will be those component implementations that are not
 		 * referenced by anything, e.g., top-level systems.
 		 */
-		final EList<ComponentImplementation> cil = AadlUtil.getAllComponentImpl();
+		final EList<ComponentImplementation> cil = AadlUtil.getAllComponentImpl(obj);
 		for (Iterator<ComponentImplementation> all = cil.iterator(); processingMethod.notCancelled() && all.hasNext();) {
 			final ComponentImplementation aobj = all.next();
 			if (!hasUsageReferences(aobj, cil)) {

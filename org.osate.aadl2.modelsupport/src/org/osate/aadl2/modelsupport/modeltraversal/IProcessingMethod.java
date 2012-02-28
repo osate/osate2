@@ -50,7 +50,7 @@ import org.osate.aadl2.Element;
  * 
  * @author aarong
  */
-interface IProcessingMethod {
+public interface IProcessingMethod {
 	/**
 	 * Process a given model element.
 	 * @param obj The element to process.
