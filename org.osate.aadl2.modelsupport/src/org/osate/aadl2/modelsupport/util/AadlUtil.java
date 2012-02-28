@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -60,7 +61,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -68,8 +68,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
@@ -1194,19 +1193,19 @@ public final class AadlUtil {
 		if (object instanceof Element) {
 			theElement = (Element) object;
 		}
-		// Can we adapt it to an Element?
 		if (theElement == null && object instanceof IAdaptable) {
-			theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
-		}
-
-		if (theElement == null && object instanceof IWrapperItemProvider) {
-			Object value = ((IWrapperItemProvider) object).getValue();
-			if (value instanceof FeatureMap.Entry) {
-				value = ((FeatureMap.Entry) value).getValue();
-				if (value instanceof Element) {
-					theElement = (Element) value;
+		theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
+	    }
+		if (object instanceof TreeSelection){
+			for (Iterator iterator = ((TreeSelection)object).iterator(); iterator.hasNext();) {
+				Object f = (Object) iterator.next();
+				if (f instanceof IResource){
+					Resource res = OsateResourceUtil.getResource((IResource)f);
+					EList<EObject> rl = res.getContents();
+					if (rl.isEmpty()&& rl.get(0) instanceof Element) return (Element) rl.get(0);
 				}
 			}
+			return null;
 		}
 		return theElement;
 	}
@@ -1329,65 +1328,6 @@ public final class AadlUtil {
 	private static final String PropertySetLabel = "propertySet[@name=";
 	private static final String PackageLabel = "aadlPackage[@name=";
 
-	public static String getQualifiedName(URI uri) {
-		String result = AadlUtil.getName(uri);
-		String s = uri.toString();
-		if (s.indexOf("#") != -1) {
-			s = uri.fragment();
-		}
-		if (s == null)
-			return null;
-		int i = s.lastIndexOf("/");
-		if (i != -1) {
-			String frag = s.substring(i);
-			if (frag.indexOf("@name=") != -1) {
-				String name = frag.substring(frag.indexOf("@name=") + 6, frag.indexOf("]"));
-				int psi = s.lastIndexOf(PropertySetLabel);
-				if (psi != -1) {
-					int idx = psi + PropertySetLabel.length();
-					int end = s.indexOf("]", psi);
-					String qual = s.substring(idx, end) + "::";
-					return qual + name;
-
-				}
-				int pcki = s.lastIndexOf(PackageLabel);
-				if (pcki != -1) {
-					int idx = pcki + PackageLabel.length();
-					int end = s.indexOf("]", pcki);
-					String qual = s.substring(idx, end) + "::";
-					return qual + name;
-				}
-				return name;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * extracts the name of the model object referenced by the uri The name is
-	 * looked up if the uri format is that of AADL XPath returns null if the uri
-	 * points to an unnamed model object
-	 * 
-	 * @param uri refering to a model object
-	 * @return String name or null
-	 */
-	public static String getName(URI uri) {
-		String s = uri.toString();
-		if (s.indexOf("#") != -1) {
-			s = uri.fragment();
-		}
-		if (s == null)
-			return null;
-		int i = s.lastIndexOf("/");
-		if (i != -1) {
-			String frag = s.substring(i);
-			if (frag.indexOf("@name=") != -1) {
-				String name = frag.substring(frag.indexOf("@name=") + 6, frag.indexOf("]"));
-				return name;
-			}
-		}
-		return null;
-	}
 
 	// TODO: [SPECIFICATION] Consider removing or modifying.
 	// /**
@@ -2129,43 +2069,22 @@ public final class AadlUtil {
 	}
 
 	/**
-	 * Get all component implementations; in all anon. name spaces and from all
-	 * packages (public and private parts)
-	 * 
-	 * @return EList of component impl
-	 */
-	public static EList<ComponentImplementation> getAllComponentImpl() {
-		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Resource res : resources) {
-			EList<EObject> content = res.getContents();
-			if (!content.isEmpty()) {
-				EObject root = content.get(0);
-				if (root instanceof AadlPackage) {
-					result.addAll(getAllComponentImpl((AadlPackage) root));
-				}
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * Get all component implementation; in anon. name space and from all
-	 * packages
+	 * Get all component implementations in the package that contains the Element parameter
 	 * 
 	 * @param o AadlPackage
 	 * @return EList of component impl
 	 */
-	private static EList<ComponentImplementation> getAllComponentImpl(AadlPackage o) {
+	public static EList<ComponentImplementation> getAllComponentImpl(Element o) {
+		AadlPackage pack = getContainingPackage(o);
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		PackageSection psec = o.getOwnedPublicSection();
+		PackageSection psec = pack.getOwnedPublicSection();
 		if (psec != null) {
 			for (EObject oo : psec.eContents()) {
 				if (oo instanceof ComponentImplementation)
 					result.add((ComponentImplementation) oo);
 			}
 		}
-		psec = o.getPrivateSection();
+		psec = pack.getPrivateSection();
 		if (psec != null) {
 			for (EObject oo : psec.eContents()) {
 				if (oo instanceof ComponentImplementation)

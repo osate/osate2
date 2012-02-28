@@ -51,12 +51,6 @@ public class XtextAnnexParserWrapper  {
 	public EObject parse(EObject element, String editString, ParserRule parserRule, int line, int offset) {
 		
 		try {
-			// model parsing via dummy resource
-//			ResourceSet resourceSet = element.eResource().getResourceSet();
-//			Resource resource = resourceSet.createResource(URI.createURI("dummy:/example.aaem"));
-//			InputStream in = new ByteArrayInputStream(editString.getBytes());
-//			resource.load(in, resourceSet.getLoadOptions());
-//			EObject model = resource.getContents().get(0);
 			
 			
 			final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
