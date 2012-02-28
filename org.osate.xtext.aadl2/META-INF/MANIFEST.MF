@@ -13,7 +13,7 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.eclipse.core.runtime;bundle-version="3.7.0",
  org.apache.log4j;bundle-version="1.2.15",
  org.apache.commons.logging;bundle-version="1.0.4",
- org.eclipse.xtext;bundle-version="2.1.0",
+ org.eclipse.xtext;bundle-version="2.1.0";visibility:=reexport,
  org.eclipse.xtext.util;bundle-version="2.1.0",
  org.antlr.runtime;bundle-version="3.2.0",
  org.osate.aadl2.modelsupport,
@@ -24,7 +24,9 @@ Require-Bundle: org.eclipse.xtext.generator;bundle-version="2.1.0";resolution:=o
  org.osate.core;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: org.osate.xtext.aadl2,
+ org.osate.xtext.aadl2.formatting,
  org.osate.xtext.aadl2.linking,
+ org.osate.xtext.aadl2.modeltraversal,
  org.osate.xtext.aadl2.parser.antlr,
  org.osate.xtext.aadl2.parser.antlr.internal,
  org.osate.xtext.aadl2.parser.antlr.lexer,
@@ -34,6 +36,5 @@ Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.services,
  org.osate.xtext.aadl2.util,
  org.osate.xtext.aadl2.validation,
- org.osate.xtext.aadl2.valueconversion,
- org.osate.xtext.aadl2.formatting
+ org.osate.xtext.aadl2.valueconversion
 Import-Package: org.apache.log4j
