@@ -32,7 +32,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
  
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
-        if (adapterType == ModelUnit.class) {
+        if (adapterType == ModelUnit.class || adapterType == Element.class) {
             if (injector==null) {
                 log.error("Could not obtain injector for Aadl2");
                 return null;
