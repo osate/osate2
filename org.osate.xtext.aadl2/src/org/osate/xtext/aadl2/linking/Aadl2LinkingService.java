@@ -3,12 +3,25 @@ package org.osate.xtext.aadl2.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IReferenceDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
@@ -23,6 +36,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -50,10 +64,15 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+
+import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 //	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
@@ -464,6 +483,127 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 //		return Collections.emptyList();
 	}
+	
+	
+
+	@Inject
+	private ResourceDescriptionsProvider rdp ; 
+	 
+	@Inject 
+	 private IResourceServiceProvider.Registry rspr;
+	     
+	 private IResourceDescription.Manager getManager(Resource res) {
+	   IResourceServiceProvider resourceServiceProvider = 
+	     rspr.getResourceServiceProvider(res.getURI());
+	   return resourceServiceProvider.getResourceDescriptionManager();
+	 } 
+	 
+	 /**
+	 * get all packages in workspace by looking them up in EMF index 
+	 * @param res resource
+	 * @return list of AADL packages in IEObjectDescription format
+	 */
+	public EList <IEObjectDescription> getAllPackagesInWorkspace(Resource res){
+		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 rds= rdp.getResourceDescriptions(res);
+		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
+		 for (IEObjectDescription eod : packagedlist) {
+			 System.out.println("package "+eod.getQualifiedName());
+				 packlist.add(eod);
+		 }
+		 return packlist;
+	 }
+
+	protected static IResourceDescriptions rds;
+
+	/**
+	 * get all packages in workspace by looking them up in EMF index 
+	 * @param res resource
+	 * @return list of AADL packages
+	 */
+	public EList <IEObjectDescription> getAllImportedPackages(AadlPackage pack){
+		Resource res = pack.eResource();
+		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 IResourceDescription packrd = getManager(res).getResourceDescription(res);
+		 Iterable<QualifiedName> namelist = packrd.getImportedNames();
+		 rds= rdp.getResourceDescriptions(res);
+		 for (QualifiedName qn : namelist) {
+			 System.out.println("ImportedName "+qn.getLastSegment()+" more "+qn);
+			 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(Aadl2Package.eINSTANCE.getAadlPackage(), qn, true);
+			 for (IEObjectDescription eod : packagedlist) {
+				 System.out.println("Imported package "+eod.getQualifiedName());
+				 AadlPackage respack = (AadlPackage)eod.getEObjectOrProxy();
+				 if (!packlist.contains(respack)){
+					 packlist.add(eod);
+					 System.out.println("Doing package imports for "+respack.getQualifiedName());
+					 packrd = rds.getResourceDescription(eod.getEObjectURI().trimFragment());
+					 getAllImportedPackages(packrd);
+				 }
+			 }
+		 }
+		 System.out.println("Done \n");
+		 
+		 return packlist;
+	 }
+
+	private EList <IEObjectDescription> getAllImportedPackages(IResourceDescription packrd){
+		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 Iterable<QualifiedName> namelist = packrd.getImportedNames();
+		 for (QualifiedName qn : namelist) {
+			 System.out.println("ImportedName "+qn.getLastSegment()+" more "+qn);
+			 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(Aadl2Package.eINSTANCE.getAadlPackage(), qn, true);
+			 for (IEObjectDescription eod : packagedlist) {
+				 System.out.println("Imported package "+eod.getQualifiedName());
+				 AadlPackage respack = (AadlPackage)eod.getEObjectOrProxy();
+				 if (!packlist.contains(respack)){
+					 packlist.add(eod);
+					 System.out.println("Doing package imports for "+respack.getQualifiedName());
+					 packrd = rds.getResourceDescription(eod.getEObjectURI().trimFragment());
+					 getAllImportedPackages(packrd);
+				 }
+			 }
+		 }
+		 System.out.println("Done \n");
+		 
+		 return packlist;
+	 }
+	 
+	/**
+	 * get all classifiers in all packages by looking them up in EMF index 
+	 * @param res resource
+	 * @return list of classifiers in IEObjectDescription format
+	 */
+	public EList <IEObjectDescription> getAllClassifiersInWorkspace(Resource res){
+		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
+		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
+		 for (IEObjectDescription eod : packagedlist) {
+			 System.out.println("classifier "+eod.getQualifiedName());
+				 packlist.add(eod);
+		 }
+		 return packlist;
+	 }
+
+
+	private static Aadl2LinkingService eInstance = null;
+
+	public static Aadl2LinkingService getAadl2LinkingService(Element context){
+		if (eInstance == null) {
+			if (context.eResource() instanceof Aadl2ResourceImpl){
+				Element root = context.getElementRoot();
+				if (root instanceof SystemInstance){
+					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
+					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
+					eInstance = (Aadl2LinkingService)r.getLinkingService();
+				}
+			} else {
+				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
+				eInstance = (Aadl2LinkingService)r.getLinkingService();
+			}
+		}
+		return eInstance;
+	}
+
 	
 
 }
