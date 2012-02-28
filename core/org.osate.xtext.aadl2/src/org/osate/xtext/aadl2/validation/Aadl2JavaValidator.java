@@ -25,6 +25,32 @@ import org.osate.aadl2.util.Aadl2Util;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
+	
+//	public StringBuffer doStats(Element obj){
+//		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
+//		AadlPackage pack = AadlUtil.getContainingPackage(obj);
+//		EList<IEObjectDescription> classifierlist = als.getAllImportedPackages(pack);
+//		ModelStatistics stats = new ModelStatistics(null);
+//		for (IEObjectDescription eodcl : classifierlist){
+//			AadlPackage cl = (AadlPackage) EcoreUtil.resolve(eodcl.getEObjectOrProxy(), obj.eResource().getResourceSet());
+//			stats.process(cl);
+//		}
+//		final StringBuffer msg = new StringBuffer();
+//		final String modelStats = stats.getModelResult();
+//		final String flowStats = stats.getFlowResult();
+//		info(obj, modelStats);
+//		info(obj, flowStats);
+//		msg.append(modelStats);
+//		msg.append(flowStats);
+//		return msg;
+//	}
+	
+//	@Check
+//	public void checkAadlPackage(AadlPackage pack){
+//		doStats(pack);
+//	}
+
+	
 	@Check(CheckType.FAST)
 	public void caseComponentImplementation(
 			ComponentImplementation componentImplementation) {
