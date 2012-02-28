@@ -49,7 +49,7 @@ import org.osate.aadl2.Element;
  * 
  * @author aarong
  */
-abstract class AbstractTraversal {
+public abstract class AbstractTraversal {
 	/**
 	 * The processing object that defines what to do with a given 
 	 * model element.
@@ -109,7 +109,7 @@ abstract class AbstractTraversal {
 	 * @exception UnsupportedOperationException
 	 *                Thrown if this operation is not supported.
 	 */
-	public abstract EList visitWorkspace();
+	public abstract EList visitWorkspace(Element obj);
 
 	/**
 	 * Process all declarative AADL models in the AadlWorkspace. This is an
@@ -126,7 +126,7 @@ abstract class AbstractTraversal {
 	 * @exception UnsupportedOperationException
 	 *                Thrown if this operation is not supported.
 	 */
-	public abstract EList visitWorkspaceDeclarativeModels();
+	public abstract EList visitWorkspaceDeclarativeModels(Element obj);
 	
 	/**
 	 * Process all AADL instance models in the AadlWorkspace. This is an

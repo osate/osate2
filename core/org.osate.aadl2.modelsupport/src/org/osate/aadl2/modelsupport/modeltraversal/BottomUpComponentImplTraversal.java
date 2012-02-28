@@ -77,13 +77,13 @@ final class BottomUpComponentImplTraversal extends AbstractTraversal {
 	}
 
 	@Override
-	public EList visitWorkspace() {
-		return visitWorkspaceDeclarativeModels();
+	public EList visitWorkspace(Element obj) {
+		return visitWorkspaceDeclarativeModels(obj);
 	}
 
 	@Override
-	public EList visitWorkspaceDeclarativeModels() {
-		processBottomUpComponentImpl(AadlUtil.getAllComponentImpl());
+	public EList visitWorkspaceDeclarativeModels(Element obj) {
+		processBottomUpComponentImpl(AadlUtil.getAllComponentImpl(obj));
 		return processingMethod.getResultList();
 	}
 	

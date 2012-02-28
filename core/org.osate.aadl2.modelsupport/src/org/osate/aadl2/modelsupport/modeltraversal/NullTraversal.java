@@ -56,11 +56,11 @@ final class NullTraversal extends AbstractTraversal {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 
-	public EList<Element> visitWorkspace() {
+	public EList<Element> visitWorkspace(Element obj) {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 
-	public EList<Element> visitWorkspaceDeclarativeModels() {
+	public EList<Element> visitWorkspaceDeclarativeModels(Element obj) {
 		throw new UnsupportedOperationException("No traversal has been specified.");
 	}
 

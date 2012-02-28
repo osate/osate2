@@ -494,8 +494,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList defaultTraversalAllDeclarativeModels() {
-		return defaultTraversalMethod.visitWorkspaceDeclarativeModels();
+	public final EList defaultTraversalAllDeclarativeModels(Element obj) {
+		return defaultTraversalMethod.visitWorkspaceDeclarativeModels(obj);
 	}
 	/**
 	 * Perform the default traversal on all the instance models in the
@@ -566,23 +566,6 @@ public class ForAllElement implements IProcessingMethod {
 		return (new PreOrderTraversal(this)).visitList(objlist);
 	}
 	/**
-	 * Process all AADL models in the AadlWorkspace in in prefix order. In case
-	 * of instance models, takes into account the current mode when traversing
-	 * the content hierarchy of model instances.
-	 * <p>
-	 * This method checks {@link #notCancelled()} after visiting each element,
-	 * and terminates the processing if the traversal has been cancelled.
-	 * 
-	 * @return The value of {@link #resultList}. The contents of this list
-	 *         depend on the implementation of {@link #process}/{@link #action}.
-	 * @see #cancelTraversal()
-	 * @see #notCancelled()
-	 * @see #process(Element)
-	 */
-	public final EList processPreOrderAll() {
-		return (new PreOrderTraversal(this)).visitWorkspace();
-	}
-	/**
 	 * Process all declarative AADL models in the AadlWorkspace in prefix order.
 	 * <p>
 	 * This method checks {@link #notCancelled()} after visiting each element,
@@ -594,8 +577,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList processPreOrderAllDeclarativeModels() {
-		return (new PreOrderTraversal(this)).visitWorkspaceDeclarativeModels();
+	public final EList processPreOrderAllDeclarativeModels(Element obj) {
+		return (new PreOrderTraversal(this)).visitWorkspaceDeclarativeModels( obj);
 	}
 	/**
 	 * Process all AADL instance models in the AadlWorkspace in prefix order. In
@@ -720,39 +703,7 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processPostOrderAll(final EList objlist) {
 		return (new PostOrderTraversal(this)).visitList(objlist);
 	}
-	/**
-	 * Process all AADL models in the AadlWorkspace in postfix order. In case of
-	 * instance models, takes into account the current mode when traversing the
-	 * content hierarchy of model instances.
-	 * <p>
-	 * This method checks {@link #notCancelled()} after visiting each element,
-	 * and terminates the processing if the traversal has been cancelled.
-	 * 
-	 * @return The value of {@link #resultList}. The contents of this list
-	 *         depend on the implementation of {@link #process}/{@link #action}.
-	 * @see #cancelTraversal()
-	 * @see #notCancelled()
-	 * @see #process(Element)
-	 */
-	public final EList processPostOrderAll() {
-		return (new PostOrderTraversal(this)).visitWorkspace();
-	}
-	/**
-	 * Process all declarative AADL models in the AadlWorkspace in postfix
-	 * order.
-	 * <p>
-	 * This method checks {@link #notCancelled()} after visiting each element,
-	 * and terminates the processing if the traversal has been cancelled.
-	 * 
-	 * @return The value of {@link #resultList}. The contents of this list
-	 *         depend on the implementation of {@link #process}/{@link #action}.
-	 * @see #cancelTraversal()
-	 * @see #notCancelled()
-	 * @see #process(Element)
-	 */
-	public final EList processPostOrderAllDeclarativeModels() {
-		return (new PostOrderTraversal(this)).visitWorkspaceDeclarativeModels();
-	}
+
 	/**
 	 * Process all AADL instance models in the AadlWorkspace in postfix order.
 	 * Takes into account the current mode when traversing the content hierarchy
@@ -868,24 +819,6 @@ public class ForAllElement implements IProcessingMethod {
 		return resultList;
 	}
 
-	/**
-	 * Process all declarative AADL models in the AadlWorkspace according to the
-	 * top-down component-classifier ordering; see
-	 * {@link #processTopDownComponentClassifier(ComponentImplementation)} for more
-	 * information.
-	 * <p>
-	 * This method checks {@link #notCancelled()} after visiting each element,
-	 * and terminates the processing if the traversal has been cancelled.
-	 * 
-	 * @return The value of {@link #resultList}. The contents of this list
-	 *         depend on the implementation of {@link #process}/{@link #action}.
-	 * @see #cancelTraversal()
-	 * @see #notCancelled()
-	 * @see #process(Element)
-	 */
-	public final EList processTopDownComponentClassifierAllDeclarativeModels() {
-		return (new TopDownComponentClassifierTravseral(this)).visitWorkspaceDeclarativeModels();
-	}
 
 	/*
 	 * ============================================================= Top down
@@ -919,23 +852,6 @@ public class ForAllElement implements IProcessingMethod {
 	public final EList processTopDownComponentImpl(final ComponentImplementation root) {
 		(new TopDownComponentImplTraversal(this)).visitRoot(root);
 		return resultList;
-	}
-	/**
-	 * Process all declarative AADL models in the AadlWorkspace according to the
-	 * top-down component implementation ordering; see
-	 * {@link #processTopDownComponentImpl(ComponentImplementation)} for more information.
-	 * <p>
-	 * This method checks {@link #notCancelled()} after visiting each element,
-	 * and terminates the processing if the traversal has been cancelled.
-	 * 
-	 * @return The value of {@link #resultList}. The contents of this list
-	 *         depend on the implementation of {@link #process}/{@link #action}.
-	 * @see #cancelTraversal()
-	 * @see #notCancelled()
-	 * @see #process(Element)
-	 */
-	public final EList processTopDownComponentImpl() {
-		return (new TopDownComponentImplTraversal(this)).visitWorkspaceDeclarativeModels();
 	}
 
 	/*
@@ -977,8 +893,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList<?> processBottomUpComponentImpl() {
-		return (new BottomUpComponentImplTraversal(this)).visitWorkspaceDeclarativeModels();
+	public final EList<?> processBottomUpComponentImpl(Element obj) {
+		return (new BottomUpComponentImplTraversal(this)).visitWorkspaceDeclarativeModels(obj);
 	}
 
 	/*
@@ -999,8 +915,9 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #notCancelled()
 	 * @see #process(Element)
 	 */
-	public final EList processAllComponentImpl() {
-		return processEList(AadlUtil.getAllComponentImpl());
+	public final EList processAllComponentImpl(Element obj) {
+		return null;
+ // TODO		return processEList(AadlUtil.getAllComponentImpl(obj.eResource()));
 	}
 
 	/*
