@@ -81,13 +81,13 @@ public abstract class AbstractLevelCheckerAnalysis extends AbstractAnalysis
 			if (getParameter() instanceof ComponentImplementation) {
 				componentSecuritySwitch.processBottomUpComponentImpl((ComponentImplementation) getParameter());
 			} else {
-				componentSecuritySwitch.processBottomUpComponentImpl();
+				componentSecuritySwitch.processBottomUpComponentImpl(getParameter());
 			}
 			final ConnectionLevelChecker connectionSecuritySwitch = new ConnectionLevelChecker(new NullProgressMonitor(), getErrorManager(), theProperty, getLevelComparator());
 			if (getParameter() instanceof ComponentImplementation)
 				connectionSecuritySwitch.processTopDownComponentImpl((ComponentImplementation) getParameter());
 			else
-				connectionSecuritySwitch.processAllComponentImpl();
+				connectionSecuritySwitch.processAllComponentImpl(getParameter());
 		}
 		return getErrorManager().getNumErrors() == 0;
 	}

@@ -40,17 +40,26 @@
 package org.osate.analysis.architecture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.validation.Check;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
-import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 
 /**
  * @author phf
@@ -200,5 +209,28 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 					+ virtualBusCount + " virtual buses, " + deviceCount + " devices.  ";
 		}
 		return null;
+	}
+	
+	public StringBuffer doStats(Element obj){
+		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
+		EList<IEObjectDescription> classifierlist = als.getAllClassifiersInWorkspace(obj.eResource());
+		Resource res = obj.eResource();
+		for (IEObjectDescription cleod : classifierlist){
+			Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
+			process(cl);
+		}
+		final StringBuffer msg = new StringBuffer();
+		final String modelStats = getModelResult();
+		final String flowStats = getFlowResult();
+		error(obj, modelStats);
+		error(obj, flowStats);
+		msg.append(modelStats);
+		msg.append(flowStats);
+		return msg;
+	}
+	
+	@Check
+	public void checkAadlPackage(AadlPackage pack){
+		doStats(pack);
 	}
 }

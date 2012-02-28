@@ -19,6 +19,7 @@ Require-Bundle: org.eclipse.core.runtime,
  org.osate.ui,
  org.osate.pluginsupport,
  org.osate.workspace,
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.xtext.aadl2;bundle-version="1.0.0"
 Eclipse-LazyStart: true
 Import-Package: org.osate.contribution.sei.names

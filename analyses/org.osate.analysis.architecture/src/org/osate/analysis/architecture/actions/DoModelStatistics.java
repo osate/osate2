@@ -40,15 +40,21 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osgi.framework.Bundle;
 
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.impl.ClassifierImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
 
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	protected Bundle getBundle() {
@@ -79,32 +85,27 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 			si = ((InstanceObject)obj).getSystemInstance();
 		else
 			si = null;
-
 		/*
 		 * Create a new model statistics analysis object and run it over the
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
 		ModelStatistics stats = new ModelStatistics(monitor);
-		// run statistics on all declarative models in the workspace
-		stats.defaultTraversalAllDeclarativeModels();
-		if (si != null) {
-			stats.defaultTraversal(si);
-		}
-		monitor.done();
 
+//		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
+//		EList<Classifier> classifierlist = als.getAllClassifiers(obj.eResource());
+//		for (Classifier cl : classifierlist){
+//			cl = (Classifier) EcoreUtil.resolve(cl, obj.eResource().getResourceSet());
+//			stats.process(cl);
+//		}
+//		
 		/*
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.
 		 */
-		final StringBuffer msg = new StringBuffer();
-		final String modelStats = stats.getModelResult();
-		final String flowStats = stats.getFlowResult();
-		info(root, modelStats);
-		info(root, flowStats);
-		msg.append(modelStats);
-		msg.append(flowStats);
+		final StringBuffer msg = stats.doStats(root);
 
-		if (si != null) { // Do we have instance statistics?
+		if (si != null) {
+			stats.defaultTraversal(si);
 			final String appStats = stats.getApplicationResult();
 			final String epStats = stats.getExecutionPlatformResult();
 			info(root, appStats);
@@ -112,6 +113,8 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 			msg.append(appStats);
 			msg.append(epStats);
 		}
+		monitor.done();
+
 
 		Dialog.showInfo("Model Statistics", msg.toString());
 	}
