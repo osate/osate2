@@ -416,4 +416,14 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				null);
 	}
 
+	protected void info(EObject source, String message) {
+		info(message, source, null,
+				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+	}
+
+	protected void info(String message) {
+		info(message, null, ValidationMessageAcceptor.INSIGNIFICANT_INDEX,
+				null);
+	}
+
 }

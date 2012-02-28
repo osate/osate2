@@ -8,13 +8,10 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
-import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -63,7 +60,6 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
-import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Namespace;
@@ -108,8 +104,6 @@ import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
-
-import com.google.inject.Inject;
 
 
 public class PropertiesLinkingService extends DefaultLinkingService {
@@ -166,13 +160,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 	
-	
-	@Inject
-	private IQualifiedNameConverter qualifiedNameConverter;
-	
+	 
+	 
 //	/**
-//	 * @return the all elements returned from the injected {@link IScopeProvider} which matches the text of the passed
-//	 *         {@link LeafNode}
+//	 * check whether there are duplicate names
 //	 */
 //	public boolean hasDuplicateLinkedObjects(EObject context, EReference ref)
 //			throws IllegalNodeException {
@@ -458,17 +449,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			return (AadlPackage)res;
 		if (name == null || name.length() == 0)
 			return null;
-		// XXX: should be in the index. The resourceset is not always loaded with all resources
-//		ResourceSet rs = context.eResource().getResourceSet();
-//		for (Resource resource : rs.getResources()) {
-//			if (!resource.getContents().isEmpty()) {
-//				EObject rootObject = resource.getContents().get(0);
-//				if ((rootObject instanceof AadlPackage)
-//						&& ((AadlPackage) rootObject).getName()
-//						.equalsIgnoreCase(name))
-//					return (AadlPackage) rootObject;
-//			}
-//		}
 		return null;
 	}
 
@@ -563,16 +543,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			return (PropertySet)res;
 		if (name == null || name.length() == 0)
 			return null;
-		// XXX: the resource set should be in the index. The resource set is not always loaded.
-//		ResourceSet rs = context.eResource().getResourceSet();
-//		for (Resource resource : rs.getResources()) {
-//			if (!resource.getContents().isEmpty()) {
-//				EObject rootObject = resource.getContents().get(0);
-//				if ((rootObject instanceof PropertySet)
-//						&& name.equalsIgnoreCase(((PropertySet) rootObject).getName()))
-//					return (PropertySet) rootObject;
-//			}
-//		}
 		return null;
 	}
 
