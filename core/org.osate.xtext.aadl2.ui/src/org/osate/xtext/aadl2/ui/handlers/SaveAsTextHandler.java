@@ -49,6 +49,7 @@ public class SaveAsTextHandler extends AbstractHandler {
 				if (f instanceof IResource){
 					Resource res = OsateResourceUtil.getResource((IResource)f);
 					EList<EObject> rl = res.getContents();
+//					saveBySerialize2(res);
 					AadlUnparser.getAadlUnparser().doUnparseToFile((Element)rl.get(0));
 				}
 			}
