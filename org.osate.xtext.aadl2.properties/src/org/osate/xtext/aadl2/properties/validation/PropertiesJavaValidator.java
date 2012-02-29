@@ -63,7 +63,7 @@ import org.osate.aadl2.util.Aadl2Util;
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void caseRangeValue(final RangeValue rv) {
 		final NumberValue deltaNV = rv.getDeltaValue();
 		if (deltaNV != null) {
@@ -74,7 +74,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void casePropertyAssociation(PropertyAssociation pa) {
 		// propertyset name in with clause is already enforced by linkingservice
 //		String s = pa.getProperty().getQualifiedName();
@@ -95,10 +95,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 	
 	/**
-	 * Check ranges for correctness.
+	 * Check Classifier reference for right type.
 	 */
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void caseClassifierValue(ClassifierValue nt) {
 			checkClassifierReference(nt.getClassifier(), nt);
 	}
