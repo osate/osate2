@@ -946,7 +946,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		} else if (cxt instanceof FeatureGroup) {
 			FeatureGroup featureGroup = (FeatureGroup) cxt;
 			while (featureGroup.getFeatureGroupType() == null
-					&& featureGroup.getPrototype() == null
+					&& featureGroup.getFeatureGroupPrototype() == null
 					&& featureGroup.getRefined() instanceof FeatureGroup) {
 				featureGroup = (FeatureGroup) featureGroup.getRefined();
 			}
@@ -955,10 +955,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.findNamedElement(portName);
 				if (searchResult instanceof PortConnectionEnd)
 					return ((PortConnectionEnd) searchResult);
-			} else if (featureGroup.getPrototype() != null) {
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
 						AadlUtil.getContainingClassifier(conn),
-						(FeatureGroupPrototype) featureGroup.getPrototype());
+						(FeatureGroupPrototype) featureGroup.getFeatureGroupPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
 							.findNamedElement(portName);
@@ -1025,7 +1025,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		} else if (cxt instanceof FeatureGroup) {
 			FeatureGroup featureGroup = (FeatureGroup) cxt;
 			while (featureGroup.getFeatureGroupType() == null
-					&& featureGroup.getPrototype() == null
+					&& featureGroup.getFeatureGroupPrototype() == null
 					&& featureGroup.getRefined() instanceof FeatureGroup) {
 				featureGroup = (FeatureGroup) featureGroup.getRefined();
 			}
@@ -1034,10 +1034,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.findNamedElement(name);
 				if (searchResult instanceof Access)
 					return (Access) searchResult;
-			} else if (featureGroup.getPrototype() != null) {
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
 						AadlUtil.getContainingClassifier(conn),
-						(FeatureGroupPrototype) featureGroup.getPrototype());
+						(FeatureGroupPrototype) featureGroup.getFeatureGroupPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
 							.findNamedElement(name);
@@ -1082,7 +1082,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		} else if (cxt instanceof FeatureGroup) {
 			FeatureGroup featureGroup = (FeatureGroup) cxt;
 			while (featureGroup.getFeatureGroupType() == null
-					&& featureGroup.getPrototype() == null
+					&& featureGroup.getFeatureGroupPrototype() == null
 					&& featureGroup.getRefined() instanceof FeatureGroup) {
 				featureGroup = (FeatureGroup) featureGroup.getRefined();
 			}
@@ -1091,10 +1091,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.findNamedElement(name);
 				if (searchResult instanceof ParameterConnectionEnd)
 					return (ParameterConnectionEnd) searchResult;
-			} else if (featureGroup.getPrototype() != null) {
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
 						AadlUtil.getContainingClassifier(conn),
-						(FeatureGroupPrototype) featureGroup.getPrototype());
+						(FeatureGroupPrototype) featureGroup.getFeatureGroupPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
 							.findNamedElement(name);
@@ -1162,7 +1162,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						FeatureGroup callContextFeatureGroup = (FeatureGroup) callContext;
 						FeatureGroupType prototypeContext;
 						while (callContextFeatureGroup.getFeatureGroupType() == null
-								&& callContextFeatureGroup.getPrototype() == null
+								&& callContextFeatureGroup.getFeatureGroupPrototype() == null
 								&& callContextFeatureGroup.getRefined() instanceof FeatureGroup) {
 							callContextFeatureGroup = (FeatureGroup) callContextFeatureGroup
 									.getRefined();
@@ -1170,7 +1170,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						if (callContextFeatureGroup.getFeatureGroupType() != null)
 							prototypeContext = callContextFeatureGroup
 							.getFeatureGroupType();
-						else if (callContextFeatureGroup.getPrototype() instanceof FeatureGroupPrototype) {
+						else if (callContextFeatureGroup.getFeatureGroupPrototype() instanceof FeatureGroupPrototype) {
 							prototypeContext = findFeatureGroupTypeForFeatureGroupPrototype(
 									AadlUtil.getContainingClassifier(conn),
 									(FeatureGroupPrototype) callContextFeatureGroup
@@ -1351,7 +1351,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		{
 			FeatureGroup featureGroup = (FeatureGroup) cxt;
 			while (featureGroup.getFeatureGroupType() == null
-					&& featureGroup.getPrototype() == null
+					&& featureGroup.getFeatureGroupPrototype() == null
 					&& featureGroup.getRefined() instanceof FeatureGroup) {
 				featureGroup = (FeatureGroup) featureGroup.getRefined();
 			}
@@ -1360,10 +1360,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.findNamedElement(name);
 				if (searchResult instanceof FeatureGroupConnectionEnd)
 					return (FeatureGroupConnectionEnd) searchResult;
-			} else if (featureGroup.getPrototype() != null) {
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
 						AadlUtil.getContainingClassifier(connection),
-						(FeatureGroupPrototype) featureGroup.getPrototype());
+						(FeatureGroupPrototype) featureGroup.getFeatureGroupPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
 							.findNamedElement(name);
@@ -1408,7 +1408,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		{
 			FeatureGroup featureGroup = (FeatureGroup) cxt;
 			while (featureGroup.getFeatureGroupType() == null
-					&& featureGroup.getPrototype() == null
+					&& featureGroup.getFeatureGroupPrototype() == null
 					&& featureGroup.getRefined() instanceof FeatureGroup) {
 				featureGroup = (FeatureGroup) featureGroup.getRefined();
 			}
@@ -1417,10 +1417,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.findNamedElement(name);
 				if (searchResult instanceof FeatureConnectionEnd)
 					return ((FeatureConnectionEnd) searchResult);
-			} else if (featureGroup.getPrototype() != null) {
+			} else if (featureGroup.getFeatureGroupPrototype() != null) {
 				FeatureGroupType featureGroupType = findFeatureGroupTypeForFeatureGroupPrototype(
 						AadlUtil.getContainingClassifier(connection),
-						(FeatureGroupPrototype) featureGroup.getPrototype());
+						(FeatureGroupPrototype) featureGroup.getFeatureGroupPrototype());
 				if (featureGroupType != null) {
 					NamedElement searchResult = featureGroupType
 							.findNamedElement(name);
