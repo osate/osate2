@@ -127,6 +127,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.workspace.WorkspacePlugin;
 
 
 /**
@@ -1192,10 +1193,17 @@ public final class AadlUtil {
 		// Is it an Element?
 		if (object instanceof Element) {
 			theElement = (Element) object;
+			if (theElement != null) return theElement;
 		}
-		if (theElement == null && object instanceof IAdaptable) {
-		theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
+		if (object instanceof IAdaptable) {
+		  theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
+		  if (theElement != null) return theElement;
 	    }
+		if (object instanceof IResource && ((IResource)object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+			Resource res = OsateResourceUtil.getResource((IResource)object);
+			EList<EObject> rl = res.getContents();
+			if (rl.isEmpty()&& rl.get(0) instanceof Element) return (Element) rl.get(0);
+		}
 		if (object instanceof TreeSelection){
 			for (Iterator iterator = ((TreeSelection)object).iterator(); iterator.hasNext();) {
 				Object f = (Object) iterator.next();
@@ -1207,7 +1215,7 @@ public final class AadlUtil {
 			}
 			return null;
 		}
-		return theElement;
+		return  null;
 	}
 
 	/**
