@@ -41,11 +41,9 @@ import java.util.Iterator;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 
 
@@ -66,9 +64,18 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
-	public final EList<Element> visitWorkspace(Element obj) {
-		visitWorkspaceDeclarativeModels(obj);
-		// TODO add instance models
+	public final EList<Element> visitWorkspace() {
+		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
+		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
+			final Resource res = it.next();
+			if (res instanceof Aadl2ResourceImpl) {
+				final EList<EObject> rc = res.getContents();
+				if (!rc.isEmpty()) {
+					final Element o = (Element) res.getContents().get(0);
+					visitRoot(o);
+				}
+			}
+		}
 		return processingMethod.getResultList();
 	}
 
@@ -83,16 +90,20 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
-	public final EList visitWorkspaceDeclarativeModels(Element obj) {
-//			EList<EObject> packlist = AadlUtil.getAllPackages(obj.eResource());
-//			for (Iterator<EObject> it = packlist.iterator(); processingMethod.notCancelled() && it.hasNext();) {
-//				final EObject eobj = it.next();
-//				if (!eobj.eIsProxy() ) {
-//					visitRoot((Element)eobj);
-//				} else {
-//					boolean isproxy = true;
-//				}
-//			}
+	public final EList visitWorkspaceDeclarativeModels() {
+		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
+		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
+			final Resource res = it.next();
+			if (res instanceof Aadl2ResourceImpl) {
+				final EList<EObject> rc = res.getContents();
+				if (!rc.isEmpty()) {
+					final Element o = (Element) res.getContents().get(0);
+					if (!(o instanceof InstanceObject)) {
+						visitRoot(o);
+					}
+				}
+			}
+		}
  		return processingMethod.getResultList();
 	}
 	

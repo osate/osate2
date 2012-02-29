@@ -2069,22 +2069,43 @@ public final class AadlUtil {
 	}
 
 	/**
-	 * Get all component implementations in the package that contains the Element parameter
+	 * Get all component implementations; in all anon. name spaces and from all
+	 * packages (public and private parts)
+	 * 
+	 * @return EList of component impl
+	 */
+	public static EList<ComponentImplementation> getAllComponentImpl() {
+		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
+		EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
+		for (Resource res : resources) {
+			EList<EObject> content = res.getContents();
+			if (!content.isEmpty()) {
+				EObject root = content.get(0);
+				if (root instanceof AadlPackage) {
+					result.addAll(getAllComponentImpl((AadlPackage) root));
+				}
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Get all component implementation; in anon. name space and from all
+	 * packages
 	 * 
 	 * @param o AadlPackage
 	 * @return EList of component impl
 	 */
-	public static EList<ComponentImplementation> getAllComponentImpl(Element o) {
-		AadlPackage pack = getContainingPackage(o);
+	private static EList<ComponentImplementation> getAllComponentImpl(AadlPackage o) {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		PackageSection psec = pack.getOwnedPublicSection();
+		PackageSection psec = o.getOwnedPublicSection();
 		if (psec != null) {
 			for (EObject oo : psec.eContents()) {
 				if (oo instanceof ComponentImplementation)
 					result.add((ComponentImplementation) oo);
 			}
 		}
-		psec = pack.getPrivateSection();
+		psec = o.getPrivateSection();
 		if (psec != null) {
 			for (EObject oo : psec.eContents()) {
 				if (oo instanceof ComponentImplementation)
