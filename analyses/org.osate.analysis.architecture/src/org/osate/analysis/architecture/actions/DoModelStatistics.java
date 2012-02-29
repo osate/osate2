@@ -42,7 +42,9 @@ package org.osate.analysis.architecture.actions;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osgi.framework.Bundle;
 
 import org.osate.aadl2.Classifier;
@@ -90,14 +92,31 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
 		ModelStatistics stats = new ModelStatistics(monitor);
+		
+		/**
+		 * Example of using the Index to get the classifiers
+		 * In this case we then resolver the reference (causing the classifier to be loaded)
+		 */
 
-//		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
-//		EList<Classifier> classifierlist = als.getAllClassifiers(obj.eResource());
-//		for (Classifier cl : classifierlist){
-//			cl = (Classifier) EcoreUtil.resolve(cl, obj.eResource().getResourceSet());
-//			stats.process(cl);
-//		}
+//			Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
+//			EList<IEObjectDescription> classifierlist = als.getAllClassifiersInWorkspace(obj.eResource());
+//			Resource res = obj.eResource();
+//			for (IEObjectDescription cleod : classifierlist){
+//				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
+//				stats.process(cl);
+//			}
+		
+		/**
+		 * Example of counting without causing the classifier to load
+		 */
 //		
+//		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
+//		EList<IEObjectDescription> classifierlist = als.getAllClassifiersInWorkspace(obj.eResource());
+//		Resource res = obj.eResource();
+//		for (IEObjectDescription cleod : classifierlist){
+//			stats.countClassifier(cleod.getEClass());
+//		}
+		
 		/*
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.

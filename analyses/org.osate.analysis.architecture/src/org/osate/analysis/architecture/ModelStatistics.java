@@ -41,10 +41,13 @@ package org.osate.analysis.architecture;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.validation.Check;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -183,6 +186,14 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 		 * components packages.
 		 */
 	}
+	
+	public void countClassifier(EClass cl){
+		if (Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(cl)){
+			typeCount++;
+		} else if (Aadl2Package.eINSTANCE.getComponentImplementation().isSuperTypeOf(cl)){
+			compImplCount++;
+		}
+	}
 
 	public String getModelResult() {
 		return "Model Statistics: " + componentTypeCount + " component type declarations, " + compImplCount
@@ -209,28 +220,5 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 					+ virtualBusCount + " virtual buses, " + deviceCount + " devices.  ";
 		}
 		return null;
-	}
-	
-	public StringBuffer doStats(Element obj){
-		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
-		EList<IEObjectDescription> classifierlist = als.getAllClassifiersInWorkspace(obj.eResource());
-		Resource res = obj.eResource();
-		for (IEObjectDescription cleod : classifierlist){
-			Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
-			process(cl);
-		}
-		final StringBuffer msg = new StringBuffer();
-		final String modelStats = getModelResult();
-		final String flowStats = getFlowResult();
-		error(obj, modelStats);
-		error(obj, flowStats);
-		msg.append(modelStats);
-		msg.append(flowStats);
-		return msg;
-	}
-	
-	@Check
-	public void checkAadlPackage(AadlPackage pack){
-		doStats(pack);
 	}
 }
