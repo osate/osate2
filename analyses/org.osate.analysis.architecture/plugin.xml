@@ -97,6 +97,10 @@
                      <objectClass name="org.eclipse.core.resources.IFile"/>
                      <objectState name="extension" value="aadl"/>
                   </and>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
                   <objectClass name="org.eclipse.jface.text.ITextSelection"/>
                   <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>

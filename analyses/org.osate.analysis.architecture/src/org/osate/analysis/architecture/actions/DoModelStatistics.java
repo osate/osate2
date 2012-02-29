@@ -102,7 +102,17 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.
 		 */
-		final StringBuffer msg = stats.doStats(root);
+		// run statistics on all declarative models in the workspace
+		stats.defaultTraversalAllDeclarativeModels();
+		final StringBuffer msg = new StringBuffer();
+		final String modelStats = stats.getModelResult();
+		final String flowStats = stats.getFlowResult();
+		info(root, modelStats);
+		info(root, flowStats);
+		msg.append(modelStats);
+		msg.append(flowStats);
+
+//		 final StringBuffer msg = stats.doStats(root);
 
 		if (si != null) {
 			stats.defaultTraversal(si);
