@@ -150,7 +150,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		if (as instanceof ComponentImplementation) {
 			componentSecuritySwitch.processBottomUpComponentImpl((ComponentImplementation) as);
 		} else {
-			componentSecuritySwitch.processBottomUpComponentImpl(as);
+			componentSecuritySwitch.processBottomUpComponentImpl();
 		}
 		if (componentSecuritySwitch.cancelled()) {
 			throw new OperationCanceledException();
@@ -162,7 +162,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		if (as instanceof ComponentImplementation){
 			connectionSecuritySwitch.processTopDownComponentImpl((ComponentImplementation) as);
 		} else {
-			connectionSecuritySwitch.processAllComponentImpl(as);
+			connectionSecuritySwitch.processAllComponentImpl();
 		}
 		if (connectionSecuritySwitch.cancelled()) {
 			throw new OperationCanceledException();

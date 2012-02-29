@@ -52,7 +52,7 @@ public class CheckFlowLatencyAnalysis extends AbstractAnalysis
 		else
 		{
 			final FlowLatencyAnalysisSwitch flowLatencySwitch = new FlowLatencyAnalysisSwitch( new NullProgressMonitor(), getErrorManager());
-			flowLatencySwitch.processBottomUpComponentImpl(getParameter()); //(ComponentImplementation)getParameter());
+			flowLatencySwitch.processBottomUpComponentImpl(); //(ComponentImplementation)getParameter());
 		}
 		return getErrorManager().getNumErrors() == 0;
 	}
