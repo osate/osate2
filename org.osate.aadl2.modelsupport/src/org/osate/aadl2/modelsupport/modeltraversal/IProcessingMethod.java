@@ -61,6 +61,7 @@ interface IProcessingMethod {
 	 * Has the processing been cancelled?
 	 */
 	public boolean notCancelled();
+	public boolean cancelled() ;
 	
 	/**
 	 * Get the result of the processing.

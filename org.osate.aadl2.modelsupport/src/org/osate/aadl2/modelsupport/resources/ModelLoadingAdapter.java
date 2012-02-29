@@ -20,6 +20,7 @@ import org.osate.core.OsateCorePlugin;
 import com.google.inject.Injector;
 /* Author: Robert Coop
  * Adapted by Peter Feiler
+* Usage: DslModel target = (DslModel)Platform.getAdapterManager().getAdapter(sourceObject, DslModel.class);
 * See: http://coopology.com/2011/06/easily-load-xtext-files-and-objects-in-eclipse-plugin-or-rcp-projects-using-adapters/
 */
 @SuppressWarnings("rawtypes")
