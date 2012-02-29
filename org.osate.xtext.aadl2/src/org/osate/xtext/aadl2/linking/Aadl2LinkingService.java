@@ -583,6 +583,23 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		 }
 		 return packlist;
 	 }
+	 
+	/**
+	 * get all classifiers in all packages by looking them up in EMF index 
+	 * @param res resource
+	 * @param classifiertype desired type of classifier (you can supply it via Aadl2Package.eINSTANCE.getProcessorType, etc)
+	 * @return list of classifiers in IEObjectDescription format
+	 */
+	public EList <IEObjectDescription> getAllClassifiersOfTypeInWorkspace(Resource res, EClass classifiertype){
+		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
+		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifiertype);
+		 for (IEObjectDescription eod : packagedlist) {
+			 System.out.println("classifier "+eod.getQualifiedName());
+				 packlist.add(eod);
+		 }
+		 return packlist;
+	 }
 
 
 	private static Aadl2LinkingService eInstance = null;
