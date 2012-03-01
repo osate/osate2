@@ -41,6 +41,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -130,7 +131,8 @@ public class OsateResourceUtil {
 				.getRoot();
 		if (uri != null) {
 			IPath path = getOsatePath(uri);
-			return myWorkspaceRoot.getFile(path);
+			
+			return myWorkspaceRoot.getFileForLocation(path);
 		}
 		return null;
 	}
