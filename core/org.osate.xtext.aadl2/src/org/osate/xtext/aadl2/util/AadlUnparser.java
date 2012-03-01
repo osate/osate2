@@ -154,20 +154,23 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			
 			public String casePackageRename(PackageRename object) {
 				processComments(object);
-				aadlText.addOutputNewline(object.getName()+" renames package "+object.getRenamedPackage().getName()
+				aadlText.addOutputNewline((object.getName()== null? "renames package ":object.getName()+" renames package ")
+						+object.getRenamedPackage().getName()
 						+(object.isRenameAll()?"::all;":";"));
 				return DONE;
 			}
 			
 			public String caseComponentTypeRename(ComponentTypeRename object) {
 				processComments(object);
-				aadlText.addOutputNewline(object.getName()+" renames "+object.getCategory().getName()+" "+AadlUtil.getClassifierName(object.getRenamedComponentType(),object)+";");
+				aadlText.addOutputNewline((object.getName()== null? "renames ":object.getName()+" renames ")
+						          +object.getCategory().getName()+" "+AadlUtil.getClassifierName(object.getRenamedComponentType(),object)+";");
 				return DONE;
 			}
 			
 			public String caseFeatureGroupTypeRename(FeatureGroupTypeRename object) {
 				processComments(object);
-				aadlText.addOutputNewline(object.getName()+" renames "+AadlUtil.getClassifierName(object.getRenamedFeatureGroupType(),object)+";");
+				aadlText.addOutputNewline((object.getName()== null? "renames ":object.getName()+" renames ")
+				                     +AadlUtil.getClassifierName(object.getRenamedFeatureGroupType(),object)+";");
 				return DONE;
 			}
 			
