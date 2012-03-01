@@ -508,7 +508,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		 rds= rdp.getResourceDescriptions(res);
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		 for (IEObjectDescription eod : packagedlist) {
-			 System.out.println("package "+eod.getQualifiedName());
 				 packlist.add(eod);
 		 }
 		 return packlist;
@@ -520,6 +519,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	 * get all packages in workspace by looking them up in EMF index 
 	 * @param res resource
 	 * @return list of AADL packages
+	 * ** EXPERIMENTAL
 	 */
 	public EList <IEObjectDescription> getAllImportedPackages(AadlPackage pack){
 		Resource res = pack.eResource();
@@ -546,6 +546,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		 return packlist;
 	 }
 
+	 /* ** EXPERIMENTAL */
 	private EList <IEObjectDescription> getAllImportedPackages(IResourceDescription packrd){
 		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 		 Iterable<QualifiedName> namelist = packrd.getImportedNames();
@@ -578,7 +579,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
 		 for (IEObjectDescription eod : packagedlist) {
-			 System.out.println("classifier "+eod.getQualifiedName());
 				 packlist.add(eod);
 		 }
 		 return packlist;
@@ -595,7 +595,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifiertype);
 		 for (IEObjectDescription eod : packagedlist) {
-			 System.out.println("classifier "+eod.getQualifiedName());
 				 packlist.add(eod);
 		 }
 		 return packlist;
