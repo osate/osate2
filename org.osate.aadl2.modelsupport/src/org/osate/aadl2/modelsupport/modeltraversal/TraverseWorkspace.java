@@ -15,7 +15,7 @@ import org.osate.workspace.WorkspacePlugin;
 
 public class TraverseWorkspace {
 	
-	public static HashSet<IFile> getIFilesInWorkspace(){
+	public static HashSet<IFile> getAadlAaxlFilesInWorkspace(){
 		return getFiles(getProjects());
 	}
 
@@ -40,7 +40,12 @@ public class TraverseWorkspace {
 
 		for (int i = 0; i < resources.length; i++) {
 			if (resources[i] instanceof IFile) {
-				result.add( (IFile) resources[i]);
+				IFile file = (IFile) resources[i];
+				if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+						|| file.getFileExtension().equalsIgnoreCase("aadl2")
+						||file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+					result.add( (IFile) resources[i]);
+				}
 			} else if (resources[i] instanceof IContainer) {
 				IContainer cont = (IContainer) resources[i];
 				getFiles(cont, result);
@@ -55,7 +60,12 @@ public class TraverseWorkspace {
 			resources = folder.members();
 			for (int i = 0; i < resources.length; i++) {
 				if (resources[i] instanceof IFile) {
-					result.add( (IFile) resources[i]);
+					IFile file = (IFile) resources[i];
+					if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+							|| file.getFileExtension().equalsIgnoreCase("aadl2")
+							||file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+						result.add( (IFile) resources[i]);
+					}
 				} else if (resources[i] instanceof IContainer) {
 					IContainer cont = (IContainer) resources[i];
 					getFiles(cont, result);
