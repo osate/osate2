@@ -102,7 +102,6 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)|| file.getFileExtension().equalsIgnoreCase("aadl2")){
 				ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
 				if (target != null){
-					System.out.println("MU "+target.getName());
 					visitRoot(target);
 				}
 			}
@@ -141,7 +140,6 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
 				InstanceObject target = (InstanceObject)AadlUtil.getElement(file);
 				if (target != null){
-					System.out.println("IO "+target.getName());
 					visitRoot(target);
 				}
 			}
