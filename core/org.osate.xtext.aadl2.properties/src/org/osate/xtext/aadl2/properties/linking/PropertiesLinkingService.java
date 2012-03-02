@@ -5,9 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
@@ -96,12 +98,11 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 
@@ -116,17 +117,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public static PropertiesLinkingService getPropertiesLinkingService(Element context){
 		if (eInstance == null) {
-			if (context.eResource() instanceof Aadl2ResourceImpl){
-				Element root = context.getElementRoot();
-				if (root instanceof SystemInstance){
-					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
-					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
-					eInstance = (PropertiesLinkingService)r.getLinkingService();
-				}
-			} else {
-				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
-				eInstance = (PropertiesLinkingService)r.getLinkingService();
-			}
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
+			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+			// Previously we did it based on a supplied Element
+//			if (context.eResource() instanceof Aadl2ResourceImpl){
+//				Element root = context.getElementRoot();
+//				if (root instanceof SystemInstance){
+//					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
+//					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
+//					eInstance = (PropertiesLinkingService)r.getLinkingService();
+//				}
+//			} else {
+//				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
+//				eInstance = (PropertiesLinkingService)r.getLinkingService();
+//			}
 		}
 		return eInstance;
 	}
