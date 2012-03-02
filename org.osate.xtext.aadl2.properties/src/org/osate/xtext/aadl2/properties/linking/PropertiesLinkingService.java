@@ -100,7 +100,6 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.PSNode;
@@ -408,9 +407,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 		} else {
 			List<EObject> superes = super.getLinkedObjects(context, reference, node);
-			if (superes.isEmpty()){
-				Activator.logErrorMessage("Unhandled reference in LinkingService: "+reference.getName()+" to "+requiredType.getName());
-			}
 			return superes;
 		}
 		if (searchResult != null) {
