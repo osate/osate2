@@ -134,7 +134,7 @@
          </visibility> 
 
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               id="org.osate.ui.popupMenu.Analyses"
                label="%popupMenu.analyses.label"
                path="additions">
             <groupMarker name="anal.grp"/>
@@ -144,14 +144,14 @@
          <menu
                id="org.osate.analysis.architecture.popupMenu.Arch"
                label="%popupMenu.Arch.label"
-               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
 
          <menu
                id="org.osate.analysis.architecture.popupMenu.Semantic"
                label="%popupMenu.Semantic.label"
-               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
          
@@ -188,7 +188,7 @@
          </visibility>
 
          <menu
-               id="edu.cmu.sei.osate.ui.popupMenu.Analyses"
+               id="org.osate.ui.popupMenu.Analyses"
                label="%popupMenu.analyses.label"
                path="additions">
             <groupMarker name="anal.grp"/>
@@ -198,7 +198,7 @@
          <menu
                id="org.osate.analysis.architecture.popupMenu.Arch"
                label="%popupMenu.Arch.label"
-               path="edu.cmu.sei.osate.ui.popupMenu.Analyses/subMenus.grp">
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
             <groupMarker name="anal.grp"/>
          </menu>
 
