@@ -1,14 +1,21 @@
 package org.osate.xtext.aadl2.linking;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
@@ -19,6 +26,7 @@ import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -53,6 +61,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
@@ -67,6 +76,9 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
@@ -503,9 +515,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	 * @param res resource
 	 * @return list of AADL packages in IEObjectDescription format
 	 */
-	public EList <IEObjectDescription> getAllPackagesInWorkspace(Resource res){
+	public EList <IEObjectDescription> getAllPackagesInWorkspace(){
 		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-		 rds= rdp.getResourceDescriptions(res);
+		 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		 for (IEObjectDescription eod : packagedlist) {
 				 packlist.add(eod);
@@ -574,9 +586,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	 * @param res resource
 	 * @return list of classifiers in IEObjectDescription format
 	 */
-	public EList <IEObjectDescription> getAllClassifiersInWorkspace(Resource res){
+	public EList <IEObjectDescription> getAllClassifiersInWorkspace(){
 		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
 		 for (IEObjectDescription eod : packagedlist) {
 				 packlist.add(eod);
@@ -590,9 +602,9 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	 * @param classifiertype desired type of classifier (you can supply it via Aadl2Package.eINSTANCE.getProcessorType, etc)
 	 * @return list of classifiers in IEObjectDescription format
 	 */
-	public EList <IEObjectDescription> getAllClassifiersOfTypeInWorkspace(Resource res, EClass classifiertype){
+	public EList <IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EClass classifiertype){
 		 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-		 IResourceDescriptions rds= rdp.getResourceDescriptions(res);
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifiertype);
 		 for (IEObjectDescription eod : packagedlist) {
 				 packlist.add(eod);
@@ -603,19 +615,10 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 	private static Aadl2LinkingService eInstance = null;
 
-	public static Aadl2LinkingService getAadl2LinkingService(Element context){
+	public static Aadl2LinkingService getAadl2LinkingService(){
 		if (eInstance == null) {
-			if (context.eResource() instanceof Aadl2ResourceImpl){
-				Element root = context.getElementRoot();
-				if (root instanceof SystemInstance){
-					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
-					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
-					eInstance = (Aadl2LinkingService)r.getLinkingService();
-				}
-			} else {
-				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
-				eInstance = (Aadl2LinkingService)r.getLinkingService();
-			}
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
+			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
 		}
 		return eInstance;
 	}
