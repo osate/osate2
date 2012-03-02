@@ -25,11 +25,14 @@ import org.eclipse.xtext.ui.shared.SharedStateModule;
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
  */
-public class PropertiesActivator extends AbstractUIPlugin {
+public class PropertiesActivator extends AbstractUIPlugin implements org.eclipse.ui.IStartup{
 	
 	private static final Logger logger = Logger.getLogger(PropertiesActivator.class);
 	
 	private Cache<String, Injector> injectors = CacheBuilder.newBuilder().build(new CacheLoader<String, Injector>() {
+
+	    public void earlyStartup(){};
+
 		@Override
 		public Injector load(String language) throws Exception {
 			Module runtimeModule = getRuntimeModule(language);
@@ -90,6 +93,12 @@ public class PropertiesActivator extends AbstractUIPlugin {
 	
 	protected Module getSharedStateModule() {
 		return new SharedStateModule();
+	}
+
+	@Override
+	public void earlyStartup() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

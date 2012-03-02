@@ -28,14 +28,16 @@ import com.google.inject.Injector;
 public class ModelLoadingAdapter  implements IAdapterFactory {
     private static org.apache.log4j.Logger log = org.apache.log4j.Logger
         .getLogger(ModelLoadingAdapter.class);
-    final private static Injector injector = OsateCorePlugin
-        .getDefault().getInjector("org.osate.xtext.aadl2.Aadl2");
+    private static Injector injector = OsateCorePlugin
+        .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
  
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
         if (adapterType == ModelUnit.class || adapterType == Element.class) {
-            if (injector==null) {
-                log.error("Could not obtain injector for Aadl2");
+        	if (injector==null) {
+            	injector = OsateCorePlugin
+            	        .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties"); 
+                if(injector == null) log.error("Could not obtain injector for Aadl2");
                 return null;
             }
  
