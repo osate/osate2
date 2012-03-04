@@ -102,24 +102,17 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		 * In this case we then resolver the reference (causing the classifier to be loaded)
 		 */
 
-//			Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService();
-			EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
-			Resource res = obj.eResource();
-			for (IEObjectDescription cleod : classifierlist){
-				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
-//				if (cl instanceof ComponentImplementation){
-//					EList<Subcomponent> subl1 = ((ComponentImplementation)cl).getAllSubcomponents();
-//					System.out.println("Hi all "+((SystemImplementation)cl).getName()+" "+subl1.size());
-//				}
-				stats.process(cl);
-			}
+//			EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
+//			for (IEObjectDescription cleod : classifierlist){
+//				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
+//				stats.process(cl);
+//			}
 		
 		/**
 		 * Example of counting without causing the classifier to load
 		 */
 //		
-//		Aadl2LinkingService als = Aadl2LinkingService.getAadl2LinkingService(obj);
-//		EList<IEObjectDescription> classifierlist = als.getAllClassifiersInWorkspace();
+//		EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
 //		Resource res = obj.eResource();
 //		for (IEObjectDescription cleod : classifierlist){
 //			stats.countClassifier(cleod.getEClass());
@@ -139,7 +132,6 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		msg.append(modelStats);
 		msg.append(flowStats);
 
-//		 final StringBuffer msg = stats.doStats(root);
 
 		if (si != null) {
 			stats.defaultTraversal(si);
