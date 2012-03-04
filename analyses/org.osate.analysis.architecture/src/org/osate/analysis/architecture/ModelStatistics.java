@@ -119,8 +119,8 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 			public String caseComponentImplementation(ComponentImplementation ci) {
 //				monitor.subTask("Visiting " + ci.getQualifiedName());
 				compImplCount++;
-				EList cl = ci.getAllSubcomponents();
-				System.out.println("case "+cl.size());
+//				EList cl = ci.getAllSubcomponents();
+//				System.out.println("case "+ci.getName()+" "+cl.size());
 				return DONE;
 			}
 			
