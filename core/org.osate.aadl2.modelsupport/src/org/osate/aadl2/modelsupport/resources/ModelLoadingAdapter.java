@@ -135,6 +135,36 @@ public static EList <IEObjectDescription> getAllPackagesInWorkspace(){
 	 return packlist;
 }
 
+/**
+* get all property sets in workspace by looking them up in EMF index 
+* @param res resource
+* @return list of property sets in IEObjectDescription format
+*/
+public static EList <IEObjectDescription> getAllPropertySetsInWorkspace(){
+	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
+	 for (IEObjectDescription eod : packagedlist) {
+			 packlist.add(eod);
+	 }
+	 return packlist;
+}
+
+/**
+* get all packages and property sets in workspace by looking them up in EMF index 
+* @param res resource
+* @return list of AADL packages and property sets in IEObjectDescription format
+*/
+public static EList <IEObjectDescription> getAllModelUnitsInWorkspace(){
+	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit());
+	 for (IEObjectDescription eod : packagedlist) {
+			 packlist.add(eod);
+	 }
+	 return packlist;
+}
+
 protected static IResourceDescriptions rds;
 
 /**
