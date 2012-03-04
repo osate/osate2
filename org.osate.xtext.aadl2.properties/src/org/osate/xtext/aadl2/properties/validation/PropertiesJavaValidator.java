@@ -39,11 +39,13 @@ import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.NumericRange;
 import org.osate.aadl2.Operation;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeType;
 import org.osate.aadl2.RangeValue;
@@ -357,7 +359,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public void checkClassifierReference(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
-		Namespace referenceNS = AadlUtil.getContainingTopLevelNamespace(cl);
+		PackageSection referenceNS = (PackageSection)AadlUtil.getContainingTopLevelNamespace(cl);
 		if (contextNS != referenceNS){
 			if (!AadlUtil.isImportedPackage(AadlUtil.getContainingPackage(referenceNS), contextNS)){
 				error(context, "The referenced package '" + AadlUtil.getContainingPackage(referenceNS).getName() +
@@ -370,10 +372,10 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public void checkPropertySetElementReference(NamedElement pse, Element context){
 		if (Aadl2Util.isNull(pse)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
-		Namespace referenceNS = AadlUtil.getContainingTopLevelNamespace(pse);
+		PropertySet referenceNS = (PropertySet) AadlUtil.getContainingTopLevelNamespace(pse);
 		if (contextNS != referenceNS){
-			if (!AadlUtil.isImportedPropertySet(AadlUtil.getContainingPropertySet(referenceNS), contextNS)){
-				error(context, "The referenced property set '" + AadlUtil.getContainingPackage(referenceNS).getName() +
+			if (!AadlUtil.isImportedPropertySet(referenceNS, contextNS)){
+				error(context, "The referenced property set '" + referenceNS.getName() +
 						"' of "+ (pse instanceof Property ? "property '":(pse instanceof PropertyType? "property type '":"property constant '" ))
 						+ pse.getName() +"' is not listed in a with clause.");
 			}

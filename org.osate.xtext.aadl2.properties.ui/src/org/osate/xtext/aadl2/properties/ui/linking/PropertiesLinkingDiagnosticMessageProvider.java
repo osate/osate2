@@ -18,6 +18,21 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			String msg = "Couldn't resolve reference to " + targetName + " '" + context.getLinkText() + "'." + " For classifier references use classifier( <ref> ).";
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
+		if (Aadl2Package.eINSTANCE.getProperty() == referenceType){
+			String msg = "Couldn't resolve reference to property definition '" + context.getLinkText() + "'."+
+		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+		}
+		if (Aadl2Package.eINSTANCE.getPropertyType() == referenceType){
+			String msg = "Couldn't resolve reference to property type '" + context.getLinkText() + "'."+
+		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+		}
+		if (Aadl2Package.eINSTANCE.getPropertyConstant() == referenceType){
+			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."+
+		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+		}
 		return super.getUnresolvedProxyMessage(context);
 	}
 
