@@ -1478,8 +1478,8 @@ FeatureGroup returns aadl2::FeatureGroup:
 	((name=ID ':' )|
 	(refined=[aadl2::FeatureGroup|REFINEDNAME] ':' 'refined' 'to'))
 	(direction=InOutDirection)? 'feature' 'group' 
-	( inverse?='inverse' 'of')?
-	featureType=[aadl2::FeatureType|QCREF] 
+	(( inverse?='inverse' 'of')?
+	featureType=[aadl2::FeatureType|QCREF] )?
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

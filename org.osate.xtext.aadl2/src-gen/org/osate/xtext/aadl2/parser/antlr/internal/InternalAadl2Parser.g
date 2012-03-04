@@ -25021,12 +25021,12 @@ ruleFeatureGroup returns [EObject current=null]
     {
     	newLeafNode(otherlv_8, grammarAccess.getFeatureGroupAccess().getGroupKeyword_3());
     }
-((
+(((
 (
 		lv_inverse_9_0=
 	KEYWORD_68
     {
-        newLeafNode(lv_inverse_9_0, grammarAccess.getFeatureGroupAccess().getInverseInverseKeyword_4_0_0());
+        newLeafNode(lv_inverse_9_0, grammarAccess.getFeatureGroupAccess().getInverseInverseKeyword_4_0_0_0());
     }
 
 	    {
@@ -25040,7 +25040,7 @@ ruleFeatureGroup returns [EObject current=null]
 )
 	otherlv_10=KEYWORD_21
     {
-    	newLeafNode(otherlv_10, grammarAccess.getFeatureGroupAccess().getOfKeyword_4_1());
+    	newLeafNode(otherlv_10, grammarAccess.getFeatureGroupAccess().getOfKeyword_4_0_1());
     }
 )?(
 (
@@ -25050,17 +25050,17 @@ ruleFeatureGroup returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_5_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_4_1_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)(
+))?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getArrayDimensionArrayDimensionParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getArrayDimensionArrayDimensionParserRuleCall_5_0()); 
 	    }
 		lv_arrayDimension_12_0=ruleArrayDimension		{
 	        if ($current==null) {
@@ -25078,12 +25078,12 @@ ruleFeatureGroup returns [EObject current=null]
 )?(
 	otherlv_13=KEYWORD_12
     {
-    	newLeafNode(otherlv_13, grammarAccess.getFeatureGroupAccess().getLeftCurlyBracketKeyword_7_0());
+    	newLeafNode(otherlv_13, grammarAccess.getFeatureGroupAccess().getLeftCurlyBracketKeyword_6_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
 		lv_ownedPropertyAssociation_14_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
@@ -25101,12 +25101,12 @@ ruleFeatureGroup returns [EObject current=null]
 )+
 	otherlv_15=KEYWORD_13
     {
-    	newLeafNode(otherlv_15, grammarAccess.getFeatureGroupAccess().getRightCurlyBracketKeyword_7_2());
+    	newLeafNode(otherlv_15, grammarAccess.getFeatureGroupAccess().getRightCurlyBracketKeyword_6_2());
     }
 )?
 	otherlv_16=KEYWORD_9
     {
-    	newLeafNode(otherlv_16, grammarAccess.getFeatureGroupAccess().getSemicolonKeyword_8());
+    	newLeafNode(otherlv_16, grammarAccess.getFeatureGroupAccess().getSemicolonKeyword_7());
     }
 )
 ;
