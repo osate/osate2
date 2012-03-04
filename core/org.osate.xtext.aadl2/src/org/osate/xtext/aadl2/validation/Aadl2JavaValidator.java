@@ -247,6 +247,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void casePortConnection(PortConnection connection) {
 		checkPortConnectionClassifiers(connection);
+		checkPortConnectionDirection(connection);
+		checkPortConnectionEnds(connection);
 
 	}
 
@@ -2120,6 +2122,90 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
+
+	/**
+	 * Check direction of ConnectionEnd in port connections
+	 */
+	private void checkPortConnectionDirection(PortConnection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		DirectionType srcDirection = DirectionType.IN_OUT;
+		DirectionType dstDirection = DirectionType.IN_OUT;
+		if (source instanceof DirectedFeature)
+			srcDirection = ((DirectedFeature)source).getDirection();
+		if (destination instanceof DirectedFeature)
+			dstDirection = ((DirectedFeature)destination).getDirection();
+		if (source instanceof DataSubcomponent || source instanceof DataAccess){
+			// TODO check access right to limit to in or out
+		}
+		if (destination instanceof DataSubcomponent || destination instanceof DataAccess){
+			// TODO check access right to limit to in or out
+		}
+		Context srcContext = connection.getAllSourceContext();
+		Context dstContext = connection.getAllDestinationContext();
+		if (srcContext instanceof FeatureGroup && ((FeatureGroup)srcContext).isInverse()){
+			srcDirection = srcDirection.getInverseDirection();
+		}
+		if (dstContext instanceof FeatureGroup && ((FeatureGroup)dstContext).isInverse()){
+			dstDirection = dstDirection.getInverseDirection();
+		}
+		if (srcContext instanceof FeatureGroup && ((FeatureGroup)srcContext).getFeatureGroupType().getInverse()!= null){
+			srcDirection = srcDirection.getInverseDirection();
+		}
+		if (dstContext instanceof FeatureGroup && ((FeatureGroup)dstContext).getFeatureGroupType().getInverse()!= null){
+			dstDirection = dstDirection.getInverseDirection();
+		}
+		if ((srcContext instanceof Subcomponent  && dstContext instanceof Subcomponent)
+				// between ports of subcomponents
+				|| (srcContext == null && source instanceof DataSubcomponent  && dstContext instanceof Subcomponent)
+					// from a data subcomponent to a port
+				|| (dstContext == null && destination instanceof DataSubcomponent  && srcContext instanceof Subcomponent)
+					// from a data subcomponent to a port
+				){
+			if (!(srcDirection.outgoing() && dstDirection.incoming())){
+				error(connection, "Source feature '" + source.getName() + "' must be outgoing and destination feature '"+destination.getName() +"' must be incoming.");
+			}
+			return;
+		} else {
+			// going up or down hierarchy
+			if (!((srcDirection.outgoing() && dstDirection.outgoing())||(srcDirection.incoming() && dstDirection.incoming()))){
+				error(connection, "Source feature '" + source.getName() + "' and destination feature '"+destination.getName() +"' must have same direction.");
+			}
+		}
+	}
+
+	/**
+	 * Check connection ends of port connections
+	 * Section 9.2 Legality rule L5
+	 */
+	private void checkPortConnectionEnds(PortConnection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		if (source instanceof EventPort && !(destination instanceof EventPort)){
+			error(connection, "Source event port '" + source.getName() + "' must be connected to an event port destination.");
+			return;
+		}
+		if (source instanceof DataPort && !(destination instanceof EventPort || destination instanceof DataPort 
+				|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)){
+			error(connection, "Source data port '" + source.getName() + "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+			return;
+		}
+		if (source instanceof EventDataPort && !(destination instanceof EventPort || destination instanceof DataPort 
+				|| destination instanceof EventDataPort || destination instanceof DataSubcomponent || destination instanceof DataAccess)){
+			error(connection, "Source event data port '" + source.getName() + "' must be connected to an event, data, or event data port, data subcomponent or data access destination.");
+			return;
+		}
+		if (source instanceof DataSubcomponent && !(destination instanceof EventPort || destination instanceof DataPort 
+				|| destination instanceof EventDataPort )){
+			error(connection, "Source data subcomponent '" + source.getName() + "' must be connected to an event, data, or event data port destination.");
+			return;
+		}
+		if (source instanceof DataAccess && !(destination instanceof EventPort || destination instanceof DataPort 
+				|| destination instanceof EventDataPort )){
+			error(connection, "Source data access feature '" + source.getName() + "' must be connected to an event, data, or event data port destination.");
+			return;
+		}
+	}
 
 	/**
 	 * @param pn

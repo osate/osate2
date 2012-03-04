@@ -2290,8 +2290,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         (name=ID | refined=[FeatureGroup|REFINEDNAME]) 
 	 *         direction=InOutDirection? 
-	 *         inverse?='inverse'? 
-	 *         featureType=[FeatureType|QCREF] 
+	 *         (inverse?='inverse'? featureType=[FeatureType|QCREF])? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )

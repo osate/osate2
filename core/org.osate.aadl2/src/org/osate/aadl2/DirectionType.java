@@ -280,5 +280,20 @@ public enum DirectionType implements Enumerator {
 	public boolean incoming() {
 		return this == IN || this == IN_OUT;
 	}
+	/** 
+	 * Sets the port direction to be the opposite of the one specified
+	 * The original direction may be retrieved from a refinement ancestor
+	 * the value is set locally
+	 *
+	 */
+	public DirectionType getInverseDirection(){
+		DirectionType pd = this;
+		if (pd == DirectionType.IN)
+			return DirectionType.OUT;
+		else if (pd == DirectionType.OUT)
+			return DirectionType.IN;
+		else
+			return pd;
+	}
 
 } //DirectionType
