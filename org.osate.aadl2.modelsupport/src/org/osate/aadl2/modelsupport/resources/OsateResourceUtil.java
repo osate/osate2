@@ -128,8 +128,6 @@ public class OsateResourceUtil {
 		if (res == null)
 			return null;
 		URI uri = res.getURI();
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
 		if (uri != null) {
 			return getOsateIFile(uri);
 		}
@@ -177,7 +175,7 @@ public class OsateResourceUtil {
 			}
 			return myWorkspaceRoot.getFile(new Path(null, path.toString()));
 		} else if (resourceURI.isFile()) {
-			return  myWorkspaceRoot.getFileForLocation(new Path(resourceURI.toFileString()));
+			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: "
 					+ resourceURI.scheme());

@@ -4,19 +4,36 @@ import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
 
 import org.apache.log4j.Logger;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
+import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 import org.osgi.framework.BundleContext;
 
+import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class MyPropertiesActivator extends PropertiesActivator {
-	
+public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup{
+
+
+    public void earlyStartup(){};
+
+    
+
+	@Inject
+	private ResourceDescriptionsProvider rdp ; 
+	 
+	@Inject 
+	 private IResourceServiceProvider.Registry rspr;
+
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
+			
+			ModelLoadingAdapter.registerResourceProviders(rdp, rspr);
 			
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
