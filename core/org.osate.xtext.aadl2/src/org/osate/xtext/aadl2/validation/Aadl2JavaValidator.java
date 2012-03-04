@@ -455,6 +455,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (bp.getPropertyType() != bp.getOwnedPropertyType()){
 			checkPropertySetElementReference(bp.getPropertyType(), bp);
 		}
+		checkPropertyDefinition(bp);
 	}
 
 	@Check(CheckType.FAST)
@@ -469,6 +470,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (bp.getPropertyType() != bp.getOwnedPropertyType()){
 			checkPropertySetElementReference(bp.getPropertyType(), bp);
 		}
+		checkPropertyConstant(bp);
 	}
 	
 	@Check(CheckType.FAST)
@@ -2118,24 +2120,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-//
-//	/**
-//	 * @param pn
-//	 */
-//	private void checkProperty(final Property pn) {
-//		// Check the type correctness of the default value, if any
-//		typeCheckPropertyValues(pn.getPropertyType(), pn.isList(), pn.getDefaultValue());
-//	}
-//
-//
-//	private void checkPropertyConstant(final PropertyConstant pc) {
-//		/* Check the type correctness of the values.  The parser enforces
-//		 * some of this, but can't do it if the type is given by reference,
-//		 * and it cannot check that a int or real is within range.
-//		 */
-//		typeCheckPropertyValues(pc.getPropertyType(), pc.isList(), pc.getConstantValue());
-//	}
-//
+
+	/**
+	 * @param pn
+	 */
+	private void checkPropertyDefinition(final Property pn) {
+		// Check the type correctness of the default value, if any
+		typeCheckPropertyValues(pn.getPropertyType(),  pn.getDefaultValue());
+	}
+
+
+	private void checkPropertyConstant(final PropertyConstant pc) {
+		/* Check the type correctness of the values.  The parser enforces
+		 * some of this, but can't do it if the type is given by reference,
+		 * and it cannot check that a int or real is within range.
+		 */
+		typeCheckPropertyValues(pc.getPropertyType(), pc.getConstantValue());
+	}
+
 //
 //	/**
 //	 * check property associations for the aObject element
