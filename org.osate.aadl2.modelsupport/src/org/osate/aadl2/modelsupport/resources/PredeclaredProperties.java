@@ -94,16 +94,6 @@ public class PredeclaredProperties {
 		}
 	}
 	
-	public static IFile getPluginResourcesSEIPropertySetasIFile()  {
-		IProject pluginResourcesProject = ResourcesPlugin.getWorkspace()
-				.getRoot().getProject(PLUGIN_RESOURCES_DIRECTORY_NAME);
-		if (!pluginResourcesProject.exists()){
-			initPluginContributedAadl();
-		}
-		IFile f = pluginResourcesProject.getFile("SEI.aadl");
-		return f;
-	}
-	
 	private static boolean existsPluginResourcesProject()  {
 		IProject pluginResourcesProject = ResourcesPlugin.getWorkspace()
 				.getRoot().getProject(PLUGIN_RESOURCES_DIRECTORY_NAME);
