@@ -8,16 +8,21 @@
 package org.osate.aadl2.modelsupport.util;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.ILinker;
+import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.parser.IParser;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextSyntaxDiagnostic;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.NamedElement;
@@ -51,12 +56,10 @@ public class XtextAnnexParserWrapper  {
 	public EObject parse(EObject element, String editString, ParserRule parserRule, int line, int offset) {
 		
 		try {
-			
-			
 			final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
 			// add lines in front to get right offset
 //			editString = prependLines(editString, line);
-			editString = genWhitespace(offset)+editString;
+			editString = genWhitespace(offset)+editString+"\n\r";
 			IParseResult parseResult = xtextParser.parse(parserRule, new StringReader(editString));
 			if (isValidParseResult(parseResult, element)) {
 				PackageSection pack = (PackageSection) element.eContainer();
@@ -65,15 +68,13 @@ public class XtextAnnexParserWrapper  {
 				resal.setName(((NamedElement)element).getName());
 				al.add(al.indexOf(element), resal);
 				al.remove(element);
-//				element.eResource().getContents().add(parseResult.getRootASTElement());
 				ILinker linker = ((XtextResource)resal.eResource()).getLinker();
 				linker.linkModel(parseResult.getRootASTElement(), consumer);
 					resal.eResource().getErrors().addAll(consumer.getResult(Severity.ERROR));
 					resal.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
 				return resal;
 			} else {
-				element.eResource().getErrors().addAll(consumer.getResult(Severity.ERROR));
-				element.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
+				element.eResource().getErrors().addAll(createDiagnostics(parseResult));
 				return null;
 			}
 		} catch (Exception exc) {
@@ -81,11 +82,28 @@ public class XtextAnnexParserWrapper  {
 		}
 	}
 
+	/**
+	 * Creates {@link Diagnostic diagnostics} from {@link SyntaxError syntax errors} in {@link ParseResult}.
+	 * No diagnostics will be created if {@link #isValidationDisabled() validation is disabled} for this
+	 * resource.
+	 * 
+	 * @param parseResult the parse result that provides the syntax errors.
+	 * @return list of {@link Diagnostic}. Never <code>null</code>.
+	 */
+	private List<Diagnostic> createDiagnostics(IParseResult parseResult) {
+		List<Diagnostic> diagnostics = new ArrayList<Diagnostic>();
+		for (INode error : parseResult.getSyntaxErrors()) {
+			diagnostics.add(new XtextSyntaxDiagnostic(error));
+		}
+		return diagnostics;
+	}
+
 	private boolean isValidParseResult(IParseResult parseResult, EObject semanticElement) {
 		EObject rootASTElement = parseResult.getRootASTElement();
-		return !parseResult.hasSyntaxErrors() && rootASTElement != null && semanticElement != null
-//				&& semanticElement.eClass() == rootASTElement.eClass()
-				;
+		if (rootASTElement != null && semanticElement != null && !parseResult.hasSyntaxErrors()){
+			return true;
+		}
+		return false;
 	}
 	
 	protected String prependLines(String s, int lines){
