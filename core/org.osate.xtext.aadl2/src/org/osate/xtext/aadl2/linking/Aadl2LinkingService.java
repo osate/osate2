@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.naming.QualifiedName;
@@ -82,13 +83,14 @@ import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
-//	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
-//	private ILinkingService emLS = emLangS.getLinkingService();
+	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
+	private ILinkingService emLS = emLangS.getLinkingService();
 
 	public NamedElement getContainingAnnex(EObject obj){
 		while (obj != null ){
@@ -105,9 +107,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		NamedElement annex = getContainingAnnex(context);
 		if (annex != null){
 			String annexName = annex.getName();
-			if (annexName != null && annexName.equalsIgnoreCase("em2")){
-//				return emLS.getLinkedObjects(context, reference, node);
-						//emLS.getLinkingService().getLinkedObjects(context, reference, node);
+			if (annexName != null && annexName.equalsIgnoreCase("emv2")){
+				return emLS.getLinkedObjects(context, reference, node);
 			} else {
 				return super.getLinkedObjects(context, reference, node);
 			}
