@@ -26,12 +26,15 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.modelsupport.util.AnnexLanguageServices;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.core.OsateCorePlugin;
+import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 
 import antlr.RecognitionException;
 
@@ -85,10 +88,11 @@ public class AnnexParserAgent  extends LazyLinker {
 				offset = offset + (nlength-sourcelength-1);
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
-				if (defaultAnnexLibrary.getName().equalsIgnoreCase("em2")){
-//
-//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-//					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
+				if (defaultAnnexLibrary.getName().equalsIgnoreCase("emv2")){
+
+					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
+					// error annex object is already linked in
 				} else 
 				{
 					// look for plug-in parser
@@ -132,9 +136,9 @@ public class AnnexParserAgent  extends LazyLinker {
 				int sourcelength = sourceText.length();
 				offset = offset + (nlength-sourcelength-1);
 				// call the new error annex as a XText generated frontend
-				if (defaultAnnexSubclause.getName().equalsIgnoreCase("em2")){
-//					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
-//					EObject res = empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
+				if (defaultAnnexSubclause.getName().equalsIgnoreCase("emv2")){
+					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
+					AnnexSubclause al = (AnnexSubclause) empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
 				} else
 				{
 					// look for plug-in parser
