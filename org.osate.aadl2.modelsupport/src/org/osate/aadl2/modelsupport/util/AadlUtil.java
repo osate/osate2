@@ -53,6 +53,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFolder;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IAdaptable;
@@ -60,7 +61,6 @@ import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EClassifier;
@@ -68,8 +68,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.FeatureMap;
-import org.eclipse.emf.edit.provider.IWrapperItemProvider;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
@@ -98,10 +97,12 @@ import org.osate.aadl2.ListType;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.ProcessorPort;
 import org.osate.aadl2.ProcessorSubcomponent;
@@ -126,6 +127,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.workspace.WorkspacePlugin;
 
 
 /**
@@ -1191,22 +1193,29 @@ public final class AadlUtil {
 		// Is it an Element?
 		if (object instanceof Element) {
 			theElement = (Element) object;
+			if (theElement != null) return theElement;
 		}
-		// Can we adapt it to an Element?
-		if (theElement == null && object instanceof IAdaptable) {
-			theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
+		if (object instanceof IAdaptable) {
+		  theElement = (Element) ((IAdaptable) object).getAdapter(Element.class);
+		  if (theElement != null) return theElement;
+	    }
+		if (object instanceof IResource && ((IResource)object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+			Resource res = OsateResourceUtil.getResource((IResource)object);
+			EList<EObject> rl = res.getContents();
+			if (rl.isEmpty()&& rl.get(0) instanceof Element) return (Element) rl.get(0);
 		}
-
-		if (theElement == null && object instanceof IWrapperItemProvider) {
-			Object value = ((IWrapperItemProvider) object).getValue();
-			if (value instanceof FeatureMap.Entry) {
-				value = ((FeatureMap.Entry) value).getValue();
-				if (value instanceof Element) {
-					theElement = (Element) value;
+		if (object instanceof TreeSelection){
+			for (Iterator iterator = ((TreeSelection)object).iterator(); iterator.hasNext();) {
+				Object f = (Object) iterator.next();
+				if (f instanceof IResource){
+					Resource res = OsateResourceUtil.getResource((IResource)f);
+					EList<EObject> rl = res.getContents();
+					if (rl.isEmpty()&& rl.get(0) instanceof Element) return (Element) rl.get(0);
 				}
 			}
+			return null;
 		}
-		return theElement;
+		return  null;
 	}
 
 	/**
@@ -1327,65 +1336,6 @@ public final class AadlUtil {
 	private static final String PropertySetLabel = "propertySet[@name=";
 	private static final String PackageLabel = "aadlPackage[@name=";
 
-	public static String getQualifiedName(URI uri) {
-		String result = AadlUtil.getName(uri);
-		String s = uri.toString();
-		if (s.indexOf("#") != -1) {
-			s = uri.fragment();
-		}
-		if (s == null)
-			return null;
-		int i = s.lastIndexOf("/");
-		if (i != -1) {
-			String frag = s.substring(i);
-			if (frag.indexOf("@name=") != -1) {
-				String name = frag.substring(frag.indexOf("@name=") + 6, frag.indexOf("]"));
-				int psi = s.lastIndexOf(PropertySetLabel);
-				if (psi != -1) {
-					int idx = psi + PropertySetLabel.length();
-					int end = s.indexOf("]", psi);
-					String qual = s.substring(idx, end) + "::";
-					return qual + name;
-
-				}
-				int pcki = s.lastIndexOf(PackageLabel);
-				if (pcki != -1) {
-					int idx = pcki + PackageLabel.length();
-					int end = s.indexOf("]", pcki);
-					String qual = s.substring(idx, end) + "::";
-					return qual + name;
-				}
-				return name;
-			}
-		}
-		return result;
-	}
-
-	/**
-	 * extracts the name of the model object referenced by the uri The name is
-	 * looked up if the uri format is that of AADL XPath returns null if the uri
-	 * points to an unnamed model object
-	 * 
-	 * @param uri refering to a model object
-	 * @return String name or null
-	 */
-	public static String getName(URI uri) {
-		String s = uri.toString();
-		if (s.indexOf("#") != -1) {
-			s = uri.fragment();
-		}
-		if (s == null)
-			return null;
-		int i = s.lastIndexOf("/");
-		if (i != -1) {
-			String frag = s.substring(i);
-			if (frag.indexOf("@name=") != -1) {
-				String name = frag.substring(frag.indexOf("@name=") + 6, frag.indexOf("]"));
-				return name;
-			}
-		}
-		return null;
-	}
 
 	// TODO: [SPECIFICATION] Consider removing or modifying.
 	// /**
@@ -2255,36 +2205,154 @@ public final class AadlUtil {
 		return (Classifier) container;
 	}
 
-	public static Namespace getContainingNamespace(EObject element) {
-		EObject container = element.eContainer();
-		while (container != null && !(container instanceof Namespace))
-			container = container.eContainer();
-		return (Namespace) container;
-	}
-
 	public static PackageSection getContainingPackageSection(EObject element) {
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PackageSection))
 			container = container.eContainer();
 		return (PackageSection) container;
 	}
 
+	public static AadlPackage getContainingPackage(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof AadlPackage))
+			container = container.eContainer();
+		return (AadlPackage) container;
+	}
+
 	public static PropertySet getContainingPropertySet(EObject element) {
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PropertySet))
 			container = container.eContainer();
 		return (PropertySet) container;
 	}
 
+	/**
+	 * get containing property set or package section
+	 * if element is already top level name space return itself
+	 * @param element a model element
+	 * @return property set or package section
+	 */
 	public static Namespace getContainingTopLevelNamespace(EObject element) {
 		if (element.eContainer() == null) {
 			if (element instanceof Namespace) return (Namespace)element;
 			return null;
 		}
-		EObject container = element.eContainer();
+		EObject container = element;
 		while (container != null && !(container instanceof PackageSection)
 				&& !(container instanceof PropertySet))
 			container = container.eContainer();
 		return (Namespace) container;
 	}
+	
+	
+
+	/**
+	 * find package name in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param name Package name
+	 * @param context location at which package reference is encountered
+	 * @return aadl package or null if not in import list
+	 */
+	public static AadlPackage findImportedPackage(String name, Namespace context) {
+		EList<ModelUnit> imports;
+		if (name == null) return null;
+		if (context instanceof PropertySet)
+			imports = ((PropertySet) context).getImportedUnits();
+		else
+			imports = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit imported : imports) {
+			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
+				String n = ((AadlPackage) imported).getName();
+				if (name.equalsIgnoreCase(n))
+					return (AadlPackage) imported;
+			}
+		}
+		if (context instanceof PrivatePackageSection
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
+			for (ModelUnit imported : ((AadlPackage) context.eContainer())
+					.getOwnedPublicSection().getImportedUnits())
+				if (imported instanceof AadlPackage && !imported.eIsProxy()
+						&& name.equalsIgnoreCase(((AadlPackage) imported).getName()))
+					return (AadlPackage) imported;
+		// TODO need to handle public section declared in a separate package
+		// declaration
+		return null;
+	}
+
+	/**
+	 * check whether package is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param pack Aadl Package 
+	 * @param context location at which package reference is encountered
+	 * @return ture if found
+	 */
+	public static boolean isImportedPackage(AadlPackage pack, Namespace context) {
+		EList<ModelUnit> imports;
+		if (pack == null) return false;
+		if (context instanceof PropertySet)
+			imports = ((PropertySet) context).getImportedUnits();
+		else
+			imports = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit imported : imports) {
+			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
+				if (imported == pack)
+					return true;
+			}
+		}
+		if (context instanceof PrivatePackageSection
+				&& ((AadlPackage) context.eContainer()).getOwnedPublicSection() != null)
+			for (ModelUnit imported : ((AadlPackage) context.eContainer())
+					.getOwnedPublicSection().getImportedUnits())
+				if (imported instanceof AadlPackage && !imported.eIsProxy()
+						&& imported == pack)
+					return true;
+		// TODO need to handle public section declared in a separate package
+		// declaration
+		return false;
+	}
+
+
+	/**
+	 * find property set name in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param name Property set name
+	 * @param context location at which property set reference is encountered
+	 * @return aadl property set or null if not in import list
+	 */
+	public static PropertySet findImportedPropertySet(String name,
+			EObject context) {
+		EList<ModelUnit> importedPropertySets;
+		if (name == null) return null;
+		context = AadlUtil.getContainingTopLevelNamespace(context);
+		if (context instanceof PropertySet)
+			importedPropertySets = ((PropertySet) context).getImportedUnits();
+		else
+			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit importedPropertySet : importedPropertySets)
+			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
+					&& name.equalsIgnoreCase(((PropertySet) importedPropertySet).getName()))
+				return (PropertySet) importedPropertySet;
+		return null;
+	}
+
+	/**
+	 * check whether property set is in the with clause of the containing top level name space (PackageSection or Property set) of the context.
+	 * @param ps Property set 
+	 * @param context location at which property set reference is encountered
+	 * @return aadl property set or null if not in import list
+	 */
+	public static boolean isImportedPropertySet(PropertySet ps,
+			EObject context) {
+		EList<ModelUnit> importedPropertySets;
+		if (ps == null) return false;
+		if (isPredeclaredPropertySet(ps.getName())) return true;
+		context = AadlUtil.getContainingTopLevelNamespace(context);
+		if (context instanceof PropertySet)
+			importedPropertySets = ((PropertySet) context).getImportedUnits();
+		else
+			importedPropertySets = ((PackageSection) context).getImportedUnits();
+		for (ModelUnit importedPropertySet : importedPropertySets)
+			if (importedPropertySet instanceof PropertySet && !importedPropertySet.eIsProxy()
+					&& importedPropertySet == ps)
+				return true;
+		return false;
+	}
+
 }

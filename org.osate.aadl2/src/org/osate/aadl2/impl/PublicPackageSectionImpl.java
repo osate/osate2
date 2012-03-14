@@ -140,20 +140,4 @@ public class PublicPackageSectionImpl extends PackageSectionImpl implements Publ
 		}
 		return super.eIsSet(featureID);
 	}
-
-	public NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly) {
-		if (externallyVisibleElementsOnly) {
-			for (NamedElement namedElement : getMembers()) {
-				if (namedElement.hasName() && namedElement.getName().equalsIgnoreCase(name)) {
-					if (namedElement instanceof PackageRename || namedElement instanceof ComponentTypeRename
-							|| namedElement instanceof FeatureGroupTypeRename)
-						return null;
-					else
-						return namedElement;
-				}
-			}
-			return null;
-		} else
-			return findInternallyVisibleNamedElement(name);
-	}
 } //PublicPackageSectionImpl

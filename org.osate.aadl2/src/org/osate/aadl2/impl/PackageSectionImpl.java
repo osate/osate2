@@ -60,6 +60,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.PublicPackageSection;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -646,35 +647,63 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 		return true;
 	}
 
+	/**
+	 * name lookup of externally visible names. 
+	 * Does not resolve renames; does not lookup when private package section
+	 */
 	@Override
 	public NamedElement findNamedElement(String name) {
 		if (this instanceof PublicPackageSection){
-		return findNamedElement(name, true);
-		} else {
-			return findNamedElement(name, false);
+			for (NamedElement namedElement : getMembers()) {
+				if (namedElement.hasName() && namedElement.getName().equalsIgnoreCase(name)) {
+					if (namedElement instanceof PackageRename || namedElement instanceof ComponentTypeRename
+							|| namedElement instanceof FeatureGroupTypeRename)
+						return null;
+					else
+						return namedElement;
+				}
+			}
+			return null;
 		}
+		return null;
 	}
 
 	/**
-	 * Default behavior for {@link PackageSection} is to search through all internally visible elements.
+	 * name lookup from within package. 
+	 * It searches through all internally visible elements resolving renames as appropriate
 	 */
-	protected NamedElement findInternallyVisibleNamedElement(String name) {
+	public NamedElement findInternallyVisibleNamedElement(String name) {
 		NamedElement result = super.findNamedElement(name);
 		if (result instanceof ComponentTypeRename)
 			return ((ComponentTypeRename) result).getRenamedComponentType();
 		else if (result instanceof FeatureGroupTypeRename)
 			return ((FeatureGroupTypeRename) result).getRenamedFeatureGroupType();
+		else if (result instanceof PackageRename)
+			return ((PackageRename) result).getRenamedPackage();
 		else if (result != null) {
-			// If result is a PackageRename, the PackageRename is returned and not the renamed AadlPackage.
+			// non renames NamedElement was found
 			return result;
 		} else {
+			// now we need to look in renames all 
 			for (PackageRename packageRename : getOwnedPackageRenames()) {
-				//packageRename.getRenamedPackage() might be null if this method is called before name resolution.
 				if (packageRename.isRenameAll() && packageRename.getRenamedPackage() != null
 						&& packageRename.getRenamedPackage().getPublicSection() != null) {
-					result = packageRename.getRenamedPackage().getPublicSection().findNamedElement(name, true);
+					result = packageRename.getRenamedPackage().getPublicSection().findNamedElement(name);
 					if (result != null)
 						return result;
+				}
+			}
+			// now we need to look in unnamed ComponentTypeRename or unnamed FeatureGroupRename
+			for (ComponentTypeRename ctRename : getOwnedComponentTypeRenames()) {
+				if (ctRename.getName() == null && !Aadl2Util.isNull(ctRename.getRenamedComponentType())  &&
+						name.equalsIgnoreCase(ctRename.getRenamedComponentType().getName())) {
+					return ctRename.getRenamedComponentType();
+				}
+			}
+			for (FeatureGroupTypeRename fgtRename : getOwnedFeatureGroupTypeRenames()) {
+				if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType()) &&
+						name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) {
+					return fgtRename.getRenamedFeatureGroupType();
 				}
 			}
 			return null;

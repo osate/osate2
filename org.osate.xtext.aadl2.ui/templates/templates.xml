@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AadlPackage" deleted="false" description="Aadl Package" enabled="true" name="AadlPackage">package ${name}&#13;
+public&#13;
+${cursor}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.PropertySet" deleted="false" description="Property Set" enabled="true" name="PropertySet">property set ${name} is&#13;
+${cursor}&#13;
+end ${name} ;</template>
 <template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataFeatureClassifier')} ;</template>
 <template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType">data ${name}&#13;
   ${cursor}&#13;

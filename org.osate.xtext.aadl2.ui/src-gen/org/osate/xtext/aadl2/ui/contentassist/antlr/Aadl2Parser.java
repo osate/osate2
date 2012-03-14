@@ -4,17 +4,18 @@
 package org.osate.xtext.aadl2.ui.contentassist.antlr;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.xtext.AbstractElement;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.AbstractContentAssistParser;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.FollowElement;
 import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.AbstractInternalContentAssistParser;
-import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 import com.google.inject.Inject;
+
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
 public class Aadl2Parser extends AbstractContentAssistParser {
 	
@@ -1097,7 +1098,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupAccess().getGroup_0_0(), "rule__FeatureGroup__Group_0_0__0");
 					put(grammarAccess.getFeatureGroupAccess().getGroup_0_1(), "rule__FeatureGroup__Group_0_1__0");
 					put(grammarAccess.getFeatureGroupAccess().getGroup_4(), "rule__FeatureGroup__Group_4__0");
-					put(grammarAccess.getFeatureGroupAccess().getGroup_7(), "rule__FeatureGroup__Group_7__0");
+					put(grammarAccess.getFeatureGroupAccess().getGroup_4_0(), "rule__FeatureGroup__Group_4_0__0");
+					put(grammarAccess.getFeatureGroupAccess().getGroup_6(), "rule__FeatureGroup__Group_6__0");
 					put(grammarAccess.getParameterAccess().getGroup(), "rule__Parameter__Group__0");
 					put(grammarAccess.getParameterAccess().getGroup_0_0(), "rule__Parameter__Group_0_0__0");
 					put(grammarAccess.getParameterAccess().getGroup_0_1(), "rule__Parameter__Group_0_1__0");
@@ -2287,10 +2289,10 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupAccess().getNameAssignment_0_0_0(), "rule__FeatureGroup__NameAssignment_0_0_0");
 					put(grammarAccess.getFeatureGroupAccess().getRefinedAssignment_0_1_0(), "rule__FeatureGroup__RefinedAssignment_0_1_0");
 					put(grammarAccess.getFeatureGroupAccess().getDirectionAssignment_1(), "rule__FeatureGroup__DirectionAssignment_1");
-					put(grammarAccess.getFeatureGroupAccess().getInverseAssignment_4_0(), "rule__FeatureGroup__InverseAssignment_4_0");
-					put(grammarAccess.getFeatureGroupAccess().getFeatureTypeAssignment_5(), "rule__FeatureGroup__FeatureTypeAssignment_5");
-					put(grammarAccess.getFeatureGroupAccess().getArrayDimensionAssignment_6(), "rule__FeatureGroup__ArrayDimensionAssignment_6");
-					put(grammarAccess.getFeatureGroupAccess().getOwnedPropertyAssociationAssignment_7_1(), "rule__FeatureGroup__OwnedPropertyAssociationAssignment_7_1");
+					put(grammarAccess.getFeatureGroupAccess().getInverseAssignment_4_0_0(), "rule__FeatureGroup__InverseAssignment_4_0_0");
+					put(grammarAccess.getFeatureGroupAccess().getFeatureTypeAssignment_4_1(), "rule__FeatureGroup__FeatureTypeAssignment_4_1");
+					put(grammarAccess.getFeatureGroupAccess().getArrayDimensionAssignment_5(), "rule__FeatureGroup__ArrayDimensionAssignment_5");
+					put(grammarAccess.getFeatureGroupAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FeatureGroup__OwnedPropertyAssociationAssignment_6_1");
 					put(grammarAccess.getParameterAccess().getNameAssignment_0_0_0(), "rule__Parameter__NameAssignment_0_0_0");
 					put(grammarAccess.getParameterAccess().getRefinedAssignment_0_1_0(), "rule__Parameter__RefinedAssignment_0_1_0");
 					put(grammarAccess.getParameterAccess().getDirectionAssignment_1(), "rule__Parameter__DirectionAssignment_1");

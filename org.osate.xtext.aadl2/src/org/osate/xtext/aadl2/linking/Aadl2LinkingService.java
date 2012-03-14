@@ -1,14 +1,35 @@
 package org.osate.xtext.aadl2.linking;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IReferenceDescription;
+import org.eclipse.xtext.resource.IResourceDescription;
+import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.resource.IResourceServiceProvider;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
@@ -23,7 +44,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
-import org.osate.aadl2.DataPrototype;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -40,6 +61,7 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
@@ -51,10 +73,18 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+
+import com.google.inject.Inject;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 //	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
@@ -90,26 +120,28 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final String name = getCrossRefNodeAsString(node);
-		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
-			// XXX: this code is replicated from PropertiesLinkingService as it is called often
-			// resolve classifier reference
-			EObject e = findClassifier(context, reference,  name);
-			if (e != null ) {
-				// the result satisfied the expected class
-				return Collections.singletonList((EObject) e);
-			}
-				// need to resolve prototype
-				EObject res = AadlUtil.getContainingClassifier(context)
-						.findNamedElement(name);
-				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
-					if( res instanceof DataPrototype ){
-						return Collections.singletonList(res);
-					}
-				} else if ( res instanceof ComponentPrototype) {
-					return Collections.singletonList(res);
-				}
-			return Collections.<EObject> emptyList();
-		} else
+//		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
+//			// XXX: this code is replicated from PropertiesLinkingService as it is called often
+//			// resolve classifier reference
+//			EObject e = findClassifier(context, reference,  name);
+//			if (e != null ) {
+//				// the result satisfied the expected class
+//				return Collections.singletonList((EObject) e);
+//			}
+//				// need to resolve prototype
+//			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
+//				EObject res = AadlUtil.getContainingClassifier(context)
+//						.findNamedElement(name);
+//				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
+//					if( res instanceof DataPrototype ){
+//						return Collections.singletonList(res);
+//					}
+//				} else if ( res instanceof ComponentPrototype) {
+//					return Collections.singletonList(res);
+//				}
+//			}
+//			return Collections.<EObject> emptyList();
+//		} else
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
@@ -463,6 +495,18 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 //		return Collections.emptyList();
 	}
+	
+
+	private static Aadl2LinkingService eInstance = null;
+
+	public static Aadl2LinkingService getAadl2LinkingService(){
+		if (eInstance == null) {
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
+			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+		}
+		return eInstance;
+	}
+
 	
 
 }
