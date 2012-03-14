@@ -36,15 +36,15 @@
  */
 package org.osate.aadl2.modelsupport.modeltraversal;
 
-import java.util.Iterator;
+import java.util.HashSet;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.workspace.WorkspacePlugin;
 
 
 abstract class AbstractSimpleTraversal extends AbstractTraversal {
@@ -65,16 +65,13 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList<Element> visitWorkspace() {
-		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
-			final Resource res = it.next();
-			if (res instanceof Aadl2ResourceImpl) {
-				final EList<EObject> rc = res.getContents();
-				if (!rc.isEmpty()) {
-					final Element o = (Element) res.getContents().get(0);
-					visitRoot(o);
-				}
+		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target != null){
+				visitRoot(target);
 			}
+			if (processingMethod.cancelled()) break;
 		}
 		return processingMethod.getResultList();
 	}
@@ -90,19 +87,18 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
-	public final EList visitWorkspaceDeclarativeModels() {
-		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
-			final Resource res = it.next();
-			if (res instanceof Aadl2ResourceImpl) {
-				final EList<EObject> rc = res.getContents();
-				if (!rc.isEmpty()) {
-					final Element o = (Element) res.getContents().get(0);
-					if (!(o instanceof InstanceObject)) {
-						visitRoot(o);
-					}
+	public final EList<Element> visitWorkspaceDeclarativeModels() {
+		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		for (IFile file : files){
+			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+					|| file.getFileExtension().equalsIgnoreCase("aadl2")
+					){
+				ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+				if (target != null){
+					visitRoot(target);
 				}
 			}
+			if (processingMethod.cancelled()) break;
 		}
  		return processingMethod.getResultList();
 	}
@@ -119,19 +115,16 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList visitWorkspaceInstanceModels() {
-		final EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Iterator<Resource> it = resources.iterator(); processingMethod.notCancelled() && it.hasNext();) {
-			final Resource res = it.next();
-			if (res instanceof Aadl2ResourceImpl) {
-				final EList<EObject> rc = res.getContents();
-				if (!rc.isEmpty()) {
-					final Element o = (Element) res.getContents().get(0);
-					if ((o instanceof InstanceObject)) {
-						visitRoot(o);
-					}
+		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		for (IFile file : files){
+			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+				InstanceObject target = (InstanceObject)AadlUtil.getElement(file);
+				if (target != null){
+					visitRoot(target);
 				}
 			}
+			if (processingMethod.cancelled()) break;
 		}
-		return processingMethod.getResultList();
+ 		return processingMethod.getResultList();
 	}
 }

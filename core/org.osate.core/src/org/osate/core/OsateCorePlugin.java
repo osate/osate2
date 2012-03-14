@@ -90,6 +90,11 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 		injectors.put(language, inject);
 	}
 
+	
+	public void registerResourceSetProvider(String language, Injector inject) throws Exception {
+		injectors.put(language, inject);
+	}
+
 	/**
 	 * The constructor.
 	 */

@@ -37,10 +37,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
@@ -126,11 +128,8 @@ public class OsateResourceUtil {
 		if (res == null)
 			return null;
 		URI uri = res.getURI();
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
 		if (uri != null) {
-			IPath path = getOsatePath(uri);
-			return myWorkspaceRoot.getFile(path);
+			return getOsateIFile(uri);
 		}
 		return null;
 	}
@@ -144,7 +143,7 @@ public class OsateResourceUtil {
 	 *                Thrown if the URI is does not use the "platform:"
 	 *                protocol.
 	 */
-	public static IPath getOsatePath(final URI resourceURI) {
+	public static IFile getOsateIFile(final URI resourceURI) {
 		/*
 		 * I don't really understand why this method does what it does, but the
 		 * point seems to be to take a URI for a Resource that resembles
@@ -156,6 +155,8 @@ public class OsateResourceUtil {
 		 */
 
 		// Is it a "plaform:" uri?
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
 		if (resourceURI.scheme() != null
 				&& resourceURI.scheme().equalsIgnoreCase("platform")) {
 			// Get the segments. See if the first is "resource"
@@ -172,9 +173,9 @@ public class OsateResourceUtil {
 				if (lastIdx >= 0)
 					path.append(segments[lastIdx]);
 			}
-			return new Path(null, path.toString());
+			return myWorkspaceRoot.getFile(new Path(null, path.toString()));
 		} else if (resourceURI.isFile()) {
-			return new Path(resourceURI.toFileString());
+			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: "
 					+ resourceURI.scheme());
@@ -205,8 +206,7 @@ public class OsateResourceUtil {
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
 		if (uri != null) {
-			IPath path = getOsatePath(uri);
-			IResource iResource =  myWorkspaceRoot.getFile(path);
+			IResource iResource =  getOsateIFile(uri);
 			if (iResource != null && iResource.exists()) {
 				try {
 					iResource.delete(true, null);

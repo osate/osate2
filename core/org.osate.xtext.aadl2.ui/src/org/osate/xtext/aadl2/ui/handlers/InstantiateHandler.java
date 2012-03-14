@@ -77,7 +77,7 @@ public class InstantiateHandler extends AbstractHandler {
 					new IUnitOfWork<EObject, XtextResource>() {
 						public EObject exec(XtextResource resource) throws Exception {
 							EObject targetElement = null;
-							if (selection instanceof IStructuredSelection) {
+								if (selection instanceof IStructuredSelection) {
 								IStructuredSelection ss = (IStructuredSelection) selection;
 								Object eon = ss.getFirstElement();
 								if (eon instanceof EObjectNode) {
@@ -101,13 +101,15 @@ public class InstantiateHandler extends AbstractHandler {
 //										// now instantiate the rest of the model
 //										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
 										buildInstanceModelFile(si);
+									} else {
+										System.out.println("Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 									}
 									if (targetElement instanceof SystemInstance){
 										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
 										
 									}
 								} else {
-									System.out.println("instantiate " + targetElement.toString());
+									System.out.println("Please select a model element. You selected " + targetElement.eClass().getName()+" "+ targetElement.toString());
 								}
 								
 								return null;

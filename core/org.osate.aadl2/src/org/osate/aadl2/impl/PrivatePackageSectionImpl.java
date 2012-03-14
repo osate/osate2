@@ -137,12 +137,6 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements Pri
 		return super.eIsSet(featureID);
 	}
 
-	public NamedElement findNamedElement(String name, boolean externallyVisibleElementsOnly) {
-		if (externallyVisibleElementsOnly)
-			return null;
-		else
-			return findInternallyVisibleNamedElement(name);
-	}
 
 	/**
 	 * Returns the name of the package.

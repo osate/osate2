@@ -1680,7 +1680,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			PrivatePackageSection privateSection = (PrivatePackageSection) getOwner();
 			if (privateSection.getPublicSection() != null) {
 				NamedElement publicComponentImplementation = privateSection.getPublicSection().findNamedElement(
-						getName(), true);
+						getName());
 				if (publicComponentImplementation instanceof ComponentImplementation)
 					return ((ComponentImplementation) publicComponentImplementation).findNamedElement(name);
 			}
