@@ -91,7 +91,7 @@ ruleModel returns [EObject current=null]
         $current = $this_PropertySet_1.current;
         afterParserOrEnumRuleCall();
     }
-)
+)?
 ;
 
 
@@ -26880,6 +26880,53 @@ ruleInternalEventPort returns [EObject current=null]
 
 
 
+// Entry rule entryRuleProcessorSubprogram
+entryRuleProcessorSubprogram returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getProcessorSubprogramRule()); }
+	 iv_ruleProcessorSubprogram=ruleProcessorSubprogram 
+	 { $current=$iv_ruleProcessorSubprogram.current; } 
+	 EOF 
+;
+
+// Rule ProcessorSubprogram
+ruleProcessorSubprogram returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+	otherlv_0=KEYWORD_83
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getProcessorSubprogramAccess().getProcessorKeyword_0());
+    }
+
+	otherlv_1=KEYWORD_7
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getProcessorSubprogramAccess().getFullStopKeyword_1());
+    }
+(
+(
+		lv_name_2_0=RULE_ID
+		{
+			newLeafNode(lv_name_2_0, grammarAccess.getProcessorSubprogramAccess().getNameIDTerminalRuleCall_2_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getProcessorSubprogramRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"name",
+        		lv_name_2_0, 
+        		"ID");
+	    }
+
+)
+))
+;
+
+
+
 
 
 // Entry rule entryRuleAbstractConnectionEnd
@@ -26963,6 +27010,46 @@ ruleProcessorConnectionEnd returns [EObject current=null]
     this_ProcessorPort_1=ruleProcessorPort
     {
         $current = $this_ProcessorPort_1.current;
+        afterParserOrEnumRuleCall();
+    }
+)
+;
+
+
+
+
+
+// Entry rule entryRuleAccessConnectionEnd
+entryRuleAccessConnectionEnd returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getAccessConnectionEndRule()); }
+	 iv_ruleAccessConnectionEnd=ruleAccessConnectionEnd 
+	 { $current=$iv_ruleAccessConnectionEnd.current; } 
+	 EOF 
+;
+
+// Rule AccessConnectionEnd
+ruleAccessConnectionEnd returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getAccessConnectionEndAccess().getConnectedElementParserRuleCall_0()); 
+    }
+    this_ConnectedElement_0=ruleConnectedElement
+    {
+        $current = $this_ConnectedElement_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getAccessConnectionEndAccess().getProcessorSubprogramParserRuleCall_1()); 
+    }
+    this_ProcessorSubprogram_1=ruleProcessorSubprogram
+    {
+        $current = $this_ProcessorSubprogram_1.current;
         afterParserOrEnumRuleCall();
     }
 )
@@ -27262,9 +27349,9 @@ ruleAccessConnection returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getSourceConnectedElementParserRuleCall_0_0_4_0()); 
+	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getSourceAccessConnectionEndParserRuleCall_0_0_4_0()); 
 	    }
-		lv_source_4_0=ruleConnectedElement		{
+		lv_source_4_0=ruleAccessConnectionEnd		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAccessConnectionRule());
 	        }
@@ -27272,7 +27359,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_4_0, 
-        		"ConnectedElement");
+        		"AccessConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27302,9 +27389,9 @@ ruleAccessConnection returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getDestinationConnectedElementParserRuleCall_0_0_6_0()); 
+	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getDestinationAccessConnectionEndParserRuleCall_0_0_6_0()); 
 	    }
-		lv_destination_7_0=ruleConnectedElement		{
+		lv_destination_7_0=ruleAccessConnectionEnd		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getAccessConnectionRule());
 	        }
@@ -27312,7 +27399,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_7_0, 
-        		"ConnectedElement");
+        		"AccessConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 

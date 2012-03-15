@@ -440,6 +440,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.CONNECTED_ELEMENT:
 				if(context == grammarAccess.getAbstractConnectionEndRule() ||
+				   context == grammarAccess.getAccessConnectionEndRule() ||
 				   context == grammarAccess.getConnectedElementRule() ||
 				   context == grammarAccess.getProcessorConnectionEndRule()) {
 					sequence_ConnectedElement(context, (ConnectedElement) semanticObject); 
@@ -997,7 +998,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.PROCESSOR_SUBPROGRAM:
-				if(context == grammarAccess.getProcessorSubprogramRule()) {
+				if(context == grammarAccess.getAccessConnectionEndRule() ||
+				   context == grammarAccess.getProcessorSubprogramRule()) {
 					sequence_ProcessorSubprogram(context, (ProcessorSubprogram) semanticObject); 
 					return; 
 				}
@@ -1570,7 +1572,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (name=ID accessCategory=AccessCategory source=ConnectedElement bidirectional?='<->'? destination=ConnectedElement) | 
+	 *             (name=ID accessCategory=AccessCategory source=AccessConnectionEnd bidirectional?='<->'? destination=AccessConnectionEnd) | 
 	 *             (refined=[AccessConnection|REFINEDNAME] accessCategory=AccessCategory)
 	 *         ) 
 	 *         ownedPropertyAssociation+=PropertyAssociation* 
