@@ -6,7 +6,7 @@ import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 
 Model returns aadl2::ModelUnit:
-	AadlPackage | PropertySet 
+	(AadlPackage | PropertySet )?
 ;
 
 
@@ -1588,6 +1588,10 @@ ProcessorConnectionEnd returns aadl2::AbstractConnectionEnd:
 	 ConnectedElement|ProcessorPort
 ;
 
+AccessConnectionEnd returns aadl2::AbstractConnectionEnd:
+	 ConnectedElement|ProcessorSubprogram
+;
+
 PortConnection returns aadl2::PortConnection:
 	((name=ID ':' 'port' 
 			source=AbstractConnectionEnd
@@ -1602,9 +1606,9 @@ PortConnection returns aadl2::PortConnection:
 
 AccessConnection returns aadl2::AccessConnection:
 	((name=ID ':' accessCategory=AccessCategory 'access'
-			source=ConnectedElement //(ConnectedElement | ProcessorSubprogram)
+			source=AccessConnectionEnd
 	        ('->' | bidirectional?='<->')
-	        destination=ConnectedElement )
+	        destination=AccessConnectionEnd )
 	|
 	(refined=[aadl2::AccessConnection|REFINEDNAME] ':' 'refined' 'to' accessCategory=AccessCategory 'access'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?

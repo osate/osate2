@@ -343,6 +343,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupTypeAccess().getAlternatives_7_1(), "rule__FeatureGroupType__Alternatives_7_1");
 					put(grammarAccess.getAbstractConnectionEndAccess().getAlternatives(), "rule__AbstractConnectionEnd__Alternatives");
 					put(grammarAccess.getProcessorConnectionEndAccess().getAlternatives(), "rule__ProcessorConnectionEnd__Alternatives");
+					put(grammarAccess.getAccessConnectionEndAccess().getAlternatives(), "rule__AccessConnectionEnd__Alternatives");
 					put(grammarAccess.getPortConnectionAccess().getAlternatives_0(), "rule__PortConnection__Alternatives_0");
 					put(grammarAccess.getPortConnectionAccess().getAlternatives_0_0_4(), "rule__PortConnection__Alternatives_0_0_4");
 					put(grammarAccess.getAccessConnectionAccess().getAlternatives_0(), "rule__AccessConnection__Alternatives_0");
