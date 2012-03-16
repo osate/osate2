@@ -88,19 +88,15 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList<Element> visitWorkspaceDeclarativeModels() {
-		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
 		for (IFile file : files){
-			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-					|| file.getFileExtension().equalsIgnoreCase("aadl2")
-					){
-				ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
-				if (target != null){
-					visitRoot(target);
-				}
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target != null){
+				visitRoot(target);
 			}
 			if (processingMethod.cancelled()) break;
 		}
- 		return processingMethod.getResultList();
+		return processingMethod.getResultList();
 	}
 	
 	/**
@@ -115,13 +111,11 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList visitWorkspaceInstanceModels() {
-		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile file : files){
-			if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
-				InstanceObject target = (InstanceObject)AadlUtil.getElement(file);
-				if (target != null){
-					visitRoot(target);
-				}
+			InstanceObject target = (InstanceObject)AadlUtil.getElement(file);
+			if (target != null){
+				visitRoot(target);
 			}
 			if (processingMethod.cancelled()) break;
 		}

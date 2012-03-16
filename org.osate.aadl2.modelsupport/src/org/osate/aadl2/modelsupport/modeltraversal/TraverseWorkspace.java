@@ -16,7 +16,22 @@ import org.osate.workspace.WorkspacePlugin;
 public class TraverseWorkspace {
 	
 	public static HashSet<IFile> getAadlAaxlFilesInWorkspace(){
-		return getFiles(getProjects());
+		HashSet<IFile> result = new HashSet<IFile>();
+		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT);
+		getFiles(getProjects(),result,WorkspacePlugin.INSTANCE_FILE_EXT);
+		return result;
+	}
+	
+	public static HashSet<IFile> getAadlFilesInWorkspace(){
+		HashSet<IFile> result = new HashSet<IFile>();
+		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT);
+		return result;
+	}
+	
+	public static HashSet<IFile> getInstanceModelFilesInWorkspace(){
+		HashSet<IFile> result = new HashSet<IFile>();
+		getFiles(getProjects(),result,WorkspacePlugin.INSTANCE_FILE_EXT);
+		return result;
 	}
 
 	private static IProject[] getProjects() {
@@ -35,42 +50,26 @@ public class TraverseWorkspace {
 		return tmp;
 	}
 
-	private static HashSet<IFile> getFiles(IProject[] resources) {
-		HashSet<IFile> result = new HashSet<IFile>();
 
-		for (int i = 0; i < resources.length; i++) {
-			if (resources[i] instanceof IFile) {
-				IFile file = (IFile) resources[i];
-				String ext = file.getFileExtension();
-				if (ext != null &&( ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-						|| ext.equalsIgnoreCase("aadl2")
-						||ext.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT))){
-					result.add( (IFile) resources[i]);
-				}
-			} else if (resources[i] instanceof IContainer) {
-				IContainer cont = (IContainer) resources[i];
-				getFiles(cont, result);
-			}
-		}
-		return result;
-	}
-
-	private static HashSet<IFile> getFiles(IContainer folder, HashSet<IFile> result) {
-		IResource[] resources;
+	private static HashSet<IFile> getFiles(IResource[] resources, HashSet<IFile> result, String extension) {
 		try {
-			resources = folder.members();
 			for (int i = 0; i < resources.length; i++) {
 				if (resources[i] instanceof IFile) {
 					IFile file = (IFile) resources[i];
 					String ext = file.getFileExtension();
-					if (ext != null &&( ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-							|| ext.equalsIgnoreCase("aadl2")
-							||ext.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT))){
-						result.add( (IFile) resources[i]);
+					if (ext != null){
+						if( extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && (ext.equalsIgnoreCase(extension)
+								|| ext.equalsIgnoreCase("aadl2"))){
+							result.add( (IFile) resources[i]);
+						}
+						if (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && ext.equalsIgnoreCase(extension) &&
+								file.getName().endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)){
+							result.add( (IFile) resources[i]);
+						}
 					}
 				} else if (resources[i] instanceof IContainer) {
 					IContainer cont = (IContainer) resources[i];
-					getFiles(cont, result);
+					getFiles(cont.members(), result,extension);
 				}
 			}
 		} catch (CoreException e) {
