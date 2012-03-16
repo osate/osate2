@@ -83,6 +83,7 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 			super.getPropertyDescriptors(object);
 
 			addPrototypePropertyDescriptor(object);
+			addFeatureClassifierPropertyDescriptor(object);
 			addRefinedPropertyDescriptor(object);
 			addClassifierPropertyDescriptor(object);
 		}
@@ -101,6 +102,22 @@ public class FeatureItemProvider extends StructuralFeatureItemProvider implement
 				getString("_UI_Feature_prototype_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Feature_prototype_feature", "_UI_Feature_type"),
 				Aadl2Package.eINSTANCE.getFeature_Prototype(), true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Feature Classifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addFeatureClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add(createItemPropertyDescriptor(
+				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				getResourceLocator(),
+				getString("_UI_Feature_featureClassifier_feature"),
+				getString("_UI_PropertyDescriptor_description", "_UI_Feature_featureClassifier_feature",
+						"_UI_Feature_type"), Aadl2Package.eINSTANCE.getFeature_FeatureClassifier(), false, false,
+				false, null, null, null));
 	}
 
 	/**

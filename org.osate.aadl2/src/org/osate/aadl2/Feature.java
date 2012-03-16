@@ -46,6 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.Feature#getPrototype <em>Prototype</em>}</li>
+ *   <li>{@link org.osate.aadl2.Feature#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getRefined <em>Refined</em>}</li>
  *   <li>{@link org.osate.aadl2.Feature#getClassifier <em>Classifier</em>}</li>
  * </ul>
@@ -75,7 +76,7 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd, Arraya
 	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
-	Prototype getPrototype();
+	ComponentPrototype getPrototype();
 
 	/**
 	 * Returns the value of the '<em><b>Feature Classifier</b></em>' reference.

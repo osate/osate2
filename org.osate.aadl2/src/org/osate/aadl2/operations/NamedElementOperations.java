@@ -214,7 +214,7 @@ public class NamedElementOperations extends ElementOperations {
 	 */
 	public static Namespace getNamespace(NamedElement namedElement) {
 		// DONE: implement this method
-		return namedElement.getOwner() instanceof Namespace?(Namespace) namedElement.getOwner():null;
+		return namedElement.getOwner() instanceof Namespace ? (Namespace) namedElement.getOwner() : null;
 	}
 
 	/**
@@ -399,11 +399,11 @@ public class NamedElementOperations extends ElementOperations {
 	public static String qualifiedName(NamedElement namedElement) {
 		if (namedElement.hasName()) {
 			Namespace namespace = namedElement.getNamespace();
-			if (namespace != null ) {
-				if (namespace instanceof PropertySet&& namespace.hasName())
+			if (namespace != null) {
+				if (namespace instanceof PropertySet && namespace.hasName())
 					return namespace.getName() + "::" + namedElement.getName();
-				else if (namespace instanceof PackageSection && ((AadlPackage)namespace.getOwner()).hasName() )
-					return ((AadlPackage)namespace.getOwner()).getName() + "::" + namedElement.getName();
+				else if (namespace instanceof PackageSection && ((AadlPackage) namespace.getOwner()).hasName())
+					return ((AadlPackage) namespace.getOwner()).getName() + "::" + namedElement.getName();
 				else
 					return qualifiedName(namespace) + '.' + namedElement.getName();
 			} else

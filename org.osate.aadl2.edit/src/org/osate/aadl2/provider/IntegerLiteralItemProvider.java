@@ -139,8 +139,8 @@ public class IntegerLiteralItemProvider extends NumberValueItemProvider implemen
 	@Override
 	public String getText(Object object) {
 		IntegerLiteral integerLiteral = (IntegerLiteral) object;
-		return getString("_UI_IntegerLiteral_type") + " " + integerLiteral.getValue()+
-				(integerLiteral.getUnit() != null?" "+integerLiteral.getUnit().getName():"");
+		return getString("_UI_IntegerLiteral_type") + " " + integerLiteral.getValue()
+				+ (integerLiteral.getUnit() != null ? " " + integerLiteral.getUnit().getName() : "");
 	}
 
 	/**
