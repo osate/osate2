@@ -653,7 +653,7 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 	 */
 	@Override
 	public NamedElement findNamedElement(String name) {
-		if (this instanceof PublicPackageSection){
+		if (this instanceof PublicPackageSection) {
 			for (NamedElement namedElement : getMembers()) {
 				if (namedElement.hasName() && namedElement.getName().equalsIgnoreCase(name)) {
 					if (namedElement instanceof PackageRename || namedElement instanceof ComponentTypeRename
@@ -695,14 +695,14 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 			}
 			// now we need to look in unnamed ComponentTypeRename or unnamed FeatureGroupRename
 			for (ComponentTypeRename ctRename : getOwnedComponentTypeRenames()) {
-				if (ctRename.getName() == null && !Aadl2Util.isNull(ctRename.getRenamedComponentType())  &&
-						name.equalsIgnoreCase(ctRename.getRenamedComponentType().getName())) {
+				if (ctRename.getName() == null && !Aadl2Util.isNull(ctRename.getRenamedComponentType())
+						&& name.equalsIgnoreCase(ctRename.getRenamedComponentType().getName())) {
 					return ctRename.getRenamedComponentType();
 				}
 			}
 			for (FeatureGroupTypeRename fgtRename : getOwnedFeatureGroupTypeRenames()) {
-				if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType()) &&
-						name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) {
+				if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType())
+						&& name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) {
 					return fgtRename.getRenamedFeatureGroupType();
 				}
 			}

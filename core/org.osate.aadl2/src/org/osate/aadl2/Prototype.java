@@ -55,7 +55,7 @@ import org.eclipse.emf.common.util.DiagnosticChain;
  * @model abstract="true"
  * @generated
  */
-public interface Prototype extends StructuralFeature, CalledSubprogram, FeatureClassifier {
+public interface Prototype extends StructuralFeature, CalledSubprogram {
 	/**
 	 * Returns the value of the '<em><b>Refined</b></em>' reference.
 	 * <p>

@@ -301,7 +301,7 @@ public interface PackageSection extends Namespace {
 	 * @generated
 	 */
 	EList<ModelUnit> getImportedUnits();
-	
+
 	/**
 	 * name lookup from within package. 
 	 * It searches through all internally visible elements resolving renames as appropriate

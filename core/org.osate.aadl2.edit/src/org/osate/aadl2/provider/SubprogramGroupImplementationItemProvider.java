@@ -100,6 +100,7 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE
 					.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -154,6 +155,7 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 
 		switch (notification.getFeatureID(SubprogramGroupImplementation.class)) {
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -174,6 +176,10 @@ public class SubprogramGroupImplementationItemProvider extends ComponentImplemen
 		newChildDescriptors.add(createChildParameter(
 				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedSubprogramGroupSubcomponent(),
 				Aadl2Factory.eINSTANCE.createSubprogramGroupSubcomponent()));
+
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getSubprogramGroupImplementation_OwnedDataSubcomponent(),
+				Aadl2Factory.eINSTANCE.createDataSubcomponent()));
 	}
 
 }

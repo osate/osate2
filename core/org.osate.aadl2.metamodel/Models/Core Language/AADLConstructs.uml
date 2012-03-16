@@ -435,7 +435,6 @@
         <generalization xmi:id="Templates-Prototype-_generalization.0">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
-        <generalization xmi:id="_hsGG8LO0EeCzMYz5ww7glA" general="_hn8cMLOzEeCzMYz5ww7glA"/>
         <ownedAttribute xmi:id="Templates-Prototype-refined" name="refined" type="Templates-Prototype" association="Templates-A_prototype_refined">
           <ownedComment xmi:id="Templates-Prototype-refined-_ownedComment.0">
             <body>References a prototype that is refined by this prototype.</body>
@@ -522,6 +521,7 @@
         </ownedComment>
         <generalization xmi:id="Templates-ComponentPrototype-_generalization.0" general="Templates-Prototype"/>
         <generalization xmi:id="_S7p8oKcrEeCYEIHXYlP5sg" general="_qfELUKclEeCYEIHXYlP5sg"/>
+        <generalization xmi:id="_n4kh4G6hEeGGmbyPbDXL2g" general="_hn8cMLOzEeCzMYz5ww7glA"/>
         <ownedAttribute xmi:id="Templates-ComponentPrototype-array" name="array">
           <ownedComment xmi:id="Templates-ComponentPrototype-array-_ownedComment.0">
             <body>Specifies if the prototype can be bound to an array of classifiers.</body>
@@ -866,6 +866,12 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ft4vA7FdEeCdCowcwygdUw"/>
         </ownedEnd>
       </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_LYb6gG6nEeGGmbyPbDXL2g" name="A_abstractFeature_featurePrototype" memberEnd="_LYb6gW6nEeGGmbyPbDXL2g _LYb6hG6nEeGGmbyPbDXL2g">
+        <ownedEnd xmi:id="_LYb6gW6nEeGGmbyPbDXL2g" name="abstractFeature" type="Features-AbstractFeature" association="_LYb6gG6nEeGGmbyPbDXL2g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LYb6gm6nEeGGmbyPbDXL2g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LYb6g26nEeGGmbyPbDXL2g"/>
+        </ownedEnd>
+      </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Arrays" name="Arrays">
       <ownedComment xmi:id="Arrays-_ownedComment.0">
@@ -984,7 +990,7 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
             <body>References the type of this feature group.</body>
           </ownedComment>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-FeatureGroup-featureGroupType-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroup-featureGroupType-_lowerValue" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-FeatureGroup-featureGroupType-_lowerValue"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="_u9Ac8LH_EeCWmNkTdM4SSg" name="featureGroupType" type="Features-FeatureGroupType" isReadOnly="true" isDerived="true" subsettedProperty="Features-FeatureGroup-featureGroupType" association="_u9HxuLH_EeCWmNkTdM4SSg">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_u9Ac8bH_EeCWmNkTdM4SSg" value="1"/>
@@ -1003,7 +1009,7 @@ Additionally, it defines how a subcomponent array can be instantiated as a list 
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
         <generalization xmi:id="Features-Feature-_generalization.2" general="Arrays-ArrayableElement"/>
-        <ownedAttribute xmi:id="Features-Feature-prototype" name="prototype" type="Templates-Prototype" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="Features-A_feature_prototype">
+        <ownedAttribute xmi:id="Features-Feature-prototype" name="prototype" type="Templates-ComponentPrototype" isReadOnly="true" isDerived="true" subsettedProperty="Features-Feature-classifier" association="Features-A_feature_prototype">
           <ownedComment xmi:id="Features-Feature-prototype-_ownedComment.0">
             <body>References a feature prototype. This is used if the feature specification comes from a feature prototype.</body>
           </ownedComment>
@@ -1219,12 +1225,9 @@ For access features, the classifier specifies the type of the shared component.<
           <body>A generic feature.</body>
         </ownedComment>
         <generalization xmi:id="Features-AbstractFeature-_generalization.0" general="_r3p5SJyLEd64G8zRE2nwuA"/>
-        <ownedAttribute xmi:id="Features-AbstractFeature-componentClassifier" name="featureClassifier" type="_hn8cMLOzEeCzMYz5ww7glA" subsettedProperty="Features-Feature-classifier" association="Features-A_abstractFeature_componentClassifier">
-          <ownedComment xmi:id="Features-AbstractFeature-componentClassifier-_ownedComment.0">
-            <body>A component classifier referenced by the feature.</body>
-          </ownedComment>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-AbstractFeature-componentClassifier-_upperValue" value="1"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-AbstractFeature-componentClassifier-_lowerValue"/>
+        <ownedAttribute xmi:id="_LYb6hG6nEeGGmbyPbDXL2g" name="featurePrototype" type="Templates-FeaturePrototype" association="_LYb6gG6nEeGGmbyPbDXL2g">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_LYb6hW6nEeGGmbyPbDXL2g" value="1"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LYb6hm6nEeGGmbyPbDXL2g"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Features-A_feature_classifier" name="A_feature_featureClassifier" memberEnd="Features-A_feature_classifier-feature Features-Feature-classifier">
@@ -1283,12 +1286,6 @@ For access features, the classifier specifies the type of the shared component.<
             <body>An event data port.</body>
           </ownedComment>
         </ownedLiteral>
-      </packagedElement>
-      <packagedElement xmi:type="uml:Association" xmi:id="Features-A_abstractFeature_componentClassifier" name="A_abstractFeature_featureClassifier" memberEnd="Features-A_abstractFeature_componentClassifier-abstractFeature Features-AbstractFeature-componentClassifier">
-        <ownedEnd xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature" name="abstractFeature" type="Features-AbstractFeature" association="Features-A_abstractFeature_componentClassifier">
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_upperValue" value="*"/>
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-A_abstractFeature_componentClassifier-abstractFeature-_lowerValue"/>
-        </ownedEnd>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Features-A_feature_refined" name="A_feature_refined" memberEnd="Features-A_feature_refined-feature Features-Feature-refined">
         <ownedEnd xmi:id="Features-A_feature_refined-feature" name="feature" type="Features-Feature" association="Features-A_feature_refined">

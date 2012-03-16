@@ -44,7 +44,7 @@ package org.osate.aadl2;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.aadl2.AbstractFeature#getFeatureClassifier <em>Feature Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.AbstractFeature#getFeaturePrototype <em>Feature Prototype</em>}</li>
  * </ul>
  * </p>
  *
@@ -54,41 +54,29 @@ package org.osate.aadl2;
  */
 public interface AbstractFeature extends DirectedFeature {
 	/**
-	 * Returns the value of the '<em><b>Feature Classifier</b></em>' reference.
-	 * <p>
-	 * This feature subsets the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
-	 * </ul>
-	 * </p>
-	 * <p>
-	 * This feature redefines the following features:
-	 * <ul>
-	 *   <li>'{@link org.osate.aadl2.Feature#getFeatureClassifier() <em>Feature Classifier</em>}'</li>
-	 * </ul>
-	 * </p>
+	 * Returns the value of the '<em><b>Feature Prototype</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Feature Classifier</em>' reference isn't clear,
+	 * If the meaning of the '<em>Feature Prototype</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Feature Classifier</em>' reference.
-	 * @see #setFeatureClassifier(FeatureClassifier)
-	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_FeatureClassifier()
+	 * @return the value of the '<em>Feature Prototype</em>' reference.
+	 * @see #setFeaturePrototype(FeaturePrototype)
+	 * @see org.osate.aadl2.Aadl2Package#getAbstractFeature_FeaturePrototype()
 	 * @model ordered="false"
 	 * @generated
 	 */
-	FeatureClassifier getFeatureClassifier();
+	FeaturePrototype getFeaturePrototype();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.AbstractFeature#getFeatureClassifier <em>Feature Classifier</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.AbstractFeature#getFeaturePrototype <em>Feature Prototype</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Feature Classifier</em>' reference.
-	 * @see #getFeatureClassifier()
+	 * @param value the new value of the '<em>Feature Prototype</em>' reference.
+	 * @see #getFeaturePrototype()
 	 * @generated
 	 */
-	void setFeatureClassifier(FeatureClassifier value);
+	void setFeaturePrototype(FeaturePrototype value);
 
 } // AbstractFeature

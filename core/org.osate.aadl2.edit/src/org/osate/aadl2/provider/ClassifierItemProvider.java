@@ -278,10 +278,10 @@ public class ClassifierItemProvider extends NamespaceItemProvider implements IEd
 				Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
-				Aadl2Factory.eINSTANCE.createFeatureGroupPrototype()));
+				Aadl2Factory.eINSTANCE.createFeaturePrototype()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
-				Aadl2Factory.eINSTANCE.createFeaturePrototype()));
+				Aadl2Factory.eINSTANCE.createFeatureGroupPrototype()));
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getClassifier_OwnedPrototype(),
 				Aadl2Factory.eINSTANCE.createAbstractPrototype()));

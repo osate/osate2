@@ -233,8 +233,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateStructuralFeature((StructuralFeature) value, diagnostics, context);
 		case Aadl2Package.REFINABLE_ELEMENT:
 			return validateRefinableElement((RefinableElement) value, diagnostics, context);
-		case Aadl2Package.FEATURE_CLASSIFIER:
-			return validateFeatureClassifier((FeatureClassifier) value, diagnostics, context);
 		case Aadl2Package.CALLED_SUBPROGRAM:
 			return validateCalledSubprogram((CalledSubprogram) value, diagnostics, context);
 		case Aadl2Package.PROTOTYPE_BINDING:
@@ -264,6 +262,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateComponentClassifier((ComponentClassifier) value, diagnostics, context);
 		case Aadl2Package.SUBCOMPONENT_TYPE:
 			return validateSubcomponentType((SubcomponentType) value, diagnostics, context);
+		case Aadl2Package.FEATURE_CLASSIFIER:
+			return validateFeatureClassifier((FeatureClassifier) value, diagnostics, context);
 		case Aadl2Package.MODE_TRANSITION:
 			return validateModeTransition((ModeTransition) value, diagnostics, context);
 		case Aadl2Package.MODE_TRANSITION_TRIGGER:
@@ -276,6 +276,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeatureConnectionEnd((FeatureConnectionEnd) value, diagnostics, context);
 		case Aadl2Package.CONNECTION_END:
 			return validateConnectionEnd((ConnectionEnd) value, diagnostics, context);
+		case Aadl2Package.COMPONENT_PROTOTYPE:
+			return validateComponentPrototype((ComponentPrototype) value, diagnostics, context);
 		case Aadl2Package.FLOW_SPECIFICATION:
 			return validateFlowSpecification((FlowSpecification) value, diagnostics, context);
 		case Aadl2Package.FLOW:
@@ -351,12 +353,12 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateSubprogramGroup((SubprogramGroup) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return validateAbstractFeature((AbstractFeature) value, diagnostics, context);
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return validateFeaturePrototype((FeaturePrototype) value, diagnostics, context);
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
 			return validateFeatureGroupPrototype((FeatureGroupPrototype) value, diagnostics, context);
 		case Aadl2Package.SUBCOMPONENT:
 			return validateSubcomponent((Subcomponent) value, diagnostics, context);
-		case Aadl2Package.COMPONENT_PROTOTYPE:
-			return validateComponentPrototype((ComponentPrototype) value, diagnostics, context);
 		case Aadl2Package.MODE_BINDING:
 			return validateModeBinding((ModeBinding) value, diagnostics, context);
 		case Aadl2Package.FLOW_IMPLEMENTATION:
@@ -429,8 +431,6 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateFeatureGroupPrototypeActual((FeatureGroupPrototypeActual) value, diagnostics, context);
 		case Aadl2Package.FEATURE_PROTOTYPE_ACTUAL:
 			return validateFeaturePrototypeActual((FeaturePrototypeActual) value, diagnostics, context);
-		case Aadl2Package.FEATURE_PROTOTYPE:
-			return validateFeaturePrototype((FeaturePrototype) value, diagnostics, context);
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
 			return validateFeaturePrototypeBinding((FeaturePrototypeBinding) value, diagnostics, context);
 		case Aadl2Package.ACCESS_SPECIFICATION:

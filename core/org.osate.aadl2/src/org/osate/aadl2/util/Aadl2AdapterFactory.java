@@ -232,11 +232,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeatureClassifier(FeatureClassifier object) {
-			return createFeatureClassifierAdapter();
-		}
-
-		@Override
 		public Adapter caseCalledSubprogram(CalledSubprogram object) {
 			return createCalledSubprogramAdapter();
 		}
@@ -307,6 +302,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseFeatureClassifier(FeatureClassifier object) {
+			return createFeatureClassifierAdapter();
+		}
+
+		@Override
 		public Adapter caseModeTransition(ModeTransition object) {
 			return createModeTransitionAdapter();
 		}
@@ -334,6 +334,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseConnectionEnd(ConnectionEnd object) {
 			return createConnectionEndAdapter();
+		}
+
+		@Override
+		public Adapter caseComponentPrototype(ComponentPrototype object) {
+			return createComponentPrototypeAdapter();
 		}
 
 		@Override
@@ -522,6 +527,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
+		public Adapter caseFeaturePrototype(FeaturePrototype object) {
+			return createFeaturePrototypeAdapter();
+		}
+
+		@Override
 		public Adapter caseFeatureGroupPrototype(FeatureGroupPrototype object) {
 			return createFeatureGroupPrototypeAdapter();
 		}
@@ -529,11 +539,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseSubcomponent(Subcomponent object) {
 			return createSubcomponentAdapter();
-		}
-
-		@Override
-		public Adapter caseComponentPrototype(ComponentPrototype object) {
-			return createComponentPrototypeAdapter();
 		}
 
 		@Override
@@ -714,11 +719,6 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseFeaturePrototypeActual(FeaturePrototypeActual object) {
 			return createFeaturePrototypeActualAdapter();
-		}
-
-		@Override
-		public Adapter caseFeaturePrototype(FeaturePrototype object) {
-			return createFeaturePrototypeAdapter();
 		}
 
 		@Override
