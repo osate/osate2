@@ -41,9 +41,10 @@ public class TraverseWorkspace {
 		for (int i = 0; i < resources.length; i++) {
 			if (resources[i] instanceof IFile) {
 				IFile file = (IFile) resources[i];
-				if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-						|| file.getFileExtension().equalsIgnoreCase("aadl2")
-						||file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+				String ext = file.getFileExtension();
+				if (ext != null &&( ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+						|| ext.equalsIgnoreCase("aadl2")
+						||ext.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT))){
 					result.add( (IFile) resources[i]);
 				}
 			} else if (resources[i] instanceof IContainer) {
@@ -61,9 +62,10 @@ public class TraverseWorkspace {
 			for (int i = 0; i < resources.length; i++) {
 				if (resources[i] instanceof IFile) {
 					IFile file = (IFile) resources[i];
-					if (file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-							|| file.getFileExtension().equalsIgnoreCase("aadl2")
-							||file.getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)){
+					String ext = file.getFileExtension();
+					if (ext != null &&( ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
+							|| ext.equalsIgnoreCase("aadl2")
+							||ext.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT))){
 						result.add( (IFile) resources[i]);
 					}
 				} else if (resources[i] instanceof IContainer) {
