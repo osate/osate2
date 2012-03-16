@@ -69,7 +69,9 @@ public class TraverseWorkspace {
 					}
 				} else if (resources[i] instanceof IContainer) {
 					IContainer cont = (IContainer) resources[i];
-					getFiles(cont.members(), result,extension);
+					if (!cont.getName().startsWith(".")){
+						getFiles(cont.members(), result,extension);
+					}
 				}
 			}
 		} catch (CoreException e) {
