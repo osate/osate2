@@ -1,36 +1,17 @@
 package org.osate.xtext.aadl2.linking;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
-import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IReferenceDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
@@ -45,7 +26,6 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -62,7 +42,6 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
@@ -74,23 +53,16 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.errormodel.parsing.ErrorModelLanguageServices;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
-import com.google.inject.Inject;
-
 public class Aadl2LinkingService extends PropertiesLinkingService {
-	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
-	private ILinkingService emLS = emLangS.getLinkingService();
+//	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
+//	private ILinkingService emLS = emLangS.getLinkingService();
 
 	public NamedElement getContainingAnnex(EObject obj){
 		while (obj != null ){
@@ -108,7 +80,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (annex != null){
 			String annexName = annex.getName();
 			if (annexName != null && annexName.equalsIgnoreCase("emv2")){
-				return emLS.getLinkedObjects(context, reference, node);
+//				return emLS.getLinkedObjects(context, reference, node);
 			} else {
 				return super.getLinkedObjects(context, reference, node);
 			}
