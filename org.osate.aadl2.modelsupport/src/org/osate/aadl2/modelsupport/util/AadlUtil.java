@@ -52,6 +52,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -124,6 +125,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
+import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
@@ -1175,14 +1177,15 @@ public final class AadlUtil {
 	// }
 
 	/**
-	 * Try to generate an {@link org.osate.aadl2.Element} from an object.
+	 * Try to retrieve an {@link org.osate.aadl2.Element} from an object.
 	 * This method is intended to be used with objects that obtained from a
 	 * selection event, i.e., from the
 	 * {@link org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)}
 	 * method.
 	 * <p>
 	 * If the object is an Element, it is returned. Otherwise, the method tries
-	 * to adapt the object to an Element.
+	 * to adapt the object to an Element. The Object could be an Element, IAdaptable, an instance model resource,
+	 * or a TreeSelection of a IFile in the Navigator
 	 * 
 	 * @param object The object to get an Element from.
 	 * @return The Element, or <code>null</code> if no Element can be obtained
@@ -2084,13 +2087,12 @@ public final class AadlUtil {
 	 */
 	public static EList<ComponentImplementation> getAllComponentImpl() {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Resource res : resources) {
-			EList<EObject> content = res.getContents();
-			if (!content.isEmpty()) {
-				EObject root = content.get(0);
-				if (root instanceof AadlPackage) {
-					result.addAll(getAllComponentImpl((AadlPackage) root));
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target != null){
+				if (target instanceof AadlPackage) {
+					result.addAll(getAllComponentImpl((AadlPackage) target));
 				}
 			}
 		}
