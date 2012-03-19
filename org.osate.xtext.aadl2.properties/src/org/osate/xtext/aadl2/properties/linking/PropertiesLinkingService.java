@@ -522,7 +522,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param name
 	 * @return
 	 */
-	public PropertySet findPropertySet(EObject context, String name) {
+	public PropertySet findPropertySet(Element context, String name) {
 		EReference reference = Aadl2Package.eINSTANCE.getPropertySet_ImportedUnit();
 		return findPropertySet(context, name, reference);
 	}
@@ -534,7 +534,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * NOTE: resource set does not have all resources loaded
 	 * @param context
 	 * @param name Property set name
-	 * @param reference Ereference used to identify the type of object we are looking for
+	 * @param reference EReference used to identify the type of object we are looking for
 	 * @return
 	 */
 	public PropertySet findPropertySet(EObject context, String name, EReference reference) {
@@ -548,15 +548,24 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 
-	public ComponentClassifier findComponentClassifier(EObject context,String name){
+	/**
+	 * find the component classifier taking into account rename aliases
+	 * The name may be qualified with a package name
+	 * We do not check whether the referenced package is in the with clause. This is checked separately
+	 * @param context Element any model object that is the context of the reference
+	 * @param name name to be resolved; may be unqualified or qualified with a package name
+	 * @return ComponentClassifier or null
+	 */
+	public ComponentClassifier findComponentClassifier(Element context,String name){
 		EReference reference = Aadl2Package.eINSTANCE.getComponentPrototype_ConstrainingClassifier();
 		return (ComponentClassifier)findClassifier(context, reference, name);
 	}
 
-	public FeatureGroupType findFeatureGroupType(EObject context,String name){
+	public FeatureGroupType findFeatureGroupType(Element context,String name){
 		EReference reference = Aadl2Package.eINSTANCE.getFeatureGroupPrototype_ConstrainingFeatureGroupType();
 		return (FeatureGroupType)findClassifier(context, reference, name);
 	}
+	
 	public FeatureGroupType findFeatureGroupType(EObject context,String name, EReference reference){
 		return (FeatureGroupType)findClassifier(context, reference, name);
 	}
@@ -564,12 +573,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	/**
 	 * find the classifier taking into account rename aliases
 	 * We do not check whether the referenced package is in the with clause. This is checked separately
+	 * This is a helper method for findFeatureGroupType and findComponentClassifier
 	 * @param context classifier reference context
 	 * @param reference identifying attribute of reference
 	 * @param name name to be resolved
 	 * @return Classifier or null
 	 */
-	public EObject findClassifier(EObject context,
+	protected EObject findClassifier(EObject context,
 			EReference reference,  String name){
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObject(context, reference, name);
@@ -601,7 +611,18 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return null;
 	}
 
-	public EObject findPropertySetElement(EObject context,
+	/**
+	 * find a named element in a property set based on an optionally qualified name. 
+	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property constant
+	 * The context object can be any model object, typically the object that is the context of the reference such as a property definition
+	 * The reference is an EReference pointing to the the named element
+	 * This method is a helper method for the FindPropertyConstant/Type/Definition methods
+	 * @param context Element an AADL model element
+	 * @param reference EReference
+	 * @param name property type name possibly qualified with the property set name
+	 * @return
+	 */
+	protected EObject findPropertySetElement(EObject context,
 			EReference reference, String name){
 		// look for element in property set
 		String psname = null;
@@ -619,6 +640,15 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 
+
+	/**
+	 * find property constant based on property constant name. 
+	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property constant
+	 * The context object can be any model object, typically the object that is the context of the reference such as a property definition
+	 * @param context Element an AADL model element
+	 * @param name property type name possibly qualified with the property set name
+	 * @return PropertyConstant the property type or null
+	 */
 	public PropertyConstant findPropertyConstant(EObject context,String name){
 		// look for property constant in property set
 		EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
@@ -641,6 +671,14 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 
+	/**
+	 * find property type based on property name. 
+	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property type
+	 * The context object can be any model object, typically the object that is the context of the reference such as a property definition
+	 * @param context Element an AADL model element
+	 * @param name property type name possibly qualified with the property set name
+	 * @return PropertyType the property type or null
+	 */
 	public PropertyType findPropertyType(EObject context,String name){
 		// look for property type in property set
 		EReference reference = Aadl2Package.eINSTANCE.getBasicProperty_PropertyType();
@@ -661,6 +699,14 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return Collections.<EObject> emptyList();
 	}
 
+	/**
+	 * find property definition based on property name. 
+	 * The name is qualified with the property set name, or if unqualified is assumed to be a predeclared property
+	 * The context object can be any model object, typically the object that is the context of the reference such as a property association
+	 * @param context Element an AADL model element
+	 * @param name property name possibly qualified with the property set name
+	 * @return Property the property definition or null
+	 */
 	public Property findPropertyDefinition(EObject context,String name){
 		// look for property type in property set
 		EReference reference = Aadl2Package.eINSTANCE.getPropertyAssociation_Property();
