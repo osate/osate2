@@ -92,7 +92,7 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	 * @return the value of the '<em>Feature Type</em>' reference.
 	 * @see #setFeatureType(FeatureType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroup_FeatureType()
-	 * @model required="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	FeatureType getFeatureType();

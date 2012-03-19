@@ -1876,6 +1876,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramSubcomponentAssignment_9_1_0_0(), "rule__SubprogramGroupImplementation__OwnedSubprogramSubcomponentAssignment_9_1_0_0");
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAbstractSubcomponentAssignment_9_1_0_1(), "rule__SubprogramGroupImplementation__OwnedAbstractSubcomponentAssignment_9_1_0_1");
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedSubprogramGroupSubcomponentAssignment_9_1_0_2(), "rule__SubprogramGroupImplementation__OwnedSubprogramGroupSubcomponentAssignment_9_1_0_2");
+					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedDataSubcomponentAssignment_9_1_0_3(), "rule__SubprogramGroupImplementation__OwnedDataSubcomponentAssignment_9_1_0_3");
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getNoSubcomponentsAssignment_9_1_1_0(), "rule__SubprogramGroupImplementation__NoSubcomponentsAssignment_9_1_1_0");
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAccessConnectionAssignment_10_1_0_0(), "rule__SubprogramGroupImplementation__OwnedAccessConnectionAssignment_10_1_0_0");
 					put(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedFeatureGroupConnectionAssignment_10_1_0_1(), "rule__SubprogramGroupImplementation__OwnedFeatureGroupConnectionAssignment_10_1_0_1");
@@ -2332,7 +2333,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getAbstractFeatureAccess().getNameAssignment_0_0_0(), "rule__AbstractFeature__NameAssignment_0_0_0");
 					put(grammarAccess.getAbstractFeatureAccess().getRefinedAssignment_0_1_0(), "rule__AbstractFeature__RefinedAssignment_0_1_0");
 					put(grammarAccess.getAbstractFeatureAccess().getDirectionAssignment_1(), "rule__AbstractFeature__DirectionAssignment_1");
-					put(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierAssignment_3(), "rule__AbstractFeature__FeatureClassifierAssignment_3");
+					put(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeAssignment_3(), "rule__AbstractFeature__FeaturePrototypeAssignment_3");
 					put(grammarAccess.getAbstractFeatureAccess().getArrayDimensionAssignment_4(), "rule__AbstractFeature__ArrayDimensionAssignment_4");
 					put(grammarAccess.getAbstractFeatureAccess().getOwnedPropertyAssociationAssignment_5_1(), "rule__AbstractFeature__OwnedPropertyAssociationAssignment_5_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getNameAssignment_2(), "rule__FeatureGroupType__NameAssignment_2");

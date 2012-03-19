@@ -13260,13 +13260,32 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 	    }
 
 )
+)
+    |(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_9_1_0_3_0()); 
+	    }
+		lv_ownedDataSubcomponent_20_0=ruleDataSubcomponent		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedDataSubcomponent",
+        		lv_ownedDataSubcomponent_20_0, 
+        		"DataSubcomponent");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 ))+
     |((
 (
-		lv_noSubcomponents_20_0=
+		lv_noSubcomponents_21_0=
 	KEYWORD_35
     {
-        newLeafNode(lv_noSubcomponents_20_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoSubcomponentsNoneKeyword_9_1_1_0_0());
+        newLeafNode(lv_noSubcomponents_21_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoSubcomponentsNoneKeyword_9_1_1_0_0());
     }
 
 	    {
@@ -13278,28 +13297,28 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 
 )
 )
-	otherlv_21=KEYWORD_9
+	otherlv_22=KEYWORD_9
     {
-    	newLeafNode(otherlv_21, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_9_1_1_1());
+    	newLeafNode(otherlv_22, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_9_1_1_1());
     }
 )))?(
-	otherlv_22=KEYWORD_93
+	otherlv_23=KEYWORD_93
     {
-    	newLeafNode(otherlv_22, grammarAccess.getSubprogramGroupImplementationAccess().getConnectionsKeyword_10_0());
+    	newLeafNode(otherlv_23, grammarAccess.getSubprogramGroupImplementationAccess().getConnectionsKeyword_10_0());
     }
 (((
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAccessConnectionAccessConnectionParserRuleCall_10_1_0_0_0()); 
 	    }
-		lv_ownedAccessConnection_23_0=ruleAccessConnection		{
+		lv_ownedAccessConnection_24_0=ruleAccessConnection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedAccessConnection",
-        		lv_ownedAccessConnection_23_0, 
+        		lv_ownedAccessConnection_24_0, 
         		"AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13311,14 +13330,14 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedFeatureGroupConnectionFeatureGroupConnectionParserRuleCall_10_1_0_1_0()); 
 	    }
-		lv_ownedFeatureGroupConnection_24_0=ruleFeatureGroupConnection		{
+		lv_ownedFeatureGroupConnection_25_0=ruleFeatureGroupConnection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedFeatureGroupConnection",
-        		lv_ownedFeatureGroupConnection_24_0, 
+        		lv_ownedFeatureGroupConnection_25_0, 
         		"FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13330,14 +13349,14 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedFeatureConnectionFeatureConnectionParserRuleCall_10_1_0_2_0()); 
 	    }
-		lv_ownedFeatureConnection_25_0=ruleFeatureConnection		{
+		lv_ownedFeatureConnection_26_0=ruleFeatureConnection		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedFeatureConnection",
-        		lv_ownedFeatureConnection_25_0, 
+        		lv_ownedFeatureConnection_26_0, 
         		"FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13346,10 +13365,10 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 ))+
     |((
 (
-		lv_noConnections_26_0=
+		lv_noConnections_27_0=
 	KEYWORD_35
     {
-        newLeafNode(lv_noConnections_26_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoConnectionsNoneKeyword_10_1_1_0_0());
+        newLeafNode(lv_noConnections_27_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoConnectionsNoneKeyword_10_1_1_0_0());
     }
 
 	    {
@@ -13361,28 +13380,28 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 
 )
 )
-	otherlv_27=KEYWORD_9
+	otherlv_28=KEYWORD_9
     {
-    	newLeafNode(otherlv_27, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_10_1_1_1());
+    	newLeafNode(otherlv_28, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_10_1_1_1());
     }
 )))?(
-	otherlv_28=KEYWORD_50
+	otherlv_29=KEYWORD_50
     {
-    	newLeafNode(otherlv_28, grammarAccess.getSubprogramGroupImplementationAccess().getModesKeyword_11_0());
+    	newLeafNode(otherlv_29, grammarAccess.getSubprogramGroupImplementationAccess().getModesKeyword_11_0());
     }
 (((
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedModeModeParserRuleCall_11_1_0_0_0()); 
 	    }
-		lv_ownedMode_29_0=ruleMode		{
+		lv_ownedMode_30_0=ruleMode		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedMode",
-        		lv_ownedMode_29_0, 
+        		lv_ownedMode_30_0, 
         		"Mode");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13394,14 +13413,14 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedModeTransitionModeTransitionParserRuleCall_11_1_0_1_0()); 
 	    }
-		lv_ownedModeTransition_30_0=ruleModeTransition		{
+		lv_ownedModeTransition_31_0=ruleModeTransition		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedModeTransition",
-        		lv_ownedModeTransition_30_0, 
+        		lv_ownedModeTransition_31_0, 
         		"ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13410,10 +13429,10 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 ))+
     |((
 (
-		lv_noModes_31_0=
+		lv_noModes_32_0=
 	KEYWORD_35
     {
-        newLeafNode(lv_noModes_31_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoModesNoneKeyword_11_1_1_0_0());
+        newLeafNode(lv_noModes_32_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoModesNoneKeyword_11_1_1_0_0());
     }
 
 	    {
@@ -13425,28 +13444,28 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 
 )
 )
-	otherlv_32=KEYWORD_9
+	otherlv_33=KEYWORD_9
     {
-    	newLeafNode(otherlv_32, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_11_1_1_1());
+    	newLeafNode(otherlv_33, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_11_1_1_1());
     }
 )))?(
-	otherlv_33=KEYWORD_88
+	otherlv_34=KEYWORD_88
     {
-    	newLeafNode(otherlv_33, grammarAccess.getSubprogramGroupImplementationAccess().getPropertiesKeyword_12_0());
+    	newLeafNode(otherlv_34, grammarAccess.getSubprogramGroupImplementationAccess().getPropertiesKeyword_12_0());
     }
 ((
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedPropertyAssociationContainedPropertyAssociationParserRuleCall_12_1_0_0()); 
 	    }
-		lv_ownedPropertyAssociation_34_0=ruleContainedPropertyAssociation		{
+		lv_ownedPropertyAssociation_35_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_34_0, 
+        		lv_ownedPropertyAssociation_35_0, 
         		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -13455,10 +13474,10 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 )+
     |((
 (
-		lv_noProperties_35_0=
+		lv_noProperties_36_0=
 	KEYWORD_35
     {
-        newLeafNode(lv_noProperties_35_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoPropertiesNoneKeyword_12_1_1_0_0());
+        newLeafNode(lv_noProperties_36_0, grammarAccess.getSubprogramGroupImplementationAccess().getNoPropertiesNoneKeyword_12_1_1_0_0());
     }
 
 	    {
@@ -13470,32 +13489,32 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
 
 )
 )
-	otherlv_36=KEYWORD_9
+	otherlv_37=KEYWORD_9
     {
-    	newLeafNode(otherlv_36, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_12_1_1_1());
+    	newLeafNode(otherlv_37, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_12_1_1_1());
     }
 )))?(
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupImplementationAccess().getOwnedAnnexSubclauseAnnexSubclauseParserRuleCall_13_0()); 
 	    }
-		lv_ownedAnnexSubclause_37_0=ruleAnnexSubclause		{
+		lv_ownedAnnexSubclause_38_0=ruleAnnexSubclause		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupImplementationRule());
 	        }
        		add(
        			$current, 
        			"ownedAnnexSubclause",
-        		lv_ownedAnnexSubclause_37_0, 
+        		lv_ownedAnnexSubclause_38_0, 
         		"AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )*
-	otherlv_38=KEYWORD_28
+	otherlv_39=KEYWORD_28
     {
-    	newLeafNode(otherlv_38, grammarAccess.getSubprogramGroupImplementationAccess().getEndKeyword_14());
+    	newLeafNode(otherlv_39, grammarAccess.getSubprogramGroupImplementationAccess().getEndKeyword_14());
     }
 
     { 
@@ -13506,9 +13525,9 @@ ruleFULLINAME
         afterParserOrEnumRuleCall();
     }
 
-	otherlv_40=KEYWORD_9
+	otherlv_41=KEYWORD_9
     {
-    	newLeafNode(otherlv_40, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_16());
+    	newLeafNode(otherlv_41, grammarAccess.getSubprogramGroupImplementationAccess().getSemicolonKeyword_16());
     }
 )
 ;
@@ -26059,7 +26078,7 @@ ruleAbstractFeature returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getFeatureClassifierFeaturePrototypeCrossReference_3_0()); 
+	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeFeaturePrototypeCrossReference_3_0()); 
 	    }
 		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();

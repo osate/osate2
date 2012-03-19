@@ -3382,6 +3382,9 @@
               <elements xsi:type="xtext:Assignment" feature="ownedSubprogramGroupSubcomponent" operator="+=">
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.78"/>
               </elements>
+              <elements xsi:type="xtext:Assignment" feature="ownedDataSubcomponent" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.85"/>
+              </elements>
             </elements>
             <elements xsi:type="xtext:Group">
               <elements xsi:type="xtext:Assignment" feature="noSubcomponents" operator="?=">
@@ -7206,7 +7209,7 @@
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.100"/>
         </elements>
         <elements xsi:type="xtext:Keyword" value="feature"/>
-        <elements xsi:type="xtext:Assignment" cardinality="?" feature="featureClassifier" operator="=">
+        <elements xsi:type="xtext:Assignment" cardinality="?" feature="featurePrototype" operator="=">
           <terminal xsi:type="xtext:CrossReference">
             <type metamodel="/0/@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//FeaturePrototype"/>

@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
@@ -64,6 +65,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedSubprogramGroupSubcomponents <em>Owned Subprogram Group Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramGroupImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -90,6 +92,16 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 * @ordered
 	 */
 	protected EList<SubprogramGroupSubcomponent> ownedSubprogramGroupSubcomponents;
+
+	/**
+	 * The cached value of the '{@link #getOwnedDataSubcomponents() <em>Owned Data Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedDataSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<DataSubcomponent> ownedDataSubcomponents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -146,7 +158,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	protected static final int[] OWNED_SUBCOMPONENT_ESUBSETS = new int[] {
 			Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT,
 			Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT,
-			Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT };
+			Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT,
+			Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -203,6 +216,31 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
+		if (ownedDataSubcomponents == null) {
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+					Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
+		}
+		return ownedDataSubcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public DataSubcomponent createOwnedDataSubcomponent() {
+		DataSubcomponent newOwnedDataSubcomponent = (DataSubcomponent) create(Aadl2Package.eINSTANCE
+				.getDataSubcomponent());
+		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
+		return newOwnedDataSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	@Override
@@ -253,6 +291,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -269,6 +309,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 			return getOwnedSubprogramSubcomponents();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return getOwnedSubprogramGroupSubcomponents();
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			return getOwnedDataSubcomponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -290,6 +332,10 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 			getOwnedSubprogramGroupSubcomponents().clear();
 			getOwnedSubprogramGroupSubcomponents().addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
 			return;
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			getOwnedDataSubcomponents().clear();
+			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -308,6 +354,9 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			getOwnedSubprogramGroupSubcomponents().clear();
 			return;
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			getOwnedDataSubcomponents().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -324,6 +373,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
+		case Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
+			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -337,7 +388,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents()
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT)
-				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
+				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT)
+				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 	}
 
 	public String getCategory() {

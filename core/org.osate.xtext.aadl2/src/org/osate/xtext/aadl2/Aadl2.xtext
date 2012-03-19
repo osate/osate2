@@ -726,7 +726,7 @@ SubprogramGroupImplementation returns aadl2::SubprogramGroupImplementation:
 	('subcomponents'
 	  ((ownedSubprogramSubcomponent+=SubprogramSubcomponent | ownedAbstractSubcomponent+=AbstractSubcomponent
 	| ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent 
-	// allow-errata:  |ownedDataSubcomponent+=DataSubcomponent 
+	| ownedDataSubcomponent+=DataSubcomponent 
 	  )+
 	| (noSubcomponents?='none' ';'))
 	)?
@@ -1529,7 +1529,7 @@ AbstractFeature returns aadl2::AbstractFeature:
 	// default is inout if no direction
 	((name=ID ':' )|
 	(refined=[aadl2::AbstractFeature|REFINEDNAME] ':' 'refined' 'to'))
-	(direction=InOutDirection)? 'feature' (featureClassifier=[aadl2::FeaturePrototype|QCREF])? 
+	(direction=InOutDirection)? 'feature' (featurePrototype=[aadl2::FeaturePrototype|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=ContainedPropertyAssociation)+ '}')? ';' 
 	;

@@ -51,12 +51,12 @@ import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureClassifier;
 import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.Prototype;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
@@ -191,9 +191,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Prototype getPrototype() {
+	public ComponentPrototype getPrototype() {
 		EObject prototype = getFeatureClassifier();
-		return (Prototype) (prototype instanceof Prototype && !prototype.eIsProxy() ? prototype : null);
+		return (ComponentPrototype) (prototype instanceof ComponentPrototype && !prototype.eIsProxy() ? prototype : null);
 	}
 
 	/**
@@ -201,9 +201,9 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public Prototype basicGetPrototype() {
+	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
-		return (basicGetFeatureClassifier() instanceof Prototype) ? (Prototype) basicGetFeatureClassifier() : null;
+		return (basicGetFeatureClassifier() instanceof ComponentPrototype) ? (ComponentPrototype) basicGetFeatureClassifier() : null;
 	}
 
 	/**
@@ -269,6 +269,10 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return getArrayDimensions();
+		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
+			if (resolve)
+				return getFeatureClassifier();
+			return basicGetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			if (resolve)
 				return getPrototype();
@@ -333,6 +337,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		switch (featureID) {
 		case Aadl2Package.FEATURE__ARRAY_DIMENSION:
 			return arrayDimensions != null && !arrayDimensions.isEmpty();
+		case Aadl2Package.FEATURE__FEATURE_CLASSIFIER:
+			return isSetFeatureClassifier();
 		case Aadl2Package.FEATURE__PROTOTYPE:
 			return basicGetPrototype() != null;
 		case Aadl2Package.FEATURE__REFINED:

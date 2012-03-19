@@ -43,7 +43,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
-import org.osate.aadl2.FeatureClassifier;
+import org.osate.aadl2.FeaturePrototype;
 
 /**
  * <!-- begin-user-doc -->
@@ -52,7 +52,7 @@ import org.osate.aadl2.FeatureClassifier;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.AbstractFeatureImpl#getFeaturePrototype <em>Feature Prototype</em>}</li>
  * </ul>
  * </p>
  *
@@ -60,14 +60,14 @@ import org.osate.aadl2.FeatureClassifier;
  */
 public class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
 	/**
-	 * The cached value of the '{@link #getFeatureClassifier() <em>Feature Classifier</em>}' reference.
+	 * The cached value of the '{@link #getFeaturePrototype() <em>Feature Prototype</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getFeatureClassifier()
+	 * @see #getFeaturePrototype()
 	 * @generated
 	 * @ordered
 	 */
-	protected FeatureClassifier featureClassifier;
+	protected FeaturePrototype featurePrototype;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -93,18 +93,17 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public FeatureClassifier getFeatureClassifier() {
-		if (featureClassifier != null && ((EObject) featureClassifier).eIsProxy()) {
-			InternalEObject oldFeatureClassifier = (InternalEObject) featureClassifier;
-			featureClassifier = (FeatureClassifier) eResolveProxy(oldFeatureClassifier);
-			if (featureClassifier != oldFeatureClassifier) {
+	public FeaturePrototype getFeaturePrototype() {
+		if (featurePrototype != null && ((EObject) featurePrototype).eIsProxy()) {
+			InternalEObject oldFeaturePrototype = (InternalEObject) featurePrototype;
+			featurePrototype = (FeaturePrototype) eResolveProxy(oldFeaturePrototype);
+			if (featurePrototype != oldFeaturePrototype) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER, oldFeatureClassifier, featureClassifier));
+							Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE, oldFeaturePrototype, featurePrototype));
 			}
 		}
-		return featureClassifier;
+		return featurePrototype;
 	}
 
 	/**
@@ -112,9 +111,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@Override
-	public FeatureClassifier basicGetFeatureClassifier() {
-		return featureClassifier;
+	public FeaturePrototype basicGetFeaturePrototype() {
+		return featurePrototype;
 	}
 
 	/**
@@ -122,12 +120,12 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setFeatureClassifier(FeatureClassifier newFeatureClassifier) {
-		FeatureClassifier oldFeatureClassifier = featureClassifier;
-		featureClassifier = newFeatureClassifier;
+	public void setFeaturePrototype(FeaturePrototype newFeaturePrototype) {
+		FeaturePrototype oldFeaturePrototype = featurePrototype;
+		featurePrototype = newFeaturePrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER,
-					oldFeatureClassifier, featureClassifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE,
+					oldFeaturePrototype, featurePrototype));
 	}
 
 	/**
@@ -138,10 +136,10 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
+		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
 			if (resolve)
-				return getFeatureClassifier();
-			return basicGetFeatureClassifier();
+				return getFeaturePrototype();
+			return basicGetFeaturePrototype();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -154,8 +152,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
-			setFeatureClassifier((FeatureClassifier) newValue);
+		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
+			setFeaturePrototype((FeaturePrototype) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -169,8 +167,8 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
-			setFeatureClassifier((FeatureClassifier) null);
+		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
+			setFeaturePrototype((FeaturePrototype) null);
 			return;
 		}
 		super.eUnset(featureID);
@@ -184,20 +182,10 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements Abstract
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_CLASSIFIER:
-			return isSetFeatureClassifier();
+		case Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE:
+			return featurePrototype != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean isSetFeatureClassifier() {
-		return featureClassifier != null;
 	}
 
 } //AbstractFeatureImpl

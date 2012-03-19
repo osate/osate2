@@ -128,8 +128,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			return;
 		}
 		for (final Iterator<Property> it = propertyFilter.iterator(); it.hasNext() && notCancelled();) {
-			final Property pd = it.next();
-			if (io.acceptsProperty(pd)) {
+			final Property property = it.next();
+			if (io.acceptsProperty(property)) {
 				/*
 				 * Just look up the property. The property doesn't yet have a
 				 * local association, so lookup will get the value from the
@@ -138,13 +138,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				 */
 				// Already checked that acceptsProperty is true
 				try {
-					EvaluatedProperty value = pd.evaluate(new EvaluationContext(io, classifierCache));
+					EvaluatedProperty value = property.evaluate(new EvaluationContext(io, classifierCache));
 					
 					if (value != null) {
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
 
-						io.removePropertyAssociations(pd);
-						pa.setProperty(pd);
+						io.removePropertyAssociations(property);
+						pa.setProperty(property);
 						fillPropertyValue(io, pa, value);
 					}
 				} catch (final IllegalStateException e) {

@@ -3849,6 +3849,8 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			subprogramGroupAccessItemProvider.dispose();
 		if (abstractFeatureItemProvider != null)
 			abstractFeatureItemProvider.dispose();
+		if (featurePrototypeItemProvider != null)
+			featurePrototypeItemProvider.dispose();
 		if (featureGroupPrototypeItemProvider != null)
 			featureGroupPrototypeItemProvider.dispose();
 		if (modeBindingItemProvider != null)
@@ -3907,8 +3909,6 @@ public class Aadl2ItemProviderAdapterFactory extends Aadl2AdapterFactory impleme
 			featureGroupPrototypeBindingItemProvider.dispose();
 		if (featureGroupPrototypeActualItemProvider != null)
 			featureGroupPrototypeActualItemProvider.dispose();
-		if (featurePrototypeItemProvider != null)
-			featurePrototypeItemProvider.dispose();
 		if (featurePrototypeBindingItemProvider != null)
 			featurePrototypeBindingItemProvider.dispose();
 		if (accessSpecificationItemProvider != null)
