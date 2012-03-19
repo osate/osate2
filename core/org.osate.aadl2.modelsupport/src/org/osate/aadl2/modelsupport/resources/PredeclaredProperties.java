@@ -15,7 +15,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -210,5 +213,23 @@ public class PredeclaredProperties {
 			}
 		}
 	}
+	
+	
+	/** 
+	 * returns the property set "AADL_Project"
+	 * @return PropertySet
+	 */
+	public static PropertySet getAadlProjectPropertySet()  {
+		if (! isInitialized) initPluginContributedAadl();
+		IProject pluginResourcesProject = ResourcesPlugin.getWorkspace()
+				.getRoot().getProject(PLUGIN_RESOURCES_DIRECTORY_NAME);
+		IFile aadlProject = pluginResourcesProject.getFile("AADL_Project.aadl");
+		Element e = AadlUtil.getElement(aadlProject);
+		if (e instanceof PropertySet){
+			return (PropertySet)e;
+		}
+		return null;
+	}
+
 	
 }
