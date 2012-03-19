@@ -53,7 +53,7 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ComponentPrototype extends Prototype, SubcomponentType {
+public interface ComponentPrototype extends Prototype, SubcomponentType, FeatureClassifier {
 	/**
 	 * Returns the value of the '<em><b>Array</b></em>' attribute.
 	 * <!-- begin-user-doc -->

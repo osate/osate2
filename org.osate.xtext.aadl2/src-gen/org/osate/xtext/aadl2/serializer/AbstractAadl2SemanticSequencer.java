@@ -1451,7 +1451,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (
 	 *         (name=ID | refined=[AbstractFeature|REFINEDNAME]) 
 	 *         direction=InOutDirection? 
-	 *         featureClassifier=[FeaturePrototype|QCREF]? 
+	 *         featurePrototype=[FeaturePrototype|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=ContainedPropertyAssociation*
 	 *     )
@@ -3522,7 +3522,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *             (
 	 *                 ownedSubprogramSubcomponent+=SubprogramSubcomponent | 
 	 *                 ownedAbstractSubcomponent+=AbstractSubcomponent | 
-	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent
+	 *                 ownedSubprogramGroupSubcomponent+=SubprogramGroupSubcomponent | 
+	 *                 ownedDataSubcomponent+=DataSubcomponent
 	 *             )+ | 
 	 *             noSubcomponents?='none'
 	 *         )? 

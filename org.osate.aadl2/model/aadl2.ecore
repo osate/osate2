@@ -612,7 +612,7 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeFeature" abstract="true" eSuperTypes="#//ClassifierFeature"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram #//FeatureClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram">
     <eOperations name="categoryConstraint" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
         <details key="body" value="self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory"/>
@@ -655,7 +655,6 @@
       <eAnnotations source="union"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureClassifier" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogram" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrototypeBinding" abstract="true" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="formal" ordered="false"
@@ -797,6 +796,7 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubcomponentType" abstract="true" eSuperTypes="#//Type"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureClassifier" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModeTransition" eSuperTypes="#//ModeFeature">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
         lowerBound="1" eType="#//Mode"/>
@@ -838,16 +838,15 @@
         lowerBound="1" eType="#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Feature" abstract="true" eSuperTypes="#//StructuralFeature #//FeatureConnectionEnd #//ArrayableElement">
-    <eAnnotations source="duplicates">
-      <contents xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
-          eType="#//FeatureClassifier" changeable="false" volatile="true" transient="true"
-          derived="true">
-        <eAnnotations source="union"/>
-      </contents>
-    </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototype" ordered="false"
-        eType="#//Prototype" changeable="false" volatile="true" transient="true" derived="true">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+        eType="#//ComponentPrototype" changeable="false" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
+        eType="#//FeatureClassifier" changeable="false" volatile="true" transient="true"
+        derived="true">
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//Feature">
@@ -856,12 +855,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
         eType="#//ComponentClassifier" changeable="false" volatile="true" transient="true"
         derived="true">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionEnd" abstract="true" eSuperTypes="#//NamedElement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototype" abstract="true"
+      eSuperTypes="#//Prototype #//SubcomponentType #//FeatureClassifier">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="array" ordered="false"
+        lowerBound="1" eType="#//Boolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
+        ordered="false" eType="#//ComponentClassifier"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//Flow #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//FlowSpecification">
@@ -912,7 +918,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="inverse" ordered="false"
         lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureType" ordered="false"
-        lowerBound="1" eType="#//FeatureType"/>
+        eType="#//FeatureType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureGroupType" ordered="false"
         eType="#//FeatureGroupType" changeable="false" volatile="true" transient="true"
         derived="true">
@@ -1007,15 +1013,15 @@
   <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
     <eStructuralFeatures xsi:type="ecore:EReference" name="busFeatureClassifier" ordered="false"
         eType="#//BusSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Access" abstract="true" eSuperTypes="#//Feature #//AccessConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//AccessType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//AccessCategory" volatile="true" transient="true"
-        derived="true"/>
+        lowerBound="1" eType="#//AccessCategory" changeable="false" volatile="true"
+        transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AccessConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
@@ -1035,7 +1041,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterConnectionEnd" abstract="true"
@@ -1047,12 +1053,13 @@
   <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Port" abstract="true" eSuperTypes="#//DirectedFeature #//PortConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        lowerBound="1" eType="#//PortCategory" volatile="true" transient="true" derived="true"/>
+        lowerBound="1" eType="#//PortCategory" changeable="false" volatile="true"
+        transient="true" derived="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="PortCategory">
     <eLiterals name="data"/>
@@ -1062,20 +1069,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EventPort" eSuperTypes="#//Port"/>
   <eClassifiers xsi:type="ecore:EClass" name="Parameter" eSuperTypes="#//DirectedFeature #//Context #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramFeatureClassifier"
         ordered="false" eType="#//SubprogramSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
@@ -1084,18 +1091,21 @@
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramGroupFeatureClassifier"
         ordered="false" eType="#//SubprogramGroupSubcomponentType">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
+      <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
       eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="featureClassifier" ordered="false"
-        eType="#//FeatureClassifier">
-      <eAnnotations source="subsets" references="#//Feature/%duplicates%/featureClassifier"/>
-      <eAnnotations source="redefines" references="#//Feature/%duplicates%/featureClassifier"/>
-    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="featurePrototype" ordered="false"
+        eType="#//FeaturePrototype"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
+        lowerBound="1" eType="#//DirectionType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
+        ordered="false" eType="#//ComponentClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
     <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingFeatureGroupType"
@@ -1136,13 +1146,6 @@
       <eAnnotations source="subsets" references="#//Subcomponent/subcomponentType"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ComponentPrototype" abstract="true"
-      eSuperTypes="#//Prototype #//SubcomponentType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="array" ordered="false"
-        lowerBound="1" eType="#//Boolean"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
-        ordered="false" eType="#//ComponentClassifier"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeBinding" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentMode" ordered="false"
         lowerBound="1" eType="#//Mode"/>
@@ -1151,7 +1154,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
-        eType="#//FlowKind" volatile="true" transient="true" derived="true"/>
+        eType="#//FlowKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
         lowerBound="1" eType="#//FlowSpecification"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFlowSegment" upperBound="-1"
@@ -1387,12 +1390,6 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeActual" abstract="true"
       eSuperTypes="#//Element"/>
-  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototype" eSuperTypes="#//Prototype">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
-        lowerBound="1" eType="#//DirectionType"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
-        ordered="false" eType="#//ComponentClassifier"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeBinding" eSuperTypes="#//PrototypeBinding">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="formal" ordered="false" lowerBound="1"
@@ -1872,6 +1869,10 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupSubcomponent"
         ordered="false" upperBound="-1" eType="#//SubprogramGroupSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
+        ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>

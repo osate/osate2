@@ -40,11 +40,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.ComponentTypeRename;
-import org.osate.aadl2.FeatureGroupTypeRename;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
-import org.osate.aadl2.PackageRename;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PublicPackageSection;
 

@@ -161,7 +161,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	public boolean isSetRefinedElement() {
 		return false;
 	}
-	
+
 	@Override
 	public String getName(){
 		if (name == null){
@@ -170,5 +170,5 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 		}
 		return name;
 	}
-	
+
 } //RefinableElementImpl

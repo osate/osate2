@@ -146,6 +146,8 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createSubprogramGroupAccess();
 		case Aadl2Package.ABSTRACT_FEATURE:
 			return (EObject) createAbstractFeature();
+		case Aadl2Package.FEATURE_PROTOTYPE:
+			return (EObject) createFeaturePrototype();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
 			return (EObject) createFeatureGroupPrototype();
 		case Aadl2Package.MODE_BINDING:
@@ -204,8 +206,6 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return (EObject) createFeatureGroupPrototypeBinding();
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
 			return (EObject) createFeatureGroupPrototypeActual();
-		case Aadl2Package.FEATURE_PROTOTYPE:
-			return (EObject) createFeaturePrototype();
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
 			return (EObject) createFeaturePrototypeBinding();
 		case Aadl2Package.ACCESS_SPECIFICATION:

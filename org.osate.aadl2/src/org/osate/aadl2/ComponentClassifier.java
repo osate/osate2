@@ -179,7 +179,6 @@ public interface ComponentClassifier extends Classifier, SubcomponentType, Featu
 	 * Returns the category ("abstract", "bus", "data", "device", etc.) for the classifier.
 	 */
 	String getCategory();
-	
 
 	/**
 	 * Returns all the mode objects of a given classifier, including

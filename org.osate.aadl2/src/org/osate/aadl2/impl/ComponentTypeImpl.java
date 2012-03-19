@@ -833,6 +833,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		}
 		return returnlist;
 	}
+
 	/**
 	 * Returns all the prototype objects of a given type, including
 	 * ancestor.

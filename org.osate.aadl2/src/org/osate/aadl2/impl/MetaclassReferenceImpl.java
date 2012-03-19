@@ -249,7 +249,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 				namePart.setCharAt(0, Character.toUpperCase(namePart.charAt(0)));
 				metaclassName.append(namePart);
 			}
-			if (metaclassName.toString().equalsIgnoreCase("all")){
+			if (metaclassName.toString().equalsIgnoreCase("all")) {
 				metaclass = Aadl2Package.eINSTANCE.getNamedElement();
 				return metaclass;
 			}

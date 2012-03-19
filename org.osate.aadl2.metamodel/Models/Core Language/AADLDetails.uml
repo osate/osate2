@@ -1535,6 +1535,11 @@
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_6ZQ2QnMbEd-Dn6vSwaGWGg"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_2YqNkG6pEeGwj9GUWxrxWw" name="ownedDataSubcomponent" type="Components-Data-DataSubcomponent" aggregation="composite" association="_2ZX_QG6pEeGwj9GUWxrxWw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2YqNkW6pEeGwj9GUWxrxWw" value="*"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2YqNkm6pEeGwj9GUWxrxWw"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentImplementation-ownedSubcomponent"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="Components-SubprogramGroup-A_subprogramGroupImplementation_subprogramGroupType" name="A_subprogramGroupImplementation_subprogramGroupType" memberEnd="Components-SubprogramGroup-A_subprogramGroupImplementation_subprogramGroupType-implementation Components-SubprogramGroup-SubprogramGroupImplementation-type" isDerived="true">
           <ownedEnd xmi:id="Components-SubprogramGroup-A_subprogramGroupImplementation_subprogramGroupType-implementation" name="implementation" type="Components-SubprogramGroup-SubprogramGroupImplementation" association="Components-SubprogramGroup-A_subprogramGroupImplementation_subprogramGroupType">
@@ -1586,6 +1591,12 @@
           <generalization xmi:id="_4_wMgKf0EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_2ZX_QG6pEeGwj9GUWxrxWw" name="A_subprogramGroupImplementation_ownedDataSubcomponent" memberEnd="_2ZX_QW6pEeGwj9GUWxrxWw _2YqNkG6pEeGwj9GUWxrxWw">
+          <ownedEnd xmi:id="_2ZX_QW6pEeGwj9GUWxrxWw" name="owner" type="Components-SubprogramGroup-SubprogramGroupImplementation" association="_2ZX_QG6pEeGwj9GUWxrxWw">
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_2ZX_Qm6pEeGwj9GUWxrxWw" value="1"/>
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2ZX_Q26pEeGwj9GUWxrxWw"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
       <packagedElement xmi:type="uml:Package" xmi:id="Components-System" name="System">

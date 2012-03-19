@@ -47,6 +47,7 @@ import org.eclipse.emf.common.util.EList;
  * <ul>
  *   <li>{@link org.osate.aadl2.SubprogramGroupImplementation#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.SubprogramGroupImplementation#getOwnedSubprogramGroupSubcomponents <em>Owned Subprogram Group Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramGroupImplementation#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
  * </ul>
  * </p>
  *
@@ -118,6 +119,38 @@ public interface SubprogramGroupImplementation extends ComponentImplementation, 
 	 * @generated
 	 */
 	SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.DataSubcomponent}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Data Subcomponent</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Data Subcomponent</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramGroupImplementation_OwnedDataSubcomponent()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<DataSubcomponent> getOwnedDataSubcomponents();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.DataSubcomponent} and appends it to the '<em><b>Owned Data Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.DataSubcomponent}.
+	 * @see #getOwnedDataSubcomponents()
+	 * @generated
+	 */
+	DataSubcomponent createOwnedDataSubcomponent();
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.
