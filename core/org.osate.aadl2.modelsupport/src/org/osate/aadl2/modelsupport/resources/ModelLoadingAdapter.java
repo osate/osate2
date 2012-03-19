@@ -74,7 +74,8 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
             }
             if (adaptableObject instanceof IFile) {
                 final IFile file = (IFile)adaptableObject;
-                if (!(file.getFileExtension().toLowerCase().equals("aadl")||file.getFileExtension().toLowerCase().equals("aadl2"))) return null;
+                String ext = file.getFileExtension();
+                if (ext == null || !(ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2"))) return null;
  
                 XtextResourceSet resourceSet = getResourceSet();
                 resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
