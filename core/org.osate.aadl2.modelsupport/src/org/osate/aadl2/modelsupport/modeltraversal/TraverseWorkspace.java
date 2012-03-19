@@ -42,7 +42,7 @@ public class TraverseWorkspace {
 		int cn = 0;
 		for (int i = 0, max = projects.length; i < max; i++) {
 			IProject project = projects[i];
-			if ( project.isOpen() && AadlProject.hasAadlNature(project)
+			if ( project.isOpen()// && AadlProject.hasAadlNature(project)
 					&& !project.getName().equalsIgnoreCase(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME)) {
 				tmp[cn++] = project;
 			}
