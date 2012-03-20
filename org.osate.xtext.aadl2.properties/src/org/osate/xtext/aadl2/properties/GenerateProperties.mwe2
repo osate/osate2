@@ -13,7 +13,7 @@ Workflow {
     bean = StandaloneSetup {
 	    scanClassPath = true
 		platformUri = "${runtimeProject}/.."
-		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2-nouml.genmodel"
 	}
 
 	component = DirectoryCleaner {

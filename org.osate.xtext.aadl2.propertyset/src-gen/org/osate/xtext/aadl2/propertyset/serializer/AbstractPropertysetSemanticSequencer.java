@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.propertyset.serializer;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
@@ -48,9 +50,6 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 import org.osate.xtext.aadl2.propertyset.services.PropertysetGrammarAccess;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 @SuppressWarnings("restriction")
 public class AbstractPropertysetSemanticSequencer extends AbstractSemanticSequencer {
