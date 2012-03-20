@@ -65,9 +65,9 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 *         encapsulated processing method.
 	 */
 	public final EList<Element> visitWorkspace() {
-		HashSet<IFile> files = TraverseWorkspace.getAadlAaxlFilesInWorkspace();
+		HashSet<IFile> files = TraverseWorkspace.getAadlandInstanceFilesInWorkspace();
 		for (IFile file : files){
-			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			Element target = (Element)AadlUtil.getElement(file);
 			if (target != null){
 				visitRoot(target);
 			}
