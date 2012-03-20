@@ -215,21 +215,5 @@ public class PredeclaredProperties {
 	}
 	
 	
-	/** 
-	 * returns the property set "AADL_Project"
-	 * @return PropertySet
-	 */
-	public static PropertySet getAadlProjectPropertySet()  {
-		if (! isInitialized) initPluginContributedAadl();
-		IProject pluginResourcesProject = ResourcesPlugin.getWorkspace()
-				.getRoot().getProject(PLUGIN_RESOURCES_DIRECTORY_NAME);
-		IFile aadlProject = pluginResourcesProject.getFile("AADL_Project.aadl");
-		Element e = AadlUtil.getElement(aadlProject);
-		if (e instanceof PropertySet){
-			return (PropertySet)e;
-		}
-		return null;
-	}
-
 	
 }
