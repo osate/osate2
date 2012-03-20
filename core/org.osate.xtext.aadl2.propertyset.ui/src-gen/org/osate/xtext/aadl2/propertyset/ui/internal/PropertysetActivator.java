@@ -3,21 +3,23 @@
  */
 package org.osate.xtext.aadl2.propertyset.ui.internal;
 
-import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
-
-import java.util.concurrent.ExecutionException;
+import static com.google.inject.Guice.createInjector;
 
 import org.apache.log4j.Logger;
+
 import org.eclipse.ui.plugin.AbstractUIPlugin;
-import org.eclipse.xtext.ui.shared.SharedStateModule;
 import org.osgi.framework.BundleContext;
 
+import com.google.inject.Injector;
+import com.google.inject.Module;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
-import com.google.inject.Injector;
-import com.google.inject.Module;
+
+import java.util.concurrent.ExecutionException;
+
+import org.eclipse.xtext.ui.shared.SharedStateModule;
 
 /**
  * This class was generated. Customizations should only happen in a newly

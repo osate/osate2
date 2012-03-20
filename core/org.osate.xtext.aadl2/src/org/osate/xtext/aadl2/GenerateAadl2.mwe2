@@ -14,7 +14,7 @@ Workflow {
 		platformUri = "${runtimeProject}/.."
 //		registerGeneratedEPackage = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
 //		registerGenModelFile = "platform:/resource/org.osate.aadl2.errormodel/src-gen/or/osate/xtext/aadl2/errormodel/ErrorModel.genmodel"
-		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2.genmodel"
+		registerGenModelFile = "platform:/resource/org.osate.aadl2/model/aadl2-nouml.genmodel"
 	}
 
 	component = DirectoryCleaner {

@@ -30,7 +30,6 @@ public class PropertiesActivator extends AbstractUIPlugin {
 	private static final Logger logger = Logger.getLogger(PropertiesActivator.class);
 	
 	private Cache<String, Injector> injectors = CacheBuilder.newBuilder().build(new CacheLoader<String, Injector>() {
-
 		@Override
 		public Injector load(String language) throws Exception {
 			Module runtimeModule = getRuntimeModule(language);
@@ -92,6 +91,5 @@ public class PropertiesActivator extends AbstractUIPlugin {
 	protected Module getSharedStateModule() {
 		return new SharedStateModule();
 	}
-
 	
 }
