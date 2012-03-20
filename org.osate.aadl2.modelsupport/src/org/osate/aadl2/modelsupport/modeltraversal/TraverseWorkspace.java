@@ -15,7 +15,7 @@ import org.osate.workspace.WorkspacePlugin;
 
 public class TraverseWorkspace {
 	
-	public static HashSet<IFile> getAadlAaxlFilesInWorkspace(){
+	public static HashSet<IFile> getAadlandInstanceFilesInWorkspace(){
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT);
 		getFiles(getProjects(),result,WorkspacePlugin.INSTANCE_FILE_EXT);
