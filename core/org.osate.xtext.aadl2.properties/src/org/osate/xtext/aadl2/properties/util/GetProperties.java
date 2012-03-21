@@ -80,60 +80,60 @@ public class GetProperties {
 	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
 		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
 	}
-
-	public static Property lookupPropertyDefinition(String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(ps != null?(ps+ "::" +name):name);
-	}
-
-	public static PropertyType lookupPropertyType(String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(ps != null?(ps+ "::" +name):name);
-	}
-
-	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(ps != null?(ps+ "::" +name):name);
-	}
-
-	/**
-	 * find property definition/type/constant for given name. The name may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String Property Definition/Type/Constant name
-	 * @return NamedElement or null
-	 */
-	public static NamedElement lookupNamedElementInPropertySet(String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findNamedElementInPropertySet(name);
-	}
-
-	/**
-	 * find property definition for given property name. The property may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String Property Definition name
-	 * @return Property or null
-	 */
-	public static Property lookupPropertyDefinition(String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(name);
-	}
-
-
-	/**
-	 * find property type for given property name. The property type may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String property type name
-	 * @return PropertyType or null
-	 */
-	public static PropertyType lookupPropertyType(String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(name);
-	}
-
-
-	/**
-	 * find property constant for given property name. The property may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String property constant name
-	 * @return PropertyConstant or null
-	 */
-	public static PropertyConstant lookupPropertyConstant(String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(name);
-	}
+// XXX: These methods only work for properties in the PluginResoruces project
+//	public static Property lookupPropertyDefinition(String ps, String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//	public static PropertyType lookupPropertyType(String ps, String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//	/**
+//	 * find property definition/type/constant for given name. The name may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String Property Definition/Type/Constant name
+//	 * @return NamedElement or null
+//	 */
+//	public static NamedElement lookupNamedElementInPropertySet(String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findNamedElementInPropertySet(name);
+//	}
+//
+//	/**
+//	 * find property definition for given property name. The property may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String Property Definition name
+//	 * @return Property or null
+//	 */
+//	public static Property lookupPropertyDefinition(String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(name);
+//	}
+//
+//
+//	/**
+//	 * find property type for given property name. The property type may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String property type name
+//	 * @return PropertyType or null
+//	 */
+//	public static PropertyType lookupPropertyType(String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(name);
+//	}
+//
+//
+//	/**
+//	 * find property constant for given property name. The property may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String property constant name
+//	 * @return PropertyConstant or null
+//	 */
+//	public static PropertyConstant lookupPropertyConstant(String name) {
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(name);
+//	}
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object

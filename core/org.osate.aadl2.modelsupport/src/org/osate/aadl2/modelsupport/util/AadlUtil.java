@@ -1270,6 +1270,11 @@ public final class AadlUtil {
 		}
 	}
 	
+	/**
+	 * get the qualified name of an element in the property set (property definition/type/constant
+	 * @param el
+	 * @return
+	 */
 	public static String getPropertySetElementName(NamedElement el){
 		NamedElement ps = (NamedElement)el.eContainer();
 		if (isPredeclaredPropertySet(ps.getName())){
