@@ -6,9 +6,9 @@ import static com.google.inject.util.Modules.override;
 import org.apache.log4j.Logger;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
-import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Inject;
@@ -33,7 +33,7 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 			
-			ModelLoadingAdapter.registerResourceProviders(rdp, rspr);
+			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
 			
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
