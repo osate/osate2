@@ -17,8 +17,10 @@ import com.google.inject.Injector;
 public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup{
 
 
-    public void earlyStartup(){};
 
+    public void earlyStartup(){
+    	new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
+    };
     
 
 	@Inject
