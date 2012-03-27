@@ -96,9 +96,13 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
     
     public static XtextResourceSet getResourceSet(){
     	if (injector==null) {
-            log.error("Could not obtain injector for Aadl2");
-            return null;
-        }
+    		injector = OsateCorePlugin
+    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+    		if (injector == null){
+    			log.error("Could not obtain injector for Aadl2");
+    			return null;
+    		}
+    	}
         PredeclaredProperties.initPluginContributedAadl();
         IWorkspace workspace = ResourcesPlugin.getWorkspace();
         IWorkspaceRoot root = workspace.getRoot();

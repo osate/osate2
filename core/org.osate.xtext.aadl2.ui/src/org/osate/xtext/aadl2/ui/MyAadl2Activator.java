@@ -12,7 +12,6 @@ import org.osgi.framework.BundleContext;
 import com.google.inject.Injector;
 
 public class MyAadl2Activator extends Aadl2Activator {
-
 	
 	@Override
 	public void start(BundleContext context) throws Exception {

@@ -10,9 +10,4 @@
        genModel = "org/osate/aadl2/properties/Properties.genmodel" /> 
 	
   </extension>
-
-
-
-
-
 </plugin>
