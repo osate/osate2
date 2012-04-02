@@ -7,6 +7,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -48,6 +49,12 @@ public class TraverseWorkspace {
 			}
 		}
 		return tmp;
+	}
+	
+	public static IFile getAADLProjectFile(){
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+		IProject prproject = myWorkspaceRoot.getProject(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME);
+		return prproject.getFile("AADL_Project.aadl");
 	}
 
 
