@@ -47,7 +47,6 @@ import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osgi.framework.Bundle;
 
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
