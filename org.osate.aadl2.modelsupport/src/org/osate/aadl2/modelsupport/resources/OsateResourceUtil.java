@@ -38,7 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -51,9 +53,15 @@ import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.resource.IResourceSetProvider;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
+
+import com.google.inject.Injector;
 
 
 
@@ -111,10 +119,52 @@ public class OsateResourceUtil {
 			}
 			return XMISaveOptions;
 	}
-	
-	public static ResourceSet getResourceSet(){
-		return ModelLoadingAdapter.getResourceSet(); //new ResourceSetImpl();
+	// resoruce set stuff
+    private static org.apache.log4j.Logger log = org.apache.log4j.Logger
+            .getLogger(ModelLoadingAdapter.class);
+    private static Injector injector = OsateCorePlugin
+            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
+
+    private static IResourceSetProvider fResourceSetProvider;
+    
+    private static XtextResourceSet resourceSet;
+    
+	public static ResourceSet getResourceSet(Element context){
+		ResourceSet crs = context.eResource().getResourceSet();
+		setResourceSet(crs);
+		return crs; 
 	}
+    
+    public static void setResourceSet(ResourceSet rs){
+    	if (resourceSet == null && rs instanceof XtextResourceSet){
+    		resourceSet =(XtextResourceSet) rs;
+    	}
+    	if (resourceSet != null && resourceSet != rs){
+    		return;
+    	}
+    }
+    
+    public static XtextResourceSet getResourceSet(){
+    	if (injector==null) {
+    		injector = OsateCorePlugin
+    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+    		if (injector == null){
+    			log.error("Could not obtain injector for Aadl2");
+    			return null;
+    		}
+    	}
+        PredeclaredProperties.initPluginContributedAadl();
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceRoot root = workspace.getRoot();
+        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+        if (fResourceSetProvider == null)
+        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+
+        if (resourceSet == null) 
+        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);
+        return resourceSet;
+   	
+    }
 
 
 	/**
@@ -218,6 +268,32 @@ public class OsateResourceUtil {
 		}
 
 		res = getResourceSet().createResource(uri);
+		return (Aadl2ResourceImpl)res;
+	}
+	/**
+	 * creates a Resource for file name with path within Eclipse If it exists,
+	 * it will delete the file before creating the resource.
+	 * 
+	 * @param uri
+	 *            uri
+	 * @return Resource
+	 */
+	public static Aadl2ResourceImpl getEmptyAadl2Resource(URI uri, Element context) {
+		Resource res = null;
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		if (uri != null) {
+			IResource iResource =  getOsateIFile(uri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+		}
+		res = getResourceSet(context).createResource(uri);
 		return (Aadl2ResourceImpl)res;
 	}
 

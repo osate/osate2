@@ -14,6 +14,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -45,14 +46,14 @@ import com.google.inject.Injector;
 @SuppressWarnings("rawtypes")
 
 public class ModelLoadingAdapter  implements IAdapterFactory {
-    private static org.apache.log4j.Logger log = org.apache.log4j.Logger
-        .getLogger(ModelLoadingAdapter.class);
-    private static Injector injector = OsateCorePlugin
-            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
-
-    private static IResourceSetProvider fResourceSetProvider;
-    
-    private static XtextResourceSet resourceSet;
+//    private static org.apache.log4j.Logger log = org.apache.log4j.Logger
+//        .getLogger(ModelLoadingAdapter.class);
+//    private static Injector injector = OsateCorePlugin
+//            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
+//
+//    private static IResourceSetProvider fResourceSetProvider;
+//    
+//    private static XtextResourceSet resourceSet;
     
     /**
      * XXX: Notice - the methods dealing with EMF Index operations has been moved to the EMFIndexLookup Class in org.osate.xtext.aadl2.properties.util
@@ -75,7 +76,7 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                 String ext = file.getFileExtension();
                 if (ext == null || !(ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2"))) return null;
  
-                XtextResourceSet resourceSet = getResourceSet();
+                XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
 //                resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
                 String sp = file.getFullPath().toString();
                 Resource resource = resourceSet.getResource(URI.createURI(sp),true);
@@ -94,27 +95,36 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
         return new Class[] { Element.class };
     }
     
-    public static XtextResourceSet getResourceSet(){
-    	if (injector==null) {
-    		injector = OsateCorePlugin
-    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
-    		if (injector == null){
-    			log.error("Could not obtain injector for Aadl2");
-    			return null;
-    		}
-    	}
-        PredeclaredProperties.initPluginContributedAadl();
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IWorkspaceRoot root = workspace.getRoot();
-        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
-        if (fResourceSetProvider == null)
-        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
-
-        if (resourceSet == null) 
-        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);
-        return resourceSet;
-   	
-    }
+//    public static void setResourceSet(ResourceSet rs){
+//    	if (resourceSet == null && rs instanceof XtextResourceSet){
+//    		resourceSet =(XtextResourceSet) rs;
+//    	}
+//    	if (resourceSet != null && resourceSet != rs){
+//    		return;
+//    	}
+//    }
+//    
+//    public static XtextResourceSet getResourceSet(){
+//    	if (injector==null) {
+//    		injector = OsateCorePlugin
+//    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+//    		if (injector == null){
+//    			log.error("Could not obtain injector for Aadl2");
+//    			return null;
+//    		}
+//    	}
+//        PredeclaredProperties.initPluginContributedAadl();
+//        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//        IWorkspaceRoot root = workspace.getRoot();
+//        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+//        if (fResourceSetProvider == null)
+//        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+//
+//        if (resourceSet == null) 
+//        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);
+//        return resourceSet;
+//   	
+//    }
     
 
 }
