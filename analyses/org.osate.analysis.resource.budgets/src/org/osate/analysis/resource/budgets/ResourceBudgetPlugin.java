@@ -22,7 +22,7 @@ public class ResourceBudgetPlugin extends AbstractUIPlugin {
 		super();
 		plugin = this;
 		try {
-			resourceBundle = ResourceBundle.getBundle("edu.cmu.sei.aadl.plugindemo.PlugindemoPluginResources");
+			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.resource.budgets.PluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}

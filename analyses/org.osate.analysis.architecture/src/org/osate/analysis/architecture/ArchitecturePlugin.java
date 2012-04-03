@@ -22,7 +22,7 @@ public class ArchitecturePlugin extends AbstractUIPlugin {
 		super();
 		plugin = this;
 		try {
-			resourceBundle = ResourceBundle.getBundle("edu.cmu.sei.aadl.security.ArchitecturePluginResources");
+			resourceBundle = ResourceBundle.getBundle("org.osate.analysis.architecture.PluginResources");
 		} catch (MissingResourceException x) {
 			resourceBundle = null;
 		}
