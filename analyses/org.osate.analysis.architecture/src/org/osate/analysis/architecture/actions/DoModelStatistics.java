@@ -40,27 +40,15 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osgi.framework.Bundle;
-
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.impl.ClassifierImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osgi.framework.Bundle;
 
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	protected Bundle getBundle() {
@@ -98,8 +86,17 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		ModelStatistics stats = new ModelStatistics(monitor);
 		
 		/**
-		 * Example of using the Index to get the classifiers
-		 * In this case we then resolver the reference (causing the classifier to be loaded)
+		 * Examples of using the Index to look up a specific package, classifier, property, etc.
+		 * In this case any scoping rules based on with clauses or project dependencies are ignored
+		 */
+		
+//		Element e = EMFIndexRetrieval.getPropertyDefinitionInWorkspace("Deadline");
+//		Element p = EMFIndexRetrieval.getPackageInWorkspace("mydata::dd");
+//		Element c = EMFIndexRetrieval.getClassifierInWorkspace("mydata::dd::sys");
+		
+		/**
+		 * Example of using the Index to get all classifiers
+		 * In this case we then call on the resolver for the reference (causing the classifier to be loaded)
 		 */
 
 //			EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
