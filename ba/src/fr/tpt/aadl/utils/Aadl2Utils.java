@@ -26,13 +26,21 @@ import java.util.Collections ;
 import java.util.Comparator ;
 import java.util.List ;
 
+import org.eclipse.emf.ecore.EObject ;
 import org.eclipse.xtext.nodemodel.INode ;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils ;
 import org.osate.aadl2.ComponentType ;
+import org.osate.aadl2.DataAccess ;
+import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.Feature ;
+import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.Property ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 public class Aadl2Utils
 {
+  public static String DEFAULT_ACCESS_RIGHT = null ; 
+  
   public static List<Feature> orderFeatures(ComponentType cpt)
   {
     List<Feature> res = new ArrayList<Feature>() ;
@@ -99,5 +107,46 @@ public class Aadl2Utils
 
       return 0 ;
     }
+  }
+  
+  // Returns null if there is not default right set.
+  public static String getAccessRight(DataAccess data)
+  {
+    String result = null ;
+    
+    try
+    {
+      result = PropertyUtils.getEnumValue(data, "Access_Right") ;
+    }
+    catch(Exception e)
+    {
+      if(DEFAULT_ACCESS_RIGHT == null)
+      {
+        PropertiesLinkingService pls = null ;
+        
+        pls = PropertiesLinkingService.getPropertiesLinkingService(data) ;
+        
+        EObject ne = null ;
+        
+        ne = pls.findNamedElementInPropertySet("Memory_Properties",
+                                               "Access_Right", data, null);
+        try
+        {
+          Property prop = (Property) ne ;
+          NamedValue nv = (NamedValue) prop.getDefaultValue() ;
+          result = ((EnumerationLiteral) nv.getNamedValue()).getName();
+        }
+        catch(Exception e1)
+        {
+          return null ;
+        }
+      }
+      else
+      {
+        return DEFAULT_ACCESS_RIGHT ;
+      }
+    }
+    
+    return result ;
   }
 }

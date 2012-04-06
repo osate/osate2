@@ -6,7 +6,8 @@ Bundle-Version: 0.8.5
 Bundle-Activator: fr.tpt.aadl.utils.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.xtext;bundle-version="2.1.1",
- org.osate.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Export-Package: fr.tpt.aadl.utils
