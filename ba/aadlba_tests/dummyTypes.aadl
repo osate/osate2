@@ -45,13 +45,13 @@ public
   
   data implementation Days.v1
     properties
-    Data_Model::Representation => (7,0,1,2,3,4,5,6);
+    Data_Model::Representation => ("7","0","1","2","3","4","5","6");
   
   end Days.v1 ;
 
   data implementation Days.v2
     properties
-    Data_Model::Representation => (8,1,2,3,4,5,6,7);
+    Data_Model::Representation => ("8","1","2","3","4","5","6","7");
   
   end Days.v2 ;  
   

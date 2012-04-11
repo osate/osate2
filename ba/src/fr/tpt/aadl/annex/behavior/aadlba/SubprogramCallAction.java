@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 import org.eclipse.emf.common.util.EList;
@@ -31,9 +29,9 @@ import org.eclipse.emf.common.util.EList;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogramNames <em>Subprogram Names</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogramReference <em>Subprogram Reference</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}</li>
  * </ul>
  * </p>
  *
@@ -41,109 +39,97 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramCallAction extends CommunicationAction {
-	/**
-	 * Returns the value of the '<em><b>Subprogram Names</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Name}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Subprogram Names</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Names</em>' containment reference list.
-	 * @see #isSetSubprogramNames()
-	 * @see #unsetSubprogramNames()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_SubprogramNames()
-	 * @model containment="true" unsettable="true" upper="2"
-	 * @generated
-	 */
-	EList<Name> getSubprogramNames();
+public interface SubprogramCallAction extends CommunicationAction
+{
+  /**
+   * Returns the value of the '<em><b>Subprogram</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Subprogram</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Subprogram</em>' containment reference.
+   * @see #setSubprogram(CalledSubprogramHolder)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_Subprogram()
+   * @model containment="true" required="true"
+   * @generated
+   */
+  CalledSubprogramHolder getSubprogram();
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogramNames <em>Subprogram Names</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetSubprogramNames()
-	 * @see #getSubprogramNames()
-	 * @generated
-	 */
-	void unsetSubprogramNames();
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Subprogram</em>' containment reference.
+   * @see #getSubprogram()
+   * @generated
+   */
+  void setSubprogram(CalledSubprogramHolder value);
 
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogramNames <em>Subprogram Names</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Subprogram Names</em>' containment reference list is set.
-	 * @see #unsetSubprogramNames()
-	 * @see #getSubprogramNames()
-	 * @generated
-	 */
-	boolean isSetSubprogramNames();
+  /**
+   * Returns the value of the '<em><b>Parameter Labels</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Parameter Labels</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Parameter Labels</em>' containment reference list.
+   * @see #isSetParameterLabels()
+   * @see #unsetParameterLabels()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_ParameterLabels()
+   * @model containment="true" unsettable="true"
+   * @generated
+   */
+  EList<ParameterLabel> getParameterLabels();
 
-	/**
-	 * Returns the value of the '<em><b>Subprogram Reference</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Subprogram Reference</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subprogram Reference</em>' containment reference.
-	 * @see #setSubprogramReference(UniqueComponentClassifierReference)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_SubprogramReference()
-	 * @model containment="true"
-	 * @generated
-	 */
-	UniqueComponentClassifierReference getSubprogramReference();
+  /**
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetParameterLabels()
+   * @see #getParameterLabels()
+   * @generated
+   */
+  void unsetParameterLabels();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogramReference <em>Subprogram Reference</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subprogram Reference</em>' containment reference.
-	 * @see #getSubprogramReference()
-	 * @generated
-	 */
-	void setSubprogramReference(UniqueComponentClassifierReference value);
+  /**
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Parameter Labels</em>' containment reference list is set.
+   * @see #unsetParameterLabels()
+   * @see #getParameterLabels()
+   * @generated
+   */
+  boolean isSetParameterLabels();
 
-	/**
-	 * Returns the value of the '<em><b>Parameter Labels</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Parameter Labels</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Parameter Labels</em>' containment reference list.
-	 * @see #isSetParameterLabels()
-	 * @see #unsetParameterLabels()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_ParameterLabels()
-	 * @model containment="true" unsettable="true"
-	 * @generated
-	 */
-	EList<ParameterLabel> getParameterLabels();
+  /**
+   * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Data Access</em>' containment reference.
+   * @see #setDataAccess(DataAccessHolder)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_DataAccess()
+   * @model containment="true"
+   * @generated
+   */
+  DataAccessHolder getDataAccess();
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetParameterLabels()
-	 * @see #getParameterLabels()
-	 * @generated
-	 */
-	void unsetParameterLabels();
-
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Parameter Labels</em>' containment reference list is set.
-	 * @see #unsetParameterLabels()
-	 * @see #getParameterLabels()
-	 * @generated
-	 */
-	boolean isSetParameterLabels();
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Data Access</em>' containment reference.
+   * @see #getDataAccess()
+   * @generated
+   */
+  void setDataAccess(DataAccessHolder value);
 
 } // SubprogramCallAction

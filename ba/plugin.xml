@@ -21,8 +21,9 @@ http://www.eclipse.org/org/documents/epl-v10.php
 -->
 <?eclipse version="3.4"?>
 <plugin>
+
    <extension
-         point="edu.cmu.sei.aadl.annex.parser">
+         point="org.osate.annexsupport.parser">
       <parser
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaParserAction"
@@ -32,7 +33,7 @@ http://www.eclipse.org/org/documents/epl-v10.php
    </extension>
    
    <extension
-         point="edu.cmu.sei.aadl.annex.resolver">
+         point="org.osate.annexsupport.resolver">
       <resolver
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaResolver"
@@ -40,18 +41,9 @@ http://www.eclipse.org/org/documents/epl-v10.php
             name="AADL-BA-FrontEnd">
       </resolver>
    </extension>
-   
+
    <extension
-     point="org.eclipse.ui.perspectiveExtensions">
-     <perspectiveExtension
-       targetID="edu.cmu.sei.osate.ui.perspective.AadlPerspective">
-       <actionSet
-               id="edu.cmu.sei.aadl.resourcemanagement.actionSet"/>
-     </perspectiveExtension>
-   </extension>
-   
-   <extension
-         point="edu.cmu.sei.aadl.annex.unparser">
+         point="org.osate.annexsupport.unparser">
       <unparser
             annexName="behavior_specification"
             class="fr.tpt.aadl.annex.behavior.AadlBaUnParserAction"
@@ -59,59 +51,32 @@ http://www.eclipse.org/org/documents/epl-v10.php
             name="AADL-BA-FrontEnd">
       </unparser>
    </extension>
-  
+
   <extension point="org.eclipse.emf.ecore.generated_package">
     <package 
-       uri = "http:///AADL-BA-FrontEnd" 
+       uri = "https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior" 
        class = "fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage"
        genModel = "model/aadlba.genmodel" /> 
-  </extension>
-  
+  </extension> 
+
   <extension
-        point="org.eclipse.ui.actionSets">
-     <actionSet
-           id="fr.tpt.aadl.annex.behavior.actionSet1"
-           label="AADL-BA-FrontEnd"
-           visible="true">
-        <menu
-              id="fr.tpt.aadl.annex.behavior.menu1"
-              label="AADL-BA-FrontEnd"
-              path="additions">
-           <separator
-                 name="additions">
-           </separator>
-           <groupMarker
-                 name="content">
-           </groupMarker>
-        </menu>
-        <action
-              class="fr.tpt.aadl.annex.behavior.AadlBaUnparserAction"
-              id="fr.tpt.aadl.annex.behavior.action1"
-              label="Unparse AADL-BA spec"
-              menubarPath="fr.tpt.aadl.annex.behavior.menu1/content"
-              style="push"
-              toolbarPath="Normal/additions"
-              tooltip="Unparse an AADL Behavior Annex specification">
-        </action>
-     </actionSet>
-  </extension>
-  
-  <extension
-         point="edu.cmu.sei.osate.pluginsupport.aadlcontribution">
+         point="org.osate.pluginsupport.aadlcontribution">
       <aadlcontribution
             file="resources/properties/behavior_properties.aadl"
             id="fr.tpt.aadl.annex.behavior.behavior_properties.aadlcontribution"
             name="AADL-BA-FrontEnd">
       </aadlcontribution>
    </extension>
+
   <extension
          point="org.eclipse.ui.editors">
       <editor
             class="fr.tpt.aadl.annex.behavior.texteditor.Aadl2TextEditor"
             default="false"
-            extensions="aadl"
+            extensions="aadl, aadl2"
             id="fr.tpt.aadl.annex.behavior.texteditor.AadlBaTextEditorID"
             name="AADL-BA-FrontEnd Text Editor">
       </editor>
    </extension>
+   
 </plugin>

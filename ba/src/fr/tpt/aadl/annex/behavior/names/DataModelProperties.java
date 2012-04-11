@@ -27,4 +27,6 @@ public class DataModelProperties
 	public final static String REAL_RANGE = "Real_Range" ;
 	
 	public final static String REPRESENTATION = "Representation" ;
+	
+	public final static String INITIAL_VALUE = "Initial_Value" ;
 }

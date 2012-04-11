@@ -21,33 +21,34 @@
 
 package fr.tpt.aadl.annex.behavior.utils ;
 
+import java.util.ArrayList ;
+import java.util.HashMap ;
+import java.util.HashSet ;
 import java.util.LinkedHashSet ;
+import java.util.List ;
+import java.util.Map ;
 import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject ;
 
-import edu.cmu.sei.aadl.aadl2.AadlPackage ;
-import edu.cmu.sei.aadl.aadl2.Classifier ;
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier ;
-import edu.cmu.sei.aadl.aadl2.ComponentImplementation ;
-import edu.cmu.sei.aadl.aadl2.ComponentType ;
-import edu.cmu.sei.aadl.aadl2.Feature ;
-import edu.cmu.sei.aadl.aadl2.FeatureGroupType ;
-import edu.cmu.sei.aadl.aadl2.NamedElement ;
-import edu.cmu.sei.aadl.aadl2.Namespace ;
-import edu.cmu.sei.aadl.aadl2.PackageRename ;
-import edu.cmu.sei.aadl.aadl2.PackageSection ;
-import edu.cmu.sei.aadl.aadl2.PrivatePackageSection ;
-import edu.cmu.sei.aadl.aadl2.PropertySet ;
-import edu.cmu.sei.aadl.aadl2.Prototype ;
-import edu.cmu.sei.aadl.aadl2.PrototypeBinding ;
-import edu.cmu.sei.aadl.aadl2.PublicPackageSection ;
-import edu.cmu.sei.aadl.aadl2.Subcomponent ;
-import edu.cmu.sei.aadl.modelsupport.eclipseinterface.OsateResourceManager ;
+import org.osate.aadl2.AadlPackage ;
+import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ComponentClassifier ;
+import org.osate.aadl2.ComponentImplementation ;
+import org.osate.aadl2.Feature ;
+import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.Namespace ;
+import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.Port ;
+import org.osate.aadl2.PrivatePackageSection ;
+import org.osate.aadl2.Prototype ;
+import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.Subcomponent ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
+import fr.tpt.aadl.annex.behavior.declarative.*;
 
 /**
  * A collection of behavior annex visitors.
@@ -64,9 +65,17 @@ public class AadlBaVisitors
    public static final String INITIALIZE_ENTRYPOINT_PROPERTY_NAME =
                                                        "Initialize_Entrypoint" ;
    
-   public static final String SEI_AADL2_PACKAGE_NAME = "edu.cmu.sei.aadl.aadl2";
+   public static final String SEI_AADL2_PACKAGE_NAME = "org.osate.aadl2";
    
    public static final String SEI_AADL2_CLASSIFIER_SUFFIX = "Classifier" ;
+   
+   public static final long DEFAULT_TRANSITION_PRIORITY ;
+   
+   static 
+   {
+     DEFAULT_TRANSITION_PRIORITY = AadlBaFactory.eINSTANCE.
+                                      createBehaviorTransition().getPriority() ;
+   }
    
    /**
     * Returns the first occurrence of a Prototype within the given
@@ -153,20 +162,25 @@ public class AadlBaVisitors
          if(BehAction instanceof LoopStatement)
          {
             result = getBasicActions(((LoopStatement)BehAction)
-                                                   .getBehaviorActionsOwned()) ;
+                                                   .getBehaviorActions()) ;
          }
-         else  // Case of if statement.
+         else if(BehAction instanceof IfStatement)
          {
-            result = new BasicEList<BasicAction>() ;
             IfStatement stat = (IfStatement) BehAction ;
             
-            for(BehaviorActions bas : stat.getBehaviorActionsOwned())
+            result = getBasicActions(stat.getBehaviorActions()) ;
+            
+            if(stat.getElseStatement() != null)
             {
-               result.addAll(getBasicActions(bas)) ;
+              result.addAll(getBasicActions(stat.getElseStatement().
+                                                        getBehaviorActions())) ;
             }
          }
-         
-         
+         else // ElseStatement case.
+         {
+           ElseStatement elseStat = (ElseStatement) BehAction ;
+           result = getBasicActions(elseStat.getBehaviorActions()) ;
+         }
       }
       
       return result ;
@@ -198,7 +212,7 @@ public class AadlBaVisitors
          else // Case of BehaviorActionCollection.
          {
             for(BehaviorAction BehAct : ((BehaviorActionCollection)BehActions)
-                                                         .getBehaviorActions() )
+                                                         .getActions() )
             {
                result.addAll(getBasicActions(BehAct)) ;
             }
@@ -225,7 +239,7 @@ public class AadlBaVisitors
    {
       PackageSection result[] ;
       PackageSection container = AadlBaVisitors.getContainingPackageSection(
-    		                                (edu.cmu.sei.aadl.aadl2.Element)ba);
+    		                                (org.osate.aadl2.Element)ba);
 
       // Init contexts tab with current package's sections.
       // Private section is also investigated only if ba is declared in
@@ -279,15 +293,12 @@ public class AadlBaVisitors
    public static BehaviorVariable findBehaviorVariable(BehaviorAnnex ba,
                                                        String variableName)
    {
-      for(BehaviorVariable v : ba.getBehaviorVariables())
+      for(BehaviorVariable v : ba.getVariables())
       {
-         for(Declarator d : v.getLocalVariableDeclarators())
-         {
-            if(variableName.equalsIgnoreCase(d.getIdentifierOwned().getId()))
-            {
-               return v ;
-            }
-         }
+        if(v.getName().equalsIgnoreCase(variableName))
+        {
+           return v ;
+        }
       }
       return null ;
    }
@@ -302,7 +313,7 @@ public class AadlBaVisitors
     * @return the first occurrence of a Feature related to the given name or
     * {@code null}
     */
-   public static Feature findFeatureInComponent(ComponentClassifier cc,
+   public static Feature findFeatureInComponent(Classifier cc,
                                                 String featureName)
    {
       for(Feature f : cc.getAllFeatures())
@@ -325,9 +336,8 @@ public class AadlBaVisitors
     * @return the first occurrence of a Subcomponent related to the given name
     * or {@code null}
     */
-   public static Subcomponent findSubcomponentInComponent
-   (ComponentClassifier cc,
-    String subComponentName)
+   public static Subcomponent findSubcomponentInComponent (Classifier cc,
+                                                        String subComponentName)
    {
       Subcomponent result = null ;
 
@@ -361,24 +371,21 @@ public class AadlBaVisitors
    public static BehaviorState findBehaviorState(BehaviorAnnex ba,
                                                  String stateName)
    {
-      for(BehaviorState s : ba.getBehaviorStates())
+      for(BehaviorState s : ba.getStates())
       {
-         for(Identifier id : s.getIdentifiers())
-         {
-            if(stateName.equalsIgnoreCase(id.getId()))
-            {
-               return s ;
-            }
-         }
+    	  if(stateName.equalsIgnoreCase(s.getName()))
+          {
+             return s ;
+          }
       }
       return null ;
    }
    
    // DOC ME.
-   public static EList<Identifier> getDispatchTriggers(
+   public static EList<DispatchTrigger> getDispatchTriggers(
                                           DispatchTriggerLogicalExpression dtle)
    {
-      EList<Identifier> result = new BasicEList<Identifier>();
+      EList<DispatchTrigger> result = new BasicEList<DispatchTrigger>();
       
       for(DispatchConjunction dc : dtle.getDispatchConjunctions())
       {
@@ -441,250 +448,108 @@ public class AadlBaVisitors
       return result ;
    }
 
-   /********** Copied from edu.cmu.sei.aadl.parser.NameResolver ***************/
-
-   /*
-    * <copyright>
-    * Copyright  2009 by Carnegie Mellon University, all rights reserved.
-    *
-    * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
-    * at http://www.eclipse.org/legal/cpl-v10.html.
-    *
-    * NO WARRANTY
-    *
-    * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
-    * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
-    * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
-    * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
-    * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
-    * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
-    * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
-    * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
-    * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
-    *
-    * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
-    * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
-    * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
-    * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
-    * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
-    * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
-    *
-    * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
-    * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
-    * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
-    * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
-    * under the contract clause at 252.227.7013.
-    * </copyright>
-    */
-
-   /**
-    * Dependencies:
-    *       If propertySetName is the name of a different, non standard property set: WithStatementReference.
-    */
-   public static NamedElement 
-                           findNamedElementInPropertySet(String propertySetName,
-                        	                              String elementName,
-                        		                           Namespace context)
-   {
-      if (propertySetName == null)
-      {
-         for (PropertySet predeclaredPropertySet : OsateResourceManager.
-        		                                   getPredeclaredPropertySets())
-         {
-            NamedElement searchResult = 
-            	           predeclaredPropertySet.findNamedElement(elementName);
-            if (searchResult != null)
-               return searchResult;
-         }
-         return null;
-      }
-      else
-      {
-         PropertySet propertySet;
-         if (context instanceof PropertySet && context.getName().
-        		                              equalsIgnoreCase(propertySetName))
-            propertySet = (PropertySet)context;
-         else
-         {
-            propertySet = findImportedPropertySet(propertySetName, context);
-            if (propertySet == null)
-               for (PropertySet predeclaredPropertySet : OsateResourceManager.
-            		                               getPredeclaredPropertySets())
-                  if (predeclaredPropertySet.getName().
-                		                      equalsIgnoreCase(propertySetName))
-                     propertySet = predeclaredPropertySet;
-         }
-         if (propertySet != null)
-            return propertySet.findNamedElement(elementName);
-         else
-            return null;
-      }
-   }
-
-   private static PropertySet findImportedPropertySet(String name,
-		                                              Namespace context)
-   {
-      EList<PropertySet> importedPropertySets;
-      if (context instanceof PropertySet)
-         importedPropertySets = ((PropertySet)context).getImportedPropertySets();
-      else
-         importedPropertySets = ((PackageSection)context).
-                                                      getImportedPropertySets();
-      for (PropertySet importedPropertySet : importedPropertySets)
-         if (importedPropertySet.getName().equalsIgnoreCase(name))
-            return importedPropertySet;
-      return null;
-   }
-
-   /**
-    * Search for a {@link NamedElement} with the name {@code elementName} in the
-    * package specified by {@code packageName}. This method will first check
-    * that the specified package is accessible within {@code context}. This is
-    * done by checking that {@code packageName} appears in a with statement or
-    * package rename of {@code context} or {@code context}'s corresponding
-    * {@link PublicPackageSection} if {@code context} is a
-    * {@link PrivatePackageSection}. If the package is not accessible, then
-    * {@code null} will be returned. If the element cannot be found in the
-    * specified package, then {@code null} will be returned.
-    * 
-    * Dependencies: If packageName is null or refers to context: RenamesAll,
-    * ComponentTypeRename, FeatureGroupTypeRename. If packageName refers to a
-    * different package: WithStatementReference, PackageRenameReference.
-    * 
-    * @param packageName The name of the package that contains the element to
-    * search for.
-    * @param elementName The name of the element to search for.
-    * @param context The {@link PackageSection} that needs to refer to the
-    * specified {@link Element}.
-    * @return The {@link NamedElement} or {@code null} if it cannot be found.
-    */
-   public static NamedElement findNamedElementInAadlPackage(String packageName,
-                                                            String elementName,
-                                                            Namespace context)
-   {
-      if(context instanceof PackageSection
-            && (packageName == null || context.getName().equalsIgnoreCase(
-                  packageName)))
-         {
-           return findNamedElementInAadlPackage(elementName,
-               (PackageSection) context) ;
-         }
-      else
-      {
-         AadlPackage aadlPackage = null ;
-
-         if(context instanceof PackageSection)
-         {
-            PackageRename packageRename =
-               findPackageRename(packageName, (PackageSection) context) ;
-            if(packageRename != null)
-               aadlPackage = packageRename.getRenamedPackage() ;
-            else
-               aadlPackage = findImportedPackage(packageName, context) ;
-         }
-         else
-            aadlPackage = findImportedPackage(packageName, context) ;
-
-         if(aadlPackage != null && aadlPackage.getPublicSection() != null)
-            return aadlPackage.getPublicSection().findNamedElement(elementName,
-                  true) ;
-         else
-            return null ;
-      }
-   }
-
-   /**
-    * Search for a {@link NamedElement} in a package. If {@code context} is a
-    * {@link PublicPackageSection}, then this method will search through the
-    * {@link PublicPackageSection} only. If {@code context} is a
-    * {@link PrivatePackageSection}, then this method will search through the
-    * {@link PrivatePackageSection} and its corresponding
-    * {@link PublicPackageSection}. This is different from
-    * {@link PrivatePackageSection#findNamedElement(String)} and
-    * {@link PrivatePackageSection#findNamedElement(String, boolean)} because
-    * those methods will not search through the corresponding
-    * {@link PublicPackageSection}. This method does use
-    * {@link PackageSection#findNamedElement(String, boolean)}, so it will
-    * search for {@link ComponentType}s and {@link FeatureGroupType}s in the
-    * renames statements.
-    * 
-    * Dependencies: RenamesAll, ComponentTypeRename, FeatureGroupTypeRename.
-    * 
-    * @param name The name of the {@link NamedElement} to search for.
-    * @param context The {@link PackageSection} that contains the
-    * {@link Element} that needs the search result.
-    * @return The {@link NamedElement} or {@code null} if it cannot be found.
-    */
-   private static NamedElement findNamedElementInAadlPackage(String name,
-                                                         PackageSection context)
-   {
-      NamedElement result = context.findNamedElement(
-    		                                                      name, false) ;
-      if(result == null && context instanceof PrivatePackageSection
-            && ((AadlPackage) context.eContainer()).getPublicSection() != null)
-         result =
-            ((AadlPackage) context.eContainer()).getPublicSection()
-               .findNamedElement(name, false) ;
-      return result ;
-   }
-
-   /**
-    * Search for a {@link PackageRename} in a package. If {@code context} is a
-    * {@link PrivatePackageSection}, then this method will also search through
-    * the {@link PackageRename}s of the corresponding
-    * {@link PublicPackageSection}. The {@link PackageRename#isRenameAll()
-    * renameAll} flag of the returned {@link PackageRename} will be {@code
-    * false}.
-    * 
-    * @param name The name of the {@link PackageRename} to search for.
-    * @param context The {@link PackageSection} that contains the
-    * {@link Element} that needs a {@link PackageRename}.
-    * @return The {@link PackageRename} or {@code null} if it cannot be found.
-    */
-   private static PackageRename findPackageRename(String name,
-                                                  PackageSection context)
-   {
-      NamedElement searchResult = context.findNamedElement(name, false) ;
-      if(searchResult == null && context instanceof PrivatePackageSection
-            && ((AadlPackage) context.eContainer()).getPublicSection() != null)
-      {
-         searchResult =
-            ((AadlPackage) context.eContainer()).getPublicSection()
-            .findNamedElement(name, false) ;
-      }
-      if(searchResult instanceof PackageRename)
-         return (PackageRename) searchResult ;
-      else
-         return null ;
-   }
-
-   private static AadlPackage findImportedPackage(String name, Namespace context)
-   {
-      EList<AadlPackage> importedPackages ;
-      if(context instanceof PropertySet)
-         importedPackages = ((PropertySet) context).getImportedPackages() ;
-      else
-         importedPackages = ((PackageSection) context).getImportedPackages() ;
-      for(AadlPackage importedPackage : importedPackages)
-         if(importedPackage.getName().equalsIgnoreCase(name))
-            return importedPackage ;
-      if(context instanceof PrivatePackageSection
-            && ((AadlPackage) context.eContainer()).getPublicSection() != null)
-         for(AadlPackage importedPackage : ((AadlPackage) context.eContainer())
-               .getPublicSection().getImportedPackages())
-            if(importedPackage.getName().equalsIgnoreCase(name))
-               return importedPackage ;
-      return null ;
-   }
-
    public static PackageSection getContainingPackageSection(
-		                                 edu.cmu.sei.aadl.aadl2.Element element)
+           org.osate.aadl2.Element element)
    {
-      edu.cmu.sei.aadl.aadl2.Element container = element.getOwner() ;
-      while(container != null && !(container instanceof PackageSection))
-         container = container.getOwner() ;
-      return (PackageSection) container ;
+	   org.osate.aadl2.Element container = element.getOwner() ;
+	   while(container != null && !(container instanceof PackageSection))
+		   container = container.getOwner() ;
+	   return (PackageSection) container ;
    }
+   
+   
+  public static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 
+         new HashMap<BehaviorAnnex, Set<Port>>() ;
 
-   /********** End copied from edu.cmu.sei.aadl.parser.NameResolver ***********/
+  public static boolean isFresh(BehaviorAnnex ba,
+                                Port port)
+  {
+    Set<Port> ports = _IS_FRESH.get(ba) ;
+    if(ports != null)
+    {
+      return ports.contains(port) ;
+    }
+    else
+    {
+      return false ;
+    }
+  }
+
+  public static void putFreshPort(BehaviorAnnex ba,
+                                  Port port)
+  {
+    Set<Port> ports = _IS_FRESH.get(ba) ;
+    if(ports == null)
+    {
+      ports = new HashSet<Port>() ;
+      _IS_FRESH.put(ba, ports) ;
+    }
+
+    ports.add(port) ;
+  }
+
+  private static final Map<BehaviorState, List<BehaviorTransition>> 
+    _SRC_IN_TRANS = new HashMap<BehaviorState, List<BehaviorTransition>>() ;
+
+  // Sorted (insertion) behavior transitions list owned by behavior state
+  // according to their priority (highest to the lowest).
+  // In case of equality, the order of transition appearance in the aadl
+  // code is applied.
+  // Behavior transition which have execution condition set to "otherwise"
+  // will be set at the end of the list.
+  // May return empty list.
+  public static List<BehaviorTransition> getTransitionWhereSrc(BehaviorState
+                                                                state)
+  {
+    List<BehaviorTransition> result = _SRC_IN_TRANS.get(state) ;
+    if(result == null)
+    {
+      result = new BasicEList<BehaviorTransition>(0) ;
+    }
+
+    return result ;
+  }
+
+  public static void putTransitionWhereSrc(BehaviorState state,
+                                           BehaviorTransition bt)
+  {
+    List<BehaviorTransition> list = _SRC_IN_TRANS.get(state) ;
+    
+    if(list == null)
+    {
+      list = new ArrayList<BehaviorTransition>() ;
+      _SRC_IN_TRANS.put(state, list) ;
+    }
+    
+    if(false == list.contains(bt))
+    {
+      addAndSort(list, bt) ;
+    }
+  }
+  
+  private static void addAndSort(List<BehaviorTransition> btl,
+                                 BehaviorTransition bt)
+  {
+    // TODO to be optimized.
+    btl.add(bt) ;
+    
+    BehaviorTransition tmp = null ;
+    int i ;
+    int j ;
+
+    for(i = btl.size() - 2 ; i >= 0 ; i--)
+    {
+      tmp = btl.get(i) ;
+      j = i ;
+      
+      while(j < btl.size() - 1 &&
+            AadlBaUtils.compareBehaviorTransitionPriority(btl.get(j + 1), tmp))
+      {
+        btl.set(j, btl.get(j+1)) ;
+        j++ ;
+      }
+
+      btl.set(j, tmp) ;
+    }
+  }
 }

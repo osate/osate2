@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 
@@ -30,11 +28,11 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getValueOwned <em>Value Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getValueSdOwned <em>Value Sd Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperatorOwned <em>Binary Numeric Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperatorOwned <em>Unary Numeric Operator Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperatorOwned <em>Unary Boolean Operator Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getFirstValue <em>First Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getSecondValue <em>Second Value</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperator <em>Binary Numeric Operator</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperator <em>Unary Numeric Operator</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}</li>
  * </ul>
  * </p>
  *
@@ -42,225 +40,226 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface Factor extends BehaviorElement {
-	/**
-	 * Returns the value of the '<em><b>Value Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value Owned</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Owned</em>' containment reference.
-	 * @see #setValueOwned(Value)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_ValueOwned()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	Value getValueOwned();
+public interface Factor extends BehaviorElement
+{
+  /**
+   * Returns the value of the '<em><b>First Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>First Value</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>First Value</em>' containment reference.
+   * @see #setFirstValue(Value)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_FirstValue()
+   * @model containment="true" required="true"
+   * @generated
+   */
+  Value getFirstValue();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getValueOwned <em>Value Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Owned</em>' containment reference.
-	 * @see #getValueOwned()
-	 * @generated
-	 */
-	void setValueOwned(Value value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getFirstValue <em>First Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>First Value</em>' containment reference.
+   * @see #getFirstValue()
+   * @generated
+   */
+  void setFirstValue(Value value);
 
-	/**
-	 * Returns the value of the '<em><b>Value Sd Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Value Sd Owned</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Value Sd Owned</em>' containment reference.
-	 * @see #setValueSdOwned(Value)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_ValueSdOwned()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Value getValueSdOwned();
+  /**
+   * Returns the value of the '<em><b>Second Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Second Value</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Second Value</em>' containment reference.
+   * @see #setSecondValue(Value)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_SecondValue()
+   * @model containment="true"
+   * @generated
+   */
+  Value getSecondValue();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getValueSdOwned <em>Value Sd Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Value Sd Owned</em>' containment reference.
-	 * @see #getValueSdOwned()
-	 * @generated
-	 */
-	void setValueSdOwned(Value value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getSecondValue <em>Second Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Second Value</em>' containment reference.
+   * @see #getSecondValue()
+   * @generated
+   */
+  void setSecondValue(Value value);
 
-	/**
-	 * Returns the value of the '<em><b>Binary Numeric Operator Owned</b></em>' attribute.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Binary Numeric Operator Owned</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Binary Numeric Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator
-	 * @see #isSetBinaryNumericOperatorOwned()
-	 * @see #unsetBinaryNumericOperatorOwned()
-	 * @see #setBinaryNumericOperatorOwned(BinaryNumericOperator)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_BinaryNumericOperatorOwned()
-	 * @model unsettable="true"
-	 * @generated
-	 */
-	BinaryNumericOperator getBinaryNumericOperatorOwned();
+  /**
+   * Returns the value of the '<em><b>Binary Numeric Operator</b></em>' attribute.
+   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Binary Numeric Operator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Binary Numeric Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator
+   * @see #isSetBinaryNumericOperator()
+   * @see #unsetBinaryNumericOperator()
+   * @see #setBinaryNumericOperator(BinaryNumericOperator)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_BinaryNumericOperator()
+   * @model unique="false" unsettable="true"
+   * @generated
+   */
+  BinaryNumericOperator getBinaryNumericOperator();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperatorOwned <em>Binary Numeric Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Binary Numeric Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator
-	 * @see #isSetBinaryNumericOperatorOwned()
-	 * @see #unsetBinaryNumericOperatorOwned()
-	 * @see #getBinaryNumericOperatorOwned()
-	 * @generated
-	 */
-	void setBinaryNumericOperatorOwned(BinaryNumericOperator value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperator <em>Binary Numeric Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Binary Numeric Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator
+   * @see #isSetBinaryNumericOperator()
+   * @see #unsetBinaryNumericOperator()
+   * @see #getBinaryNumericOperator()
+   * @generated
+   */
+  void setBinaryNumericOperator(BinaryNumericOperator value);
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperatorOwned <em>Binary Numeric Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetBinaryNumericOperatorOwned()
-	 * @see #getBinaryNumericOperatorOwned()
-	 * @see #setBinaryNumericOperatorOwned(BinaryNumericOperator)
-	 * @generated
-	 */
-	void unsetBinaryNumericOperatorOwned();
+  /**
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperator <em>Binary Numeric Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetBinaryNumericOperator()
+   * @see #getBinaryNumericOperator()
+   * @see #setBinaryNumericOperator(BinaryNumericOperator)
+   * @generated
+   */
+  void unsetBinaryNumericOperator();
 
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperatorOwned <em>Binary Numeric Operator Owned</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Binary Numeric Operator Owned</em>' attribute is set.
-	 * @see #unsetBinaryNumericOperatorOwned()
-	 * @see #getBinaryNumericOperatorOwned()
-	 * @see #setBinaryNumericOperatorOwned(BinaryNumericOperator)
-	 * @generated
-	 */
-	boolean isSetBinaryNumericOperatorOwned();
+  /**
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getBinaryNumericOperator <em>Binary Numeric Operator</em>}' attribute is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Binary Numeric Operator</em>' attribute is set.
+   * @see #unsetBinaryNumericOperator()
+   * @see #getBinaryNumericOperator()
+   * @see #setBinaryNumericOperator(BinaryNumericOperator)
+   * @generated
+   */
+  boolean isSetBinaryNumericOperator();
 
-	/**
-	 * Returns the value of the '<em><b>Unary Numeric Operator Owned</b></em>' attribute.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Unary Numeric Operator Owned</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Unary Numeric Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator
-	 * @see #isSetUnaryNumericOperatorOwned()
-	 * @see #unsetUnaryNumericOperatorOwned()
-	 * @see #setUnaryNumericOperatorOwned(UnaryNumericOperator)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_UnaryNumericOperatorOwned()
-	 * @model unsettable="true"
-	 * @generated
-	 */
-	UnaryNumericOperator getUnaryNumericOperatorOwned();
+  /**
+   * Returns the value of the '<em><b>Unary Numeric Operator</b></em>' attribute.
+   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Unary Numeric Operator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Unary Numeric Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator
+   * @see #isSetUnaryNumericOperator()
+   * @see #unsetUnaryNumericOperator()
+   * @see #setUnaryNumericOperator(UnaryNumericOperator)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_UnaryNumericOperator()
+   * @model unique="false" unsettable="true"
+   * @generated
+   */
+  UnaryNumericOperator getUnaryNumericOperator();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperatorOwned <em>Unary Numeric Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unary Numeric Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator
-	 * @see #isSetUnaryNumericOperatorOwned()
-	 * @see #unsetUnaryNumericOperatorOwned()
-	 * @see #getUnaryNumericOperatorOwned()
-	 * @generated
-	 */
-	void setUnaryNumericOperatorOwned(UnaryNumericOperator value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperator <em>Unary Numeric Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Unary Numeric Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator
+   * @see #isSetUnaryNumericOperator()
+   * @see #unsetUnaryNumericOperator()
+   * @see #getUnaryNumericOperator()
+   * @generated
+   */
+  void setUnaryNumericOperator(UnaryNumericOperator value);
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperatorOwned <em>Unary Numeric Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetUnaryNumericOperatorOwned()
-	 * @see #getUnaryNumericOperatorOwned()
-	 * @see #setUnaryNumericOperatorOwned(UnaryNumericOperator)
-	 * @generated
-	 */
-	void unsetUnaryNumericOperatorOwned();
+  /**
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperator <em>Unary Numeric Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetUnaryNumericOperator()
+   * @see #getUnaryNumericOperator()
+   * @see #setUnaryNumericOperator(UnaryNumericOperator)
+   * @generated
+   */
+  void unsetUnaryNumericOperator();
 
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperatorOwned <em>Unary Numeric Operator Owned</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Unary Numeric Operator Owned</em>' attribute is set.
-	 * @see #unsetUnaryNumericOperatorOwned()
-	 * @see #getUnaryNumericOperatorOwned()
-	 * @see #setUnaryNumericOperatorOwned(UnaryNumericOperator)
-	 * @generated
-	 */
-	boolean isSetUnaryNumericOperatorOwned();
+  /**
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryNumericOperator <em>Unary Numeric Operator</em>}' attribute is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Unary Numeric Operator</em>' attribute is set.
+   * @see #unsetUnaryNumericOperator()
+   * @see #getUnaryNumericOperator()
+   * @see #setUnaryNumericOperator(UnaryNumericOperator)
+   * @generated
+   */
+  boolean isSetUnaryNumericOperator();
 
-	/**
-	 * Returns the value of the '<em><b>Unary Boolean Operator Owned</b></em>' attribute.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Unary Boolean Operator Owned</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Unary Boolean Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator
-	 * @see #isSetUnaryBooleanOperatorOwned()
-	 * @see #unsetUnaryBooleanOperatorOwned()
-	 * @see #setUnaryBooleanOperatorOwned(UnaryBooleanOperator)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_UnaryBooleanOperatorOwned()
-	 * @model unsettable="true"
-	 * @generated
-	 */
-	UnaryBooleanOperator getUnaryBooleanOperatorOwned();
+  /**
+   * Returns the value of the '<em><b>Unary Boolean Operator</b></em>' attribute.
+   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Unary Boolean Operator</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Unary Boolean Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator
+   * @see #isSetUnaryBooleanOperator()
+   * @see #unsetUnaryBooleanOperator()
+   * @see #setUnaryBooleanOperator(UnaryBooleanOperator)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getFactor_UnaryBooleanOperator()
+   * @model unique="false" unsettable="true"
+   * @generated
+   */
+  UnaryBooleanOperator getUnaryBooleanOperator();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperatorOwned <em>Unary Boolean Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Unary Boolean Operator Owned</em>' attribute.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator
-	 * @see #isSetUnaryBooleanOperatorOwned()
-	 * @see #unsetUnaryBooleanOperatorOwned()
-	 * @see #getUnaryBooleanOperatorOwned()
-	 * @generated
-	 */
-	void setUnaryBooleanOperatorOwned(UnaryBooleanOperator value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Unary Boolean Operator</em>' attribute.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator
+   * @see #isSetUnaryBooleanOperator()
+   * @see #unsetUnaryBooleanOperator()
+   * @see #getUnaryBooleanOperator()
+   * @generated
+   */
+  void setUnaryBooleanOperator(UnaryBooleanOperator value);
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperatorOwned <em>Unary Boolean Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetUnaryBooleanOperatorOwned()
-	 * @see #getUnaryBooleanOperatorOwned()
-	 * @see #setUnaryBooleanOperatorOwned(UnaryBooleanOperator)
-	 * @generated
-	 */
-	void unsetUnaryBooleanOperatorOwned();
+  /**
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetUnaryBooleanOperator()
+   * @see #getUnaryBooleanOperator()
+   * @see #setUnaryBooleanOperator(UnaryBooleanOperator)
+   * @generated
+   */
+  void unsetUnaryBooleanOperator();
 
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperatorOwned <em>Unary Boolean Operator Owned</em>}' attribute is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Unary Boolean Operator Owned</em>' attribute is set.
-	 * @see #unsetUnaryBooleanOperatorOwned()
-	 * @see #getUnaryBooleanOperatorOwned()
-	 * @see #setUnaryBooleanOperatorOwned(UnaryBooleanOperator)
-	 * @generated
-	 */
-	boolean isSetUnaryBooleanOperatorOwned();
+  /**
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Factor#getUnaryBooleanOperator <em>Unary Boolean Operator</em>}' attribute is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Unary Boolean Operator</em>' attribute is set.
+   * @see #unsetUnaryBooleanOperator()
+   * @see #getUnaryBooleanOperator()
+   * @see #setUnaryBooleanOperator(UnaryBooleanOperator)
+   * @generated
+   */
+  boolean isSetUnaryBooleanOperator();
 
 } // Factor

@@ -54,7 +54,7 @@ data MyEnum
    Data_Model::Data_Representation => Enum;
    Data_Model::Enumerators => ("unknown", "monday", "thuesday", "wednesday", "thrusday",
                               "friday", "saturday", "sunday");
-   Data_Model::Representation => (0,1,2,3,4,5,6,7);
+   Data_Model::Representation => ("0","1","2","3","4","5","6","7");
 
 end MyEnum ;
 
@@ -105,7 +105,7 @@ data MyIntegerArray_A
  properties
    Data_Model::Data_Representation => Array ;
    Data_Model::Base_Type => (classifier (MyInteger)) ;
-   Data_Model::Dimension => 3 ;
+   Data_Model::Dimension => (5,10,15) ;
    
 end MyIntegerArray_A ;
 
@@ -114,7 +114,7 @@ data MyIntegerArray_B
  properties
    Data_Model::Data_Representation => Array ;
    Data_Model::Base_Type => (classifier (MyIntegerArray_A)) ;
-   Data_Model::Dimension => 3 ;
+   Data_Model::Dimension => (5,10,15) ;
    
 end MyIntegerArray_B ;
 
@@ -122,7 +122,7 @@ data MyArray
 
  properties
    Data_Model::Data_Representation => Array ;
-   Data_Model::Dimension => 1 ;
+   Data_Model::Dimension => (5) ;
 
 end MyArray ;
 
@@ -198,7 +198,7 @@ thread implementation abstractThread.impl
    undefinedSubData : data undefinedDataProto ;
    subArrayMyArray_Integer : data MyArray_Integer[10] ;
    subMyEnum_A : data MyEnum ;
-   subMyEnum_B : data MyEnum { Data_Model::Initial_Value => "monday"; }; 
+   subMyEnum_B : data MyEnum { Data_Model::Initial_Value => ("monday"); }; 
 
 end abstractThread.impl ;
 
@@ -236,6 +236,7 @@ variables
  localOtherMyIntegerArray_B[10][10][10] : MyIntegerArray_A ;
  localMyEnum : MyEnum ;
  localDay : Dummy::Types::Days.v1 ;
+ squareTab[130][DummyPropertySet::aConstant] : MyInteger ; 
  
 states
  
@@ -245,10 +246,10 @@ states
 -- *** TRANSITIONS ***
 
 transitions
- 
+
  -- Valid tests
  
-   -- Assignement action tests --
+   -- Assignment action tests --
 
        -- Struct or Union from
        
@@ -312,23 +313,32 @@ transitions
              { computation (1 sec) }
            } ;
            
- a -[]-> a { for (i : MyInteger in localMyIntegerArray_A[0][0])
+ a -[]-> a { for (i  : MyInteger in localMyIntegerArray_A[0][0])
              { computation (1 sec) }
-           } ;  
+           } ;
+
+ a -[]-> a {for(i: MyInteger in squareTab) {computation (1 sec)}};
+
+ a -[]-> a { for (i : MyInteger in localMyIntegerArray_A)
+             { computation (1 sec) }
+           } ;
+ 
+ a -[]-> a { for (i : MyInteger in localMyIntegerArray_A[0])
+             { computation (1 sec) }
+           } ;
+
+ a -[]-> a { for(i : Base_Types::Integer in inPortInteger)
+             {computation (1 sec)}
+           } ;    
 
       -- array
 
  a -[]-> a { localMyArray_Integer_A[0] := 1 } ;
  a -[]-> a { localMyArray_Integer_A := localMyArray_Integer_B } ;
  a -[]-> a { subArrayMyArray_Integer[0] := localMyArray_Integer_A } ;
- a -[]-> a { subArrayMyArray_Integer[0][0] := int } ;
  a -[]-> a { localMyIntegerArray_A[0] := localMyIntegerArray_A[0] } ;
  a -[]-> a { localMyIntegerArray_A[0][0][0] := localMyInteger } ; 
  a -[]-> a { localMyIntegerArray_B[0][0][0] := localMyIntegerArray_A } ;
- a -[]-> a { localMyIntegerArray_B[0][0][0][0] := localMyIntegerArray_A[0] } ;
- a -[]-> a { localMyIntegerArray_B[0][0][0][0][0][0] := localMyInteger } ;
- a -[]-> a { localMyIntegerArray_C[0][0][0][0][0][0][0][0] := localMyInteger } ;  
- a -[]-> a { localMyIntegerArray_C[0][0][0][0][0] := localMyIntegerArray_A } ;
  a -[]-> a { localOtherMyIntegerArray_B[0][0][0] := localMyIntegerArray_A } ;
  a -[]-> a { localMyIntegerArray_A := localOtherMyIntegerArray_B[0][0][0] } ;
 
@@ -341,13 +351,13 @@ transitions
 
    -- Port dequeuing action tests --
 
- a -[]-> a { inPortFeatProto ? (localMyStruct_B) } ;
+-- a -[]-> a { inPortFeatProto ? (localMyStruct_B) } ; Not supported any more.
  a -[]-> a { inPortInteger ? (localMyStruct_B.myStruct_A.int) } ;
  a -[]-> a { inPortMyIntegerArray_A ? (localMyIntegerArray_B[0][0][0]) } ;
  
    -- Port sending action tests --
 
- a -[]-> a { outPortFeatProto ! (localMyStruct_B) } ;
+-- a -[]-> a { outPortFeatProto ! (localMyStruct_B) } ; Not supported any more.
  a -[]-> a { outPortInteger ! (localMyStruct_B.myStruct_A.int) } ;
  a -[]-> a { outPortMyIntegerArray_A ! (localMyIntegerArray_B[0][0][0]) } ;
 
@@ -363,7 +373,7 @@ transitions
  
  -- Error tests
 
-   -- Assignement action tests --
+   -- Assignment action tests --
    
       -- Data and Feature prototypes (early or late binding)
       
@@ -403,19 +413,24 @@ transitions
            } ;    
 
        -- array
-   
- a -[]-> a { for (i : Base_Types::Integer in localMyArray_IntegerImpl)
-             { computation (1 sec) }
-           } ;
-           
- a -[]-> a { for (i : MyInteger in localMyIntegerArray_A)
-             { computation (1 sec) }
-           } ;
- 
-  a -[]-> a { for (i : MyInteger in localMyIntegerArray_A[0])
-             { computation (1 sec) }
-           } ; 
 
+ a -[]-> a { localMyIntegerArray_B[0][0][0][0] := localMyIntegerArray_A[0] } ;
+ a -[]-> a { localMyIntegerArray_B[0][0][0][0][0][0] := localMyInteger } ;
+ a -[]-> a { localMyIntegerArray_C[0][0][0][0][0][0][0][0] := localMyInteger } ;  
+ a -[]-> a { localMyIntegerArray_C[0][0][0][0][0] := localMyIntegerArray_A } ;
+ a -[]-> a { subArrayMyArray_Integer[0][0] := int } ;
+ a -[]-> a { for (i : Base_Types::Integer in localOtherMyIntegerArray_B[1][1][3])
+             { computation (1 sec) }
+           } ;
+ a -[]-> a { for (i : MyIntegerArray_A in localOtherMyIntegerArray_B)
+             { computation (1 sec) }
+           } ;
+ a -[]-> a { for (i : Base_Types::Integer in localMyArray_IntegerImpl)
+             { computation (1 sec) } 
+           } ;
+ a -[]-> a { for(i : MyInteger in inPortInteger)
+             {computation (1 sec)}
+           } ;
  a -[]-> a { localMyArray_Integer_A := 1 } ;
 
 -- With Ada like type checker, these data types are not compatible.
@@ -535,7 +550,7 @@ transitions
 
    -- array and integer value tests --
 
-     -- integer value varibale 
+     -- integer value variable 
      
  a -[]-> a { tab[inParam1.myInt] := 1 } ;
  a -[]-> a { tab[inParam1.myStruct_A.int] := 1 } ;
@@ -543,7 +558,7 @@ transitions
 
  -- Error tests
 
-   -- Assignement action tests --         
+   -- Assignment action tests --         
 
       -- Data and Feature prototypes (early or late binding)
       

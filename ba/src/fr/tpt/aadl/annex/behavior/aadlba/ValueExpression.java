@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 import org.eclipse.emf.common.util.EList;
@@ -40,85 +38,63 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition {
-	/**
-	 * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Relation}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Relations</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Relations</em>' containment reference list.
-	 * @see #isSetRelations()
-	 * @see #unsetRelations()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_Relations()
-	 * @model containment="true" unsettable="true" required="true"
-	 * @generated
-	 */
-	EList<Relation> getRelations();
+public interface ValueExpression extends Value, ParameterLabel, ExecuteCondition
+{
+  /**
+   * Returns the value of the '<em><b>Relations</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Relation}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Relations</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Relations</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_Relations()
+   * @model containment="true" required="true"
+   * @generated
+   */
+  EList<Relation> getRelations();
 
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getRelations <em>Relations</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetRelations()
-	 * @see #getRelations()
-	 * @generated
-	 */
-	void unsetRelations();
+  /**
+   * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
+   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Logical Operators</em>' attribute list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Logical Operators</em>' attribute list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator
+   * @see #isSetLogicalOperators()
+   * @see #unsetLogicalOperators()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
+   * @model unique="false" unsettable="true"
+   * @generated
+   */
+  EList<LogicalOperator> getLogicalOperators();
 
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getRelations <em>Relations</em>}' containment reference list is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Relations</em>' containment reference list is set.
-	 * @see #unsetRelations()
-	 * @see #getRelations()
-	 * @generated
-	 */
-	boolean isSetRelations();
+  /**
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #isSetLogicalOperators()
+   * @see #getLogicalOperators()
+   * @generated
+   */
+  void unsetLogicalOperators();
 
-	/**
-	 * Returns the value of the '<em><b>Logical Operators</b></em>' attribute list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Logical Operators</em>' attribute list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Logical Operators</em>' attribute list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.LogicalOperator
-	 * @see #isSetLogicalOperators()
-	 * @see #unsetLogicalOperators()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getValueExpression_LogicalOperators()
-	 * @model unique="false" unsettable="true"
-	 * @generated
-	 */
-	EList<LogicalOperator> getLogicalOperators();
-
-	/**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #isSetLogicalOperators()
-	 * @see #getLogicalOperators()
-	 * @generated
-	 */
-	void unsetLogicalOperators();
-
-	/**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
-	 * @see #unsetLogicalOperators()
-	 * @see #getLogicalOperators()
-	 * @generated
-	 */
-	boolean isSetLogicalOperators();
+  /**
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ValueExpression#getLogicalOperators <em>Logical Operators</em>}' attribute list is set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return whether the value of the '<em>Logical Operators</em>' attribute list is set.
+   * @see #unsetLogicalOperators()
+   * @see #getLogicalOperators()
+   * @generated
+   */
+  boolean isSetLogicalOperators();
 
 } // ValueExpression

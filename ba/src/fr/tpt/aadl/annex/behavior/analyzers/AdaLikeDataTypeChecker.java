@@ -24,9 +24,9 @@ package fr.tpt.aadl.annex.behavior.analyzers;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
 
-import edu.cmu.sei.aadl.aadl2.DataClassifier ;
-import edu.cmu.sei.aadl.aadl2.RangeValue ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.DataClassifier ;
+import org.osate.aadl2.RangeValue ;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryAddingOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.BinaryNumericOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.DataRepresentation ;
@@ -77,7 +77,8 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    }
    
    @Override
-   public boolean conformsTo(TypeHolder type1, TypeHolder type2)
+   public boolean conformsTo(TypeHolder type1, TypeHolder type2,
+                             boolean hasToCheckDimension)
    {
       boolean result = true ;
       
@@ -107,8 +108,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
         {
            result = true ;
         }
-        else if(! type1.dataRep.equals(type2.dataRep) ||
-              type1.dimension != type2.dimension)
+        else if( false == type1.dataRep.equals(type2.dataRep) ||
+                 (hasToCheckDimension && (type1.dimension != type2.dimension))
+               )
     	  {
         	 result = false ;
     	  }
@@ -123,9 +125,10 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       return result ;
    }
    
-   public TypeHolder getTopLevelType(TypeHolder type1, TypeHolder type2)
+   public TypeHolder getTopLevelType(TypeHolder type1,
+                                     TypeHolder type2)
    {
-      if(conformsTo(type1, type2))
+      if(conformsTo(type1, type2, true))
          return getTopLevelTypeWithoutConsistencyChecking(type1, type2) ;
       else
          return null ;
@@ -149,7 +152,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    {
       // Operator ** has special consistency checking.
       if(operator != BinaryNumericOperator.MULTIPLY_MULTIPLY && 
-         ! conformsTo(operand1, operand2))
+         ! conformsTo(operand1, operand2, true))
       {
          reportErrorConsystency(e, operator, operand1, operand2);
          return null ;
@@ -254,7 +257,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                // Datatyped operand case : checks if operand2 is a natural.
                if(operand2.klass != null)
                {
-                  EList<edu.cmu.sei.aadl.aadl2.PropertyExpression> l = 
+                  EList<org.osate.aadl2.PropertyExpression> l = 
                      AadlBaGetProperties.getPropertyExpression(operand2.klass,
                     		                DataModelProperties.INTEGER_RANGE) ;
                   if(l.size() > 0)
@@ -275,19 +278,20 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                {
                   if(e instanceof Factor)
                   {
-                     Value val = ((Factor) e).getValueSdOwned() ;
+                     Value val = ((Factor) e).getSecondValue() ;
                      
                      // IntegerLiteral cannot be negative (otherwise parse 
                      // error) so it only checks
                      // PropertyConstants and warns PropertyValues.
                      if (val instanceof BehaviorPropertyConstant)
                      {
-                        edu.cmu.sei.aadl.aadl2.PropertyConstant pc = 
-                           (edu.cmu.sei.aadl.aadl2.PropertyConstant) 
-                              val.getAadlRef() ;
+                       BehaviorPropertyConstant bpc = (BehaviorPropertyConstant)
+                                                                           val ;
+                       
+                       org.osate.aadl2.PropertyConstant pc = bpc.getProperty() ;
                         
-                        edu.cmu.sei.aadl.aadl2.IntegerLiteral intLit = 
-                           (edu.cmu.sei.aadl.aadl2.IntegerLiteral)
+                        org.osate.aadl2.IntegerLiteral intLit = 
+                           (org.osate.aadl2.IntegerLiteral)
                               pc.getConstantValue() ;
                         if(intLit.getValue() < 0)
                         {
@@ -391,9 +395,9 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    }
    
    private void reportErrorConsystency(BehaviorElement e,
-                                          Enumerator operator,
-                                          TypeHolder operand1,
-                                          TypeHolder operand2)
+                                       Enumerator operator,
+                                       TypeHolder operand1,
+                                       TypeHolder operand2)
    {
       _errManager.error(e, "Invalid operand types for operator \"" + 
             operator.getLiteral() + "\": left operand has type " + 
@@ -402,8 +406,8 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
    }
    
    private void reportErrorUnaryOperator(BehaviorElement e,
-                                          Enumerator operator,
-                                          TypeHolder operand)
+                                         Enumerator operator,
+                                         TypeHolder operand)
    {
       _errManager.error(e, "Operator \"" + operator.getLiteral() + 
             "\" not defined for type " + operand.toString()) ;

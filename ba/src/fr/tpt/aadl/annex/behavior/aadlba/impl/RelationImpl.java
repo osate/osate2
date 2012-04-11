@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
@@ -41,323 +39,351 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getSimpleExpressionOwned <em>Simple Expression Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getSimpleExpressionSdOwned <em>Simple Expression Sd Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getRelationalOperatorOwned <em>Relational Operator Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getFirstExpression <em>First Expression</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getSecondExpression <em>Second Expression</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.RelationImpl#getRelationalOperator <em>Relational Operator</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class RelationImpl extends BehaviorElementImpl implements Relation {
-	/**
-	 * The cached value of the '{@link #getSimpleExpressionOwned() <em>Simple Expression Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSimpleExpressionOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected SimpleExpression simpleExpressionOwned;
+public class RelationImpl extends BehaviorElementImpl implements Relation
+{
+  /**
+   * The cached value of the '{@link #getFirstExpression() <em>First Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getFirstExpression()
+   * @generated
+   * @ordered
+   */
+  protected SimpleExpression firstExpression;
 
-	/**
-	 * The cached value of the '{@link #getSimpleExpressionSdOwned() <em>Simple Expression Sd Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getSimpleExpressionSdOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected SimpleExpression simpleExpressionSdOwned;
+  /**
+   * The cached value of the '{@link #getSecondExpression() <em>Second Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getSecondExpression()
+   * @generated
+   * @ordered
+   */
+  protected SimpleExpression secondExpression;
 
-	/**
-	 * The default value of the '{@link #getRelationalOperatorOwned() <em>Relational Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRelationalOperatorOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final RelationalOperator RELATIONAL_OPERATOR_OWNED_EDEFAULT = RelationalOperator.NONE;
+  /**
+   * The default value of the '{@link #getRelationalOperator() <em>Relational Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationalOperator()
+   * @generated
+   * @ordered
+   */
+  protected static final RelationalOperator RELATIONAL_OPERATOR_EDEFAULT = RelationalOperator.NONE;
 
-	/**
-	 * The cached value of the '{@link #getRelationalOperatorOwned() <em>Relational Operator Owned</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getRelationalOperatorOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected RelationalOperator relationalOperatorOwned = RELATIONAL_OPERATOR_OWNED_EDEFAULT;
+  /**
+   * The cached value of the '{@link #getRelationalOperator() <em>Relational Operator</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getRelationalOperator()
+   * @generated
+   * @ordered
+   */
+  protected RelationalOperator relationalOperator = RELATIONAL_OPERATOR_EDEFAULT;
 
-	/**
-	 * This is true if the Relational Operator Owned attribute has been set.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	protected boolean relationalOperatorOwnedESet;
+  /**
+   * This is true if the Relational Operator attribute has been set.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  protected boolean relationalOperatorESet;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected RelationImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected RelationImpl()
+  {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return AadlBaPackage.Literals.RELATION;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return AadlBaPackage.Literals.RELATION;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SimpleExpression getSimpleExpressionOwned() {
-		return simpleExpressionOwned;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SimpleExpression getFirstExpression()
+  {
+    return firstExpression;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned, NotificationChain msgs) {
-		SimpleExpression oldSimpleExpressionOwned = simpleExpressionOwned;
-		simpleExpressionOwned = newSimpleExpressionOwned;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED, oldSimpleExpressionOwned, newSimpleExpressionOwned);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetFirstExpression(SimpleExpression newFirstExpression, NotificationChain msgs)
+  {
+    SimpleExpression oldFirstExpression = firstExpression;
+    firstExpression = newFirstExpression;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__FIRST_EXPRESSION, oldFirstExpression, newFirstExpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSimpleExpressionOwned(SimpleExpression newSimpleExpressionOwned) {
-		if (newSimpleExpressionOwned != simpleExpressionOwned) {
-			NotificationChain msgs = null;
-			if (simpleExpressionOwned != null)
-				msgs = ((InternalEObject)simpleExpressionOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED, null, msgs);
-			if (newSimpleExpressionOwned != null)
-				msgs = ((InternalEObject)newSimpleExpressionOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED, null, msgs);
-			msgs = basicSetSimpleExpressionOwned(newSimpleExpressionOwned, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED, newSimpleExpressionOwned, newSimpleExpressionOwned));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setFirstExpression(SimpleExpression newFirstExpression)
+  {
+    if (newFirstExpression != firstExpression)
+    {
+      NotificationChain msgs = null;
+      if (firstExpression != null)
+        msgs = ((InternalEObject)firstExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__FIRST_EXPRESSION, null, msgs);
+      if (newFirstExpression != null)
+        msgs = ((InternalEObject)newFirstExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__FIRST_EXPRESSION, null, msgs);
+      msgs = basicSetFirstExpression(newFirstExpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__FIRST_EXPRESSION, newFirstExpression, newFirstExpression));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public SimpleExpression getSimpleExpressionSdOwned() {
-		return simpleExpressionSdOwned;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SimpleExpression getSecondExpression()
+  {
+    return secondExpression;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned, NotificationChain msgs) {
-		SimpleExpression oldSimpleExpressionSdOwned = simpleExpressionSdOwned;
-		simpleExpressionSdOwned = newSimpleExpressionSdOwned;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED, oldSimpleExpressionSdOwned, newSimpleExpressionSdOwned);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetSecondExpression(SimpleExpression newSecondExpression, NotificationChain msgs)
+  {
+    SimpleExpression oldSecondExpression = secondExpression;
+    secondExpression = newSecondExpression;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SECOND_EXPRESSION, oldSecondExpression, newSecondExpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setSimpleExpressionSdOwned(SimpleExpression newSimpleExpressionSdOwned) {
-		if (newSimpleExpressionSdOwned != simpleExpressionSdOwned) {
-			NotificationChain msgs = null;
-			if (simpleExpressionSdOwned != null)
-				msgs = ((InternalEObject)simpleExpressionSdOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED, null, msgs);
-			if (newSimpleExpressionSdOwned != null)
-				msgs = ((InternalEObject)newSimpleExpressionSdOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED, null, msgs);
-			msgs = basicSetSimpleExpressionSdOwned(newSimpleExpressionSdOwned, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED, newSimpleExpressionSdOwned, newSimpleExpressionSdOwned));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setSecondExpression(SimpleExpression newSecondExpression)
+  {
+    if (newSecondExpression != secondExpression)
+    {
+      NotificationChain msgs = null;
+      if (secondExpression != null)
+        msgs = ((InternalEObject)secondExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SECOND_EXPRESSION, null, msgs);
+      if (newSecondExpression != null)
+        msgs = ((InternalEObject)newSecondExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.RELATION__SECOND_EXPRESSION, null, msgs);
+      msgs = basicSetSecondExpression(newSecondExpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__SECOND_EXPRESSION, newSecondExpression, newSecondExpression));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public RelationalOperator getRelationalOperatorOwned() {
-		return relationalOperatorOwned;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public RelationalOperator getRelationalOperator()
+  {
+    return relationalOperator;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setRelationalOperatorOwned(RelationalOperator newRelationalOperatorOwned) {
-		RelationalOperator oldRelationalOperatorOwned = relationalOperatorOwned;
-		relationalOperatorOwned = newRelationalOperatorOwned == null ? RELATIONAL_OPERATOR_OWNED_EDEFAULT : newRelationalOperatorOwned;
-		boolean oldRelationalOperatorOwnedESet = relationalOperatorOwnedESet;
-		relationalOperatorOwnedESet = true;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED, oldRelationalOperatorOwned, relationalOperatorOwned, !oldRelationalOperatorOwnedESet));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setRelationalOperator(RelationalOperator newRelationalOperator)
+  {
+    RelationalOperator oldRelationalOperator = relationalOperator;
+    relationalOperator = newRelationalOperator == null ? RELATIONAL_OPERATOR_EDEFAULT : newRelationalOperator;
+    boolean oldRelationalOperatorESet = relationalOperatorESet;
+    relationalOperatorESet = true;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR, oldRelationalOperator, relationalOperator, !oldRelationalOperatorESet));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void unsetRelationalOperatorOwned() {
-		RelationalOperator oldRelationalOperatorOwned = relationalOperatorOwned;
-		boolean oldRelationalOperatorOwnedESet = relationalOperatorOwnedESet;
-		relationalOperatorOwned = RELATIONAL_OPERATOR_OWNED_EDEFAULT;
-		relationalOperatorOwnedESet = false;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED, oldRelationalOperatorOwned, RELATIONAL_OPERATOR_OWNED_EDEFAULT, oldRelationalOperatorOwnedESet));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetRelationalOperator()
+  {
+    RelationalOperator oldRelationalOperator = relationalOperator;
+    boolean oldRelationalOperatorESet = relationalOperatorESet;
+    relationalOperator = RELATIONAL_OPERATOR_EDEFAULT;
+    relationalOperatorESet = false;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.RELATION__RELATIONAL_OPERATOR, oldRelationalOperator, RELATIONAL_OPERATOR_EDEFAULT, oldRelationalOperatorESet));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public boolean isSetRelationalOperatorOwned() {
-		return relationalOperatorOwnedESet;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetRelationalOperator()
+  {
+    return relationalOperatorESet;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
-				return basicSetSimpleExpressionOwned(null, msgs);
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
-				return basicSetSimpleExpressionSdOwned(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.RELATION__FIRST_EXPRESSION:
+        return basicSetFirstExpression(null, msgs);
+      case AadlBaPackage.RELATION__SECOND_EXPRESSION:
+        return basicSetSecondExpression(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
-				return getSimpleExpressionOwned();
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
-				return getSimpleExpressionSdOwned();
-			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				return getRelationalOperatorOwned();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.RELATION__FIRST_EXPRESSION:
+        return getFirstExpression();
+      case AadlBaPackage.RELATION__SECOND_EXPRESSION:
+        return getSecondExpression();
+      case AadlBaPackage.RELATION__RELATIONAL_OPERATOR:
+        return getRelationalOperator();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
-				setSimpleExpressionOwned((SimpleExpression)newValue);
-				return;
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
-				setSimpleExpressionSdOwned((SimpleExpression)newValue);
-				return;
-			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				setRelationalOperatorOwned((RelationalOperator)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.RELATION__FIRST_EXPRESSION:
+        setFirstExpression((SimpleExpression)newValue);
+        return;
+      case AadlBaPackage.RELATION__SECOND_EXPRESSION:
+        setSecondExpression((SimpleExpression)newValue);
+        return;
+      case AadlBaPackage.RELATION__RELATIONAL_OPERATOR:
+        setRelationalOperator((RelationalOperator)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
-				setSimpleExpressionOwned((SimpleExpression)null);
-				return;
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
-				setSimpleExpressionSdOwned((SimpleExpression)null);
-				return;
-			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				unsetRelationalOperatorOwned();
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.RELATION__FIRST_EXPRESSION:
+        setFirstExpression((SimpleExpression)null);
+        return;
+      case AadlBaPackage.RELATION__SECOND_EXPRESSION:
+        setSecondExpression((SimpleExpression)null);
+        return;
+      case AadlBaPackage.RELATION__RELATIONAL_OPERATOR:
+        unsetRelationalOperator();
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_OWNED:
-				return simpleExpressionOwned != null;
-			case AadlBaPackage.RELATION__SIMPLE_EXPRESSION_SD_OWNED:
-				return simpleExpressionSdOwned != null;
-			case AadlBaPackage.RELATION__RELATIONAL_OPERATOR_OWNED:
-				return isSetRelationalOperatorOwned();
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.RELATION__FIRST_EXPRESSION:
+        return firstExpression != null;
+      case AadlBaPackage.RELATION__SECOND_EXPRESSION:
+        return secondExpression != null;
+      case AadlBaPackage.RELATION__RELATIONAL_OPERATOR:
+        return isSetRelationalOperator();
+    }
+    return super.eIsSet(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public String toString() {
-		if (eIsProxy()) return super.toString();
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public String toString()
+  {
+    if (eIsProxy()) return super.toString();
 
-		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (relationalOperatorOwned: ");
-		if (relationalOperatorOwnedESet) result.append(relationalOperatorOwned); else result.append("<unset>");
-		result.append(')');
-		return result.toString();
-	}
+    StringBuffer result = new StringBuffer(super.toString());
+    result.append(" (relationalOperator: ");
+    if (relationalOperatorESet) result.append(relationalOperator); else result.append("<unset>");
+    result.append(')');
+    return result.toString();
+  }
 
 } //RelationImpl

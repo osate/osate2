@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.tpt.aadl.annex.behavior/src"
+    modelPluginID="fr.tpt.aadl.annex.behavior" modelName="Declarative" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="6.0" copyrightFields="false"
+    usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 aadlba.genmodel#//aadlba">
+  <foreignModel>declarative.ecore</foreignModel>
+  <genPackages prefix="Declarative" basePackage="fr.tpt.aadl.annex.behavior" resource="XML"
+      disposableProviderFactory="true" ecorePackage="declarative.ecore#/">
+    <genClasses image="false" ecoreClass="declarative.ecore#//PrivateBehaviorElement">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//PrivateBehaviorElement/osateRef"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference declarative.ecore#//PrivateBehaviorElement/baRef"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Identifier">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute declarative.ecore#//Identifier/id"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Name">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Name/indexes"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Name/group"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Name/name"/>
+    </genClasses>
+    <genClasses ecoreClass="declarative.ecore#//Reference"/>
+    <genClasses ecoreClass="declarative.ecore#//Property">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Property/nameSpace"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference declarative.ecore#//Property/property"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

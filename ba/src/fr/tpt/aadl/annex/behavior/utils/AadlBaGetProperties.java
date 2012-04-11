@@ -24,12 +24,12 @@ package fr.tpt.aadl.annex.behavior.utils ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 
-import edu.cmu.sei.aadl.aadl2.Classifier ;
-import edu.cmu.sei.aadl.aadl2.ComponentImplementation ;
-import edu.cmu.sei.aadl.aadl2.ModalPropertyValue ;
-import edu.cmu.sei.aadl.aadl2.Property ;
-import edu.cmu.sei.aadl.aadl2.PropertyAssociation ;
-import edu.cmu.sei.aadl.aadl2.PropertyExpression;
+import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ComponentImplementation ;
+import org.osate.aadl2.ModalPropertyValue ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyExpression;
 
 public class AadlBaGetProperties
 {

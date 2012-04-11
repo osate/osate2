@@ -23,22 +23,27 @@ package fr.tpt.aadl.annex.behavior ;
 
 import org.antlr.runtime.CharStream ;
 import org.antlr.runtime.CommonTokenStream ;
+import antlr.RecognitionException;
 
-import edu.cmu.sei.aadl.aadl2.AnnexLibrary ;
-import edu.cmu.sei.aadl.aadl2.AnnexSubclause ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.ParseErrorReporter ;
+import org.osate.aadl2.AnnexLibrary ;
+import org.osate.aadl2.AnnexSubclause ;
+import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
+import org.osate.annexsupport.AnnexParser;
+
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaLexer ;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
 import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream ;
 
-public class AadlBaParserAction implements edu.cmu.sei.aadl.annex.AnnexParser
+public class AadlBaParserAction implements AnnexParser
 {
-
+   public static final String ANNEX_NAME = "behavior_specification";
+   
    public AnnexLibrary parseAnnexLibrary(
                                    String annexName,String source,
                                    String filename, int line, int column,
                                    ParseErrorReporter errReporter)
-                                   throws org.antlr.runtime.RecognitionException
+                                   throws RecognitionException
    {
       return null ;
    }
@@ -47,7 +52,7 @@ public class AadlBaParserAction implements edu.cmu.sei.aadl.annex.AnnexParser
                                    String annexName, String source,
                                    String filename, int line, int column,
                                    ParseErrorReporter errReporter)
-                                   throws org.antlr.runtime.RecognitionException
+                                   throws RecognitionException
    {
       ParseErrorReporter reporter = errReporter ;
       CharStream cs = new CaseInsensitiveCharStream(source) ;
@@ -61,6 +66,25 @@ public class AadlBaParserAction implements edu.cmu.sei.aadl.annex.AnnexParser
       tokens.toString() ;
       AadlBaParser parser = new AadlBaParser(tokens) ;
       parser.setParseErrorReporter(reporter) ;
-      return parser.behavior_annex() ;
+      parser.setFilename(filename) ;
+      try
+      {
+         BehaviorAnnex ba = parser.behavior_annex() ;
+         
+         return ba ;
+      }
+      // Translates ANTLR runtime exception to ANTLR Exception. 
+      catch(org.antlr.runtime.RecognitionException e)
+      {
+         throw new RecognitionException(e.getMessage(),
+                                        filename,
+                                        e.line,
+                                        e.charPositionInLine) ;
+      }
+      catch(IllegalArgumentException e)
+      {
+         // Nothing to do as the parser is supposed to report any error.
+         return null ;
+      }
    }
 }

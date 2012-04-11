@@ -22,38 +22,62 @@
 package fr.tpt.aadl.annex.behavior.analyzers;
 
 import java.util.ArrayList ;
+import java.util.Collection ;
 import java.util.List ;
 import java.util.ListIterator ;
 
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.common.util.Enumerator ;
-import org.eclipse.emf.ecore.EObject ;
+import org.eclipse.emf.ecore.InternalEObject ;
 
-import edu.cmu.sei.aadl.aadl2.ArrayableElement ;
-import edu.cmu.sei.aadl.aadl2.CalledSubprogram ;
-import edu.cmu.sei.aadl.aadl2.Classifier ;
-import edu.cmu.sei.aadl.aadl2.ClassifierValue;
-import edu.cmu.sei.aadl.aadl2.ComponentCategory ;
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
-import edu.cmu.sei.aadl.aadl2.ComponentPrototype ;
-import edu.cmu.sei.aadl.aadl2.ComponentPrototypeActual ;
-import edu.cmu.sei.aadl.aadl2.ComponentPrototypeBinding ;
-import edu.cmu.sei.aadl.aadl2.ComponentReference ;
-import edu.cmu.sei.aadl.aadl2.DirectionType ;
-import edu.cmu.sei.aadl.aadl2.Element;
-import edu.cmu.sei.aadl.aadl2.FeaturePrototypeBinding;
-import edu.cmu.sei.aadl.aadl2.Parameter ;
-import edu.cmu.sei.aadl.aadl2.SubprogramAccess ;
-import edu.cmu.sei.aadl.aadl2.SubprogramImplementation ;
-import edu.cmu.sei.aadl.aadl2.SubprogramSubcomponent ;
-import edu.cmu.sei.aadl.aadl2.SubprogramType ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.Aadl2Factory ;
+import org.osate.aadl2.ArrayDimension ;
+import org.osate.aadl2.ArraySize ;
+import org.osate.aadl2.CalledSubprogram ;
+import org.osate.aadl2.Classifier ;
+import org.osate.aadl2.ClassifierValue ;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.ComponentPrototype ;
+import org.osate.aadl2.ComponentPrototypeActual ;
+import org.osate.aadl2.ComponentPrototypeBinding ;
+import org.osate.aadl2.DataAccess ;
+import org.osate.aadl2.DataClassifier ;
+import org.osate.aadl2.DataPort ;
+import org.osate.aadl2.DataSubcomponent ;
+import org.osate.aadl2.DirectionType ;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.EventDataPort ;
+import org.osate.aadl2.EventPort ;
+import org.osate.aadl2.Feature ;
+import org.osate.aadl2.FeaturePrototypeBinding;
+import org.osate.aadl2.NamedElement ;
+import org.osate.aadl2.NumberValue ;
+import org.osate.aadl2.Parameter ;
+import org.osate.aadl2.Port ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyConstant ;
+import org.osate.aadl2.PropertyExpression ;
+import org.osate.aadl2.PropertySet ;
+import org.osate.aadl2.Prototype ;
+import org.osate.aadl2.PrototypeBinding ;
+import org.osate.aadl2.StringLiteral ;
+import org.osate.aadl2.Subprogram ;
+import org.osate.aadl2.SubprogramAccess ;
+import org.osate.aadl2.SubprogramImplementation ;
+import org.osate.aadl2.SubprogramPrototype;
+import org.osate.aadl2.SubprogramSubcomponent ;
+import org.osate.aadl2.SubprogramType ;
+import org.osate.aadl2.UnitLiteral ;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
+import fr.tpt.aadl.annex.behavior.declarative.* ;
 
 import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
+import fr.tpt.aadl.annex.behavior.utils.DimensionException ;
+import fr.tpt.aadl.utils.Aadl2Utils ;
 
 /**
  * AADL Behavior annex feature's type and data representation checker.
@@ -65,1589 +89,2034 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 public class AadlBaTypeChecker
 {
 
-   private BehaviorAnnex _ba ;
-   
-   private ComponentClassifier _baParentContainer ;
+  private BehaviorAnnex _ba ;
 
-   private AnalysisErrorReporterManager _errManager ;
-   
-   private static final String STRING_TYPE_SEPARATOR = " or " ;
-   
-   private static final String STRING_PARAMETER_SEPARATOR = ", " ;
-   
-   private final DataTypeChecker _dataChecker ;
-   
-   /**
-    * Constructs an AADL behavior annex type checker.
-    * Reports any errors in a given error reporter manager.
-    *
-    * @param ba the given behavior annex
-    * @param dataChecker the given data type checker implementation
-    * @param errManager the given error reporter manager
-    */
-   public AadlBaTypeChecker(BehaviorAnnex ba , DataTypeChecker dataChecker,
-                            AnalysisErrorReporterManager errManager)
-   {
-      _ba = ba ;
-      _baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
-      _dataChecker = dataChecker ;
-      _errManager = errManager ;
-   }
+  private ComponentClassifier _baParentContainer ;
+
+  private AnalysisErrorReporterManager _errManager ;
+
+  private static final String STRING_TYPE_SEPARATOR = " or " ;
+
+  private static final String STRING_PARAMETER_SEPARATOR = ", " ;
+
+  private final DataTypeChecker _dataChecker ;
+  
+  private final static AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
+
+  /**
+   * Constructs an AADL behavior annex type checker.
+   * Reports any errors in a given error reporter manager.
+   *
+   * @param ba the given behavior annex
+   * @param dataChecker the given data type checker implementation
+   * @param errManager the given error reporter manager
+   */
+  public AadlBaTypeChecker(BehaviorAnnex ba , DataTypeChecker dataChecker,
+      AnalysisErrorReporterManager errManager)
+  {
+    _ba = ba ;
+    _baParentContainer = AadlBaVisitors.getParentComponent(ba) ;
+    _dataChecker = dataChecker ;
+    _errManager = errManager ;
+  }
 
 
-   /**
-    * Checks the type of the objects referenced during the name resolution phase.
-    * Reports any error.
-    * 
-    * @return {@code true} if all the objects have the excepted types.
-    * {@code false} otherwise.
-    */
-   public boolean checkTypes()
-   {
-      return behaviorVariableCheck() & behaviorTransitionCheck();
-   }
+  /**
+   * Checks the type of the objects referenced during the name resolution phase.
+   * Reports any error.
+   * 
+   * @return {@code true} if all the objects have the excepted types.
+   * {@code false} otherwise.
+   */
+  public boolean checkTypes()
+  {
+    return  behaviorVariableCheck() &  behaviorTransitionCheck(); 
+  }
 
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Semantic rule
-    * Section : D.3 Behavior Specification
-    * Object : Check semantic rule D.3.(28) 
-    * Keys : local variables explicitly typed valid data component classifier
-    */
-   private boolean behaviorVariableCheck()
-   {
-      boolean result = true ;
-      IntegerValueConstant ivc = null ;
-      IntegerValueConstant tmp = null ;
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Semantic rule
+   * Section : D.3 Behavior Specification
+   * Object : Check semantic rule D.3.(28) 
+   * Keys : local variables explicitly typed valid data component classifier
+   */
+  private boolean behaviorVariableCheck()
+  {
+    boolean result = true ;
+    IntegerValueConstant ivc = null ;
+    QualifiedNamedElement uccr ;
 
-      for(BehaviorVariable bv : _ba.getBehaviorVariables())
-      {
-         // Checks local declarators.
-         for(Declarator decl : bv.getLocalVariableDeclarators())
-         {
-            ListIterator<IntegerValueConstant> lit = decl.getArraySizes()
-                                                               .listIterator() ;
-
-            while(lit.hasNext())
-            {
-               ivc = lit.next() ;
-               tmp = integerValueConstantCheck(ivc) ;
-               result &= tmp != null ;
-
-               // The returned value may be different from the tested value
-               // because of semantic ambiguity resolution in 
-               // integervalueConstantCheck method. So replace if needed.
-               if(tmp != ivc && tmp !=null)
-               {
-                  lit.set(tmp) ;
-               }
-            }
-         }
-         
-         UniqueComponentClassifierReference uccr = 
-                                bv.getDataUniqueComponentClassifierReference() ;
-         
-         // The bv's unique component classifier reference type has to be a 
-         // data classifier.
-         result &= typeCheck(uccr, uccr.getQualifiedName().getId(),
-               TypeCheckRule.DATA_UCCR) != null ;
-      }
-
-      return result ;
-   }
-
-   // This method checks the given object and returns an object resolved from
-   // semantic ambiguities. On error, reports error and returns null.
-   private IntegerValueConstant integerValueConstantCheck(IntegerValueConstant ivc)
-   {
-      ValueAndTypeHolder holder = valueConstantCheck((ValueConstant)ivc);
+    for(BehaviorVariable bv : _ba.getVariables())
+    {
+      uccr = (QualifiedNamedElement) bv.getDataClassifier() ;
       
-      if (typeCheck(ivc, null, holder, DataRepresentation.INTEGER))
-      {
-         return (IntegerValueConstant) holder.value ;
-      }
-      else
-      {
-         return null ;
-      }
-   }
-   
-   // This method checks the given object and returns an object resolved from
-   // semantic ambiguities. On error, reports error and returns null.
-   private IntegerValue integerValueCheck(IntegerValue iv)
-   {
-      // Ambiguity between property constant and name without array index
-      // has already been resolved in the name resolution phase.
-
-      if(iv instanceof IntegerValueConstant)
-      {
-         return integerValueConstantCheck((IntegerValueConstant) iv) ;
-      }
-      else
-      {
-         return integerValueVariableCheck((IntegerValueVariable) iv) ;
-      }
-   }
-   
-   // This method checks the given object and returns an object resolved from
-   // semantic ambiguities. On error, reports error and returns null.
-   private IntegerValueVariable integerValueVariableCheck(IntegerValueVariable ivv)
-   {
-      ValueAndTypeHolder holder = valueVariableCheck((ValueVariable)ivv);
+      DataClassifier dc = (DataClassifier) 
+           uniqueComponentClassifierReferenceResolver(uccr,
+                                                      TypeCheckRule.DATA_UCCR) ;
       
-      if(typeCheck(ivv, null, holder, DataRepresentation.INTEGER))
-      {
-         return (IntegerValueVariable) holder.value ;
-      }
-      else
-      {
-         return null ;
-      }
-   }
-
-   private boolean behaviorTransitionCheck()
-   {
-      boolean result = true ;
-
-      for(BehaviorTransition trans : _ba.getBehaviorTransitions())
-      {
-         BehaviorCondition cond = trans.getBehaviorConditionOwned() ;
-
-         if(cond instanceof DispatchCondition)
-         {
-            result &= dispatchConditionCheck((DispatchCondition) cond);
-         }
-         else
-         {
-            result &= executeConditionCheck((ExecuteCondition) cond) ;
-         }
-
-         if(trans.getBehaviorActionBlockOwned() != null)
-         {
-            result &= behaviorActionBlockCheck(trans.getBehaviorActionBlockOwned()) ;
-         }
-      }
-
-      return result ;
-   }
-
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Naming rule
-    * Section : D.4 Thread Dispatch Behavior Specification
-    * Object : Check naming rules D.4.(N1), D.4.(N2) 
-    * Keys : frozen port, subprogram access feature, dispatch trigger condition
-    */
-   private boolean dispatchConditionCheck(DispatchCondition cond)
-   {
-      boolean result = false ;
-
-      DispatchTriggerCondition dtc = cond.getDispatchTriggerConditionOwned() ;
-
-      if(dtc != null)
-      {
-         DispatchTriggerCondition tmp = dispatchTriggerConditionCheck(dtc) ;
-         result = tmp != null ;
-
-         // The returned DispatchTriggerCondition may be different from the
-         // tested one because of semantic ambiguity resolution in
-         // dispatchTriggerConditionCheck method. So replace if needed.
-         if (tmp != dtc && result)
-         {
-            cond.setDispatchTriggerConditionOwned(tmp) ;
-         }
-      }
-
-      if(cond.isSetFrozenPorts())
-      {
-         result &= frozenPortCheck(cond.getFrozenPorts()) ;
-      }
-
-      return result ;
-   }
-
-   private boolean frozenPortCheck(EList<Identifier> frozenPorts)
-   {
-      boolean result = true ;
-
-      for(Identifier port : frozenPorts)
-      {
-         result &= typeCheck(port, port.getId(),
-                    TypeCheckRule.FROZEN_PORT) != null;
-      }
+      result &= dc != null ;
+      bv.setDataClassifier(dc) ;
       
-      return result ;
-   }
-
-   private void reportError (BehaviorElement el, String msg)
-   {
-      _errManager.error(el, msg);
-   }
-   
-   private void reportTypeError(BehaviorElement el, String name,
-                                String expectedTypes,
-                                String typeFound)
-   {
-      String message = "\'" + name + "\' type error: \"" + expectedTypes +
-                               "\" expected" + ", found \"" + typeFound + "\".";
+      ListIterator<ArrayDimension> it = bv.getArrayDimensions().listIterator() ;
       
-      reportError(el, message) ;
-   }
-   
-   private String unparseNameElement(BehaviorElement e)
-   {
-       AadlBaUnparser unparser = new AadlBaUnparser() ;
-       unparser.process(e) ;
-       return unparser.getOutput() ;
-   }
-      
-   // This method checks the given object and returns an object resolved from
-   // semantic ambiguities. On error, reports error and returns null.
-   private DispatchTriggerCondition dispatchTriggerConditionCheck(
-                                                   DispatchTriggerCondition dtc)
-   {
-      if(dtc instanceof DispatchTriggerLogicalExpression)
+      while(it.hasNext())
       {
-         DispatchTriggerLogicalExpression dtle =
-                                        (DispatchTriggerLogicalExpression) dtc ;
+        ArrayDimension tmp = it.next() ;
+        DeclarativeArrayDimension dad = (DeclarativeArrayDimension) tmp ;
+        
+        ivc = dad.getDimension()  ;
+        ivc = integerValueConstantCheck(ivc) ;
+        result &= ivc != null ;
 
-         // Ambiguity resolution: subprogram access identifiers are parsed as
-         // dispatch trigger logical expression.
-         if(dtle.getDispatchConjunctions().size() == 1 &&
-               dtle.getDispatchConjunctions().get(0)
-                                             .getDispatchTriggers().size() == 1)
-         {
-            Identifier dt = dtle.getDispatchConjunctions().get(0)
-                                                 .getDispatchTriggers().get(0) ;
-            Enum<?> e= typeCheck(dt, dt.getId(),
-                              TypeCheckRule.DISPATCH_TRIGGER_CONDITION) ;
-            if(e != null)
-            {
-               if(e == FeatureType.PROVIDES_SUBPROGRAM_ACCESS)
-               {
-                 return dt ;
-               }
-               else
-               {
-                  return dtc ;
-               }
-            }
-            else
-            {
-               return null ;
-            }
-         }
-         else
-         {
-            return dispatchTriggerLogicalExpressionCheck(dtle) ? dtc : null ;
-         }
+        // The returned value may be different from the tested value
+        // because of semantic ambiguity resolution in 
+        // integervalueConstantCheck method. So replace if needed.
+        if(ivc !=null)
+        {
+          it.set(integerValueConstantToArrayDimension(ivc)) ;
+        }
       }
-      else
-      {
-         // CompletionRelativeTimeoutConditionAndCatch case.
-         if(dtc instanceof CompletionRelativeTimeoutConditionAndCatch)
-         {
-            return behaviorTimeCheck((BehaviorTime) dtc) ? dtc : null ;
-         }
-         else // Cases of DispatchTriggerConditionStop and TimeoutCatch:
-              // There isn't any type to check.
+    }
 
-         {
-            return dtc ;
-         }
-      }
-   }
-
-   private boolean behaviorTimeCheck(BehaviorTime bt)
-   {
-
-      IntegerValue tmp = integerValueCheck(bt.getIntegerValueOwned());
-
-      // The returned value may be different from the tested value
-      // because of semantic ambiguity resolution in integerValueCheck
-      // method. So replace if needed.
-      if(tmp != bt.getIntegerValueOwned() && tmp != null)
-      {
-         bt.setIntegerValueOwned(tmp) ;
-      }
-
-      return tmp != null ;
-   }
-
-   private boolean dispatchTriggerLogicalExpressionCheck(
-                                          DispatchTriggerLogicalExpression dtle)
-   {
-      boolean result = true ;
-
-      for(DispatchConjunction dc : dtle.getDispatchConjunctions())
-      {
-         for (Identifier dt : dc.getDispatchTriggers())
-         {
-            result &= typeCheck(dt, dt.getId(), 
-                        TypeCheckRule.DISPATCH_TRIGGER) != null;
-         }
-      }
-
-      return result ;
-   }
-
-   private boolean executeConditionCheck(ExecuteCondition cond)
-   {
-      if(cond instanceof ValueExpression)
-      {
-         ValueAndTypeHolder holder = valueExpressionCheck((ValueExpression) cond);
-         
-         // Execute condition is only defined for logical value expression.
-         return typeCheck(cond, "the execute condition", holder,
-               DataRepresentation.BOOLEAN) ;
-      }
-      else // Timeout catch and Otherwise cases : no type to check.
-      {
-         return true ;
-      }
-   }
-   
-   // This method checks the given object and returns a value expression
-   // resolved from semantic ambiguities and its data representation. On error,
-   // reports error and returns null.
-   /** 
-    * Document: AADL Behavior Annex draft
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.7 Behavior Expression Language
-    * Object : Check legality rules D.7.(L3), partially D.7.(L6)
-    * Keys : operand logical operators boolean
-    */
-   private ValueAndTypeHolder valueExpressionCheck(ValueExpression ve)
-   {
-      EList<Relation> rl = ve.getRelations() ;
-      
-      TypeHolder[] typea = new TypeHolder[rl.size()] ;
-      EList<LogicalOperator> opl = ve.getLogicalOperators() ;
-      boolean isTopLevelTypePossible = true ;
-      
-      // Checks all relations.
-      for(int i = 0 ; i < rl.size() ; i++)
-      {
-         typea[i] = relationCheck(rl.get(i)) ;
-         
-         // Current checking has failed but continues because all relations have
-         // to be checked.
-         if(typea[i] == null)
-         {
-            isTopLevelTypePossible = false ;
-         }
-      }
-      
-      // If the relation checking are successful, checks operators definition 
-      // and evaluates top level value variable type representation.
-      if(isTopLevelTypePossible)
-      {
-         if(rl.size() > 1)
-         {
-            for(int i = 1 ; i < rl.size() ; i++)
-            {
-               typea[i] = _dataChecker.checkDefinition(ve, opl.get(i-1), typea[i-1],
-                                                                     typea[i]) ;
-               // Error case : the current operator is not defined.  
-               if (typea[i] == null)
-               {
-                  return null ;
-               }
-            }
-            
-            return new ValueAndTypeHolder (ve, typea[typea.length - 1]) ;
-         }
-         else // As there isn't any operator set, top level type is the unique
-              // relation's one.
-         {
-            return new ValueAndTypeHolder (ve, typea[0]) ;
-         }
-      }
-      else // Relation checking have failed.
-      {
-         return null ;
-      }
-   }
-
-   // Returns the top-level relation data representation or null on error.
-   // Reports any error.
-   /** 
-    * Document: AADL Behavior Annex draft
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.7 Behavior Expression Language
-    * Object : Check legality rule D.7.(L4) 
-    * Keys : operand relational operators supports comparison
-    */
-   private TypeHolder relationCheck(Relation r)
-   {
-      TypeHolder th1 = simpleExpressionCheck(r.getSimpleExpressionOwned()) ;
-      TypeHolder th2 = null ;
-      
-      if(r.isSetRelationalOperatorOwned())
-      {
-         th2 = simpleExpressionCheck(r.getSimpleExpressionSdOwned()) ; 
-      }
-      else
-      {
-         return th1 ;
-      }
-      
-      if(th1 != null && th2 != null)
-      {
-         return _dataChecker.checkDefinition(r, r.getRelationalOperatorOwned(),
-                                             th1, th2);
-      }
-      else
-      {
-         return null ;
-      }
-   }
-   
-   // Returns the top-level simple expression type representation or null on
-   // error. Reports any error.
-   /** 
-    * Document: AADL Behavior Annex draft
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.7 Behavior Expression Language
-    * Object : Check legality rule D.7.(L5) 
-    * Keys : adding other numeric operators support numeric operations
-    */
-   private TypeHolder simpleExpressionCheck(SimpleExpression se)
-   {
-      EList<Term> tl = se.getTerms() ;
-      TypeHolder[] typea = new TypeHolder[tl.size()] ;
-      EList<BinaryAddingOperator> opl = se.getBinaryAddingOperators() ;
-      boolean isTopLevelTypePossible = true ;
-      
-      // Checks all terms.
-      for(int i = 0 ; i < tl.size() ; i++)
-      {
-         typea[i] = termCheck(tl.get(i)) ;
-         
-         // Current checking has failed but continues because all terms have to
-         // be checked.
-         if(typea[i] == null)
-         {
-            isTopLevelTypePossible = false ;
-         }
-      }
-      
-      // If the term checking are successful, checks operators definition and
-      // evaluates top level simple expression type representation.
-      if(isTopLevelTypePossible)
-      {
-         if(se.isSetUnaryAddingOperatorOwned())
-         {
-            typea[0] = _dataChecker.checkDefinition(se,
-                                      se.getUnaryAddingOperatorOwned(),
-                                      typea[0]) ;
-            // Error case : the unary adding operator is not defined.  
-            if (typea[0] == null)
-            {
-               return null ;
-            }
-         }
-         
-         if(tl.size() > 1)
-         {
-            for(int i = 1 ; i < tl.size() ; i++)
-            {
-               typea[i] = _dataChecker.checkDefinition(se,opl.get(i-1), typea[i-1],
-                                                                     typea[i]) ;
-               
-               // Error case : the current operator is not defined.  
-               if (typea[i] == null)
-               {
-                  return null ;
-               }
-            }
-            
-            return typea[typea.length - 1] ;
-         }
-         else // As there isn't any operator set, top level type is the unique 
-              // term's one.
-         {
-            return typea[0] ;
-         }
-      }
-      else // Term checking have failed.
-      {
-         return null ;
-      }
-   }
-
-   // Returns the top-level term type representation or null on error.
-   // Reports any error.
-   /** 
-    * Document: AADL Behavior Annex draft
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.7 Behavior Expression Language
-    * Object : Check legality rule D.7.(L5) 
-    * Keys : multiplying other numeric operators support numeric operations
-    */
-   private TypeHolder termCheck(Term t)
-   {
-      EList<Factor> fl = t.getFactors() ;
-      TypeHolder[] typea = new TypeHolder[fl.size()] ;
-      EList<MultiplyingOperator> opl = t.getMultiplyingOperators() ;
-      boolean isTopLevelTypePossible = true ;
-      
-      // Checks all the factors.
-      for(int i = 0 ; i < fl.size() ; i++)
-      {
-         typea[i] = factorCheck(fl.get(i)) ;
-         
-         // Current checking has failed but continues because all factors have to
-         // be checked.
-         if(typea[i] == null)
-         {
-            isTopLevelTypePossible = false ;
-         }
-      }
-      
-      // If the factor checking are successful, checks operators definition
-      // and evaluates top level term type representation.
-      if(isTopLevelTypePossible)
-      {
-         if (fl.size() > 1)
-         {
-            for (int i = 1 ; i < fl.size() ; i++)
-            {
-               typea[i] = _dataChecker.checkDefinition(t, opl.get(i-1), typea[i-1],
-                                                                   typea[i]) ;
-               // Error case : the current operator is not defined.  
-               if (typea[i] == null)
-               {
-                  return null ;
-               }
-            }
-            
-            return typea[typea.length - 1] ;
-         }
-         else // As there isn't any operator set, top level type is the unique 
-              // factor's one.
-         {
-            return typea[0] ;
-         }
-      }
-      else
-      {
-         return null ;
-      }
-   }
-
-   // Returns the top-level factor type representation or null on error.
-   // Reports any error.
-   /** 
-    * Document: AADL Behavior Annex draft
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.7 Behavior Expression Language 
-    * Object : Check legality rule D.7.(L5) 
-    * Keys : other numeric operators support numeric operations
-    */
-   private TypeHolder factorCheck(Factor f)
-   {
-      Value fValue = f.getValueOwned() ;
-      Value sdValue = f.getValueSdOwned() ;
-      ValueAndTypeHolder vth1 = valueCheck(fValue) ;
-      ValueAndTypeHolder vth2 = null ;;
-      
-      if(sdValue != null)
-      {
-         // Checks second value even if the first value checking has failed. 
-         vth2 = valueCheck(sdValue) ;
-      }
-      
-      if(vth1 != null) // Don't check operator definition on value checking error.
-      {
-         // The returned value may be different from the tested value
-         // because of semantic ambiguity resolution in valueCheck
-         // method. So replace if needed.
-         if(vth1.value != fValue)
-         {
-            f.setValueOwned(vth1.value) ;
-            fValue = vth1.value ;
-         }
-         
-         // Checks Unary operators.
-         if(f.isSetUnaryNumericOperatorOwned() ||
-            f.isSetUnaryBooleanOperatorOwned())
-         {
-            Enumerator op ;
-            
-            op =  (
-                    (f.isSetUnaryBooleanOperatorOwned()) ? 
-                       f.getUnaryBooleanOperatorOwned() : 
-                       f.getUnaryNumericOperatorOwned()) ;
-            
-            return _dataChecker.checkDefinition(f, op, vth1.typeHolder) ;
-         }
-         else 
-         {
-            if(f.isSetBinaryNumericOperatorOwned())
-            {
-               if(vth2 != null)
-               {
-                  // The returned value may be different from the tested value
-                  // because of semantic ambiguity resolution in valueCheck
-                  // method. So replace if needed.
-                  if(vth2.value != sdValue)
-                  {
-                     f.setValueSdOwned(vth2.value) ;
-                     sdValue = vth2.value ;
-                  }
-                  
-                  return _dataChecker.checkDefinition(f,
-                        f.getBinaryNumericOperatorOwned(),vth1.typeHolder,
-                                                          vth2.typeHolder);
-               }
-               else // Second value error case.
-               {
-                  return null ;
-               }
-            }
-            else // As there isn's any operator, the top level type is the unique
-                 // value' one.
-            {
-               return vth1.typeHolder ;
-            }
-         }
-      }
-      else // First value error case.
-      {
-         return null ;
-      }
-   }
-   
-   // This method checks the given object and returns a value
-   // resolved from semantic ambiguities and its data representation. On error,
-   // reports error and returns null.
-   private ValueAndTypeHolder valueCheck(Value v)
-   {
-      // Ambiguity between property constant and name without array index
-      // has already been resolved in the name resolution phase.
-
-      if(v instanceof ValueConstant)
-      {
-         return valueConstantCheck((ValueConstant) v) ;
-      }
-      else
-      {
-         if (v instanceof ValueVariable)
-         {
-            return valueVariableCheck((ValueVariable) v) ;
-         }
-         else // Value expression case.
-         {
-            return valueExpressionCheck((ValueExpression) v) ;
-         }
-      }
-   }
-
-   // This method checks the given object and returns a value variable
-   // resolved from semantic ambiguities and its data representation. On error,
-   // reports error and returns null.
-   private ValueAndTypeHolder valueVariableCheck(ValueVariable v)
-   {
-      ValueVariable tmp ;
-
-      if(v instanceof PortCountValue || v instanceof PortFreshValue)
-      {
-         tmp = portCountOrFreshValueCheck((Name) v) ? v : null ;
-      }
-      else
-      {
-         if(v instanceof PortDequeueValue)
-         {
-            tmp = portDequeueValueCheck((PortDequeueValue) v) ? v : null ;
-         }
-         else
-         {
-            if(v instanceof DataComponentReference)
-            {
-               tmp = dataComponentReferenceCheck((DataComponentReference) v,
-            		   TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME)?
-                            v : null ;
-            }
-            else // Ambiguous case between name and unqualified data component
-                 // reference. Unqualified data component references are parsed
-                 // as name.
-            {
-               tmp = nameCheckAndResolveAmbiguity(
-                                (Name) v, TypeCheckRule.VALUE_VARIABLE) ;
-            }
-         }
-      }
-      
-      if(tmp != null)
-      {
-         return new ValueAndTypeHolder(tmp, AadlBaUtils.getTypeHolder(tmp)) ;
-      }
-      else
-      {
-         return null ;
-      }
-   }
-
-   // Checks the given name and resolves the semantic ambiguity between
-   // a name and an unqualified data component reference.
-   // On error, reports error and returns null.
-   // The return object (Name or DataComponentReference) can be 
-   // cast into either Target or ValueVariable.
-   // As this method may resolve a semantic ambiguity, the return object
-   // can be different from the given Name object.
-   private ValueVariable nameCheckAndResolveAmbiguity(Name n,
+    return result ;
+  }
+  
+  private String unparseQualifiedNamedElement(QualifiedNamedElement qne)
+  {
+    StringBuilder sb = new StringBuilder();
+    if(qne.getBaNamespace() != null)
+    {
+      sb.append(qne.getBaNamespace().getId()) ;
+      sb.append("::") ;
+    }
+    
+    sb.append(qne.getBaName().getId()) ;
+    
+    return sb.toString() ;
+  }
+  
+  private Classifier uniqueComponentClassifierReferenceResolver
+                                                     (QualifiedNamedElement qne,
                                                       TypeCheckRule rule)
-   {
-      Enum<?> e = nameResolver(n, rule) ;
+  {
+    String unparsed = unparseQualifiedNamedElement(qne) ;
+    
+    boolean succeed = typeCheck(qne, unparsed,rule, true) != null ;
+    
+    if(succeed)
+    {
+      return ((Classifier) qne.getOsateRef()) ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+  
+  private ArrayDimension integerValueConstantToArrayDimension(
+                                                       IntegerValueConstant ivc)
+  {
+    ArrayDimension result = Aadl2Factory.eINSTANCE.createArrayDimension() ;
+    ArraySize size = result.createSize() ;
+    result.setSize(size) ;
+    result.setLocationReference(ivc.getLocationReference()) ;
+    size.setLocationReference(ivc.getLocationReference()) ;
+    
+    if(ivc instanceof BehaviorIntegerLiteral)
+    {
+      size.setSize(((BehaviorIntegerLiteral)ivc).getValue()) ;
+    }
+    else if(ivc instanceof BehaviorProperty)
+    {
+      PropertyExpression pe = null ;
       
-      if(e != null)
+      if(ivc instanceof BehaviorPropertyConstant)
       {
-         // Case of unqualified data component reference.
-         if (e == TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME)
-         {
-            DataComponentReference result = AadlBaFactory.eINSTANCE.
-                                                createDataComponentReference() ;
-            result.setLocationReference(n.getLocationReference()) ;
-            result.getNames().add(n) ;
-            result.setAadlRef(n.getAadlRef()) ;
-            result.setBaRef(n.getBaRef()) ;
-
-            return result ;
-         }
-         else // Real name case.
-         {
-            return n ;
-         }
+        PropertyConstant pc = ((BehaviorPropertyConstant) ivc).getProperty() ;
+        pe = pc.getConstantValue() ;
       }
-      else // Checking has failed.
+      else if(ivc instanceof BehaviorPropertyValue)
       {
-         return null ;
+        Property p = ((BehaviorPropertyValue)ivc).getProperty() ;
+        pe = p.getDefaultValue() ;
       }
-   }
-
-   // Checks a name according to the given rule.
-   // Returns the matching type or null on error. Reports any error.
-   private Enum<?> nameResolver(Name n, TypeCheckRule rule)
-   {
-      Enum<?> result = null ;
-      IntegerValue tmp = null ;
-      boolean ivResolved = true ;
-
-      // Checks the array indexes.
-      // As nameResolver is recursive via integerValueVariableCheck, 
-      // it iterates over the internal array instead of the integer value 
-      // variables list to avoid a java.util.ConcurrentModificationException
-      // when a integer value variable of the list is replaced.
-      Object[] ivArray = n.getArrayIndexes().toArray() ;
-      for(int i = 0 ; i < ivArray.length ; i++)
+      
+      if(pe instanceof NumberValue)
       {
-    	  tmp = integerValueCheck((IntegerValue) ivArray[i]) ;
-    	  
-    	  // The returned IntegerValueVariable may be different from the
-          // tested one because of semantic ambiguity resolution in
-          // integerValueVariableCheck method. So replace if needed.
-    	  if(tmp != null)
+        double value = ((NumberValue)pe).getScaledValue() ;
+        size.setSize((long) value);
+      }
+      else
+      {
+        String errorMsg = "integerValueConstantToArrayDimension : " +
+              pe.getClass().getSimpleName()+
+              " is not supported yet." ;
+          System.err.println(errorMsg) ;
+          throw new UnsupportedOperationException(errorMsg) ;
+      }
+    }
+    else
+    {
+      String errorMsg = "integerValueConstantToArrayDimension : " +
+            ivc.getClass().getSimpleName()+
+            " is not supported yet." ;
+        System.err.println(errorMsg) ;
+        throw new UnsupportedOperationException(errorMsg) ;
+    }
+    
+    return result ;
+  }
+
+  // This method checks the given object and returns an object resolved from
+  // semantic ambiguities. On error, reports error and returns null.
+  private IntegerValueConstant integerValueConstantCheck(IntegerValueConstant ivc)
+  {
+    ValueAndTypeHolder holder = valueConstantCheck((ValueConstant)ivc);
+
+    if (typeCheck(ivc, null, holder, DataRepresentation.INTEGER))
+    {
+      return (IntegerValueConstant) holder.value ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+
+  // This method checks the given object and returns an object resolved from
+  // semantic ambiguities. On error, reports error and returns null.
+  private IntegerValue integerValueCheck(IntegerValue iv)
+  {
+    // Ambiguity between property constant and name without array index
+    // has already been resolved in the name resolution phase.
+
+    if(iv instanceof IntegerValueConstant)
+    {
+      return integerValueConstantCheck((IntegerValueConstant) iv) ;
+    }
+    else
+    {
+      return integerValueVariableCheck((IntegerValueVariable) iv) ;
+    }
+  }
+
+  // This method checks the given object and returns an object resolved from
+  // semantic ambiguities. On error, reports error and returns null.
+  private IntegerValueVariable integerValueVariableCheck(IntegerValueVariable ivv)
+  {
+    ValueAndTypeHolder holder = valueVariableCheck((ValueVariable)ivv);
+
+    if(typeCheck(ivv, null, holder, DataRepresentation.INTEGER))
+    {
+      return (IntegerValueVariable) holder.value ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+
+  private boolean behaviorTransitionCheck()
+  {
+    boolean result = true ;
+    
+    for(BehaviorTransition trans : _ba.getTransitions())
+    {
+      BehaviorCondition cond = trans.getCondition() ;
+
+      if(cond instanceof DispatchCondition)
+      {
+        result &= dispatchConditionCheck((DispatchCondition) cond);
+      }
+      else
+      {
+        result &= executeConditionCheck((ExecuteCondition) cond) ;
+      }
+
+      if(trans.getActionBlock() != null)
+      {
+        result &= behaviorActionBlockCheck(trans.getActionBlock()) ;
+      }
+    } 
+        
+    return result ;
+  }
+
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Naming rule
+   * Section : D.4 Thread Dispatch Behavior Specification
+   * Object : Check naming rules D.4.(N1), D.4.(N2) 
+   * Keys : frozen port, subprogram access feature, dispatch trigger condition
+   */
+  private boolean dispatchConditionCheck(DispatchCondition cond)
+  {
+    boolean result = false ;
+
+    DispatchTriggerCondition dtc = cond.getDispatchTriggerCondition() ;
+
+    if(dtc != null)
+    {
+      DispatchTriggerCondition tmp = dispatchTriggerConditionCheck(dtc) ;
+      result = tmp != null ;
+
+      // The returned DispatchTriggerCondition may be different from the
+      // tested one because of semantic ambiguity resolution in
+      // dispatchTriggerConditionCheck method. So replace if needed.
+      if (tmp != dtc && result)
+      {
+        cond.setDispatchTriggerCondition(tmp) ;
+      }
+    }
+
+    if(cond.isSetFrozenPorts())
+    {
+      PortHolder portHolder = null ;
+      
+      ListIterator<ActualPortHolder> it = cond.getFrozenPorts().listIterator() ;
+      
+      while(it.hasNext())
+      {
+        Reference ref = (Reference) it.next() ;
+        
+        portHolder = frozenPortCheck(ref) ; 
+        
+        if (portHolder != null)
+        {
+          it.set((ActualPortHolder) portHolder) ;
+        }
+        else
+        {
+          result = false ;
+        } 
+      }
+    }
+    
+    return result ;
+  }
+
+  private PortHolder frozenPortCheck(Reference ref)
+  {
+    PortHolder result = null ;
+
+    TypeCheckRule stopOnThisRule = TypeCheckRule.FROZEN_PORT ;
+    TypeCheckRule checkRules = stopOnThisRule ;
+    
+    List<ElementHolder> resolvedRef = refResolver(ref, null,
+                                                  stopOnThisRule, checkRules) ;
+    
+    if(resolvedRef != null)
+    {
+      result = (PortHolder) resolvedRef.get(0) ;
+    }
+    
+    return result ;
+  }
+
+  private void reportError (BehaviorElement el, String msg)
+  {
+    _errManager.error(el, msg);
+  }
+
+  private void reportTypeError(BehaviorElement el, String name,
+                               String expectedTypes,
+                               String typeFound)
+  {
+    String message = "\'" + name + "\' type error: \"" + expectedTypes +
+        "\" expected" + ", found \"" + typeFound + "\".";
+
+    reportError(el, message) ;
+  }
+
+  private String unparseNameElement(BehaviorElement e)
+  {
+    if(e instanceof Reference)
+    {
+      return unparseReference((Reference) e) ;
+    }
+    else
+    {
+      AadlBaUnparser unparser = new AadlBaUnparser() ;
+      unparser.process(e) ;
+      return unparser.getOutput() ;
+    }
+  }
+  
+  private String unparseReference(Reference ref)
+  {
+    return ref.getIds().get(ref.getIds().size() -1).getId() ;
+  }
+
+  // This method checks the given object and returns an object resolved from
+  // semantic ambiguities. On error, reports error and returns null.
+  private DispatchTriggerCondition dispatchTriggerConditionCheck(
+                                                   DispatchTriggerCondition dtc)
+  {
+    if(dtc instanceof DispatchTriggerLogicalExpression)
+    {
+      DispatchTriggerLogicalExpression dtle =
+          (DispatchTriggerLogicalExpression) dtc ;
+
+      // dispatch trigger logical expression.
+      // Resolves ambiguity between a single dispatch trigger and subprogram 
+      // access.
+      if(dtle.getDispatchConjunctions().size() == 1)
+      {
+        DispatchConjunction dc = dtle.getDispatchConjunctions().get(0) ;
+        
+        List<DispatchTrigger> dispatchTriggers = dc.getDispatchTriggers() ;
+        
+        if(dispatchTriggers.size() == 1)
+        {
+          Reference ref = (Reference) dispatchTriggers.get(0) ;
+          
+          ElementHolder el = dispatchTriggerResolver(ref,
+                                     TypeCheckRule.DISPATCH_TRIGGER_CONDITION) ;
+          if(el != null)
           {
-             if(tmp != ivArray[i])
-             {
-            	 ivArray[i] = tmp ;
-             }
+            if(el instanceof DispatchTrigger)
+            {
+              dispatchTriggers.set(0, (DispatchTrigger) el) ;
+              return dtc ;
+            }
+            else // Subprogram access case.
+            {
+              return (DispatchTriggerCondition) el ;
+            }
           }
           else
           {
-             ivResolved = false ;
+            return null ;
           }
+        }
+        else
+        {
+          return dispatchTriggerLogicalExpressionCheck(dtle) ? dtc : null ;
+        }
       }
-
-      // Checks the identifier according to the given rule.
-      Identifier id = n.getIdentifierOwned() ;
-      result = typeCheck(id, id.getId(), rule) ;
-
-      return (ivResolved) ? result : null ;
-   }
-
-   private boolean dataComponentReferenceCheck(DataComponentReference dcr,
-		                                       TypeCheckRule drcFirstNameRule)
-   {
-      boolean result, tmp = true ;
-      Name n ;
-
-      Name firstName = dcr.getNames().get(0) ;
-      result = nameResolver(firstName, drcFirstNameRule) != null ;
-      
-      if(result)
+      else
       {
-    	  for(int i = 1 ; i < dcr.getNames().size() ; i++)
+        return dispatchTriggerLogicalExpressionCheck(dtle) ? dtc : null ;
+      }
+    }
+    else
+    {
+      // CompletionRelativeTimeout case.
+      if(dtc instanceof CompletionRelativeTimeout)
+      {
+        CompletionRelativeTimeout tmp = _fact.createCompletionRelativeTimeout();
+        
+        if(behaviorTimeCheck((DeclarativeTime) dtc, tmp))
+        {
+          return tmp ;
+        }
+        else
+        {
+          return null ;
+        }
+      }
+      else // Cases of DispatchTriggerConditionStop and TimeoutCatch:
+        // There isn't any type to check.
+      {
+        return dtc ;
+      }
+    }
+  }
+  
+  private ElementHolder dispatchTriggerResolver(Reference ref,
+                                                TypeCheckRule rule)
+  {
+    TypeCheckRule stopOnThisRule = rule ;
+    TypeCheckRule checkRules = stopOnThisRule ;
+    List<ElementHolder> resolvedRef = refResolver(ref, null, stopOnThisRule,
+                                                  checkRules) ;
+    if (resolvedRef != null)
+    {
+      return resolvedRef.get(0) ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+  
+  private boolean behaviorTimeCheck(DeclarativeTime dbt,
+                                    BehaviorTime result)
+  {
+    IntegerValue tmp = integerValueCheck(dbt.getIntegerValue());
+
+    // The returned value may be different from the tested value
+    // because of semantic ambiguity resolution in integerValueCheck
+    // method. So replace if needed.
+    if(tmp != null)
+    {
+      result.setIntegerValue(tmp) ;
+      Identifier unitId = dbt.getUnitId();
+      result.setUnit((UnitLiteral) unitId.getOsateRef()) ;
+      result.setLocationReference(dbt.getLocationReference());
+    }
+    
+    return tmp != null ;
+  }
+
+  private boolean dispatchTriggerLogicalExpressionCheck(
+                                          DispatchTriggerLogicalExpression dtle)
+  {
+    boolean result = true ;
+    
+    ElementHolder elHolder = null ;
+
+    for(DispatchConjunction dc : dtle.getDispatchConjunctions())
+    {
+      ListIterator<DispatchTrigger> it = dc.getDispatchTriggers().listIterator();
+      
+      while(it.hasNext())
+      {
+        Reference e  = (Reference) it.next() ;
+        
+        elHolder = dispatchTriggerResolver(e, TypeCheckRule.DISPATCH_TRIGGER) ;
+        
+        if(elHolder != null)
+        {
+          it.set((DispatchTrigger) elHolder) ;
+        }
+        else
+        {
+          result = false ;
+        }
+      }
+    }
+
+    return result ;
+  }
+
+  private boolean executeConditionCheck(ExecuteCondition cond)
+  {
+    if(cond instanceof ValueExpression)
+    {
+      ValueAndTypeHolder holder = valueExpressionCheck((ValueExpression) cond);
+
+      // Execute condition is only defined for logical value expression.
+      return typeCheck(cond, "the execute condition", holder,
+          DataRepresentation.BOOLEAN) ;
+    }
+    else // Timeout catch and Otherwise cases : no type to check.
+    {
+      return true ;
+    }
+  }
+
+  // This method checks the given object and returns a value expression
+  // resolved from semantic ambiguities and its data representation. On error,
+  // reports error and returns null.
+  /** 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.7 Behavior Expression Language
+   * Object : Check legality rules D.7.(L3), partially D.7.(L6)
+   * Keys : operand logical operators boolean
+   */
+  private ValueAndTypeHolder valueExpressionCheck(ValueExpression ve)
+  {
+    EList<Relation> rl = ve.getRelations() ;
+
+    TypeHolder[] typea = new TypeHolder[rl.size()] ;
+    EList<LogicalOperator> opl = ve.getLogicalOperators() ;
+    boolean isTopLevelTypePossible = true ;
+
+    // Checks all relations.
+    for(int i = 0 ; i < rl.size() ; i++)
+    {
+      typea[i] = relationCheck(rl.get(i)) ;
+
+      // Current checking has failed but continues because all relations have
+      // to be checked.
+      if(typea[i] == null)
+      {
+        isTopLevelTypePossible = false ;
+      }
+    }
+
+    // If the relation checking are successful, checks operators definition 
+    // and evaluates top level value variable type representation.
+    if(isTopLevelTypePossible)
+    {
+      if(rl.size() > 1)
+      {
+        for(int i = 1 ; i < rl.size() ; i++)
+        {
+          typea[i] = _dataChecker.checkDefinition(ve, opl.get(i-1), typea[i-1],
+              typea[i]) ;
+          // Error case : the current operator is not defined.  
+          if (typea[i] == null)
           {
-             n = dcr.getNames().get(i) ;
-             
-             Enum<?> type = nameResolver(n,
-                     TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES) ;
-             
-             // Checks Data subcomponentNess for the structure or union members.
-             if(type == FeatureType.CLASSIFIER_VALUE)
-             {
-            	 ClassifierValue cv = (ClassifierValue) n.getAadlRef() ;
-            	 
-            	 FeatureType typeFound = AadlBaUtils.getFeatureType(
-            			                                   cv.getClassifier()) ;
-            	 FeatureType expectedType = FeatureType.DATA_CLASSIFIER ;
-            	 
-            	 tmp &= expectedType == typeFound ;
-            	 
-            	 if (! tmp)
-            	 {
-            		 reportTypeError(n, n.getIdentifierOwned().getId(),
-            				         expectedType.toString(),
-            				         typeFound.toString()) ;
-            	 }
-            	 
-            	 result &= tmp ;
-            	 
-            	 tmp = true ;
-             }
-             else
-             {
-            	 result &= type != null ;
-             }
+            return null ;
           }
+        }
+
+        return new ValueAndTypeHolder (ve, typea[typea.length - 1]) ;
+      }
+      else // As there isn't any operator set, top level type is the unique
+        // relation's one.
+      {
+        return new ValueAndTypeHolder (ve, typea[0]) ;
+      }
+    }
+    else // Relation checking have failed.
+    {
+      return null ;
+    }
+  }
+
+  // Returns the top-level relation data representation or null on error.
+  // Reports any error.
+  /** 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.7 Behavior Expression Language
+   * Object : Check legality rule D.7.(L4) 
+   * Keys : operand relational operators supports comparison
+   */
+  private TypeHolder relationCheck(Relation r)
+  {
+    TypeHolder th1 = simpleExpressionCheck(r.getFirstExpression()) ;
+    TypeHolder th2 = null ;
+
+    if(r.isSetRelationalOperator())
+    {
+      th2 = simpleExpressionCheck(r.getSecondExpression()) ; 
+    }
+    else
+    {
+      return th1 ;
+    }
+
+    if(th1 != null && th2 != null)
+    {
+      return _dataChecker.checkDefinition(r, r.getRelationalOperator(),
+          th1, th2);
+    }
+    else
+    {
+      return null ;
+    }
+  }
+
+  // Returns the top-level simple expression type representation or null on
+  // error. Reports any error.
+  /** 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.7 Behavior Expression Language
+   * Object : Check legality rule D.7.(L5) 
+   * Keys : adding other numeric operators support numeric operations
+   */
+  private TypeHolder simpleExpressionCheck(SimpleExpression se)
+  {
+    EList<Term> tl = se.getTerms() ;
+    TypeHolder[] typea = new TypeHolder[tl.size()] ;
+    EList<BinaryAddingOperator> opl = se.getBinaryAddingOperators() ;
+    boolean isTopLevelTypePossible = true ;
+
+    // Checks all terms.
+    for(int i = 0 ; i < tl.size() ; i++)
+    {
+      typea[i] = termCheck(tl.get(i)) ;
+
+      // Current checking has failed but continues because all terms have to
+      // be checked.
+      if(typea[i] == null)
+      {
+        isTopLevelTypePossible = false ;
+      }
+    }
+
+    // If the term checking are successful, checks operators definition and
+    // evaluates top level simple expression type representation.
+    if(isTopLevelTypePossible)
+    {
+      if(se.isSetUnaryAddingOperator())
+      {
+        typea[0] = _dataChecker.checkDefinition(se,
+            se.getUnaryAddingOperator(),
+            typea[0]) ;
+        // Error case : the unary adding operator is not defined.  
+        if (typea[0] == null)
+        {
+          return null ;
+        }
       }
 
-      return result;
-   }
-
-   private boolean portDequeueValueCheck(PortDequeueValue v)
-   {
-      return nameResolver(v, TypeCheckRule.PORT_DEQUEUE_VALUE) != null ;
-   }
-
-   private boolean portCountOrFreshValueCheck(Name n)
-   {
-      return nameResolver(n, TypeCheckRule.PORT_COUNT_VALUE) != null ;
-   }
-
-   // This method checks the given object and returns a value constant
-   // resolved from semantic ambiguities and its data representation. On error,
-   // reports error and returns null.
-   private ValueAndTypeHolder valueConstantCheck(ValueConstant v)
-   {
-      if(v instanceof BehaviorPropertyConstant)
+      if(tl.size() > 1)
       {
-         // Ambiguity between behavior propertyset constant and 
-         // behavior propertyset value because 
-         // behavior propertyset values are parsed as behavior propertyset
-         // constants.
+        for(int i = 1 ; i < tl.size() ; i++)
+        {
+          typea[i] = _dataChecker.checkDefinition(se,opl.get(i-1), typea[i-1],
+              typea[i]) ;
 
-         BehaviorPropertyConstant pc = (BehaviorPropertyConstant) v ;
-
-         // Namespace doens't need to be checked as namespace has no type.
-         Enum<?> e = typeCheck(pc, pc.getName().getId(),
-                                              TypeCheckRule.PROPERTY) ;
-         if (e != null)
-         {
-            if (e == FeatureType.PROPERTY_VALUE)
-            {
-               // Builds a PropertyValue object and returns it instead of
-               // the property constant which has been parsed.
-
-               BehaviorPropertyValue pv = AadlBaFactory.eINSTANCE.
-                                                  createBehaviorPropertyValue();
-
-               pv.setAadlRef(pc.getAadlRef()) ;
-               pv.setLocationReference(pc.getLocationReference());
-               pv.setNamespace(pc.getNamespace());
-               pv.setNamespaceSeparator(pc.getNamespaceSeparator());
-               pv.setName(pc.getName());
-               pv.setQualifiedName(pc.getQualifiedName());
-               v = pv ;
-            }
-         }
-         else // Checking has failed.
-         {
+          // Error case : the current operator is not defined.  
+          if (typea[i] == null)
+          {
             return null ;
-         }
+          }
+        }
+
+        return typea[typea.length - 1] ;
       }
-      // Literal cases. Nothing to do.
-      
-      return new ValueAndTypeHolder(v, AadlBaUtils.getTypeHolder(v)) ;
-   }
-
-   private boolean behaviorActionBlockCheck(BehaviorActionBlock bab)
-   {
-      boolean result = false ;
-
-      if(bab.getBehaviorTimeOwned() != null)
+      else // As there isn't any operator set, top level type is the unique 
+        // term's one.
       {
-         result = behaviorTimeCheck(bab.getBehaviorTimeOwned()) ;
+        return typea[0] ;
       }
+    }
+    else // Term checking have failed.
+    {
+      return null ;
+    }
+  }
 
-      result &= behaviorActionsCheck(bab.getBehaviorActionsOwned()) ;
+  // Returns the top-level term type representation or null on error.
+  // Reports any error.
+  /** 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.7 Behavior Expression Language
+   * Object : Check legality rule D.7.(L5) 
+   * Keys : multiplying other numeric operators support numeric operations
+   */
+  private TypeHolder termCheck(Term t)
+  {
+    EList<Factor> fl = t.getFactors() ;
+    TypeHolder[] typea = new TypeHolder[fl.size()] ;
+    EList<MultiplyingOperator> opl = t.getMultiplyingOperators() ;
+    boolean isTopLevelTypePossible = true ;
 
-      return result ;
-   }
+    // Checks all the factors.
+    for(int i = 0 ; i < fl.size() ; i++)
+    {
+      typea[i] = factorCheck(fl.get(i)) ;
 
-   private boolean behaviorActionsCheck(BehaviorActions bActs)
-   {
-      if(bActs instanceof BehaviorAction)
+      // Current checking has failed but continues because all factors have to
+      // be checked.
+      if(typea[i] == null)
       {
-         return behaviorActionCheck((BehaviorAction) bActs);
+        isTopLevelTypePossible = false ;
       }
-      else
-      {
-         boolean result = true ;
+    }
 
-         for(BehaviorAction bAct : ((BehaviorActionCollection)bActs).
-                                                           getBehaviorActions())
-         {
-            result &= behaviorActionCheck(bAct) ;
-         }
-
-         return result ;
-      }
-   }
-
-   private boolean behaviorActionCheck(BehaviorAction bAct)
-   {
-      if(bAct instanceof BehaviorActionBlock)
+    // If the factor checking are successful, checks operators definition
+    // and evaluates top level term type representation.
+    if(isTopLevelTypePossible)
+    {
+      if (fl.size() > 1)
       {
-         return behaviorActionBlockCheck((BehaviorActionBlock) bAct) ;
-      }
-      else
-      {
-         if(bAct instanceof BasicAction)
-         {
-            return basicActionCheck((BasicAction) bAct) ;
-         }
-         else // Conditional statements cases.
-         {
-            return condStatementCheck((CondStatement) bAct) ;
-         }
-      }
-   }
+        for (int i = 1 ; i < fl.size() ; i++)
+        {
+          typea[i] = _dataChecker.checkDefinition(t, opl.get(i-1), typea[i-1],
+              typea[i]) ;
+          // Error case : the current operator is not defined.  
+          if (typea[i] == null)
+          {
+            return null ;
+          }
+        }
 
-   private boolean condStatementCheck(CondStatement stat)
-   {
-      if(stat instanceof IfStatement)
-      {
-         return ifStatementCheck((IfStatement) stat) ;
+        return typea[typea.length - 1] ;
       }
-      else
+      else // As there isn't any operator set, top level type is the unique 
+        // factor's one.
       {
-         if(stat instanceof ForOrForAllStatement)
-         {
-            return forOrForAllStatementCheck((ForOrForAllStatement) stat) ;
-         }
-         else // While or do until statement cases.
-         {
-            return whileOrDoUntilStatementCheck((WhileOrDoUntilStatement) stat);
-         }
+        return typea[0] ;
       }
-   }
+    }
+    else
+    {
+      return null ;
+    }
+  }
 
-   private boolean whileOrDoUntilStatementCheck(WhileOrDoUntilStatement stat)
-   {
-      boolean result = behaviorActionsCheck(stat.getBehaviorActionsOwned()) ;
-      
-      ValueExpression ve = stat.getLogicalValueExpression() ;
-      
-      ValueAndTypeHolder holder = valueExpressionCheck(ve) ;
-      
-      result &= typeCheck(ve, null, holder, DataRepresentation.BOOLEAN);
-      
-      return result ;
-   }
+  // Returns the top-level factor type representation or null on error.
+  // Reports any error.
+  /** 
+   * Document: AADL Behavior Annex draft
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.7 Behavior Expression Language 
+   * Object : Check legality rule D.7.(L5) 
+   * Keys : other numeric operators support numeric operations
+   */
+  private TypeHolder factorCheck(Factor f)
+  {
+    Value fValue = f.getFirstValue() ;
+    Value sdValue = f.getSecondValue() ;
+    ValueAndTypeHolder vth1 = valueCheck(fValue) ;
+    ValueAndTypeHolder vth2 = null ;
 
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.6 Behavior Action Language
-    * Object : Check legality rule D.6.(L2) 
-    * Keys : for forall iterative variable not valid assignment target
-    */
-   private boolean forOrForAllStatementCheck(ForOrForAllStatement stat)
-   {
-      boolean result = behaviorActionsCheck(stat.getBehaviorActionsOwned()) ;
-      
-      UniqueComponentClassifierReference uccr = 
-                             stat.getDataUniqueComponentClassifierReference() ;
-      
-      // The statement's unique component reference reference has to be   
-      // data classifier.
-      if(typeCheck(uccr, uccr.getQualifiedName().getId(),
-            TypeCheckRule.DATA_UCCR) == null)
-      {
-         uccr = null ;
-         result = false ; 
-      }
-                         
-      ElementValues tmp = elementValuesCheck(stat.getElementValuesOwned());
-      result &= tmp != null ;
-      
-      // The returned element values may be different from the tested one
-      // because of semantic ambiguity resolution in elementValuesCheck
+    if(sdValue != null)
+    {
+      // Checks second value even if the first value checking has failed. 
+      vth2 = valueCheck(sdValue) ;
+    }
+
+    if(vth1 != null) // Don't check operator definition on value checking error.
+    {
+      // The returned value may be different from the tested value
+      // because of semantic ambiguity resolution in valueCheck
       // method. So replace if needed.
-      if(tmp != stat.getElementValuesOwned() && tmp != null)
-      {
-         stat.setElementValuesOwned(tmp) ;
-      }
-      
-      // Matches the element values data type and the uccr's one.
-      if(result)
-      {
-         TypeHolder eleType ;
-         TypeHolder uccrType ;
-         
-         if(tmp instanceof IntegerRange)
-         {
-            IntegerRange ir = (IntegerRange) tmp ;
-            TypeHolder t1, t2 ;
-            t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue()) ;
-            t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue()) ;
-            
-            eleType = _dataChecker.getTopLevelType(t1, t2) ; 
-         }
-         else // Name or DataComponentReference cases.
-         {
-            eleType = AadlBaUtils.getTypeHolder((Value) tmp) ;
-         }
-         
-         uccrType = AadlBaUtils.getTypeHolder(uccr) ;
-         
-         if(! _dataChecker.conformsTo(eleType, uccrType))
-         {
-            result = false ;
-            reportTypeError(uccr, "iterative variable", eleType.toString(),
-                                                           uccrType.toString());
-         }
-      }
-      
-      return result ;
-   }
+      f.setFirstValue(vth1.value) ;
+      fValue = vth1.value ;
 
-   // This method checks the given object and returns a element values
-   // resolved from semantic ambiguities. On error, reports error and returns
-   // null.
-   private ElementValues elementValuesCheck(ElementValues ev)
-   {
-      if(ev instanceof IntegerRange)
+      // Checks Unary operators.
+      if(f.isSetUnaryNumericOperator() ||
+          f.isSetUnaryBooleanOperator())
       {
-         if(integerRangeCheck((IntegerRange) ev))
-         {
-            return ev ;
-         }
-         else // Integer range error case.
-         {
+        Enumerator op ;
+
+        op =  (
+                (f.isSetUnaryBooleanOperator()) ? 
+                  f.getUnaryBooleanOperator() : 
+                  f.getUnaryNumericOperator()) ;
+
+        return _dataChecker.checkDefinition(f, op, vth1.typeHolder) ;
+      }
+      else 
+      {
+        if(f.isSetBinaryNumericOperator())
+        {
+          if(vth2 != null)
+          {
+            // The returned value may be different from the tested value
+            // because of semantic ambiguity resolution in valueCheck
+            // method. So replace if needed.
+            f.setSecondValue(vth2.value) ;
+            sdValue = vth2.value ;
+
+            return _dataChecker.checkDefinition(f,
+                f.getBinaryNumericOperator(),vth1.typeHolder,
+                vth2.typeHolder);
+          }
+          else // Second value error case.
+          {
             return null ;
-         }
+          }
+        }
+        else // As there isn's any operator, the top level type is the unique
+          // value' one.
+        {
+          return vth1.typeHolder ;
+        }
+      }
+    }
+    else // First value error case.
+    {
+      return null ;
+    }
+  }
+
+  // This method checks the given object and returns a value
+  // resolved from semantic ambiguities and its data representation. On error,
+  // reports error and returns null.
+  private ValueAndTypeHolder valueCheck(Value v)
+  {
+    // Ambiguity between property constant and name without array index
+    // has already been resolved in the name resolution phase.
+    if(v instanceof ValueConstant)
+    {
+      return valueConstantCheck((ValueConstant) v) ;
+    }
+    else
+    {
+      if (v instanceof ValueVariable)
+      {
+        return valueVariableCheck((ValueVariable) v) ;
+      }
+      else // Value expression case.
+      {
+        return valueExpressionCheck((ValueExpression) v) ;
+      }
+    }
+  }
+  
+  // This method checks the given object and returns a value variable
+  // resolved from semantic ambiguities and its data representation. On error,
+  // reports error and returns null.
+  private ValueAndTypeHolder valueVariableCheck(ValueVariable v)
+  {
+    List<ElementHolder> ehl = null ;
+    ValueVariable tmpResult = null ;
+    ActualPortHolder port ;
+    TypeCheckRule stopRule ;
+    TypeCheckRule[] checkRules ;
+    
+    if(v instanceof Reference)
+    {
+      port = null ;
+      stopRule = TypeCheckRule.VV_STOP_RULE ;
+      
+      checkRules = new TypeCheckRule[]
+                   {
+                     TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME,
+                     TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES
+                   } ;
+    }
+    else // NamedValue case.
+    {
+      NamedValue nv = (NamedValue) v ;
+      v = nv.getReference() ;
+              
+      if(nv.isCount())
+      {
+        port = _fact.createPortCountValue() ;
+        stopRule = TypeCheckRule.PORT_COUNT_VALUE ;
+      }
+      else if (nv.isDequeue())
+      {
+        port = _fact.createPortDequeueValue() ;
+        stopRule = TypeCheckRule.PORT_DEQUEUE_VALUE ;
       }
       else
       {
-         ElementValues result = null ;
-         ForOrForAllStatement parentStat = (ForOrForAllStatement) ev.eContainer() ;
-         
-         if(ev instanceof Name)
-         {
-            ValueVariable vv = nameCheckAndResolveAmbiguity((Name) ev, 
-                                          TypeCheckRule.ELEMENT_VALUES) ;
-            if (vv != null) 
-            {
-               result = (ElementValues) vv ;
-            }
-            else // Name or unqualified data component reference error cases.
-            {
-               result = null ;
-            }
-         }
-         else // Data component reference case.
-         {
-            DataComponentReference dcr = (DataComponentReference) ev ;
-            if(dataComponentReferenceCheck(dcr,
-            		TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME))
-            {
-               result = ev ;
-            }
-            else // Unqualified data component reference error case.
-            {
-               result = null ;
-            }
-         }
-         
-         // Checks data component reference arrayness and reports any error.
-         if(result instanceof DataComponentReference)
-         {
-            if (! dataComponentReferenceArraynessCheck((DataComponentReference)
-                                                                        result))
-            {
-               // Reverts E attributes to before semantic ambiguity resolution. 
-               parentStat.setElementValuesOwned(ev) ;
-               String message = "\'" + unparseNameElement(ev) + 
-                                                          "\' is not an array" ;
-               reportError(ev, message) ;
-               result = null ;
-            }
-         }
-         
-         return result ;
+        port = _fact.createPortFreshValue() ;
+        stopRule = TypeCheckRule.PORT_FRESH_VALUE ;
       }
-   }
-   
-   // Checks the arrayness of the given data component reference.
-   // Returns true if the dcr is an array, false otherwise.
-   // Can't report error because dcr's binded object may not have been
-   // initialized.
-   private boolean dataComponentReferenceArraynessCheck(
-                                                     DataComponentReference dcr)
-   {
-      boolean result = false ;
       
-      Element el = AadlBaUtils.getBindedElement(dcr) ;
+      port.setLocationReference(v.getLocationReference()) ;
+      checkRules = new TypeCheckRule[] {stopRule} ;
+    }
+    
+    ehl = refResolver((Reference) v, port, stopRule, checkRules) ;
+    if(ehl != null)
+    {
+      tmpResult = referenceToValueVariable(ehl) ;
       
-      if(el instanceof ArrayableElement)
+      if(tmpResult instanceof PortFreshValue)
       {
-         ArrayableElement ae = (ArrayableElement) el ;
-         
-         result = ae.getArraySpecification() != null ;
+        PortFreshValue pfv = (PortFreshValue) tmpResult ;
+        AadlBaVisitors.putFreshPort(_ba, pfv.getPort()) ;
+      }
+      
+      return this.getValueAndTypeHolder(tmpResult, v) ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+  
+  // Null proof.
+  @SuppressWarnings("all")
+  private ValueVariable referenceToValueVariable(List<ElementHolder> resolvedRef)
+  {
+    ValueVariable result = null ;
+    
+    if(resolvedRef != null)
+    {
+      if(resolvedRef.size() > 1)
+      {
+        DataComponentReference dcr = _fact.createDataComponentReference() ;
+        dcr.setLocationReference(resolvedRef.get(0).getLocationReference()) ;
+        dcr.getData().addAll((Collection<? extends DataHolder>) resolvedRef);
+        result = dcr ;
       }
       else
       {
-    	  DataRepresentation dr = AadlBaUtils.getDataRepresentation(dcr) ;
-    	  
-    	  result = DataRepresentation.ARRAY == dr ;
+        result = (ValueVariable) resolvedRef.get(0) ;
       }
-
-      return result ;
-   }
-
-   // Checks the given integer range and checks the consistency between 
-   // the integer values.
-   private boolean integerRangeCheck(IntegerRange ir)
-   {
-      boolean result = false ;
+    }
+    
+    return result ;
+  }
+  
+  private ValueAndTypeHolder getValueAndTypeHolder(Value v, Element errorRef)
+  {
+    try
+    {
+      return new ValueAndTypeHolder(v, AadlBaUtils.getTypeHolder(v));
+    }
+    catch(DimensionException e)
+    {
+      e._element = errorRef ;
+      reportDimensionException(e) ;
+      return null ;
+    }
+  }
+  
+  // Checks group rules by default.
+  // Special attention is provided for Value or Target that are not
+  // data component references (ex: PortHolder): if stopOnThisRule is found
+  // and extra information exists (ex: port.port which syntactically correct but
+  // semantically wrong), it will report extraneous information error.
+  // If given port is not null, elementHolderResolver will try to set it 
+  // (optimize reinstanciation when using design pattern decoration, for 
+  // PortActions and PortValues.
+  // Also, IterativeVariable and BehaviorVariable instances can't have any
+  // group information. It will report extraneous information error if
+  // they have groups.
+  // This method can't detect if there is not enought information (currently 
+  // just for required_data_access_name.provided_subprogram_access_name case).
+  private List<ElementHolder> refResolver(Reference ref, ActualPortHolder port,
+                                          TypeCheckRule stopOnThisRule,
+                                          TypeCheckRule... checkRules)
+  {
+    List<ElementHolder> result = new ArrayList<ElementHolder>(ref.getIds().
+                                                                       size()) ;
+    Enum<?> currentResult = null ;
+//    IndexableElement currentIndexableElement = null ;
+    ElementHolder currentElementholder = null ;
+    int currentIndexRule = 0 ;
+    TypeCheckRule currentRule = checkRules[currentIndexRule] ;
+    TypeCheckRule lastRule = checkRules[checkRules.length -1] ;
+    boolean hasToContinue = true ;
+    
+    ArrayList<GroupHolder> grpl = new ArrayList<GroupHolder>
+                                                         (ref.getIds().size()) ;
+    
+    ListIterator<ArrayableIdentifier> it = ref.getIds().listIterator() ;
+    
+    while(it.hasNext())
+    {
+      ArrayableIdentifier id = it.next() ;
       
-      IntegerValue original = ir.getLowerIntegerValue() ;
-      IntegerValue tmp = integerValueCheck(original);
+      currentResult = typeCheck(id, id.getId(), TypeCheckRule.GROUPS, false) ;
       
-      result = tmp != null ;
-      
-      if(result && tmp != original)
+      // The current id represents a group, so store it in the groups stack.
+      if(currentResult != null)
       {
-         ir.setLowerIntegerValue(tmp) ;
+        currentElementholder = elementHolderResolver(id, currentResult, port) ;
+        grpl.add((GroupHolder) currentElementholder) ;
       }
-      
-      original = ir.getUpperIntegerValue() ;
-      tmp = integerValueCheck(original);
-      result &= tmp != null ;
-      
-      if(tmp != null && tmp != original)
+      else // Checks given rules: if ref.getIds().size > rules.length then
+           // use the last given rule for the extra ids.
       {
-         ir.setUpperIntegerValue(tmp) ;
-      }
-            
-      // Matches the two integer value data types.
-      if(result)
-      {
-         TypeHolder t1, t2 ;
-         t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue()) ;
-         t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue()) ;
-         
-         if(! _dataChecker.conformsTo(t1, t2))
-         {
-            result = false ;
-            reportError(ir, "\'integer range\' error type : its integer values"+
-            		" are not consistent") ;
-         }
-      }
-      
-      return result ;
-   }
-
-   private boolean ifStatementCheck(IfStatement stat)
-   {
-      boolean result = true ;
-      ValueAndTypeHolder holder = null ;
-      
-      for(ValueExpression ve : stat.getLogicalValueExpressions())
-      {
-         holder = valueExpressionCheck(ve) ;
-         result &= typeCheck(ve, null, holder, DataRepresentation.BOOLEAN) ; 
-      }
-
-      for(BehaviorActions bActs : stat.getBehaviorActionsOwned())
-      {
-         result &= behaviorActionsCheck(bActs) ;
-      }
-
-      return result ;
-   }
-
-   private boolean basicActionCheck(BasicAction ba)
-   {
-      if(ba instanceof AssignmentAction)
-      {
-         return assignmentActionCheck((AssignmentAction) ba) ;
-      }
-      else
-      {
-         if (ba instanceof CommunicationAction)
-         {
-            CommunicationAction resolvedCommAct =
-                           communicationActionCheck((CommunicationAction) ba) ;
-            boolean result = resolvedCommAct != null ;
-            
-            // The returned communication action may be different from the
-            // tested one because of semantic ambiguity resolution in
-            // communicationActionCheck method. So replace if needed.
-            if(resolvedCommAct != ba && result)
+        currentResult = typeCheck(id, id.getId(), currentRule, true) ;
+        
+        if(currentResult != null)
+        {
+          currentElementholder = elementHolderResolver(id, currentResult, port);
+          result.add(currentElementholder) ;
+//          currentIndexableElement = currentElementholder ;
+          
+          if(currentElementholder instanceof GroupableElement)
+          {
+            if(false == grpl.isEmpty())
             {
-               // [DEBUG]
-               boolean hasBeenReplaced = false ;
-               EObject el = ba.eContainer() ;
-
-               if(el instanceof BehaviorActionBlock)
-               {
-                  ((BehaviorActionBlock) el).setBehaviorActionsOwned
-                                                             (resolvedCommAct) ;
-                  hasBeenReplaced = true ;
-               }
-               else if(el instanceof BehaviorActionCollection)
-               {
-                  BehaviorActionCollection coll = (BehaviorActionCollection) el;
-                  
-                  ListIterator<BehaviorAction> lit = coll.getBehaviorActions().
-                                                                 listIterator();
-                  while(lit.hasNext())
-                  {
-                     if(lit.next() == ba)
-                     {
-                        lit.set(resolvedCommAct) ;
-                        hasBeenReplaced = true ;
-                     }
-                  }
-               }
-               else if (el instanceof IfStatement)
-               {
-                  IfStatement stat = (IfStatement) el ;
-                  
-                  ListIterator<BehaviorActions> lit = stat.
-                                      getBehaviorActionsOwned().listIterator() ;
-                  
-                  while (lit.hasNext())
-                  {
-                     BehaviorActions beActions = lit.next() ;
-                     if(beActions instanceof BehaviorAction)
-                     {
-                        BehaviorAction beAct = (BehaviorAction) beActions ;
-                        
-                        if(beAct == ba)
-                        {
-                           lit.set(resolvedCommAct) ;
-                           hasBeenReplaced = true ;
-                        }
-                     }
-                  }
-               }
-               else // LoopStatement cases.
-               {
-                  LoopStatement stat = (LoopStatement) el ;
-                  BehaviorActions beActions = stat.getBehaviorActionsOwned() ;
-                  
-                  if(beActions instanceof BehaviorAction)
-                  {
-                     stat.setBehaviorActionsOwned(resolvedCommAct) ;
-                     hasBeenReplaced = true ;
-                  }
-               }
-               
-               if (! hasBeenReplaced)
-               {
-                  System.err.println("The resolved communication action : " +  
-                        unparseNameElement(resolvedCommAct) + 
-                           " hasn't been set") ;
-               }
+              GroupableElement ge = (GroupableElement) currentElementholder ;
+              
+              // Flush GroupHolder List.
+              if(false == grpl.isEmpty())
+              {
+                ge.getGroupHolders().addAll(grpl) ;
+                grpl.clear() ;
+              }
             }
-
-            return  result;
-         }
-         else // Timed action case.
-         {
-            return timedActionCheck((TimedAction) ba) ;
-         }
-      }
-   }
-
-   private boolean timedActionCheck(TimedAction ta)
-   {
-      boolean result = behaviorTimeCheck(ta.getLowerBehaviorTime());
-
-      if (ta.getUpperBehaviorTime() != null)
-      {
-         result &= behaviorTimeCheck(ta.getUpperBehaviorTime()) ;
-      }
-
-      return result ;
-   }
-
-   // This method checks the given object and returns a communication action
-   // resolved from semantic ambiguities. On error, reports error and returns
-   // null.
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.6 Behavior Action Language
-    * Object : Check legality rule D.6.(L6) 
-    * Keys : dequeue value port target
-    */
-   private CommunicationAction communicationActionCheck(CommunicationAction ca)
-   {
-      if(ca instanceof SubprogramCallAction)
-      {
-         return subprogramCallAndPortSendActionChecker((SubprogramCallAction) ca) ;
-      }
-      else
-      {
-         if(ca instanceof PortDequeueAction)
-         {
-            PortDequeueAction pda = (PortDequeueAction) ca ; 
-            Target tar = pda.getTargetOwned() ;
-            Name portName = pda.getPortName() ;
+          }
+          else if(false == grpl.isEmpty())
+          {
+            // Reports error of a not GroupableHolder that have group information.
+            String msg = id.getId() + " can't have group information." ; 
+            reportError(id, msg) ;
+            return null ;
+          }
+          
+          // Tests if a type that stop the checking is found.
+          hasToContinue = stopOnThisRule.testTypeCheckRule(currentResult) 
+                                                                       == null ; 
+          if(it.hasNext())
+          {
+            currentIndexRule++ ;
             
-            Enum<?> e =  nameResolver(portName,
-                                      TypeCheckRule.PORT_DEQUEUE_ACTION);
-            if(tar != null)
+            // Extra information which exists (it pass the name resolved),
+            // has been given whereas the stop type is reached.
+            // So report error.
+            if(hasToContinue == false)
             {
-               Target tmp  = targetCheck(tar) ;
-               
-               if(tmp != null)
-               {
-                  // The returned target may be different from the tested one
-                  // because of semantic ambiguity resolution in targetCheck
-                  // method. So replace if needed.
-                  if(tmp != tar)
-                  {
-                     pda.setTargetOwned(tmp) ;
-                     tar = tmp ;
-                  }
-                  
-                  // Matches the target's data type with the input port's one 
-                  // when port dequeue action.
-                  if(e != null)
-                  {
-                     TypeHolder tarType = AadlBaUtils.getTypeHolder(tmp) ;
-                     TypeHolder portType = AadlBaUtils.getTypeHolder((Value)
-                                                                     portName) ;
-                     if (! _dataChecker.conformsTo(portType, tarType))
-                     {
-                        reportTypeError(ca, "port dequeue action",
-                                            portType.toString(),
-                                            tarType.toString()) ;
-                        return null ;
-                     }
-                  }
-               }
-               else
-               {
-                  return null ;
-               }
+              // To much information.
+              String msg = id.getId() + " can't have any more tokens." ;
+              reportError(id, msg) ;
+              return null ;
             }
-            
-            return (e != null) ? pda : null ;
-         }
-         else
-         {
-            if(ca instanceof PortFreezeAction)
+            else // Stop type is not reached or is null that means there is 
+                 // not id number limit.
             {
-               PortFreezeAction pfa = (PortFreezeAction) ca ;
-               
-               Enum<?> e = nameResolver(pfa,
-                                      TypeCheckRule.PORT_FREEZE_ACTION) ;
-               return (e != null) ? pfa : null ;
+              // If the number of ids is greater than the number of given
+              // rules: use the last rule for the extra ids. Only for data
+              // component reference.
+              currentRule = (currentIndexRule < checkRules.length) ? 
+                                                checkRules[currentIndexRule] :
+                                                lastRule ;
             }
-            else // Shared data action cases.
-            {
-               SharedDataAction sd = (SharedDataAction) ca ;
-               
-               if(sd.getDataAccessName() != null)
-               {
-                  Enum<?> e =  nameResolver(sd.getDataAccessName(),
-                                       TypeCheckRule.SHARED_DATA_ACTION);
-                  return (e != null) ? sd : null ;
-               }
-               else
-               {
-                  return sd ;
-               }
-            }
-         }
+          }
+        }
+        else
+        {
+          // Error reporting has already been done.
+          return null ;
+        }
       }
-   }
-   
-   // This method checks the given object and returns a communication action
-   // resolved from semantic ambiguities (subprogram call and port send action).
-   // On error, reports error and returns null.
-   private CommunicationAction subprogramCallAndPortSendActionChecker
-                                                       (SubprogramCallAction sc)
-   {
-      CommunicationAction result = sc ;
-      UniqueComponentClassifierReference uccr = sc.getSubprogramReference() ;
-      EList<Name> nl = sc.getSubprogramNames() ;
-      EList<ParameterLabel> spl = null ;
       
-      if(uccr ==null)
+      // Checks array indexes.
+      if(id.isSetArrayIndexes())
       {
-         Name firstName = nl.get(0) ;
-         
-         // Resolves ambiguities between a subprogram call with one name and 
-         // a subprogram call with an unqualified uccr and port send action.
-         if(nl.size() == 1)
-         {
-            Enum<?> e = nameResolver(firstName,
-                                TypeCheckRule.SUBPROGRAM_CALL_ACTION_ONE_NAME) ;
-            
-            // Ambiguity resolutions.
-            if (e != null)
+        if(currentElementholder instanceof IndexableElement)
+        {
+          IndexableElement currentIndexableElement = (IndexableElement) 
+                                                          currentElementholder ;
+          
+          boolean isConsistent = true ;
+          
+          List<IntegerValue> resolvedValues = new ArrayList<IntegerValue>
+                                                    (id.getArrayIndexes().size());
+          
+          for(IntegerValue iv : id.getArrayIndexes())
+          {
+            // Reports any error.
+            IntegerValue resolvedValue = integerValueCheck(iv) ;
+            if(resolvedValue != null)
             {
-               // Unqualified uccr case.
-               // This case may be unnecessary as AadlBaNameResolver performs a
-               // ambiguity resolution. But this case is left until more 
-               // feedbacks.  
-               if (e == FeatureType.SUBPROGRAM_CLASSIFIER) 
-               {
-                  if(! firstName.isSetArrayIndexes())
-                  {
-                     // Rebuild a proper uccr and set it in the given 
-                     // subprogram call action.
-                     UniqueComponentClassifierReference tmp = 
-                        AadlBaFactory.eINSTANCE
-                                   .createUniqueComponentClassifierReference() ;
-                     
-                     tmp.setAadlRef(firstName.getAadlRef()) ;
-                     tmp.setName(firstName.getIdentifierOwned()) ;
-                     tmp.setQualifiedName(tmp.getName()) ;
-                     tmp.setLocationReference(firstName.getLocationReference());
-                     
-                     sc.setSubprogramReference(tmp) ;
-                     sc.unsetSubprogramNames();
-                  }
-                  else // Error case : the subprogram classifier can't be an
-                      // array.
-                  {
-                     String msg = "a subprogram classifier can't be an array" ;
-                     reportError(sc, msg) ;
-                     return null ;
-                  }
-               }
-               else
-               {
-                  // Port send action case.
-                  if (e == TypeCheckRule.OUT_PORT)
-                  {
-                     PortSendAction psa = AadlBaFactory.eINSTANCE.
-                                                        createPortSendAction() ;
-
-                     if(sc.isSetParameterLabels())
-                     {
-                        spl = sc.getParameterLabels() ;
-                        if(spl.size() == 1)
-                        {
-                           ValueExpression ve = (ValueExpression) spl.get(0) ;
-
-                           ValueAndTypeHolder tmp = valueExpressionCheck(ve) ;
-
-                           if(tmp != null)
-                           {
-                              // Matches the value expression top level data type 
-                              // with the port data type.
-                              TypeHolder portType = AadlBaUtils.getTypeHolder(
-                                                            (Value) firstName) ;
-                              if(! _dataChecker.conformsTo(portType,
-                                                                tmp.typeHolder))
-                              {
-                                 reportTypeError(sc, "port send action",
-                                                     portType.toString(),
-                                                     tmp.typeHolder.toString());
-                                 return null ;
-                              }
-                              else
-                              {
-                                 ValueExpression veTmp = (ValueExpression) 
-                                                                     tmp.value ;
-                                 psa.setValueExpressionOwned(veTmp);
-                              }
-                           }
-                           else // Value expression checking has failed.
-                           {
-                              return null ;
-                           }
-                        }
-                        else // Error case : Port send action has only one 
-                           // value expression.
-                        {
-                           String msg = "a port send action can't have more than"
-                                 + " one value expression" ;
-                           reportError(sc, msg) ;
-                           return null ;
-                        }
-                     }
-                     
-                     psa.setLocationReference(firstName.getLocationReference());
-                     psa.setPortName(firstName);
-                     
-                     return psa ;
-                  } // End of port send action case.
-               }
-            }
-            else // Checking has failed.
-            {
-               return null ;
-            }
-         } // End of second if.
-         else // Checks a subprogram call with two names.
-              // The ambiguity between a subprogram call with two names
-              // and a subprogram call with a implementation provided uccr
-              // has already been resolved in the name resolver (see
-              // NameResolver::comunicationActionResolver().
-         {
-            Enum<?> e = nameResolver(firstName,
-                               TypeCheckRule.SUBPROGRAM_CALL_ACTION_FIRST_NAME);
-            
-            if(e != null)
-            {
-               Name sdName = nl.get(1);
-               
-               e = nameResolver(sdName,
-                                 TypeCheckRule.SUBPROGRAM_CALL_ACTION_SD_NAME) ;
-               if(e == null)
-               {
-                  return null ;
-               }
+              resolvedValues.add(resolvedValue) ;
             }
             else
             {
-               return null ;
+              isConsistent = false ;
             }
-         }
-      } // End of first if.
-      else // Checks uccr and reports any error.
+          }
+          
+          // Avoid collection concurrency modification between id's integer values
+          // and currentIndexableElement's one.
+          if(isConsistent)
+          {
+            currentIndexableElement.getArrayIndexes().addAll(resolvedValues) ;
+          }
+        }
+        else
+        {
+          // Not an arrayable element.
+          String msg = currentElementholder.getElement().getName() +
+                                                    " can't have array index." ;
+          DeclarativeUtils.setEcontainer(_ba, currentElementholder) ;
+          reportError(currentElementholder, msg) ;
+          return null ;
+        }
+      }
+    } // End of for.
+    
+    return result ;
+  }
+  
+  // It doesn't perform any check.
+  // It just builds an element holder according to the given type.
+  // If port is not null, it will set the given port.
+  private ElementHolder elementHolderResolver(ArrayableIdentifier id,
+                                              Enum<?> type,
+                                              ActualPortHolder port)
+  {
+    ElementHolder result = null ;
+    
+    if(type instanceof FeatureType)
+    {
+      FeatureType t = (FeatureType) type ;
+      
+      switch(t)
       {
-         if(typeCheck(uccr, uccr.getQualifiedName().getId(),
-               TypeCheckRule.SUBPROGRAM_UCCR) == null)
-         {
-            return null ;
-         }
+        case IN_DATA_PORT:
+        case OUT_DATA_PORT:
+        case IN_OUT_DATA_PORT:
+        {
+          if(port == null)
+          {
+            DataPortHolder tmp  = _fact.createDataPortHolder() ;
+            tmp.setDataPort((DataPort) id.getOsateRef()) ;
+            result = tmp ;
+          }
+          else
+          {
+            port.setPort((Port)id.getOsateRef()) ;
+            result = port ;
+          }
+          
+          break ;
+        }
+        
+        case IN_EVENT_DATA_PORT:
+        case OUT_EVENT_DATA_PORT:
+        case IN_OUT_EVENT_DATA_PORT:
+        {
+          if(port == null)
+          {
+            EventDataPortHolder tmp = _fact.createEventDataPortHolder() ;
+            tmp.setEventDataPort((EventDataPort) id.getOsateRef()) ;
+            result = tmp ;
+          }
+          else
+          {
+            port.setPort((Port)id.getOsateRef()) ;
+            result = port ;
+          }
+          
+          break ;
+        }
+        
+        case IN_EVENT_PORT:
+        case OUT_EVENT_PORT:
+        case IN_OUT_EVENT_PORT:
+        {
+          if(port == null)
+          {
+            EventPortHolder tmp = _fact.createEventPortHolder() ;
+            tmp.setEventPort((EventPort) id.getOsateRef()) ;
+            result = tmp ;
+          }
+          else
+          {
+            port.setPort((Port)id.getOsateRef()) ;
+            result = port ;
+          }
+          
+          break ;
+        }
+        
+        case REQUIRES_DATA_ACCESS:
+        case PROVIDES_DATA_ACCESS:
+        {
+          DataAccessHolder tmp = _fact.createDataAccessHolder() ;
+          tmp.setDataAccess((DataAccess) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case DATA_SUBCOMPONENT:
+        {
+          DataSubcomponentHolder tmp = _fact.createDataSubcomponentHolder() ;
+          tmp.setDataSubcomponent((DataSubcomponent) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case CLASSIFIER_VALUE:
+        {
+          ClassifierValue cv = (ClassifierValue) id.getOsateRef() ;
+          DataClassifier dc = (DataClassifier) cv.getClassifier() ;
+          
+          
+          StructUnionElement sue = _fact.createStructUnionElement() ;
+          sue.setLocationReference(dc.getLocationReference()) ;
+          sue.setDataClassifier(dc) ;
+          sue.setName(id.getId()) ;
+          
+          StructUnionElementHolder sueHolder = _fact.
+                                              createStructUnionElementHolder() ;
+          sueHolder.setStructUnionElement(sue) ;
+          
+          // Set econtainer as ElementHolder::element is not containment.
+          InternalEObject parent = (InternalEObject) sueHolder ;
+          InternalEObject child = (InternalEObject) sue ;
+          
+          child.eBasicSetContainer(parent,
+                                   AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER,
+                                   null) ;
+          result = sueHolder ;
+          break ;
+        }
+        
+        case IN_PARAMETER:
+        case OUT_PARAMETER:
+        case IN_OUT_PARAMETER:
+        {
+          ParameterHolder tmp = _fact.createParameterHolder() ;
+          tmp.setParameter((Parameter) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case SUBPROGRAM_CLASSIFIER:
+        case SUBPROGRAM_SUBCOMPONENT:
+        {
+          SubprogramHolder tmp = _fact.createSubprogramHolder() ;
+          tmp.setSubprogram((Subprogram) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case REQUIRES_SUBPROGRAM_ACCESS:
+        case PROVIDES_SUBPROGRAM_ACCESS:
+        {
+          SubprogramAccessHolder tmp = _fact.createSubprogramAccessHolder() ;
+          tmp.setSubprogramAccess((SubprogramAccess) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case FEATURE_GROUP:
+        case SUBPROGRAM_GROUP:
+        case THREAD_GROUP:
+        case REQUIRES_SUBPROGRAM_GROUP_ACCESS:
+        case PROVIDES_SUBPROGRAM_GROUP_ACCESS:
+        {
+          GroupHolder tmp = _fact.createGroupHolder() ;
+          tmp.setGroup((NamedElement) id.getOsateRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case SUBPROGRAM_PROTOTYPE:
+        {
+          Element el = id.getOsateRef() ;
+          SubprogramPrototypeHolder tmp = _fact.createSubprogramPrototypeHolder() ;
+          if (el instanceof PrototypeBinding)
+          {
+            PrototypeBinding pb = (PrototypeBinding) el ;
+            tmp.setPrototype(pb.getFormal()) ;
+            tmp.setPrototypeBinding(pb) ;
+          }
+          else
+          {
+            Prototype p = (Prototype) el ;
+            tmp.setPrototype(p) ;
+          }
+          
+          result = tmp ;
+          break ;
+        }
+        
+        case IN_DATA_PORT_PROTOTYPE:
+        case OUT_DATA_PORT_PROTOTYPE:
+        case IN_OUT_DATA_PORT_PROTOTYPE:
+        case IN_EVENT_DATA_PORT_PROTOTYPE:
+        case OUT_EVENT_DATA_PORT_PROTOTYPE:
+        case IN_OUT_EVENT_DATA_PORT_PROTOTYPE:
+        case IN_EVENT_PORT_PROTOTYPE:
+        case OUT_EVENT_PORT_PROTOTYPE:
+        case IN_OUT_EVENT_PORT_PROTOTYPE:
+        {
+          Element el = id.getOsateRef() ;
+          PortPrototypeHolder tmp = _fact.createPortPrototypeHolder() ;
+          if (el instanceof PrototypeBinding)
+          {
+            PrototypeBinding pb = (PrototypeBinding) el ;
+            tmp.setPrototype(pb.getFormal()) ;
+            tmp.setPrototypeBinding(pb) ;
+          }
+          else
+          {
+            Prototype p = (Prototype) el ;
+            tmp.setPrototype(p) ;
+          }
+          
+          result = tmp ;
+          break ;
+        }
+        
+        case REQUIRES_DATA_ACCESS_PROTOTYPE:
+        case PROVIDES_DATA_ACCESS_PROTOTYPE:
+        {
+          Element el = id.getOsateRef() ;
+          DataAccessPrototypeHolder tmp = _fact.createDataAccessPrototypeHolder() ;
+          if (el instanceof PrototypeBinding)
+          {
+            PrototypeBinding pb = (PrototypeBinding) el ;
+            tmp.setPrototype(pb.getFormal()) ;
+            tmp.setPrototypeBinding(pb) ;
+          }
+          else
+          {
+            Prototype p = (Prototype) el ;
+            tmp.setPrototype(p) ;
+          }
+          
+          result = tmp ;
+          break ;
+        }
+        
+        case FEATURE_GROUP_PROTOTYPE:
+        case SUBPROGRAM_GROUP_PROTOTYPE:
+        case THREAD_GROUP_PROTOTYPE:
+        case REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
+        case PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE:
+        {
+          Element el = id.getOsateRef() ;
+          GroupPrototypeHolder tmp = _fact.createGroupPrototypeHolder() ;
+          if (el instanceof PrototypeBinding)
+          {
+            PrototypeBinding pb = (PrototypeBinding) el ;
+            tmp.setPrototype(pb.getFormal()) ;
+            tmp.setPrototypeBinding(pb) ;
+          }
+          else
+          {
+            Prototype p = (Prototype) el ;
+            tmp.setPrototype(p) ;
+          }
+          
+          result = tmp ;
+          break ;
+        }
+        
+        default:
+        {
+          String errorMsg = "type: " + type.toString() + 
+                " is not supported yet." ;
+            System.err.println(errorMsg) ;
+            throw new UnsupportedOperationException(errorMsg) ;
+        }
+      }
+    }
+    else
+    {
+      BehaviorFeatureType t = (BehaviorFeatureType) type ;
+      
+      switch(t)
+      {
+        case BEHAVIOR_VARIABLE:
+        {
+          BehaviorVariableHolder tmp = _fact.createBehaviorVariableHolder() ;
+          tmp.setVariable((BehaviorVariable) id.getBaRef()) ;
+          result = tmp ;
+          break ;
+        }
+        
+        case ITERATIVE_VARIABLE:
+        {
+          IterativeVariableHolder ivh = _fact.createIterativeVariableHolder() ;
+          ivh.setIterativeVariable((IterativeVariable) id.getBaRef()) ;
+          result = ivh ;
+          break ;
+        }
+      
+        default:
+        {
+          String errorMsg = "type: " + type.toString() + 
+                " is not supported yet." ;
+            System.err.println(errorMsg) ;
+            throw new UnsupportedOperationException(errorMsg) ;
+        }
+      }
+    }
+    
+    result.setLocationReference(id.getLocationReference()) ;
+    
+    return result ;
+  }
+
+  private void reportDimensionException(DimensionException de)
+  {
+    _errManager.error(de._element, de.getMessage()) ;
+  }
+
+ private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
+ {
+   // Ambiguity between behavior propertyset constant and 
+   // behavior propertyset value because 
+   // behavior propertyset values are parsed as behavior propertyset
+   // constants.
+   
+   ValueConstant result = null ;
+   
+   // Namespace doesn't need to be checked as namespace has no type.
+   Enum<?> e = typeCheck(qne, qne.getBaName().getId(),TypeCheckRule.PROPERTY,
+                         true);
+   
+   if (e != null)
+   {
+     // BehaviorPropertyValue case.
+     if (e == FeatureType.PROPERTY_VALUE)
+     {
+       // Builds a PropertyValue object and returns it.
+       BehaviorPropertyValue pv = _fact.createBehaviorPropertyValue();
+       
+       pv.setProperty((Property) qne.getOsateRef()) ;
+       pv.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       pv.setLocationReference(qne.getLocationReference());
+       
+       result = pv ;
+     }
+     else // // BehaviorPropertyConstant case. 
+     {
+       // Builds a PropertyValue object and returns it.
+       BehaviorPropertyConstant pc = _fact.createBehaviorPropertyConstant();
+       
+       pc.setProperty((PropertyConstant) qne.getOsateRef()) ;
+       pc.setPropertySet((PropertySet) qne.getBaNamespace().getOsateRef()) ;
+       pc.setLocationReference(qne.getLocationReference());
+       
+       result = pc ;
+     }
+   }
+   else // Checking has failed.
+   {
+     result = null ;
+   }
+   
+   return result ;
+ }
+  
+ // This method checks the given object and returns a value constant
+ // resolved from semantic ambiguities and its data representation. On error,
+ // reports error and returns null.
+ private ValueAndTypeHolder valueConstantCheck(ValueConstant v)
+ {
+   ValueAndTypeHolder result = null ;
+   ValueConstant tmpResult = null ;
+   
+   if(v instanceof Enumeration)
+   {
+     tmpResult = behaviorEnumLiteralResolver((Enumeration)v) ;
+   }
+   else if(v instanceof QualifiedNamedElement)
+   {
+     tmpResult = behaviorPropertyResolver((QualifiedNamedElement) v) ;
+   }
+   else // Literal cases. Nothing to do.
+   {
+     tmpResult = v ;
+   }
+
+   if (tmpResult != null)
+   {
+     result = getValueAndTypeHolder(tmpResult, v) ;
+   }
+   
+   return result ;
+ }
+  
+  private ValueConstant behaviorEnumLiteralResolver(Enumeration enu)
+  {
+    // Checking has already been made in AadlBaNameResolver.
+    // So just set an BehaviorEnumLiteral instance.
+    
+    BehaviorEnumerationLiteral result = _fact.createBehaviorEnumerationLiteral();
+    result.setLocationReference(enu.getLocationReference()) ;
+    
+    result.setComponent((ComponentClassifier) enu.getBaName().getOsateRef()) ;
+    result.setEnumLiteral((StringLiteral) enu.getLiteral().getOsateRef()) ;
+    result.setProperty((PropertyExpression) enu.getProperty().getOsateRef()) ;
+    
+    return result ;
+  }
+
+
+  private boolean behaviorActionBlockCheck(BehaviorActionBlock bab)
+  {
+    boolean result = true ;
+
+    if(bab.getTimeout() != null)
+    {
+      BehaviorTime resolvedTime = _fact.createBehaviorTime() ;
+      result = behaviorTimeCheck((DeclarativeTime) bab.getTimeout(),
+                                 resolvedTime) ;
+      bab.setTimeout(resolvedTime) ;
+    }
+
+    result &= behaviorActionsCheck(bab.getContent(), bab) ;
+
+    return result ;
+  }
+
+  private boolean behaviorActionsCheck(BehaviorActions bActs, Object 
+                                                                parentContainer)
+  {
+    if(bActs instanceof BehaviorAction)
+    {
+      return behaviorActionCheck((BehaviorAction) bActs, parentContainer);
+    }
+    else // BehaviorCollection case.
+    {
+      boolean result = true ;
+
+      ListIterator<BehaviorAction> it = ((BehaviorActionCollection)bActs).
+                                            getActions().listIterator() ;
+      while(it.hasNext()) 
+      {
+        BehaviorAction bAct = it.next() ;
+        result &= behaviorActionCheck(bAct, it) ;
+      }
+
+      return result ;
+    }
+  }
+
+  private boolean behaviorActionCheck(BehaviorAction bAct, Object 
+                                                             parentContainer)
+  {
+    if(bAct instanceof BehaviorActionBlock)
+    {
+      return behaviorActionBlockCheck((BehaviorActionBlock) bAct) ;
+    }
+    else
+    {
+      if(bAct instanceof BasicAction)
+      {
+        return basicActionCheck((BasicAction) bAct, parentContainer) ;
+      }
+      else // Conditional statements cases.
+      {
+        return condStatementCheck((CondStatement) bAct) ;
+      }
+    }
+  }
+
+  private boolean condStatementCheck(CondStatement stat)
+  {
+    if(stat instanceof IfStatement)
+    {
+      return ifStatementCheck((IfStatement) stat) ;
+    }
+    else
+    {
+      if(stat instanceof ForOrForAllStatement)
+      {
+        return forOrForAllStatementCheck((ForOrForAllStatement) stat) ;
+      }
+      else // While or do until statement cases.
+      {
+        return whileOrDoUntilStatementCheck((WhileOrDoUntilStatement) stat);
+      }
+    }
+  }
+
+  private boolean whileOrDoUntilStatementCheck(WhileOrDoUntilStatement stat)
+  {
+    boolean result = behaviorActionsCheck(stat.getBehaviorActions(), stat) ;
+
+    ValueExpression ve = stat.getLogicalValueExpression() ;
+
+    ValueAndTypeHolder holder = valueExpressionCheck(ve) ;
+
+    result &= typeCheck(ve, null, holder, DataRepresentation.BOOLEAN);
+
+    return result ;
+  }
+
+  
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.6 Behavior Action Language
+   * Object : Check legality rule D.6.(L2) 
+   * Keys : for forall iterative variable not valid assignment target
+   * 
+   * Checking doesn't match the iterative variable's type array dimension versus 
+    * the element values' type array dimension as the iterative variable 
+    * may iterate over all the element values array dimension.
+    */
+  private boolean forOrForAllStatementCheck(ForOrForAllStatement stat)
+  {
+    IterativeVariable itVar = stat.getIterativeVariable() ;
+    boolean result = iterativeVariableCheck(itVar) ;
+    
+    result &= behaviorActionsCheck(stat.getBehaviorActions(), stat) ;
+    
+    ElementValues tmp = elementValuesCheck(stat.getIteratedValues());
+    result &= tmp != null ;
+
+    // The returned element values may be different from the tested one
+    // because of semantic ambiguity resolution in elementValuesCheck
+    // method. So replace if needed.
+    if(tmp != stat.getIteratedValues() && tmp != null)
+    {
+      stat.setIteratedValues(tmp) ;
+    }
+
+    // Matches the element values data type and the uccr's one.
+    if(result)
+    {
+      TypeHolder eleType ;
+      TypeHolder uccrType ;
+
+      if(tmp instanceof IntegerRange)
+      {
+        IntegerRange ir = (IntegerRange) tmp ;
+        TypeHolder t1, t2 ;
+        try
+        {
+          t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue());
+          t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue());
+        }
+        catch (DimensionException de)
+        {
+              reportDimensionException(de) ;
+              return false ;
+        }
+
+        eleType = _dataChecker.getTopLevelType(t1, t2) ;
+        // Integer Ranges are one dimension kind of integer collection.
+        // => pass the arrayness checking.
+        eleType.dimension = 1 ;
+      }
+      else // Name or DataComponentReference cases.
+      {
+        try
+        {
+           eleType = AadlBaUtils.getTypeHolder((Value) tmp) ;
+        }
+        catch (DimensionException de)
+        {
+          reportDimensionException(de) ;
+          return false ;
+        }
+         
+        if(tmp instanceof EventDataPortHolder)
+        {
+          // Event ports are one dimension events queue.
+          // => pass the arrayness checking.
+          eleType.dimension = 1 ;
+        }
       }
       
+      try
+      {
+         uccrType = AadlBaUtils.getTypeHolder(itVar);
+      }
+      catch (DimensionException de)
+      {
+        reportDimensionException(de) ;
+        return false ;
+      }
+      
+      // iterative variable's UCCR syntax cannot express array 
+         // ([] are not allowed). Also, this implementation of AADL behavior
+      // annex, doesn't allow the use of types which are declared as array
+      // (data model annex).
+      if(uccrType.dimension > 0)
+      {
+         StringBuilder message = new StringBuilder( 
+            "the for/forall iterative variable's type cannot be an array.") ; 
+               
+         message.append(" Found \'");      
+         message.append(uccrType.toString()); 
+            message.append("\'.") ;
+         reportError(tmp, message.toString()) ;
+            result = false ;
+      }
+      
+         if(_dataChecker.conformsTo(eleType, uccrType, false))
+         {
+            result=true;
+         }
+         else
+         {
+            StringBuilder sb = new StringBuilder(
+                  "\'iterative variable\' type error:");
+            sb.append(" an array of \"") ;
+            sb.append(uccrType.toString());
+            sb.append("\" expected, found \"") ;
+            sb.append(eleType.toString()) ;
+            sb.append("\".");
+            reportError(stat, sb.toString()) ; // reportError(itVar, sb.toString()) ;
+         }
+         
+         // Checks data component reference arrayness and reports any error.
+         if(eleType.dimension == 0)
+         {
+            String message = "\'" + unparseNameElement(tmp) + 
+                  "\' is not an array" ;
+            reportError(tmp, message) ;
+            result = false ;
+         }
+    }
+    return result ;
+  }
+  
+  private boolean iterativeVariableCheck(IterativeVariable itVar)
+  {
+    QualifiedNamedElement qne = (QualifiedNamedElement) 
+                                                     itVar.getDataClassifier() ;
+    
+    // The statement's unique component reference reference has to be   
+    // data classifier.
+    Classifier dataClassifier = uniqueComponentClassifierReferenceResolver(qne,
+                                                      TypeCheckRule.DATA_UCCR) ;
+    
+    itVar.setDataClassifier((DataClassifier) dataClassifier) ;
+    
+    return dataClassifier != null ;
+  }
+
+
+  // This method checks the given object and returns a element values
+  // resolved from semantic ambiguities. On error, reports error and returns
+  // null.
+  private ElementValues elementValuesCheck(ElementValues ev)
+  {
+    if(ev instanceof IntegerRange)
+    {
+      if(integerRangeCheck((IntegerRange) ev))
+      {
+        return ev ;
+      }
+      else // Integer range error case.
+      {
+        return null ;
+      }
+    }
+    else
+    {
+      TypeCheckRule stopRule = TypeCheckRule.EVENT_DATA_PORT ;
+      TypeCheckRule[] checkRules  = new TypeCheckRule[]
+            {TypeCheckRule.ELEMENT_VALUES,
+             TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES} ;
+      
+      List<ElementHolder> ehl = refResolver((Reference) ev, null, stopRule,
+                                            checkRules) ;
+      
+      // Can reuse this method as PortHolder and DataComponentVariable are also
+      // ElementValues.
+      return (ElementValues) referenceToValueVariable(ehl) ;
+    }
+  }
+
+  // Checks the given integer range and checks the consistency between 
+  // the integer values.
+  private boolean integerRangeCheck(IntegerRange ir)
+  {
+    boolean result = false ;
+
+    IntegerValue original = ir.getLowerIntegerValue() ;
+    IntegerValue tmp = integerValueCheck(original);
+
+    result = tmp != null ;
+
+    if(result && tmp != original)
+    {
+      ir.setLowerIntegerValue(tmp) ;
+    }
+
+    original = ir.getUpperIntegerValue() ;
+    tmp = integerValueCheck(original);
+    result &= tmp != null ;
+
+    if(tmp != null && tmp != original)
+    {
+      ir.setUpperIntegerValue(tmp) ;
+    }
+
+    // Matches the two integer value data types.
+    if(result)
+    {
+      TypeHolder t1, t2 ;
+      
+      try
+      {
+        t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue()) ;
+        t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue()) ;
+      }
+      catch (DimensionException de)
+         {
+            reportDimensionException(de) ;
+            return false ;
+         }
+      
+      if(! _dataChecker.conformsTo(t1, t2, true))
+      {
+        result = false ;
+        reportError(ir, "\'integer range\' error type : its integer values"+
+            " are not consistent") ;
+      }
+    }
+
+    return result ;
+  }
+
+  private boolean ifStatementCheck(IfStatement stat)
+  {
+    boolean result ;
+    ValueAndTypeHolder holder = null ;
+    
+    ValueExpression ve = stat.getLogicalValueExpression() ;
+    holder = valueExpressionCheck(ve) ;
+    result = typeCheck(ve, null, holder, DataRepresentation.BOOLEAN) ;
+    
+    result &= behaviorActionsCheck(stat.getBehaviorActions(), stat);
+    
+    ElseStatement elseStat = stat.getElseStatement() ;
+    
+    if(elseStat != null)
+    {
+      // Elif case.
+      if(elseStat instanceof IfStatement)
+      {
+        result &= ifStatementCheck((IfStatement) elseStat) ;
+      }
+      else
+      {
+        result &= behaviorActionsCheck(elseStat.getBehaviorActions(), stat);
+      }
+    }
+
+    return result ;
+  }
+  
+  @SuppressWarnings("all")
+  private boolean basicActionCheck(BasicAction ba, Object parentContainer)
+  {
+    if(ba instanceof AssignmentAction)
+    {
+      return assignmentActionCheck((AssignmentAction) ba) ;
+    }
+    else
+    {
+      if (ba instanceof CommunicationAction)
+      {
+        CommunicationAction resolvedCommAct =
+                            communicationActionCheck((CommunicationAction) ba) ;
+        boolean result = resolvedCommAct != null ;
+        
+        // The returned communication action may be different from the
+        // tested one because of semantic ambiguity resolution in
+        // communicationActionCheck method. So replace if needed.
+        if(resolvedCommAct != ba && result)
+        {
+          // [DEBUG]
+          boolean hasBeenReplaced = false ;
+          
+          if(parentContainer instanceof ListIterator<?>)
+          {
+            ((ListIterator) parentContainer).set(resolvedCommAct) ;
+            hasBeenReplaced = true ;
+          }
+          else if(parentContainer instanceof ElseStatement) 
+          {
+             // And also IfStatement.
+            ((ElseStatement)parentContainer).setBehaviorActions(resolvedCommAct);
+            hasBeenReplaced = true ;
+          }
+          else if(parentContainer instanceof LoopStatement)
+          {
+            ((LoopStatement)parentContainer).setBehaviorActions(resolvedCommAct);
+            hasBeenReplaced = true ;
+          }
+          else if(parentContainer instanceof BehaviorActionBlock)
+          {
+            ((BehaviorActionBlock)parentContainer).setContent(resolvedCommAct);
+            hasBeenReplaced = true ;
+          }
+          
+          if (! hasBeenReplaced)
+          {
+            System.err.println("The resolved communication action: " +  
+                unparseNameElement(resolvedCommAct) + 
+                " hasn't been set") ;
+          }
+        }
+
+        return  result;
+      }
+      else // Timed action case.
+      {
+        return timedActionCheck((TimedAction) ba) ;
+      }
+    }
+  }
+
+  private boolean timedActionCheck(TimedAction ta)
+  {
+    BehaviorTime resolvedTime = _fact.createBehaviorTime() ;
+    
+    boolean result = behaviorTimeCheck((DeclarativeTime) ta.getLowerTime(),
+                                       resolvedTime);
+    
+    ta.setLowerTime(resolvedTime) ;
+
+    if (ta.getUpperTime() != null)
+    {
+      resolvedTime = _fact.createBehaviorTime() ;
+      result &= behaviorTimeCheck((DeclarativeTime) ta.getUpperTime(),
+                                  resolvedTime);
+      ta.setUpperTime(resolvedTime) ;
+    }
+
+    return result ;
+  }
+
+  private PortDequeueAction portDequeueActionResolver(CommAction comAct)
+  {
+    Target tarTmp = null ;
+    boolean tarCheckResult = true ;
+    TypeCheckRule stopOnThisRule = TypeCheckRule.IN_PORT ;
+    TypeCheckRule checkRule = TypeCheckRule.PORT_DEQUEUE_VALUE ; 
+    List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), null,
+                                                  stopOnThisRule, checkRule) ;
+    
+    if(comAct.getTarget() != null)
+    {
+      tarTmp = targetCheck(comAct.getTarget()) ;
+      if(tarTmp == null)
+      {
+        tarCheckResult = false ;
+      }
+    }
+    
+    if(resolvedRef != null)
+    {
+      if(tarCheckResult)
+      {
+        PortHolder portHolder = (PortHolder) resolvedRef.get(0) ;
+        PortDequeueAction result = _fact.createPortDequeueAction() ;
+        result.setPort((ActualPortHolder) portHolder) ;
+        
+        // Port dequeue action may not have any target.
+        if(tarTmp != null)
+        {
+          result.setTarget(tarTmp) ;
+          
+          // Matches the target's data type with the input port's one 
+          // when port dequeue action.
+          TypeHolder tarType, portType ;
+          
+          try
+          {
+              portType = AadlBaUtils.getTypeHolder(portHolder) ;
+              tarType = AadlBaUtils.getTypeHolder(tarTmp) ;
+          }
+          catch (DimensionException de)
+          {
+            de._element = comAct ;
+            reportDimensionException(de) ;
+            return null  ;
+          }
+          
+          if (false == _dataChecker.conformsTo(portType, tarType, true))
+          {
+            reportTypeError(comAct, "port dequeue action",
+                            portType.toString(),
+                            tarType.toString()) ;
+            return null ;
+          }
+        }
+        
+        result.setLocationReference(comAct.getLocationReference()) ;
+        
+        return result ;
+      }
+      else
+      {
+        return null ;
+      }
+    }
+    else
+    {
+      return null ;
+    }
+  }
+  
+  
+  private SubprogramCallAction qualifiedSubprogramClassifierCallActionResolver
+                                                             (CommAction comAct)
+  {
+    QualifiedNamedElement qne = comAct.getQualifiedName() ;
+    TypeCheckRule rule = TypeCheckRule.SUBPROGRAM_UCCR ; 
+    Subprogram sub = (Subprogram) 
+                       uniqueComponentClassifierReferenceResolver(qne, rule) ;
+    if(sub != null)
+    {
       // Gets subprogram type.
-      SubprogramType subprogType = subprogramTypeCheck(sc) ;
+      SubprogramType subprogType = subprogramTypeCheck(comAct) ;
       
       // Checks and resolves parameter labels.
       // Event if the subprogram call action doesn't have any parameter labels,
@@ -1656,839 +2125,1293 @@ public class AadlBaTypeChecker
       // It also binds the subprogram type found to the subprogram call action. 
       if(subprogType != null)
       {
-         
-         // Can't use this method because it doesn't return inherited parameters
-         //EList<Parameter> subprogParams = subprogType.getOwnedParameters() ;
-         
-         EList<Parameter> subprogParams = 
-            AadlBaVisitors.getElementsInNamespace(subprogType, Parameter.class);
-         
-         if (subprogramParameterListCheck(sc, sc.getParameterLabels(),
-                                          subprogParams))
-         {
-            sc.setAadlRef(subprogType) ;
-            result = sc ;
-         }
+        if (subprogramParameterListCheck(comAct, comAct.getParameters(),
+                                         subprogType))
+        {
+          SubprogramCallAction result = _fact.createSubprogramCallAction() ;
+          SubprogramHolder sh = _fact.createSubprogramHolder() ;
+          sh.setLocationReference(comAct.getLocationReference()) ;
+          sh.setSubprogram(sub) ;
+          result.setSubprogram(sh) ;
+          result.setLocationReference(comAct.getLocationReference()) ;
+          result.getParameterLabels().addAll(comAct.getParameters()) ;
+          return result ;
+        }
+        else
+        {
+          return null ;
+        }
       }
       else
       {
-         result = null ;
+        return null ;
       }
+    }
+    else
+    {
+      return  null ;
+    }
+  }
+  
+  // This method checks the given object and returns a communication action
+  // resolved from semantic ambiguities. On error, reports error and returns
+  // null.
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.6 Behavior Action Language
+   * Object : Check legality rule D.6.(L6) 
+   * Keys : dequeue value port target
+   */
+  private CommunicationAction communicationActionCheck(CommunicationAction ca)
+  {
+    CommAction comAct = (CommAction) ca ;
+    
+    // Subprogram qualified classifier call.
+    if(comAct.getQualifiedName() != null)
+    {
+      return qualifiedSubprogramClassifierCallActionResolver(comAct) ;
+    }
+    // Port dequeue call.
+    else if(comAct.isPortDequeue())
+    {
+      return portDequeueActionResolver(comAct) ;
+    }
+    // Port freeze call.
+    else if(comAct.isPortFreeze())
+    {
+      return portFreezeActionResolver(comAct);
+    }
+    // Shared action call.
+    else if (comAct.isLock() || comAct.isUnlock())
+    {
+      return sharedActionResolver(comAct) ;
+    }
+    else // Ambiguous cases.
+    {
+      return subprogramCallActionAndPortSendActionResolver(comAct) ;
+    }
+  }
+  
+  // Resolves semantic ambiguities (subprogram call and port send action).
+  // On error, reports error and returns null.
+  private CommunicationAction subprogramCallActionAndPortSendActionResolver
+                                                             (CommAction comAct)
+  {
+    TypeCheckRule stopOnThisRule = TypeCheckRule.OUT_PORT ;
+    TypeCheckRule[] checkRules = new TypeCheckRule[]
+          { TypeCheckRule.SUBPROGRAM_CALL_ACTION_FIRST_NAME,
+            TypeCheckRule.SUBPROGRAM_CALL_ACTION_SD_NAME
+          } ;
+    
+    List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
+                                                  null, stopOnThisRule,
+                                                  checkRules) ;
+    
+    if(resolvedRef != null)
+    {
+      // Port send action case.
+      if(resolvedRef.get(0) instanceof PortHolder)
+      {
+        ActualPortHolder portHolder = (ActualPortHolder) resolvedRef.get(0) ;
+        return portSendActionResolver(portHolder, comAct) ;
+      }
+      else // Subprogram call action case. 
+      {
+        return subprogramCallActionResolver(resolvedRef, comAct) ;
+      }
+    }
+    else
+    {
+      return null ;
+    }
+  }
 
-      return result ;
-   }
-   
-   // Recursive method.
-   private SubprogramType getSubprogramType(CalledSubprogram sc)
-   {
-      SubprogramType result = null ;
-      
-      if(sc instanceof SubprogramImplementation)
-      {
-         result = ((SubprogramImplementation) sc).getType() ;
-      }
-      else if (sc instanceof SubprogramType)
-      {
-         result = (SubprogramType) sc ;
-      }
-      else if(sc instanceof SubprogramAccess)
-      {
-         SubprogramAccess sa = (SubprogramAccess) sc ;
-         result = getSubprogramType(sa.getSubprogramClassifier()) ;
-      }
-      else if(sc instanceof SubprogramSubcomponent)
-      {
-         SubprogramSubcomponent ss = (SubprogramSubcomponent) sc ;
-         
-         result = getSubprogramType(ss.getSubprogramClassifier()) ;
-      }
-      
-      return result ;
-   }
-   
-   // Gets subprogram type binded to the given subprogram call action.
-   // On error, reports error and returns null.
-   private SubprogramType subprogramTypeCheck(SubprogramCallAction sca)
-   {
-      edu.cmu.sei.aadl.aadl2.Element el ;
-      SubprogramType result = null ;
-      String errorMsg = null ;
-      
-      if(sca.getSubprogramReference() != null )
-      {
-         el = sca.getSubprogramReference().getAadlRef() ;
-      }
-      else 
-      {
-         // Case of required data access name . provided subprogram access name 
-         if(sca.getSubprogramNames().size() == 1)
-         {
-            el = sca.getSubprogramNames().get(0).getAadlRef() ;
-         }
-         else
-         {
-            el = sca.getSubprogramNames().get(1).getAadlRef() ;
-         }
-      }
-      
-      if(el instanceof CalledSubprogram)
-      {
-         result = getSubprogramType((CalledSubprogram) el) ;
-      }
-      else if (el instanceof ComponentPrototypeBinding)
-      {
-         ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) el ;
-         
-         // Takes the last binding.
-         ComponentPrototypeActual cpa = cpb.getActuals().
-                                               get(cpb.getActuals().size() -1) ;
-         
-         if(cpa instanceof ComponentReference)
-         {
-            result = (SubprogramType) ((ComponentReference) cpa).getClassifier() ;
-         }
-         else
-         {
-            errorMsg = " is not an subprogram prototype" ;
-            result = null ;
-         }
-      }
-      else if(el instanceof ComponentPrototype)
-      {
-         ComponentPrototype cp = (ComponentPrototype) el ;
-         
-         if(cp.getCategory() == ComponentCategory.SUBPROGRAM)
-         {
-            if (cp.getConstrainingClassifier() != null)
-            {
-               result = (SubprogramType) cp.getConstrainingClassifier() ;
-            }
-            else
-            {
-               errorMsg = " is not a defined subprogram prototype" ;
-               result = null ;
-            }
-         }
-         else
-         {
-            errorMsg = " is not an subprogram prototype" ;
-            result = null ;
-         }
-      }
-      else // Error case : the binded object is not an subprogram.
-      {
-         System.err.println(el) ;
-         errorMsg =  "is not subprogram" ;
-         result = null ;
-      }
-      
-      // Error reporting.
-      if(result == null && errorMsg != null)
-      {
-         reportError(sca, '\'' + AadlBaUtils.getName(sca) + '\'' + errorMsg) ;
-      }
-      
-      return result ;
-   }
 
-   // This method checks the given parameter labels and matches them against the 
-   // subprogram parameters. It resolves target/value expression semantic
-   // ambiguities. On error, reports error and returns false.
-   // Event if the subprogram call action doesn't have any parameter labels,
-   // the subprogram type may have and vice versa : subprogramParameterListCheck
-   /// is also design for these cases.
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.6 Behavior Action Language
-    * Object : Check legality rule D.6.(L5) 
-    * Keys : parameter list match signature subprogram call
-    */
-   private boolean subprogramParameterListCheck(SubprogramCallAction sca,
-                                                EList<ParameterLabel> callParams,
-                                                EList<Parameter> subprogParams)
-   {
-      // Matching the parameter labels with the subprogram signature.
-      // Resolves ambiguity between target and value expression :
-      // value expression are for in parameter, target are for out parameter.
-      
-      //Preliminary checking : on error, reports error and exit early.
-      if(callParams.size() != subprogParams.size())
+  private SubprogramCallAction subprogramCallActionResolver
+                                               (List<ElementHolder> resolvedRef,
+                                                CommAction comAct)
+  {
+    // Gets subprogram type.
+    SubprogramType subprogType = subprogramTypeCheck(comAct) ;
+    
+    // Checks and resolves parameter labels.
+    // Event if the subprogram call action doesn't have any parameter labels,
+    // the subprogram type may have and vice versa : 
+    // subprogramParameterListCheck is also design for these cases. 
+    // It also binds the subprogram type found to the subprogram call action. 
+    if(subprogType != null)
+    {
+      if (subprogramParameterListCheck(comAct, comAct.getParameters(),
+                                       subprogType))
       {
-         String subprogramName = AadlBaUtils.getName(sca) ;
-         
-         reportError(sca, "Invalid number of argument(s) for the subprogram " + 
-                                                               subprogramName) ;
-         return false ;
-      }
-      
-      boolean isconsistent = true ;
-      boolean hasCheckingPassed = true ;
+        SubprogramCallAction result = _fact.createSubprogramCallAction() ;
+        result.getParameterLabels().addAll(comAct.getParameters()) ;
+        
+        ElementHolder firstHolder = resolvedRef.get(0) ;
+        ElementHolder secondHolder = null ;
+        
+        if(resolvedRef.size() == 2)
+        {
+          secondHolder = resolvedRef.get(1) ;
+        }
+        
+        if(firstHolder instanceof DataAccessHolder) 
+        {
+          // RefResolver can't detect that error.
+          if(resolvedRef.size() != 2)
+          {
+            String msg = "missing subprogram access for : " + 
+              firstHolder.getElement().getName() ;
             
-      DirectionType direction  ;
-      ValueExpression valueExp ;
-      ListIterator<ParameterLabel> it = callParams.listIterator() ;
-      Value v ;
-      Target tar ;
-      TypeHolder t1, t2 ;
-      ValueAndTypeHolder vth ;
-      
-      List<TypeHolder> typesFound = new ArrayList<TypeHolder>(callParams.size());
-      List<DirectionType> directionsFound = new ArrayList<DirectionType>
-                                                           (callParams.size()) ;
-      
-      List<TypeHolder> expectedTypes = new ArrayList<TypeHolder>
-                                                         (subprogParams.size());
-      List<DirectionType> expectedDirections = new ArrayList<DirectionType>
-                                                        (subprogParams.size()) ;
-
-      // As AADL standard doesn't allow subprogram overloading (two subprogram
-      // classifier names can't be the same), parameter labels checking is 
-      // driven by the subprogram signature.
-      for(Parameter param : subprogParams)
-      {
-         valueExp = (ValueExpression) it.next() ;
-         direction = param.getDirection() ;
-         expectedDirections.add(direction) ;
-         
-         Classifier klass = AadlBaUtils.getClassifier(param,_baParentContainer);
-
-         // ValueExpression case.
-         if(direction.equals(DirectionType.IN))
-         {
-            vth = valueExpressionCheck(valueExp) ;
+            DeclarativeUtils.setEcontainer(_ba, firstHolder) ;
             
-            if(vth != null)
+            reportError(firstHolder, msg) ;
+            
+            return null ;
+          }
+          else
+          {
+            result.setDataAccess((DataAccessHolder) firstHolder) ;
+            result.setSubprogram((CalledSubprogramHolder) secondHolder) ;
+          }
+        }
+        else
+        {
+          result.setSubprogram((CalledSubprogramHolder) firstHolder) ;
+        }
+        
+        result.setLocationReference(comAct.getLocationReference()) ;
+        
+        return result ;
+      }
+      else
+      {
+        return null ;
+      }
+    }
+    else
+    {
+      return null ;
+    }
+  }
+
+  private CommunicationAction portSendActionResolver(ActualPortHolder portHolder,
+                                                     CommAction comAct)
+  {
+    PortSendAction portSendActionResult = _fact.createPortSendAction() ;
+    
+    if(comAct.isSetParameters())
+    {
+      List<ParameterLabel> pll = comAct.getParameters() ;
+      
+      if(pll.size() == 1)
+      {
+        ValueExpression ve = (ValueExpression) pll.get(0) ;
+
+        ValueAndTypeHolder tmp = valueExpressionCheck(ve) ;
+
+        if(tmp != null)
+        {
+          portSendActionResult.setPort(portHolder) ;
+          
+          // Matches the value expression top level data type 
+          // with the port data type.
+          TypeHolder portType ;
+          
+          try
+          {
+             portType = AadlBaUtils.getTypeHolder(portHolder) ;
+          }
+          catch (DimensionException de)
+          {
+             reportDimensionException(de) ;
+             return null ;
+          }
+              
+          if(! _dataChecker.conformsTo(portType,
+              tmp.typeHolder, true))
+          {
+            reportTypeError(comAct, "port send action",
+                portType.toString(),
+                tmp.typeHolder.toString());
+            return null ;
+          }
+          else
+          {
+            ValueExpression veTmp = (ValueExpression) 
+                tmp.value ;
+            portSendActionResult.setValueExpression(veTmp) ;
+          }
+        }
+        else // Value expression checking has failed.
+        {
+          return null ;
+        }
+      }
+      else // Error case : Port send action has only one value expression.
+      {
+        return null ;
+      }
+    }
+    
+    portSendActionResult.setLocationReference(comAct.getLocationReference());
+    
+    return portSendActionResult ;
+  }
+
+
+  private SharedDataAction sharedActionResolver(CommAction comAct)
+  {
+    DataAccessHolder dah = null ;
+    SharedDataAction result = null ;
+    
+    if(comAct.getReference() != null)
+    {
+      TypeCheckRule checkRules = TypeCheckRule.SHARED_DATA_ACTION ;
+      TypeCheckRule stopOnThisRule = checkRules ;
+      List<ElementHolder> resolvedRef = refResolver(comAct.getReference(),
+                                                    null,
+                                                    stopOnThisRule, checkRules);
+      if(resolvedRef != null)
+      {
+        dah = (DataAccessHolder) resolvedRef.get(0) ;
+      }
+      else
+      {
+        return null ;
+      }
+    }
+    
+    if(comAct.isLock())
+    {
+      result = _fact.createLockAction() ;
+    }
+    else
+    {
+      result = _fact.createUnlockAction() ;
+    }
+    
+    result.setDataAccess(dah) ;
+    result.setLocationReference(comAct.getLocationReference()) ;
+    
+    return result ;
+  }
+
+
+  private PortFreezeAction portFreezeActionResolver(CommAction comAct)
+  {
+    TypeCheckRule checkRules = TypeCheckRule.IN_PORT ;
+    TypeCheckRule stopOnThisRule = TypeCheckRule.PORT_FREEZE_ACTION ;
+    
+    PortFreezeAction pfa = _fact.createPortFreezeAction() ;
+    
+    List<ElementHolder> resolvedRef = refResolver(comAct.getReference(), pfa,
+                                          stopOnThisRule, checkRules) ;
+    if(resolvedRef != null)
+    {
+      return (PortFreezeAction) resolvedRef.get(0) ;
+    }
+    else
+    {
+      return null ;
+    }
+  }
+
+  // Recursive method.
+  private SubprogramType getSubprogramType(CalledSubprogram sc)
+  {
+    SubprogramType result = null ;
+
+    if(sc instanceof SubprogramImplementation)
+    {
+      result = ((SubprogramImplementation) sc).getType() ;
+    }
+    else if (sc instanceof SubprogramType)
+    {
+      result = (SubprogramType) sc ;
+    }
+    else if(sc instanceof SubprogramAccess)
+    {
+      SubprogramAccess sa = (SubprogramAccess) sc ;
+      result = getSubprogramType(sa.getSubprogramFeatureClassifier()) ;
+    }
+    else if(sc instanceof SubprogramSubcomponent)
+    {
+      SubprogramSubcomponent ss = (SubprogramSubcomponent) sc ;
+
+      result = getSubprogramType(ss.getSubprogramSubcomponentType()) ;
+    }
+
+    return result ;
+  }
+
+  // Gets subprogram type binded to the given subprogram call action.
+  // On error, reports error and returns null.
+  private SubprogramType subprogramTypeCheck(CommAction comAct)
+  {
+    Element el = null ; 
+    
+    if(comAct.getReference() != null)
+    {
+      el = comAct.getReference().getOsateRef() ;
+    }
+    else
+    {
+      el = comAct.getQualifiedName().getOsateRef() ;
+    }
+    
+    SubprogramType result = null ;
+    String errorMsg = null ;
+    
+    if(el instanceof ComponentPrototype)
+    {
+      ComponentPrototype cp = (ComponentPrototype) el ;
+
+      if(cp instanceof SubprogramPrototype)
+      {
+        if (cp.getConstrainingClassifier() != null)
+        {
+          result = (SubprogramType) cp.getConstrainingClassifier() ;
+        }
+        else
+        {
+          errorMsg = " is not a defined subprogram prototype" ;
+          result = null ;
+        }
+      }
+      else
+      {
+        errorMsg = " is not an subprogram prototype" ;
+        result = null ;
+      }
+    }
+    else if(el instanceof CalledSubprogram) // Always after ComponentPrototype 
+    {                                       // case.
+      result = getSubprogramType((CalledSubprogram) el) ;
+    }
+    else if (el instanceof ComponentPrototypeBinding)
+    {
+      ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) el ;
+
+      // Takes the last binding.
+      ComponentPrototypeActual cpa = cpb.getActuals().
+          get(cpb.getActuals().size() -1) ;
+
+      if(cpa.getSubcomponentType() instanceof SubprogramType)
+      {
+        result = (SubprogramType) cpa.getSubcomponentType() ;
+      }
+      else
+      {
+        errorMsg = " is not an subprogram prototype" ;
+        result = null ;
+      }
+    }
+    else // Error case : the binded object is not an subprogram.
+    {
+      System.err.println(el) ;
+      errorMsg =  "is not subprogram" ;
+      result = null ;
+    }
+
+    // Error reporting.
+    if(result == null && errorMsg != null)
+    {
+      String subprogramName = unparseReference(comAct.getReference()) ;
+      reportError(comAct, '\'' + subprogramName + '\'' + errorMsg) ;
+    }
+
+    return result ;
+  }
+
+  // This method checks the given parameter labels and matches them against the 
+  // subprogram parameters. It resolves target/value expression semantic
+  // ambiguities. On error, reports error and returns false.
+  // Event if the subprogram call action doesn't have any parameter labels,
+  // the subprogram type may have and vice versa : subprogramParameterListCheck
+  /// is also design for these cases.
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.6 Behavior Action Language
+   * Object : Check legality rule D.6.(L5) 
+   * Keys : parameter list match signature subprogram call
+   */
+  private boolean subprogramParameterListCheck(CommAction comAct,
+                                               EList<ParameterLabel> callParams,
+                                               SubprogramType subprogType)
+  {
+    // Fetches sorted subprogram feature list.
+    
+    List<Feature> tmp = Aadl2Utils.orderFeatures(subprogType) ;
+    List<Feature> subprogFeat = new ArrayList<Feature>(tmp.size()) ;
+    
+    for(Feature feat : tmp)
+    {
+      if(feat instanceof DataAccess || feat instanceof Parameter)
+      {
+        subprogFeat.add(feat) ;
+      }
+    }
+    
+    // Matching the parameter labels with the subprogram signature.
+    // Resolves ambiguity between target and value expression :
+    // value expression are for in parameter, target are for out parameter.
+
+    //Preliminary checking : on error, reports error and exit early.
+    if(callParams.size() != subprogFeat.size())
+    {
+      String subprogramName = null ;
+      
+      if(comAct.getReference() != null)
+      {
+        subprogramName = unparseReference(comAct.getReference()) ;
+      }
+      else
+      {
+        subprogramName = unparseQualifiedNamedElement(comAct.getQualifiedName());
+      }
+      
+      reportError(comAct, "Invalid number of argument(s) for the subprogram " + 
+          subprogramName) ;
+      return false ;
+    }
+
+    boolean isconsistent = true ;
+    boolean hasCheckingPassed = true ;
+
+    Enum<?> currentDirRight  ;
+    ValueExpression valueExp ;
+    ListIterator<ParameterLabel> it = callParams.listIterator() ;
+    Value v ;
+    Target tar ;
+    TypeHolder t1, t2 ;
+    ValueAndTypeHolder vth ;
+
+    List<TypeHolder> typesFound = new ArrayList<TypeHolder>(callParams.size());
+    List<Enum<?>> dirRightsFound = new ArrayList<Enum<?>> (callParams.size()) ;
+
+    List<TypeHolder> expectedTypes = new ArrayList<TypeHolder>
+    (subprogFeat.size());
+    List<Enum<?>> expectedDirRight = new ArrayList<Enum<?>>
+    (subprogFeat.size()) ;
+
+    // As AADL standard doesn't allow subprogram overloading (two subprogram
+    // classifier names can't be the same), parameter labels checking is 
+    // driven by the subprogram signature.
+    for(Feature feat : subprogFeat)
+    {
+      if(feat instanceof Parameter)
+      {
+        Parameter param = (Parameter) feat ;
+        currentDirRight = param.getDirection() ;
+        expectedDirRight.add(currentDirRight) ;
+      }
+      else // DataAccess case.
+      {
+        DataAccess data = (DataAccess) feat ;
+        String accessRight = Aadl2Utils.getAccessRight(data) ;
+        
+        currentDirRight = Enum.valueOf(DataAccessRight.class, accessRight);
+        expectedDirRight.add(currentDirRight) ;
+      }
+      
+      valueExp = (ValueExpression) it.next() ;
+      
+      Classifier klass = AadlBaUtils.getClassifier(feat,_baParentContainer);
+      
+      // ValueExpression case.
+      if(currentDirRight == DirectionType.IN ||
+         currentDirRight == DataAccessRight.read_only)
+      {
+        vth = valueExpressionCheck(valueExp) ;
+
+        if(vth != null)
+        {
+          try
+          {
+             t1 = AadlBaUtils.getTypeHolder(klass) ;
+          }
+          catch (DimensionException de)
+          {
+            reportDimensionException(de) ;
+            return false ;
+          }
+          
+          t2 = vth.typeHolder ;
+          expectedTypes.add(t1) ;
+          typesFound.add(t2) ;
+          dirRightsFound.add(DirectionType.IN);
+
+          if(! _dataChecker.conformsTo(t1, t2, true))
+          {
+            isconsistent = false ;
+          }
+        }
+        else // Value expression checking error case.
+        {
+          // Error reporting has already been done.
+          hasCheckingPassed = false ;
+        }
+      }
+      else if(currentDirRight != DataAccessRight.unknown)
+      {
+        v = AadlBaUtils.isOnlyOneValue(valueExp) ;
+
+        if(v instanceof Target &&
+            ! (v instanceof PortFreshValue) &&
+            ! (v instanceof PortCountValue) &&
+            ! (v instanceof PortDequeueValue)  ) // Target case.
+        {
+          tar = targetCheck((Target) v) ;
+
+          if(tar != null)
+          {
+            try
             {
                t1 = AadlBaUtils.getTypeHolder(klass) ;
-               t2 = vth.typeHolder ;
-               expectedTypes.add(t1) ;
-               typesFound.add(t2) ;
-               directionsFound.add(DirectionType.IN);
-               
-               if(! _dataChecker.conformsTo(t1, t2))
-               {
-                  isconsistent = false ;
-               }
+               t2 = AadlBaUtils.getTypeHolder(tar) ;
             }
-            else // Value expression checking error case.
-            {
-               // Error reporting has already been done.
-               hasCheckingPassed = false ;
-            }
-         } 
-         else // Target case : IN_OUT and OUT direction
-         {
-            v = AadlBaUtils.isOnlyOneValue(valueExp) ;
+            catch (DimensionException de)
+                {
+                   reportDimensionException(de) ;
+                   return false ;
+                }
             
-            if(v instanceof Target &&
-               ! (v instanceof PortFreshValue) &&
-               ! (v instanceof PortCountValue) &&
-               ! (v instanceof PortDequeueValue)  )
+            expectedTypes.add(t1) ;
+            typesFound.add(t2) ;
+            
+            Enum<?> dirRightFound = AadlBaUtils.getDirectionType(tar) ;
+            
+            if(dirRightFound == null)
             {
-               tar = targetCheck((Target) v) ;
-               
-               if(tar != null)
-               {
-                  t1 = AadlBaUtils.getTypeHolder(klass) ;
-                  t2 = AadlBaUtils.getTypeHolder(tar) ;
-                  expectedTypes.add(t1) ;
-                  typesFound.add(t2) ;
-                  
-                  directionsFound.add(AadlBaUtils.getDirectionType(tar)) ;
-                  
-                  if(! _dataChecker.conformsTo(t1, t2))
-                  {
-                     isconsistent = false ;
-                  }
-                  else
-                  {
-                     // As checking passed and ambiguity between
-                     // ValueExpression and Target has been resoved, it replaces
-                     // the value expression by the target as parameter label.
-                     it.set(tar) ;
-                  }
-               }
-               else // Target checking error case.
-               {
-                  // Error reporting has already been done.
-                  hasCheckingPassed = false ;
-               }
+              String accessRight = AadlBaUtils.getDataAccessRight(tar) ;
+              dirRightFound = Enum.valueOf(DataAccessRight.class, accessRight);
+            }
+            
+            dirRightsFound.add(dirRightFound) ;
+
+            if(! _dataChecker.conformsTo(t1, t2, true))
+            {
+              isconsistent = false ;
             }
             else
             {
-               // Due to target/value expression semantic ambiguity, the parsing
-               // phase may have introduced a semantic errors :
-               
-               // If v == null :               
-               // The parameter label has
-               // to be a value expression with a single value when the expected
-               // subprogram parameter is IN_OUT or OUT.
-               
-               // If v is not instanceof Target but ValueExpression or Value 
-               // like :
-               //       _ IntegerConstant or ValueConstant
-               //       _ PortFreshValue
-               //       _ PortCountValue
-               //       _ PortDequeueValue
-               
-               // It resolves the type in order to format the error message :
-               vth = valueExpressionCheck(valueExp) ;
-               
-               if(vth != null)
-               {
-                  t1 = AadlBaUtils.getTypeHolder(klass) ;
-                  t2 = vth.typeHolder ;
-                  expectedTypes.add(t1) ;
-                  typesFound.add(t2) ;
-                  directionsFound.add(DirectionType.IN);
-                  isconsistent = false ;
-               }
-               else
-               {
-                  // Error reporting has already been done.
-                  hasCheckingPassed = false ;
-               }
+              // As checking passed and ambiguity between
+              // ValueExpression and Target has been resoved, it replaces
+              // the value expression by the target as parameter label.
+              it.set(tar) ;
             }
-         }
+          }
+          else // Target checking error case.
+          {
+            // Error reporting has already been done.
+            hasCheckingPassed = false ;
+          }
+        }
+        else // Value expression taken as a target -> warning arithmetic pointer operation.
+        {
+          // Due to target/value expression semantic ambiguity, the parsing
+          // phase may have introduced a semantic errors :
+
+          // If v == null :               
+          // The parameter label has
+          // to be a value expression with a single value when the expected
+          // subprogram parameter is IN_OUT or OUT.
+
+          // If v is not instanceof Target but ValueExpression or Value 
+          // like :
+          //       _ IntegerConstant or ValueConstant
+          //       _ PortFreshValue
+          //       _ PortCountValue
+          //       _ PortDequeueValue
+
+          // It resolves the type in order to format the warning message:
+          vth = valueExpressionCheck(valueExp) ;
+
+          if(vth != null)
+          {
+            try
+            {
+               t1 = AadlBaUtils.getTypeHolder(klass) ;
+            }
+            catch (DimensionException de)
+            {
+              reportDimensionException(de) ;
+              return false ;
+            }
+            
+            t2 = vth.typeHolder ;
+            expectedTypes.add(t1) ;
+            typesFound.add(t2) ;
+            dirRightsFound.add(DirectionType.IN);
+            
+            StringBuilder msg = new StringBuilder() ;
+            msg.append('\'');
+            msg.append(unparseNameElement(valueExp)) ;
+            msg.append("\': is an in parameter used as a out or in/out parameter");
+            
+            // Reports a warning.
+            reportWarning(valueExp, msg.toString());
+          }
+          else
+          {
+            // Error reporting has already been done.
+            hasCheckingPassed = false ;
+          }
+        }
       }
-      
-      // Reports consistency error.
-      if(! isconsistent && hasCheckingPassed)
+      else
       {
-         String subprogramName = AadlBaUtils.getName(sca) ;
-         
-         reportSubprogParamMatchingError(sca, subprogramName, expectedTypes,
-                                         expectedDirections, typesFound,
-                                         directionsFound) ;
+        reportError(valueExp, "can't fetch data access right. Set the default "+
+                              "right in memory_properties.aadl") ;
+      }
+    }
+
+    // Reports consistency error.
+    if(! isconsistent && hasCheckingPassed)
+    {
+      String subprogramName = null ;
+      
+      if(comAct.getReference() != null)
+      {
+        subprogramName = unparseReference(comAct.getReference()) ;
+      }
+      else
+      {
+        subprogramName = unparseQualifiedNamedElement(comAct.getQualifiedName());
       }
       
-      return isconsistent && hasCheckingPassed ;
-   }
- 
-   private void reportSubprogParamMatchingError(
+      reportSubprogParamMatchingError(comAct, subprogramName, expectedTypes,
+          expectedDirRight, typesFound,
+          dirRightsFound) ;
+    }
+
+    return isconsistent && hasCheckingPassed ;
+  }
+
+  private void reportWarning(Element obj, String msg)
+  {
+    _errManager.warning(obj, msg) ;
+  }
+
+  private void reportSubprogParamMatchingError(
                                          BehaviorElement e,
                                          String subprogramName,
                                          List<TypeHolder> expectedTypes,
-                                         List<DirectionType> expectedDirections,
+                                         List<Enum<?>> expectedDirections,
                                          List<TypeHolder> typesFound,
-                                         List<DirectionType> directionsFound)
-   {
-      StringBuilder msg = new StringBuilder("The subprogram ") ;
-      msg.append(subprogramName);
-      msg.append('(');
-      
-      if(! expectedTypes.isEmpty())
-      {
-         int index = 0 ;
-         
-         for(TypeHolder th : expectedTypes)
-         {
-            msg.append(expectedDirections.get(index++)) ;
-            msg.append(' ') ;
-            msg.append(th.toString()) ;
-            msg.append(STRING_PARAMETER_SEPARATOR) ;
-         }
-         
-         // Remove the last separator.
-         msg.delete(msg.length()- STRING_PARAMETER_SEPARATOR.length(),
-                                                                 msg.length()) ;
-      }
-      
-      msg.append(") is not applicable for the arguments (");
-      
-      if(! typesFound.isEmpty())
-      {
-         int index = 0 ;
-         
-         for(TypeHolder th : typesFound)
-         {
-            msg.append(directionsFound.get(index++)) ;
-            msg.append(' ') ;
-            msg.append(th.toString()) ;
-            msg.append(STRING_PARAMETER_SEPARATOR) ;
-         }
-         
-         // Remove the last separator.
-         msg.delete(msg.length()- STRING_PARAMETER_SEPARATOR.length(),
-                                                                 msg.length()) ;
-         
-      }
-      
-      msg.append(')');
-      
-      reportError(e, msg.toString()) ;
-   }
-   
-   /**
-    * Document: AADL Behavior Annex draft 
-    * Version : 0.94 
-    * Type : Legality rule
-    * Section : D.6 Behavior Action Language
-    * Object : Check legality rule D.6.(L1) 
-    * Keys : assignment action value expression target match type consistency
-    */
-   private boolean assignmentActionCheck(AssignmentAction aa)
-   {
-      Target tmp = targetCheck(aa.getTargetOwned()) ;
+                                         List<Enum<?>> directionsFound)
+  {
+    StringBuilder msg = new StringBuilder("The subprogram ") ;
+    msg.append(subprogramName);
+    msg.append('(');
 
-      boolean result = tmp != null ;
-      
-      TypeHolder tarType, expType ;
-      tarType = expType = null ;
+    if(! expectedTypes.isEmpty())
+    {
+      int index = 0 ;
 
-      // The returned target may be different from the tested target
-      // because of semantic ambiguity resolution in targetCheck
-      // method. So replace if needed.
-      if(tmp != aa.getTargetOwned() && result)
+      for(TypeHolder th : expectedTypes)
       {
-         aa.setTargetOwned(tmp) ;
+        msg.append(expectedDirections.get(index++)) ;
+        msg.append(' ') ;
+        msg.append(th.toString()) ;
+        msg.append(STRING_PARAMETER_SEPARATOR) ;
       }
 
-      if(aa.getValueExpressionOwned() != null)
-      {
-         ValueAndTypeHolder vth = 
-                            valueExpressionCheck(aa.getValueExpressionOwned()) ;
-         if (vth != null)
-         {
-            expType = vth.typeHolder ;
-         }
-         else
-         {
-            result = false ;
-         }
-         
-         if(result)
-         {
-            // Performs data type consistency checking.
-            tarType = AadlBaUtils.getTypeHolder(tmp) ;
-            result = _dataChecker.conformsTo(tarType, expType) ;
-            if(! result)
-            {
-               reportTypeError(vth.value, "assignment",
-                                       tarType.toString(), expType.toString()) ;
-            }
-         }
-      }
-      
-      return result ;
-   }
+      // Remove the last separator.
+      msg.delete(msg.length()- STRING_PARAMETER_SEPARATOR.length(),
+          msg.length()) ;
+    }
 
-   // Semantic rule about iterative variable assignment is checked.
-   // See BehaviorAnnexFeature.TARGET .
-   // This method checks the given object and returns an object resolved from
-   // semantic ambiguities. On error, reports error and returns null.
-   private Target targetCheck(Target tar)
-   {
-      // Ambiguous case between name and unqualified data component
-      // reference. Unqualified data component references are parsed
-      // as name.
-      if(tar instanceof Name)
+    msg.append(") is not applicable for the arguments (");
+
+    if(! typesFound.isEmpty())
+    {
+      int index = 0 ;
+
+      for(TypeHolder th : typesFound)
       {
-         return (Target) nameCheckAndResolveAmbiguity((Name) tar,
-               TypeCheckRule.TARGET) ;
+        msg.append(directionsFound.get(index++)) ;
+        msg.append(' ') ;
+        msg.append(th.toString()) ;
+        msg.append(STRING_PARAMETER_SEPARATOR) ;
+      }
+
+      // Remove the last separator.
+      msg.delete(msg.length()- STRING_PARAMETER_SEPARATOR.length(),
+          msg.length()) ;
+
+    }
+
+    msg.append(')');
+
+    reportError(e, msg.toString()) ;
+  }
+
+  /**
+   * Document: AADL Behavior Annex draft 
+   * Version : 0.94 
+   * Type : Legality rule
+   * Section : D.6 Behavior Action Language
+   * Object : Check legality rule D.6.(L1) 
+   * Keys : assignment action value expression target match type consistency
+   */
+  private boolean assignmentActionCheck(AssignmentAction aa)
+  {
+    Target tmp = targetCheck(aa.getTarget()) ;
+
+    boolean result = tmp != null ;
+
+    TypeHolder tarType, expType ;
+    tarType = expType = null ;
+
+    // The returned target may be different from the tested target
+    // because of semantic ambiguity resolution in targetCheck
+    // method. So replace if needed.
+    if(tmp != aa.getTarget() && result)
+    {
+      aa.setTarget(tmp) ;
+    }
+
+    ValueExpression ve = aa.getValueExpression() ;
+    
+    if(ve != null && (false == ve instanceof Any))
+    {
+      ValueAndTypeHolder vth = 
+          valueExpressionCheck(aa.getValueExpression()) ;
+      if (vth != null)
+      {
+        expType = vth.typeHolder ;
       }
       else
       {
-         return (dataComponentReferenceCheck((DataComponentReference) tar,
-        		    TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME)) ?
-               tar : null ;
-      }
-   }
-
-   // Compares the given expected data representation to the ValueAndTypeHolder
-   // one.
-   // Returns true is the data representation are the same.
-   // Otherwise returns false and reports error.
-   // If the given ValueAndTypeHolder object is null, it returns false without 
-   // reporting any error.
-   // If the given name is null, the method will unparse the given element.
-   private boolean typeCheck(BehaviorElement e, String name,
-                             ValueAndTypeHolder holder,
-                             DataRepresentation expectedDataRepresentation)
-   {
-      boolean result = false ;
-      
-      if(holder != null)
-      {
-         result = expectedDataRepresentation == holder.typeHolder.dataRep ;
-         
-         if(! result)
-         {
-            if (name == null)
-            {
-               name = unparseNameElement(e) ;
-            }
-            reportTypeError(e, name, expectedDataRepresentation.getName(),
-                            holder.typeHolder.toString()) ;
-         }
-      }
-      
-      return result ;
-   }
-   
-   
-   /**
-    * Checks the type of the reference linked to the given behavior element
-    * within the given rule's expected types. Returns the
-    * matching type or {@code null} otherwise. Reports any error.
-    *
-    * @param bel the behavior element to be checked
-    * @param name the behavior element's name
-    * @param rule the checking rule that contains the expected types
-    * @return the matching type or {@code null}
-    */
-   private Enum<?> typeCheck(BehaviorElement bel, String name, TypeCheckRule rule)
-   {
-      Enum<?> result = rule.test(bel, _baParentContainer) ;
-      
-      if(result == null)
-      {
-    	 
-         Enum<?> testedEnum = AadlBaUtils.getType(bel) ;
-    	 
-         // Resolves feature prototype binding.
-         if(testedEnum == FeatureType.FEATURE_PROTOTYPE_BINDING)
-         {
-        	 Element el = AadlBaUtils.getBindedElement(bel) ;
-        	 testedEnum = AadlBaUtils.getFeatPrototypeType(
-        			                             (FeaturePrototypeBinding) el) ;
-         }
-        	 
-    	 String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
-         String typeFound = ((Enumerator) testedEnum).getLiteral();
-         reportTypeError(bel, name, expectedTypes, typeFound) ;
-      }
-         
-      return result ;
-   }
-   
-   // Convenient class that holds a value and its type representation.
-   private class ValueAndTypeHolder
-   {
-      public Value value ;
-      public TypeHolder typeHolder ;
-      
-      public ValueAndTypeHolder(Value v, TypeHolder typeHolder)
-      {
-         this.value = v ;
-         this.typeHolder = typeHolder ;
-      }
-   }
-
-   // Behavior annex type checking rules.
-   // Based on a design pattern command like.
-   private enum TypeCheckRule implements Enumerator
-   {
-      
-      IN_EVENT_PORT ("in event port", new Enum[] {
-            FeatureType.IN_EVENT_PORT,
-            FeatureType.IN_OUT_EVENT_PORT}),
-      
-      IN_EVENT_DATA_PORT ("in event data port", new Enum[] {
-            FeatureType.IN_EVENT_DATA_PORT,
-            FeatureType.IN_OUT_EVENT_DATA_PORT}),
-      
-      EVENT_DATA_PORT ("event data port", new Enum[]{
-            FeatureType.IN_EVENT_DATA_PORT,
-            FeatureType.OUT_EVENT_DATA_PORT,
-            FeatureType.IN_OUT_EVENT_DATA_PORT}),
-      
-      IN_PORT ("in port", new Enum[]{
-            FeatureType.IN_DATA_PORT,
-            FeatureType.IN_OUT_DATA_PORT,
-            
-            FeatureType.IN_EVENT_PORT,
-            FeatureType.IN_OUT_EVENT_PORT,
-            
-            FeatureType.IN_EVENT_DATA_PORT,
-            FeatureType.IN_OUT_EVENT_DATA_PORT}),
-      
-      
-      OUT_PORT ("out port", new Enum[]{
-            FeatureType.OUT_DATA_PORT,
-            FeatureType.IN_OUT_DATA_PORT,
-            
-            FeatureType.OUT_EVENT_PORT,
-            FeatureType.IN_OUT_EVENT_PORT,
-            
-            FeatureType.OUT_EVENT_DATA_PORT,
-            FeatureType.IN_OUT_EVENT_DATA_PORT}),
-      
-      PORT ("port", new Enum[] {
-            
-            FeatureType.IN_DATA_PORT,
-            FeatureType.IN_OUT_DATA_PORT,
-            FeatureType.OUT_DATA_PORT,
-            
-            FeatureType.IN_EVENT_PORT,
-            FeatureType.IN_OUT_EVENT_PORT,
-            FeatureType.OUT_EVENT_PORT,
-            
-            FeatureType.IN_EVENT_DATA_PORT,
-            FeatureType.IN_OUT_EVENT_DATA_PORT,
-            FeatureType.OUT_EVENT_DATA_PORT}),
-      
-      IN_PARAMETER("in parameter", new Enum[] {
-            FeatureType.IN_PARAMETER,
-            FeatureType.IN_OUT_PARAMETER}),    
-            
-      OUT_PARAMETER("out parameter", new Enum[] {
-            FeatureType.OUT_PARAMETER,
-            FeatureType.IN_OUT_PARAMETER}),      
-            
-      PARAMETER("parameter", new Enum[] {
-         FeatureType.IN_PARAMETER,
-         FeatureType.OUT_PARAMETER,
-         FeatureType.IN_OUT_PARAMETER}),
-         
-      DATA_ACCESS("data access", new Enum[] {
-         FeatureType.REQUIRES_DATA_ACCESS,
-         FeatureType.PROVIDES_DATA_ACCESS }), 
-      
-      FROZEN_PORT("frozen port", new Enum[] {
-            TypeCheckRule.IN_PORT}),
-      
-      DISPATCH_TRIGGER("dispatch trigger", new Enum[] {
-            TypeCheckRule.IN_EVENT_PORT,
-            TypeCheckRule.IN_EVENT_DATA_PORT}),
-       
-      DISPATCH_TRIGGER_CONDITION ("dispatch trigger condition",
-         new Enum[]{
-            TypeCheckRule.IN_EVENT_PORT,
-            TypeCheckRule.IN_EVENT_DATA_PORT,
-            FeatureType.PROVIDES_SUBPROGRAM_ACCESS}),
-      
-      // Always include at the end of an array:
-      // because data subcomponent and data access are very high level types.
-      DATA_COMPONENT_REFERENCE_FIRST_NAME("data subcomponent" +
-            STRING_TYPE_SEPARATOR + "data access" + STRING_TYPE_SEPARATOR +
-            "parameter" + STRING_TYPE_SEPARATOR + "behavior variable" +
-            STRING_TYPE_SEPARATOR + "data access feature prototype",
-         new Enum[] {
-            FeatureType.DATA_SUBCOMPONENT,
-            TypeCheckRule.DATA_ACCESS,
-            BehaviorFeatureType.BEHAVIOR_VARIABLE}),
-            
-      DATA_COMPONENT_REFERENCE_OTHER_NAMES("data subcomponent",
-         new Enum[]{
-            FeatureType.DATA_SUBCOMPONENT,
-            FeatureType.CLASSIFIER_VALUE}),
-      
-      
-      LOCAL_VARIABLE ("local variable", new Enum[] {
-            BehaviorFeatureType.BEHAVIOR_VARIABLE,
-            BehaviorFeatureType.UNIQUE_COMPONENT_CLASSIFIER_REFERENCE}),
-      
-      // Always include at the end of an array:
-      // because data subcomponent and data access are very high level types.
-      VV_COMPONENT_REFERENCE_FIRST_NAME(
-       		DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + 
-          	STRING_TYPE_SEPARATOR + "in parameter",
-            new Enum[] {
-               TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
-               TypeCheckRule.IN_PARAMETER}), 
-      
-      VALUE_VARIABLE ("value variable", new Enum[] {
-            TypeCheckRule.IN_PORT,
-            TypeCheckRule.LOCAL_VARIABLE,
-            TypeCheckRule.VV_COMPONENT_REFERENCE_FIRST_NAME}),
-                                 
-      PROPERTY ("property", new Enum[]{
-            FeatureType.PROPERTY_CONSTANT,
-            FeatureType.PROPERTY_VALUE}),
-                                
-      PORT_COUNT_VALUE ("port count value", new Enum[]{
-            TypeCheckRule.PORT}),
-      
-      PORT_DEQUEUE_VALUE ("port dequeue value", new Enum[]{
-            TypeCheckRule.IN_PORT}),
- 
-      ELEMENT_VALUES ("element values", new Enum[] {
-            TypeCheckRule.EVENT_DATA_PORT,
-            TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),    
-
-      // Always include at the end of an array:
-      // because data subcomponent and data access are very high level types.
-      TARGET_COMPONENT_REFERENCE_FIRST_NAME(
-    		  DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + 
-    		  STRING_TYPE_SEPARATOR + "out parameter",
-            new Enum[] {
-               TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
-               TypeCheckRule.OUT_PARAMETER}), 
-      
-      TARGET ("target", new Enum[] {
-            TypeCheckRule.OUT_PORT,
-            BehaviorFeatureType.BEHAVIOR_VARIABLE,
-            TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME}),
-            
-      SHARED_DATA_ACTION ("shared data action", new Enum[] {
-            FeatureType.REQUIRES_DATA_ACCESS}),
-            
-      PORT_DEQUEUE_ACTION ("port dequeue action", new Enum[] {
-            TypeCheckRule.IN_PORT}),
-            
-      PORT_FREEZE_ACTION ("port freeze action", new Enum[] {
-            TypeCheckRule.IN_PORT}),
-                  
-      SUBPROGRAM_CALL_ACTION_ONE_NAME ("subprogram call action", new Enum[] {
-            FeatureType.SUBPROGRAM_SUBCOMPONENT,
-            FeatureType.SUBPROGRAM_PROTOTYPE,
-            FeatureType.SUBPROGRAM_CLASSIFIER,
-            FeatureType.REQUIRES_SUBPROGRAM_ACCESS,
-            FeatureType.COMPONENT_PROTOTYPE_BINDING,
-            TypeCheckRule.OUT_PORT}),
-      
-      SUBPROGRAM_CALL_ACTION_FIRST_NAME ("subprogram call action", new Enum[] {
-            FeatureType.REQUIRES_DATA_ACCESS}),
-                                
-      SUBPROGRAM_CALL_ACTION_SD_NAME ("subprogram call action", new Enum[] {
-            FeatureType.PROVIDES_SUBPROGRAM_ACCESS}),
-                                   
-      DATA_UCCR ("data unique component classifier reference", new Enum[] {
-            FeatureType.DATA_CLASSIFIER}),
-                                  
-      SUBPROGRAM_UCCR ("subprogram unique component classifier reference",
-            new Enum[] {FeatureType.SUBPROGRAM_CLASSIFIER})
-      ;
-      
-      String _literal ;
-      Enum<?>[] _acceptableTypes ;
-      
-      TypeCheckRule(String literal, Enum<?>[] acceptableTypes)
-      {
-         _literal = literal ;
-         _acceptableTypes = acceptableTypes ;
-      }
-      
-      /**
-       * Returns the expected type names separated by the given type separator
-       * string.
-       * <BR><BR>
-       * Note : this method is not recursive. 
-       * 
-       * @param typeSeparator the given type separator string 
-       * @return the the expected type names separated by the given type
-       * separator string.
-       */
-      public String getExpectedTypes(String typeSeparator)
-      {
-         Enum<?>[] ea = this._acceptableTypes ;
-         
-         String[] sa = new String[ea.length];
-         int i = 0 ;
-         
-         for(Enum<?> e : ea)
-         {
-            sa[i] = ((Enumerator)e).getLiteral();
-            i++ ;
-         }
-         
-         return AadlBaUtils.concatenateString(typeSeparator, sa) ;
-      }
-      
-      /**
-       * Returns the rule's matching feature type or behavior annex feature type
-       * of the given BehaviorElement object. If there is no matching, it 
-       * returns {@code null}. This test is recursive.
-       * @param bel the given BehaviorElement object
-       * @param baParentContainer behavior parent component
-       * @return the rule's matching feature type or {@code null}
-       */
-      public Enum<?> test(BehaviorElement bel,
-    		              ComponentClassifier baParentContainer)
-      {
-         Enum<?> testedEnum = AadlBaUtils.getType(bel) ;
-         
-         
-         
-         // Resolves feature prototype binding in order to compare the rule
-         // to the resolved feature prototype.
-         if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
-         {
-        	 FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
-        	                                 AadlBaUtils.getBindedElement(bel) ;
-        	 testedEnum = AadlBaUtils.getFeatPrototypeType(fpb) ;
-         }
-         
-         for(Enum<?> e : _acceptableTypes)
-         {
-            if(e instanceof TypeCheckRule)
-            {
-               if (testTypeCheckRule((TypeCheckRule)e, testedEnum) != null)
-               {
-                  return e ;
-               }
-               else
-               {
-                  continue ;
-               }
-            }
-            else
-            {
-               if (e.equals(testedEnum))
-               {
-                  return e ;
-               }
-               else
-               {
-                  continue ;
-               }
-            }
-         }
-         
-         return null ;
-      }
-      
-      
-      private Enum<?> testTypeCheckRule(TypeCheckRule tcr, Enum<?> other)
-      {
-         for(Enum<?> e : tcr._acceptableTypes)
-         {
-            if (e instanceof TypeCheckRule)
-            {
-               if (testTypeCheckRule((TypeCheckRule)e, other) != null)
-               {
-                  return e ;
-               }
-               else
-               {
-                  continue ;
-               }
-            }
-            else
-            {
-               if (e.equals(other))
-               {
-                  return e ;
-               }
-               else
-               {
-                  continue ;
-               }
-            }
-         }
-         
-         return null ;
+        result = false ;
       }
 
-      @Override
-      public String getLiteral()
+      if(result)
       {
-         return _literal ;
+        // Performs data type consistency checking.
+        try
+        {
+           tarType = AadlBaUtils.getTypeHolder(tmp) ;
+        }
+        catch (DimensionException de)
+        {
+           reportDimensionException(de) ;
+              return false ;
+        }
+        
+        result = _dataChecker.conformsTo(tarType, expType, true) ;
+        
+        if(! result)
+        {
+          reportTypeError(vth.value, "assignment",
+              tarType.toString(), expType.toString()) ;
+        }
+      }
+    }
+
+    return result ;
+  }
+
+  // Semantic rule about iterative variable assignment is checked.
+  // See BehaviorAnnexFeature.TARGET .
+  // This method checks the given object and returns an object resolved from
+  // semantic ambiguities. On error, reports error and returns null.
+  private Target targetCheck(Target tar)
+  {
+    TypeCheckRule stopOnThisRule = TypeCheckRule.TARGET_STOP_RULE ; 
+    TypeCheckRule[] checkRules = new TypeCheckRule[]
+          {
+            TypeCheckRule.TARGET_COMPONENT_REFERENCE_FIRST_NAME,
+            TypeCheckRule.DATA_COMPONENT_REFERENCE_OTHER_NAMES
+          } ; 
+    
+    List<ElementHolder> resolvedRef = refResolver((Reference) tar, null,
+                                                  stopOnThisRule, checkRules) ;
+    
+    return (Target) referenceToValueVariable(resolvedRef) ;
+  }
+  
+  // Compares the given expected data representation to the ValueAndTypeHolder
+  // one.
+  // Returns true is the data representation are the same.
+  // Otherwise returns false and reports error.
+  // If the given ValueAndTypeHolder object is null, it returns false without 
+  // reporting any error.
+  // If the given name is null, the method will unparse the given element.
+  private boolean typeCheck(BehaviorElement e, String name,
+                            ValueAndTypeHolder holder,
+                            DataRepresentation expectedDataRepresentation)
+  {
+    boolean result = false ;
+
+    if(holder != null)
+    {
+      result = expectedDataRepresentation == holder.typeHolder.dataRep ;
+
+      if(! result)
+      {
+        if (name == null)
+        {
+          name = unparseNameElement(e) ;
+        }
+        reportTypeError(e, name, expectedDataRepresentation.getName(),
+            holder.typeHolder.toString()) ;
+      }
+    }
+
+    return result ;
+  }
+
+  /**
+   * Return the element binded to the given declarative behavior element.
+   * 
+   * @param el the given declarative behavior element
+   * @return the binded element
+   */
+  public static  Element getBindedElement(DeclarativeBehaviorElement el)
+  {
+    org.osate.aadl2.Element result = el.getOsateRef() ;
+
+    if(result == null)
+    {
+      result = el.getBaRef() ;
+    }
+
+    return result ;
+  }
+  
+  /**
+   * Returns the type of the element binded to the given behavior
+   * annex element.
+   * 
+   * @param el the given behavior annex element
+   * @return the type of the linked element
+   */
+  private static Enum<?> getType(DeclarativeBehaviorElement el)
+  {
+    org.osate.aadl2.Element testedEl = AadlBaTypeChecker.getBindedElement(el);
+
+    Enum<?> result ;
+
+    if (testedEl instanceof BehaviorElement)
+    {
+      result = AadlBaUtils.getBehaviorAnnexFeatureType(
+          (BehaviorElement)testedEl);
+    }
+    else
+    {
+      result = AadlBaUtils.getFeatureType(testedEl) ;
+    }
+
+    return result ;
+  }
+  
+  
+  /**
+   * Checks the type of the reference linked to the given declarative behavior
+   * element within the given rule's expected types. Returns the
+   * matching type or {@code null} otherwise. Reports any error if hasToReport
+   * is {@code true}.
+   *
+   * @param dbe the declarative behavior element to be checked
+   * @param name the behavior element's name
+   * @param rule the checking rule that contains the expected types
+   * @param hasToReport flag for report error
+   * @return the matching type or {@code null}
+   */
+  private Enum<?> typeCheck(DeclarativeBehaviorElement dbe, String name,
+                            TypeCheckRule rule, boolean hasToReport)
+  {
+    Enum<?> result = rule.test(dbe, _baParentContainer) ;
+
+    if(result == null && hasToReport)
+    {
+
+      Enum<?> testedEnum = AadlBaTypeChecker.getType(dbe) ;
+
+      // Resolves feature prototype binding.
+      if(testedEnum == FeatureType.FEATURE_PROTOTYPE_BINDING)
+      {
+        Element el = AadlBaTypeChecker.getBindedElement(dbe) ;
+        testedEnum = AadlBaUtils.getFeatPrototypeType(
+            (FeaturePrototypeBinding) el) ;
       }
 
-      @Override
-      public String getName()
+      String expectedTypes = rule.getExpectedTypes(STRING_TYPE_SEPARATOR) ;
+      String typeFound = ((Enumerator) testedEnum).getLiteral();
+      reportTypeError(dbe, name, expectedTypes, typeFound) ;
+    }
+
+    return result ;
+  }
+
+  // Convenient class that holds a value and its type representation.
+  private class ValueAndTypeHolder
+  {
+    public Value value ;
+    public TypeHolder typeHolder ;
+
+    public ValueAndTypeHolder(Value v, TypeHolder typeHolder)
+    {
+      this.value = v ;
+      this.typeHolder = typeHolder ;
+    }
+  }
+
+  // Behavior annex type checking rules.
+  // Based on a design pattern command like.
+  private enum TypeCheckRule implements Enumerator
+  {
+
+    IN_EVENT_PORT("in event port", new Enum[]
+          {FeatureType.IN_EVENT_PORT,
+           FeatureType.IN_OUT_EVENT_PORT}),
+
+    IN_EVENT_DATA_PORT("in event data port", new Enum[]
+          {FeatureType.IN_EVENT_DATA_PORT,
+           FeatureType.IN_OUT_EVENT_DATA_PORT}),
+
+    EVENT_DATA_PORT("event data port", new Enum[]
+          {FeatureType.IN_EVENT_DATA_PORT,
+           FeatureType.OUT_EVENT_DATA_PORT,
+           FeatureType.IN_OUT_EVENT_DATA_PORT}),
+
+    IN_PORT("in port", new Enum[]
+          {FeatureType.IN_DATA_PORT,
+           FeatureType.IN_OUT_DATA_PORT,
+           FeatureType.IN_EVENT_PORT,
+           FeatureType.IN_OUT_EVENT_PORT,
+           FeatureType.IN_EVENT_DATA_PORT,
+           FeatureType.IN_OUT_EVENT_DATA_PORT}),
+
+    OUT_PORT("out port", new Enum[]
+          {FeatureType.OUT_DATA_PORT,
+           FeatureType.IN_OUT_DATA_PORT,
+           FeatureType.OUT_EVENT_PORT,
+           FeatureType.IN_OUT_EVENT_PORT,
+           FeatureType.OUT_EVENT_DATA_PORT,
+           FeatureType.IN_OUT_EVENT_DATA_PORT}),
+
+    PORT("port", new Enum[]
+          {FeatureType.IN_DATA_PORT,
+           FeatureType.IN_OUT_DATA_PORT,
+           FeatureType.OUT_DATA_PORT,
+           FeatureType.IN_EVENT_PORT,
+           FeatureType.IN_OUT_EVENT_PORT,
+           FeatureType.OUT_EVENT_PORT,
+           FeatureType.IN_EVENT_DATA_PORT,
+           FeatureType.IN_OUT_EVENT_DATA_PORT,
+           FeatureType.OUT_EVENT_DATA_PORT}),
+
+    IN_PORT_PROTOTYPE("in port prototype", new Enum[]
+           {FeatureType.IN_DATA_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_DATA_PORT_PROTOTYPE,
+            FeatureType.IN_EVENT_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE,
+            FeatureType.IN_EVENT_DATA_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE}),
+
+    OUT_PORT_PROTOTYPE("out port prototype", new Enum[]
+           {FeatureType.OUT_DATA_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_DATA_PORT_PROTOTYPE,
+            FeatureType.OUT_EVENT_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE,
+            FeatureType.OUT_EVENT_DATA_PORT_PROTOTYPE,
+            FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE}),
+           
+           
+    IN_PARAMETER("in parameter", new Enum[]
+          {FeatureType.IN_PARAMETER,
+           FeatureType.IN_OUT_PARAMETER}),
+
+    OUT_PARAMETER("out parameter", new Enum[]
+          {FeatureType.OUT_PARAMETER,
+           FeatureType.IN_OUT_PARAMETER}),
+
+    PARAMETER("parameter", new Enum[]
+          {FeatureType.IN_PARAMETER,
+           FeatureType.OUT_PARAMETER,
+           FeatureType.IN_OUT_PARAMETER}),
+
+    DATA_ACCESS("data access", new Enum[]
+          {FeatureType.REQUIRES_DATA_ACCESS,
+           FeatureType.PROVIDES_DATA_ACCESS}),
+    
+    DATA_ACCESS_PROTOTYPE("data access prototype", new Enum[]
+          {FeatureType.REQUIRES_DATA_ACCESS_PROTOTYPE,
+           FeatureType.PROVIDES_DATA_ACCESS_PROTOTYPE}),
+
+    FROZEN_PORT("frozen port", new Enum[]
+          {TypeCheckRule.IN_PORT}),
+
+    DISPATCH_TRIGGER("dispatch trigger", new Enum[]
+          {TypeCheckRule.IN_EVENT_PORT,
+           TypeCheckRule.IN_EVENT_DATA_PORT}),
+
+    DISPATCH_TRIGGER_CONDITION("dispatch trigger condition", new Enum[]
+          {TypeCheckRule.IN_EVENT_PORT,
+           TypeCheckRule.IN_EVENT_DATA_PORT,
+           FeatureType.PROVIDES_SUBPROGRAM_ACCESS}),
+
+    // Always include at the end of an array:
+    // because data subcomponent and data access are very high level types.
+    DATA_COMPONENT_REFERENCE_FIRST_NAME("data subcomponent" +
+          STRING_TYPE_SEPARATOR + "data access" + STRING_TYPE_SEPARATOR +
+          "parameter" + STRING_TYPE_SEPARATOR + "behavior variable" +
+          STRING_TYPE_SEPARATOR + "data access feature prototype", new Enum[]
+          {FeatureType.DATA_SUBCOMPONENT,
+           TypeCheckRule.DATA_ACCESS,
+           TypeCheckRule.DATA_ACCESS_PROTOTYPE,
+           BehaviorFeatureType.BEHAVIOR_VARIABLE}),
+
+    DATA_COMPONENT_REFERENCE_OTHER_NAMES("data subcomponent", new Enum[]
+          {FeatureType.DATA_SUBCOMPONENT,
+           FeatureType.CLASSIFIER_VALUE}),
+
+    // Always include at the end of an array:
+    // because data subcomponent and data access are very high level types.
+    VV_COMPONENT_REFERENCE_FIRST_NAME(
+          DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + STRING_TYPE_SEPARATOR +
+         "in parameter" + STRING_TYPE_SEPARATOR + "incomming port (prototype)" +
+             STRING_TYPE_SEPARATOR + "iterative variable", new Enum[]
+          {TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
+           TypeCheckRule.IN_PARAMETER,
+           TypeCheckRule.IN_PORT,
+           TypeCheckRule.IN_PORT_PROTOTYPE,
+           BehaviorFeatureType.ITERATIVE_VARIABLE}),
+
+    PROPERTY("property", new Enum[]
+          {FeatureType.PROPERTY_CONSTANT,
+           FeatureType.PROPERTY_VALUE}),
+
+    PORT_COUNT_VALUE("port count value", new Enum[]
+          {TypeCheckRule.PORT}),
+          
+    PORT_FRESH_VALUE("port fresh value", new Enum[]
+          {TypeCheckRule.PORT}),
+
+    PORT_DEQUEUE_VALUE("port dequeue value", new Enum[]
+          {TypeCheckRule.IN_PORT}),
+
+    ELEMENT_VALUES("element values", new Enum[]
+          {TypeCheckRule.EVENT_DATA_PORT,
+           TypeCheckRule.PARAMETER,
+           TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),
+
+    // Always include at the end of an array:
+    // because data subcomponent and data access are very high level types.
+    TARGET_COMPONENT_REFERENCE_FIRST_NAME(
+          DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + STRING_TYPE_SEPARATOR +
+            "out parameter" + STRING_TYPE_SEPARATOR + "outgoing port (prototype)",
+                new Enum[]
+          {TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME,
+           TypeCheckRule.OUT_PARAMETER,
+           TypeCheckRule.OUT_PORT,
+           TypeCheckRule.OUT_PORT_PROTOTYPE}),
+
+    SHARED_DATA_ACTION("shared data action", new Enum[]
+          {FeatureType.REQUIRES_DATA_ACCESS}),
+
+    PORT_DEQUEUE_ACTION("port dequeue action", new Enum[]
+          {TypeCheckRule.IN_PORT}),
+
+    PORT_FREEZE_ACTION("port freeze action", new Enum[]
+          {TypeCheckRule.IN_PORT}),
+
+    SUBPROGRAM_CALL_ACTION_FIRST_NAME("subprogram call action", new Enum[]
+          {FeatureType.SUBPROGRAM_SUBCOMPONENT,
+           FeatureType.SUBPROGRAM_PROTOTYPE,
+           FeatureType.SUBPROGRAM_CLASSIFIER,
+           FeatureType.REQUIRES_SUBPROGRAM_ACCESS,
+           FeatureType.REQUIRES_DATA_ACCESS,
+           TypeCheckRule.OUT_PORT}),
+
+    SUBPROGRAM_CALL_ACTION_SD_NAME("subprogram call action", new Enum[]
+          {FeatureType.PROVIDES_SUBPROGRAM_ACCESS}),
+
+    DATA_UCCR("data unique component classifier reference", new Enum[]
+          {FeatureType.DATA_CLASSIFIER}),
+
+    SUBPROGRAM_UCCR("subprogram unique component classifier reference", new Enum[]
+          {FeatureType.SUBPROGRAM_CLASSIFIER}),
+    
+    GROUPS ("group (prototype)", new Enum[]
+          {FeatureType.FEATURE_GROUP,
+           FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS,
+           FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS,
+           FeatureType.THREAD_GROUP,
+           FeatureType.SUBPROGRAM_GROUP,
+           FeatureType.THREAD_GROUP_PROTOTYPE,
+           FeatureType.SUBPROGRAM_GROUP_PROTOTYPE,
+           FeatureType.FEATURE_GROUP_PROTOTYPE,
+           FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE,
+           FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS_PROTOTYPE}),
+    
+    TARGET_STOP_RULE ("target stop rule", new Enum[]
+          {TypeCheckRule.OUT_PORT,
+           TypeCheckRule.OUT_PORT_PROTOTYPE
+          }),
+          
+    VV_STOP_RULE ("value variable stop rule", new Enum[]
+          {TypeCheckRule.IN_PORT,
+           TypeCheckRule.IN_PORT_PROTOTYPE
+          }) ;
+          
+    String _literal ;
+    Enum<?>[] _acceptableTypes ;
+
+    TypeCheckRule(String literal, Enum<?>[] acceptableTypes)
+    {
+      _literal = literal ;
+      _acceptableTypes = acceptableTypes ;
+    }
+
+    /**
+     * Returns the expected type names separated by the given type separator
+     * string.
+     * <BR><BR>
+     * Note : this method is not recursive. 
+     * 
+     * @param typeSeparator the given type separator string 
+     * @return the the expected type names separated by the given type
+     * separator string.
+     */
+    public String getExpectedTypes(String typeSeparator)
+    {
+      Enum<?>[] ea = this._acceptableTypes ;
+
+      String[] sa = new String[ea.length];
+      int i = 0 ;
+
+      for(Enum<?> e : ea)
       {
-         throw new UnsupportedOperationException() ;
+        sa[i] = ((Enumerator)e).getLiteral();
+        i++ ;
       }
 
-      @Override
-      public int getValue()
+      return AadlBaUtils.concatenateString(typeSeparator, sa) ;
+    }
+
+    /**
+     * Returns the rule's matching feature type or behavior annex feature type
+     * of the given DeclarativeBehaviorElement object. If there is no matching,
+     * it returns {@code null}. This test is recursive.
+     * @param dbe the given DeclarativeBehaviorElement object
+     * @param baParentContainer behavior parent component
+     * @return the rule's matching feature type or {@code null}
+     */
+    public Enum<?> test(DeclarativeBehaviorElement dbe,
+                        ComponentClassifier baParentContainer)
+    {
+      Enum<?> testedEnum = AadlBaTypeChecker.getType(dbe) ;
+
+
+
+      // Resolves feature prototype binding in order to compare the rule
+      // to the resolved feature prototype.
+      if(testedEnum.equals(FeatureType.FEATURE_PROTOTYPE_BINDING))
       {
-         throw new UnsupportedOperationException() ;
+        FeaturePrototypeBinding fpb = (FeaturePrototypeBinding) 
+              AadlBaTypeChecker.getBindedElement(dbe) ;
+        testedEnum = AadlBaUtils.getFeatPrototypeType(fpb) ;
       }
-   }   
+      
+      // Resolves component prototype binding in order to compare the rule
+      // to the resolved component prototype.
+      if(testedEnum.equals(FeatureType.COMPONENT_PROTOTYPE_BINDING))
+      {
+        ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) 
+              AadlBaTypeChecker.getBindedElement(dbe) ;
+        testedEnum = AadlBaUtils.getCompPrototypeType(cpb) ;
+      }
+      
+      return testTypeCheckRule(testedEnum) ;
+    }
+
+    public Enum<?> testTypeCheckRule(Enum<?> other)
+    {
+      return testTypeCheckRule(this, other) ;
+    }
+    
+    private static Enum<?> testTypeCheckRule(TypeCheckRule tcr, Enum<?> other)
+    {
+      for(Enum<?> e : tcr._acceptableTypes)
+      {
+        if (e instanceof TypeCheckRule)
+        {
+          Enum<?> result = testTypeCheckRule((TypeCheckRule)e, other) ;
+          
+          if (result != null)
+          {
+            return result ;
+          }
+          else
+          {
+            continue ;
+          }
+        }
+        else
+        {
+          if (e.equals(other))
+          {
+            return e ;
+          }
+          else
+          {
+            continue ;
+          }
+        }
+      }
+
+      return null ;
+    }
+
+    @Override
+    public String getLiteral()
+    {
+      return _literal ;
+    }
+
+    @Override
+    public String getName()
+    {
+      throw new UnsupportedOperationException() ;
+    }
+
+    @Override
+    public int getValue()
+    {
+      throw new UnsupportedOperationException() ;
+    }
+  }   
+}
+
+enum DataAccessRight
+{
+  unknown ("unknown"),
+  read_only ("read only"),
+  write_only ("write only"),
+  read_write ("read and write") ;
+  
+  String literal ;
+  
+  DataAccessRight (String literal)
+  {
+    this.literal = literal ; 
+  }
+  
+  static DataAccessRight getDataAccessRight(String literal)
+  {
+    try { return valueOf(literal) ;}
+    catch (IllegalArgumentException e)
+    {
+      return unknown ;
+    }
+  }
 }

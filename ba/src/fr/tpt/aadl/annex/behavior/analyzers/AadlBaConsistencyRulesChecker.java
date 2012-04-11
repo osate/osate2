@@ -26,14 +26,16 @@ import java.util.List ;
 
 import org.eclipse.emf.common.util.EList ;
 
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
-import edu.cmu.sei.aadl.aadl2.Mode ;
-import edu.cmu.sei.aadl.aadl2.ModeTransition ;
-import edu.cmu.sei.aadl.aadl2.ModeTransitionTrigger ;
-import edu.cmu.sei.aadl.aadl2.PackageSection;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Mode ;
+import org.osate.aadl2.ModeTransition ;
+import org.osate.aadl2.ModeTransitionTrigger ;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
+
+import fr.tpt.aadl.annex.behavior.declarative.Identifier;
 
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
@@ -71,19 +73,16 @@ public class AadlBaConsistencyRulesChecker
       // these checking can be moved to the rules driver in order to optimize.
       
       BehaviorState bs = (BehaviorState) srcState.getBaRef() ;
-      Identifier declaredState = null ;
+      BehaviorState declaredState = null ;
       
-      for(Identifier tmp : bs.getIdentifiers())
+      if(bs.getName().equalsIgnoreCase(srcState.getId()))
       {
-         if(tmp.getId().equalsIgnoreCase(srcState.getId()))
-         {
-            declaredState = tmp ;
-         }
+         declaredState = bs ;
       }
       
       // If the srcState doesn't represent a mode: nothing to check for, exit
       // with true.
-      if(! (declaredState.getAadlRef() instanceof Mode))
+      if(declaredState.getBindedMode() == null)
       {
          return true ;
       }
@@ -94,21 +93,21 @@ public class AadlBaConsistencyRulesChecker
       // represent a mode.
       
       DispatchTriggerLogicalExpression dtle ;
-      Mode mode = (Mode) declaredState.getAadlRef() ;
+      Mode mode = declaredState.getBindedMode() ;
       
       // As D.3.(C4), behavior state that represents a mode is a complete 
       // state and as D.3.(L6) and D.3(L7) legality rules: only dispatch 
       // trigger logical expression is analyzed.
-      if(btOwner.getBehaviorConditionOwned() instanceof DispatchCondition)
+      if(btOwner.getCondition() instanceof DispatchCondition)
       {
            DispatchCondition dc = (DispatchCondition) btOwner.
-                                                   getBehaviorConditionOwned() ;
+                                                   getCondition() ;
            
-           if(dc.getDispatchTriggerConditionOwned() instanceof 
+           if(dc.getDispatchTriggerCondition() instanceof 
                                             DispatchTriggerLogicalExpression)
            {
               dtle = (DispatchTriggerLogicalExpression) 
-                        dc.getDispatchTriggerConditionOwned() ;
+                        dc.getDispatchTriggerCondition() ;
            }
            else
            {
@@ -150,9 +149,10 @@ public class AadlBaConsistencyRulesChecker
       // Fetches dispatch trigger names in the given behavior transition.
       List<String> ldispTriggs = new ArrayList<String>() ;
       
-      for(Identifier id : AadlBaVisitors.getDispatchTriggers(dtle))
+      for(DispatchTrigger trigg : AadlBaVisitors.getDispatchTriggers(dtle))
       {
-         ldispTriggs.add(id.getId()) ;
+        ActualPortHolder portHolder = (ActualPortHolder) trigg ;
+        ldispTriggs.add(portHolder.getPort().getName()) ;
       }
       
       // Checks if the behavior transition is consisting with one of 
@@ -164,7 +164,7 @@ public class AadlBaConsistencyRulesChecker
          if(mTrans.getSource().getName().equalsIgnoreCase(mode.getName()))
          {
             // Fetches mode transition trigger names.
-            for(ModeTransitionTrigger mtt : mTrans.getTriggers())
+            for(ModeTransitionTrigger mtt : mTrans.getOwnedTriggers())
             {
                lModeTriggs.add(AadlBaUtils.getName(mtt)) ;
             }

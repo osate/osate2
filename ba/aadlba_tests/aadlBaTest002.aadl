@@ -215,7 +215,7 @@ transitions
 
    -- array and integer value tests --
 
-     -- integer value varibale 
+     -- integer value variable 
       
  a -[]-> a {tab[int1] := 1};
  a -[]-> a {tab[inPortA ?] := 1};

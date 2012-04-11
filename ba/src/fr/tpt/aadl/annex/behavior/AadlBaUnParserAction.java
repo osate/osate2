@@ -21,13 +21,18 @@
 
 package fr.tpt.aadl.annex.behavior;
 
-import edu.cmu.sei.aadl.aadl2.AnnexLibrary;
-import edu.cmu.sei.aadl.aadl2.AnnexSubclause;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.annexsupport.AnnexUnparser;
+
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
 import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser;
 
+public class AadlBaUnParserAction implements AnnexUnparser
+{
 
-public class AadlBaUnParserAction implements edu.cmu.sei.aadl.annex.AnnexUnparser {
-
+	public static final String ANNEX_NAME = "behavior_specification";
+	
 	/**
 	 * AadlBa unparser instance
 	 */
@@ -47,8 +52,14 @@ public class AadlBaUnParserAction implements edu.cmu.sei.aadl.annex.AnnexUnparse
 	 * the unparser registry.
 	 */
 	public String unparseAnnexSubclause(AnnexSubclause subclause, String indent) {
-		unparser = new AadlBaUnparser(subclause, indent);
-		return unparser.process(subclause);
+	  if(subclause instanceof BehaviorElement)
+	  {
+	    unparser = new AadlBaUnparser(subclause, indent);
+	    return unparser.process((BehaviorElement) subclause);
+	  }
+	  else
+	  {
+	    return "NOT AN BEHAVIOR ELEMENT" ;
+	  }
 	}
-
 }

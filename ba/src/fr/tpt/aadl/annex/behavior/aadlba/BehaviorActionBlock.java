@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 
@@ -30,8 +28,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getBehaviorTimeOwned <em>Behavior Time Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getContent <em>Content</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,57 +37,58 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface BehaviorActionBlock extends BehaviorElement, BehaviorAction {
-	/**
-	 * Returns the value of the '<em><b>Behavior Actions Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Behavior Actions Owned</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #setBehaviorActionsOwned(BehaviorActions)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_BehaviorActionsOwned()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	BehaviorActions getBehaviorActionsOwned();
+public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement
+{
+  /**
+   * Returns the value of the '<em><b>Content</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Content</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Content</em>' containment reference.
+   * @see #setContent(BehaviorActions)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Content()
+   * @model containment="true" required="true"
+   * @generated
+   */
+  BehaviorActions getContent();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Behavior Actions Owned</em>' containment reference.
-	 * @see #getBehaviorActionsOwned()
-	 * @generated
-	 */
-	void setBehaviorActionsOwned(BehaviorActions value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getContent <em>Content</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Content</em>' containment reference.
+   * @see #getContent()
+   * @generated
+   */
+  void setContent(BehaviorActions value);
 
-	/**
-	 * Returns the value of the '<em><b>Behavior Time Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Behavior Time Owned</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Behavior Time Owned</em>' containment reference.
-	 * @see #setBehaviorTimeOwned(BehaviorTime)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_BehaviorTimeOwned()
-	 * @model containment="true"
-	 * @generated
-	 */
-	BehaviorTime getBehaviorTimeOwned();
+  /**
+   * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Timeout</em>' containment reference.
+   * @see #setTimeout(BehaviorTime)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Timeout()
+   * @model containment="true"
+   * @generated
+   */
+  BehaviorTime getTimeout();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getBehaviorTimeOwned <em>Behavior Time Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Behavior Time Owned</em>' containment reference.
-	 * @see #getBehaviorTimeOwned()
-	 * @generated
-	 */
-	void setBehaviorTimeOwned(BehaviorTime value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Timeout</em>' containment reference.
+   * @see #getTimeout()
+   * @generated
+   */
+  void setTimeout(BehaviorTime value);
 
 } // BehaviorActionBlock

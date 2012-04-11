@@ -24,24 +24,33 @@ package fr.tpt.aadl.annex.behavior ;
 import java.util.Iterator ;
 import java.util.List ;
 
-import edu.cmu.sei.aadl.annex.AnnexResolver ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.annexsupport.AnnexResolver ;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaNameResolver ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaRulesCheckersDriver ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.AdaLikeDataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DataTypeChecker ;
+import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
 
 public class AadlBaResolver implements AnnexResolver
 {
-   @SuppressWarnings("unchecked")
+   public static final String ANNEX_NAME = "behavior_specification";
+	
+   @SuppressWarnings("rawtypes")
    @Override
    public void resolveAnnex(String annexName, List annexElements,
                             AnalysisErrorReporterManager errManager)
    {
       // Can't resolve behavior annex if there are AADL errors.
-      if(errManager.getNumErrors() == 0)
+      // XXX As errManager is shared between the behavior annexes in 
+      // standalone and OSATE 2 editions, if one behavior specification failed
+      // on analysis, the others will not be analysed because of this condition.
+
+     // ****************** DEBUG ********************* //
+     //      if(errManager.getNumErrors() == 0)
       {
          Iterator<?> it = annexElements.iterator() ;
          BehaviorAnnex ba ;
@@ -65,11 +74,23 @@ public class AadlBaResolver implements AnnexResolver
             {
                typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                        errManager) ;
-               typeChecker.checkTypes() ;
-                 
-               semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
-               semanticAnalysis.process(ba) ;
+               result = typeChecker.checkTypes() ;
                
+               if (result)
+               {
+                 
+                 semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
+                 result = semanticAnalysis.process(ba) ;
+               }  
+               
+               DeclarativeUtils.reinstanciateBehaviorTransition(ba) ;
+               
+               // XXX DEBUG
+//               AadlBaUnparser unparser = new AadlBaUnparser() ;
+//               System.out.println(unparser.process(ba));
+               
+               // DEBUG
+//               System.out.println("### nb errors : " + errManager.getNumErrors()) ;
             }
          }
       }

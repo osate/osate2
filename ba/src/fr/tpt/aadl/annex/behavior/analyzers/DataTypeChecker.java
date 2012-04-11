@@ -67,8 +67,11 @@ public interface DataTypeChecker
     * 
     * @param type1 the given type1
     * @param type2 the given type2
+    * @param hasToCheckDimension if {@code true}, checks type's array dimension.
+    * else it doesn't.
     */
-   boolean conformsTo(TypeHolder type1, TypeHolder type2) ;
+   boolean conformsTo(TypeHolder type1, TypeHolder type2,
+                      boolean hasToCheckDimension) ;
    
    /**
     * Checks if the type1 conforms to type2 

@@ -28,24 +28,31 @@ import java.util.List ;
 import java.util.Set ;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
-import edu.cmu.sei.aadl.aadl2.ComponentClassifier;
-import edu.cmu.sei.aadl.aadl2.DeviceClassifier;
-import edu.cmu.sei.aadl.aadl2.MetaclassReference ;
-import edu.cmu.sei.aadl.aadl2.PackageSection ;
-import edu.cmu.sei.aadl.aadl2.Property ;
-import edu.cmu.sei.aadl.aadl2.PropertyAssociation ;
-import edu.cmu.sei.aadl.aadl2.PropertyOwner ;
-import edu.cmu.sei.aadl.aadl2.SubprogramClassifier;
-import edu.cmu.sei.aadl.aadl2.ThreadClassifier;
-import edu.cmu.sei.aadl.aadl2.VirtualProcessorClassifier ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import edu.cmu.sei.osate.workspace.names.standard.ThreadProperties ;
-import edu.cmu.sei.osate.workspace.names.standard.TimingProperties ;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.DeviceClassifier;
+import org.osate.aadl2.EnumerationLiteral ;
+import org.osate.aadl2.MetaclassReference ;
+import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyOwner ;
+import org.osate.aadl2.SubprogramClassifier;
+import org.osate.aadl2.ThreadClassifier;
+import org.osate.aadl2.VirtualProcessorClassifier ;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.xtext.aadl2.properties.util.ThreadProperties ;
+import org.osate.xtext.aadl2.properties.util.TimingProperties ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
+
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
 
 public class AadlBaLegalityRulesChecker
 {
@@ -74,9 +81,9 @@ public class AadlBaLegalityRulesChecker
     * Object : Check legality rules D.3.(L1), D.3.(L2) 
     * Keys : subprogram components initial complete final states
     */
-   public boolean D_3_L1_And_L2_Check (EList<Identifier> initialStates,
-		                               EList<Identifier> completeStates,
-		                               EList<Identifier> finalStates)
+   public boolean D_3_L1_And_L2_Check (EList<BehaviorState> initialStates,
+		                               EList<BehaviorState> completeStates,
+		                               EList<BehaviorState> finalStates)
    {
 	   boolean result = true ;
 	   
@@ -88,7 +95,7 @@ public class AadlBaLegalityRulesChecker
 	       {
 	          result = false ;
 	          reportElements = AadlBaUtils.identifierListToString(initialStates,
-	                                                             LIST_SEPARATOR);
+	                                                  LIST_SEPARATOR);
 	          this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
 	             " can't have more than one initial state : " + reportElements +
 	                " : Behavior Annex D.3.(L1) legality rule failed") ;
@@ -144,8 +151,8 @@ public class AadlBaLegalityRulesChecker
     * Object : Check legality rule D.3.(L3) 
     * Keys : threads, suspendable devices initial complete states
     */
-   public boolean D_3_L3_Check (EList<Identifier> initialStates,
-				                       EList<Identifier> completeStates)
+   public boolean D_3_L3_Check (EList<BehaviorState> initialStates,
+				                       EList<BehaviorState> completeStates)
    {
 	  boolean result = true ;
 	   
@@ -195,27 +202,30 @@ public class AadlBaLegalityRulesChecker
     * final states
     */
    @SuppressWarnings("unchecked")
-   public boolean D_3_L4_Check (EList<Identifier> initialStates,
-				                EList<Identifier> finalStates)
+   public boolean D_3_L4_Check (EList<BehaviorState> initialStates,
+				                EList<BehaviorState> finalStates)
    {
       boolean result = true ;
       
       // As the user can add component which have initialization and finalization
       // entrypoints, fetches the component list.
       
-      edu.cmu.sei.aadl.aadl2.NamedElement ne ;
+      EObject ne ;
       
       PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
       
-      ne = AadlBaVisitors.findNamedElementInPropertySet(
+      PropertiesLinkingService pls = PropertiesLinkingService.
+                                   getPropertiesLinkingService(contextsTab[0]) ;
+      
+      ne = pls.findNamedElementInPropertySet(
                              AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET,
                              AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
-                             contextsTab[0]);
+                             contextsTab[0], null);
       
-      ArrayList<Class<? extends edu.cmu.sei.aadl.aadl2.Element>> klassl = 
-         new ArrayList<Class<? extends edu.cmu.sei.aadl.aadl2.Element>>() ;
+      ArrayList<Class<? extends org.osate.aadl2.Element>> klassl = 
+         new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;
       
-      Class<? extends edu.cmu.sei.aadl.aadl2.Element> klass ;
+      Class<? extends org.osate.aadl2.Element> klass ;
       
       StringBuilder klassName = new StringBuilder();
       
@@ -245,7 +255,7 @@ public class AadlBaLegalityRulesChecker
          
          try
          {
-            klass = (Class<? extends edu.cmu.sei.aadl.aadl2.Element>) 
+            klass = (Class<? extends org.osate.aadl2.Element>) 
                         Class.forName(klassName.toString()) ;
             
             klassl.add(klass);
@@ -261,7 +271,7 @@ public class AadlBaLegalityRulesChecker
       }
       
       // Checks the rule for the given component list.
-      for(Class<? extends edu.cmu.sei.aadl.aadl2.Element> tmp : klassl)
+      for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
       {
          if(tmp.isAssignableFrom(_baParentContainer.getClass()))
          {  
@@ -271,18 +281,19 @@ public class AadlBaLegalityRulesChecker
             {
                result = false ;
                reportElements = AadlBaUtils.identifierListToString(initialStates,
-                                                                  LIST_SEPARATOR) ;
-               this.reportLegalityError(_ba, _baParentContainer.getQualifiedName() +
-                   " can't have more than one initial state : " + reportElements +
-                      " : Behavior Annex D.3.(L4) legality rule failed") ;
+                                                               LIST_SEPARATOR) ;
+               this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                     + " can't have more than one initial state : " +
+                       reportElements +
+                         " : Behavior Annex D.3.(L4) legality rule failed") ;
             }
             else
                if(initialStates.size() == 0)
                {
                   result = false ;
-                  this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()+
-                      " has no initial state : " +
-                         "Behavior Annex D.3.(L4) legality rule failed") ;
+                  this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                        + " has no initial state : " +
+                          "Behavior Annex D.3.(L4) legality rule failed") ;
                }
              
             if(finalStates.size() == 0)
@@ -338,7 +349,7 @@ public class AadlBaLegalityRulesChecker
       BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
       
       // D.3.(L6) error case.
-      if(bt.getBehaviorConditionOwned() instanceof DispatchCondition &&
+      if(bt.getCondition() instanceof DispatchCondition &&
             ! tmp.isComplete())
       {
          this.reportLegalityError(transSrcStateIdentifier, "Only transition " +
@@ -367,7 +378,7 @@ public class AadlBaLegalityRulesChecker
 	   BehaviorState tmp = (BehaviorState) transSrcStateIdentifier.getBaRef() ;
 	   
 	   // D.3.(L7) error case.
-	   if(tmp.isComplete() && (! (bt.getBehaviorConditionOwned() 
+	   if(tmp.isComplete() && (! (bt.getCondition() 
 				                                 instanceof DispatchCondition)))
 	   {
 		  this.reportLegalityError(transSrcStateIdentifier, "Transitions out " +
@@ -412,31 +423,36 @@ public class AadlBaLegalityRulesChecker
     * Keys : dispatch relative timeout condition catch timed thread complete
     * state period property
     */
-   public boolean D_4_L1_Check(TimeoutCatch tc, BehaviorTransition btOwner)
+   public boolean D_4_L1_Check(DispatchRelativeTimeout tc,
+                               DeclarativeBehaviorTransition bt)
    {
-      if(! _hasAlreadyDispatchRelativeTimeoutCatch && 
-         btOwner.getSourceStateIdentifiers().size() == 1)
+     List<Identifier> sourceState = bt.getSrcStates()  ; 
+     
+     if(! _hasAlreadyDispatchRelativeTimeoutCatch && 
+           sourceState.size() == 1)
       {
-         BehaviorState bs = (BehaviorState) btOwner.getSourceStateIdentifiers().
-                                                             get(0).getBaRef() ;
+         BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef() ;
          if(bs.isComplete())
          {
             // If the ba's parent container is not a Thread, the return value
             // list will be empty.
 
-            EList<edu.cmu.sei.aadl.aadl2.PropertyExpression> vl ;
+            EList<org.osate.aadl2.PropertyExpression> vl ;
             vl = AadlBaGetProperties.getPropertyExpression(_baParentContainer,
                   ThreadProperties.DISPATCH_PROTOCOL) ;
             if(vl.size() > 0)
             {
-               edu.cmu.sei.aadl.aadl2.PropertyExpression value = 
+               org.osate.aadl2.PropertyExpression value = 
                   vl.get(vl.size()-1) ;
 
-               if(value instanceof edu.cmu.sei.aadl.aadl2.EnumerationValue)
+               if(value instanceof NamedValue &&
+                  ((NamedValue) value).getNamedValue()
+                                                  instanceof EnumerationLiteral) 
                {
-                  String literal = 
-                     ((edu.cmu.sei.aadl.aadl2.EnumerationValue) value).
-                     getLiteral().getName() ;
+                  EnumerationLiteral el = (EnumerationLiteral) 
+                                          ((NamedValue) value).getNamedValue() ;
+
+                  String literal = el.getName() ;
                   
                   if(literal.equalsIgnoreCase(AadlBaGetProperties.TIMED))
                   {
@@ -503,14 +519,15 @@ public class AadlBaLegalityRulesChecker
     * Keys : dispatch completion relative timeout condition catch complete
     * state
     */
-   public Boolean D_4_L2_Check(CompletionRelativeTimeoutConditionAndCatch crtcac
-                               , BehaviorTransition btOwner)
+   public Boolean D_4_L2_Check(CompletionRelativeTimeout crtcac
+                               , DeclarativeBehaviorTransition bt)
    {
-      if(! _hasAlreadyCompletionRelativeTimeoutConditionCatch &&
-         btOwner.getSourceStateIdentifiers().size() == 1)
+     List<Identifier> sourceState = bt.getSrcStates() ;
+     
+     if(! _hasAlreadyCompletionRelativeTimeoutConditionCatch &&
+           sourceState.size() == 1)
       {
-         BehaviorState bs = (BehaviorState) btOwner.getSourceStateIdentifiers().
-                                                             get(0).getBaRef() ;
+         BehaviorState bs = (BehaviorState) (sourceState.get(0)).getBaRef() ;
          // Positive case.
          if(bs.isComplete())
          {
@@ -550,7 +567,7 @@ public class AadlBaLegalityRulesChecker
     */
    public boolean D_6_L3_And_L4_Check(BehaviorActionBlock bab)
    {
-      BehaviorActions beActions = bab.getBehaviorActionsOwned() ;
+      BehaviorActions beActions = bab.getContent() ;
       
       // Temporary list of targets passed between recursive calls of
       // buildActionSetAssignedValuesLists method.
@@ -574,7 +591,7 @@ public class AadlBaLegalityRulesChecker
       for(Target tar : lDuplicates)
       {
          // Local variable case.
-         if(tar instanceof Name && tar.getBaRef() != null)
+         if(tar instanceof BehaviorVariableHolder)
          {
             tmp = localVariableErrorMsg ;
          }
@@ -618,7 +635,7 @@ public class AadlBaLegalityRulesChecker
       {
          if(beActions instanceof AssignmentAction)
          {
-            lActionSetTar.add(((AssignmentAction)beActions).getTargetOwned()) ;
+            lActionSetTar.add(((AssignmentAction)beActions).getTarget()) ;
          }
          
          return ;
@@ -629,7 +646,7 @@ public class AadlBaLegalityRulesChecker
       {
          BehaviorActionBlock tmp = (BehaviorActionBlock) beActions ;
          
-         buildActionSetAssignedTargetLists(tmp.getBehaviorActionsOwned(),
+         buildActionSetAssignedTargetLists(tmp.getContent(),
                                            lActionSetTar, lDuplicates) ;
          return ;
       }
@@ -637,14 +654,29 @@ public class AadlBaLegalityRulesChecker
       // If Statement case.
       if(beActions instanceof IfStatement)
       {
-         IfStatement ifStat = (IfStatement) beActions ;
-         for (BehaviorActions tmp : ifStat.getBehaviorActionsOwned())
-         {
-            buildActionSetAssignedTargetLists(tmp, lActionSetTar,
+        IfStatement ifStat = (IfStatement) beActions ;
+        BehaviorActions tmp =  ifStat.getBehaviorActions() ;
+        buildActionSetAssignedTargetLists(tmp, lActionSetTar,
                                               lDuplicates) ;
-         }
-         
-         return ;
+        
+        if(ifStat.getElseStatement() != null)
+        {
+          tmp = ifStat.getElseStatement() ;
+          buildActionSetAssignedTargetLists(tmp, lActionSetTar,
+                                            lDuplicates) ;
+        }
+        
+        return ;
+      }
+      
+      if(beActions instanceof ElseStatement)
+      {
+        ElseStatement elseStat = (ElseStatement) beActions ;
+        BehaviorActions tmp =  elseStat.getBehaviorActions() ;
+        buildActionSetAssignedTargetLists(tmp, lActionSetTar,
+                                              lDuplicates) ;
+        
+        return ;
       }
       
       // Loop Statement case.
@@ -652,7 +684,7 @@ public class AadlBaLegalityRulesChecker
       {
          LoopStatement tmp = (LoopStatement) beActions ;
          
-         buildActionSetAssignedTargetLists(tmp.getBehaviorActionsOwned(),
+         buildActionSetAssignedTargetLists(tmp.getBehaviorActions(),
                lActionSetTar, lDuplicates) ;
          return ;
       }
@@ -662,7 +694,7 @@ public class AadlBaLegalityRulesChecker
       // List of BehaviorAction objects contained in the given BehaviorActions
       // tree.
       List<BehaviorAction> lbeActs = ((BehaviorActionCollection)beActions)
-                                                         .getBehaviorActions() ;
+                                                         .getActions() ;
       
       // Behavior Action Sequence case:
       if(beActions instanceof BehaviorActionSequence)
@@ -763,8 +795,8 @@ public class AadlBaLegalityRulesChecker
     */
    public boolean D_6_L8_Check(TimedAction timedAct)
    {
-      BehaviorTime btMin = timedAct.getLowerBehaviorTime();
-      BehaviorTime btMax = timedAct.getUpperBehaviorTime();     
+      BehaviorTime btMin = timedAct.getLowerTime();
+      BehaviorTime btMax = timedAct.getUpperTime();     
       
       if (btMax != null)
       {

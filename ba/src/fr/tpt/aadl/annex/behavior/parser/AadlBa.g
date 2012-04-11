@@ -22,10 +22,12 @@
 grammar AadlBa;
 
 options {
-  k=*;
-  language = Java;
+//  k=*;
+// language = Java;
   backtrack = true;
 }
+
+
 
 @header { 
   package fr.tpt.aadl.annex.behavior.parser;
@@ -52,12 +54,17 @@ options {
   
   import org.eclipse.emf.common.util.EList;
 
-  import edu.cmu.sei.aadl.modelsupport.errorreporting.ParseErrorReporter;  
-  import edu.cmu.sei.aadl.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;  
   
-  import edu.cmu.sei.aadl.aadl2.parsesupport.LocationReference;
+  import org.osate.aadl2.parsesupport.AObject;
+  import org.osate.aadl2.parsesupport.LocationReference;
   
   import fr.tpt.aadl.annex.behavior.aadlba.*;
+  import fr.tpt.aadl.annex.behavior.declarative.* ;
+  import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+  
+  import org.osate.aadl2.Element ;
+  import org.osate.aadl2.Aadl2Package ;
 }
   
 @lexer::header{
@@ -84,7 +91,7 @@ options {
   
   package fr.tpt.aadl.annex.behavior.parser;
   
-  import edu.cmu.sei.aadl.modelsupport.errorreporting.ParseErrorReporter;
+  import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
 }
 
 @members {
@@ -92,6 +99,8 @@ options {
   * Aadl Ba metamodel factory.
   */
   protected AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
+  
+  protected DeclarativeFactory _decl = DeclarativeFactory.eINSTANCE ;
   
 
   /**
@@ -119,14 +128,14 @@ options {
   public String getFilename(){
     return filename;
   }
-  
+/*  
   public void nameCopy(Name src, Name dest)
   {
     dest.setLocationReference(src.getLocationReference());
     dest.setIdentifierOwned(src.getIdentifierOwned());
     dest.getArrayIndexes().addAll(src.getArrayIndexes());
   }
-  
+*/  
   /**
    * Reports a parser error.
    * @param e  antlr error exception 
@@ -160,9 +169,9 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        //TODO : remove clean code.
-        System.err.println(description);
         errReporter.error(this.getFilename(), e.line, description);
+        e.printStackTrace();
+        System.err.println(e.getMessage());
   }
 
   /**
@@ -187,6 +196,8 @@ options {
     obj.setLocationReference(new LocationReference(description, src.getLine()));
   
   }
+  
+  private BehaviorAnnex _ba = null ;
 }
 
 @lexer::members {
@@ -243,8 +254,6 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        //TODO : remove clean code.
-        System.err.println(description);
         errReporter.error(this.getFilename(), e.line, description);
   }
   
@@ -257,7 +266,7 @@ options {
 // AADL Behavior Annex Tokens
 // Keywords
 
-ABS            : 'abs';
+ABS            : 'abs'; 
 AND            : 'and';
 ANY            : 'any';
 CATCH          : 'catch';
@@ -353,21 +362,21 @@ ENUMERATOR     : 'enumerators' ;
 behavior_annex returns [BehaviorAnnex BehAnnex] 
  @init{
    BehAnnex = _fact.createBehaviorAnnex();
-   
+   _ba = BehAnnex ;
    BehAnnex.setLocationReference(new LocationReference(this.getFilename(), input.get(0).getLine())) ; 
       
  }
   : 
    ( VARIABLES
-       ( BehVar=behavior_variable { BehAnnex.getBehaviorVariables().add(BehVar);} )+
+       ( lbv=behavior_variable_list[BehAnnex] { BehAnnex.getVariables().addAll(lbv);} )+
    )?
    
    ( STATES
-       ( BehStat=behavior_state { BehAnnex.getBehaviorStates().add(BehStat); } )+
+       ( lbs=behavior_state_list { BehAnnex.getStates().addAll(lbs); } )+
    )?
    
    ( TRANSITIONS 
-       ( BehTrans=behavior_transition {BehAnnex.getBehaviorTransitions().add(BehTrans); } )+ 
+       ( BehTrans=behavior_transition {BehAnnex.getTransitions().add(BehTrans); } )+ 
    )?
 ;
 catch [RecognitionException ex] {
@@ -376,23 +385,38 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-
 // behavior_variable ::= 
 //   local_variable_declarator { , local_variable_declarator }* 
 //   : data_unique_component_classifier_reference;
-behavior_variable returns [BehaviorVariable BehVar]
+behavior_variable_list[BehaviorAnnex ba] returns [List<BehaviorVariable> lbv]
  @init{
-   BehVar = _fact.createBehaviorVariable();
+   lbv = new ArrayList<BehaviorVariable>() ;
  }
   :
-   Decl=declarator { BehVar.getLocalVariableDeclarators().add(Decl); BehVar.setLocationReference(Decl.getLocationReference());}  
-   ( COMMA Decl=declarator { BehVar.getLocalVariableDeclarators().add(Decl); } )* 
-     COLON 
-     DataClassRef=unique_component_classifier_reference
+       
+   bv=behavior_variable
+   {
+     lbv.add(bv) ;
+   } 
+   
+   ( COMMA bv=behavior_variable
      {
-        BehVar.setDataUniqueComponentClassifierReference(DataClassRef);
+       lbv.add(bv) ;
      }
-     SEMICOLON
+   )* 
+   
+   COLON 
+   
+   DataClassRef=unique_component_classifier_reference
+   {
+      DeclarativeUtils.setEcontainer(_ba, DataClassRef);
+      
+      for(BehaviorVariable tmp : lbv)
+      {
+        tmp.setDataClassifier(DataClassRef);
+      }
+   }
+   SEMICOLON
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -401,10 +425,62 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-// behavior_named_element ::= 
+// declarator ::= identifier { array_size }*
+// array_size :: [ integer_value_constant ]
+behavior_variable returns [BehaviorVariable bv]
+ @init
+ {
+   bv = _fact.createBehaviorVariable();
+ }
+  :
+    identifier=IDENT { 
+                       setLocationReference(bv, identifier);
+                       bv.setName(identifier.getText()) ;
+                     }
+    ( LBRACK IntValue=integer_value_constant RBRACK
+      { 
+        DeclarativeArrayDimension dad = _decl.createDeclarativeArrayDimension();
+        dad.setLocationReference(IntValue.getLocationReference()) ;
+        dad.setDimension(IntValue) ;
+        bv.getArrayDimensions().add(dad); 
+      }
+    )*
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+
+// declarator ::= identifier { array_size }*
+// array_size :: [ integer_value_constant ]
+declarator returns [ArrayableIdentifier id]
+ @init
+ {
+   id = _decl.createArrayableIdentifier();
+ }
+  :
+    identifier=IDENT { 
+                       id.setId(identifier.getText());
+                       setLocationReference(id, identifier);
+                     }
+    ( LBRACK IntValue=integer_value_constant RBRACK
+      { 
+        id.getArrayIndexes().add(IntValue); 
+      }
+    )*
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+
+
+// qualified_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
-behavior_named_element [BehaviorNamedElement bne]
+qualifiable_named_element [QualifiedNamedElement qne]
  @init{
         String id1 = "";
         String id2 = "";
@@ -416,30 +492,22 @@ behavior_named_element [BehaviorNamedElement bne]
     ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
    )
    {
-     Identifier nameId = _fact.createIdentifier();
+     Identifier nameId = _decl.createIdentifier();
      nameId.setId(id2);
      setLocationReference(nameId, identifier2); 
-     bne.setName(nameId);
+     qne.setBaName(nameId);
     
      if (! id1.equals(""))
      {
-       Identifier nameSpaceId = _fact.createIdentifier();
+       Identifier nameSpaceId = _decl.createIdentifier();
        nameSpaceId.setId(id1);
        setLocationReference(nameSpaceId, identifier1); 
-       bne.setNamespace(nameSpaceId);
-      
-       Identifier qualifiedNameId = _fact.createIdentifier();
-       qualifiedNameId.setId(id1+"::"+id2);
-       setLocationReference(qualifiedNameId, identifier1);
-       bne.setQualifiedName(qualifiedNameId);
-      
-       bne.setNamespaceSeparator("::");
-       setLocationReference(bne, identifier1);
+       qne.setBaNamespace(nameSpaceId);
+       setLocationReference(qne, identifier1);
      }
      else
      {
-       bne.setQualifiedName(bne.getName());
-       setLocationReference(bne, identifier2);
+       setLocationReference(qne, identifier2);
      }
    }
 ;
@@ -452,13 +520,13 @@ catch [RecognitionException ex] {
 // unique_component_classifier_reference ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
-unique_component_classifier_reference returns [UniqueComponentClassifierReference DataClassRef]
+unique_component_classifier_reference returns [QualifiedNamedElement DataClassRef]
  @init{
-   DataClassRef = _fact.createUniqueComponentClassifierReference();
+   DataClassRef = _decl.createQualifiedNamedElement();
  }
   :
    (
-     behavior_named_element[DataClassRef]
+     qualifiable_named_element[DataClassRef]
    )
 ;
 catch [RecognitionException ex] {
@@ -474,32 +542,46 @@ catch [RecognitionException ex] {
 
 // behavior_state_kind ::=
 //   [ initial ][ complete ][ final ]
-behavior_state returns [BehaviorState BehStat]
+behavior_state_list returns [List<BehaviorState> lbs]
  @init{
-   BehStat = _fact.createBehaviorState();
+   lbs = new ArrayList<BehaviorState>() ;
  }
   :
     identifier=IDENT 
      {
-        Identifier Id = _fact.createIdentifier();
-        Id.setId(identifier.getText());
-        setLocationReference(Id, identifier); 
-        BehStat.getIdentifiers().add(Id);
-        BehStat.setLocationReference(Id.getLocationReference()) ; 
+        BehaviorState bs = _fact.createBehaviorState() ;
+        bs.setName(identifier.getText());
+        setLocationReference(bs, identifier); 
+        lbs.add(bs) ; 
       } 
    ( COMMA identifier=IDENT 
      {
-      Identifier Id = _fact.createIdentifier();
-      Id.setId(identifier.getText());
-      setLocationReference(Id, identifier); 
-      BehStat.getIdentifiers().add(Id);
+        BehaviorState bs = _fact.createBehaviorState() ;
+        bs.setName(identifier.getText());
+        setLocationReference(bs, identifier); 
+        lbs.add(bs) ; 
      } 
    )*
    COLON 
    (
-     (INITIAL  { BehStat.setInitial(true)  ; } )? 
-     (COMPLETE { BehStat.setComplete(true) ; } )?
-     (FINAL    { BehStat.setFinal(true)    ; } )?
+     (INITIAL  { 
+                 for (BehaviorState bs : lbs)
+                 {
+                   bs.setInitial(true)  ;
+                 } 
+               } )? 
+     (COMPLETE { 
+                 for (BehaviorState bs : lbs)
+                 {
+                   bs.setComplete(true)  ;
+                 } 
+               } )? 
+     (FINAL    { 
+                 for (BehaviorState bs : lbs)
+                 {
+                   bs.setFinal(true)  ;
+                 } 
+               } )? 
    )
    STATE SEMICOLON
 ;
@@ -517,47 +599,50 @@ catch [RecognitionException ex] {
 //   destination_state_identifier [ behavior_action_block ] ;
 
 // behavior_transition_priority ::= numeral
-behavior_transition returns [BehaviorTransition BehTrans]
- @init{
-   BehTrans = _fact.createBehaviorTransition();
+behavior_transition returns [DeclarativeBehaviorTransition BehTrans]
+ @init
+ {
+   BehTrans = _decl.createDeclarativeBehaviorTransition();
  }
   :
    ( identifier=IDENT 
      {
-      Identifier Id = _fact.createIdentifier();
-      Id.setId(identifier.getText());
-      setLocationReference(Id, identifier); 
-      BehTrans.setTransitionIdentifier(Id);
-      BehTrans.setLocationReference(Id.getLocationReference()) ; 
-     } // SG XXX as no behaviour transition priority object is provided, numeral location reference is set in numeral method
-     ( LBRACK Num=numeral RBRACK { BehTrans.setBehaviorTransitionPriority(Num);} )? 
+       BehTrans.setName(identifier.getText()) ;
+       setLocationReference(BehTrans, identifier); 
+     } 
+     ( LBRACK Num=numeral RBRACK { BehTrans.setPriority(Num);} )? 
      COLON
    )?  
    
    identifier=IDENT 
    { 
-    Identifier Id = _fact.createIdentifier();
-    Id.setId(identifier.getText());
-    setLocationReference(Id, identifier); 
-    BehTrans.getSourceStateIdentifiers().add(Id);
-    BehTrans.setLocationReference(Id.getLocationReference()) ; 
+     Identifier Id = _decl.createIdentifier();
+     Id.setId(identifier.getText());
+     setLocationReference(Id, identifier); 
+     BehTrans.getSrcStates().add(Id);
+    
+     if(BehTrans.getLocationReference() == null)
+     {
+       BehTrans.setLocationReference(Id.getLocationReference()) ;
+     } 
    }
    
    ( COMMA identifier=IDENT 
      { 
-      Identifier Id = _fact.createIdentifier();
+      Identifier Id = _decl.createIdentifier();
       Id.setId(identifier.getText());
       setLocationReference(Id, identifier); 
-      BehTrans.getSourceStateIdentifiers().add(Id);
+      BehTrans.getSrcStates().add(Id);
      } 
    )*
    
    ( identifier=LTRANS BehCond=behavior_condition
      { 
-       if (BehCond != null) // If no behavior condition is specified, behavior_condition is not call so BehCond is null.
+       // behavior condition can be null.
+       if (BehCond != null)
        {
-         BehTrans.setBehaviorConditionOwned(BehCond);
-         setLocationReference(BehCond, identifier) ; 
+         DeclarativeUtils.setEcontainer(_ba, BehCond);
+         BehTrans.setCondition(BehCond);
        }
      } 
      RTRANS
@@ -565,14 +650,17 @@ behavior_transition returns [BehaviorTransition BehTrans]
     
    identifier=IDENT 
    {
-     Identifier Id = _fact.createIdentifier();
+     Identifier Id = _decl.createIdentifier();
      Id.setId(identifier.getText());
      setLocationReference(Id, identifier); 
-     BehTrans.setDestinationStateIdentifier(Id);
+     BehTrans.setDestState(Id);
    }
     
    ( BehActionBlock=behavior_action_block 
-        { BehTrans.setBehaviorActionBlockOwned(BehActionBlock); }
+        { 
+          DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
+          BehTrans.setActionBlock(BehActionBlock);
+        }
    )? 
        
    SEMICOLON
@@ -591,13 +679,13 @@ behavior_action_block returns [BehaviorActionBlock BehActionBlock]
  }
   : identifier=LCURLY BehActions=behavior_actions RCURLY 
     {
-       BehActionBlock.setBehaviorActionsOwned(BehActions) ;
+       BehActionBlock.setContent(BehActions) ;
        setLocationReference(BehActionBlock, identifier);
     }
       
     ( TIMEOUT BehTime=behavior_time
       {
-        BehActionBlock.setBehaviorTimeOwned(BehTime) ;
+        BehActionBlock.setTimeout(BehTime) ;
       }
     )?
 ;
@@ -615,17 +703,22 @@ behavior_condition returns [BehaviorCondition BehCond]
  }
   :
    (
-     ON DisCond=dispatch_condition
-   |
-     ( ExecCond=execute_condition )?
+       pos=ON DisCond=dispatch_condition
+       {
+         setLocationReference(DisCond, pos);
+       }
+     |
+       (ExecCond=execute_condition)?
    )
    {
-    if (DisCond != null){
-      BehCond = DisCond;
-    } 
-    else{
-      BehCond = ExecCond;
-    }
+     if (DisCond != null)
+     {
+       BehCond = DisCond;
+     } 
+     else
+     {
+       BehCond = ExecCond;
+     }
    }
 ;
 catch [RecognitionException ex] {
@@ -653,7 +746,7 @@ execute_condition returns [ExecuteCondition ExecCond]
    ( 
        identifier=TIMEOUT
        {
-         ExecCond = _fact.createTimeoutCatch();
+         ExecCond = _fact.createExecutionTimeoutCatch();
          setLocationReference(ExecCond, identifier);
        }
      |
@@ -675,27 +768,19 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
+integer_value_constant returns [IntegerValueConstant ivc]
 
-// declarator ::= identifier { array_size }*
-// array_size :: [ integer_value_constant ]
-declarator returns [Declarator Decl]
- @init{
-   Decl = _fact.createDeclarator();
- }
-  :
-   identifier=IDENT { 
-                      setLocationReference(Decl, identifier);
-                      Identifier Id = _fact.createIdentifier() ;
-                      Id.setId(identifier.getText());
-                      setLocationReference(Id, identifier);
-                      Decl.setIdentifierOwned(Id);
-                    }
-   ( LBRACK IntValue=value_constant RBRACK
-       { 
-         Decl.getArraySizes().add(IntValue); 
-       }
-   )*
+ :
+     il = integer_literal {ivc = il ;}
+   |
+     // Ambiguous case.
+     prop=property {ivc = prop;}  
 ;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
 
 //---------------------------------------------------------
 // END : ANNEX D.3 Behavior Specification
@@ -723,25 +808,19 @@ dispatch_condition returns [DispatchCondition DisCond]
    DISPATCH 
    ( DisTriggCond=dispatch_trigger_condition
      {
-       DisCond.setDispatchTriggerConditionOwned (DisTriggCond);
+       DisCond.setDispatchTriggerCondition (DisTriggCond);
      }
    )? 
   
-   ( FROZEN identifier=IDENT 
+   ( FROZEN port=reference
      {
-      Identifier Id = _fact.createIdentifier();
-      Id.setId(identifier.getText());
-      setLocationReference(Id, identifier); 
-      DisCond.getFrozenPorts().add(Id); 
+       DisCond.getFrozenPorts().add(port);
      }
-    ( COMMA identifier=IDENT
-      {
-       Identifier Id = _fact.createIdentifier();
-       Id.setId(identifier.getText());
-       setLocationReference(Id, identifier); 
-       DisCond.getFrozenPorts().add(Id);
-      }
-    )*
+     ( COMMA port=reference
+       {
+         DisCond.getFrozenPorts().add(port);
+       }
+     )*
    )?
 ;
 catch [RecognitionException ex] {
@@ -768,28 +847,23 @@ dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond]
  }
    : // Ambiguity between subprogram access identifier and a dispatch trigger !
      // A dispatch trigger logical expression with only one
-     // dispatch conjunction which is only one dispatch trigger (a identifier)
-     // can't be distinguish from a subprogram access identifier.
-     // subprogram access identifiers are parsed as dispatch trigger logical
-     // expression
+     // dispatch conjunction which is only one dispatch trigger (single name)
+     // can't be distinguish from a subprogram access name.
+     // subprogram access name are parsed as dispatch trigger logical
+     // expression.
        identifier=STOP
        { DisTriggCond = _fact.createDispatchTriggerConditionStop() ;
          setLocationReference(DisTriggCond, identifier) ;
        }
      |
        ( identifier=TIMEOUT
-         { DisTriggCond = _fact.createTimeoutCatch() ;
+         { DisTriggCond = _fact.createDispatchRelativeTimeout() ;
            setLocationReference(DisTriggCond, identifier) ;
          }     
          (
            BehTime=behavior_time
            { 
-             CompletionRelativeTimeoutConditionAndCatch crtcac =
-               _fact.createCompletionRelativeTimeoutConditionAndCatch();
-             crtcac.setIntegerValueOwned(BehTime.getIntegerValueOwned()) ;
-             crtcac.setUnitIdentifier(BehTime.getUnitIdentifier());
-             DisTriggCond = crtcac ;
-             setLocationReference(DisTriggCond, identifier) ;
+             DisTriggCond = BehTime ;
            }
          )?
        )
@@ -839,25 +913,20 @@ catch [RecognitionException ex] {
 // in_event_port_identifier
 // | in_event_data_port_identifier
 dispatch_conjunction returns [DispatchConjunction DisConjunct]
- @init{
+ @init
+ {
    DisConjunct = _fact.createDispatchConjunction ();
  }
    :
-     identifier=IDENT
+     ref=reference
      {
-       Identifier Id = _fact.createIdentifier();
-       Id.setId(identifier.getText());
-       setLocationReference(Id, identifier);
-       DisConjunct.getDispatchTriggers().add(Id) ;
-       DisConjunct.setLocationReference(Id.getLocationReference());
+       DisConjunct.getDispatchTriggers().add(ref) ;
+       DisConjunct.setLocationReference(ref.getLocationReference());
      }
      (
-       AND identifier=IDENT
+       AND ref=reference
        {
-         Identifier Id = _fact.createIdentifier();
-         Id.setId(identifier.getText());
-         setLocationReference(Id, identifier);
-         DisConjunct.getDispatchTriggers().add(Id) ;
+         DisConjunct.getDispatchTriggers().add(ref) ;
        }
      )*
 ;
@@ -890,7 +959,7 @@ catch [RecognitionException ex] {
 behavior_actions returns [BehaviorActions BehActs]
  @init{
    BehActs = null ;
-   EList<BehaviorAction> tmpList = new BasicEList() ;
+   EList<BehaviorAction> tmpList = new BasicEList<BehaviorAction>() ;
    BehaviorActionCollection col = null ;
  }
   :
@@ -917,8 +986,8 @@ behavior_actions returns [BehaviorActions BehActs]
    {
       if (tmpList.size() != 0)
       { 
-        col.getBehaviorActions().add(BehAction);
-        col.getBehaviorActions().addAll(tmpList);
+        col.getActions().add(BehAction);
+        col.getActions().addAll(tmpList);
         col.setLocationReference(BehActs.getLocationReference());
         BehActs = col ;
       }
@@ -949,7 +1018,9 @@ behavior_action returns [BehaviorAction BehAction]
  @init{
    BehAction = null;
    IfStatement IfStat = null ;
+   IfStatement tmpIfStat = null ;
    ForOrForAllStatement ForStat = null ;
+   IterativeVariable itVar = null ;
  }
   :
    ( 
@@ -969,22 +1040,32 @@ behavior_action returns [BehaviorAction BehAction]
          IfStat = _fact.createIfStatement();
          setLocationReference(IfStat, identifier1); 
          setLocationReference(ValExpr, identifier2); 
-         IfStat.getLogicalValueExpressions().add(ValExpr) ;
-         IfStat.getBehaviorActionsOwned().add(BehActions);
+         IfStat.setLogicalValueExpression(ValExpr) ;
+         IfStat.setBehaviorActions(BehActions);
+         tmpIfStat = IfStat ;
        }
        ( 
          identifier1=ELSIF identifier2=LPAREN ValExpr=value_expression RPAREN BehActions=behavior_actions
          {
+           IfStatement ElifStat = _fact.createIfStatement() ;
+           ElifStat.setElif(true);
+           
+           setLocationReference(ElifStat, identifier1);
            setLocationReference(ValExpr, identifier2) ; 
-           IfStat.getLogicalValueExpressions().add(ValExpr) ;
-           IfStat.getBehaviorActionsOwned().add(BehActions);
+           ElifStat.setLogicalValueExpression(ValExpr) ;
+           ElifStat.setBehaviorActions(BehActions);
+           
+           tmpIfStat.setElseStatement(ElifStat) ;
+           tmpIfStat = ElifStat ;
          }
        )*
        (
          identifier=ELSE BehActions=behavior_actions
          {
-           IfStat.setHasElse(true);
-           IfStat.getBehaviorActionsOwned().add(BehActions);
+           ElseStatement elseStat = _fact.createElseStatement();
+           setLocationReference(elseStat, identifier);
+           elseStat.setBehaviorActions(BehActions);
+           tmpIfStat.setElseStatement(elseStat);
          }
        )?
        END IF
@@ -998,19 +1079,19 @@ behavior_action returns [BehaviorAction BehAction]
                                setLocationReference(ForStat, identifier); 
                              } 
        identifier=IDENT {  
-                           Identifier Id = _fact.createIdentifier();
-                           Id.setId(identifier.getText());
-                           setLocationReference(Id, identifier);
-                           ForStat.setElementIdentifier(Id);
+                          itVar = _fact.createIterativeVariable(); 
+                          itVar.setName(identifier.getText());
+                          setLocationReference(itVar, identifier); 
+                          ForStat.setIterativeVariable(itVar); 
                         }
        COLON dt=unique_component_classifier_reference
        {
-         ForStat.setDataUniqueComponentClassifierReference(dt);
+         itVar.setDataClassifier(dt);
        }
        
-       IN EltVal=element_values RPAREN { ForStat.setElementValuesOwned(EltVal); }
+       IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); }
        identifier=LCURLY BehActions=behavior_actions RCURLY 
-       { ForStat.setBehaviorActionsOwned(BehActions);
+       { ForStat.setBehaviorActions(BehActions);
          BehAction = ForStat ;
        }
      )
@@ -1023,19 +1104,19 @@ behavior_action returns [BehaviorAction BehAction]
         setLocationReference(ForStat, identifier); 
        }
        identifier=IDENT {  
-                           Identifier Id = _fact.createIdentifier();
-                           Id.setId(identifier.getText());
-                           setLocationReference(Id, identifier);
-                           ForStat.setElementIdentifier(Id);
+                          itVar = _fact.createIterativeVariable(); 
+                          itVar.setName(identifier.getText());
+                          setLocationReference(itVar, identifier); 
+                          ForStat.setIterativeVariable(itVar);
                         }
        COLON dt=unique_component_classifier_reference 
        {
-         ForStat.setDataUniqueComponentClassifierReference(dt);
+         itVar.setDataClassifier(dt);
        }
        
-       IN EltVal=element_values RPAREN { ForStat.setElementValuesOwned(EltVal); }
+       IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); }
        identifier=LCURLY BehActions=behavior_actions RCURLY
-       { ForStat.setBehaviorActionsOwned(BehActions) ;
+       { ForStat.setBehaviorActions(BehActions) ;
          BehAction = ForStat ;
        }
      )
@@ -1049,7 +1130,7 @@ behavior_action returns [BehaviorAction BehAction]
          setLocationReference(ValExpr, identifier2) ;
          WhileStat.setDoUntil(false);
          WhileStat.setLogicalValueExpression(ValExpr);
-         WhileStat.setBehaviorActionsOwned(BehActions);
+         WhileStat.setBehaviorActions(BehActions);
          BehAction = WhileStat ; 
        }
      )
@@ -1063,7 +1144,7 @@ behavior_action returns [BehaviorAction BehAction]
          setLocationReference(ValExpr, identifier2) ;
          doUntilStat.setDoUntil(true);
          doUntilStat.setLogicalValueExpression(ValExpr);
-         doUntilStat.setBehaviorActionsOwned(BehActions);
+         doUntilStat.setBehaviorActions(BehActions);
          BehAction = doUntilStat ;
        }
      )
@@ -1083,10 +1164,10 @@ element_values returns [ElementValues EltVal]
  @init{
  }
   : // Ambiguity between event data port name and unqualified data component 
-    // reference. See uDCR.
+    // reference. See reference.
      ( IntRange=integer_range { EltVal = IntRange; } )
    |
-     ( AdcRef=uDCR { EltVal = (ElementValues) AdcRef; } )
+     ( AdcRef=reference { EltVal = (ElementValues) AdcRef; } )
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -1105,7 +1186,7 @@ basic_action returns [BasicAction BaAction]
   :
      ( AssAct=assignment_action { BaAction = AssAct; } )
    |
-     ( CommAct=communication_action { BaAction = CommAct; } )
+     ( CommAct=communication_action { BaAction = CommAct;} )
    |
      ( TimedAct=timed_action { BaAction = TimedAct; } )
      
@@ -1124,20 +1205,20 @@ assignment_action returns [AssignmentAction AssAct]
    AssAct = _fact.createAssignmentAction();
  }
   :
-   Tar=target ASSIGN ( ValExpr=value_expression | ANY )
+   Tar=target ASSIGN ( ValExpr=value_expression | identifier=ANY )
    {
      AssAct.setLocationReference(Tar.getLocationReference());
-     AssAct.setTargetOwned(Tar);
-     
-
+     AssAct.setTarget(Tar);
        
      if (ValExpr != null)
      {
-       AssAct.setValueExpressionOwned(ValExpr);
+       AssAct.setValueExpression(ValExpr);
      }
      else
      {
-       AssAct.setAny(true);
+       Any any = _fact.createAny() ;
+       setLocationReference(any, identifier);
+       AssAct.setValueExpression(any);
      }
    }
 ;
@@ -1157,9 +1238,10 @@ target returns [Target Tar]
  @init{
    Tar = null ;
  }
-  : // Ambiguity between a name and a unqualified data component reference.
-    // See uDCR.
-    dt=uDCR {Tar= (Target) dt ;} 
+  : // Ambiguity between an unqualified data component reference and a single name
+    // value variables. names are parsed as data component references .
+    // See reference.
+    dt=reference {Tar= (Target) dt ;} 
                                          
 ;
 catch [RecognitionException ex] {
@@ -1167,6 +1249,53 @@ catch [RecognitionException ex] {
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
+
+qualified_named_element returns [QualifiedNamedElement qne]
+@init
+{
+  String id1 = "";
+  String id2 = "";
+}
+  :
+   (
+    ( identifier1=IDENT DOUBLECOLON
+      { 
+        id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
+      }
+    )+
+    
+    identifier2=IDENT
+    { 
+      id2=identifier2.getText();
+    }
+    ( DOT identifier3=IDENT
+      {
+        id2=id2+"."+identifier3.getText();
+      }
+    )?
+   )
+   {
+     qne = _decl.createQualifiedNamedElement();
+     Identifier nameId = _decl.createIdentifier();
+     nameId.setId(id2);
+     setLocationReference(nameId, identifier2); 
+     qne.setBaName(nameId);
+    
+     if (! id1.equals(""))
+     {
+       Identifier nameSpaceId = _decl.createIdentifier();
+       nameSpaceId.setId(id1);
+       setLocationReference(nameSpaceId, identifier1); 
+       qne.setBaNamespace(nameSpaceId);
+       setLocationReference(qne, identifier1);
+     }
+   }
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+} 
 
 // communication_action ::= 
 //   subprogram_prototype_name ! [ ( subprogram_parameter_list ) ]
@@ -1180,12 +1309,174 @@ catch [RecognitionException ex] {
 // | required_data_access_name !>
 // | *!<
 // | *!>
-communication_action returns [CommunicationAction ca]
+communication_action returns [CommAction ca]
+@init
+{
+  ca = _decl.createCommAction() ;
+}
+  : // Ambiguity between name without array indexes and unqualified
+    // subprogram unique component classifier reference without component
+    // implementation.
+    // unqualified subprogram unique component classifier reference 
+    // without component are parsed as name.
+        
+    // Ambiguity between value expression and a subprogram parameter list
+    // with only one parameter label which is a value expression or a target.
+    // value expressions are parsed as subprogram parameter list
+    // with only one parameter label.
+    
+    // Ambiguity between name.name without array index and unqualified
+    // unique component classifier reference with component implementation.
+    // these uccr are parsed as name.name
+      (
+        qne=qualified_named_element EXCLAM
+        {
+          ca.setLocationReference(qne.getLocationReference());
+          ca.setQualifiedName(qne);
+        }
+        ( 
+          LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
+          {
+            ca.getParameters().addAll(SubpgmParamList);
+          }
+        )?
+      )   
+    |
+      (
+        ref=reference
+        {
+          ca.setReference(ref);
+          ca.setLocationReference(ref.getLocationReference()) ;
+        }
+        (
+            (
+              INTERROG
+              {
+                ca.setPortDequeue(true);
+              }
+              (
+                LPAREN Tar=target RPAREN
+                {
+                  ca.setTarget(Tar);
+                }
+              )?
+            )
+          |
+            (
+              GGREATER
+              { 
+                ca.setPortFreeze(true);
+              }
+            )
+          |
+            (
+              EXCLLESS
+              {
+                ca.setLock(true);
+              }
+            )
+          |
+            (
+              EXCLGREATER
+              {
+                ca.setUnlock(true);
+              }
+            )
+          |
+            (
+              EXCLAM
+              ( 
+                LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
+                {
+                  ca.getParameters().addAll(SubpgmParamList);
+                }
+              )?
+            )
+        )
+      )
+    |
+      (
+        identifier=STAR
+        ( 
+            EXCLLESS
+            {
+              ca.setLock(true);
+            }
+          | 
+            EXCLGREATER
+            {
+              ca.setUnlock(true);
+            }
+        )
+        {
+          setLocationReference(ca, identifier);
+        }
+      )
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+
+/*
+
+id=array_identifier
+    {
+      ref.getIds().add(id);
+      ref.setLocationReference(id.getLocationReference());
+    }
+    (
+      DOT id=array_identifier
+      {
+        ref.getIds().add(id);
+      }
+    )*
+    {
+      ref = ref ;
+      
+      // DEBUG
+      
+      for(Identifier idTmp : ref.getIds())
+      {
+        int dimension = 0 ;
+        
+        if (idTmp.isSetArrayIndexes())
+        {
+          dimension = idTmp.getArrayIndexes().size();
+        }
+      
+        System.out.print(idTmp.getId() + ", dimension = " + dimension + " ; ") ;
+      }
+      System.out.println("");
+    }
+*/
+
+/*
+
+   (
+    ( identifier1=IDENT DOUBLECOLON { id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText(); } )*
+      identifier2=IDENT { id2=identifier2.getText(); }
+    ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
+   )
+   {
+     Identifier nameId = _decl.createIdentifier();
+     nameId.setId(id2);
+     setLocationReference(nameId, identifier2); 
+     qne.setBaName(nameId);
+    
+     if (! id1.equals(""))
+     {
+       Identifier nameSpaceId = _decl.createIdentifier();
+       nameSpaceId.setId(id1);
+       setLocationReference(nameSpaceId, identifier1); 
+       qne.setBaNamespace(nameSpaceId);
+       setLocationReference(qne, identifier1);
+     }
+   }
+
  @init{
-   ca = null ;
-   SubprogramCallAction sca = null ;
-   PortDequeueAction pda = null ;
-   Name SubName = null ;
+   ca = _decl.createCommAction() ;
  }
   : // Ambiguity between name without array indexes and unqualified
     // subprogram unique component classifier reference without component
@@ -1204,24 +1495,23 @@ communication_action returns [CommunicationAction ca]
   (  
       (
         EltName=name
+        {
+          ca.getNames().add(EltName);
+          ca.setLocationReference(EltName.getLocationReference());
+        }
         (   
             ( 
               ( DOT tmp=name
                 {
-                  SubName = tmp ;
+                   ca.getNames().add(tmp);
+                   ca.setSubprogrammCall(true);
                 }
               )?
               EXCLAM
-              { 
-                sca = _fact.createSubprogramCallAction();
-                sca.getSubprogramNames().add(EltName);
-                if(SubName != null ) sca.getSubprogramNames().add(SubName);
-                ca = sca ;
-              }
               ( 
                 LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
                 {
-                  sca.getParameterLabels().addAll(SubpgmParamList);
+                  ca.getParameters().addAll(SubpgmParamList);
                 }
               )?
             )
@@ -1229,14 +1519,13 @@ communication_action returns [CommunicationAction ca]
             (
               INTERROG
               {
-                pda = _fact.createPortDequeueAction();
-                pda.setPortName(EltName);
-                ca = pda;
+                ca.setPortDequeue(true);
               }
               (
                 LPAREN Tar=target RPAREN
                 {
-                  pda.setTargetOwned(Tar);
+                  ca.setTarget(Tar);
+                  ca.setPortDequeue(true);
                 }
               )?
             )
@@ -1244,49 +1533,36 @@ communication_action returns [CommunicationAction ca]
             (
               GGREATER
               { 
-                PortFreezeAction pfa = _fact.createPortFreezeAction() ;
-                pfa.setIdentifierOwned(EltName.getIdentifierOwned());
-                pfa.getArrayIndexes().addAll(EltName.getArrayIndexes());
-                pfa.setLocationReference(EltName.getLocationReference());
-                ca = pfa ;
+                ca.setPortFreeze(true);
               }
             )
           |
             (
               EXCLLESS
               {
-                LockAction la = _fact.createLockAction();
-                la.setDataAccessName(EltName);
-                ca = la ;
+                ca.setLock(true);
               }
             )
           |
             (
               EXCLGREATER
               {
-                UnlockAction ula = _fact.createUnlockAction();
-                ula.setDataAccessName(EltName);
-                ca = ula ;
+                ca.setUnlock(true);
               }
             )
         )
-        { 
-          ca.setLocationReference(EltName.getLocationReference());
-        }
       )
     |
       (
         SubprogramClassRef=unique_component_classifier_reference EXCLAM
         {
-          sca = _fact.createSubprogramCallAction();
-          sca.setSubprogramReference(SubprogramClassRef);
-          sca.setLocationReference(SubprogramClassRef.getLocationReference());
-          ca = sca ;
+          ca.setQualifiedName(SubprogramClassRef);
+          ca.setLocationReference(SubprogramClassRef.getLocationReference());
         }
         ( 
           LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
           {
-            sca.getParameterLabels().addAll(SubpgmParamList);
+            ca.getParameters().addAll(SubpgmParamList);
           }
         )?
       )
@@ -1296,27 +1572,21 @@ communication_action returns [CommunicationAction ca]
         ( 
             EXCLLESS
             {
-              LockAction la = _fact.createLockAction();
-              ca = la ;
+              ca.setLock(true);
             }
           | 
             EXCLGREATER
             {
-              UnlockAction ula = _fact.createUnlockAction();
-              ca = ula ;
+              ca.setUnlock(true);
             }
         )
         {
           setLocationReference(ca, identifier);
         }
       )
-  )  
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
+  ) 
+
+*/
 
 // timed_action ::= 
 //   computation ( behavior_time [ .. behavior_time ] )
@@ -1328,8 +1598,8 @@ timed_action returns [TimedAction TimedAct]
    ( identifier=COMPUTATION {setLocationReference(TimedAct, identifier) ; }  
    )  
    LPAREN
-     BehTime=behavior_time {TimedAct.setLowerBehaviorTime(BehTime); }
-     (DOTDOT BehTime=behavior_time {TimedAct.setUpperBehaviorTime(BehTime);}
+     BehTime=behavior_time {TimedAct.setLowerTime(BehTime); }
+     (DOTDOT BehTime=behavior_time {TimedAct.setUpperTime(BehTime);}
      ) ?
    RPAREN
 ;
@@ -1382,34 +1652,25 @@ catch [RecognitionException ex] {
 }
 
 
-// uDCR ::=
+// reference ::=
 //   name | data component reference
-uDCR returns [BehaviorElement uDCR]
+reference returns [Reference ref]
  @init{
-   uDCR = null ;
-   DataComponentReference DataCmpRef = null ;
+    ref = _decl.createReference() ;
+   
  }
-  : // Ambiguity. Unqualified data component references are parsed as name.
-   EltName=name 
-   ( 
-     DOT SubName=name
-     { 
-       DataCmpRef = _fact.createDataComponentReference() ;
-       DataCmpRef.setLocationReference(EltName.getLocationReference());
-       DataCmpRef.getNames().add(EltName);
-       DataCmpRef.getNames().add(SubName);
-       uDCR = DataCmpRef ;
-     }
-     (
-       DOT SubName=name {DataCmpRef.getNames().add(SubName);}
-     )*
-   )?
-   {
-     if(uDCR == null)
-     {
-       uDCR = EltName ;
-     }
-   }
+  :
+    id=array_identifier
+    {
+      ref.getIds().add(id);
+      ref.setLocationReference(id.getLocationReference());
+    }
+    (
+      DOT id=array_identifier
+      {
+        ref.getIds().add(id);
+      }
+    )*
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -1417,20 +1678,160 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
+array_identifier returns [ArrayableIdentifier id]
+@init
+{
+  id = _decl.createArrayableIdentifier() ;
+}
+  :
+    identifier=IDENT
+    {
+      id.setId(identifier.getText());    
+      setLocationReference(id, identifier); 
+    }
+    (
+      LBRACK Val=integer_value RBRACK
+      {
+        id.getArrayIndexes().add(Val);
+      }
+    )*
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+
+/*
+
+EList<IntegerValue> ivl = new BasicEList<IntegerValue>() ;
+
+(
+      ( 
+        identifier=IDENT DOT
+        {
+          Identifier Id = _decl.createIdentifier() ;
+          Id.setId(identifier.getText());    
+          setLocationReference(Id, identifier); 
+          setLocationReference(ref, identifier); 
+          ref.getIds().add(Id);
+        }
+      )?
+      
+      identifier=IDENT
+      {
+        arrayableId = _decl.createIdentifier() ;
+        arrayableId.setId(identifier.getText());    
+        setLocationReference(arrayableId, identifier); 
+        if(ref.getLocationReference() == null)
+        {
+          setLocationReference(ref, identifier); 
+        }
+        ref.getIds().add(arrayableId);
+      }
+      
+      (
+        LBRACK Val=integer_value RBRACK
+        {
+          ivl.add(Val);
+        }
+      )*
+      {
+        if(false == ivl.isEmpty())
+        {
+          ref.getArrayIndexesMap().put(arrayableId, ivl);
+        }
+      }
+    )+
+    {
+      ref = reference ;
+      
+      // DEBUG
+      
+      for(Identifier idTmp : ref.getIds())
+      {
+        EList<IntegerValue> ivlTmp = ref.getArrayIndexesMap().get(idTmp) ;
+        
+        int dimension = 0 ;
+        
+        if (ivlTmp != null)
+        {
+          dimension = ivlTmp.size();
+        }
+      
+        System.out.println(idTmp.getId() + " ; dimension = " + dimension) ;
+      }
+    }
+
+
+
+   EltName=name
+   {
+     ref.setLocationReference(EltName.getLocationReference());
+     ref.getNames().add(EltName);
+     reference = ref ;
+     
+     String group = null ;
+     String name = null ;
+     int indexes = 0 ;
+     
+     if(EltName.getGroup() != null) group = EltName.getGroup().getId();
+     if(EltName.getName() != null) name = EltName.getName().getId() ;
+     if(EltName.isSetArrayIndexes()) indexes = EltName.getArrayIndexes().size() ;
+     
+     System.out.println("group = " + group + " ; name = " + name + " ; array indexes = " + indexes);
+   } 
+   (
+     DOT SubName=name {ref.getNames().add(SubName);
+     
+     String group = null ;
+     String name = null ;
+     int indexes = 0 ;
+     
+     if(SubName.getGroup() != null) group = SubName.getGroup().getId();
+     if(SubName.getName() != null) name = SubName.getName().getId() ;
+     if(SubName.isSetArrayIndexes()) indexes = SubName.getArrayIndexes().size() ;
+     
+     System.out.println("group = " + group + " ; name = " + name + " ; array indexes = " + indexes);
+     
+     }
+   )*
+
+*/
+
+
+
+
 
 // name ::= identifier { array_index }*
 // array_index :: [ integer_value ]
+/*
 name returns [Name EltName]
  @init{
-   EltName = _fact.createName();
+   EltName = _decl.createName();
  }
   :
-   identifier=IDENT { Identifier Id = _fact.createIdentifier() ;
-                      Id.setId(identifier.getText());    
-                      EltName.setIdentifierOwned(Id) ;
-                      setLocationReference(Id, identifier); 
-                      setLocationReference(EltName, identifier) ;
-                    } 
+   ( identifier=IDENT DOT
+     {
+       Identifier Id = _decl.createIdentifier() ;
+       Id.setId(identifier.getText());    
+       EltName.setGroup(Id) ;
+       setLocationReference(Id, identifier); 
+       setLocationReference(EltName, identifier) ;
+     }
+   ) ?
+
+   identifier=IDENT
+   { 
+     Identifier Id = _decl.createIdentifier() ;
+     Id.setId(identifier.getText());    
+     EltName.setName(Id) ;
+     setLocationReference(Id, identifier); 
+     if(EltName.getLocationReference() == null)
+     {
+       setLocationReference(EltName, identifier) ;
+     }
+   } 
    ( identifier=LBRACK Val=integer_value RBRACK
      {
        EltName.getArrayIndexes().add(Val);
@@ -1442,7 +1843,7 @@ catch [RecognitionException ex] {
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
-
+*/
 //---------------------------------------------------------
 // END : ANNEX D.6 Behavior Action Language
 //---------------------------------------------------------
@@ -1466,31 +1867,22 @@ fact_value returns [Value Val]
        (  
           id1=IDENT DOUBLECOLON id2=IDENT
           {
-            BehaviorPropertyConstant PropertyCst = _fact.
-                                               createBehaviorPropertyConstant();
+            QualifiedNamedElement property = _decl.
+                                               createQualifiedNamedElement();
                         
-            Identifier nameSpaceId = _fact.createIdentifier();
+            Identifier nameSpaceId = _decl.createIdentifier();
             nameSpaceId.setId(id1.getText());
             setLocationReference(nameSpaceId, id1);
-            PropertyCst.setNamespace(nameSpaceId);
+            property.setBaNamespace(nameSpaceId);
             
-            setLocationReference(PropertyCst, id1) ;
-            PropertyCst.setNamespaceSeparator("::");
+            setLocationReference(property, id1) ;
             
-            Identifier nameId = _fact.createIdentifier();
+            Identifier nameId = _decl.createIdentifier();
             nameId.setId(id2.getText());
             setLocationReference(nameId, id2);
-            PropertyCst.setName(nameId);
+            property.setBaName(nameId);
             
-            String qName = PropertyCst.getNamespace().getId() + 
-            PropertyCst.getNamespaceSeparator() + PropertyCst.getName().getId();
-         
-            Identifier qualifiedNameId = _fact.createIdentifier();
-            qualifiedNameId.setId(qName);
-            qualifiedNameId.setLocationReference(PropertyCst.getNamespace().getLocationReference());
-            PropertyCst.setQualifiedName(qualifiedNameId) ;
-
-            Val = PropertyCst ;
+            Val = property ;
           }
        )
      | 
@@ -1554,65 +1946,194 @@ value_variable returns [ValueVariable ValueVar]
 
  @init{
    ValueVar = null ;
-   DataComponentReference DataCmpRef = null ;
  }
   : // Ambiguity between an unqualified data component reference and a single name
-    // value variables. unqualified data component references are parsed as name. 
-    
-   EltName=name
-   (
-       INTERROG
-       {
-         PortDequeueValue pdv = _fact.createPortDequeueValue();
-         nameCopy(EltName, pdv);
-         ValueVar = pdv ;
-       }
-     |
-       TICK (
-                COUNT 
-                { 
-                  PortCountValue pcv = _fact.createPortCountValue();
-                  nameCopy(EltName, pcv);
-                  ValueVar = pcv ;
-                } 
-              | 
-                FRESH
-                {
-                  PortFreshValue pfv = _fact.createPortFreshValue();
-                  nameCopy(EltName, pfv);
-                  ValueVar = pfv ;
-                }
-            )
-     |  
-       ( 
-         DOT SubName=name
-         {
-           DataCmpRef = _fact.createDataComponentReference();
-           DataCmpRef.getNames().add(EltName);
-           DataCmpRef.getNames().add(SubName);
-           DataCmpRef.setLocationReference(EltName.getLocationReference());
-           ValueVar = DataCmpRef ;
-         }
-         (
-           DOT SubName=name
+    // value variables. names are parsed as data component references . 
+    // See reference.
+     (
+       ref=reference
+       
+       (
+           INTERROG
            {
-             DataCmpRef.getNames().add(SubName);
+             NamedValue nv = _decl.createNamedValue();
+             nv.setReference(ref) ;
+             nv.setDequeue(true);
+             nv.setLocationReference(ref.getLocationReference());
+             ValueVar = nv ;
            }
-         )*
-       )
-   )?
-   {
-     if(ValueVar == null)
-     {
-       ValueVar = EltName;
-     }
-   }
+         |
+           TICK (
+                    COUNT 
+                    { 
+                      NamedValue nv = _decl.createNamedValue();
+                      nv.setReference(ref) ;
+                      nv.setCount(true);
+                       nv.setLocationReference(ref.getLocationReference());
+                      ValueVar = nv ;
+                    } 
+                  | 
+                    FRESH
+                    {
+                      NamedValue nv = _decl.createNamedValue();
+                      nv.setReference(ref) ;
+                      nv.setFresh(true);
+                       nv.setLocationReference(ref.getLocationReference());
+                      ValueVar = nv ;
+                    }
+                )
+       )?
+       {
+         if (ValueVar == null)
+         {
+           ValueVar = ref ;
+         }
+       }
+     )
 ;
 catch [RecognitionException ex] {
   reportError(ex);
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
+
+/*
+
+value_variable returns [ValueVariable ValueVar]
+
+ @init{
+   ValueVar = null ;
+   Reference ref = null ;
+ }
+  : // Ambiguity between an unqualified data component reference and a single name
+    // value variables. names are parsed as data component references . 
+    // See reference.
+     (
+       EltName=name
+       {
+         System.out.println("coucou " + EltName.getLocationReference().getLine()); 
+       }
+       (
+           INTERROG
+           {
+             NamedValue nv = _decl.createNamedValue();
+             nv.setName(EltName);
+             nv.setDequeue(true);
+             ValueVar = nv ;
+           }
+         |
+           TICK (
+                    COUNT 
+                    { 
+                      NamedValue nv = _decl.createNamedValue();
+                      nv.setName(EltName);
+                      nv.setCount(true);
+                      ValueVar = nv ;
+                    } 
+                  | 
+                    FRESH
+                    {
+                      NamedValue nv = _decl.createNamedValue();
+                      nv.setName(EltName);
+                      nv.setFresh(true);
+                      ValueVar = nv ;
+                    }
+                )
+       )
+     )
+   |  
+     ( 
+       ref=reference
+       {
+         ValueVar=(ValueVariable) ref ;
+       }
+     )  
+;
+
+
+EltName=name
+   (
+       INTERROG
+       {
+         NamedValue nv = _decl.createNamedValue();
+         nv.setName(EltName);
+         nv.setDequeue(true);
+         ValueVar = nv ;
+       }
+     |
+       TICK (
+                COUNT 
+                { 
+                  NamedValue nv = _decl.createNamedValue();
+                  nv.setName(EltName);
+                  nv.setCount(true);
+                  ValueVar = nv ;
+                } 
+              | 
+                FRESH
+                {
+                  NamedValue nv = _decl.createNamedValue();
+                  nv.setName(EltName);
+                  nv.setFresh(true);
+                  ValueVar = nv ;
+                }
+            )
+     |  
+       ( 
+         DOT id=array_identifier
+         {
+           ref = _decl.createReference();
+           
+           if(EltName.getGroup() != null)
+           {
+             ref.getIds().add(EltName.getGroup()) ;
+           }
+                      
+           Identifier idTmp = EltName.getName() ;
+           if(EltName.isSetArrayIndexes())
+           {
+             idTmp.getArrayIndexes().addAll(EltName.getArrayIndexes());
+           }
+           
+           ref.getIds().add(idTmp);
+           ref.getIds().add(id);
+
+           ref.setLocationReference(EltName.getLocationReference());
+           ValueVar = ref ;
+         }
+         (
+           DOT id=array_identifier
+           {
+             ref.getIds().add(id);
+           }
+         )*
+       )
+       {
+         // DEBUG
+      
+        for(Identifier idTmp : ref.getIds())
+        {
+          int dimension = 0 ;
+        
+          if (idTmp.isSetArrayIndexes())
+          {
+            dimension = idTmp.getArrayIndexes().size();
+          }
+      
+          System.out.print(idTmp.getId() + ", dimension = " + dimension + " ; ") ;
+        }
+        System.out.println("");
+       }
+   )?
+   {
+     // Incoming port or unqualified propertyset value or constant cases.
+     if(ValueVar == null)
+     {
+       ValueVar = EltName;
+     }
+   }
+
+*/
 
 // value_constant ::= 
 //   boolean_literal
@@ -1636,7 +2157,7 @@ value_constant returns [ValueConstant ValueCons]
        lit=behavior_enumeration_literal { ValueCons = lit ;}
      |
        // Ambiguous case.
-       ProperCst=property_constant {ValueCons = ProperCst;}
+       prop=property {ValueCons = prop ;}
    )
 ;
 catch [RecognitionException ex] {
@@ -1689,14 +2210,14 @@ relation returns [Relation Rel]
  }
   :
    SimpleExpr=simple_expression
-   { Rel.setSimpleExpressionOwned(SimpleExpr);
+   { Rel.setFirstExpression(SimpleExpr);
      Rel.setLocationReference(SimpleExpr.getLocationReference());  
    }
    (
      RelationalOp=relational_operator SimpleExpr=simple_expression 
      {
-      Rel.setRelationalOperatorOwned(RelationalOp);
-      Rel.setSimpleExpressionSdOwned(SimpleExpr);
+      Rel.setRelationalOperator(RelationalOp);
+      Rel.setSecondExpression(SimpleExpr);
      }
    )?
 ;
@@ -1717,7 +2238,7 @@ simple_expression returns [SimpleExpression SimpleExpr]
    (
      UnaryAddOp=unary_adding_operator 
      {
-      SimpleExpr.setUnaryAddingOperatorOwned(UnaryAddOp);
+      SimpleExpr.setUnaryAddingOperator(UnaryAddOp);
      }
    )?
    
@@ -1772,36 +2293,37 @@ catch [RecognitionException ex] {
 // | unary_numeric_operator value 
 // | unary_boolean_operator value
 factor returns [Factor Fact]
- @init{
+ @init
+ {
    Fact = _fact.createFactor();
  }
   :
    (
     ( val=value {
                   Fact.setLocationReference(val.getLocationReference()) ;
-                  Fact.setValueOwned(val);
+                  Fact.setFirstValue(val);
                 } 
       (
         BinaryNumOp=binary_numeric_operator val2=value
         {
-          Fact.setBinaryNumericOperatorOwned(BinaryNumOp);
-          Fact.setValueSdOwned(val2);
+          Fact.setBinaryNumericOperator(BinaryNumOp);
+          Fact.setSecondValue(val2);
         }
       )?
     )
    |
     ( UnaryNumOp=unary_numeric_operator val=value
       {
-         Fact.setUnaryNumericOperatorOwned(UnaryNumOp);
-         Fact.setValueOwned(val);
+         Fact.setUnaryNumericOperator(UnaryNumOp);
+         Fact.setFirstValue(val);
          Fact.setLocationReference(val.getLocationReference()) ;
       }
     )
    |
     ( UnaryBoolOp=unary_boolean_operator val=value
       {
-         Fact.setUnaryBooleanOperatorOwned(UnaryBoolOp);
-         Fact.setValueOwned(val);
+         Fact.setUnaryBooleanOperator(UnaryBoolOp);
+         Fact.setFirstValue(val);
          Fact.setLocationReference(val.getLocationReference()) ;
       }
     )
@@ -1980,9 +2502,9 @@ boolean_literal returns [BehaviorBooleanLiteral BoolLit]
  }
   :
    (
-     identifier=TRUE { BoolLit.setValue(true);}
-   |
-     identifier=FALSE { BoolLit.setValue(false);}
+       identifier=TRUE { BoolLit.setValue(true);}
+     |
+       identifier=FALSE { BoolLit.setValue(false);}
    )
    {setLocationReference(BoolLit, identifier) ;} 
 ;
@@ -2033,20 +2555,21 @@ catch [RecognitionException ex] {
 }
 
 // behavior_time ::= integer_value unit_identifier
-behavior_time returns [BehaviorTime BehTime]
+behavior_time returns [DeclarativeTime BehTime]
  @init{
-   BehTime = _fact.createBehaviorTime();
+   BehTime = _decl.createDeclarativeTime() ;
  }
   :
    (
      IntValue=integer_value UnitIdent=IDENT
      {
-       BehTime.setIntegerValueOwned(IntValue);
-       Identifier Id = _fact.createIdentifier() ;
+       BehTime.setIntegerValue(IntValue);
+       BehTime.setLocationReference(IntValue.getLocationReference());
+       
+       Identifier Id = _decl.createIdentifier() ;
        Id.setId(UnitIdent.getText());
        setLocationReference(Id, UnitIdent) ;
-       BehTime.setUnitIdentifier(Id);
-       BehTime.setLocationReference(IntValue.getLocationReference()); 
+       BehTime.setUnitId(Id);
      }
    )
 ;
@@ -2058,49 +2581,32 @@ catch [RecognitionException ex] {
 
 // property_constant ::=
 //   [ property_set_identifier :: ] property_constant_identifier
-property_constant returns [BehaviorPropertyConstant PropertyCst]
+property returns [QualifiedNamedElement property]
  @init{
-   PropertyCst = _fact.createBehaviorPropertyConstant();
+   property = _decl.createQualifiedNamedElement();
  }
   :
    (
      ( PropertySetId=IDENT DOUBLECOLON
        {
-         Identifier nameSpaceId = _fact.createIdentifier();
+         Identifier nameSpaceId = _decl.createIdentifier();
          nameSpaceId.setId(PropertySetId.getText());
          setLocationReference(nameSpaceId, PropertySetId); 
-         PropertyCst.setNamespace(nameSpaceId);
-         setLocationReference(PropertyCst, PropertySetId) ;
-         PropertyCst.setNamespaceSeparator("::");
+         property.setBaNamespace(nameSpaceId);
+         setLocationReference(property, PropertySetId) ;
        }
      )?
        
-     PropertyCstId=IDENT
+     PropertyId=IDENT
      { 
-       Identifier nameId = _fact.createIdentifier();
-       nameId.setId(PropertyCstId.getText());
-       setLocationReference(nameId, PropertyCstId); 
-       PropertyCst.setName(nameId);
+       Identifier nameId = _decl.createIdentifier();
+       nameId.setId(PropertyId.getText());
+       setLocationReference(nameId, PropertyId); 
+       property.setBaName(nameId);
        
-       if(PropertyCst.getNamespace() == null)
+       if (property.getLocationReference() == null )  
        {
-         PropertyCst.setQualifiedName(PropertyCst.getName());
-       }
-       else
-       {
-         String qName = PropertyCst.getNamespace().getId() + 
-           PropertyCst.getNamespaceSeparator() + PropertyCst.getName().getId() ;
-         
-         Identifier qualifiedNameId = _fact.createIdentifier();
-         qualifiedNameId.setId(qName);
-         qualifiedNameId.setLocationReference(PropertyCst.getNamespace().getLocationReference());
-         
-         PropertyCst.setQualifiedName(qualifiedNameId) ;
-       }
-       
-       if (PropertyCst.getLocationReference() == null )  
-       {
-         setLocationReference(PropertyCst, PropertyCstId) ; 
+         setLocationReference(property, PropertyId) ; 
        }
      }
    )
@@ -2116,27 +2622,26 @@ catch [RecognitionException ex] {
 //   [ . component_implementation_identifier ]
 //   . enumerator_property_identifier
 //   # enumeration_literal_identifier
-behavior_enumeration_literal returns [BehaviorEnumerationLiteral bel]
+behavior_enumeration_literal returns [Enumeration enumeration]
   @init {
-          bel = _fact.createBehaviorEnumerationLiteral() ;
+          enumeration = _decl.createEnumeration() ;
         }
   :
   (
-     behavior_named_element[bel]
+     qualifiable_named_element[enumeration]
      
      DOT id1=ENUMERATOR HASH id2=IDENT
      {
-       Identifier elListId = _fact.createIdentifier() ;
-       elListId.setId(id2.getText());
-       setLocationReference(elListId, id2) ;
+       Identifier lit = _decl.createIdentifier() ;
+       lit.setId(id2.getText());
+       setLocationReference(lit, id2) ;
+       Identifier prop = _decl.createIdentifier() ;
+       prop.setId(id1.getText()) ;
+       setLocationReference(prop, id1) ;
        
-       Identifier enumId = _fact.createIdentifier() ;
-       enumId.setId(id1.getText());
-       setLocationReference(enumId, id1) ;
-       
-       bel.setPropertyIdentifier(enumId);
-       bel.setElementListIdentifier(elListId);
-       // bel's location reference is already set, see behavior_named_element.       
+       enumeration.setProperty(prop);
+       enumeration.setLiteral(lit);
+       // enumeration's location reference is already set, see behavior_named_element.       
      }
   )
 ;
@@ -2155,34 +2660,43 @@ numeric_literal returns [NumericLiteral nl]
   }
   :
   (
-    (realval=REAL_LIT
+      realval=REAL_LIT
       {
         String str = realval.getText();
         BehaviorRealLiteral tmp = _fact.createBehaviorRealLiteral();
-        tmp.setValueString(str);
         str = str.replaceAll("_", "") ;
         tmp.setValue(str);
         setLocationReference(tmp, realval);
         nl = tmp ;
       }
-    )
     |
-    (integerval=INTEGER_LIT
+      intLit = integer_literal
       {
-        try{
+        nl = intLit ;
+      }
+  ) 
+;
+catch [RecognitionException ex] {
+  reportError(ex);
+  consumeUntil(input,SEMICOLON);
+  input.consume();
+}
+
+integer_literal returns [BehaviorIntegerLiteral bil]
+
+ :
+    integerval=INTEGER_LIT
+    {
+      try
+      {
         String str = integerval.getText();
         BehaviorIntegerLiteral tmp = _fact.createBehaviorIntegerLiteral();
-        tmp.setValueString(str);
-        //str = str.replaceAll("_", "") ;
-        long[] parsedInt = edu.cmu.sei.aadl.parser.AadlParseUtil.parseAadlInteger(str);
-        tmp.setValue(parsedInt[1]);
-        tmp.setBase((int) parsedInt[0]);
+        tmp.setValue(str);
         setLocationReference(tmp, integerval);
-        nl = tmp ;
-        
-        }
-        catch (IllegalArgumentException e) {
-        
+        bil = tmp ;
+      }
+      catch (IllegalArgumentException e)
+      {
           int line = integerval.getLine() ;
           int col = integerval.getCharPositionInLine() ; 
           String fileName = this.getFilename() ;
@@ -2191,16 +2705,15 @@ numeric_literal returns [NumericLiteral nl]
           ex.charPositionInLine = col ;
           ex.input = input ;
           throw ex ;
-        }
       }
-    )
-  ) 
+    }
 ;
 catch [RecognitionException ex] {
   reportError(ex);
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
+
 
 // string_literal ::= <refer to [AS5506A 15.5]>
 string_literal returns [BehaviorStringLiteral StringLit]
@@ -2227,18 +2740,14 @@ catch [RecognitionException ex] {
 
 
 // numeral ::= <refer to [AS5506A 15.4.1]>
-numeral returns [Numeral Num]
- @init{
-   Num = _fact.createNumeral();
- }
+numeral returns [Integer Num]
+
   :
    ( 
      NumVal=INTEGER_LIT 
      { 
-      
        String tmp = NumVal.getText().replaceAll("_", "");
-       Num.setValue(Integer.parseInt(tmp));
-       setLocationReference(Num, NumVal) ;
+       Num = Integer.parseInt(tmp) ;
      } 
    )
 ;

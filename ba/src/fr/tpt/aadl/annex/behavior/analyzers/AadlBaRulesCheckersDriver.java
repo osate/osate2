@@ -22,104 +22,112 @@
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
 import java.util.Iterator ;
+import java.util.List ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EClass ;
 
-import edu.cmu.sei.aadl.aadl2.AnnexSubclause ;
-import edu.cmu.sei.aadl.aadl2.Element ;
-import edu.cmu.sei.aadl.modelsupport.errorreporting.AnalysisErrorReporterManager ;
+import org.osate.aadl2.AnnexSubclause ;
+import org.osate.aadl2.Element ;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionCollection ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
-import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeoutConditionAndCatch ;
+import fr.tpt.aadl.annex.behavior.aadlba.CompletionRelativeTimeout ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchCondition ;
+import fr.tpt.aadl.annex.behavior.aadlba.DispatchRelativeTimeout ;
 import fr.tpt.aadl.annex.behavior.aadlba.DispatchTriggerConditionStop ;
-import fr.tpt.aadl.annex.behavior.aadlba.Identifier ;
+import fr.tpt.aadl.annex.behavior.aadlba.ElseStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.IfStatement ;
 import fr.tpt.aadl.annex.behavior.aadlba.LoopStatement ;
+import fr.tpt.aadl.annex.behavior.aadlba.Otherwise ;
 import fr.tpt.aadl.annex.behavior.aadlba.TimedAction ;
-import fr.tpt.aadl.annex.behavior.aadlba.TimeoutCatch ;
 import fr.tpt.aadl.annex.behavior.aadlba.util.AadlBaSwitch ;
+import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
+import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
 
 public class AadlBaRulesCheckersDriver
 {
 
-   /**
-   * Aadlba switch which overrides methods to process rule checking.
+  /**
+  * Aadlba switch which overrides methods to process rule checking.
+  */
+  protected AadlBaSwitch<Boolean> aadlbaSwitch = null ;
+
+  /**
+  * Inherits from Osate2 (not used for instance)
+  */
+  private boolean notCancelled = true ;
+
+  private BehaviorAnnex _ba ;
+  private AadlBaLegalityRulesChecker _legality ;
+  private AadlBaSemanticRulesChecker _semantic ;
+  private AadlBaConsistencyRulesChecker _consistency ;
+  private AnalysisErrorReporterManager _errManager ;
+  private DeclarativeBehaviorTransition _currentBt ;
+
+  public AadlBaRulesCheckersDriver(BehaviorAnnex ba,
+                                   AnalysisErrorReporterManager errManager)
+  {
+    _ba = ba ;
+    _legality = new AadlBaLegalityRulesChecker(ba, errManager) ;
+    _semantic = new AadlBaSemanticRulesChecker(errManager) ;
+    _consistency = new AadlBaConsistencyRulesChecker(ba, errManager) ;
+    _errManager = errManager ;
+    this.initSwitches() ;
+  }
+
+  /**
+   * Calls the package-specific switch
    */
-   protected AadlBaSwitch<Boolean> aadlbaSwitch = null ;
+  public final boolean process(Element theElement)
+  {
+    EClass theEClass = theElement.eClass() ;
+    if(theEClass.eContainer() == AadlBaPackage.eINSTANCE)
+    {
+      Boolean result = aadlbaSwitch.doSwitch(theElement) ;
 
-   /**
-   * Inherits from Osate2 (not used for instance)
-   */
-   private boolean notCancelled = true ;
-
-   private BehaviorAnnex _ba ;
-   private AadlBaLegalityRulesChecker _legality ;
-   private AadlBaSemanticRulesChecker _semantic ;
-   private AadlBaConsistencyRulesChecker _consistency ;
-
-   public AadlBaRulesCheckersDriver(BehaviorAnnex ba,
-                                    AnalysisErrorReporterManager errManager)
-   {
-      _ba = ba ;
-      _legality = new AadlBaLegalityRulesChecker(ba, errManager) ;
-      _semantic = new AadlBaSemanticRulesChecker(ba, errManager) ;
-      _consistency = new AadlBaConsistencyRulesChecker(ba, errManager);
-      this.initSwitches() ;
-   }
-
-   /**
-    * Calls the package-specific switch
-    */
-   public final boolean process(Element theElement)
-   {
-      EClass theEClass = theElement.eClass() ;
-      if(theEClass.eContainer() == AadlBaPackage.eINSTANCE)
-      {
-         Boolean result = aadlbaSwitch.doSwitch(theElement) ;
-         
-         // As default super methods return null, translate null to true means
-         // nothing to check.
-         if (result == null)
-            return true ;
-         else
-            return result ;
-      }
+      // As default super methods return null, translate null to true means
+      // nothing to check.
+      if(result == null)
+        return true ;
       else
-      {
-         System.err.println("the given element doesn't come from AADL BA model") ;
-         return false ;
-      }
-   }
+        return result ;
+    }
+    else
+    {
+      System.err.println("the given element doesn't come from AADL BA model") ;
+      return false ;
+    }
+  }
 
-   /** 
-    * This method checks notCancelled() after each element in the
-    * list, and terminates the processing if the traversal has been cancelled.
-    */
-   public final boolean processEList(final EList<? extends Element> list)
-   {
-      Iterator<? extends Element> it = list.iterator() ;
-      boolean result = true ;
+  /** 
+   * This method checks notCancelled() after each element in the
+   * list, and terminates the processing if the traversal has been cancelled.
+   */
+  public final boolean processEList(final EList<? extends Element> list)
+  {
+    Iterator<? extends Element> it = list.iterator() ;
+    boolean result = true ;
 
-      while(notCancelled && it.hasNext())
-      {
-         result &= this.process(it.next()) ;
-      }
+    while(notCancelled && it.hasNext())
+    {
+      result &= this.process(it.next()) ;
+    }
 
-      return result ;
-   }
+    return result ;
+  }
 
-   /**
-    * Specific aadlba switch to drive semantic, legality and consistency rules.
-    */
-   protected void initSwitches()
+  /**
+   * Specific aadlba switch to drive semantic, legality and consistency rules.
+   */
+  protected void initSwitches()
    {
       aadlbaSwitch = new AadlBaSwitch<Boolean>()
       {
@@ -131,30 +139,27 @@ public class AadlBaRulesCheckersDriver
          {
             boolean result = true ;
 
-            if(_ba.isSetBehaviorStates())
+            if(_ba.isSetStates())
             {
-               EList<Identifier> initialStates = new BasicEList<Identifier>() ;
-               EList<Identifier> completeStates = new BasicEList<Identifier>() ;
-               EList<Identifier> finalStates = new BasicEList<Identifier>() ;
+               EList<BehaviorState> initialStates = new BasicEList<BehaviorState>() ;
+               EList<BehaviorState> completeStates = new BasicEList<BehaviorState>() ;
+               EList<BehaviorState> finalStates = new BasicEList<BehaviorState>() ;
 
-               for(BehaviorState bs : _ba.getBehaviorStates())
+               for(BehaviorState bs : _ba.getStates())
                {
-                  for(Identifier i : bs.getIdentifiers())
+                  if(bs.isInitial())
                   {
-                     if(bs.isInitial())
-                     {
-                        initialStates.add(i) ;
-                     }
+                     initialStates.add(bs) ;
+                  }
 
-                     if(bs.isComplete())
-                     {
-                        completeStates.add(i) ;
-                     }
+                  if(bs.isComplete())
+                  {
+                     completeStates.add(bs) ;
+                  }
 
-                     if(bs.isFinal())
-                     {
-                        finalStates.add(i) ;
-                     }
+                  if(bs.isFinal())
+                  {
+                     finalStates.add(bs) ;
                   }
                } // End of first for.
 
@@ -166,28 +171,76 @@ public class AadlBaRulesCheckersDriver
 
             }// End of first if.
 
-            if(_ba.isSetBehaviorTransitions())
+            if(_ba.isSetTransitions())
             {
-               result &= processEList(_ba.getBehaviorTransitions()) ;
+              otherwiseCheck(_ba) ;
+              
+              for(BehaviorTransition bt : _ba.getTransitions())
+              {
+                result &= caseBehaviorTransition(bt) ;
+              }
             }
 
             return result ;
          }
          
-         public Boolean caseBehaviorTransition(BehaviorTransition bt)
+         // behavior transition which have execution condition set to "otherwise"
+         // will be placed at the end of the list. A warning is raised if there are
+         // transitions after an otherwise transition.
+         private void otherwiseCheck(BehaviorAnnex ba)
          {
-            boolean result = true ;
+           // Checks for dead transitions (after an otherwise transition).
+           boolean otherwise = false ;
+           BehaviorTransition[] dead_trans = new 
+                              BehaviorTransition[ba.getTransitions().size()-1];
+           int index = 0 ;
+           
+           for(BehaviorTransition bt : ba.getTransitions())
+           {
+             if(otherwise)
+             {
+               dead_trans[index] = bt ;
+               index++ ;
+             }
+             else
+             {
+               otherwise = bt.getCondition() instanceof Otherwise ;
+             }
+           }
+           
+           // Report a warning.
+           for(--index ; index >= 0 ; index--)
+           {
+             reportWarning(dead_trans[index],
+                           "unreachable transition") ;
+           }
+         }
+         
+         // TODO Provide column number.
+         private void reportWarning(BehaviorElement obj, String message) 
+         {
+            _errManager.warning(obj, message);
+         }
+         
+         public Boolean caseBehaviorTransition(BehaviorTransition tmp)
+         {
+           _currentBt = (DeclarativeBehaviorTransition) tmp ;
+           
+           boolean result = true ;
+            
+            List<Identifier> sourceStateList = _currentBt.getSrcStates() ;
             
             // Check source identifiers.
-            for(Identifier srcState : bt.getSourceStateIdentifiers())
+            
+            for(Identifier srcState : sourceStateList)
             {
-               result &= _legality.D_3_L6_Check(bt, srcState) ;
-               result &= _legality.D_3_L7_Check(bt, srcState) ;
+               result &= _legality.D_3_L6_Check(_currentBt, srcState) ;
+               result &= _legality.D_3_L7_Check(_currentBt, srcState) ;
                result &= _legality.D_3_L8_Check(srcState) ;
-               result &= _consistency.D_3_C4_Check(bt, srcState) ;
+               result &= _consistency.D_3_C4_Check(_currentBt, srcState) ;
             }
             
-            BehaviorCondition bc = bt.getBehaviorConditionOwned() ;
+            BehaviorCondition bc = _currentBt.getCondition() ;
             
             // Check Dispatch condition.
             if(bc instanceof DispatchCondition)
@@ -197,15 +250,15 @@ public class AadlBaRulesCheckersDriver
             else // Check Execute condition. Warning Execution condition may be
                  // null.
             {
-               result &= _semantic.D_3_18_Checker(bt);
+               result &= _semantic.D_3_18_Checker(_currentBt);
             }
             
-            if(bt.getBehaviorActionBlockOwned() != null)
+            if(_currentBt.getActionBlock() != null)
             {
                result &= _legality.D_6_L3_And_L4_Check(
-                                             bt.getBehaviorActionBlockOwned()) ;
+                                             _currentBt.getActionBlock()) ;
                
-               process(bt.getBehaviorActionBlockOwned()) ;
+               process(_currentBt.getActionBlock()) ;
             }
 
             return result ;
@@ -213,23 +266,35 @@ public class AadlBaRulesCheckersDriver
          
          public Boolean caseBehaviorActionBlock(BehaviorActionBlock bab)
          {
-            return process(bab.getBehaviorActionsOwned()) ;
+            return process(bab.getContent()) ;
          }
          
          public Boolean caseBehaviorActionCollection(BehaviorActionCollection 
                                                                             bac)
          {
-            return processEList(bac.getBehaviorActions()) ;
+            return processEList(bac.getActions()) ;
          }
          
          public Boolean caseIfStatement(IfStatement stat)
          {
-            return processEList(stat.getBehaviorActionsOwned()) ;
+           boolean result = process(stat.getBehaviorActions()) ; 
+           
+           if(stat.getElseStatement() != null)
+           {
+             result &= process(stat.getElseStatement()) ;
+           }
+           
+           return result ;
+         }
+         
+         public Boolean caseElseStatement(ElseStatement elseStat)
+         {
+           return process(elseStat.getBehaviorActions()) ;
          }
          
          public Boolean caseLoopStatement(LoopStatement stat)
          {
-            return process(stat.getBehaviorActionsOwned()) ;
+            return process(stat.getBehaviorActions()) ;
          }
          
          public Boolean caseTimedAction(TimedAction ta)
@@ -241,39 +306,32 @@ public class AadlBaRulesCheckersDriver
          {
             boolean result = _legality.D_3_L5_Check(dc) ;
             
-            if(dc.getDispatchTriggerConditionOwned() != null)
+            if(dc.getDispatchTriggerCondition() != null)
             {
-               result &= process(dc.getDispatchTriggerConditionOwned()) ; 
+               result &= process(dc.getDispatchTriggerCondition()) ; 
             }
             
             return result ;
          }
          
-         public Boolean caseTimeoutCatch(TimeoutCatch tc)
+         public Boolean caseDispatchRelativeTimeout(DispatchRelativeTimeout tc)
          {
-            BehaviorTransition btOwner = (BehaviorTransition)
-                                                  tc.eContainer().eContainer() ;
-            return _legality.D_4_L1_Check(tc, btOwner) ;
+            return _legality.D_4_L1_Check(tc, _currentBt) ;
          }
          
-         public Boolean caseCompletionRelativeTimeoutConditionAndCatch
-                             (CompletionRelativeTimeoutConditionAndCatch crtcac)
+         public Boolean caseCompletionRelativeTimeout
+                                              (CompletionRelativeTimeout crtcac)
          {
-            BehaviorTransition btOwner = (BehaviorTransition)
-                                              crtcac.eContainer().eContainer() ;
-            return _legality.D_4_L2_Check(crtcac, btOwner) ;
+           return _legality.D_4_L2_Check(crtcac, _currentBt) ;
          }
          
          public Boolean caseDispatchTriggerConditionStop(
                                           DispatchTriggerConditionStop dtcs)
          {
-            BehaviorTransition btOwner = (BehaviorTransition)
-                                                dtcs.eContainer().eContainer() ;
-            
             EList<BehaviorTransition> allTransitions = 
-                                                  _ba.getBehaviorTransitions() ;
+                                                  _ba.getTransitions() ;
             
-            return _semantic.D_4_6_Check(dtcs, btOwner, allTransitions) ;
+            return _semantic.D_4_6_Check(dtcs, _currentBt, allTransitions) ;
          }
       } ;
    }

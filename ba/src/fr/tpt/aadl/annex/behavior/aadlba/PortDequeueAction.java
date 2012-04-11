@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba;
 
 
@@ -30,8 +28,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPortName <em>Port Name</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTargetOwned <em>Target Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPort <em>Port</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTarget <em>Target</em>}</li>
  * </ul>
  * </p>
  *
@@ -39,57 +37,58 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface PortDequeueAction extends CommunicationAction {
-	/**
-	 * Returns the value of the '<em><b>Port Name</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Port Name</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Port Name</em>' containment reference.
-	 * @see #setPortName(Name)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_PortName()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
-	Name getPortName();
+public interface PortDequeueAction extends CommunicationAction
+{
+  /**
+   * Returns the value of the '<em><b>Port</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Port</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Port</em>' containment reference.
+   * @see #setPort(ActualPortHolder)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Port()
+   * @model containment="true" required="true"
+   * @generated
+   */
+  ActualPortHolder getPort();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPortName <em>Port Name</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Port Name</em>' containment reference.
-	 * @see #getPortName()
-	 * @generated
-	 */
-	void setPortName(Name value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getPort <em>Port</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Port</em>' containment reference.
+   * @see #getPort()
+   * @generated
+   */
+  void setPort(ActualPortHolder value);
 
-	/**
-	 * Returns the value of the '<em><b>Target Owned</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Target Owned</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Target Owned</em>' containment reference.
-	 * @see #setTargetOwned(Target)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_TargetOwned()
-	 * @model containment="true"
-	 * @generated
-	 */
-	Target getTargetOwned();
+  /**
+   * Returns the value of the '<em><b>Target</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Target</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Target</em>' containment reference.
+   * @see #setTarget(Target)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPortDequeueAction_Target()
+   * @model containment="true"
+   * @generated
+   */
+  Target getTarget();
 
-	/**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTargetOwned <em>Target Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Target Owned</em>' containment reference.
-	 * @see #getTargetOwned()
-	 * @generated
-	 */
-	void setTargetOwned(Target value);
+  /**
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.PortDequeueAction#getTarget <em>Target</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Target</em>' containment reference.
+   * @see #getTarget()
+   * @generated
+   */
+  void setTarget(Target value);
 
 } // PortDequeueAction

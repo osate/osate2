@@ -7,18 +7,16 @@
  * 
  * Authors: see AUTHORS
  * 
- * This program is free software: you can redistribute it and/or modify 
- * it under the terms of the Eclipse Public License as published by Eclipse,
- * either version 1.0 of the License, or (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * Eclipse Public License for more details.
- * You should have received a copy of the Eclipse Public License
- * along with this program.  If not, see 
+ * This program is free software: you can redistribute it and/or modify it under
+ * the terms of the Eclipse Public License as published by Eclipse, either
+ * version 1.0 of the License, or (at your option) any later version. This
+ * program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for
+ * more details. You should have received a copy of the Eclipse Public License
+ * along with this program. If not, see
  * http://www.eclipse.org/org/documents/epl-v10.php
  */
-
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
@@ -41,221 +39,244 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionBlockImpl#getBehaviorActionsOwned <em>Behavior Actions Owned</em>}</li>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionBlockImpl#getBehaviorTimeOwned <em>Behavior Time Owned</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionBlockImpl#getContent <em>Content</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorActionBlockImpl#getTimeout <em>Timeout</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class BehaviorActionBlockImpl extends BehaviorElementImpl implements BehaviorActionBlock {
-	/**
-	 * The cached value of the '{@link #getBehaviorActionsOwned() <em>Behavior Actions Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBehaviorActionsOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected BehaviorActions behaviorActionsOwned;
+public class BehaviorActionBlockImpl extends BehaviorElementImpl implements BehaviorActionBlock
+{
+  /**
+   * The cached value of the '{@link #getContent() <em>Content</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getContent()
+   * @generated
+   * @ordered
+   */
+  protected BehaviorActions content;
 
-	/**
-	 * The cached value of the '{@link #getBehaviorTimeOwned() <em>Behavior Time Owned</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getBehaviorTimeOwned()
-	 * @generated
-	 * @ordered
-	 */
-	protected BehaviorTime behaviorTimeOwned;
+  /**
+   * The cached value of the '{@link #getTimeout() <em>Timeout</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTimeout()
+   * @generated
+   * @ordered
+   */
+  protected BehaviorTime timeout;
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected BehaviorActionBlockImpl() {
-		super();
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected BehaviorActionBlockImpl()
+  {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return AadlBaPackage.Literals.BEHAVIOR_ACTION_BLOCK;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return AadlBaPackage.Literals.BEHAVIOR_ACTION_BLOCK;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorActions getBehaviorActionsOwned() {
-		return behaviorActionsOwned;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BehaviorActions getContent()
+  {
+    return content;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned, NotificationChain msgs) {
-		BehaviorActions oldBehaviorActionsOwned = behaviorActionsOwned;
-		behaviorActionsOwned = newBehaviorActionsOwned;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED, oldBehaviorActionsOwned, newBehaviorActionsOwned);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetContent(BehaviorActions newContent, NotificationChain msgs)
+  {
+    BehaviorActions oldContent = content;
+    content = newContent;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT, oldContent, newContent);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBehaviorActionsOwned(BehaviorActions newBehaviorActionsOwned) {
-		if (newBehaviorActionsOwned != behaviorActionsOwned) {
-			NotificationChain msgs = null;
-			if (behaviorActionsOwned != null)
-				msgs = ((InternalEObject)behaviorActionsOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-			if (newBehaviorActionsOwned != null)
-				msgs = ((InternalEObject)newBehaviorActionsOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED, null, msgs);
-			msgs = basicSetBehaviorActionsOwned(newBehaviorActionsOwned, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED, newBehaviorActionsOwned, newBehaviorActionsOwned));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setContent(BehaviorActions newContent)
+  {
+    if (newContent != content)
+    {
+      NotificationChain msgs = null;
+      if (content != null)
+        msgs = ((InternalEObject)content).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT, null, msgs);
+      if (newContent != null)
+        msgs = ((InternalEObject)newContent).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT, null, msgs);
+      msgs = basicSetContent(newContent, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT, newContent, newContent));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public BehaviorTime getBehaviorTimeOwned() {
-		return behaviorTimeOwned;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public BehaviorTime getTimeout()
+  {
+    return timeout;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetBehaviorTimeOwned(BehaviorTime newBehaviorTimeOwned, NotificationChain msgs) {
-		BehaviorTime oldBehaviorTimeOwned = behaviorTimeOwned;
-		behaviorTimeOwned = newBehaviorTimeOwned;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED, oldBehaviorTimeOwned, newBehaviorTimeOwned);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetTimeout(BehaviorTime newTimeout, NotificationChain msgs)
+  {
+    BehaviorTime oldTimeout = timeout;
+    timeout = newTimeout;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT, oldTimeout, newTimeout);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setBehaviorTimeOwned(BehaviorTime newBehaviorTimeOwned) {
-		if (newBehaviorTimeOwned != behaviorTimeOwned) {
-			NotificationChain msgs = null;
-			if (behaviorTimeOwned != null)
-				msgs = ((InternalEObject)behaviorTimeOwned).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED, null, msgs);
-			if (newBehaviorTimeOwned != null)
-				msgs = ((InternalEObject)newBehaviorTimeOwned).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED, null, msgs);
-			msgs = basicSetBehaviorTimeOwned(newBehaviorTimeOwned, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED, newBehaviorTimeOwned, newBehaviorTimeOwned));
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTimeout(BehaviorTime newTimeout)
+  {
+    if (newTimeout != timeout)
+    {
+      NotificationChain msgs = null;
+      if (timeout != null)
+        msgs = ((InternalEObject)timeout).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT, null, msgs);
+      if (newTimeout != null)
+        msgs = ((InternalEObject)newTimeout).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT, null, msgs);
+      msgs = basicSetTimeout(newTimeout, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT, newTimeout, newTimeout));
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED:
-				return basicSetBehaviorActionsOwned(null, msgs);
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED:
-				return basicSetBehaviorTimeOwned(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT:
+        return basicSetContent(null, msgs);
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT:
+        return basicSetTimeout(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public Object eGet(int featureID, boolean resolve, boolean coreType) {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED:
-				return getBehaviorActionsOwned();
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED:
-				return getBehaviorTimeOwned();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT:
+        return getContent();
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT:
+        return getTimeout();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eSet(int featureID, Object newValue) {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED:
-				setBehaviorActionsOwned((BehaviorActions)newValue);
-				return;
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED:
-				setBehaviorTimeOwned((BehaviorTime)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT:
+        setContent((BehaviorActions)newValue);
+        return;
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT:
+        setTimeout((BehaviorTime)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public void eUnset(int featureID) {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED:
-				setBehaviorActionsOwned((BehaviorActions)null);
-				return;
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED:
-				setBehaviorTimeOwned((BehaviorTime)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT:
+        setContent((BehaviorActions)null);
+        return;
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT:
+        setTimeout((BehaviorTime)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	public boolean eIsSet(int featureID) {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_ACTIONS_OWNED:
-				return behaviorActionsOwned != null;
-			case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__BEHAVIOR_TIME_OWNED:
-				return behaviorTimeOwned != null;
-		}
-		return super.eIsSet(featureID);
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__CONTENT:
+        return content != null;
+      case AadlBaPackage.BEHAVIOR_ACTION_BLOCK__TIMEOUT:
+        return timeout != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //BehaviorActionBlockImpl
