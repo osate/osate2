@@ -3681,7 +3681,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     initEClass(portPrototypeHolderEClass, PortPrototypeHolder.class, "PortPrototypeHolder", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
     initEClass(prototypeHolderEClass, PrototypeHolder.class, "PrototypeHolder", IS_ABSTRACT, IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getPrototypeHolder_PrototypeBinding(), theAadl2Package.getPrototypeBinding(), null, "prototypeBinding", null, 1, 1, PrototypeHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getPrototypeHolder_PrototypeBinding(), theAadl2Package.getPrototypeBinding(), null, "prototypeBinding", null, 0, 1, PrototypeHolder.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     op = addEOperation(prototypeHolderEClass, null, "setPrototype", 1, 1, IS_UNIQUE, IS_ORDERED);
     addEParameter(op, theAadl2Package.getPrototype(), "prototype", 1, 1, IS_UNIQUE, IS_ORDERED);

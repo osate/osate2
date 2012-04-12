@@ -51,7 +51,7 @@ public interface PrototypeHolder extends BehaviorElement
    * @return the value of the '<em>Prototype Binding</em>' reference.
    * @see #setPrototypeBinding(PrototypeBinding)
    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getPrototypeHolder_PrototypeBinding()
-   * @model required="true"
+   * @model
    * @generated
    */
   PrototypeBinding getPrototypeBinding();

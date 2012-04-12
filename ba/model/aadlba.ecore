@@ -605,7 +605,7 @@
       </eAnnotations>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="prototypeBinding" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PrototypeBinding"/>
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PrototypeBinding"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder"/>
