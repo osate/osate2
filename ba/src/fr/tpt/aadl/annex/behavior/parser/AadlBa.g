@@ -1086,6 +1086,7 @@ behavior_action returns [BehaviorAction BehAction]
                         }
        COLON dt=unique_component_classifier_reference
        {
+         DeclarativeUtils.setEcontainer(_ba, dt);
          itVar.setDataClassifier(dt);
        }
        

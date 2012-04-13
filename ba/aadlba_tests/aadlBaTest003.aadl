@@ -226,6 +226,7 @@ variables
  int : Base_types::Integer ; 
  localMyInteger : MyInteger ;
  localMyStruct_A : MyStruct_A ;
+ localArrayMyStruct_A [10] : MyStruct_A;
  localMyStruct_B : MyStruct_B ;
  localMyArray_Integer_A, localMyArray_Integer_B : MyArray_Integer ;
  localMyArray_IntegerImpl : MyArray_Integer.impl ;
@@ -452,6 +453,10 @@ transitions
    -- Subprogram calling action tests --
    
  a -[]-> a { AnOtherSubprogConcrete ! (localMyStruct_A.float, localMyStruct_B, localMyIntegerArray_B[0][0])} ;
+ 
+   -- Iterative variable tests --
+   
+ -- a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ; -- name resolver error: null pointer exception
  
 **};  
 
