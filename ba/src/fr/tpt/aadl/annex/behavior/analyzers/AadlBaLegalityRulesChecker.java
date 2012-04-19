@@ -39,6 +39,7 @@ import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyAssociation ;
 import org.osate.aadl2.PropertyOwner ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier ;
@@ -210,17 +211,18 @@ public class AadlBaLegalityRulesChecker
       // As the user can add component which have initialization and finalization
       // entrypoints, fetches the component list.
       
-      EObject ne ;
-      
       PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
       
       PropertiesLinkingService pls = PropertiesLinkingService.
                                    getPropertiesLinkingService(contextsTab[0]) ;
       
-      ne = pls.findNamedElementInPropertySet(
-                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET,
-                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
-                             contextsTab[0], null);
+      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME, contextsTab[0], null);
+      if(ne==null)
+      {
+        PropertySet ps = pls.findPropertySet(contextsTab[0], AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET);
+        if(ps!=null)
+          ne = ps.findNamedElement(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
+      }
       
       ArrayList<Class<? extends org.osate.aadl2.Element>> klassl = 
          new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;

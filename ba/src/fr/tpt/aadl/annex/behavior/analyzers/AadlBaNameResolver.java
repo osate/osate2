@@ -42,6 +42,7 @@ import org.osate.aadl2.Mode ;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace ;
 import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.Prototype ;
 import org.osate.aadl2.PrototypeBinding ;
 import org.osate.aadl2.StringLiteral;
@@ -72,7 +73,8 @@ public class AadlBaNameResolver
    private AnalysisErrorReporterManager _errManager ;
    
    // Time units property set name.
-   public static final String TIME_UNITS_PROPERTY_SET = "Time_Units" ;
+   public static final String TIME_UNITS_PROPERTY_SET = "AADL_Project" ;
+   public static final String TIME_UNITS_PROPERTY_ID = "Time_Units";
    
    // Iterative variables scope handler.
    private EList<IterativeVariable> _itvScope = 
@@ -1477,9 +1479,15 @@ public class AadlBaNameResolver
       PropertiesLinkingService pls = PropertiesLinkingService.
                                           getPropertiesLinkingService(context) ;
       
-      EObject ne = pls.findNamedElementInPropertySet(null, 
-                                                     TIME_UNITS_PROPERTY_SET,
-                                                     context, null);
+      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME, context, null);
+      if(ne==null)
+      {
+        PropertySet ps = pls.findPropertySet(context, TIME_UNITS_PROPERTY_SET);
+        if(ps!=null)
+          ne = ps.findNamedElement(TIME_UNITS_PROPERTY_ID);
+      }
+      
+      
       
       // Property set Time_Units is found.
       if (ne instanceof org.osate.aadl2.UnitsType)
@@ -1537,8 +1545,15 @@ public class AadlBaNameResolver
 	                                             qne.getBaName().getId(), ns);
 	         
 	      if(ne == null)
-	    	  ne = pls.findNamedElementInPropertySet(packageName,
-                      qne.getBaName().getId(), ns, null);
+	      {
+	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().getId(), ns, null);
+	        if(ne==null)
+	        {
+	              PropertySet ps = pls.findPropertySet(ns, packageName);
+	              if(ps!=null)
+	                ne = ps.findNamedElement(qne.getBaName().getId());
+	        }
+	      }
 	      // An element is found.
 	      if(ne != null && ne instanceof NamedElement)
 	      {
