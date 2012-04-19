@@ -5367,28 +5367,10 @@ public class InternalPropertysetLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:9: ( ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )* )
+            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:11: ( 'a' .. 'z' | 'A' .. 'Z' ) ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             {
-            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:11: ( '^' )?
-            int alt26=2;
-            int LA26_0 = input.LA(1);
-
-            if ( (LA26_0=='^') ) {
-                alt26=1;
-            }
-            switch (alt26) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:11: '^'
-                    {
-                    match('^'); 
-
-                    }
-                    break;
-
-            }
-
-            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            if ( (input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
                 input.consume();
 
             }
@@ -5397,7 +5379,7 @@ public class InternalPropertysetLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:31: ( ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' ) )*
             loop27:
             do {
                 int alt27=2;
@@ -5410,9 +5392,27 @@ public class InternalPropertysetLexer extends Lexer {
 
                 switch (alt27) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:
+            	    // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:32: ( '_' )? ( 'a' .. 'z' | 'A' .. 'Z' | '0' .. '9' )
             	    {
-            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
+            	    // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:32: ( '_' )?
+            	    int alt26=2;
+            	    int LA26_0 = input.LA(1);
+
+            	    if ( (LA26_0=='_') ) {
+            	        alt26=1;
+            	    }
+            	    switch (alt26) {
+            	        case 1 :
+            	            // ../org.osate.xtext.aadl2.propertyset.ui/src-gen/org/osate/xtext/aadl2/propertyset/ui/contentassist/antlr/lexer/InternalPropertysetLexer.g:181:32: '_'
+            	            {
+            	            match('_'); 
+
+            	            }
+            	            break;
+
+            	    }
+
+            	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
 
             	    }
@@ -6151,9 +6151,9 @@ public class InternalPropertysetLexer extends Lexer {
             "\1\27\1\30\1\31\1\22\1\32\1\33\1\23\1\uffff\12\41\1\24\1\34"+
             "\1\uffff\1\25\3\uffff\1\2\1\10\1\4\1\13\1\3\1\11\1\16\1\43\1"+
             "\1\2\43\1\20\1\14\1\43\1\26\1\6\1\43\1\7\1\5\1\15\1\17\1\12"+
-            "\1\21\3\43\1\35\1\uffff\1\36\2\43\1\uffff\1\2\1\10\1\4\1\13"+
-            "\1\3\1\11\1\16\1\43\1\1\2\43\1\20\1\14\1\43\1\26\1\6\1\43\1"+
-            "\7\1\5\1\15\1\17\1\12\1\21\3\43\1\37\1\uffff\1\40",
+            "\1\21\3\43\1\35\1\uffff\1\36\3\uffff\1\2\1\10\1\4\1\13\1\3\1"+
+            "\11\1\16\1\43\1\1\2\43\1\20\1\14\1\43\1\26\1\6\1\43\1\7\1\5"+
+            "\1\15\1\17\1\12\1\21\3\43\1\37\1\uffff\1\40",
             "\1\45\1\46\4\uffff\1\47\31\uffff\1\45\1\46\4\uffff\1\47",
             "\1\50\1\51\1\53\10\uffff\1\55\1\uffff\1\54\1\uffff\1\52\20"+
             "\uffff\1\50\1\51\1\53\10\uffff\1\55\1\uffff\1\54\1\uffff\1\52",
