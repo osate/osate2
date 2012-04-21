@@ -11,6 +11,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
@@ -115,7 +116,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 //			}
 //			return Collections.<EObject> emptyList();
 //		} else
-		if (Aadl2Package.eINSTANCE.getFeatureClassifier() == requiredType) {
+		if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
 			if (e == null){
@@ -233,9 +234,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				return Collections.singletonList((EObject) searchResult);
 			}
 			searchResult = findClassifier(context, reference, name);
-			if (searchResult == null){
-				searchResult = findClassifier(context, reference, name);
-			}
 			if (searchResult != null ) {
 				return Collections.singletonList((EObject) searchResult);
 			}
@@ -260,9 +258,10 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				if (callContext.eIsProxy()){
 					INode n = node.getPreviousSibling();
 					INode n1 = n.getPreviousSibling();
-					String s1 = n1.getText();
+					String s1 = NodeModelUtils.getTokenText(n1);
 					String implname = s1+"."+name;
-					EObject searchResult = findClassifier(context, reference,  implname);
+					EObject searchResult = findClassifier(context, reference,  s1);
+					searchResult = findClassifier(context, reference,  implname);
 					if (searchResult != null
 							&& requiredType.isSuperTypeOf(searchResult.eClass())) {
 						((SubprogramCall) context).setContext(null); 
