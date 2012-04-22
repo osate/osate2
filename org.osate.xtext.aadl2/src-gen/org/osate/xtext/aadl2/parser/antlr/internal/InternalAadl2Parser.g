@@ -17464,7 +17464,7 @@ ruleCallSpecification returns [EObject current=null]
     {
     	newLeafNode(otherlv_10, grammarAccess.getCallSpecificationAccess().getSubprogramKeyword_0_1_3());
     }
-(((
+(
 (
 		{
 			if ($current==null) {
@@ -17472,79 +17472,45 @@ ruleCallSpecification returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getCallSpecificationAccess().getContextCallContextCrossReference_0_1_4_0_0_0()); 
+	        newCompositeNode(grammarAccess.getCallSpecificationAccess().getCalledSubprogramCalledSubprogramCrossReference_0_1_4_0()); 
 	    }
-		rulePNAME		{ 
+		ruleQCREF		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
-	otherlv_12=KEYWORD_7
+)))(
+	otherlv_12=KEYWORD_12
     {
-    	newLeafNode(otherlv_12, grammarAccess.getCallSpecificationAccess().getFullStopKeyword_0_1_4_0_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCallSpecificationRule());
-	        }
-        }
-	otherlv_13=RULE_ID
-	{
-		newLeafNode(otherlv_13, grammarAccess.getCallSpecificationAccess().getCalledSubprogramCalledSubprogramCrossReference_0_1_4_0_2_0()); 
-	}
-
-)
-))
-    |(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getCallSpecificationRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getCallSpecificationAccess().getCalledSubprogramCalledSubprogramCrossReference_0_1_4_1_0()); 
-	    }
-		rulePNAME		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))))(
-	otherlv_15=KEYWORD_12
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getCallSpecificationAccess().getLeftCurlyBracketKeyword_1_0());
+    	newLeafNode(otherlv_12, grammarAccess.getCallSpecificationAccess().getLeftCurlyBracketKeyword_1_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getCallSpecificationAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0()); 
 	    }
-		lv_ownedPropertyAssociation_16_0=rulePropertyAssociation		{
+		lv_ownedPropertyAssociation_13_0=rulePropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getCallSpecificationRule());
 	        }
        		add(
        			$current, 
        			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_16_0, 
+        		lv_ownedPropertyAssociation_13_0, 
         		"PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )+
-	otherlv_17=KEYWORD_13
+	otherlv_14=KEYWORD_13
     {
-    	newLeafNode(otherlv_17, grammarAccess.getCallSpecificationAccess().getRightCurlyBracketKeyword_1_2());
+    	newLeafNode(otherlv_14, grammarAccess.getCallSpecificationAccess().getRightCurlyBracketKeyword_1_2());
     }
 )?
-	otherlv_18=KEYWORD_9
+	otherlv_15=KEYWORD_9
     {
-    	newLeafNode(otherlv_18, grammarAccess.getCallSpecificationAccess().getSemicolonKeyword_2());
+    	newLeafNode(otherlv_15, grammarAccess.getCallSpecificationAccess().getSemicolonKeyword_2());
     }
 )
 ;
