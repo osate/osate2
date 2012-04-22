@@ -119,7 +119,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
-			if (e == null){
+			if (e == null && !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)){
 				// look for prototype
 				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
