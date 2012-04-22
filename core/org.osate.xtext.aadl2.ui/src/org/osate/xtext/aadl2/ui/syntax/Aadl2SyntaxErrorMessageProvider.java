@@ -25,9 +25,13 @@ public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider{
 		EObject contextobj = context.getCurrentContext();
 		RecognitionException ex = context.getRecognitionException();
 		String msg = context.getDefaultMessage();
-		INode n = context.getCurrentNode();
-		 Iterable<ILeafNode> ln = n.getLeafNodes();
-		
+		 if (ex == null){
+			 if( msg.endsWith("'_'")){
+				 msg = "Illegal identifier";
+			 } else if (msg.startsWith("mismatched ch")){
+				 msg = "Identifier cannot end with '_'";
+			 }
+		 }
 		if (contextobj == null){
 			msg = "Incomplete package or property set declaration";
 		} else 
