@@ -247,11 +247,10 @@ public class OsateResourceUtil {
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
 	 */
-	public static Aadl2ResourceImpl getEmptyAadl2Resource(URI uri) {
+	public static Resource getEmptyAadl2Resource(URI uri) {
 		Resource res = null;
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
@@ -268,17 +267,43 @@ public class OsateResourceUtil {
 		}
 
 		res = getResourceSet().createResource(uri);
-		return (Aadl2ResourceImpl)res;
+		return res;
 	}
+
 	/**
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
 	 */
-	public static Aadl2ResourceImpl getEmptyAadl2Resource(URI uri, Element context) {
+	public static Resource getEmptyAadl2Resource(URI uri, Element context) {
+		Resource res = null;
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		if (uri != null) {
+			IResource iResource =  getOsateIFile(uri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+		}
+		res = getResourceSet(context).createResource(uri);
+		return res;
+	}
+
+	/**
+	 * creates a Resource for file name with path within Eclipse If it exists,
+	 * it will delete the file before creating the resource.
+	 * 
+	 * @param uri Assumed to be an aaxl extension
+	 * @return Resource Aadl2ResourceImpl for aaxl
+	 */
+	public static Aadl2ResourceImpl getEmptyAaxl2Resource(URI uri, Element context) {
 		Resource res = null;
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
@@ -301,8 +326,10 @@ public class OsateResourceUtil {
 		if (res instanceof Aadl2ResourceImpl) {
 			((Aadl2ResourceImpl) res).save();
 		} else if (res instanceof XtextResource){
-			System.out.println("Trying to save Xtext file");
+			// the Xtext save has problems with serialize interpreting our Meta model, primarily some of the derived attributes
 //			((XtextResource) res).save();
+			// we should call the unparser instead but doing it here leads to cyclic dependencies
+//			AadlUnparser.getAadlUnparser().doUnparseToFile(res);
 		} else {
 			Map<String, Object> options = new HashMap<String, Object>();
 			options.put(XMLResource.OPTION_ENCODING, "UTF-8");
