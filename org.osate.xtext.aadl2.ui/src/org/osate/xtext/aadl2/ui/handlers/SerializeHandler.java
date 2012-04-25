@@ -9,8 +9,13 @@ import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
@@ -19,10 +24,17 @@ import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.xtext.aadl2.util.AadlUnparser;
 
 import com.google.inject.Inject;
 
@@ -38,16 +50,35 @@ public class SerializeHandler extends AbstractHandler {
 		IWorkbenchPage page = win.getActivePage();
 		IWorkbenchPart part = page.getActivePart();
 		IEditorPart activeEditor = page.getActiveEditor();
-		ISelection selection= page.getSelection();;
-		if (selection instanceof TreeSelection){
-			for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
-				Object f = (Object) iterator.next();
-				if (f instanceof IResource){
-					Resource res = OsateResourceUtil.getResource((IResource)f);
-					saveBySerialize2(res);
-				}
-			}
+		if (activeEditor == null)
 			return null;
+		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
+		final ISelection selection;
+		if (xtextEditor != null) {
+			if (part instanceof ContentOutline) {
+				selection = ((ContentOutline) part).getSelection();
+			} else {
+				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+			}
+
+			xtextEditor.getDocument().readOnly(
+					new IUnitOfWork<EObject, XtextResource>() {
+						public EObject exec(XtextResource resource)
+								throws Exception {
+							URI xtxturi = resource.getURI();
+							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
+							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+//							res.getContents().add(resource.getContents().get(0));
+							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+							pack.setName("mypack");
+							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+							res.getContents().add(pack);
+							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
+//							res.save(null);
+//							saveBySerialize2(resource);
+							return null;
+						}
+					});
 		}
 		return null;
 	}
@@ -58,16 +89,11 @@ public class SerializeHandler extends AbstractHandler {
 	 * @param res
 	 */
 	private void saveBySerialize2(Resource res){
-		URI xtxturi = res.getURI();
-		String name = xtxturi.trimFileExtension().lastSegment();
-		URI txturi = xtxturi.trimFileExtension().trimSegments(1).appendSegment(name+"_serialize").appendFileExtension("aadl");
-		XtextResource aadlresource = (XtextResource) res.getResourceSet().createResource(txturi);
-		aadlresource.getContents().add(res.getContents().get(0));
 		SaveOptions.Builder sb = SaveOptions.newBuilder();
 		Map<Object,Object> options = new HashMap();
 		sb.getOptions().addTo(options);
 		try {
-			aadlresource.save(options);
+			res.save(options);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

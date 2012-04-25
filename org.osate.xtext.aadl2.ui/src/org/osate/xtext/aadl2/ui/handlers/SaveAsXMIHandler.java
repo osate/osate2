@@ -8,6 +8,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.ITextSelection;
@@ -29,11 +30,14 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.util.AadlUnparser;
 
 import com.google.inject.Inject;
 
@@ -86,18 +90,28 @@ public class SaveAsXMIHandler extends AbstractHandler {
 
 								// save XMI
 								URI xtxturi = resource.getURI();
-								URI xmiuri = xtxturi.trimFileExtension()
-										.appendFileExtension(
-												WorkspacePlugin.MODEL_FILE_EXT);
-								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-										.createResource(xmiuri);
-								aaxlresource.getContents().add(eobject);
-								rss.getResources().add(aaxlresource);
-								aaxlresource.save();
-								// put the root object back into the original resource
-								resource.getContents().add(eobject);
-								rss.getResources().remove(aaxlresource);
+								URI xtxt2uri = xtxturi.trimFileExtension()
+										.appendFileExtension("aadl2");
+								Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+								AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+								pack.setName("mypack");
+								pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+								res.getContents().add(pack);
+								AadlUnparser.getAadlUnparser().doUnparseToFile(res);
+//								res.save(null);
+
+//								URI xmiuri = xtxturi.trimFileExtension()
+//										.appendFileExtension(
+//												WorkspacePlugin.MODEL_FILE_EXT);
+//								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+//								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
+//										.createResource(xmiuri);
+//								aaxlresource.getContents().add(eobject);
+//								rss.getResources().add(aaxlresource);
+//								aaxlresource.save();
+//								// put the root object back into the original resource
+//								resource.getContents().add(eobject);
+//								rss.getResources().remove(aaxlresource);
 
 							}
 

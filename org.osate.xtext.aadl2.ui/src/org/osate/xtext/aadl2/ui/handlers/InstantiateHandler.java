@@ -169,7 +169,7 @@ public class InstantiateHandler extends AbstractHandler {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Aadl2ResourceImpl aadlResource = OsateResourceUtil.getEmptyAadl2Resource(instanceURI,si);
+		Aadl2ResourceImpl aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI,si);
 
 		// now instantiate the rest of the model
 		SystemInstance root = instantiateModel.createSystemInstance(si, aadlResource);
