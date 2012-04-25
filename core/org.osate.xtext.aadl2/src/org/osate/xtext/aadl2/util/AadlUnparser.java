@@ -54,6 +54,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.nodemodel.BidiTreeIterable;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -2058,19 +2059,18 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	private void processComments(final Element obj) {
 		if (obj != null) {
 			EList<Comment> el = obj.getOwnedComments();
-			for (Comment comment : el) {
-				String str = comment.getBody();
-				if (!str.startsWith("--") ) {
-					str = "--" + (str.charAt(0) == ' ' ? "" : " ") + str;
-//				} else if (comment.startsWith("/*")) {
-//					comment = comment.substring(2, comment.length() - 2);
-//					comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
-//					comment = comment.replaceAll("\n", "\n--");
+			if (!el.isEmpty()){
+				for (Comment comment : el) {
+					String str = comment.getBody();
+					if (!str.startsWith("--") ) {
+						str = "--" +(str.startsWith(" ") ? "" : " ") + str;
+					}
+					aadlText.addOutputNewline(str);
 				}
-				aadlText.addOutputNewline(str);
+			} else {
+				// see if there are comments in the parse tree
+				processComment(obj);
 			}
-
-//			processComment(obj);
 		}
 	}
 
@@ -2268,6 +2268,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	
 	public void processComment(EObject o){
 		INode node = NodeModelUtils.findActualNodeFor(o);
+		if (node == null) return;
 		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
 		while (ti.hasNext()) {
 			INode next = ti.next();
