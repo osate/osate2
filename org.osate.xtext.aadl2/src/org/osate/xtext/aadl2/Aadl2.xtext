@@ -688,6 +688,7 @@ SubprogramImplementation returns aadl2::SubprogramImplementation:
 	))?
 	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+// TODO	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
 	| (noSubcomponents?='none' ';'))
 	)?
