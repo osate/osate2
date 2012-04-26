@@ -247,9 +247,8 @@ public class OsateResourceUtil {
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
 	 */
 	public static Resource getEmptyAadl2Resource(URI uri) {
 		Resource res = null;
@@ -275,9 +274,8 @@ public class OsateResourceUtil {
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
 	 */
 	public static Resource getEmptyAadl2Resource(URI uri, Element context) {
 		Resource res = null;
@@ -295,16 +293,15 @@ public class OsateResourceUtil {
 				}
 		}
 		res = getResourceSet(context).createResource(uri);
-		return (Aadl2ResourceImpl)res;
+		return res;
 	}
 
 	/**
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aaxl extension
+	 * @return Resource Aadl2ResourceImpl for aaxl
 	 */
 	public static Aadl2ResourceImpl getEmptyAaxl2Resource(URI uri, Element context) {
 		Resource res = null;
