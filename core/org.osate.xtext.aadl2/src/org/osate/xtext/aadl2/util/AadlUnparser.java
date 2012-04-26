@@ -58,6 +58,7 @@ import org.eclipse.xtext.nodemodel.BidiTreeIterable;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.*;
 import org.osate.aadl2.instance.InstanceObject;
@@ -2268,12 +2269,22 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	
 	public void processComment(EObject o){
 		INode node = NodeModelUtils.findActualNodeFor(o);
-		if (node == null) return;
-		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
+		INode n2 = NodeModelUtils.getNode(o);
+		if (n2 == null) return;
+		BidiTreeIterator<INode> ti = n2.getAsTreeIterable().iterator();
 		while (ti.hasNext()) {
 			INode next = ti.next();
-			if (isCommentNode(next))
-				aadlText.addOutputNewline("-- "+next.getText());
+			if (next instanceof CompositeNode && next != n2) return;
+			if (isCommentNode(next)){
+				String str = next.getText();
+				if (!str.startsWith("--") ) {
+					str = "--" +(str.startsWith(" ") ? "" : " ") + str;
+				}
+				if (str.endsWith("\r\n")){
+					str = str.substring(0,str.length()-2);
+				}
+				aadlText.addOutputNewline(str);
+			}
 		}
 	}
 	
