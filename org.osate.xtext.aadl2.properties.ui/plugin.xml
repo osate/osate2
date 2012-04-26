@@ -2,6 +2,7 @@
 <?eclipse version="3.0"?>
 
 <plugin>
+<extension point="org.eclipse.ui.startup"/>
     <extension
             point="org.eclipse.ui.editors">
         <editor
