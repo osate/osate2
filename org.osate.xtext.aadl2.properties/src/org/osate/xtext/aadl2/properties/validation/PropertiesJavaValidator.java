@@ -128,7 +128,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	
 	protected void checkInBinding(final PropertyAssociation pa){
 		for (Classifier c: pa.getInBindings()){
-			checkPropertySetElementReference(c, pa);
+			checkClassifierReference(c, pa);
 		}
 	}
 
@@ -254,45 +254,56 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
  * @param pv: PropertyExpression or null
  */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv){
+		typeCheckPropertyValues(pt, pv, "");
+	}
+	
+	/**
+	 * checks and report mismatch in type of value and type	
+	 * @param pt: PropertyType or unresolved proxy or null
+	 * @param pv: PropertyExpression or null
+	 * @param prefix: String prefix to error message used for lists
+	 */
+	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix){
 		if (Aadl2Util.isNull(pt)) return;
 		if (pv == null) return;
+		if (!prefix.isEmpty() && !prefix.startsWith(" ")) prefix = prefix+" ";
 		if (pv instanceof ListValue ){
 			if (pt instanceof ListType){
 				typeMatchListElements(((ListType)pt).getElementType(), ((ListValue)pv).getOwnedListElements());
 			} else {
-				error(pv, pt.eClass().getName()+" type of property does not match list");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property does not match list of values");
 			}
 		} else 	if(pv instanceof Operation || pv instanceof BooleanLiteral ){
 			if(!(pt instanceof AadlBoolean )) {
-				error(pv, pt.eClass().getName()+" type of property does not match Boolean value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Boolean value");
 			}
 		} else 	if (pv instanceof StringLiteral){
 			if (!( pt instanceof AadlString)){
-				error(pv, pt.eClass().getName()+" type of property does not match String value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match String value");
 			}
 		} else if (pv instanceof EnumerationLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof EnumerationLiteral) ){
 			if (!(pt instanceof EnumerationType)){
-				error(pv, pt.eClass().getName()+" type of property does not match Enumeration literal");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Enumeration literal");
 			}
 		} else if (pv instanceof UnitLiteral || (pv instanceof NamedValue && ((NamedValue)pv).getNamedValue() instanceof UnitLiteral) ){
 			if (!(pt instanceof UnitsType)){
-				error(pv, pt.eClass().getName()+" type of property does not match Unit literal");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Unit literal");
 			}
 		} else 	if (pv instanceof IntegerLiteral ){
 			if(!(pt instanceof AadlInteger)){
-				error(pv, pt.eClass().getName()+" type of property does not match Integer value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Integer value");
 			} else {
 				checkUnits((AadlInteger)pt,(IntegerLiteral)pv);
 			}
 		} else if (pv instanceof RealLiteral ){
 			if(!(pt instanceof AadlReal)){
-				error(pv, pt.eClass().getName()+" type of property does not match Real value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match Real value");
 			} else {
 				checkUnits((AadlReal)pt,(RealLiteral)pv);
 			}
 		} else if ( pv instanceof RangeValue){
 			if(!(pt instanceof RangeType)){
-				error(pv, pt.eClass().getName()+" type of property does not match Range value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' type of property definition does not match Range value");
 			} else {
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMinimumValue());
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getMaximumValue());
@@ -300,17 +311,17 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		} else if (pv instanceof ClassifierValue ){
 			if(!(pt instanceof ClassifierType)){
-				error(pv, pt.eClass().getName()+" type of property does not match reference value to a classifier");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value to a classifier");
 			}
 		} else if (pv instanceof RecordValue){
 			if(!(pt instanceof RecordType )){
-				error(pv, pt.eClass().getName()+" type of property does not match record value");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match record value");
 			} else {
 				typeMatchRecordFields(((RecordValue)pv).getOwnedFieldValues());
 			}
 		} else if (pv instanceof ReferenceValue ){
 			if(!(pt instanceof ReferenceType)){
-				error(pv, pt.eClass().getName()+" type of property does not match reference value to a model element");
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value to a model element");
 			}
 		} else if (pv instanceof NamedValue ){
 			AbstractNamedValue nv = ((NamedValue)pv).getNamedValue();
@@ -319,7 +330,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			} else if (nv instanceof Property){
 				PropertyType pvt = ((Property)nv).getPropertyType();
 				if (pvt.eClass() != pt.eClass()){
-					error(pv, "Type "+pvt.eClass().getName()+" of referenced property does not match type "+pt.eClass().getName()+" of property");
+					error(pv, "Type "+pvt.eClass().getName()+" of referenced property does not match"+prefix+" type '"+pt.eClass().getName()+"' of property definition");
 				}
 			} else {
 				error(pv, "Enum/Unit literal validation should have happened before");
@@ -329,7 +340,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel){
 		for (PropertyExpression propertyExpression : pel) {
-			typeCheckPropertyValues(pt,propertyExpression);
+			typeCheckPropertyValues(pt,propertyExpression,"list element");
 		}
 	}
 	
