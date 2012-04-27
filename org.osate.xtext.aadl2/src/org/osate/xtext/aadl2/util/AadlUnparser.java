@@ -1716,7 +1716,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				EList<Classifier> ibl = object.getInBindings();
 				if (ibl.size() > 0) {
 					aadlText.addOutput(" in binding (");
-					processEList(ibl, ",");
+					processRefEList(ibl, ",",object);
 					aadlText.addOutput(")");
 				}
 				aadlText.addOutputNewline(";");
