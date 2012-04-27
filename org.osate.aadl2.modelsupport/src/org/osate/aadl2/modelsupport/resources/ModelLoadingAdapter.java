@@ -40,7 +40,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 /* Author: Robert Coop
  * Adapted by Peter Feiler
-* Usage: DslModel target = (DslModel)Platform.getAdapterManager().getAdapter(sourceObject, DslModel.class);
+* Usage:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
 * See: http://coopology.com/2011/06/easily-load-xtext-files-and-objects-in-eclipse-plugin-or-rcp-projects-using-adapters/
 */
 @SuppressWarnings("rawtypes")
@@ -58,7 +58,9 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
     /**
      * XXX: Notice - the methods dealing with EMF Index operations has been moved to the EMFIndexLookup Class in org.osate.xtext.aadl2.properties.util
      */
- 
+/*
+ * * Usage:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
+ */
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
         if (adapterType == ModelUnit.class || adapterType == Element.class) {
