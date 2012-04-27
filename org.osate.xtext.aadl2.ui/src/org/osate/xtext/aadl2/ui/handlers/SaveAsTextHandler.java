@@ -8,7 +8,9 @@ import java.util.Map;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -25,6 +27,7 @@ import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.util.AadlUnparser;
 
@@ -47,10 +50,12 @@ public class SaveAsTextHandler extends AbstractHandler {
 			for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
 				Object f = (Object) iterator.next();
 				if (f instanceof IResource){
+					// you could use the adapter:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
+					// instead of the next two statements
 					Resource res = OsateResourceUtil.getResource((IResource)f);
-					EList<EObject> rl = res.getContents();
+					Element target = (Element)res.getContents().get(0);
 //					saveBySerialize2(res);
-					AadlUnparser.getAadlUnparser().doUnparseToFile((Element)rl.get(0));
+					AadlUnparser.getAadlUnparser().doUnparseToFile(target);
 				}
 			}
 			return null;
