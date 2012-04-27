@@ -25,6 +25,7 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -92,14 +93,19 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
+import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.ThreadImplementation;
+import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.impl.SubprogramImpl;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -376,17 +382,38 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						.getContainmentPathElements();
 				int idx = list.indexOf(context);
 				if (idx > 0) {
+					// find next element in namespace of previous element
 					ContainmentPathElement el = list.get(idx - 1);
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
 						Classifier ns = ((Subcomponent) ne).getClassifier();
 						if (ns != null)
 							res = ns.findNamedElement(name);
+						// need to look for subprogram calls inside call sequences
+						if (res == null){
+							if (ne instanceof ThreadSubcomponent || ne instanceof SubprogramSubcomponent){
+								if (ns instanceof ThreadImplementation){
+									res = AadlUtil.findNamedElementInList(((ThreadImplementation)ns).callSpecifications(), name);
+								} else if (ns instanceof SubprogramImplementation){
+									res = AadlUtil.findNamedElementInList(((SubprogramImplementation)ns).callSpecifications(), name);
+								}
+							}
+						}
 					} else if (ne instanceof FeatureGroup) {
 						Classifier ns = ((FeatureGroup) ne)
-								.getFeatureGroupType();
+								.getAllFeatureGroupType();
 						if (ns != null)
 							res = ns.findNamedElement(name);
+					} else if (ne instanceof SubprogramCall){
+						// looking inside a subprogram that is being called
+						CalledSubprogram called = ((SubprogramCall)ne).getCalledSubprogram();
+						if (called instanceof SubprogramImplementation){
+							res = ((SubprogramImplementation)called).findNamedElement(name);
+						} else if (called instanceof SubprogramSubcomponent){
+							Classifier ns = ((SubprogramSubcomponent)called).getAllClassifier();
+							res = ns.findNamedElement(name);
+						}
+						
 					}
 				} else {
 					Classifier ns = AadlUtil.getContainingClassifier(context);
@@ -1791,5 +1818,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				return binding;
 		return null;
 	}
+	
 
 }
