@@ -112,6 +112,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
@@ -1263,6 +1264,11 @@ public final class AadlUtil {
 	
 	public static String getClassifierName(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return "";
+		if (context instanceof Realization){
+			// get the name from the stored name in implementation
+			ComponentImplementation ci = (ComponentImplementation)context.getOwner();
+			return ci.getTypeName();
+		}
 		if (cl.getElementRoot().getName().equalsIgnoreCase(context.getElementRoot().getName())){
 			return cl.getName();
 		} else {
