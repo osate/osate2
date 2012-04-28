@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.ui.syntax;
 
+import org.antlr.runtime.MissingTokenException;
 import org.antlr.runtime.NoViableAltException;
 import org.antlr.runtime.RecognitionException;
 import org.eclipse.emf.ecore.EClass;
@@ -31,6 +32,9 @@ public class Aadl2SyntaxErrorMessageProvider extends SyntaxErrorMessageProvider{
 			 } else if (msg.startsWith("mismatched ch")){
 				 msg = "Identifier cannot end with '_'";
 			 }
+		 }
+		 if (ex instanceof MissingTokenException){
+			 msg = msg.replaceFirst("RULE_ID at", "identifier before");
 		 }
 		if (contextobj == null){
 			msg = "Incomplete package or property set declaration";
