@@ -156,7 +156,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			
 			public String casePackageRename(PackageRename object) {
 				processComments(object);
-				aadlText.addOutputNewline((object.getName()== null? "renames package ":object.getName()+" renames package ")
+				aadlText.addOutputNewline((object.getName()== null? "renames ":object.getName()+" renames ")
+						+(object.isRenameAll()?"":"package ")
 						+object.getRenamedPackage().getName()
 						+(object.isRenameAll()?"::all;":";"));
 				return DONE;
