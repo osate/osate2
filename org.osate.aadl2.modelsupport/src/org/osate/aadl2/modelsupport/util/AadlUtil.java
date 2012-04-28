@@ -2300,7 +2300,7 @@ public final class AadlUtil {
 			imports = ((PackageSection) context).getImportedUnits();
 		for (ModelUnit imported : imports) {
 			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
-				if (imported == pack)
+				if (imported.getName().equalsIgnoreCase(pack.getName()))
 					return true;
 			}
 		}
@@ -2309,7 +2309,7 @@ public final class AadlUtil {
 			for (ModelUnit imported : ((AadlPackage) context.eContainer())
 					.getOwnedPublicSection().getImportedUnits())
 				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& imported == pack)
+						&& imported.getName().equalsIgnoreCase(pack.getName()))
 					return true;
 		// TODO need to handle public section declared in a separate package
 		// declaration
