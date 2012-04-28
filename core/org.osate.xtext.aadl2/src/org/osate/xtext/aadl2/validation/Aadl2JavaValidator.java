@@ -608,8 +608,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
 				error(impl, "Identifier '" + ne.getName() +
-						"' has previously been defined in component implementation "
-						+ impl.getQualifiedName()+ " or its type.");
+						"' has previously been defined in implementation '"
+						+ impl.getQualifiedName()+ "' or in type '"+impl.getTypeName()+"'");
 			}
 		}
 	}
