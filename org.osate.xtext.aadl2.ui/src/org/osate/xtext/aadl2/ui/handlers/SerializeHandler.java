@@ -68,6 +68,7 @@ public class SerializeHandler extends AbstractHandler {
 							URI xtxturi = resource.getURI();
 							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
 							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+							if (resource.getContents().isEmpty()) return null;
 							EObject o = resource.getContents().get(0);
 							res.getContents().add(o);
 //							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
