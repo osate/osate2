@@ -1263,7 +1263,7 @@ public final class AadlUtil {
 	
 	public static String getClassifierName(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return "";
-		if (cl.getElementRoot() == context.getElementRoot()){
+		if (cl.getElementRoot().getName().equalsIgnoreCase(context.getElementRoot().getName())){
 			return cl.getName();
 		} else {
 			return cl.getQualifiedName();
