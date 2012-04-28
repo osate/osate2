@@ -56,6 +56,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.operations.ElementOperations;
 import org.osate.aadl2.parsesupport.AObjectImpl;
 
@@ -319,12 +320,12 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * find the enclosing root object ( package, propertyset, or system instance
 	 * @return the root object
 	 */
-	public Element getElementRoot() {
+	public NamedElement getElementRoot() {
 		Element obj = this;
 		while (obj.eContainer() != null) {
 			obj = (Element) obj.eContainer();
 		}
-		return obj;
+		return (NamedElement)obj;
 	}
 
 	/**

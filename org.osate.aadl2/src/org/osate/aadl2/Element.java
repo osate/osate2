@@ -176,7 +176,7 @@ public interface Element extends AObject {
 	 * Find the root container of this element
 	 * @return The root container of this element
 	 */
-	Element getElementRoot();
+	NamedElement getElementRoot();
 
 	/**
 	 * Get the children of an Element
