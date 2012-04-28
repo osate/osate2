@@ -74,9 +74,9 @@ public class SerializeHandler extends AbstractHandler {
 //							pack.setName("mypack");
 //							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
 //							res.getContents().add(pack);
-							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
+//							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
 //							res.save(null);
-//							saveBySerialize2(resource);
+							saveBySerialize2(res);
 							resource.getContents().add(res.getContents().get(0));
 							return null;
 						}
@@ -92,10 +92,10 @@ public class SerializeHandler extends AbstractHandler {
 	 */
 	private void saveBySerialize2(Resource res){
 		SaveOptions.Builder sb = SaveOptions.newBuilder();
-		Map<Object,Object> options = new HashMap();
-		sb.getOptions().addTo(options);
+//		sb = sb.format().noValidation();
+		sb = sb.format();
 		try {
-			res.save(options);
+			res.save(sb.getOptions().toOptionsMap());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
