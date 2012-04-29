@@ -69,8 +69,11 @@ public class TraverseWorkspace {
 								|| ext.equalsIgnoreCase("aadl2"))){
 							result.add( (IFile) resources[i]);
 						}
-						if (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && ext.equalsIgnoreCase(extension) &&
+						if (extension.equalsIgnoreCase(WorkspacePlugin.MODEL_FILE_EXT) && ext.equalsIgnoreCase(extension) &&
 								file.getName().endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)){
+							result.add( (IFile) resources[i]);
+						}
+						if (extension.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT) && ext.equalsIgnoreCase(extension) ){
 							result.add( (IFile) resources[i]);
 						}
 					}

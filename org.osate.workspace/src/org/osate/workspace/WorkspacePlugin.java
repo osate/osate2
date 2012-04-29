@@ -45,7 +45,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * File extension of AADL model files
 	 */
-	public static final String INSTANCE_FILE_EXT = "aaxl2";
+	public static final String INSTANCE_FILE_EXT = "aail2";
 
 	/**
 	 * Package separator in AADL source files.
@@ -108,7 +108,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * instance model name postfix
 	 */
-	public static final String INSTANCE_MODEL_POSTFIX = "Instance";
+	public static final String INSTANCE_MODEL_POSTFIX = "_instance";
 
 	/**
 	 * Name of preference for standard AADL property set file
