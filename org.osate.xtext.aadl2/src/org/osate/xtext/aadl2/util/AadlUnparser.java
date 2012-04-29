@@ -68,6 +68,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
@@ -1097,7 +1098,6 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				String n = object.getName();
 				aadlText.addOutput(n + ": ");
 				EList<CallSpecification> list = object.getOwnedCallSpecifications();
-				processComments(object);
 				if (list != null && !list.isEmpty()) {
 					aadlText.addOutputNewline(" {");
 					aadlText.incrementIndent();
@@ -1121,21 +1121,12 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(object.getName() + ": "
 						+ "subprogram ");
 				CallContext cxt = object.getContext();
-				aadlText.addOutput(AadlUtil.getClassifierOrLocalName((NamedElement)cxt, object)+".");
-//				if (cxt != null){
-//					if (cxt instanceof Classifier) {
-//						aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cxt, object)+".");
-//					} else {
-//						aadlText.addOutput(((NamedElement)cxt).getName()+".");
-//					}
-//				}
+				String s = AadlUtil.getClassifierOrLocalName((NamedElement)cxt, object);
+				if (!s.isEmpty()){
+					aadlText.addOutput(s+".");
+				}
 				CalledSubprogram cs = object.getCalledSubprogram();
-				aadlText.addOutput(AadlUtil.getClassifierOrLocalName((NamedElement)cs, object)+".");
-//				if (cs instanceof Classifier) {
-//					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cs, object));
-//				} else {
-//					aadlText.addOutput(((NamedElement)cs).getName());
-//				}
+				aadlText.addOutput(AadlUtil.getClassifierOrLocalName((NamedElement)cs, object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
