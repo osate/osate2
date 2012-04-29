@@ -34,6 +34,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.util.AadlUnparser;
 
@@ -61,30 +62,45 @@ public class SerializeHandler extends AbstractHandler {
 			} else {
 				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
 			}
-
-			xtextEditor.getDocument().readOnly(
+			xtextEditor.getDocument().modify(
 					new IUnitOfWork<EObject, XtextResource>() {
 						public EObject exec(XtextResource resource)
 								throws Exception {
 							URI xtxturi = resource.getURI();
-							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
-							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+//							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
+//							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
 							if (resource.getContents().isEmpty()) return null;
-							EObject o = resource.getContents().get(0);
-							EObject on = EcoreUtil.copy(o);
-							res.getContents().add(on);
-							((NamedElement)on).setName("mypack"); 
-//							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
-//							pack.setName("mypack");
-//							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
-//							res.getContents().add(pack);
-//							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
-//							res.save(null);
-							saveBySerialize2(res);
+							AadlPackage o = (AadlPackage)resource.getContents().get(0);
+							PackageSection on = o.getOwnedPublicSection();
+							o.setName("mypack"); 
+							saveBySerialize2(resource);
 //							resource.getContents().add(res.getContents().get(0));
 							return null;
 						}
 					});
+//			xtextEditor.getDocument().modify(
+//					new IUnitOfWork<EObject, XtextResource>() {
+//						public EObject exec(XtextResource resource)
+//								throws Exception {
+//							URI xtxturi = resource.getURI();
+//							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
+//							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+//							if (resource.getContents().isEmpty()) return null;
+//							EObject o = resource.getContents().get(0);
+//							EObject on = EcoreUtil.copy(o);
+//							res.getContents().add(on);
+//							((NamedElement)on).setName("mypack"); 
+////							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+////							pack.setName("mypack");
+////							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+////							res.getContents().add(pack);
+////							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
+////							res.save(null);
+//							saveBySerialize2(res);
+////							resource.getContents().add(res.getContents().get(0));
+//							return null;
+//						}
+//					});
 		}
 		return null;
 	}
