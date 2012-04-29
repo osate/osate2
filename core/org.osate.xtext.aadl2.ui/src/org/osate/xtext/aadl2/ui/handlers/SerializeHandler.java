@@ -5,8 +5,10 @@ import java.io.IOException;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -19,6 +21,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 public class SerializeHandler extends AbstractHandler {
 
@@ -36,40 +40,41 @@ public class SerializeHandler extends AbstractHandler {
 			if (part instanceof ContentOutline) {
 			} else {
 			}
-			xtextEditor.getDocument().modify( // use readOnly is no modification to the model
-					new IUnitOfWork<EObject, XtextResource>() {
-						public EObject exec(XtextResource resource)
-								throws Exception {
-							if (resource.getContents().isEmpty()) return null;
-							AadlPackage o = (AadlPackage)resource.getContents().get(0);
-							o.setName("mypack"); 
-							saveBySerialize2(resource);
-							return null;
-						}
-					});
-//			xtextEditor.getDocument().modify(
+//			xtextEditor.getDocument().modify( // use readOnly is no modification to the model
 //					new IUnitOfWork<EObject, XtextResource>() {
 //						public EObject exec(XtextResource resource)
 //								throws Exception {
-//							URI xtxturi = resource.getURI();
-//							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
-//							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
 //							if (resource.getContents().isEmpty()) return null;
-//							EObject o = resource.getContents().get(0);
-//							EObject on = EcoreUtil.copy(o);
-//							res.getContents().add(on);
-//							((NamedElement)on).setName("mypack"); 
-////							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
-////							pack.setName("mypack");
-////							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
-////							res.getContents().add(pack);
-////							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
-////							res.save(null);
-//							saveBySerialize2(res);
-////							resource.getContents().add(res.getContents().get(0));
+//							AadlPackage o = (AadlPackage)resource.getContents().get(0);
+//							o.setName("mypack"); 
+//							saveBySerialize2(resource);
 //							return null;
 //						}
 //					});
+			xtextEditor.getDocument().modify(
+					new IUnitOfWork<EObject, XtextResource>() {
+						public EObject exec(XtextResource resource)
+								throws Exception {
+							URI xtxturi = resource.getURI();
+							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
+							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
+							if (resource.getContents().isEmpty()) return null;
+							EObject o = resource.getContents().get(0);
+							EObject on = EcoreUtil.copy(o);
+							res.getContents().add(on);
+							((NamedElement)on).setName("mypack"); 
+							// sample of creating a fresh model
+//							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+//							pack.setName("mypack");
+//							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+//							res.getContents().add(pack);
+//							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
+//							res.save(null);
+							saveBySerialize2(res);
+//							resource.getContents().add(res.getContents().get(0));
+							return null;
+						}
+					});
 		}
 		return null;
 	}
@@ -82,7 +87,7 @@ public class SerializeHandler extends AbstractHandler {
 	private void saveBySerialize2(Resource res){
 		SaveOptions.Builder sb = SaveOptions.newBuilder();
 //		sb = sb.format().noValidation();
-		sb = sb.format();
+//		sb = sb.format();
 		try {
 			res.save(sb.getOptions().toOptionsMap());
 		} catch (IOException e) {
