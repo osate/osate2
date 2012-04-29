@@ -33,6 +33,7 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.xtext.aadl2.util.AadlUnparser;
 
@@ -70,7 +71,9 @@ public class SerializeHandler extends AbstractHandler {
 							Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
 							if (resource.getContents().isEmpty()) return null;
 							EObject o = resource.getContents().get(0);
-							res.getContents().add(o);
+							EObject on = EcoreUtil.copy(o);
+							res.getContents().add(on);
+							((NamedElement)on).setName("mypack"); 
 //							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
 //							pack.setName("mypack");
 //							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
@@ -78,7 +81,7 @@ public class SerializeHandler extends AbstractHandler {
 //							AadlUnparser.getAadlUnparser().doUnparseToFile(res);
 //							res.save(null);
 							saveBySerialize2(res);
-							resource.getContents().add(res.getContents().get(0));
+//							resource.getContents().add(res.getContents().get(0));
 							return null;
 						}
 					});
