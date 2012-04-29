@@ -68,11 +68,12 @@ public class SaveAsXMIHandler extends AbstractHandler {
 					new IUnitOfWork<EObject, XtextResource>() {
 						public EObject exec(XtextResource resource)
 								throws Exception {
-							// Resolve references such that HREFs use symbolix
+							// Resolve references such that HREFs use symbolic
 							// XMI links rather than XText links
 							EcoreUtil.resolveAll(resource);
 							EList<EObject> content = resource.getContents();
 							if (!content.isEmpty()) {
+								// add comments into the model
 							    for (EObject eObject : content)
 							    {
 							    	if (eObject instanceof Element)
@@ -90,28 +91,19 @@ public class SaveAsXMIHandler extends AbstractHandler {
 
 								// save XMI
 								URI xtxturi = resource.getURI();
-								URI xtxt2uri = xtxturi.trimFileExtension()
-										.appendFileExtension("aadl2");
-								Resource res = OsateResourceUtil.getEmptyAadl2Resource(xtxt2uri);
-								AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
-								pack.setName("mypack");
-								pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
-								res.getContents().add(pack);
-								AadlUnparser.getAadlUnparser().doUnparseToFile(res);
-//								res.save(null);
 
-//								URI xmiuri = xtxturi.trimFileExtension()
-//										.appendFileExtension(
-//												WorkspacePlugin.MODEL_FILE_EXT);
-//								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-//								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-//										.createResource(xmiuri);
-//								aaxlresource.getContents().add(eobject);
-//								rss.getResources().add(aaxlresource);
-//								aaxlresource.save();
-//								// put the root object back into the original resource
-//								resource.getContents().add(eobject);
-//								rss.getResources().remove(aaxlresource);
+								URI xmiuri = xtxturi.trimFileExtension()
+										.appendFileExtension(
+												WorkspacePlugin.MODEL_FILE_EXT);
+								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
+										.createResource(xmiuri);
+								aaxlresource.getContents().add(eobject);
+								rss.getResources().add(aaxlresource);
+								aaxlresource.save();
+								// put the root object back into the original resource
+								resource.getContents().add(eobject);
+								rss.getResources().remove(aaxlresource);
 
 							}
 
