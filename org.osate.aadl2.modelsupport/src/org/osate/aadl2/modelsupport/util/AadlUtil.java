@@ -88,6 +88,8 @@ import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
@@ -112,8 +114,10 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadGroupSubcomponent;
@@ -1262,6 +1266,33 @@ public final class AadlUtil {
 		return null;
 	}
 	
+	public static String getFeaturePrototypeName(FeaturePrototype ft, Element context){
+		if (Aadl2Util.isNull(ft)) return "";
+		return ((NamedElement)ft).getName();
+	}
+	
+	/*
+	 * for classifier figure out whether it needs to be qualified
+	 * Otherwise just return name.
+	 * If null or proxy return empty string
+	 */
+	public static String getClassifierOrLocalName(NamedElement ne, Element context){
+		if (Aadl2Util.isNull(ne)) return "";
+		if (ne instanceof Classifier){
+			return getClassifierName((Classifier) ne, context);
+		} else {
+			return ((NamedElement)ne).getName();
+		}
+	}
+	
+	public static String getSubcomponentTypeName(SubcomponentType st, Element context){
+		return getClassifierOrLocalName(st, context);
+	}
+	
+	public static String getFeatureTypeName(FeatureType st, Element context){
+		return getClassifierOrLocalName((NamedElement)st, context);
+	}
+
 	public static String getClassifierName(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return "";
 		if (context instanceof Realization){
