@@ -12,6 +12,7 @@ public class Aadl2TransientValueService  extends DefaultTransientValueService {
 		public boolean isTransient(EObject owner, EStructuralFeature feature, int index) {
 			if (feature == Aadl2Package.eINSTANCE.getAadlPackage_PublicSection()
 					|| feature == Aadl2Package.eINSTANCE.getAadlPackage_PrivateSection()
+					|| feature == Aadl2Package.eINSTANCE.getSubprogramCall_Context()
 					) return true;
 //			else if (owner instanceof PackageSection && feature == Aadl2Package.eINSTANCE.getNamedElement_Name()){
 //				// name not explicitly stored
