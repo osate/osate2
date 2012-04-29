@@ -43,6 +43,7 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		      c.setNoSpace().before(comma);
 		    }
 	    for (Keyword semi : f.findKeywords(";")) {
+		      c.setNoSpace().before(semi);
 		      c.setLinewrap().after(semi);
 		    }
 	    for (Keyword dot : f.findKeywords(".")) {
@@ -87,8 +88,8 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		      c.setIndentationIncrement().after(prop);
 		    }
 	    for (Keyword end : f.findKeywords("end")) {
-		      c.setIndentationDecrement().before(end);
 		      c.setLinewrap().before(end);
+		      c.setIndentationDecrement().before(end);
 		    }
 	    for (Keyword is : f.findKeywords("is")) {
 		      c.setIndentationIncrement().after(is);
@@ -138,141 +139,61 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 //	      c.setIndentationIncrement().after(f.getComponentTypeAccess().getModesKeyword_2_1());
 	      
 	      // component types and implementations
-	      c.setIndentationIncrement().before(f.getComponentTypeRule());
-	      c.setIndentationDecrement().after(f.getComponentTypeRule());
-	      c.setLinewrap(2).after(f.getComponentTypeRule());
-	      
-	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
-	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
-	      c.setLinewrap(2).after(f.getComponentImplementationRule());
+	      c.setIndentationIncrement().before(f.getClassifierRule());
+	      c.setIndentationDecrement().after(f.getClassifierRule());
+	      c.setLinewrap(2).after(f.getClassifierRule());
+//	      
+//	      c.setIndentationIncrement().before(f.getComponentImplementationRule());
+//	      c.setIndentationDecrement().after(f.getComponentImplementationRule());
+//	      c.setLinewrap(2).after(f.getComponentImplementationRule());
 	      
 	      
 	      c.setIndentationIncrement().after(f.getSystemTypeAccess().getSystemKeyword_0());
-	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getSystemKeyword_0());
+	      c.setIndentationIncrement().after(f.getSystemImplementationAccess().getImplementationKeyword_1());
+//	      c.setLinewrap().after(f.getSystemImplementationRule());
 
 	      // Need to leave category specific rules in those cases where the rule is not part of the Component Type/Impl rule
 	      // This is the case for categories that have special rules for the common subclause sections
 	      
-//	      c.setIndentationIncrement().before(f.getAbstractTypeRule());
-//	      c.setIndentationDecrement().after(f.getAbstractTypeRule());
-//	      c.setLinewrap().after(f.getAbstractTypeRule());
 	      c.setIndentationIncrement().after(f.getAbstractTypeAccess().getAbstractKeyword_0());
-//	      c.setIndentationIncrement().before(f.getAbstractImplementationRule());
-//	      c.setIndentationDecrement().after(f.getAbstractImplementationRule());
-//	      c.setLinewrap().after(f.getAbstractImplementationRule());
 	      c.setIndentationIncrement().after(f.getAbstractImplementationAccess().getAbstractKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getProcessTypeRule());
-//	      c.setIndentationDecrement().after(f.getProcessTypeRule());
-//	      c.setLinewrap().after(f.getProcessTypeRule());
 	      c.setIndentationIncrement().after(f.getProcessTypeAccess().getProcessKeyword_0());
-//	      c.setIndentationIncrement().before(f.getProcessImplementationRule());
-//	      c.setIndentationDecrement().after(f.getProcessImplementationRule());
-//	      c.setLinewrap().after(f.getProcessImplementationRule());
 	      c.setIndentationIncrement().after(f.getProcessImplementationAccess().getProcessKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getThreadGroupTypeRule());
-//	      c.setIndentationDecrement().after(f.getThreadGroupTypeRule());
-//	      c.setLinewrap().after(f.getThreadGroupTypeRule());
 	      c.setIndentationIncrement().after(f.getThreadGroupTypeAccess().getThreadKeyword_0());
-//	      c.setIndentationIncrement().before(f.getThreadGroupImplementationRule());
-//	      c.setIndentationDecrement().after(f.getThreadGroupImplementationRule());
-//	      c.setLinewrap().after(f.getThreadGroupImplementationRule());
 	      c.setIndentationIncrement().after(f.getThreadGroupImplementationAccess().getThreadKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getThreadTypeRule());
-//	      c.setIndentationDecrement().after(f.getThreadTypeRule());
-//	      c.setLinewrap().after(f.getThreadTypeRule());
 	      c.setIndentationIncrement().after(f.getThreadTypeAccess().getThreadKeyword_0());
-	      c.setIndentationIncrement().before(f.getThreadImplementationRule());
-	      c.setIndentationDecrement().after(f.getThreadImplementationRule());
-	      c.setLinewrap().after(f.getThreadImplementationRule());
 	      c.setIndentationIncrement().after(f.getThreadImplementationAccess().getThreadKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getDataTypeRule());
-	      c.setIndentationDecrement().after(f.getDataTypeRule());
-	      c.setLinewrap(2).after(f.getDataTypeRule());
 	      c.setIndentationIncrement().after(f.getDataTypeAccess().getDataKeyword_0());
-//	      c.setIndentationIncrement().before(f.getDataImplementationRule());
-//	      c.setIndentationDecrement().after(f.getDataImplementationRule());
-//	      c.setLinewrap().after(f.getDataImplementationRule());
 	      c.setIndentationIncrement().after(f.getDataImplementationAccess().getDataKeyword_1());
 
-//	      c.setIndentationIncrement().before(f.getSubprogramTypeRule());
-//	      c.setIndentationDecrement().after(f.getSubprogramTypeRule());
-//	      c.setLinewrap().after(f.getSubprogramTypeRule());
 	      c.setIndentationIncrement().after(f.getSubprogramTypeAccess().getSubprogramKeyword_0());
-	      c.setIndentationIncrement().before(f.getSubprogramImplementationRule());
-	      c.setIndentationDecrement().after(f.getSubprogramImplementationRule());
-	      c.setLinewrap().after(f.getSubprogramImplementationRule());
 	      c.setIndentationIncrement().after(f.getSubprogramImplementationAccess().getSubprogramKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getSubprogramGroupTypeRule());
-	      c.setIndentationDecrement().after(f.getSubprogramGroupTypeRule());
-	      c.setLinewrap().after(f.getSubprogramGroupTypeRule());
 	      c.setIndentationIncrement().after(f.getSubprogramGroupTypeAccess().getSubprogramKeyword_0());
-	      c.setIndentationIncrement().before(f.getSubprogramGroupImplementationRule());
-	      c.setIndentationDecrement().after(f.getSubprogramGroupImplementationRule());
-	      c.setLinewrap().after(f.getSubprogramGroupImplementationRule());
 	      c.setIndentationIncrement().after(f.getSubprogramGroupImplementationAccess().getSubprogramKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getProcessorTypeRule());
-//	      c.setIndentationDecrement().after(f.getProcessorTypeRule());
-//	      c.setLinewrap().after(f.getProcessorTypeRule());
 	      c.setIndentationIncrement().after(f.getProcessorTypeAccess().getProcessorKeyword_0());
-	      c.setIndentationIncrement().before(f.getProcessorImplementationRule());
-	      c.setIndentationDecrement().after(f.getProcessorImplementationRule());
-	      c.setLinewrap().after(f.getProcessorImplementationRule());
 	      c.setIndentationIncrement().after(f.getProcessorImplementationAccess().getProcessorKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getMemoryTypeRule());
-	      c.setIndentationDecrement().after(f.getMemoryTypeRule());
-	      c.setLinewrap().after(f.getMemoryTypeRule());
 	      c.setIndentationIncrement().after(f.getMemoryTypeAccess().getMemoryKeyword_0());
-	      c.setIndentationIncrement().before(f.getMemoryImplementationRule());
-	      c.setIndentationDecrement().after(f.getMemoryImplementationRule());
-	      c.setLinewrap().after(f.getMemoryImplementationRule());
 	      c.setIndentationIncrement().after(f.getMemoryImplementationAccess().getMemoryKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getBusTypeRule());
-	      c.setIndentationDecrement().after(f.getBusTypeRule());
-	      c.setLinewrap().after(f.getBusTypeRule());
 	      c.setIndentationIncrement().after(f.getBusTypeAccess().getBusKeyword_0());
-	      c.setIndentationIncrement().before(f.getBusImplementationRule());
-	      c.setIndentationDecrement().after(f.getBusImplementationRule());
-	      c.setLinewrap().after(f.getBusImplementationRule());
 	      c.setIndentationIncrement().after(f.getBusImplementationAccess().getBusKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getDeviceTypeRule());
-//	      c.setIndentationDecrement().after(f.getDeviceTypeRule());
-//	      c.setLinewrap().after(f.getDeviceTypeRule());
 	      c.setIndentationIncrement().after(f.getDeviceTypeAccess().getDeviceKeyword_0());
-	      c.setIndentationIncrement().before(f.getDeviceImplementationRule());
-	      c.setIndentationDecrement().after(f.getDeviceImplementationRule());
-	      c.setLinewrap().after(f.getDeviceImplementationRule());
 	      c.setIndentationIncrement().after(f.getDeviceImplementationAccess().getDeviceKeyword_0());
 
-//	      c.setIndentationIncrement().before(f.getVirtualProcessorTypeRule());
-//	      c.setIndentationDecrement().after(f.getVirtualProcessorTypeRule());
-//	      c.setLinewrap().after(f.getVirtualProcessorTypeRule());
 	      c.setIndentationIncrement().after(f.getVirtualProcessorTypeAccess().getVirtualKeyword_0());
-	      c.setIndentationIncrement().before(f.getVirtualProcessorImplementationRule());
-	      c.setIndentationDecrement().after(f.getVirtualProcessorImplementationRule());
-	      c.setLinewrap().after(f.getVirtualProcessorImplementationRule());
 	      c.setIndentationIncrement().after(f.getVirtualProcessorImplementationAccess().getVirtualKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getVirtualBusTypeRule());
-	      c.setIndentationDecrement().after(f.getVirtualBusTypeRule());
-	      c.setLinewrap().after(f.getVirtualBusTypeRule());
 	      c.setIndentationIncrement().after(f.getVirtualBusTypeAccess().getVirtualKeyword_0());
-	      c.setIndentationIncrement().before(f.getVirtualBusImplementationRule());
-	      c.setIndentationDecrement().after(f.getVirtualBusImplementationRule());
-	      c.setLinewrap().after(f.getVirtualBusImplementationRule());
 	      c.setIndentationIncrement().after(f.getVirtualBusImplementationAccess().getVirtualKeyword_0());
 
-	      c.setIndentationIncrement().before(f.getFeatureGroupTypeRule());
-	      c.setIndentationDecrement().after(f.getFeatureGroupTypeRule());
-	      c.setLinewrap().after(f.getFeatureGroupTypeRule());
 	      c.setIndentationIncrement().after(f.getFeatureGroupTypeAccess().getFeatureKeyword_0());
 
 
