@@ -982,7 +982,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						(object.getRefined().getName() +" refined to"))
 						+ " feature group");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getConstrainingFeatureGroupType(),object));
-				aadlText.addOutputNewline(" ");
+				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1372,7 +1372,15 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
 					(object.getRefined().getName() +": refined to "))
 						+ "feature group ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				if (object.isInverse()){
+					aadlText.addOutput("inverse of ");
+				}
+				FeatureType ft = object.getFeatureType();
+				if (ft instanceof Classifier){
+					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)ft, object));
+				} else {
+					aadlText.addOutput(((NamedElement)ft).getName());
+				}
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1396,8 +1404,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						.isEmpty()))) {
 					processOptionalSection(features, "features", NONESTMT);
 				}
-				if (invName != null)
-					aadlText.addOutputNewline("inverse of"
+				if (invName != null && !invName.isEmpty())
+					aadlText.addOutputNewline("inverse of "
 							+ invName);
 				processSection(object.getOwnedPropertyAssociations(),"properties",object.isNoProperties());
 				processEList(object.getOwnedAnnexSubclauses());
