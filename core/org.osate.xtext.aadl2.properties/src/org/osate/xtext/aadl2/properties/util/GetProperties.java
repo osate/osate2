@@ -79,7 +79,8 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyDefinition(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
 	}
 
 
@@ -92,7 +93,8 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context,String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyType(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps != null?(ps+ "::" +name):name);
 	}
 
 
@@ -105,7 +107,8 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyConstant(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
 	}
 
 	/**
@@ -245,8 +248,10 @@ public class GetProperties {
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
-		for (PropertyExpression propertyExpression : propertyValues)
-			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		for (PropertyExpression propertyExpression : propertyValues){
+			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+			components.add((ComponentInstance)obj);
+		}
 		return components;
 	}
 
