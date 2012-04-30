@@ -65,15 +65,22 @@ public class TraverseWorkspace {
 					IFile file = (IFile) resources[i];
 					String ext = file.getFileExtension();
 					if (ext != null){
-						if( extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && (ext.equalsIgnoreCase(extension)
+						if( extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
 								|| ext.equalsIgnoreCase("aadl2"))){
 							result.add( (IFile) resources[i]);
 						}
-						if (extension.equalsIgnoreCase(WorkspacePlugin.MODEL_FILE_EXT) && ext.equalsIgnoreCase(extension) &&
+						// looking for old style instance file names (i.e., extension aaxl2
+						if (extension.equalsIgnoreCase(WorkspacePlugin.MODEL_FILE_EXT) && ext.equalsIgnoreCase(WorkspacePlugin.MODEL_FILE_EXT) &&
 								file.getName().endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)){
 							result.add( (IFile) resources[i]);
 						}
-						if (extension.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT) && ext.equalsIgnoreCase(extension) ){
+						// looking for new style file name extension (aail2) and finding old style instance file names.
+						if (extension.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT) && ext.equalsIgnoreCase(WorkspacePlugin.MODEL_FILE_EXT) &&
+								file.getName().endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)){
+							result.add( (IFile) resources[i]);
+						}
+						// looking for and finding new style instance file names
+						if (extension.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT) && ext.equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT) ){
 							result.add( (IFile) resources[i]);
 						}
 					}

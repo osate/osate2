@@ -628,16 +628,20 @@ public class InstantiateModel {
 
 			inverse ^= fg.isInverse();
 
-			while (ft instanceof FeatureGroupPrototype) {
+			while (ft instanceof FeatureGroupPrototype ) {
 				FeatureGroupPrototype fgp = (FeatureGroupPrototype) ft;
 				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache);
 				if (fgr != null) {
 					ft = fgr.getFeatureType();
+					if (ft == null) {
+						errManager.error(fi, "Could not resolve feature group type of feature group prototype " + fi.getInstanceObjectPath());
+						return;
+					}
+				} else {
+					// prototype has not been bound yet
+					errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()+" is not bound yet to feature group type");
+					return;
 				}
-			}
-			if (ft == null) {
-				errManager.error(fi, "Could not resolve feature group type of " + fi.getInstanceObjectPath());
-				return;
 			}
 			FeatureGroupType fgt = (FeatureGroupType) ft;
 
