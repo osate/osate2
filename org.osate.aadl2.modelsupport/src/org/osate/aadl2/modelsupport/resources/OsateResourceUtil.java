@@ -346,7 +346,7 @@ public class OsateResourceUtil {
 		}
 		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
 				.appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() );
+				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX );
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}
