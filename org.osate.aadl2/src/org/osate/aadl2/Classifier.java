@@ -537,4 +537,12 @@ public interface Classifier extends Namespace, Type {
 	EList<PropertyAssociation> getAllPropertyAssociations();
 
 	PrototypeBinding lookupPrototypeBinding(Prototype proto);
+	
+	/*
+	 * retrieve all annex subclauses of a given name that belong to a Classifier.
+	 * The list contains the subclause (if any) of the classifier and the subclause of any classifier being extended.
+	 * Note that each classifier can only have one 
+	 */
+	EList<AnnexSubclause> getAllAnnexSubclauses();
+
 } // Classifier

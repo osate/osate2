@@ -481,6 +481,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
 	}
 
+	public EList<AnnexSubclause> getAllAnnexSubclauses() {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = getAllExtendPlusSelf();
+		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
+			final Classifier current = i.previous();
+			result.addAll(current.getOwnedAnnexSubclauses());
+		}
+		return result;
+	}
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
