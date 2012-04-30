@@ -118,7 +118,7 @@ public class OsateResourceUtil {
         	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
         if (resourceSet == null) 
-        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);
+        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(project);
         return resourceSet;
    	
     }

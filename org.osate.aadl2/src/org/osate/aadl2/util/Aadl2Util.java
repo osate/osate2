@@ -24,7 +24,7 @@ public class Aadl2Util {
 	 */
 	public static boolean sameProperty(Property p1, Property p2) {
 		String p1Name = p1.getQualifiedName();
-		String p2Name = p1.getQualifiedName();
+		String p2Name = p2.getQualifiedName();
 		return p1Name.equalsIgnoreCase(p2Name);
 	}
 
