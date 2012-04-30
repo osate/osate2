@@ -34,7 +34,7 @@ import org.osate.xtext.aadl2.util.AadlUnparser;
 
 import com.google.inject.Inject;
 
-public class SaveAsTextHandler extends AbstractHandler {
+public class UnparseAsTextHandler extends AbstractHandler {
 
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -51,11 +51,7 @@ public class SaveAsTextHandler extends AbstractHandler {
 						// instead of the next two statements
 						Resource res = OsateResourceUtil.getResource((IResource)f);
 						Element target = (Element)res.getContents().get(0);
-						URI aaxluri = res.getURI();
-						URI xtxturi = aaxluri.trimFileExtension().appendFileExtension("aadl");
-						Resource xtxtres = OsateResourceUtil.getEmptyAadl2Resource(xtxturi);
-						xtxtres.getContents().add(target);
-						OsateResourceUtil.save(xtxtres);
+						AadlUnparser.getAadlUnparser().doUnparseToFile(target);
 						res.getResourceSet().getResources().remove(res);
 					}
 				}
