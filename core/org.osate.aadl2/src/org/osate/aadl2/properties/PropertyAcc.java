@@ -40,6 +40,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.util.Aadl2Util;
 
 
 /**
@@ -66,7 +67,7 @@ public class PropertyAcc {
 	 */
 	public boolean addLocal(NamedElement target) {
 		for (PropertyAssociation pa : target.getOwnedPropertyAssociations()) {
-			if (pa.getProperty() == property && pa.getAppliesTos().isEmpty()) {
+			if (Aadl2Util.sameProperty(pa.getProperty(), property) && pa.getAppliesTos().isEmpty()) {
 				assocs.add(pa);
 				return !property.isList();
 			}
@@ -89,7 +90,7 @@ public class PropertyAcc {
 	 */
 	public boolean addLocalContained(NamedElement target, NamedElement container) {
 		for (PropertyAssociation pa : container.getOwnedPropertyAssociations()) {
-			if (pa.getProperty() == property) {
+			if (Aadl2Util.sameProperty(pa.getProperty(),property)) {
 				for (ContainedNamedElement cne : pa.getAppliesTos()) {
 					if (cne.getContainmentPathElements().size() == 1 && cne.getContainmentPathElements().get(0).getNamedElement() == target) {
 						assocs.add(pa);
