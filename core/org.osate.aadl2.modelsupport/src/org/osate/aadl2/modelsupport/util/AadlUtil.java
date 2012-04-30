@@ -50,6 +50,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
@@ -73,6 +74,8 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -2397,6 +2400,52 @@ public final class AadlUtil {
 					&& importedPropertySet == ps)
 				return true;
 		return false;
+	}
+	
+
+	/*
+	 * retrieve all annex subclauses of a given name that belong to a Classifier.
+	 * The list contains the subclause (if any) of the classifier and the subclause of any classifier being extended.
+	 * Note that each classifier can only have one 
+	 */
+	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl,String annexName) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = cl.getAllExtendPlusSelf();
+		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
+			final Classifier current = i.previous();
+			EList<AnnexSubclause> asclist = AadlUtil.findAnnexSubclause(current,annexName);
+			result.addAll(asclist);
+		}
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	/**
+	 * returns all subclauses whose names match. Note that a classifier can have multiple subclauses of the same annex if each subclause is mode specific.
+	 * @param annexName
+	 * @param c
+	 * @return EList<AnnexSubclause>
+	 */
+	public static EList<AnnexSubclause> findAnnexSubclause(Classifier c, String annexName){
+		return (EList)findNamedElementsInList(c.getOwnedAnnexSubclauses(), annexName);
+	}
+
+	public static AnnexLibrary findPublicAnnexLibrary(AadlPackage p, String annexName){
+		PackageSection ps = p.getOwnedPublicSection();
+		AnnexLibrary res = null;
+		if (ps != null){
+			res = (AnnexLibrary)findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
+		}
+		return res;
+	}
+	
+	public static AnnexLibrary findPrivateAnnexLibrary( AadlPackage p,String annexName){
+		PackageSection ps = p.getOwnedPrivateSection();
+		AnnexLibrary res = null;
+		if (ps != null){
+			res = (AnnexLibrary)findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
+		}
+		return res;
 	}
 
 }
