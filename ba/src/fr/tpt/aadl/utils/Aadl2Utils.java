@@ -35,6 +35,7 @@ import org.osate.aadl2.EnumerationLiteral ;
 import org.osate.aadl2.Feature ;
 import org.osate.aadl2.NamedValue ;
 import org.osate.aadl2.Property ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 public class Aadl2Utils
@@ -127,9 +128,8 @@ public class Aadl2Utils
         pls = PropertiesLinkingService.getPropertiesLinkingService(data) ;
         
         EObject ne = null ;
-        
-        ne = pls.findNamedElementInPropertySet("Memory_Properties",
-                                               "Access_Right", data, null);
+        PropertySet ps = pls.findPropertySet(data, "Memory_Properties");
+        ne = ps.findNamedElement("Access_Right");
         try
         {
           Property prop = (Property) ne ;
