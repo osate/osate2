@@ -131,11 +131,11 @@ public class PropertyUtils {
 								// XXX: Ms and Bytes are chosen for base units;
 								// this is specific for POK
 								AadlInteger ai = (AadlInteger) pa.getProperty().getPropertyType();
-								if (ai.getUnitsType().getName().equals("Size_Units"))
-									unit.setBaseUnit(GetProperties.findUnitLiteral(p, AadlProject.SIZE_UNITS,
-											AadlProject.B_LITERAL));
-								if (ai.getUnitsType().getName().equals("Time_Units"))
-									unit.setBaseUnit(GetProperties.findUnitLiteral(p, AadlProject.TIME_UNITS,
+								if (ai.getUnitsType().getName().equalsIgnoreCase(AadlProject.SIZE_UNITS))
+									unit.setBaseUnit(GetProperties.findUnitLiteral(p,
+											                                  AadlProject.B_LITERAL));
+								if (ai.getUnitsType().getName().equalsIgnoreCase(AadlProject.TIME_UNITS))
+									unit.setBaseUnit(GetProperties.findUnitLiteral(p,
 											AadlProject.MS_LITERAL));
 							}
 							// Warning: the cast from double to long is licit
