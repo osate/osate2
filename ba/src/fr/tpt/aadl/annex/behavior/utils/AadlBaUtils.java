@@ -280,12 +280,10 @@ public class AadlBaUtils {
 					return getDataRepresentation((DataClassifier)((Feature) el).
 							getClassifier()) ;
 				}
-				else if(el instanceof Subcomponent)
+				else if(el instanceof DataSubcomponent)
 				{
-
-					return getDataRepresentation((DataClassifier)((Subcomponent)
+					return getDataRepresentation((DataClassifier)((DataSubcomponent)
 							el).getClassifier());
-
 				}
 				else if(el instanceof BehaviorVariable)
 				{

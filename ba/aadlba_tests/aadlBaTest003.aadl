@@ -370,7 +370,13 @@ transitions
    -- enumeration tests --
    
  a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                 
- a -[]-> a {subMyEnum_A := MyEnum.enumerators#monday} ;                                      
+ a -[]-> a {subMyEnum_A := MyEnum.enumerators#monday} ;
+ 
+ 
+   -- Iterative variable tests --
+   
+ a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ; -- name resolver error: null pointer exception
+                              
  
  -- Error tests
 
@@ -453,10 +459,6 @@ transitions
    -- Subprogram calling action tests --
    
  a -[]-> a { AnOtherSubprogConcrete ! (localMyStruct_A.float, localMyStruct_B, localMyIntegerArray_B[0][0])} ;
- 
-   -- Iterative variable tests --
-   
- -- a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ; -- name resolver error: null pointer exception
  
 **};  
 
