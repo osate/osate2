@@ -955,12 +955,8 @@ public class AadlBaSwitch<T> extends Switch<T>
       {
         DataHolder dataHolder = (DataHolder)theEObject;
         T result = caseDataHolder(dataHolder);
-        if (result == null) result = caseIndexableElement(dataHolder);
         if (result == null) result = caseElementHolder(dataHolder);
-        if (result == null) result = caseTarget(dataHolder);
         if (result == null) result = caseIntegerValueVariable(dataHolder);
-        if (result == null) result = caseElementValues(dataHolder);
-        if (result == null) result = caseParameterLabel(dataHolder);
         if (result == null) result = caseIntegerValue(dataHolder);
         if (result == null) result = caseValueVariable(dataHolder);
         if (result == null) result = caseElement(dataHolder);
@@ -1000,10 +996,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseDataHolder(dataAccessHolder);
         if (result == null) result = caseGroupableElement(dataAccessHolder);
         if (result == null) result = caseIndexableElement(dataAccessHolder);
-        if (result == null) result = caseElementHolder(dataAccessHolder);
         if (result == null) result = caseTarget(dataAccessHolder);
-        if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
         if (result == null) result = caseElementValues(dataAccessHolder);
+        if (result == null) result = caseElementHolder(dataAccessHolder);
+        if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
         if (result == null) result = caseParameterLabel(dataAccessHolder);
         if (result == null) result = caseIntegerValue(dataAccessHolder);
         if (result == null) result = caseValueVariable(dataAccessHolder);
@@ -1020,10 +1016,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseDataHolder(dataSubcomponentHolder);
         if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
         if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
-        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
         if (result == null) result = caseTarget(dataSubcomponentHolder);
-        if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
         if (result == null) result = caseElementValues(dataSubcomponentHolder);
+        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
+        if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
         if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
         if (result == null) result = caseIntegerValue(dataSubcomponentHolder);
         if (result == null) result = caseValueVariable(dataSubcomponentHolder);
@@ -1039,10 +1035,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = caseBehaviorVariableHolder(behaviorVariableHolder);
         if (result == null) result = caseDataHolder(behaviorVariableHolder);
         if (result == null) result = caseIndexableElement(behaviorVariableHolder);
-        if (result == null) result = caseElementHolder(behaviorVariableHolder);
         if (result == null) result = caseTarget(behaviorVariableHolder);
-        if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
         if (result == null) result = caseElementValues(behaviorVariableHolder);
+        if (result == null) result = caseElementHolder(behaviorVariableHolder);
+        if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
         if (result == null) result = caseParameterLabel(behaviorVariableHolder);
         if (result == null) result = caseIntegerValue(behaviorVariableHolder);
         if (result == null) result = caseValueVariable(behaviorVariableHolder);
@@ -1131,10 +1127,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseDataHolder(parameterHolder);
         if (result == null) result = caseGroupableElement(parameterHolder);
         if (result == null) result = caseIndexableElement(parameterHolder);
-        if (result == null) result = caseElementHolder(parameterHolder);
         if (result == null) result = caseTarget(parameterHolder);
-        if (result == null) result = caseIntegerValueVariable(parameterHolder);
         if (result == null) result = caseElementValues(parameterHolder);
+        if (result == null) result = caseElementHolder(parameterHolder);
+        if (result == null) result = caseIntegerValueVariable(parameterHolder);
         if (result == null) result = caseParameterLabel(parameterHolder);
         if (result == null) result = caseIntegerValue(parameterHolder);
         if (result == null) result = caseValueVariable(parameterHolder);
@@ -1287,10 +1283,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseDataHolder(dataAccessPrototypeHolder);
         if (result == null) result = casePrototypeHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseIndexableElement(dataAccessPrototypeHolder);
-        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
         if (result == null) result = caseTarget(dataAccessPrototypeHolder);
-        if (result == null) result = caseIntegerValueVariable(dataAccessPrototypeHolder);
         if (result == null) result = caseElementValues(dataAccessPrototypeHolder);
+        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
+        if (result == null) result = caseIntegerValueVariable(dataAccessPrototypeHolder);
         if (result == null) result = caseParameterLabel(dataAccessPrototypeHolder);
         if (result == null) result = caseIntegerValue(dataAccessPrototypeHolder);
         if (result == null) result = caseValueVariable(dataAccessPrototypeHolder);
@@ -1344,10 +1340,10 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = caseStructUnionElementHolder(structUnionElementHolder);
         if (result == null) result = caseDataHolder(structUnionElementHolder);
         if (result == null) result = caseIndexableElement(structUnionElementHolder);
-        if (result == null) result = caseElementHolder(structUnionElementHolder);
         if (result == null) result = caseTarget(structUnionElementHolder);
-        if (result == null) result = caseIntegerValueVariable(structUnionElementHolder);
         if (result == null) result = caseElementValues(structUnionElementHolder);
+        if (result == null) result = caseElementHolder(structUnionElementHolder);
+        if (result == null) result = caseIntegerValueVariable(structUnionElementHolder);
         if (result == null) result = caseParameterLabel(structUnionElementHolder);
         if (result == null) result = caseIntegerValue(structUnionElementHolder);
         if (result == null) result = caseValueVariable(structUnionElementHolder);
@@ -1361,6 +1357,7 @@ public class AadlBaSwitch<T> extends Switch<T>
       {
         IterativeVariableHolder iterativeVariableHolder = (IterativeVariableHolder)theEObject;
         T result = caseIterativeVariableHolder(iterativeVariableHolder);
+        if (result == null) result = caseDataHolder(iterativeVariableHolder);
         if (result == null) result = caseElementHolder(iterativeVariableHolder);
         if (result == null) result = caseIntegerValueVariable(iterativeVariableHolder);
         if (result == null) result = caseIntegerValue(iterativeVariableHolder);

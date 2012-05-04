@@ -30,7 +30,7 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface IterativeVariableHolder extends ElementHolder, IntegerValueVariable, ValueVariable
+public interface IterativeVariableHolder extends DataHolder
 {
   /**
    * <!-- begin-user-doc -->

@@ -138,7 +138,6 @@ import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EOperation;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
@@ -993,7 +992,6 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
     // Initialize simple dependencies
     Aadl2Package.eINSTANCE.eClass();
-    EcorePackage.eINSTANCE.eClass();
 
     // Create package meta-data objects
     theAadlBaPackage.createPackageContents();
@@ -3312,19 +3310,25 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     actualPortHolderEClass.getESuperTypes().add(this.getPortHolder());
     executionTimeoutCatchEClass.getESuperTypes().add(this.getExecuteCondition());
     dispatchRelativeTimeoutEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
-    dataHolderEClass.getESuperTypes().add(this.getIndexableElement());
     dataHolderEClass.getESuperTypes().add(this.getElementHolder());
-    dataHolderEClass.getESuperTypes().add(this.getTarget());
     dataHolderEClass.getESuperTypes().add(this.getIntegerValueVariable());
     dataHolderEClass.getESuperTypes().add(this.getValueVariable());
-    dataHolderEClass.getESuperTypes().add(this.getElementValues());
     subprogramHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     iterativeVariableEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     dataAccessHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataAccessHolderEClass.getESuperTypes().add(this.getGroupableElement());
+    dataAccessHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    dataAccessHolderEClass.getESuperTypes().add(this.getTarget());
+    dataAccessHolderEClass.getESuperTypes().add(this.getElementValues());
     dataSubcomponentHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataSubcomponentHolderEClass.getESuperTypes().add(this.getGroupableElement());
+    dataSubcomponentHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    dataSubcomponentHolderEClass.getESuperTypes().add(this.getTarget());
+    dataSubcomponentHolderEClass.getESuperTypes().add(this.getElementValues());
     behaviorVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
+    behaviorVariableHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    behaviorVariableHolderEClass.getESuperTypes().add(this.getTarget());
+    behaviorVariableHolderEClass.getESuperTypes().add(this.getElementValues());
     elementHolderEClass.getESuperTypes().add(this.getBehaviorElement());
     dataPortHolderEClass.getESuperTypes().add(this.getActualPortHolder());
     dataPortHolderEClass.getESuperTypes().add(this.getTarget());
@@ -3337,6 +3341,9 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     eventDataPortHolderEClass.getESuperTypes().add(this.getTarget());
     parameterHolderEClass.getESuperTypes().add(this.getDataHolder());
     parameterHolderEClass.getESuperTypes().add(this.getGroupableElement());
+    parameterHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    parameterHolderEClass.getESuperTypes().add(this.getTarget());
+    parameterHolderEClass.getESuperTypes().add(this.getElementValues());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getDispatchTriggerCondition());
     subprogramAccessHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     dispatchTriggerEClass.getESuperTypes().add(this.getBehaviorElement());
@@ -3361,15 +3368,19 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
     prototypeHolderEClass.getESuperTypes().add(this.getBehaviorElement());
     dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getDataHolder());
     dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
+    dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getTarget());
+    dataAccessPrototypeHolderEClass.getESuperTypes().add(this.getElementValues());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getCalledSubprogramHolder());
     subprogramPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     groupPrototypeHolderEClass.getESuperTypes().add(this.getGroupHolder());
     groupPrototypeHolderEClass.getESuperTypes().add(this.getPrototypeHolder());
     structUnionElementEClass.getESuperTypes().add(this.getBehaviorNamedElement());
     structUnionElementHolderEClass.getESuperTypes().add(this.getDataHolder());
-    iterativeVariableHolderEClass.getESuperTypes().add(this.getElementHolder());
-    iterativeVariableHolderEClass.getESuperTypes().add(this.getIntegerValueVariable());
-    iterativeVariableHolderEClass.getESuperTypes().add(this.getValueVariable());
+    structUnionElementHolderEClass.getESuperTypes().add(this.getIndexableElement());
+    structUnionElementHolderEClass.getESuperTypes().add(this.getTarget());
+    structUnionElementHolderEClass.getESuperTypes().add(this.getElementValues());
+    iterativeVariableHolderEClass.getESuperTypes().add(this.getDataHolder());
 
     // Initialize classes and features; add operations and parameters
     initEClass(assignmentActionEClass, AssignmentAction.class, "AssignmentAction", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

@@ -1250,7 +1250,6 @@ public class AadlBaNameResolver
       
       ListIterator<ArrayableIdentifier> it = ref.getIds().listIterator() ;
       
-      
       // Check ArrayableIdentifier objects.
       while(it.hasNext())
       {
@@ -1300,6 +1299,13 @@ public class AadlBaNameResolver
                                            ((BehaviorVariable)el).
                                                         getDataClassifier() ;
             parentContainer = (Classifier) qne.getOsateRef();
+          }
+          else if(el instanceof IterativeVariable)
+          {
+            IterativeVariable itv = (IterativeVariable) el ;
+            QualifiedNamedElement qne = (QualifiedNamedElement) itv.
+                                                           getDataClassifier() ;
+            parentContainer = (Classifier) qne.getOsateRef() ;
           }
           else
           {

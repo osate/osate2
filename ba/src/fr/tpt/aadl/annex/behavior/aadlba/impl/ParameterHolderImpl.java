@@ -20,10 +20,15 @@
 package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
+import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
 import fr.tpt.aadl.annex.behavior.aadlba.GroupHolder;
 import fr.tpt.aadl.annex.behavior.aadlba.GroupableElement;
+import fr.tpt.aadl.annex.behavior.aadlba.IndexableElement;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
 import fr.tpt.aadl.annex.behavior.aadlba.ParameterHolder;
 
+import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
+import fr.tpt.aadl.annex.behavior.aadlba.Target;
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -46,6 +51,7 @@ import org.osate.aadl2.Parameter;
  * The following features are implemented:
  * <ul>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ParameterHolderImpl#getGroupHolders <em>Group Holders</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.ParameterHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
  * </ul>
  * </p>
  *
@@ -62,6 +68,16 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
    * @ordered
    */
   protected EList<GroupHolder> groupHolders;
+
+  /**
+   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArrayIndexes()
+   * @generated
+   * @ordered
+   */
+  protected EList<IntegerValue> arrayIndexes;
 
   /**
    * <!-- begin-user-doc -->
@@ -123,6 +139,40 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<IntegerValue> getArrayIndexes()
+  {
+    if (arrayIndexes == null)
+    {
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES);
+    }
+    return arrayIndexes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetArrayIndexes()
+  {
+    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetArrayIndexes()
+  {
+    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public void setParameter(Parameter parameter)
   {
     element = parameter ;
@@ -150,6 +200,8 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
     {
       case AadlBaPackage.PARAMETER_HOLDER__GROUP_HOLDERS:
         return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
+      case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES:
+        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -166,6 +218,8 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
     {
       case AadlBaPackage.PARAMETER_HOLDER__GROUP_HOLDERS:
         return getGroupHolders();
+      case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES:
+        return getArrayIndexes();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -185,6 +239,10 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
         getGroupHolders().clear();
         getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
         return;
+      case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES:
+        getArrayIndexes().clear();
+        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -202,6 +260,9 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
       case AadlBaPackage.PARAMETER_HOLDER__GROUP_HOLDERS:
         unsetGroupHolders();
         return;
+      case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES:
+        unsetArrayIndexes();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -218,6 +279,8 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
     {
       case AadlBaPackage.PARAMETER_HOLDER__GROUP_HOLDERS:
         return isSetGroupHolders();
+      case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES:
+        return isSetArrayIndexes();
     }
     return super.eIsSet(featureID);
   }
@@ -238,6 +301,35 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
         default: return -1;
       }
     }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ElementValues.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
     return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
   }
 
@@ -254,6 +346,35 @@ public class ParameterHolderImpl extends DataHolderImpl implements ParameterHold
       switch (baseFeatureID)
       {
         case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.PARAMETER_HOLDER__GROUP_HOLDERS;
+        default: return -1;
+      }
+    }
+    if (baseClass == IndexableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.PARAMETER_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ElementValues.class)
+    {
+      switch (baseFeatureID)
+      {
         default: return -1;
       }
     }

@@ -23,19 +23,44 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariableHolder;
 
+import fr.tpt.aadl.annex.behavior.aadlba.ElementValues;
+import fr.tpt.aadl.annex.behavior.aadlba.IndexableElement;
+import fr.tpt.aadl.annex.behavior.aadlba.IntegerValue;
+import fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel;
+import fr.tpt.aadl.annex.behavior.aadlba.Target;
+import java.util.Collection;
+import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Behavior Variable Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorVariableHolderImpl#getArrayIndexes <em>Array Indexes</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class BehaviorVariableHolderImpl extends DataHolderImpl implements BehaviorVariableHolder
 {
+  /**
+   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getArrayIndexes()
+   * @generated
+   * @ordered
+   */
+  protected EList<IntegerValue> arrayIndexes;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -62,6 +87,40 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<IntegerValue> getArrayIndexes()
+  {
+    if (arrayIndexes == null)
+    {
+      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES);
+    }
+    return arrayIndexes;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void unsetArrayIndexes()
+  {
+    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public boolean isSetArrayIndexes()
+  {
+    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public void setVariable(BehaviorVariable variable)
   {
     element = variable ;
@@ -75,6 +134,170 @@ public class BehaviorVariableHolderImpl extends DataHolderImpl implements Behavi
   public BehaviorVariable getBehaviorVariable()
   {
     return (BehaviorVariable) element;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
+        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
+        return getArrayIndexes();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
+        getArrayIndexes().clear();
+        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public void eUnset(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
+        unsetArrayIndexes();
+        return;
+    }
+    super.eUnset(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES:
+        return isSetArrayIndexes();
+    }
+    return super.eIsSet(featureID);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
+  {
+    if (baseClass == IndexableElement.class)
+    {
+      switch (derivedFeatureID)
+      {
+        case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ElementValues.class)
+    {
+      switch (derivedFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
+  {
+    if (baseClass == IndexableElement.class)
+    {
+      switch (baseFeatureID)
+      {
+        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES;
+        default: return -1;
+      }
+    }
+    if (baseClass == ParameterLabel.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == Target.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    if (baseClass == ElementValues.class)
+    {
+      switch (baseFeatureID)
+      {
+        default: return -1;
+      }
+    }
+    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
   }
 
 } //BehaviorVariableHolderImpl

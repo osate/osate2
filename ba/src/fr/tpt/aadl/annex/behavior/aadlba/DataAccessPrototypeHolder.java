@@ -30,6 +30,6 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder
+public interface DataAccessPrototypeHolder extends DataHolder, PrototypeHolder, IndexableElement, Target, ElementValues
 {
 } // DataAccessPrototypeHolder

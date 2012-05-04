@@ -31,7 +31,7 @@ import org.osate.aadl2.DataAccess;
  * @model
  * @generated
  */
-public interface DataAccessHolder extends DataHolder, GroupableElement
+public interface DataAccessHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues
 {
   /**
    * <!-- begin-user-doc -->

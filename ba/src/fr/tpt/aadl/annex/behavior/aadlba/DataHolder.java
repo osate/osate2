@@ -30,6 +30,6 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model abstract="true"
  * @generated
  */
-public interface DataHolder extends IndexableElement, ElementHolder, Target, IntegerValueVariable, ValueVariable, ElementValues
+public interface DataHolder extends ElementHolder, IntegerValueVariable, ValueVariable
 {
 } // DataHolder

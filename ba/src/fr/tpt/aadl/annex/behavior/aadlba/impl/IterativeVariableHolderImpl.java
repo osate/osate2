@@ -23,41 +23,20 @@ import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.IterativeVariable;
 import fr.tpt.aadl.annex.behavior.aadlba.IterativeVariableHolder;
 
-import org.eclipse.emf.common.notify.Notification;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.InternalEObject;
-
-import org.eclipse.emf.ecore.impl.ENotificationImpl;
-
-import org.osate.aadl2.NamedElement;
 
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Iterative Variable Holder</b></em>'.
  * <!-- end-user-doc -->
  * <p>
- * The following features are implemented:
- * <ul>
- *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IterativeVariableHolderImpl#getElement <em>Element</em>}</li>
- * </ul>
  * </p>
  *
  * @generated
  */
-public class IterativeVariableHolderImpl extends BehaviorElementImpl implements IterativeVariableHolder
+public class IterativeVariableHolderImpl extends DataHolderImpl implements IterativeVariableHolder
 {
-  /**
-   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getElement()
-   * @generated
-   * @ordered
-   */
-  protected NamedElement element;
-
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -84,49 +63,6 @@ public class IterativeVariableHolderImpl extends BehaviorElementImpl implements 
    * <!-- end-user-doc -->
    * @generated
    */
-  public NamedElement getElement()
-  {
-    if (element != null && ((EObject)element).eIsProxy())
-    {
-      InternalEObject oldElement = (InternalEObject)element;
-      element = (NamedElement)eResolveProxy(oldElement);
-      if (element != oldElement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT, oldElement, element));
-      }
-    }
-    return element;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NamedElement basicGetElement()
-  {
-    return element;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setElement(NamedElement newElement)
-  {
-    NamedElement oldElement = element;
-    element = newElement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT, oldElement, element));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public void setIterativeVariable(IterativeVariable itV)
   {
     element = itV ;
@@ -140,73 +76,6 @@ public class IterativeVariableHolderImpl extends BehaviorElementImpl implements 
   public IterativeVariable getIterativeVariable()
   {
     return (IterativeVariable) element;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public Object eGet(int featureID, boolean resolve, boolean coreType)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT:
-        if (resolve) return getElement();
-        return basicGetElement();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void eSet(int featureID, Object newValue)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT:
-        setElement((NamedElement)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public void eUnset(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT:
-        setElement((NamedElement)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public boolean eIsSet(int featureID)
-  {
-    switch (featureID)
-    {
-      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER__ELEMENT:
-        return element != null;
-    }
-    return super.eIsSet(featureID);
   }
 
 } //IterativeVariableHolderImpl

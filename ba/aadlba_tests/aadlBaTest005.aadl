@@ -253,7 +253,7 @@ annex behavior_specification
  -- *** TRANSITIONS ***
 
   transitions
-a -[]-> a {dataAccessArray[0].int := 0} ;
+
   -- target tests --
     
     -- port tests --

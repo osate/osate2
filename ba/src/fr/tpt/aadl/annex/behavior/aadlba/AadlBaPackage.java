@@ -3921,51 +3921,6 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int DATA_HOLDER__OWNED_ELEMENT = INDEXABLE_ELEMENT__OWNED_ELEMENT;
-
-  /**
-   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_HOLDER__OWNED_COMMENT = INDEXABLE_ELEMENT__OWNED_COMMENT;
-
-  /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_HOLDER__ARRAY_INDEXES = INDEXABLE_ELEMENT__ARRAY_INDEXES;
-
-  /**
-   * The feature id for the '<em><b>Element</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_HOLDER__ELEMENT = INDEXABLE_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Data Holder</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_HOLDER_FEATURE_COUNT = INDEXABLE_ELEMENT_FEATURE_COUNT + 1;
-
-  /**
-   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
   int ELEMENT_HOLDER__OWNED_ELEMENT = BEHAVIOR_ELEMENT__OWNED_ELEMENT;
 
   /**
@@ -3994,6 +3949,42 @@ public interface AadlBaPackage extends EPackage
    * @ordered
    */
   int ELEMENT_HOLDER_FEATURE_COUNT = BEHAVIOR_ELEMENT_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_HOLDER__OWNED_ELEMENT = ELEMENT_HOLDER__OWNED_ELEMENT;
+
+  /**
+   * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_HOLDER__OWNED_COMMENT = ELEMENT_HOLDER__OWNED_COMMENT;
+
+  /**
+   * The feature id for the '<em><b>Element</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_HOLDER__ELEMENT = ELEMENT_HOLDER__ELEMENT;
+
+  /**
+   * The number of structural features of the '<em>Data Holder</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_HOLDER_FEATURE_COUNT = ELEMENT_HOLDER_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.CalledSubprogramHolderImpl <em>Called Subprogram Holder</em>}' class.
@@ -4225,15 +4216,6 @@ public interface AadlBaPackage extends EPackage
   int DATA_ACCESS_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_ACCESS_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4252,13 +4234,22 @@ public interface AadlBaPackage extends EPackage
   int DATA_ACCESS_HOLDER__GROUP_HOLDERS = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_ACCESS_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Data Access Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATA_ACCESS_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int DATA_ACCESS_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DataSubcomponentHolderImpl <em>Data Subcomponent Holder</em>}' class.
@@ -4289,15 +4280,6 @@ public interface AadlBaPackage extends EPackage
   int DATA_SUBCOMPONENT_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4316,13 +4298,22 @@ public interface AadlBaPackage extends EPackage
   int DATA_SUBCOMPONENT_HOLDER__GROUP_HOLDERS = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_SUBCOMPONENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Data Subcomponent Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATA_SUBCOMPONENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int DATA_SUBCOMPONENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorVariableHolderImpl <em>Behavior Variable Holder</em>}' class.
@@ -4353,15 +4344,6 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4371,13 +4353,22 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_VARIABLE_HOLDER__ELEMENT = DATA_HOLDER__ELEMENT;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BEHAVIOR_VARIABLE_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>Behavior Variable Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int BEHAVIOR_VARIABLE_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 0;
+  int BEHAVIOR_VARIABLE_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.DataPortHolderImpl <em>Data Port Holder</em>}' class.
@@ -4600,15 +4591,6 @@ public interface AadlBaPackage extends EPackage
   int PARAMETER_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PARAMETER_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4627,13 +4609,22 @@ public interface AadlBaPackage extends EPackage
   int PARAMETER_HOLDER__GROUP_HOLDERS = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PARAMETER_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Parameter Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PARAMETER_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int PARAMETER_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SubprogramAccessHolderImpl <em>Subprogram Access Holder</em>}' class.
@@ -5040,15 +5031,6 @@ public interface AadlBaPackage extends EPackage
   int DATA_ACCESS_PROTOTYPE_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5067,13 +5049,22 @@ public interface AadlBaPackage extends EPackage
   int DATA_ACCESS_PROTOTYPE_HOLDER__PROTOTYPE_BINDING = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DATA_ACCESS_PROTOTYPE_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 1;
+
+  /**
    * The number of structural features of the '<em>Data Access Prototype Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int DATA_ACCESS_PROTOTYPE_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
+  int DATA_ACCESS_PROTOTYPE_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 2;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.SubprogramPrototypeHolderImpl <em>Subprogram Prototype Holder</em>}' class.
@@ -5314,15 +5305,6 @@ public interface AadlBaPackage extends EPackage
   int STRUCT_UNION_ELEMENT_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
-   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER__ARRAY_INDEXES;
-
-  /**
    * The feature id for the '<em><b>Element</b></em>' reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5332,13 +5314,22 @@ public interface AadlBaPackage extends EPackage
   int STRUCT_UNION_ELEMENT_HOLDER__ELEMENT = DATA_HOLDER__ELEMENT;
 
   /**
+   * The feature id for the '<em><b>Array Indexes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES = DATA_HOLDER_FEATURE_COUNT + 0;
+
+  /**
    * The number of structural features of the '<em>Struct Union Element Holder</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int STRUCT_UNION_ELEMENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 0;
+  int STRUCT_UNION_ELEMENT_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.IterativeVariableHolderImpl <em>Iterative Variable Holder</em>}' class.
@@ -5357,7 +5348,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ITERATIVE_VARIABLE_HOLDER__OWNED_ELEMENT = ELEMENT_HOLDER__OWNED_ELEMENT;
+  int ITERATIVE_VARIABLE_HOLDER__OWNED_ELEMENT = DATA_HOLDER__OWNED_ELEMENT;
 
   /**
    * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -5366,7 +5357,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ITERATIVE_VARIABLE_HOLDER__OWNED_COMMENT = ELEMENT_HOLDER__OWNED_COMMENT;
+  int ITERATIVE_VARIABLE_HOLDER__OWNED_COMMENT = DATA_HOLDER__OWNED_COMMENT;
 
   /**
    * The feature id for the '<em><b>Element</b></em>' reference.
@@ -5375,7 +5366,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ITERATIVE_VARIABLE_HOLDER__ELEMENT = ELEMENT_HOLDER__ELEMENT;
+  int ITERATIVE_VARIABLE_HOLDER__ELEMENT = DATA_HOLDER__ELEMENT;
 
   /**
    * The number of structural features of the '<em>Iterative Variable Holder</em>' class.
@@ -5384,7 +5375,7 @@ public interface AadlBaPackage extends EPackage
    * @generated
    * @ordered
    */
-  int ITERATIVE_VARIABLE_HOLDER_FEATURE_COUNT = ELEMENT_HOLDER_FEATURE_COUNT + 0;
+  int ITERATIVE_VARIABLE_HOLDER_FEATURE_COUNT = DATA_HOLDER_FEATURE_COUNT + 0;
 
   /**
    * The meta object id for the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorFeatureType <em>Behavior Feature Type</em>}' enum.
