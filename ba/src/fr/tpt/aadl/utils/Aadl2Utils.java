@@ -45,7 +45,8 @@ public class Aadl2Utils
   public static List<Feature> orderFeatures(ComponentType cpt)
   {
     List<Feature> res = new ArrayList<Feature>() ;
-    res.addAll(cpt.getOwnedFeatures()) ;
+//    res.addAll(cpt.getOwnedFeatures()) ;
+    res.addAll(cpt.getAllFeatures()) ;
     FeaturePositionComparator comparator = new FeaturePositionComparator() ;
     Collections.sort(res, comparator) ;
     return res ;
