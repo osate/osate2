@@ -79,8 +79,8 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
-		return lookupPropertyDefinition(ps, name);
-//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
+//		return lookupPropertyDefinition(ps, name);
+		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
 	}
 
 
