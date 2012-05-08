@@ -233,7 +233,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				// the result satisfied the expected class
 				return Collections.singletonList((EObject) e);
 			}
-			if (sct.isSuperTypeOf(requiredType)){
+			if (!(context instanceof Generalization) && sct.isSuperTypeOf(requiredType)){
 				// need to resolve prototype
 				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
