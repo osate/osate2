@@ -1647,13 +1647,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * method would not be sufficient for L4.
 	 */
 	private void checkTypeOfFeatureRefinement(Feature feature) {
-		if (feature.getRefined() != null
+		Feature refined = feature.getRefined();
+		if (!Aadl2Util.isNull(refined)
 				&& !(feature.getRefined() instanceof AbstractFeature)
-				&& !feature.eClass().equals(feature.getRefined().eClass())) {
+				&& !feature.eClass().equals(refined.eClass())) {
 			error(feature,
 					"Cannot refine "
-							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature
-									.getRefined().eClass())
+							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass())
 							+ " into "
 							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature
 									.eClass()) + '.');
