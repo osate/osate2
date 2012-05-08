@@ -27,6 +27,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataPort;
+import org.osate.aadl2.DataPrototype;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EndToEndFlowElement;
 import org.osate.aadl2.EndToEndFlowSegment;
@@ -41,6 +42,7 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
@@ -94,32 +96,32 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		final EClass cl = Aadl2Package.eINSTANCE.getClassifier();
 		final EClass sct = Aadl2Package.eINSTANCE.getSubcomponentType();
 		final String name = getCrossRefNodeAsString(node);
-//		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
-//			// XXX: this code is replicated from PropertiesLinkingService as it is called often
-//			// resolve classifier reference
-//			EObject e = findClassifier(context, reference,  name);
-//			if (e != null ) {
-//				// the result satisfied the expected class
-//				return Collections.singletonList((EObject) e);
-//			}
-//				// need to resolve prototype
-//			if (Aadl2Package.eINSTANCE.getPrototype().isSuperTypeOf(requiredType)){
-//				EObject res = AadlUtil.getContainingClassifier(context)
-//						.findNamedElement(name);
-//				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
-//					if( res instanceof DataPrototype ){
-//						return Collections.singletonList(res);
-//					}
-//				} else if ( res instanceof ComponentPrototype) {
-//					return Collections.singletonList(res);
-//				}
-//			}
-//			return Collections.<EObject> emptyList();
-//		} else
+		if (sct.isSuperTypeOf(requiredType) || cl.isSuperTypeOf(requiredType)) {
+			// XXX: this code can be replicated in Aadl2LinkingService as it is called often in the core
+			// resolve classifier reference
+			EObject e = findClassifier(context, reference,  name);
+			if (e != null ) {
+				// the result satisfied the expected class
+				return Collections.singletonList((EObject) e);
+			}
+			if (!(context instanceof Generalization) && sct.isSuperTypeOf(requiredType)){
+				// need to resolve prototype
+				EObject res = AadlUtil.getContainingClassifier(context)
+						.findNamedElement(name);
+				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
+					if( res instanceof DataPrototype ){
+						return Collections.singletonList(res);
+					}
+				} else if ( res instanceof ComponentPrototype) {
+					return Collections.singletonList(res);
+				}
+			}
+			return Collections.EMPTY_LIST;
+		} else 
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
-			if (e == null && !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)){
+			if (e == null &&!(context instanceof Generalization) &&  !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)){
 				// look for prototype
 				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
