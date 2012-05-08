@@ -40,13 +40,20 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osgi.framework.Bundle;
 
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
@@ -98,7 +105,7 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		 * In this case we then call on the resolver for the reference (causing the classifier to be loaded)
 		 */
 
-//			EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
+//			EList<IEObjectDescription> classifierlist = EMFIndexRetrieval.getAllClassifiersInWorkspace();
 //			for (IEObjectDescription cleod : classifierlist){
 //				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
 //				stats.process(cl);
@@ -107,10 +114,10 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		/**
 		 * Example of counting without causing the classifier to load
 		 */
-//		
-//		EList<IEObjectDescription> classifierlist = ModelLoadingAdapter.getAllClassifiersInWorkspace();
+		
+//		EList<IEObjectDescription> classifierlist1 = EMFIndexRetrieval.getAllClassifiersInWorkspace();
 //		Resource res = obj.eResource();
-//		for (IEObjectDescription cleod : classifierlist){
+//		for (IEObjectDescription cleod : classifierlist1){
 //			stats.countClassifier(cleod.getEClass());
 //		}
 		
