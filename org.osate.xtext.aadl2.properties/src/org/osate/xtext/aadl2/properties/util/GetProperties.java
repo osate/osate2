@@ -490,6 +490,9 @@ public class GetProperties {
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
 		List<ComponentInstance> processorList = getActualProcessorBinding(thread);
 		ComponentInstance processor = processorList.isEmpty() ? null : processorList.get(0);
+		if (processor == null) {
+			return 1.0;
+		}
 		double procCycleTime = getCycleTimeinMS(processor);
 		double refCycleTime = getReferenceCycleTimeinMS(thread);
 		if (refCycleTime == 0.0)
