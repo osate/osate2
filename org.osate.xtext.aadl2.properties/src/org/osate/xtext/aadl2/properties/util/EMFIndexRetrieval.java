@@ -24,12 +24,16 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
+import com.google.inject.Inject;
+
 public class EMFIndexRetrieval {
 
 
+	@Inject
 	private static ResourceDescriptionsProvider rdp ; 
-	 
-	 private static IResourceServiceProvider.Registry rspr;
+
+	@Inject 
+	private static IResourceServiceProvider.Registry rspr;
 	 
 	 public static void registerResourceProviders(ResourceDescriptionsProvider frdp, IResourceServiceProvider.Registry frspr)
 	 {

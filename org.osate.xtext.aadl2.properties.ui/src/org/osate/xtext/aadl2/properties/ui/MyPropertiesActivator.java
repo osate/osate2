@@ -49,7 +49,7 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 			
-			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
+//			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
 			IFile storage = TraverseWorkspace.getAADLProjectFile();
 			ResourceSet rs = getResourceSet(storage);
 			OsateResourceUtil.setResourceSet(rs);
