@@ -43,13 +43,17 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 	@Inject
 	private IResourceSetProvider resourceSetProvider;
 
+	// if inject does not work
+//	private IResourceServiceProvider.Registry rspr = 
+//			   IResourceServiceProvider.Registry.INSTANCE; 
+
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		try {
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 			
-//			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
+			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
 			IFile storage = TraverseWorkspace.getAADLProjectFile();
 			ResourceSet rs = getResourceSet(storage);
 			OsateResourceUtil.setResourceSet(rs);

@@ -55,7 +55,7 @@ public class EMFIndexRetrieval {
 	 */
 	 public static EList <IEObjectDescription> getAllPackagesInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-	 	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 packlist.add(eod);
@@ -69,7 +69,7 @@ public class EMFIndexRetrieval {
 	 * @return AADL package
 	 */
 	 public static AadlPackage getPackageInWorkspace(String pname){
-	 	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
@@ -88,7 +88,7 @@ public class EMFIndexRetrieval {
 	 */
 	 public static EList <IEObjectDescription> getAllPropertySetsInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-	 	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 packlist.add(eod);
@@ -103,7 +103,7 @@ public class EMFIndexRetrieval {
 	 * @return PropertySet or null
 	 */
 	 public static PropertySet getPropertySetInWorkspace(String pname){
-	 	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
@@ -225,15 +225,13 @@ public class EMFIndexRetrieval {
 	 */
 	 public static EList <IEObjectDescription> getAllModelUnitsInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-	 	 rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getModelUnit());
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 packlist.add(eod);
 	 	 }
 	 	 return packlist;
 	 }
-
-	 protected static IResourceDescriptions rds;
 
 	 /**
 	 * get all packages in workspace by looking them up in EMF index 
@@ -246,7 +244,7 @@ public class EMFIndexRetrieval {
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	 IResourceDescription packrd = getManager(res).getResourceDescription(res);
 	 	 Iterable<QualifiedName> namelist = packrd.getImportedNames();
-	 	 rds= rdp.getResourceDescriptions(res);
+	 	IResourceDescriptions rds= rdp.getResourceDescriptions(res);
 	 	 for (QualifiedName qn : namelist) {
 	 		 System.out.println("ImportedName "+qn.getLastSegment()+" more "+qn);
 	 		 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(Aadl2Package.eINSTANCE.getAadlPackage(), qn, true);
@@ -269,6 +267,7 @@ public class EMFIndexRetrieval {
 	 /* ** EXPERIMENTAL */
 	 private static EList <IEObjectDescription> getAllImportedPackages(IResourceDescription packrd){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<QualifiedName> namelist = packrd.getImportedNames();
 	 	 for (QualifiedName qn : namelist) {
 	 		 System.out.println("ImportedName "+qn.getLastSegment()+" more "+qn);
