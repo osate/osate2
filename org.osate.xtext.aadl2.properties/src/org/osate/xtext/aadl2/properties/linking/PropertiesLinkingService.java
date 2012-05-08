@@ -101,14 +101,17 @@ import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.SubprogramImpl;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
@@ -126,6 +129,23 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if (eInstance == null) {
 			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+		}
+		return eInstance;
+	}
+
+	public static PropertiesLinkingService getPropertiesLinkingService(Element context){
+		if (eInstance == null) {
+			if (context.eResource() instanceof Aadl2ResourceImpl){
+				Element root = context.getElementRoot();
+				if (root instanceof SystemInstance){
+					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
+					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
+					eInstance = (PropertiesLinkingService)r.getLinkingService();
+				}
+			} else {
+				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
+				eInstance = (PropertiesLinkingService)r.getLinkingService();
+			}
 		}
 		return eInstance;
 	}
