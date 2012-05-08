@@ -382,12 +382,12 @@ public class GetProperties {
 		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 
 	}
-	// 10 picoseconds
+	// 1 us equals 1 MIPS
 	public static final double DEFAULT_CYCLE_TIME = 1.0e-12;
 
-	public static double getCycleTimeinMS(final NamedElement ne) {
+	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME);
 	}
 	public static double getCycleTimeinSec(final NamedElement ne) {
@@ -448,7 +448,7 @@ public class GetProperties {
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			cycleTime = getCycleTimeinMS(pci);
+			cycleTime = getCycleTimeinUS(pci);
 		}
 		if (cycleTime == 0.0) {
 			cycleTime = getReferenceCycleTimeConstantinMS(thread);
@@ -460,7 +460,7 @@ public class GetProperties {
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			cycleTime = getCycleTimeinMS(pci);
+			cycleTime = getCycleTimeinUS(pci);
 			cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
 		}
 		if (cycleTime == 0.0) {
@@ -493,7 +493,7 @@ public class GetProperties {
 		if (processor == null) {
 			return 1.0;
 		}
-		double procCycleTime = getCycleTimeinMS(processor);
+		double procCycleTime = getCycleTimeinUS(processor);
 		double refCycleTime = getReferenceCycleTimeinMS(thread);
 		if (refCycleTime == 0.0)
 			return 1.0;
@@ -531,7 +531,7 @@ public class GetProperties {
 	 * @return MIPS
 	 */
 	public static double getCycletimeasMIPS(final ComponentInstance curprocessor) {
-		double cycleTime = getCycleTimeinMS(curprocessor);
+		double cycleTime = getCycleTimeinUS(curprocessor);
 		if (cycleTime != 0.0) {
 			// time for MIPS therefore microsec (10E-6)
 			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
