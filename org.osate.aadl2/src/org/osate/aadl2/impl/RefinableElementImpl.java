@@ -168,7 +168,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 		if (name == null){
 			if (!Aadl2Util.isNull(getRefinedElement()))
 				return getRefinedElement().getName();
-			else return "<nullname>";
+			else return "";
 		}
 		return name;
 	}
