@@ -9,6 +9,7 @@ import static com.google.inject.Guice.createInjector;
 import org.apache.log4j.Logger;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.osate.xtext.aadl2.properties.PropertiesRuntimeModule;
 import org.osgi.framework.BundleContext;
 
 import com.google.inject.Injector;
@@ -74,7 +75,7 @@ public class PropertiesActivator extends AbstractUIPlugin {
 	
 	protected Module getRuntimeModule(String grammar) {
 		if (ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES.equals(grammar)) {
-			return new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
+			return new PropertiesRuntimeModule();
 		}
 		
 		throw new IllegalArgumentException(grammar);
