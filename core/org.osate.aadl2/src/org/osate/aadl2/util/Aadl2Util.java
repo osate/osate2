@@ -25,7 +25,12 @@ public class Aadl2Util {
 	public static boolean sameProperty(Property p1, Property p2) {
 		String p1Name = p1.getQualifiedName();
 		String p2Name = p2.getQualifiedName();
-		return p1Name.equalsIgnoreCase(p2Name);
+		boolean sameName = p1Name.equalsIgnoreCase(p2Name);
+// XXX to track down possible multiple loads of property definitions
+		//		if ( p1 != p2 && sameName){
+//			System.out.println("Two objects for the same property definition "+p1.getQualifiedName());
+//		}
+		return sameName;
 	}
 
 }
