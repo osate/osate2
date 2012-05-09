@@ -23,7 +23,7 @@ aConstant : constant aadlinteger => 28 ;
 aValue : aadlinteger applies to (subprogram) ;
 aIntegerConstant : constant aadlinteger => 42 ;
 aNegativeIntegerConstant : constant aadlinteger => -42 ;
-aFloatConstant : constant aadlreal => 42 ;
+aFloatConstant : constant aadlreal => 42.1 ;
 aStringConstant : constant aadlstring => "hello world" ;
 aBooleanConstant : constant aadlboolean => true ;
 

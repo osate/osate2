@@ -187,7 +187,7 @@ public class AadlBaCodeScanner extends RuleBasedScanner
       
       Token baSignToken = new Token (new TextAttribute(
                                     _colorProvider.getColor(
-                                       Aadl2ColorProvider.DEFAULT),
+                                       Aadl2ColorProvider.SIGN),
                                     _colorProvider.getColor(
                                        Aadl2ColorProvider.BACKGROUND),
                                        SWT.BOLD));

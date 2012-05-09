@@ -45,6 +45,7 @@ public class Aadl2ColorProvider
 	public static final RGB COMMENT = new RGB(128, 0, 0);
 	public static final RGB KEYWORD = new RGB(0, 0, 128);
 	public static final RGB STRING = new RGB(0, 128, 0);
+	public static final RGB SIGN = new RGB(0, 0, 128);
 	public static final RGB DEFAULT = new RGB(0, 0, 0);
 	
 	private final HashMap<RGB, Color> colorTable = new HashMap<RGB, Color>();

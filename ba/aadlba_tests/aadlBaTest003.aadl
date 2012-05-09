@@ -375,7 +375,7 @@ transitions
  
    -- Iterative variable tests --
    
- a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ; -- name resolver error: null pointer exception
+ a -[]-> a { for(i : MyStruct_A in localArrayMyStruct_A) {localMyStruct_A.float := i.float} } ;
                               
  
  -- Error tests
