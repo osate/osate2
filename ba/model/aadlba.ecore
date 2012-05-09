@@ -177,7 +177,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataComponentReference" eSuperTypes="#//ElementValues #//Target #//ValueVariable #//IntegerValueVariable">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="2" upperBound="-1"
         eType="#//DataHolder" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataHolder" abstract="true" eSuperTypes="#//ElementHolder #//IntegerValueVariable #//ValueVariable"/>

@@ -105,9 +105,19 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
     new AadlBaSwitch<Adapter>()
     {
       @Override
+      public Adapter caseActualPortHolder(ActualPortHolder object)
+      {
+        return createActualPortHolderAdapter();
+      }
+      @Override
       public Adapter caseAssignmentAction(AssignmentAction object)
       {
         return createAssignmentActionAdapter();
+      }
+      @Override
+      public Adapter caseAny(Any object)
+      {
+        return createAnyAdapter();
       }
       @Override
       public Adapter caseBasicAction(BasicAction object)
@@ -180,6 +190,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBehaviorNamedElementAdapter();
       }
       @Override
+      public Adapter caseBehaviorProperty(BehaviorProperty object)
+      {
+        return createBehaviorPropertyAdapter();
+      }
+      @Override
       public Adapter caseBehaviorPropertyConstant(BehaviorPropertyConstant object)
       {
         return createBehaviorPropertyConstantAdapter();
@@ -220,6 +235,16 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBehaviorVariableAdapter();
       }
       @Override
+      public Adapter caseBehaviorVariableHolder(BehaviorVariableHolder object)
+      {
+        return createBehaviorVariableHolderAdapter();
+      }
+      @Override
+      public Adapter caseCalledSubprogramHolder(CalledSubprogramHolder object)
+      {
+        return createCalledSubprogramHolderAdapter();
+      }
+      @Override
       public Adapter caseCommunicationAction(CommunicationAction object)
       {
         return createCommunicationActionAdapter();
@@ -235,9 +260,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createCondStatementAdapter();
       }
       @Override
+      public Adapter caseDataAccessHolder(DataAccessHolder object)
+      {
+        return createDataAccessHolderAdapter();
+      }
+      @Override
+      public Adapter caseDataAccessPrototypeHolder(DataAccessPrototypeHolder object)
+      {
+        return createDataAccessPrototypeHolderAdapter();
+      }
+      @Override
       public Adapter caseDataComponentReference(DataComponentReference object)
       {
         return createDataComponentReferenceAdapter();
+      }
+      @Override
+      public Adapter caseDataHolder(DataHolder object)
+      {
+        return createDataHolderAdapter();
+      }
+      @Override
+      public Adapter caseDataPortHolder(DataPortHolder object)
+      {
+        return createDataPortHolderAdapter();
+      }
+      @Override
+      public Adapter caseDataSubcomponentHolder(DataSubcomponentHolder object)
+      {
+        return createDataSubcomponentHolderAdapter();
       }
       @Override
       public Adapter caseDispatchCondition(DispatchCondition object)
@@ -248,6 +298,16 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseDispatchConjunction(DispatchConjunction object)
       {
         return createDispatchConjunctionAdapter();
+      }
+      @Override
+      public Adapter caseDispatchRelativeTimeout(DispatchRelativeTimeout object)
+      {
+        return createDispatchRelativeTimeoutAdapter();
+      }
+      @Override
+      public Adapter caseDispatchTrigger(DispatchTrigger object)
+      {
+        return createDispatchTriggerAdapter();
       }
       @Override
       public Adapter caseDispatchTriggerCondition(DispatchTriggerCondition object)
@@ -265,6 +325,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createDispatchTriggerLogicalExpressionAdapter();
       }
       @Override
+      public Adapter caseElementHolder(ElementHolder object)
+      {
+        return createElementHolderAdapter();
+      }
+      @Override
       public Adapter caseElementValues(ElementValues object)
       {
         return createElementValuesAdapter();
@@ -275,9 +340,24 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createElseStatementAdapter();
       }
       @Override
+      public Adapter caseEventDataPortHolder(EventDataPortHolder object)
+      {
+        return createEventDataPortHolderAdapter();
+      }
+      @Override
+      public Adapter caseEventPortHolder(EventPortHolder object)
+      {
+        return createEventPortHolderAdapter();
+      }
+      @Override
       public Adapter caseExecuteCondition(ExecuteCondition object)
       {
         return createExecuteConditionAdapter();
+      }
+      @Override
+      public Adapter caseExecutionTimeoutCatch(ExecutionTimeoutCatch object)
+      {
+        return createExecutionTimeoutCatchAdapter();
       }
       @Override
       public Adapter caseFactor(Factor object)
@@ -290,9 +370,29 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createForOrForAllStatementAdapter();
       }
       @Override
+      public Adapter caseGroupableElement(GroupableElement object)
+      {
+        return createGroupableElementAdapter();
+      }
+      @Override
+      public Adapter caseGroupHolder(GroupHolder object)
+      {
+        return createGroupHolderAdapter();
+      }
+      @Override
+      public Adapter caseGroupPrototypeHolder(GroupPrototypeHolder object)
+      {
+        return createGroupPrototypeHolderAdapter();
+      }
+      @Override
       public Adapter caseIfStatement(IfStatement object)
       {
         return createIfStatementAdapter();
+      }
+      @Override
+      public Adapter caseIndexableElement(IndexableElement object)
+      {
+        return createIndexableElementAdapter();
       }
       @Override
       public Adapter caseIntegerRange(IntegerRange object)
@@ -313,6 +413,16 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseIntegerValueVariable(IntegerValueVariable object)
       {
         return createIntegerValueVariableAdapter();
+      }
+      @Override
+      public Adapter caseIterativeVariable(IterativeVariable object)
+      {
+        return createIterativeVariableAdapter();
+      }
+      @Override
+      public Adapter caseIterativeVariableHolder(IterativeVariableHolder object)
+      {
+        return createIterativeVariableHolderAdapter();
       }
       @Override
       public Adapter caseLiteral(Literal object)
@@ -338,6 +448,11 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
       public Adapter caseOtherwise(Otherwise object)
       {
         return createOtherwiseAdapter();
+      }
+      @Override
+      public Adapter caseParameterHolder(ParameterHolder object)
+      {
+        return createParameterHolderAdapter();
       }
       @Override
       public Adapter caseParameterLabel(ParameterLabel object)
@@ -370,9 +485,24 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createPortFreshValueAdapter();
       }
       @Override
+      public Adapter casePortHolder(PortHolder object)
+      {
+        return createPortHolderAdapter();
+      }
+      @Override
+      public Adapter casePortPrototypeHolder(PortPrototypeHolder object)
+      {
+        return createPortPrototypeHolderAdapter();
+      }
+      @Override
       public Adapter casePortSendAction(PortSendAction object)
       {
         return createPortSendActionAdapter();
+      }
+      @Override
+      public Adapter casePrototypeHolder(PrototypeHolder object)
+      {
+        return createPrototypeHolderAdapter();
       }
       @Override
       public Adapter caseRelation(Relation object)
@@ -390,9 +520,34 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createSimpleExpressionAdapter();
       }
       @Override
+      public Adapter caseStructUnionElement(StructUnionElement object)
+      {
+        return createStructUnionElementAdapter();
+      }
+      @Override
+      public Adapter caseStructUnionElementHolder(StructUnionElementHolder object)
+      {
+        return createStructUnionElementHolderAdapter();
+      }
+      @Override
+      public Adapter caseSubprogramAccessHolder(SubprogramAccessHolder object)
+      {
+        return createSubprogramAccessHolderAdapter();
+      }
+      @Override
       public Adapter caseSubprogramCallAction(SubprogramCallAction object)
       {
         return createSubprogramCallActionAdapter();
+      }
+      @Override
+      public Adapter caseSubprogramHolder(SubprogramHolder object)
+      {
+        return createSubprogramHolderAdapter();
+      }
+      @Override
+      public Adapter caseSubprogramPrototypeHolder(SubprogramPrototypeHolder object)
+      {
+        return createSubprogramPrototypeHolderAdapter();
       }
       @Override
       public Adapter caseTarget(Target object)
@@ -440,161 +595,6 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createWhileOrDoUntilStatementAdapter();
       }
       @Override
-      public Adapter caseActualPortHolder(ActualPortHolder object)
-      {
-        return createActualPortHolderAdapter();
-      }
-      @Override
-      public Adapter caseExecutionTimeoutCatch(ExecutionTimeoutCatch object)
-      {
-        return createExecutionTimeoutCatchAdapter();
-      }
-      @Override
-      public Adapter caseDispatchRelativeTimeout(DispatchRelativeTimeout object)
-      {
-        return createDispatchRelativeTimeoutAdapter();
-      }
-      @Override
-      public Adapter caseDataHolder(DataHolder object)
-      {
-        return createDataHolderAdapter();
-      }
-      @Override
-      public Adapter caseSubprogramHolder(SubprogramHolder object)
-      {
-        return createSubprogramHolderAdapter();
-      }
-      @Override
-      public Adapter caseIterativeVariable(IterativeVariable object)
-      {
-        return createIterativeVariableAdapter();
-      }
-      @Override
-      public Adapter caseDataAccessHolder(DataAccessHolder object)
-      {
-        return createDataAccessHolderAdapter();
-      }
-      @Override
-      public Adapter caseDataSubcomponentHolder(DataSubcomponentHolder object)
-      {
-        return createDataSubcomponentHolderAdapter();
-      }
-      @Override
-      public Adapter caseBehaviorVariableHolder(BehaviorVariableHolder object)
-      {
-        return createBehaviorVariableHolderAdapter();
-      }
-      @Override
-      public Adapter caseElementHolder(ElementHolder object)
-      {
-        return createElementHolderAdapter();
-      }
-      @Override
-      public Adapter caseDataPortHolder(DataPortHolder object)
-      {
-        return createDataPortHolderAdapter();
-      }
-      @Override
-      public Adapter caseEventPortHolder(EventPortHolder object)
-      {
-        return createEventPortHolderAdapter();
-      }
-      @Override
-      public Adapter caseEventDataPortHolder(EventDataPortHolder object)
-      {
-        return createEventDataPortHolderAdapter();
-      }
-      @Override
-      public Adapter caseParameterHolder(ParameterHolder object)
-      {
-        return createParameterHolderAdapter();
-      }
-      @Override
-      public Adapter caseSubprogramAccessHolder(SubprogramAccessHolder object)
-      {
-        return createSubprogramAccessHolderAdapter();
-      }
-      @Override
-      public Adapter caseDispatchTrigger(DispatchTrigger object)
-      {
-        return createDispatchTriggerAdapter();
-      }
-      @Override
-      public Adapter caseBehaviorProperty(BehaviorProperty object)
-      {
-        return createBehaviorPropertyAdapter();
-      }
-      @Override
-      public Adapter caseAny(Any object)
-      {
-        return createAnyAdapter();
-      }
-      @Override
-      public Adapter caseGroupHolder(GroupHolder object)
-      {
-        return createGroupHolderAdapter();
-      }
-      @Override
-      public Adapter caseCalledSubprogramHolder(CalledSubprogramHolder object)
-      {
-        return createCalledSubprogramHolderAdapter();
-      }
-      @Override
-      public Adapter caseIndexableElement(IndexableElement object)
-      {
-        return createIndexableElementAdapter();
-      }
-      @Override
-      public Adapter caseGroupableElement(GroupableElement object)
-      {
-        return createGroupableElementAdapter();
-      }
-      @Override
-      public Adapter casePortHolder(PortHolder object)
-      {
-        return createPortHolderAdapter();
-      }
-      @Override
-      public Adapter casePortPrototypeHolder(PortPrototypeHolder object)
-      {
-        return createPortPrototypeHolderAdapter();
-      }
-      @Override
-      public Adapter casePrototypeHolder(PrototypeHolder object)
-      {
-        return createPrototypeHolderAdapter();
-      }
-      @Override
-      public Adapter caseDataAccessPrototypeHolder(DataAccessPrototypeHolder object)
-      {
-        return createDataAccessPrototypeHolderAdapter();
-      }
-      @Override
-      public Adapter caseSubprogramPrototypeHolder(SubprogramPrototypeHolder object)
-      {
-        return createSubprogramPrototypeHolderAdapter();
-      }
-      @Override
-      public Adapter caseGroupPrototypeHolder(GroupPrototypeHolder object)
-      {
-        return createGroupPrototypeHolderAdapter();
-      }
-      @Override
-      public Adapter caseStructUnionElement(StructUnionElement object)
-      {
-        return createStructUnionElementAdapter();
-      }
-      @Override
-      public Adapter caseStructUnionElementHolder(StructUnionElementHolder object)
-      {
-        return createStructUnionElementHolderAdapter();
-      }
-      @Override
-      public Adapter caseIterativeVariableHolder(IterativeVariableHolder object)
-      {
-        return createIterativeVariableHolderAdapter();
-      }
-      @Override
       public Adapter caseElement(Element object)
       {
         return createElementAdapter();
@@ -630,14 +630,14 @@ public class AadlBaAdapterFactory extends AdapterFactoryImpl
         return createBooleanLiteralAdapter();
       }
       @Override
-      public Adapter caseNumberValue(NumberValue object)
-      {
-        return createNumberValueAdapter();
-      }
-      @Override
       public Adapter caseIntegerLiteral(IntegerLiteral object)
       {
         return createIntegerLiteralAdapter();
+      }
+      @Override
+      public Adapter caseNumberValue(NumberValue object)
+      {
+        return createNumberValueAdapter();
       }
       @Override
       public Adapter caseRealLiteral(RealLiteral object)

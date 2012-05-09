@@ -102,6 +102,23 @@ public class AadlBaSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
+      case AadlBaPackage.ACTUAL_PORT_HOLDER:
+      {
+        ActualPortHolder actualPortHolder = (ActualPortHolder)theEObject;
+        T result = caseActualPortHolder(actualPortHolder);
+        if (result == null) result = casePortHolder(actualPortHolder);
+        if (result == null) result = caseIndexableElement(actualPortHolder);
+        if (result == null) result = caseElementHolder(actualPortHolder);
+        if (result == null) result = caseGroupableElement(actualPortHolder);
+        if (result == null) result = caseIntegerValueVariable(actualPortHolder);
+        if (result == null) result = caseValueVariable(actualPortHolder);
+        if (result == null) result = caseValue(actualPortHolder);
+        if (result == null) result = caseIntegerValue(actualPortHolder);
+        if (result == null) result = caseBehaviorElement(actualPortHolder);
+        if (result == null) result = caseElement(actualPortHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.ASSIGNMENT_ACTION:
       {
         AssignmentAction assignmentAction = (AssignmentAction)theEObject;
@@ -111,6 +128,20 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(assignmentAction);
         if (result == null) result = caseBehaviorElement(assignmentAction);
         if (result == null) result = caseElement(assignmentAction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.ANY:
+      {
+        Any any = (Any)theEObject;
+        T result = caseAny(any);
+        if (result == null) result = caseValueExpression(any);
+        if (result == null) result = caseValue(any);
+        if (result == null) result = caseParameterLabel(any);
+        if (result == null) result = caseExecuteCondition(any);
+        if (result == null) result = caseBehaviorCondition(any);
+        if (result == null) result = caseBehaviorElement(any);
+        if (result == null) result = caseElement(any);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -276,6 +307,19 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.BEHAVIOR_PROPERTY:
+      {
+        BehaviorProperty behaviorProperty = (BehaviorProperty)theEObject;
+        T result = caseBehaviorProperty(behaviorProperty);
+        if (result == null) result = caseIntegerValueConstant(behaviorProperty);
+        if (result == null) result = caseValueConstant(behaviorProperty);
+        if (result == null) result = caseValue(behaviorProperty);
+        if (result == null) result = caseIntegerValue(behaviorProperty);
+        if (result == null) result = caseBehaviorElement(behaviorProperty);
+        if (result == null) result = caseElement(behaviorProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT:
       {
         BehaviorPropertyConstant behaviorPropertyConstant = (BehaviorPropertyConstant)theEObject;
@@ -383,6 +427,37 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER:
+      {
+        BehaviorVariableHolder behaviorVariableHolder = (BehaviorVariableHolder)theEObject;
+        T result = caseBehaviorVariableHolder(behaviorVariableHolder);
+        if (result == null) result = caseDataHolder(behaviorVariableHolder);
+        if (result == null) result = caseIndexableElement(behaviorVariableHolder);
+        if (result == null) result = caseTarget(behaviorVariableHolder);
+        if (result == null) result = caseElementValues(behaviorVariableHolder);
+        if (result == null) result = caseElementHolder(behaviorVariableHolder);
+        if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
+        if (result == null) result = caseParameterLabel(behaviorVariableHolder);
+        if (result == null) result = caseIntegerValue(behaviorVariableHolder);
+        if (result == null) result = caseValueVariable(behaviorVariableHolder);
+        if (result == null) result = caseElement(behaviorVariableHolder);
+        if (result == null) result = caseValue(behaviorVariableHolder);
+        if (result == null) result = caseBehaviorElement(behaviorVariableHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER:
+      {
+        CalledSubprogramHolder calledSubprogramHolder = (CalledSubprogramHolder)theEObject;
+        T result = caseCalledSubprogramHolder(calledSubprogramHolder);
+        if (result == null) result = caseElementHolder(calledSubprogramHolder);
+        if (result == null) result = caseIndexableElement(calledSubprogramHolder);
+        if (result == null) result = caseGroupableElement(calledSubprogramHolder);
+        if (result == null) result = caseBehaviorElement(calledSubprogramHolder);
+        if (result == null) result = caseElement(calledSubprogramHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.COMMUNICATION_ACTION:
       {
         CommunicationAction communicationAction = (CommunicationAction)theEObject;
@@ -418,6 +493,46 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.DATA_ACCESS_HOLDER:
+      {
+        DataAccessHolder dataAccessHolder = (DataAccessHolder)theEObject;
+        T result = caseDataAccessHolder(dataAccessHolder);
+        if (result == null) result = caseDataHolder(dataAccessHolder);
+        if (result == null) result = caseGroupableElement(dataAccessHolder);
+        if (result == null) result = caseIndexableElement(dataAccessHolder);
+        if (result == null) result = caseTarget(dataAccessHolder);
+        if (result == null) result = caseElementValues(dataAccessHolder);
+        if (result == null) result = caseElementHolder(dataAccessHolder);
+        if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
+        if (result == null) result = caseParameterLabel(dataAccessHolder);
+        if (result == null) result = caseIntegerValue(dataAccessHolder);
+        if (result == null) result = caseValueVariable(dataAccessHolder);
+        if (result == null) result = caseElement(dataAccessHolder);
+        if (result == null) result = caseValue(dataAccessHolder);
+        if (result == null) result = caseBehaviorElement(dataAccessHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER:
+      {
+        DataAccessPrototypeHolder dataAccessPrototypeHolder = (DataAccessPrototypeHolder)theEObject;
+        T result = caseDataAccessPrototypeHolder(dataAccessPrototypeHolder);
+        if (result == null) result = caseDataHolder(dataAccessPrototypeHolder);
+        if (result == null) result = casePrototypeHolder(dataAccessPrototypeHolder);
+        if (result == null) result = caseIndexableElement(dataAccessPrototypeHolder);
+        if (result == null) result = caseTarget(dataAccessPrototypeHolder);
+        if (result == null) result = caseElementValues(dataAccessPrototypeHolder);
+        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
+        if (result == null) result = caseIntegerValueVariable(dataAccessPrototypeHolder);
+        if (result == null) result = caseParameterLabel(dataAccessPrototypeHolder);
+        if (result == null) result = caseIntegerValue(dataAccessPrototypeHolder);
+        if (result == null) result = caseValueVariable(dataAccessPrototypeHolder);
+        if (result == null) result = caseElement(dataAccessPrototypeHolder);
+        if (result == null) result = caseValue(dataAccessPrototypeHolder);
+        if (result == null) result = caseBehaviorElement(dataAccessPrototypeHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.DATA_COMPONENT_REFERENCE:
       {
         DataComponentReference dataComponentReference = (DataComponentReference)theEObject;
@@ -431,6 +546,60 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseIntegerValue(dataComponentReference);
         if (result == null) result = caseBehaviorElement(dataComponentReference);
         if (result == null) result = caseElement(dataComponentReference);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DATA_HOLDER:
+      {
+        DataHolder dataHolder = (DataHolder)theEObject;
+        T result = caseDataHolder(dataHolder);
+        if (result == null) result = caseElementHolder(dataHolder);
+        if (result == null) result = caseIntegerValueVariable(dataHolder);
+        if (result == null) result = caseIntegerValue(dataHolder);
+        if (result == null) result = caseValueVariable(dataHolder);
+        if (result == null) result = caseElement(dataHolder);
+        if (result == null) result = caseValue(dataHolder);
+        if (result == null) result = caseBehaviorElement(dataHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DATA_PORT_HOLDER:
+      {
+        DataPortHolder dataPortHolder = (DataPortHolder)theEObject;
+        T result = caseDataPortHolder(dataPortHolder);
+        if (result == null) result = caseActualPortHolder(dataPortHolder);
+        if (result == null) result = caseTarget(dataPortHolder);
+        if (result == null) result = casePortHolder(dataPortHolder);
+        if (result == null) result = caseParameterLabel(dataPortHolder);
+        if (result == null) result = caseIndexableElement(dataPortHolder);
+        if (result == null) result = caseElementHolder(dataPortHolder);
+        if (result == null) result = caseGroupableElement(dataPortHolder);
+        if (result == null) result = caseIntegerValueVariable(dataPortHolder);
+        if (result == null) result = caseValueVariable(dataPortHolder);
+        if (result == null) result = caseValue(dataPortHolder);
+        if (result == null) result = caseIntegerValue(dataPortHolder);
+        if (result == null) result = caseBehaviorElement(dataPortHolder);
+        if (result == null) result = caseElement(dataPortHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER:
+      {
+        DataSubcomponentHolder dataSubcomponentHolder = (DataSubcomponentHolder)theEObject;
+        T result = caseDataSubcomponentHolder(dataSubcomponentHolder);
+        if (result == null) result = caseDataHolder(dataSubcomponentHolder);
+        if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
+        if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
+        if (result == null) result = caseTarget(dataSubcomponentHolder);
+        if (result == null) result = caseElementValues(dataSubcomponentHolder);
+        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
+        if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
+        if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
+        if (result == null) result = caseIntegerValue(dataSubcomponentHolder);
+        if (result == null) result = caseValueVariable(dataSubcomponentHolder);
+        if (result == null) result = caseElement(dataSubcomponentHolder);
+        if (result == null) result = caseValue(dataSubcomponentHolder);
+        if (result == null) result = caseBehaviorElement(dataSubcomponentHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -450,6 +619,25 @@ public class AadlBaSwitch<T> extends Switch<T>
         T result = caseDispatchConjunction(dispatchConjunction);
         if (result == null) result = caseBehaviorElement(dispatchConjunction);
         if (result == null) result = caseElement(dispatchConjunction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DISPATCH_RELATIVE_TIMEOUT:
+      {
+        DispatchRelativeTimeout dispatchRelativeTimeout = (DispatchRelativeTimeout)theEObject;
+        T result = caseDispatchRelativeTimeout(dispatchRelativeTimeout);
+        if (result == null) result = caseDispatchTriggerCondition(dispatchRelativeTimeout);
+        if (result == null) result = caseBehaviorElement(dispatchRelativeTimeout);
+        if (result == null) result = caseElement(dispatchRelativeTimeout);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.DISPATCH_TRIGGER:
+      {
+        DispatchTrigger dispatchTrigger = (DispatchTrigger)theEObject;
+        T result = caseDispatchTrigger(dispatchTrigger);
+        if (result == null) result = caseBehaviorElement(dispatchTrigger);
+        if (result == null) result = caseElement(dispatchTrigger);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -482,6 +670,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.ELEMENT_HOLDER:
+      {
+        ElementHolder elementHolder = (ElementHolder)theEObject;
+        T result = caseElementHolder(elementHolder);
+        if (result == null) result = caseBehaviorElement(elementHolder);
+        if (result == null) result = caseElement(elementHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.ELEMENT_VALUES:
       {
         ElementValues elementValues = (ElementValues)theEObject;
@@ -503,6 +700,49 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.EVENT_DATA_PORT_HOLDER:
+      {
+        EventDataPortHolder eventDataPortHolder = (EventDataPortHolder)theEObject;
+        T result = caseEventDataPortHolder(eventDataPortHolder);
+        if (result == null) result = caseActualPortHolder(eventDataPortHolder);
+        if (result == null) result = caseElementValues(eventDataPortHolder);
+        if (result == null) result = caseDispatchTrigger(eventDataPortHolder);
+        if (result == null) result = caseTarget(eventDataPortHolder);
+        if (result == null) result = casePortHolder(eventDataPortHolder);
+        if (result == null) result = caseParameterLabel(eventDataPortHolder);
+        if (result == null) result = caseIndexableElement(eventDataPortHolder);
+        if (result == null) result = caseElementHolder(eventDataPortHolder);
+        if (result == null) result = caseGroupableElement(eventDataPortHolder);
+        if (result == null) result = caseIntegerValueVariable(eventDataPortHolder);
+        if (result == null) result = caseValueVariable(eventDataPortHolder);
+        if (result == null) result = caseValue(eventDataPortHolder);
+        if (result == null) result = caseIntegerValue(eventDataPortHolder);
+        if (result == null) result = caseBehaviorElement(eventDataPortHolder);
+        if (result == null) result = caseElement(eventDataPortHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.EVENT_PORT_HOLDER:
+      {
+        EventPortHolder eventPortHolder = (EventPortHolder)theEObject;
+        T result = caseEventPortHolder(eventPortHolder);
+        if (result == null) result = caseActualPortHolder(eventPortHolder);
+        if (result == null) result = caseDispatchTrigger(eventPortHolder);
+        if (result == null) result = caseTarget(eventPortHolder);
+        if (result == null) result = casePortHolder(eventPortHolder);
+        if (result == null) result = caseParameterLabel(eventPortHolder);
+        if (result == null) result = caseIndexableElement(eventPortHolder);
+        if (result == null) result = caseElementHolder(eventPortHolder);
+        if (result == null) result = caseGroupableElement(eventPortHolder);
+        if (result == null) result = caseIntegerValueVariable(eventPortHolder);
+        if (result == null) result = caseValueVariable(eventPortHolder);
+        if (result == null) result = caseValue(eventPortHolder);
+        if (result == null) result = caseIntegerValue(eventPortHolder);
+        if (result == null) result = caseBehaviorElement(eventPortHolder);
+        if (result == null) result = caseElement(eventPortHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.EXECUTE_CONDITION:
       {
         ExecuteCondition executeCondition = (ExecuteCondition)theEObject;
@@ -510,6 +750,17 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorCondition(executeCondition);
         if (result == null) result = caseBehaviorElement(executeCondition);
         if (result == null) result = caseElement(executeCondition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.EXECUTION_TIMEOUT_CATCH:
+      {
+        ExecutionTimeoutCatch executionTimeoutCatch = (ExecutionTimeoutCatch)theEObject;
+        T result = caseExecutionTimeoutCatch(executionTimeoutCatch);
+        if (result == null) result = caseExecuteCondition(executionTimeoutCatch);
+        if (result == null) result = caseBehaviorCondition(executionTimeoutCatch);
+        if (result == null) result = caseBehaviorElement(executionTimeoutCatch);
+        if (result == null) result = caseElement(executionTimeoutCatch);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -535,6 +786,39 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.GROUPABLE_ELEMENT:
+      {
+        GroupableElement groupableElement = (GroupableElement)theEObject;
+        T result = caseGroupableElement(groupableElement);
+        if (result == null) result = caseBehaviorElement(groupableElement);
+        if (result == null) result = caseElement(groupableElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.GROUP_HOLDER:
+      {
+        GroupHolder groupHolder = (GroupHolder)theEObject;
+        T result = caseGroupHolder(groupHolder);
+        if (result == null) result = caseElementHolder(groupHolder);
+        if (result == null) result = caseIndexableElement(groupHolder);
+        if (result == null) result = caseBehaviorElement(groupHolder);
+        if (result == null) result = caseElement(groupHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER:
+      {
+        GroupPrototypeHolder groupPrototypeHolder = (GroupPrototypeHolder)theEObject;
+        T result = caseGroupPrototypeHolder(groupPrototypeHolder);
+        if (result == null) result = caseGroupHolder(groupPrototypeHolder);
+        if (result == null) result = casePrototypeHolder(groupPrototypeHolder);
+        if (result == null) result = caseElementHolder(groupPrototypeHolder);
+        if (result == null) result = caseIndexableElement(groupPrototypeHolder);
+        if (result == null) result = caseBehaviorElement(groupPrototypeHolder);
+        if (result == null) result = caseElement(groupPrototypeHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.IF_STATEMENT:
       {
         IfStatement ifStatement = (IfStatement)theEObject;
@@ -545,6 +829,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(ifStatement);
         if (result == null) result = caseBehaviorElement(ifStatement);
         if (result == null) result = caseElement(ifStatement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.INDEXABLE_ELEMENT:
+      {
+        IndexableElement indexableElement = (IndexableElement)theEObject;
+        T result = caseIndexableElement(indexableElement);
+        if (result == null) result = caseBehaviorElement(indexableElement);
+        if (result == null) result = caseElement(indexableElement);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -588,6 +881,32 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseValue(integerValueVariable);
         if (result == null) result = caseBehaviorElement(integerValueVariable);
         if (result == null) result = caseElement(integerValueVariable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.ITERATIVE_VARIABLE:
+      {
+        IterativeVariable iterativeVariable = (IterativeVariable)theEObject;
+        T result = caseIterativeVariable(iterativeVariable);
+        if (result == null) result = caseBehaviorNamedElement(iterativeVariable);
+        if (result == null) result = caseNamedElement(iterativeVariable);
+        if (result == null) result = caseBehaviorElement(iterativeVariable);
+        if (result == null) result = caseElement(iterativeVariable);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER:
+      {
+        IterativeVariableHolder iterativeVariableHolder = (IterativeVariableHolder)theEObject;
+        T result = caseIterativeVariableHolder(iterativeVariableHolder);
+        if (result == null) result = caseDataHolder(iterativeVariableHolder);
+        if (result == null) result = caseElementHolder(iterativeVariableHolder);
+        if (result == null) result = caseIntegerValueVariable(iterativeVariableHolder);
+        if (result == null) result = caseIntegerValue(iterativeVariableHolder);
+        if (result == null) result = caseValueVariable(iterativeVariableHolder);
+        if (result == null) result = caseElement(iterativeVariableHolder);
+        if (result == null) result = caseValue(iterativeVariableHolder);
+        if (result == null) result = caseBehaviorElement(iterativeVariableHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -655,6 +974,26 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorCondition(otherwise);
         if (result == null) result = caseBehaviorElement(otherwise);
         if (result == null) result = caseElement(otherwise);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PARAMETER_HOLDER:
+      {
+        ParameterHolder parameterHolder = (ParameterHolder)theEObject;
+        T result = caseParameterHolder(parameterHolder);
+        if (result == null) result = caseDataHolder(parameterHolder);
+        if (result == null) result = caseGroupableElement(parameterHolder);
+        if (result == null) result = caseIndexableElement(parameterHolder);
+        if (result == null) result = caseTarget(parameterHolder);
+        if (result == null) result = caseElementValues(parameterHolder);
+        if (result == null) result = caseElementHolder(parameterHolder);
+        if (result == null) result = caseIntegerValueVariable(parameterHolder);
+        if (result == null) result = caseParameterLabel(parameterHolder);
+        if (result == null) result = caseIntegerValue(parameterHolder);
+        if (result == null) result = caseValueVariable(parameterHolder);
+        if (result == null) result = caseElement(parameterHolder);
+        if (result == null) result = caseValue(parameterHolder);
+        if (result == null) result = caseBehaviorElement(parameterHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -756,6 +1095,42 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.PORT_HOLDER:
+      {
+        PortHolder portHolder = (PortHolder)theEObject;
+        T result = casePortHolder(portHolder);
+        if (result == null) result = caseIndexableElement(portHolder);
+        if (result == null) result = caseElementHolder(portHolder);
+        if (result == null) result = caseGroupableElement(portHolder);
+        if (result == null) result = caseIntegerValueVariable(portHolder);
+        if (result == null) result = caseValueVariable(portHolder);
+        if (result == null) result = caseValue(portHolder);
+        if (result == null) result = caseIntegerValue(portHolder);
+        if (result == null) result = caseBehaviorElement(portHolder);
+        if (result == null) result = caseElement(portHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PORT_PROTOTYPE_HOLDER:
+      {
+        PortPrototypeHolder portPrototypeHolder = (PortPrototypeHolder)theEObject;
+        T result = casePortPrototypeHolder(portPrototypeHolder);
+        if (result == null) result = casePortHolder(portPrototypeHolder);
+        if (result == null) result = casePrototypeHolder(portPrototypeHolder);
+        if (result == null) result = caseTarget(portPrototypeHolder);
+        if (result == null) result = caseIndexableElement(portPrototypeHolder);
+        if (result == null) result = caseElementHolder(portPrototypeHolder);
+        if (result == null) result = caseGroupableElement(portPrototypeHolder);
+        if (result == null) result = caseIntegerValueVariable(portPrototypeHolder);
+        if (result == null) result = caseParameterLabel(portPrototypeHolder);
+        if (result == null) result = caseValueVariable(portPrototypeHolder);
+        if (result == null) result = caseValue(portPrototypeHolder);
+        if (result == null) result = caseIntegerValue(portPrototypeHolder);
+        if (result == null) result = caseBehaviorElement(portPrototypeHolder);
+        if (result == null) result = caseElement(portPrototypeHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.PORT_SEND_ACTION:
       {
         PortSendAction portSendAction = (PortSendAction)theEObject;
@@ -766,6 +1141,15 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(portSendAction);
         if (result == null) result = caseBehaviorElement(portSendAction);
         if (result == null) result = caseElement(portSendAction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.PROTOTYPE_HOLDER:
+      {
+        PrototypeHolder prototypeHolder = (PrototypeHolder)theEObject;
+        T result = casePrototypeHolder(prototypeHolder);
+        if (result == null) result = caseBehaviorElement(prototypeHolder);
+        if (result == null) result = caseElement(prototypeHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -800,6 +1184,50 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case AadlBaPackage.STRUCT_UNION_ELEMENT:
+      {
+        StructUnionElement structUnionElement = (StructUnionElement)theEObject;
+        T result = caseStructUnionElement(structUnionElement);
+        if (result == null) result = caseBehaviorNamedElement(structUnionElement);
+        if (result == null) result = caseNamedElement(structUnionElement);
+        if (result == null) result = caseBehaviorElement(structUnionElement);
+        if (result == null) result = caseElement(structUnionElement);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER:
+      {
+        StructUnionElementHolder structUnionElementHolder = (StructUnionElementHolder)theEObject;
+        T result = caseStructUnionElementHolder(structUnionElementHolder);
+        if (result == null) result = caseDataHolder(structUnionElementHolder);
+        if (result == null) result = caseIndexableElement(structUnionElementHolder);
+        if (result == null) result = caseTarget(structUnionElementHolder);
+        if (result == null) result = caseElementValues(structUnionElementHolder);
+        if (result == null) result = caseElementHolder(structUnionElementHolder);
+        if (result == null) result = caseIntegerValueVariable(structUnionElementHolder);
+        if (result == null) result = caseParameterLabel(structUnionElementHolder);
+        if (result == null) result = caseIntegerValue(structUnionElementHolder);
+        if (result == null) result = caseValueVariable(structUnionElementHolder);
+        if (result == null) result = caseElement(structUnionElementHolder);
+        if (result == null) result = caseValue(structUnionElementHolder);
+        if (result == null) result = caseBehaviorElement(structUnionElementHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER:
+      {
+        SubprogramAccessHolder subprogramAccessHolder = (SubprogramAccessHolder)theEObject;
+        T result = caseSubprogramAccessHolder(subprogramAccessHolder);
+        if (result == null) result = caseDispatchTriggerCondition(subprogramAccessHolder);
+        if (result == null) result = caseCalledSubprogramHolder(subprogramAccessHolder);
+        if (result == null) result = caseElementHolder(subprogramAccessHolder);
+        if (result == null) result = caseIndexableElement(subprogramAccessHolder);
+        if (result == null) result = caseGroupableElement(subprogramAccessHolder);
+        if (result == null) result = caseBehaviorElement(subprogramAccessHolder);
+        if (result == null) result = caseElement(subprogramAccessHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case AadlBaPackage.SUBPROGRAM_CALL_ACTION:
       {
         SubprogramCallAction subprogramCallAction = (SubprogramCallAction)theEObject;
@@ -810,6 +1238,33 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(subprogramCallAction);
         if (result == null) result = caseBehaviorElement(subprogramCallAction);
         if (result == null) result = caseElement(subprogramCallAction);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.SUBPROGRAM_HOLDER:
+      {
+        SubprogramHolder subprogramHolder = (SubprogramHolder)theEObject;
+        T result = caseSubprogramHolder(subprogramHolder);
+        if (result == null) result = caseCalledSubprogramHolder(subprogramHolder);
+        if (result == null) result = caseElementHolder(subprogramHolder);
+        if (result == null) result = caseIndexableElement(subprogramHolder);
+        if (result == null) result = caseGroupableElement(subprogramHolder);
+        if (result == null) result = caseBehaviorElement(subprogramHolder);
+        if (result == null) result = caseElement(subprogramHolder);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER:
+      {
+        SubprogramPrototypeHolder subprogramPrototypeHolder = (SubprogramPrototypeHolder)theEObject;
+        T result = caseSubprogramPrototypeHolder(subprogramPrototypeHolder);
+        if (result == null) result = caseCalledSubprogramHolder(subprogramPrototypeHolder);
+        if (result == null) result = casePrototypeHolder(subprogramPrototypeHolder);
+        if (result == null) result = caseElementHolder(subprogramPrototypeHolder);
+        if (result == null) result = caseIndexableElement(subprogramPrototypeHolder);
+        if (result == null) result = caseGroupableElement(subprogramPrototypeHolder);
+        if (result == null) result = caseBehaviorElement(subprogramPrototypeHolder);
+        if (result == null) result = caseElement(subprogramPrototypeHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -910,461 +1365,6 @@ public class AadlBaSwitch<T> extends Switch<T>
         if (result == null) result = caseBehaviorActions(whileOrDoUntilStatement);
         if (result == null) result = caseBehaviorElement(whileOrDoUntilStatement);
         if (result == null) result = caseElement(whileOrDoUntilStatement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.ACTUAL_PORT_HOLDER:
-      {
-        ActualPortHolder actualPortHolder = (ActualPortHolder)theEObject;
-        T result = caseActualPortHolder(actualPortHolder);
-        if (result == null) result = casePortHolder(actualPortHolder);
-        if (result == null) result = caseIndexableElement(actualPortHolder);
-        if (result == null) result = caseElementHolder(actualPortHolder);
-        if (result == null) result = caseGroupableElement(actualPortHolder);
-        if (result == null) result = caseIntegerValueVariable(actualPortHolder);
-        if (result == null) result = caseValueVariable(actualPortHolder);
-        if (result == null) result = caseValue(actualPortHolder);
-        if (result == null) result = caseIntegerValue(actualPortHolder);
-        if (result == null) result = caseBehaviorElement(actualPortHolder);
-        if (result == null) result = caseElement(actualPortHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.EXECUTION_TIMEOUT_CATCH:
-      {
-        ExecutionTimeoutCatch executionTimeoutCatch = (ExecutionTimeoutCatch)theEObject;
-        T result = caseExecutionTimeoutCatch(executionTimeoutCatch);
-        if (result == null) result = caseExecuteCondition(executionTimeoutCatch);
-        if (result == null) result = caseBehaviorCondition(executionTimeoutCatch);
-        if (result == null) result = caseBehaviorElement(executionTimeoutCatch);
-        if (result == null) result = caseElement(executionTimeoutCatch);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DISPATCH_RELATIVE_TIMEOUT:
-      {
-        DispatchRelativeTimeout dispatchRelativeTimeout = (DispatchRelativeTimeout)theEObject;
-        T result = caseDispatchRelativeTimeout(dispatchRelativeTimeout);
-        if (result == null) result = caseDispatchTriggerCondition(dispatchRelativeTimeout);
-        if (result == null) result = caseBehaviorElement(dispatchRelativeTimeout);
-        if (result == null) result = caseElement(dispatchRelativeTimeout);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DATA_HOLDER:
-      {
-        DataHolder dataHolder = (DataHolder)theEObject;
-        T result = caseDataHolder(dataHolder);
-        if (result == null) result = caseElementHolder(dataHolder);
-        if (result == null) result = caseIntegerValueVariable(dataHolder);
-        if (result == null) result = caseIntegerValue(dataHolder);
-        if (result == null) result = caseValueVariable(dataHolder);
-        if (result == null) result = caseElement(dataHolder);
-        if (result == null) result = caseValue(dataHolder);
-        if (result == null) result = caseBehaviorElement(dataHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.SUBPROGRAM_HOLDER:
-      {
-        SubprogramHolder subprogramHolder = (SubprogramHolder)theEObject;
-        T result = caseSubprogramHolder(subprogramHolder);
-        if (result == null) result = caseCalledSubprogramHolder(subprogramHolder);
-        if (result == null) result = caseElementHolder(subprogramHolder);
-        if (result == null) result = caseIndexableElement(subprogramHolder);
-        if (result == null) result = caseGroupableElement(subprogramHolder);
-        if (result == null) result = caseBehaviorElement(subprogramHolder);
-        if (result == null) result = caseElement(subprogramHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.ITERATIVE_VARIABLE:
-      {
-        IterativeVariable iterativeVariable = (IterativeVariable)theEObject;
-        T result = caseIterativeVariable(iterativeVariable);
-        if (result == null) result = caseBehaviorNamedElement(iterativeVariable);
-        if (result == null) result = caseNamedElement(iterativeVariable);
-        if (result == null) result = caseBehaviorElement(iterativeVariable);
-        if (result == null) result = caseElement(iterativeVariable);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DATA_ACCESS_HOLDER:
-      {
-        DataAccessHolder dataAccessHolder = (DataAccessHolder)theEObject;
-        T result = caseDataAccessHolder(dataAccessHolder);
-        if (result == null) result = caseDataHolder(dataAccessHolder);
-        if (result == null) result = caseGroupableElement(dataAccessHolder);
-        if (result == null) result = caseIndexableElement(dataAccessHolder);
-        if (result == null) result = caseTarget(dataAccessHolder);
-        if (result == null) result = caseElementValues(dataAccessHolder);
-        if (result == null) result = caseElementHolder(dataAccessHolder);
-        if (result == null) result = caseIntegerValueVariable(dataAccessHolder);
-        if (result == null) result = caseParameterLabel(dataAccessHolder);
-        if (result == null) result = caseIntegerValue(dataAccessHolder);
-        if (result == null) result = caseValueVariable(dataAccessHolder);
-        if (result == null) result = caseElement(dataAccessHolder);
-        if (result == null) result = caseValue(dataAccessHolder);
-        if (result == null) result = caseBehaviorElement(dataAccessHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DATA_SUBCOMPONENT_HOLDER:
-      {
-        DataSubcomponentHolder dataSubcomponentHolder = (DataSubcomponentHolder)theEObject;
-        T result = caseDataSubcomponentHolder(dataSubcomponentHolder);
-        if (result == null) result = caseDataHolder(dataSubcomponentHolder);
-        if (result == null) result = caseGroupableElement(dataSubcomponentHolder);
-        if (result == null) result = caseIndexableElement(dataSubcomponentHolder);
-        if (result == null) result = caseTarget(dataSubcomponentHolder);
-        if (result == null) result = caseElementValues(dataSubcomponentHolder);
-        if (result == null) result = caseElementHolder(dataSubcomponentHolder);
-        if (result == null) result = caseIntegerValueVariable(dataSubcomponentHolder);
-        if (result == null) result = caseParameterLabel(dataSubcomponentHolder);
-        if (result == null) result = caseIntegerValue(dataSubcomponentHolder);
-        if (result == null) result = caseValueVariable(dataSubcomponentHolder);
-        if (result == null) result = caseElement(dataSubcomponentHolder);
-        if (result == null) result = caseValue(dataSubcomponentHolder);
-        if (result == null) result = caseBehaviorElement(dataSubcomponentHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.BEHAVIOR_VARIABLE_HOLDER:
-      {
-        BehaviorVariableHolder behaviorVariableHolder = (BehaviorVariableHolder)theEObject;
-        T result = caseBehaviorVariableHolder(behaviorVariableHolder);
-        if (result == null) result = caseDataHolder(behaviorVariableHolder);
-        if (result == null) result = caseIndexableElement(behaviorVariableHolder);
-        if (result == null) result = caseTarget(behaviorVariableHolder);
-        if (result == null) result = caseElementValues(behaviorVariableHolder);
-        if (result == null) result = caseElementHolder(behaviorVariableHolder);
-        if (result == null) result = caseIntegerValueVariable(behaviorVariableHolder);
-        if (result == null) result = caseParameterLabel(behaviorVariableHolder);
-        if (result == null) result = caseIntegerValue(behaviorVariableHolder);
-        if (result == null) result = caseValueVariable(behaviorVariableHolder);
-        if (result == null) result = caseElement(behaviorVariableHolder);
-        if (result == null) result = caseValue(behaviorVariableHolder);
-        if (result == null) result = caseBehaviorElement(behaviorVariableHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.ELEMENT_HOLDER:
-      {
-        ElementHolder elementHolder = (ElementHolder)theEObject;
-        T result = caseElementHolder(elementHolder);
-        if (result == null) result = caseBehaviorElement(elementHolder);
-        if (result == null) result = caseElement(elementHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DATA_PORT_HOLDER:
-      {
-        DataPortHolder dataPortHolder = (DataPortHolder)theEObject;
-        T result = caseDataPortHolder(dataPortHolder);
-        if (result == null) result = caseActualPortHolder(dataPortHolder);
-        if (result == null) result = caseTarget(dataPortHolder);
-        if (result == null) result = casePortHolder(dataPortHolder);
-        if (result == null) result = caseParameterLabel(dataPortHolder);
-        if (result == null) result = caseIndexableElement(dataPortHolder);
-        if (result == null) result = caseElementHolder(dataPortHolder);
-        if (result == null) result = caseGroupableElement(dataPortHolder);
-        if (result == null) result = caseIntegerValueVariable(dataPortHolder);
-        if (result == null) result = caseValueVariable(dataPortHolder);
-        if (result == null) result = caseValue(dataPortHolder);
-        if (result == null) result = caseIntegerValue(dataPortHolder);
-        if (result == null) result = caseBehaviorElement(dataPortHolder);
-        if (result == null) result = caseElement(dataPortHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.EVENT_PORT_HOLDER:
-      {
-        EventPortHolder eventPortHolder = (EventPortHolder)theEObject;
-        T result = caseEventPortHolder(eventPortHolder);
-        if (result == null) result = caseActualPortHolder(eventPortHolder);
-        if (result == null) result = caseDispatchTrigger(eventPortHolder);
-        if (result == null) result = caseTarget(eventPortHolder);
-        if (result == null) result = casePortHolder(eventPortHolder);
-        if (result == null) result = caseParameterLabel(eventPortHolder);
-        if (result == null) result = caseIndexableElement(eventPortHolder);
-        if (result == null) result = caseElementHolder(eventPortHolder);
-        if (result == null) result = caseGroupableElement(eventPortHolder);
-        if (result == null) result = caseIntegerValueVariable(eventPortHolder);
-        if (result == null) result = caseValueVariable(eventPortHolder);
-        if (result == null) result = caseValue(eventPortHolder);
-        if (result == null) result = caseIntegerValue(eventPortHolder);
-        if (result == null) result = caseBehaviorElement(eventPortHolder);
-        if (result == null) result = caseElement(eventPortHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.EVENT_DATA_PORT_HOLDER:
-      {
-        EventDataPortHolder eventDataPortHolder = (EventDataPortHolder)theEObject;
-        T result = caseEventDataPortHolder(eventDataPortHolder);
-        if (result == null) result = caseActualPortHolder(eventDataPortHolder);
-        if (result == null) result = caseElementValues(eventDataPortHolder);
-        if (result == null) result = caseDispatchTrigger(eventDataPortHolder);
-        if (result == null) result = caseTarget(eventDataPortHolder);
-        if (result == null) result = casePortHolder(eventDataPortHolder);
-        if (result == null) result = caseParameterLabel(eventDataPortHolder);
-        if (result == null) result = caseIndexableElement(eventDataPortHolder);
-        if (result == null) result = caseElementHolder(eventDataPortHolder);
-        if (result == null) result = caseGroupableElement(eventDataPortHolder);
-        if (result == null) result = caseIntegerValueVariable(eventDataPortHolder);
-        if (result == null) result = caseValueVariable(eventDataPortHolder);
-        if (result == null) result = caseValue(eventDataPortHolder);
-        if (result == null) result = caseIntegerValue(eventDataPortHolder);
-        if (result == null) result = caseBehaviorElement(eventDataPortHolder);
-        if (result == null) result = caseElement(eventDataPortHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PARAMETER_HOLDER:
-      {
-        ParameterHolder parameterHolder = (ParameterHolder)theEObject;
-        T result = caseParameterHolder(parameterHolder);
-        if (result == null) result = caseDataHolder(parameterHolder);
-        if (result == null) result = caseGroupableElement(parameterHolder);
-        if (result == null) result = caseIndexableElement(parameterHolder);
-        if (result == null) result = caseTarget(parameterHolder);
-        if (result == null) result = caseElementValues(parameterHolder);
-        if (result == null) result = caseElementHolder(parameterHolder);
-        if (result == null) result = caseIntegerValueVariable(parameterHolder);
-        if (result == null) result = caseParameterLabel(parameterHolder);
-        if (result == null) result = caseIntegerValue(parameterHolder);
-        if (result == null) result = caseValueVariable(parameterHolder);
-        if (result == null) result = caseElement(parameterHolder);
-        if (result == null) result = caseValue(parameterHolder);
-        if (result == null) result = caseBehaviorElement(parameterHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.SUBPROGRAM_ACCESS_HOLDER:
-      {
-        SubprogramAccessHolder subprogramAccessHolder = (SubprogramAccessHolder)theEObject;
-        T result = caseSubprogramAccessHolder(subprogramAccessHolder);
-        if (result == null) result = caseDispatchTriggerCondition(subprogramAccessHolder);
-        if (result == null) result = caseCalledSubprogramHolder(subprogramAccessHolder);
-        if (result == null) result = caseElementHolder(subprogramAccessHolder);
-        if (result == null) result = caseIndexableElement(subprogramAccessHolder);
-        if (result == null) result = caseGroupableElement(subprogramAccessHolder);
-        if (result == null) result = caseBehaviorElement(subprogramAccessHolder);
-        if (result == null) result = caseElement(subprogramAccessHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DISPATCH_TRIGGER:
-      {
-        DispatchTrigger dispatchTrigger = (DispatchTrigger)theEObject;
-        T result = caseDispatchTrigger(dispatchTrigger);
-        if (result == null) result = caseBehaviorElement(dispatchTrigger);
-        if (result == null) result = caseElement(dispatchTrigger);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.BEHAVIOR_PROPERTY:
-      {
-        BehaviorProperty behaviorProperty = (BehaviorProperty)theEObject;
-        T result = caseBehaviorProperty(behaviorProperty);
-        if (result == null) result = caseIntegerValueConstant(behaviorProperty);
-        if (result == null) result = caseValueConstant(behaviorProperty);
-        if (result == null) result = caseValue(behaviorProperty);
-        if (result == null) result = caseIntegerValue(behaviorProperty);
-        if (result == null) result = caseBehaviorElement(behaviorProperty);
-        if (result == null) result = caseElement(behaviorProperty);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.ANY:
-      {
-        Any any = (Any)theEObject;
-        T result = caseAny(any);
-        if (result == null) result = caseValueExpression(any);
-        if (result == null) result = caseValue(any);
-        if (result == null) result = caseParameterLabel(any);
-        if (result == null) result = caseExecuteCondition(any);
-        if (result == null) result = caseBehaviorCondition(any);
-        if (result == null) result = caseBehaviorElement(any);
-        if (result == null) result = caseElement(any);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.GROUP_HOLDER:
-      {
-        GroupHolder groupHolder = (GroupHolder)theEObject;
-        T result = caseGroupHolder(groupHolder);
-        if (result == null) result = caseElementHolder(groupHolder);
-        if (result == null) result = caseIndexableElement(groupHolder);
-        if (result == null) result = caseBehaviorElement(groupHolder);
-        if (result == null) result = caseElement(groupHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER:
-      {
-        CalledSubprogramHolder calledSubprogramHolder = (CalledSubprogramHolder)theEObject;
-        T result = caseCalledSubprogramHolder(calledSubprogramHolder);
-        if (result == null) result = caseElementHolder(calledSubprogramHolder);
-        if (result == null) result = caseIndexableElement(calledSubprogramHolder);
-        if (result == null) result = caseGroupableElement(calledSubprogramHolder);
-        if (result == null) result = caseBehaviorElement(calledSubprogramHolder);
-        if (result == null) result = caseElement(calledSubprogramHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.INDEXABLE_ELEMENT:
-      {
-        IndexableElement indexableElement = (IndexableElement)theEObject;
-        T result = caseIndexableElement(indexableElement);
-        if (result == null) result = caseBehaviorElement(indexableElement);
-        if (result == null) result = caseElement(indexableElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.GROUPABLE_ELEMENT:
-      {
-        GroupableElement groupableElement = (GroupableElement)theEObject;
-        T result = caseGroupableElement(groupableElement);
-        if (result == null) result = caseBehaviorElement(groupableElement);
-        if (result == null) result = caseElement(groupableElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PORT_HOLDER:
-      {
-        PortHolder portHolder = (PortHolder)theEObject;
-        T result = casePortHolder(portHolder);
-        if (result == null) result = caseIndexableElement(portHolder);
-        if (result == null) result = caseElementHolder(portHolder);
-        if (result == null) result = caseGroupableElement(portHolder);
-        if (result == null) result = caseIntegerValueVariable(portHolder);
-        if (result == null) result = caseValueVariable(portHolder);
-        if (result == null) result = caseValue(portHolder);
-        if (result == null) result = caseIntegerValue(portHolder);
-        if (result == null) result = caseBehaviorElement(portHolder);
-        if (result == null) result = caseElement(portHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PORT_PROTOTYPE_HOLDER:
-      {
-        PortPrototypeHolder portPrototypeHolder = (PortPrototypeHolder)theEObject;
-        T result = casePortPrototypeHolder(portPrototypeHolder);
-        if (result == null) result = casePortHolder(portPrototypeHolder);
-        if (result == null) result = casePrototypeHolder(portPrototypeHolder);
-        if (result == null) result = caseTarget(portPrototypeHolder);
-        if (result == null) result = caseIndexableElement(portPrototypeHolder);
-        if (result == null) result = caseElementHolder(portPrototypeHolder);
-        if (result == null) result = caseGroupableElement(portPrototypeHolder);
-        if (result == null) result = caseIntegerValueVariable(portPrototypeHolder);
-        if (result == null) result = caseParameterLabel(portPrototypeHolder);
-        if (result == null) result = caseValueVariable(portPrototypeHolder);
-        if (result == null) result = caseValue(portPrototypeHolder);
-        if (result == null) result = caseIntegerValue(portPrototypeHolder);
-        if (result == null) result = caseBehaviorElement(portPrototypeHolder);
-        if (result == null) result = caseElement(portPrototypeHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.PROTOTYPE_HOLDER:
-      {
-        PrototypeHolder prototypeHolder = (PrototypeHolder)theEObject;
-        T result = casePrototypeHolder(prototypeHolder);
-        if (result == null) result = caseBehaviorElement(prototypeHolder);
-        if (result == null) result = caseElement(prototypeHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.DATA_ACCESS_PROTOTYPE_HOLDER:
-      {
-        DataAccessPrototypeHolder dataAccessPrototypeHolder = (DataAccessPrototypeHolder)theEObject;
-        T result = caseDataAccessPrototypeHolder(dataAccessPrototypeHolder);
-        if (result == null) result = caseDataHolder(dataAccessPrototypeHolder);
-        if (result == null) result = casePrototypeHolder(dataAccessPrototypeHolder);
-        if (result == null) result = caseIndexableElement(dataAccessPrototypeHolder);
-        if (result == null) result = caseTarget(dataAccessPrototypeHolder);
-        if (result == null) result = caseElementValues(dataAccessPrototypeHolder);
-        if (result == null) result = caseElementHolder(dataAccessPrototypeHolder);
-        if (result == null) result = caseIntegerValueVariable(dataAccessPrototypeHolder);
-        if (result == null) result = caseParameterLabel(dataAccessPrototypeHolder);
-        if (result == null) result = caseIntegerValue(dataAccessPrototypeHolder);
-        if (result == null) result = caseValueVariable(dataAccessPrototypeHolder);
-        if (result == null) result = caseElement(dataAccessPrototypeHolder);
-        if (result == null) result = caseValue(dataAccessPrototypeHolder);
-        if (result == null) result = caseBehaviorElement(dataAccessPrototypeHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.SUBPROGRAM_PROTOTYPE_HOLDER:
-      {
-        SubprogramPrototypeHolder subprogramPrototypeHolder = (SubprogramPrototypeHolder)theEObject;
-        T result = caseSubprogramPrototypeHolder(subprogramPrototypeHolder);
-        if (result == null) result = caseCalledSubprogramHolder(subprogramPrototypeHolder);
-        if (result == null) result = casePrototypeHolder(subprogramPrototypeHolder);
-        if (result == null) result = caseElementHolder(subprogramPrototypeHolder);
-        if (result == null) result = caseIndexableElement(subprogramPrototypeHolder);
-        if (result == null) result = caseGroupableElement(subprogramPrototypeHolder);
-        if (result == null) result = caseBehaviorElement(subprogramPrototypeHolder);
-        if (result == null) result = caseElement(subprogramPrototypeHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.GROUP_PROTOTYPE_HOLDER:
-      {
-        GroupPrototypeHolder groupPrototypeHolder = (GroupPrototypeHolder)theEObject;
-        T result = caseGroupPrototypeHolder(groupPrototypeHolder);
-        if (result == null) result = caseGroupHolder(groupPrototypeHolder);
-        if (result == null) result = casePrototypeHolder(groupPrototypeHolder);
-        if (result == null) result = caseElementHolder(groupPrototypeHolder);
-        if (result == null) result = caseIndexableElement(groupPrototypeHolder);
-        if (result == null) result = caseBehaviorElement(groupPrototypeHolder);
-        if (result == null) result = caseElement(groupPrototypeHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.STRUCT_UNION_ELEMENT:
-      {
-        StructUnionElement structUnionElement = (StructUnionElement)theEObject;
-        T result = caseStructUnionElement(structUnionElement);
-        if (result == null) result = caseBehaviorNamedElement(structUnionElement);
-        if (result == null) result = caseNamedElement(structUnionElement);
-        if (result == null) result = caseBehaviorElement(structUnionElement);
-        if (result == null) result = caseElement(structUnionElement);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER:
-      {
-        StructUnionElementHolder structUnionElementHolder = (StructUnionElementHolder)theEObject;
-        T result = caseStructUnionElementHolder(structUnionElementHolder);
-        if (result == null) result = caseDataHolder(structUnionElementHolder);
-        if (result == null) result = caseIndexableElement(structUnionElementHolder);
-        if (result == null) result = caseTarget(structUnionElementHolder);
-        if (result == null) result = caseElementValues(structUnionElementHolder);
-        if (result == null) result = caseElementHolder(structUnionElementHolder);
-        if (result == null) result = caseIntegerValueVariable(structUnionElementHolder);
-        if (result == null) result = caseParameterLabel(structUnionElementHolder);
-        if (result == null) result = caseIntegerValue(structUnionElementHolder);
-        if (result == null) result = caseValueVariable(structUnionElementHolder);
-        if (result == null) result = caseElement(structUnionElementHolder);
-        if (result == null) result = caseValue(structUnionElementHolder);
-        if (result == null) result = caseBehaviorElement(structUnionElementHolder);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case AadlBaPackage.ITERATIVE_VARIABLE_HOLDER:
-      {
-        IterativeVariableHolder iterativeVariableHolder = (IterativeVariableHolder)theEObject;
-        T result = caseIterativeVariableHolder(iterativeVariableHolder);
-        if (result == null) result = caseDataHolder(iterativeVariableHolder);
-        if (result == null) result = caseElementHolder(iterativeVariableHolder);
-        if (result == null) result = caseIntegerValueVariable(iterativeVariableHolder);
-        if (result == null) result = caseIntegerValue(iterativeVariableHolder);
-        if (result == null) result = caseValueVariable(iterativeVariableHolder);
-        if (result == null) result = caseElement(iterativeVariableHolder);
-        if (result == null) result = caseValue(iterativeVariableHolder);
-        if (result == null) result = caseBehaviorElement(iterativeVariableHolder);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }

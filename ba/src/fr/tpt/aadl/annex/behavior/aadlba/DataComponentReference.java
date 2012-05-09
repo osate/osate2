@@ -50,7 +50,7 @@ public interface DataComponentReference extends ElementValues, Target, ValueVari
    * <!-- end-user-doc -->
    * @return the value of the '<em>Data</em>' containment reference list.
    * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDataComponentReference_Data()
-   * @model containment="true" required="true"
+   * @model containment="true" lower="2"
    * @generated
    */
   EList<DataHolder> getData();
