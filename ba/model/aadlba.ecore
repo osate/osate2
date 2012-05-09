@@ -4,12 +4,26 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadlba"
     nsURI="https://eve.enst.fr/svn/aadl-eclipse-dev/aadlba/trunk/fr.tpt.aadl.annex.behavior/aadlba"
     nsPrefix="aadlba">
+  <eClassifiers xsi:type="ecore:EClass" name="ActualPortHolder" abstract="true" eSuperTypes="#//PortHolder">
+    <eOperations name="setPort" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = port ;"/>
+      </eAnnotations>
+      <eParameters name="port" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Port"/>
+    </eOperations>
+    <eOperations name="getPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Port">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Port) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="AssignmentAction" eSuperTypes="#//BasicAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" lowerBound="1"
         eType="#//Target" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" lowerBound="1"
         eType="#//ValueExpression" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Any" eSuperTypes="#//ValueExpression"/>
   <eClassifiers xsi:type="ecore:EClass" name="BasicAction" abstract="true" interface="true"
       eSuperTypes="#//BehaviorAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorAction" abstract="true" interface="true"
@@ -65,6 +79,10 @@
       <details key="documentation" value="A named element is an element in a model that may have a name."/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorProperty" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorPropertyConstant" eSuperTypes="#//BehaviorProperty">
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyConstant"/>
@@ -108,6 +126,19 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
+    <eOperations name="setVariable" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = variable ;"/>
+      </eAnnotations>
+      <eParameters name="variable" lowerBound="1" eType="#//BehaviorVariable"/>
+    </eOperations>
+    <eOperations name="getBehaviorVariable" lowerBound="1" eType="#//BehaviorVariable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (BehaviorVariable) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="BinaryAddingOperator">
     <eLiterals name="None" literal="None"/>
     <eLiterals name="Plus" value="1" literal="+"/>
@@ -122,6 +153,7 @@
       <details key="documentation" value="A Boolean type is used for logical expression, consisting of the predefined values true and false."/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogramHolder" eSuperTypes="#//ElementHolder #//IndexableElement #//GroupableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="CommunicationAction" abstract="true"
       interface="true" eSuperTypes="#//BasicAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="CompletionRelativeTimeout" eSuperTypes="#//BehaviorTime #//DispatchRelativeTimeout"/>
@@ -130,9 +162,37 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="behaviorActions" lowerBound="1"
         eType="#//BehaviorActions" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccessHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
+    <eOperations name="setDataAccess" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = dataAccess ;"/>
+      </eAnnotations>
+      <eParameters name="dataAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataAccess"/>
+    </eOperations>
+    <eOperations name="getDataAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataAccess">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (DataAccess) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataComponentReference" eSuperTypes="#//ElementValues #//Target #//ValueVariable #//IntegerValueVariable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="1" upperBound="-1"
         eType="#//DataHolder" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataHolder" abstract="true" eSuperTypes="#//ElementHolder #//IntegerValueVariable #//ValueVariable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataPortHolder" eSuperTypes="#//ActualPortHolder #//Target">
+    <eOperations name="setDataPort" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = dataPort ;"/>
+      </eAnnotations>
+      <eParameters name="dataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataPort"/>
+    </eOperations>
+    <eOperations name="getDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataPort">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (DataPort) element;"/>
+      </eAnnotations>
+    </eOperations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="DataRepresentation">
     <eLiterals name="Unknown" literal="unknown"/>
@@ -147,6 +207,19 @@
     <eLiterals name="Struct" value="9" literal="structure"/>
     <eLiterals name="Union" value="10" literal="union"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
+    <eOperations name="setDataSubcomponent" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = dataSubcomponent ;"/>
+      </eAnnotations>
+      <eParameters name="dataSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataSubcomponent"/>
+    </eOperations>
+    <eOperations name="getDataSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataSubcomponent">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (DataSubcomponent) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DispatchCondition" eSuperTypes="#//BehaviorCondition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dispatchTriggerCondition"
         eType="#//DispatchTriggerCondition" containment="true"/>
@@ -157,6 +230,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dispatchTriggers" lowerBound="1"
         upperBound="-1" eType="#//DispatchTrigger" unsettable="true" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchRelativeTimeout" eSuperTypes="#//DispatchTriggerCondition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DispatchTrigger" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DispatchTriggerCondition" abstract="true"
       interface="true" eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DispatchTriggerConditionStop" eSuperTypes="#//DispatchTriggerCondition"/>
@@ -164,11 +240,43 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dispatchConjunctions" lowerBound="1"
         upperBound="-1" eType="#//DispatchConjunction" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ElementHolder" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="element" unique="false"
+        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ElementValues" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ElseStatement" eSuperTypes="#//CondStatement"/>
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//Target">
+    <eOperations name="setEventDataPort" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = eventDataPort ;"/>
+      </eAnnotations>
+      <eParameters name="eventDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventDataPort"/>
+    </eOperations>
+    <eOperations name="geteventDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventDataPort">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (EventDataPort) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//Target">
+    <eOperations name="setEventPort" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = eventPort ;"/>
+      </eAnnotations>
+      <eParameters name="eventPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventPort"/>
+    </eOperations>
+    <eOperations name="getEventPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventPort">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (EventPort) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ExecuteCondition" abstract="true" interface="true"
       eSuperTypes="#//BehaviorCondition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExecutionTimeoutCatch" eSuperTypes="#//ExecuteCondition"/>
   <eClassifiers xsi:type="ecore:EClass" name="Factor" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="firstValue" lowerBound="1"
         eType="#//Value" containment="true"/>
@@ -253,6 +361,25 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="iterativeVariable" lowerBound="1"
         eType="#//IterativeVariable" containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupableElement" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="groupHolders" upperBound="-1"
+        eType="#//GroupHolder" unsettable="true" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupHolder" eSuperTypes="#//ElementHolder #//IndexableElement">
+    <eOperations name="setGroup" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = group ;"/>
+      </eAnnotations>
+      <eParameters name="group" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+    </eOperations>
+    <eOperations name="getGroup" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GroupPrototypeHolder" eSuperTypes="#//GroupHolder #//PrototypeHolder"/>
   <eClassifiers xsi:type="ecore:EClass" name="IfStatement" eSuperTypes="#//CondStatement #//ElseStatement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="logicalValueExpression"
         lowerBound="1" eType="#//ValueExpression" containment="true"/>
@@ -260,6 +387,11 @@
         defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="elseStatement" eType="#//ElseStatement"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IndexableElement" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayIndexes" upperBound="-1"
+        eType="#//IntegerValue" unsettable="true" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Integer" instanceClassName="int">
     <eAnnotations source="http://www.topcased.org/documentation">
@@ -278,6 +410,23 @@
       interface="true" eSuperTypes="#//IntegerValue #//ValueConstant"/>
   <eClassifiers xsi:type="ecore:EClass" name="IntegerValueVariable" abstract="true"
       interface="true" eSuperTypes="#//IntegerValue #//ValueVariable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariable" eSuperTypes="#//BehaviorNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
+        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariableHolder" eSuperTypes="#//DataHolder">
+    <eOperations name="setIterativeVariable" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = itV ;"/>
+      </eAnnotations>
+      <eParameters name="itV" lowerBound="1" eType="#//IterativeVariable"/>
+    </eOperations>
+    <eOperations name="getIterativeVariable" lowerBound="1" eType="#//IterativeVariable">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (IterativeVariable) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Literal" abstract="true" interface="true"
       eSuperTypes="#//ValueConstant #//IntegerValueConstant"/>
   <eClassifiers xsi:type="ecore:EClass" name="LockAction" eSuperTypes="#//SharedDataAction">
@@ -302,6 +451,19 @@
   <eClassifiers xsi:type="ecore:EClass" name="NumericLiteral" abstract="true" interface="true"
       eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//NumberValue #//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="Otherwise" eSuperTypes="#//ExecuteCondition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
+    <eOperations name="setParameter" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = parameter ;"/>
+      </eAnnotations>
+      <eParameters name="parameter" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Parameter"/>
+    </eOperations>
+    <eOperations name="getParameter" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Parameter">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Parameter) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ParameterLabel" abstract="true" interface="true"
       eSuperTypes="#//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortCountValue" eSuperTypes="#//ActualPortHolder"/>
@@ -314,11 +476,29 @@
   <eClassifiers xsi:type="ecore:EClass" name="PortDequeueValue" eSuperTypes="#//ActualPortHolder"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortFreezeAction" eSuperTypes="#//ActualPortHolder #//CommunicationAction"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortFreshValue" eSuperTypes="#//ActualPortHolder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PortHolder" abstract="true" eSuperTypes="#//IndexableElement #//ElementHolder #//GroupableElement #//ValueVariable #//IntegerValueVariable"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PortPrototypeHolder" eSuperTypes="#//PortHolder #//PrototypeHolder #//Target"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortSendAction" eSuperTypes="#//CommunicationAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="port" lowerBound="1" eType="#//ActualPortHolder"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="valueExpression" eType="#//ValueExpression"
         containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PrototypeHolder" abstract="true" interface="true"
+      eSuperTypes="#//BehaviorElement">
+    <eOperations name="setPrototype" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = prototype ;"/>
+      </eAnnotations>
+      <eParameters name="prototype" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Prototype"/>
+    </eOperations>
+    <eOperations name="getPrototype" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Prototype">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Prototype) element;"/>
+      </eAnnotations>
+    </eOperations>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="prototypeBinding" unique="false"
+        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PrototypeBinding"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EDataType" name="Real" instanceClassName="double">
     <eAnnotations source="http://www.topcased.org/documentation">
@@ -359,6 +539,36 @@
       <details key="documentation" value="A string is a sequence of characters in some suitable character set used to display information about the model. Character sets may include non-Roman alphabets and characters."/>
     </eAnnotations>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StructUnionElement" eSuperTypes="#//BehaviorNamedElement">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
+        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="StructUnionElementHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
+    <eOperations name="setStructUnionElement" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = structUnionElement ;"/>
+      </eAnnotations>
+      <eParameters name="structUnionElement" lowerBound="1" eType="#//StructUnionElement"/>
+    </eOperations>
+    <eOperations name="getStructUnionElement" lowerBound="1" eType="#//StructUnionElement">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (StructUnionElement) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccessHolder" eSuperTypes="#//DispatchTriggerCondition #//CalledSubprogramHolder">
+    <eOperations name="setSubprogramAccess" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = subprogramAccess ;"/>
+      </eAnnotations>
+      <eParameters name="subprogramAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramAccess"/>
+    </eOperations>
+    <eOperations name="getSubprogramAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramAccess">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (SubprogramAccess) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramCallAction" eSuperTypes="#//CommunicationAction">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogram" lowerBound="1"
         eType="#//CalledSubprogramHolder" containment="true"/>
@@ -367,6 +577,20 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataAccess" eType="#//DataAccessHolder"
         containment="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramHolder" eSuperTypes="#//CalledSubprogramHolder">
+    <eOperations name="setSubprogram" lowerBound="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="element = subprogram ;"/>
+      </eAnnotations>
+      <eParameters name="subprogram" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subprogram"/>
+    </eOperations>
+    <eOperations name="getSubprogram" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subprogram">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="body" value="return (Subprogram) element;"/>
+      </eAnnotations>
+    </eOperations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder"/>
   <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//ParameterLabel #//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="factors" lowerBound="1"
@@ -415,229 +639,5 @@
         lowerBound="1" eType="#//ValueExpression" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="doUntil" eType="#//Boolean"
         defaultValueLiteral="false"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ActualPortHolder" abstract="true" eSuperTypes="#//PortHolder">
-    <eOperations name="setPort" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = port ;"/>
-      </eAnnotations>
-      <eParameters name="port" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Port"/>
-    </eOperations>
-    <eOperations name="getPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Port">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Port) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ExecutionTimeoutCatch" eSuperTypes="#//ExecuteCondition"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DispatchRelativeTimeout" eSuperTypes="#//DispatchTriggerCondition"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataHolder" abstract="true" eSuperTypes="#//ElementHolder #//IntegerValueVariable #//ValueVariable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramHolder" eSuperTypes="#//CalledSubprogramHolder">
-    <eOperations name="setSubprogram" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = subprogram ;"/>
-      </eAnnotations>
-      <eParameters name="subprogram" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subprogram"/>
-    </eOperations>
-    <eOperations name="getSubprogram" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Subprogram">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Subprogram) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariable" eSuperTypes="#//BehaviorNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccessHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setDataAccess" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = dataAccess ;"/>
-      </eAnnotations>
-      <eParameters name="dataAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataAccess"/>
-    </eOperations>
-    <eOperations name="getDataAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataAccess">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (DataAccess) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setDataSubcomponent" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = dataSubcomponent ;"/>
-      </eAnnotations>
-      <eParameters name="dataSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataSubcomponent"/>
-    </eOperations>
-    <eOperations name="getDataSubcomponent" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataSubcomponent">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (DataSubcomponent) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorVariableHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setVariable" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = variable ;"/>
-      </eAnnotations>
-      <eParameters name="variable" lowerBound="1" eType="#//BehaviorVariable"/>
-    </eOperations>
-    <eOperations name="getBehaviorVariable" lowerBound="1" eType="#//BehaviorVariable">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (BehaviorVariable) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ElementHolder" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="element" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataPortHolder" eSuperTypes="#//ActualPortHolder #//Target">
-    <eOperations name="setDataPort" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = dataPort ;"/>
-      </eAnnotations>
-      <eParameters name="dataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataPort"/>
-    </eOperations>
-    <eOperations name="getDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataPort">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (DataPort) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventPortHolder" eSuperTypes="#//ActualPortHolder #//DispatchTrigger #//Target">
-    <eOperations name="setEventPort" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = eventPort ;"/>
-      </eAnnotations>
-      <eParameters name="eventPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventPort"/>
-    </eOperations>
-    <eOperations name="getEventPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventPort">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (EventPort) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataPortHolder" eSuperTypes="#//ActualPortHolder #//ElementValues #//DispatchTrigger #//Target">
-    <eOperations name="setEventDataPort" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = eventDataPort ;"/>
-      </eAnnotations>
-      <eParameters name="eventDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventDataPort"/>
-    </eOperations>
-    <eOperations name="geteventDataPort" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//EventDataPort">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (EventDataPort) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ParameterHolder" eSuperTypes="#//DataHolder #//GroupableElement #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setParameter" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = parameter ;"/>
-      </eAnnotations>
-      <eParameters name="parameter" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Parameter"/>
-    </eOperations>
-    <eOperations name="getParameter" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Parameter">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Parameter) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccessHolder" eSuperTypes="#//DispatchTriggerCondition #//CalledSubprogramHolder">
-    <eOperations name="setSubprogramAccess" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = subprogramAccess ;"/>
-      </eAnnotations>
-      <eParameters name="subprogramAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramAccess"/>
-    </eOperations>
-    <eOperations name="getSubprogramAccess" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//SubprogramAccess">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (SubprogramAccess) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DispatchTrigger" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="BehaviorProperty" abstract="true" eSuperTypes="#//ValueConstant #//IntegerValueConstant">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="propertySet" unique="false"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertySet"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Any" eSuperTypes="#//ValueExpression"/>
-  <eClassifiers xsi:type="ecore:EClass" name="GroupHolder" eSuperTypes="#//ElementHolder #//IndexableElement">
-    <eOperations name="setGroup" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = group ;"/>
-      </eAnnotations>
-      <eParameters name="group" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
-    </eOperations>
-    <eOperations name="getGroup" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="CalledSubprogramHolder" eSuperTypes="#//ElementHolder #//IndexableElement #//GroupableElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="IndexableElement" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="arrayIndexes" upperBound="-1"
-        eType="#//IntegerValue" unsettable="true" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="GroupableElement" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="groupHolders" upperBound="-1"
-        eType="#//GroupHolder" unsettable="true" containment="true"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PortHolder" abstract="true" eSuperTypes="#//IndexableElement #//ElementHolder #//GroupableElement #//ValueVariable #//IntegerValueVariable"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PortPrototypeHolder" eSuperTypes="#//PortHolder #//PrototypeHolder #//Target"/>
-  <eClassifiers xsi:type="ecore:EClass" name="PrototypeHolder" abstract="true" interface="true"
-      eSuperTypes="#//BehaviorElement">
-    <eOperations name="setPrototype" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = prototype ;"/>
-      </eAnnotations>
-      <eParameters name="prototype" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Prototype"/>
-    </eOperations>
-    <eOperations name="getPrototype" lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//Prototype">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (Prototype) element;"/>
-      </eAnnotations>
-    </eOperations>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="prototypeBinding" unique="false"
-        eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PrototypeBinding"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder"/>
-  <eClassifiers xsi:type="ecore:EClass" name="GroupPrototypeHolder" eSuperTypes="#//GroupHolder #//PrototypeHolder"/>
-  <eClassifiers xsi:type="ecore:EClass" name="StructUnionElement" eSuperTypes="#//BehaviorNamedElement">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="dataClassifier" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//DataClassifier"/>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="StructUnionElementHolder" eSuperTypes="#//DataHolder #//IndexableElement #//Target #//ElementValues">
-    <eOperations name="setStructUnionElement" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = structUnionElement ;"/>
-      </eAnnotations>
-      <eParameters name="structUnionElement" lowerBound="1" eType="#//StructUnionElement"/>
-    </eOperations>
-    <eOperations name="getStructUnionElement" lowerBound="1" eType="#//StructUnionElement">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (StructUnionElement) element;"/>
-      </eAnnotations>
-    </eOperations>
-  </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="IterativeVariableHolder" eSuperTypes="#//DataHolder">
-    <eOperations name="setIterativeVariable" lowerBound="1">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="element = itV ;"/>
-      </eAnnotations>
-      <eParameters name="itV" lowerBound="1" eType="#//IterativeVariable"/>
-    </eOperations>
-    <eOperations name="getIterativeVariable" lowerBound="1" eType="#//IterativeVariable">
-      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="body" value="return (IterativeVariable) element;"/>
-      </eAnnotations>
-    </eOperations>
   </eClassifiers>
 </ecore:EPackage>
