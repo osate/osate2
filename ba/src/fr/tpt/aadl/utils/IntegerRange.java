@@ -1,5 +1,5 @@
 /**
- * AADL-RAMSES
+ * AADL-Utils
  * 
  * Copyright © 2012 TELECOM ParisTech and CNRS
  * 
