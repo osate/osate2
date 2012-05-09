@@ -33,7 +33,7 @@ import fr.tpt.aadl.annex.behavior.analyzers.AadlBaTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.AdaLikeDataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
-import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
+//import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
 
 public class AadlBaResolver implements AnnexResolver
 {
