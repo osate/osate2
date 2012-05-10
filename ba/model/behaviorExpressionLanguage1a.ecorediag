@@ -446,7 +446,7 @@
     <element xmi:type="ecore:EClass" href="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_hFhmIoStEeGqQoNEUn6Tqw" x="190" y="640" width="193"/>
   </children>
-  <children xmi:type="notation:Shape" xmi:id="_lMD4kJn0EeG_IcuKFPBKSg" type="Note" fontName="Ubuntu" description="The Value Constant" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
+  <children xmi:type="notation:Shape" xmi:id="_lMD4kJn0EeG_IcuKFPBKSg" type="Note" fontName="Ubuntu" description="The Value Constants" fillColor="13369343" transparency="0" lineColor="6737151" lineWidth="1">
     <children xmi:type="notation:BasicDecorationNode" xmi:id="_lMFGsJn0EeG_IcuKFPBKSg" type="DiagramName">
       <element xsi:nil="true"/>
     </children>
