@@ -31,12 +31,12 @@ import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
-import org.eclipse.emf.ecore.EObject ;
 
 import org.osate.aadl2.AadlPackage ;
 import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
 import org.osate.aadl2.ComponentImplementation ;
+import org.osate.aadl2.Element ;
 import org.osate.aadl2.Feature ;
 import org.osate.aadl2.NamedElement ;
 import org.osate.aadl2.Namespace ;
@@ -48,13 +48,9 @@ import org.osate.aadl2.PrototypeBinding ;
 import org.osate.aadl2.Subcomponent ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
-import fr.tpt.aadl.annex.behavior.declarative.*;
 
 /**
  * A collection of behavior annex visitors.
- * 
- * @author GET Telecom-Paristech
- * 
  */
 public class AadlBaVisitors
 {
@@ -84,8 +80,8 @@ public class AadlBaVisitors
     * 
     * @param c the given aadl's component 
     * @param prototypeName the given name
-    * @return the first occurrence of a Prototype related to the given name
-    * or {@code null}
+    * @return the first occurrence of a Prototype object related to the given
+    * name or {@code null}
     */
    public static Prototype findPrototypeInComponent(Classifier c,
                                                     String prototypeName)
@@ -107,13 +103,13 @@ public class AadlBaVisitors
    }
    
    /**
-    * Returns the first occurrence of a PrototypeBinding within the given
+    * Returns the first occurrence of a PrototypeBinding object within the given
     * component or component implementation and its ancestors which concerns
     * a prototype which name equals to the given one or {@code null} 
-    * if there isn't matching PrototypeBinding found.
+    * if there isn't matching PrototypeBinding object found.
     * @param c the given component or component implementation
     * @param prototypeName the prototype name
-    * @return the first occurrence of a PrototypeBinding or {@code null} 
+    * @return the first occurrence of a PrototypeBinding object or {@code null} 
     */
    public static PrototypeBinding findPrototypeBindingInComponent(
                                             Classifier c, String prototypeName)
@@ -147,6 +143,14 @@ public class AadlBaVisitors
       return result ;
    }
    
+   /**
+    * Returns a list of basic action contained in the given behavior
+    * action (recursively). 
+    * 
+    * @param BehAction the given behavior action
+    * @return a list of basic action contained in the given behavior
+    * action
+    */
    public static EList<BasicAction> getBasicActions(BehaviorAction BehAction)
    {
       EList<BasicAction> result = null ;
@@ -187,15 +191,14 @@ public class AadlBaVisitors
    }
    
    /**
-    * Return the BasicAction objects contained in a given BehaviorActions
-    * object (recursively). For a {@code null} given BehaviorActions object, the
-    * returned list is an empty list.
-    * 
+    * Return a list of the BasicAction objects contained in a given BehaviorActions
+    * object (recursively). If the given BehaviorActions object is {@code null},
+    * the returned list is empty.
     * 
     * @param BehActions the given BehaviorActions object or {@code null} (for
-    * batch processing)
+    * batch processing purpose)
     * @return the list of BasicAction contained in the given BehaviorActions
-    * object.
+    * object. May be empty.
     */
    public static EList<BasicAction> getBasicActions(BehaviorActions BehActions)
    {
@@ -221,7 +224,6 @@ public class AadlBaVisitors
       
       return result ;
    }
-   
    
    /**
     * Return the package sections related to a given BehaviorAnnex. As 
@@ -261,26 +263,6 @@ public class AadlBaVisitors
    }
 
    /**
-    * Return the behavior transition that contains a given dispatch trigger or 
-    * {@code null}.
-    * 
-    * @param trigg the given dispatch trigger
-    * @return the behavior transition that contains the given dispatch trigger
-    * or {@code null}.
-    */
-   static public BehaviorTransition getBehaviorTransition(Identifier trigg)
-   {
-      EObject result = trigg.eContainer() ;
-      
-      while (! (result instanceof BehaviorTransition))
-      {
-         result = result.eContainer() ;
-      }
-      
-      return (BehaviorTransition) result ;
-   }
-   
-   /**
     * Find the first occurrence of an BehaviorVariable within a given
     * BehaviorAnnex which name equals to the given name. Return {@code null}
     * if no BehaviorVariable is found.
@@ -305,8 +287,8 @@ public class AadlBaVisitors
 
    /**
     * Find the first occurrence of an Feature within a given aadl's component
-    * which name equals to a given name. Return {@code null} if no Feature is
-    * found.
+    * (and ancestors) which name equals to a given name. Return {@code null} if
+    * no Feature is found.
     * 
     * @param cc the given aadl's component
     * @param featureName the given name 
@@ -328,8 +310,8 @@ public class AadlBaVisitors
 
    /**
     * Find the first occurrence of a Subcomponent within a given aadls'
-    * component which name equals to a given name. Return {@code null} if no
-    * Subcomponent is found.  
+    * component (and ancestors) which name equals to a given name. Return
+    * {@code null} if no Subcomponent is found.  
     * 
     * @param cc the given aadl's component 
     * @param subComponentName the given name
@@ -381,7 +363,14 @@ public class AadlBaVisitors
       return null ;
    }
    
-   // DOC ME.
+   /**
+    * Return a list of DispatchTrigger objects contained in the given
+    * DispatchTriggerLogicelExpression object. The list may be empty but not 
+    * {@code null}.
+    * 
+    * @param dtle the given DispatchTriggerLogicelExpression object
+    * @return a list of DispatchTrigger objects, eventually empty.
+    */
    public static EList<DispatchTrigger> getDispatchTriggers(
                                           DispatchTriggerLogicalExpression dtle)
    {
@@ -447,22 +436,35 @@ public class AadlBaVisitors
       result.addAll(ns.getMembers()) ;
       return result ;
    }
-
-   public static PackageSection getContainingPackageSection(
-           org.osate.aadl2.Element element)
+   
+   /**
+    * Return the package section related to a given Element object.
+    * 
+    * @param element the given Element object
+    * @return the package section related to the given Element object
+    */
+   public static PackageSection getContainingPackageSection(Element element)
    {
-	   org.osate.aadl2.Element container = element.getOwner() ;
+	   Element container = element.getOwner() ;
 	   while(container != null && !(container instanceof PackageSection))
 		   container = container.getOwner() ;
 	   return (PackageSection) container ;
    }
    
-   
-  public static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 
-         new HashMap<BehaviorAnnex, Set<Port>>() ;
+  protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 
+                                       new HashMap<BehaviorAnnex, Set<Port>>() ;
 
-  public static boolean isFresh(BehaviorAnnex ba,
-                                Port port)
+  /**
+   * Return {@code true} if the given port which is contained in the given 
+   * BehaviorAnnex object is used as a fresh port value. Otherwise return 
+   * {@code false}.
+   * 
+   * @param ba the given BehaviorAnnex object which contains the given port
+   * @param port the given port
+   * @return {@code true} if the given is used as a fresh port value.
+   * Otherwise {@code false}
+   */
+  public static boolean isFresh(BehaviorAnnex ba, Port port)
   {
     Set<Port> ports = _IS_FRESH.get(ba) ;
     if(ports != null)
@@ -474,9 +476,14 @@ public class AadlBaVisitors
       return false ;
     }
   }
-
-  public static void putFreshPort(BehaviorAnnex ba,
-                                  Port port)
+  
+  /**
+   * Tag the given port as a port used as a fresh port value.
+   * 
+   * @param ba the BehaviorAnnex object which contains the given port
+   * @param port the given port
+   */
+  public static void putFreshPort(BehaviorAnnex ba, Port port)
   {
     Set<Port> ports = _IS_FRESH.get(ba) ;
     if(ports == null)
@@ -488,16 +495,26 @@ public class AadlBaVisitors
     ports.add(port) ;
   }
 
-  private static final Map<BehaviorState, List<BehaviorTransition>> 
+  protected static final Map<BehaviorState, List<BehaviorTransition>> 
     _SRC_IN_TRANS = new HashMap<BehaviorState, List<BehaviorTransition>>() ;
 
-  // Sorted (insertion) behavior transitions list owned by behavior state
-  // according to their priority (highest to the lowest).
-  // In case of equality, the order of transition appearance in the aadl
-  // code is applied.
-  // Behavior transition which have execution condition set to "otherwise"
-  // will be set at the end of the list.
-  // May return empty list.
+  
+  
+  /**
+   * Return a list of behavior transitions where the given behavior state is 
+   * the source state. May return empty list.<br><br>
+   * 
+   * The list of behavior transitions is sorted according to:<br><br>
+   * _ the behavior priority (highest to the lowest).<br>
+   * _ the behavior transitions which have "otherwise" execution condition are
+   *   set at the end of the list.<br>
+   * _ in case of equality, the order of behavior transition appearance in the
+   *   aadl code is applied.<br><br>
+   * 
+   * @param state the given behavior state
+   * @return the list of behavior transitions where the given behavior state is 
+   * the source state or an empty list
+   */
   public static List<BehaviorTransition> getTransitionWhereSrc(BehaviorState
                                                                 state)
   {
@@ -510,6 +527,14 @@ public class AadlBaVisitors
     return result ;
   }
 
+  /**
+   * Specify that the given behavior state is the source state of the given
+   * behavior transition. 
+   * 
+   * @param state the given behavior state
+   * @param bt the given behavior transition where the the given behavior state
+   * is source
+   */
   public static void putTransitionWhereSrc(BehaviorState state,
                                            BehaviorTransition bt)
   {
@@ -527,7 +552,14 @@ public class AadlBaVisitors
     }
   }
   
-  private static void addAndSort(List<BehaviorTransition> btl,
+  // Add the given behavior transition to the given list and sort the list.
+  // Sort (insertion) behavior transitions list 
+  // according to their priority (highest to the lowest).
+  // In case of equality, the order of transition appearance in the aadl
+  // code is applied.
+  // Behavior transition which have execution condition set to "otherwise"
+  // will be set at the end of the list.
+  protected static void addAndSort(List<BehaviorTransition> btl,
                                  BehaviorTransition bt)
   {
     // TODO to be optimized.

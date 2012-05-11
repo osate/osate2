@@ -1818,7 +1818,7 @@ public class AadlBaUtils {
 		}
 	}
 	
-	//Returns true if bt1 priority is > bt2 or bt2 has otherwise execution
+	// Returns true if bt1 priority is > bt2 or bt2 has otherwise execution
   // condition and bt1 hasn't.
   public static boolean compareBehaviorTransitionPriority(BehaviorTransition bt1,
                                                          BehaviorTransition bt2)

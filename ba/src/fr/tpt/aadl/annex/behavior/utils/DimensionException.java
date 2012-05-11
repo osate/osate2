@@ -4,6 +4,9 @@ import org.osate.aadl2.Element ;
 
 import fr.tpt.aadl.annex.behavior.analyzers.TypeHolder ;
 
+/**
+ * Represents an exception raised when out of array dimension accessing.
+ */
 public class DimensionException extends Exception
 {
    /**

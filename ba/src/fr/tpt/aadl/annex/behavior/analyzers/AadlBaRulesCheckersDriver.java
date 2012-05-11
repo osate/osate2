@@ -102,6 +102,7 @@ public class AadlBaRulesCheckersDriver
     }
     else
     {
+      // Declarative objects are not supported.
       System.err.println("the given element doesn't come from AADL BA model") ;
       return false ;
     }
@@ -184,9 +185,8 @@ public class AadlBaRulesCheckersDriver
             return result ;
          }
          
-         // behavior transition which have execution condition set to "otherwise"
-         // will be placed at the end of the list. A warning is raised if there are
-         // transitions after an otherwise transition.
+         // A warning is raised if there are transitions after an otherwise
+         // transition.
          private void otherwiseCheck(BehaviorAnnex ba)
          {
            // Checks for dead transitions (after an otherwise transition).
@@ -247,7 +247,7 @@ public class AadlBaRulesCheckersDriver
             {
                result &= process(bc) ;
             }
-            else // Check Execute condition. Warning Execution condition may be
+            else // Check Execute condition. Warning execution condition may be
                  // null.
             {
                result &= _semantic.D_3_18_Checker(_currentBt);
