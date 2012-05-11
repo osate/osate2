@@ -615,7 +615,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param name name to be resolved
 	 * @return Classifier or null
 	 */
-	protected EObject findClassifier(EObject context,
+	public EObject findClassifier(EObject context,
 			EReference reference,  String name){
 		Namespace scope = AadlUtil.getContainingTopLevelNamespace(context);
 		EObject e = getIndexedObject(context, reference, name);
@@ -659,7 +659,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param name property type name possibly qualified with the property set name
 	 * @return
 	 */
-	protected EObject findPropertySetElement(EObject context,
+	public EObject findPropertySetElement(EObject context,
 			EReference reference, String name){
 		// look for element in property set
 		String psname = null;
@@ -699,7 +699,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 
-	protected List<EObject> findPropertyConstant(EObject context,
+	public List<EObject> findPropertyConstant(EObject context,
 			EReference reference, String name){
 		// look for property constant in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -729,7 +729,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 
-	protected List<EObject> findPropertyType(EObject context,
+	public List<EObject> findPropertyType(EObject context,
 			EReference reference, String name){
 		// look for property constant in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -773,7 +773,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 //		return null;
 //	}
 //
-	protected List<EObject> findPropertyDefinitionAsList(EObject context,
+	public List<EObject> findPropertyDefinitionAsList(EObject context,
 			EReference reference, String name) {
 		// look for property definition in property set
 		EObject e = findPropertySetElement(context, reference, name);
@@ -1357,7 +1357,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * 
 	 * This will cause a stack overflow!
 	 */
-	private ComponentClassifier findClassifierForComponentPrototype(
+	public ComponentClassifier findClassifierForComponentPrototype(
 			Classifier containingClassifier, ComponentPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a component
 		// prototype binding. In PrototypeFormalReference,
@@ -1402,7 +1402,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	/*
 	 * TODO: Check for circular dependencies with prototypes.
 	 */
-	private ComponentClassifier findClassifierForComponentPrototype(
+	public ComponentClassifier findClassifierForComponentPrototype(
 			Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext,
 			ComponentPrototype prototype) {
@@ -1451,7 +1451,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * FeatureGroupTypeExtendReference.
 	 */
 	// TODO: Check for circular dependencies with prototypes.
-	private FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(
+	public FeatureGroupType findFeatureGroupTypeForFeatureGroupPrototype(
 			Classifier containingClassifier, FeatureGroupPrototype prototype) {
 		// TODO: Need to check that the prototype binding is a feature group
 		// prototype binding. In PrototypeFormalReference,
@@ -1566,7 +1566,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * @param reference
 	 * @return
 	 */
-	protected EObject findNamedElementInPredeclaredPropertySets(String propertyName,
+	public EObject findNamedElementInPredeclaredPropertySets(String propertyName,
 			EObject context, EReference reference) {
 		for (String predeclaredPSName : AadlUtil.getPredeclaredPropertySetNames()) {
 			EObject res = getIndexedObject(context, reference,getQualifiedName(predeclaredPSName, propertyName));
@@ -1610,7 +1610,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 * ComponentImplementationExtensionReference, RealizationReference,
 	 * FeatureGroupTypeExtendReference.
 	 */
-	private PrototypeBinding findPrototypeBinding(
+	public PrototypeBinding findPrototypeBinding(
 			Classifier classifierPrototypeContext,
 			Subcomponent subcomponentPrototypeContext, Prototype prototype) {
 		for (PrototypeBinding binding : subcomponentPrototypeContext
@@ -1634,7 +1634,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	/**
 	 * Dependencies: PrototypeFormalReference.
 	 */
-	private PrototypeBinding findPrototypeBinding(
+	public PrototypeBinding findPrototypeBinding(
 			Subcomponent subcomponent, Prototype prototype) {
 		for (PrototypeBinding binding : subcomponent
 				.getOwnedPrototypeBindings())
