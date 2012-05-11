@@ -342,8 +342,6 @@ SEMICOLON      : ';' ;
 DOUBLECOLON    : '::';
 HASH           : '#';
 
-// XXX enumeration literal temporary implementation
-
 ENUMERATOR     : 'enumerators' ;
 
 
@@ -452,31 +450,6 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-// declarator ::= identifier { array_size }*
-// array_size :: [ integer_value_constant ]
-declarator returns [ArrayableIdentifier id]
- @init
- {
-   id = _decl.createArrayableIdentifier();
- }
-  :
-    identifier=IDENT { 
-                       id.setId(identifier.getText());
-                       setLocationReference(id, identifier);
-                     }
-    ( LBRACK IntValue=integer_value_constant RBRACK
-      { 
-        id.getArrayIndexes().add(IntValue); 
-      }
-    )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-
 // qualified_named_element ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
@@ -487,8 +460,14 @@ qualifiable_named_element [QualifiedNamedElement qne]
       }
   :
    (
-    ( identifier1=IDENT DOUBLECOLON { id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText(); } )*
-      identifier2=IDENT { id2=identifier2.getText(); }
+    ( identifier1=IDENT DOUBLECOLON
+      { 
+        id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
+      }
+    )*
+    
+    identifier2=IDENT { id2=identifier2.getText(); }
+    
     ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
    )
    {
@@ -590,7 +569,6 @@ catch [RecognitionException ex] {
   consumeUntil(input,SEMICOLON);
   input.consume();
 }
-
 
 // behavior_transition ::=
 //   [ transition_identifier [ [ behavior_transition_priority ] ] : ]
@@ -742,7 +720,7 @@ execute_condition returns [ExecuteCondition ExecCond]
  {
     ExecCond= null ;
  }
-  : // Location reference is set in behavior_transition
+  : 
    ( 
        identifier=TIMEOUT
        {
@@ -798,11 +776,12 @@ catch [RecognitionException ex] {
 //   [ frozen frozen_ports ]
 
 // frozen_ports ::=
-//   in_port_identifier { , in_port_identifier }*
+//   in_port_name { , in_port_name }*
 
 dispatch_condition returns [DispatchCondition DisCond]
  @init{
-   DisCond = _fact.createDispatchCondition (); // Location reference is set in behavior_transition
+   // Location reference is set in behavior_transition
+   DisCond = _fact.createDispatchCondition ();
  }
   :
    DISPATCH 
@@ -831,7 +810,7 @@ catch [RecognitionException ex] {
 
 // dispatch_trigger_condition ::=
 // dispatch_trigger_logical_expression
-// | provides_subprogram_access_identifier
+// | provides_subprogram_access_name
 // | stop
 // | completion_relative_timeout_condition_and_catch
 // | dispatch_relative_timeout_catch
@@ -845,7 +824,7 @@ dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond]
  @init{
    DisTriggCond = null ;
  }
-   : // Ambiguity between subprogram access identifier and a dispatch trigger !
+   : // Ambiguity between subprogram access name and a dispatch trigger !
      // A dispatch trigger logical expression with only one
      // dispatch conjunction which is only one dispatch trigger (single name)
      // can't be distinguish from a subprogram access name.
@@ -910,8 +889,8 @@ catch [RecognitionException ex] {
 // dispatch_trigger { and dispatch_trigger }*
 
 // dispatch_trigger ::=
-// in_event_port_identifier
-// | in_event_data_port_identifier
+// in_event_port_name
+// | in_event_data_port_name
 dispatch_conjunction returns [DispatchConjunction DisConjunct]
  @init
  {
@@ -1164,8 +1143,7 @@ catch [RecognitionException ex] {
 element_values returns [ElementValues EltVal]
  @init{
  }
-  : // Ambiguity between event data port name and unqualified data component 
-    // reference. See reference.
+  : 
      ( IntRange=integer_range { EltVal = IntRange; } )
    |
      ( AdcRef=reference { EltVal = (ElementValues) AdcRef; } )
@@ -1231,18 +1209,14 @@ catch [RecognitionException ex] {
 
 
 // target ::= 
-//   local_variable_name 
 // | outgoing_port_name 
-// | outgoing_parameter_name 
-// | data_component_reference
+// | outgoing_data_component_reference
+// | outgoing_port_prototype_name
 target returns [Target Tar]
  @init{
    Tar = null ;
  }
-  : // Ambiguity between an unqualified data component reference and a single name
-    // value variables. names are parsed as data component references .
-    // See reference.
-    dt=reference {Tar= (Target) dt ;} 
+  : dt=reference {Tar= (Target) dt ;} 
                                          
 ;
 catch [RecognitionException ex] {
@@ -1319,16 +1293,16 @@ communication_action returns [CommAction ca]
     // subprogram unique component classifier reference without component
     // implementation.
     // unqualified subprogram unique component classifier reference 
-    // without component are parsed as name.
+    // without component are parsed as reference.
         
     // Ambiguity between value expression and a subprogram parameter list
-    // with only one parameter label which is a value expression or a target.
-    // value expressions are parsed as subprogram parameter list
+    // with only one parameter label which can be a value expression or a target.
+    // Value expressions are parsed as subprogram parameter list
     // with only one parameter label.
     
     // Ambiguity between name.name without array index and unqualified
     // unique component classifier reference with component implementation.
-    // these uccr are parsed as name.name
+    // these uccr are parsed as reference.
       (
         qne=qualified_named_element EXCLAM
         {
@@ -1420,175 +1394,6 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-/*
-
-id=array_identifier
-    {
-      ref.getIds().add(id);
-      ref.setLocationReference(id.getLocationReference());
-    }
-    (
-      DOT id=array_identifier
-      {
-        ref.getIds().add(id);
-      }
-    )*
-    {
-      ref = ref ;
-      
-      // DEBUG
-      
-      for(Identifier idTmp : ref.getIds())
-      {
-        int dimension = 0 ;
-        
-        if (idTmp.isSetArrayIndexes())
-        {
-          dimension = idTmp.getArrayIndexes().size();
-        }
-      
-        System.out.print(idTmp.getId() + ", dimension = " + dimension + " ; ") ;
-      }
-      System.out.println("");
-    }
-*/
-
-/*
-
-   (
-    ( identifier1=IDENT DOUBLECOLON { id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText(); } )*
-      identifier2=IDENT { id2=identifier2.getText(); }
-    ( DOT identifier3=IDENT { id2=id2+"."+identifier3.getText(); } )?
-   )
-   {
-     Identifier nameId = _decl.createIdentifier();
-     nameId.setId(id2);
-     setLocationReference(nameId, identifier2); 
-     qne.setBaName(nameId);
-    
-     if (! id1.equals(""))
-     {
-       Identifier nameSpaceId = _decl.createIdentifier();
-       nameSpaceId.setId(id1);
-       setLocationReference(nameSpaceId, identifier1); 
-       qne.setBaNamespace(nameSpaceId);
-       setLocationReference(qne, identifier1);
-     }
-   }
-
- @init{
-   ca = _decl.createCommAction() ;
- }
-  : // Ambiguity between name without array indexes and unqualified
-    // subprogram unique component classifier reference without component
-    // implementation.
-    // unqualified subprogram unique component classifier reference 
-    // without component are parsed as name.
-        
-    // Ambiguity between value expression and a subprogram parameter list
-    // with only one parameter label which is a value expression or a target.
-    // value expressions are parsed as subprogram parameter list
-    // with only one parameter label.
-    
-    // Ambiguity between name.name without array index and unqualified
-    // unique component classifier reference with component implementation.
-    // these uccr are parsed as name.name
-  (  
-      (
-        EltName=name
-        {
-          ca.getNames().add(EltName);
-          ca.setLocationReference(EltName.getLocationReference());
-        }
-        (   
-            ( 
-              ( DOT tmp=name
-                {
-                   ca.getNames().add(tmp);
-                   ca.setSubprogrammCall(true);
-                }
-              )?
-              EXCLAM
-              ( 
-                LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
-                {
-                  ca.getParameters().addAll(SubpgmParamList);
-                }
-              )?
-            )
-          |
-            (
-              INTERROG
-              {
-                ca.setPortDequeue(true);
-              }
-              (
-                LPAREN Tar=target RPAREN
-                {
-                  ca.setTarget(Tar);
-                  ca.setPortDequeue(true);
-                }
-              )?
-            )
-          |
-            (
-              GGREATER
-              { 
-                ca.setPortFreeze(true);
-              }
-            )
-          |
-            (
-              EXCLLESS
-              {
-                ca.setLock(true);
-              }
-            )
-          |
-            (
-              EXCLGREATER
-              {
-                ca.setUnlock(true);
-              }
-            )
-        )
-      )
-    |
-      (
-        SubprogramClassRef=unique_component_classifier_reference EXCLAM
-        {
-          ca.setQualifiedName(SubprogramClassRef);
-          ca.setLocationReference(SubprogramClassRef.getLocationReference());
-        }
-        ( 
-          LPAREN SubpgmParamList=subprogram_parameter_list RPAREN
-          {
-            ca.getParameters().addAll(SubpgmParamList);
-          }
-        )?
-      )
-    |
-      (
-        identifier=STAR
-        ( 
-            EXCLLESS
-            {
-              ca.setLock(true);
-            }
-          | 
-            EXCLGREATER
-            {
-              ca.setUnlock(true);
-            }
-        )
-        {
-          setLocationReference(ca, identifier);
-        }
-      )
-  ) 
-
-*/
-
 // timed_action ::= 
 //   computation ( behavior_time [ .. behavior_time ] )
 timed_action returns [TimedAction TimedAct]
@@ -1632,16 +1437,13 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-
 // parameter_label ::=
 //   in_parameter_value_expression | out_parameter_target
 parameter_label returns [ParameterLabel ParamLabel]
  @init{
  }
-  : // Ambiguity between a value expression with a single value and target.
-    // The ambiguity is based on name and data component name on both side.
+  : // Ambiguity between a value expression with a single value and a target.
     // Targets are parsed as value expression.
-    
    ( 
        ValExpr=value_expression { ParamLabel = ValExpr; }
    )   
@@ -1652,9 +1454,28 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-
 // reference ::=
 //   name | data component reference
+
+// name ::=
+//   { thread_group_identifier . }*
+//   {
+//     [ subprogram_group_access_identifier . ]
+//     [ subprogram_group_identifier . ]
+//     [ feature_group_identifier . ]
+//   }*
+//   identifier { array_index }*
+
+// array_index ::=
+//   [ integer_value ]
+
+// data_component_reference ::=
+//   data_subcomponent_name { . data_subcomponent_name }*
+// | data_access_feature_name { . data_subcomponent_name }*
+// | local_variable_name { . data_subcomponent_name }*
+// | data_access_feature_prototype_name { . data_subcomponent_name }*
+// | subprogram_parameter_name { . data_subcomponent_name }*
+
 reference returns [Reference ref]
  @init{
     ref = _decl.createReference() ;
@@ -1679,6 +1500,8 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
+// array_identifier ::=
+//   identifier { integer_value }*
 array_identifier returns [ArrayableIdentifier id]
 @init
 {
@@ -1703,148 +1526,6 @@ catch [RecognitionException ex] {
   input.consume();
 }
 
-/*
-
-EList<IntegerValue> ivl = new BasicEList<IntegerValue>() ;
-
-(
-      ( 
-        identifier=IDENT DOT
-        {
-          Identifier Id = _decl.createIdentifier() ;
-          Id.setId(identifier.getText());    
-          setLocationReference(Id, identifier); 
-          setLocationReference(ref, identifier); 
-          ref.getIds().add(Id);
-        }
-      )?
-      
-      identifier=IDENT
-      {
-        arrayableId = _decl.createIdentifier() ;
-        arrayableId.setId(identifier.getText());    
-        setLocationReference(arrayableId, identifier); 
-        if(ref.getLocationReference() == null)
-        {
-          setLocationReference(ref, identifier); 
-        }
-        ref.getIds().add(arrayableId);
-      }
-      
-      (
-        LBRACK Val=integer_value RBRACK
-        {
-          ivl.add(Val);
-        }
-      )*
-      {
-        if(false == ivl.isEmpty())
-        {
-          ref.getArrayIndexesMap().put(arrayableId, ivl);
-        }
-      }
-    )+
-    {
-      ref = reference ;
-      
-      // DEBUG
-      
-      for(Identifier idTmp : ref.getIds())
-      {
-        EList<IntegerValue> ivlTmp = ref.getArrayIndexesMap().get(idTmp) ;
-        
-        int dimension = 0 ;
-        
-        if (ivlTmp != null)
-        {
-          dimension = ivlTmp.size();
-        }
-      
-        System.out.println(idTmp.getId() + " ; dimension = " + dimension) ;
-      }
-    }
-
-
-
-   EltName=name
-   {
-     ref.setLocationReference(EltName.getLocationReference());
-     ref.getNames().add(EltName);
-     reference = ref ;
-     
-     String group = null ;
-     String name = null ;
-     int indexes = 0 ;
-     
-     if(EltName.getGroup() != null) group = EltName.getGroup().getId();
-     if(EltName.getName() != null) name = EltName.getName().getId() ;
-     if(EltName.isSetArrayIndexes()) indexes = EltName.getArrayIndexes().size() ;
-     
-     System.out.println("group = " + group + " ; name = " + name + " ; array indexes = " + indexes);
-   } 
-   (
-     DOT SubName=name {ref.getNames().add(SubName);
-     
-     String group = null ;
-     String name = null ;
-     int indexes = 0 ;
-     
-     if(SubName.getGroup() != null) group = SubName.getGroup().getId();
-     if(SubName.getName() != null) name = SubName.getName().getId() ;
-     if(SubName.isSetArrayIndexes()) indexes = SubName.getArrayIndexes().size() ;
-     
-     System.out.println("group = " + group + " ; name = " + name + " ; array indexes = " + indexes);
-     
-     }
-   )*
-
-*/
-
-
-
-
-
-// name ::= identifier { array_index }*
-// array_index :: [ integer_value ]
-/*
-name returns [Name EltName]
- @init{
-   EltName = _decl.createName();
- }
-  :
-   ( identifier=IDENT DOT
-     {
-       Identifier Id = _decl.createIdentifier() ;
-       Id.setId(identifier.getText());    
-       EltName.setGroup(Id) ;
-       setLocationReference(Id, identifier); 
-       setLocationReference(EltName, identifier) ;
-     }
-   ) ?
-
-   identifier=IDENT
-   { 
-     Identifier Id = _decl.createIdentifier() ;
-     Id.setId(identifier.getText());    
-     EltName.setName(Id) ;
-     setLocationReference(Id, identifier); 
-     if(EltName.getLocationReference() == null)
-     {
-       setLocationReference(EltName, identifier) ;
-     }
-   } 
-   ( identifier=LBRACK Val=integer_value RBRACK
-     {
-       EltName.getArrayIndexes().add(Val);
-     }
-   )*
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-*/
 //---------------------------------------------------------
 // END : ANNEX D.6 Behavior Action Language
 //---------------------------------------------------------
@@ -1855,6 +1536,25 @@ catch [RecognitionException ex] {
 // BEGIN : ANNEX D.7 Behavior Expression Language
 //---------------------------------------------------------
 
+// fact_value ::=
+//   value_constant
+// | value_variable
+
+// value_constant ::= 
+//   boolean_literal
+// | numeric_literal 
+// | string_literal
+// | enumeration_literal 
+// | property_constant
+// | property_value
+
+// value_variable ::=
+//   incoming_port_name
+// | incoming_port_name ?
+// | incoming_port_data_component_reference
+// | port_name' count
+// | port_name' fresh
+
 fact_value returns [Value Val]
 @init
  {
@@ -1862,9 +1562,10 @@ fact_value returns [Value Val]
  }
   : // Ambiguity between value variable (name without array index) and
     // unqualified propertyset constant or unqualified propertyset value.
-    // unqualified propertyset are parsed as name without array index.
+    // unqualified propertyset constants and unqualified propertyset values are
+    // parsed as reference (see value variable). 
    (
-       // Case of property constant or value.
+       // Case of qualified property constant or value.
        (  
           id1=IDENT DOUBLECOLON id2=IDENT
           {
@@ -1886,7 +1587,8 @@ fact_value returns [Value Val]
             Val = property ;
           }
        )
-     | 
+     | // Value variables and unqualified propertyset constants and unqualified
+       // propertyset values cases.
        ValueVar=value_variable { Val = ValueVar ;}
 
      | // Cases from value constant category. 
@@ -1938,9 +1640,7 @@ catch [RecognitionException ex] {
 // value_variable ::=
 //   incoming_port_name
 // | incoming_port_name ?
-// | subprogram_parameter_name
-// | local_variable_name
-// | data_component_reference
+// | incoming_port_data_component_reference
 // | port_name' count
 // | port_name' fresh
 value_variable returns [ValueVariable ValueVar]
@@ -1948,9 +1648,7 @@ value_variable returns [ValueVariable ValueVar]
  @init{
    ValueVar = null ;
  }
-  : // Ambiguity between an unqualified data component reference and a single name
-    // value variables. names are parsed as data component references . 
-    // See reference.
+  : 
      (
        ref=reference
        
@@ -1991,175 +1689,6 @@ value_variable returns [ValueVariable ValueVar]
          }
        }
      )
-;
-catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
-}
-
-/*
-
-value_variable returns [ValueVariable ValueVar]
-
- @init{
-   ValueVar = null ;
-   Reference ref = null ;
- }
-  : // Ambiguity between an unqualified data component reference and a single name
-    // value variables. names are parsed as data component references . 
-    // See reference.
-     (
-       EltName=name
-       {
-         System.out.println("coucou " + EltName.getLocationReference().getLine()); 
-       }
-       (
-           INTERROG
-           {
-             NamedValue nv = _decl.createNamedValue();
-             nv.setName(EltName);
-             nv.setDequeue(true);
-             ValueVar = nv ;
-           }
-         |
-           TICK (
-                    COUNT 
-                    { 
-                      NamedValue nv = _decl.createNamedValue();
-                      nv.setName(EltName);
-                      nv.setCount(true);
-                      ValueVar = nv ;
-                    } 
-                  | 
-                    FRESH
-                    {
-                      NamedValue nv = _decl.createNamedValue();
-                      nv.setName(EltName);
-                      nv.setFresh(true);
-                      ValueVar = nv ;
-                    }
-                )
-       )
-     )
-   |  
-     ( 
-       ref=reference
-       {
-         ValueVar=(ValueVariable) ref ;
-       }
-     )  
-;
-
-
-EltName=name
-   (
-       INTERROG
-       {
-         NamedValue nv = _decl.createNamedValue();
-         nv.setName(EltName);
-         nv.setDequeue(true);
-         ValueVar = nv ;
-       }
-     |
-       TICK (
-                COUNT 
-                { 
-                  NamedValue nv = _decl.createNamedValue();
-                  nv.setName(EltName);
-                  nv.setCount(true);
-                  ValueVar = nv ;
-                } 
-              | 
-                FRESH
-                {
-                  NamedValue nv = _decl.createNamedValue();
-                  nv.setName(EltName);
-                  nv.setFresh(true);
-                  ValueVar = nv ;
-                }
-            )
-     |  
-       ( 
-         DOT id=array_identifier
-         {
-           ref = _decl.createReference();
-           
-           if(EltName.getGroup() != null)
-           {
-             ref.getIds().add(EltName.getGroup()) ;
-           }
-                      
-           Identifier idTmp = EltName.getName() ;
-           if(EltName.isSetArrayIndexes())
-           {
-             idTmp.getArrayIndexes().addAll(EltName.getArrayIndexes());
-           }
-           
-           ref.getIds().add(idTmp);
-           ref.getIds().add(id);
-
-           ref.setLocationReference(EltName.getLocationReference());
-           ValueVar = ref ;
-         }
-         (
-           DOT id=array_identifier
-           {
-             ref.getIds().add(id);
-           }
-         )*
-       )
-       {
-         // DEBUG
-      
-        for(Identifier idTmp : ref.getIds())
-        {
-          int dimension = 0 ;
-        
-          if (idTmp.isSetArrayIndexes())
-          {
-            dimension = idTmp.getArrayIndexes().size();
-          }
-      
-          System.out.print(idTmp.getId() + ", dimension = " + dimension + " ; ") ;
-        }
-        System.out.println("");
-       }
-   )?
-   {
-     // Incoming port or unqualified propertyset value or constant cases.
-     if(ValueVar == null)
-     {
-       ValueVar = EltName;
-     }
-   }
-
-*/
-
-// value_constant ::= 
-//   boolean_literal
-// | numeric_literal 
-// | string_literal
-// | behavior_enumeration_literal 
-// | property_constant
-// | property_value
-value_constant returns [ValueConstant ValueCons]
- @init{
- }
-  : // Ambiguity between propertyset constant and propertyset value.
-    // propertyset values are parsed as propertyset constants.
-   ( 
-       bl=boolean_literal { ValueCons = bl; }
-     |
-       nl=numeric_literal { ValueCons = nl; }
-     |
-       st=string_literal { ValueCons = st; }
-     |
-       lit=behavior_enumeration_literal { ValueCons = lit ;}
-     |
-       // Ambiguous case.
-       prop=property {ValueCons = prop ;}
-   )
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2543,7 +2072,7 @@ integer_value returns [IntegerValue IntVal]
  @init{
  }
   : // Ambiguity between integer value variable with one name and unqualified
-    // propertyset constant or value from value constant. See value. 
+    // propertyset constant or value from value constant. See fact_value. 
    (
      ValTmp=fact_value { IntVal = (IntegerValue) ValTmp ;}              
    )
@@ -2582,6 +2111,17 @@ catch [RecognitionException ex] {
 
 // property_constant ::=
 //   [ property_set_identifier :: ] property_constant_identifier
+
+// property_value ::=
+//   [ property_set_identifier :: ] property_value_identifier
+
+// property constants and property values ambiguity : they are parsed as 
+// a generic property.
+
+// property ::=
+//   property_constant
+// | property_value
+
 property returns [QualifiedNamedElement property]
  @init{
    property = _decl.createQualifiedNamedElement();
@@ -2642,7 +2182,8 @@ behavior_enumeration_literal returns [Enumeration enumeration]
        
        enumeration.setProperty(prop);
        enumeration.setLiteral(lit);
-       // enumeration's location reference is already set, see behavior_named_element.       
+       // enumeration's location reference is already set, see
+       // qualifiable_named_element.       
      }
   )
 ;
