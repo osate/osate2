@@ -40,9 +40,6 @@ import fr.tpt.aadl.annex.behavior.declarative.Identifier;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 
-
-
-
 public class AadlBaConsistencyRulesChecker
 {
 	private BehaviorAnnex _ba ;

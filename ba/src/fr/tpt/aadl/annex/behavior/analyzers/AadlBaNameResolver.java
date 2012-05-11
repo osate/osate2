@@ -72,7 +72,7 @@ public class AadlBaNameResolver
    PackageSection[] _contextsTab ;
    private AnalysisErrorReporterManager _errManager ;
    
-   // Time units property set name.
+   // Time units property set names.
    public static final String TIME_UNITS_PROPERTY_SET = "AADL_Project" ;
    public static final String TIME_UNITS_PROPERTY_ID = "Time_Units";
    
@@ -294,7 +294,7 @@ public class AadlBaNameResolver
            BehaviorCondition cond = trans.getCondition() ;
            
            // According to D.3.(N2) Naming rule : behavior condition can be null
-           // as a void condition means always true.
+           // as no condition means always true.
            if(cond != null)
            {
               // Case of a dispatch condition
@@ -429,9 +429,7 @@ public class AadlBaNameResolver
                   
                   result = qualifiedNamedElementResolver(uccr, true) ;
                   
-                  // Set the for structure's element variable type as BA
-                  // referenced entity.
-                                    
+                  // Checks the for/forall's iterative variable.
                   result &= iterativeVariableUniquenessCheck(itVar); 
                   
                   // Add the for/forall statment's iterative variable to 
@@ -445,7 +443,8 @@ public class AadlBaNameResolver
                   result &= behaviorActionsResolver(stat.getBehaviorActions()) ;
                   
                   // remove the for/forall statment's iterative variable from
-                  // the scope handler.
+                  // the scope handler (after checking for/forall's behavior
+                  // actions.
                   _itvScope.remove(itVar);
                }
             }// End of third else.
@@ -495,7 +494,7 @@ public class AadlBaNameResolver
      }
    }
    
-   // Just the opposite of checkFeatureName.
+   // Just the opposite of featureResolver.
    private boolean featureNameUniquenessCheck(IterativeVariable itv)
    {
       String nameToFind = itv.getName(); 
@@ -515,16 +514,16 @@ public class AadlBaNameResolver
       }
    }
    
-   private boolean iterativeVariableResolver(Identifier itv,
+   // Checks if the given iterative variable is declared within the current
+   // scope handler.
+   private boolean iterativeVariableScopeCheck(Identifier itv,
                                              boolean hasToReport)
    {
      IterativeVariable sameId = AadlBaUtils.compareNamedElementList(itv.getId(),
                                                                    _itvScope) ;
      if( sameId != null)
      {
-       // Resolve the iterative variable with its declaration.
        itv.setBaRef(sameId) ;
-       
        return true ;
      }
      else
@@ -544,7 +543,6 @@ public class AadlBaNameResolver
       
       BehaviorVariable v = AadlBaVisitors.findBehaviorVariable
                                                            (_ba, variableName) ; 
-      
       if(v == null)
       {
          return true ;
@@ -606,9 +604,9 @@ public class AadlBaNameResolver
        // Ambiguous cases : 
        // _ unqualified unique component classifier reference
        //   without implementation information provided, are parsed as reference
-       //   (single id) without array index.
+       //   (single name) without array index.
        // _ unqualified unique component classifier reference with
-       //   implementation information provided and a reference (two ids)
+       //   implementation information provided and a reference (two names)
        //   without array index.
        
        Reference ref = act.getReference() ;
@@ -616,7 +614,7 @@ public class AadlBaNameResolver
        boolean hasArrayIndex = false ;
        
        // unqualified unique component classifier reference have at most two
-       // identifiers.
+       // names.
        if(ids.size() > 2)
        {
          result &= refResolver(ref) ;
@@ -639,7 +637,7 @@ public class AadlBaNameResolver
          else
          {
            // Resolves ambiguous case between unqualified unique component
-           // classifier reference and a reference with only one id.
+           // classifier reference and a reference with only one name.
            
            ArrayableIdentifier idComponent = ids.get(0) ;
            
@@ -656,8 +654,9 @@ public class AadlBaNameResolver
            QualifiedNamedElement qne =
                  DeclarativeFactory.eINSTANCE.createQualifiedNamedElement() ;
            
-           // Clone the identifier as class members of the MetaModel are set as
-           // unique instance.
+           // Clone the identifier as object reference in the most of the AADLBA
+           // Front End emf meta model classes are unique (the containment
+           // attribute set to true).
            Identifier idClone = DeclarativeFactory.eINSTANCE.createIdentifier();
            idClone.setLocationReference(idComponent.getLocationReference()) ;
            idClone.setId(subprogramName.toString()) ;
@@ -689,206 +688,6 @@ public class AadlBaNameResolver
      
      return result ;
    }
-   
-/*   
-   private boolean communicationActionResolver(CommunicationAction act)
-   {
-      if(act instanceof SharedDataAction)
-      {
-         SharedDataAction sda = (SharedDataAction) act ;
-         
-         // Cases of name !< or name !>
-         if(sda.getDataAccessName() != null)
-         {
-            return refResolver(sda.getDataAccessName()) ;
-         }
-         else // Cases of * !< or * !> 
-         {
-            return true ;
-         }
-      }
-      
-      if(act instanceof PortFreezeAction)
-      {
-         return refResolver((PortFreezeAction)act) ;
-      }
-      
-      if(act instanceof PortDequeueAction)
-      {
-         PortDequeueAction pda = (PortDequeueAction) act ;
-         boolean result = refResolver(pda.getPortName()) ;
-         
-         // PortDequeueAction's target may be null.
-         if(pda.getTargetOwned() != null)
-         {
-            result &= targetResolver(pda.getTargetOwned()) ;
-         }
-         
-         return result ;
-      }
-      
-      //Case of subprogram call
-      boolean result = true ;
-      
-      SubprogramCallAction sca = (SubprogramCallAction) act ;
-      EList<Name> names = sca.getSubprogramNames() ;
-      
-      if(sca.isSetSubprogramNames())
-      {
-         Name n1 = names.get(0) ;
-         Name n2 = null ;
-         
-         if(names.size() == 2)
-         {
-            n2 = names.get(1);
-         }
-         
-         // Resolves name and name.name cases.
-         if(n1.isSetArrayIndexes() || (n2 !=  null && n2.isSetArrayIndexes()))
-         {
-            result = subprogramCallNamesResolver(n1, n2) ;
-         }
-         else // Resolves ambiguous case between unqualified unique component
-              // classifier reference and a name or name.name without array
-              // index.
-         {
-            StringBuilder name = new StringBuilder() ;
-            name.append(n1.getIdentifierOwned().getId());
-            
-            if(n2 != null)
-            {
-               name.append("." + n2.getIdentifierOwned().getId());
-            }
-            
-            UniqueComponentClassifierReference uccr = 
-            	AadlBaFactory.eINSTANCE
-                      .createUniqueComponentClassifierReference();
-            
-            Identifier nameId = AadlBaFactory.eINSTANCE.createIdentifier();
-            nameId.setId(name.toString()) ;
-            uccr.setName(nameId) ;
-            uccr.setQualifiedName(uccr.getName());
-            
-            // Try name.name as a unique component classifier reference.
-            if(uniqueComponentClassifierRefResolver(uccr, false))
-            {
-               sca.unsetSubprogramNames();
-               uccr.setLocationReference(n1.getLocationReference());
-               sca.setSubprogramReference(uccr);
-               result = true ;
-            }
-            else // Try name.name as a subprogram call.
-            {
-               result = subprogramCallNamesResolver(n1, n2) ;
-            }
-         }
-      }
-      else //Case of unique component classifier reference.
-      {
-         result = uniqueComponentClassifierRefResolver(
-                                           sca.getSubprogramReference(), true) ; 
-      }
-      
-      // SubprogramParameterList may be unset.
-      // value expressions are parsed as subprogram parameter list with only one
-      // parameter label.
-      if(sca.isSetParameterLabels())
-      {
-         result &= subprogramParameterListResolver(
-                                       sca.getParameterLabels()) ;
-      }
-      
-      return result ;
-   }
-*/
-/*
-   
-   private boolean dataComponentRefResolver(DataComponentReference dcr)
-   {
-	   boolean result = false ;
-	   
-	   DataClassifier parentComponent = null ;
-	   
-	   EList<Name> nameList = dcr.getNames() ;
-	      
-	   Iterator<Name> it = nameList.iterator() ;
-	      
-	   Name currentName = it.next() ;
-	   Name precedentName = currentName ;
-	      
-	   // Check the dcr's first name which can be a subcomponent name or an 
-	   // access feature name. 
-	   
-	   result = refResolver(currentName) ;
-	   
-	   if (result)
-	   {
-		   while(it.hasNext())
-		   {
-			   currentName = it.next() ;
-			   
-			   // Unresolved data prototype returns null.
-			   parentComponent = AadlBaUtils.getDataClassifier(precedentName) ;
-			   
-			   if(parentComponent == null)
-			   {
-				   reportNameError(currentName,
-						           currentName.getIdentifierOwned().getId()) ;
-				   result = false ;
-				   break ;
-			   }
-			   
-			   result = dataSubcomponentNameResolver(currentName,
-					                                 parentComponent) ;
-			   if(! result)
-			   {
-				   break ;
-			   }
-			   else
-			   {
-				   precedentName = currentName ;
-				   continue ;
-			   }
-		   }
-		   
-		   if (result)
-		   {
-			   dcr.setAadlRef(currentName.getAadlRef()) ;
-			   dcr.setBaRef(currentName.getBaRef()) ;
-		   }
-	   }
-	   
-	   return result ;
-   }
-   
-   private boolean dataSubcomponentNameResolver(Name name,
-		                                          DataClassifier component)
-   {
-	   boolean result = false ;
-	   
-	   Identifier id = name.getIdentifierOwned() ;
-	   
-	   result = subcomponentIdResolver(id, component, false) ;
-	   
-	   if(! result)
-	   {
-		   result = structOrUnionIdResolver(id, component, true) ;
-	   }
-	   
-	   name.setAadlRef(id.getAadlRef()) ;
-	   name.setBaRef(id.getBaRef()) ;
-	   
-	   // Check array indexes names.
-	   for (IntegerValue index : name.getArrayIndexes())
-	   {
-	       // Recursive call.
-	       result &= integerValueResolver(index);
-	   }
-	   
-	   return result ;
-   }
-
-*/  
   
    /* dispatch_condition ::=
         on dispatch [ dispatch_trigger_condition ] [ frozen frozen_ports ] */
@@ -898,7 +697,7 @@ public class AadlBaNameResolver
       
       DispatchTriggerCondition dtc = cond.getDispatchTriggerCondition() ;
       
-      // Dtc can be null as a void dispatch trigger condition means always true. 
+      // Dtc can be null as no dispatch trigger condition means always true. 
       if(dtc != null)
       {
          result = dispatchTriggerConditionResolver(dtc) ;
@@ -917,7 +716,7 @@ public class AadlBaNameResolver
    
    /*   dispatch_trigger_condition ::=
         dispatch_trigger_logical_expression
-      | provides_subprogram_access_identifier
+      | provides_subprogram_access_name
       | stop
       | completion_relative_timeout_condition_and_catch
       | dispatch_relative_timeout_catch */
@@ -945,7 +744,6 @@ public class AadlBaNameResolver
       return result ;
    }
  
-
    private boolean dispatchTriggerLogicalExpressionResolver
                                          (DispatchTriggerLogicalExpression dtle)
    {
@@ -1001,7 +799,7 @@ public class AadlBaNameResolver
    // Resolves identifier within the behavior variables and iterative variables.
    private boolean identifierBaResolver(Identifier id, boolean hasToReport)
    {
-	  // First try to resolve within ba's variables names but 
+	    // First try to resolve within ba's variables names but 
       // don't report any error.
       if(baVariableResolver(id, false))
       {
@@ -1010,7 +808,7 @@ public class AadlBaNameResolver
       else
       {
          // Second try to resolve within iterative variable scope handler.
-         if(iterativeVariableResolver(id, false))
+         if(iterativeVariableScopeCheck(id, false))
          {
             return true ;
          }
@@ -1027,7 +825,7 @@ public class AadlBaNameResolver
       }
    }
    
-   // Resolves identifier within the prototypes, features and subcomponent of
+   // Resolves identifiers within the prototypes, features and subcomponent of
    // the given component.
    private boolean identifierComponentResolver(Identifier id,                                 
 		    								                       Classifier component,
@@ -1233,15 +1031,15 @@ public class AadlBaNameResolver
       return result ;
    }
    
-   // Search within the _baParentContainer.
+   // Searches within the _baParentContainer.
    private boolean refResolver(Reference nameObj)
    {
       return refResolver(_baParentContainer, nameObj) ;
    }
    
-   // Resolves Reference Object (arrayable identifiers)
+   // Resolves Reference objects (arrayable identifiers)
    // within parent component's features ones and ba's variables ones and
-   // for structure element variables scope handler.
+   // for/forall's iterative variable scope handler.
    private boolean refResolver(Classifier parentContainer,
                                Reference ref)
    {
@@ -1250,7 +1048,7 @@ public class AadlBaNameResolver
       
       ListIterator<ArrayableIdentifier> it = ref.getIds().listIterator() ;
       
-      // Check ArrayableIdentifier objects.
+      // Checks ArrayableIdentifier objects.
       while(it.hasNext())
       {
         ArrayableIdentifier id = it.next() ;
@@ -1277,7 +1075,7 @@ public class AadlBaNameResolver
         
         if(id.isSetArrayIndexes())
         {
-          // Check array indexes names.
+          // Checks array indexes names.
           for (IntegerValue index : id.getArrayIndexes())
           {
              // Recursive call.
@@ -1326,7 +1124,7 @@ public class AadlBaNameResolver
         }
       }
       
-      // Bind with the last id reference.
+      // Binds with the last id reference.
       ArrayableIdentifier lastId = ref.getIds().get((ref.getIds().size() -1)) ;
       
       ref.setOsateRef(lastId.getOsateRef());
@@ -1346,7 +1144,7 @@ public class AadlBaNameResolver
       EList<org.osate.aadl2.NamedElement> lcc = 
                         new BasicEList<org.osate.aadl2.NamedElement>(0) ;
 
-      // Merge parent component' subcomponents lists.
+      // Merges parent component' subcomponents lists.
       lcc.addAll(AadlBaVisitors.getElementsInNamespace(_baParentContainer,
                                                        Data.class)) ;
       lcc.addAll(AadlBaVisitors.getElementsInNamespace(_baParentContainer,
@@ -1485,15 +1283,15 @@ public class AadlBaNameResolver
       PropertiesLinkingService pls = PropertiesLinkingService.
                                           getPropertiesLinkingService(context) ;
       
-      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME, context, null);
+      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.
+                                            INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
+                                            context, null);
       if(ne==null)
       {
         PropertySet ps = pls.findPropertySet(context, TIME_UNITS_PROPERTY_SET);
         if(ps!=null)
           ne = ps.findNamedElement(TIME_UNITS_PROPERTY_ID);
       }
-      
-      
       
       // Property set Time_Units is found.
       if (ne instanceof org.osate.aadl2.UnitsType)
@@ -1503,7 +1301,6 @@ public class AadlBaNameResolver
          // Find the given time unit in the enumeration.
          org.osate.aadl2.UnitLiteral ul = ut.findLiteral(
                                                        unitIdentifier.getId()) ;
-         
          // The given time unit is found.
          if(ul != null)
          {
@@ -1552,7 +1349,8 @@ public class AadlBaNameResolver
 	         
 	      if(ne == null)
 	      {
-	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().getId(), ns, null);
+	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().getId(),
+	                                                         ns, null);
 	        if(ne==null)
 	        {
 	              PropertySet ps = pls.findPropertySet(ns, packageName);
@@ -1563,8 +1361,7 @@ public class AadlBaNameResolver
 	      // An element is found.
 	      if(ne != null && ne instanceof NamedElement)
 	      {
-	        // Link unique component classifier reference with
-	        // named element found.
+	        // Links unique component classifier reference with named element found.
 	    	  qne.setOsateRef((Element) ne) ;
 	    	  qne.getBaName().setOsateRef((Element) ne);
 	        
@@ -1758,8 +1555,9 @@ public class AadlBaNameResolver
           QualifiedNamedElement qne =
                 DeclarativeFactory.eINSTANCE.createQualifiedNamedElement() ;
           
-          // Clone the identifier as class members of the MetaModel are set as
-          // unique instance.
+          // Clone the identifier as object reference in the most of the AADLBA
+          // Front End emf meta model classes are unique (the containment
+          // attribute set to true).
           Identifier idClone = DeclarativeFactory.eINSTANCE.createIdentifier();
           idClone.setLocationReference(id.getLocationReference()) ;
           idClone.setId(id.getId()) ;
@@ -1772,7 +1570,7 @@ public class AadlBaNameResolver
           {
             Factor parentContainer = (Factor) value.eContainer() ;
 
-            // Set the property constant object instead of the name object
+            // Set the property object instead of the Reference object
             // into the parent container.
             if(parentContainer.getFirstValue().equals(value))
             {
@@ -1804,14 +1602,12 @@ public class AadlBaNameResolver
    
    // Check data component ref, ba variable name or feature name contained 
    // in ValueVariable.
-   /* value_variable ::=
-           incoming_port_name
-         | incoming_port_name ?
-         | subprogram_parameter_name
-         | local_variable_name
-         | data_component_reference
-         | port_name ’ count
-         | port_name ’ fresh */
+   /* // value_variable ::=
+      //   incoming_port_name
+      // | incoming_port_name ?
+      // | incoming_port_data_component_reference
+      // | port_name' count
+      // | port_name' fresh */
    private boolean valueVariableResolver(BehaviorElement toBeSet,
                                          ValueVariable value)
    {

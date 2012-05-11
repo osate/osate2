@@ -458,7 +458,8 @@ public class AadlBaLegalityRulesChecker
                   
                   if(literal.equalsIgnoreCase(AadlBaGetProperties.TIMED))
                   {
-                     // XXX is TimingProperties.PERIOD the right property for D.4.(5) checking ?
+                     // XXX is TimingProperties.PERIOD the right property for
+                    // D.4.(5) checking ?
                      PropertyAssociation period = AadlBaGetProperties.
                         getPropertyAssociation(_baParentContainer,
                                                TimingProperties.PERIOD) ;
