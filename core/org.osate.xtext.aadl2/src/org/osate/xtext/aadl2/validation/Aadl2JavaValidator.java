@@ -2184,11 +2184,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		       if (!((srcDirection.outgoing() && dstDirection.outgoing())||(srcDirection.incoming() && dstDirection.incoming()))){
 	               error(connection, "Source feature '" + source.getName() + "' and destination feature '"+destination.getName() +"' must have same direction.");
 	           }
-	           if (!(srcDirection.outgoing())&&srcContext instanceof Subcomponent){
-	               error(connection, "Outgoing connection requires outgoing feature '" + srcContext.getName()+"."+ source.getName() + "'.");
+	           if (srcContext instanceof Subcomponent){
+	        	   if (!(srcDirection.outgoing()))
+		               error(connection, "Outgoing connection requires outgoing feature '" + srcContext.getName()+"."+ source.getName() + "'.");
+	        	   if (!(dstDirection.outgoing()))
+		               error(connection, "Outgoing connection requires outgoing feature '" + destination.getName() + "'.");
 	           }
-	           if (!(dstDirection.incoming())&&dstContext instanceof Subcomponent){
-	               error(connection, "Incoming connection requires incoming feature '" + dstContext.getName()+"."+ source.getName() + "'.");
+	           if (dstContext instanceof Subcomponent){
+	        	   if (!(dstDirection.incoming()))
+		               error(connection, "Incoming connection requires incoming feature '" + dstContext.getName()+"."+ destination.getName() + "'.");
+	        	   if (!(srcDirection.incoming()))
+		               error(connection, "Incoming connection requires incoming feature '" + source.getName() + "'.");
 	           }
 	     }
 	}
