@@ -2,12 +2,4 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-
-  <extension point="org.eclipse.emf.ecore.generated_package">
-    <package 
-       uri = "http://www.osate.org/aadl2/properties/Properties" 
-       class = "org.osate.xtext.aadl2.properties.properties.PropertiesPackage"
-       genModel = "org/osate/aadl2/properties/Properties.genmodel" /> 
-	
-  </extension>
 </plugin>
