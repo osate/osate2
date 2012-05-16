@@ -11,6 +11,7 @@ import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
@@ -34,6 +35,7 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	}
 	
 	public QualifiedName qualifiedName(final Classifier obj) {
+		if (obj.getOwner() instanceof PrivatePackageSection) return null;
 		return getConverter().toQualifiedName(getTheName(obj));
 	}
 	

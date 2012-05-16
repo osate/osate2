@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
@@ -135,6 +136,23 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_GROUP__INVERSE, oldInverse,
 					inverse));
+	}
+	/*
+	 * Get the feature group type of given feature group or its refinement ancestor, if it has
+	 * one, otherwise null.
+	 * 
+	 * @return The FeatureGroupType, or <code>null</code> if none.
+	 */
+	public FeatureGroupType getAllFeatureGroupType() {
+		FeatureGroupType cc = getFeatureGroupType();
+		Feature f = this;
+		while (cc == null && f.getRefined() != null) {
+			f = f.getRefined();
+			if (f instanceof FeatureGroup){
+				cc = ((FeatureGroup)f).getFeatureGroupType();
+			}
+		}
+		return cc;
 	}
 
 	/**

@@ -50,8 +50,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -72,6 +74,8 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -87,6 +91,8 @@ import org.osate.aadl2.EndToEndFlowSegment;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
+import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
@@ -111,7 +117,10 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.Prototype;
+import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadGroupSubcomponent;
@@ -124,6 +133,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SimpleSubclassCounter;
+import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.parsesupport.LocationReference;
 import org.osate.aadl2.util.Aadl2Util;
@@ -247,10 +257,12 @@ public final class AadlUtil {
 				if (obj instanceof NamedElement){
 					final NamedElement lit = (NamedElement)obj;
 					final String name = lit.getName().toLowerCase();
-					if (seen.contains(name)) {
-						result.add(lit);
-					} else {
-						seen.add(name);
+					if (name != null || name.isEmpty()){
+						if (seen.contains(name)) {
+							result.add(lit);
+						} else {
+							seen.add(name);
+						}
 					}
 				}
 			}
@@ -1175,14 +1187,15 @@ public final class AadlUtil {
 	// }
 
 	/**
-	 * Try to generate an {@link org.osate.aadl2.Element} from an object.
+	 * Try to retrieve an {@link org.osate.aadl2.Element} from an object.
 	 * This method is intended to be used with objects that obtained from a
 	 * selection event, i.e., from the
 	 * {@link org.eclipse.jface.viewers.ISelectionChangedListener#selectionChanged(org.eclipse.jface.viewers.SelectionChangedEvent)}
 	 * method.
 	 * <p>
 	 * If the object is an Element, it is returned. Otherwise, the method tries
-	 * to adapt the object to an Element.
+	 * to adapt the object to an Element. The Object could be an Element, IAdaptable, an instance model resource,
+	 * or a TreeSelection of a IFile in the Navigator
 	 * 
 	 * @param object The object to get an Element from.
 	 * @return The Element, or <code>null</code> if no Element can be obtained
@@ -1258,15 +1271,52 @@ public final class AadlUtil {
 		return null;
 	}
 	
+	public static String getFeaturePrototypeName(FeaturePrototype ft, Element context){
+		if (Aadl2Util.isNull(ft)) return "";
+		return ((NamedElement)ft).getName();
+	}
+	
+	/*
+	 * for classifier figure out whether it needs to be qualified
+	 * Otherwise just return name.
+	 * If null or proxy return empty string
+	 */
+	public static String getClassifierOrLocalName(NamedElement ne, Element context){
+		if (Aadl2Util.isNull(ne)) return "";
+		if (ne instanceof Classifier){
+			return getClassifierName((Classifier) ne, context);
+		} else {
+			return ((NamedElement)ne).getName();
+		}
+	}
+	
+	public static String getSubcomponentTypeName(SubcomponentType st, Element context){
+		return getClassifierOrLocalName(st, context);
+	}
+	
+	public static String getFeatureTypeName(FeatureType st, Element context){
+		return getClassifierOrLocalName((NamedElement)st, context);
+	}
+
 	public static String getClassifierName(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return "";
-		if (cl.getElementRoot() == context.getElementRoot()){
+		if (context instanceof Realization){
+			// get the name from the stored name in implementation
+			ComponentImplementation ci = (ComponentImplementation)context.getOwner();
+			return ci.getTypeName();
+		}
+		if (cl.getElementRoot().getName().equalsIgnoreCase(context.getElementRoot().getName())){
 			return cl.getName();
 		} else {
 			return cl.getQualifiedName();
 		}
 	}
 	
+	/**
+	 * get the qualified name of an element in the property set (property definition/type/constant
+	 * @param el
+	 * @return
+	 */
 	public static String getPropertySetElementName(NamedElement el){
 		NamedElement ps = (NamedElement)el.eContainer();
 		if (isPredeclaredPropertySet(ps.getName())){
@@ -2084,13 +2134,12 @@ public final class AadlUtil {
 	 */
 	public static EList<ComponentImplementation> getAllComponentImpl() {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		EList<Resource> resources = OsateResourceUtil.getResourceSet().getResources();
-		for (Resource res : resources) {
-			EList<EObject> content = res.getContents();
-			if (!content.isEmpty()) {
-				EObject root = content.get(0);
-				if (root instanceof AadlPackage) {
-					result.addAll(getAllComponentImpl((AadlPackage) root));
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target != null){
+				if (target instanceof AadlPackage) {
+					result.addAll(getAllComponentImpl((AadlPackage) target));
 				}
 			}
 		}
@@ -2293,7 +2342,7 @@ public final class AadlUtil {
 			imports = ((PackageSection) context).getImportedUnits();
 		for (ModelUnit imported : imports) {
 			if (imported instanceof AadlPackage && !imported.eIsProxy()) {
-				if (imported == pack)
+				if (imported.getName().equalsIgnoreCase(pack.getName()))
 					return true;
 			}
 		}
@@ -2302,7 +2351,7 @@ public final class AadlUtil {
 			for (ModelUnit imported : ((AadlPackage) context.eContainer())
 					.getOwnedPublicSection().getImportedUnits())
 				if (imported instanceof AadlPackage && !imported.eIsProxy()
-						&& imported == pack)
+						&& imported.getName().equalsIgnoreCase(pack.getName()))
 					return true;
 		// TODO need to handle public section declared in a separate package
 		// declaration
@@ -2353,6 +2402,52 @@ public final class AadlUtil {
 					&& importedPropertySet == ps)
 				return true;
 		return false;
+	}
+	
+
+	/*
+	 * retrieve all annex subclauses of a given name that belong to a Classifier.
+	 * The list contains the subclause (if any) of the classifier and the subclause of any classifier being extended.
+	 * Note that each classifier can only have one 
+	 */
+	public static EList<AnnexSubclause> getAllAnnexSubclauses(Classifier cl,String annexName) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = cl.getAllExtendPlusSelf();
+		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
+			final Classifier current = i.previous();
+			EList<AnnexSubclause> asclist = AadlUtil.findAnnexSubclause(current,annexName);
+			result.addAll(asclist);
+		}
+		return result;
+	}
+
+	@SuppressWarnings("unchecked")
+	/**
+	 * returns all subclauses whose names match. Note that a classifier can have multiple subclauses of the same annex if each subclause is mode specific.
+	 * @param annexName
+	 * @param c
+	 * @return EList<AnnexSubclause>
+	 */
+	public static EList<AnnexSubclause> findAnnexSubclause(Classifier c, String annexName){
+		return (EList)findNamedElementsInList(c.getOwnedAnnexSubclauses(), annexName);
+	}
+
+	public static AnnexLibrary findPublicAnnexLibrary(AadlPackage p, String annexName){
+		PackageSection ps = p.getOwnedPublicSection();
+		AnnexLibrary res = null;
+		if (ps != null){
+			res = (AnnexLibrary)findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
+		}
+		return res;
+	}
+	
+	public static AnnexLibrary findPrivateAnnexLibrary( AadlPackage p,String annexName){
+		PackageSection ps = p.getOwnedPrivateSection();
+		AnnexLibrary res = null;
+		if (ps != null){
+			res = (AnnexLibrary)findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
+		}
+		return res;
 	}
 
 }

@@ -41,6 +41,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -165,8 +166,9 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	@Override
 	public String getName(){
 		if (name == null){
-			if (getRefinedElement() != null)
+			if (!Aadl2Util.isNull(getRefinedElement()))
 				return getRefinedElement().getName();
+			else return "";
 		}
 		return name;
 	}

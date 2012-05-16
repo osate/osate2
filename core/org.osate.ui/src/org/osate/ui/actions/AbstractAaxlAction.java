@@ -281,7 +281,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyType lookupPropertyType(
 			final String ps, final String name) {
 		final PropertyType pt = 
-				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
+				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
 		if (pt == null) notFound.add(PROP_TYPE + ps + COLON_COLON + name);
 		return pt;
 	}
@@ -342,7 +342,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupOptionalPropertyType(
 			final String ps, final String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,ps+COLON_COLON+name);
+		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
 	}
 
 	/**
@@ -353,7 +353,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(final String name) {
 		final PropertyType pt = 
-				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context,name);
+				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,name);
 		if (pt == null) notFound.add(PREDECLARED + PROP_TYPE + name);
 		return pt;
 	}
@@ -413,7 +413,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupPropertyConstant(final String name) {
 		final PropertyConstant pc =
-				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,name);
+				PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,name);
 		if (pc == null) notFound.add(PREDECLARED + PROP_CONST + name);
 		return pc;
 	}
@@ -427,7 +427,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyConstant lookupPropertyConstant(
 			final String ps, final String name) {
 		final PropertyConstant pc =
-				PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
+				PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps+COLON_COLON+name);
 		if (pc == null) notFound.add(PROP_CONST + ps + COLON_COLON + name);
 		return pc;
 	}
@@ -442,7 +442,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupOptionalPropertyConstant(
 			final String ps, final String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyConstant(context,ps+COLON_COLON+name);
+		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps+COLON_COLON+name);
 	}
 
 	/**

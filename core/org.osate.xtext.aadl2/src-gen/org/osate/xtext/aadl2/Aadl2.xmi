@@ -4496,34 +4496,13 @@
             </elements>
             <elements xsi:type="xtext:Keyword" value=":"/>
             <elements xsi:type="xtext:Keyword" value="subprogram"/>
-            <elements xsi:type="xtext:Alternatives">
-              <elements xsi:type="xtext:Group">
-                <elements xsi:type="xtext:Assignment" feature="context" operator="=">
-                  <terminal xsi:type="xtext:CrossReference">
-                    <type metamodel="/0/@metamodelDeclarations.0">
-                      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CallContext"/>
-                    </type>
-                    <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.188"/>
-                  </terminal>
-                </elements>
-                <elements xsi:type="xtext:Keyword" value="."/>
-                <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
-                  <terminal xsi:type="xtext:CrossReference">
-                    <type metamodel="/0/@metamodelDeclarations.0">
-                      <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
-                    </type>
-                    <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.45"/>
-                  </terminal>
-                </elements>
-              </elements>
-              <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
-                <terminal xsi:type="xtext:CrossReference">
-                  <type metamodel="/0/@metamodelDeclarations.0">
-                    <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
-                  </type>
-                  <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.188"/>
-                </terminal>
-              </elements>
+            <elements xsi:type="xtext:Assignment" feature="calledSubprogram" operator="=">
+              <terminal xsi:type="xtext:CrossReference">
+                <type metamodel="/0/@metamodelDeclarations.0">
+                  <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//CalledSubprogram"/>
+                </type>
+                <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.42"/>
+              </terminal>
             </elements>
           </elements>
         </elements>
@@ -10394,7 +10373,6 @@
         <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
       </type>
       <alternatives xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" cardinality="?" value="^"/>
         <elements xsi:type="xtext:Alternatives">
           <elements xsi:type="xtext:CharacterRange">
             <left value="a"/>
@@ -10404,21 +10382,22 @@
             <left value="A"/>
             <right value="Z"/>
           </elements>
-          <elements xsi:type="xtext:Keyword" value="_"/>
         </elements>
-        <elements xsi:type="xtext:Alternatives" cardinality="*">
-          <elements xsi:type="xtext:CharacterRange">
-            <left value="a"/>
-            <right value="z"/>
-          </elements>
-          <elements xsi:type="xtext:CharacterRange">
-            <left value="A"/>
-            <right value="Z"/>
-          </elements>
-          <elements xsi:type="xtext:Keyword" value="_"/>
-          <elements xsi:type="xtext:CharacterRange">
-            <left value="0"/>
-            <right value="9"/>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" cardinality="?" value="_"/>
+          <elements xsi:type="xtext:Alternatives">
+            <elements xsi:type="xtext:CharacterRange">
+              <left value="a"/>
+              <right value="z"/>
+            </elements>
+            <elements xsi:type="xtext:CharacterRange">
+              <left value="A"/>
+              <right value="Z"/>
+            </elements>
+            <elements xsi:type="xtext:CharacterRange">
+              <left value="0"/>
+              <right value="9"/>
+            </elements>
           </elements>
         </elements>
       </alternatives>

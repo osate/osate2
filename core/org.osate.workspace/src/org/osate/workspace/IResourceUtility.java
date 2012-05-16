@@ -177,8 +177,8 @@ public class IResourceUtility {
 	 */
 	public static boolean isInstanceFile(IResource file) {
 		if (file instanceof IFile) {
-			return file.getName().endsWith(
-					WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.INSTANCE_FILE_EXT);
+			return (file.getName().endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.MODEL_FILE_EXT)||
+					file.getName().endsWith(WorkspacePlugin.INSTANCE_FILE_EXT));
 		}
 		if (file != null && file.exists()) {
 			try {

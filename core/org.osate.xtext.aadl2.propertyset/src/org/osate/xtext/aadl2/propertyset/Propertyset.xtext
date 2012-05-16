@@ -246,6 +246,7 @@ CoreKeyWord :
 ;
 
 
+
 // fully qualified classifier name (always includes package name
 FQCREF:
 	(ID '::')+ ID ('.' ID)?;

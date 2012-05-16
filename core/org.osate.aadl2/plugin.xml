@@ -29,7 +29,7 @@
 
    <extension point="org.eclipse.emf.ecore.extension_parser">
       <parser
-            type="instance"
+            type="aail2"
             class="org.osate.aadl2.instance.util.InstanceResourceFactoryImpl"/>
    </extension>
 

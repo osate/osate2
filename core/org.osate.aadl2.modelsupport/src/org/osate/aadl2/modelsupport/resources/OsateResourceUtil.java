@@ -38,7 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -50,10 +52,17 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
+import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.ui.resource.IResourceSetProvider;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
+
+import com.google.inject.Injector;
 
 
 
@@ -71,50 +80,49 @@ public class OsateResourceUtil {
 
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
 
-	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
+    
+    private static Injector injector = OsateCorePlugin
+            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
 
-	public static final Map<Object, Object> LOAD_OPTIONS;
-
-	public static final Map<Object, Object> SAVE_OPTIONS;
-	
-	static {
-		SAVE_OPTIONS = new HashMap<Object, Object>();
-		SAVE_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8");
-		SAVE_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-		SAVE_OPTIONS.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		SAVE_OPTIONS.put(XMLResource.OPTION_USE_FILE_BUFFER, Boolean.TRUE);
-
-		LOAD_OPTIONS = new HashMap<Object, Object>();
-		LOAD_OPTIONS.put(XMLResource.OPTION_ENCODING, "UTF-8");
-		LOAD_OPTIONS.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-		LOAD_OPTIONS.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.TRUE);
-		LOAD_OPTIONS.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.FALSE);
-		LOAD_OPTIONS.put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
+    private static IResourceSetProvider fResourceSetProvider;
+    
+    private static XtextResourceSet resourceSet;
+    
+	public static ResourceSet getResourceSet(Element context){
+		ResourceSet crs = context.eResource().getResourceSet();
+		setResourceSet(crs);
+		return crs; 
 	}
+    
+    public static void setResourceSet(ResourceSet rs){
+    	if (resourceSet == null && rs instanceof XtextResourceSet){
+    		resourceSet =(XtextResourceSet) rs;
+    	}
+    	if (resourceSet != null && resourceSet != rs){
+    		return;
+    	}
+    }
+    
+    public static XtextResourceSet getResourceSet(){
+    	if (injector==null) {
+    		injector = OsateCorePlugin
+    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+    		if (injector == null){
+    			return null;
+    		}
+    	}
+        PredeclaredProperties.initPluginContributedAadl();
+        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+        IWorkspaceRoot root = workspace.getRoot();
+        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+        if (fResourceSetProvider == null)
+        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
-	/**
-	 * The resource set to be used for all models.
-	 * It is intended to be the one created by XText editors and used
-	 * by the Aadl2Editor as shared resource set.
-	 * Note that graphical editors may want to load their own instance of models 
-	 * rather than sharing it with the Xtext editor.
-	 */
-	
-	private static Map<String, Object> XMISaveOptions = null;
-	
-	public Map<String, Object> getXMISaveOptions(){
-			if (XMISaveOptions == null){
-				XMISaveOptions = new HashMap<String, Object>();
-				XMISaveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
-				XMISaveOptions.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE,
-			Boolean.TRUE);
-			}
-			return XMISaveOptions;
-	}
-	
-	public static ResourceSet getResourceSet(){
-		return ModelLoadingAdapter.getResourceSet(); //new ResourceSetImpl();
-	}
+        if (resourceSet == null) 
+        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(project);
+        return resourceSet;
+   	
+    }
 
 
 	/**
@@ -197,11 +205,10 @@ public class OsateResourceUtil {
 	 * creates a Resource for file name with path within Eclipse If it exists,
 	 * it will delete the file before creating the resource.
 	 * 
-	 * @param uri
-	 *            uri
-	 * @return Resource
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
 	 */
-	public static Aadl2ResourceImpl getEmptyAadl2Resource(URI uri) {
+	public static Resource getEmptyAadl2Resource(URI uri) {
 		Resource res = null;
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
@@ -218,26 +225,81 @@ public class OsateResourceUtil {
 		}
 
 		res = getResourceSet().createResource(uri);
-		return (Aadl2ResourceImpl)res;
+		return res;
+	}
+
+	/**
+	 * creates a Resource for file name with path within Eclipse If it exists,
+	 * it will delete the file before creating the resource.
+	 * 
+	 * @param uri Assumed to be an aadl or aaxl extension
+	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
+	 */
+	public static Resource getEmptyAadl2Resource(URI uri, Element context) {
+		Resource res = null;
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		if (uri != null) {
+			IResource iResource =  getOsateIFile(uri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+		}
+		res = getResourceSet(context).createResource(uri);
+		return res;
+	}
+
+	/**
+	 * creates a Resource for file name with path within Eclipse If it exists,
+	 * it will delete the file before creating the resource.
+	 * 
+	 * @param uri Assumed to be an aaxl extension
+	 * @return Resource Aadl2ResourceImpl for aaxl
+	 */
+	public static Resource getEmptyAaxl2Resource(URI uri, Element context) {
+		Resource res = null;
+		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
+				.getRoot();
+		if (uri != null) {
+			IResource iResource =  getOsateIFile(uri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+		}
+		res = getResourceSet(context).createResource(uri);
+		return res;
 	}
 
 	public static void save(Resource res){
-		if (res instanceof Aadl2ResourceImpl) {
-			((Aadl2ResourceImpl) res).save();
-		} else if (res instanceof XtextResource){
-			System.out.println("Trying to save Xtext file");
-//			((XtextResource) res).save();
-		} else {
-			Map<String, Object> options = new HashMap<String, Object>();
-			options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-			options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE,
-					Boolean.TRUE);
-			try {
-				res.save(options);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			res.save(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Save model as text and apply Formatter in the process
+	 */
+	public static void saveFormatted(Resource res){
+		SaveOptions.Builder sb = SaveOptions.newBuilder();
+		sb = sb.format();
+		try {
+			res.save(sb.getOptions().toOptionsMap());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -299,8 +361,7 @@ public class OsateResourceUtil {
 		}
 		URI instanceURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR)
 				.appendSegment(
-				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + "_"
-						+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX);
+				filename + "_" + si.getTypeName() + "_" + si.getImplementationName() + WorkspacePlugin.INSTANCE_MODEL_POSTFIX );
 		instanceURI = instanceURI.appendFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
 		return instanceURI;
 	}

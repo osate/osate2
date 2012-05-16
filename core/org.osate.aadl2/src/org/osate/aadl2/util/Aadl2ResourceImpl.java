@@ -66,32 +66,6 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 		super(uri);
 	}
 
-	public void save() {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-		options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.FALSE);
-		options.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-		options.put(XMLResource.OPTION_USE_FILE_BUFFER, Boolean.TRUE);
-		save(options);
-	}
-
-	public void save(Map<?, ?> options) {
-		try {
-			super.save(options);
-		} catch (IOException e1) {
-		}
-	}
-
-	public void load() throws IOException {
-		Map<String, Object> options = new HashMap<String, Object>();
-		options.put(XMLResource.OPTION_ENCODING, "UTF-8");
-		options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-		options.put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.TRUE);
-		options.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.FALSE);
-		options.put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
-		load(options);
-	}
-
 	/* (non-Javadoc)
 	 * @see org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl#useUUIDs()
 	 */

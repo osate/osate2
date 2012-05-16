@@ -608,8 +608,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
 				error(impl, "Identifier '" + ne.getName() +
-						"' has previously been defined in component implementation "
-						+ impl.getQualifiedName()+ " or its type.");
+						"' has previously been defined in implementation '"
+						+ impl.getQualifiedName()+ "' or in type '"+impl.getTypeName()+"'");
 			}
 		}
 	}
@@ -1647,13 +1647,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * method would not be sufficient for L4.
 	 */
 	private void checkTypeOfFeatureRefinement(Feature feature) {
-		if (feature.getRefined() != null
+		Feature refined = feature.getRefined();
+		if (!Aadl2Util.isNull(refined)
 				&& !(feature.getRefined() instanceof AbstractFeature)
-				&& !feature.eClass().equals(feature.getRefined().eClass())) {
+				&& !feature.eClass().equals(refined.eClass())) {
 			error(feature,
 					"Cannot refine "
-							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature
-									.getRefined().eClass())
+							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass())
 							+ " into "
 							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature
 									.eClass()) + '.');
@@ -2181,10 +2181,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		} else {
 			// going up or down hierarchy
-			if (!((srcDirection.outgoing() && dstDirection.outgoing())||(srcDirection.incoming() && dstDirection.incoming()))){
-				error(connection, "Source feature '" + source.getName() + "' and destination feature '"+destination.getName() +"' must have same direction.");
-			}
-		}
+		       if (!((srcDirection.outgoing() && dstDirection.outgoing())||(srcDirection.incoming() && dstDirection.incoming()))){
+	               error(connection, "Source feature '" + source.getName() + "' and destination feature '"+destination.getName() +"' must have same direction.");
+	           }
+	           if (srcContext instanceof Subcomponent){
+	        	   if (!(srcDirection.outgoing()))
+		               error(connection, "Outgoing connection requires outgoing feature '" + srcContext.getName()+"."+ source.getName() + "'.");
+	        	   if (!(dstDirection.outgoing()))
+		               error(connection, "Outgoing connection requires outgoing feature '" + destination.getName() + "'.");
+	           }
+	           if (dstContext instanceof Subcomponent){
+	        	   if (!(dstDirection.incoming()))
+		               error(connection, "Incoming connection requires incoming feature '" + dstContext.getName()+"."+ destination.getName() + "'.");
+	        	   if (!(srcDirection.incoming()))
+		               error(connection, "Incoming connection requires incoming feature '" + source.getName() + "'.");
+	           }
+	     }
 	}
 
 	/**

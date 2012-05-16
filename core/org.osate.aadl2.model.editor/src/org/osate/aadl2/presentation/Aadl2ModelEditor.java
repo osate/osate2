@@ -1462,7 +1462,8 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 	 */
 	public void gotoMarker(IMarker marker) {
 		try {
-			if (marker.getType().equals(EValidator.MARKER)) {
+			String t = marker.getType();
+//			if (t.startsWith("org.osate.an")) {
 				final String uriAttribute = marker.getAttribute(EValidator.URI_ATTRIBUTE, null);
 				if (uriAttribute != null) {
 					//.CUSTOM: Use a read-only transaction to read the resource
@@ -1482,7 +1483,7 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 						Aadl2EditorPlugin.INSTANCE.log(e);
 					}
 				}
-			}
+//			}
 		} catch (CoreException exception) {
 			Aadl2EditorPlugin.INSTANCE.log(exception);
 		}

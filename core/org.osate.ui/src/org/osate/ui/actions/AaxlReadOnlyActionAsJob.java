@@ -45,6 +45,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.osate.aadl2.Element;
+import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 
 
 /**
@@ -113,6 +114,7 @@ import org.osate.aadl2.Element;
 public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
 	public AaxlReadOnlyActionAsJob() {
 		super();
+		PropertiesActivator act = org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator.getInstance();
 	}
 	
 	/** Get the name of the action to display in the Job, etc. */

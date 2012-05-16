@@ -287,7 +287,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_12_1_0(), "rule__DataImplementation__Alternatives_12_1_0");
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_13_1(), "rule__DataImplementation__Alternatives_13_1");
 					put(grammarAccess.getCallSpecificationAccess().getAlternatives_0(), "rule__CallSpecification__Alternatives_0");
-					put(grammarAccess.getCallSpecificationAccess().getAlternatives_0_1_4(), "rule__CallSpecification__Alternatives_0_1_4");
 					put(grammarAccess.getPrototypeAccess().getAlternatives_0(), "rule__Prototype__Alternatives_0");
 					put(grammarAccess.getPrototypeAccess().getAlternatives_0_0_0(), "rule__Prototype__Alternatives_0_0_0");
 					put(grammarAccess.getAbstractPrototypeAccess().getAlternatives_0(), "rule__AbstractPrototype__Alternatives_0");
@@ -828,7 +827,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallSpecificationAccess().getGroup(), "rule__CallSpecification__Group__0");
 					put(grammarAccess.getCallSpecificationAccess().getGroup_0_0(), "rule__CallSpecification__Group_0_0__0");
 					put(grammarAccess.getCallSpecificationAccess().getGroup_0_1(), "rule__CallSpecification__Group_0_1__0");
-					put(grammarAccess.getCallSpecificationAccess().getGroup_0_1_4_0(), "rule__CallSpecification__Group_0_1_4_0__0");
 					put(grammarAccess.getCallSpecificationAccess().getGroup_1(), "rule__CallSpecification__Group_1__0");
 					put(grammarAccess.getPrototypeAccess().getGroup(), "rule__Prototype__Group__0");
 					put(grammarAccess.getPrototypeAccess().getGroup_0_0(), "rule__Prototype__Group_0_0__0");
@@ -2051,9 +2049,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getCallSpecificationAccess().getNameAssignment_0_0_1(), "rule__CallSpecification__NameAssignment_0_0_1");
 					put(grammarAccess.getCallSpecificationAccess().getSubprogramAccessNameAssignment_0_0_6(), "rule__CallSpecification__SubprogramAccessNameAssignment_0_0_6");
 					put(grammarAccess.getCallSpecificationAccess().getNameAssignment_0_1_1(), "rule__CallSpecification__NameAssignment_0_1_1");
-					put(grammarAccess.getCallSpecificationAccess().getContextAssignment_0_1_4_0_0(), "rule__CallSpecification__ContextAssignment_0_1_4_0_0");
-					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_1_4_0_2(), "rule__CallSpecification__CalledSubprogramAssignment_0_1_4_0_2");
-					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_1_4_1(), "rule__CallSpecification__CalledSubprogramAssignment_0_1_4_1");
+					put(grammarAccess.getCallSpecificationAccess().getCalledSubprogramAssignment_0_1_4(), "rule__CallSpecification__CalledSubprogramAssignment_0_1_4");
 					put(grammarAccess.getCallSpecificationAccess().getOwnedPropertyAssociationAssignment_1_1(), "rule__CallSpecification__OwnedPropertyAssociationAssignment_1_1");
 					put(grammarAccess.getPrototypeAccess().getConstrainingClassifierAssignment_0_0_1(), "rule__Prototype__ConstrainingClassifierAssignment_0_0_1");
 					put(grammarAccess.getPrototypeAccess().getArrayAssignment_0_0_2_0(), "rule__Prototype__ArrayAssignment_0_0_2_0");

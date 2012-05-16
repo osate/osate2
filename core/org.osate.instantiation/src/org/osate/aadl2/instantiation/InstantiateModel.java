@@ -39,6 +39,7 @@
  */
 package org.osate.aadl2.instantiation;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -49,6 +50,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
@@ -176,7 +178,7 @@ public class InstantiateModel {
 	// Methods
 
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Aadl2ResourceImpl aadlResource) {
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
@@ -214,9 +216,9 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(SystemImplementation si, Aadl2ResourceImpl aadlResource) {
+	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
-		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() + "_"
+		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() 
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
 		root.setSystemImplementation(si);
@@ -225,14 +227,24 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		aadlResource.save();
+		try {
+			aadlResource.save(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		createXSystemInstance(root);
 		// We're done: Save the model.
 		// We don't respond to a cancel at this point
 
 		monitor.subTask("Saving instance model");
 
-		aadlResource.save();
+		try {
+			aadlResource.save(null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return root;
 	}
 
@@ -616,16 +628,20 @@ public class InstantiateModel {
 
 			inverse ^= fg.isInverse();
 
-			while (ft instanceof FeatureGroupPrototype) {
+			while (ft instanceof FeatureGroupPrototype ) {
 				FeatureGroupPrototype fgp = (FeatureGroupPrototype) ft;
 				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache);
 				if (fgr != null) {
 					ft = fgr.getFeatureType();
+					if (ft == null) {
+						errManager.error(fi, "Could not resolve feature group type of feature group prototype " + fi.getInstanceObjectPath());
+						return;
+					}
+				} else {
+					// prototype has not been bound yet
+					errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()+" is not bound yet to feature group type");
+					return;
 				}
-			}
-			if (ft == null) {
-				errManager.error(fi, "Could not resolve feature group type of " + fi.getInstanceObjectPath());
-				return;
 			}
 			FeatureGroupType fgt = (FeatureGroupType) ft;
 

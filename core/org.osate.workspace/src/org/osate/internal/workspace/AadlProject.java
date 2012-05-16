@@ -316,7 +316,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		return null;
 	}
 
-	private final String instanceEnd = WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.MODEL_FILE_EXT;
+	private final String instanceEnd = WorkspacePlugin.INSTANCE_MODEL_POSTFIX + "." + WorkspacePlugin.INSTANCE_FILE_EXT;
 
 	/**
 	 * clean all declarative model files, i.e., files with the extension aaxl

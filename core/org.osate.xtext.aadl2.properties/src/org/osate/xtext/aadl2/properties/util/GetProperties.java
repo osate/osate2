@@ -69,38 +69,150 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class GetProperties {
 
+
+	/**
+	 * find property definition for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Definition name
+	 * @return Property or null
+	 */
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
+//		return lookupPropertyDefinition(ps, name);
 		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
 	}
 
+
+	/**
+	 * find property type for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Type name
+	 * @return PropertyType or null
+	 */
 	public static PropertyType lookupPropertyType(EObject context,String ps, String name) {
+//		return lookupPropertyType(ps, name);
 		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyType(context,ps != null?(ps+ "::" +name):name);
 	}
 
+
+	/**
+	 * find property constant for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Constant name
+	 * @return PropertyConstant or null
+	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
+//		return lookupPropertyConstant(ps, name);
 		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
+	}
+
+	/**
+	 * find property definition for given property name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Definition name
+	 * @return Property or null
+	 */
+	public static Property lookupPropertyDefinition(String ps, String name) {
+		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(ps != null?(ps+ "::" +name):name);
+	}
+
+
+	/**
+	 * find property type for given name. The property type may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Type name
+	 * @return PropertyType or null
+	 */
+	public static PropertyType lookupPropertyType(String ps, String name) {
+		return EMFIndexRetrieval.getPropertyTypeInWorkspace(ps != null?(ps+ "::" +name):name);
+	}
+
+
+	/**
+	 * find property constant for given name. The property constant may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param ps String property set name, which may be null
+	 * @param name String Property Constant name
+	 * @return PropertyConstant or null
+	 */
+	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
+		return EMFIndexRetrieval.getPropertyConstantInWorkspace(ps != null?(ps+ "::" +name):name);
+	}
+
+	/**
+	 * find property definition/type/constant for given name. The name may be qualified by the property set name
+	 * For predeclared properties this is not required
+	 * @param name String Property Definition/Type/Constant name
+	 * @return NamedElement or null
+	 */
+	public static NamedElement lookupNamedElementInPropertySet(String name) {
+		return EMFIndexRetrieval.getPropertySetElementInWorkspace(name);
+	}
+
+	/**
+	 * find property definition for given property name. The property may be qualified by the property set name
+	 * For predeclared properties this is not required
+	 * @param name String Property Definition name
+	 * @return Property or null
+	 */
+	public static Property lookupPropertyDefinition(String name) {
+		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(name);
+	}
+
+
+	/**
+	 * find property type for given property name. The property type may be qualified by the property set name
+	 * For predeclared properties this is not required
+	 * @param name String property type name
+	 * @return PropertyType or null
+	 */
+	public static PropertyType lookupPropertyType(String name) {
+		return EMFIndexRetrieval.getPropertyTypeInWorkspace(name);
+	}
+
+
+	/**
+	 * find property constant for given property name. The property may be qualified by the property set name
+	 * For predeclared properties this is not required
+	 * @param name String property constant name
+	 * @return PropertyConstant or null
+	 */
+	public static PropertyConstant lookupPropertyConstant(String name) {
+		return EMFIndexRetrieval.getPropertyConstantInWorkspace(name);
 	}
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
-	 * 
 	 * @param pd Property Definition
 	 * @param literalname String
 	 * @return UnitLiteral or null if the unit literal could not be found or the
 	 *         definition does not have a unit
 	 */
 	public static UnitLiteral findUnitLiteral(Property pd, String literalname) {
-		return PropertiesLinkingService.getPropertiesLinkingService(pd).findUnitLiteral(pd, literalname);
+		return PropertiesLinkingService.findUnitLiteral(pd, literalname);
 	}
 	
-	public static UnitLiteral findUnitLiteral(NamedElement context,String unitsType, String literal){
-		PropertyType pt = PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context, unitsType);
+	public static UnitLiteral findUnitLiteral(String unitsType, String literal){
+		PropertyType pt = lookupPropertyType(unitsType);
 		if (pt == null || ! (pt instanceof UnitsType)) return null;
 		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
 	}
+//	
+//	public static UnitLiteral findUnitLiteral(NamedElement context,String unitsType, String literal){
+//		PropertyType pt = PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context, unitsType);
+//		if (pt == null || ! (pt instanceof UnitsType)) return null;
+//		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
+//	}
 	
 	public static EnumerationLiteral findEnumerationLiteral(Property pd, String literalname) {
-		return PropertiesLinkingService.getPropertiesLinkingService(pd).findEnumerationLiteral(pd, literalname);
+		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
 	}
 	
 	public static EnumerationLiteral findEnumerationLiteral(NamedElement context,String enumerationType, String literal){
@@ -110,19 +222,19 @@ public class GetProperties {
 	}
 	
 	public static UnitLiteral getKBUnitLiteral(NamedElement context){
-		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
+		return findUnitLiteral(AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
 	
 	public static UnitLiteral getMSUnitLiteral(NamedElement context){
-		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
+		return findUnitLiteral(AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
 	}
 	
 	public static UnitLiteral getSecUnitLiteral(NamedElement context){
-		return findUnitLiteral(context, AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
+		return findUnitLiteral(AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
 	}
 	
 	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
-		return findUnitLiteral(context, "SEI::"+SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
+		return findUnitLiteral("SEI::"+SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
 	
 	
@@ -136,8 +248,10 @@ public class GetProperties {
 				DeploymentProperties.ACTUAL_PROCESSOR_BINDING);
 		List<? extends PropertyExpression> propertyValues = io.getPropertyValueList(actualProcessorBinding);
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
-		for (PropertyExpression propertyExpression : propertyValues)
-			components.add((ComponentInstance)((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject());
+		for (PropertyExpression propertyExpression : propertyValues){
+			InstanceObject obj = ((InstanceReferenceValue)propertyExpression).getReferencedInstanceObject();
+			components.add((ComponentInstance)obj);
+		}
 		return components;
 	}
 
@@ -191,67 +305,67 @@ public class GetProperties {
 
 	public static double getMIPSCapacityInMIPS(final NamedElement ne, final double defaultValue) {
 			Property MIPSCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_CAPACITY);
-			UnitLiteral MIPS = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(MIPSCapacity, SEI.MIPS_LITERAL);
+			UnitLiteral MIPS = findUnitLiteral(MIPSCapacity, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSCapacity, MIPS, defaultValue);
 	}
 
 	public static double getMIPSBudgetInMIPS(final NamedElement ne, final double defaultValue) {
 			Property MIPSBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_BUDGET);
-			UnitLiteral MIPS = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(MIPSBudget, SEI.MIPS_LITERAL);
+			UnitLiteral MIPS = findUnitLiteral(MIPSBudget, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSBudget, MIPS, defaultValue);
 	}
 
 	public static double getMIPSActualInMIPS(final NamedElement ne, final double defaultValue) {
 			Property MIPSActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.MIPS_ACTUAL);
-			UnitLiteral MIPS = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
+			UnitLiteral MIPS = findUnitLiteral(MIPSActual, SEI.MIPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, MIPSActual, MIPS, defaultValue);
 	}
 
 	public static double getRAMCapacityInKB(final NamedElement ne, final double defaultValue) {
 			Property RAMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_CAPACITY);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(RAMCapacity, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(RAMCapacity, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, RAMCapacity, kb, defaultValue);
 	}
 
 	public static double getRAMBudgetInKB(final NamedElement ne, final double defaultValue) {
 			Property RAMBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_BUDGET);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(RAMBudget, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(RAMBudget, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, RAMBudget, kb, defaultValue);
 	}
 
 	public static double getRAMActualInKB(final NamedElement ne, final double defaultValue) {
 			Property RAMActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.RAM_ACTUAL);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(RAMActual, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(RAMActual, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, RAMActual, kb, defaultValue);
 	}
 
 	public static double getROMCapacityInKB(final NamedElement ne, final double defaultValue) {
 			Property ROMCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_CAPACITY);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(ROMCapacity, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(ROMCapacity, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, ROMCapacity, kb, defaultValue);
 	}
 
 	public static double getROMBudgetInKB(final NamedElement ne, final double defaultValue) {
 			Property ROMBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_BUDGET);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(ROMBudget, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(ROMBudget, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, ROMBudget, kb, defaultValue);
 	}
 
 	public static double getROMActualInKB(final NamedElement ne, final double defaultValue) {
 			Property ROMActual = lookupPropertyDefinition(ne,SEI._NAME, SEI.ROM_ACTUAL);
-			UnitLiteral kb = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(ROMActual, AadlProject.KB_LITERAL);
+			UnitLiteral kb = findUnitLiteral(ROMActual, AadlProject.KB_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, ROMActual, kb, defaultValue);
 	}
 
 	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_CAPACITY);
-			UnitLiteral Kbps = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(BandWidthCapacity, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, SEI.KBPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
 	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_BUDGET);
-			UnitLiteral Kbps = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(BandWidthBudget, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, SEI.KBPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
@@ -268,17 +382,17 @@ public class GetProperties {
 		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 
 	}
-	// 10 picoseconds
+	// 1 us equals 1 MIPS
 	public static final double DEFAULT_CYCLE_TIME = 1.0e-12;
 
-	public static double getCycleTimeinMS(final NamedElement ne) {
+	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(cycleTime, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME);
 	}
 	public static double getCycleTimeinSec(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
-		UnitLiteral second = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
+		UnitLiteral second = findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME);
 	}
 	
@@ -288,12 +402,12 @@ public class GetProperties {
 	{
 			Property pl =lookupPropertyDefinition(ph,SEI._NAME, SEI.PARTITION_LATENCY);
 			return PropertyUtils.getScaledNumberValue(ph, pl, 
-					PropertiesLinkingService.getPropertiesLinkingService(ph).findUnitLiteral(pl, AadlProject.MS_LITERAL), defaultValue);
+					findUnitLiteral(pl, AadlProject.MS_LITERAL), defaultValue);
 	}
 
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(nv).findUnitLiteral(nv, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.MS_LITERAL);
 		return nv.getScaledValue(microSecond);
 	}
 
@@ -334,7 +448,7 @@ public class GetProperties {
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			cycleTime = getCycleTimeinMS(pci);
+			cycleTime = getCycleTimeinUS(pci);
 		}
 		if (cycleTime == 0.0) {
 			cycleTime = getReferenceCycleTimeConstantinMS(thread);
@@ -346,7 +460,7 @@ public class GetProperties {
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			cycleTime = getCycleTimeinMS(pci);
+			cycleTime = getCycleTimeinUS(pci);
 			cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
 		}
 		if (cycleTime == 0.0) {
@@ -376,7 +490,10 @@ public class GetProperties {
 	public static double getProcessorScalingFactor(final ComponentInstance thread) {
 		List<ComponentInstance> processorList = getActualProcessorBinding(thread);
 		ComponentInstance processor = processorList.isEmpty() ? null : processorList.get(0);
-		double procCycleTime = getCycleTimeinMS(processor);
+		if (processor == null) {
+			return 1.0;
+		}
+		double procCycleTime = getCycleTimeinUS(processor);
 		double refCycleTime = getReferenceCycleTimeinMS(thread);
 		if (refCycleTime == 0.0)
 			return 1.0;
@@ -414,7 +531,7 @@ public class GetProperties {
 	 * @return MIPS
 	 */
 	public static double getCycletimeasMIPS(final ComponentInstance curprocessor) {
-		double cycleTime = getCycleTimeinMS(curprocessor);
+		double cycleTime = getCycleTimeinUS(curprocessor);
 		if (cycleTime != 0.0) {
 			// time for MIPS therefore microsec (10E-6)
 			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
@@ -425,13 +542,13 @@ public class GetProperties {
 
 	public static double getPowerCapacity(final NamedElement ne, final double defaultValue) {
 		Property powerCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.POWER_CAPACITY);
-		UnitLiteral mWatt = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(powerCapacity, SEI.MW_LITERAL);
+		UnitLiteral mWatt = findUnitLiteral(powerCapacity, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerCapacity, mWatt, defaultValue);
 	}
 
 	public static double getPowerBudget(final NamedElement ne, final double defaultValue) {
 		Property powerBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.POWER_BUDGET);
-		UnitLiteral mWatt = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(powerBudget, SEI.MW_LITERAL);
+		UnitLiteral mWatt = findUnitLiteral(powerBudget, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerBudget, mWatt, defaultValue);
 	}
 
@@ -443,25 +560,25 @@ public class GetProperties {
 //			}
 //		}
 		Property powerSupply = lookupPropertyDefinition(ne,SEI._NAME, SEI.POWER_SUPPLY);
-		UnitLiteral mWatt = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(powerSupply, SEI.MW_LITERAL);
+		UnitLiteral mWatt = findUnitLiteral(powerSupply, SEI.MW_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, powerSupply, mWatt, defaultValue);
 	}
 
 	public static double getPeriodinMS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(period, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
 	}
 
 	public static double getPeriodinNS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(period, AadlProject.NS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(period, AadlProject.NS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
 	}
 
 	public static double getActualLatencyinMS(final NamedElement ne) {
 		Property actualLatency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.ACTUAL_LATENCY);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(actualLatency, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(actualLatency, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, actualLatency, microSecond, 0.0);
 	}
 
@@ -476,25 +593,25 @@ public class GetProperties {
 
 	public static double getDeadlineinSec(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
-		UnitLiteral second = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(deadline, AadlProject.SEC_LITERAL);
+		UnitLiteral second = findUnitLiteral(deadline, AadlProject.SEC_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, second, 0.0);
 	}
 
 	public static double getDeadlineinMS(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(deadline, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, microSecond, 0.0);
 	}
 
 	public static double getDeadlineinNS(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
-		UnitLiteral nanoSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(deadline, AadlProject.NS_LITERAL);
+		UnitLiteral nanoSecond = findUnitLiteral(deadline, AadlProject.NS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, deadline, nanoSecond, 0.0);
 	}
 
 	public static double getComputeExecutionTimeinMS(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, microSecond, 0.0);
 		if (ne instanceof ComponentInstance) {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
@@ -505,7 +622,7 @@ public class GetProperties {
 
 	public static double getComputeExecutionTimeinSec(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral second = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
 		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
 		if (ne instanceof ComponentInstance) {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
@@ -516,7 +633,7 @@ public class GetProperties {
 
 	public static double getPeriodInSeconds(final NamedElement ne, final double defaultValue) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
-		UnitLiteral second = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(period, AadlProject.SEC_LITERAL);
+		UnitLiteral second = findUnitLiteral(period, AadlProject.SEC_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, second, defaultValue);
 	}
 
@@ -545,7 +662,7 @@ public class GetProperties {
 
 	public static double getSourceDataSizeInBytes(final NamedElement ne) {
 			Property SourceDataSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_DATA_SIZE);
-			UnitLiteral Bytes = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
+			UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
 			double res = PropertyUtils.getScaledNumberValue(ne, SourceDataSize, Bytes, 0.0);
 			if (res == 0.0 && ne instanceof FeatureGroupType) {
 				EList fl = ((FeatureGroupType) ne).getAllFeatures();
@@ -563,20 +680,20 @@ public class GetProperties {
 	
 	public static double getSourceCodeSizeInBytes(final NamedElement ne) {
 			Property SourceCodeSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_CODE_SIZE);
-			UnitLiteral Bytes = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(SourceCodeSize, AadlProject.B_LITERAL);
+			UnitLiteral Bytes = findUnitLiteral(SourceCodeSize, AadlProject.B_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, SourceCodeSize, Bytes,0.0);
 	}
 	
 	public static double getSourceStackSizeInBytes(final NamedElement ne) {
 			Property SourceStackSize = lookupPropertyDefinition(ne,MemoryProperties._NAME, MemoryProperties.SOURCE_STACK_SIZE);
-			UnitLiteral Bytes = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(SourceStackSize, AadlProject.B_LITERAL);
+			UnitLiteral Bytes = findUnitLiteral(SourceStackSize, AadlProject.B_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, SourceStackSize, Bytes,0.0);
 	}
 
 
 	public static double getPartitionLatencyinMS(final NamedElement ne, final double defaultValue) {
 			Property partitionLatency = lookupPropertyDefinition(ne,SEI._NAME, SEI.PARTITION_LATENCY);
-			UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
+			UnitLiteral microSecond = findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, partitionLatency, microSecond, defaultValue);
 	}
 
@@ -591,7 +708,7 @@ public class GetProperties {
 
 	public static double getLatencyinMS(final NamedElement ne) {
 			Property Latency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-			UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(ne).findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 			return PropertyUtils.getScaledRangeMaximum(ne, Latency, microSecond,0.0);
 	}
 
@@ -600,7 +717,7 @@ public class GetProperties {
 		if (aci == null)
 			return 0.0;
 			Property Latency = lookupPropertyDefinition(aci,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-			UnitLiteral microSecond = PropertiesLinkingService.getPropertiesLinkingService(aci).findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
 			return PropertyUtils.getScaledRangeMaximum(aci, Latency, microSecond,0.0);
 	}
 
