@@ -24,6 +24,7 @@ package fr.tpt.aadl.utils;
 import java.util.ArrayList ;
 import java.util.Collections ;
 import java.util.Comparator ;
+import java.util.Iterator ;
 import java.util.List ;
 
 import org.eclipse.emf.ecore.EObject ;
@@ -149,5 +150,127 @@ public class Aadl2Utils
     }
     
     return result ;
+  }
+  
+  /**
+   * Concatenates the strings contained in the given array by inserting
+   * between the strings, the given separator.
+   * 
+   * @param separator the given string separator
+   * @param toBeConcatenated the given string array
+   * @return the concatenated strings
+   */
+  public static String concatenateString(String separator,
+                                         String ... toBeConcatenated)
+  {
+    StringBuilder result = new StringBuilder () ;
+
+    for(String s : toBeConcatenated)
+    {
+      result.append(s) ;
+      result.append(separator) ;
+    }
+
+    // Remove the last separator.
+    result.setLength(result.length()- separator.length()) ;
+
+    return result.toString() ;
+  }
+
+  /**
+   * Returns {@code true} if the given string is found (case not sensitive)
+   * into the given string array. Otherwise returns {@code false}.  
+   * If the given string is {@code null}, it returns {@code false}.  
+   * 
+   * @param s the given string or {@code null}
+   * @param stringArray the given string array
+   * @return {@code true} if the given string is found (case not sensitive) 
+   * into the given string array. Otherwise {@code false}. 
+   */
+  public static boolean contains(String s, Iterable<String> stringArray )
+  {
+    for(String tmp : stringArray)
+    {
+      if(tmp.equalsIgnoreCase(s))
+      {
+        return true ;
+      }
+    }
+
+    return false ;
+  }
+
+  /**
+   * Returns {@code true} if the given object is found (based on equals method)
+   * into the given object array. Otherwise returns {@code false}.  
+   * If the given object is {@code null}, it returns {@code false}.  
+   * 
+   * @param element the given object or {@code null}
+   * @param array the given object array
+   * @return {@code true} if the given object is found ((based on java address)
+   * into the given object array. Otherwise {@code false}. 
+   */
+  public static boolean contains(Object element, Object[] array)
+  {
+    for(Object tmp : array)
+    {
+      if(tmp.equals(element))
+      {
+        return true ;
+      }
+    }
+
+    return false ;
+  }
+  
+  /**
+   * Compare the given lists of strings. Return {@code true} if they are 
+   * equivalents: they contain the same strings in any order.
+   * Case is insensitive. {@code false} otherwise.<BR><BR>
+   * This method is different from List.equals see {@link List#equals(Object)}.
+   * 
+   * @param list1 an list of strings
+   * @param list2 an other list of strings
+   * @return {@code true} if the lists are equivalents, {@code false} otherwise
+   */
+  public static boolean compareStringList(List<String> list1,
+                                          List<String> list2)
+  {
+    if(list1.size() == list2.size())
+    {
+      ArrayList<String> l1 = new ArrayList<String>(list1) ;
+      ArrayList<String> l2 = new ArrayList<String>(list2) ;
+
+      Comparator<String> c = new Comparator<String>()
+          {
+        public int compare(String o1, String o2)
+        {
+          return o1.compareToIgnoreCase(o2) ;
+        }
+          } ;
+
+          Collections.sort(l1, c) ;
+          Collections.sort(l2, c) ;
+
+          Iterator<String> it1 = l1.iterator() ;
+          Iterator<String> it2 = l2.iterator() ;
+
+          String s1, s2 ;
+
+          while(it1.hasNext())
+          {
+            s1 = it1.next() ;
+            s2 = it2.next() ;
+
+            if(! s1.equalsIgnoreCase(s2))
+              return false ;
+          }
+
+          return true ;
+    }
+    else
+    {
+      return false ;
+    }
   }
 }

@@ -10,5 +10,6 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
-Export-Package: fr.tpt.aadl.utils
+Export-Package: fr.tpt.aadl.utils,
+ fr.tpt.aadl.utils.names
 Bundle-Vendor: TELECOM ParisTech
