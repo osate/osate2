@@ -47,12 +47,12 @@ public class InstantiateHandler extends AbstractHandler {
 
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
 			.getDefault().getBundle());
-	protected static final InstantiateModel instantiateModel =
-			new InstantiateModel(new NullProgressMonitor(),
-					new AnalysisErrorReporterManager(
-							internalErrorLogger,
-							new MarkerAnalysisErrorReporter.Factory(
-									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+//	protected static final InstantiateModel instantiateModel =
+//			new InstantiateModel(new NullProgressMonitor(),
+//					new AnalysisErrorReporterManager(
+//							internalErrorLogger,
+//							new MarkerAnalysisErrorReporter.Factory(
+//									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 
 
 	
@@ -105,6 +105,12 @@ public class InstantiateHandler extends AbstractHandler {
 										System.out.println("Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 									}
 									if (targetElement instanceof SystemInstance){
+										final InstantiateModel instantiateModel =
+												new InstantiateModel(new NullProgressMonitor(),
+														new AnalysisErrorReporterManager(
+																internalErrorLogger,
+																new MarkerAnalysisErrorReporter.Factory(
+																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
 										
 									}
@@ -169,9 +175,15 @@ public class InstantiateHandler extends AbstractHandler {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Aadl2ResourceImpl aadlResource = OsateResourceUtil.getEmptyAadl2Resource(instanceURI);
+		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI,si);
 
 		// now instantiate the rest of the model
+		final InstantiateModel instantiateModel =
+				new InstantiateModel(new NullProgressMonitor(),
+						new AnalysisErrorReporterManager(
+								internalErrorLogger,
+								new MarkerAnalysisErrorReporter.Factory(
+										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, aadlResource);
 		return root;
 	}

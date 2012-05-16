@@ -41,11 +41,27 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * File extension of AADL model files
 	 */
 	public static final String MODEL_FILE_EXT = "aaxl2";
+	
+//	 Instance model extensions and naming
+	// new naming convention is "aail2" and no need for name ending with "_instance"
+	// Code for handling new convention is in place
+	// Have not enabled until people depending on it are made aware of the change
+	
 
 	/**
-	 * File extension of AADL model files
+	 * File extension of AADL instance model files
 	 */
 	public static final String INSTANCE_FILE_EXT = "aaxl2";
+
+	/**
+	 * Default Aadl instances directory.
+	 */
+	public static final String AADL_INSTANCES_DIR = "instances";
+
+	/**
+	 * instance model name postfix
+	 */
+	public static final String INSTANCE_MODEL_POSTFIX = "_instance";
 
 	/**
 	 * Package separator in AADL source files.
@@ -100,15 +116,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * Default model directory.
 	 */
 	public static final String PROPERTY_SETS_DIR = "propertysets";
-	/**
-	 * Default Aadl instances directory.
-	 */
-	public static final String AADL_INSTANCES_DIR = "instances";
-
-	/**
-	 * instance model name postfix
-	 */
-	public static final String INSTANCE_MODEL_POSTFIX = "Instance";
 
 	/**
 	 * Name of preference for standard AADL property set file

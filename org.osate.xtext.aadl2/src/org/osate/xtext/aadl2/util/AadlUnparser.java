@@ -54,9 +54,11 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.AbstractRule;
+import org.eclipse.xtext.nodemodel.BidiTreeIterable;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.CompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.*;
 import org.osate.aadl2.instance.InstanceObject;
@@ -66,6 +68,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
@@ -154,7 +157,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			
 			public String casePackageRename(PackageRename object) {
 				processComments(object);
-				aadlText.addOutputNewline((object.getName()== null? "renames package ":object.getName()+" renames package ")
+				aadlText.addOutputNewline((object.getName()== null? "renames ":object.getName()+" renames ")
+						+(object.isRenameAll()?"":"package ")
 						+object.getRenamedPackage().getName()
 						+(object.isRenameAll()?"::all;":";"));
 				return DONE;
@@ -271,7 +275,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			 * Does the bulk of subcomponent declarations
 			 */
 			public String caseSubcomponent(Subcomponent object) {
-				aadlText.addOutput(" "+AadlUtil.getClassifierName(object.getClassifier(),object));
+				aadlText.addOutput(" "+AadlUtil.getSubcomponentTypeName(object.getSubcomponentType(),object));
 				processOptionalEList(object.getOwnedPrototypeBindings(), ",");
 				processEList(object.getArrayDimensions(), AadlConstants.emptyString);
 				processCurlyList(object.getOwnedPropertyAssociations());
@@ -966,7 +970,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				if (object.isArray()){
 					aadlText.addOutput("[] ");
 				} else {
-					aadlText.addOutputNewline(" ");
+					aadlText.addOutput(" ");
 				}
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
@@ -979,7 +983,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						(object.getRefined().getName() +" refined to"))
 						+ " feature group");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getConstrainingFeatureGroupType(),object));
-				aadlText.addOutputNewline(" ");
+				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -994,7 +998,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						(object.getRefined().getName() +" refined to"))
 						+ " feature");
 				aadlText.addOutput(AadlUtil.getClassifierName(object.getConstrainingClassifier(),object));
-				aadlText.addOutputNewline(" ");
+				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1094,7 +1098,6 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				String n = object.getName();
 				aadlText.addOutput(n + ": ");
 				EList<CallSpecification> list = object.getOwnedCallSpecifications();
-				processComments(object);
 				if (list != null && !list.isEmpty()) {
 					aadlText.addOutputNewline(" {");
 					aadlText.incrementIndent();
@@ -1102,7 +1105,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					aadlText.addOutput("}");
 					aadlText.decrementIndent();
 				}
-				aadlText.addOutputNewline(" ");
+				aadlText.addOutput(" ");
 				processCurlyList(object.getOwnedPropertyAssociations());
 				processModalElement(object);
 				aadlText.addOutputNewline(";");
@@ -1118,19 +1121,12 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(object.getName() + ": "
 						+ "subprogram ");
 				CallContext cxt = object.getContext();
-				if (cxt != null){
-					if (cxt instanceof Classifier) {
-						aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cxt, object)+".");
-					} else {
-						aadlText.addOutput(((NamedElement)cxt).getName()+".");
-					}
+				String s = AadlUtil.getClassifierOrLocalName((NamedElement)cxt, object);
+				if (!s.isEmpty()){
+					aadlText.addOutput(s+".");
 				}
 				CalledSubprogram cs = object.getCalledSubprogram();
-				if (cs instanceof Classifier) {
-					aadlText.addOutput(AadlUtil.getClassifierName((Classifier)cs, object));
-				} else {
-					aadlText.addOutput(((NamedElement)cs).getName());
-				}
+				aadlText.addOutput(AadlUtil.getClassifierOrLocalName((NamedElement)cs, object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1225,7 +1221,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						+ (object.getRefined() != null ? "refined to " : "") + d
 						+ " bus access ");
 
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getBusFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1245,7 +1241,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						+ (object.getRefined() != null ? "refined to " : "") + d
 						+ " subprogram access ");
 
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getSubprogramFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1265,7 +1261,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						+ (object.getRefined() != null ? "refined to " : "") + d
 						+ " subprogram group access ");
 
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getSubprogramGroupFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1284,7 +1280,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput(object.getName() + ": "
 						+ (object.getRefined() != null ? "refined to " : "") + d
 						+ " data access ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1296,7 +1292,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					(object.getRefined().getName() +": refined to "))
 								+ object.getDirection().getName()
 								+ " data port ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				return null;
 			}
 
@@ -1315,7 +1311,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					(object.getRefined().getName() +": refined to "))
 						+ object.getDirection().getName()
 						+ " event data port ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				return null;
 			}
 
@@ -1355,7 +1351,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
 					(object.getRefined().getName() +": refined to "))
 						+ object.getDirection() + " parameter ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				aadlText.addOutput(AadlUtil.getSubcomponentTypeName(object.getDataFeatureClassifier(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1369,7 +1365,10 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
 					(object.getRefined().getName() +": refined to "))
 						+ "feature group ");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+				if (object.isInverse()){
+					aadlText.addOutput("inverse of ");
+				}
+				aadlText.addOutput(AadlUtil.getFeatureTypeName(object.getFeatureType(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1393,8 +1392,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						.isEmpty()))) {
 					processOptionalSection(features, "features", NONESTMT);
 				}
-				if (invName != null)
-					aadlText.addOutputNewline("inverse of"
+				if (invName != null && !invName.isEmpty())
+					aadlText.addOutputNewline("inverse of "
 							+ invName);
 				processSection(object.getOwnedPropertyAssociations(),"properties",object.isNoProperties());
 				processEList(object.getOwnedAnnexSubclauses());
@@ -1411,8 +1410,8 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processComments(object);
 				aadlText.addOutput((object.getRefined() == null ?(object.getName() + ": "):
 					(object.getRefined().getName() +": refined to "))
-						+ "feature");
-				aadlText.addOutput(AadlUtil.getClassifierName(object.getClassifier(), object));
+						+ "feature ");
+				aadlText.addOutput(AadlUtil.getFeaturePrototypeName(object.getFeaturePrototype(), object));
 				processCurlyList(object.getOwnedPropertyAssociations());
 				aadlText.addOutputNewline(";");
 				return DONE;
@@ -1714,7 +1713,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				EList<Classifier> ibl = object.getInBindings();
 				if (ibl.size() > 0) {
 					aadlText.addOutput(" in binding (");
-					processEList(ibl, ",");
+					processRefEList(ibl, ",",object);
 					aadlText.addOutput(")");
 				}
 				aadlText.addOutputNewline(";");
@@ -2058,19 +2057,18 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	private void processComments(final Element obj) {
 		if (obj != null) {
 			EList<Comment> el = obj.getOwnedComments();
-			for (Comment comment : el) {
-				String str = comment.getBody();
-				if (!str.startsWith("--") ) {
-					str = "--" + (str.charAt(0) == ' ' ? "" : " ") + str;
-//				} else if (comment.startsWith("/*")) {
-//					comment = comment.substring(2, comment.length() - 2);
-//					comment = "--" + (comment.charAt(0) == ' ' ? "" : " ") + comment;
-//					comment = comment.replaceAll("\n", "\n--");
+			if (!el.isEmpty()){
+				for (Comment comment : el) {
+					String str = comment.getBody();
+					if (!str.startsWith("--") ) {
+						str = "--" +(str.startsWith(" ") ? "" : " ") + str;
+					}
+					aadlText.addOutputNewline(str);
 				}
-				aadlText.addOutputNewline(str);
+			} else {
+				// see if there are comments in the parse tree
+				processComment(obj);
 			}
-
-//			processComment(obj);
 		}
 	}
 
@@ -2268,11 +2266,22 @@ public class AadlUnparser extends AadlProcessingSwitch {
 	
 	public void processComment(EObject o){
 		INode node = NodeModelUtils.findActualNodeFor(o);
-		BidiTreeIterator<INode> ti = node.getAsTreeIterable().iterator();
+		INode n2 = NodeModelUtils.getNode(o);
+		if (n2 == null) return;
+		BidiTreeIterator<INode> ti = n2.getAsTreeIterable().iterator();
 		while (ti.hasNext()) {
 			INode next = ti.next();
-			if (isCommentNode(next))
-				aadlText.addOutputNewline("-- "+next.getText());
+			if (next instanceof CompositeNode && next != n2) return;
+			if (isCommentNode(next)){
+				String str = next.getText();
+				if (!str.startsWith("--") ) {
+					str = "--" +(str.startsWith(" ") ? "" : " ") + str;
+				}
+				if (str.endsWith("\r\n")){
+					str = str.substring(0,str.length()-2);
+				}
+				aadlText.addOutputNewline(str);
+			}
 		}
 	}
 	

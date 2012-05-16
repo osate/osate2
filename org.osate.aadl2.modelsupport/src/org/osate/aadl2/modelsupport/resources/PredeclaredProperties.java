@@ -15,7 +15,10 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.URIConverter;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.ui.XtextProjectHelper;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.Activator;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -210,5 +213,7 @@ public class PredeclaredProperties {
 			}
 		}
 	}
+	
+	
 	
 }

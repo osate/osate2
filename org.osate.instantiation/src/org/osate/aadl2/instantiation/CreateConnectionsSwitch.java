@@ -393,7 +393,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
 			// TODO-LW: fix the AADLUtil method and rename it
-			boolean hasOutgoingPortSubcomponents = true; // AadlUtil.hasOutgoingPortSubcomponents(ci.getComponentInstances());
+			boolean hasOutgoingPortSubcomponents = AadlUtil.hasOutgoingPortSubcomponents(ci.getComponentInstances());
 
 			for (FeatureInstance featurei : ci.getFeatureInstances()) {
 				List<FeatureInstance> featureInsts;

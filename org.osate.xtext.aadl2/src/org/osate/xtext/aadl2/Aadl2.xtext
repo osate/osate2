@@ -688,6 +688,7 @@ SubprogramImplementation returns aadl2::SubprogramImplementation:
 	))?
 	('subcomponents'
 	  ((ownedAbstractSubcomponent+=AbstractSubcomponent
+// TODO	  |ownedSubprogramSubcomponent+=SubprogramSubcomponent
 	  |ownedDataSubcomponent+=DataSubcomponent)+
 	| (noSubcomponents?='none' ';'))
 	)?
@@ -975,8 +976,9 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 CallSpecification returns aadl2::CallSpecification:
 	(({aadl2::ProcessorCall}name=ID ':' 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
      ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
-     	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
-     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
+//     	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
+//     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
+calledSubprogram=[aadl2::CalledSubprogram|QCREF]
      ))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'

@@ -67,6 +67,7 @@ import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Type;
 import org.osate.aadl2.operations.ClassifierOperations;
 import org.osate.aadl2.operations.TypeOperations;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -347,7 +348,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		// DONE: implemented get inherited members
 		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(NamedElement.class);
 		for (Generalization g : getGeneralizations()) {
-			if (g.getGeneral() != null) {
+			if (!Aadl2Util.isNull(g.getGeneral()) ) {
 				tmp.addAll(g.getGeneral().getOwnedMembers());
 				tmp.addAll(g.getGeneral().getInheritedMembers());
 			}
@@ -479,6 +480,16 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public AnnexSubclause createOwnedAnnexSubclause() {
 		return createOwnedAnnexSubclause(Aadl2Package.eINSTANCE.getAnnexSubclause());
+	}
+
+	public EList<AnnexSubclause> getAllAnnexSubclauses() {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		final EList<Classifier> classifiers = getAllExtendPlusSelf();
+		for (final ListIterator<Classifier> i = classifiers.listIterator(classifiers.size()); i.hasPrevious();) {
+			final Classifier current = i.previous();
+			result.addAll(current.getOwnedAnnexSubclauses());
+		}
+		return result;
 	}
 
 	/**

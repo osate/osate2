@@ -85,7 +85,7 @@ public class AnnexParserAgent  extends LazyLinker {
 				offset = offset + (nlength-sourcelength-1);
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
-				if (defaultAnnexLibrary.getName().equalsIgnoreCase("emv2")){
+				if ("emv2".equalsIgnoreCase(defaultAnnexLibrary.getName())){
 
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);

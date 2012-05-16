@@ -1490,14 +1490,34 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public EList<Prototype> getAllPrototypes() {
 		EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
-		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
-			final ComponentImplementation current = (ComponentImplementation) it.next();
-			returnlist.addAll(current.getOwnedPrototypes());
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentImplementation current = (ComponentImplementation) li.previous();
+			final EList<Prototype> currentItems = current.getOwnedPrototypes();
+			if (currentItems != null) {
+				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
+					final Prototype fe = i.next();
+					final Prototype rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
 		}
 		ancestors = getType().getAllExtendPlusSelf();
-		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
-			final ComponentType current = (ComponentType) it.next();
-			returnlist.addAll(current.getOwnedPrototypes());
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final ComponentType current = (ComponentType) li.previous();
+			final EList<Prototype> currentItems = current.getOwnedPrototypes();
+			if (currentItems != null) {
+				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
+					final Prototype fe = i.next();
+					final Prototype rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
 		}
 		return returnlist;
 	}
