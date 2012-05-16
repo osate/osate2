@@ -49,11 +49,12 @@ import org.osate.xtext.aadl2.properties.util.TimingProperties ;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
+import fr.tpt.aadl.utils.PropertyUtils ;
+import fr.tpt.aadl.utils.names.DispatchTriggerProperties ;
 
 public class AadlBaLegalityRulesChecker
 {
@@ -440,7 +441,7 @@ public class AadlBaLegalityRulesChecker
             // list will be empty.
 
             EList<org.osate.aadl2.PropertyExpression> vl ;
-            vl = AadlBaGetProperties.getPropertyExpression(_baParentContainer,
+            vl = PropertyUtils.getPropertyExpression(_baParentContainer,
                   ThreadProperties.DISPATCH_PROTOCOL) ;
             if(vl.size() > 0)
             {
@@ -456,11 +457,11 @@ public class AadlBaLegalityRulesChecker
 
                   String literal = el.getName() ;
                   
-                  if(literal.equalsIgnoreCase(AadlBaGetProperties.TIMED))
+                  if(literal.equalsIgnoreCase(DispatchTriggerProperties.TIMED))
                   {
                      // XXX is TimingProperties.PERIOD the right property for
                     // D.4.(5) checking ?
-                     PropertyAssociation period = AadlBaGetProperties.
+                     PropertyAssociation period = PropertyUtils.
                         getPropertyAssociation(_baParentContainer,
                                                TimingProperties.PERIOD) ;
                      

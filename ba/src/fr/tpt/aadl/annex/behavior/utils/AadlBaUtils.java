@@ -22,11 +22,7 @@
 package fr.tpt.aadl.annex.behavior.utils;
 
 import java.lang.System ;
-import java.util.ArrayList ;
-import java.util.Collections ;
 import java.util.Comparator ;
-import java.util.Iterator ;
-import java.util.List ;
 import java.util.ListIterator ;
 
 import org.eclipse.emf.common.util.EList ;
@@ -38,16 +34,20 @@ import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.aadlba.FeatureType ;
 
 import fr.tpt.aadl.annex.behavior.analyzers.TypeHolder ;
-import fr.tpt.aadl.annex.behavior.names.DataModelProperties;
 import fr.tpt.aadl.utils.Aadl2Utils ;
+import fr.tpt.aadl.utils.Aadl2Visitors ;
+import fr.tpt.aadl.utils.PropertyUtils ;
+import fr.tpt.aadl.utils.names.DataModelProperties ;
 
+/**
+ * A collection of static utils methods.
+ */
 public class AadlBaUtils {
 
 	/**
 	 * String separator for a component reference name.
 	 */
 	public static final String STRING_NAME_SEPARATOR = "." ;
-
 
 	/**
 	 * Returns the last data representation from the property stack of the given data
@@ -62,8 +62,8 @@ public class AadlBaUtils {
 		DataRepresentation result = null ;
 
 		EList<PropertyExpression> l = 
-				AadlBaGetProperties.getPropertyExpression(c,
-						DataModelProperties.DATA_REPRESENTATION) ;
+				                            PropertyUtils.getPropertyExpression(c,
+						                          DataModelProperties.DATA_REPRESENTATION) ;
 		if(l.size() > 0)
 		{
 			// Fetches the last enumeration value from the inheritance stack of 
@@ -102,7 +102,7 @@ public class AadlBaUtils {
 	}
 
 	/**
-	 * Returns the data representation associated to the given property type
+	 * Returns the data representation associated to the given PropertyType
 	 * object.
 	 * <BR><BR>
 	 * Note : this method doesn't support the following property types :
@@ -114,10 +114,10 @@ public class AadlBaUtils {
 	 * <BR>_ ReferenceType
 	 * <BR>_ UnitsType
 	 * <BR><BR>
-	 * @param type the given property type object.
-	 * @return the data representation associated to the given property type 
+	 * @param type the given PropertyType object.
+	 * @return the data representation associated to the given PropertyType 
 	 * object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(PropertyType type)
 	{
@@ -147,14 +147,14 @@ public class AadlBaUtils {
 	}
 
 	/**
-	 * Returns the data representation associated to the given behavior property
-	 * constant object <BR><BR>
+	 * Returns the data representation associated to the given
+	 * BehaviorPropertyConstant object <BR><BR>
 	 * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
 	 * <BR><BR> 
-	 * @param pc the given behavior property constant object
-	 * @return the data representation associated to the given behavior property
-	 * constant object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @param pc the given BehaviorPropertyConstant object
+	 * @return the data representation associated to the given 
+	 * BehaviorPropertyConstant object
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(
 			                                              BehaviorPropertyConstant pc)
@@ -163,14 +163,14 @@ public class AadlBaUtils {
 	}
 
 	/**
-	 * Returns the data representation associated to the given behavior property
-	 * value object <BR><BR>
+	 * Returns the data representation associated to the given BehaviorPropertyValue
+	 * object <BR><BR>
 	 * Note : {@link #getDataRepresentation(PropertyType)} to see restrictions. 
 	 * <BR><BR>
-	 * @param pv the given behavior property value object
-	 * @return the data representation associated to the given behavior property
-	 * value object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @param pv the given BehaviorPropertyValue object
+	 * @return the data representation associated to the given
+	 * BehaviorPropertyValue object
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(
 			                                                 BehaviorPropertyValue pv)
@@ -179,15 +179,15 @@ public class AadlBaUtils {
 	}
 
 	/**
-	 * Returns the data representation associated to the given value constant.
+	 * Returns the data representation associated to the given ValueConstant
 	 * object <BR><BR>
 	 * Note : {@link #getDataRepresentation(PropertyType)} 
 	 *                        to see restrictions on property constant and value. 
 	 * <BR><BR>
-	 * @param v the given value constant object
-	 * @return the data representation associated to the given value constant
+	 * @param v the given ValueConstant object
+	 * @return the data representation associated to the given ValueConstant
 	 * object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(ValueConstant v)
 	{
@@ -315,7 +315,7 @@ public class AadlBaUtils {
 	 * @param v the given Value object
 	 * @return the data representation associated to the given Value object or
 	 * DataRepresentation.UNKNOWN
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static DataRepresentation getDataRepresentation(Value v)
 	{
@@ -325,12 +325,12 @@ public class AadlBaUtils {
 	}
 
 	/**
-   * Constructs a string with the name of the given behavior states, separated
-   * by the given separator symbol.
+   * Constructs a string base on the name of the given behavior states list,
+   * separated by the given separator symbol.
    * 
-   * @param bsl the given behavior states instances
-   * @param separator the list separator symbol
-   * @return the string composed of the behavior state's names and given 
+   * @param bsl the given behavior states list
+   * @param separator the name separator symbol
+   * @return the string build on the given behavior state's names and given 
    * separator
    */
   public static String identifierListToString(EList<BehaviorState> bsl,
@@ -345,87 +345,17 @@ public class AadlBaUtils {
       i++ ;
     }
 
-    return AadlBaUtils.concatenateString(separator, ls) ;
+    return Aadl2Utils.concatenateString(separator, ls) ;
   }
 	
 	/**
-	 * Concatenates the strings contained in the given array by inserting
-	 * between the strings, the given separator.
-	 * 
-	 * @param separator the given string separator
-	 * @param toBeConcatenated the given string array
-	 * @return the concatenated strings
-	 */
-	public static String concatenateString(String separator,
-			String ... toBeConcatenated)
-	{
-		StringBuilder result = new StringBuilder () ;
-
-		for(String s : toBeConcatenated)
-		{
-			result.append(s) ;
-			result.append(separator) ;
-		}
-
-		// Remove the last separator.
-		result.setLength(result.length()- separator.length()) ;
-
-		return result.toString() ;
-	}
-
-	/**
-	 * Returns {@code true} if the given string is found (case not sensitive)
-	 * into the given string array. Otherwise returns {@code false}.  
-	 * If the given string is {@code null}, it returns {@code false}.  
-	 * 
-	 * @param s the given string or {@code null}
-	 * @param stringArray the given string array
-	 * @return {@code true} if the given string is found (case not sensitive) 
-	 * into the given string array. Otherwise {@code false}. 
-	 */
-	public static boolean contains(String s, Iterable<String> stringArray )
-	{
-		for(String tmp : stringArray)
-		{
-			if(tmp.equalsIgnoreCase(s))
-			{
-				return true ;
-			}
-		}
-
-		return false ;
-	}
-
-	/**
-	 * Returns {@code true} if the given object is found (based on java address)
-	 * into the given object array. Otherwise returns {@code false}.  
-	 * If the given object is {@code null}, it returns {@code false}.  
-	 * 
-	 * @param element the given object or {@code null}
-	 * @param array the given object array
-	 * @return {@code true} if the given object is found ((based on java address)
-	 * into the given object array. Otherwise {@code false}. 
-	 */
-	public static boolean contains(Object element, Object[] array)
-	{
-		for(Object tmp : array)
-		{
-			if(tmp.equals(element))
-			{
-				return true ;
-			}
-		}
-
-		return false ;
-	}
-
-	/**
-	 * Returns the given element object's classifier. It will try to resolve 
-	 * data prototype and returns the data prototype binded classifier at first
-	 * then the constraining classifier. It returns {@code null} is the data
-	 * prototype is not defined.
+	 * Returns the given Element object's classifier.
+	 * If the Element object is a prototype, it will try to resolve it as 
+	 * follow: returns the data prototype binded classifier at first otherwise
+	 * the constraining classifier. It returns {@code null} if the prototype is
+	 * not defined.
 	 * <BR><BR>
-	 * This method support instance of:<BR>
+	 * This method support instances of:<BR>
 	 * <BR>_Feature (port, data access, subprogram access, parameter, etc.)
 	 * <BR>_Subcomponent (data subcomponent, subprogram subcomponent, etc.)
 	 * <BR>_BehaviorVariable
@@ -439,9 +369,9 @@ public class AadlBaUtils {
 	 * 
 	 * @param el the given Element object
 	 * @param baParentContainer the ba's parent component.
-	 * @return the given element's classifier or {@code null} if the data
-	 * prototype is not defined
-	 * @exception UnsupportedOperationException thrown for unsupported element
+	 * @return the given element's classifier or {@code null} if the prototype is
+	 * not defined
+	 * @exception UnsupportedOperationException for unsupported element
 	 * object types.
 	 */
 	public static Classifier getClassifier(Element el,
@@ -619,11 +549,9 @@ public class AadlBaUtils {
 		Classifier result = null ;
 
 		// First find a prototype bind as prototype may be binded several times.
-		PrototypeBinding pb = AadlBaVisitors.findPrototypeBindingInComponent(
+		PrototypeBinding pb = Aadl2Visitors.findPrototypeBindingInComponent(
 				baParentContainer,
 				prototype.getName()) ;
-
-
 
 		if(pb != null)
 		{
@@ -650,15 +578,17 @@ public class AadlBaUtils {
 	 * Value object. A target instance can be given to this method as 
 	 * Target instance can be cast into ValueVariable reference.
 	 * <BR><BR>
-	 *  NOTE : <BR><BR>
+	 *  Notes: <BR><BR>
 	 *  <BR>_ ValueVariable : {@link #getClassifier(Element, ComponentClassifier)} 
 	 *                                 to see the restrictions.
 	 *  <BR>_ ValueConstant : only BehaviorEnumerationLiteral has a data classifier.
+	 *  the others value constants return {@code null}.
 	 *  <BR><BR>
 	 * 
 	 * @param v the given Value object
-	 * @return the binded component's DataClassifier object
-	 * @exception UnsupportedOperationException thrown for unsupported binded 
+	 * @return the binded component's DataClassifier object or {@code null} for
+	 * the ValueConstant objects (excepted BehaviorEnumerationLiteral object)
+	 * @exception UnsupportedOperationException for unsupported binded 
 	 * object types.
 	 */
 	public static DataClassifier getDataClassifier(Value v)
@@ -709,12 +639,12 @@ public class AadlBaUtils {
 	 * Returns the TypeHolder (data representation and component's DataClassifier
 	 * if any) of the given Value object.
 	 * <BR><BR>
-	 * Note : {@link #getDataRepresentation(PropertyType)} 
-	 *                        to see restrictions on property constant and value. 
+	 * Notes: {@link #getDataRepresentation(PropertyType)} and 
+	 *        {@link #getDataClassifier(Value)} to see restrictions. 
 	 * <BR><BR>
 	 * @param v the given Value object
 	 * @return the type holder of the given Value object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	private static TypeHolder getTypeHolder(Value v)
 	{
@@ -754,7 +684,7 @@ public class AadlBaUtils {
 	 * @param uccr the given IterativeVariable object.
 	 * @return the type holder of the given IterativeVariable
 	 * object.
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
   private static TypeHolder getTypeHolder(IterativeVariable iv)
 	{
@@ -778,7 +708,7 @@ public class AadlBaUtils {
 	 * 
 	 * @param el the given Element object.
 	 * @return the type holder of the given Element object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 * or Element instances.
 	 * @exception DimensionException in any case of array dimension overflow. 
 	 */
@@ -877,47 +807,7 @@ public class AadlBaUtils {
 	          result.dimension_sizes=ds;
 	        }
 				}
-				
-				
-				/*
-				else
-				{
-					String msg = DimensionException.formatMessage(result, exprDim,
-					                                              declaredDim) ;
-				   throw new DimensionException(el, msg);
-				}
-				*/
 			}
-			/*
-			else if(bindedEl instanceof BehaviorVariable)
-			{
-				BehaviorVariable bv = (BehaviorVariable) bindedEl ;
-				
-				if(false == bv.getArrayDimensions().isEmpty())
-        {
-				  EList<ArrayDimension> adl = bv.getArrayDimensions() ;
-				  declaredDim = adl.size() ;
-
-				  if(exprDim <= declaredDim)
-          {
-            long[] ds = new long[declaredDim - exprDim];
-            for(int i=exprDim; i<declaredDim; i++)
-            {
-              ArraySize as = adl.get(i).getSize() ; 
-              ds[i-exprDim]= as.getSize() ;
-            }
-            result.dimension_sizes=ds;
-          }
-          else
-          {
-             String msg = DimensionException.formatMessage(result,
-                                                           exprDim,
-                                                              declaredDim) ;
-                    throw new DimensionException(el, msg);
-          }
-        }
-			}
-			*/
 			
 			// The given type is not expressed as an array in AADL standard core
 			// way.
@@ -971,8 +861,8 @@ public class AadlBaUtils {
 		if(type.dataRep == DataRepresentation.ARRAY)
 		{
 			EList<PropertyExpression> pel = 
-					AadlBaGetProperties.getPropertyExpression(type.klass,
-							DataModelProperties.DIMENSION) ;
+					                       PropertyUtils.getPropertyExpression(type.klass,
+							                                  DataModelProperties.DIMENSION) ;
 			int declareDimBT = 0 ;
 			long[] declareDimSizeBT ;
 			
@@ -1040,65 +930,14 @@ public class AadlBaUtils {
 	}
 	
 	/**
-	 * Compare the given lists of strings. Return {@code true} if they are 
-	 * equivalents: they contain the same strings in any order.
-	 * Case is insensitive. {@code false} otherwise.<BR><BR>
-	 * This method is different from List.equals see {@link List#equals(Object)}.
-	 * 
-	 * @param list1 an list of strings
-	 * @param list2 an other list of strings
-	 * @return {@code true} if the lists are equivalents, {@code false} otherwise
-	 */
-	public static boolean compareStringList(List<String> list1,
-			List<String> list2)
-	{
-		if(list1.size() == list2.size())
-		{
-			ArrayList<String> l1 = new ArrayList<String>(list1) ;
-			ArrayList<String> l2 = new ArrayList<String>(list2) ;
-
-			Comparator<String> c = new Comparator<String>()
-					{
-				public int compare(String o1, String o2)
-				{
-					return o1.compareToIgnoreCase(o2) ;
-				}
-					} ;
-
-					Collections.sort(l1, c) ;
-					Collections.sort(l2, c) ;
-
-					Iterator<String> it1 = l1.iterator() ;
-					Iterator<String> it2 = l2.iterator() ;
-
-					String s1, s2 ;
-
-					while(it1.hasNext())
-					{
-						s1 = it1.next() ;
-						s2 = it2.next() ;
-
-						if(! s1.equalsIgnoreCase(s2))
-							return false ;
-					}
-
-					return true ;
-		}
-		else
-		{
-			return false ;
-		}
-	}
-
-	/**
 	 * Compare a given name to a given list of behavior named
 	 * elements. The matching is base on behavior named element's name
 	 * (case insensitive).
 	 * 
-	 * @param bne the given name.
-	 * @param lbne the given list of behavior named elements.
+	 * @param bne the given name
+	 * @param lbne the given list of behavior named elements
 	 * @return the first behavior named element form the given list which has the
-	 * same name as the given name.{@code null} otherwise.
+	 * same name as the given name. {@code null} otherwise
 	 */
 	public static <T extends BehaviorNamedElement> T compareNamedElementList
 	                                                              (String name,
@@ -1197,7 +1036,7 @@ public class AadlBaUtils {
 	public static Comparator<BehaviorTime> createBehaviorTimeComparator()
 	{
 		return new Comparator<BehaviorTime>()
-				{
+		{
 			public int compare(BehaviorTime behT1, BehaviorTime behT2)
 			{
 				IntegerValue iv1 = behT1.getIntegerValue() ;
@@ -1236,18 +1075,18 @@ public class AadlBaUtils {
 							behT1.getLocationReference().getLine() + ".") ;
 				}
 			}
-				} ;
+		} ;
 	}
 
 	/**
-	 * Analyze the given AADL Osate element and return its type.
+	 * Analyze the given AADL Osate element and return its enumeration type.
 	 * 
 	 * It's an improved version of Osate2 {@link
 	 * org.osate.parser.AadlSemanticCheckSwitch#getFeatureType} 
 	 *  
 	 * @param el the given AADL Osate element
 	 * @return the given AADL Osate element's type
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	/*
 	 * <copyright>
@@ -1282,9 +1121,7 @@ public class AadlBaUtils {
 	 * under the contract clause at 252.227.7013.
 	 * </copyright>
 	 */
-	public static 
-	fr.tpt.aadl.annex.behavior.aadlba.FeatureType 
-	getFeatureType(org.osate.aadl2.Element el)
+	public static fr.tpt.aadl.annex.behavior.aadlba.FeatureType	getFeatureType(Element el)
 	{
 		if (el instanceof DataPort)
 		{
@@ -1368,6 +1205,7 @@ public class AadlBaUtils {
 			return FeatureType.ABSTRACT_FEATURE;
 
 		// **** BEGIN IMPROVEMENT ************************************************
+		
 		else if (el instanceof Parameter)
 		{
 			switch(((Parameter) el).getDirection())
@@ -1466,7 +1304,7 @@ public class AadlBaUtils {
 	 * 
 	 * @param el the given behavior annex feature
 	 * @return the given behavior annex feature's type
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static BehaviorFeatureType getBehaviorAnnexFeatureType(
 			                                                       BehaviorElement el)
@@ -1527,11 +1365,11 @@ public class AadlBaUtils {
 
 	/**
    * Translates the given ComponentPrototypeBinding object into a FeatureType
-   * object.
+   * enumeration.
    * 
    * @param fpb the given ComponentPrototypeBinding
    * @return the translation in FeatureType object
-   * @exception UnsupportedOperationException thrown for the unsupported types
+   * @exception UnsupportedOperationException for the unsupported types
    */
   public static FeatureType getCompPrototypeType(ComponentPrototypeBinding cpb)
   {
@@ -1561,11 +1399,11 @@ public class AadlBaUtils {
 	
 	/**
 	 * Translates the given FeaturePrototypeBinding object into a FeatureType
-	 * object.
+	 * enumeration.
 	 * 
 	 * @param fpb the given FeaturePrototypeBinding
 	 * @return the translation in FeatureType object
-	 * @exception UnsupportedOperationException thrown for the unsupported types
+	 * @exception UnsupportedOperationException for the unsupported types
 	 */
 	public static FeatureType getFeatPrototypeType(FeaturePrototypeBinding fpb)
 	{
@@ -1663,7 +1501,10 @@ public class AadlBaUtils {
 
 	/**
 	 * Returns the direction type of the given Element or {@code null} if the 
-	 * given Element is not an instance of DirectedFeature.
+	 * given Element is not an instance of DirectedFeature excepted 
+	 * DataSubcomponent.<BR><BR>
+	 * 
+	 * Note: DataSubcomponent returns DirectionType.IN_OUT <BR><BR>
 	 * 
 	 * @param el the given Element
 	 * @return the direction type or {@code null}
@@ -1698,9 +1539,8 @@ public class AadlBaUtils {
 		Element el ;
 
 		EList<PropertyExpression> lpe = 
-				AadlBaGetProperties.getPropertyExpression(component,
-						DataModelProperties.BASE_TYPE) ;
-
+		                            PropertyUtils.getPropertyExpression(component,
+						                                    DataModelProperties.BASE_TYPE) ;
 		if(lpe != null && (! lpe.isEmpty()))
 		{
 			pe = lpe.get(lpe.size() -1) ;
@@ -1743,7 +1583,7 @@ public class AadlBaUtils {
 	 *    behavior variable is a valid Target and ValueVariable.
 	 *    
 	 * _ Iterative variable always returns DirectionType.IN as iterative variables
-	 *   is a valid value variable but not a valid target.
+	 *   is a valid value variable but not a target.
 	 * 
 	 * _ Data subcomponent always returns DirectionType.IN_OUT as
    *   data subcomponent is valid Target and ValueVariable.
@@ -1774,7 +1614,16 @@ public class AadlBaUtils {
 		}
 	}
 	
-	// May return null; 
+	/**
+	 * If the given Target object is a DataAccessHolder object or a
+	 * DataComponentReference object which first element is a DataAccessHolder
+	 * object, it returns the data access right or {@code null} if the default
+	 * data access right is not set. Else it returns {@code null}.
+	 * 
+	 * @see Aadl2Utils.getAccessRight
+	 * @param tar the given Target object
+	 * @return the data access right or {@code null}
+	 */
 	public static String getDataAccessRight(Target tar)
 	{
 	  ElementHolder el = null ;
@@ -1818,8 +1667,17 @@ public class AadlBaUtils {
 		}
 	}
 	
-	// Returns true if bt1 priority is > bt2 or bt2 has otherwise execution
-  // condition and bt1 hasn't.
+	/**
+	 * Compares behavior transition priorities. 
+	 * 
+	 * Returns {@code true} if bt1 priority is > bt2 or bt2 has otherwise execution
+   * condition and bt1 hasn't. Otherwise returns {@code false}. 
+	 * 
+	 * @param bt1 a behavior transition
+	 * @param bt2 an other behavior transition
+	 * @return  {@code true} if bt1 priority is > bt2 or bt2 has otherwise execution
+   * condition and bt1 hasn't. Otherwise {@code false}. 
+	 */
   public static boolean compareBehaviorTransitionPriority(BehaviorTransition bt1,
                                                          BehaviorTransition bt2)
   {

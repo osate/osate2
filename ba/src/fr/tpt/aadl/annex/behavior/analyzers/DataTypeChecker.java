@@ -27,7 +27,6 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement ;
 
 /**
  * Data type checker specifications.
- * 
  */
 public interface DataTypeChecker
 {

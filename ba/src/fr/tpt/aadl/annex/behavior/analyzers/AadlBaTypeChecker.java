@@ -105,7 +105,7 @@ public class AadlBaTypeChecker
 
   /**
    * Constructs an AADL behavior annex type checker.
-   * Reports any errors in a given error reporter manager.
+   * Reports any errors with the given error reporter manager.
    *
    * @param ba the given behavior annex
    * @param dataChecker the given data type checker implementation
@@ -665,7 +665,7 @@ public class AadlBaTypeChecker
         return new ValueAndTypeHolder (ve, typea[0]) ;
       }
     }
-    else // Relation checking have failed.
+    else // Relation checking has failed.
     {
       return null ;
     }
@@ -774,7 +774,7 @@ public class AadlBaTypeChecker
         return typea[0] ;
       }
     }
-    else // Term checking have failed.
+    else // Term checking has failed.
     {
       return null ;
     }
@@ -1054,10 +1054,10 @@ public class AadlBaTypeChecker
   // semantically wrong), it will report extraneous information error.
   // If given port is not null, elementHolderResolver will try to set it 
   // (optimize reinstanciation when using design pattern decoration, for 
-  // PortActions and PortValues.
+  // PortActions and PortValues).
   // Also, IterativeVariable and BehaviorVariable instances can't have any
   // group information. It will report extraneous information error if
-  // they have groups.
+  // groups are provided.
   // This method can't detect if there is not enought information (currently 
   // just for required_data_access_name.provided_subprogram_access_name case).
   private List<ElementHolder> refResolver(Reference ref, ActualPortHolder port,
@@ -1067,7 +1067,7 @@ public class AadlBaTypeChecker
     List<ElementHolder> result = new ArrayList<ElementHolder>(ref.getIds().
                                                                        size()) ;
     Enum<?> currentResult = null ;
-//    IndexableElement currentIndexableElement = null ;
+
     ElementHolder currentElementholder = null ;
     int currentIndexRule = 0 ;
     TypeCheckRule currentRule = checkRules[currentIndexRule] ;
@@ -1100,7 +1100,6 @@ public class AadlBaTypeChecker
         {
           currentElementholder = elementHolderResolver(id, currentResult, port);
           result.add(currentElementholder) ;
-//          currentIndexableElement = currentElementholder ;
           
           if(currentElementholder instanceof GroupableElement)
           {
@@ -1131,7 +1130,7 @@ public class AadlBaTypeChecker
           {
             currentIndexRule++ ;
             
-            // Extra information which exists (it pass the name resolved),
+            // Extra information (it passes the name resolved),
             // has been given whereas the stop type is reached.
             // So report error.
             if(hasToContinue == false)
@@ -1510,10 +1509,8 @@ public class AadlBaTypeChecker
 
  private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
  {
-   // Ambiguity between behavior propertyset constant and 
-   // behavior propertyset value because 
-   // behavior propertyset values are parsed as behavior propertyset
-   // constants.
+   // Resolves semantic ambiguity between behavior propertyset constant and 
+   // behavior propertyset value.
    
    ValueConstant result = null ;
    
@@ -1701,9 +1698,6 @@ public class AadlBaTypeChecker
    * Object : Check legality rule D.6.(L2) 
    * Keys : for forall iterative variable not valid assignment target
    * 
-   * Checking doesn't match the iterative variable's type array dimension versus 
-    * the element values' type array dimension as the iterative variable 
-    * may iterate over all the element values array dimension.
     */
   private boolean forOrForAllStatementCheck(ForOrForAllStatement stat)
   {
@@ -1780,9 +1774,9 @@ public class AadlBaTypeChecker
       }
       
       // iterative variable's UCCR syntax cannot express array 
-         // ([] are not allowed). Also, this implementation of AADL behavior
-      // annex, doesn't allow the use of types which are declared as array
-      // (data model annex).
+      // ([] are not allowed). Also, this implementation of AADL behavior
+      // annex, doesn't allow the use of iterative variable's types which are
+      // declared as array (data model annex).
       if(uccrType.dimension > 0)
       {
          StringBuilder message = new StringBuilder( 
@@ -1792,33 +1786,33 @@ public class AadlBaTypeChecker
          message.append(uccrType.toString()); 
             message.append("\'.") ;
          reportError(tmp, message.toString()) ;
-            result = false ;
+         result = false ;
       }
       
-         if(_dataChecker.conformsTo(eleType, uccrType, false))
-         {
-            result=true;
-         }
-         else
-         {
-            StringBuilder sb = new StringBuilder(
-                  "\'iterative variable\' type error:");
-            sb.append(" an array of \"") ;
-            sb.append(uccrType.toString());
-            sb.append("\" expected, found \"") ;
-            sb.append(eleType.toString()) ;
-            sb.append("\".");
-            reportError(stat, sb.toString()) ; // reportError(itVar, sb.toString()) ;
-         }
-         
-         // Checks data component reference arrayness and reports any error.
-         if(eleType.dimension == 0)
-         {
-            String message = "\'" + unparseNameElement(tmp) + 
-                  "\' is not an array" ;
-            reportError(tmp, message) ;
-            result = false ;
-         }
+      if(_dataChecker.conformsTo(eleType, uccrType, false))
+      {
+         result=true;
+      }
+      else
+      {
+         StringBuilder sb = new StringBuilder(
+               "\'iterative variable\' type error:");
+         sb.append(" an array of \"") ;
+         sb.append(uccrType.toString());
+         sb.append("\" expected, found \"") ;
+         sb.append(eleType.toString()) ;
+         sb.append("\".");
+         reportError(stat, sb.toString()) ;
+      }
+      
+      // Checks data component reference arrayness and reports any error.
+      if(eleType.dimension == 0)
+      {
+         String message = "\'" + unparseNameElement(tmp) + 
+               "\' is not an array" ;
+         reportError(tmp, message) ;
+         result = false ;
+      }
     }
     return result ;
   }
@@ -2020,7 +2014,6 @@ public class AadlBaTypeChecker
     
     boolean result = behaviorTimeCheck((DeclarativeTime) ta.getLowerTime(),
                                        resolvedTime);
-    
     ta.setLowerTime(resolvedTime) ;
 
     if (ta.getUpperTime() != null)
@@ -2120,7 +2113,7 @@ public class AadlBaTypeChecker
       
       // Checks and resolves parameter labels.
       // Event if the subprogram call action doesn't have any parameter labels,
-      // the subprogram type may have and vice versa : 
+      // the subprogram type may have and vice versa: 
       // subprogramParameterListCheck is also design for these cases. 
       // It also binds the subprogram type found to the subprogram call action. 
       if(subprogType != null)
@@ -2228,7 +2221,6 @@ public class AadlBaTypeChecker
     }
   }
 
-
   private SubprogramCallAction subprogramCallActionResolver
                                                (List<ElementHolder> resolvedRef,
                                                 CommAction comAct)
@@ -2259,7 +2251,7 @@ public class AadlBaTypeChecker
         
         if(firstHolder instanceof DataAccessHolder) 
         {
-          // RefResolver can't detect that error.
+          // RefResolver can't detect that error. So do it.
           if(resolvedRef.size() != 2)
           {
             String msg = "missing subprogram access for : " + 
@@ -2361,7 +2353,6 @@ public class AadlBaTypeChecker
     return portSendActionResult ;
   }
 
-
   private SharedDataAction sharedActionResolver(CommAction comAct)
   {
     DataAccessHolder dah = null ;
@@ -2398,7 +2389,6 @@ public class AadlBaTypeChecker
     
     return result ;
   }
-
 
   private PortFreezeAction portFreezeActionResolver(CommAction comAct)
   {
@@ -2558,7 +2548,7 @@ public class AadlBaTypeChecker
     }
     
     // Matching the parameter labels with the subprogram signature.
-    // Resolves ambiguity between target and value expression :
+    // Resolves ambiguity between target and value expression:
     // value expression are for in parameter, target are for out parameter.
 
     //Preliminary checking : on error, reports error and exit early.
@@ -2701,7 +2691,7 @@ public class AadlBaTypeChecker
             else
             {
               // As checking passed and ambiguity between
-              // ValueExpression and Target has been resoved, it replaces
+              // ValueExpression and Target has been resolved, it replaces
               // the value expression by the target as parameter label.
               it.set(tar) ;
             }
@@ -2728,8 +2718,8 @@ public class AadlBaTypeChecker
           //       _ PortFreshValue
           //       _ PortCountValue
           //       _ PortDequeueValue
-
           // It resolves the type in order to format the warning message:
+          
           vth = valueExpressionCheck(valueExp) ;
 
           if(vth != null)
@@ -2919,7 +2909,6 @@ public class AadlBaTypeChecker
   }
 
   // Semantic rule about iterative variable assignment is checked.
-  // See BehaviorAnnexFeature.TARGET .
   // This method checks the given object and returns an object resolved from
   // semantic ambiguities. On error, reports error and returns null.
   private Target targetCheck(Target tar)
@@ -2938,11 +2927,10 @@ public class AadlBaTypeChecker
   }
   
   // Compares the given expected data representation to the ValueAndTypeHolder
-  // one.
-  // Returns true is the data representation are the same.
+  // one. Returns true is the data representation are the same.
   // Otherwise returns false and reports error.
   // If the given ValueAndTypeHolder object is null, it returns false without 
-  // reporting any error.
+  // reporting any error (error reporting has already been done ?).
   // If the given name is null, the method will unparse the given element.
   private boolean typeCheck(BehaviorElement e, String name,
                             ValueAndTypeHolder holder,
@@ -2974,7 +2962,7 @@ public class AadlBaTypeChecker
    * @param el the given declarative behavior element
    * @return the binded element
    */
-  public static  Element getBindedElement(DeclarativeBehaviorElement el)
+  static  Element getBindedElement(DeclarativeBehaviorElement el)
   {
     org.osate.aadl2.Element result = el.getOsateRef() ;
 
@@ -2987,13 +2975,13 @@ public class AadlBaTypeChecker
   }
   
   /**
-   * Returns the type of the element binded to the given behavior
+   * Returns the feature type of the element binded to the given behavior
    * annex element.
    * 
    * @param el the given behavior annex element
-   * @return the type of the linked element
+   * @return the feature type of the binded element
    */
-  private static Enum<?> getType(DeclarativeBehaviorElement el)
+  static Enum<?> getType(DeclarativeBehaviorElement el)
   {
     org.osate.aadl2.Element testedEl = AadlBaTypeChecker.getBindedElement(el);
 
@@ -3014,16 +3002,16 @@ public class AadlBaTypeChecker
   
   
   /**
-   * Checks the type of the reference linked to the given declarative behavior
+   * Checks the type of the reference binded to the given declarative behavior
    * element within the given rule's expected types. Returns the
-   * matching type or {@code null} otherwise. Reports any error if hasToReport
-   * is {@code true}.
+   * matching feature type or {@code null} otherwise. Reports any error if 
+   * hasToReport is {@code true}.
    *
    * @param dbe the declarative behavior element to be checked
    * @param name the behavior element's name
    * @param rule the checking rule that contains the expected types
    * @param hasToReport flag for report error
-   * @return the matching type or {@code null}
+   * @return the matching feature type or {@code null}
    */
   private Enum<?> typeCheck(DeclarativeBehaviorElement dbe, String name,
                             TypeCheckRule rule, boolean hasToReport)
@@ -3065,7 +3053,7 @@ public class AadlBaTypeChecker
   }
 
   // Behavior annex type checking rules.
-  // Based on a design pattern command like.
+  // Based on a design pattern command.
   private enum TypeCheckRule implements Enumerator
   {
 
@@ -3160,7 +3148,7 @@ public class AadlBaTypeChecker
            FeatureType.PROVIDES_SUBPROGRAM_ACCESS}),
 
     // Always include at the end of an array:
-    // because data subcomponent and data access are very high level types.
+    // because data subcomponent and data access are very high level feature types.
     DATA_COMPONENT_REFERENCE_FIRST_NAME("data subcomponent" +
           STRING_TYPE_SEPARATOR + "data access" + STRING_TYPE_SEPARATOR +
           "parameter" + STRING_TYPE_SEPARATOR + "behavior variable" +
@@ -3175,7 +3163,7 @@ public class AadlBaTypeChecker
            FeatureType.CLASSIFIER_VALUE}),
 
     // Always include at the end of an array:
-    // because data subcomponent and data access are very high level types.
+    // because data subcomponent and data access are very high level feature types.
     VV_COMPONENT_REFERENCE_FIRST_NAME(
           DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + STRING_TYPE_SEPARATOR +
          "in parameter" + STRING_TYPE_SEPARATOR + "incomming port (prototype)" +
@@ -3205,7 +3193,7 @@ public class AadlBaTypeChecker
            TypeCheckRule.DATA_COMPONENT_REFERENCE_FIRST_NAME}),
 
     // Always include at the end of an array:
-    // because data subcomponent and data access are very high level types.
+    // because data subcomponent and data access are very high level feature types.
     TARGET_COMPONENT_REFERENCE_FIRST_NAME(
           DATA_COMPONENT_REFERENCE_FIRST_NAME._literal + STRING_TYPE_SEPARATOR +
             "out parameter" + STRING_TYPE_SEPARATOR + "outgoing port (prototype)",
@@ -3273,13 +3261,13 @@ public class AadlBaTypeChecker
     }
 
     /**
-     * Returns the expected type names separated by the given type separator
-     * string.
+     * Returns the expected feature type names separated by the given type
+     * separator string.
      * <BR><BR>
      * Note : this method is not recursive. 
      * 
      * @param typeSeparator the given type separator string 
-     * @return the the expected type names separated by the given type
+     * @return the the expected feature type names separated by the given type
      * separator string.
      */
     public String getExpectedTypes(String typeSeparator)
@@ -3295,13 +3283,14 @@ public class AadlBaTypeChecker
         i++ ;
       }
 
-      return AadlBaUtils.concatenateString(typeSeparator, sa) ;
+      return Aadl2Utils.concatenateString(typeSeparator, sa) ;
     }
 
     /**
-     * Returns the rule's matching feature type or behavior annex feature type
-     * of the given DeclarativeBehaviorElement object. If there is no matching,
-     * it returns {@code null}. This test is recursive.
+     * Returns the rule's matching FeatureType or BehaviorAnnexFeatureType
+     * enumeration of the given DeclarativeBehaviorElement object. If there is
+     * no matching, it returns {@code null}. This test is recursive.
+     * 
      * @param dbe the given DeclarativeBehaviorElement object
      * @param baParentContainer behavior parent component
      * @return the rule's matching feature type or {@code null}
@@ -3392,6 +3381,7 @@ public class AadlBaTypeChecker
   }   
 }
 
+// Convenient enumeration class for DataAccess right checking.
 enum DataAccessRight
 {
   unknown ("unknown"),

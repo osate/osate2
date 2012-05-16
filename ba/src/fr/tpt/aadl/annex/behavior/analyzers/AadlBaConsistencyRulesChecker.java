@@ -39,6 +39,8 @@ import fr.tpt.aadl.annex.behavior.declarative.Identifier;
 
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
+import fr.tpt.aadl.utils.Aadl2Utils ;
+import fr.tpt.aadl.utils.Aadl2Visitors ;
 
 public class AadlBaConsistencyRulesChecker
 {
@@ -124,7 +126,7 @@ public class AadlBaConsistencyRulesChecker
          return false ;
       }
       
-      EList<ModeTransition> lModeTrans = AadlBaVisitors.
+      EList<ModeTransition> lModeTrans = Aadl2Visitors.
                getElementsInNamespace(_baParentContainer,ModeTransition.class) ;
       
       // Can't be out a state/mode if the parent container doesn't declare 
@@ -168,7 +170,7 @@ public class AadlBaConsistencyRulesChecker
             
             // Checks consistency between the two triggers lists without 
             // considering their order.
-            if(AadlBaUtils.compareStringList(ldispTriggs, lModeTriggs))
+            if(Aadl2Utils.compareStringList(ldispTriggs, lModeTriggs))
             {
                return true ;
             }

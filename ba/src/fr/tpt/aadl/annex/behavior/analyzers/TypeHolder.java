@@ -42,20 +42,19 @@ public class TypeHolder
 
    
    /**
-    * Holds the dimension of the type. Default dimension is zero.
+    * Holds the number of dimension of the type. Default dimension is zero.
     */
    public int dimension = 0;
    
    /**
     * Holds the size of each dimension of the type.
     */
-   
    public long[] dimension_sizes = new long[0]; ;
    
    private final static String ARRAY_DIMENSION_TOKEN = "[]" ;
    
    /**
-    * Builds a TypeHolder object with uninitialized attributes ({@code null}).
+    * Builds a TypeHolder object with default attributes ({@code null}).
     */
    public TypeHolder() {}
    

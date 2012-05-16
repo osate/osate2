@@ -41,9 +41,9 @@ import fr.tpt.aadl.annex.behavior.aadlba.UnaryAddingOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryBooleanOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.UnaryNumericOperator ;
 import fr.tpt.aadl.annex.behavior.aadlba.Value ;
-import fr.tpt.aadl.annex.behavior.names.DataModelProperties;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties ;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
+import fr.tpt.aadl.utils.Aadl2Utils ;
+import fr.tpt.aadl.utils.PropertyUtils ;
+import fr.tpt.aadl.utils.names.DataModelProperties ;
 
 public class AdaLikeDataTypeChecker implements DataTypeChecker
 {
@@ -184,7 +184,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
          
          expectedTypes = _alphaNumTypes ; 
          
-         if (AadlBaUtils.contains(operand1.dataRep, expectedTypes))
+         if (Aadl2Utils.contains(operand1.dataRep, expectedTypes))
          {
             return new TypeHolder(DataRepresentation.BOOLEAN, null) ;
          }
@@ -196,7 +196,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       }
       else if(operator instanceof BinaryAddingOperator)
       {
-         if(AadlBaUtils.contains(operand1.dataRep, _numTypes))
+         if(Aadl2Utils.contains(operand1.dataRep, _numTypes))
          {
             return getTopLevelTypeWithoutConsistencyChecking(operand1, operand2) ;
          }
@@ -215,7 +215,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
             case MULTIPLY :
             case DIVIDE :
             {
-               if(AadlBaUtils.contains(operand1.dataRep, _numTypes))
+               if(Aadl2Utils.contains(operand1.dataRep, _numTypes))
                {
                   return getTopLevelTypeWithoutConsistencyChecking(operand1,
                                                                    operand2);
@@ -248,7 +248,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       else if(operator instanceof BinaryNumericOperator)
       {
          // Checks operands consistency:
-         if(AadlBaUtils.contains(operand1.dataRep, _numTypesWithoutFixed))
+         if(Aadl2Utils.contains(operand1.dataRep, _numTypesWithoutFixed))
          {
             boolean reportError = false ;
             
@@ -258,7 +258,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                if(operand2.klass != null)
                {
                   EList<org.osate.aadl2.PropertyExpression> l = 
-                     AadlBaGetProperties.getPropertyExpression(operand2.klass,
+                     PropertyUtils.getPropertyExpression(operand2.klass,
                     		                DataModelProperties.INTEGER_RANGE) ;
                   if(l.size() > 0)
                   {
@@ -355,7 +355,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
       if(operator instanceof UnaryAddingOperator || 
          operator instanceof UnaryNumericOperator)
       {
-         if(AadlBaUtils.contains(operand.dataRep, _numTypes))
+         if(Aadl2Utils.contains(operand.dataRep, _numTypes))
          {
             return operand ;
          }

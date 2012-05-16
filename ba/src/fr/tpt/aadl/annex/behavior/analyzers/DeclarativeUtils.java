@@ -1,3 +1,24 @@
+/**
+ * AADL-BA-FrontEnd
+ * 
+ * Copyright © 2011 TELECOM ParisTech and CNRS
+ * 
+ * TELECOM ParisTech/LTCI
+ * 
+ * Authors: see AUTHORS
+ * 
+ * This program is free software: you can redistribute it and/or modify 
+ * it under the terms of the Eclipse Public License as published by Eclipse,
+ * either version 1.0 of the License, or (at your option) any later version.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * Eclipse Public License for more details.
+ * You should have received a copy of the Eclipse Public License
+ * along with this program.  If not, see 
+ * http://www.eclipse.org/org/documents/epl-v10.php
+ */
+
 package fr.tpt.aadl.annex.behavior.analyzers;
 
 import java.util.ArrayList ;
@@ -15,8 +36,21 @@ import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 
+/**
+ * A collection of util methods for AADLBA Front End's declarative meta model.
+ */
 public class DeclarativeUtils
 {
+  /**
+   * Instanciates the behavior transitions from the given behavior annex's
+   * declarative behavior transitions.<BR><BR>
+   * 
+   * declarative behavior transitions design many source states to one
+   * destination state. behavior transitions design one source state to one
+   * destination state.
+   * 
+   * @param ba the given behavior annex
+   */
   public static void reinstanciateBehaviorTransition(BehaviorAnnex ba)
   {
     DeclarativeBehaviorTransition dbt = null ;
@@ -51,6 +85,13 @@ public class DeclarativeUtils
     ba.getTransitions().addAll(clones) ;
   }
   
+  /**
+   * Set the given behavior annex as the EMF parent container to the given 
+   * Element object.  
+   * 
+   * @param ba the given behavior annex
+   * @param child the given Element object
+   */
   public static void setEcontainer(BehaviorAnnex ba, Element child)
   {
     InternalEObject iChild = (InternalEObject) child ;

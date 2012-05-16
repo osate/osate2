@@ -24,7 +24,6 @@ package fr.tpt.aadl.annex.behavior.utils ;
 import java.util.ArrayList ;
 import java.util.HashMap ;
 import java.util.HashSet ;
-import java.util.LinkedHashSet ;
 import java.util.List ;
 import java.util.Map ;
 import java.util.Set ;
@@ -33,21 +32,13 @@ import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 
 import org.osate.aadl2.AadlPackage ;
-import org.osate.aadl2.Classifier ;
 import org.osate.aadl2.ComponentClassifier ;
-import org.osate.aadl2.ComponentImplementation ;
-import org.osate.aadl2.Element ;
-import org.osate.aadl2.Feature ;
-import org.osate.aadl2.NamedElement ;
-import org.osate.aadl2.Namespace ;
 import org.osate.aadl2.PackageSection ;
 import org.osate.aadl2.Port ;
 import org.osate.aadl2.PrivatePackageSection ;
-import org.osate.aadl2.Prototype ;
-import org.osate.aadl2.PrototypeBinding ;
-import org.osate.aadl2.Subcomponent ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
+import fr.tpt.aadl.utils.Aadl2Visitors ;
 
 /**
  * A collection of behavior annex visitors.
@@ -71,76 +62,6 @@ public class AadlBaVisitors
    {
      DEFAULT_TRANSITION_PRIORITY = AadlBaFactory.eINSTANCE.
                                       createBehaviorTransition().getPriority() ;
-   }
-   
-   /**
-    * Returns the first occurrence of a Prototype within the given
-    * component and its ancestors which name equals to a given name or
-    * returns {@code null} if there isn't matching prototype found.  
-    * 
-    * @param c the given aadl's component 
-    * @param prototypeName the given name
-    * @return the first occurrence of a Prototype object related to the given
-    * name or {@code null}
-    */
-   public static Prototype findPrototypeInComponent(Classifier c,
-                                                    String prototypeName)
-   {
-      Prototype result = null ;
-
-      EList<Prototype> lprotos = getElementsInNamespace(c, Prototype.class) ;
-      
-      for(Prototype proto : lprotos)
-      {
-         if (proto.getName().equalsIgnoreCase(prototypeName))
-         {
-            result = proto ;
-            break ;
-         }
-      }
-      
-      return result ;
-   }
-   
-   /**
-    * Returns the first occurrence of a PrototypeBinding object within the given
-    * component or component implementation and its ancestors which concerns
-    * a prototype which name equals to the given one or {@code null} 
-    * if there isn't matching PrototypeBinding object found.
-    * @param c the given component or component implementation
-    * @param prototypeName the prototype name
-    * @return the first occurrence of a PrototypeBinding object or {@code null} 
-    */
-   public static PrototypeBinding findPrototypeBindingInComponent(
-                                            Classifier c, String prototypeName)
-   {
-      PrototypeBinding result = null ;
-      
-      for(PrototypeBinding pb : c.getOwnedPrototypeBindings())
-      {
-         if(pb.getFormal() != null &&
-            prototypeName.equalsIgnoreCase(pb.getFormal().getName()))
-         {
-            return pb ;
-         }
-      }
-      
-      // Recursive call for component implementation.
-      if(result == null && c instanceof ComponentImplementation)
-      {
-         ComponentImplementation ci = (ComponentImplementation) c ;
-         
-         result = findPrototypeBindingInComponent(ci.getType(), prototypeName);
-      }
-      
-      // Recursive call for parent component.
-      if(result == null && c.getExtended() != null)
-      {
-         result = findPrototypeBindingInComponent(c.getExtended(),
-                                                  prototypeName) ;
-      }
-      
-      return result ;
    }
    
    /**
@@ -240,7 +161,7 @@ public class AadlBaVisitors
    public static PackageSection[] getBaPackageSections(BehaviorAnnex ba)
    {
       PackageSection result[] ;
-      PackageSection container = AadlBaVisitors.getContainingPackageSection(
+      PackageSection container = Aadl2Visitors.getContainingPackageSection(
     		                                (org.osate.aadl2.Element)ba);
 
       // Init contexts tab with current package's sections.
@@ -283,61 +204,6 @@ public class AadlBaVisitors
         }
       }
       return null ;
-   }
-
-   /**
-    * Find the first occurrence of an Feature within a given aadl's component
-    * (and ancestors) which name equals to a given name. Return {@code null} if
-    * no Feature is found.
-    * 
-    * @param cc the given aadl's component
-    * @param featureName the given name 
-    * @return the first occurrence of a Feature related to the given name or
-    * {@code null}
-    */
-   public static Feature findFeatureInComponent(Classifier cc,
-                                                String featureName)
-   {
-      for(Feature f : cc.getAllFeatures())
-      {
-         if(featureName.equalsIgnoreCase(f.getName()))
-         {
-            return f ;
-         }
-      }
-      return null ;
-   }
-
-   /**
-    * Find the first occurrence of a Subcomponent within a given aadls'
-    * component (and ancestors) which name equals to a given name. Return
-    * {@code null} if no Subcomponent is found.  
-    * 
-    * @param cc the given aadl's component 
-    * @param subComponentName the given name
-    * @return the first occurrence of a Subcomponent related to the given name
-    * or {@code null}
-    */
-   public static Subcomponent findSubcomponentInComponent (Classifier cc,
-                                                        String subComponentName)
-   {
-      Subcomponent result = null ;
-
-      if(cc instanceof ComponentImplementation)
-      {
-         EList<Subcomponent> lsubcs = ((ComponentImplementation) cc)
-         .getAllSubcomponents() ;
-         for(Subcomponent subc : lsubcs)
-         {
-            if (subc.getName().equalsIgnoreCase(subComponentName))
-            {
-               result = subc ;
-               break ;
-            }
-         }
-      }
-
-      return result ;
    }
 
    /**
@@ -385,33 +251,6 @@ public class AadlBaVisitors
    }
 
    /**
-    * Returns the list of members within a given name space (inherit members
-    * included) witch type matches with the specified one. If no members is
-    * found, the returned list is a empty list. The members order is kept.
-    * The returned list is free from duplicated members (due to inheritance).
-    * 
-    * @param <T> the specified type
-    * @param ns the given name space
-    * @param klass the specified type's class object
-    * @return the members list
-    */
-   @SuppressWarnings("unchecked")
-   public static <T> EList<T> getElementsInNamespace(Namespace ns,
-                                                     Class<T> klass)
-   {
-      Set<NamedElement> lne = getMembers(ns) ;
-      EList<T> result = new BasicEList<T>(lne.size()) ;
-      for(NamedElement ne : lne)
-      {
-         if(klass.isAssignableFrom(ne.getClass()))
-         {
-            result.add((T) ne) ;
-         }
-      }
-      return result ;
-   }
-
-   /**
     * Returns the behavior annex's parent component.
     * 
     * @param ba the behavior annex
@@ -422,35 +261,6 @@ public class AadlBaVisitors
       return (ComponentClassifier) ba.eContainer() ;
    }
 
-   /**
-    * Get all members, inherit members included, of a given name space.
-    * Member order is kept. Using LinkedHashSet avoids duplicated members
-    * introduced by inheritance.
-    * 
-    * @param ns the given name space
-    * @return the component's members LinkedHashSet
-    */
-   public static LinkedHashSet<NamedElement> getMembers(Namespace ns)
-   {
-      LinkedHashSet<NamedElement> result = new LinkedHashSet<NamedElement>() ;
-      result.addAll(ns.getMembers()) ;
-      return result ;
-   }
-   
-   /**
-    * Return the package section related to a given Element object.
-    * 
-    * @param element the given Element object
-    * @return the package section related to the given Element object
-    */
-   public static PackageSection getContainingPackageSection(Element element)
-   {
-	   Element container = element.getOwner() ;
-	   while(container != null && !(container instanceof PackageSection))
-		   container = container.getOwner() ;
-	   return (PackageSection) container ;
-   }
-   
   protected static final Map<BehaviorAnnex, Set<Port>> _IS_FRESH = 
                                        new HashMap<BehaviorAnnex, Set<Port>>() ;
 
@@ -560,7 +370,7 @@ public class AadlBaVisitors
   // Behavior transition which have execution condition set to "otherwise"
   // will be set at the end of the list.
   protected static void addAndSort(List<BehaviorTransition> btl,
-                                 BehaviorTransition bt)
+                                   BehaviorTransition bt)
   {
     // TODO to be optimized.
     btl.add(bt) ;

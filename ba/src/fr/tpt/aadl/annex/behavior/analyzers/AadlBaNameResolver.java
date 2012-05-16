@@ -54,10 +54,11 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.declarative.*;
 
-import fr.tpt.aadl.annex.behavior.names.DataModelProperties;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaGetProperties;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
+import fr.tpt.aadl.utils.Aadl2Visitors ;
+import fr.tpt.aadl.utils.PropertyUtils ;
+import fr.tpt.aadl.utils.names.DataModelProperties ;
 
 /**
  * A AADL behavior annex name resolver.
@@ -499,7 +500,7 @@ public class AadlBaNameResolver
    {
       String nameToFind = itv.getName(); 
       
-      Feature f = AadlBaVisitors.findFeatureInComponent(_baParentContainer,
+      Feature f = Aadl2Visitors.findFeatureInComponent(_baParentContainer,
                                                         nameToFind) ;
       if (f == null)
       {
@@ -779,7 +780,7 @@ public class AadlBaNameResolver
    {
       String nameToFind = id.getId(); 
       
-      Feature f = AadlBaVisitors.findFeatureInComponent(parentContainer,
+      Feature f = Aadl2Visitors.findFeatureInComponent(parentContainer,
                                                         nameToFind) ;
       if (f != null)
       {
@@ -890,8 +891,8 @@ public class AadlBaNameResolver
 	  if(rep == DataRepresentation.STRUCT || rep == DataRepresentation.UNION)
 	  {
 		  EList<PropertyExpression> lpv = 
-                            AadlBaGetProperties.getPropertyExpression(component,
-             		              DataModelProperties.ELEMENT_NAMES) ;
+		                              PropertyUtils.getPropertyExpression(component,
+             		                            DataModelProperties.ELEMENT_NAMES) ;
 		  ListValue lv = null ;
 		  StringLiteral sl = null ;
 		  int index1 = 0 ;
@@ -922,8 +923,8 @@ public class AadlBaNameResolver
 		  if (result)
 		  {
 			  EList<PropertyExpression> lpv2 = 
-                  AadlBaGetProperties.getPropertyExpression(component,
-   		              DataModelProperties.BASE_TYPE) ;
+			                            PropertyUtils.getPropertyExpression(component,
+   		                                          DataModelProperties.BASE_TYPE) ;
 			  
 			  ClassifierValue cv ;
 			  
@@ -948,8 +949,8 @@ public class AadlBaNameResolver
    {
       String nameToFind = id.getId() ;
 
-      PrototypeBinding pb = AadlBaVisitors.findPrototypeBindingInComponent
-            (component, nameToFind);
+      PrototypeBinding pb = Aadl2Visitors.findPrototypeBindingInComponent
+                                                        (component, nameToFind);
       
       // first: try to find any prototype binding that matches the given
       // identifier. Prototype binding means prototype refining.
@@ -961,8 +962,8 @@ public class AadlBaNameResolver
       else // If there isn't any matching prototype binding, try to find
            // a matching prototype declaration. 
       {
-         Prototype proto = AadlBaVisitors.findPrototypeInComponent
-                                               (component, nameToFind);
+         Prototype proto = Aadl2Visitors.findPrototypeInComponent
+                                                        (component, nameToFind);
          if (proto != null)
          {
             id.setOsateRef(proto);
@@ -1145,11 +1146,11 @@ public class AadlBaNameResolver
                         new BasicEList<org.osate.aadl2.NamedElement>(0) ;
 
       // Merges parent component' subcomponents lists.
-      lcc.addAll(AadlBaVisitors.getElementsInNamespace(_baParentContainer,
+      lcc.addAll(Aadl2Visitors.getElementsInNamespace(_baParentContainer,
                                                        Data.class)) ;
-      lcc.addAll(AadlBaVisitors.getElementsInNamespace(_baParentContainer,
+      lcc.addAll(Aadl2Visitors.getElementsInNamespace(_baParentContainer,
                                                        Mode.class)) ;
-      lcc.addAll(AadlBaVisitors.getElementsInNamespace(_baParentContainer,
+      lcc.addAll(Aadl2Visitors.getElementsInNamespace(_baParentContainer,
                                                        Feature.class)) ;
 
       EList<BehaviorVariable> lvars = _ba.getVariables() ;
@@ -1225,8 +1226,8 @@ public class AadlBaNameResolver
    {
       String nameToFind = id.getId() ;
       
-      Subcomponent subc = AadlBaVisitors.findSubcomponentInComponent
-                                               (parentComponent, nameToFind);
+      Subcomponent subc = Aadl2Visitors.findSubcomponentInComponent
+                                                  (parentComponent, nameToFind);
 
       if (subc != null)
       {
@@ -1278,7 +1279,7 @@ public class AadlBaNameResolver
    // binds if checking is successful.
    private boolean timeUnitResolver(Identifier unitIdentifier)
    {
-      PackageSection context = AadlBaVisitors.getContainingPackageSection(_ba);
+      PackageSection context = Aadl2Visitors.getContainingPackageSection(_ba);
       
       PropertiesLinkingService pls = PropertiesLinkingService.
                                           getPropertiesLinkingService(context) ;
@@ -1429,7 +1430,7 @@ public class AadlBaNameResolver
 		   Identifier propertyName = enu.getProperty() ;
 		  
 		   EList<PropertyExpression> pel = 
-		     AadlBaGetProperties.getPropertyExpression(c, propertyName.getId());
+		               PropertyUtils.getPropertyExpression(c, propertyName.getId());
 		  
 		   Identifier wrongId = null ;
 		  
