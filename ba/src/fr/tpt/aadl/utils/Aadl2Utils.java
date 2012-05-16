@@ -43,16 +43,30 @@ public class Aadl2Utils
 {
   public static String DEFAULT_ACCESS_RIGHT = null ; 
   
+  /**
+   * Returns the sorted (see FeaturePositionComparator) list of features (included
+   * inherited features) owned by the given ComponentType object.
+   * 
+   * @param cpt the given ComponentType object
+   * @return the sorted list of features owned by the given Component object
+   */
   public static List<Feature> orderFeatures(ComponentType cpt)
   {
     List<Feature> res = new ArrayList<Feature>() ;
-//    res.addAll(cpt.getOwnedFeatures()) ;
     res.addAll(cpt.getAllFeatures()) ;
     FeaturePositionComparator comparator = new FeaturePositionComparator() ;
     Collections.sort(res, comparator) ;
     return res ;
   }
   
+  /**
+   * Implementation of a feature comparator based on the postion of the features
+   * in the aadl code.
+   * <BR><BR>
+   * Returns 1 if arg1 is declared after arg0.<BR>
+   * Returns -1 if arg0 is declared after arg1.<BR>
+   * Returns 0 if arg0 and arg1 are declared on the same line.
+   */
   public static class FeaturePositionComparator implements Comparator<Feature>
   {
 
@@ -112,7 +126,18 @@ public class Aadl2Utils
     }
   }
   
-  // Returns null if there is not default right set.
+  /**
+   * Returns the access right of the given DataAccess object.<BR>
+   * <BR>
+   * 
+   * Returns the local "Access_Right" property value, if it is set. Otherwise,
+   * returns the default access right value found in Memory_Properties (pre
+   * declared property set). If the default access right is not found,
+   * returns {@null}.  
+   * 
+   * @param data the given DataAccess object
+   * @return local access right or default access right or {@code null}
+   */
   public static String getAccessRight(DataAccess data)
   {
     String result = null ;

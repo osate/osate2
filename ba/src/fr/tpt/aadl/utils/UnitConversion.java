@@ -21,9 +21,28 @@
 
 package fr.tpt.aadl.utils ;
 
+/**
+ * A collection of time unit conversion methods. 
+ */
 public class UnitConversion
 {
-
+  
+  /**
+   * Returns the given value expressed in the given time unit in milliseconds. 
+   * <BR><BR>
+   * time unit format supported:<BR><BR>
+   * _ hr for hour<BR>
+   * _ min for minute<BR>
+   * _ sec for second<BR>
+   * _ ms for millisecond<BR>
+   * _ us for microsecond<BR>
+   * _ ns for nanosecond<BR>
+   * _ ps for picosecond<BR>
+   * 
+   * @param value the given value
+   * @param sourceUnit the given time unit
+   * @return the value in milliseconds
+   */
   public static float convertInMs(float value,
                                   String sourceUnit)
   {
@@ -70,5 +89,4 @@ public class UnitConversion
 
     return value ;
   }
-
 }

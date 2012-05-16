@@ -776,7 +776,7 @@ public class PropertyUtils {
 	}
 	
 	 /**
-   * Return the list of property expressions (PropertyExpression) associated
+   * Returns the list of property expressions (PropertyExpression) associated
    * to a given property name within a given component and its ancestor if the
    * given component is a component implementation. The returned list'size 
    * is > 1 when the given component associated to the given classifier has
@@ -811,7 +811,7 @@ public class PropertyUtils {
     }
 
   /**
-   * Return the property association which match
+   * Returns the property association which match
    * the given propertyName if it is defined
    * 
    * @param cc a given component classifier
@@ -819,7 +819,7 @@ public class PropertyUtils {
    * @return the property association
    */
   public static PropertyAssociation getPropertyAssociation(Classifier cc,
-                                                      String propertyName)
+                                                           String propertyName)
   {
     Property p = null ;
 
@@ -840,7 +840,7 @@ public class PropertyUtils {
   }
 
   /**
-   * Return the list of property association which match
+   * Returns the list of property association which match
    * the given propertyName if several property association
    * is defined
    * 
@@ -850,8 +850,8 @@ public class PropertyUtils {
    * the given propertyName
    */
   public static EList<PropertyAssociation> getPropertyAssociations(
-                                       Classifier cc,
-                                       String propertyName)
+                                                                  Classifier cc,
+                                                            String propertyName)
   {
     Property p = null ;
     EList<PropertyAssociation> lpa = null ;
@@ -880,9 +880,11 @@ public class PropertyUtils {
   }
 
   /**
+   * Returns the list of PropertyExpression objects binded to the 
+   * given PropertyAssociation.
    * 
-   * @param pa a given property association
-   * @return the list of property expression of the property
+   * @param pa the given property association
+   * @return the list of property expressions
    */
 
   public static EList<PropertyExpression> getPropertyExpression(

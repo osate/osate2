@@ -26,6 +26,8 @@ package fr.tpt.aadl.utils.names;
  */
 public class DispatchTriggerProperties
 {
+  public final static String _NAME = "Dispatch_Trigger_Properties" ;
+  
   public static final String HYBRID = "Hybrid" ;
   
   public static final String TIMED = "Timed" ;

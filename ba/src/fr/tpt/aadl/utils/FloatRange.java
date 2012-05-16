@@ -21,31 +21,46 @@
 
 package fr.tpt.aadl.utils ;
 
+/**
+ * Represents a range of float number. 
+ */
 public class FloatRange
 {
 
   public final static FloatRange nullValue = new FloatRange(0f, 0f) ;
 
   private final float min, max ;
-
-  public FloatRange(
-                    float min, float max)
+  
+  /**
+   * Builds a instance of FloatRange with the given parameters.
+   * 
+   * @param min the float range's lower bound
+   * @param max the float range's upper bound
+   */
+  public FloatRange(float min, float max)
   {
     this.min = min ;
     this.max = max ;
   }
 
-  public FloatRange(
-                    float value)
+  public FloatRange(float value)
   {
     this(value, value) ;
   }
-
+  
+  /**
+   * Returns the float range's lower bound.
+   * @return the float range's lower bound
+   */
   public float getMin()
   {
     return min ;
   }
-
+  
+  /**
+   * Returns the float range's upper bound.
+   * @return the float range's upper bound
+   */
   public float getMax()
   {
     return max ;

@@ -21,28 +21,49 @@
 
 package fr.tpt.aadl.utils ;
 
+/**
+ * Represents a range of integer. 
+ *
+ */
 public class IntegerRange
 {
-
   private final int min, max ;
 
-  public IntegerRange(
-                      int min, int max)
+  /**
+   * Builds an instance of IntegerRange with the given parameters.
+   * 
+   * @param min the integer range's lower bound
+   * @param max the integer range's upper bound
+   */
+  public IntegerRange(int min, int max)
   {
     this.min = min ;
     this.max = max ;
   }
-
+  
+  /**
+   * Returns the integer range's upper bound.
+   * @return the integer range's upper bound
+   */
   public int getMin()
   {
     return min ;
   }
-
+  
+  /**
+   * Returns the integer range's lower bound.
+   * @return the integer range's lower bound
+   */
   public int getMax()
   {
     return max ;
   }
-
+  
+  /**
+   * Returns the length of the integer range.
+   * 
+   * @return the length of the integer range
+   */
   public int length()
   {
     return max - min ;

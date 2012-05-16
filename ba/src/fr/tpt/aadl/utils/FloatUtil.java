@@ -23,13 +23,17 @@ package fr.tpt.aadl.utils ;
 
 import java.math.BigDecimal ;
 
+/**
+ * BigDecimal framework front end for arithmetic operations on float values.
+ */
 public class FloatUtil
 {
-
-  public FloatUtil()
-  {
-  }
-
+  /**
+   * Sums the given float values.
+   * 
+   * @param values the given values
+   * @return the sum
+   */
   public static float add(float... values)
   {
     BigDecimal res = new BigDecimal("0") ;
@@ -42,7 +46,14 @@ public class FloatUtil
 
     return res.floatValue() ;
   }
-
+  
+  /**
+   * Subtracts the given left float value by the given right float value.
+   * 
+   * @param left the left float value
+   * @param right the right float value
+   * @return the subtraction result
+   */
   public static float subtract(float left,
                                float right)
   {
@@ -50,7 +61,14 @@ public class FloatUtil
     BigDecimal iRight = new BigDecimal(right + "") ;
     return iLeft.subtract(iRight).floatValue() ;
   }
-
+  
+  /**
+   * Divides the given left float value by the given right float value.
+   * 
+   * @param left the left float value
+   * @param right the right float value
+   * @return the division result
+   */
   public static float divide(float left,
                              float right)
   {
@@ -66,7 +84,17 @@ public class FloatUtil
       return iLeft.divide(iRight, BigDecimal.ROUND_HALF_DOWN).floatValue() ;
     }
   }
-
+  
+  /**
+   * Divides the given left float value by the given right float value and 
+   * returns the smallest integer value of division result that is not less than
+   * the result.
+   * 
+   * @param left the left float value
+   * @param right the right float value
+   * @return the smallest integer value of division result that is not less than
+   * the result
+   */
   public static int ceil_divide(float left,
                                 float right)
   {
@@ -82,6 +110,13 @@ public class FloatUtil
     }
   }
 
+  /**
+   * Multiplies the given left float value by the given right float value.
+   * 
+   * @param left the left float value
+   * @param right the right float value
+   * @return the multiplication result
+   */
   public static float multiply(float left,
                                float right)
   {
