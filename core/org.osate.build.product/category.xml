@@ -3,9 +3,19 @@
    <feature url="features/org.osate.core.feature_2.0.0.qualifier.jar" id="org.osate.core.feature" version="2.0.0.qualifier">
       <category name="osate2"/>
    </feature>
+   <feature url="features/org.osate.plugins.feature_2.0.0.qualifier.jar" id="org.osate.plugins.feature" version="2.0.0.qualifier">
+      <category name="osate2"/>
+   </feature>
+   <feature url="features/org.osate.core.source.feature_2.0.0.qualifier.jar" id="org.osate.core.source.feature" version="2.0.0.qualifier">
+      <category name="osate2source"/>
+   </feature>
+   <feature url="features/org.osate.plugins.source.feature_2.0.0.qualifier.jar" id="org.osate.plugins.source.feature" version="2.0.0.qualifier">
+      <category name="osate2source"/>
+   </feature>
    <category-def name="osate2" label="OSATE2 for AADL2">
       <description>
          OSATE
       </description>
    </category-def>
+   <category-def name="osate2source" label="OSATE2 Source Code"/>
 </site>
