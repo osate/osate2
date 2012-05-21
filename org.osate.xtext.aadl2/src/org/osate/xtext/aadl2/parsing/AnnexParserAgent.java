@@ -136,6 +136,7 @@ public class AnnexParserAgent  extends LazyLinker {
 				if (defaultAnnexSubclause.getName().equalsIgnoreCase("emv2")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					AnnexSubclause al = (AnnexSubclause) empr.getParser().parseSubclause(defaultAnnexSubclause,defaultAnnexSubclause.getSourceText(),line,offset);
+					// error annex object is already linked in
 				} else
 				{
 					// look for plug-in parser
