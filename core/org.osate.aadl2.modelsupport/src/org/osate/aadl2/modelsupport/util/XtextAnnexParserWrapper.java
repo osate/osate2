@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.Severity;
@@ -25,6 +26,8 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextSyntaxDiagnostic;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 
@@ -52,6 +55,15 @@ public class XtextAnnexParserWrapper  {
 	public EObject parseSubclause(EObject element, String editString, int line, int offset) {
 		return parse(element, editString, subclauseParserRule, line, offset);
 	}
+	
+	public EObject resolveAnnex(EObject element){
+		final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
+		ILinker linker = ((XtextResource)element.eResource()).getLinker();
+		linker.linkModel(element, consumer);
+		element.eResource().getErrors().addAll(consumer.getResult(Severity.ERROR));
+		element.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
+		return element;
+	}
 
 	public EObject parse(EObject element, String editString, ParserRule parserRule, int line, int offset) {
 		
@@ -61,18 +73,35 @@ public class XtextAnnexParserWrapper  {
 //			editString = prependLines(editString, line);
 			editString = genWhitespace(offset)+editString+"\n\r";
 			IParseResult parseResult = xtextParser.parse(parserRule, new StringReader(editString));
+			EObject result = null;
+			Resource res = null;
 			if (isValidParseResult(parseResult, element)) {
-				PackageSection pack = (PackageSection) element.eContainer();
-				EList<AnnexLibrary>al = pack.getOwnedAnnexLibraries();
-				AnnexLibrary resal = (AnnexLibrary)parseResult.getRootASTElement();
-				resal.setName(((NamedElement)element).getName());
-				al.add(al.indexOf(element), resal);
-				al.remove(element);
-				ILinker linker = ((XtextResource)resal.eResource()).getLinker();
+				if (element instanceof AnnexLibrary){
+					PackageSection pack = (PackageSection) element.eContainer();
+					EList<AnnexLibrary>al = pack.getOwnedAnnexLibraries();
+					AnnexLibrary resal = (AnnexLibrary)parseResult.getRootASTElement();
+					resal.setName(((NamedElement)element).getName());
+					al.add(al.indexOf(element), resal);
+					al.remove(element);
+					res = resal.eResource();
+					result = resal;
+				} else if (element instanceof AnnexSubclause){
+					Classifier cl = (Classifier) element.eContainer();
+					EList<AnnexSubclause>al = cl.getOwnedAnnexSubclauses();
+					AnnexSubclause resal = (AnnexSubclause)parseResult.getRootASTElement();
+					resal.setName(((NamedElement)element).getName());
+					al.add(al.indexOf(element), resal);
+					al.remove(element);
+					res = resal.eResource();
+					result = resal;
+				}
+				
+				EObject rootASTElement = parseResult.getRootASTElement();
+				ILinker linker = ((XtextResource)res).getLinker();
 				linker.linkModel(parseResult.getRootASTElement(), consumer);
-					resal.eResource().getErrors().addAll(consumer.getResult(Severity.ERROR));
-					resal.eResource().getWarnings().addAll(consumer.getResult(Severity.WARNING));
-				return resal;
+					res.getErrors().addAll(consumer.getResult(Severity.ERROR));
+					res.getWarnings().addAll(consumer.getResult(Severity.WARNING));
+				return result;
 			} else {
 				element.eResource().getErrors().addAll(createDiagnostics(parseResult));
 				return null;
