@@ -976,7 +976,9 @@ SubprogramCallSequence returns aadl2::SubprogramCallSequence:
 CallSpecification returns aadl2::CallSpecification:
 	(({aadl2::ProcessorCall}name=ID ':' 'subprogram' 'processor' '.' subprogramAccessName=ID ) | 
      ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
-//     	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
+// direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
+// therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
+//    	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
 //     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
 calledSubprogram=[aadl2::CalledSubprogram|QCREF]
      ))
@@ -1005,80 +1007,60 @@ AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'abstract' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 BusPrototype returns aadl2::BusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'bus' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 DataPrototype returns aadl2::DataPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'data' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 DevicePrototype returns aadl2::DevicePrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'device' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 MemoryPrototype returns aadl2::MemoryPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'memory' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 ProcessPrototype returns aadl2::ProcessPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'process' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 ProcessorPrototype returns aadl2::ProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'processor' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 SubprogramPrototype returns aadl2::SubprogramPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 SystemPrototype returns aadl2::SystemPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'system' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 
@@ -1086,32 +1068,24 @@ ThreadPrototype returns aadl2::ThreadPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 VirtualBusPrototype returns aadl2::VirtualBusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'bus'
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor'
-//	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-//	( array?='[' ']')?
 	;
 
 
@@ -1678,18 +1652,12 @@ FlowSourceSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSource 
 	outEnd=FlowEnd
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
-//	';'
 ;
 
 FlowSinkSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSink 
 	InEnd=FlowEnd
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
-//	';'
 ;
 
 FlowPathSpec returns aadl2::FlowSpecification:
@@ -1697,9 +1665,6 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowPath 
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
-//	';'
 ;
 
 FlowEnd returns aadl2::FlowEnd:
@@ -1709,10 +1674,6 @@ FlowEnd returns aadl2::FlowEnd:
 FlowSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|REFINEDNAME] 
 	':' 'refined' 'to' 'flow' kind=FlowKind 
-//	( '{' (ownedPropertyAssociation+=PropertyAssociation)+ '}' 
-//		     (  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?	)|
-//	(  'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')') 
-//	';'
 	;
 
 FlowImplementation returns aadl2::FlowImplementation:
@@ -1726,34 +1687,23 @@ FlowSourceImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID] 
 	':' 'flow' kind=FlowSource 
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
-//	(outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID]
 (ID '.')? ID
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
-//	';'
 ;
+
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowSink 
-//	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 (ID '.')? ID
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
-//	';'
 ;
+
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowPath 
-//	(inContext=[aadl2::Context|ID] '.' )? inFeature=[aadl2::Feature|ID]
 (ID '.')? ID
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
-//	'->' (outContext=[aadl2::Context|ID] '.' )? outFeature=[aadl2::Feature|ID] 
  '->' (ID '.')? ID
-//	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-//	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
-//	';'
 ;
 
 
@@ -1821,7 +1771,6 @@ ModeRef returns aadl2::ModeBinding:
 
 
 AnnexLibrary returns aadl2::AnnexLibrary:
-//	 ErrorModelLibrary | 
 	 DefaultAnnexLibrary;
 
 DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
@@ -1831,7 +1780,6 @@ DefaultAnnexLibrary returns aadl2::DefaultAnnexLibrary:
 
 
 AnnexSubclause returns aadl2::AnnexSubclause:
-//	 ErrorModelSubclause | 
 	 DefaultAnnexSubclause;
 
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
