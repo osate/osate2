@@ -2157,17 +2157,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		Context srcContext = connection.getAllSourceContext();
 		Context dstContext = connection.getAllDestinationContext();
-		if (srcContext instanceof FeatureGroup && ((FeatureGroup)srcContext).isInverse()){
-			srcDirection = srcDirection.getInverseDirection();
+		if (srcContext instanceof FeatureGroup ){
+			if( ((FeatureGroup)srcContext).isInverse()){
+				srcDirection = srcDirection.getInverseDirection();
+			}
+			FeatureGroupType srcFGT = ((FeatureGroup)srcContext).getFeatureGroupType();
+			FeatureGroupType contsrcFGT = (FeatureGroupType)((Feature)source).getContainingClassifier();
+			if (srcFGT!=contsrcFGT&&srcFGT.getInverse()!= null){
+				// feature group type has inverse and feature is defined in the inverse FGT
+				srcDirection = srcDirection.getInverseDirection();
+			}
 		}
-		if (dstContext instanceof FeatureGroup && ((FeatureGroup)dstContext).isInverse()){
-			dstDirection = dstDirection.getInverseDirection();
-		}
-		if (srcContext instanceof FeatureGroup && ((FeatureGroup)srcContext).getFeatureGroupType().getInverse()!= null){
-			srcDirection = srcDirection.getInverseDirection();
-		}
-		if (dstContext instanceof FeatureGroup && ((FeatureGroup)dstContext).getFeatureGroupType().getInverse()!= null){
-			dstDirection = dstDirection.getInverseDirection();
+		if (dstContext instanceof FeatureGroup ){
+			if(((FeatureGroup)dstContext).isInverse()){
+				dstDirection = dstDirection.getInverseDirection();
+			}
+			FeatureGroupType dstFGT = ((FeatureGroup)dstContext).getFeatureGroupType();
+			FeatureGroupType contdstFGT = (FeatureGroupType)((Feature)destination).getContainingClassifier();
+			if (dstFGT != contdstFGT && dstFGT.getInverse()!= null){
+				dstDirection = dstDirection.getInverseDirection();
+			}
 		}
 		if ((srcContext instanceof Subcomponent  && dstContext instanceof Subcomponent)
 				// between ports of subcomponents
