@@ -74,6 +74,9 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
+import org.osate.aadl2.Access;
+import org.osate.aadl2.AccessKind;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
@@ -2046,6 +2049,40 @@ public final class AadlUtil {
 	public static boolean isOutgoingPort(Feature f) {
 		return (f instanceof Port && ((Port) f).getDirection().outgoing()) || (f instanceof FeatureGroup);
 	}
+
+	/**
+	 * determine whether a component instance has subcomponents that can have
+	 * outgoing connections
+	 * 
+	 * @param subcompinstances list of sub component instances
+	 */
+	public static boolean hasOutgoingFeatureSubcomponents(EList<? extends ComponentInstance> subcompinstances) {
+		for (Iterator<? extends ComponentInstance> it = subcompinstances.iterator(); it.hasNext();) {
+			ComponentInstance o = it.next();
+			EList<FeatureInstance> filist = o.getFeatureInstances();
+			for (Iterator<FeatureInstance> fit = filist.iterator(); fit.hasNext();) {
+				FeatureInstance fi = fit.next();
+				Feature f = fi.getFeature();
+				if (isOutgoingFeature(f)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * determine whether the feature is an outgoing port or feature group
+	 * 
+	 * @param f Feature
+	 * @return boolean true if outgoing
+	 */
+	public static boolean isOutgoingFeature(Feature f) {
+		return (f instanceof Port && ((Port) f).getDirection().outgoing()) 
+				|| (f instanceof Access )//&& ((Access) f).getKind() == AccessType.REQUIRED)
+				|| (f instanceof FeatureGroup);
+	}
+
 
 	/**
 	 * extract the set of feature group connections from the list of connections
