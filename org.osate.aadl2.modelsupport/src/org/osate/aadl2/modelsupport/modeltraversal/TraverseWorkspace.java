@@ -10,7 +10,14 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.ModelUnit;
+import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.internal.workspace.AadlProject;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -32,6 +39,36 @@ public class TraverseWorkspace {
 	public static HashSet<IFile> getInstanceModelFilesInWorkspace(){
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(),result,WorkspacePlugin.INSTANCE_FILE_EXT);
+		return result;
+	}
+
+	public final EList<Element> getModelUnitsInWorkspace() {
+		EList<Element> result = new BasicEList<Element>();
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			result.add(target);
+		}
+		return result;
+	}
+
+	public final EList<Element> getPackagesInWorkspace() {
+		EList<Element> result = new BasicEList<Element>();
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target instanceof AadlPackage) result.add(target);
+		}
+		return result;
+	}
+
+	public final EList<Element> getPropertysetsInWorkspace() {
+		EList<Element> result = new BasicEList<Element>();
+		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
+		for (IFile file : files){
+			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			if (target instanceof PropertySet) result.add(target);
+		}
 		return result;
 	}
 
