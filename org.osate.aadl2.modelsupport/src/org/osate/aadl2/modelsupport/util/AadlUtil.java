@@ -44,6 +44,11 @@
  */
 package org.osate.aadl2.modelsupport.util;
 
+import static org.osate.aadl2.ComponentCategory.BUS;
+import static org.osate.aadl2.ComponentCategory.DATA;
+import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
+import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -80,6 +85,7 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -2066,6 +2072,11 @@ public final class AadlUtil {
 				if (isOutgoingFeature(f)) {
 					return true;
 				}
+			}
+			// subcomponent can be access source
+			ComponentCategory cat = o.getCategory();
+			if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
+				return true;
 			}
 		}
 		return false;
