@@ -689,7 +689,7 @@ public class InstantiateModel {
 					}
 					fgfi.setDirection(dir);
 				} else {
-					fi.setDirection(DirectionType.IN_OUT);
+					fgfi.setDirection(DirectionType.IN_OUT);
 				}
 				fillFeatureInstance(fgf, fgfi, inverse);
 			}
