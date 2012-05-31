@@ -2078,10 +2078,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 	
 	private void checkDefiningID(Connection conn){
-		String name = conn.getName();
-		if (name == null){
-			warning(conn, "Connection is missing defining identifier. Required in AADL V2.1");
-		}
+		// TODO enable for 2.1 compatibility checking
+//		String name = conn.getName();
+//		if (name == null || name.isEmpty()){
+//			warning(conn, "Connection is missing defining identifier. Required in AADL V2.1");
+//		}
 	}
 
 	/**
@@ -2118,23 +2119,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					warning(connection, '\'' + destination.getName()
 							+ "' is missing a classifier.");
 				else if (sourceClassifier instanceof ComponentType
-						&& destinationClassifier instanceof ComponentImplementation
-						&& sourceClassifier
-								.equals(((ComponentImplementation) destinationClassifier)
-										.getType())) {
-					warning(connection,
-							"The classifiers of '" + source.getName()
-									+ "' and '" + destination.getName()
-									+ "' do not match.");
+						&& destinationClassifier instanceof ComponentImplementation){
+					if( !sourceClassifier
+							.equals(((ComponentImplementation) destinationClassifier)
+									.getType())) {
+						warning(connection,
+								"The types of '" + source.getName()
+								+ "' and '" + destination.getName()
+								+ "' do not match.");
+					}
 				} else if (sourceClassifier instanceof ComponentImplementation
-						&& destinationClassifier instanceof ComponentType
-						&& destinationClassifier
-								.equals(((ComponentImplementation) sourceClassifier)
-										.getType())) {
-					warning(connection,
-							"The classifiers of '" + source.getName()
-									+ "' and '" + destination.getName()
-									+ "' do not match.");
+						&& destinationClassifier instanceof ComponentType){
+					if( !destinationClassifier
+							.equals(((ComponentImplementation) sourceClassifier)
+									.getType())) {
+						warning(connection,
+								"The types of '" + source.getName()
+								+ "' and '" + destination.getName()
+								+ "' do not match.");
+					}
 				} else
 					error(connection, '\'' + source.getName() + "' and '"
 							+ destination.getName()
