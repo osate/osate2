@@ -393,7 +393,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
 			// TODO-LW: fix the AADLUtil method and rename it
-			boolean hasOutgoingPortSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
+			boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
 
 			for (FeatureInstance featurei : ci.getFeatureInstances()) {
 				List<FeatureInstance> featureInsts;
@@ -423,7 +423,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 						// warn if there's an incomplete connection
 						if (cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR
-								&& hasOutgoingPortSubcomponents) {
+								&& hasOutgoingFeatureSubcomponents) {
 							connectedInside = isConnectionEnd(insideSubConns, innerFeature);
 							destinationFromInside = isDestination(insideSubConns, innerFeature);
 						}
