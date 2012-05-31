@@ -260,7 +260,7 @@ public final class AadlUtil {
 				if (obj instanceof NamedElement){
 					final NamedElement lit = (NamedElement)obj;
 					final String name = lit.getName().toLowerCase();
-					if (name != null || name.isEmpty()){
+					if (name != null && !name.isEmpty()){
 						if (seen.contains(name)) {
 							result.add(lit);
 						} else {
