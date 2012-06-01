@@ -2046,6 +2046,29 @@ public final class AadlUtil {
 		return false;
 	}
 
+
+	/**
+	 * get ingoing connections to subcomponents from a specified feature of the
+	 * component impl
+	 * 
+	 * @param feature component impl feature that is the source of a connection
+	 * @return EList connections with feature as source
+	 */
+	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl,Feature feature,Context context) {
+		EList<Connection> result = new BasicEList<Connection>();
+
+		for (Connection conn : cimpl.getAllConnections()) {
+			List<Feature> features = feature.getAllFeatureRefinements();
+			Context cxt = conn.getAllSourceContext();
+			if (features.contains(conn.getAllSource())
+					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()))) {
+				if (context == null || cxt == context)
+					result.add(conn);
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * determine whether the feature is an outgoing port or feature group
 	 * 

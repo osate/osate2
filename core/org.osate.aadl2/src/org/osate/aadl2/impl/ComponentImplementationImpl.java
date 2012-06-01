@@ -1375,6 +1375,9 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	/**
 	 * get ingoing connections to subcomponents from a specified feature of the
 	 * component impl
+	 * XXX will not find the correct connection if it is a feature inside a feature group
+	 * and there are two feature groups with the same feature group type, i.e., feature.
+	 * See AadlUtil.getIngoingConnection for a methods handling this scenario.
 	 * 
 	 * @param feature component impl feature that is the source of a connection
 	 * @return EList connections with feature as source
