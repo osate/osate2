@@ -45,6 +45,7 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -59,6 +60,7 @@ import org.osate.aadl2.modelsupport.OsateLogger;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.ui.dialogs.Dialog;
@@ -187,11 +189,15 @@ public class DoPowerAnalysisLogic {
 		double fbud = GetProperties.getPowerBudget(fi, 0.0);
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		Feature f = fi.getFeature();
+		FeatureGroup fg = null;
+		if (fi.eContainer() instanceof FeatureInstance){
+			fg = (FeatureGroup)((FeatureInstance)fi.eContainer()).getFeature();
+		}
 		InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(ci, 0);
 		Classifier cc = (ic != null) ? ic.classifier : null;
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation cimpl = (ComponentImplementation) cc;
-			for (Connection conn : cimpl.getIngoingConnections(f)) {
+			for (Connection conn : AadlUtil.getIngoingConnections(cimpl,f,fg)) {
 				NamedElement dstf = conn.getAllDestination();
 				if (dstf instanceof BusAccess) {
 					BusAccess ba = (BusAccess) dstf;
