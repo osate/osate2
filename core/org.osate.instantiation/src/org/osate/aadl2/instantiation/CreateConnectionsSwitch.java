@@ -670,6 +670,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 
 			if (toFeatureGroup) {
+				// TODO phf: why do we add the enclosing feature group instance
+				// it would result in a finalize for it
 				featureInsts = new ArrayList<FeatureInstance>(toFi.getFeatureInstances().size() + 1);
 				featureInsts.addAll(toFi.getFeatureInstances());
 				featureInsts.add(toFi);
@@ -687,6 +689,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						finalizeConnectionInstance(ci, connInfo, fi);
 					}
 				} else {
+					// TODO phf: if upindex is empty then we have added the enclosing feature group
 					List<Connection> conns = AadlUtil.getIngoingConnections(toImpl,innerFeature,outerFeature);
 
 					if (idx != -1) {
