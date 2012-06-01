@@ -417,7 +417,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// TODO warning if subcomponents with outgoing features exist
 					if (inFeatureGroup ? fi.getDirection() != DirectionType.IN
 							: featurei.getDirection() != DirectionType.IN) {
-						List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, outerFeature);
+						List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, outerFeature,sub);
 						boolean connectedInside = false;
 						boolean destinationFromInside = false;
 
@@ -653,6 +653,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			ComponentImplementation toImpl = InstanceUtil.getComponentImplementation(toCi, 0, classifierCache);
 			boolean toFeatureGroup = !toFi.getFeatureInstances().isEmpty();
+			FeatureGroup outerFeature=null;
 			List<FeatureInstance> featureInsts;
 			int idx = -1;
 
@@ -662,6 +663,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					index = upIndex.pop();
 					toFi = toFi.getFeatureInstances().get(index);
 					toFeatureGroup = false;
+					outerFeature = (FeatureGroup)toFeature;
 				} else {
 					idx = 0;
 				}
@@ -685,7 +687,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						finalizeConnectionInstance(ci, connInfo, fi);
 					}
 				} else {
-					List<Connection> conns = toImpl.getIngoingConnections(innerFeature);
+					List<Connection> conns = AadlUtil.getIngoingConnections(toImpl,innerFeature,outerFeature);
 
 					if (idx != -1) {
 						downIndex.push(idx++);
@@ -1266,6 +1268,28 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		for (Connection conn : conns) {
 			if (features.contains(conn.getAllSource()) || conn.isBidirectional()
 					&& features.contains(conn.getAllDestination()))
+				result.add(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * Get outgoing connections for specified feature port group connections are
+	 * non-directional, i.e., they are always added
+	 * 
+	 * @param conns a list of connections that go away from a subcomponent
+	 * @param feature subcomponent feature that can be the source of a
+	 *            connection
+	 * @return connections with feature as source for ConnectionInstances
+	 */
+	public List<Connection> filterOutgoingConnections(List<Connection> conns, Feature feature, Subcomponent sub) {
+		List<Connection> result = new ArrayList<Connection>(conns.size());
+		List<Feature> features = feature.getAllFeatureRefinements();
+		EList<Subcomponent> subs = sub.getAllSubcomponentRefinements();
+		for (Connection conn : conns) {
+			if ((features.contains(conn.getAllSource()) && subs.contains(conn.getAllSourceContext()))
+					|| (conn.isBidirectional()
+					&& features.contains(conn.getAllDestination()) && subs.contains(conn.getAllDestinationContext())))
 				result.add(conn);
 		}
 		return result;
