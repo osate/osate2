@@ -424,8 +424,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// warn if there's an incomplete connection
 						if (cat != THREAD && cat != PROCESSOR && cat != DEVICE && cat != VIRTUAL_PROCESSOR
 								&& hasOutgoingFeatureSubcomponents) {
-							connectedInside = isConnectionEnd(insideSubConns, innerFeature);
-							destinationFromInside = isDestination(insideSubConns, innerFeature);
+							connectedInside = isConnectionEnd(insideSubConns, innerFeature, outerFeature);
+							destinationFromInside = isDestination(insideSubConns, innerFeature,outerFeature);
 						}
 
 						// first see if mode transitions are triggered by a
@@ -1302,12 +1302,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param feature a subcomponent feature
 	 * @return whether one of the connections points to the feature
 	 */
-	public boolean isDestination(List<Connection> conns, Feature feature) {
+	public boolean isDestination(List<Connection> conns, Feature feature, Feature outerFeature) {
 		List<Feature> features = feature.getAllFeatureRefinements();
+		List<Feature> outerFeatures = outerFeature.getAllFeatureRefinements();
 
 		for (Connection conn : conns) {
 			if (features.contains(conn.getAllDestination()) || conn.isBidirectional()
 					&& features.contains(conn.getAllSource())) {
+				return true;
+			}
+			if (feature != outerFeature && (outerFeatures.contains(conn.getAllDestination()) || conn.isBidirectional()
+					&& outerFeatures.contains(conn.getAllSource()))) {
 				return true;
 			}
 		}
@@ -1321,11 +1326,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param feature a subcomponent feature
 	 * @return whether the feature is an end of one of the connections
 	 */
-	public boolean isConnectionEnd(List<Connection> conns, Feature feature) {
+	public boolean isConnectionEnd(List<Connection> conns, Feature feature, Feature outerFeature) {
 		List<Feature> features = feature.getAllFeatureRefinements();
+		List<Feature> outerFeatures = outerFeature.getAllFeatureRefinements();
 
 		for (Connection conn : conns) {
 			if (features.contains(conn.getAllDestination()) || features.contains(conn.getAllSource()))
+				return true;
+			if (feature != outerFeature && (outerFeatures.contains(conn.getAllDestination()) || outerFeatures.contains(conn.getAllSource())))
 				return true;
 		}
 		return false;
