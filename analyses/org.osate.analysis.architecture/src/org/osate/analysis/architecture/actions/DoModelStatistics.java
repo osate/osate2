@@ -49,6 +49,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
@@ -107,7 +108,7 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 
 //			EList<IEObjectDescription> classifierlist = EMFIndexRetrieval.getAllClassifiersInWorkspace();
 //			for (IEObjectDescription cleod : classifierlist){
-//				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), obj.eResource().getResourceSet());
+//				Classifier cl = (Classifier) EcoreUtil.resolve(cleod.getEObjectOrProxy(), OsateResourceUtil.getResourceSet());//obj.eResource().getResourceSet());
 //				stats.process(cl);
 //			}
 		
