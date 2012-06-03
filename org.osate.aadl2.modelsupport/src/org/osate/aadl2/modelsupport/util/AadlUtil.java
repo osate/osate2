@@ -2055,20 +2055,18 @@ public final class AadlUtil {
 	 * @param context the outer feature (feature group) or null
 	 * @return EList connections with feature as source
 	 */
-	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl,Feature feature,Feature context) {
+	public static EList<Connection> getIngoingConnections(ComponentImplementation cimpl,Feature feature) {
 		EList<Connection> result = new BasicEList<Connection>();
 		List<Feature> features = feature.getAllFeatureRefinements();
-		List<Feature> contexts = context==null?Collections.EMPTY_LIST:context.getAllFeatureRefinements();
 
 		for (Connection conn : cimpl.getAllConnections()) {
 			Context cxt = conn.getAllSourceContext();
 			if (features.contains(conn.getAllSource())
 					|| (conn.isBidirectional() && features.contains(conn.getAllDestination()))) {
-				if (context == null || cxt == context)
 					result.add(conn);
 			}
-			if (context != null && (contexts.contains(conn.getAllSource())
-					|| (conn.isBidirectional() && contexts.contains(conn.getAllDestination())))) {
+			if ((features.contains(conn.getAllSourceContext())
+					|| (conn.isBidirectional() && features.contains(conn.getAllDestinationContext())))) {
 					result.add(conn);
 			}
 		}
