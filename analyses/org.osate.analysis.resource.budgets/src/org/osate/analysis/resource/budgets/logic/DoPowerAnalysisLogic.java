@@ -197,7 +197,7 @@ public class DoPowerAnalysisLogic {
 		Classifier cc = (ic != null) ? ic.classifier : null;
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation cimpl = (ComponentImplementation) cc;
-			for (Connection conn : AadlUtil.getIngoingConnections(cimpl,f,fg)) {
+			for (Connection conn : AadlUtil.getIngoingConnections(cimpl,f)) {
 				NamedElement dstf = conn.getAllDestination();
 				if (dstf instanceof BusAccess) {
 					BusAccess ba = (BusAccess) dstf;
