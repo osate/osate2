@@ -46,6 +46,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.command.Command;
@@ -429,26 +430,30 @@ public class InstantiateModel {
 						+ "' has already been instantiated as enclosing component.");
 			} else {
 				final EList<ArrayDimension> dims = sub.getArrayDimensions();
+				Stack<Integer> indexStack = new Stack<Integer>();
 
 				if (dims.isEmpty()) {
-					instantiateSubcomponent(ci, sub, sub, 0);
+					instantiateSubcomponent(ci, sub, sub, indexStack,0);
 				} else {
 					final int dimensions = dims.size();
 					class ArrayInstantiator {
-						void process(int dim) {
+						void process(int dim, Stack<Integer> indexStack) {
+							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
 							long count = getElementCount(arraySize);
 
-							for (long i = 0; i < count; i++) {
+							for (int i = 1; i <= count; i++) {
 								if (dim + 1 < dimensions) {
-									process(dim + 1);
+									indexStack.push(Integer.valueOf(i));
+									process(dim + 1,indexStack);
+									indexStack.pop();
 								} else {
-									instantiateSubcomponent(ci, sub, sub, 0);
+									instantiateSubcomponent(ci, sub, sub, indexStack,i);
 								}
 							}
 						}
 					}
-					new ArrayInstantiator().process(0);
+					new ArrayInstantiator().process(0,indexStack);
 				}
 			}
 			if (monitor.isCanceled()) {
@@ -471,15 +476,23 @@ public class InstantiateModel {
 		}
 		return false;
 	}
+	
+	protected String indexStackToString(Stack<Integer> indexStack){
+		String result="";
+		for (int i = 0; i < indexStack.size(); i++) {
+			result = result + "_"+indexStack.get(i);
+		}
+		return result;
+	}
 
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
-			final Subcomponent sub, int index) {
+			final Subcomponent sub, Stack<Integer> indexStack,int index) {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName());
+		newInstance.setName(sub.getName()+indexStackToString(indexStack)+(index>0?"_"+index:""));
 		newInstance.setCategory(sub.getCategory());
 		parent.getComponentInstances().add(newInstance);
 
@@ -518,38 +531,16 @@ public class InstantiateModel {
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
-				final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-
-				// must add before prototype resolution in fillFeatureInstance
-				ci.getFeatureInstances().add(fi);
-				if (feature instanceof DirectedFeature) {
-					fi.setDirection(((DirectedFeature) feature).getDirection());
-				} else {
-					fi.setDirection(DirectionType.IN_OUT);
-				}
-				fillFeatureInstance(feature, fi, false);
+				fillFeatureInstance(ci,feature, false,0);
 			} else {
-				final int dimensions = dims.size();
+				// feature dimension should always be one
 				class ArrayInstantiator {
 					void process(int dim) {
 						ArraySize arraySize = dims.get(dim).getSize();
 						long count = getElementCount(arraySize);
 
-						for (long i = 0; i < count; i++) {
-							if (dim + 1 < dimensions) {
-								process(dim + 1);
-							} else {
-								final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-
-								// must add before prototype resolution in fillFeatureInstance
-								ci.getFeatureInstances().add(fi);
-								if (feature instanceof DirectedFeature) {
-									fi.setDirection(((DirectedFeature) feature).getDirection());
-								} else {
-									fi.setDirection(DirectionType.IN_OUT);
-								}
-								fillFeatureInstance(feature, fi, false);
-							}
+						for (int i = 1; i <= count; i++) {
+							fillFeatureInstance(ci,feature, false,i);
 						}
 					}
 				}
@@ -558,9 +549,42 @@ public class InstantiateModel {
 		}
 	}
 
-	protected void fillFeatureInstance(Feature feature, FeatureInstance fi, boolean inverse) {
+	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse,int index) {
+		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
+		// must add before prototype resolution in fillFeatureInstance
+		ci.getFeatureInstances().add(fi);
+		if (feature instanceof DirectedFeature) {
+			fi.setDirection(((DirectedFeature) feature).getDirection());
+		} else {
+			fi.setDirection(DirectionType.IN_OUT);
+		}
+		filloutFeatureInstance(fi,feature,  inverse, index);
+	}
+
+	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse,int index) {
+		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
+		fi.setName(feature.getName()+(index>0?"_"+index:""));
+		fi.setFeature(feature);
+		// must add before prototype resolution in fillFeatureInstance
+		fgi.getFeatureInstances().add(fi);
+		if (feature instanceof DirectedFeature) {
+			fi.setDirection(((DirectedFeature) feature).getDirection());
+		} else {
+			fi.setDirection(DirectionType.IN_OUT);
+		}
+		filloutFeatureInstance(fi,feature,  inverse, index);
+	}
+	
+	/**
+	 * fill out the rest of the feature instance
+	 * @param feature
+	 * @param fi is feature instance of feature
+	 * @param inverse
+	 * @param index
+	 */
+	protected void filloutFeatureInstance(FeatureInstance fi,Feature feature, boolean inverse,int index) {
 		// resolve feature prototype
 		if (feature.getPrototype() instanceof FeaturePrototype) {
 			FeaturePrototypeActual fpa = InstanceUtil.resolveFeaturePrototype(feature.getPrototype(), fi,
@@ -677,24 +701,48 @@ public class InstantiateModel {
 				errManager.warning(fi, "Feature group " + fi.getInstanceObjectPath() + " has no features");
 				return;
 			}
-			for (Feature fgf : fgFeatures) {
-				FeatureInstance fgfi = InstanceFactory.eINSTANCE.createFeatureInstance();
+			instantiateFGFeatures(fi, fgFeatures);
+//			for (Feature fgf : fgFeatures) {
+//				FeatureInstance fgfi = InstanceFactory.eINSTANCE.createFeatureInstance();
+//
+//				fi.getFeatureInstances().add(fgfi);
+//				if (fgf instanceof DirectedFeature) {
+//					DirectionType dir = ((DirectedFeature) fgf).getDirection();
+//
+//					if (inverse && dir != DirectionType.IN_OUT) {
+//						dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+//					}
+//					fgfi.setDirection(dir);
+//				} else {
+//					fgfi.setDirection(DirectionType.IN_OUT);
+//				}
+//				fillFeatureInstance(fgf, fgfi, inverse,0);
+//			}
+		}
+	}
+	
+	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist) {
+		for (final Feature feature : flist) {
+			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
-				fi.getFeatureInstances().add(fgfi);
-				if (fgf instanceof DirectedFeature) {
-					DirectionType dir = ((DirectedFeature) fgf).getDirection();
+			if (dims.isEmpty()) {
+				fillFeatureInstance(fgi,feature, false,0);
+			} else {
+				class ArrayInstantiator {
+					void process(int dim) {
+						ArraySize arraySize = dims.get(dim).getSize();
+						long count = getElementCount(arraySize);
 
-					if (inverse && dir != DirectionType.IN_OUT) {
-						dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+						for (int i = 0; i < count; i++) {
+							fillFeatureInstance(fgi,feature, false,i+1);
+						}
 					}
-					fgfi.setDirection(dir);
-				} else {
-					fgfi.setDirection(DirectionType.IN_OUT);
 				}
-				fillFeatureInstance(fgf, fgfi, inverse);
+				new ArrayInstantiator().process(0);
 			}
 		}
 	}
+
 
 	// --------------------------------------------------------------------------------------------
 	// Methods related to prototype resolution
