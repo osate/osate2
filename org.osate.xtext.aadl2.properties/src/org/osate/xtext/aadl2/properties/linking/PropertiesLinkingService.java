@@ -291,7 +291,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 
 
-		} else if (Aadl2Package.eINSTANCE.getFeature() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getFeature().isSuperTypeOf(requiredType)) {
 			// Feature used in FlowSpec
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
@@ -307,7 +307,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				searchResult = res;
 			}
 
-		} else if (Aadl2Package.eINSTANCE.getSubcomponent() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
 			// if context Subcomponent then find in extension source (refined
 			// to)
 			// prototype binding as context

@@ -165,7 +165,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 
-		} else if (Aadl2Package.eINSTANCE.getPort() == requiredType) {
+		} else if (Aadl2Package.eINSTANCE.getPort().isSuperTypeOf(requiredType)) {
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
 				// we need to resolve a  feature refinement, thus look up the feature in the 
