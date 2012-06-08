@@ -190,6 +190,17 @@ public class OsateResourceUtil {
 		}
 	}
 
+//	/**
+//	 * Find the resource for given URI, but do not demand load
+//	 * 
+//	 * @param uri
+//	 *            URI
+//	 * @return Resource, null if it is not in the resource set.
+//	 */
+//	public static Resource findResource(URI uri) {
+//		return getResourceSet().getResource(uri, false);
+//	}
+
 	/**
 	 * Find the resource for given URI, but do not demand load
 	 * 
@@ -197,8 +208,8 @@ public class OsateResourceUtil {
 	 *            URI
 	 * @return Resource, null if it is not in the resource set.
 	 */
-	public static Resource findResource(URI uri) {
-		return getResourceSet().getResource(uri, false);
+	public static Resource findResource(URI uri, Element context) {
+		return context.eResource().getResourceSet().getResource(uri, false);
 	}
 
 	/**
@@ -210,8 +221,6 @@ public class OsateResourceUtil {
 	 */
 	public static Resource getEmptyAadl2Resource(URI uri) {
 		Resource res = null;
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
 		if (uri != null) {
 			IResource iResource =  getOsateIFile(uri);
 			if (iResource != null && iResource.exists()) {
@@ -237,8 +246,6 @@ public class OsateResourceUtil {
 	 */
 	public static Resource getEmptyAadl2Resource(URI uri, Element context) {
 		Resource res = null;
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
 		if (uri != null) {
 			IResource iResource =  getOsateIFile(uri);
 			if (iResource != null && iResource.exists()) {
@@ -262,21 +269,23 @@ public class OsateResourceUtil {
 	 * @return Resource Aadl2ResourceImpl for aaxl
 	 */
 	public static Resource getEmptyAaxl2Resource(URI uri, Element context) {
-		Resource res = null;
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
-				.getRoot();
-		if (uri != null) {
-			IResource iResource =  getOsateIFile(uri);
-			if (iResource != null && iResource.exists()) {
-				try {
-					iResource.delete(true, null);
-				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
+		if (uri == null) return null;
+		Resource res  = findResource(uri,context);
+//			IResource iResource =  getOsateIFile(uri);
+//			if (iResource != null && iResource.exists()) {
+//				try {
+//					iResource.delete(true, null);
+//				} catch (CoreException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				}
+		if (res == null){
+			res = getResourceSet(context).createResource(uri);
+		} else {
+			// remove content
+			res.getContents().clear();
 		}
-		res = getResourceSet(context).createResource(uri);
 		return res;
 	}
 

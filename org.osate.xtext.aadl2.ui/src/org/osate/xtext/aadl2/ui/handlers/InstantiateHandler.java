@@ -216,7 +216,7 @@ public class InstantiateHandler extends AbstractHandler {
 	 */
 	public SystemInstance findSystemInstance(final SystemImplementation si) {
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Resource instanceRes = OsateResourceUtil.findResource(instanceURI);
+		Resource instanceRes = OsateResourceUtil.findResource(instanceURI,si);
 		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
 			return null;
 		} else {
