@@ -281,8 +281,10 @@ public class OsateResourceUtil {
 				}
 				}
 			Resource res  = getResourceSet().getResource(olduri, false);
-			if (res.isLoaded()){
-				res.unload();
+			if (res != null){
+				if(res.isLoaded()){
+					res.unload();
+				}
 				getResourceSet().getResources().remove(res);
 			}
 		}
