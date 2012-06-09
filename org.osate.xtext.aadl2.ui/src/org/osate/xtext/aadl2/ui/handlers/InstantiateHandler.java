@@ -98,29 +98,7 @@ public class InstantiateHandler extends AbstractHandler {
 									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 									if (cc instanceof SystemImplementation){
 										SystemImplementation si = (SystemImplementation)cc;
-//										URI instanceURI = InstantiateModel.getInstanceModelURI(si);
-//										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-//										Aadl2ResourceImpl aadlResource =  (Aadl2ResourceImpl) resFactory.createResource(instanceURI);
-//
-//										// now instantiate the rest of the model
-//										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
 										SystemInstance sinst = buildInstanceModelFile(si);
-										System.out.println("Inst: Resoruce set simpl: " + si.eResource().getResourceSet());
-										System.out.println("Resource set s: " + sinst.eResource().getResourceSet());
-										
-										SystemImplementation systemImplementation = (SystemImplementation)InstanceUtil.getComponentImplementation((SystemInstance)sinst, 0, null);
-										for (Iterator iterator = systemImplementation.getAllSubcomponents().iterator(); iterator.hasNext();) {
-										Subcomponent type = (Subcomponent) iterator.next();
-										System.out.println("checking instantiated Subcomponent: " + type.getName());
-										}
-										Resource res = sinst.eResource();
-										res.unload();
-										res.load(null);
-										systemImplementation = (SystemImplementation)InstanceUtil.getComponentImplementation((SystemInstance)sinst, 0, null);
-										for (Iterator iterator = systemImplementation.getAllSubcomponents().iterator(); iterator.hasNext();) {
-										Subcomponent type = (Subcomponent) iterator.next();
-										System.out.println("checking reloaded Subcomponent: " + type.getName());
-										}
 
 									} else {
 										System.out.println("Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
@@ -132,7 +110,6 @@ public class InstantiateHandler extends AbstractHandler {
 																internalErrorLogger,
 																new MarkerAnalysisErrorReporter.Factory(
 																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-										System.out.println("Inst: Resoruce set si: " + targetElement.eResource().getResourceSet());
 										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
 										
 									}
@@ -199,7 +176,6 @@ public class InstantiateHandler extends AbstractHandler {
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
 		OsateResourceUtil.refreshResourceSet(aadlResource.getResourceSet());
-		System.out.println("new instance Resoruce set aaxl2: " + aadlResource.getResourceSet());
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel =
