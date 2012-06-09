@@ -12,6 +12,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class PropertysetLinkingService extends PropertiesLinkingService {
@@ -30,7 +31,7 @@ public class PropertysetLinkingService extends PropertiesLinkingService {
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
-		NamedElement annex = getContainingAnnex(context);
+		NamedElement annex = AadlUtil.getContainingAnnex(context);
 //		if (annex != null){
 //			String annexName = annex.getName();
 //			if (annexName.equalsIgnoreCase("error_model")){

@@ -61,7 +61,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * instance model name postfix
 	 */
-	public static final String INSTANCE_MODEL_POSTFIX = "_instance";
+	public static final String INSTANCE_MODEL_POSTFIX = "_Instance";
 
 	/**
 	 * Package separator in AADL source files.

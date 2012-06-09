@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.util.Iterator;
+
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
@@ -24,6 +26,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
@@ -33,6 +36,7 @@ import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.core.OsateCorePlugin;
 
@@ -100,7 +104,24 @@ public class InstantiateHandler extends AbstractHandler {
 //
 //										// now instantiate the rest of the model
 //										SystemInstance root = instantiateModel.createSystemInstanceInt(si,aadlResource);
-										buildInstanceModelFile(si);
+										SystemInstance sinst = buildInstanceModelFile(si);
+										System.out.println("Inst: Resoruce set simpl: " + si.eResource().getResourceSet());
+										System.out.println("Resource set s: " + sinst.eResource().getResourceSet());
+										
+										SystemImplementation systemImplementation = (SystemImplementation)InstanceUtil.getComponentImplementation((SystemInstance)sinst, 0, null);
+										for (Iterator iterator = systemImplementation.getAllSubcomponents().iterator(); iterator.hasNext();) {
+										Subcomponent type = (Subcomponent) iterator.next();
+										System.out.println("checking instantiated Subcomponent: " + type.getName());
+										}
+										Resource res = sinst.eResource();
+										res.unload();
+										res.load(null);
+										systemImplementation = (SystemImplementation)InstanceUtil.getComponentImplementation((SystemInstance)sinst, 0, null);
+										for (Iterator iterator = systemImplementation.getAllSubcomponents().iterator(); iterator.hasNext();) {
+										Subcomponent type = (Subcomponent) iterator.next();
+										System.out.println("checking reloaded Subcomponent: " + type.getName());
+										}
+
 									} else {
 										System.out.println("Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 									}
@@ -111,6 +132,7 @@ public class InstantiateHandler extends AbstractHandler {
 																internalErrorLogger,
 																new MarkerAnalysisErrorReporter.Factory(
 																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+										System.out.println("Inst: Resoruce set si: " + targetElement.eResource().getResourceSet());
 										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
 										
 									}
@@ -175,7 +197,9 @@ public class InstantiateHandler extends AbstractHandler {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI,si);
+		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
+		OsateResourceUtil.refreshResourceSet(aadlResource.getResourceSet());
+		System.out.println("new instance Resoruce set aaxl2: " + aadlResource.getResourceSet());
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel =
@@ -188,41 +212,41 @@ public class InstantiateHandler extends AbstractHandler {
 		return root;
 	}
 
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist one will be constructed.
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance
-	 */
-	public SystemInstance getSystemInstance(final SystemImplementation si) {
-		SystemInstance systemInstance = findSystemInstance(si);
-		if (systemInstance == null) {
-			systemInstance = buildInstanceModelFile(si);
-		}
-		return systemInstance;
-	}
-
-	/*
-	 * This method returns a system instance for the given system
-	 * implementation. If the instance model already exists it will be returned.
-	 * If it does not exist null is returned
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or null if it does not exist
-	 */
-	public SystemInstance findSystemInstance(final SystemImplementation si) {
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Resource instanceRes = OsateResourceUtil.findResource(instanceURI,si);
-		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
-			return null;
-		} else {
-			SystemInstance systemInstance = (SystemInstance) instanceRes.getContents().get(0);
-			return systemInstance;
-		}
-	}
+//	/*
+//	 * This method returns a system instance for the given system
+//	 * implementation. If the instance model already exists it will be returned.
+//	 * If it does not exist one will be constructed.
+//	 * 
+//	 * @param si system implementation
+//	 * 
+//	 * @return SystemInstance
+//	 */
+//	public SystemInstance getSystemInstance(final SystemImplementation si) {
+//		SystemInstance systemInstance = findSystemInstance(si);
+//		if (systemInstance == null) {
+//			systemInstance = buildInstanceModelFile(si);
+//		}
+//		return systemInstance;
+//	}
+//
+//	/*
+//	 * This method returns a system instance for the given system
+//	 * implementation. If the instance model already exists it will be returned.
+//	 * If it does not exist null is returned
+//	 * 
+//	 * @param si system implementation
+//	 * 
+//	 * @return SystemInstance or null if it does not exist
+//	 */
+//	public SystemInstance findSystemInstance(final SystemImplementation si) {
+//		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
+//		Resource instanceRes = OsateResourceUtil.findResource(instanceURI,si);
+//		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
+//			return null;
+//		} else {
+//			SystemInstance systemInstance = (SystemInstance) instanceRes.getContents().get(0);
+//			return systemInstance;
+//		}
+//	}
 
 }

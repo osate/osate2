@@ -79,8 +79,8 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
-//		return lookupPropertyDefinition(ps, name);
-		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyDefinition(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
 	}
 
 
@@ -93,8 +93,8 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context,String ps, String name) {
-//		return lookupPropertyType(ps, name);
-		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyType(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyType(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyType(context,ps != null?(ps+ "::" +name):name);
 	}
 
 
@@ -107,8 +107,8 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
-//		return lookupPropertyConstant(ps, name);
-		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
+		return lookupPropertyConstant(ps, name);
+//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
 	}
 
 	/**
@@ -204,19 +204,13 @@ public class GetProperties {
 		if (pt == null || ! (pt instanceof UnitsType)) return null;
 		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
 	}
-//	
-//	public static UnitLiteral findUnitLiteral(NamedElement context,String unitsType, String literal){
-//		PropertyType pt = PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context, unitsType);
-//		if (pt == null || ! (pt instanceof UnitsType)) return null;
-//		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
-//	}
 	
 	public static EnumerationLiteral findEnumerationLiteral(Property pd, String literalname) {
 		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
 	}
 	
-	public static EnumerationLiteral findEnumerationLiteral(NamedElement context,String enumerationType, String literal){
-		PropertyType pt = PropertiesLinkingService.getPropertiesLinkingService(context).findPropertyType(context, enumerationType);
+	public static EnumerationLiteral findEnumerationLiteral(String enumerationType, String literal){
+		PropertyType pt = lookupPropertyType(enumerationType);
 		if (pt == null || ! (pt instanceof EnumerationType)) return null;
 		return (EnumerationLiteral) ((EnumerationType)pt).findNamedElement(literal);
 	}

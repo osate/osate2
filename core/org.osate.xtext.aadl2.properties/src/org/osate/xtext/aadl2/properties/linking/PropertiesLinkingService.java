@@ -119,37 +119,37 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class PropertiesLinkingService extends DefaultLinkingService {
 
-
-	private static PropertiesLinkingService eInstance = null;
+//
+//	private static PropertiesLinkingService eInstance = null;
 
 	public PropertiesLinkingService(){
 		super();
 	}
 
-	public static PropertiesLinkingService getPropertiesLinkingService(){
-		if (eInstance == null) {
-			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
-			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
-		}
-		return eInstance;
-	}
-
-	public static PropertiesLinkingService getPropertiesLinkingService(Element context){
-		if (eInstance == null) {
-			if (context.eResource() instanceof Aadl2ResourceImpl){
-				Element root = context.getElementRoot();
-				if (root instanceof SystemInstance){
-					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
-					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
-					eInstance = (PropertiesLinkingService)r.getLinkingService();
-				}
-			} else {
-				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
-				eInstance = (PropertiesLinkingService)r.getLinkingService();
-			}
-		}
-		return eInstance;
-	}
+//	public static PropertiesLinkingService getPropertiesLinkingService(){
+//		if (eInstance == null) {
+//			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
+//			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+//		}
+//		return eInstance;
+//	}
+//
+//	public static PropertiesLinkingService getPropertiesLinkingService(Element context){
+//		if (eInstance == null) {
+//			if (context.eResource() instanceof Aadl2ResourceImpl){
+//				Element root = context.getElementRoot();
+//				if (root instanceof SystemInstance){
+//					SystemImplementation si = ((SystemInstance)root).getSystemImplementation();
+//					LazyLinkingResource r = (LazyLinkingResource)si.eResource();
+//					eInstance = (PropertiesLinkingService)r.getLinkingService();
+//				}
+//			} else {
+//				LazyLinkingResource r = (LazyLinkingResource)context.eResource();
+//				eInstance = (PropertiesLinkingService)r.getLinkingService();
+//			}
+//		}
+//		return eInstance;
+//	}
 
 	private static PSNode psNode = new PSNode();
 

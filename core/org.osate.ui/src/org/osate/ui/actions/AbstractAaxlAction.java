@@ -280,8 +280,8 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(
 			final String ps, final String name) {
-		final PropertyType pt = 
-				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
+		final PropertyType pt = GetProperties.lookupPropertyType(ps, name);
+//				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
 		if (pt == null) notFound.add(PROP_TYPE + ps + COLON_COLON + name);
 		return pt;
 	}
@@ -295,18 +295,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final UnitLiteral lookupUnitLiteral(
 			final String ps, final String unitType, final String literalName) {
-		// Through ClassCastException if the type is not a unit type
-		final UnitsType type = (UnitsType) lookupPropertyType(ps, unitType);
-		if (type != null) {
-			final UnitLiteral literal = (UnitLiteral) type.findNamedElement(literalName);
+		final UnitLiteral literal = GetProperties.findUnitLiteral(ps+"::"+unitType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("unit literal {0} in type {1}::{2}", 
 						new Object[] { literalName, ps, unitType }));
 			}
 			return literal;
-		} else {
-			return null;
-		}
 	}
 
 	/**
@@ -318,18 +312,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final EnumerationLiteral lookupEnumerationLiteral(
 			final String ps, final String enumType, final String literalName) {
-		// Through ClassCastException if the type is not a unit type
-		final EnumerationType type = (EnumerationType) lookupPropertyType(ps, enumType);
-		if (type != null) {
-			final EnumerationLiteral literal = (EnumerationLiteral) type.findNamedElement(literalName);
+			final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(ps+"::"+enumType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("enumeration literal {0} in type {1}::{2}", 
 						new Object[] { literalName, ps, enumType }));
 			}
 			return literal;
-		} else {
-			return null;
-		}
 	}
 	
 	/**
@@ -342,7 +330,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupOptionalPropertyType(
 			final String ps, final String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
+		return GetProperties.lookupPropertyType(context,ps,name);
 	}
 
 	/**
@@ -353,7 +341,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(final String name) {
 		final PropertyType pt = 
-				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,name);
+				GetProperties.lookupPropertyType(name);
 		if (pt == null) notFound.add(PREDECLARED + PROP_TYPE + name);
 		return pt;
 	}
@@ -367,18 +355,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final UnitLiteral lookupUnitLiteral(
 			final String unitType, final String literalName) {
-		// Through ClassCastException if the type is not a unit type
-		final UnitsType type = (UnitsType) lookupPropertyType(unitType);
-		if (type != null) {
-			final UnitLiteral literal = (UnitLiteral) type.findNamedElement(literalName);
+		final UnitLiteral literal = GetProperties.findUnitLiteral(unitType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("unit literal {0} in predeclared type {1}", 
 						new Object[] { literalName, unitType }));
 			}
 			return literal;
-		} else {
-			return null;
-		}
 	}
 
 	/**
@@ -391,18 +373,12 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final EnumerationLiteral lookupEnumerationLiteral(
 			final String enumType, final String literalName) {
-		// Through ClassCastException if the type is not a unit type
-		final EnumerationType type = (EnumerationType) lookupPropertyType(enumType);
-		if (type != null) {
-			final EnumerationLiteral literal = (EnumerationLiteral) type.findNamedElement(literalName);
+		final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(enumType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("enumeration literal {0} in predeclared type {1}", 
 						new Object[] { literalName, enumType }));
 			}
 			return literal;
-		} else {
-			return null;
-		}
 	}
 	
 	/**
@@ -413,7 +389,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupPropertyConstant(final String name) {
 		final PropertyConstant pc =
-				PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,name);
+				GetProperties.lookupPropertyConstant(name);
 		if (pc == null) notFound.add(PREDECLARED + PROP_CONST + name);
 		return pc;
 	}
@@ -427,7 +403,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyConstant lookupPropertyConstant(
 			final String ps, final String name) {
 		final PropertyConstant pc =
-				PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps+COLON_COLON+name);
+				GetProperties.lookupPropertyConstant(ps,name);
 		if (pc == null) notFound.add(PROP_CONST + ps + COLON_COLON + name);
 		return pc;
 	}
@@ -442,7 +418,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupOptionalPropertyConstant(
 			final String ps, final String name) {
-		return PropertiesLinkingService.getPropertiesLinkingService().findPropertyConstant(context,ps+COLON_COLON+name);
+		return GetProperties.lookupPropertyConstant(ps,name);
 	}
 
 	/**

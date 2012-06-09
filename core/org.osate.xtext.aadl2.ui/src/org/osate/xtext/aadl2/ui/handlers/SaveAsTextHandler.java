@@ -15,6 +15,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
@@ -53,10 +54,12 @@ public class SaveAsTextHandler extends AbstractHandler {
 						Element target = (Element)res.getContents().get(0);
 						URI aaxluri = res.getURI();
 						URI xtxturi = aaxluri.trimFileExtension().appendFileExtension("aadl");
-						Resource xtxtres = OsateResourceUtil.getEmptyAadl2Resource(xtxturi);
+						ResourceSet rs = OsateResourceUtil.getResourceSet();
+						Resource xtxtres = rs.createResource(xtxturi);
 						xtxtres.getContents().add(target);
 						OsateResourceUtil.save(xtxtres);
 						res.getResourceSet().getResources().remove(res);
+						rs.getResources().remove(xtxtres);
 					}
 				}
 			}
