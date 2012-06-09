@@ -2228,7 +2228,7 @@ public final class AadlUtil {
 	 * @param o AadlPackage
 	 * @return EList of component impl
 	 */
-	private static EList<ComponentImplementation> getAllComponentImpl(AadlPackage o) {
+	public static EList<ComponentImplementation> getAllComponentImpl(AadlPackage o) {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
 		PackageSection psec = o.getOwnedPublicSection();
 		if (psec != null) {
