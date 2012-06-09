@@ -542,16 +542,17 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 //		return Collections.emptyList();
 	}
 	
-//
-//	private static Aadl2LinkingService eInstance = null;
-//
-//	public static Aadl2LinkingService getAadl2LinkingService(){
-//		if (eInstance == null) {
-//			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
-//			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
-//		}
-//		return eInstance;
-//	}
+
+	private static Aadl2LinkingService eInstance = null;
+
+	public static Aadl2LinkingService getAadl2LinkingService(){
+		if (eInstance == null) {
+			PredeclaredProperties.initPluginContributedAadl();
+			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
+			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+		}
+		return eInstance;
+	}
 
 	
 
