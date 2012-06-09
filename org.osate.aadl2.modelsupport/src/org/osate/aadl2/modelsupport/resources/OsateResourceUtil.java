@@ -280,7 +280,21 @@ public class OsateResourceUtil {
 					e.printStackTrace();
 				}
 				}
+			Resource res  = getResourceSet().getResource(olduri, false);
+			if (res.isLoaded()){
+				res.unload();
+				getResourceSet().getResources().remove(res);
+			}
 		}
+		IResource iResource =  getOsateIFile(uri);
+		if (iResource != null && iResource.exists()) {
+			try {
+				iResource.delete(true, null);
+			} catch (CoreException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			}
 		Resource res  = getResourceSet().getResource(uri, false);
 		if (res == null){
 			res = getResourceSet().createResource(uri);
