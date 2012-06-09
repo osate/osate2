@@ -2322,6 +2322,15 @@ public final class AadlUtil {
 		return "<?>";
 	}
 
+	public static NamedElement getContainingAnnex(EObject obj){
+		while (obj != null ){
+			if (obj instanceof AnnexLibrary || obj instanceof AnnexSubclause)
+				return (NamedElement)obj;
+			obj = obj.eContainer();
+		}
+		return null;
+	}
+
 	public static Classifier getContainingClassifier(EObject element) {
 		EObject container = element;
 		while (container != null && !(container instanceof Classifier))

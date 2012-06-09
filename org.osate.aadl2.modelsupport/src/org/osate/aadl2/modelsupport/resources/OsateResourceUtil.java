@@ -47,7 +47,9 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.FileLocator;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.xmi.XMLResource;
@@ -88,11 +90,12 @@ public class OsateResourceUtil {
     
     private static XtextResourceSet resourceSet;
     
-	public static ResourceSet getResourceSet(Element context){
-		ResourceSet crs = context.eResource().getResourceSet();
-		setResourceSet(crs);
-		return crs; 
-	}
+//	public static ResourceSet getResourceSet(Element context){
+////		ResourceSet crs = context.eResource().getResourceSet();
+////		setResourceSet(crs);
+////		return crs; 
+//		return getResourceSet();
+//	}
     
     public static void setResourceSet(ResourceSet rs){
     	if (resourceSet == null && rs instanceof XtextResourceSet){
@@ -112,16 +115,30 @@ public class OsateResourceUtil {
     		}
     	}
         PredeclaredProperties.initPluginContributedAadl();
-        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-        IWorkspaceRoot root = workspace.getRoot();
-        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+//        IWorkspace workspace = ResourcesPlugin.getWorkspace();
+//        IWorkspaceRoot root = workspace.getRoot();
+//        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
         if (fResourceSetProvider == null)
         	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
         if (resourceSet == null) 
-        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(project);
+        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);//project);
         return resourceSet;
    	
+    }
+    
+    /**
+     * unload all aadl resources so they get reloaded for instantiation
+     * @param rs Resource Set containing the instance model
+     */
+    public static void refreshResourceSet(ResourceSet rs){
+    	EList<Resource> rlist = rs.getResources();
+    	for (Resource resource : rlist) {
+			URI uri = resource.getURI();
+			if (uri.fileExtension().equalsIgnoreCase("aadl")||uri.fileExtension().equalsIgnoreCase("aadl2")){
+				resource.unload();
+			}
+		}
     }
 
 
@@ -190,17 +207,6 @@ public class OsateResourceUtil {
 		}
 	}
 
-//	/**
-//	 * Find the resource for given URI, but do not demand load
-//	 * 
-//	 * @param uri
-//	 *            URI
-//	 * @return Resource, null if it is not in the resource set.
-//	 */
-//	public static Resource findResource(URI uri) {
-//		return getResourceSet().getResource(uri, false);
-//	}
-
 	/**
 	 * Find the resource for given URI, but do not demand load
 	 * 
@@ -208,69 +214,31 @@ public class OsateResourceUtil {
 	 *            URI
 	 * @return Resource, null if it is not in the resource set.
 	 */
-	public static Resource findResource(URI uri, Element context) {
-		return context.eResource().getResourceSet().getResource(uri, false);
+	public static Resource findResource(URI uri) {
+		return getResourceSet().getResource(uri, false);
 	}
 
-	/**
-	 * creates a Resource for file name with path within Eclipse If it exists,
-	 * it will delete the file before creating the resource.
-	 * 
-	 * @param uri Assumed to be an aadl or aaxl extension
-	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
-	 */
-	public static Resource getEmptyAadl2Resource(URI uri) {
-		Resource res = null;
-		if (uri != null) {
-			IResource iResource =  getOsateIFile(uri);
-			if (iResource != null && iResource.exists()) {
-				try {
-					iResource.delete(true, null);
-				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
-		}
-
-		res = getResourceSet().createResource(uri);
-		return res;
-	}
-
-	/**
-	 * creates a Resource for file name with path within Eclipse If it exists,
-	 * it will delete the file before creating the resource.
-	 * 
-	 * @param uri Assumed to be an aadl or aaxl extension
-	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
-	 */
-	public static Resource getEmptyAadl2Resource(URI uri, Element context) {
-		Resource res = null;
-		if (uri != null) {
-			IResource iResource =  getOsateIFile(uri);
-			if (iResource != null && iResource.exists()) {
-				try {
-					iResource.delete(true, null);
-				} catch (CoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				}
-		}
-		res = getResourceSet(context).createResource(uri);
-		return res;
-	}
-
-	/**
-	 * creates a Resource for file name with path within Eclipse If it exists,
-	 * it will delete the file before creating the resource.
-	 * 
-	 * @param uri Assumed to be an aaxl extension
-	 * @return Resource Aadl2ResourceImpl for aaxl
-	 */
-	public static Resource getEmptyAaxl2Resource(URI uri, Element context) {
-		if (uri == null) return null;
-		Resource res  = findResource(uri,context);
+//	/**
+//	 * Find the resource for given URI, but do not demand load
+//	 * 
+//	 * @param uri
+//	 *            URI
+//	 * @return Resource, null if it is not in the resource set.
+//	 */
+//	public static Resource findResource(URI uri, Element context) {
+//		return context.eResource().getResourceSet().getResource(uri, false);
+//	}
+//
+//	/**
+//	 * creates a Resource for file name with path within Eclipse If it exists,
+//	 * it will delete the file before creating the resource.
+//	 * 
+//	 * @param uri Assumed to be an aadl or aaxl extension
+//	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
+//	 */
+//	public static Resource getEmptyAadl2Resource(URI uri) {
+//		Resource res = null;
+//		if (uri != null) {
 //			IResource iResource =  getOsateIFile(uri);
 //			if (iResource != null && iResource.exists()) {
 //				try {
@@ -280,11 +248,49 @@ public class OsateResourceUtil {
 //					e.printStackTrace();
 //				}
 //				}
+//		}
+//
+//		res = getResourceSet().createResource(uri);
+//		return res;
+//	}
+
+
+	/**
+	 * creates a Resource for file name with path within Eclipse If it exists,
+	 * it will delete the file before creating the resource.
+	 * 
+	 * @param uri Assumed to be an aaxl extension
+	 * @return Resource Aadl2ResourceImpl for aaxl
+	 */
+	public static Resource getEmptyAaxl2Resource(URI uri) {
+		if (uri == null) return null;
+		// the next piece of code deals with the ending of instance files having changed from _Instance to _instance
+		String  instancename = uri.trimFileExtension().lastSegment();
+		if (instancename.endsWith("_Instance")){
+			int idx = instancename.lastIndexOf("_Instance");
+			instancename = instancename.substring(0,idx)+"_instance";
+			String ext = uri.fileExtension();
+			URI olduri = uri.trimSegments(1).appendSegment(instancename).appendFileExtension(ext);
+			IResource iResource =  getOsateIFile(olduri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				}
+		}
+		Resource res  = getResourceSet().getResource(uri, false);
 		if (res == null){
-			res = getResourceSet(context).createResource(uri);
+			res = getResourceSet().createResource(uri);
 		} else {
-			// remove content
-			res.getContents().clear();
+			// remove resource and recreate it
+			if (res.isLoaded()){
+				res.unload();
+				getResourceSet().getResources().remove(res);
+				res = getResourceSet().createResource(uri);
+			}
 		}
 		return res;
 	}

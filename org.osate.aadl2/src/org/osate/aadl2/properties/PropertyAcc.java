@@ -67,7 +67,8 @@ public class PropertyAcc {
 	 */
 	public boolean addLocal(NamedElement target) {
 		for (PropertyAssociation pa : target.getOwnedPropertyAssociations()) {
-			if (Aadl2Util.sameProperty(pa.getProperty(), property) && pa.getAppliesTos().isEmpty()) {
+			if (pa.getProperty().equals(property) 
+					&& pa.getAppliesTos().isEmpty()) {
 				assocs.add(pa);
 				return !property.isList();
 			}
@@ -90,7 +91,7 @@ public class PropertyAcc {
 	 */
 	public boolean addLocalContained(NamedElement target, NamedElement container) {
 		for (PropertyAssociation pa : container.getOwnedPropertyAssociations()) {
-			if (Aadl2Util.sameProperty(pa.getProperty(),property)) {
+			if (pa.getProperty().equals(property)) {
 				for (ContainedNamedElement cne : pa.getAppliesTos()) {
 					if (cne.getContainmentPathElements().size() == 1 && cne.getContainmentPathElements().get(0).getNamedElement() == target) {
 						assocs.add(pa);

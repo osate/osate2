@@ -66,20 +66,11 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 public class Aadl2LinkingService extends PropertiesLinkingService {
 //	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
 //	private ILinkingService emLS = emLangS.getLinkingService();
-
-	public NamedElement getContainingAnnex(EObject obj){
-		while (obj != null ){
-			if (obj instanceof AnnexLibrary || obj instanceof AnnexSubclause)
-				return (NamedElement)obj;
-			obj = obj.eContainer();
-		}
-		return null;
-	}
 	
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
-		NamedElement annex = getContainingAnnex(context);
+		NamedElement annex = AadlUtil.getContainingAnnex(context);
 		if (annex != null){
 			String annexName = annex.getName();
 			if (annexName != null && annexName.equalsIgnoreCase("emv2")){
@@ -551,16 +542,16 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 //		return Collections.emptyList();
 	}
 	
-
-	private static Aadl2LinkingService eInstance = null;
-
-	public static Aadl2LinkingService getAadl2LinkingService(){
-		if (eInstance == null) {
-			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
-			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
-		}
-		return eInstance;
-	}
+//
+//	private static Aadl2LinkingService eInstance = null;
+//
+//	public static Aadl2LinkingService getAadl2LinkingService(){
+//		if (eInstance == null) {
+//			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/SEI.aadl"));
+//			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
+//		}
+//		return eInstance;
+//	}
 
 	
 
