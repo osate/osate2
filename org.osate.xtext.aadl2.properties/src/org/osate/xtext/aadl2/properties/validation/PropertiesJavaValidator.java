@@ -120,9 +120,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		for (ModalPropertyValue modalPropertyValue : pvl) {
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue());
 		}
-		// check applies to
-		NamedElement owner = (NamedElement)pa.getOwner();
-		checkAssociationAppliesTo(owner, pa);
+		checkAssociationAppliesTo( pa);
 		checkInBinding( pa);
 	}
 	
@@ -142,19 +140,21 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 * for in its Property_Owner_Category list. </blockquote>
 	 */
 	private void checkAssociationAppliesTo(
-		final NamedElement element,
 		final PropertyAssociation pa) {
 		final Property pn = pa.getProperty();
 		final EList<ContainedNamedElement> appliesTo = pa.getAppliesTos();
 		if (appliesTo == null || appliesTo.size() == 0) {
-			final boolean applies = element.acceptsProperty(pn);
+			Element element = pa.getOwner();
+			if (element instanceof NamedElement){
+			final boolean applies = ((NamedElement)element).acceptsProperty(pn);
 			if (!applies) {
 				error(pa,
 						"Property "	+ pa.getProperty().getQualifiedName() +
-						" does not apply to " + element.getName());
+						" does not apply to " + ((NamedElement)element).getName());
 //				error(pa,
 //						"Property "	+ pa.getQualifiedName() +
 //						" does not apply to " + element.eClass().getName());
+			}
 			}
 		} else {
 			for (ContainedNamedElement cna : appliesTo){
