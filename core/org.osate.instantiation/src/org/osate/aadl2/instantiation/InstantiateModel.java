@@ -563,22 +563,38 @@ public class InstantiateModel {
 		filloutFeatureInstance(fi,feature,  inverse, index);
 	}
 
+	/**
+	 * fill in a feature within a feature group
+	 * Take into account the inverse setting on enclosing feature group(s) in setting feature direction
+	 * @param fgi
+	 * @param feature
+	 * @param inverse
+	 * @param index
+	 */
 	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse,int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName()+(index>0?"_"+index:""));
 		fi.setFeature(feature);
-		// must add before prototype resolution in fillFeatureInstance
 		fgi.getFeatureInstances().add(fi);
+		// take into account inverse in setting direction of features inside feature groups
 		if (feature instanceof DirectedFeature) {
 			fi.setDirection(((DirectedFeature) feature).getDirection());
+			DirectionType dir = ((DirectedFeature) feature).getDirection();
+
+			if (inverse && dir != DirectionType.IN_OUT) {
+				dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
+			}
+			fi.setDirection(dir);
 		} else {
 			fi.setDirection(DirectionType.IN_OUT);
 		}
+		// must add before prototype resolution in fillFeatureInstance
 		filloutFeatureInstance(fi,feature,  inverse, index);
 	}
 	
 	/**
 	 * fill out the rest of the feature instance
+	 * resolve any prototype first
 	 * @param feature
 	 * @param fi is feature instance of feature
 	 * @param inverse
@@ -641,7 +657,7 @@ public class InstantiateModel {
 	}
 
 	/*
-	 * expand out feature instances for elements of a prort group
+	 * expand out feature instances for elements of a port group
 	 * 
 	 * @param fi Feature Instance that is a port group
 	 */
@@ -701,32 +717,19 @@ public class InstantiateModel {
 				errManager.warning(fi, "Feature group " + fi.getInstanceObjectPath() + " has no features");
 				return;
 			}
-			instantiateFGFeatures(fi, fgFeatures);
-//			for (Feature fgf : fgFeatures) {
-//				FeatureInstance fgfi = InstanceFactory.eINSTANCE.createFeatureInstance();
-//
-//				fi.getFeatureInstances().add(fgfi);
-//				if (fgf instanceof DirectedFeature) {
-//					DirectionType dir = ((DirectedFeature) fgf).getDirection();
-//
-//					if (inverse && dir != DirectionType.IN_OUT) {
-//						dir = (dir == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
-//					}
-//					fgfi.setDirection(dir);
-//				} else {
-//					fgfi.setDirection(DirectionType.IN_OUT);
-//				}
-//				fillFeatureInstance(fgf, fgfi, inverse,0);
-//			}
+			instantiateFGFeatures(fi, fgFeatures,inverse);
 		}
 	}
 	
-	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist) {
+	/**
+	 * instantiate features in feature group take into account that they can be declared as arrays
+	 */
+	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse) {
 		for (final Feature feature : flist) {
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
-				fillFeatureInstance(fgi,feature, false,0);
+				fillFeatureInstance(fgi,feature, inverse,0);
 			} else {
 				class ArrayInstantiator {
 					void process(int dim) {
@@ -734,7 +737,7 @@ public class InstantiateModel {
 						long count = getElementCount(arraySize);
 
 						for (int i = 0; i < count; i++) {
-							fillFeatureInstance(fgi,feature, false,i+1);
+							fillFeatureInstance(fgi,feature, inverse,i+1);
 						}
 					}
 				}
