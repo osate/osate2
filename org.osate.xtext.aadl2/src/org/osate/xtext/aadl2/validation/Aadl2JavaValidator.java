@@ -2198,8 +2198,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!(srcDirection.outgoing() && dstDirection.incoming())){
 				error(connection, "Source feature '" + source.getName() + "' must be outgoing and destination feature '"+destination.getName() +"' must be incoming.");
 			}
-			return;
-		} else {
+		} else if (srcContext instanceof Subcomponent || dstContext instanceof Subcomponent){
 			// going up or down hierarchy
 		       if (!((srcDirection.outgoing() && dstDirection.outgoing())||(srcDirection.incoming() && dstDirection.incoming()))){
 	               error(connection, "Source feature '" + source.getName() + "' and destination feature '"+destination.getName() +"' must have same direction.");
@@ -2216,6 +2215,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	        	   if (!(srcDirection.incoming()))
 		               error(connection, "Incoming connection requires incoming feature '" + source.getName() + "'.");
 	           }
+	     } else {
+	    	 // we have a connection a component implementation going directly from its incoming feature to an outgoing feature
+				if (!(srcDirection.incoming() && dstDirection.outgoing())){
+					error(connection, "Source feature '" + source.getName() + "' must be incoming and destination feature '"+destination.getName() +"' must be outgoing.");
+				}
 	     }
 	}
 
