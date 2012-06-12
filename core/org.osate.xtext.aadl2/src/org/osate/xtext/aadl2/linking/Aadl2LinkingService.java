@@ -40,6 +40,7 @@ import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FlowElement;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
@@ -209,7 +210,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 							|| searchResult instanceof DataPort || searchResult instanceof EventDataPort)))
 					return Collections.singletonList((EObject) searchResult);
 			} else if (context instanceof TriggerPort
-					|| context instanceof FlowSpecification
+					|| context instanceof FlowEnd
 					|| context instanceof FlowSegment
 					|| context instanceof EndToEndFlowSegment) {
 				if (searchResult instanceof Subcomponent

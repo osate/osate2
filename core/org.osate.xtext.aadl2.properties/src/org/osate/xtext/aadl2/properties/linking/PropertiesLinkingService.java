@@ -58,6 +58,7 @@ import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
@@ -293,7 +294,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 		} else if (Aadl2Package.eINSTANCE.getFeature().isSuperTypeOf(requiredType)) {
-			// Feature used in FlowSpec
+			// Feature referenced in feature refinement
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			if (context instanceof Feature) {
 				// we need to resolve a refinement
@@ -301,6 +302,17 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					ns = ns.getExtended();
 				} else {
 					return Collections.emptyList();
+				}
+			} else if (context instanceof FlowEnd){
+				// if the flow end context is set to a feature group use its type as name space
+				Context flowendcxt = ((FlowEnd)context).getContext();
+				if (flowendcxt instanceof FeatureGroup){
+					FeatureGroupType fgt = ((FeatureGroup)flowendcxt).getAllFeatureGroupType();
+					if (fgt.getInverse()!=null&& fgt.getAllFeatures().isEmpty()){
+						ns = fgt.getInverse();
+					}else {
+						ns = fgt;
+					}
 				}
 			}
 			EObject res = ns.findNamedElement(name);
