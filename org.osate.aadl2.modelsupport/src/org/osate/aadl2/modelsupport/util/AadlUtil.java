@@ -137,6 +137,7 @@ import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -2532,6 +2533,35 @@ public final class AadlUtil {
 			res = (AnnexLibrary)findNamedElementInList(ps.getOwnedAnnexLibraries(), annexName);
 		}
 		return res;
+	}
+	
+	public static boolean isComplete(ConnectionInstance conni){
+		ConnectionInstanceEnd srcEnd = conni.getSource();
+		ConnectionInstanceEnd dstEnd = conni.getDestination();
+		ComponentInstance src=null;
+		if (srcEnd instanceof ComponentInstance){
+			src = (ComponentInstance)srcEnd;
+		} else if (srcEnd instanceof FeatureInstance){
+			src = srcEnd.getContainingComponentInstance();
+		}
+		ComponentInstance dst=null;
+		if (dstEnd instanceof ComponentInstance){
+			dst = (ComponentInstance)dstEnd;
+		} else if (dstEnd instanceof FeatureInstance){
+			dst = dstEnd.getContainingComponentInstance();
+		}
+		if (containedIn(src,dst) || containedIn(dst,src)){
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean containedIn(ComponentInstance element, ComponentInstance parent){
+		while (element != null){
+			if (element == parent) return true;
+			element = (ComponentInstance)element.getOwner();
+		}
+		return false;
 	}
 
 }
