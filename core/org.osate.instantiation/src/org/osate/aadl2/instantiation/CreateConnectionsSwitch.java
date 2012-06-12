@@ -236,9 +236,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			kind = getKind(dst);
 			//phf: disabled access connection instances that only go up but not across
 //			if (kind != ACCESS_CONNECTION) {
-				if (!across) {
-					return null;
-				}
+//				if (!across) {
+//					return null;
+//				}
 //			}
 			// TODO-LW: complete = ...;
 
