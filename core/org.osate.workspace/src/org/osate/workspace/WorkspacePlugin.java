@@ -59,6 +59,11 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	public static final String AADL_INSTANCES_DIR = "instances";
 
 	/**
+	 * Default Aadl instances directory.
+	 */
+	public static final String AADL_REPORTS_DIR = "reports";
+
+	/**
 	 * instance model name postfix
 	 */
 	public static final String INSTANCE_MODEL_POSTFIX = "_Instance";
