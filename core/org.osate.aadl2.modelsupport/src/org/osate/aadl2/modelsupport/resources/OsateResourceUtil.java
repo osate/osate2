@@ -60,6 +60,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.SystemImplementation;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
@@ -204,6 +205,48 @@ public class OsateResourceUtil {
 		} else {
 			throw new IllegalArgumentException("Cannot decode URI protocol: "
 					+ resourceURI.scheme());
+		}
+	}
+	
+	/**
+	 * return the IPath for the path. Strips the leading "resource" as necessary
+	 * 
+	 * @param resourceURI The URI of the Resource 
+	 * @return IPath to the file identified by the URI
+	 * @exception IllegalArgumentException Thrown if the URI is
+	 * does not use the "platform:" protocol.
+	 */
+	public static IPath getOsatePath(final URI resourceURI) {
+		/* I don't really understand why this method does what it does, but
+		 * the point seems to be to take a URI for a Resource that resembles
+		 * "platform:/resource/xxx/yyy/zzz" and return the Eclipse IPath to
+		 * the file for that Resource.  This seems to involve removing the
+		 * "/resource/" part.
+		 * 
+		 * --aarong
+		 */
+
+		// Is it a "plaform:" uri?
+		if (resourceURI.scheme() != null && resourceURI.scheme().equalsIgnoreCase("platform")) {
+			// Get the segments.  See if the first is "resource"
+			final String[] segments = resourceURI.segments();
+			final StringBuffer path = new StringBuffer();
+
+			if (segments.length >= 1) {
+				final int firstSegment = segments[0].equals("resource") ? 1 : 0;
+				final int lastIdx = segments.length - 1;
+				for (int i = firstSegment; i < (lastIdx); i++) {
+					path.append(segments[i]);
+					path.append('/');
+				}
+				if (lastIdx >= 0)
+					path.append(segments[lastIdx]);
+			}
+			return new Path(null, path.toString());
+		} else if (resourceURI.isFile()) {
+			return new Path(resourceURI.toFileString());
+		} else {
+			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
 		}
 	}
 
@@ -397,5 +440,28 @@ public class OsateResourceUtil {
 		return instanceURI;
 	}
 
+	/*
+	 * returns the instance model URI for a given system implementation
+	 * 
+	 * @param si
+	 * 
+	 * @return URI for instance model file
+	 */
+	public static URI getReportsURI(InstanceObject obj, String reporttype, String extension) {
+		Resource res = obj.eResource();
+		URI modeluri = res.getURI();
+		String last = modeluri.lastSegment();
+		String filename = last.substring(0, last.indexOf('.'));
+		URI path = modeluri.trimSegments(1);
+		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR)){
+			path = path.trimSegments(1);
+		}
+		URI reportURI = path.appendSegment(WorkspacePlugin.AADL_REPORTS_DIR);
+		if (reporttype != null && !reporttype.isEmpty()) reportURI = reportURI.appendSegment(reporttype);
+		reportURI = reportURI.appendSegment(filename );
+		if (extension != null && !extension.isEmpty())
+			reportURI = reportURI.appendFileExtension(extension);
+		return reportURI;
+	}
 
 }
