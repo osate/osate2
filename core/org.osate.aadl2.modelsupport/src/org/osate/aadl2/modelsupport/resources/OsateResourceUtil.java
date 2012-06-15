@@ -128,6 +128,22 @@ public class OsateResourceUtil {
    	
     }
     
+    public static XtextResourceSet createResourceSet(){
+    	return getResourceSet();
+//    	if (injector==null) {
+//    		injector = OsateCorePlugin
+//    				.getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");
+//    		if (injector == null){
+//    			return null;
+//    		}
+//    	}
+//        if (fResourceSetProvider == null)
+//        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+//
+//        	return (XtextResourceSet) fResourceSetProvider.get(null);//project);
+   	
+    }
+    
     /**
      * unload all aadl resources so they get reloaded for instantiation
      * @param rs Resource Set containing the instance model
@@ -250,16 +266,6 @@ public class OsateResourceUtil {
 		}
 	}
 
-	/**
-	 * Find the resource for given URI, but do not demand load
-	 * 
-	 * @param uri
-	 *            URI
-	 * @return Resource, null if it is not in the resource set.
-	 */
-	public static Resource findResource(URI uri) {
-		return getResourceSet().getResource(uri, false);
-	}
 
 //	/**
 //	 * Find the resource for given URI, but do not demand load
@@ -377,7 +383,6 @@ public class OsateResourceUtil {
 		}
 	}
 	
-
 	/**
 	 * gets Resource for given IResource. Will create the resource if it does
 	 * not exist
@@ -389,6 +394,19 @@ public class OsateResourceUtil {
 	public static Resource getResource(IResource ires) {
 		IPath path = ires.getFullPath();
 		return getResource(URI.createPlatformResourceURI(path.toString(), false));
+	}
+
+	/**
+	 * gets Resource for given IResource. Will create the resource if it does
+	 * not exist
+	 * 
+	 * @param ires
+	 *            IResource
+	 * @return Resource
+	 */
+	public static URI getResourceURI(IResource ires) {
+		IPath path = ires.getFullPath();
+		return URI.createPlatformResourceURI(path.toString(), false);
 	}
 
 	/**
