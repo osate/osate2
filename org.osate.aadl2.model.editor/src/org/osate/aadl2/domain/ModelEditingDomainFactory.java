@@ -65,7 +65,7 @@ public class ModelEditingDomainFactory implements TransactionalEditingDomain.Fac
 		//    and delegating command execution to the default (workbench)
 		//    operation history
 		Aadl2Activator.getInstance();
-		ResourceSet rset = OsateResourceUtil.getResourceSet();
+		ResourceSet rset = OsateResourceUtil.createResourceSet();
 		if (rset == null) return null;
 		TransactionalEditingDomain result = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain(rset);
 		
