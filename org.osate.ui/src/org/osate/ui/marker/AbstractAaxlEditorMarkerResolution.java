@@ -32,16 +32,6 @@ public abstract class AbstractAaxlEditorMarkerResolution extends WorkbenchMarker
 		origMarker = m;
 	}
 	
-	protected static Element getAObject(final IMarker marker, final String attr) {
-		final String value = marker.getAttribute(attr, null);
-		if (value != null) {
-			final URI uri = URI.createURI(value);
-			return (Element) OsateResourceUtil.getResourceSet().getEObject(uri, true);
-		} else {
-			return null;
-		}
-	}
-
 	
 	/**
 	 * Executes the resolution by executing the command returned by
