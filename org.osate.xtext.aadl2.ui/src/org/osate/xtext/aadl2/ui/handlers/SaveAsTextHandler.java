@@ -50,15 +50,15 @@ public class SaveAsTextHandler extends AbstractHandler {
 					if (WorkspacePlugin.MODEL_FILE_EXT.equalsIgnoreCase(((IResource)f).getFileExtension())){
 						// you could use the adapter:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
 						// instead of the next two statements
-						Resource res = OsateResourceUtil.getResource((IResource)f);
+						ResourceSet rs = OsateResourceUtil.createResourceSet();
+						Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)f), true);
 						Element target = (Element)res.getContents().get(0);
 						URI aaxluri = res.getURI();
 						URI xtxturi = aaxluri.trimFileExtension().appendFileExtension("aadl");
-						ResourceSet rs = OsateResourceUtil.getResourceSet();
 						Resource xtxtres = rs.createResource(xtxturi);
 						xtxtres.getContents().add(target);
 						OsateResourceUtil.save(xtxtres);
-						res.getResourceSet().getResources().remove(res);
+						res.getContents().add(target);
 						rs.getResources().remove(xtxtres);
 					}
 				}
