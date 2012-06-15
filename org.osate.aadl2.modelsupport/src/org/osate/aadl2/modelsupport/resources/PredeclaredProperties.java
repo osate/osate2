@@ -151,7 +151,7 @@ public class PredeclaredProperties {
 	private static void copyContributedResourceIntoWorkspace(
 			URI contributedResourceUri, IFile contributedResourceInWorkspace)
 			throws IOException, CoreException {
-		URIConverter uricvt = OsateResourceUtil.getResourceSet().getURIConverter();
+		URIConverter uricvt = OsateResourceUtil.createResourceSet().getURIConverter();
 		InputStream contributedResourceContentsAsStream = uricvt
 				.createInputStream(contributedResourceUri.trimFileExtension()
 						.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT));
