@@ -146,6 +146,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.ui.views.properties.IPropertySheetPage;
 import org.eclipse.ui.views.properties.PropertySheet;
 import org.eclipse.ui.views.properties.PropertySheetPage;
+import org.osate.aadl2.domain.ModelEditingDomainFactory;
 import org.osate.aadl2.instance.provider.InstanceItemProviderAdapterFactory;
 import org.osate.aadl2.provider.Aadl2ItemProviderAdapterFactory;
 
@@ -742,7 +743,10 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 
 		// Get the registered workbench editing domain.
 		//
-		editingDomain = (AdapterFactoryEditingDomain) TransactionalEditingDomain.Registry.INSTANCE
+		// XXX separate vs. shared resource set
+//		editingDomain = 
+//				(AdapterFactoryEditingDomain) new ModelEditingDomainFactory().createEditingDomain();
+		editingDomain =	(AdapterFactoryEditingDomain) TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain"); //$NON-NLS-1$
 		undoContext = new ObjectUndoContext(this, Aadl2EditorPlugin.getPlugin()
 				.getString("_UI_InstanceEditor_label")); //$NON-NLS-1$
@@ -1684,8 +1688,10 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 		//         a shared resource set (not our own private set).
 		//         So, we must unload it explicitly.  Also remove our problem
 		//         indication adapter
-		getResource().unload();
-		editingDomain.getResourceSet().getResources().remove(getResource());
+		
+		// XXX XXX should not remove the resource possibly not even unload it
+//		getResource().unload();
+//		editingDomain.getResourceSet().getResources().remove(getResource());
 		editingDomain.getResourceSet().eAdapters().remove(problemIndicationAdapter);
 
 		getSite().getPage().removePartListener(partListener);
