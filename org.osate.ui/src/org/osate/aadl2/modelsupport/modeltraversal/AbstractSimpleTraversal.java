@@ -44,7 +44,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.modelsupport.util.TraverseWorkspace;
 import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.resources.OsateResourceUtil;
 

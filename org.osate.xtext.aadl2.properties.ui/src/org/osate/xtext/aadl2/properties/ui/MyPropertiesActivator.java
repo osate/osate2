@@ -54,9 +54,6 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 			registerInjectorFor(ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 			
 			EMFIndexRetrieval.registerResourceProviders(rdp, rspr);
-			IFile storage = TraverseWorkspace.getAADLProjectFile();
-			ResourceSet rs = getResourceSet(storage);
-			OsateResourceUtil.setResourceSet(rs);
 			
 		} catch (Exception e) {
 			Logger.getLogger(getClass()).error(e.getMessage(), e);
@@ -64,13 +61,6 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 		}
 	}
 
-
-	protected ResourceSet getResourceSet(IStorage storage) {
-		if (storage instanceof IFile) {
-			return resourceSetProvider.get(((IFile) storage).getProject());
-		}
-		return resourceSetProvider.get(null);
-	}
 	
 	@Override
 	public Injector getInjector(String languageName) {

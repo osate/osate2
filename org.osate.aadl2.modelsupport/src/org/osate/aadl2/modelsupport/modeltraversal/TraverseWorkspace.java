@@ -87,12 +87,6 @@ public class TraverseWorkspace {
 		}
 		return tmp;
 	}
-	
-	public static IFile getAADLProjectFile(){
-		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-		IProject prproject = myWorkspaceRoot.getProject(OsateResourceUtil.PLUGIN_RESOURCES_DIRECTORY_NAME);
-		return prproject.getFile("AADL_Project.aadl");
-	}
 
 
 	private static HashSet<IFile> getFiles(IResource[] resources, HashSet<IFile> result, String extension) {
