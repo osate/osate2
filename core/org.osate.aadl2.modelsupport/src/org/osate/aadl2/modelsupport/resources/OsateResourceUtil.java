@@ -52,12 +52,14 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.InstanceObject;
@@ -116,9 +118,6 @@ public class OsateResourceUtil {
     		}
     	}
         PredeclaredProperties.initPluginContributedAadl();
-//        IWorkspace workspace = ResourcesPlugin.getWorkspace();
-//        IWorkspaceRoot root = workspace.getRoot();
-//        IProject project = root.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
         if (fResourceSetProvider == null)
         	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
@@ -328,7 +327,7 @@ public class OsateResourceUtil {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				}
+			}
 			Resource res  = getResourceSet().getResource(olduri, false);
 			if (res != null){
 				if(res.isLoaded()){
@@ -337,6 +336,7 @@ public class OsateResourceUtil {
 				getResourceSet().getResources().remove(res);
 			}
 		}
+		// get the empty resource
 		IResource iResource =  getOsateIFile(uri);
 		if (iResource != null && iResource.exists()) {
 			try {
@@ -345,17 +345,16 @@ public class OsateResourceUtil {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			}
+		}
 		Resource res  = getResourceSet().getResource(uri, false);
 		if (res == null){
 			res = getResourceSet().createResource(uri);
 		} else {
-			// remove resource and recreate it
 			if (res.isLoaded()){
 				res.unload();
-				getResourceSet().getResources().remove(res);
-				res = getResourceSet().createResource(uri);
 			}
+			getResourceSet().getResources().remove(res);
+			res = getResourceSet().createResource(uri);
 		}
 		return res;
 	}
@@ -480,6 +479,26 @@ public class OsateResourceUtil {
 		if (extension != null && !extension.isEmpty())
 			reportURI = reportURI.appendFileExtension(extension);
 		return reportURI;
+	}
+	
+	/**
+	 * Make sure the EObject is available in the Osate Resource Set
+	 * The EObject may currently be in the resource set of an XText editor, not the shared resource set
+	 * We also make sure that the Osate resource set will pick up any changed resources by unloading all declarative models in it
+	 * @param eobj
+	 * @return
+	 */
+	public static EObject loadElementIntoResourceSet(EObject eobj){
+		ResourceSet rs = OsateResourceUtil.getResourceSet();
+		ResourceSet sirs = eobj.eResource().getResourceSet();
+		if (rs != sirs){
+			// we unload all to make sure all changes make it into this resource set
+			refreshResourceSet(getResourceSet());
+			URI uri =EcoreUtil.getURI(eobj);
+			eobj = rs.getEObject(uri, true);
+		}
+		return eobj;
+
 	}
 
 }

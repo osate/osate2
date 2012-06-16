@@ -46,17 +46,17 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
 			.getDefault().getBundle());
 
-	protected void _createChildren(IOutlineNode parentNode, SystemInstance aadlModel) {
-		if (aadlModel.eContents().isEmpty()){
+	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
+		if (sysInstance.eContents().isEmpty()){
 			final InstantiateModel instantiateModel =
 			new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							internalErrorLogger,
 							new MarkerAnalysisErrorReporter.Factory(
 									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			instantiateModel.createXSystemInstance(aadlModel);
+			instantiateModel.fillSystemInstance(sysInstance);
 		}
-		super._createChildren(parentNode, aadlModel);
+		super._createChildren(parentNode, sysInstance);
 	}
 
 	// Uncomment the next set to limit outline for package and property set to 

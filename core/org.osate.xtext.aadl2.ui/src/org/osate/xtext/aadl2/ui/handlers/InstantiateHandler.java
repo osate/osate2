@@ -5,10 +5,12 @@ import java.util.Iterator;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -24,6 +26,7 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
@@ -39,6 +42,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.core.OsateCorePlugin;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 import com.google.inject.Inject;
 
@@ -51,12 +55,6 @@ public class InstantiateHandler extends AbstractHandler {
 
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
 			.getDefault().getBundle());
-//	protected static final InstantiateModel instantiateModel =
-//			new InstantiateModel(new NullProgressMonitor(),
-//					new AnalysisErrorReporterManager(
-//							internalErrorLogger,
-//							new MarkerAnalysisErrorReporter.Factory(
-//									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 
 
 	
@@ -71,6 +69,8 @@ public class InstantiateHandler extends AbstractHandler {
 		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
 		final ISelection selection;
 		if (xtextEditor != null) {
+			// make sure the model has been saved
+			xtextEditor.doSave(new NullProgressMonitor());
 			if (part instanceof ContentOutline) {
 				selection = ((ContentOutline) part).getSelection();
 			} else {
@@ -98,20 +98,21 @@ public class InstantiateHandler extends AbstractHandler {
 									ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 									if (cc instanceof SystemImplementation){
 										SystemImplementation si = (SystemImplementation)cc;
-										SystemInstance sinst = buildInstanceModelFile(si);
+
+										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
 
 									} else {
 										System.out.println("Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 									}
 									if (targetElement instanceof SystemInstance){
-										final InstantiateModel instantiateModel =
-												new InstantiateModel(new NullProgressMonitor(),
-														new AnalysisErrorReporterManager(
-																internalErrorLogger,
-																new MarkerAnalysisErrorReporter.Factory(
-																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
-										
+//										final InstantiateModel instantiateModel =
+//												new InstantiateModel(new NullProgressMonitor(),
+//														new AnalysisErrorReporterManager(
+//																internalErrorLogger,
+//																new MarkerAnalysisErrorReporter.Factory(
+//																		AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+//										instantiateModel.createXSystemInstance((SystemInstance)targetElement);
+//										
 									}
 								} else {
 									System.out.println("Please select a model element. You selected " + targetElement.eClass().getName()+" "+ targetElement.toString());
@@ -162,67 +163,8 @@ public class InstantiateHandler extends AbstractHandler {
 //	}
 
 	/*
-	 * This method will construct an instance model, save it on disk and return
-	 * its root object This method has the knowledge of how the instance model
-	 * file name is constructed
-	 * 
-	 * @param si system implementation
-	 * 
-	 * @return SystemInstance or <code>null</code> if cancelled.
+	 * XXX buildInstanceModelFile has moved to InstantiateModel
 	 */
-	public SystemInstance buildInstanceModelFile(final SystemImplementation si) {
-		// add it to a resource; otherwise we cannot attach error messages to
-		// the instance file
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
-		OsateResourceUtil.refreshResourceSet(aadlResource.getResourceSet());
 
-		// now instantiate the rest of the model
-		final InstantiateModel instantiateModel =
-				new InstantiateModel(new NullProgressMonitor(),
-						new AnalysisErrorReporterManager(
-								internalErrorLogger,
-								new MarkerAnalysisErrorReporter.Factory(
-										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(si, aadlResource);
-		return root;
-	}
-
-//	/*
-//	 * This method returns a system instance for the given system
-//	 * implementation. If the instance model already exists it will be returned.
-//	 * If it does not exist one will be constructed.
-//	 * 
-//	 * @param si system implementation
-//	 * 
-//	 * @return SystemInstance
-//	 */
-//	public SystemInstance getSystemInstance(final SystemImplementation si) {
-//		SystemInstance systemInstance = findSystemInstance(si);
-//		if (systemInstance == null) {
-//			systemInstance = buildInstanceModelFile(si);
-//		}
-//		return systemInstance;
-//	}
-//
-//	/*
-//	 * This method returns a system instance for the given system
-//	 * implementation. If the instance model already exists it will be returned.
-//	 * If it does not exist null is returned
-//	 * 
-//	 * @param si system implementation
-//	 * 
-//	 * @return SystemInstance or null if it does not exist
-//	 */
-//	public SystemInstance findSystemInstance(final SystemImplementation si) {
-//		URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-//		Resource instanceRes = OsateResourceUtil.findResource(instanceURI,si);
-//		if (instanceRes == null || instanceRes.getContents().isEmpty()) {
-//			return null;
-//		} else {
-//			SystemInstance systemInstance = (SystemInstance) instanceRes.getContents().get(0);
-//			return systemInstance;
-//		}
-//	}
 
 }

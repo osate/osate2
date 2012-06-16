@@ -49,8 +49,11 @@ import java.util.List;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
@@ -103,12 +106,17 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
+import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
-import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.core.OsateCorePlugin;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -176,8 +184,46 @@ public class InstantiateModel {
 		monitor = pm;
 	}
 
-	// Methods
+	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
+			.getDefault().getBundle());
 
+	// Methods
+	/*
+	 * This method will construct an instance model, save it on disk and return its root object 
+	 * The method makes sure that the system implementation is in the OSATE resource set and will create the instance model there as well.
+	 * The Osate resource set is the shared resource set maintained by OsateResourceUtil
+	 * 
+	 * @param si system implementation
+	 * 
+	 * @return SystemInstance or <code>null</code> if cancelled.
+	 */
+	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) {
+		// add it to a resource; otherwise we cannot attach error messages to
+		// the instance file
+		SystemImplementation isi = si;
+		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(si);
+		if (eobj instanceof SystemImplementation) isi = (SystemImplementation)eobj;
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(isi);
+		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
+
+		// now instantiate the rest of the model
+		final InstantiateModel instantiateModel =
+				new InstantiateModel(new NullProgressMonitor(),
+						new AnalysisErrorReporterManager(
+								internalErrorLogger,
+								new MarkerAnalysisErrorReporter.Factory(
+										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
+		return root;
+	}
+
+		/**
+		 * create a system instance into the provided (empty) resource and save it
+		 * This is performed as a transactional operation
+		 * @param si
+		 * @param aadlResource
+		 * @return
+		 */
 	@SuppressWarnings("unchecked")
 	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
@@ -209,7 +255,7 @@ public class InstantiateModel {
 	}
 
 	/*
-	 * instantiate SystemImpl as root of instance tree
+	 * instantiate SystemImpl as root of instance tree and save the model
 	 * 
 	 * @param si SystemImpl the root of the system instance
 	 * 
@@ -234,7 +280,7 @@ public class InstantiateModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		createXSystemInstance(root);
+		fillSystemInstance(root);
 		// We're done: Save the model.
 		// We don't respond to a cancel at this point
 
@@ -250,10 +296,10 @@ public class InstantiateModel {
 	}
 
 	/** 
-	 * Will create instance model under systeminstance but not save it
+	 * Will in fill instance model under systeminstance but not save it
 	 * @param root
 	 */
-	public void createXSystemInstance(SystemInstance root) {
+	public void fillSystemInstance(SystemInstance root) {
 		this.populateComponentInstance(root, 0);
 		if (monitor.isCanceled()) {
 			return;
