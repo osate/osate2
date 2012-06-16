@@ -5,31 +5,33 @@ import java.util.HashSet;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.modelsupport.util.TraverseWorkspace;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.resources.OsateResourceUtil;
 
 public class ModelUtil {
 
 	/**
-	 * Get all component implementations; in all anon. name spaces and from all
+	 * Get all component implementations; in all 
 	 * packages (public and private parts)
 	 * 
 	 * @return EList of component impl
 	 */
 	public static EList<ComponentImplementation> getAllComponentImpl() {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
-		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
-		for (IFile file : files){
-			ModelUnit target = (ModelUnit)OsateResourceUtil.getElement(file);
-			if (target != null){
-				if (target instanceof AadlPackage) {
-					result.addAll(AadlUtil.getAllComponentImpl((AadlPackage) target));
-				}
-			}
+		EList<IEObjectDescription> cimpllist = EMFIndexRetrieval.getAllClassifiersOfTypeInWorkspace(Aadl2Package.eINSTANCE.getComponentImplementation());
+		for (IEObjectDescription eod : cimpllist) {
+			EObject res = eod.getEObjectOrProxy();
+			res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+			if (!Aadl2Util.isNull(res)) result.add((ComponentImplementation)res);
 		}
 		return result;
 	}

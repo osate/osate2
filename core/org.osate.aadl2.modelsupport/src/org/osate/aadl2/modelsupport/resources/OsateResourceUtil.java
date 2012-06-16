@@ -93,21 +93,6 @@ public class OsateResourceUtil {
     
     private static XtextResourceSet resourceSet;
     
-//	public static ResourceSet getResourceSet(Element context){
-////		ResourceSet crs = context.eResource().getResourceSet();
-////		setResourceSet(crs);
-////		return crs; 
-//		return getResourceSet();
-//	}
-    
-    public static void setResourceSet(ResourceSet rs){
-    	if (resourceSet == null && rs instanceof XtextResourceSet){
-    		resourceSet =(XtextResourceSet) rs;
-    	}
-    	if (resourceSet != null && resourceSet != rs){
-    		return;
-    	}
-    }
     
     public static XtextResourceSet getResourceSet(){
     	if (injector==null) {
