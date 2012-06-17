@@ -43,11 +43,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.Command;
@@ -113,6 +116,7 @@ import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
+import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InstanceUtil;
@@ -242,6 +246,29 @@ public class InstantiateModel {
 										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, res);
 		return root;
+	}
+	
+	/*
+	 * This method will regenerate all instance models in the workspace
+	 */
+	public static void rebuildAllInstanceModelFiles( ) {
+		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
+		for (IFile iFile : files) {
+			Resource res = OsateResourceUtil.getResource((IResource)iFile);
+			SystemInstance target = (SystemInstance)res.getContents().get(0);
+			SystemImplementation si = target.getSystemImplementation();
+			URI uri =EcoreUtil.getURI(si);
+			res.unload();
+			OsateResourceUtil.refreshResourceSet();
+			si = (SystemImplementation)OsateResourceUtil.getResourceSet().getEObject(uri, true);
+			final InstantiateModel instantiateModel =
+					new InstantiateModel(new NullProgressMonitor(),
+							new AnalysisErrorReporterManager(
+									internalErrorLogger,
+									new MarkerAnalysisErrorReporter.Factory(
+											AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+			SystemInstance root = instantiateModel.createSystemInstance(si, res);
+		}
 	}
 
 		/**

@@ -44,6 +44,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -55,12 +56,19 @@ import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.IObjectActionDelegate;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
+import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.core.AadlNature;
 import org.osate.internal.workspace.AadlWorkspace;
 import org.osate.ui.OsateUiPlugin;
@@ -117,7 +125,23 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
 			monitor.beginTask("Reinstantiate all instance models",
 					IProgressMonitor.UNKNOWN);
-			// to be done on instance descriptions
+//			IWorkbench wb = PlatformUI.getWorkbench();
+//			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+//			IWorkbenchPage page = win.getActivePage();
+//			HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
+//			for (IFile iFile : files) {
+//			IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+//			for (int i = 0; i < editorRefs.length; i++) {
+//				IEditorReference edref = editorRefs[i];
+//				IEditorPart edpart = edref.getEditor(false);
+//				String me = edpart.getEditorInput().getName();
+//				String fname = ((IResource) iFile).getName();
+//				if (me.equals(fname)){
+//					page.closeEditor(edpart, true);
+//				}
+//			}
+//			}
+			InstantiateModel.rebuildAllInstanceModelFiles();
 			monitor.done();
 			return Status.OK_STATUS;
 		}
