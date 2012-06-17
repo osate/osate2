@@ -280,7 +280,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(
 			final String ps, final String name) {
-		final PropertyType pt = GetProperties.lookupPropertyType(ps, name);
+		final PropertyType pt = GetProperties.lookupPropertyType(context,ps, name);
 //				PropertiesLinkingService.getPropertiesLinkingService().findPropertyType(context,ps+COLON_COLON+name);
 		if (pt == null) notFound.add(PROP_TYPE + ps + COLON_COLON + name);
 		return pt;
@@ -295,7 +295,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final UnitLiteral lookupUnitLiteral(
 			final String ps, final String unitType, final String literalName) {
-		final UnitLiteral literal = GetProperties.findUnitLiteral(ps+"::"+unitType, literalName);
+		final UnitLiteral literal = GetProperties.findUnitLiteral(context,ps+"::"+unitType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("unit literal {0} in type {1}::{2}", 
 						new Object[] { literalName, ps, unitType }));
@@ -312,7 +312,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final EnumerationLiteral lookupEnumerationLiteral(
 			final String ps, final String enumType, final String literalName) {
-			final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(ps+"::"+enumType, literalName);
+			final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(context,ps+"::"+enumType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("enumeration literal {0} in type {1}::{2}", 
 						new Object[] { literalName, ps, enumType }));
@@ -341,7 +341,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyType lookupPropertyType(final String name) {
 		final PropertyType pt = 
-				GetProperties.lookupPropertyType(name);
+				GetProperties.lookupPropertyType(context,name);
 		if (pt == null) notFound.add(PREDECLARED + PROP_TYPE + name);
 		return pt;
 	}
@@ -355,7 +355,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final UnitLiteral lookupUnitLiteral(
 			final String unitType, final String literalName) {
-		final UnitLiteral literal = GetProperties.findUnitLiteral(unitType, literalName);
+		final UnitLiteral literal = GetProperties.findUnitLiteral(context,unitType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("unit literal {0} in predeclared type {1}", 
 						new Object[] { literalName, unitType }));
@@ -373,7 +373,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final EnumerationLiteral lookupEnumerationLiteral(
 			final String enumType, final String literalName) {
-		final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(enumType, literalName);
+		final EnumerationLiteral  literal = GetProperties.findEnumerationLiteral(context,enumType, literalName);
 			if (literal == null) {
 				notFound.add(MessageFormat.format("enumeration literal {0} in predeclared type {1}", 
 						new Object[] { literalName, enumType }));
@@ -389,7 +389,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupPropertyConstant(final String name) {
 		final PropertyConstant pc =
-				GetProperties.lookupPropertyConstant(name);
+				GetProperties.lookupPropertyConstant(context,name);
 		if (pc == null) notFound.add(PREDECLARED + PROP_CONST + name);
 		return pc;
 	}
@@ -403,7 +403,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final PropertyConstant lookupPropertyConstant(
 			final String ps, final String name) {
 		final PropertyConstant pc =
-				GetProperties.lookupPropertyConstant(ps,name);
+				GetProperties.lookupPropertyConstant(context,ps,name);
 		if (pc == null) notFound.add(PROP_CONST + ps + COLON_COLON + name);
 		return pc;
 	}
@@ -418,7 +418,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 */
 	protected final PropertyConstant lookupOptionalPropertyConstant(
 			final String ps, final String name) {
-		return GetProperties.lookupPropertyConstant(ps,name);
+		return GetProperties.lookupPropertyConstant(context,ps,name);
 	}
 
 	/**

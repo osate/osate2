@@ -79,8 +79,7 @@ public class GetProperties {
 	 * @return Property or null
 	 */
 	public static Property lookupPropertyDefinition(EObject context,String ps, String name) {
-		return lookupPropertyDefinition(ps, name);
-//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyDefinition(context,ps != null?(ps+ "::" +name):name);
+		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(context,((ps != null&& !ps.isEmpty())?(ps+ "::" +name):name));
 	}
 
 
@@ -93,8 +92,18 @@ public class GetProperties {
 	 * @return PropertyType or null
 	 */
 	public static PropertyType lookupPropertyType(EObject context,String ps, String name) {
-		return lookupPropertyType(ps, name);
-//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyType(context,ps != null?(ps+ "::" +name):name);
+		return EMFIndexRetrieval.getPropertyTypeInWorkspace(context,((ps != null&& !ps.isEmpty())?(ps+ "::" +name):name));
+	}
+
+	/**
+	 * find property type for given name. The property may be qualified by the property set name via the ps parameter
+	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
+	 * @param qname String Property Type qualified name
+	 * @return PropertyType or null
+	 */
+	public static PropertyType lookupPropertyType(EObject context, String qname) {
+		return EMFIndexRetrieval.getPropertyTypeInWorkspace(context,qname);
 	}
 
 
@@ -107,86 +116,97 @@ public class GetProperties {
 	 * @return PropertyConstant or null
 	 */
 	public static PropertyConstant lookupPropertyConstant(EObject context,String ps, String name) {
-		return lookupPropertyConstant(ps, name);
-//		return PropertiesLinkingService.getPropertiesLinkingService((Element)context).findPropertyConstant(context,ps != null?(ps+ "::" +name):name);
+		return EMFIndexRetrieval.getPropertyConstantInWorkspace(context,((ps != null&& !ps.isEmpty())?(ps+ "::" +name):name));
 	}
 
 	/**
-	 * find property definition for given property name. The property may be qualified by the property set name via the ps parameter
+	 * find property constant for given name. The property may be qualified by the property set name via the ps parameter
 	 * For predeclared properties this is not required
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Definition name
-	 * @return Property or null
-	 */
-	public static Property lookupPropertyDefinition(String ps, String name) {
-		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(ps != null?(ps+ "::" +name):name);
-	}
-
-
-	/**
-	 * find property type for given name. The property type may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
-	 * @param ps String property set name, which may be null
-	 * @param name String Property Type name
-	 * @return PropertyType or null
-	 */
-	public static PropertyType lookupPropertyType(String ps, String name) {
-		return EMFIndexRetrieval.getPropertyTypeInWorkspace(ps != null?(ps+ "::" +name):name);
-	}
-
-
-	/**
-	 * find property constant for given name. The property constant may be qualified by the property set name via the ps parameter
-	 * For predeclared properties this is not required
+	 * @param context EObject the model object that references the property definition
 	 * @param ps String property set name, which may be null
 	 * @param name String Property Constant name
 	 * @return PropertyConstant or null
 	 */
-	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
-		return EMFIndexRetrieval.getPropertyConstantInWorkspace(ps != null?(ps+ "::" +name):name);
+	public static PropertyConstant lookupPropertyConstant(EObject context, String qname) {
+		return EMFIndexRetrieval.getPropertyConstantInWorkspace(context,qname);
 	}
 
-	/**
-	 * find property definition/type/constant for given name. The name may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String Property Definition/Type/Constant name
-	 * @return NamedElement or null
-	 */
-	public static NamedElement lookupNamedElementInPropertySet(String name) {
-		return EMFIndexRetrieval.getPropertySetElementInWorkspace(name);
-	}
-
-	/**
-	 * find property definition for given property name. The property may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String Property Definition name
-	 * @return Property or null
-	 */
-	public static Property lookupPropertyDefinition(String name) {
-		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(name);
-	}
-
-
-	/**
-	 * find property type for given property name. The property type may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String property type name
-	 * @return PropertyType or null
-	 */
-	public static PropertyType lookupPropertyType(String name) {
-		return EMFIndexRetrieval.getPropertyTypeInWorkspace(name);
-	}
-
-
-	/**
-	 * find property constant for given property name. The property may be qualified by the property set name
-	 * For predeclared properties this is not required
-	 * @param name String property constant name
-	 * @return PropertyConstant or null
-	 */
-	public static PropertyConstant lookupPropertyConstant(String name) {
-		return EMFIndexRetrieval.getPropertyConstantInWorkspace(name);
-	}
+//	/**
+//	 * find property definition for given property name. The property may be qualified by the property set name via the ps parameter
+//	 * For predeclared properties this is not required
+//	 * @param ps String property set name, which may be null
+//	 * @param name String Property Definition name
+//	 * @return Property or null
+//	 */
+//	public static Property lookupPropertyDefinition(String ps, String name) {
+//		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//
+//	/**
+//	 * find property type for given name. The property type may be qualified by the property set name via the ps parameter
+//	 * For predeclared properties this is not required
+//	 * @param ps String property set name, which may be null
+//	 * @param name String Property Type name
+//	 * @return PropertyType or null
+//	 */
+//	public static PropertyType lookupPropertyType(String ps, String name) {
+//		return EMFIndexRetrieval.getPropertyTypeInWorkspace(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//
+//	/**
+//	 * find property constant for given name. The property constant may be qualified by the property set name via the ps parameter
+//	 * For predeclared properties this is not required
+//	 * @param ps String property set name, which may be null
+//	 * @param name String Property Constant name
+//	 * @return PropertyConstant or null
+//	 */
+//	public static PropertyConstant lookupPropertyConstant(String ps, String name) {
+//		return EMFIndexRetrieval.getPropertyConstantInWorkspace(ps != null?(ps+ "::" +name):name);
+//	}
+//
+//	/**
+//	 * find property definition/type/constant for given name. The name may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String Property Definition/Type/Constant name
+//	 * @return NamedElement or null
+//	 */
+//	public static NamedElement lookupNamedElementInPropertySet(String name) {
+//		return EMFIndexRetrieval.getPropertySetElementInWorkspace(name);
+//	}
+//
+//	/**
+//	 * find property definition for given property name. The property may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String Property Definition name
+//	 * @return Property or null
+//	 */
+//	public static Property lookupPropertyDefinition(String name) {
+//		return EMFIndexRetrieval.getPropertyDefinitionInWorkspace(name);
+//	}
+//
+//
+//	/**
+//	 * find property type for given property name. The property type may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String property type name
+//	 * @return PropertyType or null
+//	 */
+//	public static PropertyType lookupPropertyType(String name) {
+//		return EMFIndexRetrieval.getPropertyTypeInWorkspace(name);
+//	}
+//
+//
+//	/**
+//	 * find property constant for given property name. The property may be qualified by the property set name
+//	 * For predeclared properties this is not required
+//	 * @param name String property constant name
+//	 * @return PropertyConstant or null
+//	 */
+//	public static PropertyConstant lookupPropertyConstant(String name) {
+//		return EMFIndexRetrieval.getPropertyConstantInWorkspace(name);
+//	}
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
@@ -199,8 +219,8 @@ public class GetProperties {
 		return PropertiesLinkingService.findUnitLiteral(pd, literalname);
 	}
 	
-	public static UnitLiteral findUnitLiteral(String unitsType, String literal){
-		PropertyType pt = lookupPropertyType(unitsType);
+	public static UnitLiteral findUnitLiteral(Element context,String unitsType, String literal){
+		PropertyType pt = lookupPropertyType(context,unitsType);
 		if (pt == null || ! (pt instanceof UnitsType)) return null;
 		return (UnitLiteral) ((UnitsType)pt).findNamedElement(literal);
 	}
@@ -209,26 +229,26 @@ public class GetProperties {
 		return PropertiesLinkingService.findEnumerationLiteral(pd, literalname);
 	}
 	
-	public static EnumerationLiteral findEnumerationLiteral(String enumerationType, String literal){
-		PropertyType pt = lookupPropertyType(enumerationType);
+	public static EnumerationLiteral findEnumerationLiteral(Element context,String enumerationType, String literal){
+		PropertyType pt = lookupPropertyType(context,enumerationType);
 		if (pt == null || ! (pt instanceof EnumerationType)) return null;
 		return (EnumerationLiteral) ((EnumerationType)pt).findNamedElement(literal);
 	}
 	
 	public static UnitLiteral getKBUnitLiteral(NamedElement context){
-		return findUnitLiteral(AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
+		return findUnitLiteral(context,AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
 	
 	public static UnitLiteral getMSUnitLiteral(NamedElement context){
-		return findUnitLiteral(AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
+		return findUnitLiteral(context,AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
 	}
 	
 	public static UnitLiteral getSecUnitLiteral(NamedElement context){
-		return findUnitLiteral(AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
+		return findUnitLiteral(context,AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
 	}
 	
 	public static UnitLiteral getMIPSUnitLiteral(NamedElement context){
-		return findUnitLiteral("SEI::"+SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
+		return findUnitLiteral(context,"SEI::"+SEI.PROCESSOR_SPEED_UNITS, SEI.MIPS_LITERAL);
 	}
 	
 	
