@@ -64,6 +64,7 @@ import org.osate.aadl2.*;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.aadl2.util.Aadl2Util;
@@ -71,7 +72,6 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
 import org.osate.internal.workspace.AadlWorkspace;
-import org.osate.xtext.aadl2.properties.resources.OsateResourceUtil;
 
 /**
  * This class implements the converter from an AADL object model to textual

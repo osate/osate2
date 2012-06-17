@@ -132,8 +132,8 @@ public class OsateResourceUtil {
      * unload all aadl resources so they get reloaded for instantiation
      * @param rs Resource Set containing the instance model
      */
-    public static void refreshResourceSet(ResourceSet rs){
-    	EList<Resource> rlist = rs.getResources();
+    public static void refreshResourceSet(){
+    	EList<Resource> rlist = getResourceSet().getResources();
     	for (Resource resource : rlist) {
 			URI uri = resource.getURI();
 			if (uri.fileExtension().equalsIgnoreCase("aadl")||uri.fileExtension().equalsIgnoreCase("aadl2")){
@@ -338,8 +338,8 @@ public class OsateResourceUtil {
 			if (res.isLoaded()){
 				res.unload();
 			}
-			getResourceSet().getResources().remove(res);
-			res = getResourceSet().createResource(uri);
+//			getResourceSet().getResources().remove(res);
+//			res = getResourceSet().createResource(uri);
 		}
 		return res;
 	}
@@ -478,7 +478,7 @@ public class OsateResourceUtil {
 		ResourceSet sirs = eobj.eResource().getResourceSet();
 		if (rs != sirs){
 			// we unload all to make sure all changes make it into this resource set
-			refreshResourceSet(getResourceSet());
+			OsateResourceUtil.refreshResourceSet();
 			URI uri =EcoreUtil.getURI(eobj);
 			eobj = rs.getEObject(uri, true);
 		}
