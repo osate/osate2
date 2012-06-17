@@ -34,6 +34,8 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.core.OsateCorePlugin;
 import com.google.inject.Inject;
@@ -46,24 +48,16 @@ import com.google.inject.Injector;
 @SuppressWarnings("rawtypes")
 
 public class ModelLoadingAdapter  implements IAdapterFactory {
-//    private static org.apache.log4j.Logger log = org.apache.log4j.Logger
-//        .getLogger(ModelLoadingAdapter.class);
-//    private static Injector injector = OsateCorePlugin
-//            .getDefault().getInjector("org.osate.xtext.aadl2.properties.Properties");//org.osate.xtext.aadl2.Aadl2");
-//
-//    private static IResourceSetProvider fResourceSetProvider;
-//    
-//    private static XtextResourceSet resourceSet;
     
     /**
-     * XXX: Notice - the methods dealing with EMF Index operations has been moved to the EMFIndexLookup Class in org.osate.xtext.aadl2.properties.util
+     * XXX: Notice - the methods dealing with EMF Index operations has been moved to the EMFIndexRetrieval Class in org.osate.xtext.aadl2.properties.util
      */
 /*
  * * Usage:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
  */
     @Override
     public Object getAdapter(Object adaptableObject, Class adapterType) {
-        if (adapterType == ModelUnit.class || adapterType == Element.class) {
+        if (adapterType == ModelUnit.class || adapterType == Element.class|| adapterType == InstanceObject.class ||adapterType == SystemInstance.class) {
  
             if (adaptableObject instanceof ISelection) {
                 final ISelection sel = (ISelection)adaptableObject;
@@ -76,13 +70,20 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
             if (adaptableObject instanceof IFile) {
                 final IFile file = (IFile)adaptableObject;
                 String ext = file.getFileExtension();
-                if (ext == null || !(ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2"))) return null;
- 
-                XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
-                String sp = file.getFullPath().toString();
-                Resource resource = resourceSet.getResource(URI.createURI(sp),true);
-                ModelUnit model = (ModelUnit) resource.getContents().get(0);
-                return model;
+                if (ext == null ) return null;
+                if (ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2")){
+                    XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+                    String sp = file.getFullPath().toString();
+                    Resource resource = resourceSet.getResource(URI.createURI(sp),true);
+                    ModelUnit model = (ModelUnit) resource.getContents().get(0);
+                    return model;
+                } else if (ext.toLowerCase().equals("aaxl2")){
+                    XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
+                    String sp = file.getFullPath().toString();
+                    Resource resource = resourceSet.getResource(URI.createURI(sp),true);
+                    SystemInstance model = (SystemInstance) resource.getContents().get(0);
+                    return model;
+                }
             }
         }
  

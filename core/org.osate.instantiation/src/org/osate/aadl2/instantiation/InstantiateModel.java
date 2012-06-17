@@ -55,6 +55,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
@@ -217,6 +218,32 @@ public class InstantiateModel {
 		return root;
 	}
 
+	/*
+	 * This method will construct an instance model, save it on disk and return its root object 
+	 * The method will make sure the declarative models are up to date.
+	 * The Osate resource set is the shared resource set maintained by OsateResourceUtil
+	 * 
+	 * @param si system implementation
+	 * 
+	 * @return SystemInstance or <code>null</code> if cancelled.
+	 */
+	public static SystemInstance rebuildInstanceModelFile( final Resource res) {
+		SystemInstance target = (SystemInstance)res.getContents().get(0);
+		SystemImplementation si = target.getSystemImplementation();
+		URI uri =EcoreUtil.getURI(si);
+		res.unload();
+		OsateResourceUtil.refreshResourceSet();
+		si = (SystemImplementation)OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		final InstantiateModel instantiateModel =
+				new InstantiateModel(new NullProgressMonitor(),
+						new AnalysisErrorReporterManager(
+								internalErrorLogger,
+								new MarkerAnalysisErrorReporter.Factory(
+										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		SystemInstance root = instantiateModel.createSystemInstance(si, res);
+		return root;
+	}
+
 		/**
 		 * create a system instance into the provided (empty) resource and save it
 		 * This is performed as a transactional operation
@@ -263,7 +290,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
+	private SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() 
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
@@ -296,7 +323,7 @@ public class InstantiateModel {
 	}
 
 	/** 
-	 * Will in fill instance model under systeminstance but not save it
+	 * Will in fill instance model under system instance but not save it
 	 * @param root
 	 */
 	public void fillSystemInstance(SystemInstance root) {

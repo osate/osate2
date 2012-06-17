@@ -53,7 +53,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+import org.osate.xtext.aadl2.properties.ui.MyPropertiesActivator;
 
 
 /**
@@ -64,7 +64,7 @@ public class ModelEditingDomainFactory implements TransactionalEditingDomain.Fac
 		// create an editing domain with an Osate resource set
 		//    and delegating command execution to the default (workbench)
 		//    operation history
-		Aadl2Activator.getInstance();
+		MyPropertiesActivator.getInstance();
 		ResourceSet rset = OsateResourceUtil.createResourceSet();
 		if (rset == null) return null;
 		TransactionalEditingDomain result = WorkspaceEditingDomainFactory.INSTANCE.createEditingDomain(rset);

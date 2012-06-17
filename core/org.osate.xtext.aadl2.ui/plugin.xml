@@ -251,6 +251,7 @@
 		</command>
 	</extension>
     <extension point="org.eclipse.ui.menus">
+    <!-- in editor window -->
          <menuContribution
 		 allPopups="false"
          locationURI="popup:#TextEditorContext?after=additions">
@@ -264,17 +265,26 @@
          </visibleWhen>
         </command>
       </menuContribution> 
-   </extension>
-    <extension point="org.eclipse.ui.menus">
-		<menuContribution
+    <!-- in editor outline -->
+		<menuContribution 
 		allPopups="false"
-		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions ">
+		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 		<command
 		commandId="org.osate.xtext.aadl2.ui.instantiate"
 		tooltip="Do Instantiate" 
 		style="push">
 		</command>
 	</menuContribution>
+    <!-- in navigator -->
+       <menuContribution
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+         <command
+		commandId="org.osate.xtext.aadl2.ui.instantiate"
+               label="Reinstantiate existing instance"
+		tooltip="Do (re)Instantiate" 
+               style="push">
+         </command>
+      </menuContribution>
    </extension> 
 
    	<!-- SaveAs XMI -->
@@ -316,7 +326,7 @@
     <extension point="org.eclipse.ui.menus">
 		<menuContribution
 		allPopups="false"
-		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions ">
+		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 		<command
 		commandId="org.osate.xtext.aadl2.ui.saveasxmi"
 		tooltip="Do Save As XMI(aaxl2)" 
