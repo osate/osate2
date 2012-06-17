@@ -829,5 +829,4 @@ public class GetProperties {
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
 
-	
 }
