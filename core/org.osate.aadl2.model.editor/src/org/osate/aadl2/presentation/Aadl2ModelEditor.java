@@ -610,11 +610,11 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 			try {
 				if (res.isLoaded()) {
 					res.unload();
-				}
-				try {
-					res.load(Collections.EMPTY_MAP);
-				} catch (IOException exception) {
-					Aadl2EditorPlugin.INSTANCE.log(exception);
+					try {
+						res.load(Collections.EMPTY_MAP);
+					} catch (IOException exception) {
+						Aadl2EditorPlugin.INSTANCE.log(exception);
+					}
 				}
 
 				selectionViewer.setInput(getResource());
@@ -1690,7 +1690,7 @@ public class Aadl2ModelEditor extends MultiPageEditorPart implements IEditingDom
 		//         indication adapter
 		
 		// XXX XXX should not remove the resource possibly not even unload it
-		getResource().unload();
+//		getResource().unload();
 //		editingDomain.getResourceSet().getResources().remove(getResource());
 		editingDomain.getResourceSet().eAdapters().remove(problemIndicationAdapter);
 
