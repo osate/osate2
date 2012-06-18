@@ -28,6 +28,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
@@ -86,51 +87,26 @@ public class InstantiateHandler extends AbstractHandler {
 				for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
 					final Object f = (Object) iterator.next();
 					if (f instanceof IResource){
-						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-						for (int i = 0; i < editorRefs.length; i++) {
-							IEditorReference edref = editorRefs[i];
-							IEditorPart edpart = edref.getEditor(false);
-							String me = edpart.getEditorInput().getName();
-							String fname = ((IResource) f).getName();
-							if (edpart instanceof Aadl2ModelEditor && me.equals(fname)){
-								page.closeEditor(edpart, true);
-							}
-						}
+//						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+//						for (int i = 0; i < editorRefs.length; i++) {
+//							IEditorReference edref = editorRefs[i];
+//							String pname = edref.getPartName();
+//							IEditorPart edpart = edref.getEditor(true);
+//							String fname = ((IResource) f).getName();
+//							if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
+//								page.closeEditor(edpart, true);
+//							}
+//						}
 					    
-						if (WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(((IResource)f).getFileExtension())){
-							try {
-								final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
-										.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-								// We execute this command on the command stack because otherwise, we will not
-								//  have write permissions on the editing domain.
-								Command cmd = new RecordingCommand(domain) {
-
-									protected void doExecute() {
 										Resource res = OsateResourceUtil.getResource((IResource)f);
-										InstantiateModel.rebuildInstanceModelFile(res);
-										OsateResourceUtil.save(res);
-										// unloading causes other entities (e.g., instance editor) to have to load the instance again
-										// which they can do when notified
-										res.unload();
-									}
+										SystemInstance target = (SystemInstance)res.getContents().get(0);
+										SystemImplementation si = target.getSystemImplementation();
+										SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+//										InstantiateModel.rebuildInstanceModelFile(res);
+//										// unloading causes other entities (e.g., instance editor) to have to load the instance again
+//										// which they can do when notified
+//										res.unload();
 
-								};
-
-								try {
-									((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								} catch (RollbackException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							} catch (Exception e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-						}
 					}
 				}
 			}

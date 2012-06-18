@@ -338,8 +338,8 @@ public class OsateResourceUtil {
 			if (res.isLoaded()){
 				res.unload();
 			}
-//			getResourceSet().getResources().remove(res);
-//			res = getResourceSet().createResource(uri);
+			getResourceSet().getResources().remove(res);
+			res = getResourceSet().createResource(uri);
 		}
 		return res;
 	}
@@ -478,8 +478,8 @@ public class OsateResourceUtil {
 		ResourceSet sirs = eobj.eResource().getResourceSet();
 		if (rs != sirs){
 			// we unload all to make sure all changes make it into this resource set
-			OsateResourceUtil.refreshResourceSet();
 			URI uri =EcoreUtil.getURI(eobj);
+			OsateResourceUtil.refreshResourceSet();
 			eobj = rs.getEObject(uri, true);
 		}
 		return eobj;
