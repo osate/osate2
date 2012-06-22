@@ -85,12 +85,12 @@ public class AnnexParserAgent  extends LazyLinker {
 				offset = offset + (nlength-sourcelength-1);
 				AnnexLibrary al = null;
 				// call the new error annex as a XText generated frontend
-				if ("emv2".equalsIgnoreCase(defaultAnnexLibrary.getName())){
+//				if ("emv2".equalsIgnoreCase(defaultAnnexLibrary.getName())){
 
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					al = (AnnexLibrary) empr.getParser().parseLibrary(defaultAnnexLibrary,sourceText,line,offset);
-					// error annex object is already linked in
-				} else 
+//					// error annex object is already linked in
+//				} else 
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexLibrary.getSourceText();
@@ -133,11 +133,11 @@ public class AnnexParserAgent  extends LazyLinker {
 				int sourcelength = sourceText.length();
 				offset = offset + (nlength-sourcelength-1);
 				// call the new error annex as a XText generated frontend
-				if (defaultAnnexSubclause.getName().equalsIgnoreCase("emv2")){
+//				if (defaultAnnexSubclause.getName().equalsIgnoreCase("emv2")){
 //					final AnnexLanguageServices empr = new ErrorModelLanguageServices()  ;
 //					AnnexSubclause al = (AnnexSubclause) empr.getParser().parseSubclause(defaultAnnexSubclause,sourceText,line,offset);
-					// error annex object is already linked in
-				} else
+//					// error annex object is already linked in
+//				} else
 				{
 					// look for plug-in parser
 					String annexText = defaultAnnexSubclause.getSourceText();
@@ -170,16 +170,6 @@ public class AnnexParserAgent  extends LazyLinker {
 			}
 			
 		}
-		// from XtextResource:
-//		if (parseResult == null || parseResult.getRootASTElement() == null)
-//			return;
-//
-//		final ListBasedDiagnosticConsumer consumer = new ListBasedDiagnosticConsumer();
-//		linker.linkModel(parseResult.getRootASTElement(), consumer);
-//		if (!validationDisabled) {
-//			getErrors().addAll(consumer.getResult(Severity.ERROR));
-//			getWarnings().addAll(consumer.getResult(Severity.WARNING));
-//		}
 
 
 		
