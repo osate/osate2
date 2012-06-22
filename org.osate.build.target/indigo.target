@@ -51,7 +51,7 @@
 <unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.0.1.R37x_v20110906-8290FZ3FUqIcLqkVkEaTdn_14C7G"/>
 <unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.1.2.R37x_v20110815-1155-6-Bj9JXOeQxOURYC-l9BL7rDEQO7"/>
 <unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.0.1.R37x_v20110906-782EpBqNKGUkZQpuT8hAlWlFbUeo"/>
-<repository location="jar:file:/home/lw/projects/osate2-dev-ws/core/org.osate.build.target/org.eclipse.platform-3.7.1.zip!/"/>
+<repository location="jar:file:/SEI/Tools/Misc/org.eclipse.platform-3.7.1.zip!/"/>
 </location>
 </locations>
 </target>
