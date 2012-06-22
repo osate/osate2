@@ -60,6 +60,9 @@ public class AnnexParserAgent  extends LazyLinker {
 					new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
 							parseErrorLoggerFactory));
 			final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
+			if (errReporter instanceof MarkerParseErrorReporter){
+				((MarkerParseErrorReporter)errReporter).setContextResource(model.eResource());
+			}
 			final AnalysisErrorReporterManager resolveErrManager = 
 					new AnalysisErrorReporterManager(
 							internalErrorLogger,
