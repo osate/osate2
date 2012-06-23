@@ -56,6 +56,9 @@ public abstract class AnnexRegistry {
 	/** ID of annex resolver extension point */
 	public static final String ANNEX_RESOLVER_EXT_ID = "resolver";
 
+	/** ID of annex resolver extension point */
+	public static final String ANNEX_LINKINGSERVICE_EXT_ID = "linkingservice";
+
 	/** ID of annex instantiator extension point */
 	public static final String ANNEX_INSTANTIATOR_EXT_ID = "instantiator";
 
@@ -88,6 +91,8 @@ public abstract class AnnexRegistry {
 				return new AnnexUnparserRegistry();
 		} else if (extensionId == ANNEX_RESOLVER_EXT_ID) {
 			return new AnnexResolverRegistry();
+		} else if (extensionId == ANNEX_LINKINGSERVICE_EXT_ID) {
+			return new AnnexLinkingServiceRegistry();
 		} else if (extensionId == ANNEX_INSTANTIATOR_EXT_ID) {
 			return new AnnexInstantiatorRegistry();
 		}

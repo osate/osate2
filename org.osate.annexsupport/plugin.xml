@@ -5,6 +5,7 @@
      <extension-point id="parser" name="Annex Parser" schema="schema/annexparser.exsd"/>
    <extension-point id="unparser" name="Annex Unparser" schema="schema/annexunparser.exsd"/>
    <extension-point id="resolver" name="Annex Resolver" schema="schema/annexresolver.exsd"/>
+   <extension-point id="linkingservice" name="Annex Linking Service" schema="schema/annexlinkingservice.exsd"/>
    <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
    <extension point="org.osate.annexsupport.parser">
       <parser
