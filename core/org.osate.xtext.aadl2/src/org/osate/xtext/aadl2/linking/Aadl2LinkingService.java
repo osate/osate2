@@ -62,20 +62,34 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.annexsupport.AnnexLinkingService;
+import org.osate.annexsupport.AnnexLinkingServiceRegistry;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexResolver;
+import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 //	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
 //	private ILinkingService emLS = emLangS.getLinkingService();
+
+	AnnexLinkingServiceRegistry linkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
+			.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
+
 	
 	@Override
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
 		NamedElement annex = AadlUtil.getContainingAnnex(context);
+		String annexName = annex.getName();
 		if (annex != null){
-			String annexName = annex.getName();
-			if (annexName != null && annexName.equalsIgnoreCase("emv2")){
-//				return emLS.getLinkedObjects(context, reference, node);
+			if (annexName != null ){
+				AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
+				if (linkingservice != null){
+				return linkingservice.resolveAnnexReference(annexName,context, reference, node);
+				} else {
+					return super.getLinkedObjects(context, reference, node);
+				}
 			} else {
 				return super.getLinkedObjects(context, reference, node);
 			}

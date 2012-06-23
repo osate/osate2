@@ -32,19 +32,23 @@
  * </copyright>
  */
 package org.osate.annexsupport;
-
-import java.util.List;
-
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.xtext.nodemodel.INode;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-
+import org.eclipse.core.runtime.IConfigurationElement;
 
 /**
  * @author lwrage
- * @version $Id: AnnexResolver.java,v 1.6 2009-10-09 18:49:32 lwrage Exp $
+ * @version $Id: AnnexResolverRegistry.java,v 1.3 2007-07-10 20:41:44 jseibel Exp $
  */
-public interface AnnexResolver {
-	void resolveAnnex(String annexName, List annexElements, AnalysisErrorReporterManager errManager);
+public class AnnexLinkingServiceRegistry extends AnnexRegistry {
+	
+	protected AnnexLinkingServiceRegistry() {
+		initialize(ANNEX_LINKINGSERVICE_EXT_ID);
+	}
+
+	public AnnexLinkingService getAnnexLinkingService(String annexName) {
+		return (AnnexLinkingService) extensions.get(annexName.toLowerCase());
+	}
+
+	protected AnnexProxy createProxy(IConfigurationElement configElem) {
+		return new AnnexLinkingServiceProxy(configElem);
+	}
 }

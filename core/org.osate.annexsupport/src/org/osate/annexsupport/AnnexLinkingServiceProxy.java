@@ -33,8 +33,10 @@
  */
 package org.osate.annexsupport;
 
+import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.nodemodel.INode;
@@ -43,8 +45,48 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 /**
  * @author lwrage
- * @version $Id: AnnexResolver.java,v 1.6 2009-10-09 18:49:32 lwrage Exp $
+ * @version $Id: AnnexResolverProxy.java,v 1.7 2009-10-09 18:49:32 lwrage Exp $
  */
-public interface AnnexResolver {
-	void resolveAnnex(String annexName, List annexElements, AnalysisErrorReporterManager errManager);
+public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinkingService {
+
+	/** The annex resolver instance. */
+	private AnnexLinkingService linkingservice = null;
+
+	/**
+	 * Create a new annex resolver proxy.
+	 */
+	AnnexLinkingServiceProxy(IConfigurationElement configElem) {
+		super(configElem);
+	}
+
+	
+	// mechanism to resolve individual references in an Xtext based setting
+	public List<EObject> resolveAnnexReference(String annexName, EObject context,EReference reference, INode node) {
+		AnnexLinkingService resolver = getLinkingService();
+
+		if (resolver == null) {
+			return Collections.<EObject> emptyList();
+		}
+		try {
+			return resolver.resolveAnnexReference(annexName, context, reference, node);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return Collections.<EObject> emptyList();
+	}
+
+
+	private AnnexLinkingService getLinkingService() {
+		if (linkingservice != null) {
+			return linkingservice;
+		}
+		try {
+			linkingservice = (AnnexLinkingService) configElem.createExecutableExtension(ATT_CLASS);
+		} catch (Exception e) {
+			AnnexPlugin.logError("Failed to instantiate " + annexName + " linking service " + className + " in type: " + id
+					+ " in plugin " + configElem.getDeclaringExtension().getContributor().getName(), e);
+		}
+		return linkingservice;
+	}
 }
