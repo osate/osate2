@@ -81,8 +81,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	public List<EObject> getLinkedObjects(EObject context,
 			EReference reference, INode node) throws IllegalNodeException {
 		NamedElement annex = AadlUtil.getContainingAnnex(context);
-		String annexName = annex.getName();
 		if (annex != null){
+			String annexName = annex.getName();
 			if (annexName != null ){
 				AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
 				if (linkingservice != null){
