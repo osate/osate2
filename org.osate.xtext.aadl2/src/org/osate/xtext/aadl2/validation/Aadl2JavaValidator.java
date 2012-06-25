@@ -1174,7 +1174,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkFormalOfComponentPrototypeBinding(
 			ComponentPrototypeBinding binding) {
-		if (!(binding.getFormal() instanceof ComponentPrototype))
+		Prototype formal = binding.getFormal();
+		// formal might be null or a proxy if it could not be resolved.
+		// in that case that is already reported.
+		if (!Aadl2Util.isNull(formal) && !(binding.getFormal() instanceof ComponentPrototype))
 			error(binding, '\'' + binding.getFormal().getName()
 					+ "' is not a component prototype.");
 	}
