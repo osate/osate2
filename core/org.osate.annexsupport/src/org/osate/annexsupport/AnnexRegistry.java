@@ -62,6 +62,10 @@ public abstract class AnnexRegistry {
 	/** ID of annex instantiator extension point */
 	public static final String ANNEX_INSTANTIATOR_EXT_ID = "instantiator";
 
+	/** ID of annex highlighter extension point */
+		public static final String ANNEX_HIGHLIGHTER_EXT_ID = "highlighter";
+		
+
 	private static final String ATT_ANNEXNAME = "annexName";
 
 	private static final Map registries = new HashMap();
@@ -95,6 +99,8 @@ public abstract class AnnexRegistry {
 			return new AnnexLinkingServiceRegistry();
 		} else if (extensionId == ANNEX_INSTANTIATOR_EXT_ID) {
 			return new AnnexInstantiatorRegistry();
+		} else if (extensionId == ANNEX_HIGHLIGHTER_EXT_ID) {
+			return new AnnexHighlighterRegistry();
 		}
 		return null;
 	}

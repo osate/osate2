@@ -28,5 +28,8 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		return org.osate.xtext.aadl2.ui.syntax.Aadl2SyntaxErrorMessageProvider.class;
 	}
 
+	public Class<? extends org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator> bindSemanticHighlightingCalculator() {
+		return org.osate.xtext.aadl2.ui.highlighting.Aadl2SemanticHighlightingCalculator.class;
+	}
 	
 }

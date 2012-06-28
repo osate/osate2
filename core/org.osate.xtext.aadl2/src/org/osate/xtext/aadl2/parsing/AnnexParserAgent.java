@@ -38,6 +38,7 @@ import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
+import org.osate.annexsupport.AnnexSourceImpl;
 import org.osate.core.OsateCorePlugin;
 
 import antlr.RecognitionException;
@@ -111,6 +112,7 @@ public class AnnexParserAgent  extends LazyLinker {
 					if (al != null && errReporter.getNumErrors() == errs) 
 					{ 
 						al.setName(annexName);
+						al.eAdapters().add(new AnnexSourceImpl(annexText, offset+3)); // Attach Annex Source text information to the new object
 						// replace default annex library with the new one. 
 						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
 						int idx = ael.indexOf(defaultAnnexLibrary);
@@ -163,6 +165,8 @@ public class AnnexParserAgent  extends LazyLinker {
 					if (asc != null && errReporter.getNumErrors() == errs) 
 					{
 						asc.setName(annexName);
+						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset+3)); // Attach Annex Source text information to the new object
+														
 						// replace default annex library with the new one. 
 						EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
 						int idx = ael.indexOf(defaultAnnexSubclause);

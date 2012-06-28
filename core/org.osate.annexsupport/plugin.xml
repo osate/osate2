@@ -7,7 +7,8 @@
    <extension-point id="resolver" name="Annex Resolver" schema="schema/annexresolver.exsd"/>
    <extension-point id="linkingservice" name="Annex Linking Service" schema="schema/annexlinkingservice.exsd"/>
    <extension-point id="instantiator" name="Annex Instantiator" schema="schema/annexinstantiator.exsd"/>
-   <extension point="org.osate.annexsupport.parser">
+   <extension-point id="highlighter" name="Annex Highlighter" schema="schema/annexhighlighter.exsd"/>
+     <extension point="org.osate.annexsupport.parser">
       <parser
             annexName="*"
             class="org.osate.annexsupport.DefaultAnnexParser"
