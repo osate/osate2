@@ -265,6 +265,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkPortConnectionEnds(connection);
 
 	}
+	
+	@Check(CheckType.FAST)
+	public void caseAccessConnection(AccessConnection connection) {
+		checkAccessConnectionCategory(connection);
+		checkAccessConnectionProvidesRequires(connection);
+		checkAccessConnectionClassifiers(connection);
+	}
 
 	@Check(CheckType.FAST)
 	public void caseDirectedFeature(DirectedFeature feature) {
@@ -2253,6 +2260,168 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				|| destination instanceof EventDataPort )){
 			error(connection, "Source data access feature '" + source.getName() + "' must be connected to an event, data, or event data port destination.");
 			return;
+		}
+	}
+	
+	/**
+	 * Check category of source and destination
+	 * Section 9.4 Legality rule L11
+	 */
+	private void checkAccessConnectionCategory(AccessConnection connection) {
+		AccessCategory connectionCategory = connection.getAccessCategory();
+		
+		AccessConnectionEnd source = (AccessConnectionEnd)connection.getAllSource();
+		AccessCategory sourceCategory = null;
+		if (source == null && connection.getSource() instanceof ProcessorSubprogram)
+			sourceCategory = AccessCategory.SUBPROGRAM;
+		if (source instanceof Access)
+			sourceCategory = ((Access)source).getCategory();
+		else if (source instanceof BusSubcomponent)
+			sourceCategory = AccessCategory.BUS;
+		else if (source instanceof DataSubcomponent)
+			sourceCategory = AccessCategory.DATA;
+		else if (source instanceof SubprogramSubcomponent)
+			sourceCategory = AccessCategory.SUBPROGRAM;
+		else if (source instanceof SubprogramGroupSubcomponent)
+			sourceCategory = AccessCategory.SUBPROGRAM_GROUP;
+		
+		AccessConnectionEnd destination = (AccessConnectionEnd)connection.getAllDestination();
+		AccessCategory destinationCategory = null;
+		if (destination == null && connection.getDestination() instanceof ProcessorSubprogram)
+			destinationCategory = AccessCategory.SUBPROGRAM;
+		if (destination instanceof Access)
+			destinationCategory = ((Access)destination).getCategory();
+		else if (destination instanceof BusSubcomponent)
+			destinationCategory = AccessCategory.BUS;
+		else if (destination instanceof DataSubcomponent)
+			destinationCategory = AccessCategory.DATA;
+		else if (destination instanceof SubprogramSubcomponent)
+			destinationCategory = AccessCategory.SUBPROGRAM;
+		else if (destination instanceof SubprogramGroupSubcomponent)
+			destinationCategory = AccessCategory.SUBPROGRAM_GROUP;
+		
+		if (!connectionCategory.equals(sourceCategory)) {
+			error(connection, "The source of a " + connectionCategory.getName() + " access connection must be a " + connectionCategory.getName() +
+					" access feature or a " + connectionCategory.getName() + " subcomponent.");
+		}
+		
+		if (!connectionCategory.equals(destinationCategory)) {
+			error(connection, "The destination of a " + connectionCategory.getName() + " access connection must be a " + connectionCategory.getName() +
+					" access feature or a " + connectionCategory.getName() + " subcomponent.");
+		}
+	}
+	
+	/**
+	 * Check provides/requires of access connection ends
+	 * Section 9.4 Legality rules L5, L6, and L7
+	 */
+	private void checkAccessConnectionProvidesRequires(AccessConnection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		AccessType sourceType = null;
+		AccessType destinationType = null;
+		Context srcContext = connection.getAllSourceContext();
+		Context dstContext = connection.getAllDestinationContext();
+		
+		if (source instanceof Access) {
+			sourceType = ((Access)source).getKind();
+			if (srcContext instanceof FeatureGroup) {
+				if (((FeatureGroup)srcContext).isInverse())
+					sourceType = sourceType.getInverseType();
+				FeatureGroupType srcFGT = ((FeatureGroup)srcContext).getAllFeatureGroupType();
+				FeatureGroupType contsrcFGT = (FeatureGroupType)((Access)source).getContainingClassifier();
+				if (!srcFGT.equals(contsrcFGT) && srcFGT.getInverse() != null) {
+					// feature group type has inverse and feature is defined in the inverse FGT
+					sourceType = sourceType.getInverseType();
+				}
+			}
+		}
+		
+		if (destination instanceof Access) {
+			destinationType = ((Access)destination).getKind();
+			if (dstContext instanceof FeatureGroup) {
+				if (((FeatureGroup)dstContext).isInverse())
+					destinationType = destinationType.getInverseType();
+				FeatureGroupType dstFGT = ((FeatureGroup)dstContext).getAllFeatureGroupType();
+				FeatureGroupType contdstFGT = (FeatureGroupType)((Access)destination).getContainingClassifier();
+				if (!dstFGT.equals(contdstFGT) && dstFGT.getInverse() != null) {
+					//feature group type has inverse and feature is defined in the inverse FGT
+					destinationType = destinationType.getInverseType();
+				}
+			}
+		}
+		
+		//Test for L5: connection between access features of sibling components
+		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access && destination instanceof Access) {
+			if (!sourceType.equals(AccessType.PROVIDED))
+				error(connection, "Source must be a provides access for connections between access features of sibling components.");
+			if (!destinationType.equals(AccessType.REQUIRED))
+				error(connection, "Destination must be a requires access for connections between access features of sibling components.");
+		}
+		//Test for the common case of L6 and L7: connection between an access feature in the containing component and an access feature in a subcomponent.
+		else if (source instanceof Access && destination instanceof Access &&
+				((srcContext instanceof Subcomponent && (dstContext == null || dstContext instanceof FeatureGroup)) ||
+						(dstContext instanceof Subcomponent && (srcContext == null || srcContext instanceof FeatureGroup)))) {
+			if (!sourceType.equals(destinationType))
+				error(connection, "Source and destination must both be provides or requires for a connection mapping features up or down the containment hierarchy.");
+		}
+		//Test for L6: connection between subcomponent and access feature
+		else if (source instanceof Subcomponent && destination instanceof Access && (dstContext == null || dstContext instanceof FeatureGroup)) {
+			if (!destinationType.equals(AccessType.PROVIDED))
+				error(connection, '\'' + destination.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
+		}
+		//Test for L6: connection between access feature and subcomponent
+		else if (destination instanceof Subcomponent && source instanceof Access && (srcContext == null || srcContext instanceof FeatureGroup)) {
+			if (!sourceType.equals(AccessType.PROVIDED))
+				error(connection, '\'' + source.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
+		}
+		//Test for L7: connection between subcomponent and access feature of subcomponent
+		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
+			if (!destinationType.equals(AccessType.REQUIRED))
+				error(connection, '\'' + destination.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
+		}
+		//Test for L7: connection between access feature of subcomponent and subcomponent
+		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
+			if (!sourceType.equals(AccessType.REQUIRED))
+				error(connection, '\'' + source.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
+		}
+	}
+	
+	/**
+	 * Check classifiers of source and destination
+	 * Similar to checkPortConnectionClassifiers
+	 * Section 9.4 Legality rule L9
+	 */
+	private void checkAccessConnectionClassifiers(AccessConnection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
+			ComponentClassifier sourceClassifier;
+			ComponentClassifier destinationClassifier;
+			if (source instanceof Access)
+				sourceClassifier = ((Access)source).getAllClassifier();
+			else
+				sourceClassifier = ((Subcomponent)source).getAllClassifier();
+			if (destination instanceof Access)
+				destinationClassifier = ((Access)destination).getAllClassifier();
+			else
+				destinationClassifier = ((Subcomponent)destination).getAllClassifier();
+			if (sourceClassifier !=destinationClassifier) {
+				if (sourceClassifier == null)
+					warning(connection, '\'' + source.getName() + "' is missing a classifier.");
+				else if (destinationClassifier == null)
+					warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
+				else if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
+					if (!sourceClassifier.equals(((ComponentImplementation)destinationClassifier).getType()))
+						warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+				}
+				else if (sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentType) {
+					if (!destinationClassifier.equals(((ComponentImplementation)sourceClassifier).getType()))
+						warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+				}
+				else
+					error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
+			}
 		}
 	}
 
