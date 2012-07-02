@@ -82,9 +82,6 @@ import org.osate.workspace.IResourceUtility;
  * removes them if the instantiated system component no longer exists.
  */
 public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-	private static final IAadlWorkspace workspace = AadlWorkspace.getAadlWorkspace();
-	private static final InternalErrorReporter internalErrorLogger =
-		new LogInternalErrorReporter(OsateUiPlugin.getDefault().getBundle());
 	
 	/** Set of currently selected instance models as IResources.  
 	 *   If the set is empty then the action will run on 
