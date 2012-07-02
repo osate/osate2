@@ -190,15 +190,15 @@ ruleAadlPackage returns [EObject current=null]
 	    }
 
 )
-))(
+))((
 	otherlv_5=KEYWORD_88
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0());
+    	newLeafNode(otherlv_5, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_0_1_0()); 
 	    }
 		lv_ownedPropertyAssociation_6_0=ruleBasicPropertyAssociation		{
 	        if ($current==null) {
@@ -213,28 +213,39 @@ ruleAadlPackage returns [EObject current=null]
 	    }
 
 )
-)+)?
-	otherlv_7=KEYWORD_28
+)+)
+    |(
+	otherlv_7=KEYWORD_35
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAadlPackageAccess().getEndKeyword_4());
+    	newLeafNode(otherlv_7, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_0());
     }
-this_ID_8=RULE_ID
-    { 
-    newLeafNode(this_ID_8, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_5()); 
-    }
-(
-	otherlv_9=KEYWORD_17
+
+	otherlv_8=KEYWORD_9
     {
-    	newLeafNode(otherlv_9, grammarAccess.getAadlPackageAccess().getColonColonKeyword_6_0());
+    	newLeafNode(otherlv_8, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1());
+    }
+))?
+	otherlv_9=KEYWORD_28
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getAadlPackageAccess().getEndKeyword_4());
     }
 this_ID_10=RULE_ID
     { 
-    newLeafNode(this_ID_10, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_6_1()); 
+    newLeafNode(this_ID_10, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_5()); 
+    }
+(
+	otherlv_11=KEYWORD_17
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getAadlPackageAccess().getColonColonKeyword_6_0());
+    }
+this_ID_12=RULE_ID
+    { 
+    newLeafNode(this_ID_12, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_6_1()); 
     }
 )*
-	otherlv_11=KEYWORD_9
+	otherlv_13=KEYWORD_9
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_13, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_7());
     }
 )
 ;
