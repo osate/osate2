@@ -308,16 +308,18 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				Context flowendcxt = ((FlowEnd)context).getContext();
 				if (flowendcxt instanceof FeatureGroup){
 					FeatureGroupType fgt = ((FeatureGroup)flowendcxt).getAllFeatureGroupType();
-					if (fgt.getInverse()!=null&& fgt.getAllFeatures().isEmpty()){
+					if (fgt != null && fgt.getInverse()!=null&& fgt.getAllFeatures().isEmpty()){
 						ns = fgt.getInverse();
 					}else {
 						ns = fgt;
 					}
 				}
 			}
-			EObject res = ns.findNamedElement(name);
-			if (res != null && res instanceof Feature) {
-				searchResult = res;
+			if (ns != null) {
+				EObject res = ns.findNamedElement(name);
+				if (res != null && res instanceof Feature) {
+					searchResult = res;
+				}
 			}
 
 		} else if (Aadl2Package.eINSTANCE.getSubcomponent().isSuperTypeOf(requiredType)) {
