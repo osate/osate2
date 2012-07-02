@@ -46,9 +46,9 @@ public final class LogInternalErrorReporter extends AbstractInternalErrorReporte
 
 	}
 	
-	/**
-	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
-	 */
-	public static LogInternalErrorReporter prototype = 		new LogInternalErrorReporter(null);
-
+//	/**
+//	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
+//	 */
+//	public static LogInternalErrorReporter prototype = 		new LogInternalErrorReporter(null);
+//
 }
