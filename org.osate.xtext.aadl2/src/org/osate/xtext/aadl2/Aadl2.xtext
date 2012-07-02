@@ -16,7 +16,10 @@ AadlPackage returns aadl2::AadlPackage:
 	(ownedPrivateSection=PrivatePackageSection)?) |
 	ownedPrivateSection=PrivatePackageSection)
 	('properties'
-	((ownedPropertyAssociation+=BasicPropertyAssociation)+ ))? //| (noProperties?='none' ';')
+	((ownedPropertyAssociation+=BasicPropertyAssociation)+ )
+//| (noProperties?='none' ';')
+	| 'none' ';'
+	)? 
 	'end' ID ('::' ID)* ';';
 
 
