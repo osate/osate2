@@ -56,6 +56,7 @@ import org.osate.aadl2.ThreadGroupImplementation;
 import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadSubcomponent;
+import org.osate.aadl2.VirtualProcessorType;
 
 /**
  * <!-- begin-user-doc -->
@@ -318,7 +319,8 @@ public class ThreadGroupImplementationImpl extends ComponentImplementationImpl i
 	 */
 	@Override
 	public ThreadGroupType getType() {
-		return (ThreadGroupType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof ThreadGroupType?(ThreadGroupType) ct: null;
 	}
 
 	/**

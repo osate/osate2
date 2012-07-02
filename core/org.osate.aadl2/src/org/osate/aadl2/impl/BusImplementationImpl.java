@@ -50,6 +50,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DataType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 
@@ -141,7 +142,8 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 	 */
 	@Override
 	public BusType getType() {
-		return (BusType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof BusType?(BusType) ct: null;
 	}
 
 	/**

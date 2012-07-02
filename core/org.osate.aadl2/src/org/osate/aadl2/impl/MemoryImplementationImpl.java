@@ -52,6 +52,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemoryType;
+import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
 
 /**
@@ -202,7 +203,8 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public MemoryType getType() {
-		return (MemoryType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof MemoryType?(MemoryType) ct: null;
 	}
 
 	/**

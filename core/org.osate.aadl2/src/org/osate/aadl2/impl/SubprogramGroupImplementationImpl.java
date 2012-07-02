@@ -54,6 +54,7 @@ import org.osate.aadl2.SubprogramGroupImplementation;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.SubprogramSubcomponent;
+import org.osate.aadl2.SubprogramType;
 
 /**
  * <!-- begin-user-doc -->
@@ -245,7 +246,8 @@ public class SubprogramGroupImplementationImpl extends ComponentImplementationIm
 	 */
 	@Override
 	public SubprogramGroupType getType() {
-		return (SubprogramGroupType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof SubprogramGroupType?(SubprogramGroupType) ct: null;
 	}
 
 	/**

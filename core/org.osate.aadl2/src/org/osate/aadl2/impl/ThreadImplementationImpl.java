@@ -242,7 +242,8 @@ public class ThreadImplementationImpl extends BehavioredImplementationImpl imple
 	 */
 	@Override
 	public ThreadType getType() {
-		return (ThreadType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof ThreadType?(ThreadType) ct: null;
 	}
 
 	/**

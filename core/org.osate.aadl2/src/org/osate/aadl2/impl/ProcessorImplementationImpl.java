@@ -53,6 +53,7 @@ import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.ProcessorImplementation;
 import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubprogramGroupType;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 
@@ -278,7 +279,8 @@ public class ProcessorImplementationImpl extends ComponentImplementationImpl imp
 	 */
 	@Override
 	public ProcessorType getType() {
-		return (ProcessorType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof ProcessorType?(ProcessorType) ct: null;
 	}
 
 	/**

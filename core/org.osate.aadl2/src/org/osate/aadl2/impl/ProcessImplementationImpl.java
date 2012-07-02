@@ -51,6 +51,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessType;
+import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
@@ -317,7 +318,8 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 	 */
 	@Override
 	public ProcessType getType() {
-		return (ProcessType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof ProcessType?(ProcessType) ct: null;
 	}
 
 	/**

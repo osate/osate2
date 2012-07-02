@@ -50,6 +50,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
+import org.osate.aadl2.VirtualBusType;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.VirtualProcessorType;
@@ -207,7 +208,8 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 	 */
 	@Override
 	public VirtualProcessorType getType() {
-		return (VirtualProcessorType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof VirtualProcessorType?(VirtualProcessorType) ct: null;
 	}
 
 	/**

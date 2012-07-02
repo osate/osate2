@@ -50,6 +50,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.BusType;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceSubcomponent;
@@ -615,7 +616,8 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 	 */
 	@Override
 	public AbstractType getType() {
-		return (AbstractType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof AbstractType?(AbstractType) ct: null;
 	}
 
 	/**
