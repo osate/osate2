@@ -235,5 +235,12 @@ public enum AccessType implements Enumerator {
 	public String toString() {
 		return literal;
 	}
+	
+	public AccessType getInverseType() {
+		if (equals(PROVIDED))
+			return REQUIRED;
+		else
+			return PROVIDED;
+	}
 
 } //AccessType
