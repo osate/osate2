@@ -49,6 +49,7 @@ import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualBusImplementation;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualBusType;
@@ -168,7 +169,8 @@ public class VirtualBusImplementationImpl extends ComponentImplementationImpl im
 	 */
 	@Override
 	public VirtualBusType getType() {
-		return (VirtualBusType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof VirtualBusType?(VirtualBusType) ct: null;
 	}
 
 	/**

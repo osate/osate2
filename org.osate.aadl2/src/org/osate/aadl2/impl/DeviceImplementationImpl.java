@@ -52,6 +52,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceType;
+import org.osate.aadl2.MemoryType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
 
@@ -241,7 +242,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public DeviceType getType() {
-		return (DeviceType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof DeviceType?(DeviceType) ct: null;
 	}
 
 	/**

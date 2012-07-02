@@ -51,6 +51,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataImplementation;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DataType;
+import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramSubcomponent;
 
@@ -203,7 +204,8 @@ public class DataImplementationImpl extends ComponentImplementationImpl implemen
 	 */
 	@Override
 	public DataType getType() {
-		return (DataType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof DataType?(DataType) ct: null;
 	}
 
 	/**

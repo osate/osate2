@@ -52,6 +52,7 @@ import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramImplementation;
 import org.osate.aadl2.SubprogramType;
+import org.osate.aadl2.SystemType;
 
 /**
  * <!-- begin-user-doc -->
@@ -169,7 +170,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	@Override
 	public SubprogramType getType() {
-		return (SubprogramType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof SubprogramType?(SubprogramType) ct: null;
 	}
 
 	/**

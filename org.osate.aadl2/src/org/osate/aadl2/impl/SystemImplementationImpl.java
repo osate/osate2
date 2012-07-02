@@ -60,6 +60,7 @@ import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.SystemType;
+import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 
@@ -539,7 +540,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public SystemType getType() {
-		return (SystemType) super.getType();
+		ComponentType ct = super.getType();
+		return ct instanceof SystemType?(SystemType) ct: null;
 	}
 
 	/**
