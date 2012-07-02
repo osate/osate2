@@ -85,11 +85,11 @@ public final class LogAnalysisErrorReporter extends AbstractAnalysisErrorReporte
 			return new LogAnalysisErrorReporter(bundle, rsrc);
 		}
 	}
-	
-	/**
-	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
-	 */
-	public static AnalysisErrorReporterFactory factory = new Factory(null);
+//	
+//	/**
+//	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
+//	 */
+//	public static AnalysisErrorReporterFactory factory = new Factory(null);
 
 
 }

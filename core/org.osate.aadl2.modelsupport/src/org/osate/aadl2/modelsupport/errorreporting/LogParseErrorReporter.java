@@ -108,9 +108,9 @@ public final class LogParseErrorReporter extends AbstractParseErrorReporter {
 		}
 	}
 	
-	
-	/**
-	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
-	 */
-	public static ParseErrorReporterFactory factory = new Factory(null);
+//	
+//	/**
+//	 * TODO compatibility for Topcased 0.7: it uses the 01162006 interface
+//	 */
+//	public static ParseErrorReporterFactory factory = new Factory(null);
 }
