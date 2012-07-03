@@ -12,22 +12,16 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 
@@ -271,6 +265,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFlowSpecification(FlowSpecification flow) {
+		checkFlowFeatureType(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -2424,7 +2423,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
-
+	
+	/**
+	 * Checks that the feature of a flow is a DataAccess, FeatureGroup, Parameter, or Port.
+	 * Section 10.1 Naming Rule N2.
+	 */
+	private void checkFlowFeatureType(FlowSpecification flow) {
+		Feature inFeature = null;
+		if (flow.getInEnd() != null)
+			inFeature = flow.getInEnd().getFeature();
+		Feature outFeature = null;
+		if (flow.getOutEnd() != null)
+			outFeature = flow.getOutEnd().getFeature();
+		if (inFeature instanceof BusAccess || inFeature instanceof SubprogramAccess || inFeature instanceof SubprogramGroupAccess || inFeature instanceof AbstractFeature) {
+			error(flow.getInEnd(), '\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "") + inFeature.getName() +
+					"' must be a port, parameter, data access, or feature group.");
+		}
+		if (outFeature instanceof BusAccess || outFeature instanceof SubprogramAccess || outFeature instanceof SubprogramGroupAccess || outFeature instanceof AbstractFeature) {
+			error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
+					"' must be a port, parameter, data access, or feature group.");
+		}
+	}
+	
 	/**
 	 * @param pn
 	 */
