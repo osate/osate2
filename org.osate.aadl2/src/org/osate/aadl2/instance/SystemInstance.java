@@ -103,6 +103,8 @@ public interface SystemInstance extends ComponentInstance {
 	 */
 	SystemImplementation getSystemImplementation();
 
+	SystemImplementation getComponentClassifier();
+
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.instance.SystemInstance#getSystemImplementation <em>System Implementation</em>}' reference.
 	 * <!-- begin-user-doc -->
