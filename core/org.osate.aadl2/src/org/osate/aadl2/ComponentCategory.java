@@ -444,7 +444,7 @@ public enum ComponentCategory implements Enumerator {
 	public static ComponentCategory getByName(String name) {
 		for (int i = 0; i < VALUES_ARRAY.length; ++i) {
 			ComponentCategory result = VALUES_ARRAY[i];
-			if (result.getName().equals(name)) {
+			if (result.getName().equalsIgnoreCase(name)) {
 				return result;
 			}
 		}
