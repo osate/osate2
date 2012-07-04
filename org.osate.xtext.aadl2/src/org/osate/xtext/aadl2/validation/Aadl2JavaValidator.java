@@ -2356,10 +2356,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		
 		//Test for L5: connection between access features of sibling components
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access && destination instanceof Access) {
-			if (!sourceType.equals(AccessType.PROVIDED))
-				error(connection, "Source must be a provides access for connections between access features of sibling components.");
-			if (!destinationType.equals(AccessType.REQUIRED))
-				error(connection, "Destination must be a requires access for connections between access features of sibling components.");
+			if (sourceType.equals(AccessType.PROVIDED)&&destinationType.equals(AccessType.PROVIDED))
+				error(connection, "Source and destination of access connections between sibling components cannot both be 'provides'.");
+			if (sourceType.equals(AccessType.REQUIRED)&&destinationType.equals(AccessType.REQUIRED))
+				error(connection, "Source and destination of access connections between sibling components cannot both be 'requires'.");
 		}
 		//Test for the common case of L6 and L7: connection between an access feature in the containing component and an access feature in a subcomponent.
 		else if (source instanceof Access && destination instanceof Access &&
@@ -2371,22 +2371,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access && (dstContext == null || dstContext instanceof FeatureGroup)) {
 			if (!destinationType.equals(AccessType.PROVIDED))
-				error(connection, '\'' + destination.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
+				error(connection, '\'' + destination.getName() + "' must be a provides access feature for a connection from an accessed subcomponent.");
 		}
 		//Test for L6: connection between access feature and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && (srcContext == null || srcContext instanceof FeatureGroup)) {
 			if (!sourceType.equals(AccessType.PROVIDED))
-				error(connection, '\'' + source.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
+				error(connection, '\'' + source.getName() + "' must be a provides access feature for a connection to a accessed subcomponent.");
 		}
 		//Test for L7: connection between subcomponent and access feature of subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
 			if (!destinationType.equals(AccessType.REQUIRED))
-				error(connection, '\'' + destination.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
+				error(connection, '\'' + destination.getName() + "' must be a requires access feature for a connection from an accessed subcomponent.");
 		}
 		//Test for L7: connection between access feature of subcomponent and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
 			if (!sourceType.equals(AccessType.REQUIRED))
-				error(connection, '\'' + source.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
+				error(connection, '\'' + source.getName() + "' must be a requires access feature for a connection to an accessed subcomponent.");
 		}
 	}
 	
