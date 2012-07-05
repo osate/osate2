@@ -19,7 +19,7 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 
 	protected Aadl2GrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AadlPackage___ColonColonKeyword_6_0_IDTerminalRuleCall_6_1__a;
-	protected AbstractElementAlias match_AadlPackage___NoneKeyword_3_1_0_SemicolonKeyword_3_1_1__q;
+	protected AbstractElementAlias match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q;
 	protected AbstractElementAlias match_FlowPathImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q;
 	protected AbstractElementAlias match_FlowPathImpl___IDTerminalRuleCall_8_0_FullStopKeyword_8_1__q;
 	protected AbstractElementAlias match_FlowSinkImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q;
@@ -29,7 +29,7 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (Aadl2GrammarAccess) access;
 		match_AadlPackage___ColonColonKeyword_6_0_IDTerminalRuleCall_6_1__a = new GroupAlias(true, true, new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getColonColonKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_6_1()));
-		match_AadlPackage___NoneKeyword_3_1_0_SemicolonKeyword_3_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1()));
+		match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_1_0()), new TokenAlias(false, false, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1_1()));
 		match_FlowPathImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_4_0()), new TokenAlias(false, false, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_4_1()));
 		match_FlowPathImpl___IDTerminalRuleCall_8_0_FullStopKeyword_8_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_8_0()), new TokenAlias(false, false, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_8_1()));
 		match_FlowSinkImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_4_0()), new TokenAlias(false, false, grammarAccess.getFlowSinkImplAccess().getFullStopKeyword_4_1()));
@@ -71,8 +71,8 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_AadlPackage___ColonColonKeyword_6_0_IDTerminalRuleCall_6_1__a.equals(syntax))
 				emit_AadlPackage___ColonColonKeyword_6_0_IDTerminalRuleCall_6_1__a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AadlPackage___NoneKeyword_3_1_0_SemicolonKeyword_3_1_1__q.equals(syntax))
-				emit_AadlPackage___NoneKeyword_3_1_0_SemicolonKeyword_3_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q.equals(syntax))
+				emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_FlowPathImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q.equals(syntax))
 				emit_FlowPathImpl___IDTerminalRuleCall_4_0_FullStopKeyword_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_FlowPathImpl___IDTerminalRuleCall_8_0_FullStopKeyword_8_1__q.equals(syntax))
@@ -95,9 +95,9 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 	
 	/**
 	 * Syntax:
-	 *     ('none' ';')?
+	 *     ('properties' 'none' ';')?
 	 */
-	protected void emit_AadlPackage___NoneKeyword_3_1_0_SemicolonKeyword_3_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
