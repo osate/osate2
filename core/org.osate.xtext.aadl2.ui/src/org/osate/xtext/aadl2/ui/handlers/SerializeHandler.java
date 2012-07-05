@@ -79,16 +79,14 @@ public class SerializeHandler extends AbstractHandler {
 							URI xtxturi = resource.getURI();
 							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
 							Resource res = OsateResourceUtil.getResource(xtxt2uri);
-//							if (resource.getContents().isEmpty()) return null;
-//							EObject o = resource.getContents().get(0);
-//							EObject on = EcoreUtil.copy(o);
-//							res.getContents().add(o);
-//							((NamedElement)on).setName("mypack"); 
+							if (resource.getContents().isEmpty()) return null;
+							EObject o = resource.getContents().get(0);
+							((NamedElement)o).setName("mypack"); 
 							// sample of creating a fresh model
-							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
-							pack.setName("mypack");
-							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
-							res.getContents().add(pack);
+//							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+//							pack.setName("mypack");
+//							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+//							res.getContents().add(pack);
 							res.save(null);
 //							saveBySerialize2(res);
 //							resource.getContents().add(res.getContents().get(0));

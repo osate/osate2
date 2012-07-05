@@ -190,15 +190,15 @@ ruleAadlPackage returns [EObject current=null]
 	    }
 
 )
-))((
+))(
 	otherlv_5=KEYWORD_88
     {
-    	newLeafNode(otherlv_5, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0_0());
+    	newLeafNode(otherlv_5, grammarAccess.getAadlPackageAccess().getPropertiesKeyword_3_0());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_0_1_0()); 
+	        newCompositeNode(grammarAccess.getAadlPackageAccess().getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0_0()); 
 	    }
 		lv_ownedPropertyAssociation_6_0=ruleBasicPropertyAssociation		{
 	        if ($current==null) {
@@ -213,18 +213,18 @@ ruleAadlPackage returns [EObject current=null]
 	    }
 
 )
-)+)
+)+
     |(
 	otherlv_7=KEYWORD_35
     {
-    	newLeafNode(otherlv_7, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_0());
+    	newLeafNode(otherlv_7, grammarAccess.getAadlPackageAccess().getNoneKeyword_3_1_1_0());
     }
 
 	otherlv_8=KEYWORD_9
     {
-    	newLeafNode(otherlv_8, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1());
+    	newLeafNode(otherlv_8, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_3_1_1_1());
     }
-))?
+)))?
 	otherlv_9=KEYWORD_28
     {
     	newLeafNode(otherlv_9, grammarAccess.getAadlPackageAccess().getEndKeyword_4());

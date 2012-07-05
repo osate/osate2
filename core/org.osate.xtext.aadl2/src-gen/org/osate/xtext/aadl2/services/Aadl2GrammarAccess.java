@@ -51,14 +51,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_0_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_0_1.eContents().get(0);
 		private final Assignment cOwnedPrivateSectionAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
 		private final RuleCall cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0 = (RuleCall)cOwnedPrivateSectionAssignment_2_1.eContents().get(0);
-		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
-		private final Keyword cPropertiesKeyword_3_0_0 = (Keyword)cGroup_3_0.eContents().get(0);
-		private final Assignment cOwnedPropertyAssociationAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_0_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_0_1.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
-		private final Keyword cNoneKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3_1_1 = (Keyword)cGroup_3_1.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cPropertiesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Alternatives cAlternatives_3_1 = (Alternatives)cGroup_3.eContents().get(1);
+		private final Assignment cOwnedPropertyAssociationAssignment_3_1_0 = (Assignment)cAlternatives_3_1.eContents().get(0);
+		private final RuleCall cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0_0 = (RuleCall)cOwnedPropertyAssociationAssignment_3_1_0.eContents().get(0);
+		private final Group cGroup_3_1_1 = (Group)cAlternatives_3_1.eContents().get(1);
+		private final Keyword cNoneKeyword_3_1_1_0 = (Keyword)cGroup_3_1_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_3_1_1_1 = (Keyword)cGroup_3_1_1.eContents().get(1);
 		private final Keyword cEndKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		private final RuleCall cIDTerminalRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
@@ -68,13 +68,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AadlPackage returns aadl2::AadlPackage:
 		//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//	| "none" ";")? "end" ID ("::" ID)* ";";
+		//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
+		//	| "none" ";"))? "end" ID ("::" ID)* ";";
 		public ParserRule getRule() { return rule; }
 
 		//"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-		//ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//| "none" ";")? "end" ID ("::" ID)* ";"
+		//ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
+		//| "none" ";"))? "end" ID ("::" ID)* ";"
 		public Group getGroup() { return cGroup; }
 
 		//"package"
@@ -111,30 +111,31 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//PrivatePackageSection
 		public RuleCall getOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0() { return cOwnedPrivateSectionPrivatePackageSectionParserRuleCall_2_1_0; }
 
-		//("properties" ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-		//| "none" ";")?
-		public Alternatives getAlternatives_3() { return cAlternatives_3; }
-
-		//"properties" ownedPropertyAssociation+=BasicPropertyAssociation+
-		public Group getGroup_3_0() { return cGroup_3_0; }
+		//("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
+		//| "none" ";"))?
+		public Group getGroup_3() { return cGroup_3; }
 
 		//"properties"
-		public Keyword getPropertiesKeyword_3_0_0() { return cPropertiesKeyword_3_0_0; }
+		public Keyword getPropertiesKeyword_3_0() { return cPropertiesKeyword_3_0; }
+
+		//ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
+		//| "none" ";"
+		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
 		//ownedPropertyAssociation+=BasicPropertyAssociation+
-		public Assignment getOwnedPropertyAssociationAssignment_3_0_1() { return cOwnedPropertyAssociationAssignment_3_0_1; }
+		public Assignment getOwnedPropertyAssociationAssignment_3_1_0() { return cOwnedPropertyAssociationAssignment_3_1_0; }
 
 		//BasicPropertyAssociation
-		public RuleCall getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_0_1_0() { return cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_0_1_0; }
+		public RuleCall getOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0_0() { return cOwnedPropertyAssociationBasicPropertyAssociationParserRuleCall_3_1_0_0; }
 
 		//"none" ";"
-		public Group getGroup_3_1() { return cGroup_3_1; }
+		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
 		//"none"
-		public Keyword getNoneKeyword_3_1_0() { return cNoneKeyword_3_1_0; }
+		public Keyword getNoneKeyword_3_1_1_0() { return cNoneKeyword_3_1_1_0; }
 
 		//";"
-		public Keyword getSemicolonKeyword_3_1_1() { return cSemicolonKeyword_3_1_1; }
+		public Keyword getSemicolonKeyword_3_1_1_1() { return cSemicolonKeyword_3_1_1_1; }
 
 		//"end"
 		public Keyword getEndKeyword_4() { return cEndKeyword_4; }
@@ -24786,8 +24787,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//AadlPackage returns aadl2::AadlPackage:
 	//	"package" name=PNAME (ownedPublicSection=PublicPackageSection ownedPrivateSection=PrivatePackageSection? |
-	//	ownedPrivateSection=PrivatePackageSection) ("properties" ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
-	//	| "none" ";")? "end" ID ("::" ID)* ";";
+	//	ownedPrivateSection=PrivatePackageSection) ("properties" (ownedPropertyAssociation+=BasicPropertyAssociation+ //| (noProperties?='none' ';')
+	//	| "none" ";"))? "end" ID ("::" ID)* ";";
 	public AadlPackageElements getAadlPackageAccess() {
 		return (pAadlPackage != null) ? pAadlPackage : (pAadlPackage = new AadlPackageElements());
 	}
