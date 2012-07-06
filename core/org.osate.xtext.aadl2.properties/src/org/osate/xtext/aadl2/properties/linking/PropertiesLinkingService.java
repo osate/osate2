@@ -25,7 +25,6 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BasicProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.CallContext;
-import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -94,7 +93,6 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
@@ -107,15 +105,12 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
-import org.osate.aadl2.impl.SubprogramImpl;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 
 public class PropertiesLinkingService extends DefaultLinkingService {
@@ -806,7 +801,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (searchResult instanceof Port
 					|| searchResult instanceof DataSubcomponent
 					|| (searchResult instanceof DataAccess && ((DataAccess) searchResult)
-							.getKind() == AccessType.REQUIRED))
+							.getKind() == AccessType.REQUIRES))
 				return ((PortConnectionEnd) searchResult);
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
@@ -821,7 +816,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
 						|| // data subcomponent . data subcomponent
 						(searchResult instanceof DataAccess && ((DataAccess) searchResult)
-								.getKind() == AccessType.PROVIDED))
+								.getKind() == AccessType.PROVIDES))
 					return ((PortConnectionEnd) searchResult);
 			} else if (sct instanceof ComponentPrototype) {
 				ComponentClassifier classifier = 
@@ -835,7 +830,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							|| (cxt instanceof DataSubcomponent && searchResult instanceof DataSubcomponent)
 							|| // data subcomponent . data subcomponent
 							(searchResult instanceof DataAccess && ((DataAccess) searchResult)
-									.getKind() == AccessType.PROVIDED))
+									.getKind() == AccessType.PROVIDES))
 						return ((PortConnectionEnd) searchResult);
 				}
 			}

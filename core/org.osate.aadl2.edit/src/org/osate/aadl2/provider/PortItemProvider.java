@@ -98,7 +98,7 @@ public class PortItemProvider extends DirectedFeatureItemProvider implements IEd
 				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
 				getString("_UI_Port_category_feature"),
 				getString("_UI_PropertyDescriptor_description", "_UI_Port_category_feature", "_UI_Port_type"),
-				Aadl2Package.eINSTANCE.getPort_Category(), true, false, false,
+				Aadl2Package.eINSTANCE.getPort_Category(), false, false, false,
 				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 

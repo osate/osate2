@@ -2352,9 +2352,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		
 		//Test for L5: connection between access features of sibling components
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access && destination instanceof Access) {
-			if (!sourceType.equals(AccessType.PROVIDED))
+			if (!sourceType.equals(AccessType.PROVIDES))
 				error(connection, "Source must be a provides access for connections between access features of sibling components.");
-			if (!destinationType.equals(AccessType.REQUIRED))
+			if (!destinationType.equals(AccessType.REQUIRES))
 				error(connection, "Destination must be a requires access for connections between access features of sibling components.");
 		}
 		//Test for the common case of L6 and L7: connection between an access feature in the containing component and an access feature in a subcomponent.
@@ -2366,22 +2366,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		//Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access && (dstContext == null || dstContext instanceof FeatureGroup)) {
-			if (!destinationType.equals(AccessType.PROVIDED))
+			if (!destinationType.equals(AccessType.PROVIDES))
 				error(connection, '\'' + destination.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
 		}
 		//Test for L6: connection between access feature and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && (srcContext == null || srcContext instanceof FeatureGroup)) {
-			if (!sourceType.equals(AccessType.PROVIDED))
+			if (!sourceType.equals(AccessType.PROVIDES))
 				error(connection, '\'' + source.getName() + "' must be a provides access feature for a connection mapping features up the containment hierarchy.");
 		}
 		//Test for L7: connection between subcomponent and access feature of subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
-			if (!destinationType.equals(AccessType.REQUIRED))
+			if (!destinationType.equals(AccessType.REQUIRES))
 				error(connection, '\'' + destination.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
 		}
 		//Test for L7: connection between access feature of subcomponent and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
-			if (!sourceType.equals(AccessType.REQUIRED))
+			if (!sourceType.equals(AccessType.REQUIRES))
 				error(connection, '\'' + source.getName() + "' must be a requires access feature for a connection mapping features down the containment hierarchy.");
 		}
 	}
@@ -2806,30 +2806,30 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return FeatureType.FEATURE_GROUP;
 		else if (feature instanceof DataAccess) {
 			switch (((DataAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_DATA_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_DATA_ACCESS;
 			}
 		} else if (feature instanceof SubprogramAccess) {
 			switch (((SubprogramAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_ACCESS;
 			}
 		} else if (feature instanceof SubprogramGroupAccess) {
 			switch (((SubprogramGroupAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS;
 			}
 		} else if (feature instanceof BusAccess) {
 			switch (((BusAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_BUS_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_BUS_ACCESS;
 			}
 		} else if (feature instanceof AbstractFeature)
@@ -2841,9 +2841,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private static String getKeywordForAccessType(AccessType accessType) {
 		switch (accessType) {
-		case PROVIDED:
+		case PROVIDES:
 			return "provides";
-		case REQUIRED:
+		case REQUIRES:
 			return "requires";
 		default:
 			throw new AssertionError("Unhandled enum literal: " + accessType);

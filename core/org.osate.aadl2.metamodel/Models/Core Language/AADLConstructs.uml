@@ -1146,7 +1146,7 @@ For access features, the classifier specifies the type of the shared component.<
         <ownedComment xmi:id="Features-AccessType-_ownedComment.0">
           <body>The direction of component sharing.</body>
         </ownedComment>
-        <ownedLiteral xmi:id="Features-AccessType-provided" name="provided">
+        <ownedLiteral xmi:id="Features-AccessType-provided" name="provides">
           <ownedComment xmi:id="Features-AccessType-provided-_ownedComment.0">
             <ownedComment xmi:id="Features-AccessType-provided-_ownedComment.0-_ownedComment.0">
               <body>===TBD===</body>
@@ -1154,7 +1154,7 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies that access to a shared component is provided.</body>
           </ownedComment>
         </ownedLiteral>
-        <ownedLiteral xmi:id="Features-AccessType-required" name="required">
+        <ownedLiteral xmi:id="Features-AccessType-required" name="requires">
           <ownedComment xmi:id="Features-AccessType-required-_ownedComment.0">
             <body>Specifies that access to an externally defined shared component is required.</body>
           </ownedComment>

@@ -39,7 +39,6 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.XMLResource;
-import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 
 /**
@@ -75,21 +74,20 @@ public class Aadl2ResourceFactoryImpl extends ResourceFactoryImpl {
 
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_LEXICAL_HANDLER, Boolean.TRUE);
 
-//		result.getDefaultSaveOptions().put(XMLResource.OPTION_ENCODING, "UTF-8");
+		//		result.getDefaultSaveOptions().put(XMLResource.OPTION_ENCODING, "UTF-8");
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.FALSE);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
 		result.getDefaultSaveOptions().put(XMLResource.OPTION_USE_FILE_BUFFER, Boolean.TRUE);
 
-//		result.getDefaultLoadOptions().put(XMLResource.OPTION_ENCODING, "UTF-8");
+		//		result.getDefaultLoadOptions().put(XMLResource.OPTION_ENCODING, "UTF-8");
 		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
-//		result.getDefaultLoadOptions().put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.TRUE);
-//		result.getDefaultLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.FALSE);
-//		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
+		//		result.getDefaultLoadOptions().put(XMLResource.OPTION_DISABLE_NOTIFY, Boolean.TRUE);
+		//		result.getDefaultLoadOptions().put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.FALSE);
+		//		result.getDefaultLoadOptions().put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
 
 		return result;
 	}
-	
-	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 
+	static final XMLParserPoolImpl parserPool = new XMLParserPoolImpl();
 
 } //Aadl2ResourceFactoryImpl
