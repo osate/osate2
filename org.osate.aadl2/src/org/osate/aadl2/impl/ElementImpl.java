@@ -325,7 +325,7 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 		while (obj.eContainer() != null) {
 			obj = (Element) obj.eContainer();
 		}
-		return (NamedElement)obj;
+		return (NamedElement) obj;
 	}
 
 	/**

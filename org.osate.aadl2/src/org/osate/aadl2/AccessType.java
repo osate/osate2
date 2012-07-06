@@ -52,54 +52,54 @@ import org.eclipse.emf.common.util.Enumerator;
  */
 public enum AccessType implements Enumerator {
 	/**
-	 * The '<em><b>Provided</b></em>' literal object.
+	 * The '<em><b>Provides</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #PROVIDED_VALUE
-	 * @generated NOT
-	 * @ordered
-	 */
-	PROVIDED(0, "provides", "provides"),
-
-	/**
-	 * The '<em><b>Required</b></em>' literal object.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #REQUIRED_VALUE
-	 * @generated NOT
-	 * @ordered
-	 */
-	REQUIRED(1, "requires", "requires");
-
-	/**
-	 * The '<em><b>Provided</b></em>' literal value.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>PROVIDED</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @see #PROVIDED
-	 * @model name="provided"
+	 * @see #PROVIDES_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int PROVIDED_VALUE = 0;
+	PROVIDES(0, "provides", "provides"),
 
 	/**
-	 * The '<em><b>Required</b></em>' literal value.
+	 * The '<em><b>Requires</b></em>' literal object.
 	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of '<em><b>REQUIRED</b></em>' literal object isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
 	 * <!-- end-user-doc -->
-	 * @see #REQUIRED
-	 * @model name="required"
+	 * @see #REQUIRES_VALUE
 	 * @generated
 	 * @ordered
 	 */
-	public static final int REQUIRED_VALUE = 1;
+	REQUIRES(1, "requires", "requires");
+
+	/**
+	 * The '<em><b>Provides</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Provides</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #PROVIDES
+	 * @model name="provides"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int PROVIDES_VALUE = 0;
+
+	/**
+	 * The '<em><b>Requires</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Requires</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #REQUIRES
+	 * @model name="requires"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int REQUIRES_VALUE = 1;
 
 	/**
 	 * An array of all the '<em><b>Access Type</b></em>' enumerators.
@@ -107,7 +107,7 @@ public enum AccessType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final AccessType[] VALUES_ARRAY = new AccessType[] { PROVIDED, REQUIRED, };
+	private static final AccessType[] VALUES_ARRAY = new AccessType[] { PROVIDES, REQUIRES, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Access Type</b></em>' enumerators.
@@ -157,10 +157,10 @@ public enum AccessType implements Enumerator {
 	 */
 	public static AccessType get(int value) {
 		switch (value) {
-		case PROVIDED_VALUE:
-			return PROVIDED;
-		case REQUIRED_VALUE:
-			return REQUIRED;
+		case PROVIDES_VALUE:
+			return PROVIDES;
+		case REQUIRES_VALUE:
+			return REQUIRES;
 		}
 		return null;
 	}
@@ -235,12 +235,12 @@ public enum AccessType implements Enumerator {
 	public String toString() {
 		return literal;
 	}
-	
+
 	public AccessType getInverseType() {
-		if (equals(PROVIDED))
-			return REQUIRED;
+		if (equals(PROVIDES))
+			return REQUIRES;
 		else
-			return PROVIDED;
+			return PROVIDES;
 	}
 
 } //AccessType

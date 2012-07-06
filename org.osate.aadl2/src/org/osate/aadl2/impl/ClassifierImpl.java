@@ -348,7 +348,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		// DONE: implemented get inherited members
 		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(NamedElement.class);
 		for (Generalization g : getGeneralizations()) {
-			if (!Aadl2Util.isNull(g.getGeneral()) ) {
+			if (!Aadl2Util.isNull(g.getGeneral())) {
 				tmp.addAll(g.getGeneral().getOwnedMembers());
 				tmp.addAll(g.getGeneral().getInheritedMembers());
 			}

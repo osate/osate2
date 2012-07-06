@@ -71,7 +71,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected static final AccessType KIND_EDEFAULT = AccessType.PROVIDED;
+	protected static final AccessType KIND_EDEFAULT = AccessType.PROVIDES;
 
 	/**
 	 * The cached value of the '{@link #getKind() <em>Kind</em>}' attribute.

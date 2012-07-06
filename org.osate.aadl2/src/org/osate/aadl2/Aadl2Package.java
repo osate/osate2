@@ -22816,13 +22816,22 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Subprogram Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SUBPROGRAM_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 1;
+	int SUBPROGRAM_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -38586,6 +38595,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getSubprogramImplementation_OwnedDataSubcomponent();
+
+	/**
+	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.SubprogramImplementation#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Owned Subprogram Subcomponent</em>'.
+	 * @see org.osate.aadl2.SubprogramImplementation#getOwnedSubprogramSubcomponents()
+	 * @see #getSubprogramImplementation()
+	 * @generated
+	 */
+	EReference getSubprogramImplementation_OwnedSubprogramSubcomponent();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.SubprogramPrototype <em>Subprogram Prototype</em>}'.
