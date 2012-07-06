@@ -346,11 +346,33 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	 */
 	public EList<NamedElement> getInheritedMembers() {
 		// DONE: implemented get inherited members
+		// list to track for cycles
+		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
+		// members to be returned
 		EList<NamedElement> tmp = new BasicInternalEList<NamedElement>(NamedElement.class);
+		cls.add(this); 
 		for (Generalization g : getGeneralizations()) {
-			if (!Aadl2Util.isNull(g.getGeneral()) ) {
-				tmp.addAll(g.getGeneral().getOwnedMembers());
-				tmp.addAll(g.getGeneral().getInheritedMembers());
+			Classifier cl = g.getGeneral();
+			if (!Aadl2Util.isNull(cl) &&  cl != this) {
+				tmp.addAll(cl.getOwnedMembers());
+				// add both to look for cycles
+				cls.add(cl);
+				((ClassifierImpl)cl).getInheritedMembers(tmp,cls);
+				cls.remove(cl);
+			}
+		}
+		return tmp;
+	}
+	
+	protected EList<NamedElement> getInheritedMembers(EList <NamedElement> tmp,EList <NamedElement> cls) {
+		// DONE: implemented get inherited members
+		for (Generalization g : getGeneralizations()) {
+			Classifier cl = g.getGeneral();
+			if (!Aadl2Util.isNull(cl) &&  !cls.contains(cl)) {
+				tmp.addAll(cl.getOwnedMembers());
+				cls.add(cl);
+				((ClassifierImpl)cl).getInheritedMembers(tmp,cls);
+				cls.remove(cl);
 			}
 		}
 		return tmp;
