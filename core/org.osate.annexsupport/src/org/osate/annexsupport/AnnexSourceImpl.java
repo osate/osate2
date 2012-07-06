@@ -2,6 +2,7 @@ package org.osate.annexsupport;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
+import org.eclipse.xtext.nodemodel.INode;
 
 public class AnnexSourceImpl implements AnnexSource {
 	private Notifier target;
@@ -40,7 +41,9 @@ public class AnnexSourceImpl implements AnnexSource {
 
 	@Override
 	public boolean isAdapterForType(Object type) {
-		return AnnexSource.class.isAssignableFrom((Class<?>)type);
+		return type instanceof AnnexSource;
+		// changed it because we were getting the Aadl2ItemProviderAdapterFactory  
+//		return AnnexSource.class.isAssignableFrom((Class<?>)type);
 	}
 
 }
