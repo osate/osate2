@@ -38,6 +38,11 @@ public final class MemoryProperties {
 	}
 
 	public static final String _NAME = "Memory_Properties";
+	public static final String ACCESS_RIGHT = "Access_Right";
+	public static final String READ_ONLY = "read_only";
+	public static final String WRITE_ONLY = "write_only";
+	public static final String READ_WRITE = "read_write";
+	public static final String BY_METHOD = "by_method";
 	public static final String SOURCE_DATA_SIZE = "Source_Data_Size";
 	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
 	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";

@@ -23,6 +23,9 @@ import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.xtext.aadl2.properties.util.MemoryProperties;
+import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
@@ -270,6 +273,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
 		checkFlowFeatureType(flow);
+		checkFlowFeatureDirection(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -2442,6 +2446,139 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (outFeature instanceof BusAccess || outFeature instanceof SubprogramAccess || outFeature instanceof SubprogramGroupAccess || outFeature instanceof AbstractFeature) {
 			error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
 					"' must be a port, parameter, data access, or feature group.");
+		}
+	}
+	
+	/**
+	 * Checks the direction of features used in flow specs.
+	 * Section 10.1 Legality Rules L1, L2, L3, L4, L5, L6, L7, L8, L9, and L10
+	 * @param flow
+	 */
+	private void checkFlowFeatureDirection(FlowSpecification flow) {
+		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME, MemoryProperties.ACCESS_RIGHT);
+		
+		Feature inFeature = null;
+		if (flow.getInEnd() != null)
+			inFeature = flow.getInEnd().getFeature();
+		
+		//Test for L2
+		if (inFeature instanceof Port || inFeature instanceof Parameter) {
+			if (!((DirectedFeature)inFeature).getDirection().incoming()) {
+				error(flow.getInEnd(), '\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "") + inFeature.getName() +
+						"' must be an in or in out feature.");
+			}
+		}
+		//Test for L4
+		else if (inFeature instanceof DataAccess) {
+			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
+			if (!accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_ONLY) && !accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+				error(flow.getInEnd(), '\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "") + inFeature.getName() +
+						"' must have an access right of Read_Only or Read_Write.");
+			}
+		}
+		//Test for L6
+		else if (inFeature instanceof FeatureGroup) {
+			FeatureGroupType fgt = ((FeatureGroup)inFeature).getAllFeatureGroupType();
+			if (fgt != null) {
+				boolean acceptableFeatureFound = false;
+				for (Feature f : fgt.getAllFeatures()) {
+					if (f instanceof Port || f instanceof Parameter) {
+						DirectionType fDirection = ((DirectedFeature)f).getDirection();
+						if (((FeatureGroup)inFeature).isInverse())
+							fDirection = fDirection.getInverseDirection();
+						if (!fgt.equals(f.getContainingClassifier()) && fgt.getInverse() != null)
+							fDirection = fDirection.getInverseDirection();
+						if (flow.getInEnd().getContext() instanceof FeatureGroup) {
+							FeatureGroup contextFeatureGroup = (FeatureGroup)flow.getInEnd().getContext();
+							if (contextFeatureGroup.isInverse())
+								fDirection = fDirection.getInverseDirection();
+							if (contextFeatureGroup.getAllFeatureGroupType() != null && !contextFeatureGroup.getAllFeatureGroupType().equals(inFeature.getContainingClassifier()) &&
+									contextFeatureGroup.getAllFeatureGroupType().getInverse() != null) {
+								fDirection = fDirection.getInverseDirection();
+							}
+						}
+						if (fDirection.incoming()) {
+							acceptableFeatureFound = true;
+							break;
+						}
+					}
+					else if (f instanceof DataAccess) {
+						EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(f, accessRightProperty);
+						if (accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_ONLY) || accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+							acceptableFeatureFound = true;
+							break;
+						}
+					}
+				}
+				if (fgt.getAllFeatures().isEmpty())
+					acceptableFeatureFound = true;
+				if (!acceptableFeatureFound) {
+					error(flow.getInEnd(), '\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "") + inFeature.getName() +
+							"' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
+				}
+			}
+		}
+		
+		Feature outFeature = null;
+		if (flow.getOutEnd() != null)
+			outFeature = flow.getOutEnd().getFeature();
+		
+		//Test for L3
+		if (outFeature instanceof Port || outFeature instanceof Parameter) {
+			if (!((DirectedFeature)outFeature).getDirection().outgoing()) {
+				error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
+						"' must be an out or in out feature.");
+			}
+		}
+		//Test for L5
+		else if (outFeature instanceof DataAccess) {
+			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
+			if (!accessRightValue.getName().equalsIgnoreCase(MemoryProperties.WRITE_ONLY) && !accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+				error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
+						"' must have an access right of Write_Only or Read_Write.");
+			}
+		}
+		//Test for L7
+		else if (outFeature instanceof FeatureGroup) {
+			FeatureGroupType fgt = ((FeatureGroup)outFeature).getAllFeatureGroupType();
+			if (fgt != null) {
+				boolean acceptableFeatureFound = false;
+				for (Feature f : fgt.getAllFeatures()) {
+					if (f instanceof Port || f instanceof Parameter) {
+						DirectionType fDirection = ((DirectedFeature)f).getDirection();
+						if (((FeatureGroup)outFeature).isInverse())
+							fDirection = fDirection.getInverseDirection();
+						if (!fgt.equals(f.getContainingClassifier()) && fgt.getInverse() != null)
+							fDirection = fDirection.getInverseDirection();
+						if (flow.getOutEnd().getContext() instanceof FeatureGroup) {
+							FeatureGroup contextFeatureGroup = (FeatureGroup)flow.getOutEnd().getContext();
+							if (contextFeatureGroup.isInverse())
+								fDirection = fDirection.getInverseDirection();
+							if (contextFeatureGroup.getAllFeatureGroupType() != null && !contextFeatureGroup.getAllFeatureGroupType().equals(outFeature.getContainingClassifier()) &&
+									contextFeatureGroup.getAllFeatureGroupType().getInverse() != null) {
+								fDirection = fDirection.getInverseDirection();
+							}
+						}
+						if (fDirection.outgoing()) {
+							acceptableFeatureFound = true;
+							break;
+						}
+					}
+					else if (f instanceof DataAccess) {
+						EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(f, accessRightProperty);
+						if (accessRightValue.getName().equalsIgnoreCase(MemoryProperties.WRITE_ONLY) || accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+							acceptableFeatureFound = true;
+							break;
+						}
+					}
+				}
+				if (fgt.getAllFeatures().isEmpty())
+					acceptableFeatureFound = true;
+				if (!acceptableFeatureFound) {
+					error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
+							"' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
+				}
+			}
 		}
 	}
 	
