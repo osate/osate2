@@ -51,6 +51,7 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.SystemType;
 
@@ -63,6 +64,7 @@ import org.osate.aadl2.SystemType;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedSubcomponents <em>Owned Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.SubprogramImplementationImpl#getType <em>Type</em>}</li>
  * </ul>
  * </p>
@@ -79,6 +81,16 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 * @ordered
 	 */
 	protected EList<DataSubcomponent> ownedDataSubcomponents;
+
+	/**
+	 * The cached value of the '{@link #getOwnedSubprogramSubcomponents() <em>Owned Subprogram Subcomponent</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedSubprogramSubcomponents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<SubprogramSubcomponent> ownedSubprogramSubcomponents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -136,7 +148,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	 */
 	protected static final int[] OWNED_SUBCOMPONENT_ESUBSETS = new int[] {
 			Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_ABSTRACT_SUBCOMPONENT,
-			Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT };
+			Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT,
+			Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -161,6 +174,32 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 				.getDataSubcomponent());
 		getOwnedDataSubcomponents().add(newOwnedDataSubcomponent);
 		return newOwnedDataSubcomponent;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
+		if (ownedSubprogramSubcomponents == null) {
+			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
+					SubprogramSubcomponent.class, this,
+					Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
+		}
+		return ownedSubprogramSubcomponents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public SubprogramSubcomponent createOwnedSubprogramSubcomponent() {
+		SubprogramSubcomponent newOwnedSubprogramSubcomponent = (SubprogramSubcomponent) create(Aadl2Package.eINSTANCE
+				.getSubprogramSubcomponent());
+		getOwnedSubprogramSubcomponents().add(newOwnedSubprogramSubcomponent);
+		return newOwnedSubprogramSubcomponent;
 	}
 
 	/**
@@ -215,6 +254,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -229,6 +270,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return getOwnedDataSubcomponents();
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return getOwnedSubprogramSubcomponents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -246,6 +289,10 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 			getOwnedDataSubcomponents().clear();
 			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
 			return;
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			getOwnedSubprogramSubcomponents().clear();
+			getOwnedSubprogramSubcomponents().addAll((Collection<? extends SubprogramSubcomponent>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -261,6 +308,9 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
 			return;
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			getOwnedSubprogramSubcomponents().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -275,6 +325,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 		switch (featureID) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
+			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -287,7 +339,8 @@ public class SubprogramImplementationImpl extends BehavioredImplementationImpl i
 	@Override
 	public boolean isSetOwnedSubcomponents() {
 		return super.isSetOwnedSubcomponents()
-				|| eIsSet(Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
+				|| eIsSet(Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)
+				|| eIsSet(Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 	}
 
 	public String getCategory() {

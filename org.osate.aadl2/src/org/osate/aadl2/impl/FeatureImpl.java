@@ -193,7 +193,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public ComponentPrototype getPrototype() {
 		EObject prototype = getFeatureClassifier();
-		return (ComponentPrototype) (prototype instanceof ComponentPrototype && !prototype.eIsProxy() ? prototype : null);
+		return (ComponentPrototype) (prototype instanceof ComponentPrototype && !prototype.eIsProxy() ? prototype
+				: null);
 	}
 
 	/**
@@ -203,7 +204,8 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 	 */
 	public ComponentPrototype basicGetPrototype() {
 		// DONE: implement this method to return the 'Prototype' reference
-		return (basicGetFeatureClassifier() instanceof ComponentPrototype) ? (ComponentPrototype) basicGetFeatureClassifier() : null;
+		return (basicGetFeatureClassifier() instanceof ComponentPrototype) ? (ComponentPrototype) basicGetFeatureClassifier()
+				: null;
 	}
 
 	/**

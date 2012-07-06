@@ -46,6 +46,7 @@ import org.eclipse.emf.common.util.EList;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.SubprogramImplementation#getOwnedDataSubcomponents <em>Owned Data Subcomponent</em>}</li>
+ *   <li>{@link org.osate.aadl2.SubprogramImplementation#getOwnedSubprogramSubcomponents <em>Owned Subprogram Subcomponent</em>}</li>
  * </ul>
  * </p>
  *
@@ -85,6 +86,38 @@ public interface SubprogramImplementation extends BehavioredImplementation, Subp
 	 * @generated
 	 */
 	DataSubcomponent createOwnedDataSubcomponent();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.SubprogramSubcomponent}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents() <em>Owned Subcomponent</em>}'</li>
+	 * </ul>
+	 * </p>
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Owned Subprogram Subcomponent</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Owned Subprogram Subcomponent</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getSubprogramImplementation_OwnedSubprogramSubcomponent()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.SubprogramSubcomponent} and appends it to the '<em><b>Owned Subprogram Subcomponent</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.SubprogramSubcomponent}.
+	 * @see #getOwnedSubprogramSubcomponents()
+	 * @generated
+	 */
+	SubprogramSubcomponent createOwnedSubprogramSubcomponent();
 
 	/**
 	 * Returns the value of the '<em><b>Type</b></em>' reference.

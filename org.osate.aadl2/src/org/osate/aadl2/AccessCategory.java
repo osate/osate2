@@ -1,6 +1,6 @@
 /**
  * <copyright>
- * Copyright  2008 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2011 by Carnegie Mellon University, all rights reserved.
  * 
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,8 +31,6 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  * 
- *
- * $Id: AccessCategory.java,v 1.2 2009-03-31 14:35:18 lwrage Exp $
  */
 package org.osate.aadl2;
 
@@ -87,16 +85,16 @@ public enum AccessCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_GROUP_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group");
+	SUBPROGRAM_GROUP(3, "subprogramGroup", "subprogramGroup");
 
 	/**
 	 * The '<em><b>Bus</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>BUS</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Bus</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -111,7 +109,7 @@ public enum AccessCategory implements Enumerator {
 	 * The '<em><b>Data</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>DATA</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Data</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -126,7 +124,7 @@ public enum AccessCategory implements Enumerator {
 	 * The '<em><b>Subprogram</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>SUBPROGRAM</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Subprogram</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
@@ -141,7 +139,7 @@ public enum AccessCategory implements Enumerator {
 	 * The '<em><b>Subprogram Group</b></em>' literal value.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of '<em><b>SUBPROGRAM GROUP</b></em>' literal object isn't clear,
+	 * If the meaning of '<em><b>Subprogram Group</b></em>' literal object isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->

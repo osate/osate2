@@ -619,11 +619,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	//			}
 	//		}
 	//	}
-	
+
 	@Override
-	public boolean equals(Object p){
+	public boolean equals(Object p) {
 		String p1Name = this.getQualifiedName();
-		String p2Name = ((Property)p).getQualifiedName();
+		String p2Name = ((Property) p).getQualifiedName();
 		return p1Name.equalsIgnoreCase(p2Name);
 	}
 

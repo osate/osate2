@@ -164,11 +164,12 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements R
 	}
 
 	@Override
-	public String getName(){
-		if (name == null){
+	public String getName() {
+		if (name == null) {
 			if (!Aadl2Util.isNull(getRefinedElement()))
 				return getRefinedElement().getName();
-			else return "";
+			else
+				return "";
 		}
 		return name;
 	}

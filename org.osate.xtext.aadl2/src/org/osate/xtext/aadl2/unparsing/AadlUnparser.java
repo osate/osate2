@@ -54,7 +54,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.AbstractRule;
-import org.eclipse.xtext.nodemodel.BidiTreeIterable;
 import org.eclipse.xtext.nodemodel.BidiTreeIterator;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -67,7 +66,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Switch;
-import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
@@ -1212,7 +1210,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseBusAccess(BusAccess object) {
 				String d;
 				processComments(object);
-				if (object.getKind() == AccessType.REQUIRED)
+				if (object.getKind() == AccessType.REQUIRES)
 					d = "requires";
 				else
 					d = "provides";
@@ -1232,7 +1230,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSubprogramAccess(SubprogramAccess object) {
 				String d;
 				processComments(object);
-				if (object.getKind() == AccessType.REQUIRED)
+				if (object.getKind() == AccessType.REQUIRES)
 					d = "requires";
 				else
 					d = "provides";
@@ -1252,7 +1250,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseSubprogramGroupAccess(SubprogramGroupAccess object) {
 				String d;
 				processComments(object);
-				if (object.getKind() == AccessType.REQUIRED)
+				if (object.getKind() == AccessType.REQUIRES)
 					d = "requires";
 				else
 					d = "provides";
@@ -1272,7 +1270,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 			public String caseDataAccess(DataAccess object) {
 				String d;
 				processComments(object);
-				if (object.getKind() == AccessType.REQUIRED)
+				if (object.getKind() == AccessType.REQUIRES)
 					d = "requires";
 				else
 					d = "provides";
