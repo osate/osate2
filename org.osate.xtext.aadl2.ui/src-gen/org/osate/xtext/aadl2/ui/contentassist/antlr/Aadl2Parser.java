@@ -1847,7 +1847,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedPrototypeAssignment_7_1_0(), "rule__SubprogramImplementation__OwnedPrototypeAssignment_7_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getNoPrototypesAssignment_7_1_1_0(), "rule__SubprogramImplementation__NoPrototypesAssignment_7_1_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedAbstractSubcomponentAssignment_8_1_0_0(), "rule__SubprogramImplementation__OwnedAbstractSubcomponentAssignment_8_1_0_0");
-					put(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_1(), "rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_1");
+					put(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramSubcomponentAssignment_8_1_0_1(), "rule__SubprogramImplementation__OwnedSubprogramSubcomponentAssignment_8_1_0_1");
+					put(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_2(), "rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_2");
 					put(grammarAccess.getSubprogramImplementationAccess().getNoSubcomponentsAssignment_8_1_1_0(), "rule__SubprogramImplementation__NoSubcomponentsAssignment_8_1_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramCallSequenceAssignment_9_1_0(), "rule__SubprogramImplementation__OwnedSubprogramCallSequenceAssignment_9_1_0");
 					put(grammarAccess.getSubprogramImplementationAccess().getNoCallsAssignment_9_1_1_0(), "rule__SubprogramImplementation__NoCallsAssignment_9_1_1_0");

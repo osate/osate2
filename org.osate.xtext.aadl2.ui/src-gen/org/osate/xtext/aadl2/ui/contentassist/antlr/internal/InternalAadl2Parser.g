@@ -11962,9 +11962,15 @@ rule__SubprogramImplementation__Alternatives_8_1_0
 )
 
     |(
-{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_1()); }
-(rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_1)
-{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_1()); }
+{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramSubcomponentAssignment_8_1_0_1()); }
+(rule__SubprogramImplementation__OwnedSubprogramSubcomponentAssignment_8_1_0_1)
+{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramSubcomponentAssignment_8_1_0_1()); }
+)
+
+    |(
+{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_2()); }
+(rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_2)
+{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentAssignment_8_1_0_2()); }
 )
 
 ;
@@ -122539,14 +122545,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_1
+rule__SubprogramImplementation__OwnedSubprogramSubcomponentAssignment_8_1_0_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_1_0()); }
-	ruleDataSubcomponent{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_1_0()); }
+{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_8_1_0_1_0()); }
+	ruleSubprogramSubcomponent{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedSubprogramSubcomponentSubprogramSubcomponentParserRuleCall_8_1_0_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__SubprogramImplementation__OwnedDataSubcomponentAssignment_8_1_0_2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_2_0()); }
+	ruleDataSubcomponent{ after(grammarAccess.getSubprogramImplementationAccess().getOwnedDataSubcomponentDataSubcomponentParserRuleCall_8_1_0_2_0()); }
 )
 
 ;
