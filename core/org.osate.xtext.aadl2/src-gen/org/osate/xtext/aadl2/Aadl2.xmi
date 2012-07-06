@@ -3216,6 +3216,9 @@
               <elements xsi:type="xtext:Assignment" feature="ownedAbstractSubcomponent" operator="+=">
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.72"/>
               </elements>
+              <elements xsi:type="xtext:Assignment" feature="ownedSubprogramSubcomponent" operator="+=">
+                <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
+              </elements>
               <elements xsi:type="xtext:Assignment" feature="ownedDataSubcomponent" operator="+=">
                 <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.85"/>
               </elements>
