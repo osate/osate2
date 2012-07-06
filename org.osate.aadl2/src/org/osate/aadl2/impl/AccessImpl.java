@@ -43,6 +43,10 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.SubprogramAccess;
+import org.osate.aadl2.SubprogramGroupAccess;
 
 /**
  * <!-- begin-user-doc -->
@@ -132,12 +136,14 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	public AccessCategory getCategory() {
-		// TODO: implement this method to return the 'Category' attribute
-		// Ensure that you remove @generated or mark it @generated NOT
-		throw new UnsupportedOperationException();
+		if (this instanceof BusAccess) return AccessCategory.BUS;
+		if (this instanceof DataAccess) return AccessCategory.DATA;
+		if (this instanceof SubprogramAccess) return AccessCategory.SUBPROGRAM;
+		if (this instanceof SubprogramGroupAccess) return AccessCategory.SUBPROGRAM_GROUP;
+		return null;
 	}
 
 	/**
