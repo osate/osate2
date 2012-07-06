@@ -12,22 +12,16 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.scoping.impl.ImportScope;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 
@@ -271,6 +265,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
+	}
+	
+	@Check(CheckType.FAST)
+	public void caseFlowSpecification(FlowSpecification flow) {
+		checkFlowFeatureType(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -2356,9 +2355,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		
 		//Test for L5: connection between access features of sibling components
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent && source instanceof Access && destination instanceof Access) {
-			if (sourceType.equals(AccessType.PROVIDED)&&destinationType.equals(AccessType.PROVIDED))
+			if (sourceType.equals(AccessType.PROVIDES)&&destinationType.equals(AccessType.PROVIDES))
 				error(connection, "Source and destination of access connections between sibling components cannot both be 'provides'.");
-			if (sourceType.equals(AccessType.REQUIRED)&&destinationType.equals(AccessType.REQUIRED))
+			if (sourceType.equals(AccessType.REQUIRES)&&destinationType.equals(AccessType.REQUIRES))
 				error(connection, "Source and destination of access connections between sibling components cannot both be 'requires'.");
 		}
 		//Test for the common case of L6 and L7: connection between an access feature in the containing component and an access feature in a subcomponent.
@@ -2370,22 +2369,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		//Test for L6: connection between subcomponent and access feature
 		else if (source instanceof Subcomponent && destination instanceof Access && (dstContext == null || dstContext instanceof FeatureGroup)) {
-			if (!destinationType.equals(AccessType.PROVIDED))
+			if (!destinationType.equals(AccessType.PROVIDES))
 				error(connection, '\'' + destination.getName() + "' must be a provides access feature for a connection from an accessed subcomponent.");
 		}
 		//Test for L6: connection between access feature and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && (srcContext == null || srcContext instanceof FeatureGroup)) {
-			if (!sourceType.equals(AccessType.PROVIDED))
+			if (!sourceType.equals(AccessType.PROVIDES))
 				error(connection, '\'' + source.getName() + "' must be a provides access feature for a connection to a accessed subcomponent.");
 		}
 		//Test for L7: connection between subcomponent and access feature of subcomponent
 		else if (source instanceof Subcomponent && destination instanceof Access && dstContext instanceof Subcomponent) {
-			if (!destinationType.equals(AccessType.REQUIRED))
+			if (!destinationType.equals(AccessType.REQUIRES))
 				error(connection, '\'' + destination.getName() + "' must be a requires access feature for a connection from an accessed subcomponent.");
 		}
 		//Test for L7: connection between access feature of subcomponent and subcomponent
 		else if (destination instanceof Subcomponent && source instanceof Access && srcContext instanceof Subcomponent) {
-			if (!sourceType.equals(AccessType.REQUIRED))
+			if (!sourceType.equals(AccessType.REQUIRES))
 				error(connection, '\'' + source.getName() + "' must be a requires access feature for a connection to an accessed subcomponent.");
 		}
 	}
@@ -2427,7 +2426,28 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
-
+	
+	/**
+	 * Checks that the feature of a flow is a DataAccess, FeatureGroup, Parameter, or Port.
+	 * Section 10.1 Naming Rule N2.
+	 */
+	private void checkFlowFeatureType(FlowSpecification flow) {
+		Feature inFeature = null;
+		if (flow.getInEnd() != null)
+			inFeature = flow.getInEnd().getFeature();
+		Feature outFeature = null;
+		if (flow.getOutEnd() != null)
+			outFeature = flow.getOutEnd().getFeature();
+		if (inFeature instanceof BusAccess || inFeature instanceof SubprogramAccess || inFeature instanceof SubprogramGroupAccess || inFeature instanceof AbstractFeature) {
+			error(flow.getInEnd(), '\'' + (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "") + inFeature.getName() +
+					"' must be a port, parameter, data access, or feature group.");
+		}
+		if (outFeature instanceof BusAccess || outFeature instanceof SubprogramAccess || outFeature instanceof SubprogramGroupAccess || outFeature instanceof AbstractFeature) {
+			error(flow.getOutEnd(), '\'' + (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "") + outFeature.getName() +
+					"' must be a port, parameter, data access, or feature group.");
+		}
+	}
+	
 	/**
 	 * @param pn
 	 */
@@ -2789,30 +2809,30 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return FeatureType.FEATURE_GROUP;
 		else if (feature instanceof DataAccess) {
 			switch (((DataAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_DATA_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_DATA_ACCESS;
 			}
 		} else if (feature instanceof SubprogramAccess) {
 			switch (((SubprogramAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_ACCESS;
 			}
 		} else if (feature instanceof SubprogramGroupAccess) {
 			switch (((SubprogramGroupAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS;
 			}
 		} else if (feature instanceof BusAccess) {
 			switch (((BusAccess) feature).getKind()) {
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_BUS_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_BUS_ACCESS;
 			}
 		} else if (feature instanceof AbstractFeature)
@@ -2824,9 +2844,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private static String getKeywordForAccessType(AccessType accessType) {
 		switch (accessType) {
-		case PROVIDED:
+		case PROVIDES:
 			return "provides";
-		case REQUIRED:
+		case REQUIRES:
 			return "requires";
 		default:
 			throw new AssertionError("Unhandled enum literal: " + accessType);

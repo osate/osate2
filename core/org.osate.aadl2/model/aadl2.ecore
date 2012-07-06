@@ -1026,8 +1026,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="AccessConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EEnum" name="AccessType">
-    <eLiterals name="provided"/>
-    <eLiterals name="required" value="1"/>
+    <eLiterals name="provides"/>
+    <eLiterals name="requires" value="1"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="AccessCategory">
     <eLiterals name="bus"/>
@@ -1839,6 +1839,10 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedDataSubcomponent"
         ordered="false" upperBound="-1" eType="#//DataSubcomponent" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramSubcomponent"
+        ordered="false" upperBound="-1" eType="#//SubprogramSubcomponent" containment="true">
       <eAnnotations source="subsets" references="#//ComponentImplementation/ownedSubcomponent"/>
     </eStructuralFeatures>
   </eClassifiers>

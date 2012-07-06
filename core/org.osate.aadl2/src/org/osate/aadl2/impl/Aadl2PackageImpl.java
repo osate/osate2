@@ -7009,6 +7009,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getSubprogramImplementation_OwnedSubprogramSubcomponent() {
+		return (EReference) getSubprogramImplementation().getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getSubprogramPrototype() {
 		if (subprogramPrototypeEClass == null) {
 			subprogramPrototypeEClass = (EClass) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI)
