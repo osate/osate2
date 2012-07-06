@@ -54,7 +54,8 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		final AnnexSource annexSource = getAnnexSource(semanticObj);
 		
 		if(annexSource == null) {
-			throw new RuntimeException("Unable to find AnnexSource for object: " + semanticObj);
+			return null;
+//			throw new RuntimeException("Unable to find AnnexSource for object: " + semanticObj);
 		}
 		
 		return new AnnexHighlighterPositionAcceptor() {
