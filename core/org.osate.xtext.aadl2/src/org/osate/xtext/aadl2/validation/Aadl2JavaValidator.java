@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
@@ -354,9 +355,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 
+
 	@Check(CheckType.FAST)
-	public void casePackageRename(PackageRename packrename) {
-		checkPackageReference(packrename.getRenamedPackage(), packrename);
+	public void caseClassifier(Classifier cl) {
+		checkExtendCycles(cl);
 	}
 
 
@@ -545,6 +547,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
+	public void checkExtendCycles(Classifier cl){
+		if (hasExtendCycles(cl)) {
+			error(cl, "The extends hierarchy of " + cl.getName() +" has a cycle.");
+		}
+	}
+	
 	public void checkPackageReference(AadlPackage pack, Element context){
 		if (Aadl2Util.isNull(pack)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
@@ -725,6 +733,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkComponentTypeModes(ComponentType componentType) {
 		boolean containsModes = false;
 		boolean containsRequiresModes = false;
+		if (hasExtendCycles(componentType)) return;
 		for (ComponentType currentType = componentType; currentType != null; currentType = currentType
 				.getExtended()) {
 			for (Mode currentMode : currentType.getOwnedModes()) {
@@ -756,6 +765,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType typeOfParent = parent.getType();
 		ComponentType typeOfChild = child.getType();
 		boolean isAncestor = false;
+		if (hasExtendCycles(typeOfChild)) return;
 		for (ComponentType currentType = typeOfChild; currentType != null
 				&& !isAncestor; currentType = currentType.getExtended())
 			if (currentType.equals(typeOfParent))
@@ -813,6 +823,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			ComponentImplementation componentImplementation) {
 		if (!componentImplementation.getOwnedModes().isEmpty()) {
 			boolean typeHasModes = false;
+			if (hasExtendCycles(componentImplementation.getType())) return;
 			for (ComponentType currentType = componentImplementation.getType(); currentType != null
 					&& !typeHasModes; currentType = currentType.getExtended()) {
 				if (!currentType.getOwnedModes().isEmpty())
@@ -913,6 +924,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Set<FeatureType> acceptableFeatureTypes = acceptableFeaturesForTypes
 				.get(typeCategory);
 		HashSet<FeatureType> typesOfInheritedFeatures = new HashSet<FeatureType>();
+		if (hasExtendCycles(componentType)) return ;
 		for (ComponentType parent = componentType.getExtended(); parent instanceof AbstractType; parent = parent
 				.getExtended())
 			for (Feature feature : parent.getOwnedFeatures())
@@ -969,6 +981,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Set<ComponentCategory> acceptableSubcomponentCategories = acceptableSubcomponentCategoriesForImplementations
 				.get(implementationCategory);
 		HashSet<ComponentCategory> categoriesOfInheritedSubcomponents = new HashSet<ComponentCategory>();
+		if (hasExtendCycles(componentImplementation)) return;
 		for (ComponentImplementation parent = componentImplementation
 				.getExtended(); parent instanceof AbstractImplementation; parent = parent
 				.getExtended()) {
@@ -1014,6 +1027,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Set<ComponentCategory> acceptableSubcomponentCategories = acceptableSubcomponentCategoriesForImplementations
 					.get(subcomponent.getCategory());
 			HashSet<ComponentCategory> categoriesOfNestedSubcomponents = new HashSet<ComponentCategory>();
+			if (hasExtendCycles(refinedSubcomponent.getClassifier())) return;
 			for (ComponentImplementation impl = (ComponentImplementation) refinedSubcomponent
 					.getClassifier(); impl instanceof AbstractImplementation; impl = impl
 					.getExtended()) {
@@ -1051,6 +1065,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Set<FeatureType> acceptableFeatureTypes = acceptableFeaturesForTypes
 					.get(subcomponent.getCategory());
 			HashSet<FeatureType> typesOfNestedFeatures = new HashSet<FeatureType>();
+			if (hasExtendCycles(abstractType)) return ;
 			for (ComponentType type = abstractType; type instanceof AbstractType; type = type
 					.getExtended()) {
 				for (Feature nestedFeature : type.getOwnedFeatures())
@@ -1317,6 +1332,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		boolean parentHasFlowSpecs = false;
 		boolean parentHasModes = false;
 		boolean parentHasModeTransitions = false;
+		if (hasExtendCycles(dataType)) return;
 		for (ComponentType parentType = dataType.getExtended(); parentType instanceof AbstractType; parentType = parentType
 				.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty())
@@ -1350,6 +1366,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		boolean parentHasETEFlow = false;
 		boolean parentHasModes = false;
 		boolean parentHasModeTransition = false;
+		if (hasExtendCycles(dataImplementation)) return;
 		for (ComponentImplementation parentImplementation = dataImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1389,6 +1406,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInheritedCallSequenceFromAbstractImplementation(
 			ThreadGroupImplementation threadGroupImplementation) {
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(threadGroupImplementation)) return;
 		for (ComponentImplementation parentImplementation = threadGroupImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1411,6 +1429,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInheritedCallSequenceFromAbstractImplementation(
 			ProcessorImplementation processorImplementation) {
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(processorImplementation)) return;
 		for (ComponentImplementation parentImplementation = processorImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1433,6 +1452,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInheritedCallSequenceFromAbstractImplementation(
 			VirtualProcessorImplementation virtualProcessorImplementation) {
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(virtualProcessorImplementation)) return;
 		for (ComponentImplementation parentImplementation = virtualProcessorImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1455,6 +1475,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForInheritedFlowsFromAbstractType(MemoryType memoryType) {
 		boolean parentHasFlowSpec = false;
+		if (hasExtendCycles(memoryType)) return;
 		for (ComponentType parentType = memoryType.getExtended(); parentType instanceof AbstractType; parentType = parentType
 				.getExtended())
 			if (!parentType.getOwnedFlowSpecifications().isEmpty())
@@ -1475,6 +1496,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		boolean parentHasFlowImpl = false;
 		boolean parentHasETEFlow = false;
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(memoryImplementation)) return;
 		for (ComponentImplementation parentImplementation = memoryImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1508,6 +1530,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkForInheritedFlowsFromAbstractType(BusType busType) {
 		boolean parentHasFlowSpec = false;
+		if (hasExtendCycles(busType)) return;
 		for (ComponentType parentType = busType.getExtended(); parentType instanceof AbstractType; parentType = parentType
 				.getExtended())
 			if (!parentType.getOwnedFlowSpecifications().isEmpty())
@@ -1530,6 +1553,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		boolean parentHasFlowImpl = false;
 		boolean parentHasETEFlow = false;
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(busImplementation)) return;
 		for (ComponentImplementation parentImplementation = busImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1570,6 +1594,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInheritedFlowsFromAbstractType(
 			VirtualBusType virtualBusType) {
 		boolean parentHasFlowSpec = false;
+		if (hasExtendCycles(virtualBusType)) return;
 		for (ComponentType parentType = virtualBusType.getExtended(); parentType instanceof AbstractType; parentType = parentType
 				.getExtended()) {
 			if (!parentType.getOwnedFlowSpecifications().isEmpty())
@@ -1594,6 +1619,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		boolean parentHasFlowImpl = false;
 		boolean parentHasETEFlow = false;
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(virtualBusImplementation)) return;
 		for (ComponentImplementation parentImplementation = virtualBusImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1634,6 +1660,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkForInheritedCallsFromAbstractImplementation(
 			DeviceImplementation deviceImplementation) {
 		boolean parentHasCallSequence = false;
+		if (hasExtendCycles(deviceImplementation)) return;
 		for (ComponentImplementation parentImplementation = deviceImplementation
 				.getExtended(); parentImplementation instanceof AbstractImplementation; parentImplementation = parentImplementation
 				.getExtended()) {
@@ -1706,6 +1733,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				&& !(componentType instanceof DeviceType)
 				&& !(componentType instanceof ProcessorType)) {
 			boolean parentHasFeatureArray = false;
+			if (hasExtendCycles(componentType)) return;
 			for (ComponentType parentType = componentType.getExtended(); parentType instanceof AbstractType; parentType = parentType
 					.getExtended()) {
 				for (Feature inheritedFeature : parentType.getOwnedFeatures())
@@ -3401,6 +3429,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	return count > 1;
 }
+	
+	public boolean hasExtendCycles(Classifier cl){
+		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
+		cls.add(cl);
+		while (cl.getExtended() != null){
+			Classifier ncl = cl.getExtended();
+			String n =ncl.getName();
+			if (cls.contains(cl.getExtended())){
+				return true;
+			}
+			cl = cl.getExtended();
+			cls.add(cl);
+		}
+		return false;
+	}
 
 
 }
