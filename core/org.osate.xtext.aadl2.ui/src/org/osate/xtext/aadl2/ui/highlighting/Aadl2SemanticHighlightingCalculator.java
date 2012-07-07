@@ -18,6 +18,7 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 	
 	@Override
 	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
+		if (resource == null) return;
 		final AnnexHighlighterRegistry registry = (AnnexHighlighterRegistry)AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_HIGHLIGHTER_EXT_ID);
 		
 		for(EObject obj : resource.getContents()) {
