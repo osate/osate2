@@ -2308,9 +2308,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkAccessConnectionCategory(AccessConnection connection) {
 		AccessCategory connectionCategory = connection.getAccessCategory();
 		
-		AccessConnectionEnd source = (AccessConnectionEnd)connection.getAllSource();
+		ConnectionEnd source = (ConnectionEnd)connection.getAllSource();
 		AccessCategory sourceCategory = null;
-		if (source == null && connection.getSource() instanceof ProcessorSubprogram)
+		if (Aadl2Util.isNull(source) && connection.getSource() instanceof ProcessorSubprogram)
 			sourceCategory = AccessCategory.SUBPROGRAM;
 		if (source instanceof Access)
 			sourceCategory = ((Access)source).getCategory();
@@ -2323,9 +2323,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		else if (source instanceof SubprogramGroupSubcomponent)
 			sourceCategory = AccessCategory.SUBPROGRAM_GROUP;
 		
-		AccessConnectionEnd destination = (AccessConnectionEnd)connection.getAllDestination();
+		ConnectionEnd destination = (ConnectionEnd)connection.getAllDestination();
 		AccessCategory destinationCategory = null;
-		if (destination == null && connection.getDestination() instanceof ProcessorSubprogram)
+		if (Aadl2Util.isNull(destination) && connection.getDestination() instanceof ProcessorSubprogram)
 			destinationCategory = AccessCategory.SUBPROGRAM;
 		if (destination instanceof Access)
 			destinationCategory = ((Access)destination).getCategory();
