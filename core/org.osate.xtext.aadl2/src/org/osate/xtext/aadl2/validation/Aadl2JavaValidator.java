@@ -2237,7 +2237,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					// from a data subcomponent to a port
 				){
 			if (!(srcDirection.outgoing() && dstDirection.incoming())){
-				error(connection, "Source feature '" + source.getName() + "' must be outgoing and destination feature '"+destination.getName() +"' must be incoming.");
+				if (srcDirection.incoming()){
+					error(connection, "Source feature '" + source.getName() + "' must be outgoing.");
+				} else {
+				error(connection, "Destination feature '"+destination.getName() +"' must be incoming.");
+				}
 			}
 		} else if (srcContext instanceof Subcomponent || dstContext instanceof Subcomponent){
 			// going up or down hierarchy
