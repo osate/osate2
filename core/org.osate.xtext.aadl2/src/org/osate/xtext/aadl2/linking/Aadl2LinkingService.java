@@ -369,16 +369,24 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getPrototype() == requiredType) {
 			// if context prototype then find in extension source (refined)
 			// prototype binding as context
-			Classifier ns = AadlUtil.getContainingClassifier(context);
-			if (context instanceof Prototype) {
-				// we need to resolve a refinement
-				if (ns.getExtended() != null) {
-					ns = ns.getExtended();
-				} else {
-					return Collections.emptyList();
+			EObject searchResult = null;
+			Classifier ns = null;
+			if (context.eContainer() instanceof Subcomponent){
+				Subcomponent sub = (Subcomponent) context.eContainer();
+				ns = sub.getAllClassifier();
+				searchResult = ns.findNamedElement(name);
+			} else {
+				ns = AadlUtil.getContainingClassifier(context);
+				if (context instanceof Prototype) {
+					// we need to resolve a refinement
+					if (ns.getExtended() != null) {
+						ns = ns.getExtended();
+					} else {
+						return Collections.emptyList();
+					}
 				}
+				searchResult = ns.findNamedElement(name);
 			}
-			EObject searchResult = ns.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof Prototype) {
 				return Collections.singletonList((EObject) searchResult);
 			}
