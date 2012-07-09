@@ -303,7 +303,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				Context flowendcxt = ((FlowEnd)context).getContext();
 				if (flowendcxt instanceof FeatureGroup){
 					FeatureGroupType fgt = ((FeatureGroup)flowendcxt).getAllFeatureGroupType();
-					if (fgt != null ) return Collections.emptyList();
+					if (fgt == null ) return Collections.emptyList();
 					if ( fgt.getInverse()!=null&& fgt.getAllFeatures().isEmpty()){
 						ns = fgt.getInverse();
 					}else {
