@@ -276,6 +276,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowFeatureType(flow);
 		checkFlowFeatureDirection(flow);
 	}
+	
+	@Check(CheckType.FAST)
+	public void caseFlowImplementation(FlowImplementation flow) {
+		if (flow.getKind().equals(FlowKind.SOURCE) || flow.getKind().equals(FlowKind.PATH))
+			checkOutFeatureIdentifier(flow);
+		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH))
+			checkInFeatureIdentifier(flow);
+	}
 
 	@Check(CheckType.FAST)
 	public void caseDirectedFeature(DirectedFeature feature) {
@@ -551,6 +559,60 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
+	private void checkOutFeatureIdentifier(FlowImplementation flow) {
+		ICompositeNode n = NodeModelUtils.getNode(flow);
+		INode lln = getLastLeaf(n);
+		String outFeatureName = lln.getText();
+		lln = getPreviousNode(lln);
+		String outContextName = null;
+		if (lln.getText().equals(".")) {
+			lln = getPreviousNode(lln);
+			outContextName = lln.getText();
+		}
+		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
+		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
+		//if the feature names don't match
+		if (!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+				//if the spec has a context, but the impl doesn't
+				(outContextName == null && specContext != null) ||
+				//if the impl has a context, but the spec doesn't
+				(outContextName != null && specContext == null) ||
+				//if the context names don't match
+				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName()))) {
+			error(flow, '\'' + (outContextName != null ? outContextName + '.' : "") + outFeatureName + "' does not match the out flow feature identifier '" +
+				(specContext != null ? specContext.getName() + '.' : "") + specFeature.getName() + "' in the flow specification.");
+		}
+	}
+	
+	private void checkInFeatureIdentifier(FlowImplementation flow) {
+		ICompositeNode n = NodeModelUtils.getNode(flow);
+		INode lln = n.getFirstChild();
+		while (lln instanceof HiddenLeafNode)
+			lln = lln.getNextSibling();
+		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
+		String inFeatureName = lln.getText();
+		lln = getNextNode(lln);
+		String inContextName = null;
+		if (lln.getText().equals(".")) {
+			lln = getNextNode(lln);
+			inContextName = inFeatureName;
+			inFeatureName = lln.getText();
+		}
+		Context specContext = flow.getSpecification().getAllInEnd().getContext();
+		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
+		//if the feature names don't match
+		if (!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+				//if the spec has a context, but the impl doesn't
+				(inContextName == null && specContext != null) ||
+				//if the impl has a context, but the spec doesn't
+				(inContextName != null && specContext == null) ||
+				//if the context names don't match
+				(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName()))) {
+			error(flow, '\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName + "' does not match the in flow feature identifier '" +
+				(specContext != null ? specContext.getName() + '.' : "") + specFeature.getName() + "' in the flow specification.");
+		}
+	}
+	
 	public void checkExtendCycles(Classifier cl){
 		if (hasExtendCycles(cl)) {
 			error(cl, "The extends hierarchy of " + cl.getName() +" has a cycle.");
@@ -577,6 +639,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		INode lln = node.getPreviousSibling();
 		while (lln instanceof HiddenLeafNode){
 			lln = lln.getPreviousSibling();
+		}
+		return lln;
+	}
+	
+	protected INode getNextNode(INode node) {
+		INode lln = node.getNextSibling();
+		while (lln instanceof HiddenLeafNode) {
+			lln = lln.getNextSibling();
 		}
 		return lln;
 	}
