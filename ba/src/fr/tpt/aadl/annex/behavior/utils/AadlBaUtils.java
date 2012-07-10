@@ -1165,9 +1165,9 @@ public class AadlBaUtils {
 		{
 			switch (((DataAccess)el).getKind())
 			{
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_DATA_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_DATA_ACCESS;
 			}
 		}
@@ -1175,9 +1175,9 @@ public class AadlBaUtils {
 		{
 			switch (((SubprogramAccess)el).getKind())
 			{
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_ACCESS;
 			}
 		}
@@ -1185,9 +1185,9 @@ public class AadlBaUtils {
 		{
 			switch (((SubprogramGroupAccess)el).getKind())
 			{
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS;
 			}
 		}
@@ -1195,9 +1195,9 @@ public class AadlBaUtils {
 		{
 			switch (((BusAccess)el).getKind())
 			{
-			case PROVIDED:
+			case PROVIDES:
 				return FeatureType.PROVIDES_BUS_ACCESS;
-			case REQUIRED:
+			case REQUIRES:
 				return FeatureType.REQUIRES_BUS_ACCESS;
 			}
 		}
@@ -1273,8 +1273,8 @@ public class AadlBaUtils {
     {
       switch (((SubprogramGroupAccess)el).getKind())
       {
-        case PROVIDED: return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS ;
-        case REQUIRED: return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS ;
+        case PROVIDES: return FeatureType.PROVIDES_SUBPROGRAM_GROUP_ACCESS ;
+        case REQUIRES: return FeatureType.REQUIRES_SUBPROGRAM_GROUP_ACCESS ;
       }
     }
     else if (el instanceof ThreadGroup )
@@ -1413,7 +1413,7 @@ public class AadlBaUtils {
 		{
 			AccessSpecification as = (AccessSpecification) fpa ;
 
-			boolean isRequired = as.getKind() == AccessType.REQUIRED ;
+			boolean isRequired = as.getKind() == AccessType.REQUIRES ;
 
 			switch(as.getCategory())
 			{
