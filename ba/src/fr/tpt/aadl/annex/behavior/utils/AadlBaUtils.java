@@ -879,9 +879,6 @@ public class AadlBaUtils {
             }
             else
             {
-               // DEBUG
-               System.err.println(
-                          "Cannot fetch data type, data type is set to null") ;
                type.klass = null ;
             }
 			   

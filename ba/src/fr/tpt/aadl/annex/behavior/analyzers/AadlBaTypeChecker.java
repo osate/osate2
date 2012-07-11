@@ -1993,9 +1993,12 @@ public class AadlBaTypeChecker
           
           if (! hasBeenReplaced)
           {
-            System.err.println("The resolved communication action: " +  
-                unparseNameElement(resolvedCommAct) + 
-                " hasn't been set") ;
+            String msg = "The resolved communication action: " +  
+                  unparseNameElement(resolvedCommAct) + 
+                  " hasn't been set" ;
+            
+            System.err.println(msg) ;
+            throw new RuntimeException(msg);
           }
         }
 
@@ -2501,7 +2504,6 @@ public class AadlBaTypeChecker
     }
     else // Error case : the binded object is not an subprogram.
     {
-      System.err.println(el) ;
       errorMsg =  "is not subprogram" ;
       result = null ;
     }
