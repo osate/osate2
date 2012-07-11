@@ -819,7 +819,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return featureList;
 	}
 
-	private static InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt,
+	public InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt,
 			final ConnectionEnd connEndPoint, final Context connCtxt) {
 		InstanceObject srcInstance = null;
 		if (connCtxt == null) {
