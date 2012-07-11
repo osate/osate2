@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
@@ -54,6 +55,12 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.ModalPath;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.operations.ModalElementOperations;
+import org.osate.aadl2.operations.ModalPathOperations;
 
 /**
  * <!-- begin-user-doc -->
@@ -62,7 +69,8 @@ import org.osate.aadl2.FlowSpecification;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getFeaturingClassifiers <em>Featuring Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getInModeOrTransitions <em>In Mode Or Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getSpecification <em>Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.FlowImplementationImpl#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
@@ -71,7 +79,18 @@ import org.osate.aadl2.FlowSpecification;
  *
  * @generated
  */
-public class FlowImplementationImpl extends ModalPathImpl implements FlowImplementation {
+public class FlowImplementationImpl extends FlowImpl implements
+		FlowImplementation {
+
+	/**
+	 * The cached value of the '{@link #getInModeOrTransitions() <em>In Mode Or Transition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModeOrTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeFeature> inModeOrTransitions;
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -135,6 +154,48 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Mode> getInModes() {
+		return ModalPathOperations.getInModes(this);
+	}
+
+	/**
+	 * The array of superset feature identifiers for the '{@link #getInModes() <em>In Mode</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final int[] IN_MODE_ESUPERSETS = new int[] { Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION };
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetInModes() {
+		return !getInModes().isEmpty();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeFeature> getInModeOrTransitions() {
+		if (inModeOrTransitions == null) {
+			inModeOrTransitions = new EObjectResolvingEList<ModeFeature>(
+					ModeFeature.class, this,
+					Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION);
+		}
+		return inModeOrTransitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
@@ -155,7 +216,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			if (specification != oldSpecification) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION, oldSpecification, specification));
+							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
+							oldSpecification, specification));
 			}
 		}
 		return specification;
@@ -179,7 +241,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
 					oldSpecification, specification));
 	}
 
@@ -190,7 +253,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
-			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
+			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(
+					FlowSegment.class, this,
 					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
 		return ownedFlowSegments;
@@ -202,7 +266,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	public FlowSegment createOwnedFlowSegment() {
-		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE.getFlowSegment());
+		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE
+				.getFlowSegment());
 		getOwnedFlowSegments().add(newOwnedFlowSegment);
 		return newOwnedFlowSegment;
 	}
@@ -212,11 +277,22 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Mode> getAllInModes() {
+		return ModalElementOperations.getAllInModes(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
-			return ((InternalEList<?>) getOwnedFlowSegments()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedFlowSegments()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -239,7 +315,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
 	}
 
 	/**
@@ -250,8 +327,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-			return getFeaturingClassifiers();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			return getInModes();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			return getInModeOrTransitions();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return getKind();
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
@@ -273,6 +352,15 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends Mode>) newValue);
+			return;
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			getInModeOrTransitions().addAll(
+					(Collection<? extends ModeFeature>) newValue);
+			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			setKind((FlowKind) newValue);
 			return;
@@ -281,7 +369,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
 			getOwnedFlowSegments().clear();
-			getOwnedFlowSegments().addAll((Collection<? extends FlowSegment>) newValue);
+			getOwnedFlowSegments().addAll(
+					(Collection<? extends FlowSegment>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -295,6 +384,12 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			getInModes().clear();
+			return;
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			getInModeOrTransitions().clear();
+			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			setKind(KIND_EDEFAULT);
 			return;
@@ -316,8 +411,11 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-		case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-			return !getFeaturingClassifiers().isEmpty();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+			return isSetInModes();
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+			return inModeOrTransitions != null
+					&& !inModeOrTransitions.isEmpty();
 		case Aadl2Package.FLOW_IMPLEMENTATION__KIND:
 			return kind != KIND_EDEFAULT;
 		case Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION:
@@ -335,10 +433,18 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	@Override
 	public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass) {
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalElement.class) {
 			switch (derivedFeatureID) {
-			case Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER:
-				return Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER;
+			case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE:
+				return Aadl2Package.MODAL_ELEMENT__IN_MODE;
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == ModalPath.class) {
+			switch (derivedFeatureID) {
+			case Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}
@@ -353,10 +459,18 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	@Override
 	public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass) {
-		if (baseClass == ClassifierFeature.class) {
+		if (baseClass == ModalElement.class) {
 			switch (baseFeatureID) {
-			case Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER:
-				return Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER;
+			case Aadl2Package.MODAL_ELEMENT__IN_MODE:
+				return Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE;
+			default:
+				return -1;
+			}
+		}
+		if (baseClass == ModalPath.class) {
+			switch (baseFeatureID) {
+			case Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION:
+				return Aadl2Package.FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION;
 			default:
 				return -1;
 			}

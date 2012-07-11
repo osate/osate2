@@ -53,7 +53,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface BusImplementation extends ComponentImplementation, BusClassifier {
+public interface BusImplementation extends ComponentImplementation,
+		BusClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Virtual Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.VirtualBusSubcomponent}.

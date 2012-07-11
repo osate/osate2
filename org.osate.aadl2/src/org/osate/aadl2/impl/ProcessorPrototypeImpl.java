@@ -47,7 +47,8 @@ import org.osate.aadl2.ProcessorPrototype;
  *
  * @generated
  */
-public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements ProcessorPrototype {
+public class ProcessorPrototypeImpl extends ComponentPrototypeImpl implements
+		ProcessorPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

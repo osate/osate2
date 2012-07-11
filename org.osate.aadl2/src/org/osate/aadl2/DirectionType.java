@@ -132,7 +132,8 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final DirectionType[] VALUES_ARRAY = new DirectionType[] { IN, OUT, IN_OUT, };
+	private static final DirectionType[] VALUES_ARRAY = new DirectionType[] {
+			IN, OUT, IN_OUT, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Direction Type</b></em>' enumerators.
@@ -140,7 +141,8 @@ public enum DirectionType implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<DirectionType> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<DirectionType> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Direction Type</b></em>' literal with the specified literal value.

@@ -130,7 +130,8 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS__KIND, oldKind, kind));
 	}
 
 	/**
@@ -139,10 +140,14 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	 * @generated NOT
 	 */
 	public AccessCategory getCategory() {
-		if (this instanceof BusAccess) return AccessCategory.BUS;
-		if (this instanceof DataAccess) return AccessCategory.DATA;
-		if (this instanceof SubprogramAccess) return AccessCategory.SUBPROGRAM;
-		if (this instanceof SubprogramGroupAccess) return AccessCategory.SUBPROGRAM_GROUP;
+		if (this instanceof BusAccess)
+			return AccessCategory.BUS;
+		if (this instanceof DataAccess)
+			return AccessCategory.DATA;
+		if (this instanceof SubprogramAccess)
+			return AccessCategory.SUBPROGRAM;
+		if (this instanceof SubprogramGroupAccess)
+			return AccessCategory.SUBPROGRAM_GROUP;
 		return null;
 	}
 

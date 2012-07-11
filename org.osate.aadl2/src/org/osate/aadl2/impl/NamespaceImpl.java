@@ -64,7 +64,8 @@ import org.osate.aadl2.operations.NamespaceOperations;
  *
  * @generated
  */
-public abstract class NamespaceImpl extends NamedElementImpl implements Namespace {
+public abstract class NamespaceImpl extends NamedElementImpl implements
+		Namespace {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,17 +95,22 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
 								Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this, Aadl2Package.NAMESPACE__MEMBER,
-				MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.NAMESPACE__MEMBER, MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -117,17 +123,22 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
 								Aadl2Package.NAMESPACE__OWNED_MEMBER, null));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.NAMESPACE__OWNED_MEMBER, null);
 	}
 
 	/**
@@ -141,17 +152,21 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> ownedElements = (EList<Element>) cache.get(eResource, this,
+			EList<Element> ownedElements = (EList<Element>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			if (ownedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getElement_OwnedElement(),
-						ownedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getElement_OwnedElement(),
+						ownedElements = new DerivedUnionEObjectEList<Element>(
+								Element.class, this,
+								Aadl2Package.NAMESPACE__OWNED_ELEMENT,
+								OWNED_ELEMENT_ESUBSETS));
 			}
 			return ownedElements;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.NAMESPACE__OWNED_ELEMENT,
-				OWNED_ELEMENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+				Aadl2Package.NAMESPACE__OWNED_ELEMENT, OWNED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -162,7 +177,8 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.NAMESPACE__OWNED_COMMENT,
+	protected static final int[] OWNED_ELEMENT_ESUBSETS = new int[] {
+			Aadl2Package.NAMESPACE__OWNED_COMMENT,
 			Aadl2Package.NAMESPACE__OWNED_MEMBER };
 	/**
 	 * The array of subset feature identifiers for the '{@link #getMembers() <em>Member</em>}' reference list.
@@ -179,8 +195,10 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return NamespaceOperations.members_distinguishable(this, diagnostics, context);
+	public boolean members_distinguishable(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return NamespaceOperations.members_distinguishable(this, diagnostics,
+				context);
 	}
 
 	/**

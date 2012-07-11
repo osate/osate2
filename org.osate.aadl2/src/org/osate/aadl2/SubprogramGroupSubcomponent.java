@@ -51,7 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnectionEnd, SubprogramGroup, CallContext {
+public interface SubprogramGroupSubcomponent extends Subcomponent,
+		AccessConnectionEnd, SubprogramGroup, CallContext {
 
 	/**
 	 * Returns the value of the '<em><b>Subprogram Group Subcomponent Type</b></em>' reference.
@@ -83,6 +84,7 @@ public interface SubprogramGroupSubcomponent extends Subcomponent, AccessConnect
 	 * @see #getSubprogramGroupSubcomponentType()
 	 * @generated
 	 */
-	void setSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType value);
+	void setSubprogramGroupSubcomponentType(
+			SubprogramGroupSubcomponentType value);
 
 } // SubprogramGroupSubcomponent

@@ -40,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -89,7 +90,8 @@ import org.osate.aadl2.VirtualProcessorSubcomponent;
  *
  * @generated
  */
-public class SystemImplementationImpl extends ComponentImplementationImpl implements SystemImplementation {
+public class SystemImplementationImpl extends ComponentImplementationImpl
+		implements SystemImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedBusSubcomponents() <em>Owned Bus Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -220,17 +222,26 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
+								Subcomponent.class,
+								this,
+								Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-				Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
+				this, Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+				OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
@@ -262,7 +273,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(
+					BusSubcomponent.class, this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -274,7 +286,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	public BusSubcomponent createOwnedBusSubcomponent() {
-		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
+		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE
+				.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
 		return newOwnedBusSubcomponent;
 	}
@@ -286,7 +299,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(
+					DataSubcomponent.class, this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -311,7 +325,9 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<DeviceSubcomponent> getOwnedDeviceSubcomponents() {
 		if (ownedDeviceSubcomponents == null) {
-			ownedDeviceSubcomponents = new EObjectContainmentEList<DeviceSubcomponent>(DeviceSubcomponent.class, this,
+			ownedDeviceSubcomponents = new EObjectContainmentEList<DeviceSubcomponent>(
+					DeviceSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT);
 		}
 		return ownedDeviceSubcomponents;
@@ -336,7 +352,9 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
-			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
+			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(
+					MemorySubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 		}
 		return ownedMemorySubcomponents;
@@ -361,8 +379,10 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<ProcessSubcomponent> getOwnedProcessSubcomponents() {
 		if (ownedProcessSubcomponents == null) {
-			ownedProcessSubcomponents = new EObjectContainmentEList<ProcessSubcomponent>(ProcessSubcomponent.class,
-					this, Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT);
+			ownedProcessSubcomponents = new EObjectContainmentEList<ProcessSubcomponent>(
+					ProcessSubcomponent.class,
+					this,
+					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT);
 		}
 		return ownedProcessSubcomponents;
 	}
@@ -387,7 +407,9 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public EList<ProcessorSubcomponent> getOwnedProcessorSubcomponents() {
 		if (ownedProcessorSubcomponents == null) {
 			ownedProcessorSubcomponents = new EObjectContainmentEList<ProcessorSubcomponent>(
-					ProcessorSubcomponent.class, this, Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT);
+					ProcessorSubcomponent.class,
+					this,
+					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT);
 		}
 		return ownedProcessorSubcomponents;
 	}
@@ -412,7 +434,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public EList<SubprogramSubcomponent> getOwnedSubprogramSubcomponents() {
 		if (ownedSubprogramSubcomponents == null) {
 			ownedSubprogramSubcomponents = new EObjectContainmentEList<SubprogramSubcomponent>(
-					SubprogramSubcomponent.class, this,
+					SubprogramSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT);
 		}
 		return ownedSubprogramSubcomponents;
@@ -438,7 +461,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public EList<SubprogramGroupSubcomponent> getOwnedSubprogramGroupSubcomponents() {
 		if (ownedSubprogramGroupSubcomponents == null) {
 			ownedSubprogramGroupSubcomponents = new EObjectContainmentEList<SubprogramGroupSubcomponent>(
-					SubprogramGroupSubcomponent.class, this,
+					SubprogramGroupSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT);
 		}
 		return ownedSubprogramGroupSubcomponents;
@@ -452,7 +476,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public SubprogramGroupSubcomponent createOwnedSubprogramGroupSubcomponent() {
 		SubprogramGroupSubcomponent newOwnedSubprogramGroupSubcomponent = (SubprogramGroupSubcomponent) create(Aadl2Package.eINSTANCE
 				.getSubprogramGroupSubcomponent());
-		getOwnedSubprogramGroupSubcomponents().add(newOwnedSubprogramGroupSubcomponent);
+		getOwnedSubprogramGroupSubcomponents().add(
+				newOwnedSubprogramGroupSubcomponent);
 		return newOwnedSubprogramGroupSubcomponent;
 	}
 
@@ -463,7 +488,9 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<SystemSubcomponent> getOwnedSystemSubcomponents() {
 		if (ownedSystemSubcomponents == null) {
-			ownedSystemSubcomponents = new EObjectContainmentEList<SystemSubcomponent>(SystemSubcomponent.class, this,
+			ownedSystemSubcomponents = new EObjectContainmentEList<SystemSubcomponent>(
+					SystemSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SYSTEM_SUBCOMPONENT);
 		}
 		return ownedSystemSubcomponents;
@@ -489,7 +516,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
-					VirtualBusSubcomponent.class, this,
+					VirtualBusSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
 		return ownedVirtualBusSubcomponents;
@@ -515,7 +543,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public EList<VirtualProcessorSubcomponent> getOwnedVirtualProcessorSubcomponents() {
 		if (ownedVirtualProcessorSubcomponents == null) {
 			ownedVirtualProcessorSubcomponents = new EObjectContainmentEList<VirtualProcessorSubcomponent>(
-					VirtualProcessorSubcomponent.class, this,
+					VirtualProcessorSubcomponent.class,
+					this,
 					Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 		}
 		return ownedVirtualProcessorSubcomponents;
@@ -529,7 +558,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public VirtualProcessorSubcomponent createOwnedVirtualProcessorSubcomponent() {
 		VirtualProcessorSubcomponent newOwnedVirtualProcessorSubcomponent = (VirtualProcessorSubcomponent) create(Aadl2Package.eINSTANCE
 				.getVirtualProcessorSubcomponent());
-		getOwnedVirtualProcessorSubcomponents().add(newOwnedVirtualProcessorSubcomponent);
+		getOwnedVirtualProcessorSubcomponents().add(
+				newOwnedVirtualProcessorSubcomponent);
 		return newOwnedVirtualProcessorSubcomponent;
 	}
 
@@ -541,7 +571,7 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	@Override
 	public SystemType getType() {
 		ComponentType ct = super.getType();
-		return ct instanceof SystemType?(SystemType) ct: null;
+		return ct instanceof SystemType ? (SystemType) ct : null;
 	}
 
 	/**
@@ -581,30 +611,42 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDataSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedDeviceSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDeviceSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedMemorySubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedMemorySubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedProcessSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedProcessSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedProcessorSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedProcessorSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramGroupSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SYSTEM_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedSystemSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSystemSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedVirtualProcessorSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedVirtualProcessorSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -654,48 +696,58 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 		switch (featureID) {
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			getOwnedBusSubcomponents().clear();
-			getOwnedBusSubcomponents().addAll((Collection<? extends BusSubcomponent>) newValue);
+			getOwnedBusSubcomponents().addAll(
+					(Collection<? extends BusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
-			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
+			getOwnedDataSubcomponents().addAll(
+					(Collection<? extends DataSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT:
 			getOwnedDeviceSubcomponents().clear();
-			getOwnedDeviceSubcomponents().addAll((Collection<? extends DeviceSubcomponent>) newValue);
+			getOwnedDeviceSubcomponents().addAll(
+					(Collection<? extends DeviceSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			getOwnedMemorySubcomponents().clear();
-			getOwnedMemorySubcomponents().addAll((Collection<? extends MemorySubcomponent>) newValue);
+			getOwnedMemorySubcomponents().addAll(
+					(Collection<? extends MemorySubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT:
 			getOwnedProcessSubcomponents().clear();
-			getOwnedProcessSubcomponents().addAll((Collection<? extends ProcessSubcomponent>) newValue);
+			getOwnedProcessSubcomponents().addAll(
+					(Collection<? extends ProcessSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT:
 			getOwnedProcessorSubcomponents().clear();
-			getOwnedProcessorSubcomponents().addAll((Collection<? extends ProcessorSubcomponent>) newValue);
+			getOwnedProcessorSubcomponents().addAll(
+					(Collection<? extends ProcessorSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
 			getOwnedSubprogramSubcomponents().clear();
-			getOwnedSubprogramSubcomponents().addAll((Collection<? extends SubprogramSubcomponent>) newValue);
+			getOwnedSubprogramSubcomponents().addAll(
+					(Collection<? extends SubprogramSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
 			getOwnedSubprogramGroupSubcomponents().clear();
-			getOwnedSubprogramGroupSubcomponents().addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
+			getOwnedSubprogramGroupSubcomponents()
+					.addAll((Collection<? extends SubprogramGroupSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SYSTEM_SUBCOMPONENT:
 			getOwnedSystemSubcomponents().clear();
-			getOwnedSystemSubcomponents().addAll((Collection<? extends SystemSubcomponent>) newValue);
+			getOwnedSystemSubcomponents().addAll(
+					(Collection<? extends SystemSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			getOwnedVirtualBusSubcomponents().clear();
-			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			getOwnedVirtualBusSubcomponents().addAll(
+					(Collection<? extends VirtualBusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
 			getOwnedVirtualProcessorSubcomponents().clear();
-			getOwnedVirtualProcessorSubcomponents().addAll(
-					(Collection<? extends VirtualProcessorSubcomponent>) newValue);
+			getOwnedVirtualProcessorSubcomponents()
+					.addAll((Collection<? extends VirtualProcessorSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -755,27 +807,38 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
+			return ownedBusSubcomponents != null
+					&& !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+			return ownedDataSubcomponents != null
+					&& !ownedDataSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT:
-			return ownedDeviceSubcomponents != null && !ownedDeviceSubcomponents.isEmpty();
+			return ownedDeviceSubcomponents != null
+					&& !ownedDeviceSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
-			return ownedMemorySubcomponents != null && !ownedMemorySubcomponents.isEmpty();
+			return ownedMemorySubcomponents != null
+					&& !ownedMemorySubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESS_SUBCOMPONENT:
-			return ownedProcessSubcomponents != null && !ownedProcessSubcomponents.isEmpty();
+			return ownedProcessSubcomponents != null
+					&& !ownedProcessSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_PROCESSOR_SUBCOMPONENT:
-			return ownedProcessorSubcomponents != null && !ownedProcessorSubcomponents.isEmpty();
+			return ownedProcessorSubcomponents != null
+					&& !ownedProcessorSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			return ownedSubprogramSubcomponents != null && !ownedSubprogramSubcomponents.isEmpty();
+			return ownedSubprogramSubcomponents != null
+					&& !ownedSubprogramSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SUBPROGRAM_GROUP_SUBCOMPONENT:
-			return ownedSubprogramGroupSubcomponents != null && !ownedSubprogramGroupSubcomponents.isEmpty();
+			return ownedSubprogramGroupSubcomponents != null
+					&& !ownedSubprogramGroupSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_SYSTEM_SUBCOMPONENT:
-			return ownedSystemSubcomponents != null && !ownedSystemSubcomponents.isEmpty();
+			return ownedSystemSubcomponents != null
+					&& !ownedSystemSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
+			return ownedVirtualBusSubcomponents != null
+					&& !ownedVirtualBusSubcomponents.isEmpty();
 		case Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT:
-			return ownedVirtualProcessorSubcomponents != null && !ownedVirtualProcessorSubcomponents.isEmpty();
+			return ownedVirtualProcessorSubcomponents != null
+					&& !ownedVirtualProcessorSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -787,7 +850,8 @@ public class SystemImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public boolean isSetOwnedSubcomponents() {
-		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
+		return super.isSetOwnedSubcomponents()
+				|| eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_DEVICE_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.SYSTEM_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT)

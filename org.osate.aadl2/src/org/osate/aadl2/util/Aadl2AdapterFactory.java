@@ -538,12 +538,14 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseComponentImplementationReference(ComponentImplementationReference object) {
+		public Adapter caseComponentImplementationReference(
+				ComponentImplementationReference object) {
 			return createComponentImplementationReferenceAdapter();
 		}
 
 		@Override
-		public Adapter caseComponentImplementation(ComponentImplementation object) {
+		public Adapter caseComponentImplementation(
+				ComponentImplementation object) {
 			return createComponentImplementationAdapter();
 		}
 
@@ -653,7 +655,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeatureGroupConnectionEnd(FeatureGroupConnectionEnd object) {
+		public Adapter caseFeatureGroupConnectionEnd(
+				FeatureGroupConnectionEnd object) {
 			return createFeatureGroupConnectionEndAdapter();
 		}
 
@@ -753,7 +756,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramSubcomponentType(SubprogramSubcomponentType object) {
+		public Adapter caseSubprogramSubcomponentType(
+				SubprogramSubcomponentType object) {
 			return createSubprogramSubcomponentTypeAdapter();
 		}
 
@@ -768,7 +772,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
+		public Adapter caseSubprogramGroupSubcomponentType(
+				SubprogramGroupSubcomponentType object) {
 			return createSubprogramGroupSubcomponentTypeAdapter();
 		}
 
@@ -823,7 +828,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseImplementationExtension(ImplementationExtension object) {
+		public Adapter caseImplementationExtension(
+				ImplementationExtension object) {
 			return createImplementationExtensionAdapter();
 		}
 
@@ -853,7 +859,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseAbstractSubcomponentType(AbstractSubcomponentType object) {
+		public Adapter caseAbstractSubcomponentType(
+				AbstractSubcomponentType object) {
 			return createAbstractSubcomponentTypeAdapter();
 		}
 
@@ -953,22 +960,26 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseComponentPrototypeBinding(ComponentPrototypeBinding object) {
+		public Adapter caseComponentPrototypeBinding(
+				ComponentPrototypeBinding object) {
 			return createComponentPrototypeBindingAdapter();
 		}
 
 		@Override
-		public Adapter caseComponentPrototypeActual(ComponentPrototypeActual object) {
+		public Adapter caseComponentPrototypeActual(
+				ComponentPrototypeActual object) {
 			return createComponentPrototypeActualAdapter();
 		}
 
 		@Override
-		public Adapter caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
+		public Adapter caseFeatureGroupPrototypeBinding(
+				FeatureGroupPrototypeBinding object) {
 			return createFeatureGroupPrototypeBindingAdapter();
 		}
 
 		@Override
-		public Adapter caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual object) {
+		public Adapter caseFeatureGroupPrototypeActual(
+				FeatureGroupPrototypeActual object) {
 			return createFeatureGroupPrototypeActualAdapter();
 		}
 
@@ -978,7 +989,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeaturePrototypeBinding(FeaturePrototypeBinding object) {
+		public Adapter caseFeaturePrototypeBinding(
+				FeaturePrototypeBinding object) {
 			return createFeaturePrototypeBindingAdapter();
 		}
 
@@ -993,7 +1005,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFeaturePrototypeReference(FeaturePrototypeReference object) {
+		public Adapter caseFeaturePrototypeReference(
+				FeaturePrototypeReference object) {
 			return createFeaturePrototypeReferenceAdapter();
 		}
 
@@ -1013,7 +1026,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseBehavioredImplementation(BehavioredImplementation object) {
+		public Adapter caseBehavioredImplementation(
+				BehavioredImplementation object) {
 			return createBehavioredImplementationAdapter();
 		}
 
@@ -1033,7 +1047,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
+		public Adapter caseVirtualProcessorSubcomponentType(
+				VirtualProcessorSubcomponentType object) {
 			return createVirtualProcessorSubcomponentTypeAdapter();
 		}
 
@@ -1043,7 +1058,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVitualBusSubcomponentType(VitualBusSubcomponentType object) {
+		public Adapter caseVitualBusSubcomponentType(
+				VitualBusSubcomponentType object) {
 			return createVitualBusSubcomponentTypeAdapter();
 		}
 
@@ -1053,7 +1069,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThreadGroupSubcomponentType(ThreadGroupSubcomponentType object) {
+		public Adapter caseThreadGroupSubcomponentType(
+				ThreadGroupSubcomponentType object) {
 			return createThreadGroupSubcomponentTypeAdapter();
 		}
 
@@ -1083,7 +1100,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcessSubcomponentType(ProcessSubcomponentType object) {
+		public Adapter caseProcessSubcomponentType(
+				ProcessSubcomponentType object) {
 			return createProcessSubcomponentTypeAdapter();
 		}
 
@@ -1113,7 +1131,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcessorSubcomponentType(ProcessorSubcomponentType object) {
+		public Adapter caseProcessorSubcomponentType(
+				ProcessorSubcomponentType object) {
 			return createProcessorSubcomponentTypeAdapter();
 		}
 
@@ -1168,7 +1187,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupSubcomponent(SubprogramGroupSubcomponent object) {
+		public Adapter caseSubprogramGroupSubcomponent(
+				SubprogramGroupSubcomponent object) {
 			return createSubprogramGroupSubcomponentAdapter();
 		}
 
@@ -1178,7 +1198,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThreadGroupSubcomponent(ThreadGroupSubcomponent object) {
+		public Adapter caseThreadGroupSubcomponent(
+				ThreadGroupSubcomponent object) {
 			return createThreadGroupSubcomponentAdapter();
 		}
 
@@ -1188,7 +1209,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
+		public Adapter caseVirtualProcessorSubcomponent(
+				VirtualProcessorSubcomponent object) {
 			return createVirtualProcessorSubcomponentAdapter();
 		}
 
@@ -1288,7 +1310,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramImplementation(SubprogramImplementation object) {
+		public Adapter caseSubprogramImplementation(
+				SubprogramImplementation object) {
 			return createSubprogramImplementationAdapter();
 		}
 
@@ -1298,7 +1321,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupClassifier(SubprogramGroupClassifier object) {
+		public Adapter caseSubprogramGroupClassifier(
+				SubprogramGroupClassifier object) {
 			return createSubprogramGroupClassifierAdapter();
 		}
 
@@ -1308,12 +1332,14 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
+		public Adapter caseSubprogramGroupImplementation(
+				SubprogramGroupImplementation object) {
 			return createSubprogramGroupImplementationAdapter();
 		}
 
 		@Override
-		public Adapter caseSubprogramGroupPrototype(SubprogramGroupPrototype object) {
+		public Adapter caseSubprogramGroupPrototype(
+				SubprogramGroupPrototype object) {
 			return createSubprogramGroupPrototypeAdapter();
 		}
 
@@ -1348,7 +1374,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseProcessorImplementation(ProcessorImplementation object) {
+		public Adapter caseProcessorImplementation(
+				ProcessorImplementation object) {
 			return createProcessorImplementationAdapter();
 		}
 
@@ -1408,7 +1435,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseThreadGroupImplementation(ThreadGroupImplementation object) {
+		public Adapter caseThreadGroupImplementation(
+				ThreadGroupImplementation object) {
 			return createThreadGroupImplementationAdapter();
 		}
 
@@ -1428,7 +1456,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualBusImplementation(VirtualBusImplementation object) {
+		public Adapter caseVirtualBusImplementation(
+				VirtualBusImplementation object) {
 			return createVirtualBusImplementationAdapter();
 		}
 
@@ -1438,7 +1467,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualProcessorClassifier(VirtualProcessorClassifier object) {
+		public Adapter caseVirtualProcessorClassifier(
+				VirtualProcessorClassifier object) {
 			return createVirtualProcessorClassifierAdapter();
 		}
 
@@ -1448,17 +1478,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
+		public Adapter caseVirtualProcessorImplementation(
+				VirtualProcessorImplementation object) {
 			return createVirtualProcessorImplementationAdapter();
 		}
 
 		@Override
-		public Adapter caseVirtualProcessorPrototype(VirtualProcessorPrototype object) {
+		public Adapter caseVirtualProcessorPrototype(
+				VirtualProcessorPrototype object) {
 			return createVirtualProcessorPrototypeAdapter();
 		}
 
 		@Override
-		public Adapter caseBasicPropertyAssociation(BasicPropertyAssociation object) {
+		public Adapter caseBasicPropertyAssociation(
+				BasicPropertyAssociation object) {
 			return createBasicPropertyAssociationAdapter();
 		}
 

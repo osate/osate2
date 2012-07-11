@@ -93,7 +93,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public abstract class ComponentTypeImpl extends ComponentClassifierImpl implements ComponentType {
+public abstract class ComponentTypeImpl extends ComponentClassifierImpl
+		implements ComponentType {
 	/**
 	 * The cached value of the '{@link #getOwnedFlowSpecifications() <em>Owned Flow Specification</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -182,16 +183,21 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-								Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
+								Feature.class, this,
+								Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
+								OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+				Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
 				OWNED_FEATURE_ESUBSETS);
 	}
 
@@ -203,7 +209,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP,
 			Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE };
 
 	/**
@@ -217,17 +224,27 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(
+								ClassifierFeature.class,
+								this,
+								Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE,
+								CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
-				Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<ClassifierFeature>(
+				ClassifierFeature.class, this,
+				Aadl2Package.COMPONENT_TYPE__CLASSIFIER_FEATURE,
+				CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -238,8 +255,10 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] { Aadl2Package.COMPONENT_TYPE__OWNED_MODE,
-			Aadl2Package.COMPONENT_TYPE__OWNED_MODE_TRANSITION, Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
+	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] {
+			Aadl2Package.COMPONENT_TYPE__OWNED_MODE,
+			Aadl2Package.COMPONENT_TYPE__OWNED_MODE_TRANSITION,
+			Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
 			Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION };
 
 	/**
@@ -253,17 +272,24 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.COMPONENT_TYPE__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -275,9 +301,12 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @ordered
 	 */
 	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
-			Aadl2Package.COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE, Aadl2Package.COMPONENT_TYPE__OWNED_PROTOTYPE,
-			Aadl2Package.COMPONENT_TYPE__OWNED_MODE, Aadl2Package.COMPONENT_TYPE__OWNED_MODE_TRANSITION,
-			Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE, Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION };
+			Aadl2Package.COMPONENT_TYPE__OWNED_ANNEX_SUBCLAUSE,
+			Aadl2Package.COMPONENT_TYPE__OWNED_PROTOTYPE,
+			Aadl2Package.COMPONENT_TYPE__OWNED_MODE,
+			Aadl2Package.COMPONENT_TYPE__OWNED_MODE_TRANSITION,
+			Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE,
+			Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -290,17 +319,21 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Classifier> generals = (EList<Classifier>) cache.get(eResource, this,
+			EList<Classifier> generals = (EList<Classifier>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getClassifier_General());
 			if (generals == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_General(),
-						generals = new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
-								Aadl2Package.COMPONENT_TYPE__GENERAL, GENERAL_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getClassifier_General(),
+						generals = new DerivedUnionEObjectEList<Classifier>(
+								Classifier.class, this,
+								Aadl2Package.COMPONENT_TYPE__GENERAL,
+								GENERAL_ESUBSETS));
 			}
 			return generals;
 		}
-		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this, Aadl2Package.COMPONENT_TYPE__GENERAL,
-				GENERAL_ESUBSETS);
+		return new DerivedUnionEObjectEList<Classifier>(Classifier.class, this,
+				Aadl2Package.COMPONENT_TYPE__GENERAL, GENERAL_ESUBSETS);
 	}
 
 	/**
@@ -324,17 +357,25 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Generalization> generalizations = (EList<Generalization>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_Generalization());
+			EList<Generalization> generalizations = (EList<Generalization>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_Generalization());
 			if (generalizations == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_Generalization(),
-						generalizations = new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
-								Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getClassifier_Generalization(),
+						generalizations = new DerivedUnionEObjectEList<Generalization>(
+								Generalization.class, this,
+								Aadl2Package.COMPONENT_TYPE__GENERALIZATION,
+								GENERALIZATION_ESUBSETS));
 			}
 			return generalizations;
 		}
-		return new DerivedUnionEObjectEList<Generalization>(Generalization.class, this,
-				Aadl2Package.COMPONENT_TYPE__GENERALIZATION, GENERALIZATION_ESUBSETS);
+		return new DerivedUnionEObjectEList<Generalization>(
+				Generalization.class, this,
+				Aadl2Package.COMPONENT_TYPE__GENERALIZATION,
+				GENERALIZATION_ESUBSETS);
 	}
 
 	/**
@@ -365,8 +406,9 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		boolean oldNoFeatures = noFeatures;
 		noFeatures = newNoFeatures;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE__NO_FEATURES,
-					oldNoFeatures, noFeatures));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_TYPE__NO_FEATURES, oldNoFeatures,
+					noFeatures));
 	}
 
 	/**
@@ -411,7 +453,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	public EList<FlowSpecification> getOwnedFlowSpecifications() {
 		if (ownedFlowSpecifications == null) {
-			ownedFlowSpecifications = new EObjectContainmentEList<FlowSpecification>(FlowSpecification.class, this,
+			ownedFlowSpecifications = new EObjectContainmentEList<FlowSpecification>(
+					FlowSpecification.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
 		}
 		return ownedFlowSpecifications;
@@ -443,12 +486,15 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedExtension(TypeExtension newOwnedExtension, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedExtension(
+			TypeExtension newOwnedExtension, NotificationChain msgs) {
 		TypeExtension oldOwnedExtension = ownedExtension;
 		ownedExtension = newOwnedExtension;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, oldOwnedExtension, newOwnedExtension);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+					oldOwnedExtension, newOwnedExtension);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -466,16 +512,21 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		if (newOwnedExtension != ownedExtension) {
 			NotificationChain msgs = null;
 			if (ownedExtension != null)
-				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, null, msgs);
+				msgs = ((InternalEObject) ownedExtension).eInverseRemove(this,
+						EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+						null, msgs);
 			if (newOwnedExtension != null)
-				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION, null, msgs);
+				msgs = ((InternalEObject) newOwnedExtension).eInverseAdd(this,
+						EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+						null, msgs);
 			msgs = basicSetOwnedExtension(newOwnedExtension, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION,
 					newOwnedExtension, newOwnedExtension));
 	}
 
@@ -485,7 +536,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public TypeExtension createOwnedExtension() {
-		TypeExtension newOwnedExtension = (TypeExtension) create(Aadl2Package.eINSTANCE.getTypeExtension());
+		TypeExtension newOwnedExtension = (TypeExtension) create(Aadl2Package.eINSTANCE
+				.getTypeExtension());
 		setOwnedExtension(newOwnedExtension);
 		return newOwnedExtension;
 	}
@@ -497,7 +549,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	public EList<FeatureGroup> getOwnedFeatureGroups() {
 		if (ownedFeatureGroups == null) {
-			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(FeatureGroup.class, this,
+			ownedFeatureGroups = new EObjectContainmentEList<FeatureGroup>(
+					FeatureGroup.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP);
 		}
 		return ownedFeatureGroups;
@@ -509,7 +562,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public FeatureGroup createOwnedFeatureGroup() {
-		FeatureGroup newOwnedFeatureGroup = (FeatureGroup) create(Aadl2Package.eINSTANCE.getFeatureGroup());
+		FeatureGroup newOwnedFeatureGroup = (FeatureGroup) create(Aadl2Package.eINSTANCE
+				.getFeatureGroup());
 		getOwnedFeatureGroups().add(newOwnedFeatureGroup);
 		return newOwnedFeatureGroup;
 	}
@@ -521,7 +575,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	public EList<AbstractFeature> getOwnedAbstractFeatures() {
 		if (ownedAbstractFeatures == null) {
-			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(AbstractFeature.class, this,
+			ownedAbstractFeatures = new EObjectContainmentEList<AbstractFeature>(
+					AbstractFeature.class, this,
 					Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE);
 		}
 		return ownedAbstractFeatures;
@@ -533,7 +588,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	public AbstractFeature createOwnedAbstractFeature() {
-		AbstractFeature newOwnedAbstractFeature = (AbstractFeature) create(Aadl2Package.eINSTANCE.getAbstractFeature());
+		AbstractFeature newOwnedAbstractFeature = (AbstractFeature) create(Aadl2Package.eINSTANCE
+				.getAbstractFeature());
 		getOwnedAbstractFeatures().add(newOwnedAbstractFeature);
 		return newOwnedAbstractFeature;
 	}
@@ -544,16 +600,20 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
-			return ((InternalEList<?>) getOwnedFlowSpecifications()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedFlowSpecifications())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
 			return basicSetOwnedExtension(null, msgs);
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
-			return ((InternalEList<?>) getOwnedFeatureGroups()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedFeatureGroups()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
-			return ((InternalEList<?>) getOwnedAbstractFeatures()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedAbstractFeatures()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -600,18 +660,21 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 			return;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
 			getOwnedFlowSpecifications().clear();
-			getOwnedFlowSpecifications().addAll((Collection<? extends FlowSpecification>) newValue);
+			getOwnedFlowSpecifications().addAll(
+					(Collection<? extends FlowSpecification>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
 			setOwnedExtension((TypeExtension) newValue);
 			return;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
 			getOwnedFeatureGroups().clear();
-			getOwnedFeatureGroups().addAll((Collection<? extends FeatureGroup>) newValue);
+			getOwnedFeatureGroups().addAll(
+					(Collection<? extends FeatureGroup>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
 			getOwnedAbstractFeatures().clear();
-			getOwnedAbstractFeatures().addAll((Collection<? extends AbstractFeature>) newValue);
+			getOwnedAbstractFeatures().addAll(
+					(Collection<? extends AbstractFeature>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
 			setNoFeatures((Boolean) newValue);
@@ -663,13 +726,15 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		case Aadl2Package.COMPONENT_TYPE__EXTENDED:
 			return basicGetExtended() != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
-			return ownedFlowSpecifications != null && !ownedFlowSpecifications.isEmpty();
+			return ownedFlowSpecifications != null
+					&& !ownedFlowSpecifications.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION:
 			return ownedExtension != null;
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FEATURE_GROUP:
 			return ownedFeatureGroups != null && !ownedFeatureGroups.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__OWNED_ABSTRACT_FEATURE:
-			return ownedAbstractFeatures != null && !ownedAbstractFeatures.isEmpty();
+			return ownedAbstractFeatures != null
+					&& !ownedAbstractFeatures.isEmpty();
 		case Aadl2Package.COMPONENT_TYPE__NO_FEATURES:
 			return noFeatures != NO_FEATURES_EDEFAULT;
 		}
@@ -710,7 +775,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public boolean isSetClassifierFeatures() {
-		return super.isSetClassifierFeatures() || isSetOwnedFeatures()
+		return super.isSetClassifierFeatures()
+				|| isSetOwnedFeatures()
 				|| eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
 	}
 
@@ -721,7 +787,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || isSetOwnedFeatures()
+		return super.isSetOwnedMembers()
+				|| isSetOwnedFeatures()
 				|| eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION);
 	}
 
@@ -732,7 +799,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public boolean isSetGenerals() {
-		return super.isSetGenerals() || eIsSet(Aadl2Package.COMPONENT_TYPE__EXTENDED);
+		return super.isSetGenerals()
+				|| eIsSet(Aadl2Package.COMPONENT_TYPE__EXTENDED);
 	}
 
 	/**
@@ -742,7 +810,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 */
 	@Override
 	public boolean isSetGeneralizations() {
-		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION);
+		return super.isSetGeneralizations()
+				|| eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION);
 	}
 
 	/**
@@ -756,11 +825,13 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		final EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
 		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
+				.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
 			final EList<Feature> currentFeatures = current.getOwnedFeatures();
 			if (currentFeatures != null) {
-				for (Iterator<Feature> i = currentFeatures.iterator(); i.hasNext();) {
+				for (Iterator<Feature> i = currentFeatures.iterator(); i
+						.hasNext();) {
 					final Feature fe = i.next();
 					final Feature rfe = fe.getRefined();
 					if (rfe != null)
@@ -784,11 +855,14 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		final EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<FlowSpecification> returnlist = new BasicEList<FlowSpecification>();
 		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
+				.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
-			final EList<FlowSpecification> currentItems = current.getOwnedFlowSpecifications();
+			final EList<FlowSpecification> currentItems = current
+					.getOwnedFlowSpecifications();
 			if (currentItems != null) {
-				for (Iterator<FlowSpecification> i = currentItems.iterator(); i.hasNext();) {
+				for (Iterator<FlowSpecification> i = currentItems.iterator(); i
+						.hasNext();) {
 					final FlowSpecification fe = i.next();
 					final FlowSpecification rfe = fe.getRefined();
 					if (rfe != null)
@@ -845,11 +919,13 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
 		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors
+				.size()); li.hasPrevious();) {
 			final ComponentType current = (ComponentType) li.previous();
 			final EList<Prototype> currentItems = current.getOwnedPrototypes();
 			if (currentItems != null) {
-				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
+				for (Iterator<Prototype> i = currentItems.iterator(); i
+						.hasNext();) {
 					final Prototype fe = i.next();
 					final Prototype rfe = fe.getRefined();
 					if (rfe != null)
@@ -881,8 +957,9 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 		return false;
 	}
 
-	public final void getPropertyValueInternal(final Property property, final PropertyAcc paa,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property property,
+			final PropertyAcc paa, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		/*
 		 * First see if the property is defined in component's properties
 		 * subclause (could merge this with the loop below, but I want to make
