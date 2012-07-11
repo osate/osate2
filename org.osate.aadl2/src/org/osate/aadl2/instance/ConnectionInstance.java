@@ -38,6 +38,8 @@ package org.osate.aadl2.instance;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.Context;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -270,5 +272,8 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * 		   objects.
 	 */
 	List<InstanceObject> getThroughFeatureInstances();
+
+	InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt,
+			final ConnectionEnd connEndPoint, final Context connCtxt);
 
 } // ConnectionInstance
