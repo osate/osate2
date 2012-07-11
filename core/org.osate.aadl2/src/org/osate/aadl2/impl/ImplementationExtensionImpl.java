@@ -59,7 +59,8 @@ import org.osate.aadl2.ImplementationExtension;
  *
  * @generated
  */
-public class ImplementationExtensionImpl extends GeneralizationImpl implements ImplementationExtension {
+public class ImplementationExtensionImpl extends GeneralizationImpl implements
+		ImplementationExtension {
 	/**
 	 * The cached value of the '{@link #getExtended() <em>Extended</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -126,7 +127,8 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 			if (extended != oldExtended) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED, oldExtended, extended));
+							Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED,
+							oldExtended, extended));
 			}
 		}
 		return extended;
@@ -150,7 +152,8 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 		ComponentImplementation oldExtended = extended;
 		extended = newExtended;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED,
 					oldExtended, extended));
 	}
 
@@ -221,6 +224,7 @@ public class ImplementationExtensionImpl extends GeneralizationImpl implements I
 	 */
 	@Override
 	public boolean isSetGeneral() {
-		return super.isSetGeneral() || eIsSet(Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED);
+		return super.isSetGeneral()
+				|| eIsSet(Aadl2Package.IMPLEMENTATION_EXTENSION__EXTENDED);
 	}
 } //ImplementationExtensionImpl

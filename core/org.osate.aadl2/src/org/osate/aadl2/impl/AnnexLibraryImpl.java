@@ -48,7 +48,8 @@ import org.osate.aadl2.AnnexLibrary;
  *
  * @generated
  */
-public abstract class AnnexLibraryImpl extends NamedElementImpl implements AnnexLibrary {
+public abstract class AnnexLibraryImpl extends NamedElementImpl implements
+		AnnexLibrary {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -58,7 +58,8 @@ import org.osate.aadl2.properties.InvalidModelException;
  * @model
  * @generated
  */
-public interface PropertyConstant extends TypedElement, AbstractNamedValue, ArraySizeProperty {
+public interface PropertyConstant extends TypedElement, AbstractNamedValue,
+		ArraySizeProperty {
 	/**
 	 * Returns the value of the '<em><b>Property Type</b></em>' reference.
 	 * <p>
@@ -183,6 +184,7 @@ public interface PropertyConstant extends TypedElement, AbstractNamedValue, Arra
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
+	EvaluatedProperty evaluate(EvaluationContext ctx)
+			throws InvalidModelException;
 
 } // PropertyConstant

@@ -9808,7 +9808,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = MODAL_PATH__OWNED_ELEMENT;
+	int FLOW_IMPLEMENTATION__OWNED_ELEMENT = FLOW__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -9817,7 +9817,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__OWNED_COMMENT = MODAL_PATH__OWNED_COMMENT;
+	int FLOW_IMPLEMENTATION__OWNED_COMMENT = FLOW__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -9826,7 +9826,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__NAME = MODAL_PATH__NAME;
+	int FLOW_IMPLEMENTATION__NAME = FLOW__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -9835,7 +9835,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = MODAL_PATH__QUALIFIED_NAME;
+	int FLOW_IMPLEMENTATION__QUALIFIED_NAME = FLOW__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -9844,25 +9844,25 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = MODAL_PATH__OWNED_PROPERTY_ASSOCIATION;
+	int FLOW_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = FLOW__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * The feature id for the '<em><b>Refinement Context</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__IN_MODE = MODAL_PATH__IN_MODE;
+	int FLOW_IMPLEMENTATION__REFINEMENT_CONTEXT = FLOW__REFINEMENT_CONTEXT;
 
 	/**
-	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * The feature id for the '<em><b>Refined Element</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = MODAL_PATH__IN_MODE_OR_TRANSITION;
+	int FLOW_IMPLEMENTATION__REFINED_ELEMENT = FLOW__REFINED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Featuring Classifier</b></em>' reference list.
@@ -9871,7 +9871,25 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = MODAL_PATH_FEATURE_COUNT + 0;
+	int FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER = FLOW__FEATURING_CLASSIFIER;
+
+	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE = FLOW_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Or Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_MODE_OR_TRANSITION = FLOW_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Kind</b></em>' attribute.
@@ -9880,7 +9898,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__KIND = MODAL_PATH_FEATURE_COUNT + 1;
+	int FLOW_IMPLEMENTATION__KIND = FLOW_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Specification</b></em>' reference.
@@ -9889,7 +9907,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__SPECIFICATION = MODAL_PATH_FEATURE_COUNT + 2;
+	int FLOW_IMPLEMENTATION__SPECIFICATION = FLOW_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Flow Segment</b></em>' containment reference list.
@@ -9898,7 +9916,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = MODAL_PATH_FEATURE_COUNT + 3;
+	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = FLOW_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Flow Implementation</em>' class.
@@ -9907,7 +9925,7 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
+	int FLOW_IMPLEMENTATION_FEATURE_COUNT = FLOW_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.

@@ -44,5 +44,6 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface BusSubcomponentType extends Bus, SubcomponentType, FeatureClassifier {
+public interface BusSubcomponentType extends Bus, SubcomponentType,
+		FeatureClassifier {
 } // BusSubcomponentType

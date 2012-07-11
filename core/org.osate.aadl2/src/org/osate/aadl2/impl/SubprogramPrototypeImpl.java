@@ -47,7 +47,8 @@ import org.osate.aadl2.SubprogramPrototype;
  *
  * @generated
  */
-public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements SubprogramPrototype {
+public class SubprogramPrototypeImpl extends ComponentPrototypeImpl implements
+		SubprogramPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

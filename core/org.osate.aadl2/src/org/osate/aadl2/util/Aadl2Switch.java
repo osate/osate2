@@ -1779,11 +1779,17 @@ public class Aadl2Switch<T> extends Switch<T> {
 			FlowImplementation flowImplementation = (FlowImplementation) theEObject;
 			T result = caseFlowImplementation(flowImplementation);
 			if (result == null)
+				result = caseFlow(flowImplementation);
+			if (result == null)
 				result = caseModalPath(flowImplementation);
 			if (result == null)
-				result = caseClassifierFeature(flowImplementation);
+				result = caseStructuralFeature(flowImplementation);
 			if (result == null)
 				result = caseModalElement(flowImplementation);
+			if (result == null)
+				result = caseRefinableElement(flowImplementation);
+			if (result == null)
+				result = caseClassifierFeature(flowImplementation);
 			if (result == null)
 				result = caseNamedElement(flowImplementation);
 			if (result == null)
@@ -6190,7 +6196,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseComponentImplementationReference(ComponentImplementationReference object) {
+	public T caseComponentImplementationReference(
+			ComponentImplementationReference object) {
 		return null;
 	}
 
@@ -6640,7 +6647,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
+	public T caseFeatureGroupPrototypeBinding(
+			FeatureGroupPrototypeBinding object) {
 		return null;
 	}
 
@@ -7645,7 +7653,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
+	public T caseSubprogramGroupSubcomponentType(
+			SubprogramGroupSubcomponentType object) {
 		return null;
 	}
 
@@ -8335,7 +8344,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
+	public T caseVirtualProcessorSubcomponent(
+			VirtualProcessorSubcomponent object) {
 		return null;
 	}
 
@@ -8365,7 +8375,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
+	public T caseVirtualProcessorSubcomponentType(
+			VirtualProcessorSubcomponentType object) {
 		return null;
 	}
 
@@ -8800,7 +8811,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
+	public T caseVirtualProcessorImplementation(
+			VirtualProcessorImplementation object) {
 		return null;
 	}
 
@@ -8845,7 +8857,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
+	public T caseSubprogramGroupImplementation(
+			SubprogramGroupImplementation object) {
 		return null;
 	}
 

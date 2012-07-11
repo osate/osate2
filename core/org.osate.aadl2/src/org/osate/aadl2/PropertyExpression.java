@@ -63,6 +63,7 @@ public interface PropertyExpression extends Element {
 	 * or inconsistency in the model that prevents the property value from
 	 * being evaluated.
 	 */
-	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
+	EvaluatedProperty evaluate(EvaluationContext ctx)
+			throws InvalidModelException;
 
 } // PropertyExpression
