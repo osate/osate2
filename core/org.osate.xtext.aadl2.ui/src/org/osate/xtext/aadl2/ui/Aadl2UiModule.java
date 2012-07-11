@@ -31,7 +31,6 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
-
  */
 package org.osate.xtext.aadl2.ui;
 

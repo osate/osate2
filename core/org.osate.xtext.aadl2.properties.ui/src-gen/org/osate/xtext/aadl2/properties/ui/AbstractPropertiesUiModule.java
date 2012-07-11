@@ -1,6 +1,7 @@
 
 /*
- * /**
+ * /*
+ *
  * <copyright>
  * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
