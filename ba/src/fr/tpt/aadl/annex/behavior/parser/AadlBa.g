@@ -170,8 +170,6 @@ options {
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
         errReporter.error(this.getFilename(), e.line, description);
-        e.printStackTrace();
-        System.err.println(e.getMessage());
   }
 
   /**
