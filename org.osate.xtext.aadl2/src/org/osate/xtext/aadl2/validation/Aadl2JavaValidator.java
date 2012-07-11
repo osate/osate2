@@ -276,6 +276,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowFeatureType(flow);
 		checkFlowFeatureDirection(flow);
 	}
+	
+	@Check(CheckType.FAST)
+	public void caseFlowImplementation(FlowImplementation flow) {
+		if (flow.getKind().equals(FlowKind.SOURCE) || flow.getKind().equals(FlowKind.PATH))
+			checkOutFeatureIdentifier(flow);
+		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH))
+			checkInFeatureIdentifier(flow);
+		checkFlowConnectionEnds(flow);
+	}
 
 	@Check(CheckType.FAST)
 	public void caseDirectedFeature(DirectedFeature feature) {
@@ -551,6 +560,126 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
+	/**
+	 * Checks the second part of legality rule 3 in section 10.2 (Flow Implementations) on page 188.
+	 * "The out_flow feature of a flow implementation must be identical to the
+	 * out_flow feature of the corresponding flow specification."
+	 */
+	private void checkOutFeatureIdentifier(FlowImplementation flow) {
+		ICompositeNode n = NodeModelUtils.getNode(flow);
+		INode lln = getLastLeaf(n);
+		String outFeatureName = lln.getText();
+		lln = getPreviousNode(lln);
+		String outContextName = null;
+		if (lln.getText().equals(".")) {
+			lln = getPreviousNode(lln);
+			outContextName = lln.getText();
+		}
+		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
+		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
+		//if the feature names don't match
+		if (!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+				//if the spec has a context, but the impl doesn't
+				(outContextName == null && specContext != null) ||
+				//if the impl has a context, but the spec doesn't
+				(outContextName != null && specContext == null) ||
+				//if the context names don't match
+				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName()))) {
+			error(flow, '\'' + (outContextName != null ? outContextName + '.' : "") + outFeatureName + "' does not match the out flow feature identifier '" +
+				(specContext != null ? specContext.getName() + '.' : "") + specFeature.getName() + "' in the flow specification.");
+		}
+	}
+	
+	/**
+	 * Checks the first part of legality rule 3 in section 10.2 (Flow Implementations) on page 188.
+	 * "The in_flow feature of a flow implementation must be identical to the
+	 * in_flow feature of the corresponding flow specification."
+	 */
+	private void checkInFeatureIdentifier(FlowImplementation flow) {
+		ICompositeNode n = NodeModelUtils.getNode(flow);
+		INode lln = n.getFirstChild();
+		while (lln instanceof HiddenLeafNode)
+			lln = lln.getNextSibling();
+		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
+		String inFeatureName = lln.getText();
+		lln = getNextNode(lln);
+		String inContextName = null;
+		if (lln.getText().equals(".")) {
+			lln = getNextNode(lln);
+			inContextName = inFeatureName;
+			inFeatureName = lln.getText();
+		}
+		Context specContext = flow.getSpecification().getAllInEnd().getContext();
+		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
+		//if the feature names don't match
+		if (!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+				//if the spec has a context, but the impl doesn't
+				(inContextName == null && specContext != null) ||
+				//if the impl has a context, but the spec doesn't
+				(inContextName != null && specContext == null) ||
+				//if the context names don't match
+				(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName()))) {
+			error(flow, '\'' + (inContextName != null ? inContextName + '.' : "") + inFeatureName + "' does not match the in flow feature identifier '" +
+				(specContext != null ? specContext.getName() + '.' : "") + specFeature.getName() + "' in the flow specification.");
+		}
+	}
+	
+	/**
+	 * Checks legality rule 1 in section 10.2 (Flow Implementations) on page 188.
+	 * "The source of a connection named in a flow implementation declaration must
+	 * be the same as the in_flow feature of the flow implementation, or as the
+	 * out flow feature of the directly preceding subcomponent flow specification,
+	 * if present."
+	 * 
+	 * Checks legality rule 2 in section 10.2 (Flow Implementations) on page 188.
+	 * "The destination of a connection named in a flow implementation declaration
+	 * must be the same as the out flow feature of the flow implementation, or as
+	 * the in_flow feature of the directly succeeding subcomponent flow
+	 * specification, if present.
+	 */
+	private void checkFlowConnectionEnds(FlowImplementation flow) {
+		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
+			if (flow.getOwnedFlowSegments().get(i).getFlowElement() instanceof Connection) {
+				Connection connection = (Connection)flow.getOwnedFlowSegments().get(i).getFlowElement();
+				if (i == 0) {
+					FlowEnd inEnd = flow.getSpecification().getAllInEnd();
+					if (!connection.getAllSource().equals(inEnd.getFeature()) || (inEnd.getContext() != null && !inEnd.getContext().equals(connection.getAllSourceContext()))) {
+						error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName() + "' does not match the in flow feature '" +
+								(inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "") + inEnd.getFeature().getName() + '\'');
+					}
+				}
+				else {
+					if (flow.getOwnedFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
+						FlowSpecification previousFlowSegment = (FlowSpecification)flow.getOwnedFlowSegments().get(i - 1).getFlowElement();
+						if (!connection.getAllSource().equals(previousFlowSegment.getAllOutEnd().getFeature())) {
+							error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName() +
+									"' does not match the out flow feature of the preceding subcomponent flow specification '" +
+									flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.' + previousFlowSegment.getName() + '\'');
+						}
+					}
+				}
+				if (i == flow.getOwnedFlowSegments().size() - 1) {
+					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
+					if (!connection.getAllDestination().equals(outEnd.getFeature()) ||
+							(outEnd.getContext() != null && !outEnd.getContext().equals(connection.getAllDestinationContext()))) {
+						error(flow.getOwnedFlowSegments().get(i), "The destination of connection '" + connection.getName() + "' does not match the out flow feature '" +
+								(outEnd.getContext() != null ? outEnd.getContext().getName() + '.' : "") + outEnd.getFeature().getName() + '\'');
+					}
+				}
+				else {
+					if (flow.getOwnedFlowSegments().get(i + 1).getFlowElement() instanceof FlowSpecification) {
+						FlowSpecification nextFlowSegment = (FlowSpecification)flow.getOwnedFlowSegments().get(i + 1).getFlowElement();
+						if (!connection.getAllDestination().equals(nextFlowSegment.getAllInEnd().getFeature())) {
+							error(flow.getOwnedFlowSegments().get(i), "The destination of connection '" + connection.getName() +
+									"' does not match the in flow feature of the succeeding subcomponent flow specification '" +
+									flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.' + nextFlowSegment.getName() + '\'');
+						}
+					}
+				}
+			}
+		}
+	}
+	
 	public void checkExtendCycles(Classifier cl){
 		if (hasExtendCycles(cl)) {
 			error(cl, "The extends hierarchy of " + cl.getName() +" has a cycle.");
@@ -577,6 +706,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		INode lln = node.getPreviousSibling();
 		while (lln instanceof HiddenLeafNode){
 			lln = lln.getPreviousSibling();
+		}
+		return lln;
+	}
+	
+	protected INode getNextNode(INode node) {
+		INode lln = node.getNextSibling();
+		while (lln instanceof HiddenLeafNode) {
+			lln = lln.getNextSibling();
 		}
 		return lln;
 	}
