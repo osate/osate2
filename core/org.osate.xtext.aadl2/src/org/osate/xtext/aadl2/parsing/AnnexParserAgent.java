@@ -93,12 +93,10 @@ public class AnnexParserAgent  extends LazyLinker {
 		String filename = model.eResource().getURI().lastSegment();
 		// set up reporter for ParseErrors
 		IResource file = OsateResourceUtil.convertToIResource(model.eResource());
-		final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-				.getDefault().getBundle());
 		final ParseErrorReporterFactory parseErrorLoggerFactory = new LogParseErrorReporter.Factory(
 				OsateCorePlugin.getDefault().getBundle());
 
-		final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(internalErrorLogger,
+		final ParseErrorReporterManager parseErrManager = new ParseErrorReporterManager(
 				new MarkerParseErrorReporter.Factory("org.osate.aadl2.modelsupport.ParseErrorMarker",
 						parseErrorLoggerFactory));
 		final ParseErrorReporter errReporter = parseErrManager.getReporter(file);
@@ -107,7 +105,6 @@ public class AnnexParserAgent  extends LazyLinker {
 		}
 		final AnalysisErrorReporterManager resolveErrManager = 
 				new AnalysisErrorReporterManager(
-						internalErrorLogger,
 						new AnalysisToParseErrorReporterAdapter.Factory(
 								new MarkerParseErrorReporter.Factory(
 										"org.osate.aadl2.modelsupport.ParseErrorMarker",
@@ -129,7 +126,7 @@ public class AnnexParserAgent  extends LazyLinker {
 			if (sourceText == null) break;
 			int nlength = node.getLength();
 			int sourcelength = sourceText.length();
-			offset = offset + (nlength-sourcelength-1);
+			offset = offset + (nlength-sourcelength-1)+3;
 			AnnexLibrary al = null;
 			// look for plug-in parser
 			String annexText = defaultAnnexLibrary.getSourceText();
@@ -142,11 +139,11 @@ public class AnnexParserAgent  extends LazyLinker {
 				try {
 					int errs = errReporter.getNumErrors();
 					// offset +3 to compensate for removing the {**
-					al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset+3, errReporter);
+					al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
 					if (al != null && errReporter.getNumErrors() == errs) 
 					{ 
 						al.setName(annexName);
-						al.eAdapters().add(new AnnexSourceImpl(annexText, offset+3)); // Attach Annex Source text information to the new object
+						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// replace default annex library with the new one. 
 						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
 						int idx = ael.indexOf(defaultAnnexLibrary);
@@ -184,7 +181,7 @@ public class AnnexParserAgent  extends LazyLinker {
 			if (sourceText == null) break;
 			int nlength = node.getLength();
 			int sourcelength = sourceText.length();
-			offset = offset + (nlength-sourcelength-1);
+			offset = offset + (nlength-sourcelength-1)+3;
 			// look for plug-in parser
 			String annexText = defaultAnnexSubclause.getSourceText();
 			String annexName = defaultAnnexSubclause.getName();
@@ -199,7 +196,7 @@ public class AnnexParserAgent  extends LazyLinker {
 					if (asc != null && errReporter.getNumErrors() == errs) 
 					{
 						asc.setName(annexName);
-						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset+3)); // Attach Annex Source text information to the new object
+						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 														
 						// replace default annex library with the new one. 
 						EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();

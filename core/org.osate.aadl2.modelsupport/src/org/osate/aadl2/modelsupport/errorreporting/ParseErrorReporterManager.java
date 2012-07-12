@@ -78,6 +78,14 @@ public final class ParseErrorReporterManager extends AbstractErrorReporterManage
 	
 	
 	
+	public ParseErrorReporterManager(final ParseErrorReporterFactory fact) {
+		super();
+		factory = fact;
+		reportersMap = new HashMap<IResource, ParseErrorReporter>();
+		reportersList = new LinkedList<ParseErrorReporter>();
+	}
+	
+	@Deprecated
 	public ParseErrorReporterManager(
 			final InternalErrorReporter ier, final ParseErrorReporterFactory fact) {
 		super(ier);

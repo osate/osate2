@@ -2,6 +2,9 @@
  */
 package org.osate.aadl2.modelsupport.errorreporting;
 
+import org.eclipse.core.runtime.Platform;
+import org.osate.core.OsateCorePlugin;
+
 /**
  * Abstract implementation of
  * {@link edu.cmu.sei.aadl.model.pluginsupport.ErrorReporterManager} that
@@ -19,8 +22,13 @@ package org.osate.aadl2.modelsupport.errorreporting;
  * @author aarong
  */
 public abstract class AbstractErrorReporterManager implements ErrorReporterManager {
-	private final InternalErrorReporter internalErrDelegate;
+	private static  InternalErrorReporter internalErrDelegate = Platform.isRunning()?new LogInternalErrorReporter(OsateCorePlugin.getDefault().getBundle()):WriterInternalErrorReporter.SYSTEM_ERR;
 	
+	
+	protected AbstractErrorReporterManager() {
+	}
+	
+	@Deprecated
 	protected AbstractErrorReporterManager(final InternalErrorReporter ier) {
 		internalErrDelegate = ier;
 	}

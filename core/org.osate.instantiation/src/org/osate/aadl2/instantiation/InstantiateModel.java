@@ -182,15 +182,20 @@ public class InstantiateModel {
 	 * 
 	 * @param errMgr
 	 */
+	public InstantiateModel(final IProgressMonitor pm) {
+		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
+		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
+		errManager = new AnalysisErrorReporterManager(
+				new MarkerAnalysisErrorReporter.Factory(
+						AadlConstants.INSTANTIATION_OBJECT_MARKER));
+		monitor = pm;
+	}
 	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
 		monitor = pm;
 	}
-
-	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-			.getDefault().getBundle());
 
 	// Methods
 	/*
@@ -215,7 +220,6 @@ public class InstantiateModel {
 		final InstantiateModel instantiateModel =
 				new InstantiateModel(new NullProgressMonitor(),
 						new AnalysisErrorReporterManager(
-								internalErrorLogger,
 								new MarkerAnalysisErrorReporter.Factory(
 										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
@@ -241,7 +245,6 @@ public class InstantiateModel {
 		final InstantiateModel instantiateModel =
 				new InstantiateModel(new NullProgressMonitor(),
 						new AnalysisErrorReporterManager(
-								internalErrorLogger,
 								new MarkerAnalysisErrorReporter.Factory(
 										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, res);
@@ -264,10 +267,9 @@ public class InstantiateModel {
 			final InstantiateModel instantiateModel =
 					new InstantiateModel(new NullProgressMonitor(),
 							new AnalysisErrorReporterManager(
-									internalErrorLogger,
 									new MarkerAnalysisErrorReporter.Factory(
 											AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-			SystemInstance root = instantiateModel.createSystemInstance(si, res);
+			instantiateModel.createSystemInstance(si, res);
 		}
 	}
 
@@ -317,7 +319,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
-	private SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
+	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() 
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;

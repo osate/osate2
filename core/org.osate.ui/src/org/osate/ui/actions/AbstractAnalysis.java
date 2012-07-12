@@ -183,8 +183,7 @@ public abstract class AbstractAnalysis implements IAnalysis
 			case CONFIGURATOR_KEYS_AND_VALUES_SET:
 				throw new IllegalStateException("readyToRun() not called.");
 			case READY_TO_RUN:
-				final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateUiPlugin.getDefault().getBundle());
-				errManager = new AnalysisErrorReporterManager(internalErrorLogger, new MarkerAnalysisErrorReporter.Factory(getMarkerType()));
+				errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(getMarkerType()));
 				state = State.ALREADY_RAN;
 				return runImpl();
 			case NOT_READY_TO_RUN:
