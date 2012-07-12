@@ -193,10 +193,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	protected final void actionBody(final IProgressMonitor monitor, final Element root) {
 		final Resource resource = root.eResource();
 		final Bundle theBundle = getBundle();
-		final InternalErrorReporter internalErrorLogger =
-			new LogInternalErrorReporter(theBundle);
 		errManager = new AnalysisErrorReporterManager(
-				internalErrorLogger,
 				getAnalysisErrorReporterFactory());
 		
 		// Root cannot be null (see above)

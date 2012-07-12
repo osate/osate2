@@ -73,16 +73,11 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	    return false;
 	}
 
-
-	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(OsateCorePlugin
-			.getDefault().getBundle());
-
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
 		if (sysInstance.eContents().isEmpty()){
 			final InstantiateModel instantiateModel =
 			new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
-							internalErrorLogger,
 							new MarkerAnalysisErrorReporter.Factory(
 									AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			instantiateModel.fillSystemInstance(sysInstance);

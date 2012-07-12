@@ -89,7 +89,6 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	/** Singleton reference to an error manager that ignores all messages. */
 	public static final AnalysisErrorReporterManager NULL_ERROR_MANANGER =
 		new AnalysisErrorReporterManager(
-				NullInternalErrorReporter.prototype,
 				NullAnalysisErrorReporter.factory);
 	
 	/** The factory to use. */
@@ -118,6 +117,14 @@ public final class AnalysisErrorReporterManager extends AbstractErrorReporterMan
 	
 	
 	
+	public AnalysisErrorReporterManager( final AnalysisErrorReporterFactory fact) {
+		super();
+		factory = fact;
+		reportersMap = new HashMap();
+		reportersList = new LinkedList();
+	}
+	
+	@Deprecated
 	public AnalysisErrorReporterManager(
 			final InternalErrorReporter ier, final AnalysisErrorReporterFactory fact) {
 		super(ier);

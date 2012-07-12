@@ -105,11 +105,8 @@ public class CheckUnresolvedProxies implements IWorkbenchWindowActionDelegate, I
 	 */
 	public void run(IAction action) {
 		final Bundle theBundle = OsateUiPlugin.getDefault().getBundle();
-		final InternalErrorReporter internalErrorLogger =
-			new LogInternalErrorReporter(theBundle);
 		final AnalysisErrorReporterManager errManager =
 			new AnalysisErrorReporterManager(
-				internalErrorLogger,
 				new MarkerAnalysisErrorReporter.Factory(
 						"org.osate.ui.XMLErrorMarker",
 						new LogAnalysisErrorReporter.Factory(theBundle)));
