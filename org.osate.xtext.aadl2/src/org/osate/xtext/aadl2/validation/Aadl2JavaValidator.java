@@ -842,7 +842,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				&& ((AadlPackage) componentImplementation.getElementRoot())
 						.getPrivateSection().findNamedElement(
 								componentImplementation.getName()) instanceof ComponentImplementation) {
-			for (EObject child : componentImplementation.eContents()) {
+			for (EObject child : componentImplementation.getOwnedElements()) {
 				if (child instanceof ClassifierFeature
 						&& !(child instanceof ModeFeature)) {
 					error("When a component implementation is declared in both the public section and the private"
@@ -3732,7 +3732,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public boolean hasDuplicatesAadlPackage(EObject context) {
 		String crossRefString = ((NamedElement)context).getName();
 		int count = 0;
-		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace();
+		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
 		for (IEObjectDescription ieObjectDescription : plist) {
 			String s = ieObjectDescription.getQualifiedName().toString();
 			if (crossRefString.equalsIgnoreCase(s)){

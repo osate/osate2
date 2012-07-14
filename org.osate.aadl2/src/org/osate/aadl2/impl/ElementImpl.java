@@ -346,10 +346,11 @@ public abstract class ElementImpl extends AObjectImpl implements Element {
 	 * @return EList Element
 	 */
 	public EList<Element> getChildren() {
-		EList<Element> list = new BasicEList<Element>();
-		for (EObject eo : eContents())
-			list.add((Element) eo);
-		return list;
+		return getOwnedElements();
+//		EList<Element> list = new BasicEList<Element>();
+//		for (EObject eo : eContents())
+//			list.add((Element) eo);
+//		return list;
 	}
 
 	/* (non-Javadoc)

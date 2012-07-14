@@ -1382,9 +1382,9 @@ public final class AadlUtil {
 				}
 			}
 		}
-		EList<EObject> list = modelelement.eContents();// getChildren();
-		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
-			Element child = (Element) it.next();
+		EList<Element> list = modelelement.getOwnedElements();//eContents();
+		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
+			Element child = it.next();
 			Element result = doFindElement(child, location, closestLocation);
 			if (result != closestLocation) {
 				closestLocation = result;
@@ -1775,14 +1775,14 @@ public final class AadlUtil {
 		EList<ComponentImplementation> result = new BasicEList<ComponentImplementation>();
 		PackageSection psec = o.getOwnedPublicSection();
 		if (psec != null) {
-			for (EObject oo : psec.eContents()) {
+			for (EObject oo : psec.getOwnedElements()) {
 				if (oo instanceof ComponentImplementation)
 					result.add((ComponentImplementation) oo);
 			}
 		}
 		psec = o.getPrivateSection();
 		if (psec != null) {
-			for (EObject oo : psec.eContents()) {
+			for (EObject oo : psec.getOwnedElements()) {
 				if (oo instanceof ComponentImplementation)
 					result.add((ComponentImplementation) oo);
 			}

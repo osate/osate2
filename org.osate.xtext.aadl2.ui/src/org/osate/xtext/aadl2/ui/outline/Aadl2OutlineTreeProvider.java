@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.ui.outline;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.ui.editor.outline.IOutlineNode;
 import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider;
 import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode;
@@ -66,6 +67,11 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 		}
 	}
 
+	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
+		for (EObject childElement : modelElement.getOwnedElements())
+			createNode(parentNode, childElement);
+	}
+
 	protected void _createChildren(DocumentRootNode parentNode, SystemInstance aadlModel) {
 		createNode(parentNode, aadlModel);
 	}
@@ -74,7 +80,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		if (sysInstance.eContents().isEmpty()){
+		if (sysInstance.getOwnedElements().isEmpty()){
 			final InstantiateModel instantiateModel =
 			new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
