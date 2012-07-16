@@ -7,6 +7,7 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -23,8 +24,35 @@ public class Aadl2InstanceUtil {
 		EList<ConnectionInstance> connilist = si.getConnectionInstances();
 		for (ConnectionInstance connectionInstance : connilist) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
-			if (containedIn(src,ci)){
+			ConnectionInstanceEnd dst = connectionInstance.getDestination();
+			if (containedIn(src,ci)&&!containedIn(dst, ci)){
 				result.add(connectionInstance);
+			}
+		}
+		return result;
+	}
+	/**
+	 * find outgoing connection that goes through the feature of the specified component instance
+	 * @param ci Component instance
+	 * @param f Feature
+	 * @return list of connection instances going through the feature
+	 */
+	public static EList<ConnectionInstance> getOutgoingConnection(ComponentInstance ci,Feature f){
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		SystemInstance si = ci.getSystemInstance();
+		EList<ConnectionInstance> connilist = si.getConnectionInstances();
+		for (ConnectionInstance connectionInstance : connilist) {
+			ConnectionInstanceEnd src = connectionInstance.getSource();
+			ComponentInstance srcci = src.getContainingComponentInstance();
+			if (containedIn(srcci,ci)){
+				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
+				for (ConnectionReference connectionReference : connreflist) {
+					ComponentInstance pci = connectionReference.getContext();
+					Connection conn = connectionReference.getConnection();
+					ConnectionEnd ce = conn.getAllSource();
+					if (pci == ci.getContainingComponentInstance() && ce == f)
+						result.add(connectionInstance);
+				}
 			}
 		}
 		return result;
