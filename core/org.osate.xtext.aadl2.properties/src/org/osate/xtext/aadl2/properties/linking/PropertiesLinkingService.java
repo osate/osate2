@@ -200,55 +200,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}
 		return res;
 
-		//	final IScope scope = getScope(context, reference);
-		//	QualifiedName qualifiedLinkName =  QualifiedName.create(crossRefString);
-		//	IEObjectDescription eObjectDescription = scope.getSingleElement(qualifiedLinkName);
-		//	if (eObjectDescription != null) 
-		//		return eObjectDescription.getEObjectOrProxy();
-		//	return null;
 	}
 
 
 	
 	 
 	 
-//	/**
-//	 * check whether there are duplicate names
-//	 */
-//	public boolean hasDuplicateLinkedObjects(EObject context, EReference ref)
-//			throws IllegalNodeException {
-//		final EClass requiredType = ref.getEReferenceType();
-//		if (requiredType == null)
-//			return false;
-//		if (!(context instanceof NamedElement)) return false;
-//			String crossRefString = ((NamedElement)context).getName();
-//			EObject eo = getIndexedObject(context, ref, crossRefString);
-//			final IScope scope = getScope(context, ref);
-//			if (scope instanceof ImportScope){
-//				ImportScope is = (ImportScope)scope;
-//				IScope ps = is.getParent();
-//				Iterable<IEObjectDescription> el = ((SelectableBasedScope)ps).getAllElements();
-//				for (IEObjectDescription ieObjectDescription : el) {
-//					String s = ieObjectDescription.getQualifiedName().toString();
-//					EObject eobj = ieObjectDescription.getEObjectOrProxy();
-//					if (crossRefString.equalsIgnoreCase(ieObjectDescription.getQualifiedName().toString())){
-//						Object e = ieObjectDescription.getEObjectOrProxy();
-//					}
-//				}
-//			}
-//		return false;
-//	}
-//	public boolean hasDuplicatesAadlPackage(EObject context) {
-//	EReference reference = Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit();
-//	boolean res = hasDuplicateLinkedObjects(context, reference);
-//	return res;
-//}
-//
-//public boolean hasDuplicatesClassifier(EObject context) {
-//	EReference reference = Aadl2Package.eINSTANCE.getPackageSection_OwnedClassifier();
-//	boolean res = hasDuplicateLinkedObjects(context, reference);
-//	return res;
-//}
 
 	
 	@Override
@@ -426,6 +383,23 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						searchResult = rf;
 				}
 			}
+		} else if (pt.isSuperTypeOf(requiredType)) {
+			// look for property type in property set
+			return findPropertyType(context, reference, name);
+
+		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType
+				) {
+			// look for property constant in property set
+			return findPropertyConstant(context, reference, name);
+
+		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
+			// look for unit literal pointed to by baseUnit
+			return findUnitLiteralAsList(context, reference, name);
+
+		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
+			// look for enumeration literal
+			return findEnumLiteralAsList(context, reference, name);
+
 
 		} else if (Aadl2Package.eINSTANCE.getMode() == requiredType) {
 			// referenced by mode transition and inmodes
