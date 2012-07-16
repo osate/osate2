@@ -68,7 +68,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		for (EObject childElement : modelElement.getOwnedElements())
+		for (EObject childElement : modelElement.eContents())
 			createNode(parentNode, childElement);
 	}
 
@@ -80,7 +80,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		if (sysInstance.getOwnedElements().isEmpty()){
+		if (sysInstance.eContents().isEmpty()){
 			final InstantiateModel instantiateModel =
 			new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(

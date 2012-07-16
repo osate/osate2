@@ -1382,9 +1382,9 @@ public final class AadlUtil {
 				}
 			}
 		}
-		EList<Element> list = modelelement.getOwnedElements();//eContents();
-		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
-			Element child = it.next();
+		EList<EObject> list = modelelement.eContents();//getOwnedElements();		for (Iterator<Element> it = list.iterator(); it.hasNext();) {
+		for (Iterator<EObject> it = list.iterator(); it.hasNext();) {
+			Element child = (Element)it.next();
 			Element result = doFindElement(child, location, closestLocation);
 			if (result != closestLocation) {
 				closestLocation = result;
