@@ -797,6 +797,11 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return false;
 	}
 
+	/**
+	 * return list of Feature instances involved in a connection instance
+	 * In case of a fan-in/fan-out it includes both the feature group and the feature
+	 * For an end point in teh connection it may be a component instance
+	 */
 	public List<InstanceObject> getThroughFeatureInstances() {
 		final List<InstanceObject> featureList = new ArrayList<InstanceObject>();
 
