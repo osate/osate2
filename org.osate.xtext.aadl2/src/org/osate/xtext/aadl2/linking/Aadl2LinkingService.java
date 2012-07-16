@@ -473,23 +473,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			return Collections.<EObject> emptyList();
 
-		} else if (pt.isSuperTypeOf(requiredType)) {
-			// look for property type in property set
-			return findPropertyType(context, reference, name);
-
-		} else if (Aadl2Package.eINSTANCE.getPropertyConstant() == requiredType
-				) {
-			// look for property constant in property set
-			return findPropertyConstant(context, reference, name);
-
-		} else if (Aadl2Package.eINSTANCE.getUnitLiteral() == requiredType) {
-			// look for unit literal pointed to by baseUnit
-			return findUnitLiteralAsList(context, reference, name);
-
-		} else if (Aadl2Package.eINSTANCE.getEnumerationLiteral() == requiredType) {
-			// look for enumeration literal
-			return findEnumLiteralAsList(context, reference, name);
-
 		} else if (Aadl2Package.eINSTANCE.getModeTransition() == requiredType) {
 			// referenced by in modes
 			EObject searchResult = AadlUtil.getContainingClassifier(context)
