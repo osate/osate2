@@ -147,7 +147,8 @@ public class AnnexParserAgent  extends LazyLinker {
 					{ 
 						al.setName(annexName);
 						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
-						defaultAnnexLibrary.eAdapters().add(apr);
+						if (apr != null)
+							defaultAnnexLibrary.eAdapters().add(apr);
 						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// replace default annex library with the new one. 
 						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
