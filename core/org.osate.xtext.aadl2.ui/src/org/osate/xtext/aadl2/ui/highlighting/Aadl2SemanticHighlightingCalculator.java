@@ -37,6 +37,10 @@ package org.osate.xtext.aadl2.ui.highlighting;
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.EcoreUtil2;
+import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.TerminalRule;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.parser.IParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.eclipse.xtext.ui.editor.syntaxcoloring.ISemanticHighlightingCalculator;
@@ -45,8 +49,10 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.annexsupport.AnnexHighlighter;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
 import org.osate.annexsupport.AnnexHighlighterRegistry;
+import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexSource;
+import org.osate.annexsupport.AnnexUtil;
 
 public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
 	
@@ -58,21 +64,31 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		for(EObject obj : resource.getContents()) {
 			for(AnnexSubclause subclause : EcoreUtil2.eAllOfType(obj, AnnexSubclause.class)) {				
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(subclause, acceptor);
-				
+
 				if(annexAcceptor != null) {
-					AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
-					if(highlighter != null)	{
-						highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
+					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(subclause);
+					if (apr != null){
+						addHighlight(apr, annexAcceptor);
+					} else {
+						AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
+						if(highlighter != null)	{
+							highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
+						}
 					}
 				}
 			}
-			
+
 			for(AnnexLibrary library : EcoreUtil2.eAllOfType(obj, AnnexLibrary.class)) {
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(library, acceptor);
-				if(library != null) {
-					AnnexHighlighter highlighter = registry.getAnnexHighlighter(library.getName());
-					if(highlighter != null)	{
-						highlighter.highlightAnnexLibrary(library, annexAcceptor);
+				if(annexAcceptor != null) {
+					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(library);
+					if (apr != null){
+						addHighlight(apr, annexAcceptor);
+					} else {
+						AnnexHighlighter highlighter = registry.getAnnexHighlighter(library.getName());
+						if(highlighter != null)	{
+							highlighter.highlightAnnexLibrary(library, annexAcceptor);
+						}
 					}
 				}
 			}
@@ -121,5 +137,35 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		
 		return null;
 	}
+	
+
+	
+	private void addHighlight(AnnexParseResult annexParseResult, AnnexHighlighterPositionAcceptor acceptor){
+		if (annexParseResult == null) return ;
+		IParseResult parseResult = annexParseResult.getParseResult();
+		if (parseResult == null)
+			return;
+
+		INode root = parseResult.getRootNode();
+		for (INode node : root.getAsTreeIterable()) {
+			EObject ge = node.getGrammarElement();
+			if (ge instanceof Keyword) {
+				// adjust for added whitespace in front of annex text
+				acceptor.addPosition(node.getOffset()-annexParseResult.getAnnexOffset(), node.getLength(), 
+						AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+			} else if (ge instanceof TerminalRule) {
+				if (((TerminalRule)ge).getName().equalsIgnoreCase("SL_COMMENT")){
+					// adjust for added whitespace in front of annex text
+					acceptor.addPosition(node.getOffset()-annexParseResult.getAnnexOffset(), node.getLength(), 
+							AnnexHighlighterPositionAcceptor.COMMENT_ID);
+				} else if (((TerminalRule)ge).getName().equalsIgnoreCase("STRING")){
+					// adjust for added whitespace in front of annex text
+					acceptor.addPosition(node.getOffset()-annexParseResult.getAnnexOffset(), node.getLength(), 
+							AnnexHighlighterPositionAcceptor.STRING_ID);
+				}
+			} 
+		}
+	}
+
 
 }
