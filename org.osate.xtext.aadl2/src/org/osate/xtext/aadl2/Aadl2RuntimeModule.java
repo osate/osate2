@@ -74,9 +74,9 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	}
 
 
-//	//	@Override
-//	public Class<? extends org.eclipse.xtext.resource.IFragmentProvider> bindIFragmentProvider() {
-//		return org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider.class;
-//	}
+//		@Override
+	public Class<? extends org.eclipse.xtext.resource.EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
+		return org.osate.xtext.aadl2.util.MyEObjectAtOffsetHelper.class;
+	}
 
 }

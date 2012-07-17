@@ -45,6 +45,7 @@ import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.XtextResource;
@@ -67,12 +68,14 @@ import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporterManager;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
+import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexResolver;
 import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.annexsupport.AnnexSourceImpl;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.core.OsateCorePlugin;
 
 import antlr.RecognitionException;
@@ -140,16 +143,17 @@ public class AnnexParserAgent  extends LazyLinker {
 					int errs = errReporter.getNumErrors();
 					// offset +3 to compensate for removing the {**
 					al = ap.parseAnnexLibrary(annexName, annexText, filename, line, offset, errReporter);
-					if (al != null && errReporter.getNumErrors() == errs) 
+					if (al != null )//&& errReporter.getNumErrors() == errs) 
 					{ 
 						al.setName(annexName);
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
+						defaultAnnexLibrary.eAdapters().add(apr);
 						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// replace default annex library with the new one. 
 						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
 						int idx = ael.indexOf(defaultAnnexLibrary);
 						ael.add(idx, al);
 						ael.remove(defaultAnnexLibrary);
-
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
 						if (resolver != null){
@@ -193,9 +197,12 @@ public class AnnexParserAgent  extends LazyLinker {
 				try {
 					int errs = errReporter.getNumErrors();
 					AnnexSubclause asc = ap.parseAnnexSubclause(annexName, annexText, filename, line, offset, errReporter);
-					if (asc != null && errReporter.getNumErrors() == errs) 
+					if (asc != null )//&& errReporter.getNumErrors() == errs) 
 					{
 						asc.setName(annexName);
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(asc);
+						if (apr != null)
+							defaultAnnexSubclause.eAdapters().add(apr);
 						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 														
 						// replace default annex library with the new one. 
@@ -203,6 +210,7 @@ public class AnnexParserAgent  extends LazyLinker {
 						int idx = ael.indexOf(defaultAnnexSubclause);
 						ael.add(idx, asc);
 						ael.remove(defaultAnnexSubclause);
+						// now resolve reference so we messages if we have references to undefined items
 						AnnexResolver resolver = resolverregistry.getAnnexResolver(annexName);
 						AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
 						if (resolver != null) {
