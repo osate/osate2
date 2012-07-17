@@ -151,25 +151,29 @@ public class PredeclaredProperties {
 	private static void copyContributedResourceIntoWorkspace(
 			URI contributedResourceUri, IFile contributedResourceInWorkspace)
 			throws IOException, CoreException {
-		URIConverter uricvt = OsateResourceUtil.createResourceSet().getURIConverter();
-		InputStream contributedResourceContentsAsStream = uricvt
-				.createInputStream(contributedResourceUri.trimFileExtension()
-						.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT));
-		if (contributedResourceInWorkspace.exists()) {
-			// Temporarily make it read-write.
+		try {
+			URIConverter uricvt = OsateResourceUtil.createResourceSet().getURIConverter();
+			InputStream contributedResourceContentsAsStream = uricvt
+					.createInputStream(contributedResourceUri.trimFileExtension()
+							.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT));
+			if (contributedResourceInWorkspace.exists()) {
+				// Temporarily make it read-write.
+				ResourceAttributes attributes = contributedResourceInWorkspace
+						.getResourceAttributes();
+				attributes.setReadOnly(false);
+				contributedResourceInWorkspace.setResourceAttributes(attributes);
+				contributedResourceInWorkspace.setContents(
+						contributedResourceContentsAsStream, false, true, null);
+			} else
+				contributedResourceInWorkspace.create(
+						contributedResourceContentsAsStream, false, null);
 			ResourceAttributes attributes = contributedResourceInWorkspace
 					.getResourceAttributes();
-			attributes.setReadOnly(false);
+			attributes.setReadOnly(true);
 			contributedResourceInWorkspace.setResourceAttributes(attributes);
-			contributedResourceInWorkspace.setContents(
-					contributedResourceContentsAsStream, false, true, null);
-		} else
-			contributedResourceInWorkspace.create(
-					contributedResourceContentsAsStream, false, null);
-		ResourceAttributes attributes = contributedResourceInWorkspace
-				.getResourceAttributes();
-		attributes.setReadOnly(true);
-		contributedResourceInWorkspace.setResourceAttributes(attributes);
+		} catch (Exception e) {
+			Activator.logErrorMessage("Plugin contributor file does not exist: "+contributedResourceUri.toString());
+		}
 	}
 
 	public static void revertToContributed(
