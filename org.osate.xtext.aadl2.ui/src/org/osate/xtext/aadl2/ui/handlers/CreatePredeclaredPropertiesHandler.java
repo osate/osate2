@@ -45,9 +45,6 @@ import com.google.inject.Inject;
 public class CreatePredeclaredPropertiesHandler extends AbstractHandler {
 
 
-		@Inject
-		private EObjectAtOffsetHelper eObjectAtOffsetHelper;
-
 		public Object execute(ExecutionEvent event) throws ExecutionException {
 			PredeclaredProperties.initPluginContributedAadl();
 			return null;
