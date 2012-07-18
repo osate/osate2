@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -197,8 +198,12 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements
 	 */
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
-		EList<Mode> inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
-				Aadl2Package.SUBCOMPONENT__IN_MODE);
+		EList<Mode> inModes = 
+		new BasicInternalEList<Mode>(Mode.class);
+// XXX the resolving EList was notifying the Thread subcomponent of a change to In_Modes
+// which recursively caused the thread subcomponent notify itself
+//				new EObjectResolvingEList<Mode>(Mode.class, this,
+//				Aadl2Package.SUBCOMPONENT__IN_MODE);
 
 		for (ModeBinding binding : getOwnedModeBindings()) {
 			// null test for XText linking service
