@@ -103,20 +103,25 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 					analyzeInSingleModeOnly() ? SINGLE_MODE_CHOICE_LABELS : ALL_MODE_CHOICE_LABELS,
 					lastDefaultModeChoice);
 			} else {
+				// A system with no modes still has at least one SOM named NORMAL_SOM_NAME aka "no modes"
 				whichMode = INITIAL_MODE;
 			}
 			if (whichMode != -1) {
 				lastDefaultModeChoice = whichMode;
 				
 				SystemOperationMode chosenSOM = null;
-				if (whichMode == INITIAL_MODE) {
-					chosenSOM = si.getInitialSystemOperationMode();
-				} else if (whichMode == CHOOSE_MODE) {
-					final SOMChooserDialog somDialog = new SOMChooserDialog(getShell(), si, false);
-					if (somDialog.openThreadSafe() == Window.OK) {
-						chosenSOM = somDialog.getSOM();						
-					} else {
-						return;
+				if (!si.getSystemOperationModes().isEmpty()){
+					// the SOM list should not be empty
+					if (whichMode == INITIAL_MODE) {
+						// this may also be "No Modes" aka NORMAL_SOM_NAME
+						chosenSOM = si.getInitialSystemOperationMode();
+					} else if (whichMode == CHOOSE_MODE) {
+						final SOMChooserDialog somDialog = new SOMChooserDialog(getShell(), si, false);
+						if (somDialog.openThreadSafe() == Window.OK) {
+							chosenSOM = somDialog.getSOM();						
+						} else {
+							return;
+						}
 					}
 				}
 				
