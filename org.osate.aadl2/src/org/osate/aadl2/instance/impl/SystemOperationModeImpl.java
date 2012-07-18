@@ -167,12 +167,17 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		return super.eIsSet(featureID);
 	}
 
+	/**
+	 * returns initial mode as true if it is a SOM without modes ("no Modes" aka NORMAL_SOM_NME)
+	 * or if all of the modes are initial mode
+	 */
 	public final boolean isInitial() {
 		if (isInitial == null) {
 			Boolean value = Boolean.TRUE;
 			final Iterator<ModeInstance> i = this.getCurrentModes().iterator();
 			// Is the list empty?
 			if (!i.hasNext()) {
+				// The SOM has no modes. Check to make sure, it is the only SOM, i.e., "No Modes". Otherwise it is not initial
 				if (((SystemInstance) this.eContainer()).getSystemOperationModes().size() != 1) {
 					value = Boolean.FALSE;
 				}
