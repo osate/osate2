@@ -38,7 +38,7 @@ import org.eclipse.core.runtime.IConfigurationElement;
  * @author lwrage
  * @version $Id: AnnexProxy.java,v 1.2 2005-08-29 14:23:28 lwrage Exp $
  */
-abstract class AnnexProxy {
+abstract public class AnnexProxy {
 	protected static final String ATT_ID = "id";
 	protected static final String ATT_NAME = "name";
 	protected static final String ATT_ANNEXNAME = "annexName";
@@ -50,8 +50,16 @@ abstract class AnnexProxy {
 	protected final String name;
 	protected final String annexName;
 	protected final String className;
+	
+	protected AnnexProxy(String id, String name, String annexName, String className){
+		this.id = id;
+		this.name = name;
+		this.annexName = annexName;
+		this.className  = className;
+		this.configElem = null;
+	}
 
-	AnnexProxy(IConfigurationElement configElem) {
+	protected AnnexProxy(IConfigurationElement configElem) {
 		this.configElem = configElem;
 		id = getAttribute(ATT_ID, null);
 		name = getAttribute(ATT_NAME, id);
@@ -60,6 +68,7 @@ abstract class AnnexProxy {
 	}
 
 	private String getAttribute(String name, String defaultValue) {
+		if (configElem == null) return null;
 		String value = configElem.getAttribute(name);
 
 		if (value != null) {
