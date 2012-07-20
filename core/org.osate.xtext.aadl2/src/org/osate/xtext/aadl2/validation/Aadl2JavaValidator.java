@@ -411,17 +411,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	
-	@Check(CheckType.FAST)
-	public void caseAnnexLibrary(AnnexLibrary lib){
-//		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(lib);
-//		String s = diagnostic.getMessage();
-	}
-	
-	@Check(CheckType.FAST)
-	public void caseDefaultAnnexLibrary(DefaultAnnexLibrary lib){
-//		Diagnostic diagnostic = Diagnostician.INSTANCE.validate(lib);
-//		String s = diagnostic.getMessage();
-	}
 
 	
 //	
