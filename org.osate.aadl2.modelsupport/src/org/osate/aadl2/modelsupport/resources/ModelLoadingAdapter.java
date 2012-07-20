@@ -74,13 +74,13 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                 if (ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2")){
                     XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
                     String sp = file.getFullPath().toString();
-                    Resource resource = resourceSet.getResource(URI.createURI(sp),true);
+                    Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
                     ModelUnit model = (ModelUnit) resource.getContents().get(0);
                     return model;
                 } else if (ext.toLowerCase().equals("aaxl2")){
                     XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
                     String sp = file.getFullPath().toString();
-                    Resource resource = resourceSet.getResource(URI.createURI(sp),true);
+                    Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
                     SystemInstance model = (SystemInstance) resource.getContents().get(0);
                     return model;
                 }
