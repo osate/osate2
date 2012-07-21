@@ -78,5 +78,15 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends org.eclipse.xtext.resource.EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
 		return org.osate.xtext.aadl2.util.MyEObjectAtOffsetHelper.class;
 	}
+	
+//	@Override
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
+		return org.osate.xtext.aadl2.parsing.Aadl2TokenStrategy.class;
+	}
+	
+	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.DoubleClickStrategyProvider> bindDoubleClickStrategyProvider() {
+		return org.osate.xtext.aadl2.parsing.Aadl2DoubleClickStrategyProvider.class;
+	}
+
 
 }
