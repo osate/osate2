@@ -36,10 +36,12 @@ import org.osate.workspace.WorkspacePlugin;
 public class WriteToFile {
 	
 	UnparseText textBuffer ;
-	IPath path;
+	String reportType;
+	EObject root;
 	public WriteToFile(String reporttype, EObject root){
-		path = getReportPath(reporttype,root);
-		textBuffer = new UnparseText();
+		this.reportType = reporttype;
+		this.root = root;
+		this.textBuffer = new UnparseText();
 	}
 	
 	public void addOutput(String text){
@@ -55,9 +57,13 @@ public class WriteToFile {
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
-		String s = path.toString();
-		s = s.replaceFirst(WorkspacePlugin.AADL_INSTANCES_DIR, "/reports/"+reporttype);
-		path = new Path(s);
+		if (root instanceof InstanceObject){
+			String filename = path.lastSegment();
+			path = path.removeFileExtension().removeLastSegments(2).append("/reports/"+reporttype+"/"+filename);
+		} else {
+			String filename = path.lastSegment();
+			path = path.removeFileExtension().removeLastSegments(1).append("/reports/"+reporttype+"/"+filename);
+		}
 		path = path.removeFileExtension().addFileExtension("csv");
 		return path;
 	}
@@ -68,7 +74,7 @@ public class WriteToFile {
 	 * @param content
 	 */	
 	public void saveToFile(){
-
+		IPath path = getReportPath(reportType,root);
 		if (path != null) {
 			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
 			if (file != null) {
