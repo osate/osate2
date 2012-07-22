@@ -15,6 +15,7 @@ import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.ui.IEditorDescriptor;
@@ -34,62 +35,23 @@ import org.osate.workspace.WorkspacePlugin;
 
 public class WriteToFile {
 	
-	String Filename ;
-	public WriteToFile(String filename){
-		Filename = filename;
+	UnparseText textBuffer ;
+	IPath path;
+	public WriteToFile(String reporttype, EObject root){
+		path = getReportPath(reporttype,root);
+		textBuffer = new UnparseText();
 	}
-
-	/** save a log file of latency values for debugging the path **/
-	public void logLine(String outstr){
-		// Stream to write file
-		FileOutputStream fout;
-
-		try
-		{
-			boolean exists = (new File(Filename)).exists();
-
-			// Open an output stream
-			fout = new FileOutputStream (Filename, true);
-
-			// Print a line of text
-			new PrintStream(fout).println (outstr);
-
-			// Close our output stream
-			fout.close();		
-		}
-		// Catches any error conditions
-		catch (IOException e)
-		{
-			System.err.println ("Unable to write to file");
-			System.exit(-1);
-		}
+	
+	public void addOutput(String text){
+		textBuffer.addOutput(text);
 	}
-	/**
-	 * Writes content to file in specified path
-	 * @param path
-	 * @param content
-	 */	
-	public static void WriteToFile(IPath path, String content){
-
-		if (path != null) {
-			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
-			if (file != null) {
-				final InputStream input = new ByteArrayInputStream(content.getBytes());
-				try {
-					if (file.exists()) {
-						file.setContents(input, true, true, null);
-					} else {
-						AadlUtil.makeSureFoldersExist(path);
-						file.create(input, true, null);
-					}
-				} catch (final CoreException e) {
-				}
-			}
-		}
+	
+	public void addOutputNewline(String text){
+		textBuffer.addOutputNewline(text);
 	}
 	
 	
-	public static IPath getReportPath(String reporttype, AObject root){
+	protected IPath getReportPath(String reporttype, EObject root){
 		Resource res = root.eResource();
 		URI uri = res.getURI();
 		IPath path = OsateResourceUtil.getOsatePath(uri);
@@ -105,12 +67,23 @@ public class WriteToFile {
 	 * @param root
 	 * @param content
 	 */	
-	public static void WriteCSVReport(String reporttype, AObject root, String content){
-		IPath path = getReportPath(reporttype,root);
-		WriteToFile(path,content);
+	public void saveToFile(){
+
+		if (path != null) {
+			IFile file = ResourcesPlugin.getWorkspace().getRoot().getFile(path);
+			if (file != null) {
+				final InputStream input = new ByteArrayInputStream(textBuffer.getParseOutput().getBytes());
+				try {
+					if (file.exists()) {
+						file.setContents(input, true, true, null);
+					} else {
+						AadlUtil.makeSureFoldersExist(path);
+						file.create(input, true, null);
+					}
+				} catch (final CoreException e) {
+				}
+			}
+		}
 	}
-
-
-
 	
 }
