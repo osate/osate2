@@ -18,6 +18,11 @@ import org.osate.aadl2.instance.SystemInstance;
 
 public class Aadl2InstanceUtil {
 	
+	/**
+	 * get outgoing connection instances from the component instance or any contained component instance
+	 * @param ci component instance
+	 * @return list of connection instances
+	 */
 	public static EList<ConnectionInstance> getOutgoingConnections(ComponentInstance ci){
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 		SystemInstance si = ci.getSystemInstance();
@@ -34,10 +39,11 @@ public class Aadl2InstanceUtil {
 	/**
 	 * find outgoing connection that goes through the feature of the specified component instance
 	 * @param ci Component instance
-	 * @param f Feature
+	 * @param fi Feature instance
 	 * @return list of connection instances going through the feature
 	 */
-	public static EList<ConnectionInstance> getOutgoingConnection(ComponentInstance ci,Feature f){
+	public static EList<ConnectionInstance> getOutgoingConnection(ComponentInstance ci,FeatureInstance fi){
+		Feature f = fi.getFeature();
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 		SystemInstance si = ci.getSystemInstance();
 		EList<ConnectionInstance> connilist = si.getConnectionInstances();
