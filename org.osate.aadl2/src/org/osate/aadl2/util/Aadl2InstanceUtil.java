@@ -37,6 +37,24 @@ public class Aadl2InstanceUtil {
 		return result;
 	}
 	/**
+	 * get incoming connection instances from the component instance or any contained component instance
+	 * @param ci component instance
+	 * @return list of connection instances
+	 */
+	public static EList<ConnectionInstance> getIncomingConnections(ComponentInstance ci){
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		SystemInstance si = ci.getSystemInstance();
+		EList<ConnectionInstance> connilist = si.getConnectionInstances();
+		for (ConnectionInstance connectionInstance : connilist) {
+			ConnectionInstanceEnd src = connectionInstance.getSource();
+			ConnectionInstanceEnd dst = connectionInstance.getDestination();
+			if (!containedIn(src,ci)&&containedIn(dst, ci)){
+				result.add(connectionInstance);
+			}
+		}
+		return result;
+	}
+	/**
 	 * find outgoing connection that goes through the feature of the specified component instance
 	 * @param ci Component instance
 	 * @param fi Feature instance
@@ -51,6 +69,33 @@ public class Aadl2InstanceUtil {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ComponentInstance srcci = src.getContainingComponentInstance();
 			if (containedIn(srcci,ci)){
+				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
+				for (ConnectionReference connectionReference : connreflist) {
+					ComponentInstance pci = connectionReference.getContext();
+					Connection conn = connectionReference.getConnection();
+					ConnectionEnd ce = conn.getAllSource();
+					if (pci == ci.getContainingComponentInstance() && ce == f)
+						result.add(connectionInstance);
+				}
+			}
+		}
+		return result;
+	}
+	/**
+	 * find incoming connection that goes through the feature of the specified component instance
+	 * @param ci Component instance
+	 * @param fi Feature instance
+	 * @return list of connection instances going through the feature
+	 */
+	public static EList<ConnectionInstance> getIncomingConnection(ComponentInstance ci,FeatureInstance fi){
+		Feature f = fi.getFeature();
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		SystemInstance si = ci.getSystemInstance();
+		EList<ConnectionInstance> connilist = si.getConnectionInstances();
+		for (ConnectionInstance connectionInstance : connilist) {
+			ConnectionInstanceEnd dest = connectionInstance.getDestination();
+			ComponentInstance destci = dest.getContainingComponentInstance();
+			if (containedIn(destci,ci)){
 				EList<ConnectionReference> connreflist = connectionInstance.getConnectionReferences();
 				for (ConnectionReference connectionReference : connreflist) {
 					ComponentInstance pci = connectionReference.getContext();
@@ -104,6 +149,7 @@ public class Aadl2InstanceUtil {
 	/**
 	 * Find the source endpoint of the connection in the specified component instance
 	 * the endpoint can be a feature instance or a component instance
+	 * The connection instance may go inside the component instance
 	 * @param ci context component instance
 	 * @param conni connection instance
 	 * @return InstanceObject
@@ -124,6 +170,7 @@ public class Aadl2InstanceUtil {
 	/**
 	 * Find the destination endpoint of the connection in the specified component instance
 	 * the endpoint can be a feature instance or a component instance
+	 * The connection instance may go inside the component instance
 	 * @param ci context component instance
 	 * @param conni connection instance
 	 * @return InstanceObject
