@@ -824,24 +824,30 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return featureList;
 	}
 
+	/**
+	 * find the connection endpoint within the component instance
+	 * @param ctxt component instance
+	 * @param connEndPoint ConnectionEnd
+	 * @param connCtxt Context of th eendpoint
+	 */
 	public InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt,
 			final ConnectionEnd connEndPoint, final Context connCtxt) {
-		InstanceObject srcInstance = null;
+		InstanceObject instance = null;
 		if (connCtxt == null) {
 			//lookup subcomponent using the connection src
-			srcInstance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);
+			instance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);
 		} else if (connCtxt instanceof ComponentImplementation) {
 			//lookup feature in the context using the connection src
-			srcInstance = ctxt.findFeatureInstance((Feature) connEndPoint);
+			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof Subcomponent) {
 			//lookup feature in the subcomponent
-			srcInstance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt).findFeatureInstance(
+			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt).findFeatureInstance(
 					(Feature) connEndPoint);
 		} else if (connCtxt instanceof FeatureGroup) {
 			//feature in a feature group...
-			srcInstance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);
+			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);
 		}
-		return srcInstance;
+		return instance;
 	}
 
 	public boolean isActive(SystemOperationMode som) {
