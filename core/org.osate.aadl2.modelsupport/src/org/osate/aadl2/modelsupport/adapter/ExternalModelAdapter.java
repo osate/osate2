@@ -63,6 +63,12 @@ public class ExternalModelAdapter extends AdapterImpl {
 		super();
 		myType = type;
 	}
+
+	public ExternalModelAdapter(final Object type, Object object) {
+		super();
+		myType = type;
+		externalModelObject = object;
+	}
 	
 	/**
 	 * Returns <code>false</code>
