@@ -39,10 +39,12 @@ package org.osate.aadl2.modelsupport.modeltraversal;
 import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 
@@ -66,7 +68,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	public final EList<Element> visitWorkspace() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlandInstanceFilesInWorkspace();
 		for (IFile file : files){
-			Element target = (Element)AadlUtil.getElement(file);
+			Element target = (Element)Platform.getAdapterManager().getAdapter(file, Element.class);
 			if (target != null){
 				visitRoot(target);
 			}
@@ -89,7 +91,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	public final EList<Element> visitWorkspaceDeclarativeModels() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
 		for (IFile file : files){
-			ModelUnit target = (ModelUnit)AadlUtil.getElement(file);
+			Element target = (Element)Platform.getAdapterManager().getAdapter(file, ModelUnit.class);
 			if (target != null){
 				visitRoot(target);
 			}
@@ -112,7 +114,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	public final EList visitWorkspaceInstanceModels() {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile file : files){
-			InstanceObject target = (InstanceObject)AadlUtil.getElement(file);
+			SystemInstance target = (SystemInstance)Platform.getAdapterManager().getAdapter(file, SystemInstance.class);
 			if (target != null){
 				visitRoot(target);
 			}
