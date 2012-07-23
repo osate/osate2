@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface VirtualBusPrototype extends ComponentPrototype,
-		VitualBusSubcomponentType {
+public interface VirtualBusPrototype extends ComponentPrototype, VitualBusSubcomponentType {
 } // VirtualBusPrototype

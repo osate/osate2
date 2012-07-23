@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface ProcessSubcomponentType extends org.osate.aadl2.Process,
-		SubcomponentType {
+public interface ProcessSubcomponentType extends org.osate.aadl2.Process, SubcomponentType {
 } // ProcessSubcomponentType

@@ -49,7 +49,7 @@ import org.osate.aadl2.Flow;
  *
  * @generated
  */
-public abstract class FlowImpl extends StructuralFeatureImpl implements Flow {
+public abstract class FlowImpl extends NamedElementImpl implements Flow {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

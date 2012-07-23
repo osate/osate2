@@ -868,7 +868,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constrainingClassifier"
         ordered="false" eType="#//ComponentClassifier"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//Flow #//ModalPath #//FlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowSpecification" eSuperTypes="#//FlowFeature #//ModalPath #//FlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//FlowSpecification">
       <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>
@@ -880,7 +880,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="InEnd" ordered="false"
         eType="#//FlowEnd" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Flow" abstract="true" eSuperTypes="#//StructuralFeature"/>
+  <eClassifiers xsi:type="ecore:EClass" name="FlowFeature" abstract="true" eSuperTypes="#//StructuralFeature #//Flow"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Flow" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ModalPath" abstract="true" eSuperTypes="#//ModalElement">
     <eAnnotations source="duplicates">
       <contents xsi:type="ecore:EReference" name="inMode" ordered="false" upperBound="-1"
@@ -1152,7 +1153,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="derivedMode" ordered="false"
         eType="#//Mode"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//Flow #//ModalPath #//ClassifierFeature">
+  <eClassifiers xsi:type="ecore:EClass" name="FlowImplementation" eSuperTypes="#//ModalPath #//ClassifierFeature #//Flow">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="kind" ordered="false" lowerBound="1"
         eType="#//FlowKind"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specification" ordered="false"
@@ -1191,7 +1192,7 @@
       <eAnnotations source="subsets" references="#//Generalization/general"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//Flow #//ModalPath #//EndToEndFlowElement">
+  <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlow" eSuperTypes="#//FlowFeature #//ModalPath #//EndToEndFlowElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="refined" ordered="false"
         eType="#//EndToEndFlow">
       <eAnnotations source="subsets" references="#//RefinableElement/refinedElement"/>

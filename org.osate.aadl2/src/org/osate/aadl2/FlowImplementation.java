@@ -55,7 +55,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface FlowImplementation extends Flow, ModalPath, ClassifierFeature {
+public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	/**
 	 * Returns the value of the '<em><b>Specification</b></em>' reference.
 	 * <!-- begin-user-doc -->
