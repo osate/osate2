@@ -54,6 +54,7 @@
 package org.osate.xtext.aadl2.propertyset.parser.antlr;
 
 import java.io.InputStream;
+
 import org.eclipse.xtext.parser.antlr.IAntlrTokenFileProvider;
 
 public class PropertysetAntlrTokenFileProvider implements IAntlrTokenFileProvider {

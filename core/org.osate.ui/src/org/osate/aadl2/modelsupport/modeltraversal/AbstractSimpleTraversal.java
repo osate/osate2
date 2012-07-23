@@ -43,11 +43,7 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.workspace.WorkspacePlugin;
 
 
 abstract class AbstractSimpleTraversal extends AbstractTraversal {

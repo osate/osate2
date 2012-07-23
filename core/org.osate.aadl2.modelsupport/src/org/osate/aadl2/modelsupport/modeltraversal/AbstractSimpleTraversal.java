@@ -44,7 +44,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.ModelUnit;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.workspace.WorkspacePlugin;
 
 
 abstract class AbstractSimpleTraversal extends AbstractTraversal {

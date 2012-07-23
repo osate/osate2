@@ -38,7 +38,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.xtext.parsetree.reconstr.impl.DefaultTransientValueService;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.PackageSection;
 
 public class Aadl2TransientValueService  extends DefaultTransientValueService {
 

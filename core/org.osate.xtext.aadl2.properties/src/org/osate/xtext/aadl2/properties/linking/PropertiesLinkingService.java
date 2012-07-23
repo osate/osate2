@@ -156,6 +156,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		super();
 	}
 
+	
+	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(){
 		if (eInstance == null) {
 			PredeclaredProperties.initPluginContributedAadl();
@@ -165,6 +167,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		return eInstance;
 	}
 
+	
+	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(Element context){
 		if (eInstance == null) {
 			if (context.eResource() instanceof Aadl2ResourceImpl){

@@ -2,7 +2,6 @@ package org.osate.annexsupport;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.xtext.nodemodel.INode;
 
 public class AnnexSourceImpl implements AnnexSource {
 	private Notifier target;
