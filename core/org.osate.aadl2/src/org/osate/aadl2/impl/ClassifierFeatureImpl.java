@@ -55,8 +55,7 @@ import org.osate.aadl2.ClassifierFeature;
  *
  * @generated
  */
-public abstract class ClassifierFeatureImpl extends NamedElementImpl implements
-		ClassifierFeature {
+public abstract class ClassifierFeatureImpl extends NamedElementImpl implements ClassifierFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

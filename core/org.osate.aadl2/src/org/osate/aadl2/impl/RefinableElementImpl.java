@@ -57,8 +57,7 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * @generated
  */
-public abstract class RefinableElementImpl extends NamedElementImpl implements
-		RefinableElement {
+public abstract class RefinableElementImpl extends NamedElementImpl implements RefinableElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -85,8 +84,7 @@ public abstract class RefinableElementImpl extends NamedElementImpl implements
 	 */
 	public Classifier getRefinementContext() {
 		Classifier refinementContext = basicGetRefinementContext();
-		return refinementContext != null
-				&& ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
+		return refinementContext != null && ((EObject) refinementContext).eIsProxy() ? (Classifier) eResolveProxy((InternalEObject) refinementContext)
 				: refinementContext;
 	}
 

@@ -98,6 +98,5 @@ public interface Prototype extends StructuralFeature, CalledSubprogram {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.constrainingCategory.oclIsUndefined() implies self.constrainingClassifier = self.constrainingCategory'"
 	 * @generated
 	 */
-	boolean categoryConstraint(DiagnosticChain diagnostics,
-			Map<Object, Object> context);
+	boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context);
 } // Prototype

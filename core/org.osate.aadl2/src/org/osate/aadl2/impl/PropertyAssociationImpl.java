@@ -75,8 +75,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * @generated
  */
-public class PropertyAssociationImpl extends ElementImpl implements
-		PropertyAssociation {
+public class PropertyAssociationImpl extends ElementImpl implements PropertyAssociation {
 	/**
 	 * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -183,8 +182,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 */
 	public EList<ContainedNamedElement> getAppliesTos() {
 		if (appliesTos == null) {
-			appliesTos = new EObjectContainmentEList<ContainedNamedElement>(
-					ContainedNamedElement.class, this,
+			appliesTos = new EObjectContainmentEList<ContainedNamedElement>(ContainedNamedElement.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO);
 		}
 		return appliesTos;
@@ -207,8 +205,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 * @generated
 	 */
 	public ContainedNamedElement createAppliesTo() {
-		return createAppliesTo(Aadl2Package.eINSTANCE
-				.getContainedNamedElement());
+		return createAppliesTo(Aadl2Package.eINSTANCE.getContainedNamedElement());
 	}
 
 	/**
@@ -218,8 +215,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 */
 	public EList<Classifier> getInBindings() {
 		if (inBindings == null) {
-			inBindings = new EObjectResolvingEList<Classifier>(
-					Classifier.class, this,
+			inBindings = new EObjectResolvingEList<Classifier>(Classifier.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__IN_BINDING);
 		}
 		return inBindings;
@@ -243,8 +239,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 		boolean oldAppend = append;
 		append = newAppend;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_ASSOCIATION__APPEND, oldAppend,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__APPEND, oldAppend,
 					append));
 	}
 
@@ -266,9 +261,8 @@ public class PropertyAssociationImpl extends ElementImpl implements
 		boolean oldConstant = constant;
 		constant = newConstant;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT, oldConstant,
-					constant));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__CONSTANT,
+					oldConstant, constant));
 	}
 
 	/**
@@ -278,8 +272,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 */
 	public EList<ModalPropertyValue> getOwnedValues() {
 		if (ownedValues == null) {
-			ownedValues = new EObjectContainmentEList<ModalPropertyValue>(
-					ModalPropertyValue.class, this,
+			ownedValues = new EObjectContainmentEList<ModalPropertyValue>(ModalPropertyValue.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE);
 		}
 		return ownedValues;
@@ -291,8 +284,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 * @generated
 	 */
 	public ModalPropertyValue createOwnedValue() {
-		ModalPropertyValue newOwnedValue = (ModalPropertyValue) create(Aadl2Package.eINSTANCE
-				.getModalPropertyValue());
+		ModalPropertyValue newOwnedValue = (ModalPropertyValue) create(Aadl2Package.eINSTANCE.getModalPropertyValue());
 		getOwnedValues().add(newOwnedValue);
 		return newOwnedValue;
 	}
@@ -309,8 +301,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 			if (property != oldProperty) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY,
-							oldProperty, property));
+							Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY, oldProperty, property));
 			}
 		}
 		return property;
@@ -334,9 +325,8 @@ public class PropertyAssociationImpl extends ElementImpl implements
 		Property oldProperty = property;
 		property = newProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY, oldProperty,
-					property));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROPERTY_ASSOCIATION__PROPERTY,
+					oldProperty, property));
 	}
 
 	/**
@@ -345,15 +335,12 @@ public class PropertyAssociationImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO:
-			return ((InternalEList<?>) getAppliesTos()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getAppliesTos()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE:
-			return ((InternalEList<?>) getOwnedValues()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getOwnedValues()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -398,8 +385,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 			return;
 		case Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO:
 			getAppliesTos().clear();
-			getAppliesTos().addAll(
-					(Collection<? extends ContainedNamedElement>) newValue);
+			getAppliesTos().addAll((Collection<? extends ContainedNamedElement>) newValue);
 			return;
 		case Aadl2Package.PROPERTY_ASSOCIATION__IN_BINDING:
 			getInBindings().clear();
@@ -413,8 +399,7 @@ public class PropertyAssociationImpl extends ElementImpl implements
 			return;
 		case Aadl2Package.PROPERTY_ASSOCIATION__OWNED_VALUE:
 			getOwnedValues().clear();
-			getOwnedValues().addAll(
-					(Collection<? extends ModalPropertyValue>) newValue);
+			getOwnedValues().addAll((Collection<? extends ModalPropertyValue>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -502,12 +487,10 @@ public class PropertyAssociationImpl extends ElementImpl implements
 		if (count == 0) {
 			return false;
 		}
-		return getOwnedValues().get(0).getInModes() != null
-				&& !getOwnedValues().get(0).getInModes().isEmpty();
+		return getOwnedValues().get(0).getInModes() != null && !getOwnedValues().get(0).getInModes().isEmpty();
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty result = new EvaluatedProperty();
 		for (ModalPropertyValue mpv : ownedValues) {
 			result.add(mpv.evaluate(ctx));

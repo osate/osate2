@@ -45,13 +45,10 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface AbstractClassifier extends ComponentClassifier,
-		AbstractSubcomponentType, BusSubcomponentType, DataSubcomponentType,
-		DeviceSubcomponentType, MemorySubcomponentType,
-		ProcessorSubcomponentType, ProcessSubcomponentType,
-		SubprogramGroupSubcomponentType, SubprogramSubcomponentType,
-		SystemSubcomponentType, ThreadGroupSubcomponentType,
-		ThreadSubcomponentType, VirtualProcessorSubcomponentType,
+public interface AbstractClassifier extends ComponentClassifier, AbstractSubcomponentType, BusSubcomponentType,
+		DataSubcomponentType, DeviceSubcomponentType, MemorySubcomponentType, ProcessorSubcomponentType,
+		ProcessSubcomponentType, SubprogramGroupSubcomponentType, SubprogramSubcomponentType, SystemSubcomponentType,
+		ThreadGroupSubcomponentType, ThreadSubcomponentType, VirtualProcessorSubcomponentType,
 		VitualBusSubcomponentType {
 
 } // AbstractClassifier

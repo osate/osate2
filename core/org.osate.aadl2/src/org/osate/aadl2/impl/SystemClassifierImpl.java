@@ -48,8 +48,7 @@ import org.osate.aadl2.SystemClassifier;
  *
  * @generated
  */
-public abstract class SystemClassifierImpl extends ComponentClassifierImpl
-		implements SystemClassifier {
+public abstract class SystemClassifierImpl extends ComponentClassifierImpl implements SystemClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

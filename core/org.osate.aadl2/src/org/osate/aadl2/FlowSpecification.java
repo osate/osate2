@@ -54,7 +54,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface FlowSpecification extends Flow, ModalPath, FlowElement {
+public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.
 	 * The literals are from the enumeration {@link org.osate.aadl2.FlowKind}.
