@@ -60,7 +60,7 @@ import org.osate.aadl2.FlowSpecification;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowSpecificationItemProvider extends FlowItemProvider implements IEditingDomainItemProvider,
+public class FlowSpecificationItemProvider extends FlowFeatureItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

@@ -114,8 +114,7 @@ public interface Namespace extends NamedElement {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='membersAreDistinguishable()'"
 	 * @generated
 	 */
-	boolean members_distinguishable(DiagnosticChain diagnostics,
-			Map<Object, Object> context);
+	boolean members_distinguishable(DiagnosticChain diagnostics, Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

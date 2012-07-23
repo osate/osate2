@@ -44,6 +44,5 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ThreadGroupPrototype extends ComponentPrototype,
-		ThreadGroupSubcomponentType {
+public interface ThreadGroupPrototype extends ComponentPrototype, ThreadGroupSubcomponentType {
 } // ThreadGroupPrototype

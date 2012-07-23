@@ -51,8 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface VirtualProcessorSubcomponent extends Subcomponent,
-		VirtualProcessor {
+public interface VirtualProcessorSubcomponent extends Subcomponent, VirtualProcessor {
 
 	/**
 	 * Returns the value of the '<em><b>Virtual Processor Subcomponent Type</b></em>' reference.
@@ -84,7 +83,6 @@ public interface VirtualProcessorSubcomponent extends Subcomponent,
 	 * @see #getVirtualProcessorSubcomponentType()
 	 * @generated
 	 */
-	void setVirtualProcessorSubcomponentType(
-			VirtualProcessorSubcomponentType value);
+	void setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType value);
 
 } // VirtualProcessorSubcomponent

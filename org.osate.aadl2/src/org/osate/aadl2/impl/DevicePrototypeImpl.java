@@ -47,8 +47,7 @@ import org.osate.aadl2.DevicePrototype;
  *
  * @generated
  */
-public class DevicePrototypeImpl extends ComponentPrototypeImpl implements
-		DevicePrototype {
+public class DevicePrototypeImpl extends ComponentPrototypeImpl implements DevicePrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
