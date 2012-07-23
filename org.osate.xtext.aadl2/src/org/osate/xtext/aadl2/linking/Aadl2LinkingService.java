@@ -100,8 +100,20 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
-	AnnexLinkingServiceRegistry linkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
-			.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
+	AnnexLinkingServiceRegistry annexlinkingserviceregistry ;
+	
+	protected void Aadl2linkingService(){
+		initAnnexLinkingServiceRegistry();
+	}
+	
+	protected void initAnnexLinkingServiceRegistry(){
+		if (annexlinkingserviceregistry == null){
+		annexlinkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
+		}
+	}
+	
+	
 
 	
 	@Override
@@ -111,11 +123,14 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (annex != null){
 			String annexName = annex.getName();
 			if (annexName != null ){
-				AnnexLinkingService linkingservice = linkingserviceregistry.getAnnexLinkingService(annexName);
-				if (linkingservice != null){
-				return linkingservice.resolveAnnexReference(annexName,context, reference, node);
-				} else {
-					return super.getLinkedObjects(context, reference, node);
+				if (annexlinkingserviceregistry == null) initAnnexLinkingServiceRegistry();
+				if (annexlinkingserviceregistry != null){
+					AnnexLinkingService linkingservice = annexlinkingserviceregistry.getAnnexLinkingService(annexName);
+					if (linkingservice != null){
+						return linkingservice.resolveAnnexReference(annexName,context, reference, node);
+					} else {
+						return super.getLinkedObjects(context, reference, node);
+					}
 				}
 			} else {
 				return super.getLinkedObjects(context, reference, node);
