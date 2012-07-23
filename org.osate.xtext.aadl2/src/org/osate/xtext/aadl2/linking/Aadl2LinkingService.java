@@ -96,13 +96,9 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
-import org.osate.annexsupport.AnnexResolver;
-import org.osate.annexsupport.AnnexResolverRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
-//	private  ErrorModelLanguageServices emLangS  = new ErrorModelLanguageServices();
-//	private ILinkingService emLS = emLangS.getLinkingService();
 
 	AnnexLinkingServiceRegistry linkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
 			.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
@@ -582,6 +578,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 	private static Aadl2LinkingService eInstance = null;
 
+	@Deprecated
 	public static Aadl2LinkingService getAadl2LinkingService(){
 		if (eInstance == null) {
 			PredeclaredProperties.initPluginContributedAadl();

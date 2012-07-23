@@ -8,7 +8,6 @@ import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.source.ICharacterPairMatcher;
 import org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy;
-import org.eclipse.xtext.ui.editor.doubleClicking.LexerTokenAndCharacterPairAwareStrategy;
 import org.eclipse.xtext.ui.editor.model.ILexerTokenRegion;
 import org.eclipse.xtext.ui.editor.model.XtextDocument;
 import org.osate.xtext.aadl2.parser.antlr.lexer.InternalAadl2Lexer;

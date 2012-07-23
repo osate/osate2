@@ -40,7 +40,6 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -53,7 +52,6 @@ import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemorySubcomponent;
 import org.osate.aadl2.MemoryType;
-import org.osate.aadl2.ProcessorType;
 import org.osate.aadl2.Subcomponent;
 
 /**

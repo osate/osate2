@@ -36,10 +36,10 @@
 */
 package org.osate.xtext.aadl2.properties.parser.antlr;
 
-import com.google.inject.Inject;
-
 import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
+
+import com.google.inject.Inject;
 
 public class PropertiesParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {
 

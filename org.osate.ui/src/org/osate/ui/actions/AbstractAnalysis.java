@@ -42,11 +42,8 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.errorreporting.InternalErrorReporter;
-import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.ui.OsateUiPlugin;
 
 
 /**

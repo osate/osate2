@@ -34,7 +34,6 @@
 package org.osate.annexsupport;
 
 import org.eclipse.core.runtime.IConfigurationElement;
-import org.eclipse.xtext.ui.editor.syntaxcoloring.IHighlightedPositionAcceptor;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 
