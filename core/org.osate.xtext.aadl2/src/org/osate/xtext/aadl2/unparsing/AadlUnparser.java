@@ -97,7 +97,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 		aadlText = new UnparseText();
 	}
 
-	protected final void initSwitches() {
+	protected void initSwitches() {
 
 		/* here we are creating the various unparse switches */
 
