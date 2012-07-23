@@ -47,8 +47,7 @@ import org.osate.aadl2.SystemPrototype;
  *
  * @generated
  */
-public class SystemPrototypeImpl extends ComponentPrototypeImpl implements
-		SystemPrototype {
+public class SystemPrototypeImpl extends ComponentPrototypeImpl implements SystemPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

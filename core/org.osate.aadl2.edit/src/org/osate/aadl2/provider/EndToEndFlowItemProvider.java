@@ -59,7 +59,7 @@ import org.osate.aadl2.EndToEndFlow;
  * <!-- end-user-doc -->
  * @generated
  */
-public class EndToEndFlowItemProvider extends FlowItemProvider implements IEditingDomainItemProvider,
+public class EndToEndFlowItemProvider extends FlowFeatureItemProvider implements IEditingDomainItemProvider,
 		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.

@@ -1870,6 +1870,7 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_sl0SkK1eEeCEBvwFrdo_PA">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#ClassifierFeature"/>
         </generalization>
+        <generalization xmi:id="_Ie7wgNSyEeGrQ5HyNd6P4Q" general="_5NdxkNSxEeGrQ5HyNd6P4Q"/>
         <ownedAttribute xmi:id="Flows-FlowImplementation-kind" name="kind" type="Flows-FlowKind">
           <ownedComment xmi:id="Flows-FlowImplementation-kind-_ownedComment.0">
             <body>Specifies if this flow specification is a source, path, or sink. Derived from the corresponding flow specification.</body>
@@ -1977,10 +1978,11 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Flows-A_flowSpecification_refined-flow-_lowerValue"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="_W64jmFEMEd6kWIIn_VWR1g" name="Flow" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="_W64jmFEMEd6kWIIn_VWR1g" name="FlowFeature" isAbstract="true">
         <generalization xmi:id="_b3rNtVEMEd6kWIIn_VWR1g">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
         </generalization>
+        <generalization xmi:id="_H058ENSyEeGrQ5HyNd6P4Q" general="_5NdxkNSxEeGrQ5HyNd6P4Q"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_AzAPoKvVEeC0h7jzzZfZ7Q" name="FlowEnd">
         <generalization xmi:id="_D5kAgK1MEeCEBvwFrdo_PA">
@@ -2062,6 +2064,11 @@ The context owns the connection end instance.</body>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_GjmWcqvvEeC0h7jzzZfZ7Q" value="*"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_GjmWc6vvEeC0h7jzzZfZ7Q"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_5NdxkNSxEeGrQ5HyNd6P4Q" name="Flow" isAbstract="true">
+        <generalization xmi:id="_pB03I9S2EeGrQ5HyNd6P4Q">
+          <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
+        </generalization>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Modes" name="Modes">

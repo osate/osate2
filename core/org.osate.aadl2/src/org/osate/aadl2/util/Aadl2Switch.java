@@ -702,13 +702,15 @@ public class Aadl2Switch<T> extends Switch<T> {
 			FlowSpecification flowSpecification = (FlowSpecification) theEObject;
 			T result = caseFlowSpecification(flowSpecification);
 			if (result == null)
-				result = caseFlow(flowSpecification);
+				result = caseFlowFeature(flowSpecification);
 			if (result == null)
 				result = caseModalPath(flowSpecification);
 			if (result == null)
 				result = caseFlowElement(flowSpecification);
 			if (result == null)
 				result = caseStructuralFeature(flowSpecification);
+			if (result == null)
+				result = caseFlow(flowSpecification);
 			if (result == null)
 				result = caseModalElement(flowSpecification);
 			if (result == null)
@@ -725,15 +727,28 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.FLOW_FEATURE: {
+			FlowFeature flowFeature = (FlowFeature) theEObject;
+			T result = caseFlowFeature(flowFeature);
+			if (result == null)
+				result = caseStructuralFeature(flowFeature);
+			if (result == null)
+				result = caseFlow(flowFeature);
+			if (result == null)
+				result = caseRefinableElement(flowFeature);
+			if (result == null)
+				result = caseClassifierFeature(flowFeature);
+			if (result == null)
+				result = caseNamedElement(flowFeature);
+			if (result == null)
+				result = caseElement(flowFeature);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.FLOW: {
 			Flow flow = (Flow) theEObject;
 			T result = caseFlow(flow);
-			if (result == null)
-				result = caseStructuralFeature(flow);
-			if (result == null)
-				result = caseRefinableElement(flow);
-			if (result == null)
-				result = caseClassifierFeature(flow);
 			if (result == null)
 				result = caseNamedElement(flow);
 			if (result == null)
@@ -1523,17 +1538,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 			FlowImplementation flowImplementation = (FlowImplementation) theEObject;
 			T result = caseFlowImplementation(flowImplementation);
 			if (result == null)
-				result = caseFlow(flowImplementation);
-			if (result == null)
 				result = caseModalPath(flowImplementation);
 			if (result == null)
-				result = caseStructuralFeature(flowImplementation);
+				result = caseClassifierFeature(flowImplementation);
+			if (result == null)
+				result = caseFlow(flowImplementation);
 			if (result == null)
 				result = caseModalElement(flowImplementation);
-			if (result == null)
-				result = caseRefinableElement(flowImplementation);
-			if (result == null)
-				result = caseClassifierFeature(flowImplementation);
 			if (result == null)
 				result = caseNamedElement(flowImplementation);
 			if (result == null)
@@ -1617,13 +1628,15 @@ public class Aadl2Switch<T> extends Switch<T> {
 			EndToEndFlow endToEndFlow = (EndToEndFlow) theEObject;
 			T result = caseEndToEndFlow(endToEndFlow);
 			if (result == null)
-				result = caseFlow(endToEndFlow);
+				result = caseFlowFeature(endToEndFlow);
 			if (result == null)
 				result = caseModalPath(endToEndFlow);
 			if (result == null)
 				result = caseEndToEndFlowElement(endToEndFlow);
 			if (result == null)
 				result = caseStructuralFeature(endToEndFlow);
+			if (result == null)
+				result = caseFlow(endToEndFlow);
 			if (result == null)
 				result = caseModalElement(endToEndFlow);
 			if (result == null)
@@ -5940,8 +5953,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseComponentImplementationReference(
-			ComponentImplementationReference object) {
+	public T caseComponentImplementationReference(ComponentImplementationReference object) {
 		return null;
 	}
 
@@ -6032,6 +6044,21 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseFlowSpecification(FlowSpecification object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Flow Feature</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Flow Feature</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseFlowFeature(FlowFeature object) {
 		return null;
 	}
 
@@ -6391,8 +6418,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFeatureGroupPrototypeBinding(
-			FeatureGroupPrototypeBinding object) {
+	public T caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
 		return null;
 	}
 
@@ -7397,8 +7423,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupSubcomponentType(
-			SubprogramGroupSubcomponentType object) {
+	public T caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
 		return null;
 	}
 
@@ -8088,8 +8113,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponent(
-			VirtualProcessorSubcomponent object) {
+	public T caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
 		return null;
 	}
 
@@ -8119,8 +8143,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponentType(
-			VirtualProcessorSubcomponentType object) {
+	public T caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
 		return null;
 	}
 
@@ -8555,8 +8578,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorImplementation(
-			VirtualProcessorImplementation object) {
+	public T caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
 		return null;
 	}
 
@@ -8601,8 +8623,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupImplementation(
-			SubprogramGroupImplementation object) {
+	public T caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
 		return null;
 	}
 

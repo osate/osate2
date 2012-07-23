@@ -46,5 +46,5 @@ package org.osate.aadl2;
  * @model abstract="true"
  * @generated
  */
-public interface Flow extends StructuralFeature {
+public interface Flow extends NamedElement {
 } // Flow

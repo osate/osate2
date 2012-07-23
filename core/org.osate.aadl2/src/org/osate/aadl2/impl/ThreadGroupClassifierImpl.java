@@ -48,8 +48,7 @@ import org.osate.aadl2.ThreadGroupClassifier;
  *
  * @generated
  */
-public abstract class ThreadGroupClassifierImpl extends ComponentClassifierImpl
-		implements ThreadGroupClassifier {
+public abstract class ThreadGroupClassifierImpl extends ComponentClassifierImpl implements ThreadGroupClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
