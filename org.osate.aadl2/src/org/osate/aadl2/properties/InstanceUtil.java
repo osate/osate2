@@ -378,9 +378,15 @@ public class InstanceUtil {
 		PrototypeBinding result = null;
 		InstanceObject parent = (InstanceObject) context.getOwner();
 
-		// prototype binding may be attached to parent (anonymous component
-		// classifier)
-		if (parent instanceof ComponentInstance && !(parent instanceof SystemInstance)) {
+		// prototype binding may be attached to parent (anonymous component classifier)
+		if (parent instanceof SystemInstance) {
+			ComponentImplementation impl = ((SystemInstance) parent).getSystemImplementation();
+			
+			if (impl == null) {
+				return null;
+			}
+			result = impl.lookupPrototypeBinding(proto);
+		} else if (parent instanceof ComponentInstance) {
 			Subcomponent parentSub = ((ComponentInstance) parent).getSubcomponent();
 
 			if (parentSub == null) {
