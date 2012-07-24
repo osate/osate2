@@ -657,6 +657,7 @@ behavior_action_block returns [BehaviorActionBlock BehActionBlock]
     {
        BehActionBlock.setContent(BehActions) ;
        setLocationReference(BehActionBlock, identifier);
+       DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
     }
       
     ( TIMEOUT BehTime=behavior_time
