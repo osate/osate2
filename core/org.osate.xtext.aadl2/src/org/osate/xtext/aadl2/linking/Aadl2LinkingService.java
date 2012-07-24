@@ -127,13 +127,16 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				if (annexlinkingserviceregistry != null){
 					AnnexLinkingService linkingservice = annexlinkingserviceregistry.getAnnexLinkingService(annexName);
 					if (linkingservice != null){
-						return linkingservice.resolveAnnexReference(annexName,context, reference, node);
-					} else {
-						return super.getLinkedObjects(context, reference, node);
+						List<EObject> result = linkingservice.resolveAnnexReference(annexName,context, reference, node);
+						if (!result.isEmpty()) return result;
+// XXX drop through to call on linking service for resolving Aadl2 references
+//					} else {
+//						return super.getLinkedObjects(context, reference, node);
 					}
 				}
-			} else {
-				return super.getLinkedObjects(context, reference, node);
+// XXX drop through to call on linking service for resolving Aadl2 references
+//			} else {
+//				return super.getLinkedObjects(context, reference, node);
 			}
 		}
 		final EClass requiredType = reference.getEReferenceType();
