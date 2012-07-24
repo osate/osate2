@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
@@ -537,7 +538,7 @@ public class SystemTypeImpl extends ComponentTypeImpl implements SystemType {
 				|| eIsSet(Aadl2Package.SYSTEM_TYPE__OWNED_EVENT_DATA_PORT);
 	}
 
-	public String getCategory() {
-		return "system";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.SYSTEM;
 	}
 } //SystemTypeImpl

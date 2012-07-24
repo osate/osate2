@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.MemoryImplementation;
 import org.osate.aadl2.MemorySubcomponent;
@@ -335,7 +336,7 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl implem
 				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "memory";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.MEMORY;
 	}
 } //MemoryImplementationImpl

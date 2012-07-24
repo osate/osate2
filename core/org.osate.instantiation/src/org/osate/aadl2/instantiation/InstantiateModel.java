@@ -598,7 +598,7 @@ public class InstantiateModel {
 			cc = null;
 		} else {
 			cc = (ComponentClassifier) ic.classifier;
-			newInstance.setCategory(ComponentCategory.getByName(cc.getCategory()));
+			newInstance.setCategory(cc.getCategory());
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");

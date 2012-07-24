@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
@@ -338,7 +339,7 @@ public class VirtualBusTypeImpl extends ComponentTypeImpl implements VirtualBusT
 				|| eIsSet(Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
 	}
 
-	public String getCategory() {
-		return "virtual bus";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.VIRTUAL_BUS;
 	}
 } //VirtualBusTypeImpl
