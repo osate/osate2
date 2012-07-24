@@ -50,6 +50,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractImplementation;
 import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceSubcomponent;
@@ -903,7 +904,7 @@ public class AbstractImplementationImpl extends BehavioredImplementationImpl imp
 				|| eIsSet(Aadl2Package.ABSTRACT_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "abstract";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.ABSTRACT;
 	}
 } //AbstractImplementationImpl

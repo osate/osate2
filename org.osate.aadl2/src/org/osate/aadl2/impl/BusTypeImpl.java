@@ -49,6 +49,7 @@ import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.BusType;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
@@ -388,7 +389,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT);
 	}
 
-	public String getCategory() {
-		return "bus";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.BUS;
 	}
 } //BusTypeImpl

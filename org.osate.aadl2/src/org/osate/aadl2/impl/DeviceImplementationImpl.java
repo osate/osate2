@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusSubcomponent;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
@@ -388,7 +389,7 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "device";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.DEVICE;
 	}
 } //DeviceImplementationImpl

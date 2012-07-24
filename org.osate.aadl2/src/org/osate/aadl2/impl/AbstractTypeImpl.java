@@ -49,6 +49,7 @@ import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractType;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
@@ -538,7 +539,7 @@ public class AbstractTypeImpl extends ComponentTypeImpl implements AbstractType 
 				|| eIsSet(Aadl2Package.ABSTRACT_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	public String getCategory() {
-		return "abstract";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.ABSTRACT;
 	}
 } //AbstractTypeImpl
