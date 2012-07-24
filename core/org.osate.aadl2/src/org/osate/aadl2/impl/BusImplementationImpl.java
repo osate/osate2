@@ -49,6 +49,7 @@ import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusImplementation;
 import org.osate.aadl2.BusType;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
@@ -286,7 +287,7 @@ public class BusImplementationImpl extends ComponentImplementationImpl implement
 				|| eIsSet(Aadl2Package.BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "bus";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.BUS;
 	}
 } //BusImplementationImpl

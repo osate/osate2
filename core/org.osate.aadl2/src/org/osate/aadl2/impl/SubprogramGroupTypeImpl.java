@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
@@ -293,7 +294,7 @@ public class SubprogramGroupTypeImpl extends ComponentTypeImpl implements Subpro
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	public String getCategory() {
-		return "subprogram group";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.SUBPROGRAM_GROUP;
 	}
 } //SubprogramGroupTypeImpl

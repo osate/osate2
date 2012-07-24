@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.ProcessImplementation;
@@ -492,7 +493,7 @@ public class ProcessImplementationImpl extends ComponentImplementationImpl imple
 				|| eIsSet(Aadl2Package.PROCESS_IMPLEMENTATION__OWNED_THREAD_GROUP_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "process";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.PROCESS;
 	}
 } //ProcessImplementationImpl

@@ -182,11 +182,11 @@ public class InstantiateModel {
 	public InstantiateModel(final IProgressMonitor pm) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
-		errManager = new AnalysisErrorReporterManager(
-				new MarkerAnalysisErrorReporter.Factory(
-						AadlConstants.INSTANTIATION_OBJECT_MARKER));
+		errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
+				AadlConstants.INSTANTIATION_OBJECT_MARKER));
 		monitor = pm;
 	}
+
 	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
@@ -196,9 +196,11 @@ public class InstantiateModel {
 
 	// Methods
 	/*
-	 * This method will construct an instance model, save it on disk and return its root object 
-	 * The method makes sure that the system implementation is in the OSATE resource set and will create the instance model there as well.
-	 * The Osate resource set is the shared resource set maintained by OsateResourceUtil
+	 * This method will construct an instance model, save it on disk and return
+	 * its root object The method makes sure that the system implementation is
+	 * in the OSATE resource set and will create the instance model there as
+	 * well. The Osate resource set is the shared resource set maintained by
+	 * OsateResourceUtil
 	 * 
 	 * @param si system implementation
 	 * 
@@ -209,74 +211,70 @@ public class InstantiateModel {
 		// the instance file
 		SystemImplementation isi = si;
 		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(si);
-		if (eobj instanceof SystemImplementation) isi = (SystemImplementation)eobj;
+		if (eobj instanceof SystemImplementation)
+			isi = (SystemImplementation) eobj;
 		URI instanceURI = OsateResourceUtil.getInstanceModelURI(isi);
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);//,si);
 
 		// now instantiate the rest of the model
-		final InstantiateModel instantiateModel =
-				new InstantiateModel(new NullProgressMonitor(),
-						new AnalysisErrorReporterManager(
-								new MarkerAnalysisErrorReporter.Factory(
-										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
+						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
 		return root;
 	}
 
 	/*
-	 * This method will construct an instance model, save it on disk and return its root object 
-	 * The method will make sure the declarative models are up to date.
-	 * The Osate resource set is the shared resource set maintained by OsateResourceUtil
+	 * This method will construct an instance model, save it on disk and return
+	 * its root object The method will make sure the declarative models are up
+	 * to date. The Osate resource set is the shared resource set maintained by
+	 * OsateResourceUtil
 	 * 
 	 * @param si system implementation
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance rebuildInstanceModelFile( final Resource res) {
-		SystemInstance target = (SystemInstance)res.getContents().get(0);
+	public static SystemInstance rebuildInstanceModelFile(final Resource res) {
+		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		SystemImplementation si = target.getSystemImplementation();
-		URI uri =EcoreUtil.getURI(si);
+		URI uri = EcoreUtil.getURI(si);
 		res.unload();
 		OsateResourceUtil.refreshResourceSet();
-		si = (SystemImplementation)OsateResourceUtil.getResourceSet().getEObject(uri, true);
-		final InstantiateModel instantiateModel =
-				new InstantiateModel(new NullProgressMonitor(),
-						new AnalysisErrorReporterManager(
-								new MarkerAnalysisErrorReporter.Factory(
-										AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
+						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, res);
 		return root;
 	}
-	
+
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles( ) {
+	public static void rebuildAllInstanceModelFiles() {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile iFile : files) {
-			Resource res = OsateResourceUtil.getResource((IResource)iFile);
-			SystemInstance target = (SystemInstance)res.getContents().get(0);
+			Resource res = OsateResourceUtil.getResource((IResource) iFile);
+			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			SystemImplementation si = target.getSystemImplementation();
-			URI uri =EcoreUtil.getURI(si);
+			URI uri = EcoreUtil.getURI(si);
 			res.unload();
 			OsateResourceUtil.refreshResourceSet();
-			si = (SystemImplementation)OsateResourceUtil.getResourceSet().getEObject(uri, true);
-			final InstantiateModel instantiateModel =
-					new InstantiateModel(new NullProgressMonitor(),
-							new AnalysisErrorReporterManager(
-									new MarkerAnalysisErrorReporter.Factory(
-											AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+			si = (SystemImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+					new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
+							AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 			instantiateModel.createSystemInstance(si, res);
 		}
 	}
 
-		/**
-		 * create a system instance into the provided (empty) resource and save it
-		 * This is performed as a transactional operation
-		 * @param si
-		 * @param aadlResource
-		 * @return
-		 */
+	/**
+	 * create a system instance into the provided (empty) resource and save it
+	 * This is performed as a transactional operation
+	 * @param si
+	 * @param aadlResource
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
@@ -318,7 +316,7 @@ public class InstantiateModel {
 	 */
 	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
 		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
-		final String instanceName = si.getTypeName() + "_" + si.getImplementationName() 
+		final String instanceName = si.getTypeName() + "_" + si.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
 		root.setSystemImplementation(si);
@@ -532,7 +530,7 @@ public class InstantiateModel {
 				Stack<Integer> indexStack = new Stack<Integer>();
 
 				if (dims.isEmpty()) {
-					instantiateSubcomponent(ci, sub, sub, indexStack,0);
+					instantiateSubcomponent(ci, sub, sub, indexStack, 0);
 				} else {
 					final int dimensions = dims.size();
 					class ArrayInstantiator {
@@ -544,15 +542,15 @@ public class InstantiateModel {
 							for (int i = 1; i <= count; i++) {
 								if (dim + 1 < dimensions) {
 									indexStack.push(Integer.valueOf(i));
-									process(dim + 1,indexStack);
+									process(dim + 1, indexStack);
 									indexStack.pop();
 								} else {
-									instantiateSubcomponent(ci, sub, sub, indexStack,i);
+									instantiateSubcomponent(ci, sub, sub, indexStack, i);
 								}
 							}
 						}
 					}
-					new ArrayInstantiator().process(0,indexStack);
+					new ArrayInstantiator().process(0, indexStack);
 				}
 			}
 			if (monitor.isCanceled()) {
@@ -575,23 +573,23 @@ public class InstantiateModel {
 		}
 		return false;
 	}
-	
-	protected String indexStackToString(Stack<Integer> indexStack){
-		String result="";
+
+	protected String indexStackToString(Stack<Integer> indexStack) {
+		String result = "";
 		for (int i = 0; i < indexStack.size(); i++) {
-			result = result + "_"+indexStack.get(i);
+			result = result + "_" + indexStack.get(i);
 		}
 		return result;
 	}
 
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
-			final Subcomponent sub, Stack<Integer> indexStack,int index) {
+			final Subcomponent sub, Stack<Integer> indexStack, int index) {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName()+indexStackToString(indexStack)+(index>0?"_"+index:""));
+		newInstance.setName(sub.getName() + indexStackToString(indexStack) + (index > 0 ? "_" + index : ""));
 		newInstance.setCategory(sub.getCategory());
 		parent.getComponentInstances().add(newInstance);
 
@@ -600,6 +598,7 @@ public class InstantiateModel {
 			cc = null;
 		} else {
 			cc = (ComponentClassifier) ic.classifier;
+			newInstance.setCategory(cc.getCategory());
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
@@ -630,7 +629,7 @@ public class InstantiateModel {
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
-				fillFeatureInstance(ci,feature, false,0);
+				fillFeatureInstance(ci, feature, false, 0);
 			} else {
 				// feature dimension should always be one
 				class ArrayInstantiator {
@@ -639,7 +638,7 @@ public class InstantiateModel {
 						long count = getElementCount(arraySize);
 
 						for (int i = 1; i <= count; i++) {
-							fillFeatureInstance(ci,feature, false,i);
+							fillFeatureInstance(ci, feature, false, i);
 						}
 					}
 				}
@@ -648,7 +647,7 @@ public class InstantiateModel {
 		}
 	}
 
-	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse,int index) {
+	protected void fillFeatureInstance(ComponentInstance ci, Feature feature, boolean inverse, int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
 		fi.setName(feature.getName());
 		fi.setFeature(feature);
@@ -659,7 +658,7 @@ public class InstantiateModel {
 		} else {
 			fi.setDirection(DirectionType.IN_OUT);
 		}
-		filloutFeatureInstance(fi,feature,  inverse, index);
+		filloutFeatureInstance(fi, feature, inverse, index);
 	}
 
 	/**
@@ -670,9 +669,9 @@ public class InstantiateModel {
 	 * @param inverse
 	 * @param index
 	 */
-	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse,int index) {
+	protected void fillFeatureInstance(FeatureInstance fgi, Feature feature, boolean inverse, int index) {
 		final FeatureInstance fi = InstanceFactory.eINSTANCE.createFeatureInstance();
-		fi.setName(feature.getName()+(index>0?"_"+index:""));
+		fi.setName(feature.getName() + (index > 0 ? "_" + index : ""));
 		fi.setFeature(feature);
 		fgi.getFeatureInstances().add(fi);
 		// take into account inverse in setting direction of features inside feature groups
@@ -688,9 +687,9 @@ public class InstantiateModel {
 			fi.setDirection(DirectionType.IN_OUT);
 		}
 		// must add before prototype resolution in fillFeatureInstance
-		filloutFeatureInstance(fi,feature,  inverse, index);
+		filloutFeatureInstance(fi, feature, inverse, index);
 	}
-	
+
 	/**
 	 * fill out the rest of the feature instance
 	 * resolve any prototype first
@@ -699,7 +698,7 @@ public class InstantiateModel {
 	 * @param inverse
 	 * @param index
 	 */
-	protected void filloutFeatureInstance(FeatureInstance fi,Feature feature, boolean inverse,int index) {
+	protected void filloutFeatureInstance(FeatureInstance fi, Feature feature, boolean inverse, int index) {
 		// resolve feature prototype
 		if (feature.getPrototype() instanceof FeaturePrototype) {
 			FeaturePrototypeActual fpa = InstanceUtil.resolveFeaturePrototype(feature.getPrototype(), fi,
@@ -767,18 +766,22 @@ public class InstantiateModel {
 
 			inverse ^= fg.isInverse();
 
-			while (ft instanceof FeatureGroupPrototype ) {
+			while (ft instanceof FeatureGroupPrototype) {
 				FeatureGroupPrototype fgp = (FeatureGroupPrototype) ft;
 				FeatureGroupPrototypeActual fgr = InstanceUtil.resolveFeatureGroupPrototype(fgp, fi, classifierCache);
 				if (fgr != null) {
 					ft = fgr.getFeatureType();
 					if (ft == null) {
-						errManager.error(fi, "Could not resolve feature group type of feature group prototype " + fi.getInstanceObjectPath());
+						errManager.error(
+								fi,
+								"Could not resolve feature group type of feature group prototype "
+										+ fi.getInstanceObjectPath());
 						return;
 					}
 				} else {
 					// prototype has not been bound yet
-					errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()+" is not bound yet to feature group type");
+					errManager.warning(fi, "Feature group prototype  of " + fi.getInstanceObjectPath()
+							+ " is not bound yet to feature group type");
 					return;
 				}
 			}
@@ -816,10 +819,10 @@ public class InstantiateModel {
 				errManager.warning(fi, "Feature group " + fi.getInstanceObjectPath() + " has no features");
 				return;
 			}
-			instantiateFGFeatures(fi, fgFeatures,inverse);
+			instantiateFGFeatures(fi, fgFeatures, inverse);
 		}
 	}
-	
+
 	/**
 	 * instantiate features in feature group take into account that they can be declared as arrays
 	 */
@@ -828,7 +831,7 @@ public class InstantiateModel {
 			final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
 			if (dims.isEmpty()) {
-				fillFeatureInstance(fgi,feature, inverse,0);
+				fillFeatureInstance(fgi, feature, inverse, 0);
 			} else {
 				class ArrayInstantiator {
 					void process(int dim) {
@@ -836,7 +839,7 @@ public class InstantiateModel {
 						long count = getElementCount(arraySize);
 
 						for (int i = 0; i < count; i++) {
-							fillFeatureInstance(fgi,feature, inverse,i+1);
+							fillFeatureInstance(fgi, feature, inverse, i + 1);
 						}
 					}
 				}
@@ -844,7 +847,6 @@ public class InstantiateModel {
 			}
 		}
 	}
-
 
 	// --------------------------------------------------------------------------------------------
 	// Methods related to prototype resolution

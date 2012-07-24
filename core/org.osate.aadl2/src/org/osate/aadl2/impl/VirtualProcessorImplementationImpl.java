@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.VirtualBusSubcomponent;
@@ -342,7 +343,7 @@ public class VirtualProcessorImplementationImpl extends ComponentImplementationI
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_VIRTUAL_PROCESSOR_SUBCOMPONENT);
 	}
 
-	public String getCategory() {
-		return "virtual processor";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}
 } //VirtualProcessorImplementationImpl
