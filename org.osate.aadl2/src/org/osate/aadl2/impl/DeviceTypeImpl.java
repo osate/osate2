@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DeviceType;
 import org.osate.aadl2.EventDataPort;
@@ -488,7 +489,7 @@ public class DeviceTypeImpl extends ComponentTypeImpl implements DeviceType {
 				|| eIsSet(Aadl2Package.DEVICE_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	public String getCategory() {
-		return "device";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.DEVICE;
 	}
 } //DeviceTypeImpl

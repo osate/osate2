@@ -48,6 +48,7 @@ import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
@@ -388,7 +389,7 @@ public class MemoryTypeImpl extends ComponentTypeImpl implements MemoryType {
 				|| eIsSet(Aadl2Package.MEMORY_TYPE__OWNED_EVENT_PORT);
 	}
 
-	public String getCategory() {
-		return "memory";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.MEMORY;
 	}
 } //MemoryTypeImpl

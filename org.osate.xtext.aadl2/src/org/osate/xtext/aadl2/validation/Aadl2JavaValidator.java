@@ -869,7 +869,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //			error(componentTypeRename,"Component type rename reference could not be resolved.");
 			return;
 		}
-		if (!componentTypeRename.getCategory().getName()
+		if (!componentTypeRename.getCategory()
 				.equals(componentTypeRename.getRenamedComponentType()
 						.getCategory())) {
 			error("The category of '"
@@ -1047,10 +1047,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentClassifier componentClassifier = subcomponent.getClassifier();
 		ComponentPrototype componentPrototype = subcomponent.getPrototype();
 		if (componentClassifier != null) {
-			if (!subcomponentCategory.getName().equals(
+			if (!subcomponentCategory.equals(
 					componentClassifier.getCategory())
 					&& !componentClassifier.getCategory().equals(
-							ComponentCategory.ABSTRACT.getName())) {
+							ComponentCategory.ABSTRACT)) {
 				error(subcomponent,
 						"The category of the subcomponent is incompatible with the category of the classifier");
 			}
@@ -1270,7 +1270,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkComponentPrototypeCategory(ComponentPrototype prototype) {
 		if (prototype.getConstrainingClassifier() != null
-				&& !getComponentPrototypeCategory(prototype).getName()
+				&& !getComponentPrototypeCategory(prototype)
 						.equals(prototype.getConstrainingClassifier().getCategory())) {
 			error(prototype, "The category of '"
 					+ prototype.getConstrainingClassifier().getQualifiedName()
@@ -1318,7 +1318,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (!actual.getCategory().equals(ComponentCategory.ABSTRACT)
 				&& !actual
 						.getCategory()
-						.getName()
 						.equals(st instanceof ComponentClassifier ? ((ComponentClassifier) st)
 								.getCategory() : getComponentPrototypeCategory((ComponentPrototype) st))) {
 			error(actual,

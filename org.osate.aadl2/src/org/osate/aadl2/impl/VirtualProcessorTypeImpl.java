@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
@@ -443,7 +444,7 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
 	}
 
-	public String getCategory() {
-		return "virtual processor";
+	public ComponentCategory getCategory() {
+		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}
 } //VirtualProcessorTypeImpl
