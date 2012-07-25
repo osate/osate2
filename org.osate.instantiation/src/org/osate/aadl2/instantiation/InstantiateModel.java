@@ -54,6 +54,7 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.Command;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -527,21 +528,21 @@ public class InstantiateModel {
 						+ "' has already been instantiated as enclosing component.");
 			} else {
 				final EList<ArrayDimension> dims = sub.getArrayDimensions();
-				Stack<Integer> indexStack = new Stack<Integer>();
+				Stack<Long> indexStack = new Stack<Long>();
 
 				if (dims.isEmpty()) {
 					instantiateSubcomponent(ci, sub, sub, indexStack, 0);
 				} else {
 					final int dimensions = dims.size();
 					class ArrayInstantiator {
-						void process(int dim, Stack<Integer> indexStack) {
+						void process(int dim, Stack<Long> indexStack) {
 							// index starts with one
 							ArraySize arraySize = dims.get(dim).getSize();
 							long count = getElementCount(arraySize);
 
 							for (int i = 1; i <= count; i++) {
 								if (dim + 1 < dimensions) {
-									indexStack.push(Integer.valueOf(i));
+									indexStack.push(Long.valueOf(i));
 									process(dim + 1, indexStack);
 									indexStack.pop();
 								} else {
@@ -574,7 +575,7 @@ public class InstantiateModel {
 		return false;
 	}
 
-	protected String indexStackToString(Stack<Integer> indexStack) {
+	protected String indexStackToString(Stack<Long> indexStack) {
 		String result = "";
 		for (int i = 0; i < indexStack.size(); i++) {
 			result = result + "_" + indexStack.get(i);
@@ -583,14 +584,15 @@ public class InstantiateModel {
 	}
 
 	protected void instantiateSubcomponent(final ComponentInstance parent, final ModalElement mm,
-			final Subcomponent sub, Stack<Integer> indexStack, int index) {
+			final Subcomponent sub, Stack<Long> indexStack, int index) {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName() + indexStackToString(indexStack) + (index > 0 ? "_" + index : ""));
-		newInstance.setCategory(sub.getCategory());
+		newInstance.setName(sub.getName() /*+ indexStackToString(indexStack) + (index > 0 ? "_" + index : "")*/);
+		newInstance.getIndices().addAll(indexStack);
+		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
 
 		ic = getInstantiatedClassifier(newInstance, 0);
@@ -699,6 +701,8 @@ public class InstantiateModel {
 	 * @param index
 	 */
 	protected void filloutFeatureInstance(FeatureInstance fi, Feature feature, boolean inverse, int index) {
+		fi.setIndex(index);
+
 		// resolve feature prototype
 		if (feature.getPrototype() instanceof FeaturePrototype) {
 			FeaturePrototypeActual fpa = InstanceUtil.resolveFeaturePrototype(feature.getPrototype(), fi,
