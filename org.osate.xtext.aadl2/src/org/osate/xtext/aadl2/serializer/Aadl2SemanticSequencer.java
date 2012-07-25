@@ -37,21 +37,59 @@ package org.osate.xtext.aadl2.serializer;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
+import org.osate.annexsupport.AnnexRegistry;
+import org.osate.annexsupport.AnnexTextPositionResolver;
+import org.osate.annexsupport.AnnexUnparser;
+import org.osate.annexsupport.AnnexUnparserRegistry;
 
 public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
+	
+
+	AnnexUnparserRegistry unparserregistry ;
+	
+	protected AnnexUnparserRegistry getAnnexUnparserRegistry(){
+		if (unparserregistry == null){
+			unparserregistry = (AnnexUnparserRegistry) AnnexRegistry
+					.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID);
+		}
+		return unparserregistry;
+	}
+
 	
 	@Override
 	public void createSequence(EObject context, EObject semanticObject) {
 		if (Aadl2Package.eINSTANCE.getAnnexLibrary().isSuperTypeOf(semanticObject.eClass())){
 			if(context == grammarAccess.getAnnexLibraryRule() ||
 					context == grammarAccess.getDefaultAnnexLibraryRule()) {
-//							DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
-//							dal.setName(((NamedElement)semanticObject).getName());
-//							dal.setSourceText("{** hi there **}");
-//							sequence_DefaultAnnexLibrary(context, (DefaultAnnexLibrary) dal); 
-//							return; 
+				String annexName = ((NamedElement)semanticObject).getName();
+				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
+				if (atpr != null){
+					String text = atpr.unparseAnnexLibrary((AnnexLibrary)semanticObject, "  ");
+					DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+					dal.setName(((NamedElement)semanticObject).getName());
+					dal.setSourceText("{**\n"+text+"\n**}");
+					sequence_DefaultAnnexLibrary(context, (DefaultAnnexLibrary) dal); 
+					return; 
+				}
+			}
+		}
+		if (Aadl2Package.eINSTANCE.getAnnexSubclause().isSuperTypeOf(semanticObject.eClass())){
+			if(context == grammarAccess.getAnnexSubclauseRule() ||
+					context == grammarAccess.getDefaultAnnexSubclauseRule()) {
+				String annexName = ((NamedElement)semanticObject).getName();
+				AnnexUnparser atpr = getAnnexUnparserRegistry().getAnnexUnparser(annexName);
+				if (atpr != null){
+					String text = atpr.unparseAnnexLibrary((AnnexLibrary)semanticObject, "  ");
+					DefaultAnnexSubclause dasc = Aadl2Factory.eINSTANCE.createDefaultAnnexSubclause();
+					dasc.setName(((NamedElement)semanticObject).getName());
+					dasc.setSourceText("{**\n"+text+"\n**}");
+					sequence_DefaultAnnexSubclause(context, (DefaultAnnexSubclause) dasc); 
+					return; 
+				}
 			}
 		}
 		super.createSequence(context, semanticObject);
