@@ -993,12 +993,13 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		}
 		return false;
 	}
-	
-	public ComponentClassifier getComponentClassifier(){
+
+	public ComponentClassifier getComponentClassifier() {
 		Subcomponent sub = getSubcomponent();
-		if (Aadl2Util.isNull(sub)) return null;
+		if (Aadl2Util.isNull(sub))
+			return null;
 		return sub.getClassifier();
-		
+
 	}
 
 } //ComponentInstanceImpl

@@ -39,6 +39,7 @@ import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -190,6 +191,15 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 		}
 		return super.eIsSet(featureID);
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 	/**
 	 * Instance reference property values are already instaitated, so just

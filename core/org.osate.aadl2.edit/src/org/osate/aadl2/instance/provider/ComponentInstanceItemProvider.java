@@ -206,21 +206,22 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 */
 	@Override
 	public Object getImage(Object object) {
-        ComponentCategory cat =((ComponentInstance)object).getCategory();
-        String name = "ComponentInstance";
-        if (cat != null){
-        	name = cat.getLiteral();
-        	int idx = name.indexOf(" ");
-        	if (idx < 0){
-               name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase()+".gif";
-        	} else {
-        		name = name.substring(0, 1).toUpperCase() + name.substring(1,idx).toLowerCase()
-        		+ name.substring(idx+1, idx+2).toUpperCase()+ name.substring(idx+2).toLowerCase()+".gif";
-        	}
-        }
-        if (object instanceof SystemInstance)
-        	name = "System";
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/"+name)); //$NON-NLS-1$
+		ComponentCategory cat = ((ComponentInstance) object).getCategory();
+		String name = "ComponentInstance";
+		if (cat != null) {
+			name = cat.getLiteral();
+			int idx = name.indexOf(" ");
+			if (idx < 0) {
+				name = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase() + ".gif";
+			} else {
+				name = name.substring(0, 1).toUpperCase() + name.substring(1, idx).toLowerCase()
+						+ name.substring(idx + 1, idx + 2).toUpperCase() + name.substring(idx + 2).toLowerCase()
+						+ ".gif";
+			}
+		}
+		if (object instanceof SystemInstance)
+			name = "System";
+		return overlayImage(object, getResourceLocator().getImage("full/obj16/" + name)); //$NON-NLS-1$
 	}
 
 	/**
@@ -233,8 +234,8 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	public String getText(Object object) {
 		String label = ((ComponentInstance) object).getName();
 		String ctype = ((ComponentInstance) object).getCategory().getName();
-		return (ctype == null || ctype.length() == 0?getString("_UI_ComponentInstance_type"): ctype+" instance")+(label == null || label.length() == 0 ? "" : //$NON-NLS-1$
-				" "+label); //$NON-NLS-1$ //$NON-NLS-2$
+		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
+						" " + label); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**

@@ -165,8 +165,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		}
 		return systemImplementation;
 	}
-	
-	public SystemImplementation getComponentClassifier(){
+
+	public SystemImplementation getComponentClassifier() {
 		return getSystemImplementation();
 	}
 
