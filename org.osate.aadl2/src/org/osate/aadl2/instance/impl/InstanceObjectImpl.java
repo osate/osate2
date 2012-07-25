@@ -38,6 +38,7 @@ package org.osate.aadl2.instance.impl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
@@ -78,6 +79,15 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	protected EClass eStaticClass() {
 		return InstancePackage.Literals.INSTANCE_OBJECT;
 	}
+
+	/**
+	 * The cached environment for evaluating OCL expressions.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	protected static final OCL EOCL_ENV = OCL.newInstance();
 
 	/**
 	 * Get the closest component instance that contains this object.

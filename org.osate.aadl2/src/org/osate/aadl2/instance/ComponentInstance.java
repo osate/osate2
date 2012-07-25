@@ -247,7 +247,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @see org.osate.aadl2.ComponentCategory
 	 * @see #setCategory(ComponentCategory)
 	 * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance_Category()
-	 * @model ordered="false"
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	ComponentCategory getCategory();
@@ -475,7 +475,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @return
 	 */
 	EList<ComponentInstance> getAllComponentInstances();
-	
+
 	ComponentClassifier getComponentClassifier();
 
 } // ComponentInstance

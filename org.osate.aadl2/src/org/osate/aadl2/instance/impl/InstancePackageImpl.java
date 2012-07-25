@@ -992,7 +992,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEAttribute(
 				getFeatureInstance_Category(),
 				this.getFeatureCategory(),
-				"category", null, 0, 1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"category", null, 1, 1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(
 				getFeatureInstance_Direction(),
 				theAadl2Package.getDirectionType(),
@@ -1005,7 +1005,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEAttribute(
 				getFeatureInstance_Index(),
 				theAadl2Package.getInteger(),
-				"index", null, 0, -1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"index", null, 0, 1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(instanceObjectEClass, InstanceObject.class,
 				"InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1148,7 +1148,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEAttribute(
 				getComponentInstance_Category(),
 				theAadl2Package.getComponentCategory(),
-				"category", null, 0, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"category", null, 1, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
 				getComponentInstance_InModes(),
 				this.getModeInstance(),
