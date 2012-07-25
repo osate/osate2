@@ -232,10 +232,19 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((ComponentInstance) object).getName();
-		String ctype = ((ComponentInstance) object).getCategory().getName();
+		ComponentInstance ci = (ComponentInstance) object;
+		String label = ci.getName();
+		String array = "";
+		String ctype = ci.getCategory().getName();
+		if (!ci.getIndices().isEmpty()) {
+			array = " ";
+			for (Long i : ci.getIndices()) {
+				if (i > 0)
+					array += "[" + i + "]";
+			}
+		}
 		return (ctype == null || ctype.length() == 0 ? getString("_UI_ComponentInstance_type") : ctype + " instance") + (label == null || label.length() == 0 ? "" : //$NON-NLS-1$
-						" " + label); //$NON-NLS-1$ //$NON-NLS-2$
+						" " + label) + array; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	/**
