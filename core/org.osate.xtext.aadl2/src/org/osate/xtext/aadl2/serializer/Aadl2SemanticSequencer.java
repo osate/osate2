@@ -34,5 +34,27 @@
  */
 package org.osate.xtext.aadl2.serializer;
 
+import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.NamedElement;
+
 public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
+	
+	@Override
+	public void createSequence(EObject context, EObject semanticObject) {
+		if (Aadl2Package.eINSTANCE.getAnnexLibrary().isSuperTypeOf(semanticObject.eClass())){
+			if(context == grammarAccess.getAnnexLibraryRule() ||
+					context == grammarAccess.getDefaultAnnexLibraryRule()) {
+//							DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+//							dal.setName(((NamedElement)semanticObject).getName());
+//							dal.setSourceText("{** hi there **}");
+//							sequence_DefaultAnnexLibrary(context, (DefaultAnnexLibrary) dal); 
+//							return; 
+			}
+		}
+		super.createSequence(context, semanticObject);
+
+	}
 }
