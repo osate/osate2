@@ -8,7 +8,7 @@
       <documentation>
          This extension point allows third-party plug-ins to provide a method for resolving references
          in the form of an Xtext based linking service. This method is called by the Aadl2LinkingService
-         and is intended to be supported by Xtext bassed annex sublanguage parsers.
+         and is intended to be supported by Xtext based annex sublanguage parsers.
       </documentation>
    </annotation>
 
@@ -99,7 +99,7 @@
   id=&quot;com.example.errorannex&quot;
   name=&quot;Error Annex Linking Service&quot;
   annexName=&quot;errorannex&quot;
-  class=&quot;com.example.ErrorAnnexLiningService&quot;/&gt;
+  class=&quot;com.example.ErrorAnnexLinkingService&quot;/&gt;
 &lt;/extension&gt;
 &lt;/pre&gt;
 &lt;/p&gt;
@@ -129,7 +129,7 @@
          <meta.section type="copyright"/>
       </appInfo>
       <documentation>
-         Copyright  2005 by Carnegie Mellon University, all rights reserved.
+         Copyright  2012 by Carnegie Mellon University, all rights reserved.
       </documentation>
    </annotation>
 

@@ -76,7 +76,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 //		@Override
 	public Class<? extends org.eclipse.xtext.resource.EObjectAtOffsetHelper> bindEObjectAtOffsetHelper() {
-		return org.osate.xtext.aadl2.util.MyEObjectAtOffsetHelper.class;
+		return org.osate.xtext.aadl2.util.Aadl2EObjectAtOffsetHelper.class;
+	}
+	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper> bindHyperlinkHelper() {
+		return org.osate.xtext.aadl2.util.Aadl2HyperlinkHelper.class;
 	}
 	
 //	@Override

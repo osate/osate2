@@ -59,6 +59,9 @@ public abstract class AnnexRegistry {
 	/** ID of annex resolver extension point */
 	public static final String ANNEX_LINKINGSERVICE_EXT_ID = "linkingservice";
 
+	/** ID of annex resolver extension point */
+	public static final String ANNEX_TEXTPOSITIONRESOLVER_EXT_ID = "textpositionresolver";
+
 	/** ID of annex instantiator extension point */
 	public static final String ANNEX_INSTANTIATOR_EXT_ID = "instantiator";
 
@@ -97,6 +100,8 @@ public abstract class AnnexRegistry {
 			return new AnnexResolverRegistry();
 		} else if (extensionId == ANNEX_LINKINGSERVICE_EXT_ID) {
 			return new AnnexLinkingServiceRegistry();
+		} else if (extensionId == ANNEX_TEXTPOSITIONRESOLVER_EXT_ID) {
+			return new AnnexTextPositionResolverRegistry();
 		} else if (extensionId == ANNEX_INSTANTIATOR_EXT_ID) {
 			return new AnnexInstantiatorRegistry();
 		} else if (extensionId == ANNEX_HIGHLIGHTER_EXT_ID) {
