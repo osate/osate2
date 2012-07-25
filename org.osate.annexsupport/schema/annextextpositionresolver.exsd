@@ -1,24 +1,23 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- Schema file written by PDE -->
-<schema targetNamespace="org.osate.annexsupport" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="org.osate.annexsupport">
 <annotation>
       <appInfo>
-         <meta.schema plugin="org.osate.annexsupport" id="highlighter" name="Annex Highlighter"/>
+         <meta.schema plugin="org.osate.annexsupport" id="textpositionresolver" name="Text Position Resolver"/>
       </appInfo>
       <documentation>
-         This highlighter extension point allows third-party plug-ins to define processing of sublanguages. The highlighter is called while semantic highlighting is being performed.
+         This extension point allows third-party plug-ins to provide a method for resolving offsets
+         into text. This method is called by the Aadl2EObjectAtOffset class
+         and is intended to be supported by annex sublanguage parsers.
+         For xtext based annexes the parser can adapt the annex library or subclause with the ParseResult.
+         See the Error model EMV2 as example.
       </documentation>
    </annotation>
 
    <element name="extension">
-      <annotation>
-         <appInfo>
-            <meta.element />
-         </appInfo>
-      </annotation>
       <complexType>
          <sequence>
-            <element ref="highlighter" minOccurs="1" maxOccurs="unbounded"/>
+            <element ref="textpositionresolver" minOccurs="1" maxOccurs="unbounded"/>
          </sequence>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -44,36 +43,36 @@
       </complexType>
    </element>
 
-   <element name="highlighter">
+   <element name="textpositionresolver">
       <complexType>
          <attribute name="id" type="string" use="required">
             <annotation>
                <documentation>
-                  A unique identifier for this annex highlighter.
+                  A unique identifier for this annex text position resolver.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="name" type="string">
             <annotation>
                <documentation>
-                  A human-readable name for this annex highlighter.
+                  A human-readable name for this annex text position resolver.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="annexName" type="string" use="required">
             <annotation>
                <documentation>
-                  The name of the annex this highlighter can process.
+                  The name of the annex this text position resolver can process.
                </documentation>
             </annotation>
          </attribute>
          <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
-                  The fully qualified name of the class that implements &lt;code&gt;org.osate.annexsupport.AnnexHighlighter&lt;/code&gt;.
+                  The fully qualified name of the class that implements &lt;code&gt;org.osate.annexsupport.AnnexResolver&lt;/code&gt;.
                </documentation>
                <appInfo>
-                  <meta.attribute kind="java" basedOn="org.osate.annexsupport.AnnexHighlighter"/>
+                  <meta.attribute kind="java" basedOn="org.osate.annexsupport.AnnexTextPositionResolver"/>
                </appInfo>
             </annotation>
          </attribute>
@@ -94,15 +93,15 @@
          <meta.section type="examples"/>
       </appInfo>
       <documentation>
-         The following is an example of the Annex Highlighter extension point usage:
+         The following is an example of the Annex LinkingService extension point usage:
 &lt;p&gt;
 &lt;pre&gt;
-&lt;extension point=&quot;org.osate.annexsupport.highlighter&quot;&gt;
+&lt;extension point=&quot;org.osate.annexsupport.textpositionresolver&quot;&gt;
  &lt;parser
   id=&quot;com.example.errorannex&quot;
-  name=&quot;Error Annex Highlighter&quot;
+  name=&quot;Error Annex Text Position Resolver&quot;
   annexName=&quot;errorannex&quot;
-  class=&quot;com.example.ErrorAnnexHighlighter&quot;/&gt;
+  class=&quot;com.example.ErrorAnnexTextPositionResolver&quot;/&gt;
 &lt;/extension&gt;
 &lt;/pre&gt;
 &lt;/p&gt;
@@ -114,7 +113,7 @@
          <meta.section type="apiInfo"/>
       </appInfo>
       <documentation>
-         Plug-ins that want to extend this extension point must implement &lt;code&gt;org.osate.annexsupport.AnnexHighlighter&lt;/code&gt;.
+         Plug-ins that want to extend this extension point must implement &lt;code&gt;org.osate.annexsupport.AnnexTextPositionResolver&lt;/code&gt;.
       </documentation>
    </annotation>
 
