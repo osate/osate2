@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2012-07-24 10:26:47
+// $ANTLR 3.4 AadlBa.g 2012-07-26 17:46:59
  
   package fr.tpt.aadl.annex.behavior.parser;
   
@@ -29,9 +29,12 @@
   import org.osate.aadl2.parsesupport.AObject;
   import org.osate.aadl2.parsesupport.LocationReference;
   
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
   import fr.tpt.aadl.annex.behavior.aadlba.*;
   import fr.tpt.aadl.annex.behavior.declarative.* ;
   import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+  import fr.tpt.aadl.annex.behavior.texteditor.BehaviorElementPosition ;
   
   import org.osate.aadl2.Element ;
   import org.osate.aadl2.Aadl2Package ;
@@ -279,15 +282,30 @@ public class AadlBaParser extends Parser {
       }
       
       private BehaviorAnnex _ba = null ;
+      
+      private void highlight(Token token, String id)
+      {
+        int offset = token.getTokenIndex() ;
+        int length = token.getText().length() ;
+        
+        // DEBUG
+        System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
+        
+        _elementToHighlight.add(new BehaviorElementPosition(offset, id, length));                     
+      }
+      
+      public List<BehaviorElementPosition> _elementToHighlight =
+                              new ArrayList<BehaviorElementPosition>() ;
 
 
 
     // $ANTLR start "behavior_annex"
-    // AadlBa.g:358:1: behavior_annex returns [BehaviorAnnex BehAnnex] : ( VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )? ;
+    // AadlBa.g:375:1: behavior_annex returns [BehaviorAnnex BehAnnex] : (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )? ;
     public final BehaviorAnnex behavior_annex() throws RecognitionException {
         BehaviorAnnex BehAnnex = null;
 
 
+        Token keyword=null;
         List<BehaviorVariable> lbv =null;
 
         List<BehaviorState> lbs =null;
@@ -302,10 +320,10 @@ public class AadlBaParser extends Parser {
               
          
         try {
-            // AadlBa.g:365:3: ( ( VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )? )
-            // AadlBa.g:366:4: ( VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )?
+            // AadlBa.g:382:3: ( (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )? )
+            // AadlBa.g:383:4: (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? ( STATES (lbs= behavior_state_list )+ )? ( TRANSITIONS (BehTrans= behavior_transition )+ )?
             {
-            // AadlBa.g:366:4: ( VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )?
+            // AadlBa.g:383:4: (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -314,11 +332,13 @@ public class AadlBaParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // AadlBa.g:366:6: VARIABLES (lbv= behavior_variable_list[BehAnnex] )+
+                    // AadlBa.g:383:6: keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+
                     {
-                    match(input,VARIABLES,FOLLOW_VARIABLES_in_behavior_annex1206); if (state.failed) return BehAnnex;
+                    keyword=(Token)match(input,VARIABLES,FOLLOW_VARIABLES_in_behavior_annex1208); if (state.failed) return BehAnnex;
 
-                    // AadlBa.g:367:8: (lbv= behavior_variable_list[BehAnnex] )+
+                    if ( state.backtracking==0 ) {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+
+                    // AadlBa.g:384:8: (lbv= behavior_variable_list[BehAnnex] )+
                     int cnt1=0;
                     loop1:
                     do {
@@ -332,9 +352,9 @@ public class AadlBaParser extends Parser {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // AadlBa.g:367:10: lbv= behavior_variable_list[BehAnnex]
+                    	    // AadlBa.g:384:10: lbv= behavior_variable_list[BehAnnex]
                     	    {
-                    	    pushFollow(FOLLOW_behavior_variable_list_in_behavior_annex1219);
+                    	    pushFollow(FOLLOW_behavior_variable_list_in_behavior_annex1223);
                     	    lbv=behavior_variable_list(BehAnnex);
 
                     	    state._fsp--;
@@ -362,7 +382,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            // AadlBa.g:370:4: ( STATES (lbs= behavior_state_list )+ )?
+            // AadlBa.g:387:4: ( STATES (lbs= behavior_state_list )+ )?
             int alt4=2;
             int LA4_0 = input.LA(1);
 
@@ -371,11 +391,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt4) {
                 case 1 :
-                    // AadlBa.g:370:6: STATES (lbs= behavior_state_list )+
+                    // AadlBa.g:387:6: STATES (lbs= behavior_state_list )+
                     {
-                    match(input,STATES,FOLLOW_STATES_in_behavior_annex1242); if (state.failed) return BehAnnex;
+                    match(input,STATES,FOLLOW_STATES_in_behavior_annex1246); if (state.failed) return BehAnnex;
 
-                    // AadlBa.g:371:8: (lbs= behavior_state_list )+
+                    // AadlBa.g:388:8: (lbs= behavior_state_list )+
                     int cnt3=0;
                     loop3:
                     do {
@@ -389,9 +409,9 @@ public class AadlBaParser extends Parser {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // AadlBa.g:371:10: lbs= behavior_state_list
+                    	    // AadlBa.g:388:10: lbs= behavior_state_list
                     	    {
-                    	    pushFollow(FOLLOW_behavior_state_list_in_behavior_annex1255);
+                    	    pushFollow(FOLLOW_behavior_state_list_in_behavior_annex1259);
                     	    lbs=behavior_state_list();
 
                     	    state._fsp--;
@@ -419,7 +439,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            // AadlBa.g:374:4: ( TRANSITIONS (BehTrans= behavior_transition )+ )?
+            // AadlBa.g:391:4: ( TRANSITIONS (BehTrans= behavior_transition )+ )?
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -428,11 +448,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt6) {
                 case 1 :
-                    // AadlBa.g:374:6: TRANSITIONS (BehTrans= behavior_transition )+
+                    // AadlBa.g:391:6: TRANSITIONS (BehTrans= behavior_transition )+
                     {
-                    match(input,TRANSITIONS,FOLLOW_TRANSITIONS_in_behavior_annex1277); if (state.failed) return BehAnnex;
+                    match(input,TRANSITIONS,FOLLOW_TRANSITIONS_in_behavior_annex1281); if (state.failed) return BehAnnex;
 
-                    // AadlBa.g:375:8: (BehTrans= behavior_transition )+
+                    // AadlBa.g:392:8: (BehTrans= behavior_transition )+
                     int cnt5=0;
                     loop5:
                     do {
@@ -446,9 +466,9 @@ public class AadlBaParser extends Parser {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // AadlBa.g:375:10: BehTrans= behavior_transition
+                    	    // AadlBa.g:392:10: BehTrans= behavior_transition
                     	    {
-                    	    pushFollow(FOLLOW_behavior_transition_in_behavior_annex1291);
+                    	    pushFollow(FOLLOW_behavior_transition_in_behavior_annex1295);
                     	    BehTrans=behavior_transition();
 
                     	    state._fsp--;
@@ -497,7 +517,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_variable_list"
-    // AadlBa.g:387:1: behavior_variable_list[BehaviorAnnex ba] returns [List<BehaviorVariable> lbv] : bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON ;
+    // AadlBa.g:404:1: behavior_variable_list[BehaviorAnnex ba] returns [List<BehaviorVariable> lbv] : bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON ;
     public final List<BehaviorVariable> behavior_variable_list(BehaviorAnnex ba) throws RecognitionException {
         List<BehaviorVariable> lbv = null;
 
@@ -511,10 +531,10 @@ public class AadlBaParser extends Parser {
            lbv = new ArrayList<BehaviorVariable>() ;
          
         try {
-            // AadlBa.g:391:3: (bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON )
-            // AadlBa.g:393:4: bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON
+            // AadlBa.g:408:3: (bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON )
+            // AadlBa.g:410:4: bv= behavior_variable ( COMMA bv= behavior_variable )* COLON DataClassRef= unique_component_classifier_reference SEMICOLON
             {
-            pushFollow(FOLLOW_behavior_variable_in_behavior_variable_list1346);
+            pushFollow(FOLLOW_behavior_variable_in_behavior_variable_list1350);
             bv=behavior_variable();
 
             state._fsp--;
@@ -524,7 +544,7 @@ public class AadlBaParser extends Parser {
                  lbv.add(bv) ;
                }
 
-            // AadlBa.g:398:4: ( COMMA bv= behavior_variable )*
+            // AadlBa.g:415:4: ( COMMA bv= behavior_variable )*
             loop7:
             do {
                 int alt7=2;
@@ -537,11 +557,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt7) {
             	case 1 :
-            	    // AadlBa.g:398:6: COMMA bv= behavior_variable
+            	    // AadlBa.g:415:6: COMMA bv= behavior_variable
             	    {
-            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_variable_list1363); if (state.failed) return lbv;
+            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_variable_list1367); if (state.failed) return lbv;
 
-            	    pushFollow(FOLLOW_behavior_variable_in_behavior_variable_list1367);
+            	    pushFollow(FOLLOW_behavior_variable_in_behavior_variable_list1371);
             	    bv=behavior_variable();
 
             	    state._fsp--;
@@ -560,9 +580,9 @@ public class AadlBaParser extends Parser {
             } while (true);
 
 
-            match(input,COLON,FOLLOW_COLON_in_behavior_variable_list1390); if (state.failed) return lbv;
+            match(input,COLON,FOLLOW_COLON_in_behavior_variable_list1394); if (state.failed) return lbv;
 
-            pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_variable_list1402);
+            pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_variable_list1406);
             DataClassRef=unique_component_classifier_reference();
 
             state._fsp--;
@@ -577,7 +597,7 @@ public class AadlBaParser extends Parser {
                   }
                }
 
-            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_variable_list1412); if (state.failed) return lbv;
+            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_variable_list1416); if (state.failed) return lbv;
 
             }
 
@@ -601,7 +621,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_variable"
-    // AadlBa.g:426:1: behavior_variable returns [BehaviorVariable bv] : identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )* ;
+    // AadlBa.g:443:1: behavior_variable returns [BehaviorVariable bv] : identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )* ;
     public final BehaviorVariable behavior_variable() throws RecognitionException {
         BehaviorVariable bv = null;
 
@@ -614,17 +634,17 @@ public class AadlBaParser extends Parser {
            bv = _fact.createBehaviorVariable();
          
         try {
-            // AadlBa.g:431:3: (identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )* )
-            // AadlBa.g:432:5: identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )*
+            // AadlBa.g:448:3: (identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )* )
+            // AadlBa.g:449:5: identifier= IDENT ( LBRACK IntValue= integer_value_constant RBRACK )*
             {
-            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_variable1448); if (state.failed) return bv;
+            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_variable1452); if (state.failed) return bv;
 
             if ( state.backtracking==0 ) { 
                                    setLocationReference(bv, identifier);
                                    bv.setName(identifier.getText()) ;
                                  }
 
-            // AadlBa.g:436:5: ( LBRACK IntValue= integer_value_constant RBRACK )*
+            // AadlBa.g:453:5: ( LBRACK IntValue= integer_value_constant RBRACK )*
             loop8:
             do {
                 int alt8=2;
@@ -637,17 +657,17 @@ public class AadlBaParser extends Parser {
 
                 switch (alt8) {
             	case 1 :
-            	    // AadlBa.g:436:7: LBRACK IntValue= integer_value_constant RBRACK
+            	    // AadlBa.g:453:7: LBRACK IntValue= integer_value_constant RBRACK
             	    {
-            	    match(input,LBRACK,FOLLOW_LBRACK_in_behavior_variable1458); if (state.failed) return bv;
+            	    match(input,LBRACK,FOLLOW_LBRACK_in_behavior_variable1462); if (state.failed) return bv;
 
-            	    pushFollow(FOLLOW_integer_value_constant_in_behavior_variable1462);
+            	    pushFollow(FOLLOW_integer_value_constant_in_behavior_variable1466);
             	    IntValue=integer_value_constant();
 
             	    state._fsp--;
             	    if (state.failed) return bv;
 
-            	    match(input,RBRACK,FOLLOW_RBRACK_in_behavior_variable1464); if (state.failed) return bv;
+            	    match(input,RBRACK,FOLLOW_RBRACK_in_behavior_variable1468); if (state.failed) return bv;
 
             	    if ( state.backtracking==0 ) { 
             	            DeclarativeArrayDimension dad = _decl.createDeclarativeArrayDimension();
@@ -686,7 +706,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "qualifiable_named_element"
-    // AadlBa.g:454:1: qualifiable_named_element[QualifiedNamedElement qne] : ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? ) ;
+    // AadlBa.g:471:1: qualifiable_named_element[QualifiedNamedElement qne] : ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? ) ;
     public final void qualifiable_named_element(QualifiedNamedElement qne) throws RecognitionException {
         Token identifier1=null;
         Token identifier2=null;
@@ -697,13 +717,13 @@ public class AadlBaParser extends Parser {
                 String id2 = "";
               
         try {
-            // AadlBa.g:459:3: ( ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? ) )
-            // AadlBa.g:460:4: ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? )
+            // AadlBa.g:476:3: ( ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? ) )
+            // AadlBa.g:477:4: ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? )
             {
-            // AadlBa.g:460:4: ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? )
-            // AadlBa.g:461:5: (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )?
+            // AadlBa.g:477:4: ( (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )? )
+            // AadlBa.g:478:5: (identifier1= IDENT DOUBLECOLON )* identifier2= IDENT ( DOT identifier3= IDENT )?
             {
-            // AadlBa.g:461:5: (identifier1= IDENT DOUBLECOLON )*
+            // AadlBa.g:478:5: (identifier1= IDENT DOUBLECOLON )*
             loop9:
             do {
                 int alt9=2;
@@ -722,11 +742,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt9) {
             	case 1 :
-            	    // AadlBa.g:461:7: identifier1= IDENT DOUBLECOLON
+            	    // AadlBa.g:478:7: identifier1= IDENT DOUBLECOLON
             	    {
-            	    identifier1=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1519); if (state.failed) return ;
+            	    identifier1=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1523); if (state.failed) return ;
 
-            	    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_qualifiable_named_element1521); if (state.failed) return ;
+            	    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_qualifiable_named_element1525); if (state.failed) return ;
 
             	    if ( state.backtracking==0 ) { 
             	            id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
@@ -741,11 +761,11 @@ public class AadlBaParser extends Parser {
             } while (true);
 
 
-            identifier2=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1549); if (state.failed) return ;
+            identifier2=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1553); if (state.failed) return ;
 
             if ( state.backtracking==0 ) { id2=identifier2.getText(); }
 
-            // AadlBa.g:469:5: ( DOT identifier3= IDENT )?
+            // AadlBa.g:486:5: ( DOT identifier3= IDENT )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -758,11 +778,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt10) {
                 case 1 :
-                    // AadlBa.g:469:7: DOT identifier3= IDENT
+                    // AadlBa.g:486:7: DOT identifier3= IDENT
                     {
-                    match(input,DOT,FOLLOW_DOT_in_qualifiable_named_element1564); if (state.failed) return ;
+                    match(input,DOT,FOLLOW_DOT_in_qualifiable_named_element1568); if (state.failed) return ;
 
-                    identifier3=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1568); if (state.failed) return ;
+                    identifier3=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualifiable_named_element1572); if (state.failed) return ;
 
                     if ( state.backtracking==0 ) { id2=id2+"."+identifier3.getText(); }
 
@@ -816,7 +836,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unique_component_classifier_reference"
-    // AadlBa.g:500:1: unique_component_classifier_reference returns [QualifiedNamedElement DataClassRef] : ( qualifiable_named_element[DataClassRef] ) ;
+    // AadlBa.g:517:1: unique_component_classifier_reference returns [QualifiedNamedElement DataClassRef] : ( qualifiable_named_element[DataClassRef] ) ;
     public final QualifiedNamedElement unique_component_classifier_reference() throws RecognitionException {
         QualifiedNamedElement DataClassRef = null;
 
@@ -825,13 +845,13 @@ public class AadlBaParser extends Parser {
            DataClassRef = _decl.createQualifiedNamedElement();
          
         try {
-            // AadlBa.g:504:3: ( ( qualifiable_named_element[DataClassRef] ) )
-            // AadlBa.g:505:4: ( qualifiable_named_element[DataClassRef] )
+            // AadlBa.g:521:3: ( ( qualifiable_named_element[DataClassRef] ) )
+            // AadlBa.g:522:4: ( qualifiable_named_element[DataClassRef] )
             {
-            // AadlBa.g:505:4: ( qualifiable_named_element[DataClassRef] )
-            // AadlBa.g:506:6: qualifiable_named_element[DataClassRef]
+            // AadlBa.g:522:4: ( qualifiable_named_element[DataClassRef] )
+            // AadlBa.g:523:6: qualifiable_named_element[DataClassRef]
             {
-            pushFollow(FOLLOW_qualifiable_named_element_in_unique_component_classifier_reference1624);
+            pushFollow(FOLLOW_qualifiable_named_element_in_unique_component_classifier_reference1628);
             qualifiable_named_element(DataClassRef);
 
             state._fsp--;
@@ -861,7 +881,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_state_list"
-    // AadlBa.g:522:1: behavior_state_list returns [List<BehaviorState> lbs] : identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON ;
+    // AadlBa.g:539:1: behavior_state_list returns [List<BehaviorState> lbs] : identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON ;
     public final List<BehaviorState> behavior_state_list() throws RecognitionException {
         List<BehaviorState> lbs = null;
 
@@ -872,10 +892,10 @@ public class AadlBaParser extends Parser {
            lbs = new ArrayList<BehaviorState>() ;
          
         try {
-            // AadlBa.g:526:3: (identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON )
-            // AadlBa.g:527:5: identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON
+            // AadlBa.g:543:3: (identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON )
+            // AadlBa.g:544:5: identifier= IDENT ( COMMA identifier= IDENT )* COLON ( ( INITIAL )? ( COMPLETE )? ( FINAL )? ) STATE SEMICOLON
             {
-            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_state_list1669); if (state.failed) return lbs;
+            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_state_list1673); if (state.failed) return lbs;
 
             if ( state.backtracking==0 ) {
                     BehaviorState bs = _fact.createBehaviorState() ;
@@ -884,7 +904,7 @@ public class AadlBaParser extends Parser {
                     lbs.add(bs) ; 
                   }
 
-            // AadlBa.g:534:4: ( COMMA identifier= IDENT )*
+            // AadlBa.g:551:4: ( COMMA identifier= IDENT )*
             loop11:
             do {
                 int alt11=2;
@@ -897,11 +917,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt11) {
             	case 1 :
-            	    // AadlBa.g:534:6: COMMA identifier= IDENT
+            	    // AadlBa.g:551:6: COMMA identifier= IDENT
             	    {
-            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_state_list1685); if (state.failed) return lbs;
+            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_state_list1689); if (state.failed) return lbs;
 
-            	    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_state_list1689); if (state.failed) return lbs;
+            	    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_state_list1693); if (state.failed) return lbs;
 
             	    if ( state.backtracking==0 ) {
             	            BehaviorState bs = _fact.createBehaviorState() ;
@@ -919,12 +939,12 @@ public class AadlBaParser extends Parser {
             } while (true);
 
 
-            match(input,COLON,FOLLOW_COLON_in_behavior_state_list1709); if (state.failed) return lbs;
+            match(input,COLON,FOLLOW_COLON_in_behavior_state_list1713); if (state.failed) return lbs;
 
-            // AadlBa.g:543:4: ( ( INITIAL )? ( COMPLETE )? ( FINAL )? )
-            // AadlBa.g:544:6: ( INITIAL )? ( COMPLETE )? ( FINAL )?
+            // AadlBa.g:560:4: ( ( INITIAL )? ( COMPLETE )? ( FINAL )? )
+            // AadlBa.g:561:6: ( INITIAL )? ( COMPLETE )? ( FINAL )?
             {
-            // AadlBa.g:544:6: ( INITIAL )?
+            // AadlBa.g:561:6: ( INITIAL )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -933,9 +953,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt12) {
                 case 1 :
-                    // AadlBa.g:544:7: INITIAL
+                    // AadlBa.g:561:7: INITIAL
                     {
-                    match(input,INITIAL,FOLLOW_INITIAL_in_behavior_state_list1723); if (state.failed) return lbs;
+                    match(input,INITIAL,FOLLOW_INITIAL_in_behavior_state_list1727); if (state.failed) return lbs;
 
                     if ( state.backtracking==0 ) { 
                                      for (BehaviorState bs : lbs)
@@ -950,7 +970,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            // AadlBa.g:550:6: ( COMPLETE )?
+            // AadlBa.g:567:6: ( COMPLETE )?
             int alt13=2;
             int LA13_0 = input.LA(1);
 
@@ -959,9 +979,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt13) {
                 case 1 :
-                    // AadlBa.g:550:7: COMPLETE
+                    // AadlBa.g:567:7: COMPLETE
                     {
-                    match(input,COMPLETE,FOLLOW_COMPLETE_in_behavior_state_list1738); if (state.failed) return lbs;
+                    match(input,COMPLETE,FOLLOW_COMPLETE_in_behavior_state_list1742); if (state.failed) return lbs;
 
                     if ( state.backtracking==0 ) { 
                                      for (BehaviorState bs : lbs)
@@ -976,7 +996,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            // AadlBa.g:556:6: ( FINAL )?
+            // AadlBa.g:573:6: ( FINAL )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -985,9 +1005,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt14) {
                 case 1 :
-                    // AadlBa.g:556:7: FINAL
+                    // AadlBa.g:573:7: FINAL
                     {
-                    match(input,FINAL,FOLLOW_FINAL_in_behavior_state_list1752); if (state.failed) return lbs;
+                    match(input,FINAL,FOLLOW_FINAL_in_behavior_state_list1756); if (state.failed) return lbs;
 
                     if ( state.backtracking==0 ) { 
                                      for (BehaviorState bs : lbs)
@@ -1005,9 +1025,9 @@ public class AadlBaParser extends Parser {
             }
 
 
-            match(input,STATE,FOLLOW_STATE_in_behavior_state_list1771); if (state.failed) return lbs;
+            match(input,STATE,FOLLOW_STATE_in_behavior_state_list1775); if (state.failed) return lbs;
 
-            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_state_list1773); if (state.failed) return lbs;
+            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_state_list1777); if (state.failed) return lbs;
 
             }
 
@@ -1030,7 +1050,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_transition"
-    // AadlBa.g:578:1: behavior_transition returns [DeclarativeBehaviorTransition BehTrans] : (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON ;
+    // AadlBa.g:595:1: behavior_transition returns [DeclarativeBehaviorTransition BehTrans] : (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON ;
     public final DeclarativeBehaviorTransition behavior_transition() throws RecognitionException {
         DeclarativeBehaviorTransition BehTrans = null;
 
@@ -1047,10 +1067,10 @@ public class AadlBaParser extends Parser {
            BehTrans = _decl.createDeclarativeBehaviorTransition();
          
         try {
-            // AadlBa.g:583:3: ( (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON )
-            // AadlBa.g:584:4: (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON
+            // AadlBa.g:600:3: ( (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON )
+            // AadlBa.g:601:4: (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )? identifier= IDENT ( COMMA identifier= IDENT )* (identifier= LTRANS BehCond= behavior_condition RTRANS ) identifier= IDENT (BehActionBlock= behavior_action_block )? SEMICOLON
             {
-            // AadlBa.g:584:4: (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )?
+            // AadlBa.g:601:4: (identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON )?
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -1063,16 +1083,16 @@ public class AadlBaParser extends Parser {
             }
             switch (alt16) {
                 case 1 :
-                    // AadlBa.g:584:6: identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON
+                    // AadlBa.g:601:6: identifier= IDENT ( LBRACK Num= numeral RBRACK )? COLON
                     {
-                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1815); if (state.failed) return BehTrans;
+                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1819); if (state.failed) return BehTrans;
 
                     if ( state.backtracking==0 ) {
                            BehTrans.setName(identifier.getText()) ;
                            setLocationReference(BehTrans, identifier); 
                          }
 
-                    // AadlBa.g:589:6: ( LBRACK Num= numeral RBRACK )?
+                    // AadlBa.g:606:6: ( LBRACK Num= numeral RBRACK )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -1081,17 +1101,17 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt15) {
                         case 1 :
-                            // AadlBa.g:589:8: LBRACK Num= numeral RBRACK
+                            // AadlBa.g:606:8: LBRACK Num= numeral RBRACK
                             {
-                            match(input,LBRACK,FOLLOW_LBRACK_in_behavior_transition1833); if (state.failed) return BehTrans;
+                            match(input,LBRACK,FOLLOW_LBRACK_in_behavior_transition1837); if (state.failed) return BehTrans;
 
-                            pushFollow(FOLLOW_numeral_in_behavior_transition1837);
+                            pushFollow(FOLLOW_numeral_in_behavior_transition1841);
                             Num=numeral();
 
                             state._fsp--;
                             if (state.failed) return BehTrans;
 
-                            match(input,RBRACK,FOLLOW_RBRACK_in_behavior_transition1839); if (state.failed) return BehTrans;
+                            match(input,RBRACK,FOLLOW_RBRACK_in_behavior_transition1843); if (state.failed) return BehTrans;
 
                             if ( state.backtracking==0 ) { BehTrans.setPriority(Num);}
 
@@ -1101,7 +1121,7 @@ public class AadlBaParser extends Parser {
                     }
 
 
-                    match(input,COLON,FOLLOW_COLON_in_behavior_transition1852); if (state.failed) return BehTrans;
+                    match(input,COLON,FOLLOW_COLON_in_behavior_transition1856); if (state.failed) return BehTrans;
 
                     }
                     break;
@@ -1109,7 +1129,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1871); if (state.failed) return BehTrans;
+            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1875); if (state.failed) return BehTrans;
 
             if ( state.backtracking==0 ) { 
                  Identifier Id = _decl.createIdentifier();
@@ -1123,7 +1143,7 @@ public class AadlBaParser extends Parser {
                  } 
                }
 
-            // AadlBa.g:606:4: ( COMMA identifier= IDENT )*
+            // AadlBa.g:623:4: ( COMMA identifier= IDENT )*
             loop17:
             do {
                 int alt17=2;
@@ -1136,11 +1156,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt17) {
             	case 1 :
-            	    // AadlBa.g:606:6: COMMA identifier= IDENT
+            	    // AadlBa.g:623:6: COMMA identifier= IDENT
             	    {
-            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_transition1888); if (state.failed) return BehTrans;
+            	    match(input,COMMA,FOLLOW_COMMA_in_behavior_transition1892); if (state.failed) return BehTrans;
 
-            	    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1892); if (state.failed) return BehTrans;
+            	    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1896); if (state.failed) return BehTrans;
 
             	    if ( state.backtracking==0 ) { 
             	          Identifier Id = _decl.createIdentifier();
@@ -1158,12 +1178,12 @@ public class AadlBaParser extends Parser {
             } while (true);
 
 
-            // AadlBa.g:615:4: (identifier= LTRANS BehCond= behavior_condition RTRANS )
-            // AadlBa.g:615:6: identifier= LTRANS BehCond= behavior_condition RTRANS
+            // AadlBa.g:632:4: (identifier= LTRANS BehCond= behavior_condition RTRANS )
+            // AadlBa.g:632:6: identifier= LTRANS BehCond= behavior_condition RTRANS
             {
-            identifier=(Token)match(input,LTRANS,FOLLOW_LTRANS_in_behavior_transition1920); if (state.failed) return BehTrans;
+            identifier=(Token)match(input,LTRANS,FOLLOW_LTRANS_in_behavior_transition1924); if (state.failed) return BehTrans;
 
-            pushFollow(FOLLOW_behavior_condition_in_behavior_transition1924);
+            pushFollow(FOLLOW_behavior_condition_in_behavior_transition1928);
             BehCond=behavior_condition();
 
             state._fsp--;
@@ -1178,12 +1198,12 @@ public class AadlBaParser extends Parser {
                    }
                  }
 
-            match(input,RTRANS,FOLLOW_RTRANS_in_behavior_transition1939); if (state.failed) return BehTrans;
+            match(input,RTRANS,FOLLOW_RTRANS_in_behavior_transition1943); if (state.failed) return BehTrans;
 
             }
 
 
-            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1956); if (state.failed) return BehTrans;
+            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_transition1960); if (state.failed) return BehTrans;
 
             if ( state.backtracking==0 ) {
                  Identifier Id = _decl.createIdentifier();
@@ -1192,7 +1212,7 @@ public class AadlBaParser extends Parser {
                  BehTrans.setDestState(Id);
                }
 
-            // AadlBa.g:635:4: (BehActionBlock= behavior_action_block )?
+            // AadlBa.g:652:4: (BehActionBlock= behavior_action_block )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -1201,9 +1221,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt18) {
                 case 1 :
-                    // AadlBa.g:635:6: BehActionBlock= behavior_action_block
+                    // AadlBa.g:652:6: BehActionBlock= behavior_action_block
                     {
-                    pushFollow(FOLLOW_behavior_action_block_in_behavior_transition1976);
+                    pushFollow(FOLLOW_behavior_action_block_in_behavior_transition1980);
                     BehActionBlock=behavior_action_block();
 
                     state._fsp--;
@@ -1220,7 +1240,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_transition2007); if (state.failed) return BehTrans;
+            match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_transition2011); if (state.failed) return BehTrans;
 
             }
 
@@ -1243,7 +1263,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_action_block"
-    // AadlBa.g:652:1: behavior_action_block returns [BehaviorActionBlock BehActionBlock] : identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )? ;
+    // AadlBa.g:669:1: behavior_action_block returns [BehaviorActionBlock BehActionBlock] : identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )? ;
     public final BehaviorActionBlock behavior_action_block() throws RecognitionException {
         BehaviorActionBlock BehActionBlock = null;
 
@@ -1258,18 +1278,18 @@ public class AadlBaParser extends Parser {
                  BehActionBlock = _fact.createBehaviorActionBlock() ;
          
         try {
-            // AadlBa.g:656:3: (identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )? )
-            // AadlBa.g:656:5: identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )?
+            // AadlBa.g:673:3: (identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )? )
+            // AadlBa.g:673:5: identifier= LCURLY BehActions= behavior_actions RCURLY ( TIMEOUT BehTime= behavior_time )?
             {
-            identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action_block2037); if (state.failed) return BehActionBlock;
+            identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action_block2041); if (state.failed) return BehActionBlock;
 
-            pushFollow(FOLLOW_behavior_actions_in_behavior_action_block2041);
+            pushFollow(FOLLOW_behavior_actions_in_behavior_action_block2045);
             BehActions=behavior_actions();
 
             state._fsp--;
             if (state.failed) return BehActionBlock;
 
-            match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action_block2043); if (state.failed) return BehActionBlock;
+            match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action_block2047); if (state.failed) return BehActionBlock;
 
             if ( state.backtracking==0 ) {
                    BehActionBlock.setContent(BehActions) ;
@@ -1277,7 +1297,7 @@ public class AadlBaParser extends Parser {
                    DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
                 }
 
-            // AadlBa.g:663:5: ( TIMEOUT BehTime= behavior_time )?
+            // AadlBa.g:680:5: ( TIMEOUT BehTime= behavior_time )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -1286,11 +1306,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt19) {
                 case 1 :
-                    // AadlBa.g:663:7: TIMEOUT BehTime= behavior_time
+                    // AadlBa.g:680:7: TIMEOUT BehTime= behavior_time
                     {
-                    match(input,TIMEOUT,FOLLOW_TIMEOUT_in_behavior_action_block2065); if (state.failed) return BehActionBlock;
+                    match(input,TIMEOUT,FOLLOW_TIMEOUT_in_behavior_action_block2069); if (state.failed) return BehActionBlock;
 
-                    pushFollow(FOLLOW_behavior_time_in_behavior_action_block2069);
+                    pushFollow(FOLLOW_behavior_time_in_behavior_action_block2073);
                     BehTime=behavior_time();
 
                     state._fsp--;
@@ -1327,7 +1347,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_condition"
-    // AadlBa.g:678:1: behavior_condition returns [BehaviorCondition BehCond] : (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? ) ;
+    // AadlBa.g:695:1: behavior_condition returns [BehaviorCondition BehCond] : (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? ) ;
     public final BehaviorCondition behavior_condition() throws RecognitionException {
         BehaviorCondition BehCond = null;
 
@@ -1341,10 +1361,10 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:681:3: ( (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? ) )
-            // AadlBa.g:682:4: (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? )
+            // AadlBa.g:698:3: ( (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? ) )
+            // AadlBa.g:699:4: (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? )
             {
-            // AadlBa.g:682:4: (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? )
+            // AadlBa.g:699:4: (pos= ON DisCond= dispatch_condition | (ExecCond= execute_condition )? )
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1364,11 +1384,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt21) {
                 case 1 :
-                    // AadlBa.g:683:8: pos= ON DisCond= dispatch_condition
+                    // AadlBa.g:700:8: pos= ON DisCond= dispatch_condition
                     {
-                    pos=(Token)match(input,ON,FOLLOW_ON_in_behavior_condition2127); if (state.failed) return BehCond;
+                    pos=(Token)match(input,ON,FOLLOW_ON_in_behavior_condition2131); if (state.failed) return BehCond;
 
-                    pushFollow(FOLLOW_dispatch_condition_in_behavior_condition2131);
+                    pushFollow(FOLLOW_dispatch_condition_in_behavior_condition2135);
                     DisCond=dispatch_condition();
 
                     state._fsp--;
@@ -1381,9 +1401,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:688:8: (ExecCond= execute_condition )?
+                    // AadlBa.g:705:8: (ExecCond= execute_condition )?
                     {
-                    // AadlBa.g:688:8: (ExecCond= execute_condition )?
+                    // AadlBa.g:705:8: (ExecCond= execute_condition )?
                     int alt20=2;
                     int LA20_0 = input.LA(1);
 
@@ -1392,9 +1412,9 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt20) {
                         case 1 :
-                            // AadlBa.g:688:9: ExecCond= execute_condition
+                            // AadlBa.g:705:9: ExecCond= execute_condition
                             {
-                            pushFollow(FOLLOW_execute_condition_in_behavior_condition2159);
+                            pushFollow(FOLLOW_execute_condition_in_behavior_condition2163);
                             ExecCond=execute_condition();
 
                             state._fsp--;
@@ -1444,7 +1464,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "execute_condition"
-    // AadlBa.g:717:1: execute_condition returns [ExecuteCondition ExecCond] : (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression ) ;
+    // AadlBa.g:734:1: execute_condition returns [ExecuteCondition ExecCond] : (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression ) ;
     public final ExecuteCondition execute_condition() throws RecognitionException {
         ExecuteCondition ExecCond = null;
 
@@ -1457,10 +1477,10 @@ public class AadlBaParser extends Parser {
             ExecCond= null ;
          
         try {
-            // AadlBa.g:722:3: ( (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression ) )
-            // AadlBa.g:723:4: (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression )
+            // AadlBa.g:739:3: ( (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression ) )
+            // AadlBa.g:740:4: (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression )
             {
-            // AadlBa.g:723:4: (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression )
+            // AadlBa.g:740:4: (identifier= TIMEOUT |identifier= OTHERWISE |ValExpr= value_expression )
             int alt22=3;
             switch ( input.LA(1) ) {
             case TIMEOUT:
@@ -1499,9 +1519,9 @@ public class AadlBaParser extends Parser {
 
             switch (alt22) {
                 case 1 :
-                    // AadlBa.g:724:8: identifier= TIMEOUT
+                    // AadlBa.g:741:8: identifier= TIMEOUT
                     {
-                    identifier=(Token)match(input,TIMEOUT,FOLLOW_TIMEOUT_in_execute_condition2219); if (state.failed) return ExecCond;
+                    identifier=(Token)match(input,TIMEOUT,FOLLOW_TIMEOUT_in_execute_condition2223); if (state.failed) return ExecCond;
 
                     if ( state.backtracking==0 ) {
                              ExecCond = _fact.createExecutionTimeoutCatch();
@@ -1511,9 +1531,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:730:8: identifier= OTHERWISE
+                    // AadlBa.g:747:8: identifier= OTHERWISE
                     {
-                    identifier=(Token)match(input,OTHERWISE,FOLLOW_OTHERWISE_in_execute_condition2246); if (state.failed) return ExecCond;
+                    identifier=(Token)match(input,OTHERWISE,FOLLOW_OTHERWISE_in_execute_condition2250); if (state.failed) return ExecCond;
 
                     if ( state.backtracking==0 ) {
                              ExecCond = _fact.createOtherwise() ;
@@ -1523,9 +1543,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:736:8: ValExpr= value_expression
+                    // AadlBa.g:753:8: ValExpr= value_expression
                     {
-                    pushFollow(FOLLOW_value_expression_in_execute_condition2280);
+                    pushFollow(FOLLOW_value_expression_in_execute_condition2284);
                     ValExpr=value_expression();
 
                     state._fsp--;
@@ -1562,7 +1582,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_value_constant"
-    // AadlBa.g:748:1: integer_value_constant returns [IntegerValueConstant ivc] : (il= integer_literal |prop= property );
+    // AadlBa.g:765:1: integer_value_constant returns [IntegerValueConstant ivc] : (il= integer_literal |prop= property );
     public final IntegerValueConstant integer_value_constant() throws RecognitionException {
         IntegerValueConstant ivc = null;
 
@@ -1573,7 +1593,7 @@ public class AadlBaParser extends Parser {
 
 
         try {
-            // AadlBa.g:750:2: (il= integer_literal |prop= property )
+            // AadlBa.g:767:2: (il= integer_literal |prop= property )
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -1593,9 +1613,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt23) {
                 case 1 :
-                    // AadlBa.g:751:6: il= integer_literal
+                    // AadlBa.g:768:6: il= integer_literal
                     {
-                    pushFollow(FOLLOW_integer_literal_in_integer_value_constant2324);
+                    pushFollow(FOLLOW_integer_literal_in_integer_value_constant2328);
                     il=integer_literal();
 
                     state._fsp--;
@@ -1606,9 +1626,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:754:6: prop= property
+                    // AadlBa.g:771:6: prop= property
                     {
-                    pushFollow(FOLLOW_property_in_integer_value_constant2346);
+                    pushFollow(FOLLOW_property_in_integer_value_constant2350);
                     prop=property();
 
                     state._fsp--;
@@ -1639,7 +1659,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "dispatch_condition"
-    // AadlBa.g:780:1: dispatch_condition returns [DispatchCondition DisCond] : DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )? ;
+    // AadlBa.g:797:1: dispatch_condition returns [DispatchCondition DisCond] : DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )? ;
     public final DispatchCondition dispatch_condition() throws RecognitionException {
         DispatchCondition DisCond = null;
 
@@ -1654,12 +1674,12 @@ public class AadlBaParser extends Parser {
            DisCond = _fact.createDispatchCondition ();
          
         try {
-            // AadlBa.g:785:3: ( DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )? )
-            // AadlBa.g:786:4: DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )?
+            // AadlBa.g:802:3: ( DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )? )
+            // AadlBa.g:803:4: DISPATCH (DisTriggCond= dispatch_trigger_condition )? ( FROZEN port= reference ( COMMA port= reference )* )?
             {
-            match(input,DISPATCH,FOLLOW_DISPATCH_in_dispatch_condition2397); if (state.failed) return DisCond;
+            match(input,DISPATCH,FOLLOW_DISPATCH_in_dispatch_condition2401); if (state.failed) return DisCond;
 
-            // AadlBa.g:787:4: (DisTriggCond= dispatch_trigger_condition )?
+            // AadlBa.g:804:4: (DisTriggCond= dispatch_trigger_condition )?
             int alt24=2;
             int LA24_0 = input.LA(1);
 
@@ -1668,9 +1688,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt24) {
                 case 1 :
-                    // AadlBa.g:787:6: DisTriggCond= dispatch_trigger_condition
+                    // AadlBa.g:804:6: DisTriggCond= dispatch_trigger_condition
                     {
-                    pushFollow(FOLLOW_dispatch_trigger_condition_in_dispatch_condition2407);
+                    pushFollow(FOLLOW_dispatch_trigger_condition_in_dispatch_condition2411);
                     DisTriggCond=dispatch_trigger_condition();
 
                     state._fsp--;
@@ -1686,7 +1706,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            // AadlBa.g:793:4: ( FROZEN port= reference ( COMMA port= reference )* )?
+            // AadlBa.g:810:4: ( FROZEN port= reference ( COMMA port= reference )* )?
             int alt26=2;
             int LA26_0 = input.LA(1);
 
@@ -1695,11 +1715,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt26) {
                 case 1 :
-                    // AadlBa.g:793:6: FROZEN port= reference ( COMMA port= reference )*
+                    // AadlBa.g:810:6: FROZEN port= reference ( COMMA port= reference )*
                     {
-                    match(input,FROZEN,FOLLOW_FROZEN_in_dispatch_condition2431); if (state.failed) return DisCond;
+                    match(input,FROZEN,FOLLOW_FROZEN_in_dispatch_condition2435); if (state.failed) return DisCond;
 
-                    pushFollow(FOLLOW_reference_in_dispatch_condition2435);
+                    pushFollow(FOLLOW_reference_in_dispatch_condition2439);
                     port=reference();
 
                     state._fsp--;
@@ -1709,7 +1729,7 @@ public class AadlBaParser extends Parser {
                            DisCond.getFrozenPorts().add(port);
                          }
 
-                    // AadlBa.g:797:6: ( COMMA port= reference )*
+                    // AadlBa.g:814:6: ( COMMA port= reference )*
                     loop25:
                     do {
                         int alt25=2;
@@ -1722,11 +1742,11 @@ public class AadlBaParser extends Parser {
 
                         switch (alt25) {
                     	case 1 :
-                    	    // AadlBa.g:797:8: COMMA port= reference
+                    	    // AadlBa.g:814:8: COMMA port= reference
                     	    {
-                    	    match(input,COMMA,FOLLOW_COMMA_in_dispatch_condition2451); if (state.failed) return DisCond;
+                    	    match(input,COMMA,FOLLOW_COMMA_in_dispatch_condition2455); if (state.failed) return DisCond;
 
-                    	    pushFollow(FOLLOW_reference_in_dispatch_condition2455);
+                    	    pushFollow(FOLLOW_reference_in_dispatch_condition2459);
                     	    port=reference();
 
                     	    state._fsp--;
@@ -1772,7 +1792,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "dispatch_trigger_condition"
-    // AadlBa.g:822:1: dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond] : (identifier= STOP | (identifier= TIMEOUT (BehTime= behavior_time )? ) |DisTriggLogicalExpr= dispatch_trigger_logical_expression );
+    // AadlBa.g:839:1: dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond] : (identifier= STOP | (identifier= TIMEOUT (BehTime= behavior_time )? ) |DisTriggLogicalExpr= dispatch_trigger_logical_expression );
     public final DispatchTriggerCondition dispatch_trigger_condition() throws RecognitionException {
         DispatchTriggerCondition DisTriggCond = null;
 
@@ -1787,7 +1807,7 @@ public class AadlBaParser extends Parser {
            DisTriggCond = null ;
          
         try {
-            // AadlBa.g:826:4: (identifier= STOP | (identifier= TIMEOUT (BehTime= behavior_time )? ) |DisTriggLogicalExpr= dispatch_trigger_logical_expression )
+            // AadlBa.g:843:4: (identifier= STOP | (identifier= TIMEOUT (BehTime= behavior_time )? ) |DisTriggLogicalExpr= dispatch_trigger_logical_expression )
             int alt28=3;
             switch ( input.LA(1) ) {
             case STOP:
@@ -1816,9 +1836,9 @@ public class AadlBaParser extends Parser {
 
             switch (alt28) {
                 case 1 :
-                    // AadlBa.g:832:8: identifier= STOP
+                    // AadlBa.g:849:8: identifier= STOP
                     {
-                    identifier=(Token)match(input,STOP,FOLLOW_STOP_in_dispatch_trigger_condition2557); if (state.failed) return DisTriggCond;
+                    identifier=(Token)match(input,STOP,FOLLOW_STOP_in_dispatch_trigger_condition2561); if (state.failed) return DisTriggCond;
 
                     if ( state.backtracking==0 ) { DisTriggCond = _fact.createDispatchTriggerConditionStop() ;
                              setLocationReference(DisTriggCond, identifier) ;
@@ -1827,18 +1847,18 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:837:8: (identifier= TIMEOUT (BehTime= behavior_time )? )
+                    // AadlBa.g:854:8: (identifier= TIMEOUT (BehTime= behavior_time )? )
                     {
-                    // AadlBa.g:837:8: (identifier= TIMEOUT (BehTime= behavior_time )? )
-                    // AadlBa.g:837:10: identifier= TIMEOUT (BehTime= behavior_time )?
+                    // AadlBa.g:854:8: (identifier= TIMEOUT (BehTime= behavior_time )? )
+                    // AadlBa.g:854:10: identifier= TIMEOUT (BehTime= behavior_time )?
                     {
-                    identifier=(Token)match(input,TIMEOUT,FOLLOW_TIMEOUT_in_dispatch_trigger_condition2586); if (state.failed) return DisTriggCond;
+                    identifier=(Token)match(input,TIMEOUT,FOLLOW_TIMEOUT_in_dispatch_trigger_condition2590); if (state.failed) return DisTriggCond;
 
                     if ( state.backtracking==0 ) { DisTriggCond = _fact.createDispatchRelativeTimeout() ;
                                setLocationReference(DisTriggCond, identifier) ;
                              }
 
-                    // AadlBa.g:841:10: (BehTime= behavior_time )?
+                    // AadlBa.g:858:10: (BehTime= behavior_time )?
                     int alt27=2;
                     int LA27_0 = input.LA(1);
 
@@ -1847,9 +1867,9 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt27) {
                         case 1 :
-                            // AadlBa.g:842:12: BehTime= behavior_time
+                            // AadlBa.g:859:12: BehTime= behavior_time
                             {
-                            pushFollow(FOLLOW_behavior_time_in_dispatch_trigger_condition2628);
+                            pushFollow(FOLLOW_behavior_time_in_dispatch_trigger_condition2632);
                             BehTime=behavior_time();
 
                             state._fsp--;
@@ -1871,9 +1891,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:849:8: DisTriggLogicalExpr= dispatch_trigger_logical_expression
+                    // AadlBa.g:866:8: DisTriggLogicalExpr= dispatch_trigger_logical_expression
                     {
-                    pushFollow(FOLLOW_dispatch_trigger_logical_expression_in_dispatch_trigger_condition2681);
+                    pushFollow(FOLLOW_dispatch_trigger_logical_expression_in_dispatch_trigger_condition2685);
                     DisTriggLogicalExpr=dispatch_trigger_logical_expression();
 
                     state._fsp--;
@@ -1906,7 +1926,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "dispatch_trigger_logical_expression"
-    // AadlBa.g:862:1: dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression\n DisTriggLogicalExpr] : DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )* ;
+    // AadlBa.g:879:1: dispatch_trigger_logical_expression returns [DispatchTriggerLogicalExpression\n DisTriggLogicalExpr] : DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )* ;
     public final DispatchTriggerLogicalExpression dispatch_trigger_logical_expression() throws RecognitionException {
         DispatchTriggerLogicalExpression DisTriggLogicalExpr = null;
 
@@ -1918,10 +1938,10 @@ public class AadlBaParser extends Parser {
            DisTriggLogicalExpr = _fact.createDispatchTriggerLogicalExpression ();
          
         try {
-            // AadlBa.g:867:4: (DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )* )
-            // AadlBa.g:868:6: DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )*
+            // AadlBa.g:884:4: (DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )* )
+            // AadlBa.g:885:6: DisConjunct= dispatch_conjunction ( OR DisConjunct= dispatch_conjunction )*
             {
-            pushFollow(FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2727);
+            pushFollow(FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2731);
             DisConjunct=dispatch_conjunction();
 
             state._fsp--;
@@ -1933,7 +1953,7 @@ public class AadlBaParser extends Parser {
                      DisConjunct.getLocationReference());
                  }
 
-            // AadlBa.g:874:6: ( OR DisConjunct= dispatch_conjunction )*
+            // AadlBa.g:891:6: ( OR DisConjunct= dispatch_conjunction )*
             loop29:
             do {
                 int alt29=2;
@@ -1946,11 +1966,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt29) {
             	case 1 :
-            	    // AadlBa.g:875:8: OR DisConjunct= dispatch_conjunction
+            	    // AadlBa.g:892:8: OR DisConjunct= dispatch_conjunction
             	    {
-            	    match(input,OR,FOLLOW_OR_in_dispatch_trigger_logical_expression2750); if (state.failed) return DisTriggLogicalExpr;
+            	    match(input,OR,FOLLOW_OR_in_dispatch_trigger_logical_expression2754); if (state.failed) return DisTriggLogicalExpr;
 
-            	    pushFollow(FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2754);
+            	    pushFollow(FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2758);
             	    DisConjunct=dispatch_conjunction();
 
             	    state._fsp--;
@@ -1990,7 +2010,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "dispatch_conjunction"
-    // AadlBa.g:893:1: dispatch_conjunction returns [DispatchConjunction DisConjunct] : ref= reference ( AND ref= reference )* ;
+    // AadlBa.g:910:1: dispatch_conjunction returns [DispatchConjunction DisConjunct] : ref= reference ( AND ref= reference )* ;
     public final DispatchConjunction dispatch_conjunction() throws RecognitionException {
         DispatchConjunction DisConjunct = null;
 
@@ -2002,10 +2022,10 @@ public class AadlBaParser extends Parser {
            DisConjunct = _fact.createDispatchConjunction ();
          
         try {
-            // AadlBa.g:898:4: (ref= reference ( AND ref= reference )* )
-            // AadlBa.g:899:6: ref= reference ( AND ref= reference )*
+            // AadlBa.g:915:4: (ref= reference ( AND ref= reference )* )
+            // AadlBa.g:916:6: ref= reference ( AND ref= reference )*
             {
-            pushFollow(FOLLOW_reference_in_dispatch_conjunction2813);
+            pushFollow(FOLLOW_reference_in_dispatch_conjunction2817);
             ref=reference();
 
             state._fsp--;
@@ -2016,7 +2036,7 @@ public class AadlBaParser extends Parser {
                    DisConjunct.setLocationReference(ref.getLocationReference());
                  }
 
-            // AadlBa.g:904:6: ( AND ref= reference )*
+            // AadlBa.g:921:6: ( AND ref= reference )*
             loop30:
             do {
                 int alt30=2;
@@ -2029,11 +2049,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt30) {
             	case 1 :
-            	    // AadlBa.g:905:8: AND ref= reference
+            	    // AadlBa.g:922:8: AND ref= reference
             	    {
-            	    match(input,AND,FOLLOW_AND_in_dispatch_conjunction2836); if (state.failed) return DisConjunct;
+            	    match(input,AND,FOLLOW_AND_in_dispatch_conjunction2840); if (state.failed) return DisConjunct;
 
-            	    pushFollow(FOLLOW_reference_in_dispatch_conjunction2840);
+            	    pushFollow(FOLLOW_reference_in_dispatch_conjunction2844);
             	    ref=reference();
 
             	    state._fsp--;
@@ -2073,7 +2093,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_actions"
-    // AadlBa.g:937:1: behavior_actions returns [BehaviorActions BehActs] : BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* ) ;
+    // AadlBa.g:954:1: behavior_actions returns [BehaviorActions BehActs] : BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* ) ;
     public final BehaviorActions behavior_actions() throws RecognitionException {
         BehaviorActions BehActs = null;
 
@@ -2089,10 +2109,10 @@ public class AadlBaParser extends Parser {
            BehaviorActionCollection col = null ;
          
         try {
-            // AadlBa.g:943:3: (BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* ) )
-            // AadlBa.g:944:4: BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* )
+            // AadlBa.g:960:3: (BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* ) )
+            // AadlBa.g:961:4: BehAction= behavior_action ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* )
             {
-            pushFollow(FOLLOW_behavior_action_in_behavior_actions2908);
+            pushFollow(FOLLOW_behavior_action_in_behavior_actions2912);
             BehAction=behavior_action();
 
             state._fsp--;
@@ -2102,7 +2122,7 @@ public class AadlBaParser extends Parser {
                  BehActs = BehAction ;
                }
 
-            // AadlBa.g:949:4: ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* )
+            // AadlBa.g:966:4: ( ( SEMICOLON BehAction2= behavior_action )* | ( CONCAT BehAction2= behavior_action )* )
             int alt33=2;
             switch ( input.LA(1) ) {
             case SEMICOLON:
@@ -2246,9 +2266,9 @@ public class AadlBaParser extends Parser {
 
             switch (alt33) {
                 case 1 :
-                    // AadlBa.g:950:9: ( SEMICOLON BehAction2= behavior_action )*
+                    // AadlBa.g:967:9: ( SEMICOLON BehAction2= behavior_action )*
                     {
-                    // AadlBa.g:950:9: ( SEMICOLON BehAction2= behavior_action )*
+                    // AadlBa.g:967:9: ( SEMICOLON BehAction2= behavior_action )*
                     loop31:
                     do {
                         int alt31=2;
@@ -2261,11 +2281,11 @@ public class AadlBaParser extends Parser {
 
                         switch (alt31) {
                     	case 1 :
-                    	    // AadlBa.g:950:11: SEMICOLON BehAction2= behavior_action
+                    	    // AadlBa.g:967:11: SEMICOLON BehAction2= behavior_action
                     	    {
-                    	    match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_actions2934); if (state.failed) return BehActs;
+                    	    match(input,SEMICOLON,FOLLOW_SEMICOLON_in_behavior_actions2938); if (state.failed) return BehActs;
 
-                    	    pushFollow(FOLLOW_behavior_action_in_behavior_actions2938);
+                    	    pushFollow(FOLLOW_behavior_action_in_behavior_actions2942);
                     	    BehAction2=behavior_action();
 
                     	    state._fsp--;
@@ -2289,9 +2309,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:957:9: ( CONCAT BehAction2= behavior_action )*
+                    // AadlBa.g:974:9: ( CONCAT BehAction2= behavior_action )*
                     {
-                    // AadlBa.g:957:9: ( CONCAT BehAction2= behavior_action )*
+                    // AadlBa.g:974:9: ( CONCAT BehAction2= behavior_action )*
                     loop32:
                     do {
                         int alt32=2;
@@ -2304,11 +2324,11 @@ public class AadlBaParser extends Parser {
 
                         switch (alt32) {
                     	case 1 :
-                    	    // AadlBa.g:957:11: CONCAT BehAction2= behavior_action
+                    	    // AadlBa.g:974:11: CONCAT BehAction2= behavior_action
                     	    {
-                    	    match(input,CONCAT,FOLLOW_CONCAT_in_behavior_actions2994); if (state.failed) return BehActs;
+                    	    match(input,CONCAT,FOLLOW_CONCAT_in_behavior_actions2998); if (state.failed) return BehActs;
 
-                    	    pushFollow(FOLLOW_behavior_action_in_behavior_actions2998);
+                    	    pushFollow(FOLLOW_behavior_action_in_behavior_actions3002);
                     	    BehAction2=behavior_action();
 
                     	    state._fsp--;
@@ -2366,7 +2386,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_action"
-    // AadlBa.g:995:1: behavior_action returns [BehaviorAction BehAction] : ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) ) ;
+    // AadlBa.g:1012:1: behavior_action returns [BehaviorAction BehAction] : ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) ) ;
     public final BehaviorAction behavior_action() throws RecognitionException {
         BehaviorAction BehAction = null;
 
@@ -2395,10 +2415,10 @@ public class AadlBaParser extends Parser {
            IterativeVariable itVar = null ;
          
         try {
-            // AadlBa.g:1003:3: ( ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) ) )
-            // AadlBa.g:1004:4: ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) )
+            // AadlBa.g:1020:3: ( ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) ) )
+            // AadlBa.g:1021:4: ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) )
             {
-            // AadlBa.g:1004:4: ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) )
+            // AadlBa.g:1021:4: ( (BaAct= basic_action ) | (BehActionBlock= behavior_action_block ) | (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF ) | (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY ) | (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN ) )
             int alt36=7;
             switch ( input.LA(1) ) {
             case COMPUTATION:
@@ -2449,12 +2469,12 @@ public class AadlBaParser extends Parser {
 
             switch (alt36) {
                 case 1 :
-                    // AadlBa.g:1005:6: (BaAct= basic_action )
+                    // AadlBa.g:1022:6: (BaAct= basic_action )
                     {
-                    // AadlBa.g:1005:6: (BaAct= basic_action )
-                    // AadlBa.g:1005:8: BaAct= basic_action
+                    // AadlBa.g:1022:6: (BaAct= basic_action )
+                    // AadlBa.g:1022:8: BaAct= basic_action
                     {
-                    pushFollow(FOLLOW_basic_action_in_behavior_action3101);
+                    pushFollow(FOLLOW_basic_action_in_behavior_action3105);
                     BaAct=basic_action();
 
                     state._fsp--;
@@ -2468,12 +2488,12 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1009:6: (BehActionBlock= behavior_action_block )
+                    // AadlBa.g:1026:6: (BehActionBlock= behavior_action_block )
                     {
-                    // AadlBa.g:1009:6: (BehActionBlock= behavior_action_block )
-                    // AadlBa.g:1009:8: BehActionBlock= behavior_action_block
+                    // AadlBa.g:1026:6: (BehActionBlock= behavior_action_block )
+                    // AadlBa.g:1026:8: BehActionBlock= behavior_action_block
                     {
-                    pushFollow(FOLLOW_behavior_action_block_in_behavior_action3134);
+                    pushFollow(FOLLOW_behavior_action_block_in_behavior_action3138);
                     BehActionBlock=behavior_action_block();
 
                     state._fsp--;
@@ -2489,24 +2509,24 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1016:6: (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF )
+                    // AadlBa.g:1033:6: (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF )
                     {
-                    // AadlBa.g:1016:6: (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF )
-                    // AadlBa.g:1016:8: identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF
+                    // AadlBa.g:1033:6: (identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF )
+                    // AadlBa.g:1033:8: identifier1= IF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )* (identifier= ELSE BehActions= behavior_actions )? END IF
                     {
-                    identifier1=(Token)match(input,IF,FOLLOW_IF_in_behavior_action3172); if (state.failed) return BehAction;
+                    identifier1=(Token)match(input,IF,FOLLOW_IF_in_behavior_action3176); if (state.failed) return BehAction;
 
-                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3176); if (state.failed) return BehAction;
+                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3180); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_value_expression_in_behavior_action3180);
+                    pushFollow(FOLLOW_value_expression_in_behavior_action3184);
                     ValExpr=value_expression();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3182); if (state.failed) return BehAction;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3186); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3186);
+                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3190);
                     BehActions=behavior_actions();
 
                     state._fsp--;
@@ -2521,7 +2541,7 @@ public class AadlBaParser extends Parser {
                              tmpIfStat = IfStat ;
                            }
 
-                    // AadlBa.g:1025:8: (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )*
+                    // AadlBa.g:1042:8: (identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions )*
                     loop34:
                     do {
                         int alt34=2;
@@ -2534,21 +2554,21 @@ public class AadlBaParser extends Parser {
 
                         switch (alt34) {
                     	case 1 :
-                    	    // AadlBa.g:1026:10: identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions
+                    	    // AadlBa.g:1043:10: identifier1= ELSIF identifier2= LPAREN ValExpr= value_expression RPAREN BehActions= behavior_actions
                     	    {
-                    	    identifier1=(Token)match(input,ELSIF,FOLLOW_ELSIF_in_behavior_action3219); if (state.failed) return BehAction;
+                    	    identifier1=(Token)match(input,ELSIF,FOLLOW_ELSIF_in_behavior_action3223); if (state.failed) return BehAction;
 
-                    	    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3223); if (state.failed) return BehAction;
+                    	    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3227); if (state.failed) return BehAction;
 
-                    	    pushFollow(FOLLOW_value_expression_in_behavior_action3227);
+                    	    pushFollow(FOLLOW_value_expression_in_behavior_action3231);
                     	    ValExpr=value_expression();
 
                     	    state._fsp--;
                     	    if (state.failed) return BehAction;
 
-                    	    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3229); if (state.failed) return BehAction;
+                    	    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3233); if (state.failed) return BehAction;
 
-                    	    pushFollow(FOLLOW_behavior_actions_in_behavior_action3233);
+                    	    pushFollow(FOLLOW_behavior_actions_in_behavior_action3237);
                     	    BehActions=behavior_actions();
 
                     	    state._fsp--;
@@ -2576,7 +2596,7 @@ public class AadlBaParser extends Parser {
                     } while (true);
 
 
-                    // AadlBa.g:1040:8: (identifier= ELSE BehActions= behavior_actions )?
+                    // AadlBa.g:1057:8: (identifier= ELSE BehActions= behavior_actions )?
                     int alt35=2;
                     int LA35_0 = input.LA(1);
 
@@ -2585,11 +2605,11 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt35) {
                         case 1 :
-                            // AadlBa.g:1041:10: identifier= ELSE BehActions= behavior_actions
+                            // AadlBa.g:1058:10: identifier= ELSE BehActions= behavior_actions
                             {
-                            identifier=(Token)match(input,ELSE,FOLLOW_ELSE_in_behavior_action3276); if (state.failed) return BehAction;
+                            identifier=(Token)match(input,ELSE,FOLLOW_ELSE_in_behavior_action3280); if (state.failed) return BehAction;
 
-                            pushFollow(FOLLOW_behavior_actions_in_behavior_action3280);
+                            pushFollow(FOLLOW_behavior_actions_in_behavior_action3284);
                             BehActions=behavior_actions();
 
                             state._fsp--;
@@ -2608,9 +2628,9 @@ public class AadlBaParser extends Parser {
                     }
 
 
-                    match(input,END,FOLLOW_END_in_behavior_action3310); if (state.failed) return BehAction;
+                    match(input,END,FOLLOW_END_in_behavior_action3314); if (state.failed) return BehAction;
 
-                    match(input,IF,FOLLOW_IF_in_behavior_action3312); if (state.failed) return BehAction;
+                    match(input,IF,FOLLOW_IF_in_behavior_action3316); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { 
                              BehAction = IfStat ;
@@ -2622,20 +2642,20 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:1056:6: (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1073:6: (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
                     {
-                    // AadlBa.g:1056:6: (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
-                    // AadlBa.g:1056:8: identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY
+                    // AadlBa.g:1073:6: (identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1073:8: identifier= FOR LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY
                     {
-                    identifier=(Token)match(input,FOR,FOLLOW_FOR_in_behavior_action3350); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,FOR,FOLLOW_FOR_in_behavior_action3354); if (state.failed) return BehAction;
 
-                    match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3352); if (state.failed) return BehAction;
+                    match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3356); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { ForStat = _fact.createForOrForAllStatement(); 
                                                    setLocationReference(ForStat, identifier); 
                                                  }
 
-                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_action3366); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_action3370); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) {  
                                               itVar = _fact.createIterativeVariable(); 
@@ -2644,9 +2664,9 @@ public class AadlBaParser extends Parser {
                                               ForStat.setIterativeVariable(itVar); 
                                             }
 
-                    match(input,COLON,FOLLOW_COLON_in_behavior_action3377); if (state.failed) return BehAction;
+                    match(input,COLON,FOLLOW_COLON_in_behavior_action3381); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_action3381);
+                    pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_action3385);
                     dt=unique_component_classifier_reference();
 
                     state._fsp--;
@@ -2657,27 +2677,27 @@ public class AadlBaParser extends Parser {
                              itVar.setDataClassifier(dt);
                            }
 
-                    match(input,IN,FOLLOW_IN_in_behavior_action3407); if (state.failed) return BehAction;
+                    match(input,IN,FOLLOW_IN_in_behavior_action3411); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_element_values_in_behavior_action3411);
+                    pushFollow(FOLLOW_element_values_in_behavior_action3415);
                     EltVal=element_values();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3413); if (state.failed) return BehAction;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3417); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { ForStat.setIteratedValues(EltVal); }
 
-                    identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3426); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3430); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3430);
+                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3434);
                     BehActions=behavior_actions();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3432); if (state.failed) return BehAction;
+                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3436); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { ForStat.setBehaviorActions(BehActions);
                              BehAction = ForStat ;
@@ -2689,14 +2709,14 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:1079:6: (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1096:6: (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
                     {
-                    // AadlBa.g:1079:6: (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
-                    // AadlBa.g:1079:8: identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY
+                    // AadlBa.g:1096:6: (identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1096:8: identifier= FORALL LPAREN identifier= IDENT COLON dt= unique_component_classifier_reference IN EltVal= element_values RPAREN identifier= LCURLY BehActions= behavior_actions RCURLY
                     {
-                    identifier=(Token)match(input,FORALL,FOLLOW_FORALL_in_behavior_action3471); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,FORALL,FOLLOW_FORALL_in_behavior_action3475); if (state.failed) return BehAction;
 
-                    match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3473); if (state.failed) return BehAction;
+                    match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3477); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { 
                             ForStat = _fact.createForOrForAllStatement();
@@ -2704,7 +2724,7 @@ public class AadlBaParser extends Parser {
                             setLocationReference(ForStat, identifier); 
                            }
 
-                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_action3494); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_action3498); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) {  
                                               itVar = _fact.createIterativeVariable(); 
@@ -2713,9 +2733,9 @@ public class AadlBaParser extends Parser {
                                               ForStat.setIterativeVariable(itVar);
                                             }
 
-                    match(input,COLON,FOLLOW_COLON_in_behavior_action3505); if (state.failed) return BehAction;
+                    match(input,COLON,FOLLOW_COLON_in_behavior_action3509); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_action3509);
+                    pushFollow(FOLLOW_unique_component_classifier_reference_in_behavior_action3513);
                     dt=unique_component_classifier_reference();
 
                     state._fsp--;
@@ -2725,27 +2745,27 @@ public class AadlBaParser extends Parser {
                              itVar.setDataClassifier(dt);
                            }
 
-                    match(input,IN,FOLLOW_IN_in_behavior_action3536); if (state.failed) return BehAction;
+                    match(input,IN,FOLLOW_IN_in_behavior_action3540); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_element_values_in_behavior_action3540);
+                    pushFollow(FOLLOW_element_values_in_behavior_action3544);
                     EltVal=element_values();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3542); if (state.failed) return BehAction;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3546); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { ForStat.setIteratedValues(EltVal); }
 
-                    identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3555); if (state.failed) return BehAction;
+                    identifier=(Token)match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3559); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3559);
+                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3563);
                     BehActions=behavior_actions();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3561); if (state.failed) return BehAction;
+                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3565); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) { ForStat.setBehaviorActions(BehActions) ;
                              BehAction = ForStat ;
@@ -2757,32 +2777,32 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // AadlBa.g:1104:6: (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1121:6: (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY )
                     {
-                    // AadlBa.g:1104:6: (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY )
-                    // AadlBa.g:1104:8: identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY
+                    // AadlBa.g:1121:6: (identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY )
+                    // AadlBa.g:1121:8: identifier1= WHILE identifier2= LPAREN ValExpr= value_expression RPAREN LCURLY BehActions= behavior_actions RCURLY
                     {
-                    identifier1=(Token)match(input,WHILE,FOLLOW_WHILE_in_behavior_action3599); if (state.failed) return BehAction;
+                    identifier1=(Token)match(input,WHILE,FOLLOW_WHILE_in_behavior_action3603); if (state.failed) return BehAction;
 
-                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3603); if (state.failed) return BehAction;
+                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3607); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_value_expression_in_behavior_action3607);
+                    pushFollow(FOLLOW_value_expression_in_behavior_action3611);
                     ValExpr=value_expression();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3609); if (state.failed) return BehAction;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3613); if (state.failed) return BehAction;
 
-                    match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3619); if (state.failed) return BehAction;
+                    match(input,LCURLY,FOLLOW_LCURLY_in_behavior_action3623); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3623);
+                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3627);
                     BehActions=behavior_actions();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3625); if (state.failed) return BehAction;
+                    match(input,RCURLY,FOLLOW_RCURLY_in_behavior_action3629); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) {
                              WhileOrDoUntilStatement WhileStat = _fact.createWhileOrDoUntilStatement();
@@ -2800,30 +2820,30 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 7 :
-                    // AadlBa.g:1118:6: (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN )
+                    // AadlBa.g:1135:6: (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN )
                     {
-                    // AadlBa.g:1118:6: (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN )
-                    // AadlBa.g:1118:8: identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN
+                    // AadlBa.g:1135:6: (identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN )
+                    // AadlBa.g:1135:8: identifier1= DO BehActions= behavior_actions UNTIL identifier2= LPAREN ValExpr= value_expression RPAREN
                     {
-                    identifier1=(Token)match(input,DO,FOLLOW_DO_in_behavior_action3664); if (state.failed) return BehAction;
+                    identifier1=(Token)match(input,DO,FOLLOW_DO_in_behavior_action3668); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3668);
+                    pushFollow(FOLLOW_behavior_actions_in_behavior_action3672);
                     BehActions=behavior_actions();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,UNTIL,FOLLOW_UNTIL_in_behavior_action3670); if (state.failed) return BehAction;
+                    match(input,UNTIL,FOLLOW_UNTIL_in_behavior_action3674); if (state.failed) return BehAction;
 
-                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3683); if (state.failed) return BehAction;
+                    identifier2=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_behavior_action3687); if (state.failed) return BehAction;
 
-                    pushFollow(FOLLOW_value_expression_in_behavior_action3687);
+                    pushFollow(FOLLOW_value_expression_in_behavior_action3691);
                     ValExpr=value_expression();
 
                     state._fsp--;
                     if (state.failed) return BehAction;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3689); if (state.failed) return BehAction;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_behavior_action3693); if (state.failed) return BehAction;
 
                     if ( state.backtracking==0 ) {
                              WhileOrDoUntilStatement doUntilStat = _fact.createWhileOrDoUntilStatement();
@@ -2865,7 +2885,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "element_values"
-    // AadlBa.g:1142:1: element_values returns [ElementValues EltVal] : ( (IntRange= integer_range ) | (AdcRef= reference ) );
+    // AadlBa.g:1159:1: element_values returns [ElementValues EltVal] : ( (IntRange= integer_range ) | (AdcRef= reference ) );
     public final ElementValues element_values() throws RecognitionException {
         ElementValues EltVal = null;
 
@@ -2878,7 +2898,7 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:1145:3: ( (IntRange= integer_range ) | (AdcRef= reference ) )
+            // AadlBa.g:1162:3: ( (IntRange= integer_range ) | (AdcRef= reference ) )
             int alt37=2;
             int LA37_0 = input.LA(1);
 
@@ -2913,12 +2933,12 @@ public class AadlBaParser extends Parser {
             }
             switch (alt37) {
                 case 1 :
-                    // AadlBa.g:1146:6: (IntRange= integer_range )
+                    // AadlBa.g:1163:6: (IntRange= integer_range )
                     {
-                    // AadlBa.g:1146:6: (IntRange= integer_range )
-                    // AadlBa.g:1146:8: IntRange= integer_range
+                    // AadlBa.g:1163:6: (IntRange= integer_range )
+                    // AadlBa.g:1163:8: IntRange= integer_range
                     {
-                    pushFollow(FOLLOW_integer_range_in_element_values3751);
+                    pushFollow(FOLLOW_integer_range_in_element_values3755);
                     IntRange=integer_range();
 
                     state._fsp--;
@@ -2932,12 +2952,12 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1148:6: (AdcRef= reference )
+                    // AadlBa.g:1165:6: (AdcRef= reference )
                     {
-                    // AadlBa.g:1148:6: (AdcRef= reference )
-                    // AadlBa.g:1148:8: AdcRef= reference
+                    // AadlBa.g:1165:6: (AdcRef= reference )
+                    // AadlBa.g:1165:8: AdcRef= reference
                     {
-                    pushFollow(FOLLOW_reference_in_element_values3771);
+                    pushFollow(FOLLOW_reference_in_element_values3775);
                     AdcRef=reference();
 
                     state._fsp--;
@@ -2971,7 +2991,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "basic_action"
-    // AadlBa.g:1161:1: basic_action returns [BasicAction BaAction] : ( (AssAct= assignment_action ) | (CommAct= communication_action ) | (TimedAct= timed_action ) );
+    // AadlBa.g:1178:1: basic_action returns [BasicAction BaAction] : ( (AssAct= assignment_action ) | (CommAct= communication_action ) | (TimedAct= timed_action ) );
     public final BasicAction basic_action() throws RecognitionException {
         BasicAction BaAction = null;
 
@@ -2986,7 +3006,7 @@ public class AadlBaParser extends Parser {
 
 
         try {
-            // AadlBa.g:1164:3: ( (AssAct= assignment_action ) | (CommAct= communication_action ) | (TimedAct= timed_action ) )
+            // AadlBa.g:1181:3: ( (AssAct= assignment_action ) | (CommAct= communication_action ) | (TimedAct= timed_action ) )
             int alt38=3;
             switch ( input.LA(1) ) {
             case IDENT:
@@ -3030,12 +3050,12 @@ public class AadlBaParser extends Parser {
 
             switch (alt38) {
                 case 1 :
-                    // AadlBa.g:1165:6: (AssAct= assignment_action )
+                    // AadlBa.g:1182:6: (AssAct= assignment_action )
                     {
-                    // AadlBa.g:1165:6: (AssAct= assignment_action )
-                    // AadlBa.g:1165:8: AssAct= assignment_action
+                    // AadlBa.g:1182:6: (AssAct= assignment_action )
+                    // AadlBa.g:1182:8: AssAct= assignment_action
                     {
-                    pushFollow(FOLLOW_assignment_action_in_basic_action3815);
+                    pushFollow(FOLLOW_assignment_action_in_basic_action3819);
                     AssAct=assignment_action();
 
                     state._fsp--;
@@ -3049,12 +3069,12 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1167:6: (CommAct= communication_action )
+                    // AadlBa.g:1184:6: (CommAct= communication_action )
                     {
-                    // AadlBa.g:1167:6: (CommAct= communication_action )
-                    // AadlBa.g:1167:8: CommAct= communication_action
+                    // AadlBa.g:1184:6: (CommAct= communication_action )
+                    // AadlBa.g:1184:8: CommAct= communication_action
                     {
-                    pushFollow(FOLLOW_communication_action_in_basic_action3835);
+                    pushFollow(FOLLOW_communication_action_in_basic_action3839);
                     CommAct=communication_action();
 
                     state._fsp--;
@@ -3068,12 +3088,12 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1169:6: (TimedAct= timed_action )
+                    // AadlBa.g:1186:6: (TimedAct= timed_action )
                     {
-                    // AadlBa.g:1169:6: (TimedAct= timed_action )
-                    // AadlBa.g:1169:8: TimedAct= timed_action
+                    // AadlBa.g:1186:6: (TimedAct= timed_action )
+                    // AadlBa.g:1186:8: TimedAct= timed_action
                     {
-                    pushFollow(FOLLOW_timed_action_in_basic_action3855);
+                    pushFollow(FOLLOW_timed_action_in_basic_action3859);
                     TimedAct=timed_action();
 
                     state._fsp--;
@@ -3107,7 +3127,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "assignment_action"
-    // AadlBa.g:1181:1: assignment_action returns [AssignmentAction AssAct] : Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY ) ;
+    // AadlBa.g:1198:1: assignment_action returns [AssignmentAction AssAct] : Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY ) ;
     public final AssignmentAction assignment_action() throws RecognitionException {
         AssignmentAction AssAct = null;
 
@@ -3122,18 +3142,18 @@ public class AadlBaParser extends Parser {
            AssAct = _fact.createAssignmentAction();
          
         try {
-            // AadlBa.g:1185:3: (Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY ) )
-            // AadlBa.g:1186:4: Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY )
+            // AadlBa.g:1202:3: (Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY ) )
+            // AadlBa.g:1203:4: Tar= target ASSIGN (ValExpr= value_expression |identifier= ANY )
             {
-            pushFollow(FOLLOW_target_in_assignment_action3899);
+            pushFollow(FOLLOW_target_in_assignment_action3903);
             Tar=target();
 
             state._fsp--;
             if (state.failed) return AssAct;
 
-            match(input,ASSIGN,FOLLOW_ASSIGN_in_assignment_action3901); if (state.failed) return AssAct;
+            match(input,ASSIGN,FOLLOW_ASSIGN_in_assignment_action3905); if (state.failed) return AssAct;
 
-            // AadlBa.g:1186:22: (ValExpr= value_expression |identifier= ANY )
+            // AadlBa.g:1203:22: (ValExpr= value_expression |identifier= ANY )
             int alt39=2;
             int LA39_0 = input.LA(1);
 
@@ -3153,9 +3173,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt39) {
                 case 1 :
-                    // AadlBa.g:1186:24: ValExpr= value_expression
+                    // AadlBa.g:1203:24: ValExpr= value_expression
                     {
-                    pushFollow(FOLLOW_value_expression_in_assignment_action3907);
+                    pushFollow(FOLLOW_value_expression_in_assignment_action3911);
                     ValExpr=value_expression();
 
                     state._fsp--;
@@ -3164,9 +3184,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1186:51: identifier= ANY
+                    // AadlBa.g:1203:51: identifier= ANY
                     {
-                    identifier=(Token)match(input,ANY,FOLLOW_ANY_in_assignment_action3913); if (state.failed) return AssAct;
+                    identifier=(Token)match(input,ANY,FOLLOW_ANY_in_assignment_action3917); if (state.failed) return AssAct;
 
                     }
                     break;
@@ -3211,7 +3231,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "target"
-    // AadlBa.g:1214:1: target returns [Target Tar] : dt= reference ;
+    // AadlBa.g:1231:1: target returns [Target Tar] : dt= reference ;
     public final Target target() throws RecognitionException {
         Target Tar = null;
 
@@ -3223,10 +3243,10 @@ public class AadlBaParser extends Parser {
            Tar = null ;
          
         try {
-            // AadlBa.g:1218:3: (dt= reference )
-            // AadlBa.g:1218:5: dt= reference
+            // AadlBa.g:1235:3: (dt= reference )
+            // AadlBa.g:1235:5: dt= reference
             {
-            pushFollow(FOLLOW_reference_in_target3953);
+            pushFollow(FOLLOW_reference_in_target3957);
             dt=reference();
 
             state._fsp--;
@@ -3255,7 +3275,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "qualified_named_element"
-    // AadlBa.g:1227:1: qualified_named_element returns [QualifiedNamedElement qne] : ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? ) ;
+    // AadlBa.g:1244:1: qualified_named_element returns [QualifiedNamedElement qne] : ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? ) ;
     public final QualifiedNamedElement qualified_named_element() throws RecognitionException {
         QualifiedNamedElement qne = null;
 
@@ -3269,13 +3289,13 @@ public class AadlBaParser extends Parser {
           String id2 = "";
 
         try {
-            // AadlBa.g:1233:3: ( ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? ) )
-            // AadlBa.g:1234:4: ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? )
+            // AadlBa.g:1250:3: ( ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? ) )
+            // AadlBa.g:1251:4: ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? )
             {
-            // AadlBa.g:1234:4: ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? )
-            // AadlBa.g:1235:5: (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )?
+            // AadlBa.g:1251:4: ( (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )? )
+            // AadlBa.g:1252:5: (identifier1= IDENT DOUBLECOLON )+ identifier2= IDENT ( DOT identifier3= IDENT )?
             {
-            // AadlBa.g:1235:5: (identifier1= IDENT DOUBLECOLON )+
+            // AadlBa.g:1252:5: (identifier1= IDENT DOUBLECOLON )+
             int cnt40=0;
             loop40:
             do {
@@ -3295,11 +3315,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt40) {
             	case 1 :
-            	    // AadlBa.g:1235:7: identifier1= IDENT DOUBLECOLON
+            	    // AadlBa.g:1252:7: identifier1= IDENT DOUBLECOLON
             	    {
-            	    identifier1=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4037); if (state.failed) return qne;
+            	    identifier1=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4041); if (state.failed) return qne;
 
-            	    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_qualified_named_element4039); if (state.failed) return qne;
+            	    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_qualified_named_element4043); if (state.failed) return qne;
 
             	    if ( state.backtracking==0 ) { 
             	            id1=id1+(id1.length() == 0 ? "":"::")+identifier1.getText();
@@ -3319,13 +3339,13 @@ public class AadlBaParser extends Parser {
             } while (true);
 
 
-            identifier2=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4067); if (state.failed) return qne;
+            identifier2=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4071); if (state.failed) return qne;
 
             if ( state.backtracking==0 ) { 
                   id2=identifier2.getText();
                 }
 
-            // AadlBa.g:1245:5: ( DOT identifier3= IDENT )?
+            // AadlBa.g:1262:5: ( DOT identifier3= IDENT )?
             int alt41=2;
             int LA41_0 = input.LA(1);
 
@@ -3334,11 +3354,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt41) {
                 case 1 :
-                    // AadlBa.g:1245:7: DOT identifier3= IDENT
+                    // AadlBa.g:1262:7: DOT identifier3= IDENT
                     {
-                    match(input,DOT,FOLLOW_DOT_in_qualified_named_element4081); if (state.failed) return qne;
+                    match(input,DOT,FOLLOW_DOT_in_qualified_named_element4085); if (state.failed) return qne;
 
-                    identifier3=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4085); if (state.failed) return qne;
+                    identifier3=(Token)match(input,IDENT,FOLLOW_IDENT_in_qualified_named_element4089); if (state.failed) return qne;
 
                     if ( state.backtracking==0 ) {
                             id2=id2+"."+identifier3.getText();
@@ -3391,7 +3411,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "communication_action"
-    // AadlBa.g:1286:1: communication_action returns [CommAction ca] : ( (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) | (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) ) | (identifier= STAR ( EXCLLESS | EXCLGREATER ) ) );
+    // AadlBa.g:1303:1: communication_action returns [CommAction ca] : ( (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) | (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) ) | (identifier= STAR ( EXCLLESS | EXCLGREATER ) ) );
     public final CommAction communication_action() throws RecognitionException {
         CommAction ca = null;
 
@@ -3410,7 +3430,7 @@ public class AadlBaParser extends Parser {
           ca = _decl.createCommAction() ;
 
         try {
-            // AadlBa.g:1291:3: ( (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) | (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) ) | (identifier= STAR ( EXCLLESS | EXCLGREATER ) ) )
+            // AadlBa.g:1308:3: ( (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) | (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) ) | (identifier= STAR ( EXCLLESS | EXCLGREATER ) ) )
             int alt47=3;
             int LA47_0 = input.LA(1);
 
@@ -3445,25 +3465,25 @@ public class AadlBaParser extends Parser {
             }
             switch (alt47) {
                 case 1 :
-                    // AadlBa.g:1305:7: (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
+                    // AadlBa.g:1322:7: (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
                     {
-                    // AadlBa.g:1305:7: (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
-                    // AadlBa.g:1306:9: qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
+                    // AadlBa.g:1322:7: (qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
+                    // AadlBa.g:1323:9: qne= qualified_named_element EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
                     {
-                    pushFollow(FOLLOW_qualified_named_element_in_communication_action4237);
+                    pushFollow(FOLLOW_qualified_named_element_in_communication_action4241);
                     qne=qualified_named_element();
 
                     state._fsp--;
                     if (state.failed) return ca;
 
-                    match(input,EXCLAM,FOLLOW_EXCLAM_in_communication_action4239); if (state.failed) return ca;
+                    match(input,EXCLAM,FOLLOW_EXCLAM_in_communication_action4243); if (state.failed) return ca;
 
                     if ( state.backtracking==0 ) {
                               ca.setLocationReference(qne.getLocationReference());
                               ca.setQualifiedName(qne);
                             }
 
-                    // AadlBa.g:1311:9: ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
+                    // AadlBa.g:1328:9: ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
                     int alt42=2;
                     int LA42_0 = input.LA(1);
 
@@ -3472,17 +3492,17 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt42) {
                         case 1 :
-                            // AadlBa.g:1312:11: LPAREN SubpgmParamList= subprogram_parameter_list RPAREN
+                            // AadlBa.g:1329:11: LPAREN SubpgmParamList= subprogram_parameter_list RPAREN
                             {
-                            match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4272); if (state.failed) return ca;
+                            match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4276); if (state.failed) return ca;
 
-                            pushFollow(FOLLOW_subprogram_parameter_list_in_communication_action4276);
+                            pushFollow(FOLLOW_subprogram_parameter_list_in_communication_action4280);
                             SubpgmParamList=subprogram_parameter_list();
 
                             state._fsp--;
                             if (state.failed) return ca;
 
-                            match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4278); if (state.failed) return ca;
+                            match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4282); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                         ca.getParameters().addAll(SubpgmParamList);
@@ -3500,12 +3520,12 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1319:7: (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) )
+                    // AadlBa.g:1336:7: (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) )
                     {
-                    // AadlBa.g:1319:7: (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) )
-                    // AadlBa.g:1320:9: ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) )
+                    // AadlBa.g:1336:7: (ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) ) )
+                    // AadlBa.g:1337:9: ref= reference ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) )
                     {
-                    pushFollow(FOLLOW_reference_in_communication_action4338);
+                    pushFollow(FOLLOW_reference_in_communication_action4342);
                     ref=reference();
 
                     state._fsp--;
@@ -3516,7 +3536,7 @@ public class AadlBaParser extends Parser {
                               ca.setLocationReference(ref.getLocationReference()) ;
                             }
 
-                    // AadlBa.g:1325:9: ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) )
+                    // AadlBa.g:1342:9: ( ( INTERROG ( LPAREN Tar= target RPAREN )? ) | ( GGREATER ) | ( EXCLLESS ) | ( EXCLGREATER ) | ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? ) )
                     int alt45=5;
                     switch ( input.LA(1) ) {
                     case INTERROG:
@@ -3555,18 +3575,18 @@ public class AadlBaParser extends Parser {
 
                     switch (alt45) {
                         case 1 :
-                            // AadlBa.g:1326:13: ( INTERROG ( LPAREN Tar= target RPAREN )? )
+                            // AadlBa.g:1343:13: ( INTERROG ( LPAREN Tar= target RPAREN )? )
                             {
-                            // AadlBa.g:1326:13: ( INTERROG ( LPAREN Tar= target RPAREN )? )
-                            // AadlBa.g:1327:15: INTERROG ( LPAREN Tar= target RPAREN )?
+                            // AadlBa.g:1343:13: ( INTERROG ( LPAREN Tar= target RPAREN )? )
+                            // AadlBa.g:1344:15: INTERROG ( LPAREN Tar= target RPAREN )?
                             {
-                            match(input,INTERROG,FOLLOW_INTERROG_in_communication_action4388); if (state.failed) return ca;
+                            match(input,INTERROG,FOLLOW_INTERROG_in_communication_action4392); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                             ca.setPortDequeue(true);
                                           }
 
-                            // AadlBa.g:1331:15: ( LPAREN Tar= target RPAREN )?
+                            // AadlBa.g:1348:15: ( LPAREN Tar= target RPAREN )?
                             int alt43=2;
                             int LA43_0 = input.LA(1);
 
@@ -3575,17 +3595,17 @@ public class AadlBaParser extends Parser {
                             }
                             switch (alt43) {
                                 case 1 :
-                                    // AadlBa.g:1332:17: LPAREN Tar= target RPAREN
+                                    // AadlBa.g:1349:17: LPAREN Tar= target RPAREN
                                     {
-                                    match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4438); if (state.failed) return ca;
+                                    match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4442); if (state.failed) return ca;
 
-                                    pushFollow(FOLLOW_target_in_communication_action4442);
+                                    pushFollow(FOLLOW_target_in_communication_action4446);
                                     Tar=target();
 
                                     state._fsp--;
                                     if (state.failed) return ca;
 
-                                    match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4444); if (state.failed) return ca;
+                                    match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4448); if (state.failed) return ca;
 
                                     if ( state.backtracking==0 ) {
                                                       ca.setTarget(Tar);
@@ -3603,12 +3623,12 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // AadlBa.g:1339:13: ( GGREATER )
+                            // AadlBa.g:1356:13: ( GGREATER )
                             {
-                            // AadlBa.g:1339:13: ( GGREATER )
-                            // AadlBa.g:1340:15: GGREATER
+                            // AadlBa.g:1356:13: ( GGREATER )
+                            // AadlBa.g:1357:15: GGREATER
                             {
-                            match(input,GGREATER,FOLLOW_GGREATER_in_communication_action4535); if (state.failed) return ca;
+                            match(input,GGREATER,FOLLOW_GGREATER_in_communication_action4539); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) { 
                                             ca.setPortFreeze(true);
@@ -3620,12 +3640,12 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 3 :
-                            // AadlBa.g:1346:13: ( EXCLLESS )
+                            // AadlBa.g:1363:13: ( EXCLLESS )
                             {
-                            // AadlBa.g:1346:13: ( EXCLLESS )
-                            // AadlBa.g:1347:15: EXCLLESS
+                            // AadlBa.g:1363:13: ( EXCLLESS )
+                            // AadlBa.g:1364:15: EXCLLESS
                             {
-                            match(input,EXCLLESS,FOLLOW_EXCLLESS_in_communication_action4607); if (state.failed) return ca;
+                            match(input,EXCLLESS,FOLLOW_EXCLLESS_in_communication_action4611); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                             ca.setLock(true);
@@ -3637,12 +3657,12 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 4 :
-                            // AadlBa.g:1353:13: ( EXCLGREATER )
+                            // AadlBa.g:1370:13: ( EXCLGREATER )
                             {
-                            // AadlBa.g:1353:13: ( EXCLGREATER )
-                            // AadlBa.g:1354:15: EXCLGREATER
+                            // AadlBa.g:1370:13: ( EXCLGREATER )
+                            // AadlBa.g:1371:15: EXCLGREATER
                             {
-                            match(input,EXCLGREATER,FOLLOW_EXCLGREATER_in_communication_action4679); if (state.failed) return ca;
+                            match(input,EXCLGREATER,FOLLOW_EXCLGREATER_in_communication_action4683); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                             ca.setUnlock(true);
@@ -3654,14 +3674,14 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 5 :
-                            // AadlBa.g:1360:13: ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
+                            // AadlBa.g:1377:13: ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
                             {
-                            // AadlBa.g:1360:13: ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
-                            // AadlBa.g:1361:15: EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
+                            // AadlBa.g:1377:13: ( EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )? )
+                            // AadlBa.g:1378:15: EXCLAM ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
                             {
-                            match(input,EXCLAM,FOLLOW_EXCLAM_in_communication_action4751); if (state.failed) return ca;
+                            match(input,EXCLAM,FOLLOW_EXCLAM_in_communication_action4755); if (state.failed) return ca;
 
-                            // AadlBa.g:1362:15: ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
+                            // AadlBa.g:1379:15: ( LPAREN SubpgmParamList= subprogram_parameter_list RPAREN )?
                             int alt44=2;
                             int LA44_0 = input.LA(1);
 
@@ -3670,17 +3690,17 @@ public class AadlBaParser extends Parser {
                             }
                             switch (alt44) {
                                 case 1 :
-                                    // AadlBa.g:1363:17: LPAREN SubpgmParamList= subprogram_parameter_list RPAREN
+                                    // AadlBa.g:1380:17: LPAREN SubpgmParamList= subprogram_parameter_list RPAREN
                                     {
-                                    match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4786); if (state.failed) return ca;
+                                    match(input,LPAREN,FOLLOW_LPAREN_in_communication_action4790); if (state.failed) return ca;
 
-                                    pushFollow(FOLLOW_subprogram_parameter_list_in_communication_action4790);
+                                    pushFollow(FOLLOW_subprogram_parameter_list_in_communication_action4794);
                                     SubpgmParamList=subprogram_parameter_list();
 
                                     state._fsp--;
                                     if (state.failed) return ca;
 
-                                    match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4792); if (state.failed) return ca;
+                                    match(input,RPAREN,FOLLOW_RPAREN_in_communication_action4796); if (state.failed) return ca;
 
                                     if ( state.backtracking==0 ) {
                                                       ca.getParameters().addAll(SubpgmParamList);
@@ -3707,14 +3727,14 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1372:7: (identifier= STAR ( EXCLLESS | EXCLGREATER ) )
+                    // AadlBa.g:1389:7: (identifier= STAR ( EXCLLESS | EXCLGREATER ) )
                     {
-                    // AadlBa.g:1372:7: (identifier= STAR ( EXCLLESS | EXCLGREATER ) )
-                    // AadlBa.g:1373:9: identifier= STAR ( EXCLLESS | EXCLGREATER )
+                    // AadlBa.g:1389:7: (identifier= STAR ( EXCLLESS | EXCLGREATER ) )
+                    // AadlBa.g:1390:9: identifier= STAR ( EXCLLESS | EXCLGREATER )
                     {
-                    identifier=(Token)match(input,STAR,FOLLOW_STAR_in_communication_action4885); if (state.failed) return ca;
+                    identifier=(Token)match(input,STAR,FOLLOW_STAR_in_communication_action4889); if (state.failed) return ca;
 
-                    // AadlBa.g:1374:9: ( EXCLLESS | EXCLGREATER )
+                    // AadlBa.g:1391:9: ( EXCLLESS | EXCLGREATER )
                     int alt46=2;
                     int LA46_0 = input.LA(1);
 
@@ -3734,9 +3754,9 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt46) {
                         case 1 :
-                            // AadlBa.g:1375:13: EXCLLESS
+                            // AadlBa.g:1392:13: EXCLLESS
                             {
-                            match(input,EXCLLESS,FOLLOW_EXCLLESS_in_communication_action4910); if (state.failed) return ca;
+                            match(input,EXCLLESS,FOLLOW_EXCLLESS_in_communication_action4914); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                           ca.setLock(true);
@@ -3745,9 +3765,9 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // AadlBa.g:1380:13: EXCLGREATER
+                            // AadlBa.g:1397:13: EXCLGREATER
                             {
-                            match(input,EXCLGREATER,FOLLOW_EXCLGREATER_in_communication_action4951); if (state.failed) return ca;
+                            match(input,EXCLGREATER,FOLLOW_EXCLGREATER_in_communication_action4955); if (state.failed) return ca;
 
                             if ( state.backtracking==0 ) {
                                           ca.setUnlock(true);
@@ -3789,7 +3809,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "timed_action"
-    // AadlBa.g:1398:1: timed_action returns [TimedAction TimedAct] : (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN ;
+    // AadlBa.g:1415:1: timed_action returns [TimedAction TimedAct] : (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN ;
     public final TimedAction timed_action() throws RecognitionException {
         TimedAction TimedAct = null;
 
@@ -3802,22 +3822,22 @@ public class AadlBaParser extends Parser {
            TimedAct = _fact.createTimedAction();
          
         try {
-            // AadlBa.g:1402:3: ( (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN )
-            // AadlBa.g:1403:4: (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN
+            // AadlBa.g:1419:3: ( (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN )
+            // AadlBa.g:1420:4: (identifier= COMPUTATION ) LPAREN BehTime= behavior_time ( DOTDOT BehTime= behavior_time )? RPAREN
             {
-            // AadlBa.g:1403:4: (identifier= COMPUTATION )
-            // AadlBa.g:1403:6: identifier= COMPUTATION
+            // AadlBa.g:1420:4: (identifier= COMPUTATION )
+            // AadlBa.g:1420:6: identifier= COMPUTATION
             {
-            identifier=(Token)match(input,COMPUTATION,FOLLOW_COMPUTATION_in_timed_action5028); if (state.failed) return TimedAct;
+            identifier=(Token)match(input,COMPUTATION,FOLLOW_COMPUTATION_in_timed_action5032); if (state.failed) return TimedAct;
 
             if ( state.backtracking==0 ) {setLocationReference(TimedAct, identifier) ; }
 
             }
 
 
-            match(input,LPAREN,FOLLOW_LPAREN_in_timed_action5044); if (state.failed) return TimedAct;
+            match(input,LPAREN,FOLLOW_LPAREN_in_timed_action5048); if (state.failed) return TimedAct;
 
-            pushFollow(FOLLOW_behavior_time_in_timed_action5053);
+            pushFollow(FOLLOW_behavior_time_in_timed_action5057);
             BehTime=behavior_time();
 
             state._fsp--;
@@ -3825,7 +3845,7 @@ public class AadlBaParser extends Parser {
 
             if ( state.backtracking==0 ) {TimedAct.setLowerTime(BehTime); }
 
-            // AadlBa.g:1407:6: ( DOTDOT BehTime= behavior_time )?
+            // AadlBa.g:1424:6: ( DOTDOT BehTime= behavior_time )?
             int alt48=2;
             int LA48_0 = input.LA(1);
 
@@ -3834,11 +3854,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt48) {
                 case 1 :
-                    // AadlBa.g:1407:7: DOTDOT BehTime= behavior_time
+                    // AadlBa.g:1424:7: DOTDOT BehTime= behavior_time
                     {
-                    match(input,DOTDOT,FOLLOW_DOTDOT_in_timed_action5063); if (state.failed) return TimedAct;
+                    match(input,DOTDOT,FOLLOW_DOTDOT_in_timed_action5067); if (state.failed) return TimedAct;
 
-                    pushFollow(FOLLOW_behavior_time_in_timed_action5067);
+                    pushFollow(FOLLOW_behavior_time_in_timed_action5071);
                     BehTime=behavior_time();
 
                     state._fsp--;
@@ -3852,7 +3872,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            match(input,RPAREN,FOLLOW_RPAREN_in_timed_action5083); if (state.failed) return TimedAct;
+            match(input,RPAREN,FOLLOW_RPAREN_in_timed_action5087); if (state.failed) return TimedAct;
 
             }
 
@@ -3875,7 +3895,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "subprogram_parameter_list"
-    // AadlBa.g:1420:1: subprogram_parameter_list returns [EList<ParameterLabel> SpgParamList] : ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )* ;
+    // AadlBa.g:1437:1: subprogram_parameter_list returns [EList<ParameterLabel> SpgParamList] : ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )* ;
     public final EList<ParameterLabel> subprogram_parameter_list() throws RecognitionException {
         EList<ParameterLabel> SpgParamList = null;
 
@@ -3888,10 +3908,10 @@ public class AadlBaParser extends Parser {
            SpgParamList = new BasicEList<ParameterLabel>();
          
         try {
-            // AadlBa.g:1424:3: (ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )* )
-            // AadlBa.g:1425:4: ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )*
+            // AadlBa.g:1441:3: (ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )* )
+            // AadlBa.g:1442:4: ParamLabel= parameter_label (identifier= COMMA ParamLabel= parameter_label )*
             {
-            pushFollow(FOLLOW_parameter_label_in_subprogram_parameter_list5118);
+            pushFollow(FOLLOW_parameter_label_in_subprogram_parameter_list5122);
             ParamLabel=parameter_label();
 
             state._fsp--;
@@ -3899,7 +3919,7 @@ public class AadlBaParser extends Parser {
 
             if ( state.backtracking==0 ) { SpgParamList.add(ParamLabel);}
 
-            // AadlBa.g:1426:4: (identifier= COMMA ParamLabel= parameter_label )*
+            // AadlBa.g:1443:4: (identifier= COMMA ParamLabel= parameter_label )*
             loop49:
             do {
                 int alt49=2;
@@ -3912,11 +3932,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt49) {
             	case 1 :
-            	    // AadlBa.g:1426:5: identifier= COMMA ParamLabel= parameter_label
+            	    // AadlBa.g:1443:5: identifier= COMMA ParamLabel= parameter_label
             	    {
-            	    identifier=(Token)match(input,COMMA,FOLLOW_COMMA_in_subprogram_parameter_list5129); if (state.failed) return SpgParamList;
+            	    identifier=(Token)match(input,COMMA,FOLLOW_COMMA_in_subprogram_parameter_list5133); if (state.failed) return SpgParamList;
 
-            	    pushFollow(FOLLOW_parameter_label_in_subprogram_parameter_list5133);
+            	    pushFollow(FOLLOW_parameter_label_in_subprogram_parameter_list5137);
             	    ParamLabel=parameter_label();
 
             	    state._fsp--;
@@ -3959,7 +3979,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "parameter_label"
-    // AadlBa.g:1441:1: parameter_label returns [ParameterLabel ParamLabel] : (ValExpr= value_expression ) ;
+    // AadlBa.g:1458:1: parameter_label returns [ParameterLabel ParamLabel] : (ValExpr= value_expression ) ;
     public final ParameterLabel parameter_label() throws RecognitionException {
         ParameterLabel ParamLabel = null;
 
@@ -3970,13 +3990,13 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:1444:3: ( (ValExpr= value_expression ) )
-            // AadlBa.g:1446:4: (ValExpr= value_expression )
+            // AadlBa.g:1461:3: ( (ValExpr= value_expression ) )
+            // AadlBa.g:1463:4: (ValExpr= value_expression )
             {
-            // AadlBa.g:1446:4: (ValExpr= value_expression )
-            // AadlBa.g:1447:8: ValExpr= value_expression
+            // AadlBa.g:1463:4: (ValExpr= value_expression )
+            // AadlBa.g:1464:8: ValExpr= value_expression
             {
-            pushFollow(FOLLOW_value_expression_in_parameter_label5187);
+            pushFollow(FOLLOW_value_expression_in_parameter_label5191);
             ValExpr=value_expression();
 
             state._fsp--;
@@ -4008,7 +4028,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "reference"
-    // AadlBa.g:1478:1: reference returns [Reference ref] : id= array_identifier ( DOT id= array_identifier )* ;
+    // AadlBa.g:1495:1: reference returns [Reference ref] : id= array_identifier ( DOT id= array_identifier )* ;
     public final Reference reference() throws RecognitionException {
         Reference ref = null;
 
@@ -4021,10 +4041,10 @@ public class AadlBaParser extends Parser {
            
          
         try {
-            // AadlBa.g:1483:3: (id= array_identifier ( DOT id= array_identifier )* )
-            // AadlBa.g:1484:5: id= array_identifier ( DOT id= array_identifier )*
+            // AadlBa.g:1500:3: (id= array_identifier ( DOT id= array_identifier )* )
+            // AadlBa.g:1501:5: id= array_identifier ( DOT id= array_identifier )*
             {
-            pushFollow(FOLLOW_array_identifier_in_reference5251);
+            pushFollow(FOLLOW_array_identifier_in_reference5255);
             id=array_identifier();
 
             state._fsp--;
@@ -4035,7 +4055,7 @@ public class AadlBaParser extends Parser {
                   ref.setLocationReference(id.getLocationReference());
                 }
 
-            // AadlBa.g:1489:5: ( DOT id= array_identifier )*
+            // AadlBa.g:1506:5: ( DOT id= array_identifier )*
             loop50:
             do {
                 int alt50=2;
@@ -4048,11 +4068,11 @@ public class AadlBaParser extends Parser {
 
                 switch (alt50) {
             	case 1 :
-            	    // AadlBa.g:1490:7: DOT id= array_identifier
+            	    // AadlBa.g:1507:7: DOT id= array_identifier
             	    {
-            	    match(input,DOT,FOLLOW_DOT_in_reference5271); if (state.failed) return ref;
+            	    match(input,DOT,FOLLOW_DOT_in_reference5275); if (state.failed) return ref;
 
-            	    pushFollow(FOLLOW_array_identifier_in_reference5275);
+            	    pushFollow(FOLLOW_array_identifier_in_reference5279);
             	    id=array_identifier();
 
             	    state._fsp--;
@@ -4092,7 +4112,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "array_identifier"
-    // AadlBa.g:1504:1: array_identifier returns [ArrayableIdentifier id] : identifier= IDENT ( LBRACK Val= integer_value RBRACK )* ;
+    // AadlBa.g:1521:1: array_identifier returns [ArrayableIdentifier id] : identifier= IDENT ( LBRACK Val= integer_value RBRACK )* ;
     public final ArrayableIdentifier array_identifier() throws RecognitionException {
         ArrayableIdentifier id = null;
 
@@ -4105,17 +4125,17 @@ public class AadlBaParser extends Parser {
           id = _decl.createArrayableIdentifier() ;
 
         try {
-            // AadlBa.g:1509:3: (identifier= IDENT ( LBRACK Val= integer_value RBRACK )* )
-            // AadlBa.g:1510:5: identifier= IDENT ( LBRACK Val= integer_value RBRACK )*
+            // AadlBa.g:1526:3: (identifier= IDENT ( LBRACK Val= integer_value RBRACK )* )
+            // AadlBa.g:1527:5: identifier= IDENT ( LBRACK Val= integer_value RBRACK )*
             {
-            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_array_identifier5324); if (state.failed) return id;
+            identifier=(Token)match(input,IDENT,FOLLOW_IDENT_in_array_identifier5328); if (state.failed) return id;
 
             if ( state.backtracking==0 ) {
                   id.setId(identifier.getText());    
                   setLocationReference(id, identifier); 
                 }
 
-            // AadlBa.g:1515:5: ( LBRACK Val= integer_value RBRACK )*
+            // AadlBa.g:1532:5: ( LBRACK Val= integer_value RBRACK )*
             loop51:
             do {
                 int alt51=2;
@@ -4128,17 +4148,17 @@ public class AadlBaParser extends Parser {
 
                 switch (alt51) {
             	case 1 :
-            	    // AadlBa.g:1516:7: LBRACK Val= integer_value RBRACK
+            	    // AadlBa.g:1533:7: LBRACK Val= integer_value RBRACK
             	    {
-            	    match(input,LBRACK,FOLLOW_LBRACK_in_array_identifier5344); if (state.failed) return id;
+            	    match(input,LBRACK,FOLLOW_LBRACK_in_array_identifier5348); if (state.failed) return id;
 
-            	    pushFollow(FOLLOW_integer_value_in_array_identifier5348);
+            	    pushFollow(FOLLOW_integer_value_in_array_identifier5352);
             	    Val=integer_value();
 
             	    state._fsp--;
             	    if (state.failed) return id;
 
-            	    match(input,RBRACK,FOLLOW_RBRACK_in_array_identifier5350); if (state.failed) return id;
+            	    match(input,RBRACK,FOLLOW_RBRACK_in_array_identifier5354); if (state.failed) return id;
 
             	    if ( state.backtracking==0 ) {
             	            id.getArrayIndexes().add(Val);
@@ -4174,7 +4194,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "fact_value"
-    // AadlBa.g:1557:1: fact_value returns [Value Val] : ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal ) ;
+    // AadlBa.g:1574:1: fact_value returns [Value Val] : ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal ) ;
     public final Value fact_value() throws RecognitionException {
         Value Val = null;
 
@@ -4196,10 +4216,10 @@ public class AadlBaParser extends Parser {
            Val = null ;
          
         try {
-            // AadlBa.g:1562:3: ( ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal ) )
-            // AadlBa.g:1566:4: ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal )
+            // AadlBa.g:1579:3: ( ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal ) )
+            // AadlBa.g:1583:4: ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal )
             {
-            // AadlBa.g:1566:4: ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal )
+            // AadlBa.g:1583:4: ( (id1= IDENT DOUBLECOLON id2= IDENT ) |ValueVar= value_variable |bl= boolean_literal |nl= numeric_literal |st= string_literal |lit= behavior_enumeration_literal )
             int alt52=6;
             switch ( input.LA(1) ) {
             case IDENT:
@@ -4363,16 +4383,16 @@ public class AadlBaParser extends Parser {
 
             switch (alt52) {
                 case 1 :
-                    // AadlBa.g:1568:8: (id1= IDENT DOUBLECOLON id2= IDENT )
+                    // AadlBa.g:1585:8: (id1= IDENT DOUBLECOLON id2= IDENT )
                     {
-                    // AadlBa.g:1568:8: (id1= IDENT DOUBLECOLON id2= IDENT )
-                    // AadlBa.g:1569:11: id1= IDENT DOUBLECOLON id2= IDENT
+                    // AadlBa.g:1585:8: (id1= IDENT DOUBLECOLON id2= IDENT )
+                    // AadlBa.g:1586:11: id1= IDENT DOUBLECOLON id2= IDENT
                     {
-                    id1=(Token)match(input,IDENT,FOLLOW_IDENT_in_fact_value5473); if (state.failed) return Val;
+                    id1=(Token)match(input,IDENT,FOLLOW_IDENT_in_fact_value5477); if (state.failed) return Val;
 
-                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_fact_value5475); if (state.failed) return Val;
+                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_fact_value5479); if (state.failed) return Val;
 
-                    id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_fact_value5479); if (state.failed) return Val;
+                    id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_fact_value5483); if (state.failed) return Val;
 
                     if ( state.backtracking==0 ) {
                                 QualifiedNamedElement property = _decl.
@@ -4399,9 +4419,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1591:8: ValueVar= value_variable
+                    // AadlBa.g:1608:8: ValueVar= value_variable
                     {
-                    pushFollow(FOLLOW_value_variable_in_fact_value5527);
+                    pushFollow(FOLLOW_value_variable_in_fact_value5531);
                     ValueVar=value_variable();
 
                     state._fsp--;
@@ -4412,9 +4432,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1594:8: bl= boolean_literal
+                    // AadlBa.g:1611:8: bl= boolean_literal
                     {
-                    pushFollow(FOLLOW_boolean_literal_in_fact_value5549);
+                    pushFollow(FOLLOW_boolean_literal_in_fact_value5553);
                     bl=boolean_literal();
 
                     state._fsp--;
@@ -4425,9 +4445,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:1596:8: nl= numeric_literal
+                    // AadlBa.g:1613:8: nl= numeric_literal
                     {
-                    pushFollow(FOLLOW_numeric_literal_in_fact_value5569);
+                    pushFollow(FOLLOW_numeric_literal_in_fact_value5573);
                     nl=numeric_literal();
 
                     state._fsp--;
@@ -4438,9 +4458,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:1598:8: st= string_literal
+                    // AadlBa.g:1615:8: st= string_literal
                     {
-                    pushFollow(FOLLOW_string_literal_in_fact_value5589);
+                    pushFollow(FOLLOW_string_literal_in_fact_value5593);
                     st=string_literal();
 
                     state._fsp--;
@@ -4451,9 +4471,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 6 :
-                    // AadlBa.g:1600:8: lit= behavior_enumeration_literal
+                    // AadlBa.g:1617:8: lit= behavior_enumeration_literal
                     {
-                    pushFollow(FOLLOW_behavior_enumeration_literal_in_fact_value5610);
+                    pushFollow(FOLLOW_behavior_enumeration_literal_in_fact_value5614);
                     lit=behavior_enumeration_literal();
 
                     state._fsp--;
@@ -4488,7 +4508,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "value"
-    // AadlBa.g:1621:1: value returns [Value Val] : ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) ) ;
+    // AadlBa.g:1638:1: value returns [Value Val] : ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) ) ;
     public final Value value() throws RecognitionException {
         Value Val = null;
 
@@ -4502,10 +4522,10 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:1624:3: ( ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) ) )
-            // AadlBa.g:1625:4: ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) )
+            // AadlBa.g:1641:3: ( ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) ) )
+            // AadlBa.g:1642:4: ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) )
             {
-            // AadlBa.g:1625:4: ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) )
+            // AadlBa.g:1642:4: ( (ValTmp= fact_value ) | (identifier= LPAREN ValExpr= value_expression RPAREN ) )
             int alt53=2;
             int LA53_0 = input.LA(1);
 
@@ -4525,12 +4545,12 @@ public class AadlBaParser extends Parser {
             }
             switch (alt53) {
                 case 1 :
-                    // AadlBa.g:1626:8: (ValTmp= fact_value )
+                    // AadlBa.g:1643:8: (ValTmp= fact_value )
                     {
-                    // AadlBa.g:1626:8: (ValTmp= fact_value )
-                    // AadlBa.g:1626:10: ValTmp= fact_value
+                    // AadlBa.g:1643:8: (ValTmp= fact_value )
+                    // AadlBa.g:1643:10: ValTmp= fact_value
                     {
-                    pushFollow(FOLLOW_fact_value_in_value5671);
+                    pushFollow(FOLLOW_fact_value_in_value5675);
                     ValTmp=fact_value();
 
                     state._fsp--;
@@ -4544,20 +4564,20 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1628:8: (identifier= LPAREN ValExpr= value_expression RPAREN )
+                    // AadlBa.g:1645:8: (identifier= LPAREN ValExpr= value_expression RPAREN )
                     {
-                    // AadlBa.g:1628:8: (identifier= LPAREN ValExpr= value_expression RPAREN )
-                    // AadlBa.g:1628:10: identifier= LPAREN ValExpr= value_expression RPAREN
+                    // AadlBa.g:1645:8: (identifier= LPAREN ValExpr= value_expression RPAREN )
+                    // AadlBa.g:1645:10: identifier= LPAREN ValExpr= value_expression RPAREN
                     {
-                    identifier=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_value5695); if (state.failed) return Val;
+                    identifier=(Token)match(input,LPAREN,FOLLOW_LPAREN_in_value5699); if (state.failed) return Val;
 
-                    pushFollow(FOLLOW_value_expression_in_value5699);
+                    pushFollow(FOLLOW_value_expression_in_value5703);
                     ValExpr=value_expression();
 
                     state._fsp--;
                     if (state.failed) return Val;
 
-                    match(input,RPAREN,FOLLOW_RPAREN_in_value5701); if (state.failed) return Val;
+                    match(input,RPAREN,FOLLOW_RPAREN_in_value5705); if (state.failed) return Val;
 
                     if ( state.backtracking==0 ) { setLocationReference(ValExpr, identifier) ; Val = ValExpr; }
 
@@ -4591,7 +4611,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "value_variable"
-    // AadlBa.g:1645:1: value_variable returns [ValueVariable ValueVar] : (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? ) ;
+    // AadlBa.g:1662:1: value_variable returns [ValueVariable ValueVar] : (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? ) ;
     public final ValueVariable value_variable() throws RecognitionException {
         ValueVariable ValueVar = null;
 
@@ -4603,19 +4623,19 @@ public class AadlBaParser extends Parser {
            ValueVar = null ;
          
         try {
-            // AadlBa.g:1650:3: ( (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? ) )
-            // AadlBa.g:1651:6: (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? )
+            // AadlBa.g:1667:3: ( (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? ) )
+            // AadlBa.g:1668:6: (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? )
             {
-            // AadlBa.g:1651:6: (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? )
-            // AadlBa.g:1652:8: ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )?
+            // AadlBa.g:1668:6: (ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )? )
+            // AadlBa.g:1669:8: ref= reference ( INTERROG | TICK ( COUNT | FRESH ) )?
             {
-            pushFollow(FOLLOW_reference_in_value_variable5777);
+            pushFollow(FOLLOW_reference_in_value_variable5781);
             ref=reference();
 
             state._fsp--;
             if (state.failed) return ValueVar;
 
-            // AadlBa.g:1654:8: ( INTERROG | TICK ( COUNT | FRESH ) )?
+            // AadlBa.g:1671:8: ( INTERROG | TICK ( COUNT | FRESH ) )?
             int alt55=3;
             int LA55_0 = input.LA(1);
 
@@ -4627,9 +4647,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt55) {
                 case 1 :
-                    // AadlBa.g:1655:12: INTERROG
+                    // AadlBa.g:1672:12: INTERROG
                     {
-                    match(input,INTERROG,FOLLOW_INTERROG_in_value_variable5807); if (state.failed) return ValueVar;
+                    match(input,INTERROG,FOLLOW_INTERROG_in_value_variable5811); if (state.failed) return ValueVar;
 
                     if ( state.backtracking==0 ) {
                                  NamedValue nv = _decl.createNamedValue();
@@ -4642,11 +4662,11 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1664:12: TICK ( COUNT | FRESH )
+                    // AadlBa.g:1681:12: TICK ( COUNT | FRESH )
                     {
-                    match(input,TICK,FOLLOW_TICK_in_value_variable5844); if (state.failed) return ValueVar;
+                    match(input,TICK,FOLLOW_TICK_in_value_variable5848); if (state.failed) return ValueVar;
 
-                    // AadlBa.g:1664:17: ( COUNT | FRESH )
+                    // AadlBa.g:1681:17: ( COUNT | FRESH )
                     int alt54=2;
                     int LA54_0 = input.LA(1);
 
@@ -4666,9 +4686,9 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt54) {
                         case 1 :
-                            // AadlBa.g:1665:21: COUNT
+                            // AadlBa.g:1682:21: COUNT
                             {
-                            match(input,COUNT,FOLLOW_COUNT_in_value_variable5868); if (state.failed) return ValueVar;
+                            match(input,COUNT,FOLLOW_COUNT_in_value_variable5872); if (state.failed) return ValueVar;
 
                             if ( state.backtracking==0 ) { 
                                                   NamedValue nv = _decl.createNamedValue();
@@ -4681,9 +4701,9 @@ public class AadlBaParser extends Parser {
                             }
                             break;
                         case 2 :
-                            // AadlBa.g:1674:21: FRESH
+                            // AadlBa.g:1691:21: FRESH
                             {
-                            match(input,FRESH,FOLLOW_FRESH_in_value_variable5935); if (state.failed) return ValueVar;
+                            match(input,FRESH,FOLLOW_FRESH_in_value_variable5939); if (state.failed) return ValueVar;
 
                             if ( state.backtracking==0 ) {
                                                   NamedValue nv = _decl.createNamedValue();
@@ -4736,7 +4756,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "value_expression"
-    // AadlBa.g:1708:1: value_expression returns [ValueExpression ValueExpr] : (Rel= relation (LogicalOp= logical_operator Rel= relation )* ) ;
+    // AadlBa.g:1725:1: value_expression returns [ValueExpression ValueExpr] : (Rel= relation (LogicalOp= logical_operator Rel= relation )* ) ;
     public final ValueExpression value_expression() throws RecognitionException {
         ValueExpression ValueExpr = null;
 
@@ -4750,13 +4770,13 @@ public class AadlBaParser extends Parser {
            ValueExpr = _fact.createValueExpression();
          
         try {
-            // AadlBa.g:1712:3: ( (Rel= relation (LogicalOp= logical_operator Rel= relation )* ) )
-            // AadlBa.g:1713:4: (Rel= relation (LogicalOp= logical_operator Rel= relation )* )
+            // AadlBa.g:1729:3: ( (Rel= relation (LogicalOp= logical_operator Rel= relation )* ) )
+            // AadlBa.g:1730:4: (Rel= relation (LogicalOp= logical_operator Rel= relation )* )
             {
-            // AadlBa.g:1713:4: (Rel= relation (LogicalOp= logical_operator Rel= relation )* )
-            // AadlBa.g:1714:6: Rel= relation (LogicalOp= logical_operator Rel= relation )*
+            // AadlBa.g:1730:4: (Rel= relation (LogicalOp= logical_operator Rel= relation )* )
+            // AadlBa.g:1731:6: Rel= relation (LogicalOp= logical_operator Rel= relation )*
             {
-            pushFollow(FOLLOW_relation_in_value_expression6045);
+            pushFollow(FOLLOW_relation_in_value_expression6049);
             Rel=relation();
 
             state._fsp--;
@@ -4766,7 +4786,7 @@ public class AadlBaParser extends Parser {
                    ValueExpr.setLocationReference(Rel.getLocationReference());
                  }
 
-            // AadlBa.g:1718:6: (LogicalOp= logical_operator Rel= relation )*
+            // AadlBa.g:1735:6: (LogicalOp= logical_operator Rel= relation )*
             loop56:
             do {
                 int alt56=2;
@@ -4779,15 +4799,15 @@ public class AadlBaParser extends Parser {
 
                 switch (alt56) {
             	case 1 :
-            	    // AadlBa.g:1719:8: LogicalOp= logical_operator Rel= relation
+            	    // AadlBa.g:1736:8: LogicalOp= logical_operator Rel= relation
             	    {
-            	    pushFollow(FOLLOW_logical_operator_in_value_expression6070);
+            	    pushFollow(FOLLOW_logical_operator_in_value_expression6074);
             	    LogicalOp=logical_operator();
 
             	    state._fsp--;
             	    if (state.failed) return ValueExpr;
 
-            	    pushFollow(FOLLOW_relation_in_value_expression6074);
+            	    pushFollow(FOLLOW_relation_in_value_expression6078);
             	    Rel=relation();
 
             	    state._fsp--;
@@ -4831,7 +4851,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "relation"
-    // AadlBa.g:1736:1: relation returns [Relation Rel] : SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )? ;
+    // AadlBa.g:1753:1: relation returns [Relation Rel] : SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )? ;
     public final Relation relation() throws RecognitionException {
         Relation Rel = null;
 
@@ -4845,10 +4865,10 @@ public class AadlBaParser extends Parser {
            Rel = _fact.createRelation();
          
         try {
-            // AadlBa.g:1740:3: (SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )? )
-            // AadlBa.g:1741:4: SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )?
+            // AadlBa.g:1757:3: (SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )? )
+            // AadlBa.g:1758:4: SimpleExpr= simple_expression (RelationalOp= relational_operator SimpleExpr= simple_expression )?
             {
-            pushFollow(FOLLOW_simple_expression_in_relation6131);
+            pushFollow(FOLLOW_simple_expression_in_relation6135);
             SimpleExpr=simple_expression();
 
             state._fsp--;
@@ -4858,7 +4878,7 @@ public class AadlBaParser extends Parser {
                  Rel.setLocationReference(SimpleExpr.getLocationReference());  
                }
 
-            // AadlBa.g:1745:4: (RelationalOp= relational_operator SimpleExpr= simple_expression )?
+            // AadlBa.g:1762:4: (RelationalOp= relational_operator SimpleExpr= simple_expression )?
             int alt57=2;
             int LA57_0 = input.LA(1);
 
@@ -4867,15 +4887,15 @@ public class AadlBaParser extends Parser {
             }
             switch (alt57) {
                 case 1 :
-                    // AadlBa.g:1746:6: RelationalOp= relational_operator SimpleExpr= simple_expression
+                    // AadlBa.g:1763:6: RelationalOp= relational_operator SimpleExpr= simple_expression
                     {
-                    pushFollow(FOLLOW_relational_operator_in_relation6150);
+                    pushFollow(FOLLOW_relational_operator_in_relation6154);
                     RelationalOp=relational_operator();
 
                     state._fsp--;
                     if (state.failed) return Rel;
 
-                    pushFollow(FOLLOW_simple_expression_in_relation6154);
+                    pushFollow(FOLLOW_simple_expression_in_relation6158);
                     SimpleExpr=simple_expression();
 
                     state._fsp--;
@@ -4913,7 +4933,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "simple_expression"
-    // AadlBa.g:1762:1: simple_expression returns [SimpleExpression SimpleExpr] : (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )* ;
+    // AadlBa.g:1779:1: simple_expression returns [SimpleExpression SimpleExpr] : (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )* ;
     public final SimpleExpression simple_expression() throws RecognitionException {
         SimpleExpression SimpleExpr = null;
 
@@ -4929,10 +4949,10 @@ public class AadlBaParser extends Parser {
            SimpleExpr = _fact.createSimpleExpression();
          
         try {
-            // AadlBa.g:1766:3: ( (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )* )
-            // AadlBa.g:1767:4: (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )*
+            // AadlBa.g:1783:3: ( (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )* )
+            // AadlBa.g:1784:4: (UnaryAddOp= unary_adding_operator )? tm= term (BinaryAddOp= binary_adding_operator tm= term )*
             {
-            // AadlBa.g:1767:4: (UnaryAddOp= unary_adding_operator )?
+            // AadlBa.g:1784:4: (UnaryAddOp= unary_adding_operator )?
             int alt58=2;
             int LA58_0 = input.LA(1);
 
@@ -4941,9 +4961,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt58) {
                 case 1 :
-                    // AadlBa.g:1768:6: UnaryAddOp= unary_adding_operator
+                    // AadlBa.g:1785:6: UnaryAddOp= unary_adding_operator
                     {
-                    pushFollow(FOLLOW_unary_adding_operator_in_simple_expression6209);
+                    pushFollow(FOLLOW_unary_adding_operator_in_simple_expression6213);
                     UnaryAddOp=unary_adding_operator();
 
                     state._fsp--;
@@ -4959,7 +4979,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            pushFollow(FOLLOW_term_in_simple_expression6234);
+            pushFollow(FOLLOW_term_in_simple_expression6238);
             tm=term();
 
             state._fsp--;
@@ -4970,7 +4990,7 @@ public class AadlBaParser extends Parser {
                  SimpleExpr.setLocationReference(tm.getLocationReference());
                }
 
-            // AadlBa.g:1780:4: (BinaryAddOp= binary_adding_operator tm= term )*
+            // AadlBa.g:1797:4: (BinaryAddOp= binary_adding_operator tm= term )*
             loop59:
             do {
                 int alt59=2;
@@ -4983,15 +5003,15 @@ public class AadlBaParser extends Parser {
 
                 switch (alt59) {
             	case 1 :
-            	    // AadlBa.g:1781:6: BinaryAddOp= binary_adding_operator tm= term
+            	    // AadlBa.g:1798:6: BinaryAddOp= binary_adding_operator tm= term
             	    {
-            	    pushFollow(FOLLOW_binary_adding_operator_in_simple_expression6257);
+            	    pushFollow(FOLLOW_binary_adding_operator_in_simple_expression6261);
             	    BinaryAddOp=binary_adding_operator();
 
             	    state._fsp--;
             	    if (state.failed) return SimpleExpr;
 
-            	    pushFollow(FOLLOW_term_in_simple_expression6261);
+            	    pushFollow(FOLLOW_term_in_simple_expression6265);
             	    tm=term();
 
             	    state._fsp--;
@@ -5032,7 +5052,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "term"
-    // AadlBa.g:1796:1: term returns [Term tm] : fact= factor (MultiplyingOp= multiplying_operator fact= factor )* ;
+    // AadlBa.g:1813:1: term returns [Term tm] : fact= factor (MultiplyingOp= multiplying_operator fact= factor )* ;
     public final Term term() throws RecognitionException {
         Term tm = null;
 
@@ -5046,10 +5066,10 @@ public class AadlBaParser extends Parser {
            tm = _fact.createTerm();
          
         try {
-            // AadlBa.g:1800:3: (fact= factor (MultiplyingOp= multiplying_operator fact= factor )* )
-            // AadlBa.g:1801:4: fact= factor (MultiplyingOp= multiplying_operator fact= factor )*
+            // AadlBa.g:1817:3: (fact= factor (MultiplyingOp= multiplying_operator fact= factor )* )
+            // AadlBa.g:1818:4: fact= factor (MultiplyingOp= multiplying_operator fact= factor )*
             {
-            pushFollow(FOLLOW_factor_in_term6308);
+            pushFollow(FOLLOW_factor_in_term6312);
             fact=factor();
 
             state._fsp--;
@@ -5059,7 +5079,7 @@ public class AadlBaParser extends Parser {
                  tm.setLocationReference(fact.getLocationReference());
                }
 
-            // AadlBa.g:1805:4: (MultiplyingOp= multiplying_operator fact= factor )*
+            // AadlBa.g:1822:4: (MultiplyingOp= multiplying_operator fact= factor )*
             loop60:
             do {
                 int alt60=2;
@@ -5072,15 +5092,15 @@ public class AadlBaParser extends Parser {
 
                 switch (alt60) {
             	case 1 :
-            	    // AadlBa.g:1806:6: MultiplyingOp= multiplying_operator fact= factor
+            	    // AadlBa.g:1823:6: MultiplyingOp= multiplying_operator fact= factor
             	    {
-            	    pushFollow(FOLLOW_multiplying_operator_in_term6327);
+            	    pushFollow(FOLLOW_multiplying_operator_in_term6331);
             	    MultiplyingOp=multiplying_operator();
 
             	    state._fsp--;
             	    if (state.failed) return tm;
 
-            	    pushFollow(FOLLOW_factor_in_term6331);
+            	    pushFollow(FOLLOW_factor_in_term6335);
             	    fact=factor();
 
             	    state._fsp--;
@@ -5121,7 +5141,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "factor"
-    // AadlBa.g:1824:1: factor returns [Factor Fact] : ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) ) ;
+    // AadlBa.g:1841:1: factor returns [Factor Fact] : ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) ) ;
     public final Factor factor() throws RecognitionException {
         Factor Fact = null;
 
@@ -5141,10 +5161,10 @@ public class AadlBaParser extends Parser {
            Fact = _fact.createFactor();
          
         try {
-            // AadlBa.g:1829:3: ( ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) ) )
-            // AadlBa.g:1830:4: ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) )
+            // AadlBa.g:1846:3: ( ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) ) )
+            // AadlBa.g:1847:4: ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) )
             {
-            // AadlBa.g:1830:4: ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) )
+            // AadlBa.g:1847:4: ( (val= value (BinaryNumOp= binary_numeric_operator val2= value )? ) | (UnaryNumOp= unary_numeric_operator val= value ) | (UnaryBoolOp= unary_boolean_operator val= value ) )
             int alt62=3;
             switch ( input.LA(1) ) {
             case FALSE:
@@ -5179,12 +5199,12 @@ public class AadlBaParser extends Parser {
 
             switch (alt62) {
                 case 1 :
-                    // AadlBa.g:1831:5: (val= value (BinaryNumOp= binary_numeric_operator val2= value )? )
+                    // AadlBa.g:1848:5: (val= value (BinaryNumOp= binary_numeric_operator val2= value )? )
                     {
-                    // AadlBa.g:1831:5: (val= value (BinaryNumOp= binary_numeric_operator val2= value )? )
-                    // AadlBa.g:1831:7: val= value (BinaryNumOp= binary_numeric_operator val2= value )?
+                    // AadlBa.g:1848:5: (val= value (BinaryNumOp= binary_numeric_operator val2= value )? )
+                    // AadlBa.g:1848:7: val= value (BinaryNumOp= binary_numeric_operator val2= value )?
                     {
-                    pushFollow(FOLLOW_value_in_factor6391);
+                    pushFollow(FOLLOW_value_in_factor6395);
                     val=value();
 
                     state._fsp--;
@@ -5195,7 +5215,7 @@ public class AadlBaParser extends Parser {
                                       Fact.setFirstValue(val);
                                     }
 
-                    // AadlBa.g:1835:7: (BinaryNumOp= binary_numeric_operator val2= value )?
+                    // AadlBa.g:1852:7: (BinaryNumOp= binary_numeric_operator val2= value )?
                     int alt61=2;
                     int LA61_0 = input.LA(1);
 
@@ -5204,15 +5224,15 @@ public class AadlBaParser extends Parser {
                     }
                     switch (alt61) {
                         case 1 :
-                            // AadlBa.g:1836:9: BinaryNumOp= binary_numeric_operator val2= value
+                            // AadlBa.g:1853:9: BinaryNumOp= binary_numeric_operator val2= value
                             {
-                            pushFollow(FOLLOW_binary_numeric_operator_in_factor6414);
+                            pushFollow(FOLLOW_binary_numeric_operator_in_factor6418);
                             BinaryNumOp=binary_numeric_operator();
 
                             state._fsp--;
                             if (state.failed) return Fact;
 
-                            pushFollow(FOLLOW_value_in_factor6418);
+                            pushFollow(FOLLOW_value_in_factor6422);
                             val2=value();
 
                             state._fsp--;
@@ -5235,18 +5255,18 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1844:5: (UnaryNumOp= unary_numeric_operator val= value )
+                    // AadlBa.g:1861:5: (UnaryNumOp= unary_numeric_operator val= value )
                     {
-                    // AadlBa.g:1844:5: (UnaryNumOp= unary_numeric_operator val= value )
-                    // AadlBa.g:1844:7: UnaryNumOp= unary_numeric_operator val= value
+                    // AadlBa.g:1861:5: (UnaryNumOp= unary_numeric_operator val= value )
+                    // AadlBa.g:1861:7: UnaryNumOp= unary_numeric_operator val= value
                     {
-                    pushFollow(FOLLOW_unary_numeric_operator_in_factor6458);
+                    pushFollow(FOLLOW_unary_numeric_operator_in_factor6462);
                     UnaryNumOp=unary_numeric_operator();
 
                     state._fsp--;
                     if (state.failed) return Fact;
 
-                    pushFollow(FOLLOW_value_in_factor6462);
+                    pushFollow(FOLLOW_value_in_factor6466);
                     val=value();
 
                     state._fsp--;
@@ -5264,18 +5284,18 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1852:5: (UnaryBoolOp= unary_boolean_operator val= value )
+                    // AadlBa.g:1869:5: (UnaryBoolOp= unary_boolean_operator val= value )
                     {
-                    // AadlBa.g:1852:5: (UnaryBoolOp= unary_boolean_operator val= value )
-                    // AadlBa.g:1852:7: UnaryBoolOp= unary_boolean_operator val= value
+                    // AadlBa.g:1869:5: (UnaryBoolOp= unary_boolean_operator val= value )
+                    // AadlBa.g:1869:7: UnaryBoolOp= unary_boolean_operator val= value
                     {
-                    pushFollow(FOLLOW_unary_boolean_operator_in_factor6491);
+                    pushFollow(FOLLOW_unary_boolean_operator_in_factor6495);
                     UnaryBoolOp=unary_boolean_operator();
 
                     state._fsp--;
                     if (state.failed) return Fact;
 
-                    pushFollow(FOLLOW_value_in_factor6495);
+                    pushFollow(FOLLOW_value_in_factor6499);
                     val=value();
 
                     state._fsp--;
@@ -5317,7 +5337,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "logical_operator"
-    // AadlBa.g:1868:1: logical_operator returns [LogicalOperator LogicalOp] : ( AND | OR | XOR ) ;
+    // AadlBa.g:1885:1: logical_operator returns [LogicalOperator LogicalOp] : ( AND | OR | XOR ) ;
     public final LogicalOperator logical_operator() throws RecognitionException {
         LogicalOperator LogicalOp = null;
 
@@ -5327,10 +5347,10 @@ public class AadlBaParser extends Parser {
            LogicalOp = null;
          
         try {
-            // AadlBa.g:1873:3: ( ( AND | OR | XOR ) )
-            // AadlBa.g:1874:4: ( AND | OR | XOR )
+            // AadlBa.g:1890:3: ( ( AND | OR | XOR ) )
+            // AadlBa.g:1891:4: ( AND | OR | XOR )
             {
-            // AadlBa.g:1874:4: ( AND | OR | XOR )
+            // AadlBa.g:1891:4: ( AND | OR | XOR )
             int alt63=3;
             switch ( input.LA(1) ) {
             case AND:
@@ -5359,27 +5379,27 @@ public class AadlBaParser extends Parser {
 
             switch (alt63) {
                 case 1 :
-                    // AadlBa.g:1875:6: AND
+                    // AadlBa.g:1892:6: AND
                     {
-                    match(input,AND,FOLLOW_AND_in_logical_operator6551); if (state.failed) return LogicalOp;
+                    match(input,AND,FOLLOW_AND_in_logical_operator6555); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.AND; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1877:6: OR
+                    // AadlBa.g:1894:6: OR
                     {
-                    match(input,OR,FOLLOW_OR_in_logical_operator6565); if (state.failed) return LogicalOp;
+                    match(input,OR,FOLLOW_OR_in_logical_operator6569); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.OR; }
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1879:6: XOR
+                    // AadlBa.g:1896:6: XOR
                     {
-                    match(input,XOR,FOLLOW_XOR_in_logical_operator6579); if (state.failed) return LogicalOp;
+                    match(input,XOR,FOLLOW_XOR_in_logical_operator6583); if (state.failed) return LogicalOp;
 
                     if ( state.backtracking==0 ) { LogicalOp=LogicalOperator.XOR; }
 
@@ -5410,7 +5430,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "relational_operator"
-    // AadlBa.g:1890:1: relational_operator returns [RelationalOperator RelationalOp] : ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) ;
+    // AadlBa.g:1907:1: relational_operator returns [RelationalOperator RelationalOp] : ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) ;
     public final RelationalOperator relational_operator() throws RecognitionException {
         RelationalOperator RelationalOp = null;
 
@@ -5420,10 +5440,10 @@ public class AadlBaParser extends Parser {
            RelationalOp = null;
          
         try {
-            // AadlBa.g:1895:3: ( ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) )
-            // AadlBa.g:1896:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
+            // AadlBa.g:1912:3: ( ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL ) )
+            // AadlBa.g:1913:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
             {
-            // AadlBa.g:1896:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
+            // AadlBa.g:1913:4: ( EQUAL | NOTEQUAL | LESSTHAN | LESSOREQUAL | GREATERTHAN | GREATEROREQUAL )
             int alt64=6;
             switch ( input.LA(1) ) {
             case EQUAL:
@@ -5467,54 +5487,54 @@ public class AadlBaParser extends Parser {
 
             switch (alt64) {
                 case 1 :
-                    // AadlBa.g:1897:6: EQUAL
+                    // AadlBa.g:1914:6: EQUAL
                     {
-                    match(input,EQUAL,FOLLOW_EQUAL_in_relational_operator6624); if (state.failed) return RelationalOp;
+                    match(input,EQUAL,FOLLOW_EQUAL_in_relational_operator6628); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.EQUAL; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1899:6: NOTEQUAL
+                    // AadlBa.g:1916:6: NOTEQUAL
                     {
-                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_relational_operator6638); if (state.failed) return RelationalOp;
+                    match(input,NOTEQUAL,FOLLOW_NOTEQUAL_in_relational_operator6642); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.NOT_EQUAL; }
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1901:6: LESSTHAN
+                    // AadlBa.g:1918:6: LESSTHAN
                     {
-                    match(input,LESSTHAN,FOLLOW_LESSTHAN_in_relational_operator6652); if (state.failed) return RelationalOp;
+                    match(input,LESSTHAN,FOLLOW_LESSTHAN_in_relational_operator6656); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.LESS_THAN; }
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:1903:6: LESSOREQUAL
+                    // AadlBa.g:1920:6: LESSOREQUAL
                     {
-                    match(input,LESSOREQUAL,FOLLOW_LESSOREQUAL_in_relational_operator6666); if (state.failed) return RelationalOp;
+                    match(input,LESSOREQUAL,FOLLOW_LESSOREQUAL_in_relational_operator6670); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.LESS_OR_EQUAL_THAN; }
 
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:1905:6: GREATERTHAN
+                    // AadlBa.g:1922:6: GREATERTHAN
                     {
-                    match(input,GREATERTHAN,FOLLOW_GREATERTHAN_in_relational_operator6680); if (state.failed) return RelationalOp;
+                    match(input,GREATERTHAN,FOLLOW_GREATERTHAN_in_relational_operator6684); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.GREATER_THAN; }
 
                     }
                     break;
                 case 6 :
-                    // AadlBa.g:1907:6: GREATEROREQUAL
+                    // AadlBa.g:1924:6: GREATEROREQUAL
                     {
-                    match(input,GREATEROREQUAL,FOLLOW_GREATEROREQUAL_in_relational_operator6694); if (state.failed) return RelationalOp;
+                    match(input,GREATEROREQUAL,FOLLOW_GREATEROREQUAL_in_relational_operator6698); if (state.failed) return RelationalOp;
 
                     if ( state.backtracking==0 ) { RelationalOp = RelationalOperator.GREATER_OR_EQUAL_THAN; }
 
@@ -5545,7 +5565,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "binary_adding_operator"
-    // AadlBa.g:1918:1: binary_adding_operator returns [BinaryAddingOperator BinaryAddOp] : ( PLUS | MINUS ) ;
+    // AadlBa.g:1935:1: binary_adding_operator returns [BinaryAddingOperator BinaryAddOp] : ( PLUS | MINUS ) ;
     public final BinaryAddingOperator binary_adding_operator() throws RecognitionException {
         BinaryAddingOperator BinaryAddOp = null;
 
@@ -5555,10 +5575,10 @@ public class AadlBaParser extends Parser {
            //BinaryAddOp = _fact.createBinaryAddingOperator();
          
         try {
-            // AadlBa.g:1923:3: ( ( PLUS | MINUS ) )
-            // AadlBa.g:1924:4: ( PLUS | MINUS )
+            // AadlBa.g:1940:3: ( ( PLUS | MINUS ) )
+            // AadlBa.g:1941:4: ( PLUS | MINUS )
             {
-            // AadlBa.g:1924:4: ( PLUS | MINUS )
+            // AadlBa.g:1941:4: ( PLUS | MINUS )
             int alt65=2;
             int LA65_0 = input.LA(1);
 
@@ -5578,18 +5598,18 @@ public class AadlBaParser extends Parser {
             }
             switch (alt65) {
                 case 1 :
-                    // AadlBa.g:1925:6: PLUS
+                    // AadlBa.g:1942:6: PLUS
                     {
-                    match(input,PLUS,FOLLOW_PLUS_in_binary_adding_operator6741); if (state.failed) return BinaryAddOp;
+                    match(input,PLUS,FOLLOW_PLUS_in_binary_adding_operator6745); if (state.failed) return BinaryAddOp;
 
                     if ( state.backtracking==0 ) { BinaryAddOp = BinaryAddingOperator.PLUS; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1927:6: MINUS
+                    // AadlBa.g:1944:6: MINUS
                     {
-                    match(input,MINUS,FOLLOW_MINUS_in_binary_adding_operator6755); if (state.failed) return BinaryAddOp;
+                    match(input,MINUS,FOLLOW_MINUS_in_binary_adding_operator6759); if (state.failed) return BinaryAddOp;
 
                     if ( state.backtracking==0 ) { BinaryAddOp = BinaryAddingOperator.MINUS; }
 
@@ -5620,7 +5640,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_adding_operator"
-    // AadlBa.g:1938:1: unary_adding_operator returns [UnaryAddingOperator UnaryAddOp] : ( PLUS | MINUS ) ;
+    // AadlBa.g:1955:1: unary_adding_operator returns [UnaryAddingOperator UnaryAddOp] : ( PLUS | MINUS ) ;
     public final UnaryAddingOperator unary_adding_operator() throws RecognitionException {
         UnaryAddingOperator UnaryAddOp = null;
 
@@ -5629,10 +5649,10 @@ public class AadlBaParser extends Parser {
          // TODO location reference
          
         try {
-            // AadlBa.g:1942:3: ( ( PLUS | MINUS ) )
-            // AadlBa.g:1943:4: ( PLUS | MINUS )
+            // AadlBa.g:1959:3: ( ( PLUS | MINUS ) )
+            // AadlBa.g:1960:4: ( PLUS | MINUS )
             {
-            // AadlBa.g:1943:4: ( PLUS | MINUS )
+            // AadlBa.g:1960:4: ( PLUS | MINUS )
             int alt66=2;
             int LA66_0 = input.LA(1);
 
@@ -5652,18 +5672,18 @@ public class AadlBaParser extends Parser {
             }
             switch (alt66) {
                 case 1 :
-                    // AadlBa.g:1944:6: PLUS
+                    // AadlBa.g:1961:6: PLUS
                     {
-                    match(input,PLUS,FOLLOW_PLUS_in_unary_adding_operator6800); if (state.failed) return UnaryAddOp;
+                    match(input,PLUS,FOLLOW_PLUS_in_unary_adding_operator6804); if (state.failed) return UnaryAddOp;
 
                     if ( state.backtracking==0 ) { UnaryAddOp = UnaryAddingOperator.PLUS; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1946:6: MINUS
+                    // AadlBa.g:1963:6: MINUS
                     {
-                    match(input,MINUS,FOLLOW_MINUS_in_unary_adding_operator6814); if (state.failed) return UnaryAddOp;
+                    match(input,MINUS,FOLLOW_MINUS_in_unary_adding_operator6818); if (state.failed) return UnaryAddOp;
 
                     if ( state.backtracking==0 ) { UnaryAddOp = UnaryAddingOperator.MINUS; }
 
@@ -5694,7 +5714,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "multiplying_operator"
-    // AadlBa.g:1957:1: multiplying_operator returns [MultiplyingOperator MultiplyingOp] : ( STAR | DIVIDE | MOD | REM ) ;
+    // AadlBa.g:1974:1: multiplying_operator returns [MultiplyingOperator MultiplyingOp] : ( STAR | DIVIDE | MOD | REM ) ;
     public final MultiplyingOperator multiplying_operator() throws RecognitionException {
         MultiplyingOperator MultiplyingOp = null;
 
@@ -5704,10 +5724,10 @@ public class AadlBaParser extends Parser {
           // MultiplyingOperator MultiplyingOp = null;
          
         try {
-            // AadlBa.g:1962:3: ( ( STAR | DIVIDE | MOD | REM ) )
-            // AadlBa.g:1963:4: ( STAR | DIVIDE | MOD | REM )
+            // AadlBa.g:1979:3: ( ( STAR | DIVIDE | MOD | REM ) )
+            // AadlBa.g:1980:4: ( STAR | DIVIDE | MOD | REM )
             {
-            // AadlBa.g:1963:4: ( STAR | DIVIDE | MOD | REM )
+            // AadlBa.g:1980:4: ( STAR | DIVIDE | MOD | REM )
             int alt67=4;
             switch ( input.LA(1) ) {
             case STAR:
@@ -5741,36 +5761,36 @@ public class AadlBaParser extends Parser {
 
             switch (alt67) {
                 case 1 :
-                    // AadlBa.g:1964:6: STAR
+                    // AadlBa.g:1981:6: STAR
                     {
-                    match(input,STAR,FOLLOW_STAR_in_multiplying_operator6859); if (state.failed) return MultiplyingOp;
+                    match(input,STAR,FOLLOW_STAR_in_multiplying_operator6863); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.MULTIPLY; }
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:1966:6: DIVIDE
+                    // AadlBa.g:1983:6: DIVIDE
                     {
-                    match(input,DIVIDE,FOLLOW_DIVIDE_in_multiplying_operator6873); if (state.failed) return MultiplyingOp;
+                    match(input,DIVIDE,FOLLOW_DIVIDE_in_multiplying_operator6877); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.DIVIDE; }
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:1968:6: MOD
+                    // AadlBa.g:1985:6: MOD
                     {
-                    match(input,MOD,FOLLOW_MOD_in_multiplying_operator6887); if (state.failed) return MultiplyingOp;
+                    match(input,MOD,FOLLOW_MOD_in_multiplying_operator6891); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.MOD; }
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:1970:6: REM
+                    // AadlBa.g:1987:6: REM
                     {
-                    match(input,REM,FOLLOW_REM_in_multiplying_operator6901); if (state.failed) return MultiplyingOp;
+                    match(input,REM,FOLLOW_REM_in_multiplying_operator6905); if (state.failed) return MultiplyingOp;
 
                     if ( state.backtracking==0 ) { MultiplyingOp = MultiplyingOperator.REM; }
 
@@ -5801,7 +5821,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "binary_numeric_operator"
-    // AadlBa.g:1981:1: binary_numeric_operator returns [BinaryNumericOperator BinaryNumOp] : STARSTAR ;
+    // AadlBa.g:1998:1: binary_numeric_operator returns [BinaryNumericOperator BinaryNumOp] : STARSTAR ;
     public final BinaryNumericOperator binary_numeric_operator() throws RecognitionException {
         BinaryNumericOperator BinaryNumOp = null;
 
@@ -5811,10 +5831,10 @@ public class AadlBaParser extends Parser {
            //BinaryNumericOperator BinaryNumOp = null;
          
         try {
-            // AadlBa.g:1986:3: ( STARSTAR )
-            // AadlBa.g:1987:4: STARSTAR
+            // AadlBa.g:2003:3: ( STARSTAR )
+            // AadlBa.g:2004:4: STARSTAR
             {
-            match(input,STARSTAR,FOLLOW_STARSTAR_in_binary_numeric_operator6939); if (state.failed) return BinaryNumOp;
+            match(input,STARSTAR,FOLLOW_STARSTAR_in_binary_numeric_operator6943); if (state.failed) return BinaryNumOp;
 
             if ( state.backtracking==0 ) { BinaryNumOp = BinaryNumericOperator.MULTIPLY_MULTIPLY; }
 
@@ -5839,7 +5859,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_numeric_operator"
-    // AadlBa.g:1997:1: unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp] : ABS ;
+    // AadlBa.g:2014:1: unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp] : ABS ;
     public final UnaryNumericOperator unary_numeric_operator() throws RecognitionException {
         UnaryNumericOperator UnaryNumOp = null;
 
@@ -5849,10 +5869,10 @@ public class AadlBaParser extends Parser {
            //UnaryNumericOperator UnaryNumOp = null;
          
         try {
-            // AadlBa.g:2002:3: ( ABS )
-            // AadlBa.g:2003:4: ABS
+            // AadlBa.g:2019:3: ( ABS )
+            // AadlBa.g:2020:4: ABS
             {
-            match(input,ABS,FOLLOW_ABS_in_unary_numeric_operator6972); if (state.failed) return UnaryNumOp;
+            match(input,ABS,FOLLOW_ABS_in_unary_numeric_operator6976); if (state.failed) return UnaryNumOp;
 
             if ( state.backtracking==0 ) { UnaryNumOp = UnaryNumericOperator.ABS; }
 
@@ -5877,7 +5897,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "unary_boolean_operator"
-    // AadlBa.g:2013:1: unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp] : NOT ;
+    // AadlBa.g:2030:1: unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp] : NOT ;
     public final UnaryBooleanOperator unary_boolean_operator() throws RecognitionException {
         UnaryBooleanOperator UnaryBoolOp = null;
 
@@ -5887,10 +5907,10 @@ public class AadlBaParser extends Parser {
            //UnaryBooleanOperator UnaryBoolOp = null;
          
         try {
-            // AadlBa.g:2018:3: ( NOT )
-            // AadlBa.g:2019:4: NOT
+            // AadlBa.g:2035:3: ( NOT )
+            // AadlBa.g:2036:4: NOT
             {
-            match(input,NOT,FOLLOW_NOT_in_unary_boolean_operator7005); if (state.failed) return UnaryBoolOp;
+            match(input,NOT,FOLLOW_NOT_in_unary_boolean_operator7009); if (state.failed) return UnaryBoolOp;
 
             if ( state.backtracking==0 ) { UnaryBoolOp = UnaryBooleanOperator.NOT; }
 
@@ -5915,7 +5935,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "boolean_literal"
-    // AadlBa.g:2028:1: boolean_literal returns [BehaviorBooleanLiteral BoolLit] : (identifier= TRUE |identifier= FALSE ) ;
+    // AadlBa.g:2045:1: boolean_literal returns [BehaviorBooleanLiteral BoolLit] : (identifier= TRUE |identifier= FALSE ) ;
     public final BehaviorBooleanLiteral boolean_literal() throws RecognitionException {
         BehaviorBooleanLiteral BoolLit = null;
 
@@ -5926,10 +5946,10 @@ public class AadlBaParser extends Parser {
            BoolLit = _fact.createBehaviorBooleanLiteral();
          
         try {
-            // AadlBa.g:2032:3: ( (identifier= TRUE |identifier= FALSE ) )
-            // AadlBa.g:2033:4: (identifier= TRUE |identifier= FALSE )
+            // AadlBa.g:2049:3: ( (identifier= TRUE |identifier= FALSE ) )
+            // AadlBa.g:2050:4: (identifier= TRUE |identifier= FALSE )
             {
-            // AadlBa.g:2033:4: (identifier= TRUE |identifier= FALSE )
+            // AadlBa.g:2050:4: (identifier= TRUE |identifier= FALSE )
             int alt68=2;
             int LA68_0 = input.LA(1);
 
@@ -5949,18 +5969,18 @@ public class AadlBaParser extends Parser {
             }
             switch (alt68) {
                 case 1 :
-                    // AadlBa.g:2034:8: identifier= TRUE
+                    // AadlBa.g:2051:8: identifier= TRUE
                     {
-                    identifier=(Token)match(input,TRUE,FOLLOW_TRUE_in_boolean_literal7048); if (state.failed) return BoolLit;
+                    identifier=(Token)match(input,TRUE,FOLLOW_TRUE_in_boolean_literal7052); if (state.failed) return BoolLit;
 
                     if ( state.backtracking==0 ) { BoolLit.setValue(true);}
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2036:8: identifier= FALSE
+                    // AadlBa.g:2053:8: identifier= FALSE
                     {
-                    identifier=(Token)match(input,FALSE,FOLLOW_FALSE_in_boolean_literal7068); if (state.failed) return BoolLit;
+                    identifier=(Token)match(input,FALSE,FOLLOW_FALSE_in_boolean_literal7072); if (state.failed) return BoolLit;
 
                     if ( state.backtracking==0 ) { BoolLit.setValue(false);}
 
@@ -5993,7 +6013,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_range"
-    // AadlBa.g:2047:1: integer_range returns [IntegerRange IntRange] : (IntValue= integer_value DOTDOT IntValue2= integer_value ) ;
+    // AadlBa.g:2064:1: integer_range returns [IntegerRange IntRange] : (IntValue= integer_value DOTDOT IntValue2= integer_value ) ;
     public final IntegerRange integer_range() throws RecognitionException {
         IntegerRange IntRange = null;
 
@@ -6007,21 +6027,21 @@ public class AadlBaParser extends Parser {
            IntRange = _fact.createIntegerRange();
          
         try {
-            // AadlBa.g:2051:3: ( (IntValue= integer_value DOTDOT IntValue2= integer_value ) )
-            // AadlBa.g:2052:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
+            // AadlBa.g:2068:3: ( (IntValue= integer_value DOTDOT IntValue2= integer_value ) )
+            // AadlBa.g:2069:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
             {
-            // AadlBa.g:2052:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
-            // AadlBa.g:2053:6: IntValue= integer_value DOTDOT IntValue2= integer_value
+            // AadlBa.g:2069:4: (IntValue= integer_value DOTDOT IntValue2= integer_value )
+            // AadlBa.g:2070:6: IntValue= integer_value DOTDOT IntValue2= integer_value
             {
-            pushFollow(FOLLOW_integer_value_in_integer_range7120);
+            pushFollow(FOLLOW_integer_value_in_integer_range7124);
             IntValue=integer_value();
 
             state._fsp--;
             if (state.failed) return IntRange;
 
-            match(input,DOTDOT,FOLLOW_DOTDOT_in_integer_range7122); if (state.failed) return IntRange;
+            match(input,DOTDOT,FOLLOW_DOTDOT_in_integer_range7126); if (state.failed) return IntRange;
 
-            pushFollow(FOLLOW_integer_value_in_integer_range7126);
+            pushFollow(FOLLOW_integer_value_in_integer_range7130);
             IntValue2=integer_value();
 
             state._fsp--;
@@ -6057,7 +6077,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_value"
-    // AadlBa.g:2070:1: integer_value returns [IntegerValue IntVal] : (ValTmp= fact_value ) ;
+    // AadlBa.g:2087:1: integer_value returns [IntegerValue IntVal] : (ValTmp= fact_value ) ;
     public final IntegerValue integer_value() throws RecognitionException {
         IntegerValue IntVal = null;
 
@@ -6068,13 +6088,13 @@ public class AadlBaParser extends Parser {
 
          
         try {
-            // AadlBa.g:2073:3: ( (ValTmp= fact_value ) )
-            // AadlBa.g:2075:4: (ValTmp= fact_value )
+            // AadlBa.g:2090:3: ( (ValTmp= fact_value ) )
+            // AadlBa.g:2092:4: (ValTmp= fact_value )
             {
-            // AadlBa.g:2075:4: (ValTmp= fact_value )
-            // AadlBa.g:2076:6: ValTmp= fact_value
+            // AadlBa.g:2092:4: (ValTmp= fact_value )
+            // AadlBa.g:2093:6: ValTmp= fact_value
             {
-            pushFollow(FOLLOW_fact_value_in_integer_value7185);
+            pushFollow(FOLLOW_fact_value_in_integer_value7189);
             ValTmp=fact_value();
 
             state._fsp--;
@@ -6106,7 +6126,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_time"
-    // AadlBa.g:2087:1: behavior_time returns [DeclarativeTime BehTime] : (IntValue= integer_value UnitIdent= IDENT ) ;
+    // AadlBa.g:2104:1: behavior_time returns [DeclarativeTime BehTime] : (IntValue= integer_value UnitIdent= IDENT ) ;
     public final DeclarativeTime behavior_time() throws RecognitionException {
         DeclarativeTime BehTime = null;
 
@@ -6119,19 +6139,19 @@ public class AadlBaParser extends Parser {
            BehTime = _decl.createDeclarativeTime() ;
          
         try {
-            // AadlBa.g:2091:3: ( (IntValue= integer_value UnitIdent= IDENT ) )
-            // AadlBa.g:2092:4: (IntValue= integer_value UnitIdent= IDENT )
+            // AadlBa.g:2108:3: ( (IntValue= integer_value UnitIdent= IDENT ) )
+            // AadlBa.g:2109:4: (IntValue= integer_value UnitIdent= IDENT )
             {
-            // AadlBa.g:2092:4: (IntValue= integer_value UnitIdent= IDENT )
-            // AadlBa.g:2093:6: IntValue= integer_value UnitIdent= IDENT
+            // AadlBa.g:2109:4: (IntValue= integer_value UnitIdent= IDENT )
+            // AadlBa.g:2110:6: IntValue= integer_value UnitIdent= IDENT
             {
-            pushFollow(FOLLOW_integer_value_in_behavior_time7249);
+            pushFollow(FOLLOW_integer_value_in_behavior_time7253);
             IntValue=integer_value();
 
             state._fsp--;
             if (state.failed) return BehTime;
 
-            UnitIdent=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_time7253); if (state.failed) return BehTime;
+            UnitIdent=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_time7257); if (state.failed) return BehTime;
 
             if ( state.backtracking==0 ) {
                    BehTime.setIntegerValue(IntValue);
@@ -6167,7 +6187,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "property"
-    // AadlBa.g:2124:1: property returns [QualifiedNamedElement property] : ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) ;
+    // AadlBa.g:2141:1: property returns [QualifiedNamedElement property] : ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) ;
     public final QualifiedNamedElement property() throws RecognitionException {
         QualifiedNamedElement property = null;
 
@@ -6179,13 +6199,13 @@ public class AadlBaParser extends Parser {
            property = _decl.createQualifiedNamedElement();
          
         try {
-            // AadlBa.g:2128:3: ( ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) )
-            // AadlBa.g:2129:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
+            // AadlBa.g:2145:3: ( ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT ) )
+            // AadlBa.g:2146:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
             {
-            // AadlBa.g:2129:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
-            // AadlBa.g:2130:6: (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT
+            // AadlBa.g:2146:4: ( (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT )
+            // AadlBa.g:2147:6: (PropertySetId= IDENT DOUBLECOLON )? PropertyId= IDENT
             {
-            // AadlBa.g:2130:6: (PropertySetId= IDENT DOUBLECOLON )?
+            // AadlBa.g:2147:6: (PropertySetId= IDENT DOUBLECOLON )?
             int alt69=2;
             int LA69_0 = input.LA(1);
 
@@ -6198,11 +6218,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt69) {
                 case 1 :
-                    // AadlBa.g:2130:8: PropertySetId= IDENT DOUBLECOLON
+                    // AadlBa.g:2147:8: PropertySetId= IDENT DOUBLECOLON
                     {
-                    PropertySetId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7318); if (state.failed) return property;
+                    PropertySetId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7322); if (state.failed) return property;
 
-                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_property7320); if (state.failed) return property;
+                    match(input,DOUBLECOLON,FOLLOW_DOUBLECOLON_in_property7324); if (state.failed) return property;
 
                     if ( state.backtracking==0 ) {
                              Identifier nameSpaceId = _decl.createIdentifier();
@@ -6218,7 +6238,7 @@ public class AadlBaParser extends Parser {
             }
 
 
-            PropertyId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7354); if (state.failed) return property;
+            PropertyId=(Token)match(input,IDENT,FOLLOW_IDENT_in_property7358); if (state.failed) return property;
 
             if ( state.backtracking==0 ) { 
                    Identifier nameId = _decl.createIdentifier();
@@ -6256,7 +6276,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_enumeration_literal"
-    // AadlBa.g:2165:1: behavior_enumeration_literal returns [Enumeration enumeration] : ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT ) ;
+    // AadlBa.g:2182:1: behavior_enumeration_literal returns [Enumeration enumeration] : ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT ) ;
     public final Enumeration behavior_enumeration_literal() throws RecognitionException {
         Enumeration enumeration = null;
 
@@ -6268,25 +6288,25 @@ public class AadlBaParser extends Parser {
                   enumeration = _decl.createEnumeration() ;
                 
         try {
-            // AadlBa.g:2169:3: ( ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT ) )
-            // AadlBa.g:2170:3: ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT )
+            // AadlBa.g:2186:3: ( ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT ) )
+            // AadlBa.g:2187:3: ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT )
             {
-            // AadlBa.g:2170:3: ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT )
-            // AadlBa.g:2171:6: qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT
+            // AadlBa.g:2187:3: ( qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT )
+            // AadlBa.g:2188:6: qualifiable_named_element[enumeration] DOT id1= ENUMERATOR HASH id2= IDENT
             {
-            pushFollow(FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7408);
+            pushFollow(FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7412);
             qualifiable_named_element(enumeration);
 
             state._fsp--;
             if (state.failed) return enumeration;
 
-            match(input,DOT,FOLLOW_DOT_in_behavior_enumeration_literal7422); if (state.failed) return enumeration;
+            match(input,DOT,FOLLOW_DOT_in_behavior_enumeration_literal7426); if (state.failed) return enumeration;
 
-            id1=(Token)match(input,ENUMERATOR,FOLLOW_ENUMERATOR_in_behavior_enumeration_literal7426); if (state.failed) return enumeration;
+            id1=(Token)match(input,ENUMERATOR,FOLLOW_ENUMERATOR_in_behavior_enumeration_literal7430); if (state.failed) return enumeration;
 
-            match(input,HASH,FOLLOW_HASH_in_behavior_enumeration_literal7428); if (state.failed) return enumeration;
+            match(input,HASH,FOLLOW_HASH_in_behavior_enumeration_literal7432); if (state.failed) return enumeration;
 
-            id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_enumeration_literal7432); if (state.failed) return enumeration;
+            id2=(Token)match(input,IDENT,FOLLOW_IDENT_in_behavior_enumeration_literal7436); if (state.failed) return enumeration;
 
             if ( state.backtracking==0 ) {
                    Identifier lit = _decl.createIdentifier() ;
@@ -6326,7 +6346,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "numeric_literal"
-    // AadlBa.g:2197:1: numeric_literal returns [NumericLiteral nl] : (realval= REAL_LIT |intLit= integer_literal ) ;
+    // AadlBa.g:2214:1: numeric_literal returns [NumericLiteral nl] : (realval= REAL_LIT |intLit= integer_literal ) ;
     public final NumericLiteral numeric_literal() throws RecognitionException {
         NumericLiteral nl = null;
 
@@ -6340,10 +6360,10 @@ public class AadlBaParser extends Parser {
             char sign = ' '; 
           
         try {
-            // AadlBa.g:2202:3: ( (realval= REAL_LIT |intLit= integer_literal ) )
-            // AadlBa.g:2203:3: (realval= REAL_LIT |intLit= integer_literal )
+            // AadlBa.g:2219:3: ( (realval= REAL_LIT |intLit= integer_literal ) )
+            // AadlBa.g:2220:3: (realval= REAL_LIT |intLit= integer_literal )
             {
-            // AadlBa.g:2203:3: (realval= REAL_LIT |intLit= integer_literal )
+            // AadlBa.g:2220:3: (realval= REAL_LIT |intLit= integer_literal )
             int alt70=2;
             int LA70_0 = input.LA(1);
 
@@ -6363,9 +6383,9 @@ public class AadlBaParser extends Parser {
             }
             switch (alt70) {
                 case 1 :
-                    // AadlBa.g:2204:7: realval= REAL_LIT
+                    // AadlBa.g:2221:7: realval= REAL_LIT
                     {
-                    realval=(Token)match(input,REAL_LIT,FOLLOW_REAL_LIT_in_numeric_literal7492); if (state.failed) return nl;
+                    realval=(Token)match(input,REAL_LIT,FOLLOW_REAL_LIT_in_numeric_literal7496); if (state.failed) return nl;
 
                     if ( state.backtracking==0 ) {
                             String str = realval.getText();
@@ -6379,9 +6399,9 @@ public class AadlBaParser extends Parser {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2214:7: intLit= integer_literal
+                    // AadlBa.g:2231:7: intLit= integer_literal
                     {
-                    pushFollow(FOLLOW_integer_literal_in_numeric_literal7518);
+                    pushFollow(FOLLOW_integer_literal_in_numeric_literal7522);
                     intLit=integer_literal();
 
                     state._fsp--;
@@ -6418,7 +6438,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "integer_literal"
-    // AadlBa.g:2226:1: integer_literal returns [BehaviorIntegerLiteral bil] : integerval= INTEGER_LIT ;
+    // AadlBa.g:2243:1: integer_literal returns [BehaviorIntegerLiteral bil] : integerval= INTEGER_LIT ;
     public final BehaviorIntegerLiteral integer_literal() throws RecognitionException {
         BehaviorIntegerLiteral bil = null;
 
@@ -6426,10 +6446,10 @@ public class AadlBaParser extends Parser {
         Token integerval=null;
 
         try {
-            // AadlBa.g:2228:2: (integerval= INTEGER_LIT )
-            // AadlBa.g:2229:5: integerval= INTEGER_LIT
+            // AadlBa.g:2245:2: (integerval= INTEGER_LIT )
+            // AadlBa.g:2246:5: integerval= INTEGER_LIT
             {
-            integerval=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_integer_literal7558); if (state.failed) return bil;
+            integerval=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_integer_literal7562); if (state.failed) return bil;
 
             if ( state.backtracking==0 ) {
                   try
@@ -6474,7 +6494,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "string_literal"
-    // AadlBa.g:2260:1: string_literal returns [BehaviorStringLiteral StringLit] : (sl= STRING_LITERAL ) ;
+    // AadlBa.g:2277:1: string_literal returns [BehaviorStringLiteral StringLit] : (sl= STRING_LITERAL ) ;
     public final BehaviorStringLiteral string_literal() throws RecognitionException {
         BehaviorStringLiteral StringLit = null;
 
@@ -6485,13 +6505,13 @@ public class AadlBaParser extends Parser {
            StringLit = _fact.createBehaviorStringLiteral();
          
         try {
-            // AadlBa.g:2264:3: ( (sl= STRING_LITERAL ) )
-            // AadlBa.g:2265:4: (sl= STRING_LITERAL )
+            // AadlBa.g:2281:3: ( (sl= STRING_LITERAL ) )
+            // AadlBa.g:2282:4: (sl= STRING_LITERAL )
             {
-            // AadlBa.g:2265:4: (sl= STRING_LITERAL )
-            // AadlBa.g:2266:6: sl= STRING_LITERAL
+            // AadlBa.g:2282:4: (sl= STRING_LITERAL )
+            // AadlBa.g:2283:6: sl= STRING_LITERAL
             {
-            sl=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_string_literal7604); if (state.failed) return StringLit;
+            sl=(Token)match(input,STRING_LITERAL,FOLLOW_STRING_LITERAL_in_string_literal7608); if (state.failed) return StringLit;
 
             if ( state.backtracking==0 ) {
                     String str = sl.getText();
@@ -6525,7 +6545,7 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "numeral"
-    // AadlBa.g:2284:1: numeral returns [Integer Num] : (NumVal= INTEGER_LIT ) ;
+    // AadlBa.g:2301:1: numeral returns [Integer Num] : (NumVal= INTEGER_LIT ) ;
     public final Integer numeral() throws RecognitionException {
         Integer Num = null;
 
@@ -6533,13 +6553,13 @@ public class AadlBaParser extends Parser {
         Token NumVal=null;
 
         try {
-            // AadlBa.g:2286:3: ( (NumVal= INTEGER_LIT ) )
-            // AadlBa.g:2287:4: (NumVal= INTEGER_LIT )
+            // AadlBa.g:2303:3: ( (NumVal= INTEGER_LIT ) )
+            // AadlBa.g:2304:4: (NumVal= INTEGER_LIT )
             {
-            // AadlBa.g:2287:4: (NumVal= INTEGER_LIT )
-            // AadlBa.g:2288:6: NumVal= INTEGER_LIT
+            // AadlBa.g:2304:4: (NumVal= INTEGER_LIT )
+            // AadlBa.g:2305:6: NumVal= INTEGER_LIT
             {
-            NumVal=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_numeral7654); if (state.failed) return Num;
+            NumVal=(Token)match(input,INTEGER_LIT,FOLLOW_INTEGER_LIT_in_numeral7658); if (state.failed) return Num;
 
             if ( state.backtracking==0 ) { 
                    String tmp = NumVal.getText().replaceAll("_", "");
@@ -6572,10 +6592,10 @@ public class AadlBaParser extends Parser {
         BehaviorAction BehAction2 =null;
 
 
-        // AadlBa.g:950:9: ( ( SEMICOLON BehAction2= behavior_action )* )
-        // AadlBa.g:950:9: ( SEMICOLON BehAction2= behavior_action )*
+        // AadlBa.g:967:9: ( ( SEMICOLON BehAction2= behavior_action )* )
+        // AadlBa.g:967:9: ( SEMICOLON BehAction2= behavior_action )*
         {
-        // AadlBa.g:950:9: ( SEMICOLON BehAction2= behavior_action )*
+        // AadlBa.g:967:9: ( SEMICOLON BehAction2= behavior_action )*
         loop77:
         do {
             int alt77=2;
@@ -6588,11 +6608,11 @@ public class AadlBaParser extends Parser {
 
             switch (alt77) {
         	case 1 :
-        	    // AadlBa.g:950:11: SEMICOLON BehAction2= behavior_action
+        	    // AadlBa.g:967:11: SEMICOLON BehAction2= behavior_action
         	    {
-        	    match(input,SEMICOLON,FOLLOW_SEMICOLON_in_synpred34_AadlBa2934); if (state.failed) return ;
+        	    match(input,SEMICOLON,FOLLOW_SEMICOLON_in_synpred34_AadlBa2938); if (state.failed) return ;
 
-        	    pushFollow(FOLLOW_behavior_action_in_synpred34_AadlBa2938);
+        	    pushFollow(FOLLOW_behavior_action_in_synpred34_AadlBa2942);
         	    BehAction2=behavior_action();
 
         	    state._fsp--;
@@ -6617,13 +6637,13 @@ public class AadlBaParser extends Parser {
         IntegerRange IntRange =null;
 
 
-        // AadlBa.g:1146:6: ( (IntRange= integer_range ) )
-        // AadlBa.g:1146:6: (IntRange= integer_range )
+        // AadlBa.g:1163:6: ( (IntRange= integer_range ) )
+        // AadlBa.g:1163:6: (IntRange= integer_range )
         {
-        // AadlBa.g:1146:6: (IntRange= integer_range )
-        // AadlBa.g:1146:8: IntRange= integer_range
+        // AadlBa.g:1163:6: (IntRange= integer_range )
+        // AadlBa.g:1163:8: IntRange= integer_range
         {
-        pushFollow(FOLLOW_integer_range_in_synpred44_AadlBa3751);
+        pushFollow(FOLLOW_integer_range_in_synpred44_AadlBa3755);
         IntRange=integer_range();
 
         state._fsp--;
@@ -6642,13 +6662,13 @@ public class AadlBaParser extends Parser {
         AssignmentAction AssAct =null;
 
 
-        // AadlBa.g:1165:6: ( (AssAct= assignment_action ) )
-        // AadlBa.g:1165:6: (AssAct= assignment_action )
+        // AadlBa.g:1182:6: ( (AssAct= assignment_action ) )
+        // AadlBa.g:1182:6: (AssAct= assignment_action )
         {
-        // AadlBa.g:1165:6: (AssAct= assignment_action )
-        // AadlBa.g:1165:8: AssAct= assignment_action
+        // AadlBa.g:1182:6: (AssAct= assignment_action )
+        // AadlBa.g:1182:8: AssAct= assignment_action
         {
-        pushFollow(FOLLOW_assignment_action_in_synpred45_AadlBa3815);
+        pushFollow(FOLLOW_assignment_action_in_synpred45_AadlBa3819);
         AssAct=assignment_action();
 
         state._fsp--;
@@ -6667,13 +6687,13 @@ public class AadlBaParser extends Parser {
         CommAction CommAct =null;
 
 
-        // AadlBa.g:1167:6: ( (CommAct= communication_action ) )
-        // AadlBa.g:1167:6: (CommAct= communication_action )
+        // AadlBa.g:1184:6: ( (CommAct= communication_action ) )
+        // AadlBa.g:1184:6: (CommAct= communication_action )
         {
-        // AadlBa.g:1167:6: (CommAct= communication_action )
-        // AadlBa.g:1167:8: CommAct= communication_action
+        // AadlBa.g:1184:6: (CommAct= communication_action )
+        // AadlBa.g:1184:8: CommAct= communication_action
         {
-        pushFollow(FOLLOW_communication_action_in_synpred46_AadlBa3835);
+        pushFollow(FOLLOW_communication_action_in_synpred46_AadlBa3839);
         CommAct=communication_action();
 
         state._fsp--;
@@ -6749,270 +6769,270 @@ public class AadlBaParser extends Parser {
 
  
 
-    public static final BitSet FOLLOW_VARIABLES_in_behavior_annex1206 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_behavior_variable_list_in_behavior_annex1219 = new BitSet(new long[]{0x0000400000000002L,0x0000000000108000L});
-    public static final BitSet FOLLOW_STATES_in_behavior_annex1242 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_behavior_state_list_in_behavior_annex1255 = new BitSet(new long[]{0x0000400000000002L,0x0000000000100000L});
-    public static final BitSet FOLLOW_TRANSITIONS_in_behavior_annex1277 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_behavior_transition_in_behavior_annex1291 = new BitSet(new long[]{0x0000400000000002L});
-    public static final BitSet FOLLOW_behavior_variable_in_behavior_variable_list1346 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_COMMA_in_behavior_variable_list1363 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_behavior_variable_in_behavior_variable_list1367 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_COLON_in_behavior_variable_list1390 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_variable_list1402 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_SEMICOLON_in_behavior_variable_list1412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_variable1448 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_LBRACK_in_behavior_variable1458 = new BitSet(new long[]{0x0004400000000000L});
-    public static final BitSet FOLLOW_integer_value_constant_in_behavior_variable1462 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_RBRACK_in_behavior_variable1464 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1519 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_DOUBLECOLON_in_qualifiable_named_element1521 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1549 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_DOT_in_qualifiable_named_element1564 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1568 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualifiable_named_element_in_unique_component_classifier_reference1624 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_state_list1669 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_COMMA_in_behavior_state_list1685 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_state_list1689 = new BitSet(new long[]{0x0000000000001800L});
-    public static final BitSet FOLLOW_COLON_in_behavior_state_list1709 = new BitSet(new long[]{0x0002001000002000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_INITIAL_in_behavior_state_list1723 = new BitSet(new long[]{0x0000001000002000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_COMPLETE_in_behavior_state_list1738 = new BitSet(new long[]{0x0000001000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_FINAL_in_behavior_state_list1752 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-    public static final BitSet FOLLOW_STATE_in_behavior_state_list1771 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_SEMICOLON_in_behavior_state_list1773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_transition1815 = new BitSet(new long[]{0x0020000000000800L});
-    public static final BitSet FOLLOW_LBRACK_in_behavior_transition1833 = new BitSet(new long[]{0x0004000000000000L});
-    public static final BitSet FOLLOW_numeral_in_behavior_transition1837 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_RBRACK_in_behavior_transition1839 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_COLON_in_behavior_transition1852 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_transition1871 = new BitSet(new long[]{0x0800000000001000L});
-    public static final BitSet FOLLOW_COMMA_in_behavior_transition1888 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_transition1892 = new BitSet(new long[]{0x0800000000001000L});
-    public static final BitSet FOLLOW_LTRANS_in_behavior_transition1920 = new BitSet(new long[]{0x5404400800000010L,0x00000000002A024DL});
-    public static final BitSet FOLLOW_behavior_condition_in_behavior_transition1924 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
-    public static final BitSet FOLLOW_RTRANS_in_behavior_transition1939 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_transition1956 = new BitSet(new long[]{0x0040000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_behavior_action_block_in_behavior_transition1976 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_SEMICOLON_in_behavior_transition2007 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LCURLY_in_behavior_action_block2037 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action_block2041 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RCURLY_in_behavior_action_block2043 = new BitSet(new long[]{0x0000000000000002L,0x0000000000080000L});
-    public static final BitSet FOLLOW_TIMEOUT_in_behavior_action_block2065 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_behavior_time_in_behavior_action_block2069 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ON_in_behavior_condition2127 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_dispatch_condition_in_behavior_condition2131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_execute_condition_in_behavior_condition2159 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TIMEOUT_in_execute_condition2219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OTHERWISE_in_execute_condition2246 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_value_expression_in_execute_condition2280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_literal_in_integer_value_constant2324 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_property_in_integer_value_constant2346 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DISPATCH_in_dispatch_condition2397 = new BitSet(new long[]{0x0000410000000002L,0x0000000000090000L});
-    public static final BitSet FOLLOW_dispatch_trigger_condition_in_dispatch_condition2407 = new BitSet(new long[]{0x0000010000000002L});
-    public static final BitSet FOLLOW_FROZEN_in_dispatch_condition2431 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_reference_in_dispatch_condition2435 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_COMMA_in_dispatch_condition2451 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_reference_in_dispatch_condition2455 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_STOP_in_dispatch_trigger_condition2557 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TIMEOUT_in_dispatch_trigger_condition2586 = new BitSet(new long[]{0x0004400800000002L,0x0000000000220040L});
-    public static final BitSet FOLLOW_behavior_time_in_dispatch_trigger_condition2628 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dispatch_trigger_logical_expression_in_dispatch_trigger_condition2681 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2727 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_OR_in_dispatch_trigger_logical_expression2750 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2754 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
-    public static final BitSet FOLLOW_reference_in_dispatch_conjunction2813 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_AND_in_dispatch_conjunction2836 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_reference_in_dispatch_conjunction2840 = new BitSet(new long[]{0x0000000000000022L});
-    public static final BitSet FOLLOW_behavior_action_in_behavior_actions2908 = new BitSet(new long[]{0x0000000000008002L,0x0000000000000400L});
-    public static final BitSet FOLLOW_SEMICOLON_in_behavior_actions2934 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_action_in_behavior_actions2938 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000400L});
-    public static final BitSet FOLLOW_CONCAT_in_behavior_actions2994 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_action_in_behavior_actions2998 = new BitSet(new long[]{0x0000000000008002L});
-    public static final BitSet FOLLOW_basic_action_in_behavior_action3101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_behavior_action_block_in_behavior_action3134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IF_in_behavior_action3172 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3176 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_behavior_action3180 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3182 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3186 = new BitSet(new long[]{0x0000000007000000L});
-    public static final BitSet FOLLOW_ELSIF_in_behavior_action3219 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3223 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_behavior_action3227 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3229 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3233 = new BitSet(new long[]{0x0000000007000000L});
-    public static final BitSet FOLLOW_ELSE_in_behavior_action3276 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3280 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_END_in_behavior_action3310 = new BitSet(new long[]{0x0000800000000000L});
-    public static final BitSet FOLLOW_IF_in_behavior_action3312 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FOR_in_behavior_action3350 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3352 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_action3366 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_COLON_in_behavior_action3377 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_action3381 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_IN_in_behavior_action3407 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_element_values_in_behavior_action3411 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3413 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_LCURLY_in_behavior_action3426 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3430 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RCURLY_in_behavior_action3432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FORALL_in_behavior_action3471 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3473 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_action3494 = new BitSet(new long[]{0x0000000000000800L});
-    public static final BitSet FOLLOW_COLON_in_behavior_action3505 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_action3509 = new BitSet(new long[]{0x0001000000000000L});
-    public static final BitSet FOLLOW_IN_in_behavior_action3536 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_element_values_in_behavior_action3540 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3542 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_LCURLY_in_behavior_action3555 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3559 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RCURLY_in_behavior_action3561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_WHILE_in_behavior_action3599 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3603 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_behavior_action3607 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3609 = new BitSet(new long[]{0x0040000000000000L});
-    public static final BitSet FOLLOW_LCURLY_in_behavior_action3619 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3623 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
-    public static final BitSet FOLLOW_RCURLY_in_behavior_action3625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DO_in_behavior_action3664 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3668 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
-    public static final BitSet FOLLOW_UNTIL_in_behavior_action3670 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_behavior_action3683 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_behavior_action3687 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_behavior_action3689 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_range_in_element_values3751 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reference_in_element_values3771 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_action_in_basic_action3815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_communication_action_in_basic_action3835 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_timed_action_in_basic_action3855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_target_in_assignment_action3899 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_ASSIGN_in_assignment_action3901 = new BitSet(new long[]{0x5404400800000050L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_assignment_action3907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ANY_in_assignment_action3913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reference_in_target3953 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4037 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_DOUBLECOLON_in_qualified_named_element4039 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4067 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_DOT_in_qualified_named_element4081 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4085 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualified_named_element_in_communication_action4237 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_EXCLAM_in_communication_action4239 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_communication_action4272 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_subprogram_parameter_list_in_communication_action4276 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_communication_action4278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reference_in_communication_action4338 = new BitSet(new long[]{0x00080201C0000000L});
-    public static final BitSet FOLLOW_INTERROG_in_communication_action4388 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_communication_action4438 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_target_in_communication_action4442 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_communication_action4444 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GGREATER_in_communication_action4535 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXCLLESS_in_communication_action4607 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXCLGREATER_in_communication_action4679 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXCLAM_in_communication_action4751 = new BitSet(new long[]{0x0400000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_communication_action4786 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_subprogram_parameter_list_in_communication_action4790 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_communication_action4792 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAR_in_communication_action4885 = new BitSet(new long[]{0x0000000180000000L});
-    public static final BitSet FOLLOW_EXCLLESS_in_communication_action4910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EXCLGREATER_in_communication_action4951 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_COMPUTATION_in_timed_action5028 = new BitSet(new long[]{0x0400000000000000L});
-    public static final BitSet FOLLOW_LPAREN_in_timed_action5044 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_behavior_time_in_timed_action5053 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_DOTDOT_in_timed_action5063 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_behavior_time_in_timed_action5067 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_timed_action5083 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_parameter_label_in_subprogram_parameter_list5118 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_COMMA_in_subprogram_parameter_list5129 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_parameter_label_in_subprogram_parameter_list5133 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_value_expression_in_parameter_label5187 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_array_identifier_in_reference5251 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_DOT_in_reference5271 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_array_identifier_in_reference5275 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_IDENT_in_array_identifier5324 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_LBRACK_in_array_identifier5344 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_integer_value_in_array_identifier5348 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-    public static final BitSet FOLLOW_RBRACK_in_array_identifier5350 = new BitSet(new long[]{0x0020000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_fact_value5473 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_DOUBLECOLON_in_fact_value5475 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_fact_value5479 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_value_variable_in_fact_value5527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_boolean_literal_in_fact_value5549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_numeric_literal_in_fact_value5569 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_string_literal_in_fact_value5589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_behavior_enumeration_literal_in_fact_value5610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fact_value_in_value5671 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LPAREN_in_value5695 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_value_expression_in_value5699 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
-    public static final BitSet FOLLOW_RPAREN_in_value5701 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_reference_in_value_variable5777 = new BitSet(new long[]{0x0008000000000002L,0x0000000000040000L});
-    public static final BitSet FOLLOW_INTERROG_in_value_variable5807 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TICK_in_value_variable5844 = new BitSet(new long[]{0x0000008000010000L});
-    public static final BitSet FOLLOW_COUNT_in_value_variable5868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FRESH_in_value_variable5935 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_relation_in_value_expression6045 = new BitSet(new long[]{0x0000000000000022L,0x0000000004000002L});
-    public static final BitSet FOLLOW_logical_operator_in_value_expression6070 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_relation_in_value_expression6074 = new BitSet(new long[]{0x0000000000000022L,0x0000000004000002L});
-    public static final BitSet FOLLOW_simple_expression_in_relation6131 = new BitSet(new long[]{0x81800C0010000002L});
-    public static final BitSet FOLLOW_relational_operator_in_relation6150 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
-    public static final BitSet FOLLOW_simple_expression_in_relation6154 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_adding_operator_in_simple_expression6209 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
-    public static final BitSet FOLLOW_term_in_simple_expression6234 = new BitSet(new long[]{0x1000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_binary_adding_operator_in_simple_expression6257 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
-    public static final BitSet FOLLOW_term_in_simple_expression6261 = new BitSet(new long[]{0x1000000000000002L,0x0000000000000008L});
-    public static final BitSet FOLLOW_factor_in_term6308 = new BitSet(new long[]{0x2000000000080002L,0x0000000000001080L});
-    public static final BitSet FOLLOW_multiplying_operator_in_term6327 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
-    public static final BitSet FOLLOW_factor_in_term6331 = new BitSet(new long[]{0x2000000000080002L,0x0000000000001080L});
-    public static final BitSet FOLLOW_value_in_factor6391 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
-    public static final BitSet FOLLOW_binary_numeric_operator_in_factor6414 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_value_in_factor6418 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_numeric_operator_in_factor6458 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_value_in_factor6462 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_unary_boolean_operator_in_factor6491 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_value_in_factor6495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_AND_in_logical_operator6551 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_OR_in_logical_operator6565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_XOR_in_logical_operator6579 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_EQUAL_in_relational_operator6624 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOTEQUAL_in_relational_operator6638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LESSTHAN_in_relational_operator6652 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_LESSOREQUAL_in_relational_operator6666 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATERTHAN_in_relational_operator6680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_GREATEROREQUAL_in_relational_operator6694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLUS_in_binary_adding_operator6741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_binary_adding_operator6755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_PLUS_in_unary_adding_operator6800 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MINUS_in_unary_adding_operator6814 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STAR_in_multiplying_operator6859 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_DIVIDE_in_multiplying_operator6873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_MOD_in_multiplying_operator6887 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REM_in_multiplying_operator6901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STARSTAR_in_binary_numeric_operator6939 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ABS_in_unary_numeric_operator6972 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_NOT_in_unary_boolean_operator7005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_TRUE_in_boolean_literal7048 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_FALSE_in_boolean_literal7068 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_value_in_integer_range7120 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_DOTDOT_in_integer_range7122 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
-    public static final BitSet FOLLOW_integer_value_in_integer_range7126 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_fact_value_in_integer_value7185 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_value_in_behavior_time7249 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_time7253 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_IDENT_in_property7318 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_DOUBLECOLON_in_property7320 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_property7354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7408 = new BitSet(new long[]{0x0000000000200000L});
-    public static final BitSet FOLLOW_DOT_in_behavior_enumeration_literal7422 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_ENUMERATOR_in_behavior_enumeration_literal7426 = new BitSet(new long[]{0x0000100000000000L});
-    public static final BitSet FOLLOW_HASH_in_behavior_enumeration_literal7428 = new BitSet(new long[]{0x0000400000000000L});
-    public static final BitSet FOLLOW_IDENT_in_behavior_enumeration_literal7432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_REAL_LIT_in_numeric_literal7492 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_integer_literal_in_numeric_literal7518 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LIT_in_integer_literal7558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_STRING_LITERAL_in_string_literal7604 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_INTEGER_LIT_in_numeral7654 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_SEMICOLON_in_synpred34_AadlBa2934 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
-    public static final BitSet FOLLOW_behavior_action_in_synpred34_AadlBa2938 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000400L});
-    public static final BitSet FOLLOW_integer_range_in_synpred44_AadlBa3751 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_assignment_action_in_synpred45_AadlBa3815 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_communication_action_in_synpred46_AadlBa3835 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_VARIABLES_in_behavior_annex1208 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_behavior_variable_list_in_behavior_annex1223 = new BitSet(new long[]{0x0000400000000002L,0x0000000000108000L});
+    public static final BitSet FOLLOW_STATES_in_behavior_annex1246 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_behavior_state_list_in_behavior_annex1259 = new BitSet(new long[]{0x0000400000000002L,0x0000000000100000L});
+    public static final BitSet FOLLOW_TRANSITIONS_in_behavior_annex1281 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_behavior_transition_in_behavior_annex1295 = new BitSet(new long[]{0x0000400000000002L});
+    public static final BitSet FOLLOW_behavior_variable_in_behavior_variable_list1350 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_COMMA_in_behavior_variable_list1367 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_behavior_variable_in_behavior_variable_list1371 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_COLON_in_behavior_variable_list1394 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_variable_list1406 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_SEMICOLON_in_behavior_variable_list1416 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_variable1452 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_LBRACK_in_behavior_variable1462 = new BitSet(new long[]{0x0004400000000000L});
+    public static final BitSet FOLLOW_integer_value_constant_in_behavior_variable1466 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_RBRACK_in_behavior_variable1468 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1523 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_DOUBLECOLON_in_qualifiable_named_element1525 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1553 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_DOT_in_qualifiable_named_element1568 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_qualifiable_named_element1572 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualifiable_named_element_in_unique_component_classifier_reference1628 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_state_list1673 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_COMMA_in_behavior_state_list1689 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_state_list1693 = new BitSet(new long[]{0x0000000000001800L});
+    public static final BitSet FOLLOW_COLON_in_behavior_state_list1713 = new BitSet(new long[]{0x0002001000002000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_INITIAL_in_behavior_state_list1727 = new BitSet(new long[]{0x0000001000002000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_COMPLETE_in_behavior_state_list1742 = new BitSet(new long[]{0x0000001000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_FINAL_in_behavior_state_list1756 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
+    public static final BitSet FOLLOW_STATE_in_behavior_state_list1775 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_SEMICOLON_in_behavior_state_list1777 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_transition1819 = new BitSet(new long[]{0x0020000000000800L});
+    public static final BitSet FOLLOW_LBRACK_in_behavior_transition1837 = new BitSet(new long[]{0x0004000000000000L});
+    public static final BitSet FOLLOW_numeral_in_behavior_transition1841 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_RBRACK_in_behavior_transition1843 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_COLON_in_behavior_transition1856 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_transition1875 = new BitSet(new long[]{0x0800000000001000L});
+    public static final BitSet FOLLOW_COMMA_in_behavior_transition1892 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_transition1896 = new BitSet(new long[]{0x0800000000001000L});
+    public static final BitSet FOLLOW_LTRANS_in_behavior_transition1924 = new BitSet(new long[]{0x5404400800000010L,0x00000000002A024DL});
+    public static final BitSet FOLLOW_behavior_condition_in_behavior_transition1928 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000200L});
+    public static final BitSet FOLLOW_RTRANS_in_behavior_transition1943 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_transition1960 = new BitSet(new long[]{0x0040000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_behavior_action_block_in_behavior_transition1980 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_SEMICOLON_in_behavior_transition2011 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LCURLY_in_behavior_action_block2041 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action_block2045 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RCURLY_in_behavior_action_block2047 = new BitSet(new long[]{0x0000000000000002L,0x0000000000080000L});
+    public static final BitSet FOLLOW_TIMEOUT_in_behavior_action_block2069 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_behavior_time_in_behavior_action_block2073 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ON_in_behavior_condition2131 = new BitSet(new long[]{0x0000000000040000L});
+    public static final BitSet FOLLOW_dispatch_condition_in_behavior_condition2135 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_execute_condition_in_behavior_condition2163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TIMEOUT_in_execute_condition2223 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OTHERWISE_in_execute_condition2250 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_value_expression_in_execute_condition2284 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_literal_in_integer_value_constant2328 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_property_in_integer_value_constant2350 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DISPATCH_in_dispatch_condition2401 = new BitSet(new long[]{0x0000410000000002L,0x0000000000090000L});
+    public static final BitSet FOLLOW_dispatch_trigger_condition_in_dispatch_condition2411 = new BitSet(new long[]{0x0000010000000002L});
+    public static final BitSet FOLLOW_FROZEN_in_dispatch_condition2435 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_reference_in_dispatch_condition2439 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_COMMA_in_dispatch_condition2455 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_reference_in_dispatch_condition2459 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_STOP_in_dispatch_trigger_condition2561 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TIMEOUT_in_dispatch_trigger_condition2590 = new BitSet(new long[]{0x0004400800000002L,0x0000000000220040L});
+    public static final BitSet FOLLOW_behavior_time_in_dispatch_trigger_condition2632 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dispatch_trigger_logical_expression_in_dispatch_trigger_condition2685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2731 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_OR_in_dispatch_trigger_logical_expression2754 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_dispatch_conjunction_in_dispatch_trigger_logical_expression2758 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000002L});
+    public static final BitSet FOLLOW_reference_in_dispatch_conjunction2817 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_AND_in_dispatch_conjunction2840 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_reference_in_dispatch_conjunction2844 = new BitSet(new long[]{0x0000000000000022L});
+    public static final BitSet FOLLOW_behavior_action_in_behavior_actions2912 = new BitSet(new long[]{0x0000000000008002L,0x0000000000000400L});
+    public static final BitSet FOLLOW_SEMICOLON_in_behavior_actions2938 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_action_in_behavior_actions2942 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000400L});
+    public static final BitSet FOLLOW_CONCAT_in_behavior_actions2998 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_action_in_behavior_actions3002 = new BitSet(new long[]{0x0000000000008002L});
+    public static final BitSet FOLLOW_basic_action_in_behavior_action3105 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_behavior_action_block_in_behavior_action3138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IF_in_behavior_action3176 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3180 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_behavior_action3184 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3186 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3190 = new BitSet(new long[]{0x0000000007000000L});
+    public static final BitSet FOLLOW_ELSIF_in_behavior_action3223 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3227 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_behavior_action3231 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3233 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3237 = new BitSet(new long[]{0x0000000007000000L});
+    public static final BitSet FOLLOW_ELSE_in_behavior_action3280 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3284 = new BitSet(new long[]{0x0000000004000000L});
+    public static final BitSet FOLLOW_END_in_behavior_action3314 = new BitSet(new long[]{0x0000800000000000L});
+    public static final BitSet FOLLOW_IF_in_behavior_action3316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FOR_in_behavior_action3354 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3356 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_action3370 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_COLON_in_behavior_action3381 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_action3385 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_IN_in_behavior_action3411 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_element_values_in_behavior_action3415 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3417 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_LCURLY_in_behavior_action3430 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3434 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RCURLY_in_behavior_action3436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FORALL_in_behavior_action3475 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3477 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_action3498 = new BitSet(new long[]{0x0000000000000800L});
+    public static final BitSet FOLLOW_COLON_in_behavior_action3509 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_unique_component_classifier_reference_in_behavior_action3513 = new BitSet(new long[]{0x0001000000000000L});
+    public static final BitSet FOLLOW_IN_in_behavior_action3540 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_element_values_in_behavior_action3544 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3546 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_LCURLY_in_behavior_action3559 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3563 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RCURLY_in_behavior_action3565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_WHILE_in_behavior_action3603 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3607 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_behavior_action3611 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3613 = new BitSet(new long[]{0x0040000000000000L});
+    public static final BitSet FOLLOW_LCURLY_in_behavior_action3623 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3627 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+    public static final BitSet FOLLOW_RCURLY_in_behavior_action3629 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DO_in_behavior_action3668 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_actions_in_behavior_action3672 = new BitSet(new long[]{0x0000000000000000L,0x0000000000400000L});
+    public static final BitSet FOLLOW_UNTIL_in_behavior_action3674 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_behavior_action3687 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_behavior_action3691 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_behavior_action3693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_range_in_element_values3755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reference_in_element_values3775 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_action_in_basic_action3819 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_communication_action_in_basic_action3839 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_timed_action_in_basic_action3859 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_target_in_assignment_action3903 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_ASSIGN_in_assignment_action3905 = new BitSet(new long[]{0x5404400800000050L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_assignment_action3911 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ANY_in_assignment_action3917 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reference_in_target3957 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4041 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_DOUBLECOLON_in_qualified_named_element4043 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4071 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_DOT_in_qualified_named_element4085 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_qualified_named_element4089 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualified_named_element_in_communication_action4241 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_EXCLAM_in_communication_action4243 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_communication_action4276 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_subprogram_parameter_list_in_communication_action4280 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_communication_action4282 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reference_in_communication_action4342 = new BitSet(new long[]{0x00080201C0000000L});
+    public static final BitSet FOLLOW_INTERROG_in_communication_action4392 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_communication_action4442 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_target_in_communication_action4446 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_communication_action4448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GGREATER_in_communication_action4539 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXCLLESS_in_communication_action4611 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXCLGREATER_in_communication_action4683 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXCLAM_in_communication_action4755 = new BitSet(new long[]{0x0400000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_communication_action4790 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_subprogram_parameter_list_in_communication_action4794 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_communication_action4796 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAR_in_communication_action4889 = new BitSet(new long[]{0x0000000180000000L});
+    public static final BitSet FOLLOW_EXCLLESS_in_communication_action4914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EXCLGREATER_in_communication_action4955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_COMPUTATION_in_timed_action5032 = new BitSet(new long[]{0x0400000000000000L});
+    public static final BitSet FOLLOW_LPAREN_in_timed_action5048 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_behavior_time_in_timed_action5057 = new BitSet(new long[]{0x0000000000400000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_DOTDOT_in_timed_action5067 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_behavior_time_in_timed_action5071 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_timed_action5087 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_parameter_label_in_subprogram_parameter_list5122 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_COMMA_in_subprogram_parameter_list5133 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_parameter_label_in_subprogram_parameter_list5137 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_value_expression_in_parameter_label5191 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_array_identifier_in_reference5255 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_DOT_in_reference5275 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_array_identifier_in_reference5279 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_IDENT_in_array_identifier5328 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_LBRACK_in_array_identifier5348 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_integer_value_in_array_identifier5352 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
+    public static final BitSet FOLLOW_RBRACK_in_array_identifier5354 = new BitSet(new long[]{0x0020000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_fact_value5477 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_DOUBLECOLON_in_fact_value5479 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_fact_value5483 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_value_variable_in_fact_value5531 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_boolean_literal_in_fact_value5553 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_numeric_literal_in_fact_value5573 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_string_literal_in_fact_value5593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_behavior_enumeration_literal_in_fact_value5614 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fact_value_in_value5675 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LPAREN_in_value5699 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_value_expression_in_value5703 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000100L});
+    public static final BitSet FOLLOW_RPAREN_in_value5705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_reference_in_value_variable5781 = new BitSet(new long[]{0x0008000000000002L,0x0000000000040000L});
+    public static final BitSet FOLLOW_INTERROG_in_value_variable5811 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TICK_in_value_variable5848 = new BitSet(new long[]{0x0000008000010000L});
+    public static final BitSet FOLLOW_COUNT_in_value_variable5872 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FRESH_in_value_variable5939 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_relation_in_value_expression6049 = new BitSet(new long[]{0x0000000000000022L,0x0000000004000002L});
+    public static final BitSet FOLLOW_logical_operator_in_value_expression6074 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_relation_in_value_expression6078 = new BitSet(new long[]{0x0000000000000022L,0x0000000004000002L});
+    public static final BitSet FOLLOW_simple_expression_in_relation6135 = new BitSet(new long[]{0x81800C0010000002L});
+    public static final BitSet FOLLOW_relational_operator_in_relation6154 = new BitSet(new long[]{0x5404400800000010L,0x0000000000220048L});
+    public static final BitSet FOLLOW_simple_expression_in_relation6158 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_adding_operator_in_simple_expression6213 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
+    public static final BitSet FOLLOW_term_in_simple_expression6238 = new BitSet(new long[]{0x1000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_binary_adding_operator_in_simple_expression6261 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
+    public static final BitSet FOLLOW_term_in_simple_expression6265 = new BitSet(new long[]{0x1000000000000002L,0x0000000000000008L});
+    public static final BitSet FOLLOW_factor_in_term6312 = new BitSet(new long[]{0x2000000000080002L,0x0000000000001080L});
+    public static final BitSet FOLLOW_multiplying_operator_in_term6331 = new BitSet(new long[]{0x4404400800000010L,0x0000000000220040L});
+    public static final BitSet FOLLOW_factor_in_term6335 = new BitSet(new long[]{0x2000000000080002L,0x0000000000001080L});
+    public static final BitSet FOLLOW_value_in_factor6395 = new BitSet(new long[]{0x0000000000000002L,0x0000000000002000L});
+    public static final BitSet FOLLOW_binary_numeric_operator_in_factor6418 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_value_in_factor6422 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_numeric_operator_in_factor6462 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_value_in_factor6466 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_unary_boolean_operator_in_factor6495 = new BitSet(new long[]{0x0404400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_value_in_factor6499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_AND_in_logical_operator6555 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_OR_in_logical_operator6569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_XOR_in_logical_operator6583 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_EQUAL_in_relational_operator6628 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOTEQUAL_in_relational_operator6642 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LESSTHAN_in_relational_operator6656 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_LESSOREQUAL_in_relational_operator6670 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATERTHAN_in_relational_operator6684 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_GREATEROREQUAL_in_relational_operator6698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLUS_in_binary_adding_operator6745 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_binary_adding_operator6759 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_PLUS_in_unary_adding_operator6804 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MINUS_in_unary_adding_operator6818 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STAR_in_multiplying_operator6863 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_DIVIDE_in_multiplying_operator6877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_MOD_in_multiplying_operator6891 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REM_in_multiplying_operator6905 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STARSTAR_in_binary_numeric_operator6943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ABS_in_unary_numeric_operator6976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_NOT_in_unary_boolean_operator7009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_TRUE_in_boolean_literal7052 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_FALSE_in_boolean_literal7072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_value_in_integer_range7124 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_DOTDOT_in_integer_range7126 = new BitSet(new long[]{0x0004400800000000L,0x0000000000220040L});
+    public static final BitSet FOLLOW_integer_value_in_integer_range7130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_fact_value_in_integer_value7189 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_value_in_behavior_time7253 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_time7257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_IDENT_in_property7322 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_DOUBLECOLON_in_property7324 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_property7358 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_qualifiable_named_element_in_behavior_enumeration_literal7412 = new BitSet(new long[]{0x0000000000200000L});
+    public static final BitSet FOLLOW_DOT_in_behavior_enumeration_literal7426 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_ENUMERATOR_in_behavior_enumeration_literal7430 = new BitSet(new long[]{0x0000100000000000L});
+    public static final BitSet FOLLOW_HASH_in_behavior_enumeration_literal7432 = new BitSet(new long[]{0x0000400000000000L});
+    public static final BitSet FOLLOW_IDENT_in_behavior_enumeration_literal7436 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_REAL_LIT_in_numeric_literal7496 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_integer_literal_in_numeric_literal7522 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LIT_in_integer_literal7562 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_STRING_LITERAL_in_string_literal7608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_INTEGER_LIT_in_numeral7658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_SEMICOLON_in_synpred34_AadlBa2938 = new BitSet(new long[]{0x0040C06000104000L,0x0000000001001000L});
+    public static final BitSet FOLLOW_behavior_action_in_synpred34_AadlBa2942 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000400L});
+    public static final BitSet FOLLOW_integer_range_in_synpred44_AadlBa3755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_assignment_action_in_synpred45_AadlBa3819 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_communication_action_in_synpred46_AadlBa3839 = new BitSet(new long[]{0x0000000000000002L});
 
 }

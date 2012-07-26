@@ -59,9 +59,12 @@ options {
   import org.osate.aadl2.parsesupport.AObject;
   import org.osate.aadl2.parsesupport.LocationReference;
   
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
+  
   import fr.tpt.aadl.annex.behavior.aadlba.*;
   import fr.tpt.aadl.annex.behavior.declarative.* ;
   import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
+  import fr.tpt.aadl.annex.behavior.texteditor.BehaviorElementPosition ;
   
   import org.osate.aadl2.Element ;
   import org.osate.aadl2.Aadl2Package ;
@@ -196,6 +199,20 @@ options {
   }
   
   private BehaviorAnnex _ba = null ;
+  
+  private void highlight(Token token, String id)
+  {
+    int offset = token.getTokenIndex() ;
+    int length = token.getText().length() ;
+    
+    // DEBUG
+    System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
+    
+    _elementToHighlight.add(new BehaviorElementPosition(offset, id, length));                     
+  }
+  
+  public List<BehaviorElementPosition> _elementToHighlight =
+                          new ArrayList<BehaviorElementPosition>() ;
 }
 
 @lexer::members {
@@ -363,7 +380,7 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
       
  }
   : 
-   ( VARIABLES
+   ( keyword=VARIABLES {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
        ( lbv=behavior_variable_list[BehAnnex] { BehAnnex.getVariables().addAll(lbv);} )+
    )?
    
