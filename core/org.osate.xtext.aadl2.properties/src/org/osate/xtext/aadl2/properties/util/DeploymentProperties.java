@@ -38,16 +38,21 @@ public final class DeploymentProperties {
 	}
 
 	public static final String _NAME = "Deployment_Properties";
+	public static final String ALLOWED_PROCESSOR_BINDING_CLASS = "Allowed_Processor_Binding_Class";
+	public static final String ALLOWED_PROCESSOR_BINDING = "Allowed_Processor_Binding";
+	public static final String ACTUAL_PROCESSOR_BINDING = "Actual_Processor_Binding";
+	public static final String ALLOWED_MEMORY_BINDING_CLASS = "Allowed_Memory_Binding_Class";
+	public static final String ALLOWED_MEMORY_BINDING = "Allowed_Memory_Binding";
+	public static final String ACTUAL_MEMORY_BINDING = "Actual_Memory_Binding";
+	public static final String ALLOWED_CONNECTION_BINDING_CLASS = "Allowed_Connection_Binding_Class";
+	public static final String ALLOWED_CONNECTION_BINDING = "Allowed_Connection_Binding";
+	public static final String ACTUAL_CONNECTION_BINDING = "Actual_Connection_Binding";
+	public static final String ALLOWED_SUBPROGRAM_CALL_BINDING = "Allowed_Subprogram_Call_Binding";
+	public static final String ALLOWED_SUBPROGRAM_CALL = "Allowed_Subprogram_Call";
+	public static final String ACTUAL_SUBPROGRAM_CALL_BINDING = "Actual_Subprogram_Call_Binding";
+	public static final String ACTUAL_SUBPROGRAM_CALL = "Actual_Subprogram_Call";
+
 	public static final String NOT_COLLOCATED = "Not_Collocated";
 	public static final String SCHEDULING_PROTOCOL = "Scheduling_Protocol";
-	public static final String ACTUAL_PROCESSOR_BINDING = "Actual_Processor_Binding";
-	public static final String ALLOWED_PROCESSOR_BINDING = "Allowed_Processor_Binding";
-	public static final String ALLOWED_PROCESSOR_BINDING_CLASS = "Allowed_Processor_Binding_Class";
-	public static final String ACTUAL_MEMORY_BINDING = "Actual_Memory_Binding";
-	public static final String ALLOWED_MEMORY_BINDING = "Allowed_Memory_Binding";
-	public static final String ALLOWED_MEMORY_BINDING_CLASS = "Allowed_Memory_Binding_Class";
-	public static final String ACTUAL_CONNECTION_BINDING = "Actual_Connection_Binding";
-	public static final String ALLOWED_CONNECTION_BINDING = "Allowed_Connection_Binding";
-	public static final String ALLOWED_CONNECTION_BINDING_CLASS = "Allowed_Connection_Binding_Class";
 	public static final String REQUIRED_CONNECTION = "Required_Connection";
 }

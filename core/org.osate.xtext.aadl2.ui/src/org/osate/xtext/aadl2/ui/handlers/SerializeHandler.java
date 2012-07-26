@@ -42,6 +42,9 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.text.ITextSelection;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
@@ -49,15 +52,34 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutline;
+import org.eclipse.xtext.resource.EObjectAtOffsetHelper;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.serializer.impl.Serializer;
 import org.eclipse.xtext.ui.editor.XtextEditor;
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypeLibrary;
+
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 
 public class SerializeHandler extends AbstractHandler {
 
+
+	@Inject
+	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
@@ -83,22 +105,62 @@ public class SerializeHandler extends AbstractHandler {
 //							return null;
 //						}
 //					});
+			final ISelection selection;
+			if (part instanceof ContentOutline) {
+				selection = ((ContentOutline) part).getSelection();
+			} else {
+				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+			}
 			xtextEditor.getDocument().modify(
 					new IUnitOfWork<EObject, XtextResource>() {
 						public EObject exec(XtextResource resource)
 								throws Exception {
+							EObject targetElement = null;
+							if (selection instanceof IStructuredSelection) {
+							IStructuredSelection ss = (IStructuredSelection) selection;
+							Object eon = ss.getFirstElement();
+							if (eon instanceof EObjectNode) {
+								targetElement = ((EObjectNode)eon).getEObject(resource);
+							}
+						} else {
+							targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+									((ITextSelection)selection).getOffset());
+						}
+							Injector injector = Guice.createInjector(new  ErrorModelRuntimeModule());  
+						    Serializer serializer = injector.getInstance(Serializer.class);  
+//							String text = serializer.serialize(targetElement);
+
 							URI xtxturi = resource.getURI();
 							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
-							Resource res = OsateResourceUtil.getResource(xtxt2uri);
-							if (resource.getContents().isEmpty()) return null;
-							EObject o = resource.getContents().get(0);
-							((NamedElement)o).setName("mypack"); 
+							Resource res = OsateResourceUtil.getEmptyAaxl2Resource(xtxt2uri);
+//							if (resource.getContents().isEmpty()) return null;
+//							EObject o = resource.getContents().get(0);
+//							((NamedElement)o).setName("mypack"); 
 							// sample of creating a fresh model
-//							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
-//							pack.setName("mypack");
-//							pack.setOwnedPublicSection(Aadl2Factory.eINSTANCE.createPublicPackageSection());
+							AadlPackage pack = Aadl2Factory.eINSTANCE.createAadlPackage();
+							pack.setName("mypack");
+							PublicPackageSection psec = Aadl2Factory.eINSTANCE.createPublicPackageSection();
+							pack.setOwnedPublicSection(psec);
 //							res.getContents().add(pack);
-							res.save(null);
+//							DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
+//							dal.setName("mine");
+//							dal.setSourceText("{** hi **}");
+//							psec.getOwnedAnnexLibraries().add(dal);
+							ErrorModelLibrary eml = ErrorModelFactory.eINSTANCE.createErrorModelLibrary();
+							eml.setName("EMV2");
+							psec.getOwnedAnnexLibraries().add(eml);
+							ErrorTypeLibrary etl = ErrorModelFactory.eINSTANCE.createErrorTypeLibrary();
+							eml.setTypeLibrary(etl);
+							ErrorType et = ErrorModelFactory.eINSTANCE.createErrorType();
+							et.setName("down");
+							etl.getTypes().add(et);
+							res.getContents().add(eml);
+							String text = serializer.serialize(eml);
+							SaveOptions.Builder sb = SaveOptions.newBuilder();
+							sb = sb.format().noValidation();
+							sb = sb.format();
+							res.save(sb.getOptions().toOptionsMap());
+//							res.save(null);
 //							saveBySerialize2(res);
 //							resource.getContents().add(res.getContents().get(0));
 							return null;
