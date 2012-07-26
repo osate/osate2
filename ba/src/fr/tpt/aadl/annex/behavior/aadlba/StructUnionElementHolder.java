@@ -33,21 +33,21 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface StructUnionElementHolder extends DataHolder, IndexableElement, Target, ElementValues
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model structUnionElementRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = structUnionElement ;'"
-   * @generated
-   */
+	 * @model structUnionElementRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = structUnionElement ;'"
+	 * @generated
+	 */
   void setStructUnionElement(StructUnionElement structUnionElement);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (StructUnionElement) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (StructUnionElement) element;'"
+	 * @generated
+	 */
   StructUnionElement getStructUnionElement();
 
 } // StructUnionElementHolder

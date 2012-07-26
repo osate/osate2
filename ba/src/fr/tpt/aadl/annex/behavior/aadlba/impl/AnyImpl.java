@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class AnyImpl extends ValueExpressionImpl implements Any
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected AnyImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.ANY;
-  }
+		return AadlBaPackage.Literals.ANY;
+	}
 
 } //AnyImpl

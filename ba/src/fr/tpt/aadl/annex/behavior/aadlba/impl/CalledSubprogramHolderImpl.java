@@ -62,327 +62,310 @@ import org.osate.aadl2.NamedElement;
 public class CalledSubprogramHolderImpl extends BehaviorElementImpl implements CalledSubprogramHolder
 {
   /**
-   * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getElement() <em>Element</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getElement()
-   * @generated
-   * @ordered
-   */
+	 * @see #getElement()
+	 * @generated
+	 * @ordered
+	 */
   protected NamedElement element;
 
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
-   * @generated
-   * @ordered
-   */
+	 * @see #getArrayIndexes()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<IntegerValue> arrayIndexes;
 
   /**
-   * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getGroupHolders() <em>Group Holders</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getGroupHolders()
-   * @generated
-   * @ordered
-   */
+	 * @see #getGroupHolders()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<GroupHolder> groupHolders;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected CalledSubprogramHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.CALLED_SUBPROGRAM_HOLDER;
-  }
+		return AadlBaPackage.Literals.CALLED_SUBPROGRAM_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<IntegerValue> getArrayIndexes()
   {
-    if (arrayIndexes == null)
-    {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES);
-    }
-    return arrayIndexes;
-  }
+		if (arrayIndexes == null) {
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES);
+		}
+		return arrayIndexes;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetArrayIndexes()
   {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
-  }
+		if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetArrayIndexes()
   {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
+		return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NamedElement getElement()
   {
-    if (element != null && ((EObject)element).eIsProxy())
-    {
-      InternalEObject oldElement = (InternalEObject)element;
-      element = (NamedElement)eResolveProxy(oldElement);
-      if (element != oldElement)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT, oldElement, element));
-      }
-    }
-    return element;
-  }
+		if (element != null && ((EObject)element).eIsProxy()) {
+			InternalEObject oldElement = (InternalEObject)element;
+			element = (NamedElement)eResolveProxy(oldElement);
+			if (element != oldElement) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT, oldElement, element));
+			}
+		}
+		return element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NamedElement basicGetElement()
   {
-    return element;
-  }
+		return element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setElement(NamedElement newElement)
   {
-    NamedElement oldElement = element;
-    element = newElement;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT, oldElement, element));
-  }
+		NamedElement oldElement = element;
+		element = newElement;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT, oldElement, element));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<GroupHolder> getGroupHolders()
   {
-    if (groupHolders == null)
-    {
-      groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS);
-    }
-    return groupHolders;
-  }
+		if (groupHolders == null) {
+			groupHolders = new EObjectContainmentEList.Unsettable<GroupHolder>(GroupHolder.class, this, AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS);
+		}
+		return groupHolders;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetGroupHolders()
   {
-    if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
-  }
+		if (groupHolders != null) ((InternalEList.Unsettable<?>)groupHolders).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetGroupHolders()
   {
-    return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
-  }
+		return groupHolders != null && ((InternalEList.Unsettable<?>)groupHolders).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
-        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
-        return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
+				return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
+				return ((InternalEList<?>)getGroupHolders()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
-        if (resolve) return getElement();
-        return basicGetElement();
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
-        return getGroupHolders();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
+				if (resolve) return getElement();
+				return basicGetElement();
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
+				return getArrayIndexes();
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
+				return getGroupHolders();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
-        setElement((NamedElement)newValue);
-        return;
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
-        getArrayIndexes().clear();
-        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
-        return;
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
-        getGroupHolders().clear();
-        getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
+				setElement((NamedElement)newValue);
+				return;
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
+				getArrayIndexes().clear();
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+				return;
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
+				getGroupHolders().clear();
+				getGroupHolders().addAll((Collection<? extends GroupHolder>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
-        setElement((NamedElement)null);
-        return;
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
-        return;
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
-        unsetGroupHolders();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
+				setElement((NamedElement)null);
+				return;
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
+				unsetArrayIndexes();
+				return;
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
+				unsetGroupHolders();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
-        return element != null;
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
-      case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
-        return isSetGroupHolders();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ELEMENT:
+				return element != null;
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES:
+				return isSetArrayIndexes();
+			case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS:
+				return isSetGroupHolders();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == GroupableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS: return AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS;
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == GroupableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS;
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == GroupableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.GROUPABLE_ELEMENT__GROUP_HOLDERS: return AadlBaPackage.CALLED_SUBPROGRAM_HOLDER__GROUP_HOLDERS;
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
 } //CalledSubprogramHolderImpl

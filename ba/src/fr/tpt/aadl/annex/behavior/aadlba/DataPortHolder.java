@@ -34,21 +34,21 @@ import org.osate.aadl2.DataPort;
 public interface DataPortHolder extends ActualPortHolder, Target
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model dataPortRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataPort ;'"
-   * @generated
-   */
+	 * @model dataPortRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataPort ;'"
+	 * @generated
+	 */
   void setDataPort(DataPort dataPort);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataPort) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataPort) element;'"
+	 * @generated
+	 */
   DataPort getDataPort();
 
 } // DataPortHolder

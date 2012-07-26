@@ -50,6 +50,8 @@
         eType="#//BehaviorState" unsettable="true" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//BehaviorTransition" unsettable="true" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="actions" upperBound="-1"
+        eType="#//BehaviorActionBlock" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorBooleanLiteral" eSuperTypes="../../org.osate.aadl2/model/aadl2.ecore#//BooleanLiteral #//Literal"/>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorCondition" abstract="true" interface="true"

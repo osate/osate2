@@ -53,406 +53,394 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements BehaviorTransition
 {
   /**
-   * The cached value of the '{@link #getSourceState() <em>Source State</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getSourceState() <em>Source State</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSourceState()
-   * @generated
-   * @ordered
-   */
+	 * @see #getSourceState()
+	 * @generated
+	 * @ordered
+	 */
   protected BehaviorState sourceState;
 
   /**
-   * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getCondition()
-   * @generated
-   * @ordered
-   */
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
   protected BehaviorCondition condition;
 
   /**
-   * The cached value of the '{@link #getDestinationState() <em>Destination State</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDestinationState() <em>Destination State</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDestinationState()
-   * @generated
-   * @ordered
-   */
+	 * @see #getDestinationState()
+	 * @generated
+	 * @ordered
+	 */
   protected BehaviorState destinationState;
 
   /**
-   * The cached value of the '{@link #getActionBlock() <em>Action Block</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getActionBlock() <em>Action Block</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getActionBlock()
-   * @generated
-   * @ordered
-   */
+	 * @see #getActionBlock()
+	 * @generated
+	 * @ordered
+	 */
   protected BehaviorActionBlock actionBlock;
 
   /**
-   * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getPriority() <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPriority()
-   * @generated
-   * @ordered
-   */
+	 * @see #getPriority()
+	 * @generated
+	 * @ordered
+	 */
   protected static final long PRIORITY_EDEFAULT = -1L;
 
   /**
-   * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPriority() <em>Priority</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPriority()
-   * @generated
-   * @ordered
-   */
+	 * @see #getPriority()
+	 * @generated
+	 * @ordered
+	 */
   protected long priority = PRIORITY_EDEFAULT;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorTransitionImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_TRANSITION;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_TRANSITION;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorState getSourceState()
   {
-    if (sourceState != null && ((EObject)sourceState).eIsProxy())
-    {
-      InternalEObject oldSourceState = (InternalEObject)sourceState;
-      sourceState = (BehaviorState)eResolveProxy(oldSourceState);
-      if (sourceState != oldSourceState)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, sourceState));
-      }
-    }
-    return sourceState;
-  }
+		if (sourceState != null && ((EObject)sourceState).eIsProxy()) {
+			InternalEObject oldSourceState = (InternalEObject)sourceState;
+			sourceState = (BehaviorState)eResolveProxy(oldSourceState);
+			if (sourceState != oldSourceState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, sourceState));
+			}
+		}
+		return sourceState;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorState basicGetSourceState()
   {
-    return sourceState;
-  }
+		return sourceState;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setSourceState(BehaviorState newSourceState)
   {
-    BehaviorState oldSourceState = sourceState;
-    sourceState = newSourceState;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, sourceState));
-  }
+		BehaviorState oldSourceState = sourceState;
+		sourceState = newSourceState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE, oldSourceState, sourceState));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorCondition getCondition()
   {
-    if (condition != null && ((EObject)condition).eIsProxy())
-    {
-      InternalEObject oldCondition = (InternalEObject)condition;
-      condition = (BehaviorCondition)eResolveProxy(oldCondition);
-      if (condition != oldCondition)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION, oldCondition, condition));
-      }
-    }
-    return condition;
-  }
+		if (condition != null && ((EObject)condition).eIsProxy()) {
+			InternalEObject oldCondition = (InternalEObject)condition;
+			condition = (BehaviorCondition)eResolveProxy(oldCondition);
+			if (condition != oldCondition) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION, oldCondition, condition));
+			}
+		}
+		return condition;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorCondition basicGetCondition()
   {
-    return condition;
-  }
+		return condition;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setCondition(BehaviorCondition newCondition)
   {
-    BehaviorCondition oldCondition = condition;
-    condition = newCondition;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION, oldCondition, condition));
-  }
+		BehaviorCondition oldCondition = condition;
+		condition = newCondition;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION, oldCondition, condition));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorState getDestinationState()
   {
-    if (destinationState != null && ((EObject)destinationState).eIsProxy())
-    {
-      InternalEObject oldDestinationState = (InternalEObject)destinationState;
-      destinationState = (BehaviorState)eResolveProxy(oldDestinationState);
-      if (destinationState != oldDestinationState)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, destinationState));
-      }
-    }
-    return destinationState;
-  }
+		if (destinationState != null && ((EObject)destinationState).eIsProxy()) {
+			InternalEObject oldDestinationState = (InternalEObject)destinationState;
+			destinationState = (BehaviorState)eResolveProxy(oldDestinationState);
+			if (destinationState != oldDestinationState) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, destinationState));
+			}
+		}
+		return destinationState;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorState basicGetDestinationState()
   {
-    return destinationState;
-  }
+		return destinationState;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setDestinationState(BehaviorState newDestinationState)
   {
-    BehaviorState oldDestinationState = destinationState;
-    destinationState = newDestinationState;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, destinationState));
-  }
+		BehaviorState oldDestinationState = destinationState;
+		destinationState = newDestinationState;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE, oldDestinationState, destinationState));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorActionBlock getActionBlock()
   {
-    if (actionBlock != null && ((EObject)actionBlock).eIsProxy())
-    {
-      InternalEObject oldActionBlock = (InternalEObject)actionBlock;
-      actionBlock = (BehaviorActionBlock)eResolveProxy(oldActionBlock);
-      if (actionBlock != oldActionBlock)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK, oldActionBlock, actionBlock));
-      }
-    }
-    return actionBlock;
-  }
+		if (actionBlock != null && ((EObject)actionBlock).eIsProxy()) {
+			InternalEObject oldActionBlock = (InternalEObject)actionBlock;
+			actionBlock = (BehaviorActionBlock)eResolveProxy(oldActionBlock);
+			if (actionBlock != oldActionBlock) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK, oldActionBlock, actionBlock));
+			}
+		}
+		return actionBlock;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BehaviorActionBlock basicGetActionBlock()
   {
-    return actionBlock;
-  }
+		return actionBlock;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setActionBlock(BehaviorActionBlock newActionBlock)
   {
-    BehaviorActionBlock oldActionBlock = actionBlock;
-    actionBlock = newActionBlock;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK, oldActionBlock, actionBlock));
-  }
+		BehaviorActionBlock oldActionBlock = actionBlock;
+		actionBlock = newActionBlock;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK, oldActionBlock, actionBlock));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public long getPriority()
   {
-    return priority;
-  }
+		return priority;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setPriority(long newPriority)
   {
-    long oldPriority = priority;
-    priority = newPriority;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY, oldPriority, priority));
-  }
+		long oldPriority = priority;
+		priority = newPriority;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY, oldPriority, priority));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
-        if (resolve) return getSourceState();
-        return basicGetSourceState();
-      case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
-        if (resolve) return getCondition();
-        return basicGetCondition();
-      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
-        if (resolve) return getDestinationState();
-        return basicGetDestinationState();
-      case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
-        if (resolve) return getActionBlock();
-        return basicGetActionBlock();
-      case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
-        return getPriority();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+				if (resolve) return getSourceState();
+				return basicGetSourceState();
+			case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
+				if (resolve) return getCondition();
+				return basicGetCondition();
+			case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+				if (resolve) return getDestinationState();
+				return basicGetDestinationState();
+			case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
+				if (resolve) return getActionBlock();
+				return basicGetActionBlock();
+			case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
+				return getPriority();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
-        setSourceState((BehaviorState)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
-        setCondition((BehaviorCondition)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
-        setDestinationState((BehaviorState)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
-        setActionBlock((BehaviorActionBlock)newValue);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
-        setPriority((Long)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+				setSourceState((BehaviorState)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
+				setCondition((BehaviorCondition)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+				setDestinationState((BehaviorState)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
+				setActionBlock((BehaviorActionBlock)newValue);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
+				setPriority((Long)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
-        setSourceState((BehaviorState)null);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
-        setCondition((BehaviorCondition)null);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
-        setDestinationState((BehaviorState)null);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
-        setActionBlock((BehaviorActionBlock)null);
-        return;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
-        setPriority(PRIORITY_EDEFAULT);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+				setSourceState((BehaviorState)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
+				setCondition((BehaviorCondition)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+				setDestinationState((BehaviorState)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
+				setActionBlock((BehaviorActionBlock)null);
+				return;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
+				setPriority(PRIORITY_EDEFAULT);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
-        return sourceState != null;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
-        return condition != null;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
-        return destinationState != null;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
-        return actionBlock != null;
-      case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
-        return priority != PRIORITY_EDEFAULT;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_TRANSITION__SOURCE_STATE:
+				return sourceState != null;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__CONDITION:
+				return condition != null;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__DESTINATION_STATE:
+				return destinationState != null;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__ACTION_BLOCK:
+				return actionBlock != null;
+			case AadlBaPackage.BEHAVIOR_TRANSITION__PRIORITY:
+				return priority != PRIORITY_EDEFAULT;
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString()
   {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (priority: ");
-    result.append(priority);
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (priority: ");
+		result.append(priority);
+		result.append(')');
+		return result.toString();
+	}
 
 } //BehaviorTransitionImpl

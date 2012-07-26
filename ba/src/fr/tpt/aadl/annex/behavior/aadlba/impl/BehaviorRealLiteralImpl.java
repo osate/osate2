@@ -38,24 +38,24 @@ import org.osate.aadl2.impl.RealLiteralImpl;
 public class BehaviorRealLiteralImpl extends RealLiteralImpl implements BehaviorRealLiteral
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorRealLiteralImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_REAL_LITERAL;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_REAL_LITERAL;
+	}
 
 } //BehaviorRealLiteralImpl

@@ -34,21 +34,21 @@ import org.osate.aadl2.NamedElement;
 public interface GroupHolder extends ElementHolder, IndexableElement
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model groupRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = group ;'"
-   * @generated
-   */
+	 * @model groupRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = group ;'"
+	 * @generated
+	 */
   void setGroup(NamedElement group);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return element;'"
+	 * @generated
+	 */
   NamedElement getGroup();
 
 } // GroupHolder

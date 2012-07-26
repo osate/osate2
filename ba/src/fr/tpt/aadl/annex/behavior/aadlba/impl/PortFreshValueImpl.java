@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class PortFreshValueImpl extends ActualPortHolderImpl implements PortFreshValue
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected PortFreshValueImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.PORT_FRESH_VALUE;
-  }
+		return AadlBaPackage.Literals.PORT_FRESH_VALUE;
+	}
 
 } //PortFreshValueImpl

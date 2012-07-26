@@ -38,44 +38,44 @@ import org.osate.aadl2.Subprogram;
 public class SubprogramHolderImpl extends CalledSubprogramHolderImpl implements SubprogramHolder
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected SubprogramHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.SUBPROGRAM_HOLDER;
-  }
+		return AadlBaPackage.Literals.SUBPROGRAM_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setSubprogram(Subprogram subprogram)
   {
-    element = subprogram ;
-  }
+		element = subprogram ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Subprogram getSubprogram()
   {
-    return (Subprogram) element;
-  }
+		return (Subprogram) element;
+	}
 
 } //SubprogramHolderImpl

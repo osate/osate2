@@ -54,522 +54,513 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class FactorImpl extends BehaviorElementImpl implements Factor
 {
   /**
-   * The cached value of the '{@link #getFirstValue() <em>First Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getFirstValue() <em>First Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getFirstValue()
-   * @generated
-   * @ordered
-   */
+	 * @see #getFirstValue()
+	 * @generated
+	 * @ordered
+	 */
   protected Value firstValue;
 
   /**
-   * The cached value of the '{@link #getSecondValue() <em>Second Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getSecondValue() <em>Second Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSecondValue()
-   * @generated
-   * @ordered
-   */
+	 * @see #getSecondValue()
+	 * @generated
+	 * @ordered
+	 */
   protected Value secondValue;
 
   /**
-   * The default value of the '{@link #getBinaryNumericOperator() <em>Binary Numeric Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getBinaryNumericOperator() <em>Binary Numeric Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBinaryNumericOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getBinaryNumericOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected static final BinaryNumericOperator BINARY_NUMERIC_OPERATOR_EDEFAULT = BinaryNumericOperator.NONE;
 
   /**
-   * The cached value of the '{@link #getBinaryNumericOperator() <em>Binary Numeric Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getBinaryNumericOperator() <em>Binary Numeric Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getBinaryNumericOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getBinaryNumericOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected BinaryNumericOperator binaryNumericOperator = BINARY_NUMERIC_OPERATOR_EDEFAULT;
 
   /**
-   * This is true if the Binary Numeric Operator attribute has been set.
-   * <!-- begin-user-doc -->
+	 * This is true if the Binary Numeric Operator attribute has been set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+	 * @generated
+	 * @ordered
+	 */
   protected boolean binaryNumericOperatorESet;
 
   /**
-   * The default value of the '{@link #getUnaryNumericOperator() <em>Unary Numeric Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getUnaryNumericOperator() <em>Unary Numeric Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryNumericOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryNumericOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected static final UnaryNumericOperator UNARY_NUMERIC_OPERATOR_EDEFAULT = UnaryNumericOperator.NONE;
 
   /**
-   * The cached value of the '{@link #getUnaryNumericOperator() <em>Unary Numeric Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getUnaryNumericOperator() <em>Unary Numeric Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryNumericOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryNumericOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected UnaryNumericOperator unaryNumericOperator = UNARY_NUMERIC_OPERATOR_EDEFAULT;
 
   /**
-   * This is true if the Unary Numeric Operator attribute has been set.
-   * <!-- begin-user-doc -->
+	 * This is true if the Unary Numeric Operator attribute has been set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+	 * @generated
+	 * @ordered
+	 */
   protected boolean unaryNumericOperatorESet;
 
   /**
-   * The default value of the '{@link #getUnaryBooleanOperator() <em>Unary Boolean Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The default value of the '{@link #getUnaryBooleanOperator() <em>Unary Boolean Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryBooleanOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryBooleanOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected static final UnaryBooleanOperator UNARY_BOOLEAN_OPERATOR_EDEFAULT = UnaryBooleanOperator.NONE;
 
   /**
-   * The cached value of the '{@link #getUnaryBooleanOperator() <em>Unary Boolean Operator</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getUnaryBooleanOperator() <em>Unary Boolean Operator</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getUnaryBooleanOperator()
-   * @generated
-   * @ordered
-   */
+	 * @see #getUnaryBooleanOperator()
+	 * @generated
+	 * @ordered
+	 */
   protected UnaryBooleanOperator unaryBooleanOperator = UNARY_BOOLEAN_OPERATOR_EDEFAULT;
 
   /**
-   * This is true if the Unary Boolean Operator attribute has been set.
-   * <!-- begin-user-doc -->
+	 * This is true if the Unary Boolean Operator attribute has been set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
+	 * @generated
+	 * @ordered
+	 */
   protected boolean unaryBooleanOperatorESet;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected FactorImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.FACTOR;
-  }
+		return AadlBaPackage.Literals.FACTOR;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Value getFirstValue()
   {
-    return firstValue;
-  }
+		return firstValue;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NotificationChain basicSetFirstValue(Value newFirstValue, NotificationChain msgs)
   {
-    Value oldFirstValue = firstValue;
-    firstValue = newFirstValue;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__FIRST_VALUE, oldFirstValue, newFirstValue);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
+		Value oldFirstValue = firstValue;
+		firstValue = newFirstValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__FIRST_VALUE, oldFirstValue, newFirstValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setFirstValue(Value newFirstValue)
   {
-    if (newFirstValue != firstValue)
-    {
-      NotificationChain msgs = null;
-      if (firstValue != null)
-        msgs = ((InternalEObject)firstValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__FIRST_VALUE, null, msgs);
-      if (newFirstValue != null)
-        msgs = ((InternalEObject)newFirstValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__FIRST_VALUE, null, msgs);
-      msgs = basicSetFirstValue(newFirstValue, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__FIRST_VALUE, newFirstValue, newFirstValue));
-  }
+		if (newFirstValue != firstValue) {
+			NotificationChain msgs = null;
+			if (firstValue != null)
+				msgs = ((InternalEObject)firstValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__FIRST_VALUE, null, msgs);
+			if (newFirstValue != null)
+				msgs = ((InternalEObject)newFirstValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__FIRST_VALUE, null, msgs);
+			msgs = basicSetFirstValue(newFirstValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__FIRST_VALUE, newFirstValue, newFirstValue));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Value getSecondValue()
   {
-    return secondValue;
-  }
+		return secondValue;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NotificationChain basicSetSecondValue(Value newSecondValue, NotificationChain msgs)
   {
-    Value oldSecondValue = secondValue;
-    secondValue = newSecondValue;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__SECOND_VALUE, oldSecondValue, newSecondValue);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
+		Value oldSecondValue = secondValue;
+		secondValue = newSecondValue;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__SECOND_VALUE, oldSecondValue, newSecondValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setSecondValue(Value newSecondValue)
   {
-    if (newSecondValue != secondValue)
-    {
-      NotificationChain msgs = null;
-      if (secondValue != null)
-        msgs = ((InternalEObject)secondValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__SECOND_VALUE, null, msgs);
-      if (newSecondValue != null)
-        msgs = ((InternalEObject)newSecondValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__SECOND_VALUE, null, msgs);
-      msgs = basicSetSecondValue(newSecondValue, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__SECOND_VALUE, newSecondValue, newSecondValue));
-  }
+		if (newSecondValue != secondValue) {
+			NotificationChain msgs = null;
+			if (secondValue != null)
+				msgs = ((InternalEObject)secondValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__SECOND_VALUE, null, msgs);
+			if (newSecondValue != null)
+				msgs = ((InternalEObject)newSecondValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.FACTOR__SECOND_VALUE, null, msgs);
+			msgs = basicSetSecondValue(newSecondValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__SECOND_VALUE, newSecondValue, newSecondValue));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public BinaryNumericOperator getBinaryNumericOperator()
   {
-    return binaryNumericOperator;
-  }
+		return binaryNumericOperator;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setBinaryNumericOperator(BinaryNumericOperator newBinaryNumericOperator)
   {
-    BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
-    binaryNumericOperator = newBinaryNumericOperator == null ? BINARY_NUMERIC_OPERATOR_EDEFAULT : newBinaryNumericOperator;
-    boolean oldBinaryNumericOperatorESet = binaryNumericOperatorESet;
-    binaryNumericOperatorESet = true;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR, oldBinaryNumericOperator, binaryNumericOperator, !oldBinaryNumericOperatorESet));
-  }
+		BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
+		binaryNumericOperator = newBinaryNumericOperator == null ? BINARY_NUMERIC_OPERATOR_EDEFAULT : newBinaryNumericOperator;
+		boolean oldBinaryNumericOperatorESet = binaryNumericOperatorESet;
+		binaryNumericOperatorESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR, oldBinaryNumericOperator, binaryNumericOperator, !oldBinaryNumericOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetBinaryNumericOperator()
   {
-    BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
-    boolean oldBinaryNumericOperatorESet = binaryNumericOperatorESet;
-    binaryNumericOperator = BINARY_NUMERIC_OPERATOR_EDEFAULT;
-    binaryNumericOperatorESet = false;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR, oldBinaryNumericOperator, BINARY_NUMERIC_OPERATOR_EDEFAULT, oldBinaryNumericOperatorESet));
-  }
+		BinaryNumericOperator oldBinaryNumericOperator = binaryNumericOperator;
+		boolean oldBinaryNumericOperatorESet = binaryNumericOperatorESet;
+		binaryNumericOperator = BINARY_NUMERIC_OPERATOR_EDEFAULT;
+		binaryNumericOperatorESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR, oldBinaryNumericOperator, BINARY_NUMERIC_OPERATOR_EDEFAULT, oldBinaryNumericOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetBinaryNumericOperator()
   {
-    return binaryNumericOperatorESet;
-  }
+		return binaryNumericOperatorESet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public UnaryNumericOperator getUnaryNumericOperator()
   {
-    return unaryNumericOperator;
-  }
+		return unaryNumericOperator;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setUnaryNumericOperator(UnaryNumericOperator newUnaryNumericOperator)
   {
-    UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
-    unaryNumericOperator = newUnaryNumericOperator == null ? UNARY_NUMERIC_OPERATOR_EDEFAULT : newUnaryNumericOperator;
-    boolean oldUnaryNumericOperatorESet = unaryNumericOperatorESet;
-    unaryNumericOperatorESet = true;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR, oldUnaryNumericOperator, unaryNumericOperator, !oldUnaryNumericOperatorESet));
-  }
+		UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
+		unaryNumericOperator = newUnaryNumericOperator == null ? UNARY_NUMERIC_OPERATOR_EDEFAULT : newUnaryNumericOperator;
+		boolean oldUnaryNumericOperatorESet = unaryNumericOperatorESet;
+		unaryNumericOperatorESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR, oldUnaryNumericOperator, unaryNumericOperator, !oldUnaryNumericOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetUnaryNumericOperator()
   {
-    UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
-    boolean oldUnaryNumericOperatorESet = unaryNumericOperatorESet;
-    unaryNumericOperator = UNARY_NUMERIC_OPERATOR_EDEFAULT;
-    unaryNumericOperatorESet = false;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR, oldUnaryNumericOperator, UNARY_NUMERIC_OPERATOR_EDEFAULT, oldUnaryNumericOperatorESet));
-  }
+		UnaryNumericOperator oldUnaryNumericOperator = unaryNumericOperator;
+		boolean oldUnaryNumericOperatorESet = unaryNumericOperatorESet;
+		unaryNumericOperator = UNARY_NUMERIC_OPERATOR_EDEFAULT;
+		unaryNumericOperatorESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR, oldUnaryNumericOperator, UNARY_NUMERIC_OPERATOR_EDEFAULT, oldUnaryNumericOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetUnaryNumericOperator()
   {
-    return unaryNumericOperatorESet;
-  }
+		return unaryNumericOperatorESet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public UnaryBooleanOperator getUnaryBooleanOperator()
   {
-    return unaryBooleanOperator;
-  }
+		return unaryBooleanOperator;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setUnaryBooleanOperator(UnaryBooleanOperator newUnaryBooleanOperator)
   {
-    UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
-    unaryBooleanOperator = newUnaryBooleanOperator == null ? UNARY_BOOLEAN_OPERATOR_EDEFAULT : newUnaryBooleanOperator;
-    boolean oldUnaryBooleanOperatorESet = unaryBooleanOperatorESet;
-    unaryBooleanOperatorESet = true;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR, oldUnaryBooleanOperator, unaryBooleanOperator, !oldUnaryBooleanOperatorESet));
-  }
+		UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
+		unaryBooleanOperator = newUnaryBooleanOperator == null ? UNARY_BOOLEAN_OPERATOR_EDEFAULT : newUnaryBooleanOperator;
+		boolean oldUnaryBooleanOperatorESet = unaryBooleanOperatorESet;
+		unaryBooleanOperatorESet = true;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR, oldUnaryBooleanOperator, unaryBooleanOperator, !oldUnaryBooleanOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetUnaryBooleanOperator()
   {
-    UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
-    boolean oldUnaryBooleanOperatorESet = unaryBooleanOperatorESet;
-    unaryBooleanOperator = UNARY_BOOLEAN_OPERATOR_EDEFAULT;
-    unaryBooleanOperatorESet = false;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR, oldUnaryBooleanOperator, UNARY_BOOLEAN_OPERATOR_EDEFAULT, oldUnaryBooleanOperatorESet));
-  }
+		UnaryBooleanOperator oldUnaryBooleanOperator = unaryBooleanOperator;
+		boolean oldUnaryBooleanOperatorESet = unaryBooleanOperatorESet;
+		unaryBooleanOperator = UNARY_BOOLEAN_OPERATOR_EDEFAULT;
+		unaryBooleanOperatorESet = false;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.UNSET, AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR, oldUnaryBooleanOperator, UNARY_BOOLEAN_OPERATOR_EDEFAULT, oldUnaryBooleanOperatorESet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetUnaryBooleanOperator()
   {
-    return unaryBooleanOperatorESet;
-  }
+		return unaryBooleanOperatorESet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FACTOR__FIRST_VALUE:
-        return basicSetFirstValue(null, msgs);
-      case AadlBaPackage.FACTOR__SECOND_VALUE:
-        return basicSetSecondValue(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FACTOR__FIRST_VALUE:
+				return basicSetFirstValue(null, msgs);
+			case AadlBaPackage.FACTOR__SECOND_VALUE:
+				return basicSetSecondValue(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FACTOR__FIRST_VALUE:
-        return getFirstValue();
-      case AadlBaPackage.FACTOR__SECOND_VALUE:
-        return getSecondValue();
-      case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
-        return getBinaryNumericOperator();
-      case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
-        return getUnaryNumericOperator();
-      case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
-        return getUnaryBooleanOperator();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FACTOR__FIRST_VALUE:
+				return getFirstValue();
+			case AadlBaPackage.FACTOR__SECOND_VALUE:
+				return getSecondValue();
+			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
+				return getBinaryNumericOperator();
+			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
+				return getUnaryNumericOperator();
+			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
+				return getUnaryBooleanOperator();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FACTOR__FIRST_VALUE:
-        setFirstValue((Value)newValue);
-        return;
-      case AadlBaPackage.FACTOR__SECOND_VALUE:
-        setSecondValue((Value)newValue);
-        return;
-      case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
-        setBinaryNumericOperator((BinaryNumericOperator)newValue);
-        return;
-      case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
-        setUnaryNumericOperator((UnaryNumericOperator)newValue);
-        return;
-      case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
-        setUnaryBooleanOperator((UnaryBooleanOperator)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FACTOR__FIRST_VALUE:
+				setFirstValue((Value)newValue);
+				return;
+			case AadlBaPackage.FACTOR__SECOND_VALUE:
+				setSecondValue((Value)newValue);
+				return;
+			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
+				setBinaryNumericOperator((BinaryNumericOperator)newValue);
+				return;
+			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
+				setUnaryNumericOperator((UnaryNumericOperator)newValue);
+				return;
+			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
+				setUnaryBooleanOperator((UnaryBooleanOperator)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FACTOR__FIRST_VALUE:
-        setFirstValue((Value)null);
-        return;
-      case AadlBaPackage.FACTOR__SECOND_VALUE:
-        setSecondValue((Value)null);
-        return;
-      case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
-        unsetBinaryNumericOperator();
-        return;
-      case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
-        unsetUnaryNumericOperator();
-        return;
-      case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
-        unsetUnaryBooleanOperator();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FACTOR__FIRST_VALUE:
+				setFirstValue((Value)null);
+				return;
+			case AadlBaPackage.FACTOR__SECOND_VALUE:
+				setSecondValue((Value)null);
+				return;
+			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
+				unsetBinaryNumericOperator();
+				return;
+			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
+				unsetUnaryNumericOperator();
+				return;
+			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
+				unsetUnaryBooleanOperator();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.FACTOR__FIRST_VALUE:
-        return firstValue != null;
-      case AadlBaPackage.FACTOR__SECOND_VALUE:
-        return secondValue != null;
-      case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
-        return isSetBinaryNumericOperator();
-      case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
-        return isSetUnaryNumericOperator();
-      case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
-        return isSetUnaryBooleanOperator();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.FACTOR__FIRST_VALUE:
+				return firstValue != null;
+			case AadlBaPackage.FACTOR__SECOND_VALUE:
+				return secondValue != null;
+			case AadlBaPackage.FACTOR__BINARY_NUMERIC_OPERATOR:
+				return isSetBinaryNumericOperator();
+			case AadlBaPackage.FACTOR__UNARY_NUMERIC_OPERATOR:
+				return isSetUnaryNumericOperator();
+			case AadlBaPackage.FACTOR__UNARY_BOOLEAN_OPERATOR:
+				return isSetUnaryBooleanOperator();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public String toString()
   {
-    if (eIsProxy()) return super.toString();
+		if (eIsProxy()) return super.toString();
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (binaryNumericOperator: ");
-    if (binaryNumericOperatorESet) result.append(binaryNumericOperator); else result.append("<unset>");
-    result.append(", unaryNumericOperator: ");
-    if (unaryNumericOperatorESet) result.append(unaryNumericOperator); else result.append("<unset>");
-    result.append(", unaryBooleanOperator: ");
-    if (unaryBooleanOperatorESet) result.append(unaryBooleanOperator); else result.append("<unset>");
-    result.append(')');
-    return result.toString();
-  }
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (binaryNumericOperator: ");
+		if (binaryNumericOperatorESet) result.append(binaryNumericOperator); else result.append("<unset>");
+		result.append(", unaryNumericOperator: ");
+		if (unaryNumericOperatorESet) result.append(unaryNumericOperator); else result.append("<unset>");
+		result.append(", unaryBooleanOperator: ");
+		if (unaryBooleanOperatorESet) result.append(unaryBooleanOperator); else result.append("<unset>");
+		result.append(')');
+		return result.toString();
+	}
 
 } //FactorImpl

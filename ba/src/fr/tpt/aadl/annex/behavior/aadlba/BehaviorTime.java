@@ -41,55 +41,55 @@ import org.osate.aadl2.UnitLiteral;
 public interface BehaviorTime extends BehaviorElement
 {
   /**
-   * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Integer Value</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Integer Value</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Integer Value</em>' containment reference.
-   * @see #setIntegerValue(IntegerValue)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_IntegerValue()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Integer Value</em>' containment reference.
+	 * @see #setIntegerValue(IntegerValue)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_IntegerValue()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
   IntegerValue getIntegerValue();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getIntegerValue <em>Integer Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getIntegerValue <em>Integer Value</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Integer Value</em>' containment reference.
-   * @see #getIntegerValue()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Integer Value</em>' containment reference.
+	 * @see #getIntegerValue()
+	 * @generated
+	 */
   void setIntegerValue(IntegerValue value);
 
   /**
-   * Returns the value of the '<em><b>Unit</b></em>' reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Unit</b></em>' reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Unit</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Unit</em>' reference.
-   * @see #setUnit(UnitLiteral)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_Unit()
-   * @model required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Unit</em>' reference.
+	 * @see #setUnit(UnitLiteral)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTime_Unit()
+	 * @model required="true"
+	 * @generated
+	 */
   UnitLiteral getUnit();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnit <em>Unit</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTime#getUnit <em>Unit</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Unit</em>' reference.
-   * @see #getUnit()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Unit</em>' reference.
+	 * @see #getUnit()
+	 * @generated
+	 */
   void setUnit(UnitLiteral value);
 
 } // BehaviorTime

@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class PortDequeueValueImpl extends ActualPortHolderImpl implements PortDequeueValue
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected PortDequeueValueImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.PORT_DEQUEUE_VALUE;
-  }
+		return AadlBaPackage.Literals.PORT_DEQUEUE_VALUE;
+	}
 
 } //PortDequeueValueImpl

@@ -58,292 +58,282 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class SubprogramCallActionImpl extends BehaviorElementImpl implements SubprogramCallAction
 {
   /**
-   * The cached value of the '{@link #getSubprogram() <em>Subprogram</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getSubprogram() <em>Subprogram</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getSubprogram()
-   * @generated
-   * @ordered
-   */
+	 * @see #getSubprogram()
+	 * @generated
+	 * @ordered
+	 */
   protected CalledSubprogramHolder subprogram;
 
   /**
-   * The cached value of the '{@link #getParameterLabels() <em>Parameter Labels</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getParameterLabels() <em>Parameter Labels</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getParameterLabels()
-   * @generated
-   * @ordered
-   */
+	 * @see #getParameterLabels()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<ParameterLabel> parameterLabels;
 
   /**
-   * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getDataAccess() <em>Data Access</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getDataAccess()
-   * @generated
-   * @ordered
-   */
+	 * @see #getDataAccess()
+	 * @generated
+	 * @ordered
+	 */
   protected DataAccessHolder dataAccess;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected SubprogramCallActionImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION;
-  }
+		return AadlBaPackage.Literals.SUBPROGRAM_CALL_ACTION;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public CalledSubprogramHolder getSubprogram()
   {
-    return subprogram;
-  }
+		return subprogram;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NotificationChain basicSetSubprogram(CalledSubprogramHolder newSubprogram, NotificationChain msgs)
   {
-    CalledSubprogramHolder oldSubprogram = subprogram;
-    subprogram = newSubprogram;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, oldSubprogram, newSubprogram);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
+		CalledSubprogramHolder oldSubprogram = subprogram;
+		subprogram = newSubprogram;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, oldSubprogram, newSubprogram);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setSubprogram(CalledSubprogramHolder newSubprogram)
   {
-    if (newSubprogram != subprogram)
-    {
-      NotificationChain msgs = null;
-      if (subprogram != null)
-        msgs = ((InternalEObject)subprogram).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, null, msgs);
-      if (newSubprogram != null)
-        msgs = ((InternalEObject)newSubprogram).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, null, msgs);
-      msgs = basicSetSubprogram(newSubprogram, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, newSubprogram, newSubprogram));
-  }
+		if (newSubprogram != subprogram) {
+			NotificationChain msgs = null;
+			if (subprogram != null)
+				msgs = ((InternalEObject)subprogram).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, null, msgs);
+			if (newSubprogram != null)
+				msgs = ((InternalEObject)newSubprogram).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, null, msgs);
+			msgs = basicSetSubprogram(newSubprogram, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM, newSubprogram, newSubprogram));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<ParameterLabel> getParameterLabels()
   {
-    if (parameterLabels == null)
-    {
-      parameterLabels = new EObjectContainmentEList.Unsettable<ParameterLabel>(ParameterLabel.class, this, AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
-    }
-    return parameterLabels;
-  }
+		if (parameterLabels == null) {
+			parameterLabels = new EObjectContainmentEList.Unsettable<ParameterLabel>(ParameterLabel.class, this, AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS);
+		}
+		return parameterLabels;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetParameterLabels()
   {
-    if (parameterLabels != null) ((InternalEList.Unsettable<?>)parameterLabels).unset();
-  }
+		if (parameterLabels != null) ((InternalEList.Unsettable<?>)parameterLabels).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetParameterLabels()
   {
-    return parameterLabels != null && ((InternalEList.Unsettable<?>)parameterLabels).isSet();
-  }
+		return parameterLabels != null && ((InternalEList.Unsettable<?>)parameterLabels).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public DataAccessHolder getDataAccess()
   {
-    return dataAccess;
-  }
+		return dataAccess;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public NotificationChain basicSetDataAccess(DataAccessHolder newDataAccess, NotificationChain msgs)
   {
-    DataAccessHolder oldDataAccess = dataAccess;
-    dataAccess = newDataAccess;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, oldDataAccess, newDataAccess);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
+		DataAccessHolder oldDataAccess = dataAccess;
+		dataAccess = newDataAccess;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, oldDataAccess, newDataAccess);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setDataAccess(DataAccessHolder newDataAccess)
   {
-    if (newDataAccess != dataAccess)
-    {
-      NotificationChain msgs = null;
-      if (dataAccess != null)
-        msgs = ((InternalEObject)dataAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
-      if (newDataAccess != null)
-        msgs = ((InternalEObject)newDataAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
-      msgs = basicSetDataAccess(newDataAccess, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, newDataAccess, newDataAccess));
-  }
+		if (newDataAccess != dataAccess) {
+			NotificationChain msgs = null;
+			if (dataAccess != null)
+				msgs = ((InternalEObject)dataAccess).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
+			if (newDataAccess != null)
+				msgs = ((InternalEObject)newDataAccess).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, null, msgs);
+			msgs = basicSetDataAccess(newDataAccess, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS, newDataAccess, newDataAccess));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
-        return basicSetSubprogram(null, msgs);
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-        return ((InternalEList<?>)getParameterLabels()).basicRemove(otherEnd, msgs);
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return basicSetDataAccess(null, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
+				return basicSetSubprogram(null, msgs);
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
+				return ((InternalEList<?>)getParameterLabels()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+				return basicSetDataAccess(null, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
-        return getSubprogram();
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-        return getParameterLabels();
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return getDataAccess();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
+				return getSubprogram();
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
+				return getParameterLabels();
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+				return getDataAccess();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
-        setSubprogram((CalledSubprogramHolder)newValue);
-        return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-        getParameterLabels().clear();
-        getParameterLabels().addAll((Collection<? extends ParameterLabel>)newValue);
-        return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        setDataAccess((DataAccessHolder)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
+				setSubprogram((CalledSubprogramHolder)newValue);
+				return;
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
+				getParameterLabels().clear();
+				getParameterLabels().addAll((Collection<? extends ParameterLabel>)newValue);
+				return;
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+				setDataAccess((DataAccessHolder)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
-        setSubprogram((CalledSubprogramHolder)null);
-        return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-        unsetParameterLabels();
-        return;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        setDataAccess((DataAccessHolder)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
+				setSubprogram((CalledSubprogramHolder)null);
+				return;
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
+				unsetParameterLabels();
+				return;
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+				setDataAccess((DataAccessHolder)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
-        return subprogram != null;
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
-        return isSetParameterLabels();
-      case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
-        return dataAccess != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__SUBPROGRAM:
+				return subprogram != null;
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__PARAMETER_LABELS:
+				return isSetParameterLabels();
+			case AadlBaPackage.SUBPROGRAM_CALL_ACTION__DATA_ACCESS:
+				return dataAccess != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //SubprogramCallActionImpl

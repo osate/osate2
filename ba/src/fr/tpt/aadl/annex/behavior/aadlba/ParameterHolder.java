@@ -34,21 +34,21 @@ import org.osate.aadl2.Parameter;
 public interface ParameterHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model parameterRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = parameter ;'"
-   * @generated
-   */
+	 * @model parameterRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = parameter ;'"
+	 * @generated
+	 */
   void setParameter(Parameter parameter);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Parameter) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Parameter) element;'"
+	 * @generated
+	 */
   Parameter getParameter();
 
 } // ParameterHolder

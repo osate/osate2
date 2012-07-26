@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class PortFreezeActionImpl extends ActualPortHolderImpl implements PortFreezeAction
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected PortFreezeActionImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.PORT_FREEZE_ACTION;
-  }
+		return AadlBaPackage.Literals.PORT_FREEZE_ACTION;
+	}
 
 } //PortFreezeActionImpl

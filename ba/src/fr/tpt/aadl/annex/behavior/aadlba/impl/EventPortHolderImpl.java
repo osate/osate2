@@ -38,44 +38,44 @@ import org.osate.aadl2.EventPort;
 public class EventPortHolderImpl extends ActualPortHolderImpl implements EventPortHolder
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected EventPortHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.EVENT_PORT_HOLDER;
-  }
+		return AadlBaPackage.Literals.EVENT_PORT_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setEventPort(EventPort eventPort)
   {
-    element = eventPort ;
-  }
+		element = eventPort ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EventPort getEventPort()
   {
-    return (EventPort) element;
-  }
+		return (EventPort) element;
+	}
 
 } //EventPortHolderImpl

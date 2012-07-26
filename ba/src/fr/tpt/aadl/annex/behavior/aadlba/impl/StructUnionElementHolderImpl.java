@@ -52,252 +52,230 @@ import org.eclipse.emf.ecore.util.InternalEList;
 public class StructUnionElementHolderImpl extends DataHolderImpl implements StructUnionElementHolder
 {
   /**
-   * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getArrayIndexes() <em>Array Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getArrayIndexes()
-   * @generated
-   * @ordered
-   */
+	 * @see #getArrayIndexes()
+	 * @generated
+	 * @ordered
+	 */
   protected EList<IntegerValue> arrayIndexes;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected StructUnionElementHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.STRUCT_UNION_ELEMENT_HOLDER;
-  }
+		return AadlBaPackage.Literals.STRUCT_UNION_ELEMENT_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public EList<IntegerValue> getArrayIndexes()
   {
-    if (arrayIndexes == null)
-    {
-      arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES);
-    }
-    return arrayIndexes;
-  }
+		if (arrayIndexes == null) {
+			arrayIndexes = new EObjectContainmentEList.Unsettable<IntegerValue>(IntegerValue.class, this, AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES);
+		}
+		return arrayIndexes;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void unsetArrayIndexes()
   {
-    if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
-  }
+		if (arrayIndexes != null) ((InternalEList.Unsettable<?>)arrayIndexes).unset();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public boolean isSetArrayIndexes()
   {
-    return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
-  }
+		return arrayIndexes != null && ((InternalEList.Unsettable<?>)arrayIndexes).isSet();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setStructUnionElement(StructUnionElement structUnionElement)
   {
-    element = structUnionElement ;
-  }
+		element = structUnionElement ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public StructUnionElement getStructUnionElement()
   {
-    return (StructUnionElement) element;
-  }
+		return (StructUnionElement) element;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
-        return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
-  }
+		switch (featureID) {
+			case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+				return ((InternalEList<?>)getArrayIndexes()).basicRemove(otherEnd, msgs);
+		}
+		return super.eInverseRemove(otherEnd, featureID, msgs);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
-        return getArrayIndexes();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+				return getArrayIndexes();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
-        getArrayIndexes().clear();
-        getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+				getArrayIndexes().clear();
+				getArrayIndexes().addAll((Collection<? extends IntegerValue>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
-        unsetArrayIndexes();
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+				unsetArrayIndexes();
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
-        return isSetArrayIndexes();
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES:
+				return isSetArrayIndexes();
+		}
+		return super.eIsSet(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eBaseStructuralFeatureID(int derivedFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (derivedFeatureID)
-      {
-        case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (derivedFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (derivedFeatureID) {
+				case AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES: return AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == ParameterLabel.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == Target.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == ElementValues.class) {
+			switch (derivedFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eBaseStructuralFeatureID(derivedFeatureID, baseClass);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public int eDerivedStructuralFeatureID(int baseFeatureID, Class<?> baseClass)
   {
-    if (baseClass == IndexableElement.class)
-    {
-      switch (baseFeatureID)
-      {
-        case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES;
-        default: return -1;
-      }
-    }
-    if (baseClass == ParameterLabel.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == Target.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    if (baseClass == ElementValues.class)
-    {
-      switch (baseFeatureID)
-      {
-        default: return -1;
-      }
-    }
-    return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
-  }
+		if (baseClass == IndexableElement.class) {
+			switch (baseFeatureID) {
+				case AadlBaPackage.INDEXABLE_ELEMENT__ARRAY_INDEXES: return AadlBaPackage.STRUCT_UNION_ELEMENT_HOLDER__ARRAY_INDEXES;
+				default: return -1;
+			}
+		}
+		if (baseClass == ParameterLabel.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == Target.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		if (baseClass == ElementValues.class) {
+			switch (baseFeatureID) {
+				default: return -1;
+			}
+		}
+		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
+	}
 
 } //StructUnionElementHolderImpl

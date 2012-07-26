@@ -41,82 +41,82 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface IfStatement extends CondStatement, ElseStatement
 {
   /**
-   * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Logical Value Expression</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Logical Value Expression</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Logical Value Expression</em>' containment reference.
-   * @see #setLogicalValueExpression(ValueExpression)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_LogicalValueExpression()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Logical Value Expression</em>' containment reference.
+	 * @see #setLogicalValueExpression(ValueExpression)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_LogicalValueExpression()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
   ValueExpression getLogicalValueExpression();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#getLogicalValueExpression <em>Logical Value Expression</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#getLogicalValueExpression <em>Logical Value Expression</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Logical Value Expression</em>' containment reference.
-   * @see #getLogicalValueExpression()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Logical Value Expression</em>' containment reference.
+	 * @see #getLogicalValueExpression()
+	 * @generated
+	 */
   void setLogicalValueExpression(ValueExpression value);
 
   /**
-   * Returns the value of the '<em><b>Elif</b></em>' attribute.
-   * The default value is <code>"false"</code>.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Elif</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Elif</em>' attribute isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Elif</em>' attribute.
-   * @see #setElif(boolean)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_Elif()
-   * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
-   * @generated
-   */
+	 * @return the value of the '<em>Elif</em>' attribute.
+	 * @see #setElif(boolean)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_Elif()
+	 * @model default="false" dataType="fr.tpt.aadl.annex.behavior.aadlba.Boolean"
+	 * @generated
+	 */
   boolean isElif();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#isElif <em>Elif</em>}' attribute.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#isElif <em>Elif</em>}' attribute.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Elif</em>' attribute.
-   * @see #isElif()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Elif</em>' attribute.
+	 * @see #isElif()
+	 * @generated
+	 */
   void setElif(boolean value);
 
   /**
-   * Returns the value of the '<em><b>Else Statement</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Else Statement</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Else Statement</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Else Statement</em>' containment reference.
-   * @see #setElseStatement(ElseStatement)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_ElseStatement()
-   * @model containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Else Statement</em>' containment reference.
+	 * @see #setElseStatement(ElseStatement)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getIfStatement_ElseStatement()
+	 * @model containment="true"
+	 * @generated
+	 */
   ElseStatement getElseStatement();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#getElseStatement <em>Else Statement</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.IfStatement#getElseStatement <em>Else Statement</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Else Statement</em>' containment reference.
-   * @see #getElseStatement()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Else Statement</em>' containment reference.
+	 * @see #getElseStatement()
+	 * @generated
+	 */
   void setElseStatement(ElseStatement value);
 
 } // IfStatement

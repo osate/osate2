@@ -38,44 +38,44 @@ import org.osate.aadl2.Port;
 public abstract class ActualPortHolderImpl extends PortHolderImpl implements ActualPortHolder
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected ActualPortHolderImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.ACTUAL_PORT_HOLDER;
-  }
+		return AadlBaPackage.Literals.ACTUAL_PORT_HOLDER;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setPort(Port port)
   {
-    element = port ;
-  }
+		element = port ;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public Port getPort()
   {
-    return (Port) element;
-  }
+		return (Port) element;
+	}
 
 } //ActualPortHolderImpl

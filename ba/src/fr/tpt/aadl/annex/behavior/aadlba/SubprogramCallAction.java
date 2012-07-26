@@ -42,94 +42,94 @@ import org.eclipse.emf.common.util.EList;
 public interface SubprogramCallAction extends CommunicationAction
 {
   /**
-   * Returns the value of the '<em><b>Subprogram</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Subprogram</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Subprogram</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Subprogram</em>' containment reference.
-   * @see #setSubprogram(CalledSubprogramHolder)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_Subprogram()
-   * @model containment="true" required="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Subprogram</em>' containment reference.
+	 * @see #setSubprogram(CalledSubprogramHolder)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_Subprogram()
+	 * @model containment="true" required="true"
+	 * @generated
+	 */
   CalledSubprogramHolder getSubprogram();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getSubprogram <em>Subprogram</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Subprogram</em>' containment reference.
-   * @see #getSubprogram()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Subprogram</em>' containment reference.
+	 * @see #getSubprogram()
+	 * @generated
+	 */
   void setSubprogram(CalledSubprogramHolder value);
 
   /**
-   * Returns the value of the '<em><b>Parameter Labels</b></em>' containment reference list.
-   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel}.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Parameter Labels</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.ParameterLabel}.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Parameter Labels</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameter Labels</em>' containment reference list.
-   * @see #isSetParameterLabels()
-   * @see #unsetParameterLabels()
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_ParameterLabels()
-   * @model containment="true" unsettable="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Parameter Labels</em>' containment reference list.
+	 * @see #isSetParameterLabels()
+	 * @see #unsetParameterLabels()
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_ParameterLabels()
+	 * @model containment="true" unsettable="true"
+	 * @generated
+	 */
   EList<ParameterLabel> getParameterLabels();
 
   /**
-   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list.
-   * <!-- begin-user-doc -->
+	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #isSetParameterLabels()
-   * @see #getParameterLabels()
-   * @generated
-   */
+	 * @see #isSetParameterLabels()
+	 * @see #getParameterLabels()
+	 * @generated
+	 */
   void unsetParameterLabels();
 
   /**
-   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list is set.
-   * <!-- begin-user-doc -->
+	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getParameterLabels <em>Parameter Labels</em>}' containment reference list is set.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return whether the value of the '<em>Parameter Labels</em>' containment reference list is set.
-   * @see #unsetParameterLabels()
-   * @see #getParameterLabels()
-   * @generated
-   */
+	 * @return whether the value of the '<em>Parameter Labels</em>' containment reference list is set.
+	 * @see #unsetParameterLabels()
+	 * @see #getParameterLabels()
+	 * @generated
+	 */
   boolean isSetParameterLabels();
 
   /**
-   * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
-   * <!-- begin-user-doc -->
+	 * Returns the value of the '<em><b>Data Access</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Data Access</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Data Access</em>' containment reference.
-   * @see #setDataAccess(DataAccessHolder)
-   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_DataAccess()
-   * @model containment="true"
-   * @generated
-   */
+	 * @return the value of the '<em>Data Access</em>' containment reference.
+	 * @see #setDataAccess(DataAccessHolder)
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getSubprogramCallAction_DataAccess()
+	 * @model containment="true"
+	 * @generated
+	 */
   DataAccessHolder getDataAccess();
 
   /**
-   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}' containment reference.
-   * <!-- begin-user-doc -->
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.SubprogramCallAction#getDataAccess <em>Data Access</em>}' containment reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Data Access</em>' containment reference.
-   * @see #getDataAccess()
-   * @generated
-   */
+	 * @param value the new value of the '<em>Data Access</em>' containment reference.
+	 * @see #getDataAccess()
+	 * @generated
+	 */
   void setDataAccess(DataAccessHolder value);
 
 } // SubprogramCallAction

@@ -48,144 +48,138 @@ import org.osate.aadl2.PropertySet;
 public abstract class BehaviorPropertyImpl extends BehaviorElementImpl implements BehaviorProperty
 {
   /**
-   * The cached value of the '{@link #getPropertySet() <em>Property Set</em>}' reference.
-   * <!-- begin-user-doc -->
+	 * The cached value of the '{@link #getPropertySet() <em>Property Set</em>}' reference.
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getPropertySet()
-   * @generated
-   * @ordered
-   */
+	 * @see #getPropertySet()
+	 * @generated
+	 * @ordered
+	 */
   protected PropertySet propertySet;
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   protected BehaviorPropertyImpl()
   {
-    super();
-  }
+		super();
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   protected EClass eStaticClass()
   {
-    return AadlBaPackage.Literals.BEHAVIOR_PROPERTY;
-  }
+		return AadlBaPackage.Literals.BEHAVIOR_PROPERTY;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public PropertySet getPropertySet()
   {
-    if (propertySet != null && ((EObject)propertySet).eIsProxy())
-    {
-      InternalEObject oldPropertySet = (InternalEObject)propertySet;
-      propertySet = (PropertySet)eResolveProxy(oldPropertySet);
-      if (propertySet != oldPropertySet)
-      {
-        if (eNotificationRequired())
-          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
-      }
-    }
-    return propertySet;
-  }
+		if (propertySet != null && ((EObject)propertySet).eIsProxy()) {
+			InternalEObject oldPropertySet = (InternalEObject)propertySet;
+			propertySet = (PropertySet)eResolveProxy(oldPropertySet);
+			if (propertySet != oldPropertySet) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
+			}
+		}
+		return propertySet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public PropertySet basicGetPropertySet()
   {
-    return propertySet;
-  }
+		return propertySet;
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   public void setPropertySet(PropertySet newPropertySet)
   {
-    PropertySet oldPropertySet = propertySet;
-    propertySet = newPropertySet;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
-  }
+		PropertySet oldPropertySet = propertySet;
+		propertySet = newPropertySet;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET, oldPropertySet, propertySet));
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        if (resolve) return getPropertySet();
-        return basicGetPropertySet();
-    }
-    return super.eGet(featureID, resolve, coreType);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
+				if (resolve) return getPropertySet();
+				return basicGetPropertySet();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        setPropertySet((PropertySet)newValue);
-        return;
-    }
-    super.eSet(featureID, newValue);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
+				setPropertySet((PropertySet)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public void eUnset(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        setPropertySet((PropertySet)null);
-        return;
-    }
-    super.eUnset(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
+				setPropertySet((PropertySet)null);
+				return;
+		}
+		super.eUnset(featureID);
+	}
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @generated
-   */
+	 * @generated
+	 */
   @Override
   public boolean eIsSet(int featureID)
   {
-    switch (featureID)
-    {
-      case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
-        return propertySet != null;
-    }
-    return super.eIsSet(featureID);
-  }
+		switch (featureID) {
+			case AadlBaPackage.BEHAVIOR_PROPERTY__PROPERTY_SET:
+				return propertySet != null;
+		}
+		return super.eIsSet(featureID);
+	}
 
 } //BehaviorPropertyImpl

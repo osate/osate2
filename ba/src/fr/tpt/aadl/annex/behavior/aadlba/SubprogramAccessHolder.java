@@ -34,21 +34,21 @@ import org.osate.aadl2.SubprogramAccess;
 public interface SubprogramAccessHolder extends DispatchTriggerCondition, CalledSubprogramHolder
 {
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model subprogramAccessRequired="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subprogramAccess ;'"
-   * @generated
-   */
+	 * @model subprogramAccessRequired="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subprogramAccess ;'"
+	 * @generated
+	 */
   void setSubprogramAccess(SubprogramAccess subprogramAccess);
 
   /**
-   * <!-- begin-user-doc -->
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @model kind="operation" required="true"
-   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (SubprogramAccess) element;'"
-   * @generated
-   */
+	 * @model kind="operation" required="true"
+	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (SubprogramAccess) element;'"
+	 * @generated
+	 */
   SubprogramAccess getSubprogramAccess();
 
 } // SubprogramAccessHolder
