@@ -38,8 +38,8 @@ package org.osate.aadl2.instance.impl;
 import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.ocl.ecore.OCL;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.ocl.ecore.OCL;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.impl.NamedElementImpl;

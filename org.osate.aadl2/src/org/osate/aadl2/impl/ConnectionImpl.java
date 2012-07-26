@@ -62,6 +62,7 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
@@ -469,6 +470,24 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	public EList<Mode> getAllInModes() {
 		return ModalElementOperations.getAllInModes(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeTransition> getInModeTransitions() {
+		return ModalPathOperations.getInModeTransitions(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeTransition> getAllInModeTransitions() {
+		return ModalPathOperations.getAllInModeTransitions(this);
 	}
 
 	/**
