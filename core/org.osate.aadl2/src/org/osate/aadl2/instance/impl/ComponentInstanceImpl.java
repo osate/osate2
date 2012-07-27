@@ -908,7 +908,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 		for (ConnectionInstance conni : getSystemInstance().getConnectionInstances()) {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
-				if (isSameOrRefined(connRef.getConnection(), conn) && (this == connRef.getContext())) {
+				if (isSameOrRefined(connRef.getConnection(), conn) && ((this == connRef.getContext())|| connRef.getContext()==null)) {
 					result.add(conni);
 					break;
 				}
