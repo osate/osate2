@@ -45,6 +45,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.operations.ModalPathOperations;
 
 /**
@@ -131,6 +132,24 @@ public abstract class ModalPathImpl extends ModalElementImpl implements ModalPat
 	 */
 	public boolean isSetInModes() {
 		return !getInModes().isEmpty();
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeTransition> getInModeTransitions() {
+		return ModalPathOperations.getInModeTransitions(this);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeTransition> getAllInModeTransitions() {
+		return ModalPathOperations.getAllInModeTransitions(this);
 	}
 
 	/**

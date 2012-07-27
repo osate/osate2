@@ -47,7 +47,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -83,7 +82,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getIndices <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.FeatureInstanceImpl#getIndex <em>Index</em>}</li>
  * </ul>
  * </p>
  *
@@ -171,14 +170,24 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	protected Feature feature;
 
 	/**
-	 * The cached value of the '{@link #getIndices() <em>Index</em>}' attribute list.
+	 * The default value of the '{@link #getIndex() <em>Index</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getIndices()
+	 * @see #getIndex()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Long> indices;
+	protected static final long INDEX_EDEFAULT = 0L;
+
+	/**
+	 * The cached value of the '{@link #getIndex() <em>Index</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIndex()
+	 * @generated
+	 * @ordered
+	 */
+	protected long index = INDEX_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -244,11 +253,21 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Long> getIndices() {
-		if (indices == null) {
-			indices = new EDataTypeEList<Long>(Long.class, this, InstancePackage.FEATURE_INSTANCE__INDEX);
-		}
-		return indices;
+	public long getIndex() {
+		return index;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setIndex(long newIndex) {
+		long oldIndex = index;
+		index = newIndex;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.FEATURE_INSTANCE__INDEX, oldIndex,
+					index));
 	}
 
 	/**
@@ -405,7 +424,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 				return getFeature();
 			return basicGetFeature();
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
-			return getIndices();
+			return getIndex();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -441,8 +460,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			setFeature((Feature) newValue);
 			return;
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
-			getIndices().clear();
-			getIndices().addAll((Collection<? extends Long>) newValue);
+			setIndex((Long) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -475,7 +493,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			setFeature((Feature) null);
 			return;
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
-			getIndices().clear();
+			setIndex(INDEX_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -502,7 +520,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		case InstancePackage.FEATURE_INSTANCE__FEATURE:
 			return feature != null;
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
-			return indices != null && !indices.isEmpty();
+			return index != INDEX_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -523,7 +541,7 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		result.append(", direction: "); //$NON-NLS-1$
 		result.append(direction);
 		result.append(", index: "); //$NON-NLS-1$
-		result.append(indices);
+		result.append(index);
 		result.append(')');
 		return result.toString();
 	}

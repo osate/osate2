@@ -364,7 +364,7 @@ public interface InstancePackage extends EPackage {
 	int FEATURE_INSTANCE__FEATURE = CONNECTION_INSTANCE_END_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Index</b></em>' attribute list.
+	 * The feature id for the '<em><b>Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1622,11 +1622,11 @@ public interface InstancePackage extends EPackage {
 	EReference getFeatureInstance_Feature();
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.osate.aadl2.instance.FeatureInstance#getIndices <em>Index</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.FeatureInstance#getIndex <em>Index</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute list '<em>Index</em>'.
-	 * @see org.osate.aadl2.instance.FeatureInstance#getIndices()
+	 * @return the meta object for the attribute '<em>Index</em>'.
+	 * @see org.osate.aadl2.instance.FeatureInstance#getIndex()
 	 * @see #getFeatureInstance()
 	 * @generated
 	 */
@@ -2318,7 +2318,7 @@ public interface InstancePackage extends EPackage {
 		EReference FEATURE_INSTANCE__FEATURE = eINSTANCE.getFeatureInstance_Feature();
 
 		/**
-		 * The meta object literal for the '<em><b>Index</b></em>' attribute list feature.
+		 * The meta object literal for the '<em><b>Index</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated

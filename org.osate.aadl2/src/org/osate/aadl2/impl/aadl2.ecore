@@ -583,6 +583,8 @@
       </contents>
     </eAnnotations>
     <eOperations name="getInModes" ordered="false" upperBound="-1" eType="#//Mode"/>
+    <eOperations name="getInModeTransitions" ordered="false" upperBound="-1" eType="#//ModeTransition"/>
+    <eOperations name="getAllInModeTransitions" ordered="false" upperBound="-1" eType="#//ModeTransition"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inModeOrTransition" ordered="false"
         upperBound="-1" eType="#//ModeFeature"/>
   </eClassifiers>
