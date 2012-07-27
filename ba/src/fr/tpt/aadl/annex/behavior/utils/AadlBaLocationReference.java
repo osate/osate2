@@ -61,4 +61,19 @@ public class AadlBaLocationReference extends LocationReference
   {
     return _id ;
   }
+
+  public AadlBaLocationReference clone()
+  {
+    
+    
+    AadlBaLocationReference clone = new 
+                                  AadlBaLocationReference(this.getFilename(),
+                                                          this.getLine(),
+                                                          this.getOffset(),
+                                                          this.getLength(),
+                                                          this.getColumn(),
+                                                          this.getId()) ;
+                                                               
+    return clone ;
+  }
 }
