@@ -39,7 +39,6 @@ import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
 import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
 import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
 import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHighlighter ;
-import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHyperlink ;
 import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream ;
 
 public class AadlBaParserAction implements AnnexParser
