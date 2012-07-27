@@ -46,8 +46,7 @@ public class DoBoundResourceAutoAnalysis extends AbstractAnalysis {
 	protected final StringBuffer reportMessage = new StringBuffer();
 
 	protected final boolean runImpl() {
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new LogInternalErrorReporter(
-				ResourceBudgetPlugin.getDefault().getBundle()), new StringBufferAnalysisErrorReporter.Factory("*** ",
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ",
 				"* ", "", reportMessage));
 		getLogicObject(loggingErrManager).analysisBody(new NullProgressMonitor(), getParameter());
 		return getErrorManager().getNumErrors() == 0;

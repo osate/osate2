@@ -18,6 +18,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
@@ -51,8 +52,10 @@ public class FlowLatencyUtil {
 			try {
 				List pvlist = GetProperties.getActualConnectionBinding(ph);
 				for ( Object pv: pvlist){
-				final ComponentInstance ref =(ComponentInstance) ((InstanceReferenceValue) pv).getReferencedInstanceObject();
-				reflist.add(ref);
+				  InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
+				  if (ref instanceof ComponentInstance){
+				  reflist.add((ComponentInstance)ref);
+				  }
 				}
 			} catch (InvalidModelException e) {
 			} catch (PropertyNotPresentException e) {

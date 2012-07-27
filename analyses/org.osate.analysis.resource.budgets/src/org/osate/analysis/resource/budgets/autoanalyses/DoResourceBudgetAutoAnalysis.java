@@ -46,8 +46,7 @@ public class DoResourceBudgetAutoAnalysis extends AbstractAnalysis {
 	private final StringBuffer reportMessage = new StringBuffer();
 
 	protected boolean runImpl() {
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new LogInternalErrorReporter(
-				ResourceBudgetPlugin.getDefault().getBundle()), new StringBufferAnalysisErrorReporter.Factory("*** ",
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ",
 				"* ", "", reportMessage));
 		DoResourceBudgetLogic logic = null;
 //		final SOMIterator soms = new SOMIterator((SystemInstance)getParameter());

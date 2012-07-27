@@ -44,6 +44,7 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -68,6 +69,7 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.OsateLogger;
 import org.osate.aadl2.modelsupport.UnparseText;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.parsesupport.AObject;
@@ -87,7 +89,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	
 	private boolean isSynchronous = true;
 	
-	private UnparseText csvlog ;
+	private WriteToFile csvlog ;
 	
 	public void setIsSynchronous(){
 		isSynchronous = true;
@@ -101,17 +103,17 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		return isSynchronous;
 	}
 	
-	public String getCSVContent(){
-		return csvlog.getParseOutput();
+	public void saveCSVContent(){
+		csvlog.saveToFile();
 	}
 	
     /**
      * the analysis method that is invoked on each visited model element
      */
     public FlowLatencyAnalysisSwitch( final IProgressMonitor monitor,
-    		final AnalysisErrorReporterManager errMgr) {
+    		final AnalysisErrorReporterManager errMgr, EObject root) {
     	super(monitor, PROCESS_BOTTOM_UP_COMPONENT_IMPL, errMgr);
-    	csvlog = new UnparseText();
+    	csvlog = new WriteToFile("FlowLatency", root);
 		String header = "owner,flow,model element,name,deadline or conn delay,sampling delay,partition delay,flow spec,additional, total (ms), expected (ms)\n\r";
     	csvlog(header);
     }

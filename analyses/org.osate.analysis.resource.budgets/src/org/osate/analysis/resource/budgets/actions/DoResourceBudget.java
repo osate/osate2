@@ -73,8 +73,7 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 
 	protected void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		reportMessage = new StringBuffer();
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new LogInternalErrorReporter(
-				getBundle()), new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
 
 		//Get the system instance (if any)
 		final SystemInstance si = (obj instanceof InstanceObject) ? ((InstanceObject) obj).getSystemInstance() : null;

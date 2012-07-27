@@ -181,7 +181,7 @@
             <or>
                <and>
                   <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl"/>
+                  <objectState name="extension" value="aaxl2"/>
                </and>
                <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
             </or>

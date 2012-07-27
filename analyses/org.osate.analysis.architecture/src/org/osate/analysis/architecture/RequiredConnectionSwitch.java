@@ -134,7 +134,7 @@ public final class RequiredConnectionSwitch extends AadlProcessingSwitchWithProg
 
 			/**
 			 * Check whether the RequiredConnection property is satisfied for
-			 * ports This checks whether an implementaiton has connections to
+			 * ports This checks whether an implementation has connections to
 			 * its ports, i.e., processes them in its implementation.
 			 */
 			public String caseComponentImplementation(ComponentImplementation ci) {
@@ -210,10 +210,10 @@ public final class RequiredConnectionSwitch extends AadlProcessingSwitchWithProg
 											continue;
 										NamedElement sourceCxt = conn.getAllSrcContextComponent();
 										NamedElement destCxt = conn.getAllDstContextComponent();
-										if (dest == dp && destCxt == cxt) {
+										if (dest == dp && (destCxt == cxt || destCxt == null)) {
 											incomingCount++;
 										}
-										if (source == dp && sourceCxt == cxt) {
+										if (source == dp && (sourceCxt == cxt || sourceCxt == null)) {
 											outgoingCount++;
 										}
 									}

@@ -47,6 +47,7 @@ import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
@@ -84,12 +85,13 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		int count = AadlUtil.countElementsBySubclass(root, ComponentInstance.class);
 		monitor.beginTask(getActionName(), count);
 		final FlowLatencyAnalysisSwitch flowLatencySwitch =
-			new FlowLatencyAnalysisSwitch( monitor, errManager);
+			new FlowLatencyAnalysisSwitch( monitor, errManager,root);
 		flowLatencySwitch.processPreOrderComponentInstance(root);
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
 		}
 		monitor.done();		
+		flowLatencySwitch.saveCSVContent();
 	}
 
 

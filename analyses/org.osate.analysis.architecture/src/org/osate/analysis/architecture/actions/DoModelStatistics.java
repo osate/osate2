@@ -39,6 +39,8 @@
  */
 package org.osate.analysis.architecture.actions;
 
+import java.util.Iterator;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -46,10 +48,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
@@ -86,12 +91,8 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 			si = ((InstanceObject)obj).getSystemInstance();
 		else
 			si = null;
-		/*
-		 * Create a new model statistics analysis object and run it over the
-		 * declarative model. If an instance model exists, run it over that too.
-		 */
-		ModelStatistics stats = new ModelStatistics(monitor);
-		
+
+
 		/**
 		 * Examples of using the Index to look up a specific package, classifier, property, etc.
 		 * In this case any scoping rules based on with clauses or project dependencies are ignored
@@ -122,6 +123,11 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 //			stats.countClassifier(cleod.getEClass());
 //		}
 		
+		/*
+		 * Create a new model statistics analysis object and run it over the
+		 * declarative model. If an instance model exists, run it over that too.
+		 */
+		ModelStatistics stats = new ModelStatistics(monitor);
 		/*
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.

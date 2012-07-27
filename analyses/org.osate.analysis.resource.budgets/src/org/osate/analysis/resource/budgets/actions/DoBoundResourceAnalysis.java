@@ -77,8 +77,7 @@ public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
 
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		reportMessage = new StringBuffer();
-		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager(new LogInternalErrorReporter(
-				getBundle()), new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
+		AnalysisErrorReporterManager loggingErrManager = new AnalysisErrorReporterManager( new StringBufferAnalysisErrorReporter.Factory("*** ", "* ", "", reportMessage));
 		getLogicObject(loggingErrManager).analysisBody(monitor, obj);
 	}
 

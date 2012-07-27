@@ -98,16 +98,4 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
-   
-   <extension point="org.osate.ui.analysis">
-      <analysis
-         id="org.osate.analysis.flows.actions.CheckFlowLatency.analysis"
-         name="Check Flow Latency"
-         class="org.osate.analysis.flows.actions.CheckFlowLatencyAnalysis">
-         <declarativeModel selectRootObject="false">
-             <selectedObject objectType="org.osate.aadl2.instance.SystemInstance"/>
-         </declarativeModel>
-         <instanceModel selectRootObject="true"/>
-      </analysis>
-   </extension>
 </plugin>
