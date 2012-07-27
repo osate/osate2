@@ -42,6 +42,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -65,11 +66,15 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.xtext.aadl2.Aadl2RuntimeModule;
 import org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypeLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeSetElement;
 
 import com.google.inject.Guice;
 import com.google.inject.Inject;
@@ -126,13 +131,23 @@ public class SerializeHandler extends AbstractHandler {
 							targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
 									((ITextSelection)selection).getOffset());
 						}
-							Injector injector = Guice.createInjector(new  ErrorModelRuntimeModule());  
-						    Serializer serializer = injector.getInstance(Serializer.class);  
+//							Injector injector = Guice.createInjector(new  Aadl2RuntimeModule());  
+//						    Serializer serializer = injector.getInstance(Serializer.class);  
 //							String text = serializer.serialize(targetElement);
-
+//
 							URI xtxturi = resource.getURI();
-							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("mypack").appendFileExtension("aadl");
+							URI xtxt2uri = xtxturi.trimFileExtension().trimSegments(1).appendSegment("yourpack").appendFileExtension("aadl");
+//							URI xtxtaem = xtxturi.trimFileExtension().appendFileExtension("aaem");
 							Resource res = OsateResourceUtil.getEmptyAaxl2Resource(xtxt2uri);
+//							Resource aemres = OsateResourceUtil.getResource(xtxtaem);
+//							EObject eo = aemres.getContents().get(0);
+//							EObject neweo = EcoreUtil.copy(eo);
+//							res.getContents().add(neweo);
+//							String text = serializer.serialize(neweo);
+//							SaveOptions.Builder sb = SaveOptions.newBuilder();
+//							sb = sb.format().noValidation();
+//							sb = sb.format();
+//							res.save(sb.getOptions().toOptionsMap());
 //							if (resource.getContents().isEmpty()) return null;
 //							EObject o = resource.getContents().get(0);
 //							((NamedElement)o).setName("mypack"); 
@@ -141,7 +156,6 @@ public class SerializeHandler extends AbstractHandler {
 							pack.setName("mypack");
 							PublicPackageSection psec = Aadl2Factory.eINSTANCE.createPublicPackageSection();
 							pack.setOwnedPublicSection(psec);
-//							res.getContents().add(pack);
 //							DefaultAnnexLibrary dal = Aadl2Factory.eINSTANCE.createDefaultAnnexLibrary();
 //							dal.setName("mine");
 //							dal.setSourceText("{** hi **}");
@@ -154,11 +168,15 @@ public class SerializeHandler extends AbstractHandler {
 							ErrorType et = ErrorModelFactory.eINSTANCE.createErrorType();
 							et.setName("down");
 							etl.getTypes().add(et);
-							res.getContents().add(eml);
-							String text = serializer.serialize(eml);
+							TypeSet ts = ErrorModelFactory.eINSTANCE.createTypeSet();
+							TypeSetElement tse = ErrorModelFactory.eINSTANCE.createTypeSetElement();
+							ts.getElementType().add(tse);
+							tse.setType(et);
+							etl.getTypes().add(ts);
 							SaveOptions.Builder sb = SaveOptions.newBuilder();
 							sb = sb.format().noValidation();
 							sb = sb.format();
+							res.getContents().add(pack);
 							res.save(sb.getOptions().toOptionsMap());
 //							res.save(null);
 //							saveBySerialize2(res);
