@@ -71,4 +71,20 @@ public interface ModalPath extends ModalElement {
 	 */
 	EList<ModeFeature> getInModeOrTransitions();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" ordered="false"
+	 * @generated
+	 */
+	EList<ModeTransition> getInModeTransitions();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model kind="operation" ordered="false"
+	 * @generated
+	 */
+	EList<ModeTransition> getAllInModeTransitions();
+
 } // ModalPath

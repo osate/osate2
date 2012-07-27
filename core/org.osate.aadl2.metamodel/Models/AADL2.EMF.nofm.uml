@@ -104,6 +104,18 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModes-_ownedParameter.0-_lowerValue"/>
         </ownedParameter>
       </ownedOperation>
+      <ownedOperation xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
+        <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="Mode.1" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_jDszMNckEeGChpddaBFCtg" name="getAllInModeTransitions">
+        <ownedParameter xmi:id="_jDszMdckEeGChpddaBFCtg" name="" type="Mode.1" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jDszMtckEeGChpddaBFCtg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jDszM9ckEeGChpddaBFCtg"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
       <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
@@ -114,6 +126,7 @@
       </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="Mode.1" name="ModeTransition"/>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
       <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
@@ -302,4 +315,5 @@
   <Standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
   <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true"/>
   <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ"/>
+  <Standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="Mode.1"/>
 </xmi:XMI>

@@ -54,7 +54,7 @@ import org.osate.aadl2.FeatureGroupType;
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getDirection <em>Direction</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getFeature <em>Feature</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getIndices <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.FeatureInstance#getIndex <em>Index</em>}</li>
  * </ul>
  * </p>
  *
@@ -90,20 +90,30 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	void setFeature(Feature value);
 
 	/**
-	 * Returns the value of the '<em><b>Index</b></em>' attribute list.
-	 * The list contents are of type {@link java.lang.Long}.
+	 * Returns the value of the '<em><b>Index</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Index</em>' attribute list isn't clear,
+	 * If the meaning of the '<em>Index</em>' attribute isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Index</em>' attribute list.
+	 * @return the value of the '<em>Index</em>' attribute.
+	 * @see #setIndex(long)
 	 * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance_Index()
 	 * @model unique="false" dataType="org.osate.aadl2.Integer" ordered="false"
 	 * @generated
 	 */
-	EList<Long> getIndices();
+	long getIndex();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.FeatureInstance#getIndex <em>Index</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Index</em>' attribute.
+	 * @see #getIndex()
+	 * @generated
+	 */
+	void setIndex(long value);
 
 	/**
 	 * Returns the value of the '<em><b>Src Flow Spec</b></em>' reference list.
@@ -180,7 +190,7 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	 * @see org.osate.aadl2.instance.FeatureCategory
 	 * @see #setCategory(FeatureCategory)
 	 * @see org.osate.aadl2.instance.InstancePackage#getFeatureInstance_Category()
-	 * @model ordered="false"
+	 * @model required="true" ordered="false"
 	 * @generated
 	 */
 	FeatureCategory getCategory();

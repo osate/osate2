@@ -11,13 +11,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureInstance" ordered="false"
         upperBound="-1" eType="#//FeatureInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        eType="#//FeatureCategory"/>
+        lowerBound="1" eType="#//FeatureCategory"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="direction" ordered="false"
         lowerBound="1" eType="ecore:EEnum aadl2.ecore#//DirectionType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="feature" ordered="false"
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//Feature"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
-        unique="false" upperBound="-1" eType="ecore:EDataType aadl2.ecore#//Integer"/>
+        unique="false" eType="ecore:EDataType aadl2.ecore#//Integer"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="InstanceObject" abstract="true" eSuperTypes="aadl2.ecore#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstanceEnd" abstract="true"
@@ -91,7 +91,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="modeTransitionInstance"
         ordered="false" upperBound="-1" eType="#//ModeTransitionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
-        eType="ecore:EEnum aadl2.ecore#//ComponentCategory"/>
+        lowerBound="1" eType="ecore:EEnum aadl2.ecore#//ComponentCategory"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inModes" ordered="false"
         upperBound="-1" eType="#//ModeInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"

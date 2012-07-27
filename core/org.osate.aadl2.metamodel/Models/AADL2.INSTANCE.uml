@@ -35,7 +35,7 @@
         <ownedComment xmi:id="_kb67oFn1Ed-39ebAzHAVCA">
           <body>The category of the instantiated feature, e.g., port.</body>
         </ownedComment>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-category-_lowerValue"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureInstance-category-_lowerValue" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_uc7PIKItEd6vdIMK9b-mlQ" name="direction">
         <ownedComment xmi:id="__JqnMFhhEd-rYOZ3UaShDA">
@@ -56,7 +56,7 @@
           <body>The index of this feature instance in a feature array. An array of N features is instantiated as N feature instance objects with index ranging from 1 to N.</body>
         </ownedComment>
         <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Integer"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MGtZYFn3Ed-39ebAzHAVCA" value="*"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_MGtZYFn3Ed-39ebAzHAVCA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_LTJ1gFn3Ed-39ebAzHAVCA"/>
       </ownedAttribute>
     </packagedElement>
@@ -246,7 +246,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
           <body>The category of this component, e.g., thread.</body>
         </ownedComment>
         <type xmi:type="uml:Enumeration" href="AADL2.EMF.merged.uml#ComponentCategory"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-category-_lowerValue"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-category-_lowerValue" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="ComponentInstance-inModes" name="inModes" type="ModeInstance" association="_packagedElement.22">
         <ownedComment xmi:id="_DOXGYFn8Ed-39ebAzHAVCA">
@@ -284,7 +284,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Wr9QEVhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Wr9QElhmEd-rYOZ3UaShDA" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="_GXi3Iln3Ed-39ebAzHAVCA" name="index" isUnique="false">
+      <ownedAttribute xmi:id="_GXi3Iln3Ed-39ebAzHAVCA" name="index" visibility="public" isUnique="false">
         <ownedComment xmi:id="_ysOJwFn7Ed-39ebAzHAVCA">
           <body>The index of this component instance in a component array. An array of N components is instantiated as N component instance objects with index ranging from 1 to N.</body>
         </ownedComment>

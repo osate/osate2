@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_Wbv7gJJ-Ed671LC5FnhD_A" activeDiagram="_9TSBIFnREd-NdemEyhSnJg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_Wbv7gJJ-Ed671LC5FnhD_A" activeDiagram="_DqxXsFheEd-rYOZ3UaShDA">
   <model href="AADL2.INSTANCE.uml#_0"/>
-  <diagrams xmi:id="_Wbv7gZJ-Ed671LC5FnhD_A" position="0,0" size="100,100" name="Connection Instances" viewport="0,225">
+  <diagrams xmi:id="_Wbv7gZJ-Ed671LC5FnhD_A" position="0,0" size="100,100" name="Connection Instances" viewport="0,0">
     <property xmi:id="_WtyGsJJ-Ed671LC5FnhD_A" key="pageFormatName" value="A3"/>
     <property xmi:id="_WtyGsZJ-Ed671LC5FnhD_A" key="diagramWidth" value="1188"/>
     <property xmi:id="_WtyGspJ-Ed671LC5FnhD_A" key="diagramHeight" value="1680"/>
@@ -400,7 +400,7 @@
       <waypoints>[-76, -313, -234, 0]</waypoints>
     </contained>
   </diagrams>
-  <diagrams xmi:id="_DqxXsFheEd-rYOZ3UaShDA" position="0,0" size="100,100" name="Instance Objects" viewport="0,0">
+  <diagrams xmi:id="_DqxXsFheEd-rYOZ3UaShDA" position="0,0" size="100,100" name="Instance Objects" viewport="0,75">
     <property xmi:id="_Drg-kFheEd-rYOZ3UaShDA" key="pageFormatName" value="A4"/>
     <property xmi:id="_Drg-kVheEd-rYOZ3UaShDA" key="diagramWidth" value="840"/>
     <property xmi:id="_Drg-klheEd-rYOZ3UaShDA" key="diagramHeight" value="1188"/>

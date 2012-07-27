@@ -41,6 +41,8 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.RefinableElement;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,6 +53,8 @@ import org.osate.aadl2.ModeFeature;
  * The following operations are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.ModalPath#getInModes() <em>Get In Modes</em>}</li>
+ *   <li>{@link org.osate.aadl2.ModalPath#getInModeTransitions() <em>Get In Mode Transitions</em>}</li>
+ *   <li>{@link org.osate.aadl2.ModalPath#getAllInModeTransitions() <em>Get All In Mode Transitions</em>}</li>
  * </ul>
  * </p>
  *
@@ -81,6 +85,45 @@ public class ModalPathOperations extends ModalElementOperations {
 			}
 		}
 		return inModes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public static EList<ModeTransition> getInModeTransitions(ModalPath modalPath) {
+		// DONE: implement this method
+		EList<ModeTransition> inModeTransitions = new EObjectResolvingEList<ModeTransition>(ModeTransition.class, (InternalEObject) modalPath,
+				Aadl2Package.MODAL_PATH__IN_MODE_OR_TRANSITION);
+		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
+			if (mf instanceof ModeTransition) {
+				inModeTransitions.add((ModeTransition) mf);
+			}
+		}
+		return inModeTransitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public static EList<ModeTransition> getAllInModeTransitions(ModalPath modalPath) {
+		// DONE: implement this method
+		EList<ModeTransition> intransitions = null;
+		// inmodes will be an empty list (all modes) if we do not find a non-empty list
+		while (modalPath != null) {
+			intransitions = modalPath.getInModeTransitions();
+			// we stop when we find the first occurrence of a non-empty inmodes list
+			if (intransitions != null && !intransitions.isEmpty())
+				return intransitions;
+			if (modalPath instanceof RefinableElement)
+				modalPath = (ModalPath) ((RefinableElement) modalPath).getRefinedElement();
+			else
+				modalPath = null;
+		}
+		return intransitions;
 	}
 
 } // ModalPathOperations

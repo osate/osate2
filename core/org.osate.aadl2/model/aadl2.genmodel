@@ -434,6 +434,8 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModeTransitions"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getAllInModeTransitions"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowElement"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EndToEndFlowElement"/>
