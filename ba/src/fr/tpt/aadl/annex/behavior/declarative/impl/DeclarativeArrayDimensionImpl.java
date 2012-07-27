@@ -12,6 +12,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.IntegerValueConstant;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativeArrayDimension;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativePackage;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -390,5 +391,11 @@ public class DeclarativeArrayDimensionImpl extends ArrayDimensionImpl implements
 		}
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
+	
+	@Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //DeclarativeArrayDimensionImpl

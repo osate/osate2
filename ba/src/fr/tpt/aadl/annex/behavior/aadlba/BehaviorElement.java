@@ -21,6 +21,8 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 
 import org.osate.aadl2.Element;
 
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Behavior Element</b></em>'.
@@ -38,4 +40,7 @@ import org.osate.aadl2.Element;
  */
 public interface BehaviorElement extends Element
 {
+  
+  public AadlBaLocationReference getAadlBaLocationReference();
+  
 } // BehaviorElement

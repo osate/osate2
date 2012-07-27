@@ -23,16 +23,21 @@ package fr.tpt.aadl.annex.behavior ;
 
 import org.antlr.runtime.CharStream ;
 import org.antlr.runtime.CommonTokenStream ;
+import org.eclipse.core.runtime.Platform ;
+
 import antlr.RecognitionException;
 
 import org.osate.aadl2.AnnexLibrary ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
+import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 import org.osate.annexsupport.AnnexParser;
 
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaLexer ;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
+import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHighlighter ;
+import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHyperlink ;
 import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream ;
 
 public class AadlBaParserAction implements AnnexParser
@@ -67,6 +72,23 @@ public class AadlBaParserAction implements AnnexParser
       AadlBaParser parser = new AadlBaParser(tokens) ;
       parser.setParseErrorReporter(reporter) ;
       parser.setFilename(filename) ;
+      
+      // Set a Xtext highlighter AADLBA Front End is running under OSATE2.
+      if(Platform.isRunning())
+      {
+        // TODO fetch AnnexHighlighterPositionAcceptor acceptor
+        AnnexHighlighterPositionAcceptor acceptor = null ;
+        
+        XtextAadlBaHighlighter highlighter = new XtextAadlBaHighlighter(acceptor) ;
+        
+        parser.setHighlighter(highlighter) ;
+      }
+      else
+      {
+        // Nothing to do : AadlBaParser is already using a default highlighter
+        // that does nothing.
+      }
+      
       try
       {
          BehaviorAnnex ba = parser.behavior_annex() ;

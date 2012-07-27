@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorStringLiteral;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -58,4 +59,10 @@ public class BehaviorStringLiteralImpl extends StringLiteralImpl implements Beha
 		return AadlBaPackage.Literals.BEHAVIOR_STRING_LITERAL;
 	}
 
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+  
 } //BehaviorStringLiteralImpl

@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -364,5 +365,11 @@ public class BehaviorStateImpl extends BehaviorNamedElementImpl implements Behav
 		result.append(')');
 		return result.toString();
 	}
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //BehaviorStateImpl

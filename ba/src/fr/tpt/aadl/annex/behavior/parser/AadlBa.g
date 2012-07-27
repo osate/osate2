@@ -64,7 +64,9 @@ options {
   import fr.tpt.aadl.annex.behavior.aadlba.*;
   import fr.tpt.aadl.annex.behavior.declarative.* ;
   import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
-  import fr.tpt.aadl.annex.behavior.texteditor.BehaviorElementPosition ;
+  
+  import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
+  import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
   
   import org.osate.aadl2.Element ;
   import org.osate.aadl2.Aadl2Package ;
@@ -200,19 +202,18 @@ options {
   
   private BehaviorAnnex _ba = null ;
   
-  private void highlight(Token token, String id)
+  // Default highlighter does nothing.
+  private AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
+  
+  public void setHighlighter(AadlBaHighlighter ht)
   {
-    int offset = token.getTokenIndex() ;
-    int length = token.getText().length() ;
-    
-    // DEBUG
-    System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
-    
-    _elementToHighlight.add(new BehaviorElementPosition(offset, id, length));                     
+    _ht = ht ;
   }
   
-  public List<BehaviorElementPosition> _elementToHighlight =
-                          new ArrayList<BehaviorElementPosition>() ;
+  private void highlight(Token token, String id)
+  {
+    _ht.addToHighlighting(token, id);  
+  }
 }
 
 @lexer::members {
@@ -284,7 +285,6 @@ options {
 ABS            : 'abs'; 
 AND            : 'and';
 ANY            : 'any';
-CATCH          : 'catch';
 COMPLETE       : 'complete';
 COMPUTATION    : 'computation';
 COUNT          : 'count';
@@ -558,25 +558,28 @@ behavior_state_list returns [List<BehaviorState> lbs]
    )*
    COLON 
    (
-     (INITIAL  { 
+     (keyword=INITIAL  {
                  for (BehaviorState bs : lbs)
                  {
                    bs.setInitial(true)  ;
                  } 
                } )? 
-     (COMPLETE { 
+     (keyword=COMPLETE { 
                  for (BehaviorState bs : lbs)
                  {
                    bs.setComplete(true)  ;
                  } 
                } )? 
-     (FINAL    { 
+     (keyword=FINAL    { 
                  for (BehaviorState bs : lbs)
                  {
                    bs.setFinal(true)  ;
                  } 
                } )? 
    )
+   {
+     highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);  
+   }
    STATE SEMICOLON
 ;
 catch [RecognitionException ex] {
@@ -919,9 +922,10 @@ dispatch_conjunction returns [DispatchConjunction DisConjunct]
        DisConjunct.setLocationReference(ref.getLocationReference());
      }
      (
-       AND ref=reference
+       keyword=AND ref=reference
        {
          DisConjunct.getDispatchTriggers().add(ref) ;
+         highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      )*
 ;
@@ -1213,6 +1217,7 @@ assignment_action returns [AssignmentAction AssAct]
      {
        Any any = _fact.createAny() ;
        setLocationReference(any, identifier);
+       highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        AssAct.setValueExpression(any);
      }
    }
@@ -2017,7 +2022,7 @@ unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp]
    //UnaryNumericOperator UnaryNumOp = null;
  }
   :
-   ABS { UnaryNumOp = UnaryNumericOperator.ABS; }
+   keyword=ABS { UnaryNumOp = UnaryNumericOperator.ABS; highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 ;
 catch [RecognitionException ex] {
   reportError(ex);

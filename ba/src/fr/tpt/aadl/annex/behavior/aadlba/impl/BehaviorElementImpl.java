@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -57,5 +58,10 @@ public abstract class BehaviorElementImpl extends ElementImpl implements Behavio
   {
 		return AadlBaPackage.Literals.BEHAVIOR_ELEMENT;
 	}
-
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 } //BehaviorElementImpl

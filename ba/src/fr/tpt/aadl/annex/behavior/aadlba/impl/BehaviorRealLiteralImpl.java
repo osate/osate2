@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorRealLiteral;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -58,4 +59,10 @@ public class BehaviorRealLiteralImpl extends RealLiteralImpl implements Behavior
 		return AadlBaPackage.Literals.BEHAVIOR_REAL_LITERAL;
 	}
 
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+  
 } //BehaviorRealLiteralImpl

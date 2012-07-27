@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import java.util.Collection;
 
@@ -312,5 +313,11 @@ public class BehaviorVariableImpl extends BehaviorNamedElementImpl implements Be
     ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
     getArrayDimensions().add(newArrayDimension);
     return newArrayDimension;
+  }
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
   }
 } //BehaviorVariableImpl

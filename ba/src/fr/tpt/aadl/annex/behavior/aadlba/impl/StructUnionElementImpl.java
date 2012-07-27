@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.StructUnionElement;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -181,5 +182,11 @@ public class StructUnionElementImpl extends BehaviorNamedElementImpl implements 
 		}
 		return super.eIsSet(featureID);
 	}
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //StructUnionElementImpl

@@ -21,6 +21,7 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorIntegerLiteral;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -57,5 +58,11 @@ public class BehaviorIntegerLiteralImpl extends IntegerLiteralImpl implements Be
   {
 		return AadlBaPackage.Literals.BEHAVIOR_INTEGER_LITERAL;
 	}
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //BehaviorIntegerLiteralImpl

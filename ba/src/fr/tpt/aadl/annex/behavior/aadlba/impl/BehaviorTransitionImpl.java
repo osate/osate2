@@ -24,6 +24,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -442,5 +443,11 @@ public class BehaviorTransitionImpl extends BehaviorNamedElementImpl implements 
 		result.append(')');
 		return result.toString();
 	}
+  
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //BehaviorTransitionImpl

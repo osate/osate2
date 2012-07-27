@@ -25,6 +25,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import java.util.Collection;
 
@@ -348,4 +349,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 		return super.eIsSet(featureID);
 	}
 
+  @Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
+  
 } //BehaviorAnnexImpl

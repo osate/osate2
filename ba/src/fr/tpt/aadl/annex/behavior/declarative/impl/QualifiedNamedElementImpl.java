@@ -16,6 +16,7 @@ import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorElement;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativePackage;
 import fr.tpt.aadl.annex.behavior.declarative.Identifier;
 import fr.tpt.aadl.annex.behavior.declarative.QualifiedNamedElement;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -574,5 +575,11 @@ public class QualifiedNamedElementImpl extends DataClassifierImpl implements
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+  public AadlBaLocationReference getAadlBaLocationReference()
+  {
+    return (AadlBaLocationReference) this.getLocationReference() ;
+  }
 
 } //QualifiedNamedElementImpl
