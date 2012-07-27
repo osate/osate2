@@ -396,15 +396,18 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
    BehAnnex.setLocationReference(location) ; 
  }
   : 
-   ( keyword=VARIABLES {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+   ( keyword=VARIABLES
+     {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
        ( lbv=behavior_variable_list[BehAnnex] { BehAnnex.getVariables().addAll(lbv);} )+
    )?
    
-   ( STATES
+   ( keyword=STATES
+     {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
        ( lbs=behavior_state_list { BehAnnex.getStates().addAll(lbs); } )+
    )?
    
-   ( TRANSITIONS 
+   ( keyword=TRANSITIONS
+     {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);} 
        ( BehTrans=behavior_transition {BehAnnex.getTransitions().add(BehTrans); } )+ 
    )?
 ;
@@ -596,7 +599,10 @@ behavior_state_list returns [List<BehaviorState> lbs]
    {
      highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);  
    }
-   STATE SEMICOLON
+   keyword=STATE SEMICOLON
+   {
+     highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+   }
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -696,9 +702,10 @@ behavior_action_block returns [BehaviorActionBlock BehActionBlock]
        DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
     }
       
-    ( TIMEOUT BehTime=behavior_time
+    ( keyword=TIMEOUT BehTime=behavior_time
       {
         BehActionBlock.setTimeout(BehTime) ;
+        highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
       }
     )?
 ;
@@ -719,6 +726,7 @@ behavior_condition returns [BehaviorCondition BehCond]
        pos=ON DisCond=dispatch_condition
        {
          setLocationReference(DisCond, pos);
+         highlight(pos, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      |
        (ExecCond=execute_condition)?
@@ -761,12 +769,14 @@ execute_condition returns [ExecuteCondition ExecCond]
        {
          ExecCond = _fact.createExecutionTimeoutCatch();
          setLocationReference(ExecCond, identifier);
+         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      |
        identifier=OTHERWISE
        {
          ExecCond = _fact.createOtherwise() ;
          setLocationReference(ExecCond, identifier);
+         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      |       
        ValExpr=value_expression
@@ -819,16 +829,18 @@ dispatch_condition returns [DispatchCondition DisCond]
    DisCond = _fact.createDispatchCondition ();
  }
   :
-   DISPATCH 
+   keyword= DISPATCH
    ( DisTriggCond=dispatch_trigger_condition
      {
        DisCond.setDispatchTriggerCondition (DisTriggCond);
+       highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
      }
    )? 
   
-   ( FROZEN port=reference
+   ( keyword=FROZEN port=reference
      {
        DisCond.getFrozenPorts().add(port);
+       highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
      }
      ( COMMA port=reference
        {
@@ -868,11 +880,13 @@ dispatch_trigger_condition returns [DispatchTriggerCondition DisTriggCond]
        identifier=STOP
        { DisTriggCond = _fact.createDispatchTriggerConditionStop() ;
          setLocationReference(DisTriggCond, identifier) ;
+         highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      |
        ( identifier=TIMEOUT
          { DisTriggCond = _fact.createDispatchRelativeTimeout() ;
            setLocationReference(DisTriggCond, identifier) ;
+           highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
          }     
          (
            BehTime=behavior_time
@@ -1058,6 +1072,7 @@ behavior_action returns [BehaviorAction BehAction]
          IfStat.setLogicalValueExpression(ValExpr) ;
          IfStat.setBehaviorActions(BehActions);
          tmpIfStat = IfStat ;
+         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
        ( 
          identifier1=ELSIF identifier2=LPAREN ValExpr=value_expression RPAREN BehActions=behavior_actions
@@ -1072,6 +1087,7 @@ behavior_action returns [BehaviorAction BehAction]
            
            tmpIfStat.setElseStatement(ElifStat) ;
            tmpIfStat = ElifStat ;
+           highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
          }
        )*
        (
@@ -1081,17 +1097,21 @@ behavior_action returns [BehaviorAction BehAction]
            setLocationReference(elseStat, identifier);
            elseStat.setBehaviorActions(BehActions);
            tmpIfStat.setElseStatement(elseStat);
+           highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
          }
        )?
-       END IF
+       keyword1=END keyword2=IF
        { 
          BehAction = IfStat ;
+         highlight(keyword1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+         highlight(keyword2, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      )
    |
      //For statement.
      ( identifier=FOR LPAREN { ForStat = _fact.createForOrForAllStatement(); 
-                               setLocationReference(ForStat, identifier); 
+                               setLocationReference(ForStat, identifier);
+                               highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
                              } 
        identifier=IDENT {  
                           itVar = _fact.createIterativeVariable(); 
@@ -1105,7 +1125,11 @@ behavior_action returns [BehaviorAction BehAction]
          itVar.setDataClassifier(dt);
        }
        
-       IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); }
+       keyword=IN EltVal=element_values RPAREN
+       { 
+         ForStat.setIteratedValues(EltVal);
+         highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+       }
        identifier=LCURLY BehActions=behavior_actions RCURLY 
        { ForStat.setBehaviorActions(BehActions);
          BehAction = ForStat ;
@@ -1117,7 +1141,8 @@ behavior_action returns [BehaviorAction BehAction]
        { 
         ForStat = _fact.createForOrForAllStatement();
         ForStat.setForAll(true);
-        setLocationReference(ForStat, identifier); 
+        setLocationReference(ForStat, identifier);
+        highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
        }
        identifier=IDENT {  
                           itVar = _fact.createIterativeVariable(); 
@@ -1130,7 +1155,11 @@ behavior_action returns [BehaviorAction BehAction]
          itVar.setDataClassifier(dt);
        }
        
-       IN EltVal=element_values RPAREN { ForStat.setIteratedValues(EltVal); }
+       keyword=IN EltVal=element_values RPAREN
+       {
+         ForStat.setIteratedValues(EltVal);
+         highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+       }
        identifier=LCURLY BehActions=behavior_actions RCURLY
        { ForStat.setBehaviorActions(BehActions) ;
          BehAction = ForStat ;
@@ -1147,12 +1176,13 @@ behavior_action returns [BehaviorAction BehAction]
          WhileStat.setDoUntil(false);
          WhileStat.setLogicalValueExpression(ValExpr);
          WhileStat.setBehaviorActions(BehActions);
-         BehAction = WhileStat ; 
+         BehAction = WhileStat ;
+         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
        }
      )
    |
      //Do until statement.
-     ( identifier1=DO BehActions=behavior_actions UNTIL  
+     ( identifier1=DO BehActions=behavior_actions keyword=UNTIL  
        identifier2=LPAREN ValExpr=value_expression RPAREN 
        {
          WhileOrDoUntilStatement doUntilStat = _fact.createWhileOrDoUntilStatement();
@@ -1162,6 +1192,8 @@ behavior_action returns [BehaviorAction BehAction]
          doUntilStat.setLogicalValueExpression(ValExpr);
          doUntilStat.setBehaviorActions(BehActions);
          BehAction = doUntilStat ;
+         highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+         highlight(identifier1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
        }
      )
    )
@@ -1438,7 +1470,9 @@ timed_action returns [TimedAction TimedAct]
    TimedAct = _fact.createTimedAction();
  }
   :
-   ( identifier=COMPUTATION {setLocationReference(TimedAct, identifier) ; }  
+   ( identifier=COMPUTATION {setLocationReference(TimedAct, identifier) ;
+                             highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);  
+                            }  
    )  
    LPAREN
      BehTime=behavior_time {TimedAct.setLowerTime(BehTime); }
@@ -1700,7 +1734,7 @@ value_variable returns [ValueVariable ValueVar]
            }
          |
            TICK (
-                    COUNT 
+                    keyword=COUNT 
                     { 
                       NamedValue nv = _decl.createNamedValue();
                       nv.setReference(ref) ;
@@ -1709,7 +1743,7 @@ value_variable returns [ValueVariable ValueVar]
                       ValueVar = nv ;
                     } 
                   | 
-                    FRESH
+                    keyword=FRESH
                     {
                       NamedValue nv = _decl.createNamedValue();
                       nv.setReference(ref) ;
@@ -1718,6 +1752,7 @@ value_variable returns [ValueVariable ValueVar]
                       ValueVar = nv ;
                     }
                 )
+                {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
        )?
        {
          if (ValueVar == null)
@@ -1910,12 +1945,15 @@ logical_operator returns [LogicalOperator LogicalOp]
  }
   :
    (
-     AND { LogicalOp=LogicalOperator.AND; }
+     keyword=AND { LogicalOp=LogicalOperator.AND; }
    |
-     OR { LogicalOp=LogicalOperator.OR; }
+     keyword=OR { LogicalOp=LogicalOperator.OR; }
    |
-     XOR { LogicalOp=LogicalOperator.XOR; }
+     keyword=XOR { LogicalOp=LogicalOperator.XOR; }
    )
+   {
+     highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+   }
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2003,9 +2041,13 @@ multiplying_operator returns [MultiplyingOperator MultiplyingOp]
    |
      DIVIDE { MultiplyingOp = MultiplyingOperator.DIVIDE; }
    |
-     MOD { MultiplyingOp = MultiplyingOperator.MOD; }
+     keyword=MOD { MultiplyingOp = MultiplyingOperator.MOD;
+                   highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+                 }
    |
-     REM { MultiplyingOp = MultiplyingOperator.REM; }
+     keyword=REM { MultiplyingOp = MultiplyingOperator.REM;
+                   highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+                 }
    )
 ;
 catch [RecognitionException ex] {
@@ -2054,7 +2096,9 @@ unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp]
    //UnaryBooleanOperator UnaryBoolOp = null;
  }
   :
-   NOT { UnaryBoolOp = UnaryBooleanOperator.NOT; }
+   keyword=NOT { UnaryBoolOp = UnaryBooleanOperator.NOT;
+                 highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+               }
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2069,9 +2113,9 @@ boolean_literal returns [BehaviorBooleanLiteral BoolLit]
  }
   :
    (
-       identifier=TRUE { BoolLit.setValue(true);}
+       identifier=TRUE { BoolLit.setValue(true); highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
      |
-       identifier=FALSE { BoolLit.setValue(false);}
+       identifier=FALSE { BoolLit.setValue(false); highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    )
    {setLocationReference(BoolLit, identifier) ;} 
 ;
@@ -2220,7 +2264,9 @@ behavior_enumeration_literal returns [Enumeration enumeration]
        enumeration.setProperty(prop);
        enumeration.setLiteral(lit);
        // enumeration's location reference is already set, see
-       // qualifiable_named_element.       
+       // qualifiable_named_element.
+       
+       highlight(id1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
      }
   )
 ;
@@ -2247,6 +2293,7 @@ numeric_literal returns [NumericLiteral nl]
         tmp.setValue(str);
         setLocationReference(tmp, realval);
         nl = tmp ;
+        highlight(realval, AnnexHighlighterPositionAcceptor.NUMBER_ID);
       }
     |
       intLit = integer_literal
@@ -2273,6 +2320,7 @@ integer_literal returns [BehaviorIntegerLiteral bil]
         tmp.setValue(str);
         setLocationReference(tmp, integerval);
         bil = tmp ;
+        highlight(integerval, AnnexHighlighterPositionAcceptor.NUMBER_ID);
       }
       catch (IllegalArgumentException e)
       {
@@ -2307,7 +2355,8 @@ string_literal returns [BehaviorStringLiteral StringLit]
         // stripout the quotes
         str = str.substring(1,str.length()-1);
         StringLit.setValue(str);
-        setLocationReference(StringLit, sl); 
+        setLocationReference(StringLit, sl);
+        highlight(sl, AnnexHighlighterPositionAcceptor.STRING_ID);
       }
    )
 ;
@@ -2327,6 +2376,7 @@ numeral returns [Integer Num]
      { 
        String tmp = NumVal.getText().replaceAll("_", "");
        Num = Integer.parseInt(tmp) ;
+       highlight(NumVal, AnnexHighlighterPositionAcceptor.NUMBER_ID);
      } 
    )
 ;
