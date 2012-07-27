@@ -2075,7 +2075,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 		EList<Mode> list = mm.getAllInModes();
 		if (!list.isEmpty()) {
 			aadlText.addOutput(" in modes (");
-			processEList(list, ",");
+			processRefEList(list, ",",mm);
 			aadlText.addOutput(")");
 		}
 	}
@@ -2090,7 +2090,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 		EList<ModeFeature> list = mm.getInModeOrTransitions();
 		if (!list.isEmpty()) {
 			aadlText.addOutput(" in modes (");
-			processEList(list, ",");
+			processRefEList(list, ",",mm);
 			aadlText.addOutput(")");
 		}
 	}
