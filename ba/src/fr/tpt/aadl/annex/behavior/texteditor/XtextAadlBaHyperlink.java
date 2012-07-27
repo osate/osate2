@@ -3,10 +3,7 @@ package fr.tpt.aadl.annex.behavior.texteditor;
 import java.util.HashMap ;
 import java.util.Map ;
 
-import org.osate.aadl2.parsesupport.LocationReference ;
-
 import fr.tpt.aadl.annex.behavior.aadlba.ElementHolder ;
-import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 public class XtextAadlBaHyperlink implements AadlBaHyperlink // extends EObjectAtOffsetHelper ???
 {

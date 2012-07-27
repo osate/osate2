@@ -24,6 +24,7 @@ package fr.tpt.aadl.annex.behavior ;
 import java.util.Iterator ;
 import java.util.List ;
 
+import org.eclipse.core.runtime.Platform ;
 import org.osate.annexsupport.AnnexResolver ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
@@ -34,6 +35,9 @@ import fr.tpt.aadl.annex.behavior.analyzers.AdaLikeDataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DataTypeChecker ;
 import fr.tpt.aadl.annex.behavior.analyzers.DeclarativeUtils ;
 //import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser ;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHyperlink ;
+import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHyperlink ;
+import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHyperlink ;
 
 public class AadlBaResolver implements AnnexResolver
 {
@@ -74,6 +78,19 @@ public class AadlBaResolver implements AnnexResolver
             {
                typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                        errManager) ;
+               AadlBaHyperlink linker ;
+               
+               // Set a Xtext hyperlink builder if AADLBA Front End is running
+               // under OSATE2.
+               if(Platform.isRunning())
+               {
+                 linker = new XtextAadlBaHyperlink() ;
+               }
+               else // Set the default hyperlink builder that does nothing.
+               {
+                 linker = new DefaultAadlBaHyperlink() ;
+               }
+                              
                result = typeChecker.checkTypes() ;
                
                if (result)

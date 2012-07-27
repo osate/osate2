@@ -77,7 +77,7 @@ public class AadlBaParserAction implements AnnexParser
       
       AadlBaHighlighter highlighter ;
       
-      // Set a Xtext highlighter AADLBA Front End is running under OSATE2.
+      // Set a Xtext highlighter if AADLBA Front End is running under OSATE2.
       if(Platform.isRunning())
       {
         // TODO fetch AnnexHighlighterPositionAcceptor acceptor

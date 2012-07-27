@@ -73,6 +73,8 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.declarative.* ;
 
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHyperlink ;
+import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHyperlink ;
 import fr.tpt.aadl.annex.behavior.unparser.AadlBaUnparser;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors;
@@ -102,6 +104,8 @@ public class AadlBaTypeChecker
   private final DataTypeChecker _dataChecker ;
   
   private final static AadlBaFactory _fact = AadlBaFactory.eINSTANCE ;
+  
+  private AadlBaHyperlink _hl = new DefaultAadlBaHyperlink() ;
 
   /**
    * Constructs an AADL behavior annex type checker.
@@ -120,7 +124,11 @@ public class AadlBaTypeChecker
     _errManager = errManager ;
   }
 
-
+  public void setAadlBaHyperlink(AadlBaHyperlink hl)
+  {
+    _hl = hl ;
+  }
+  
   /**
    * Checks the type of the objects referenced during the name resolution phase.
    * Reports any error.
@@ -1498,6 +1506,8 @@ public class AadlBaTypeChecker
     }
     
     result.setLocationReference(id.getLocationReference()) ;
+    
+    _hl.addToHyperlinking(result) ;    
     
     return result ;
   }
