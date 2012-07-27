@@ -36,6 +36,8 @@ import org.osate.annexsupport.AnnexParser;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaLexer ;
 import fr.tpt.aadl.annex.behavior.parser.AadlBaParser ;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
+import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
 import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHighlighter ;
 import fr.tpt.aadl.annex.behavior.texteditor.XtextAadlBaHyperlink ;
 import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream ;
@@ -73,25 +75,28 @@ public class AadlBaParserAction implements AnnexParser
       parser.setParseErrorReporter(reporter) ;
       parser.setFilename(filename) ;
       
+      AadlBaHighlighter highlighter ;
+      
       // Set a Xtext highlighter AADLBA Front End is running under OSATE2.
       if(Platform.isRunning())
       {
         // TODO fetch AnnexHighlighterPositionAcceptor acceptor
         AnnexHighlighterPositionAcceptor acceptor = null ;
-        
-        XtextAadlBaHighlighter highlighter = new XtextAadlBaHighlighter(acceptor) ;
-        
-        parser.setHighlighter(highlighter) ;
+        highlighter = new XtextAadlBaHighlighter(acceptor) ;
       }
       else
       {
-        // Nothing to do : AadlBaParser is already using a default highlighter
-        // that does nothing.
+        // Default highlighter does nothing.
+        highlighter = new DefaultAadlBaHighlighter() ;
       }
+      
+      parser.setHighlighter(highlighter) ;
       
       try
       {
          BehaviorAnnex ba = parser.behavior_annex() ;
+         
+         highlighter.highlightNow() ;
          
          return ba ;
       }
