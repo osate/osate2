@@ -41,15 +41,19 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.SystemImplementation;
@@ -457,4 +461,66 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return true;
 	}
 
+	@Override
+	public Iterable<ConnectionInstance> allConnectionInstances() {
+		final TreeIterator iter = EcoreUtil.getAllContents(this, true);
+		
+		return new Iterable<ConnectionInstance>() {
+
+			@Override
+			public Iterator<ConnectionInstance> iterator() {
+				return new Iterator<ConnectionInstance>() {
+					ConnectionInstance next;
+					
+					private boolean advance() {
+						boolean found = false;
+						
+						next = null;
+						while (iter.hasNext()) {
+							Object obj = iter.next();
+							if (found = obj instanceof ConnectionInstance) {
+								next = (ConnectionInstance) obj;
+								iter.prune();
+								break;
+							}
+						}
+						return found;
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return next != null || advance();
+					}
+
+					@Override
+					public ConnectionInstance next() {
+						if (next == null && !advance()) {
+							throw new NoSuchElementException();
+						}
+						ConnectionInstance result =  next;
+						next = null;
+						return result;
+					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+				};
+			}
+			
+		};
+	}
+
+	@Override
+	public EList<ConnectionInstance> getAllConnectionInstances() {
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		
+		for(ConnectionInstance conni : allConnectionInstances()) {
+			result.add(conni);
+		}
+		return result;
+	}
+
+	
 } // SystemInstanceImpl
