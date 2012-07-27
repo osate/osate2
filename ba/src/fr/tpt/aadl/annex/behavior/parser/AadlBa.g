@@ -67,6 +67,7 @@ options {
   
   import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter ;
   import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter ;
+  import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
   
   import org.osate.aadl2.Element ;
   import org.osate.aadl2.Aadl2Package ;
@@ -117,6 +118,8 @@ options {
    * The aadl filename to be parsed.
    */
   private String filename;
+  
+  private final static String behaviorElementId = "" ;
   
   /**
    * Set the error reporter to use.
@@ -192,11 +195,20 @@ options {
    * @param obj the AObject to be set
    * @param src the token 
    */ 
-  private void setLocationReference(AObject obj, Token src){
+  private void setLocationReference(AObject obj, Token token){
     
-    String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
+    // String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
     
-    obj.setLocationReference(new LocationReference(description, src.getLine()));
+    int offset = token.getTokenIndex() ;
+    int length = token.getText().length() ;
+    int column = token.getCharPositionInLine() ;
+    int line = token.getLine() ;
+    
+    AadlBaLocationReference location = new AadlBaLocationReference(
+                                         filename, line, offset, length, column,
+                                         behaviorElementId);
+    
+    obj.setLocationReference(location);
   
   }
   
@@ -376,8 +388,12 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
  @init{
    BehAnnex = _fact.createBehaviorAnnex();
    _ba = BehAnnex ;
-   BehAnnex.setLocationReference(new LocationReference(this.getFilename(), input.get(0).getLine())) ; 
-      
+   
+   int line = input.get(0).getLine() ;
+
+   AadlBaLocationReference location = new AadlBaLocationReference(
+                                         filename, line);
+   BehAnnex.setLocationReference(location) ; 
  }
   : 
    ( keyword=VARIABLES {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
