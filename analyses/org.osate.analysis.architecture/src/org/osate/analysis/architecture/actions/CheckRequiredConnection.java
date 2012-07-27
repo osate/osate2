@@ -47,7 +47,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
@@ -62,9 +61,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.RequiredConnectionSwitch;
 import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osgi.framework.Bundle;
 
 
@@ -129,8 +126,7 @@ public final class CheckRequiredConnection extends AbstractInstanceOrDeclarative
 		 * those features that connections pass through. If a feature is unused,
 		 * it remain in the list when we are done.
 		 */
-		for (final Iterator<ConnectionInstance> i = root.getConnectionInstances().iterator(); i.hasNext();) {
-			final ConnectionInstance ci = i.next();
+		for (ConnectionInstance ci : root.allConnectionInstances()) {
 			if (ci.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
 				final List<InstanceObject> passesThrough = ci.getThroughFeatureInstances();
 				features.removeAll(passesThrough);

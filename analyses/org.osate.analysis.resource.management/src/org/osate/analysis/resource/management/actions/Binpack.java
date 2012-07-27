@@ -390,7 +390,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 		/* create the links between processors and busses
 		 * (i.e., process connections)
 		 */
-		for (final Iterator i = root.getConnectionInstances().iterator(); i.hasNext();) {
+		for (final Iterator i = root.getAllConnectionInstances().iterator(); i.hasNext();) {
 			final ConnectionInstance connInst = (ConnectionInstance) i.next();
 			if (connInst.getKind() == ConnectionKind.ACCESS_CONNECTION){
 				InstanceObject src = connInst.getSource();
@@ -462,7 +462,7 @@ public class Binpack extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 				root, ComponentCategory.THREAD);
 		
 		// Add thread connections (Messages)
-		for (final Iterator i = root.getConnectionInstances().iterator(); i.hasNext();) {
+		for (final Iterator i = root.getAllConnectionInstances().iterator(); i.hasNext();) {
 			final ConnectionInstance connInst = (ConnectionInstance) i.next();
 			if (connInst.getKind() == ConnectionKind.PORT_CONNECTION ){
 				final ConnectionInstance portConnInst = (ConnectionInstance) connInst;

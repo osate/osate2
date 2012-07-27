@@ -340,7 +340,7 @@ public class DoBoundResourceAnalysisLogic {
 		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
 		String binding = doBindings ? "bound" : "all";
-		EList connections = root.getConnectionInstances();
+		EList<ConnectionInstance> connections = root.getAllConnectionInstances();
 		EList budgetedConnections = new BasicEList();
 		ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
 		while (cgi.hasNext()) {
