@@ -46,6 +46,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.emf.common.util.AbstractEnumerator;
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -193,7 +194,10 @@ public class AadlUnparser extends AadlProcessingSwitch {
 					processOptionalSection(((SubprogramImplementation)object).getOwnedSubprogramCallSequences(),"calls",AadlConstants.emptyString);
 				}
 				processOptionalSection(object.getOwnedConnections(), "connections", AadlConstants.emptyString);
-				processOptionalSection(object.getOwnedEndToEndFlows(), "flows", AadlConstants.emptyString);
+				EList<Element> flowlist = new BasicEList<Element>();
+				flowlist.addAll(object.getOwnedFlowImplementations());
+				flowlist.addAll(object.getOwnedEndToEndFlows());
+				processOptionalSection(flowlist, "flows", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedModes(), "modes", AadlConstants.emptyString);
 				processOptionalSection(object.getOwnedPropertyAssociations(), "properties", AadlConstants.emptyString);
 				processEList(object.getOwnedAnnexSubclauses());
@@ -1444,7 +1448,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 				processComments(object);
 				// add location counter
 				
-				aadlText.addOutput(object.getName() + ": ");
+				aadlText.addOutput(object.getSpecification().getName() + ": ");
 				aadlText.addOutput("flow "+object.getKind().getName()+" ");
 				FlowSpecification fps = object.getSpecification();
 				FlowEnd inend = fps.getInEnd();
