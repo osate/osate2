@@ -51,17 +51,45 @@ import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.annexsupport.AnnexLinkingService;
+import org.osate.annexsupport.AnnexLinkingServiceRegistry;
+import org.osate.annexsupport.AnnexRegistry;
 
 public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	
 	public String getDelimiter() {
 		return "::";
 	}
+	
+
+	AnnexLinkingServiceRegistry annexlinkingserviceregistry ;
+	
+	protected AnnexLinkingServiceRegistry getAnnexLinkingServiceRegistry(){
+		if (annexlinkingserviceregistry == null){
+		annexlinkingserviceregistry = (AnnexLinkingServiceRegistry) AnnexRegistry
+				.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
+		}
+		return annexlinkingserviceregistry;
+	}
 
 	// Enable to limit indexing to global items
 	// Duplicates checking only applies to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
+		NamedElement annex = AadlUtil.getContainingAnnex(obj);
+		if (annex != null){
+			String annexName = annex.getName();
+			if (annexName != null ){
+				if (annexlinkingserviceregistry == null) getAnnexLinkingServiceRegistry();
+				if (annexlinkingserviceregistry != null){
+					AnnexLinkingService linkingservice = getAnnexLinkingServiceRegistry().getAnnexLinkingService(annexName);
+					if (linkingservice != null){
+						return linkingservice.getFullyQualifiedName(obj);
+					}
+				}
+			}
+		}
 		if (obj instanceof AadlPackage || obj instanceof Classifier
 				|| obj instanceof PropertyConstant || obj instanceof Property || obj instanceof PropertySet || obj instanceof PropertyType)
 			return super.getFullyQualifiedName(obj);
