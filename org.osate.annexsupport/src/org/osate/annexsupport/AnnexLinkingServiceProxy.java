@@ -39,6 +39,7 @@ import java.util.List;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 
 
@@ -73,6 +74,15 @@ public class AnnexLinkingServiceProxy extends AnnexProxy implements AnnexLinking
 			e.printStackTrace();
 		}
 		return Collections.<EObject> emptyList();
+	}
+
+	public QualifiedName getFullyQualifiedName(final EObject obj) {
+		AnnexLinkingService resolver = getLinkingService();
+
+		if (resolver == null) {
+			return null;
+		}
+		return resolver.getFullyQualifiedName(obj);
 	}
 
 
