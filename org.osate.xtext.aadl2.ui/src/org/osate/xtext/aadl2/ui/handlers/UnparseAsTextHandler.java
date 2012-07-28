@@ -68,9 +68,11 @@ public class UnparseAsTextHandler extends AbstractHandler {
 						// you could use the adapter:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
 						// instead of the next two statements
 						Resource res = OsateResourceUtil.getResource((IResource)f);
-						Element target = (Element)res.getContents().get(0);
-						AadlUnparser.getAadlUnparser().doUnparseToFile(target);
-						res.getResourceSet().getResources().remove(res);
+						if (res.getContents() != null && !res.getContents().isEmpty()){
+							Element target = (Element)res.getContents().get(0);
+							AadlUnparser.getAadlUnparser().doUnparseToFile(target);
+							res.getResourceSet().getResources().remove(res);
+						}
 					}
 				}
 			}
