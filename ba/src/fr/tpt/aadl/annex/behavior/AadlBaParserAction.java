@@ -21,6 +21,9 @@
 
 package fr.tpt.aadl.annex.behavior ;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.antlr.runtime.CharStream ;
 import org.antlr.runtime.CommonTokenStream ;
 import org.eclipse.core.runtime.Platform ;
@@ -44,6 +47,9 @@ import fr.tpt.aadl.annex.behavior.utils.CaseInsensitiveCharStream ;
 public class AadlBaParserAction implements AnnexParser
 {
    public static final String ANNEX_NAME = "behavior_specification";
+   
+   public static Map<BehaviorAnnex, AadlBaHighlighter> annexHighlighters = 
+		   new HashMap<BehaviorAnnex, AadlBaHighlighter>();
    
    public AnnexLibrary parseAnnexLibrary(
                                    String annexName,String source,
@@ -79,9 +85,7 @@ public class AadlBaParserAction implements AnnexParser
       // Set a Xtext highlighter if AADLBA Front End is running under OSATE2.
       if(Platform.isRunning())
       {
-        // TODO fetch AnnexHighlighterPositionAcceptor acceptor
-        AnnexHighlighterPositionAcceptor acceptor = null ;
-        highlighter = new XtextAadlBaHighlighter(acceptor) ;
+        highlighter = new XtextAadlBaHighlighter() ;
       }
       else
       {
@@ -94,9 +98,7 @@ public class AadlBaParserAction implements AnnexParser
       try
       {
          BehaviorAnnex ba = parser.behavior_annex() ;
-         
-         highlighter.highlightNow() ;
-         
+         annexHighlighters.put(ba, highlighter);
          return ba ;
       }
       // Translates ANTLR runtime exception to ANTLR Exception. 

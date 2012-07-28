@@ -1,29 +1,31 @@
 package fr.tpt.aadl.annex.behavior.texteditor;
 
 import java.util.ArrayList ;
+import java.util.HashMap;
 import java.util.List ;
+import java.util.Map;
 
+import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 public class XtextAadlBaHighlighter implements AadlBaHighlighter
 {
-  private AnnexHighlighterPositionAcceptor _acceptor ;
   
-  public XtextAadlBaHighlighter(AnnexHighlighterPositionAcceptor acceptor)
-  {
-    _acceptor = acceptor ;
-  }
+	
+  private Map<BehaviorAnnex, List<AadlBaLocationReference>> _elementToHighlightPerAnnex =
+	        new HashMap<BehaviorAnnex, List<AadlBaLocationReference>>() ;
   
   private List<AadlBaLocationReference> _elementToHighlight =
         new ArrayList<AadlBaLocationReference>() ;
   
   @Override
-  public void addToHighlighting(Token token, String id)
+  public void addToHighlighting(BehaviorAnnex annex, Token token, String id)
   {
-    int offset = token.getTokenIndex() ;
+    int offset = ((CommonToken)token).getStartIndex() ;
     int length = token.getText().length() ;
     int column = token.getCharPositionInLine() ;
     
@@ -31,16 +33,13 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
     System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
     
     _elementToHighlight.add(new AadlBaLocationReference(offset, length, column,
-                                                        id));                     
+                                                        id));
+    _elementToHighlightPerAnnex.put(annex, _elementToHighlight);
   }
   
-  @Override
-  public void highlightNow()
+  public List<AadlBaLocationReference> getElementsToHighlitght(BehaviorAnnex annex)
   {
-    for (AadlBaLocationReference location : _elementToHighlight)
-    {
-      _acceptor.addPosition(location.getOffset(), location.getLength(),
-                            location.getId());
-    }
+	  return _elementToHighlightPerAnnex.get(annex);
   }
+  
 }

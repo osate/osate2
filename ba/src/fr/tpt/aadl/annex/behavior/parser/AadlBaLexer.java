@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2012-07-27 17:51:55
+// $ANTLR 3.4 AadlBa.g 2012-07-27 22:19:58
 
   /**
  * AADL-BA-FrontEnd
@@ -1792,13 +1792,13 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = IDENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2398:7: ( LETTER ( ( '_' )? ( LETTER | '0' .. '9' ) )* )
-            // AadlBa.g:2398:9: LETTER ( ( '_' )? ( LETTER | '0' .. '9' ) )*
+            // AadlBa.g:2380:7: ( LETTER ( ( '_' )? ( LETTER | '0' .. '9' ) )* )
+            // AadlBa.g:2380:9: LETTER ( ( '_' )? ( LETTER | '0' .. '9' ) )*
             {
             mLETTER(); 
 
 
-            // AadlBa.g:2399:7: ( ( '_' )? ( LETTER | '0' .. '9' ) )*
+            // AadlBa.g:2381:7: ( ( '_' )? ( LETTER | '0' .. '9' ) )*
             loop2:
             do {
                 int alt2=2;
@@ -1811,9 +1811,9 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // AadlBa.g:2400:9: ( '_' )? ( LETTER | '0' .. '9' )
+            	    // AadlBa.g:2382:9: ( '_' )? ( LETTER | '0' .. '9' )
             	    {
-            	    // AadlBa.g:2400:9: ( '_' )?
+            	    // AadlBa.g:2382:9: ( '_' )?
             	    int alt1=2;
             	    int LA1_0 = input.LA(1);
 
@@ -1822,7 +1822,7 @@ public class AadlBaLexer extends Lexer {
             	    }
             	    switch (alt1) {
             	        case 1 :
-            	            // AadlBa.g:2400:10: '_'
+            	            // AadlBa.g:2382:10: '_'
             	            {
             	            match('_'); 
 
@@ -1865,7 +1865,7 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // AadlBa.g:2407:8: ( ( 'a' .. 'z' ) )
+            // AadlBa.g:2389:8: ( ( 'a' .. 'z' ) )
             // AadlBa.g:
             {
             if ( (input.LA(1) >= 'a' && input.LA(1) <= 'z') ) {
@@ -1893,12 +1893,12 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = STRING_LITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2408:15: ( '\"' ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )* '\"' )
-            // AadlBa.g:2408:16: '\"' ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )* '\"'
+            // AadlBa.g:2390:15: ( '\"' ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )* '\"' )
+            // AadlBa.g:2390:16: '\"' ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )* '\"'
             {
             match('\"'); 
 
-            // AadlBa.g:2408:20: ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )*
+            // AadlBa.g:2390:20: ( '\"\"' | ESC |~ ( '\"' | '\\\\' ) )*
             loop3:
             do {
                 int alt3=4;
@@ -1923,7 +1923,7 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // AadlBa.g:2408:21: '\"\"'
+            	    // AadlBa.g:2390:21: '\"\"'
             	    {
             	    match("\"\""); 
 
@@ -1932,7 +1932,7 @@ public class AadlBaLexer extends Lexer {
             	    }
             	    break;
             	case 2 :
-            	    // AadlBa.g:2408:27: ESC
+            	    // AadlBa.g:2390:27: ESC
             	    {
             	    mESC(); 
 
@@ -1940,7 +1940,7 @@ public class AadlBaLexer extends Lexer {
             	    }
             	    break;
             	case 3 :
-            	    // AadlBa.g:2408:31: ~ ( '\"' | '\\\\' )
+            	    // AadlBa.g:2390:31: ~ ( '\"' | '\\\\' )
             	    {
             	    if ( (input.LA(1) >= '\u0000' && input.LA(1) <= '!')||(input.LA(1) >= '#' && input.LA(1) <= '[')||(input.LA(1) >= ']' && input.LA(1) <= '\uFFFF') ) {
             	        input.consume();
@@ -1979,10 +1979,10 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = REAL_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2410:10: ( ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) ) )
-            // AadlBa.g:2410:13: ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) )
+            // AadlBa.g:2392:10: ( ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) ) )
+            // AadlBa.g:2392:13: ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) )
             {
-            // AadlBa.g:2410:13: ( DIGIT )+
+            // AadlBa.g:2392:13: ( DIGIT )+
             int cnt4=0;
             loop4:
             do {
@@ -2021,7 +2021,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2410:21: ( '_' ( DIGIT )+ )*
+            // AadlBa.g:2392:21: ( '_' ( DIGIT )+ )*
             loop6:
             do {
                 int alt6=2;
@@ -2034,11 +2034,11 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt6) {
             	case 1 :
-            	    // AadlBa.g:2410:22: '_' ( DIGIT )+
+            	    // AadlBa.g:2392:22: '_' ( DIGIT )+
             	    {
             	    match('_'); 
 
-            	    // AadlBa.g:2410:26: ( DIGIT )+
+            	    // AadlBa.g:2392:26: ( DIGIT )+
             	    int cnt5=0;
             	    loop5:
             	    do {
@@ -2086,15 +2086,15 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2411:5: ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) )
-            // AadlBa.g:2412:7: ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? )
+            // AadlBa.g:2393:5: ( ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? ) )
+            // AadlBa.g:2394:7: ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? )
             {
-            // AadlBa.g:2412:7: ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? )
-            // AadlBa.g:2412:9: '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )?
+            // AadlBa.g:2394:7: ( '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )? )
+            // AadlBa.g:2394:9: '.' ( DIGIT )+ ( '_' ( DIGIT )+ )* ( EXPONENT )?
             {
             match('.'); 
 
-            // AadlBa.g:2412:13: ( DIGIT )+
+            // AadlBa.g:2394:13: ( DIGIT )+
             int cnt7=0;
             loop7:
             do {
@@ -2133,7 +2133,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2412:21: ( '_' ( DIGIT )+ )*
+            // AadlBa.g:2394:21: ( '_' ( DIGIT )+ )*
             loop9:
             do {
                 int alt9=2;
@@ -2146,11 +2146,11 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt9) {
             	case 1 :
-            	    // AadlBa.g:2412:22: '_' ( DIGIT )+
+            	    // AadlBa.g:2394:22: '_' ( DIGIT )+
             	    {
             	    match('_'); 
 
-            	    // AadlBa.g:2412:26: ( DIGIT )+
+            	    // AadlBa.g:2394:26: ( DIGIT )+
             	    int cnt8=0;
             	    loop8:
             	    do {
@@ -2198,7 +2198,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2412:37: ( EXPONENT )?
+            // AadlBa.g:2394:37: ( EXPONENT )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2207,7 +2207,7 @@ public class AadlBaLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // AadlBa.g:2412:39: EXPONENT
+                    // AadlBa.g:2394:39: EXPONENT
                     {
                     mEXPONENT(); 
 
@@ -2240,10 +2240,10 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = INTEGER_LIT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2416:13: ( ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? ) )
-            // AadlBa.g:2417:5: ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? )
+            // AadlBa.g:2398:13: ( ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? ) )
+            // AadlBa.g:2399:5: ( DIGIT )+ ( '_' ( DIGIT )+ )* ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? )
             {
-            // AadlBa.g:2417:5: ( DIGIT )+
+            // AadlBa.g:2399:5: ( DIGIT )+
             int cnt11=0;
             loop11:
             do {
@@ -2282,7 +2282,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2417:13: ( '_' ( DIGIT )+ )*
+            // AadlBa.g:2399:13: ( '_' ( DIGIT )+ )*
             loop13:
             do {
                 int alt13=2;
@@ -2295,11 +2295,11 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt13) {
             	case 1 :
-            	    // AadlBa.g:2417:14: '_' ( DIGIT )+
+            	    // AadlBa.g:2399:14: '_' ( DIGIT )+
             	    {
             	    match('_'); 
 
-            	    // AadlBa.g:2417:18: ( DIGIT )+
+            	    // AadlBa.g:2399:18: ( DIGIT )+
             	    int cnt12=0;
             	    loop12:
             	    do {
@@ -2347,7 +2347,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            // AadlBa.g:2418:5: ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? )
+            // AadlBa.g:2400:5: ( ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? ) | ( INT_EXPONENT )? )
             int alt16=2;
             int LA16_0 = input.LA(1);
 
@@ -2359,10 +2359,10 @@ public class AadlBaLexer extends Lexer {
             }
             switch (alt16) {
                 case 1 :
-                    // AadlBa.g:2419:7: ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? )
+                    // AadlBa.g:2401:7: ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? )
                     {
-                    // AadlBa.g:2419:7: ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? )
-                    // AadlBa.g:2419:9: '#' BASED_INTEGER '#' ( INT_EXPONENT )?
+                    // AadlBa.g:2401:7: ( '#' BASED_INTEGER '#' ( INT_EXPONENT )? )
+                    // AadlBa.g:2401:9: '#' BASED_INTEGER '#' ( INT_EXPONENT )?
                     {
                     match('#'); 
 
@@ -2371,7 +2371,7 @@ public class AadlBaLexer extends Lexer {
 
                     match('#'); 
 
-                    // AadlBa.g:2419:32: ( INT_EXPONENT )?
+                    // AadlBa.g:2401:32: ( INT_EXPONENT )?
                     int alt14=2;
                     int LA14_0 = input.LA(1);
 
@@ -2380,7 +2380,7 @@ public class AadlBaLexer extends Lexer {
                     }
                     switch (alt14) {
                         case 1 :
-                            // AadlBa.g:2419:34: INT_EXPONENT
+                            // AadlBa.g:2401:34: INT_EXPONENT
                             {
                             mINT_EXPONENT(); 
 
@@ -2397,9 +2397,9 @@ public class AadlBaLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2420:9: ( INT_EXPONENT )?
+                    // AadlBa.g:2402:9: ( INT_EXPONENT )?
                     {
-                    // AadlBa.g:2420:9: ( INT_EXPONENT )?
+                    // AadlBa.g:2402:9: ( INT_EXPONENT )?
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -2408,7 +2408,7 @@ public class AadlBaLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // AadlBa.g:2420:10: INT_EXPONENT
+                            // AadlBa.g:2402:10: INT_EXPONENT
                             {
                             mINT_EXPONENT(); 
 
@@ -2439,7 +2439,7 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "DIGIT"
     public final void mDIGIT() throws RecognitionException {
         try {
-            // AadlBa.g:2426:7: ( ( '0' .. '9' ) )
+            // AadlBa.g:2408:7: ( ( '0' .. '9' ) )
             // AadlBa.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9') ) {
@@ -2465,18 +2465,18 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "EXPONENT"
     public final void mEXPONENT() throws RecognitionException {
         try {
-            // AadlBa.g:2429:10: ( ( 'e' ) ( '+' | '-' )? ( DIGIT )+ )
-            // AadlBa.g:2429:12: ( 'e' ) ( '+' | '-' )? ( DIGIT )+
+            // AadlBa.g:2411:10: ( ( 'e' ) ( '+' | '-' )? ( DIGIT )+ )
+            // AadlBa.g:2411:12: ( 'e' ) ( '+' | '-' )? ( DIGIT )+
             {
-            // AadlBa.g:2429:12: ( 'e' )
-            // AadlBa.g:2429:13: 'e'
+            // AadlBa.g:2411:12: ( 'e' )
+            // AadlBa.g:2411:13: 'e'
             {
             match('e'); 
 
             }
 
 
-            // AadlBa.g:2429:18: ( '+' | '-' )?
+            // AadlBa.g:2411:18: ( '+' | '-' )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -2503,7 +2503,7 @@ public class AadlBaLexer extends Lexer {
             }
 
 
-            // AadlBa.g:2429:29: ( DIGIT )+
+            // AadlBa.g:2411:29: ( DIGIT )+
             int cnt18=0;
             loop18:
             do {
@@ -2555,18 +2555,18 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "INT_EXPONENT"
     public final void mINT_EXPONENT() throws RecognitionException {
         try {
-            // AadlBa.g:2432:14: ( ( 'e' ) ( '+' )? ( DIGIT )+ )
-            // AadlBa.g:2432:16: ( 'e' ) ( '+' )? ( DIGIT )+
+            // AadlBa.g:2414:14: ( ( 'e' ) ( '+' )? ( DIGIT )+ )
+            // AadlBa.g:2414:16: ( 'e' ) ( '+' )? ( DIGIT )+
             {
-            // AadlBa.g:2432:16: ( 'e' )
-            // AadlBa.g:2432:17: 'e'
+            // AadlBa.g:2414:16: ( 'e' )
+            // AadlBa.g:2414:17: 'e'
             {
             match('e'); 
 
             }
 
 
-            // AadlBa.g:2432:22: ( '+' )?
+            // AadlBa.g:2414:22: ( '+' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -2575,7 +2575,7 @@ public class AadlBaLexer extends Lexer {
             }
             switch (alt19) {
                 case 1 :
-                    // AadlBa.g:2432:23: '+'
+                    // AadlBa.g:2414:23: '+'
                     {
                     match('+'); 
 
@@ -2585,7 +2585,7 @@ public class AadlBaLexer extends Lexer {
             }
 
 
-            // AadlBa.g:2432:29: ( DIGIT )+
+            // AadlBa.g:2414:29: ( DIGIT )+
             int cnt20=0;
             loop20:
             do {
@@ -2637,7 +2637,7 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "EXTENDED_DIGIT"
     public final void mEXTENDED_DIGIT() throws RecognitionException {
         try {
-            // AadlBa.g:2435:16: ( ( DIGIT | 'a' .. 'f' ) )
+            // AadlBa.g:2417:16: ( ( DIGIT | 'a' .. 'f' ) )
             // AadlBa.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -2663,8 +2663,8 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "BASED_INTEGER"
     public final void mBASED_INTEGER() throws RecognitionException {
         try {
-            // AadlBa.g:2438:15: ( ( EXTENDED_DIGIT ) ( ( '_' )? EXTENDED_DIGIT )* )
-            // AadlBa.g:2438:17: ( EXTENDED_DIGIT ) ( ( '_' )? EXTENDED_DIGIT )*
+            // AadlBa.g:2420:15: ( ( EXTENDED_DIGIT ) ( ( '_' )? EXTENDED_DIGIT )* )
+            // AadlBa.g:2420:17: ( EXTENDED_DIGIT ) ( ( '_' )? EXTENDED_DIGIT )*
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
                 input.consume();
@@ -2676,7 +2676,7 @@ public class AadlBaLexer extends Lexer {
             }
 
 
-            // AadlBa.g:2438:36: ( ( '_' )? EXTENDED_DIGIT )*
+            // AadlBa.g:2420:36: ( ( '_' )? EXTENDED_DIGIT )*
             loop22:
             do {
                 int alt22=2;
@@ -2689,9 +2689,9 @@ public class AadlBaLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // AadlBa.g:2438:38: ( '_' )? EXTENDED_DIGIT
+            	    // AadlBa.g:2420:38: ( '_' )? EXTENDED_DIGIT
             	    {
-            	    // AadlBa.g:2438:38: ( '_' )?
+            	    // AadlBa.g:2420:38: ( '_' )?
             	    int alt21=2;
             	    int LA21_0 = input.LA(1);
 
@@ -2700,7 +2700,7 @@ public class AadlBaLexer extends Lexer {
             	    }
             	    switch (alt21) {
             	        case 1 :
-            	            // AadlBa.g:2438:39: '_'
+            	            // AadlBa.g:2420:39: '_'
             	            {
             	            match('_'); 
 
@@ -2735,13 +2735,13 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "BASE"
     public final void mBASE() throws RecognitionException {
         try {
-            // AadlBa.g:2441:6: ( DIGIT ( DIGIT )? )
-            // AadlBa.g:2441:8: DIGIT ( DIGIT )?
+            // AadlBa.g:2423:6: ( DIGIT ( DIGIT )? )
+            // AadlBa.g:2423:8: DIGIT ( DIGIT )?
             {
             mDIGIT(); 
 
 
-            // AadlBa.g:2441:14: ( DIGIT )?
+            // AadlBa.g:2423:14: ( DIGIT )?
             int alt23=2;
             int LA23_0 = input.LA(1);
 
@@ -2781,7 +2781,7 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "HEX_DIGIT"
     public final void mHEX_DIGIT() throws RecognitionException {
         try {
-            // AadlBa.g:2445:11: ( ( '0' .. '9' | 'a' .. 'f' ) )
+            // AadlBa.g:2427:11: ( ( '0' .. '9' | 'a' .. 'f' ) )
             // AadlBa.g:
             {
             if ( (input.LA(1) >= '0' && input.LA(1) <= '9')||(input.LA(1) >= 'a' && input.LA(1) <= 'f') ) {
@@ -2809,10 +2809,10 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2448:4: ( ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' ) )
-            // AadlBa.g:2448:6: ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' )
+            // AadlBa.g:2430:4: ( ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' ) )
+            // AadlBa.g:2430:6: ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' )
             {
-            // AadlBa.g:2448:6: ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' )
+            // AadlBa.g:2430:6: ( ' ' | '\\r' '\\n' | '\\r' | '\\n' | '\\t' )
             int alt24=5;
             switch ( input.LA(1) ) {
             case ' ':
@@ -2852,14 +2852,14 @@ public class AadlBaLexer extends Lexer {
 
             switch (alt24) {
                 case 1 :
-                    // AadlBa.g:2448:8: ' '
+                    // AadlBa.g:2430:8: ' '
                     {
                     match(' '); 
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2449:8: '\\r' '\\n'
+                    // AadlBa.g:2431:8: '\\r' '\\n'
                     {
                     match('\r'); 
 
@@ -2868,21 +2868,21 @@ public class AadlBaLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:2450:8: '\\r'
+                    // AadlBa.g:2432:8: '\\r'
                     {
                     match('\r'); 
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:2451:8: '\\n'
+                    // AadlBa.g:2433:8: '\\n'
                     {
                     match('\n'); 
 
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:2452:8: '\\t'
+                    // AadlBa.g:2434:8: '\\t'
                     {
                     match('\t'); 
 
@@ -2910,14 +2910,21 @@ public class AadlBaLexer extends Lexer {
         try {
             int _type = SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // AadlBa.g:2459:3: ( '--' (~ ( '\\n' | '\\r' ) )* )
-            // AadlBa.g:2459:5: '--' (~ ( '\\n' | '\\r' ) )*
+            CommonToken comment=null;
+
+            // AadlBa.g:2441:3: (comment= '--' (~ ( '\\n' | '\\r' ) )* )
+            // AadlBa.g:2441:5: comment= '--' (~ ( '\\n' | '\\r' ) )*
             {
+            int commentStart = getCharIndex();
             match("--"); 
+            int commentStartLine1573 = getLine();
+            int commentStartCharPos1573 = getCharPositionInLine();
+            comment = new CommonToken(input, Token.INVALID_TOKEN_TYPE, Token.DEFAULT_CHANNEL, commentStart, getCharIndex()-1);
+            comment.setLine(commentStartLine1573);
+            comment.setCharPositionInLine(commentStartCharPos1573);
 
 
-
-            // AadlBa.g:2460:2: (~ ( '\\n' | '\\r' ) )*
+            // AadlBa.g:2442:2: (~ ( '\\n' | '\\r' ) )*
             loop25:
             do {
                 int alt25=2;
@@ -2951,7 +2958,8 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            _channel=COMMENT_CHANNEL;
+            //highlight(comment, AnnexHighlighterPositionAcceptor.COMMENT_ID);
+            				  _channel=COMMENT_CHANNEL;
 
             }
 
@@ -2967,12 +2975,12 @@ public class AadlBaLexer extends Lexer {
     // $ANTLR start "ESC"
     public final void mESC() throws RecognitionException {
         try {
-            // AadlBa.g:2474:3: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? ) )
-            // AadlBa.g:2474:5: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? )
+            // AadlBa.g:2457:3: ( '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? ) )
+            // AadlBa.g:2457:5: '\\\\' ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? )
             {
             match('\\'); 
 
-            // AadlBa.g:2475:5: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? )
+            // AadlBa.g:2458:5: ( 'n' | 'r' | 't' | 'b' | 'f' | '\"' | '\\'' | '\\\\' | ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT | '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )? | '4' .. '7' ( '0' .. '7' )? )
             int alt30=11;
             switch ( input.LA(1) ) {
             case 'n':
@@ -3046,65 +3054,65 @@ public class AadlBaLexer extends Lexer {
 
             switch (alt30) {
                 case 1 :
-                    // AadlBa.g:2475:7: 'n'
+                    // AadlBa.g:2458:7: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 2 :
-                    // AadlBa.g:2476:7: 'r'
+                    // AadlBa.g:2459:7: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 3 :
-                    // AadlBa.g:2477:7: 't'
+                    // AadlBa.g:2460:7: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 4 :
-                    // AadlBa.g:2478:7: 'b'
+                    // AadlBa.g:2461:7: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 5 :
-                    // AadlBa.g:2479:7: 'f'
+                    // AadlBa.g:2462:7: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 6 :
-                    // AadlBa.g:2480:7: '\"'
+                    // AadlBa.g:2463:7: '\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // AadlBa.g:2481:7: '\\''
+                    // AadlBa.g:2464:7: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // AadlBa.g:2482:7: '\\\\'
+                    // AadlBa.g:2465:7: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // AadlBa.g:2483:7: ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
+                    // AadlBa.g:2466:7: ( 'u' )+ HEX_DIGIT HEX_DIGIT HEX_DIGIT HEX_DIGIT
                     {
-                    // AadlBa.g:2483:7: ( 'u' )+
+                    // AadlBa.g:2466:7: ( 'u' )+
                     int cnt26=0;
                     loop26:
                     do {
@@ -3118,7 +3126,7 @@ public class AadlBaLexer extends Lexer {
 
                         switch (alt26) {
                     	case 1 :
-                    	    // AadlBa.g:2483:8: 'u'
+                    	    // AadlBa.g:2466:8: 'u'
                     	    {
                     	    match('u'); 
 
@@ -3150,11 +3158,11 @@ public class AadlBaLexer extends Lexer {
                     }
                     break;
                 case 10 :
-                    // AadlBa.g:2484:7: '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )?
+                    // AadlBa.g:2467:7: '0' .. '3' ( '0' .. '7' ( '0' .. '7' )? )?
                     {
                     matchRange('0','3'); 
 
-                    // AadlBa.g:2485:7: ( '0' .. '7' ( '0' .. '7' )? )?
+                    // AadlBa.g:2468:7: ( '0' .. '7' ( '0' .. '7' )? )?
                     int alt28=2;
                     int LA28_0 = input.LA(1);
 
@@ -3163,11 +3171,11 @@ public class AadlBaLexer extends Lexer {
                     }
                     switch (alt28) {
                         case 1 :
-                            // AadlBa.g:2489:9: '0' .. '7' ( '0' .. '7' )?
+                            // AadlBa.g:2472:9: '0' .. '7' ( '0' .. '7' )?
                             {
                             matchRange('0','7'); 
 
-                            // AadlBa.g:2490:9: ( '0' .. '7' )?
+                            // AadlBa.g:2473:9: ( '0' .. '7' )?
                             int alt27=2;
                             int LA27_0 = input.LA(1);
 
@@ -3203,11 +3211,11 @@ public class AadlBaLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // AadlBa.g:2497:7: '4' .. '7' ( '0' .. '7' )?
+                    // AadlBa.g:2480:7: '4' .. '7' ( '0' .. '7' )?
                     {
                     matchRange('4','7'); 
 
-                    // AadlBa.g:2498:7: ( '0' .. '7' )?
+                    // AadlBa.g:2481:7: ( '0' .. '7' )?
                     int alt29=2;
                     int LA29_0 = input.LA(1);
 

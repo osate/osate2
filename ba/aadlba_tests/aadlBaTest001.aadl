@@ -22,7 +22,7 @@
 
 package NamesResolutionTest
 public
-   with Data_Model, Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine ;
+   with AADL_Project, Data_Model, Base_Types, DummyPropertySet, Dummy::Types, DummySubRoutine ;
 
 subprogram procedure
 end procedure ;
