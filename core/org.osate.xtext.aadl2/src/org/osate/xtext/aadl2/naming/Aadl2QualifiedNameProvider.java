@@ -77,8 +77,6 @@ public class Aadl2QualifiedNameProvider extends DefaultDeclarativeQualifiedNameP
 	// Duplicates checking only applies to global items
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
-		// TODO XXX enable to put annex names into EMF Index
-		// Currently we have a problem with resolving proxies within error annex
 		NamedElement annex = AadlUtil.getContainingAnnex(obj);
 		if (annex != null){
 			String annexName = annex.getName();
