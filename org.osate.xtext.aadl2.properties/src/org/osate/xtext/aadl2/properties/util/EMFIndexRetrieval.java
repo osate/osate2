@@ -2,13 +2,16 @@ package org.osate.xtext.aadl2.properties.util;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
@@ -48,6 +51,26 @@ public class EMFIndexRetrieval {
 	     rspr.getResourceServiceProvider(res.getURI());
 	   return resourceServiceProvider.getResourceDescriptionManager();
 	 } 
+	 
+
+		public static void printEMFIndexEMV2(EObject context) {
+		 	IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
+		 	Iterable<IResourceDescription> rdlist = rds.getAllResourceDescriptions();
+//		 	for (IResourceDescription iResourceDescription : rdlist) {
+//				Iterable<IReferenceDescription> reflist = iResourceDescription.getReferenceDescriptions();
+//				for (IReferenceDescription iReferenceDescription : reflist) {
+//					URI srcURI=iReferenceDescription.getSourceEObjectUri();
+//					URI dstURI = iReferenceDescription.getTargetEObjectUri();
+//					EReference ref = iReferenceDescription.getEReference();
+//					System.out.println("Ref ");
+//				}
+//			}
+		 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjects(); //dObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
+		 	 for (IEObjectDescription eod : packagedlist) {
+		 			 System.out.println("EDesc: "+eod.getQualifiedName());
+		 	 }
+		}
+
 
 	 /**
 	 * get all packages in workspace by looking them up in EMF index 
@@ -148,6 +171,25 @@ public class EMFIndexRetrieval {
 	 	 return packlist;
 	 }
 
+
+	 /**
+	 * get PropertySet in workspace by looking it up in EMF index
+	 * @param context EObject to retrieve the ResoruceSet for the EMF Index 
+	 * @param pname String PropertySet name
+	 * @return PropertySet or null
+	 */
+	 public static PropertySet getPropertySetInWorkspace(EObject context,String pname){
+		 IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
+	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
+	 	 for (IEObjectDescription eod : packagedlist) {
+	 			 if (eod.getName().toString().equalsIgnoreCase(pname)) {
+ 					 EObject res = eod.getEObjectOrProxy();
+ 					 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+ 					if (!Aadl2Util.isNull(res)) return (PropertySet)res;
+	 			 }
+	 	 }
+	 	 return null;
+	 }
 
 	 /**
 	 * get PropertySet in workspace by looking it up in EMF index 
@@ -454,19 +496,74 @@ public class EMFIndexRetrieval {
 	 }
 
 	 /**
-	 * get all classifiers in all packages by looking them up in EMF index 
-	 * @param res resource
-	 * @param classifiertype desired type of classifier (you can supply it via Aadl2Package.eINSTANCE.getProcessorType, etc)
-	 * @return list of classifiers in IEObjectDescription format
+	 * get all Classifiers by looking them up in EMF index 
+	 * @param context EObject in the same resourceset as the EObjects we are looking for
+	 * @param classifierType EClass of desired Classifiers
+	 * @return list of EObjects in IEObjectDescription format
 	 */
-	 public static EList <IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EObject context,EClass classifiertype){
+	 public static EList<IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EObject context,EClass classifierType){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
-	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifiertype);
+	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(classifierType);
 	 	 for (IEObjectDescription eod : packagedlist) {
 	 			 packlist.add(eod);
 	 	 }
 	 	 return packlist;
+	 }
+
+	 /**
+	 * get all EObjects in by looking them up in EMF index 
+	 * @param context EObject in the same resourceset as the EObjects we are looking for
+	 * @param eObjectType EClass of desired EObjects
+	 * @return list of EObjects in IEObjectDescription format
+	 */
+	 public static Iterable<IEObjectDescription> getAllEObjectsOfTypeInWorkspace(EObject context,EClass eObjectType){
+	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
+	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(eObjectType);
+	 	 return packagedlist;
+//	 	 for (IEObjectDescription eod : packagedlist) {
+//	 			 packlist.add(eod);
+//	 	 }
+//	 	 return packlist;
+	 }
+	 
+	 /**
+	  * find EObject by name in EObjectDescription list
+	  * @param context to identify the resourceset
+	  * @param edl EObjectDescription list
+	  * @param name String qualified name of EObject to be found
+	  * @return EObject
+	  */
+	 public static EObject getEObject(EObject context, Iterable <IEObjectDescription>  edl, String name){
+	 	 for (IEObjectDescription eod : edl) {
+	 			 if (eod.getName().toString().equalsIgnoreCase(name)) {
+	 				 EObject res = eod.getEObjectOrProxy();
+	 				 res = EcoreUtil.resolve(res, context.eResource().getResourceSet());
+	 				 if (!Aadl2Util.isNull(res)) return res;
+	 			 }
+	 		 }
+		 return null;
+	 }
+	 
+	 /**
+	  * find EObject by name in EObjectDescription list
+	  * @param context to identify the resourceset
+	  * @param edl EObjectDescription list
+	  * @param name String qualified name of EObject to be found
+	  * @return EObject
+	  */
+	 public static EObject getEObjectOfType(EObject context, EClass eObjectType, String name){
+	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(context.eResource().getResourceSet());
+	 	 Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
+	 	 for (IEObjectDescription eod : edlist) {
+ 			 if (eod.getName().toString().equalsIgnoreCase(name)) {
+ 				 EObject res = eod.getEObjectOrProxy();
+ 				 res = EcoreUtil.resolve(res, context.eResource().getResourceSet());
+ 				 if (!Aadl2Util.isNull(res)) return res;
+ 			 }
+	 	 }
+		 return null;
 	 }
 
 

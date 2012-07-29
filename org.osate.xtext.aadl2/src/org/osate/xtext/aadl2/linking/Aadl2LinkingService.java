@@ -97,6 +97,7 @@ import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 
 public class Aadl2LinkingService extends PropertiesLinkingService {
 
@@ -129,16 +130,12 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					if (linkingservice != null){
 						List<EObject> result = linkingservice.resolveAnnexReference(annexName,context, reference, node);
 						if (!result.isEmpty()) return result;
-// XXX drop through to call on linking service for resolving Aadl2 references
-//					} else {
-//						return super.getLinkedObjects(context, reference, node);
 					}
 				}
-// XXX drop through to call on linking service for resolving Aadl2 references
-//			} else {
-//				return super.getLinkedObjects(context, reference, node);
 			}
 		}
+		
+//		EMFIndexRetrieval.printEMFIndexEMV2(context);
 		final EClass requiredType = reference.getEReferenceType();
 		if (requiredType == null)
 			return Collections.<EObject> emptyList();
