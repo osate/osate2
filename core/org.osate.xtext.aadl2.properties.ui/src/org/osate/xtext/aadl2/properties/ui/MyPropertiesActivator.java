@@ -64,9 +64,6 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 	@Inject 
 	 private IResourceServiceProvider.Registry rspr;
 
-	@Inject
-	private IResourceSetProvider resourceSetProvider;
-
 	// if inject does not work
 //	private IResourceServiceProvider.Registry rspr = 
 //			   IResourceServiceProvider.Registry.INSTANCE; 

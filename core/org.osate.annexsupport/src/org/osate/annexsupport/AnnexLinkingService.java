@@ -37,13 +37,11 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 
 
-/**
- * @author lwrage
- * @version $Id: AnnexResolver.java,v 1.6 2009-10-09 18:49:32 lwrage Exp $
- */
 public interface AnnexLinkingService {
 	List<EObject> resolveAnnexReference(String annexName, EObject context,EReference reference, INode node);
+	QualifiedName getFullyQualifiedName(final EObject obj) ;
 }
