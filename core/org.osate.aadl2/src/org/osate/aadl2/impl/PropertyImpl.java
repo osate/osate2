@@ -568,11 +568,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			InstantiatedClassifier ic = ctx.getClassifierCache().get(io);
 			Classifier cl = (ic == null) ? null : ic.classifier;
 			if (compDecl instanceof Subcomponent) {
-				((SubcomponentImpl) compDecl).getPropertyValueTest(this, pas, cl);
+				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof FeatureGroup) {
-				((FeatureGroupImpl) compDecl).getPropertyValueTest(this, pas, cl);
+				((FeatureGroupImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof Feature) {
-				((FeatureImpl) compDecl).getPropertyValueTest(this, pas, cl);
+				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else {
 				compDecl.getPropertyValueInternal(this, pas, true);
 			}
