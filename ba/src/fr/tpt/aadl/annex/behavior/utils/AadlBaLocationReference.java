@@ -62,6 +62,7 @@ public class AadlBaLocationReference extends LocationReference
     return _id ;
   }
 
+  @Override
   public AadlBaLocationReference clone()
   {
     
@@ -75,5 +76,20 @@ public class AadlBaLocationReference extends LocationReference
                                                           this.getId()) ;
                                                                
     return clone ;
+  }
+  
+  @Override
+  public String toString()
+  {
+    StringBuilder sb = new StringBuilder();
+    
+    sb.append("line: ") ;
+    sb.append(this.getLine()) ;
+    sb.append(", column:") ;
+    sb.append(this.getColumn()) ;
+    sb.append(", offset:") ;
+    sb.append(this.getOffset()) ;
+    
+    return sb.toString() ;
   }
 }

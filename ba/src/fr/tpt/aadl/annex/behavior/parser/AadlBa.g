@@ -201,7 +201,7 @@ options {
     
     int offset = token.getTokenIndex() ;
     int length = token.getText().length() ;
-    int column = token.getCharPositionInLine() ;
+    int column = token.getCharPositionInLine() + 1 ; // Zero index based.
     int line = token.getLine() ;
     
     AadlBaLocationReference location = new AadlBaLocationReference(
@@ -595,15 +595,15 @@ behavior_state_list returns [List<BehaviorState> lbs]
      keyword=STATE SEMICOLON
    )
    {
-   	 if(keyword_init!=null)
-	   highlight(keyword_init, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-   	 if(keyword_complete!=null)
-	   highlight(keyword_complete, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-	 if(keyword_final!=null)
-	   highlight(keyword_final, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-	 if (identifier!=null)
-	   highlight(identifier, AnnexHighlighterPositionAcceptor.DEFAULT_ID);
-	 highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+     if(keyword_init!=null)
+     highlight(keyword_init, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+     if(keyword_complete!=null)
+     highlight(keyword_complete, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+   if(keyword_final!=null)
+     highlight(keyword_final, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+   if (identifier!=null)
+     highlight(identifier, AnnexHighlighterPositionAcceptor.DEFAULT_ID);
+   highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
    }
 ;
 catch [RecognitionException ex] {
@@ -701,7 +701,6 @@ behavior_action_block returns [BehaviorActionBlock BehActionBlock]
     {
        BehActionBlock.setContent(BehActions) ;
        setLocationReference(BehActionBlock, identifier);
-       DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
     }
       
     ( TIMEOUT BehTime=behavior_time
@@ -1105,8 +1104,8 @@ behavior_action returns [BehaviorAction BehAction]
        )?
        keyword1=END keyword2=IF
        {
-       	 highlight(keyword1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-       	 highlight(keyword2, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
+         highlight(keyword1, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+         highlight(keyword2, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
          BehAction = IfStat ;
        }
      )
@@ -2440,7 +2439,7 @@ WS : ( ' '
 SL_COMMENT
   : comment='--'
 (~('\n'|'\r' ))* {//highlight(comment, AnnexHighlighterPositionAcceptor.COMMENT_ID);
-				  $channel=COMMENT_CHANNEL;}
+          $channel=COMMENT_CHANNEL;}
   ;
 
 // escape sequence -- note that this is protected; it can only be called
