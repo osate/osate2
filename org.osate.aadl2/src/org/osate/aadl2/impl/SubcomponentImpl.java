@@ -884,7 +884,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		return null;
 	}
 
-	public void getPropertyValueTest(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl) {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		if (pas.addLocalContained(this, owner)) {

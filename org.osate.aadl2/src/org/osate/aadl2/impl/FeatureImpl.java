@@ -532,7 +532,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 	}
 
-	public void getPropertyValueTest(Property prop, PropertyAcc pas, Classifier cl) {
+	public void getPropertyValue(Property prop, PropertyAcc pas, Classifier cl) {
 		Classifier owner = getContainingClassifier();
 
 		// local contained value
@@ -549,7 +549,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 			refined = refined.getRefined();
 		}
 
-		getPropertyValueTestHelper(prop, pas, cl);
+		getPropertyValueHelper(prop, pas, cl);
 
 		// values from container
 		// Ignore fromInstanceSlaveCall because the classifier is a component or feature group TYPE, not an implementation.
@@ -562,7 +562,7 @@ public abstract class FeatureImpl extends StructuralFeatureImpl implements Featu
 		}
 	}
 
-	public void getPropertyValueTestHelper(final Property prop, final PropertyAcc pas, Classifier cl)
+	public void getPropertyValueHelper(final Property prop, final PropertyAcc pas, Classifier cl)
 			throws InvalidModelException {
 		// values from classifier
 		ComponentClassifier c = getClassifier();
