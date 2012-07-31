@@ -197,6 +197,7 @@ protected ILeafNode getAnnexLeaf(ILeafNode leaf, int offset){
 	EObject semobj = NodeModelUtils.findActualSemanticObjectFor(leaf);
 	if (semobj instanceof AnnexSubclause || semobj instanceof AnnexLibrary){
 		AnnexParseResult apr =AnnexUtil.getAnnexParseResult(semobj);
+		if (apr == null) return leaf;
 		IParseResult aParseResult = apr.getParseResult();
 		if (aParseResult != null && aParseResult.getRootNode() != null) {
 			leaf = NodeModelUtils.findLeafNodeAtOffset(aParseResult.getRootNode(), offset);
