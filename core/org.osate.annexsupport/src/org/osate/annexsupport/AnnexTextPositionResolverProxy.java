@@ -57,14 +57,14 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 
 	
 	// mechanism to resolve individual offsets
-	public TextPositionInfo resolveElementAt(String annexName, XtextResource resource, int offset){
+	public TextPositionInfo resolveElementAt(EObject annexRoot, int offset){
 	AnnexTextPositionResolver resolver = getResolverService();
 
 		if (resolver == null) {
 			return null;
 		}
 		try {
-			return resolver.resolveElementAt(annexName, resource, offset);
+			return resolver.resolveElementAt(annexRoot, offset);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,14 +73,14 @@ public class AnnexTextPositionResolverProxy extends AnnexProxy implements AnnexT
 	}
 
 	// mechanism to resolve individual offsets
-	public TextPositionInfo resolveCrossReferencedElementAt(String annexName, XtextResource resource, int offset){
+	public TextPositionInfo resolveCrossReferencedElementAt( EObject annexRoot, int offset){
 	AnnexTextPositionResolver resolver = getResolverService();
 
 		if (resolver == null) {
 			return null;
 		}
 		try {
-			return resolver.resolveCrossReferencedElementAt(annexName, resource, offset);
+			return resolver.resolveCrossReferencedElementAt(annexRoot, offset);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

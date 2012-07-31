@@ -50,7 +50,7 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 					String annexName = ((NamedElement)obj).getName();
 					AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
 					if (atpr != null){
-						TextPositionInfo tpo = atpr.resolveElementAt(annexName, resource, offset);
+						TextPositionInfo tpo = atpr.resolveElementAt(obj, offset);
 						if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
 							Region region = new Region(tpo.getOffset(), tpo.getLength());
 							createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);

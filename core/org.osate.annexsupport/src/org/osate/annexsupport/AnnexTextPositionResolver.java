@@ -33,11 +33,12 @@
  */
 package org.osate.annexsupport;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.XtextResource;
 
 
 public interface AnnexTextPositionResolver {
-	TextPositionInfo resolveElementAt(String annexName, XtextResource resource, int offset);
+	TextPositionInfo resolveElementAt(EObject annexRoot, int offset);
 
-	TextPositionInfo resolveCrossReferencedElementAt(String annexName, XtextResource resource, int offset);
+	TextPositionInfo resolveCrossReferencedElementAt(EObject annexRoot, int offset);
 }
