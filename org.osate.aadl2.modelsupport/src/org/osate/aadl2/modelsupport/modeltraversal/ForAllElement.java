@@ -50,7 +50,9 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -271,6 +273,7 @@ public class ForAllElement implements IProcessingMethod {
 			action(theElement);
 		}
 	}
+	
 
 	/**
 	 * Process a single model object. Delegates to {@link #process(Element)}.
@@ -673,6 +676,58 @@ public class ForAllElement implements IProcessingMethod {
 		}
 		return resultList;
 	}
+	
+
+	/**
+	 * process a single model element. When true is returned do not recurse to the element's children.
+	 * By Default, if suchThat is satisfied invoke the action and return true. 
+	 * Otherwise do not take an action and return false.
+	 * This lets use visit the first layer of elements in the hierarchy that satisfy suchThat.
+	 * Using the default action, this effectively lets us create a list of "leaf" elements, 
+	 * i.e., elements that satisfy suchThat.
+	 * @param theElement
+	 * @return Boolean true if children should not be visited
+	 */
+	protected boolean processStop (Element theElement) {
+		if (suchThat((Element) theElement)) {
+			if (theElement instanceof NamedElement)
+			//{ System.out.println(((NamedElement) theElement).getName());}
+			  action((Element) theElement);
+			  return true;
+			}
+		return false;
+	}
+
+	
+	/**
+	 * Modifies processPreOrderComponentInstance to stop processing down
+	 * when a component with error model is found
+	 * If the suchThat method returned true, it means an error model subclause was found
+	 * and we stop traversing the model down
+	 * 
+	 * Does preorder processing of Component Instance containment hierarchy
+	 * Takes into account the current mode when traversing the content hierarchy
+	 * of model instances The default implementation applies the suchThat
+	 * condition and if true adds the element to the result list
+	 * 
+	 * @param obj
+	 *                 InstanceObject root object
+	 * @return EList result list of objects that have been visited by any traversal with the given ForAllElement
+	 *
+	 */
+	public final EList processPreOrderComponentInstanceStop(ComponentInstance obj) {
+		if (!this.processStop(obj)) {
+		EList list = obj.getChildren();
+		for (Iterator it = list.iterator(); notCancelled() &&it.hasNext();) {
+			Object child = it.next();
+			if (child instanceof ComponentInstance) {
+				this.processPreOrderComponentInstanceStop((ComponentInstance) child);
+				}
+		}
+		}
+		return resultList;
+	}
+
 
 	/*
 	 * ============================================================= Postfix

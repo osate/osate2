@@ -1871,6 +1871,11 @@ public final class AadlUtil {
 		return null;
 	}
 
+	/**
+	 * get containing Classifier. If the object is already a classifier, return it
+	 * @param element
+	 * @return
+	 */
 	public static Classifier getContainingClassifier(EObject element) {
 		EObject container = element;
 		while (container != null && !(container instanceof Classifier))
