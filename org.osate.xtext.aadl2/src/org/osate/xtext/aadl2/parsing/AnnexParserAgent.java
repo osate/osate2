@@ -47,6 +47,8 @@ import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.eclipse.xtext.parser.IParseResult;
+import org.eclipse.xtext.parser.ParseResult;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.impl.ListBasedDiagnosticConsumer;
 import org.osate.aadl2.AnnexLibrary;
@@ -66,6 +68,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexParseResult;
+import org.osate.annexsupport.AnnexParseResultImpl;
 import org.osate.annexsupport.AnnexParser;
 import org.osate.annexsupport.AnnexParserRegistry;
 import org.osate.annexsupport.AnnexRegistry;
@@ -144,8 +147,15 @@ public class AnnexParserAgent  extends LazyLinker {
 					{ 
 						al.setName(annexName);
 						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(al);
-						if (apr != null)
+						if (apr != null){
 							defaultAnnexLibrary.eAdapters().add(apr);
+						} else {
+							// create a parse result adapter based on generic parsing rather than Xtext parsing
+							// this adapter lets us get the acutal annex library or subclause from the default one
+							IParseResult parseResult = new ParseResult(al, null, false);
+							new AnnexParseResultImpl(parseResult,offset);
+							defaultAnnexLibrary.eAdapters().add(apr);
+						}
 						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 						// replace default annex library with the new one. 
 						EList<AnnexLibrary> ael= ((PackageSection)defaultAnnexLibrary.eContainer()).getOwnedAnnexLibraries();
@@ -199,8 +209,15 @@ public class AnnexParserAgent  extends LazyLinker {
 					{
 						asc.setName(annexName);
 						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(asc);
-						if (apr != null)
+						if (apr != null){
 							defaultAnnexSubclause.eAdapters().add(apr);
+						} else {
+							// create a parse result adapter based on generic parsing rather than Xtext parsing
+							// this adapter lets us get the acutal annex library or subclause from the default one
+							IParseResult parseResult = new ParseResult(asc, null, false);
+							new AnnexParseResultImpl(parseResult,offset);
+							defaultAnnexSubclause.eAdapters().add(apr);
+						}
 						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
 														
 						// replace default annex library with the new one. 
