@@ -84,6 +84,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -107,21 +108,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePropertyAssociation(PropertyAssociation pa) {
-		// propertyset name in with clause is already enforced by linkingservice
-//		String s = pa.getProperty().getQualifiedName();
-//		String psname = null;
-//		final int idx = s.lastIndexOf("::");
-//		if (idx != -1) {
-//			psname = s.substring(0, idx);
-//			if (PropertiesLinkingService.getPropertiesLinkingService(pa).isPredeclaredPropertySet(psname))
-//				return;
-//			EObject propertySet = PropertiesLinkingService.getPropertiesLinkingService(pa).findImportedPropertySet(
-//					psname, pa);
-//			if (propertySet == null) {
-//				error(pa,
-//						"Property set containing property is not listed in with clause");
-//			}
-//		}
 		checkPropertyAssociation(pa);
 	}
 	
@@ -188,13 +174,19 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		} else {
 			for (ContainedNamedElement cna : appliesTo){
 				EList<ContainmentPathElement> path = cna.getContainmentPathElements();
+				if (!path.isEmpty()){
+					NamedElement firstElement = path.get(0).getNamedElement();
+					Subcomponent sub = AadlUtil.getContainingSubcomponent(firstElement);
 				// only the last value is interesting to us
-				final ContainmentPathElement ph = (ContainmentPathElement) path.get(path.size()-1);
-				final boolean applies = ph.getNamedElement().acceptsProperty(pn);
-				if (!applies) {
-					error(pa,
-							"Property " + pa.getProperty().getQualifiedName() +
-							" does not apply to "+unparseAppliesTo(cna));
+				final ContainmentPathElement ph =  path.get(path.size()-1);
+				if (!Aadl2Util.isNull(ph.getNamedElement())){
+					final boolean applies = ph.getNamedElement().acceptsProperty(pn);
+					if (!applies) {
+						error(pa,
+								"Property " + pa.getProperty().getQualifiedName() +
+								" does not apply to "+unparseAppliesTo(cna));
+					}
+				}
 				}
 			}
 		}

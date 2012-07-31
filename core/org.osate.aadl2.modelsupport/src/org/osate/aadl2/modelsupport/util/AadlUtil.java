@@ -1883,6 +1883,28 @@ public final class AadlUtil {
 		return (Classifier) container;
 	}
 
+	public static Classifier getContainingSubcomponentClassifier(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof Subcomponent){
+				return ((Subcomponent)container).getAllClassifier();
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
+	public static Subcomponent getContainingSubcomponent(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof Subcomponent){
+				return (Subcomponent)container;
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
 	public static PackageSection getContainingPackageSection(EObject element) {
 		EObject container = element;
 		while (container != null && !(container instanceof PackageSection))
