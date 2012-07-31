@@ -464,7 +464,14 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 						
 					}
 				} else {
-					Classifier ns = AadlUtil.getContainingClassifier(context);
+					// the first containment path element
+					Classifier ns = null;
+					// need to make sure we look in the correct name space
+					if (AadlUtil.getContainingSubcomponent(context) != null){
+						ns = AadlUtil.getContainingSubcomponentClassifier(context);
+					} else {
+						ns =AadlUtil.getContainingClassifier(context);
+					}
 					if (ns != null)
 						res = ns.findNamedElement(name);
 				}

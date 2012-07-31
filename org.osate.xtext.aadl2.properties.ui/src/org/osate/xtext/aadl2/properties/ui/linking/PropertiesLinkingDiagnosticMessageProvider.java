@@ -35,11 +35,18 @@
 package org.osate.xtext.aadl2.properties.ui.linking;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.diagnostics.Diagnostic;
 import org.eclipse.xtext.diagnostics.DiagnosticMessage;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.impl.LinkingDiagnosticMessageProvider;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosticMessageProvider{
 
@@ -63,6 +70,22 @@ public class PropertiesLinkingDiagnosticMessageProvider extends LinkingDiagnosti
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
 		}
 		if (Aadl2Package.eINSTANCE.getPropertyConstant() == referenceType){
+			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."+
+		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
+			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+		}
+		if (Aadl2Package.eINSTANCE.getNamedElement() == referenceType){
+			EObject obj = context.getContext();
+			if (obj instanceof ContainmentPathElement){
+				Subcomponent sub = AadlUtil.getContainingSubcomponent(obj);
+				ContainedNamedElement cne = (ContainedNamedElement) ((ContainmentPathElement) obj).getOwner();
+				INode node = NodeModelUtils.findActualNodeFor(obj);
+				String name = NodeModelUtils.getTokenText(node);
+				if (sub!=null && !cne.getContainmentPathElements().isEmpty()&& cne.getContainmentPathElements().get(0) == obj) {
+					String msg = "Could not find path element " +name+" in subcomponent "+ sub.getName();
+					return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
+				}
+			}
 			String msg = "Couldn't resolve reference to property constant '" + context.getLinkText() + "'."+
 		    (context.getLinkText().indexOf("::") <0?" Property set name may be missing.":"");
 			return new DiagnosticMessage(msg, Severity.ERROR, Diagnostic.LINKING_DIAGNOSTIC);
