@@ -35,7 +35,10 @@
  */
 package org.osate.aadl2.instance;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
@@ -259,4 +262,5 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	FeatureInstance findFeatureInstance(Feature feature);
 
+	Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath);
 } // FeatureInstance

@@ -342,28 +342,28 @@
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedSubcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/extended"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedExtension"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedRealization"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAbstractSubcomponent"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noSubcomponents"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noConnections"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noCalls"/>
