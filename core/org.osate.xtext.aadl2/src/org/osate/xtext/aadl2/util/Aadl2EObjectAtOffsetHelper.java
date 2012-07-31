@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.util;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.text.Region;
 import org.eclipse.xtext.AbstractRule;
@@ -13,7 +14,10 @@ import org.eclipse.xtext.util.ITextRegion;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.annexsupport.AnnexLinkingServiceRegistry;
 import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
@@ -51,10 +55,14 @@ public class Aadl2EObjectAtOffsetHelper extends
 				EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 				if (obj instanceof NamedElement){
 					String annexName = ((NamedElement)obj).getName();
-					AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-					if (atpr != null){
-						TextPositionInfo tpo = atpr.resolveElementAt( obj, offset);
-						return tpo.getModelObject();
+					// find the actual subclause or library instead of the default one found from the NodeModel
+					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
+						if (atpr != null&& apr != null){
+							TextPositionInfo tpo = atpr.resolveElementAt(apr.getParseResult().getRootASTElement(), apr.getAnnexOffset());
+							return tpo.getModelObject();
+						}
 					}
 				}
 			}
@@ -97,10 +105,14 @@ public class Aadl2EObjectAtOffsetHelper extends
 				EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 				if (obj instanceof NamedElement){
 					String annexName = ((NamedElement)obj).getName();
-					AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-					if (atpr != null){
-						TextPositionInfo tpo = atpr.resolveElementAt(obj, offset);
-						return tpo.getModelObject();
+					// find the actual subclause or library instead of the default one found from the NodeModel
+					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
+						if (atpr != null&& apr != null){
+							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(apr.getParseResult().getRootASTElement(), apr.getAnnexOffset());
+							return tpo.getModelObject();
+						}
 					}
 				}
 				// now try xtext based annexes via adapted ParseResult
