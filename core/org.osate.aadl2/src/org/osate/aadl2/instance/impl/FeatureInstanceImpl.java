@@ -52,20 +52,30 @@ import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.BusAccess;
+import org.osate.aadl2.Connection;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.EventDataPort;
 import org.osate.aadl2.EventPort;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
 
@@ -611,6 +621,33 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 				return fi;
 		}
 		return null;
+	}
+
+	/**
+	 * Get all feature instances that fit a given path in a feature group.
+	 */
+	public Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath) {
+		if (referencePath.isEmpty()) {
+			return Collections.singleton((FeatureInstance) this);
+		} else {
+			FeatureInstance fi = this;
+
+			for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
+				NamedElement ne = pathIter.next().getNamedElement();
+
+				if (ne instanceof Feature) {
+					fi = fi.findFeatureInstance((Feature) ne);
+					while ((fi != null) && (ne instanceof FeatureGroup) && pathIter.hasNext()) {
+						// we may point to a port in a feature group
+						ne = pathIter.next().getNamedElement();
+						if (ne instanceof Feature) {
+							fi = fi.findFeatureInstance((Feature) ne);
+						}
+					}
+				}
+			}
+			return Collections.singleton(fi);
+		}
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.

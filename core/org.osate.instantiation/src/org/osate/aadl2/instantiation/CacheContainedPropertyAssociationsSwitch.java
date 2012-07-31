@@ -49,11 +49,14 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureCategory;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
@@ -61,7 +64,6 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
-
 
 /**
  * TODO: Add comment
@@ -112,8 +114,60 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				return DONE;
 			}
 
-			// TODO: LW contained PAs of feature groups
+			public String caseFeatureInstance(final FeatureInstance fi) {
+				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+					processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
+				}
+				return DONE;
+			}
 		};
+	}
+
+	protected void processContainedPropertyAssociations(FeatureInstance fi,
+			EList<PropertyAssociation> propertyAssociations) {
+		for (PropertyAssociation pa : propertyAssociations) {
+			Property prop = pa.getProperty();
+			if (prop == null || prop.getType() == null) {
+				// PA is missing the prop def, skip to the next one
+				continue;
+			}
+			for (ContainedNamedElement cne : pa.getAppliesTos()) {
+				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+				if (cpes != null && !cpes.isEmpty()) {
+//					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
+					final Collection<FeatureInstance> ios = fi.findFeatureInstances(cpes);
+
+					if (!ios.isEmpty()) {
+						for (InstanceObject io : ios) {
+							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+
+							newPA.setProperty(prop);
+							newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+
+							// replace reference values in the context of the contained PA's owner
+							for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+									.hasNext();) {
+								Element elem = content.next();
+
+								if (elem instanceof ReferenceValue) {
+									// TODO: LW what if ref to connection?
+									PropertyExpression irv = ((ReferenceValue) elem).instantiate(fi);
+									EcoreUtil.replace(elem, irv);
+								}
+							}
+
+							io.removePropertyAssociations(prop);
+							io.getOwnedPropertyAssociations().add(newPA);
+						}
+					}
+				}
+			}
+			checkIfCancelled();
+			if (cancelled()) {
+				break;
+			}
+		}
 	}
 
 	/**
@@ -123,14 +177,13 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 *  
 	 * @param modeContext
 	 * @param ci
-	 * @param propertyList
+	 * @param propertyAssociations
 	 */
 	// TODO: LW applies to arrays
 	// TODO: LW connections
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
-			final EList<PropertyAssociation> propertyList) {
-		for (Iterator<PropertyAssociation> iter = propertyList.iterator(); iter.hasNext() && notCancelled();) {
-			final PropertyAssociation pa = iter.next();
+			final EList<PropertyAssociation> propertyAssociations) {
+		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
 			if (prop == null || prop.getType() == null) {
 				// PA is missing the prop def, skip to the next one
@@ -209,6 +262,9 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				}
 			}
 			checkIfCancelled();
+			if (cancelled()) {
+				break;
+			}
 		}
 	}
 

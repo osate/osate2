@@ -60,6 +60,7 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
@@ -179,6 +180,29 @@ public class InstanceUtil {
 			}
 		}
 		return cc;
+	}
+
+	/**
+	 * Get the feature group classifier of a feature instance. Resolve
+	 * prototypes if needed.
+	 * 
+	 * @param fi the feature instance
+	 * @param index the index of the instance object in an array
+	 * @param classifierCache an optional cache of known instantiated
+	 *            classifiers, may be null
+	 * @return the feature group classifier, null if the feature instance isn't a feature group
+	 */
+	public static FeatureGroupType getFeatureGroupType(FeatureInstance fi, int index,
+			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
+		FeatureGroupType fgt = null;
+		if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+			final InstantiatedClassifier ic = getInstantiatedClassifier(fi, index, classifierCache);
+			
+			if (ic != null) {
+				fgt = (FeatureGroupType)ic.classifier;
+			}
+		}
+		return fgt;
 	}
 
 	/**

@@ -42,6 +42,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
@@ -92,6 +93,19 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		}
 	}
 
+	public PropertyExpression instantiate(FeatureInstance root) throws InvalidModelException {
+		final Collection<? extends InstanceObject> iol = root.findFeatureInstances(getContainmentPathElements());
+		if (iol.size() == 0) {
+			throw new InvalidModelException(this, "Reference does not refer to a nested feature");
+		} else if (iol.size() > 1) {
+			throw new InvalidModelException(this, "Reference refers to more than one feature");
+		} else {
+			final InstanceObject io = iol.iterator().next();
+			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
+			irv.setReferencedInstanceObject(io);
+			return irv;
+		}
+	}
 	//TODO: LW features can have reference properties too
 	public EvaluatedProperty evaluate(EvaluationContext ctx) {
 		return new EvaluatedProperty(this);
