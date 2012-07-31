@@ -1468,7 +1468,7 @@ public class AadlUnparser extends AadlProcessingSwitch {
 						aadlText.addOutputNewline("");
 					}
 				}
-				FlowEnd outend = fps.getInEnd();
+				FlowEnd outend = fps.getOutEnd();
 				if (outend != null){
 					aadlText.addOutput((doArrow?" -> ":"") + AadlUtil.getFlowEndName(fps.getOutEnd()));
 				}
