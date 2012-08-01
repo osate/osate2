@@ -452,6 +452,10 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 								.getAllFeatureGroupType();
 						if (ns != null)
 							res = ns.findNamedElement(name);
+					} else if (ne instanceof Feature) {
+							Classifier ns = ((Feature) ne).getClassifier();
+							if (ns != null)
+								res = ns.findNamedElement(name);
 					} else if (ne instanceof SubprogramCall){
 						// looking inside a subprogram that is being called
 						CalledSubprogram called = ((SubprogramCall)ne).getCalledSubprogram();
