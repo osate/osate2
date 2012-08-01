@@ -14,9 +14,11 @@ import org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper;
 import org.eclipse.xtext.ui.editor.hyperlinking.IHyperlinkAcceptor;
 import org.eclipse.xtext.util.TextRegion;
 import org.osate.aadl2.NamedElement;
+import org.osate.annexsupport.AnnexParseResult;
 import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexTextPositionResolverRegistry;
+import org.osate.annexsupport.AnnexUtil;
 import org.osate.annexsupport.TextPositionInfo;
 
 import com.google.inject.Inject;
@@ -47,14 +49,18 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 			if (textpositionresolverregistry != null){
 				EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 				if (obj instanceof NamedElement){
+					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+					EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+					if (actualAnnexElement != null){
 					String annexName = ((NamedElement)obj).getName();
 					AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
 					if (atpr != null){
-						TextPositionInfo tpo = atpr.resolveElementAt(obj, offset);
+						TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
 						if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
 							Region region = new Region(tpo.getOffset(), tpo.getLength());
 							createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);
 						}
+					}
 					}
 				}
 			}

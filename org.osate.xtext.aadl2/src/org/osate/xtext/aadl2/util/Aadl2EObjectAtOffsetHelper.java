@@ -57,10 +57,11 @@ public class Aadl2EObjectAtOffsetHelper extends
 					String annexName = ((NamedElement)obj).getName();
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						if (atpr != null&& apr != null){
-							TextPositionInfo tpo = atpr.resolveElementAt(apr.getParseResult().getRootASTElement(), offset);
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						if (atpr != null&& actualAnnexElement != null){
+							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
 							return tpo.getModelObject();
 						}
 					}
@@ -107,20 +108,21 @@ public class Aadl2EObjectAtOffsetHelper extends
 					String annexName = ((NamedElement)obj).getName();
 					// find the actual subclause or library instead of the default one found from the NodeModel
 					if (obj instanceof AnnexSubclause || obj instanceof AnnexLibrary){
-						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-						if (atpr != null&& apr != null){
-							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(apr.getParseResult().getRootASTElement(), offset);
+						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+						if (atpr != null&& actualAnnexElement != null){
+							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
 							return tpo.getModelObject();
 						}
 					}
 				}
-				// now try xtext based annexes via adapted ParseResult
-				annexLeaf = getAnnexLeaf((ILeafNode)annexLeaf, offset);
-				annexLeaf = findCrossReferenceNode(annexLeaf);
-				if (annexLeaf!=null){
-					return getCrossReferencedElement(annexLeaf);
-				}
+			}
+			// now try xtext based annexes via adapted ParseResult
+			annexLeaf = getAnnexLeaf((ILeafNode)annexLeaf, offset);
+			annexLeaf = findCrossReferenceNode(annexLeaf);
+			if (annexLeaf!=null){
+				return getCrossReferencedElement(annexLeaf);
 			}
 		}
 		INode node = getCrossReferenceNode(resource, new TextRegion(offset, 0));
