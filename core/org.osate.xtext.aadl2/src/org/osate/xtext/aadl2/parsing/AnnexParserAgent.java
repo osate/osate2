@@ -45,6 +45,7 @@ import org.eclipse.xtext.diagnostics.IDiagnosticConsumer;
 import org.eclipse.xtext.diagnostics.Severity;
 import org.eclipse.xtext.linking.ILinker;
 import org.eclipse.xtext.linking.lazy.LazyLinker;
+import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.parser.IParseResult;
@@ -152,7 +153,7 @@ public class AnnexParserAgent  extends LazyLinker {
 						} else {
 							// create a parse result adapter based on generic parsing rather than Xtext parsing
 							// this adapter lets us get the acutal annex library or subclause from the default one
-							IParseResult parseResult = new ParseResult(al, null, false);
+							IParseResult parseResult = new ParseResult(al, NodeModelUtils.getNode(defaultAnnexLibrary), false);
 							apr = new AnnexParseResultImpl(parseResult,offset);
 							defaultAnnexLibrary.eAdapters().add(apr);
 						}
@@ -214,7 +215,7 @@ public class AnnexParserAgent  extends LazyLinker {
 						} else {
 							// create a parse result adapter based on generic parsing rather than Xtext parsing
 							// this adapter lets us get the acutal annex library or subclause from the default one
-							IParseResult parseResult = new ParseResult(asc, null, false);
+							IParseResult parseResult = new ParseResult(asc, NodeModelUtils.getNode(defaultAnnexSubclause), false);
 							apr = new AnnexParseResultImpl(parseResult,offset);
 							defaultAnnexSubclause.eAdapters().add(apr);
 						}
