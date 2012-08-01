@@ -153,7 +153,7 @@ public class AnnexParserAgent  extends LazyLinker {
 							// create a parse result adapter based on generic parsing rather than Xtext parsing
 							// this adapter lets us get the acutal annex library or subclause from the default one
 							IParseResult parseResult = new ParseResult(al, null, false);
-							new AnnexParseResultImpl(parseResult,offset);
+							apr = new AnnexParseResultImpl(parseResult,offset);
 							defaultAnnexLibrary.eAdapters().add(apr);
 						}
 						al.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
@@ -215,7 +215,7 @@ public class AnnexParserAgent  extends LazyLinker {
 							// create a parse result adapter based on generic parsing rather than Xtext parsing
 							// this adapter lets us get the acutal annex library or subclause from the default one
 							IParseResult parseResult = new ParseResult(asc, null, false);
-							new AnnexParseResultImpl(parseResult,offset);
+							apr = new AnnexParseResultImpl(parseResult,offset);
 							defaultAnnexSubclause.eAdapters().add(apr);
 						}
 						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
