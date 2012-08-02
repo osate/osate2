@@ -238,13 +238,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {
 			final ConnectionInstance conni;
 
+			if (!across) {
+				return null;
+			}
 			kind = getKind(dst);
-			//phf: disabled access connection instances that only go up but not across
-//			if (kind != ACCESS_CONNECTION) {
-//				if (!across) {
-//					return null;
-//				}
-//			}
 			// TODO-LW: complete = ...;
 
 			conni = InstanceFactory.eINSTANCE.createConnectionInstance();
@@ -352,7 +349,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches()
+	 * @see
+	 * org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch#initSwitches
+	 * ()
 	 */
 	@Override
 	protected void initSwitches() {
@@ -428,6 +427,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					for (Connection conn : outgoingConns) {
 						// conn is first segment if it can't continue inside the subcomponent
 						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) {
+							// TODO-LW: check if this logic is correct
 							final boolean opposite = feature.getAllFeatureRefinements().contains(
 									conn.getAllDestination());
 //								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
@@ -611,11 +611,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// this should be the starting feature for the next connection
 				}
 
-				ComponentInstance nextComponent = ci.getContainingComponentInstance();
-				List<Connection> parentConns = InstanceUtil.getComponentImplementation(nextComponent, 0,
-						classifierCache).getAllConnections();
-				List<Connection> conns = filterOutgoingConnections(
-						filterOutgoingConnections(parentConns, ci.getSubcomponent()), toFeature);
+				ComponentInstance nextCi = ci.getContainingComponentInstance();
+				List<Connection> parentConns = InstanceUtil.getComponentImplementation(nextCi, 0, classifierCache)
+						.getAllConnections();
+				List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
 
 				if (conns.isEmpty() && !didModeTransitionConnection) {
 					// PropertyValue reqconn =
@@ -632,11 +631,34 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				} else {
 					if (!conns.isEmpty()) {
 						for (Connection nextConn : conns) {
+							// note: nextConn goes either up or across
 							final ConnectionInfo clone = connInfo.cloneInfo();
-							final boolean opposite = toFeature.getAllFeatureRefinements().contains(
-									nextConn.getAllDestination());
+							boolean opposite = false;
 
-							appendSegment(clone, nextConn, nextComponent, opposite);
+							if (nextConn.isBidirectional()) {
+								ConnectionEnd nextDst = nextConn.getAllDestination();
+
+								if (nextDst instanceof Feature) {
+									Feature nextDstFeature = (Feature) nextDst;
+									FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+
+									if (nextDstFi == null) {
+										// next goes across
+										Context nextDstCtx = nextConn.getAllDestinationContext();
+
+										if (nextDstCtx instanceof Subcomponent) {
+											ComponentInstance nextDstSubi = nextCi
+													.findSubcomponentInstance((Subcomponent) nextDstCtx);
+											nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
+										}
+									}
+									if (nextDstFi != null) {
+										opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
+									}
+								}
+							}
+
+							appendSegment(clone, nextConn, nextCi, opposite);
 						}
 					}
 				}
@@ -687,6 +709,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// we have ingoing connections that start with toFeature as End or as Cxt
 						for (Connection nextConn : conns) {
 							final ConnectionInfo clone = connInfo.cloneInfo();
+
+							// TODO-LW: check if this logic is correct
 							final boolean opposite = toFeature.getAllFeatureRefinements().contains(
 									nextConn.getAllDestination())
 									|| toFeature.getAllFeatureRefinements().contains(
