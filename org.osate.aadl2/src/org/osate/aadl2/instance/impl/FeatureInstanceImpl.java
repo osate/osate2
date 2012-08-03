@@ -635,6 +635,11 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
 				NamedElement ne = pathIter.next().getNamedElement();
 
+				// TODO: remove temporary workaround
+				if (ne == this.feature) {
+					continue;
+				} else
+
 				if (ne instanceof Feature) {
 					fi = fi.findFeatureInstance((Feature) ne);
 					while ((fi != null) && (ne instanceof FeatureGroup) && pathIter.hasNext()) {

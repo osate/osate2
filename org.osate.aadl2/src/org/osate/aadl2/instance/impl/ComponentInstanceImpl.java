@@ -867,6 +867,11 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
 			NamedElement ne = pathIter.next().getNamedElement();
 
+			// TODO: remove temporary workaround
+			if (ne == this.subcomponent) {
+				continue;
+			} else
+				
 			if (ne instanceof Subcomponent) {
 				io = ((ComponentInstance) io).findSubcomponentInstance((Subcomponent) ne);
 			} else if (ne instanceof Feature) {
