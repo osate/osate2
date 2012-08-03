@@ -34,7 +34,7 @@ public final class AADLProcessor extends Processor {
 	 * intialize the {@link #PROTOTYPE} field.
 	 */
 	private AADLProcessor() {
-		super("PROTOTYPE", new EDFScheduler(new BandwidthComparator()), 1/GetProperties.DEFAULT_CYCLE_TIME);
+		super("PROTOTYPE", new EDFScheduler(new BandwidthComparator()), 1/GetProperties.DEFAULT_CYCLE_TIME_IN_SEC);
 		// Not worrying about site architecture
 		this.powerRequirement = 0.0;
 		this.spaceRequirement = 0.0;

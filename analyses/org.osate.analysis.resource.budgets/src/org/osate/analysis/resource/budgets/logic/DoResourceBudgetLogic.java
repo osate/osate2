@@ -219,18 +219,21 @@ public class DoResourceBudgetLogic {
 			}
 		}
 		double budget = getBudget(ci, rk);
+		String resourceName = ci.getCategory().getName();
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
 			double actualmips = GetProperties.getActualMIPS(ci);
 			if (actualmips == 0.0) {
 				total = budget;
 			} else {
 				total = actualmips;
+				if (actualmips > budget){
+					errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " execution time (in MIPS) " + actualmips +" greater than budget "+budget);
+				}
 			}
 		}
 		if (HWOnly && budget == 0) {
 			return -1;
 		}
-		String resourceName = ci.getCategory().getName();
 		if (budget == 0 && total == 0 && required) {
 			if (!(ci.getCategory() == ComponentCategory.DEVICE)) {
 				errManager.warning(ci, resourceName + " " + ci.getInstanceObjectPath() + " without " + rk.name());
