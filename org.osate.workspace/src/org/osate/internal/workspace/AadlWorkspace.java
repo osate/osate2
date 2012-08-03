@@ -159,6 +159,7 @@ public class AadlWorkspace extends AadlElement implements IAadlWorkspace {
 	 * @see edu.cmu.sei.osate.core.IAadlWorkspace#findAadlSourceFile(int,
 	 * java.lang.String)
 	 */
+	@Deprecated
 	public IFile findAadlSourceFile(String name) {
 		IAadlProject[] projects = getOpenAadlProjects();
 
@@ -178,6 +179,7 @@ public class AadlWorkspace extends AadlElement implements IAadlWorkspace {
 	 * @see edu.cmu.sei.osate.core.IAadlWorkspace#findAadlModelFile(
 	 * java.lang.String)
 	 */
+	@Deprecated
 	public IFile findAadlModelFile(String name) {
 		String filename = name + "." + WorkspacePlugin.MODEL_FILE_EXT;
 		IFile result = (IFile) lookupFile.get(filename);

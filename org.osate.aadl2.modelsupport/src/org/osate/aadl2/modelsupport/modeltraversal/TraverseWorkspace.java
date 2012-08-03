@@ -23,6 +23,7 @@ public class TraverseWorkspace {
 	public static HashSet<IFile> getAadlandInstanceFilesInWorkspace(){
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT);
+		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT2);
 		getFiles(getProjects(),result,WorkspacePlugin.INSTANCE_FILE_EXT);
 		return result;
 	}
@@ -30,6 +31,7 @@ public class TraverseWorkspace {
 	public static HashSet<IFile> getAadlFilesInWorkspace(){
 		HashSet<IFile> result = new HashSet<IFile>();
 		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT);
+		getFiles(getProjects(),result,WorkspacePlugin.SOURCE_FILE_EXT2);
 		return result;
 	}
 	
@@ -93,8 +95,8 @@ public class TraverseWorkspace {
 					IFile file = (IFile) resources[i];
 					String ext = file.getFileExtension();
 					if (ext != null){
-						if( extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)
-								|| ext.equalsIgnoreCase("aadl2"))){
+						if( (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT) && (ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT))
+								|| (extension.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)&&ext.equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT2)))){
 							result.add( (IFile) resources[i]);
 						}
 						// looking for old style instance file names (i.e., extension aaxl2
