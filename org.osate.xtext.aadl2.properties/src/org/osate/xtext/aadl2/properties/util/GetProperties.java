@@ -62,7 +62,12 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.properties.PropertyIsListException;
+import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
@@ -243,6 +248,10 @@ public class GetProperties {
 		return findUnitLiteral(context,AadlProject.TIME_UNITS, AadlProject.MS_LITERAL);
 	}
 	
+	public static UnitLiteral getUSUnitLiteral(NamedElement context){
+		return findUnitLiteral(context,AadlProject.TIME_UNITS, AadlProject.US_LITERAL);
+	}
+	
 	public static UnitLiteral getSecUnitLiteral(NamedElement context){
 		return findUnitLiteral(context,AadlProject.TIME_UNITS, AadlProject.SEC_LITERAL);
 	}
@@ -391,23 +400,38 @@ public class GetProperties {
 			pv = ne.getSimplePropertyValue(referenceProcessor);
 		} catch (Exception e) {
 		}
+		if (pv == null){
+			referenceProcessor = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.REFERENCE_PROCESSOR);
+			try {
+				pv = ne.getSimplePropertyValue(referenceProcessor);
+			} catch (Exception e) {
+			}
+		}
 		if (pv == null)
 			return null;
 		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 
 	}
-	// 1 us equals 1 MIPS
-	public static final double DEFAULT_CYCLE_TIME = 1.0e-12;
+	// 1 ps equals 1 GIPS
+	public static final double DEFAULT_CYCLE_TIME_IN_SEC = 1.0e-9;
+	public static final double DEFAULT_CYCLE_TIME_IN_MS = 1.0e-6;
+	public static final double DEFAULT_CYCLE_TIME_IN_US = 1.0e-3;
 
 	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME_IN_US);
+	}
+
+	public static double getCycleTimeinMS(final NamedElement ne) {
+		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(cycleTime, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, milliSecond, DEFAULT_CYCLE_TIME_IN_MS);
 	}
 	public static double getCycleTimeinSec(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral second = findUnitLiteral(cycleTime, AadlProject.SEC_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, second, DEFAULT_CYCLE_TIME_IN_SEC);
 	}
 	
 	
@@ -421,8 +445,13 @@ public class GetProperties {
 
 
 	public static double scaleValueToMicroSecond(final NumberValue nv) {
-		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.MS_LITERAL);
+		UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.US_LITERAL);
 		return nv.getScaledValue(microSecond);
+	}
+
+	public static double scaleValueToSecond(final NumberValue nv) {
+		UnitLiteral second = PropertiesLinkingService.findUnitLiteral(nv, AadlProject.SEC_LITERAL);
+		return nv.getScaledValue(second);
 	}
 
 	
@@ -438,7 +467,7 @@ public class GetProperties {
 
 	
 	public static double getActualMIPS(ComponentInstance bci) {
-		double exectimeval = getComputeExecutionTimeinSec(bci);
+		double exectimeval = getComputeExecutionTimeinReferenceProcessorSec(bci);
 		double period = getPeriodInSeconds(bci, 0.0);
 		if (exectimeval > 0 && period > 0) {
 			double mipspersec = getReferenceMIPS(bci);
@@ -457,7 +486,7 @@ public class GetProperties {
 	 * @param thread
 	 * @return double cycle time in micro sec.
 	 */
-	public static double getReferenceCycleTimeinMS(final ComponentInstance thread) {
+	public static double getReferenceCycleTimeinUS(final ComponentInstance thread) {
 		double cycleTime = 0.0;
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
@@ -465,38 +494,51 @@ public class GetProperties {
 			cycleTime = getCycleTimeinUS(pci);
 		}
 		if (cycleTime == 0.0) {
-			cycleTime = getReferenceCycleTimeConstantinMS(thread);
+			cycleTime = getReferenceCycleTimeConstantinUS(thread);
 		}
 		return cycleTime;
 	}
+	
 	public static double getReferenceCycleTimeinSec(final ComponentInstance thread) {
 		double cycleTime = 0.0;
 		ComponentClassifier pci = null;
 		pci = getReferenceProcessor(thread);
 		if (pci != null) {
-			cycleTime = getCycleTimeinUS(pci);
-			cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
+			cycleTime = getCycleTimeinSec(pci);
 		}
 		if (cycleTime == 0.0) {
+			cycleTime = getReferenceCycleTimeConstantinSec(thread);
 		}
-		cycleTime= convertToScale(cycleTime, getMSUnitLiteral(pci), getSecUnitLiteral(pci));
 		return cycleTime;
 	}
 
-	public static double getReferenceCycleTimeConstantinMS(Element context) {
+	public static double getReferenceCycleTimeConstantinUS(Element context) {
 		PropertyConstant referenceCycleTime = lookupPropertyConstant(context,SEI._NAME,SEI.REFERENCE_CYCLE_TIME);
 		if (referenceCycleTime == null)
 			return 0.0;
 		return scaleValueToMicroSecond((NumberValue) referenceCycleTime.getConstantValue());
 	}
+
+	public static double getReferenceCycleTimeConstantinSec(Element context) {
+		PropertyConstant referenceCycleTime = lookupPropertyConstant(context,SEI._NAME,SEI.REFERENCE_CYCLE_TIME);
+		if (referenceCycleTime == null)
+			return 0.0;
+		return scaleValueToSecond((NumberValue) referenceCycleTime.getConstantValue());
+	}
 	
 	public static double fromMStoSec(NamedElement ne, double value){
 		return convertToScale(value, getMSUnitLiteral(ne), getSecUnitLiteral(ne));
 	}
+	
+	public static double fromUStoSec(NamedElement ne, double value){
+		return convertToScale(value, getUSUnitLiteral(ne), getSecUnitLiteral(ne));
+	}
 
 	/**
 	 * get the scaling factor between the processor the thread is bound to and
-	 * the reference processor used to specify the cycle time
+	 * the reference processor used to specify the execution time 
+	 * Calculate it based on cycle time and reference cycle time
+	 * if either is not specified, try looking for the scaling factor (predeclared or SEI)
 	 * 
 	 * @param thread
 	 * @return double scaling factor of processor speed
@@ -507,11 +549,27 @@ public class GetProperties {
 		if (processor == null) {
 			return 1.0;
 		}
+		double factor = getScalingFactorPropertyValue(processor);
+		if (factor != 0.0){
+			return factor;
+		}
 		double procCycleTime = getCycleTimeinUS(processor);
-		double refCycleTime = getReferenceCycleTimeinMS(thread);
+		double refCycleTime = getReferenceCycleTimeinUS(thread);
 		if (refCycleTime == 0.0)
 			return 1.0;
 		return procCycleTime / refCycleTime;
+	}
+	
+	public static double getScalingFactorPropertyValue(final ComponentInstance processor){
+		Property sf = lookupPropertyDefinition(processor,TimingProperties._NAME, TimingProperties.SCALING_FACTOR);
+		double res = 1.0;
+		try {
+			res = PropertyUtils.getRealValue(processor, sf);
+		} catch (Exception e) {
+			sf = lookupPropertyDefinition(processor,SEI._NAME, SEI.SPEED_SCALING_FACTOR);
+			res = PropertyUtils.getRealValue(processor, sf, 0.0);
+		}
+		return res;
 	}
 
 	/**
@@ -522,7 +580,7 @@ public class GetProperties {
 	 * value corresponding to a 1GIPS processor.
 	 */
 	public static double getReferenceMIPS(final ComponentInstance thread) {
-		double cycleTime = getReferenceCycleTimeinMS(thread);
+		double cycleTime = getReferenceCycleTimeinUS(thread);
 		if (cycleTime != 0.0) {
 			// time for MIPS therefore microsec (10E-6)
 			// 1 / cycletime => # of MIPS in terms of one instruction per cycle
@@ -642,6 +700,13 @@ public class GetProperties {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
 			return time * scale;
 		}
+		return time;
+	}
+
+	public static double getComputeExecutionTimeinReferenceProcessorSec(final NamedElement ne) {
+		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
+		UnitLiteral second = findUnitLiteral(computeExecutionTime, AadlProject.SEC_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, second, 0.0);
 		return time;
 	}
 
