@@ -36,6 +36,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 * File extension of AADL source text files
 	 */
 	public static final String SOURCE_FILE_EXT = "aadl";
+	public static final String SOURCE_FILE_EXT2 = "aadl2";
 
 	/**
 	 * File extension of AADL model files

@@ -40,11 +40,7 @@ public class PredeclaredProperties {
 						if (pluginResourcesProject.isOpen()) {
 							for (URI contributedResourceUri : PluginSupportUtil
 									.getContributedAadl()) {
-								String resourceName = contributedResourceUri
-										.trimFileExtension()
-										.appendFileExtension(
-												WorkspacePlugin.SOURCE_FILE_EXT)
-										.lastSegment();
+								String resourceName = contributedResourceUri.lastSegment();
 								IFile contributedResourceInWorkspace = pluginResourcesProject.getFile(resourceName);
 								if (!contributedResourceInWorkspace.exists()
 										|| contributedResourceInWorkspace
@@ -151,8 +147,7 @@ public class PredeclaredProperties {
 		try {
 			URIConverter uricvt = OsateResourceUtil.createResourceSet().getURIConverter();
 			InputStream contributedResourceContentsAsStream = uricvt
-					.createInputStream(contributedResourceUri.trimFileExtension()
-							.appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT));
+					.createInputStream(contributedResourceUri);
 			if (contributedResourceInWorkspace.exists()) {
 				// Temporarily make it read-write.
 				ResourceAttributes attributes = contributedResourceInWorkspace
@@ -183,8 +178,7 @@ public class PredeclaredProperties {
 							+ PLUGIN_RESOURCES_DIRECTORY_NAME);
 		for (final URI contributedResourceUri : PluginSupportUtil
 				.getContributedAadl()) {
-			if (contributedResourceUri.trimFileExtension().appendFileExtension(
-					WorkspacePlugin.SOURCE_FILE_EXT).lastSegment().equals(
+			if (contributedResourceUri.lastSegment().equals(
 					contributedResourceInWorkspace.getName())) {
 				try {
 					new WorkspaceModifyOperation() {

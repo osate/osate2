@@ -99,7 +99,9 @@ public class AadlProject extends AadlElement implements IAadlProject {
 				+ "." + WorkspacePlugin.SOURCE_FILE_EXT;
 		f = findAadlFile(new Path(currentPath), filename);
 		if (f == null) {
-			f = tryOtherPackageSeparators(name, WorkspacePlugin.SOURCE_FILE_EXT, currentPath);
+			filename = name.replaceAll(WorkspacePlugin.AADL_PACKAGE_SEPARATOR, WorkspacePlugin.FILE_PACKAGE_SEPARATOR)
+					+ "." + WorkspacePlugin.SOURCE_FILE_EXT2;
+			f = findAadlFile(new Path(currentPath), filename);
 		}
 		return f;
 	}
@@ -354,6 +356,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 	 * In the new scheme of things text filees are always up to date with XML
 	 * models thus can be used to do a clean build
 	 */
+	@Deprecated
 	public void cleanAllAADLTextFiles(final IProgressMonitor monitor) {
 		IPath path = null;
 		IContainer folder = null;
@@ -371,7 +374,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 			new ForAllIFile() {
 				protected void process(IFile theFile) {
 					String filename = theFile.getName();
-					if (filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)) {
+					if (filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)||filename.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2)) {
 						try {
 							theFile.setDerived(false);
 						} catch (CoreException e) {
@@ -465,7 +468,7 @@ public class AadlProject extends AadlElement implements IAadlProject {
 			EList<IFile> result = new ForAllIFile() {
 				protected boolean suchThat(IFile obj) {
 					String name = obj.getName();
-					return name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT);
+					return (name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT)||name.endsWith(WorkspacePlugin.SOURCE_FILE_EXT2));
 				}
 			}.traverse(folder);
 			return result;

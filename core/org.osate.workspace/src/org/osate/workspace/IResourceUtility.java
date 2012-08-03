@@ -139,7 +139,7 @@ public class IResourceUtility {
 	public static boolean isAadlFile(IResource file) {
 		if (file instanceof IFile) {
 			String ext = file.getFileExtension();
-			return ext != null && (ext.equals(WorkspacePlugin.SOURCE_FILE_EXT));
+			return ext != null && (ext.equals(WorkspacePlugin.SOURCE_FILE_EXT)||ext.equals(WorkspacePlugin.SOURCE_FILE_EXT2));
 		} else {
 			return false;
 		}
