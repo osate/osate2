@@ -1507,7 +1507,7 @@ public class AadlBaTypeChecker
     
     result.setLocationReference(id.getLocationReference()) ;
     
-    _hl.addToHyperlinking(result) ;    
+    _hl.addToHyperlinking(id.getAadlBaLocationReference(), result) ;    
     
     return result ;
   }

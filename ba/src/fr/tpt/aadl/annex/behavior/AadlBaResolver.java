@@ -28,6 +28,7 @@ import org.eclipse.core.runtime.Platform ;
 import org.osate.annexsupport.AnnexResolver ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaNameResolver ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaRulesCheckersDriver ;
 import fr.tpt.aadl.annex.behavior.analyzers.AadlBaTypeChecker ;
@@ -78,19 +79,19 @@ public class AadlBaResolver implements AnnexResolver
             {
                typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
                                                        errManager) ;
-               AadlBaHyperlink linker ;
+               AadlBaHyperlink hyperlinker ;
                
                // Set a Xtext hyperlink builder if AADLBA Front End is running
                // under OSATE2.
                if(Platform.isRunning())
                {
-                 linker = new XtextAadlBaHyperlink() ;
+            	 hyperlinker = new XtextAadlBaHyperlink(ba) ;
                }
                else // Set the default hyperlink builder that does nothing.
                {
-                 linker = new DefaultAadlBaHyperlink() ;
+            	 hyperlinker = new DefaultAadlBaHyperlink() ;
                }
-                              
+               typeChecker.setAadlBaHyperlink(hyperlinker);
                result = typeChecker.checkTypes() ;
                
                if (result)
@@ -100,7 +101,18 @@ public class AadlBaResolver implements AnnexResolver
                  result = semanticAnalysis.process(ba) ;
                }  
                
-               DeclarativeUtils.reinstanciateBehaviorTransition(ba) ;
+               DeclarativeUtils.reinstanciateBehaviorTransition(ba, hyperlinker) ;
+               for(BehaviorTransition trans : ba.getTransitions())
+               {
+            	 if(trans.getSourceState()!=null)
+            		hyperlinker.addToHyperlinking(trans.getSourceState().getAadlBaLocationReference(),
+            				trans.getSourceState()) ;
+            	 
+            	 if(trans.getDestinationState()!=null)
+            		 hyperlinker.addToHyperlinking(trans.getDestinationState().getAadlBaLocationReference(),
+            				 trans.getSourceState()) ;
+               }
+               
                
                // XXX DEBUG
 //               AadlBaUnparser unparser = new AadlBaUnparser() ;

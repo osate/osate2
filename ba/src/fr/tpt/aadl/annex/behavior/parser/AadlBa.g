@@ -199,7 +199,7 @@ options {
     
     // String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
     
-    int offset = token.getTokenIndex() ;
+    int offset = ((CommonToken)token).getStartIndex() ;
     int length = token.getText().length() ;
     int column = token.getCharPositionInLine() + 1 ; // Zero index based.
     int line = token.getLine() ;

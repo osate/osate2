@@ -1,18 +1,20 @@
 package fr.tpt.aadl.annex.behavior.texteditor;
 
-import fr.tpt.aadl.annex.behavior.aadlba.ElementHolder ;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
 
 public class DefaultAadlBaHyperlink implements AadlBaHyperlink
 {
   @Override
-  public void addToHyperlinking(ElementHolder holder)
+  public void addToHyperlinking(AadlBaLocationReference location, BehaviorElement element)
   {
     // Does nothing.
   }
 
   @Override
-  public ElementHolder getLinkedElement(int offset)
+  public BehaviorElement getLinkedElement(int offset)
   {
     throw new UnsupportedOperationException() ;
   }
+
 }

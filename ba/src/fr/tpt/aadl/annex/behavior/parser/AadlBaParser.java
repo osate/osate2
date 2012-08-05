@@ -281,7 +281,8 @@ public class AadlBaParser extends Parser {
         
         // String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
         
-        int offset = token.getTokenIndex() ;
+        int offset = ((CommonToken)token).getStartIndex() ;
+        System.out.println(token.getText()+" : "+offset);
         int length = token.getText().length() ;
         int column = token.getCharPositionInLine() + 1 ; // Zero index based.
         int line = token.getLine() ;

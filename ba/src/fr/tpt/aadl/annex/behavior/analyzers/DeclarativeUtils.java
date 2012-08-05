@@ -34,6 +34,7 @@ import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState ;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.declarative.DeclarativeBehaviorTransition ;
 import fr.tpt.aadl.annex.behavior.declarative.Identifier ;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHyperlink;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
 
 /**
@@ -41,6 +42,7 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
  */
 public class DeclarativeUtils
 {
+  
   /**
    * Instanciates the behavior transitions from the given behavior annex's
    * declarative behavior transitions.<BR><BR>
@@ -51,7 +53,7 @@ public class DeclarativeUtils
    * 
    * @param ba the given behavior annex
    */
-  public static void reinstanciateBehaviorTransition(BehaviorAnnex ba)
+  public static void reinstanciateBehaviorTransition(BehaviorAnnex ba, AadlBaHyperlink hl)
   {
     DeclarativeBehaviorTransition dbt = null ;
     List<BehaviorTransition> clones = new ArrayList<BehaviorTransition>();
@@ -69,9 +71,14 @@ public class DeclarativeUtils
         BehaviorState srcState = (BehaviorState) idSrcState.getBaRef() ;
         currentClone.setSourceState(srcState) ;
         
+        hl.addToHyperlinking(idSrcState.getAadlBaLocationReference(), srcState);
+        
         currentClone.setCondition(dbt.getCondition()) ;
         currentClone.setDestinationState((BehaviorState) dbt.getDestState(). 
                                                                    getBaRef()) ;
+        
+        hl.addToHyperlinking(dbt.getDestState().getAadlBaLocationReference(), dbt.getDestState().getBaRef()	);
+        
         currentClone.setActionBlock(dbt.getActionBlock()) ;
         currentClone.setPriority(dbt.getPriority()) ;
         currentClone.setLocationReference(dbt.getLocationReference()) ;

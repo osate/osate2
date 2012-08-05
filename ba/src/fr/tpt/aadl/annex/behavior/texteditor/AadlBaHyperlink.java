@@ -1,10 +1,15 @@
 package fr.tpt.aadl.annex.behavior.texteditor;
 
-import fr.tpt.aadl.annex.behavior.aadlba.ElementHolder ;
+import org.osate.aadl2.Element;
+
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
 
 public interface AadlBaHyperlink
 {
-  public void addToHyperlinking (ElementHolder holder) ;
 
-  public ElementHolder getLinkedElement(int offset) ; 
+  public void addToHyperlinking (AadlBaLocationReference location, BehaviorElement element) ;
+
+  public Element getLinkedElement(int offset) ;
+
 }
