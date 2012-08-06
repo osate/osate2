@@ -33,6 +33,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -86,6 +87,19 @@ public class PropertyUtils {
 			}
 		}
 
+		if(owner.eContainer()!=null && owner.eContainer() instanceof NamedElement)
+		{
+			for (PropertyAssociation pa : ((NamedElement)owner.eContainer()).getOwnedPropertyAssociations()) {
+				if (pa.getProperty().getName() == null) {
+					continue;
+				}
+
+				if (pa.getProperty().getName().equalsIgnoreCase(propertyName) && 
+						isInAppliesTo(pa, owner)) {
+					return pa;
+				}
+			}
+		}
 		if (owner instanceof ComponentInstance) {
 			ComponentInstance inst = (ComponentInstance) owner;
 			ComponentImplementation impl = inst.getContainingComponentImpl();
@@ -98,7 +112,20 @@ public class PropertyUtils {
 
 		return null;
 	}
-
+	
+	private static boolean isInAppliesTo(PropertyAssociation pa, NamedElement owner)
+	{
+		for (ContainedNamedElement cne: pa.getAppliesTos())
+		{
+			for(ContainmentPathElement cpe: cne.getContainmentPathElements())
+			{
+				if(cpe.getNamedElement().equals(owner))
+					return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Extract integer value from a specified property.
 	 * 
