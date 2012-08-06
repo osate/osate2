@@ -43,6 +43,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IWorkbench;
@@ -52,6 +54,7 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 public class SaveAsTextHandler extends AbstractHandler {
 
@@ -63,21 +66,29 @@ public class SaveAsTextHandler extends AbstractHandler {
 		ISelection selection= page.getSelection();;
 		if (selection instanceof TreeSelection){
 			for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
-				Object f = (Object) iterator.next();
+				final Object f = (Object) iterator.next();
 				if (f instanceof IResource){
 					if (WorkspacePlugin.MODEL_FILE_EXT.equalsIgnoreCase(((IResource)f).getFileExtension())){
 						// you could use the adapter:	ModelUnit target = (ModelUnit)Platform.getAdapterManager().getAdapter(f, ModelUnit.class);
 						// instead of the next two statements
-						ResourceSet rs = OsateResourceUtil.createResourceSet();
-						Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)f), true);
-						Element target = (Element)res.getContents().get(0);
-						URI aaxluri = res.getURI();
-						URI xtxturi = aaxluri.trimFileExtension().appendFileExtension("aadl");
-						Resource xtxtres = rs.createResource(xtxturi);
-						xtxtres.getContents().add(target);
-						OsateResourceUtil.save(xtxtres);
-						res.getContents().add(target);
-						rs.getResources().remove(xtxtres);
+						final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+								.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+						// We execute this command on the command stack because otherwise, we will not
+						//  have write permissions on the editing domain.
+						domain.getCommandStack().execute(new RecordingCommand(domain) {
+							protected void doExecute() {
+								ResourceSet rs = OsateResourceUtil.createResourceSet();
+								Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)f), true);
+								Element target = (Element)res.getContents().get(0);
+								URI aaxluri = res.getURI();
+								URI xtxturi = aaxluri.trimFileExtension().appendFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
+								Resource xtxtres = rs.createResource(xtxturi);
+								xtxtres.getContents().add(target);
+								OsateResourceUtil.save(xtxtres);
+								res.getContents().add(target);
+								rs.getResources().remove(xtxtres);
+							}
+						});
 					}
 				}
 			}
