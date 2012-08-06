@@ -153,7 +153,7 @@ public class InstantiateHandler extends AbstractHandler {
 										ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 										if (cc instanceof SystemImplementation){
 											SystemImplementation si = (SystemImplementation)cc;
-
+											// the operation is performed in a transactional editing domain.
 											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
 
 										} else {

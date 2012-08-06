@@ -39,12 +39,15 @@ import java.io.IOException;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
@@ -62,9 +65,11 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 import com.google.inject.Inject;
 
@@ -104,9 +109,9 @@ public class SerializeHandler extends AbstractHandler {
 			} else {
 				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
 			}
-			xtextEditor.getDocument().modify(
+			xtextEditor.getDocument().readOnly(
 					new IUnitOfWork<EObject, XtextResource>() {
-						public EObject exec(XtextResource resource)
+						public EObject exec(final XtextResource resource)
 								throws Exception {
 							EObject targetElement = null;
 							if (selection instanceof IStructuredSelection) {
@@ -115,36 +120,48 @@ public class SerializeHandler extends AbstractHandler {
 							if (eon instanceof EObjectNode) {
 								targetElement = ((EObjectNode)eon).getEObject(resource);
 							}
-						} else {
-							targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-									((ITextSelection)selection).getOffset());
-						}
-							URI xtxturi = resource.getURI();
-							URI xtxt2uri = xtxturi.trimFileExtension().appendFileExtension("aaxl2");
-							Resource res = OsateResourceUtil.getEmptyAaxl2Resource(xtxt2uri);
-							Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-							Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-									.createResource(xtxt2uri);
-							ResourceSet rss = resource.getResourceSet();
-							EcoreUtil.resolveAll(resource);
-							EList<EObject> content = resource.getContents();
-							EObject eobject = content.get(0);
-							aaxlresource.getContents().add(eobject);
-							rss.getResources().add(aaxlresource);
-							aaxlresource.save(null);
-							// put the root object back into the original resource
-							resource.getContents().add(eobject);
-							rss.getResources().remove(aaxlresource);
-							// now load and unparse
-							Resource ress = OsateResourceUtil.getResource(xtxt2uri);
-							AadlPackage target = (AadlPackage)ress.getContents().get(0);
-							target.setName(target.getName()+"1");
-							URI xtxtnewuri = xtxt2uri.trimFileExtension().trimSegments(1).appendSegment(target.getName()).appendFileExtension("aadl");
-							Resource xtxtres = rss.createResource(xtxtnewuri);
-							xtxtres.getContents().add(target);
-							OsateResourceUtil.save(xtxtres);
-							res.getContents().add(target);
-							rss.getResources().remove(xtxtres);
+							} else {
+								targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+										((ITextSelection)selection).getOffset());
+							}
+							final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+									.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+							domain.getCommandStack().execute(new RecordingCommand(domain) {
+								protected void doExecute() {
+
+									URI xtxturi = resource.getURI();
+									URI xtxt2uri = xtxturi.trimFileExtension().appendFileExtension("aaxl2");
+									Resource res = OsateResourceUtil.getEmptyAaxl2Resource(xtxt2uri);
+									Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+									Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
+											.createResource(xtxt2uri);
+									ResourceSet rss = resource.getResourceSet();
+									EcoreUtil.resolveAll(resource);
+									EList<EObject> content = resource.getContents();
+									EObject eobject = content.get(0);
+									aaxlresource.getContents().add(eobject);
+									rss.getResources().add(aaxlresource);
+									try {
+										aaxlresource.save(null);
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									// put the root object back into the original resource
+									resource.getContents().add(eobject);
+									rss.getResources().remove(aaxlresource);
+									// now load and unparse
+									Resource ress = OsateResourceUtil.getResource(xtxt2uri);
+									AadlPackage target = (AadlPackage)ress.getContents().get(0);
+									target.setName(target.getName()+"1");
+									URI xtxtnewuri = xtxt2uri.trimFileExtension().trimSegments(1).appendSegment(target.getName()).appendFileExtension("aadl");
+									Resource xtxtres = rss.createResource(xtxtnewuri);
+									xtxtres.getContents().add(target);
+									OsateResourceUtil.save(xtxtres);
+									res.getContents().add(target);
+									rss.getResources().remove(xtxtres);
+								}
+							});
 
 
 //							// sample of creating a fresh model

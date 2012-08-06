@@ -34,16 +34,21 @@
  */
 package org.osate.xtext.aadl2.ui.handlers;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.ui.IEditorPart;
@@ -65,9 +70,11 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Comment;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 import com.google.inject.Inject;
 
@@ -94,9 +101,12 @@ public class SaveAsXMIHandler extends AbstractHandler {
 				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
 			}
 
+			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+
 			xtextEditor.getDocument().readOnly(
 					new IUnitOfWork<EObject, XtextResource>() {
-						public EObject exec(XtextResource resource)
+						public EObject exec(final XtextResource resource)
 								throws Exception {
 							// Resolve references such that HREFs use symbolic
 							// XMI links rather than XText links
@@ -115,23 +125,34 @@ public class SaveAsXMIHandler extends AbstractHandler {
 							        }
 							    }
 								
-								ResourceSet rss = resource.getResourceSet();
-								EObject eobject = content.get(0);
+								final ResourceSet rss = resource.getResourceSet();
+								final EObject eobject = content.get(0);
 								// save XMI
-								URI xtxturi = resource.getURI();
+								final URI xtxturi = resource.getURI();
+								// We execute this command on the command stack because otherwise, we will not
+								//  have write permissions on the editing domain.
+								domain.getCommandStack().execute(new RecordingCommand(domain) {
+									protected void doExecute() {
 
-								URI xmiuri = xtxturi.trimFileExtension()
-										.appendFileExtension(
-												WorkspacePlugin.MODEL_FILE_EXT);
-								Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
-								Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
-										.createResource(xmiuri);
-								aaxlresource.getContents().add(eobject);
-								rss.getResources().add(aaxlresource);
-								aaxlresource.save(null);
-								// put the root object back into the original resource
-								resource.getContents().add(eobject);
-								rss.getResources().remove(aaxlresource);
+										URI xmiuri = xtxturi.trimFileExtension()
+												.appendFileExtension(
+														WorkspacePlugin.MODEL_FILE_EXT);
+										Aadl2ResourceFactoryImpl resFactory = new Aadl2ResourceFactoryImpl();
+										Aadl2ResourceImpl aaxlresource = (Aadl2ResourceImpl) resFactory
+												.createResource(xmiuri);
+										aaxlresource.getContents().add(eobject);
+										rss.getResources().add(aaxlresource);
+										try {
+											aaxlresource.save(null);
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+										// put the root object back into the original resource
+										resource.getContents().add(eobject);
+										rss.getResources().remove(aaxlresource);
+									}
+								});
 							}
 							return null;
 							// }

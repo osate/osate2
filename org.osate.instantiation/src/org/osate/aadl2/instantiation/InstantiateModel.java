@@ -200,7 +200,8 @@ public class InstantiateModel {
 	 * its root object The method makes sure that the system implementation is
 	 * in the OSATE resource set and will create the instance model there as
 	 * well. The Osate resource set is the shared resource set maintained by
-	 * OsateResourceUtil
+	 * OsateResourceUtil.
+	 * THe operation is performed in a transactional editing domain
 	 * 
 	 * @param si system implementation
 	 * 
