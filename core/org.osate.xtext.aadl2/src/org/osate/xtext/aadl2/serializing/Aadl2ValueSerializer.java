@@ -37,26 +37,33 @@ package org.osate.xtext.aadl2.serializing;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
-import org.eclipse.xtext.parsetree.reconstr.impl.ValueSerializer;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.tokens.ValueSerializer;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.NamedElement;
 
 public class Aadl2ValueSerializer extends ValueSerializer {
 @Override
-public String serializeUnassignedValue(EObject context, RuleCall ruleCall, INode node) {
-	if (context instanceof ComponentType || context instanceof FeatureGroupType){
-		return ((NamedElement)context).getName();
-	}
-	if (context instanceof AadlPackage){
-		return ((NamedElement)context).getName();
-	}
-	if (context instanceof ComponentImplementation){
-		return ((NamedElement)context).getName();
-	}
-	return "";
+public String serializeAssignedValue(EObject context, RuleCall ruleCall, Object value, INode node, Acceptor errors) {
+	// phf: this code was from serializeUnassignedValue under the old serializer.
+	// For the new one we have to use the PNAME trick
+//	if (context instanceof ComponentType || context instanceof FeatureGroupType){
+//		return ((NamedElement)context).getName();
+//	}
+//	if (context instanceof AadlPackage){
+//		return ((NamedElement)context).getName();
+//	}
+//	if (context instanceof ComponentImplementation){
+//		return ((NamedElement)context).getName();
+//	}
+//	if (context instanceof FlowImplementation){
+//		return ((NamedElement)context).getName();
+//	}
+	return super.serializeAssignedValue(context,ruleCall,value,node,errors);
 }
 
 }

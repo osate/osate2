@@ -40,6 +40,10 @@ import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 
@@ -57,6 +61,35 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		if (semanticObject instanceof ComponentImplementation)
  			return ((ComponentImplementation)semanticObject).getName();
 		return super.getFULLINAMEToken(semanticObject, ruleCall, node);
+	}
+// TODO phf: if we use PNAME at the end we need to fix the 	
+	@Override
+	protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (semanticObject instanceof AadlPackage)
+ 			return ((AadlPackage)semanticObject).getName();
+		return super.getPNAMEToken(semanticObject, ruleCall, node);
+	}
+	
+	@Override
+	protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (semanticObject instanceof FlowImplementation){
+			FlowEnd outend = ((FlowImplementation)semanticObject).getSpecification().getOutEnd();
+			FlowEnd inend = ((FlowImplementation)semanticObject).getSpecification().getInEnd();
+			String head = (((FlowImplementation)semanticObject).getKind() == FlowKind.PATH && ((FlowImplementation)semanticObject).getOwnedFlowSegments().isEmpty()?AadlUtil.getFlowEndName(inend)+" -> ":"");
+ 			return head+AadlUtil.getFlowEndName(outend);
+		}
+		return super.getFLOWOUTToken(semanticObject, ruleCall, node);
+	}
+	
+	@Override
+	protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (semanticObject instanceof FlowImplementation){
+			FlowEnd inend = ((FlowImplementation)semanticObject).getSpecification().getInEnd();
+//			FlowEnd outend = ((FlowImplementation)semanticObject).getSpecification().getOutEnd();
+//			String tail = (((FlowImplementation)semanticObject).getKind() == FlowKind.PATH && ((FlowImplementation)semanticObject).getOwnedFlowSegments().isEmpty()?" -> "+AadlUtil.getFlowEndName(outend):"");
+ 			return AadlUtil.getFlowEndName(inend);
+		}
+		return super.getFLOWINToken(semanticObject, ruleCall, node);
 	}
 
 }

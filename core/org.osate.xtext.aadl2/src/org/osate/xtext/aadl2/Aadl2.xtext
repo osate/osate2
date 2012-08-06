@@ -20,7 +20,7 @@ AadlPackage returns aadl2::AadlPackage:
 //| (noProperties?='none' ';')
 	| ('none' ';') )
 	)? 
-	'end' ID ('::' ID)* ';';
+	'end' PNAME ';';//ID ('::' ID)* ';';
 
 
 PublicPackageSection returns aadl2::PublicPackageSection:
@@ -1690,23 +1690,23 @@ FlowSourceImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID] 
 	':' 'flow' kind=FlowSource 
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
-(ID '.')? ID
+FLOWOUT
 ;
 
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowSink 
-(ID '.')? ID
+FLOWIN
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
 ;
 
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowPath 
-(ID '.')? ID
+FLOWIN
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
- '->' (ID '.')? ID
+ '->' FLOWOUT
 ;
 
 
@@ -2046,6 +2046,11 @@ CoreKeyWord :
 // package anme
 PNAME:
 	ID ('::' ID)*;
+	
+FLOWOUT: (ID '.')? ID
+;
+FLOWIN: (ID '.')? ID
+;
 
 // fully qualified classifier name (always includes package name
 FQCREF:

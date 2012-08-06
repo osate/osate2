@@ -63,10 +63,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer> bindICrossReferenceSerializer() {
 		return org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer.class;
 	}
-
-	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindITokenSerializer$IValueSerializer() {
-		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
-	}
+// we are not using it for unassigned values. We use token like PNAME instead
+//	public Class<? extends org.eclipse.xtext.serializer.tokens.IValueSerializer> bindITokenSerializer$IValueSerializer() {
+//		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
+//	}
 
 	@Override
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
