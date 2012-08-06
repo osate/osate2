@@ -47,6 +47,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
@@ -61,6 +62,7 @@ import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.EvaluatedProperty;
+import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -129,6 +131,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 		for (final Iterator<Property> it = propertyFilter.iterator(); it.hasNext() && notCancelled();) {
 			final Property property = it.next();
+			// TODO high: implement acceptance test
 			if (io.acceptsProperty(property)) {
 				/*
 				 * Just look up the property. The property doesn't yet have a
@@ -136,11 +139,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				 * declarative model. Property lookup process now corrects
 				 * reference values to instance reference values.
 				 */
-				// Already checked that acceptsProperty is true
 				try {
-					EvaluatedProperty value = property.evaluate(new EvaluationContext(io, classifierCache));
+					List<EvaluatedProperty> value = property.evaluate(new EvaluationContext(io, classifierCache));
 					
-					if (value != null) {
+					if (!value.isEmpty()) {
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
 
 						io.removePropertyAssociations(property);
@@ -159,12 +161,25 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		}
 	}
 
-	private void fillPropertyValue(final InstanceObject io, PropertyAssociation pa, EvaluatedProperty value) {
-		for (EvaluatedProperty.MpvProxy proxy : value.getProxies()) {
+	private void fillPropertyValue(final InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
+		Iterator<EvaluatedProperty> valueIter = values.iterator();
+		EvaluatedProperty value = valueIter.next();
+
+		for (MpvProxy proxy : value.getProxies()) {
 			List<SystemOperationMode> inSOMs = new ArrayList<SystemOperationMode>();
 			ModalPropertyValue newVal = Aadl2Factory.eINSTANCE.createModalPropertyValue();
 
-			newVal.setOwnedValue((PropertyExpression) EcoreUtil.copy(proxy.getValue()));
+			newVal.setOwnedValue(EcoreUtil.copy(proxy.getValue()));
+			// process list appends
+			while(valueIter.hasNext()) {
+				MpvProxy prx = valueIter.next().getProxies().get(0);
+				if (prx.isModal()) {
+					throw new InvalidModelException(prx.getMPV(), "Trying to append to a modal list value");
+				}
+				PropertyExpression lexp = EcoreUtil.copy(prx.getValue());
+				List<PropertyExpression> elems = ((ListValue)lexp).getOwnedListElements();
+				((ListValue)newVal.getOwnedValue()).getOwnedListElements().addAll(0, elems);
+			}
 			if (!proxy.isModal()) {
 				pa.getOwnedValues().add(newVal);
 			} else {
@@ -174,6 +189,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					} else {
 						ModeInstance modeInst = null;
 						ComponentInstance comp = getComponentInstance(io);
+
 						while (comp != null) {
 							Iterator<ModeInstance> iter = comp.getModeInstances().iterator();
 

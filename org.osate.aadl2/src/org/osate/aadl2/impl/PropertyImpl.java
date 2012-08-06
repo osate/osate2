@@ -487,30 +487,16 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		return result.toString();
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+	public List<EvaluatedProperty> evaluate(EvaluationContext ctx) {
 		List<PropertyAssociation> pas = getPropertyValue(ctx).getAssociations();
-		LinkedList<EvaluatedProperty> vals;
+		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
-		if (pas.isEmpty()) {
-			// undefined or default
-			return null;
+		for (PropertyAssociation pa : pas) {
+			vals.add(pa.evaluate(ctx));
+			if (!pa.isAppend())
+				break;
 		}
-		if (pas.size() == 1) {
-			// single property association
-			return pas.get(0).evaluate(ctx);
-		}
-		return null;
-		// need to append lists
-		//		vals = new LinkedList();
-		//		
-		//		for (PropertyAssociation pa : pas) {
-		//			vals.addFirst(pa.evaluate(ctx));
-		//			if (!pa.isAppend()) {
-		//				break;
-		//			}
-		//		}
-		//		for (EvaluatedProperty val : vals) {
-		//		}
+		return vals;
 	}
 
 	private PropertyAcc getPropertyValue(EvaluationContext ctx) throws IllegalStateException, InvalidModelException,
