@@ -229,23 +229,18 @@ ruleAadlPackage returns [EObject current=null]
     {
     	newLeafNode(otherlv_9, grammarAccess.getAadlPackageAccess().getEndKeyword_4());
     }
-this_ID_10=RULE_ID
+
     { 
-    newLeafNode(this_ID_10, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_5()); 
+        newCompositeNode(grammarAccess.getAadlPackageAccess().getPNAMEParserRuleCall_5()); 
     }
-(
-	otherlv_11=KEYWORD_17
+rulePNAME
     {
-    	newLeafNode(otherlv_11, grammarAccess.getAadlPackageAccess().getColonColonKeyword_6_0());
+        afterParserOrEnumRuleCall();
     }
-this_ID_12=RULE_ID
-    { 
-    newLeafNode(this_ID_12, grammarAccess.getAadlPackageAccess().getIDTerminalRuleCall_6_1()); 
-    }
-)*
-	otherlv_13=KEYWORD_9
+
+	otherlv_11=KEYWORD_9
     {
-    	newLeafNode(otherlv_13, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_11, grammarAccess.getAadlPackageAccess().getSemicolonKeyword_6());
     }
 )
 ;
@@ -29160,18 +29155,13 @@ ruleFlowSourceImpl returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getFlowSourceImplAccess().getHyphenMinusGreaterThanSignKeyword_4_3());
     }
-)*(this_ID_8=RULE_ID
+)*
     { 
-    newLeafNode(this_ID_8, grammarAccess.getFlowSourceImplAccess().getIDTerminalRuleCall_5_0()); 
+        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getFLOWOUTParserRuleCall_5()); 
     }
-
-	otherlv_9=KEYWORD_7
+ruleFLOWOUT
     {
-    	newLeafNode(otherlv_9, grammarAccess.getFlowSourceImplAccess().getFullStopKeyword_5_1());
-    }
-)?this_ID_10=RULE_ID
-    { 
-    newLeafNode(this_ID_10, grammarAccess.getFlowSourceImplAccess().getIDTerminalRuleCall_6()); 
+        afterParserOrEnumRuleCall();
     }
 )
 ;
@@ -29235,30 +29225,48 @@ ruleFlowSinkImpl returns [EObject current=null]
 	    }
 
 )
-)(this_ID_4=RULE_ID
+)
     { 
-    newLeafNode(this_ID_4, grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_4_0()); 
+        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getFLOWINParserRuleCall_4()); 
     }
-
-	otherlv_5=KEYWORD_7
+ruleFLOWIN
     {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowSinkImplAccess().getFullStopKeyword_4_1());
-    }
-)?this_ID_6=RULE_ID
-    { 
-    newLeafNode(this_ID_6, grammarAccess.getFlowSinkImplAccess().getIDTerminalRuleCall_5()); 
+        afterParserOrEnumRuleCall();
     }
 (
-	otherlv_7=KEYWORD_14
+	otherlv_5=KEYWORD_14
     {
-    	newLeafNode(otherlv_7, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0());
+    	newLeafNode(otherlv_5, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_5_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_1_0()); 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_5_1_0()); 
 	    }
-		lv_ownedFlowSegment_8_0=ruleConnectionFlow		{
+		lv_ownedFlowSegment_6_0=ruleConnectionFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_6_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_7=KEYWORD_14
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_5_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_5_3_0()); 
+	    }
+		lv_ownedFlowSegment_8_0=ruleSubcomponentFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
 	        }
@@ -29266,29 +29274,6 @@ ruleFlowSinkImpl returns [EObject current=null]
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_8_0, 
-        		"ConnectionFlow");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-	otherlv_9=KEYWORD_14
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_6_2());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_3_0()); 
-	    }
-		lv_ownedFlowSegment_10_0=ruleSubcomponentFlow		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedFlowSegment",
-        		lv_ownedFlowSegment_10_0, 
         		"SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -29356,30 +29341,48 @@ ruleFlowPathImpl returns [EObject current=null]
 	    }
 
 )
-)(this_ID_4=RULE_ID
+)
     { 
-    newLeafNode(this_ID_4, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_4_0()); 
+        newCompositeNode(grammarAccess.getFlowPathImplAccess().getFLOWINParserRuleCall_4()); 
     }
-
-	otherlv_5=KEYWORD_7
+ruleFLOWIN
     {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_4_1());
-    }
-)?this_ID_6=RULE_ID
-    { 
-    newLeafNode(this_ID_6, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_5()); 
+        afterParserOrEnumRuleCall();
     }
 ((
-	otherlv_7=KEYWORD_14
+	otherlv_5=KEYWORD_14
     {
-    	newLeafNode(otherlv_7, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_0());
+    	newLeafNode(otherlv_5, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_5_0_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_0_1_0()); 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_5_0_1_0()); 
 	    }
-		lv_ownedFlowSegment_8_0=ruleConnectionFlow		{
+		lv_ownedFlowSegment_6_0=ruleConnectionFlow		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedFlowSegment",
+        		lv_ownedFlowSegment_6_0, 
+        		"ConnectionFlow");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)
+	otherlv_7=KEYWORD_14
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_5_0_2());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_5_0_3_0()); 
+	    }
+		lv_ownedFlowSegment_8_0=ruleSubcomponentFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
 	        }
@@ -29387,22 +29390,22 @@ ruleFlowPathImpl returns [EObject current=null]
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_8_0, 
-        		"ConnectionFlow");
+        		"SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)
+))*
 	otherlv_9=KEYWORD_14
     {
-    	newLeafNode(otherlv_9, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_0_2());
+    	newLeafNode(otherlv_9, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_5_1());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentSubcomponentFlowParserRuleCall_6_0_3_0()); 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_5_2_0()); 
 	    }
-		lv_ownedFlowSegment_10_0=ruleSubcomponentFlow		{
+		lv_ownedFlowSegment_10_0=ruleConnectionFlow		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
 	        }
@@ -29410,51 +29413,23 @@ ruleFlowPathImpl returns [EObject current=null]
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_10_0, 
-        		"SubcomponentFlow");
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-))*
-	otherlv_11=KEYWORD_14
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6_1());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentConnectionFlowParserRuleCall_6_2_0()); 
-	    }
-		lv_ownedFlowSegment_12_0=ruleConnectionFlow		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedFlowSegment",
-        		lv_ownedFlowSegment_12_0, 
         		"ConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 ))?
-	otherlv_13=KEYWORD_14
+	otherlv_11=KEYWORD_14
     {
-    	newLeafNode(otherlv_13, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_7());
-    }
-(this_ID_14=RULE_ID
-    { 
-    newLeafNode(this_ID_14, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_8_0()); 
+    	newLeafNode(otherlv_11, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6());
     }
 
-	otherlv_15=KEYWORD_7
-    {
-    	newLeafNode(otherlv_15, grammarAccess.getFlowPathImplAccess().getFullStopKeyword_8_1());
-    }
-)?this_ID_16=RULE_ID
     { 
-    newLeafNode(this_ID_16, grammarAccess.getFlowPathImplAccess().getIDTerminalRuleCall_9()); 
+        newCompositeNode(grammarAccess.getFlowPathImplAccess().getFLOWOUTParserRuleCall_7()); 
+    }
+ruleFLOWOUT
+    {
+        afterParserOrEnumRuleCall();
     }
 )
 ;
@@ -34251,6 +34226,90 @@ rulePNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     newLeafNode(this_ID_2, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_1_1()); 
     }
 )*)
+    ;
+
+
+
+
+
+// Entry rule entryRuleFLOWOUT
+entryRuleFLOWOUT returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getFLOWOUTRule()); } 
+	 iv_ruleFLOWOUT=ruleFLOWOUT 
+	 { $current=$iv_ruleFLOWOUT.current.getText(); }  
+	 EOF 
+;
+
+// Rule FLOWOUT
+ruleFLOWOUT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getFLOWOUTAccess().getIDTerminalRuleCall_0_0()); 
+    }
+
+	kw=KEYWORD_7 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFLOWOUTAccess().getFullStopKeyword_0_1()); 
+    }
+)?    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getFLOWOUTAccess().getIDTerminalRuleCall_1()); 
+    }
+)
+    ;
+
+
+
+
+
+// Entry rule entryRuleFLOWIN
+entryRuleFLOWIN returns [String current=null] 
+:
+	{ newCompositeNode(grammarAccess.getFLOWINRule()); } 
+	 iv_ruleFLOWIN=ruleFLOWIN 
+	 { $current=$iv_ruleFLOWIN.current.getText(); }  
+	 EOF 
+;
+
+// Rule FLOWIN
+ruleFLOWIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule();
+    }:
+((    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getFLOWINAccess().getIDTerminalRuleCall_0_0()); 
+    }
+
+	kw=KEYWORD_7 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getFLOWINAccess().getFullStopKeyword_0_1()); 
+    }
+)?    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getFLOWINAccess().getIDTerminalRuleCall_1()); 
+    }
+)
     ;
 
 

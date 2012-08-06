@@ -557,10 +557,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		INode lln = getPreviousNode(getLastLeaf(n));
 		String ss = lln.getText();
 		lln = getPreviousNode(lln);
-		while (lln.getText().equalsIgnoreCase("::")) {
-			lln = getPreviousNode(lln);
-			ss = lln.getText() + "::" + ss;
-		}
+//		while (lln.getText().equalsIgnoreCase("::")) {
+//			lln = getPreviousNode(lln);
+//			ss = lln.getText() + "::" + ss;
+//		}
+		ss = ss.replaceAll(" ", "");
 		if (!mu.getName().equalsIgnoreCase(ss)) {
 			error(mu, "Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'");
 		}
