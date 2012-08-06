@@ -127,6 +127,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadGroupSubcomponent;
@@ -1888,6 +1889,39 @@ public final class AadlUtil {
 		while (container != null ){
 			if (container instanceof Subcomponent){
 				return ((Subcomponent)container).getAllClassifier();
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
+	public static FeatureGroup getContainingFeatureGroup(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof FeatureGroup){
+				return (FeatureGroup) container;
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
+	public static SubprogramCall getContainingSubprogramCall(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof SubprogramCall){
+				return (SubprogramCall) container;
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
+	public static Feature getContainingFeature(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof Feature){
+				return (Feature) container;
 			}
 			container = container.eContainer();
 		}
