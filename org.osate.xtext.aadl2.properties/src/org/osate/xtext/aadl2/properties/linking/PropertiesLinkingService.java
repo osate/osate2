@@ -479,6 +479,34 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					if (ns != null)
 						res = ns.findNamedElement(name);
 				}
+				if (res == null ){
+					FeatureGroup fg = AadlUtil.getContainingFeatureGroup(context);
+					if (fg != null){
+						FeatureGroupType fgt = fg.getAllFeatureGroupType();
+						if (fgt != null)
+							res = fgt.findNamedElement(name);
+					}
+				}
+				if (res == null ){
+					Feature feature = AadlUtil.getContainingFeature(context);
+					if (feature != null){
+						ComponentClassifier fcl = feature.getAllClassifier();
+						if (fcl != null)
+							res = fcl.findNamedElement(name);
+					}
+				}
+				if (res == null ){
+					SubprogramCall subcall = AadlUtil.getContainingSubprogramCall(context);
+					if (subcall != null){
+						CalledSubprogram called = subcall.getCalledSubprogram();
+						if (called instanceof SubprogramImplementation){
+							res = ((SubprogramImplementation)called).findNamedElement(name);
+						} else if (called instanceof SubprogramSubcomponent){
+							Classifier ns = ((SubprogramSubcomponent)called).getAllClassifier();
+							res = ns.findNamedElement(name);
+						}
+					}
+				}
 				if (res != null
 						&& res instanceof NamedElement) {
 					searchResult = res;
