@@ -412,6 +412,13 @@ public class GetProperties {
 		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 
 	}
+	
+	// We have added the reference time unit for the cycle time to the name
+	// to reduce confusion and incorrect use.
+	// It corresponds to DEFAULT_CYCLE_TIME_IN_SEC
+	@Deprecated
+	public static final double DEFAULT_CYCLE_TIME = 1.0e-9;
+	
 	// 1 ps equals 1 GIPS
 	public static final double DEFAULT_CYCLE_TIME_IN_SEC = 1.0e-9;
 	public static final double DEFAULT_CYCLE_TIME_IN_MS = 1.0e-6;
