@@ -332,6 +332,34 @@ public class OsateResourceUtil {
 		}
 		return res;
 	}
+	
+
+	/**
+	 * deletes a Resource for file name with path within Eclipse 
+	 * 
+	 * @param uri Assumed to be an aaxl extension
+	 * @return Resource Aadl2ResourceImpl for aaxl
+	 */
+	public static void deleteAaxl2Resource(URI uri) {
+		if (uri == null) return ;
+			IResource iResource =  getOsateIFile(uri);
+			if (iResource != null && iResource.exists()) {
+				try {
+					iResource.delete(true, null);
+				} catch (CoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			Resource res  = getResourceSet().getResource(uri, false);
+			if (res != null){
+				if(res.isLoaded()){
+					res.unload();
+				}
+				getResourceSet().getResources().remove(res);
+			}
+	}
+
 
 	public static void save(Resource res){
 		try {
