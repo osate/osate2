@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2;
 
+import java.util.List;
+
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.properties.EvaluatedProperty;
@@ -214,13 +216,11 @@ public interface Property extends BasicProperty, AbstractNamedValue, ArraySizePr
 	/**
 	 * Evaluate a referenced property.
 	 * 
-	 * @return The evaluated property value: either <code>null</code>, a
-	 * 		   PropertyValue, or a list of PropertyValues. If the evaluation is
-	 * 		   trivial, then this will be the same as the receiver.
+	 * @return The evaluated property values, one per append operation.
 	 * @throws InvalidModelException Thrown if there is a problem with the
 	 * model that prevents the property value from being evaluated.
 	 */
-	EvaluatedProperty evaluate(EvaluationContext ctx);
+	List<EvaluatedProperty> evaluate(EvaluationContext ctx);
 
 	EvaluatedProperty evaluateDefault(EvaluationContext ctx);
 
