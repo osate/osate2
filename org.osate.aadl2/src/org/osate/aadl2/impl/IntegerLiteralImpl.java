@@ -370,7 +370,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = 1;
+		int result = super.hashCode();
 		result = prime * result + (int) (base ^ (base >>> 32));
 		result = prime * result + (int) (value ^ (value >>> 32));
 		return result;
@@ -380,16 +380,10 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
+		if (obj == null|| getClass() != obj.getClass() || !super.equals(obj))
 			return false;
 		IntegerLiteralImpl other = (IntegerLiteralImpl) obj;
-		if (base != other.base)
-			return false;
-		if (value != other.value)
-			return false;
-		return true;
+		return base == other.base && value == other.value;
 	}
 
 } //IntegerLiteralImpl
