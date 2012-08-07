@@ -57,7 +57,8 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 					if (atpr != null){
 						TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
 						if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
-							Region region = new Region(tpo.getOffset(), tpo.getLength());
+							// TODO phf do the addition
+							Region region = new Region(tpo.getOffset()+apr.getAnnexOffset(), tpo.getLength());
 							createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);
 						}
 					}
