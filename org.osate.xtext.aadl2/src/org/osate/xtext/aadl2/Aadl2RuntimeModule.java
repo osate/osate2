@@ -81,6 +81,11 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	public Class<? extends org.eclipse.xtext.ui.editor.hyperlinking.HyperlinkHelper> bindHyperlinkHelper() {
 		return org.osate.xtext.aadl2.util.Aadl2HyperlinkHelper.class;
 	}
+
+//	@Override
+public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider> bindDefaultLocationInFileProvider() {
+	return org.osate.xtext.aadl2.util.Aadl2LocationInFile.class;
+}
 	
 //	@Override
 	public Class<? extends org.eclipse.xtext.ui.editor.doubleClicking.AbstractWordAwareDoubleClickStrategy> bindLexerTokenAndCharacterPairAwareStrategy() {
