@@ -581,21 +581,36 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			if (toEnd instanceof Parameter || finalComponent && !(toEnd instanceof FeatureGroup)) {
 				// connection ends at a parameter or at a simple feature of a
 				// thread, device, or (virtual) processor
-				connInfo.complete &= true;
-				finalizeConnectionInstance(ci, connInfo, toCi.findFeatureInstance(toFeature));
+				FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
+				if (dstFi == null) {
+					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
+				} else {
+					connInfo.complete &= true;
+					finalizeConnectionInstance(ci, connInfo, dstFi);
+				}
 			} else
 
 			if (finalComponent && toEnd instanceof FeatureGroup) {
 				// connection ends at a feature that is contained in a feature group
 				// of a thread, device, or (virtual) processor
-				connInfo.complete = true;
-				finalizeConnectionInstance(ci, connInfo, toCi.findFeatureInstance(toFeature));
+				FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
+				if (dstFi == null) {
+					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
+				} else {
+					connInfo.complete = true;
+					finalizeConnectionInstance(ci, connInfo, dstFi);
+				}
 			} else
 
 			if (dstEmpty) {
 				// connection ends because the destination component does not
 				// contain any subcomponents
-				finalizeConnectionInstance(ci, connInfo, toCi.findFeatureInstance(toFeature));
+				FeatureInstance dstFi = toCi.findFeatureInstance(toFeature);
+				if (dstFi == null) {
+					error(toCi, "Destination feature " + toFeature.getName() + " not found. No connection created.");
+				} else {
+					finalizeConnectionInstance(ci, connInfo, dstFi);
+				}
 			} else
 
 			// the connection may have more segments
