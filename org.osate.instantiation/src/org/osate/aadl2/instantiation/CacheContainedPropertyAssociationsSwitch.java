@@ -118,6 +118,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
 					processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
+					processContainedPropertyAssociations(fi, fi.getFeature().getOwnedPropertyAssociations());
 				}
 				return DONE;
 			}
