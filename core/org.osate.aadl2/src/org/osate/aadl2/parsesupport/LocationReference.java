@@ -50,7 +50,25 @@ public class LocationReference {
 
 	private int linenumber = 0;
 	private String filename = null;
+	private int offset = 0;
+	private int length = 0;
 
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
 
 	/**
 	 * object holding identifers for a classifier reference
