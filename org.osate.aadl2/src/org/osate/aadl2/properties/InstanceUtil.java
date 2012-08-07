@@ -39,6 +39,7 @@ package org.osate.aadl2.properties;
 
 import java.util.HashMap;
 
+import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -64,7 +65,6 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-
 
 /**
  * @author lwrage
@@ -94,6 +94,8 @@ public class InstanceUtil {
 		}
 	}
 
+	public static EList<PrototypeBinding> noBindings = new BasicEList<PrototypeBinding>();
+
 	/**
 	 * Get the component type of a component instance. Resolve prototypes if
 	 * needed.
@@ -109,7 +111,7 @@ public class InstanceUtil {
 		ComponentType type = null;
 
 		if (ci instanceof SystemInstance) {
-			type = ((SystemInstance)ci).getSystemImplementation().getType();
+			type = ((SystemInstance) ci).getSystemImplementation().getType();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
 
@@ -142,7 +144,7 @@ public class InstanceUtil {
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentImplementation impl = null;
 		if (ci instanceof SystemInstance) {
-			impl = ((SystemInstance)ci).getSystemImplementation();
+			impl = ((SystemInstance) ci).getSystemImplementation();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
 
@@ -156,7 +158,7 @@ public class InstanceUtil {
 		}
 		return impl;
 	}
-	
+
 	/**
 	 * Get the component classifier of a component instance. Resolve
 	 * prototypes if needed.
@@ -171,12 +173,12 @@ public class InstanceUtil {
 			HashMap<InstanceObject, InstantiatedClassifier> classifierCache) {
 		ComponentClassifier cc = null;
 		if (ci instanceof SystemInstance) {
-			cc = ((SystemInstance)ci).getSystemImplementation();
+			cc = ((SystemInstance) ci).getSystemImplementation();
 		} else {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(ci, index, classifierCache);
-			
+
 			if (ic != null) {
-				cc = (ComponentClassifier)ic.classifier;
+				cc = (ComponentClassifier) ic.classifier;
 			}
 		}
 		return cc;
@@ -197,9 +199,9 @@ public class InstanceUtil {
 		FeatureGroupType fgt = null;
 		if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 			final InstantiatedClassifier ic = getInstantiatedClassifier(fi, index, classifierCache);
-			
+
 			if (ic != null) {
-				fgt = (FeatureGroupType)ic.classifier;
+				fgt = (FeatureGroupType) ic.classifier;
 			}
 		}
 		return fgt;
@@ -272,13 +274,18 @@ public class InstanceUtil {
 						ComponentPrototypeActual cpa = resolveComponentPrototype(prototype, iobj, classifierCache);
 
 						if (cpa != null) {
-							ic = new InstantiatedClassifier((ComponentClassifier)cpa.getSubcomponentType(), cpa.getBindings());
+							ic = new InstantiatedClassifier((ComponentClassifier) cpa.getSubcomponentType(),
+									cpa.getBindings());
+						} else {
+							ic = new InstantiatedClassifier(((ComponentPrototype) prototype).getConstrainingClassifier(), noBindings);
 						}
 					} else if (prototype instanceof FeatureGroupPrototype) {
 						FeatureGroupPrototypeActual fpa = resolveFeatureGroupPrototype(prototype, iobj, classifierCache);
 
 						if (fpa != null) {
 							ic = new InstantiatedClassifier((FeatureGroupType) fpa.getFeatureType(), fpa.getBindings());
+						} else {
+							ic = new InstantiatedClassifier(((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType(), noBindings);
 						}
 					}
 				}
@@ -320,8 +327,8 @@ public class InstanceUtil {
 				cpa = actual;
 			} else {
 				// resolve recursively
-				cpa = resolveComponentPrototype((ComponentPrototype) actual.getSubcomponentType(), context
-						.getContainingComponentInstance(), classifierCache);
+				cpa = resolveComponentPrototype((ComponentPrototype) actual.getSubcomponentType(),
+						context.getContainingComponentInstance(), classifierCache);
 			}
 		}
 		return cpa;
@@ -353,8 +360,8 @@ public class InstanceUtil {
 			result = actual;
 		} else {
 			// resolve recursively
-			result = resolveFeatureGroupPrototype((FeatureGroupPrototype) actual.getFeatureType(), context
-					.getContainingComponentInstance(), classifierCache);
+			result = resolveFeatureGroupPrototype((FeatureGroupPrototype) actual.getFeatureType(),
+					context.getContainingComponentInstance(), classifierCache);
 		}
 		return result;
 	}
@@ -380,8 +387,8 @@ public class InstanceUtil {
 		result = fpb.getActual();
 		if (result instanceof FeaturePrototypeReference) {
 			// resolve recursively
-			result = resolveFeaturePrototype(((FeaturePrototypeReference) fpb.getActual()).getPrototype(), context
-					.getContainingComponentInstance(), classifierCache);
+			result = resolveFeaturePrototype(((FeaturePrototypeReference) fpb.getActual()).getPrototype(),
+					context.getContainingComponentInstance(), classifierCache);
 		}
 		return result;
 	}
@@ -405,7 +412,7 @@ public class InstanceUtil {
 		// prototype binding may be attached to parent (anonymous component classifier)
 		if (parent instanceof SystemInstance) {
 			ComponentImplementation impl = ((SystemInstance) parent).getSystemImplementation();
-			
+
 			if (impl == null) {
 				return null;
 			}
