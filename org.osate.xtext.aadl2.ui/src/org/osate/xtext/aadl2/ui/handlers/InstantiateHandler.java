@@ -161,21 +161,22 @@ public class InstantiateHandler extends AbstractHandler {
 										ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 										if (cc instanceof SystemImplementation){
 											SystemImplementation si = (SystemImplementation)cc;
+											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
 //											if (targetElement.eResource().getErrors().isEmpty()){
-												// the operation is performed in a transactional editing domain.
-												try {
-													SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
-												} catch (Exception e) {
-													e.printStackTrace();
-													URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-//													OsateResourceUtil.deleteAaxl2Resource(instanceURI);
-													Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
-												}
-//											} else {
-//												URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-//												OsateResourceUtil.deleteAaxl2Resource(instanceURI);
-//												Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
-//											}
+//												// the operation is performed in a transactional editing domain.
+//												try {
+//													SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+//												} catch (Exception e) {
+//													e.printStackTrace();
+//													URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
+////													OsateResourceUtil.deleteAaxl2Resource(instanceURI);
+//													Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
+//												}
+////											} else {
+////												URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
+////												OsateResourceUtil.deleteAaxl2Resource(instanceURI);
+////												Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
+////											}
 										} else {
 											Dialog.showInfo("Model Instantiation","Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 										}
