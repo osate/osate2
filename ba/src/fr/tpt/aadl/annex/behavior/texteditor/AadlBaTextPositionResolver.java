@@ -53,7 +53,7 @@ public class AadlBaTextPositionResolver implements AnnexTextPositionResolver{
 		}
 		else
 		{
-			positionInfo = new TextPositionInfo(e, e.getAadlBaLocationReference().getOffset(), e.getAadlBaLocationReference().getLength());
+			positionInfo = new TextPositionInfo(e, loc.getOffset(), loc.getLength());
 		}
 		return positionInfo;
 	}

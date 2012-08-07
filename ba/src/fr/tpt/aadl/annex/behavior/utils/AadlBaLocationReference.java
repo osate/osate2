@@ -2,12 +2,13 @@ package fr.tpt.aadl.annex.behavior.utils;
 
 import org.osate.aadl2.parsesupport.LocationReference ;
 
+import fr.tpt.aadl.annex.behavior.AadlBaParserAction;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+
 public class AadlBaLocationReference extends LocationReference
 {
-  private int _offset = -1 ;
   
-  private int _length = -1 ;
-  
+  private BehaviorAnnex _ba = null;
   private int _column = -1 ;
   
   private String _id = "" ;
@@ -17,39 +18,32 @@ public class AadlBaLocationReference extends LocationReference
     // fields are not set.
   }
 
-  public AadlBaLocationReference(String fileName, int lineNumber)
+  public AadlBaLocationReference(BehaviorAnnex annex, String fileName, int lineNumber)
   {
     super(fileName, lineNumber) ;
+    _ba = annex;
   }
   
-  public AadlBaLocationReference(String fileName, int lineNumber, int offset,
+  public AadlBaLocationReference(BehaviorAnnex annex, String fileName, int lineNumber, int offset,
                                   int length, int column, String id)
   {
     super(fileName, lineNumber) ;
-    _offset = offset ;
-    _length = length ;
+    super.setOffset(offset) ;
+    super.setLength(length) ;
+    _ba=annex;
     _column = column ;
     _id = id ;
   }
   
   // LocationReference's fields are not set.
-  public AadlBaLocationReference(int offset,int length, int column, String id)
+  public AadlBaLocationReference(BehaviorAnnex annex, int offset,int length, int column, String id)
   {
     super() ;
-    _offset = offset ;
-    _length = length ;
+    super.setOffset(offset) ;
+    super.setLength(length) ;
+    _ba = annex;
     _column = column ;
     _id = id ;
-  }
-  
-  public int getOffset()
-  {
-    return _offset ;
-  }
-
-  public int getLength()
-  {
-    return _length ;
   }
 
   public int getColumn()
@@ -63,12 +57,19 @@ public class AadlBaLocationReference extends LocationReference
   }
 
   @Override
+  public int getOffset() 
+  {
+	return AadlBaParserAction.offsetMap.get(_ba)+super.getOffset();
+  };
+  
+  @Override
   public AadlBaLocationReference clone()
   {
     
     
     AadlBaLocationReference clone = new 
-                                  AadlBaLocationReference(this.getFilename(),
+                                  AadlBaLocationReference(this._ba,
+                                		  				  this.getFilename(),
                                                           this.getLine(),
                                                           this.getOffset(),
                                                           this.getLength(),

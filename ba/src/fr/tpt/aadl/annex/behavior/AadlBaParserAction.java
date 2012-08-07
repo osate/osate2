@@ -51,6 +51,9 @@ public class AadlBaParserAction implements AnnexParser
    public static Map<BehaviorAnnex, AadlBaHighlighter> annexHighlighters = 
 		   new HashMap<BehaviorAnnex, AadlBaHighlighter>();
    
+   public static Map<BehaviorAnnex, Integer> offsetMap = 
+		   new HashMap<BehaviorAnnex, Integer>();
+   
    public AnnexLibrary parseAnnexLibrary(
                                    String annexName,String source,
                                    String filename, int line, int column,
@@ -99,6 +102,7 @@ public class AadlBaParserAction implements AnnexParser
       {
          BehaviorAnnex ba = parser.behavior_annex() ;
          annexHighlighters.put(ba, highlighter);
+         offsetMap.put(ba, column);
          return ba ;
       }
       // Translates ANTLR runtime exception to ANTLR Exception. 

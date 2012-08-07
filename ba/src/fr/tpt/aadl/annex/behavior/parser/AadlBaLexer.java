@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2012-07-30 13:58:49
+// $ANTLR 3.4 AadlBa.g 2012-08-07 16:35:16
 
   /**
  * AADL-BA-FrontEnd

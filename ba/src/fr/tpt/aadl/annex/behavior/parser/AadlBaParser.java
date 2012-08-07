@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2012-07-30 13:58:48
+// $ANTLR 3.4 AadlBa.g 2012-08-07 16:35:14
  
   package fr.tpt.aadl.annex.behavior.parser;
   
@@ -282,12 +282,11 @@ public class AadlBaParser extends Parser {
         // String description = "file " + this.getFilename() + " col " + src.getCharPositionInLine() ;
         
         int offset = ((CommonToken)token).getStartIndex() ;
-        System.out.println(token.getText()+" : "+offset);
         int length = token.getText().length() ;
         int column = token.getCharPositionInLine() + 1 ; // Zero index based.
         int line = token.getLine() ;
         
-        AadlBaLocationReference location = new AadlBaLocationReference(
+        AadlBaLocationReference location = new AadlBaLocationReference(_ba,
                                              filename, line, offset, length, column,
                                              behaviorElementId);
         
@@ -313,11 +312,12 @@ public class AadlBaParser extends Parser {
 
 
     // $ANTLR start "behavior_annex"
-    // AadlBa.g:387:1: behavior_annex returns [BehaviorAnnex BehAnnex] : (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )? ;
+    // AadlBa.g:387:1: behavior_annex returns [BehaviorAnnex BehAnnex] : (keyword_var= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )? ;
     public final BehaviorAnnex behavior_annex() throws RecognitionException {
         BehaviorAnnex BehAnnex = null;
 
 
+        Token keyword_var=null;
         Token keyword=null;
         List<BehaviorVariable> lbv =null;
 
@@ -333,14 +333,14 @@ public class AadlBaParser extends Parser {
            int line = input.get(0).getLine() ;
 
            AadlBaLocationReference location = new AadlBaLocationReference(
-                                                 filename, line);
+                                                 _ba, filename, line);
            BehAnnex.setLocationReference(location) ; 
          
         try {
-            // AadlBa.g:398:3: ( (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )? )
-            // AadlBa.g:399:4: (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )?
+            // AadlBa.g:398:3: ( (keyword_var= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )? )
+            // AadlBa.g:399:4: (keyword_var= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )? (keyword= STATES (lbs= behavior_state_list )+ )? (keyword= TRANSITIONS (BehTrans= behavior_transition )+ )?
             {
-            // AadlBa.g:399:4: (keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )?
+            // AadlBa.g:399:4: (keyword_var= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+ )?
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -349,11 +349,11 @@ public class AadlBaParser extends Parser {
             }
             switch (alt2) {
                 case 1 :
-                    // AadlBa.g:399:6: keyword= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+
+                    // AadlBa.g:399:6: keyword_var= VARIABLES (lbv= behavior_variable_list[BehAnnex] )+
                     {
-                    keyword=(Token)match(input,VARIABLES,FOLLOW_VARIABLES_in_behavior_annex1192); if (state.failed) return BehAnnex;
+                    keyword_var=(Token)match(input,VARIABLES,FOLLOW_VARIABLES_in_behavior_annex1192); if (state.failed) return BehAnnex;
 
-                    if ( state.backtracking==0 ) {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+                    if ( state.backtracking==0 ) {highlight(keyword_var, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 
                     // AadlBa.g:400:8: (lbv= behavior_variable_list[BehAnnex] )+
                     int cnt1=0;

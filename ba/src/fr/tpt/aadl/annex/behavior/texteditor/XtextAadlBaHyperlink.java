@@ -13,6 +13,7 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
 public class XtextAadlBaHyperlink implements AadlBaHyperlink // extends EObjectAtOffsetHelper ???
 {
   
+  // TODO: remove static map by reparsing the ba; only looking for the locationreference 
   private static Map<BehaviorAnnex, Map<AadlBaLocationReference, BehaviorElement>> 
   	_hyperlinkingPerAnnex = new HashMap<BehaviorAnnex, Map<AadlBaLocationReference, BehaviorElement>>() ;
   

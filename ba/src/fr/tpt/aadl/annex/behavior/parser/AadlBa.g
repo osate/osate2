@@ -204,7 +204,7 @@ options {
     int column = token.getCharPositionInLine() + 1 ; // Zero index based.
     int line = token.getLine() ;
     
-    AadlBaLocationReference location = new AadlBaLocationReference(
+    AadlBaLocationReference location = new AadlBaLocationReference(_ba,
                                          filename, line, offset, length, column,
                                          behaviorElementId);
     
@@ -392,11 +392,11 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
    int line = input.get(0).getLine() ;
 
    AadlBaLocationReference location = new AadlBaLocationReference(
-                                         filename, line);
+                                         _ba, filename, line);
    BehAnnex.setLocationReference(location) ; 
  }
   : 
-   ( keyword=VARIABLES {highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+   ( keyword_var=VARIABLES {highlight(keyword_var, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
        ( lbv=behavior_variable_list[BehAnnex] { BehAnnex.getVariables().addAll(lbv);} )+
    )?
    

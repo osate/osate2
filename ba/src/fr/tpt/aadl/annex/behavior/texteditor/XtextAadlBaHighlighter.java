@@ -9,6 +9,7 @@ import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
 import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 
+import fr.tpt.aadl.annex.behavior.AadlBaParserAction;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
@@ -25,14 +26,14 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
   @Override
   public void addToHighlighting(BehaviorAnnex annex, Token token, String id)
   {
-    int offset = ((CommonToken)token).getStartIndex() ;
+    int offset = ((CommonToken)token).getStartIndex();
     int length = token.getText().length() ;
     int column = token.getCharPositionInLine() ;
     
     // DEBUG
     System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
     
-    _elementToHighlight.add(new AadlBaLocationReference(offset, length, column,
+    _elementToHighlight.add(new AadlBaLocationReference(annex, offset, length, column,
                                                         id));
     _elementToHighlightPerAnnex.put(annex, _elementToHighlight);
   }
