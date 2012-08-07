@@ -41,27 +41,28 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 	@Inject
 	private EObjectAtOffsetHelper eObjectAtOffsetHelper;
 
+	@Override
 	public void createHyperlinksByOffset(XtextResource resource, int offset, IHyperlinkAcceptor acceptor) {
 		INode annexLeaf = findAnnexLeafNode(resource, offset);
 		if (annexLeaf!= null){
 			// handle extensionpoint based text position
-			if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
-			if (textpositionresolverregistry != null){
-				EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
-				if (obj instanceof NamedElement){
-					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
-					EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
-					if (actualAnnexElement != null){
+			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
+			if (obj instanceof NamedElement){
+				AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
+				EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
+				if (actualAnnexElement != null){
 					String annexName = ((NamedElement)obj).getName();
-					AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
-					if (atpr != null){
-						TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
-						if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
-							// XXX phf added the addition of offests
-							Region region = new Region(tpo.getOffset()+apr.getAnnexOffset(), tpo.getLength());
-							createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);
+					if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
+					if (textpositionresolverregistry != null){
+						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
+						if (atpr != null){
+							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
+							if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
+								// XXX phf added the addition of offests
+								Region region = new Region(tpo.getOffset()+apr.getAnnexOffset(), tpo.getLength());
+								createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);
+							}
 						}
-					}
 					}
 				}
 			}

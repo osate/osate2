@@ -139,6 +139,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), region.getOffset());
+			// getAnnexleaf is the addition.
 			leaf = getAnnexLeaf(leaf, region.getOffset());
 			INode crossRefNode = findCrossReferenceNode(leaf);
 			// if not a cross reference position and the cursor is at the beginning of a node try the previous one.
