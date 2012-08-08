@@ -59,6 +59,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
@@ -510,6 +511,14 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public final void getPropertyValueInternal(EvaluationContext ctx, final PropertyAcc paa)
 			throws InvalidModelException {
 		InstanceObject io = ctx.getInstanceObject();
+
+		/*
+		 * Only relevant for connection instances
+		 */
+		if (ctx.getSCProp() != null) {
+			if (paa.add(ctx.getSCProp()))
+				return;
+		}
 		/*
 		 * First see if the property is defined locally in the instance. Such
 		 * local property associations arise from component property
@@ -521,7 +530,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			return;
 		}
 
-		getPropertyValueFromDeclarativeModel(ctx, io, paa);
+		getPropertyValueFromDeclarativeModel(ctx, paa);
 
 		/*
 		 * If the property is "inherit", get it from the enclosing component
@@ -538,16 +547,17 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		}
 	}
 
-	protected void getPropertyValueFromDeclarativeModel(final EvaluationContext ctx, final InstanceObject io,
-			final PropertyAcc pas) throws InvalidModelException {
-		final List<? extends NamedElement> compDecls = io.getInstantiatedObjects();
+	protected void getPropertyValueFromDeclarativeModel(EvaluationContext ctx, PropertyAcc pas)
+			throws InvalidModelException {
+		InstanceObject io = ctx.getInstanceObject();
+		List<? extends NamedElement> compDecls = io.getInstantiatedObjects();
 		// FIXME: compDecls == null for connection instances
 		if (compDecls == null) {
 			return;
 		}
 		// Here we assume compDecls is empty or has only one element
 		if (!compDecls.isEmpty()) {
-			final NamedElement compDecl = compDecls.get(0);
+			NamedElement compDecl = compDecls.get(0);
 			if (compDecl == null) {
 				return;
 			}
