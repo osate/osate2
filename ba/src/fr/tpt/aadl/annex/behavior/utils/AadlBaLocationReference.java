@@ -56,7 +56,7 @@ public class AadlBaLocationReference extends LocationReference
     return _id ;
   }
   
-  private int getSuperOffset()
+  public int getSuperOffset()
   {
 	  return super.getOffset();
   }

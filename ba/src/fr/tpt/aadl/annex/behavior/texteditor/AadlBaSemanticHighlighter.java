@@ -24,7 +24,7 @@ public class AadlBaSemanticHighlighter implements AnnexHighlighter
 		XtextAadlBaHighlighter ht = (XtextAadlBaHighlighter) ((BehaviorAnnex)subclause).getHighlighters().get(subclause);
 		for (AadlBaLocationReference location : ht.getElementsToHighlitght((BehaviorAnnex)subclause))
 	    {
-	       acceptor.addPosition(location.getOffset(), location.getLength(),
+	       acceptor.addPosition(location.getSuperOffset(), location.getLength(),
 	                            location.getId());
 	    }
 		
