@@ -77,7 +77,6 @@ public class EMFIndexRetrieval {
 	 * @param res resource
 	 * @return list of AADL packages in IEObjectDescription format
 	 */
-	 @Deprecated
 	 public static EList <IEObjectDescription> getAllPackagesInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
@@ -108,7 +107,6 @@ public class EMFIndexRetrieval {
 	 * @param pname String package name
 	 * @return AADL package
 	 */
-	 @Deprecated
 	 public static AadlPackage getPackageInWorkspace(String pname){
 		 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
 	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
@@ -145,7 +143,6 @@ public class EMFIndexRetrieval {
 	 * @param res resource
 	 * @return list of property sets in IEObjectDescription format
 	 */
-	 @Deprecated
 	 public static EList <IEObjectDescription> getAllPropertySetsInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
@@ -215,7 +212,6 @@ public class EMFIndexRetrieval {
 	 * @param pdname String name of property Definition (predeclared properties do not have to be qualified)
 	 * @return Property or null
 	 */
-	 @Deprecated
 	 public static Property getPropertyDefinitionInWorkspace(String pdname){
 	 	 return getPropertyDefinitionInWorkspace(OsateResourceUtil.getResourceSet(), pdname);
 	 }
@@ -265,7 +261,6 @@ public class EMFIndexRetrieval {
 	 * @param ptname String name of property type (predeclared properties do not have to be qualified)
 	 * @return Property or null
 	 */
-	 @Deprecated
 	 public static PropertyType getPropertyTypeInWorkspace(String ptname){
 	 	 return getPropertyTypeInWorkspace(OsateResourceUtil.getResourceSet(), ptname);
 	 }
@@ -315,7 +310,6 @@ public class EMFIndexRetrieval {
 	 * @param pcname String name of property Constant (predeclared properties do not have to be qualified)
 	 * @return Property or null
 	 */
-	 @Deprecated
 	 public static PropertyConstant getPropertyConstantInWorkspace(String pcname){
 	 	 return getPropertyConstantInWorkspace(OsateResourceUtil.getResourceSet(), pcname);
 	 }
@@ -366,7 +360,6 @@ public class EMFIndexRetrieval {
 	 * @param res resource
 	 * @return list of AADL packages and property sets in IEObjectDescription format
 	 */
-	 @Deprecated
 	 public static EList <IEObjectDescription> getAllModelUnitsInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
@@ -452,7 +445,6 @@ public class EMFIndexRetrieval {
 	 * @param res resource
 	 * @return list of classifiers in IEObjectDescription format
 	 */
-	 @Deprecated
 	 public static EList <IEObjectDescription> getAllClassifiersInWorkspace(){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
@@ -484,7 +476,6 @@ public class EMFIndexRetrieval {
 	 * @param classifiertype desired type of classifier (you can supply it via Aadl2Package.eINSTANCE.getProcessorType, etc)
 	 * @return list of classifiers in IEObjectDescription format
 	 */
-	 @Deprecated
 	 public static EList <IEObjectDescription> getAllClassifiersOfTypeInWorkspace(EClass classifiertype){
 	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
 	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
@@ -509,6 +500,23 @@ public class EMFIndexRetrieval {
 	 			 packlist.add(eod);
 	 	 }
 	 	 return packlist;
+	 }
+
+	 /**
+	 * get all EObjects in by looking them up in EMF index 
+	 * @param context EObject in the same resourceset as the EObjects we are looking for
+	 * @param eObjectType EClass of desired EObjects
+	 * @return list of EObjects in IEObjectDescription format
+	 */
+	 public static Iterable<IEObjectDescription> getAllEObjectsOfTypeInWorkspace(EClass eObjectType){
+	 	 EList <IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 	 Iterable<IEObjectDescription> packagedlist = rds.getExportedObjectsByType(eObjectType);
+	 	 return packagedlist;
+//	 	 for (IEObjectDescription eod : packagedlist) {
+//	 			 packlist.add(eod);
+//	 	 }
+//	 	 return packlist;
 	 }
 
 	 /**
@@ -548,6 +556,23 @@ public class EMFIndexRetrieval {
 	 
 	 /**
 	  * find EObject by name in EObjectDescription list
+	  * @param edl EObjectDescription list
+	  * @param name String qualified name of EObject to be found
+	  * @return EObject
+	  */
+	 public static EObject getEObject(Iterable <IEObjectDescription>  edl, String name){
+	 	 for (IEObjectDescription eod : edl) {
+	 			 if (eod.getName().toString().equalsIgnoreCase(name)) {
+	 				 EObject res = eod.getEObjectOrProxy();
+	 				 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+	 				 if (!Aadl2Util.isNull(res)) return res;
+	 			 }
+	 		 }
+		 return null;
+	 }
+	 
+	 /**
+	  * find EObject by name in EObjectDescription list
 	  * @param context to identify the resourceset
 	  * @param edl EObjectDescription list
 	  * @param name String qualified name of EObject to be found
@@ -566,13 +591,31 @@ public class EMFIndexRetrieval {
 		 return null;
 	 }
 
+	 
+	 /**
+	  * find EObject by name in EObjectDescription list
+	  * @param edl EObjectDescription list
+	  * @param name String qualified name of EObject to be found
+	  * @return EObject
+	  */
+	 public static EObject getEObjectOfType(EClass eObjectType, String name){
+	 	 IResourceDescriptions rds= rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+	 	 Iterable<IEObjectDescription> edlist = rds.getExportedObjectsByType(eObjectType);
+	 	 for (IEObjectDescription eod : edlist) {
+ 			 if (eod.getName().toString().equalsIgnoreCase(name)) {
+ 				 EObject res = eod.getEObjectOrProxy();
+ 				 res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+ 				 if (!Aadl2Util.isNull(res)) return res;
+ 			 }
+	 	 }
+		 return null;
+	 }
 
 	 /**
 	  * get the Classifier by looking it up in EMF index 
 	  * @param cname String name of classifier, which must be qualified with a package name
 	  * @return Classifier or null
 	  */
-	 @Deprecated
 	 public static Classifier getClassifierInWorkspace(String cname){
 		 return getClassifierInWorkspace(OsateResourceUtil.getResourceSet(), cname);
 	 }
