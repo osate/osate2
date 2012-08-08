@@ -46,15 +46,18 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -77,21 +80,25 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 * The cache of contained property associations that apply to semantic
 	 * connections.
 	 */
-//	private final SCProperties scProps = new SCProperties();
+	private SCProperties scProps;
 
-	CacheContainedPropertyAssociationsSwitch(final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+	CacheContainedPropertyAssociationsSwitch(final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
 			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
+		this.classifierCache = classifierCache;
+		this.scProps = scProps;
 	}
 
 	protected final void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
+			@Override
 			public String caseSystemInstance(final SystemInstance si) {
 				monitor.subTask("Caching system instance contained property associations");
 				processContainedPropertyAssociations(si, si, si.getSystemImplementation().getAllPropertyAssociations());
 				return DONE;
 			}
 
+			@Override
 			public String caseComponentInstance(final ComponentInstance ci) {
 				if (ci.getContainingComponentInstance() instanceof SystemInstance) {
 					monitor.subTask("Caching contained property associations in " + ci.getName());
@@ -114,6 +121,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				return DONE;
 			}
 
+			@Override
 			public String caseFeatureInstance(final FeatureInstance fi) {
 				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
@@ -136,7 +144,6 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
 				if (cpes != null && !cpes.isEmpty()) {
-//					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final Collection<FeatureInstance> ios = fi.findFeatureInstances(cpes);
 
 					if (!ios.isEmpty()) {
@@ -193,7 +200,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
 				if (cpes != null && !cpes.isEmpty()) {
-//					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
+					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final Collection<? extends InstanceObject> ios = ci.findInstanceObjects(cpes);
 
 					if (!ios.isEmpty()) {
@@ -215,50 +222,13 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 								}
 							}
 
-							io.removePropertyAssociations(prop);
-							io.getOwnedPropertyAssociations().add(newPA);
+							if (last instanceof Connection) {
+								scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
+							} else {
+								io.removePropertyAssociations(prop);
+								io.getOwnedPropertyAssociations().add(newPA);
+							}
 						}
-
-//							try {							
-//							final AadlPropertyValue ipv = pa.getValue().instantiate(ci);
-//							final EList<Mode> inModes = new BasicEList<Mode>();
-//							for (ModalPropertyValue modalPropertyValue : pa.getOwnedValues()) {
-//								inModes.addAll(modalPropertyValue.getInModes());
-//							}
-//							for (Iterator<? extends InstanceObject> iot = ios.iterator(); iot.hasNext();) {
-//								/*
-//								 * Copy the instantiated property association
-//								 * because when we connect the copied property
-//								 * values to the new property association, it
-//								 * creates a bidirectional link, so we need
-//								 * fresh copies for each item in the 'iol' list.
-//								 */
-//								final List<PropertyExpression> values = AadlUtil.copyList(ipv.getValue());
-//								ion = iot.next();
-//								if (inModes != null && !inModes.isEmpty()) {
-//									final List<SystemOperationMode> soms = convertInModesToInSOMs(modeContext, inModes);
-//									if (last instanceof Connection) {
-//										scProps.recordConnectionProperty((ConnectionInstance) ion, prop,
-//												(Connection) last, soms, values);
-//									}
-//									ion.setPropertyValue(prop, values, soms);
-//								} else {
-//									if (last instanceof Connection) {
-//										scProps.recordConnectionProperty((ConnectionInstance) ion, prop,
-//												(Connection) last, root.getSystemOperationModes(), values);
-//									}
-//									ion.setPropertyValue(prop, values);
-//								}
-//							}
-//						} catch (final IllegalArgumentException e) {
-//							error(
-//									ion,
-//									"Contained property "
-//											+ prop.getQualifiedName()
-//											+ " cannot be applied to to instance object: "
-//											+ e.getMessage()
-//											+ ". Type mismatch in declarative model: type of value does not match property type.");
-//						}
 					}
 				}
 			}

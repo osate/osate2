@@ -41,7 +41,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 
-
 /**
  * Fill this in
  *
@@ -56,6 +55,14 @@ public class PropertyAcc {
 		this.property = property;
 	}
 
+	public boolean add(PropertyAssociation pa) {
+		if (pa.getProperty().equals(property) && pa.getAppliesTos().isEmpty()) {
+			assocs.add(pa);
+			return !property.isList();
+		}
+		return false;
+	}
+
 	/**
 	 * Accumulate the associations for the given property as found
 	 * in the immediate properties attribute of the given property holder.
@@ -66,8 +73,7 @@ public class PropertyAcc {
 	 */
 	public boolean addLocal(NamedElement target) {
 		for (PropertyAssociation pa : target.getOwnedPropertyAssociations()) {
-			if (pa.getProperty().equals(property) 
-					&& pa.getAppliesTos().isEmpty()) {
+			if (pa.getProperty().equals(property) && pa.getAppliesTos().isEmpty()) {
 				assocs.add(pa);
 				return !property.isList();
 			}
@@ -92,7 +98,8 @@ public class PropertyAcc {
 		for (PropertyAssociation pa : container.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().equals(property)) {
 				for (ContainedNamedElement cne : pa.getAppliesTos()) {
-					if (cne.getContainmentPathElements().size() == 1 && cne.getContainmentPathElements().get(0).getNamedElement() == target) {
+					if (cne.getContainmentPathElements().size() == 1
+							&& cne.getContainmentPathElements().get(0).getNamedElement() == target) {
 						assocs.add(pa);
 						return !property.isList();
 					}
@@ -105,7 +112,7 @@ public class PropertyAcc {
 	public List<PropertyAssociation> getAssociations() {
 		return assocs;
 	}
-	
+
 	public PropertyAssociation first() {
 		if (!assocs.isEmpty()) {
 			return assocs.get(0);

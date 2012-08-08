@@ -741,6 +741,11 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return Collections.unmodifiableList(conns);
 	}
 
+	public List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	//	public List<AadlModalPropertyValue> getConnectionPropertyValues(final Property property)
 	//			throws InvalidModelException {
@@ -855,11 +860,6 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			return getContainingComponentInstance().isActive(som);
 		}
 		return false;
-	}
-
-	public List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 } //ConnectionInstanceImpl

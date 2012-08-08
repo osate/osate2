@@ -35,22 +35,31 @@ package org.osate.aadl2.properties;
 
 import java.util.HashMap;
 
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.InstanceObject;
-
 
 /**
  * @author lwrage
  *
  */
 public class EvaluationContext {
-	
+
 	private InstanceObject io;
-	
+
 	private HashMap<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache;
-	 
-	public EvaluationContext(InstanceObject io, HashMap<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache) {
+
+	private PropertyAssociation scProp;
+
+	public EvaluationContext(InstanceObject io,
+			HashMap<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache) {
 		this.io = io;
 		this.classifierCache = classifierCache;
+	}
+
+	public EvaluationContext(InstanceObject io,
+			HashMap<InstanceObject, InstanceUtil.InstantiatedClassifier> classifierCache, PropertyAssociation scProp) {
+		this(io, classifierCache);
+		this.scProp = scProp;
 	}
 
 	/**
@@ -66,5 +75,9 @@ public class EvaluationContext {
 	public HashMap<InstanceObject, InstanceUtil.InstantiatedClassifier> getClassifierCache() {
 		return classifierCache;
 	}
-	
+
+	public PropertyAssociation getSCProp() {
+		return scProp;
+	}
+
 }
