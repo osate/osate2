@@ -64,6 +64,7 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -728,6 +729,11 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return result.toString();
 	}
 
+	@Override
+	public boolean acceptsProperty(Property property) {
+		return true;
+	}
+
 	/**
 	 * find the mode transition instance of this component instance
 	 * @param mt mode transition whose instance is to be found
@@ -911,7 +917,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EList<ConnectionInstance> findConnectionInstance(Connection conn) {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : getSystemInstance().getConnectionInstances()) {
+		for (ConnectionInstance conni : getSystemInstance().allConnectionInstances()) {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				if (isSameOrRefined(connRef.getConnection(), conn) && ((this == connRef.getContext())|| connRef.getContext()==null)) {
 					result.add(conni);
@@ -1004,7 +1010,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		if (Aadl2Util.isNull(sub))
 			return null;
 		return sub.getClassifier();
-
 	}
 
 } //ComponentInstanceImpl

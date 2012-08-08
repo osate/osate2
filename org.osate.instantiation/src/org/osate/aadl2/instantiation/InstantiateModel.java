@@ -147,6 +147,7 @@ public class InstantiateModel {
 	 */
 	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
+	private SCProperties scProps = new SCProperties();
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
@@ -200,8 +201,8 @@ public class InstantiateModel {
 	 * its root object The method makes sure that the system implementation is
 	 * in the OSATE resource set and will create the instance model there as
 	 * well. The Osate resource set is the shared resource set maintained by
-	 * OsateResourceUtil.
-	 * THe operation is performed in a transactional editing domain
+	 * OsateResourceUtil. THe operation is performed in a transactional editing
+	 * domain
 	 * 
 	 * @param si system implementation
 	 * 
@@ -401,14 +402,14 @@ public class InstantiateModel {
 		// this in that case the caching of those properties would be slower
 		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(root.getSystemImplementation());
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
-				monitor, errManager);
+				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
 		if (monitor.isCanceled()) {
 			return;
 		}
 
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
-				propertyDefinitionList, classifierCache, mode2som);
+				propertyDefinitionList, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			return;
@@ -590,7 +591,10 @@ public class InstantiateModel {
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName() /*+ indexStackToString(indexStack) + (index > 0 ? "_" + index : "")*/);
+		newInstance.setName(sub.getName() /*
+										 * + indexStackToString(indexStack) +
+										 * (index > 0 ? "_" + index : "")
+										 */);
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);

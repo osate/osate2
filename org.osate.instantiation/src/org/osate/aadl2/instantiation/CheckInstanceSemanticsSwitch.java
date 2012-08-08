@@ -39,9 +39,13 @@
  */
 package org.osate.aadl2.instantiation;
 
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
-
 
 /**
  * <p>
@@ -51,23 +55,23 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitch;
  * {@link edu.cmu.sei.aadl.model.util.ForAllAObject#processPostOrderAll(edu.cmu.sei.aadl.model.core.AObject)}
  */
 public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
-//	/** The current SOM, used for error message */
-//	private final SystemOperationMode currentSOM;
-//
-//	/** Message prepended to all reporter output */
-//	private final String reportPrefix;
-//
-//	/**
-//	 * The cache of contained property associations that apply to semantic
-//	 * connections.
-//	 */
-//	private final SCProperties scProps;
-//
-//	/**
-//	 * Mode context to be used for checking connection properties. Maps the
-//	 * system instance in {@link #root} to the current SOM in
-//	 * {@link #currentSOM}.
-//	 */
+	/** The current SOM, used for error message */
+	private SystemOperationMode currentSOM;
+
+	/** Message prepended to all reporter output */
+	private String reportPrefix;
+
+	/**
+	 * The cache of contained property associations that apply to semantic
+	 * connections.
+	 */
+	private SCProperties scProps;
+
+	/**
+	 * Mode context to be used for checking connection properties. Maps the
+	 * system instance in {@link #root} to the current SOM in
+	 * {@link #currentSOM}.
+	 */
 //	private final Map<InstanceModeContext, SystemOperationMode> modeBindings;
 //
 //	private final Property dispatchProtocolPD;
@@ -83,7 +87,7 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //		this.scProps = scp;
 //
 //		// TODO: Should do something when this fails
-//		dispatchProtocolPD = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
+//		//dispatchProtocolPD = OsateResourceManager.findProperty(ThreadProperties.DISPATCH_PROTOCOL);
 //	}
 
 	protected final void initSwitches() {
@@ -125,11 +129,11 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //				return DONE;
 //			}
 //
-//			public String caseConnectionInstance(final ConnectionInstance conni) {
-//				//checkDelayedConnectionEndPoints(conni);
-//				checkPropertyConsistency(conni);
-//				return NOT_DONE;
-//			}
+			public String caseConnectionInstance(ConnectionInstance conni) {
+				//checkDelayedConnectionEndPoints(conni);
+				checkPropertyConsistency(conni);
+				return NOT_DONE;
+			}
 		};
 	}
 
@@ -199,23 +203,22 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //		 * "Destination of delayed connection is not a thread or device"); } }
 //		 */
 //	}
-//
-//	private void checkPropertyConsistency(final ConnectionInstance conni) {
+
+	private void checkPropertyConsistency(ConnectionInstance conni) {
 //		// may be null!
-//		final Map<Property, Map<Connection, Map<SystemOperationMode, List<? extends PropertyExpression>>>> propsLayer = scProps
-//				.get(conni);
-//		final List<Connection> connections = conni.getConnections();
+//		Map<Property, Map<Connection, List<ModalPropertyValue>>> propsLayer = scProps.get(conni);
+//		List<ConnectionReference> connections = conni.getConnectionReferences();
 //
 //		// iterate over all the properties that apply to connections
-//		final Iterator<Property> propDecls = AadlUtil.getAllPropertyDefinitions().iterator();
+//		Iterator<Property> propDecls = AadlUtil.getAllPropertyDefinitions().iterator();
 //		while (propDecls.hasNext()) {
-//			final Property pd = propDecls.next();
+//			Property pd = propDecls.next();
 //			if (conni.acceptsProperty(pd)) {
 //				// may be null!
-//				final Map<Connection, Map<SystemOperationMode, List<? extends PropertyExpression>>> connLayer = (propsLayer == null) ? null
+//				Map<Connection, Map<SystemOperationMode, List<? extends PropertyExpression>>> connLayer = (propsLayer == null) ? null
 //						: propsLayer.get(pd);
 //				try {
-//					final List<AadlModalPropertyValue> values = conni.getConnectionPropertyValues(pd);
+//					List<AadlModalPropertyValue> values = conni.getConnectionPropertyValues(pd);
 //					boolean consistent = true;
 //					List<? extends PropertyExpression> firstDefined = null;
 //					int firstDefinedIdx = -1;
@@ -232,8 +235,8 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //					 * location of the first inconsistent connection.
 //					 */
 //					for (int idx = 0; consistent && (idx < connections.size()); idx++) {
-//						final Connection conn = connections.get(idx);
-//						final Map<SystemOperationMode, List<? extends PropertyExpression>> somLayer = (connLayer == null) ? null
+//						Connection conn = connections.get(idx);
+//						Map<SystemOperationMode, List<? extends PropertyExpression>> somLayer = (connLayer == null) ? null
 //								: connLayer.get(conn);
 //						List<? extends PropertyExpression> value = (somLayer == null) ? null : somLayer.get(currentSOM);
 //						if (value == null) {
@@ -242,8 +245,8 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //							 * associations, so see what value is defined for
 //							 * the Connection declaration.
 //							 */
-//							final AadlModalPropertyValue mpv = values.get(idx);
-//							final AadlPropertyValue val = mpv.getValue(modeBindings);
+//							AadlModalPropertyValue mpv = values.get(idx);
+//							AadlPropertyValue val = mpv.getValue(modeBindings);
 //							if (!val.isNotPresent() && val.exists()) {
 //								value = val.getValue();
 //							}
@@ -267,36 +270,37 @@ public class CheckInstanceSemanticsSwitch extends AadlProcessingSwitch {
 //					}
 //
 //					if (!consistent) {
-//						error(conni, reportPrefix + "Value of property \"" + pd.getQualifiedName()
-//								+ "\" is inconsistent across semantic connection: value at \""
-//								+ getConnectionPath(conni, firstDefinedIdx) + "\" differs from value at \""
-//								+ getConnectionPath(conni, badIndex) + "\"");
+//						error(conni,
+//								reportPrefix + "Value of property \"" + pd.getQualifiedName()
+//										+ "\" is inconsistent across semantic connection: value at \""
+//										+ getConnectionPath(conni, firstDefinedIdx) + "\" differs from value at \""
+//										+ getConnectionPath(conni, badIndex) + "\"");
 //					}
-//				} catch (final IllegalArgumentException e) {
+//				} catch (IllegalArgumentException e) {
 //					error(conni, reportPrefix + "Property '" + pd.getQualifiedName()
 //							+ "' is not accepted by one of the declarative "
 //							+ "connections in the semantic connection: " + e.getMessage());
 //				}
 //			}
 //		}
-//	}
-//
-//	private static String getConnectionPath(final ConnectionInstance conni, final int idx) {
-//		final StringBuffer sb = new StringBuffer();
-//		final ComponentInstance context = conni.getConnectionContexts().get(idx);
-//		final Connection connection = conni.getConnections().get(idx);
-//		generateComponentPath(sb, context);
-//		sb.append(connection.getName());
-//		return sb.toString();
-//	}
-//
-//	private static void generateComponentPath(final StringBuffer sb, final ComponentInstance ci) {
-//		if (ci instanceof SystemInstance) {
-//			return;
-//		} else {
-//			generateComponentPath(sb, (ComponentInstance) ci.eContainer());
-//			sb.append(ci.getSubcomponent().getName());
-//			sb.append(".");
-//		}
-//	}
+	}
+
+	private static String getConnectionPath(ConnectionInstance conni, int idx) {
+		StringBuffer sb = new StringBuffer();
+		ConnectionReference connRef = conni.getConnectionReferences().get(idx);
+
+		generateComponentPath(sb, connRef.getContext());
+		sb.append(connRef.getName());
+		return sb.toString();
+	}
+
+	private static void generateComponentPath(StringBuffer sb, ComponentInstance ci) {
+		if (ci instanceof SystemInstance) {
+			return;
+		} else {
+			generateComponentPath(sb, (ComponentInstance) ci.eContainer());
+			sb.append(ci.getSubcomponent().getName());
+			sb.append(".");
+		}
+	}
 }
