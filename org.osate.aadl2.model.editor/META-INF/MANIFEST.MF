@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2.model.editor;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: org.osate.aadl2.model.editor.jar
 Bundle-Activator: org.osate.aadl2.presentation.Aadl2EditorPlugin$Implementation
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
