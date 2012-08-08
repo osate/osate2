@@ -1,15 +1,11 @@
 package fr.tpt.aadl.annex.behavior.texteditor;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.XtextResource;
-import org.osate.aadl2.Element;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.TextPositionInfo;
 
-import fr.tpt.aadl.annex.behavior.AadlBaResolver;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.ElementHolder;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
 
@@ -17,14 +13,39 @@ public class AadlBaTextPositionResolver implements AnnexTextPositionResolver{
 
 	private BehaviorAnnex ba;
 	
+	private BehaviorElement getLinkedElement(int offset)
+	  {
+
+		  for(AadlBaLocationReference loc: ba.getLinks().keySet())
+		  {
+			  if(offset<= loc.getOffset()+loc.getLength() && offset>=loc.getOffset())
+				  return ba.getLinks().get(loc) ;
+		  }
+
+		  return null;
+	  }
+	
+	private AadlBaLocationReference  getSourceOffsetElement(int offset) {
+
+		if(ba.getLinks()!=null)
+		{
+			for(AadlBaLocationReference loc: ba.getLinks().keySet())
+			{
+				if(offset<= loc.getOffset()+loc.getLength() && offset>=loc.getOffset())
+					return loc ;
+			}
+		}
+		return null;
+	  }
+	
 	private TextPositionInfo resolveBehaviorAnnexElementAt(int offset)
 	{
-		BehaviorElement e = XtextAadlBaHyperlink.getLinkedElement(ba, offset);
+		BehaviorElement e = this.getLinkedElement(offset);
 		
 		if(e==null)
 			return new TextPositionInfo(null, 0, 0);
 		
-		AadlBaLocationReference loc = XtextAadlBaHyperlink.getSourceOffsetElement(ba, offset);
+		AadlBaLocationReference loc = this.getSourceOffsetElement(offset);
 		TextPositionInfo positionInfo;
 		if(e instanceof ElementHolder)
 		{
@@ -40,11 +61,11 @@ public class AadlBaTextPositionResolver implements AnnexTextPositionResolver{
 
 	private TextPositionInfo resolveBehaviorAnnexCrossReferencedElementAt(int offset)
 	{
-		BehaviorElement e = XtextAadlBaHyperlink.getLinkedElement(ba, offset);
+		BehaviorElement e = this.getLinkedElement(offset);
 		
 		if(e==null)
 			return new TextPositionInfo(null, offset, 0);
-		AadlBaLocationReference loc = XtextAadlBaHyperlink.getSourceOffsetElement(ba, offset);
+		AadlBaLocationReference loc = this.getSourceOffsetElement(offset);
 		TextPositionInfo positionInfo;
 		if(e instanceof ElementHolder)
 		{

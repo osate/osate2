@@ -11,10 +11,4 @@ public class DefaultAadlBaHyperlink implements AadlBaHyperlink
     // Does nothing.
   }
 
-  @Override
-  public BehaviorElement getLinkedElement(int offset)
-  {
-    throw new UnsupportedOperationException() ;
-  }
-
 }

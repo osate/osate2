@@ -22,12 +22,16 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 
@@ -69,6 +73,27 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 */
   protected EList<BehaviorVariable> variables;
 
+  /**
+   * @generated NOT
+   */
+  
+  private Map<AadlBaLocationReference, BehaviorElement> _links = new HashMap
+	        <AadlBaLocationReference, BehaviorElement>() ;
+  
+  public Map<AadlBaLocationReference, BehaviorElement> getLinks()
+  {
+	  return _links;
+  }
+  
+  private Map<BehaviorAnnex, AadlBaHighlighter> _annexHighlighters = 
+		   new HashMap<BehaviorAnnex, AadlBaHighlighter>();
+ 
+  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters()
+  {
+	  return _annexHighlighters;
+  }
+  
+  
   /**
 	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

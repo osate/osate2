@@ -19,9 +19,15 @@
  */
 package fr.tpt.aadl.annex.behavior.aadlba;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.AnnexSubclause;
+
+import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
+import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
 
 /**
  * <!-- begin-user-doc -->
@@ -61,7 +67,15 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
 	 * @generated
 	 */
   EList<BehaviorVariable> getVariables();
-
+  
+  /**
+   * @generated NOT
+   */
+  
+  Map<AadlBaLocationReference, BehaviorElement> getLinks();
+  
+  public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters();
+  
   /**
 	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getVariables <em>Variables</em>}' containment reference list.
 	 * <!-- begin-user-doc -->

@@ -12,7 +12,7 @@ public class AadlBaLocationReference extends LocationReference
   private int _column = -1 ;
   
   private String _id = "" ;
-
+  
   public AadlBaLocationReference()
   {
     // fields are not set.
@@ -55,11 +55,16 @@ public class AadlBaLocationReference extends LocationReference
   {
     return _id ;
   }
-
+  
+  private int getSuperOffset()
+  {
+	  return super.getOffset();
+  }
+  
   @Override
   public int getOffset() 
   {
-	return AadlBaParserAction.offsetMap.get(_ba)+super.getOffset();
+	return ((AadlBaLocationReference)_ba.getLocationReference()).getSuperOffset()+super.getOffset();
   };
   
   @Override
