@@ -56,10 +56,9 @@ public class Aadl2HyperlinkHelper extends HyperlinkHelper {
 					if (textpositionresolverregistry != null){
 						AnnexTextPositionResolver atpr = textpositionresolverregistry.getTextPositionResolver(annexName);
 						if (atpr != null){
-							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
+							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
 							if (tpo.getModelObject() != null && !tpo.getModelObject().eIsProxy()) {
-								// XXX phf added the addition of offests
-								Region region = new Region(tpo.getOffset()+apr.getAnnexOffset(), tpo.getLength());
+								Region region = new Region(tpo.getOffset(), tpo.getLength());
 								createHyperlinksTo(resource, region, tpo.getModelObject(), acceptor);
 							}
 						}
