@@ -3,7 +3,6 @@ Bundle-ManifestVersion: 2
 Bundle-Name: %pluginName
 Bundle-SymbolicName: org.osate.aadl2;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-ClassPath: org.osate.aadl2.jar
 Bundle-Vendor: %providerName
 Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
@@ -12,6 +11,7 @@ Export-Package: org.osate.aadl2,
  org.osate.aadl2.instance,
  org.osate.aadl2.instance.impl,
  org.osate.aadl2.instance.util,
+ org.osate.aadl2.operations,
  org.osate.aadl2.parsesupport,
  org.osate.aadl2.properties,
  org.osate.aadl2.util
