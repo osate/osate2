@@ -61,7 +61,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
 						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
 						if (atpr != null&& actualAnnexElement != null){
-							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
+							TextPositionInfo tpo = atpr.resolveElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
 						}
 					}
@@ -112,7 +112,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 						AnnexParseResult apr = AnnexUtil.getAnnexParseResult(obj);
 						EObject actualAnnexElement = apr.getParseResult().getRootASTElement();
 						if (atpr != null&& actualAnnexElement != null){
-							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset-apr.getAnnexOffset());
+							TextPositionInfo tpo = atpr.resolveCrossReferencedElementAt(actualAnnexElement, offset);
 							return tpo.getModelObject();
 						}
 					}
