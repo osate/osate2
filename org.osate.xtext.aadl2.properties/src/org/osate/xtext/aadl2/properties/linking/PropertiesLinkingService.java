@@ -147,6 +147,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
@@ -450,11 +451,24 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 								}
 							}
 						}
+						if (res == null){
+							// look in prototype actuals
+							ComponentPrototype proto = ((Subcomponent) ne).getPrototype();
+							 ns = ResolvePrototypeUtil.resolveComponentPrototype(proto, el);
+							 if (ns != null)
+									res = ns.findNamedElement(name);
+						}
 					} else if (ne instanceof FeatureGroup) {
-						Classifier ns = ((FeatureGroup) ne)
-								.getAllFeatureGroupType();
+						Classifier ns = ((FeatureGroup) ne).getAllFeatureGroupType();
 						if (ns != null)
 							res = ns.findNamedElement(name);
+						if (res == null){
+							// look in prototype actuals
+							FeatureGroupPrototype proto = ((FeatureGroup) ne).getFeatureGroupPrototype();
+							 ns = ResolvePrototypeUtil.resolveFeatureGroupPrototype(proto, el);
+							 if (ns != null)
+									res = ns.findNamedElement(name);
+						}
 					} else if (ne instanceof Feature) {
 							Classifier ns = ((Feature) ne).getClassifier();
 							if (ns != null)
@@ -468,7 +482,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 							Classifier ns = ((SubprogramSubcomponent)called).getAllClassifier();
 							res = ns.findNamedElement(name);
 						}
-						
 					}
 				} else {
 					// the first containment path element
