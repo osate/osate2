@@ -35,6 +35,8 @@
  */
 package org.osate.aadl2;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.util.EList;
 
 /**
@@ -526,5 +528,7 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	int getIndexOf(Feature feature);
+
+	EList<Prototype>  getAllPrototypes();
 
 } // FeatureGroupType
