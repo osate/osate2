@@ -148,6 +148,7 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 
@@ -194,18 +195,20 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-		psNode.setText(crossRefString);
-		List<EObject> el;
-		try {
-			el = super.getLinkedObjects(context, reference, psNode);
-		} catch (Exception e) {
-			return null;
-		}
-		EObject res = (el.isEmpty()?null: el.get(0));
-		if (res != null&&res.eIsProxy()){
-			res = EcoreUtil.resolve(res,context);
-			if (res.eIsProxy()) return null;
-		}
+//		psNode.setText(crossRefString);
+//		List<EObject> el;
+//		try {
+//			el = super.getLinkedObjects(context, reference, psNode);
+//		} catch (Exception e) {
+//			return null;
+//		}
+//		EObject res = (el.isEmpty()?null: el.get(0));
+//		if (res != null&&res.eIsProxy()){
+//			res = EcoreUtil.resolve(res,context);
+//			if (res.eIsProxy()) return null;
+//		}
+		// XXX phf: lookup in global index without rgard to project dependencies
+		EObject res = EMFIndexRetrieval.getEObjectOfType(reference.getEReferenceType(), crossRefString);
 		return res;
 
 	}
