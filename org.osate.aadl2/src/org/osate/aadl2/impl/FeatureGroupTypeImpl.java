@@ -37,6 +37,7 @@ package org.osate.aadl2.impl;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -56,6 +57,7 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
@@ -68,6 +70,7 @@ import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.Prototype;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -1160,6 +1163,27 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		}
 		return result;
 	}
+	
+	public EList<Prototype> getAllPrototypes() {
+		EList<Classifier> ancestors = getAllExtendPlusSelf();
+		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
+		// Process from farthest ancestor to self
+		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
+			final FeatureGroupType current = (FeatureGroupType) li.previous();
+			final EList<Prototype> currentItems = current.getOwnedPrototypes();
+			if (currentItems != null) {
+				for (Iterator<Prototype> i = currentItems.iterator(); i.hasNext();) {
+					final Prototype fe = i.next();
+					final Prototype rfe = fe.getRefined();
+					if (rfe != null)
+						returnlist.remove(rfe);
+					returnlist.add(fe);
+				}
+			}
+		}
+		return returnlist;
+	}
+
 
 	/**
 	 * Does this feature group type descend from the given classifier? A
