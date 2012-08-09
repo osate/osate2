@@ -324,7 +324,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseFeatureGroupType(FeatureGroupType featureGroupType) {
 		checkEndId(featureGroupType);
 		checkForChainedInverseFeatureGroupTypes(featureGroupType);
-
+		checkFeatureGroupTypeUniqueNames(featureGroupType);
 	}
 
 	@Check(CheckType.FAST)
@@ -801,6 +801,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+
+	/**
+	 * check for unique names in component type
+	 */
+	public void checkFeatureGroupTypeUniqueNames(FeatureGroupType type) {
+		// process in core package
+		EList l = new BasicEList();
+		l.addAll(type.getAllFeatures());
+		l.addAll(type.getAllPrototypes());
+		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
+		if (doubles.size() > 0) {
+			for (NamedElement ne : doubles) {
+				error(ne, ne.eClass().getName() + " identifier '" + ne.getName()
+						+ "' previously defined. Maybe you forgot 'refined to'");
+			}
+		}
+	}
+
 
 	/*
 	 * supporting semantic check methods They can on the error reporter thus
