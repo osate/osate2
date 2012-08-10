@@ -208,8 +208,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 //			res = EcoreUtil.resolve(res,context);
 //			if (res.eIsProxy()) return null;
 //		}
-		// XXX phf: lookup in global index without rgard to project dependencies
-		EObject res = EMFIndexRetrieval.getEObjectOfType(reference.getEReferenceType(), crossRefString);
+		// XXX phf: lookup in global index without regard to project dependencies
+		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
 		return res;
 
 	}
