@@ -1298,7 +1298,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					actualDirection = ((FeaturePrototypeReference) binding.getActual()).getDirection();
 				else
 					actualDirection = ((PortSpecification) binding.getActual()).getDirection();
-				if (!actualDirection.equals(formalDirection)) {
+				if (!formalDirection.equals(DirectionType.IN_OUT)
+						&& !formalDirection.equals(actualDirection)) {
 					error(binding.getActual(),
 							"The direction specified in the binding is inconsistent with the direction of the formal prototype.");
 				}
@@ -2255,8 +2256,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		} else if (srcContext instanceof Subcomponent || dstContext instanceof Subcomponent) {
 			// going up or down hierarchy
-			if (!((srcDirection.outgoing() && dstDirection.outgoing()) || (srcDirection.incoming() && dstDirection
-					.incoming()))) {
+			if (!sameDirection(srcDirection, dstDirection)) {
 				error(connection,
 						"Source feature '" + source.getName() + "' and destination feature '" + destination.getName()
 								+ "' must have same direction.");
@@ -3526,6 +3526,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			cls.add(cl);
 		}
 		return false;
+	}
+	
+	public boolean sameDirection(DirectionType srcDirection,DirectionType destDirection){
+		return (srcDirection.incoming() && destDirection.incoming()) ||
+				(srcDirection.outgoing() && destDirection.outgoing());
 	}
 
 }
