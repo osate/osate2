@@ -50,8 +50,11 @@ import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
+import org.osate.aadl2.ComponentPrototypeActual;
+import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -68,8 +71,10 @@ import org.osate.aadl2.FeatureConnection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnection;
 import org.osate.aadl2.FeatureGroupPrototype;
+import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
+import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.FlowElement;
 import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowSegment;
@@ -84,6 +89,7 @@ import org.osate.aadl2.Port;
 import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.SubcomponentType;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
@@ -420,6 +426,18 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				Subcomponent sub = (Subcomponent) context.eContainer();
 				ns = sub.getAllClassifier();
 				searchResult = ns.findNamedElement(name);
+			} else if (context.eContainer() instanceof ComponentPrototypeActual){
+				ComponentPrototypeActual cpa = (ComponentPrototypeActual)context.eContainer();
+				SubcomponentType subT = cpa.getSubcomponentType();
+				if (subT instanceof ComponentClassifier){
+					searchResult = ((ComponentClassifier)subT).findNamedElement(name);
+				}
+			} else if (context.eContainer() instanceof FeatureGroupPrototypeActual){
+				FeatureGroupPrototypeActual cpa = (FeatureGroupPrototypeActual)context.eContainer();
+				FeatureType subT = cpa.getFeatureType();
+				if (subT instanceof FeatureGroupType){
+					searchResult = ((FeatureGroupType)subT).findNamedElement(name);
+				}
 			} else {
 				ns = AadlUtil.getContainingClassifier(context);
 				if (context instanceof Prototype) {
