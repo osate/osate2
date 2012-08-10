@@ -63,7 +63,7 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
         		      l2= l1;
         			  l1 = (ILeafNode)i.next();
         		  }
-        		  if (l3 != null) return l3.getText()+"."+string;
+        		  if (l3 != null) return l3.getText().replaceAll(" ","")+"."+string;
 //				int i;
 //				forall (i = el.size() - 1; i > 0; i--) {
 //					ILeafNode leafNode = el.get(i - 1);

@@ -542,11 +542,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode) {
 			lln = lln.getPreviousSibling();
 		}
-		String ss = lln.getText();
-		ss = ss.replaceAll(" ", "");
-//		while (ss.startsWith(" ")){
-//			ss = ss.substring(1);
-//		}
+		String ss = lln.getText().replaceAll(" ", "");
 		if (!cl.getName().equalsIgnoreCase(ss)) {
 			error(cl, "Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'");
 		}
@@ -555,7 +551,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkEndId(ModelUnit mu) {
 		ICompositeNode n = NodeModelUtils.getNode(mu);
 		INode lln = getPreviousNode(getLastLeaf(n));
-		String ss = lln.getText();
+		String ss = lln.getText().replaceAll(" ", "");
 		lln = getPreviousNode(lln);
 //		while (lln.getText().equalsIgnoreCase("::")) {
 //			lln = getPreviousNode(lln);
@@ -575,12 +571,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
 		ICompositeNode n = NodeModelUtils.getNode(flow);
 		INode lln = getLastLeaf(n);
-		String outFeatureName = lln.getText();
+		String outFeatureName = lln.getText().replaceAll(" ","");
 		lln = getPreviousNode(lln);
 		String outContextName = null;
-		if (lln.getText().equals(".")) {
+		if (lln.getText().replaceAll(" ","").equals(".")) {
 			lln = getPreviousNode(lln);
-			outContextName = lln.getText();
+			outContextName = lln.getText().replaceAll(" ","");
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
@@ -611,13 +607,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode)
 			lln = lln.getNextSibling();
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
-		String inFeatureName = lln.getText();
+		String inFeatureName = lln.getText().replaceAll(" ","");
 		lln = getNextNode(lln);
 		String inContextName = null;
-		if (lln.getText().equals(".")) {
+		if (lln.getText().replaceAll(" ","").equals(".")) {
 			lln = getNextNode(lln);
 			inContextName = inFeatureName;
-			inFeatureName = lln.getText();
+			inFeatureName = lln.getText().replaceAll(" ","");
 		}
 		Context specContext = flow.getSpecification().getAllInEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
