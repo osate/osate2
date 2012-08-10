@@ -56,6 +56,7 @@ package org.osate.aadl2;
 public interface FeaturePrototype extends Prototype {
 	/**
 	 * Returns the value of the '<em><b>Direction</b></em>' attribute.
+	 * The default value is <code>"inOut"</code>.
 	 * The literals are from the enumeration {@link org.osate.aadl2.DirectionType}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -67,7 +68,7 @@ public interface FeaturePrototype extends Prototype {
 	 * @see org.osate.aadl2.DirectionType
 	 * @see #setDirection(DirectionType)
 	 * @see org.osate.aadl2.Aadl2Package#getFeaturePrototype_Direction()
-	 * @model required="true" ordered="false"
+	 * @model default="inOut" required="true" ordered="false"
 	 * @generated
 	 */
 	DirectionType getDirection();

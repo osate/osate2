@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_QvjpwFEMEd6kWIIn_VWR1g">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_oyzmQOczEd2_oNHk7xXPgw">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -1632,7 +1632,7 @@
           </semanticModel>
         </contained>
       </contained>
-      <contained xsi:type="di:GraphNode" xmi:id="_-c91EOfBEd24HKBNSe83sw" position="84,81" size="173,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_-c91EOfBEd24HKBNSe83sw" position="68,83" size="206,-1">
         <anchorage xmi:id="_KKCgMOfCEd24HKBNSe83sw" graphEdge="_KKCgMufCEd24HKBNSe83sw _M5a3kOfCEd24HKBNSe83sw _jZl44efCEd24HKBNSe83sw _IRGEoOu_Ed2MXLYV7yfV2w"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_-c91EefBEd24HKBNSe83sw" presentation="default">
           <element href="AADLConstructs.uml#Templates-FeaturePrototype"/>
@@ -1905,7 +1905,7 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEouu_Ed2MXLYV7yfV2w" id="srcNameEdgeObject" uDistance="10" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEo-u_Ed2MXLYV7yfV2w" id="srcPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEpOu_Ed2MXLYV7yfV2w" id="srcCountEdgeObject" uDistance="10" vDistance="-10"/>
-        <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEpeu_Ed2MXLYV7yfV2w" id="targetNameEdgeObject" uDistance="10" vDistance="10"/>
+        <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEpeu_Ed2MXLYV7yfV2w" id="targetNameEdgeObject" uDistance="-8" vDistance="-31"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEpuu_Ed2MXLYV7yfV2w" id="targetPropertiesEdgeObject" uDistance="25" vDistance="10"/>
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_IRGEp-u_Ed2MXLYV7yfV2w" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_IRGEqOu_Ed2MXLYV7yfV2w" visible="false" id="middleNameEdgeObject" offset="263,267"/>

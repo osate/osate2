@@ -380,7 +380,7 @@ public class IntegerLiteralImpl extends NumberValueImpl implements IntegerLitera
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null|| getClass() != obj.getClass() || !super.equals(obj))
+		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
 			return false;
 		IntegerLiteralImpl other = (IntegerLiteralImpl) obj;
 		return base == other.base && value == other.value;

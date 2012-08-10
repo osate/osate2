@@ -1475,7 +1475,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModeTransitions());
 		}
-		if (getType() == null) return returnlist;
+		if (getType() == null)
+			return returnlist;
 		ancestors = getType().getAllExtendPlusSelf();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
