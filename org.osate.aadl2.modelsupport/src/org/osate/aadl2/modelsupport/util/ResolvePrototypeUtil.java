@@ -102,7 +102,7 @@ public class ResolvePrototypeUtil {
 	 * 
 	 * @param proto the prototype to resolve
 	 * @param context the context of the feature group in which the prototype is used, e.g., a
-	 *            ComponentType, FeatureGroupType
+	 *            ComponentType, FeatureGroupType, ContainmentPathElement
 	 * @return The feature group prototype actual the prototype is bound to.
 	 */
 	public static FeatureGroupType resolveFeatureGroupPrototype(Prototype proto, Element context) {
