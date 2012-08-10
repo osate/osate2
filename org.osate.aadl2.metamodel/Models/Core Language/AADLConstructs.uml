@@ -623,6 +623,7 @@
           <ownedComment xmi:id="Templates-FeaturePrototype-direction-_ownedComment.0">
             <body>===TBD===</body>
           </ownedComment>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_7jh00OK5EeGsjv302r_gBA" value="inOut"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Templates-FeaturePrototype-constrainingClassifier" name="constrainingClassifier" type="Components-ComponentClassifier" association="Templates-A_featurePrototype_constrainingClassifier">
           <ownedComment xmi:id="Templates-FeaturePrototype-constrainingClassifier-_ownedComment.0">

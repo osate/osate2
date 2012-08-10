@@ -69,7 +69,7 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * @generated
 	 * @ordered
 	 */
-	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN;
+	protected static final DirectionType DIRECTION_EDEFAULT = DirectionType.IN_OUT;
 
 	/**
 	 * The cached value of the '{@link #getDirection() <em>Direction</em>}' attribute.

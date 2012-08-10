@@ -57,7 +57,6 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
@@ -1163,7 +1162,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		}
 		return result;
 	}
-	
+
 	public EList<Prototype> getAllPrototypes() {
 		EList<Classifier> ancestors = getAllExtendPlusSelf();
 		final BasicEList<Prototype> returnlist = new BasicEList<Prototype>();
@@ -1183,7 +1182,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 		}
 		return returnlist;
 	}
-
 
 	/**
 	 * Does this feature group type descend from the given classifier? A

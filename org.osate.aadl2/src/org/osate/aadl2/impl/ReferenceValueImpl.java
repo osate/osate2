@@ -106,6 +106,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 			return irv;
 		}
 	}
+
 	//TODO: LW features can have reference properties too
 	public EvaluatedProperty evaluate(EvaluationContext ctx) {
 		return new EvaluatedProperty(this);

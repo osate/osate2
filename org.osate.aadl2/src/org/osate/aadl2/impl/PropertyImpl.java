@@ -59,7 +59,6 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
