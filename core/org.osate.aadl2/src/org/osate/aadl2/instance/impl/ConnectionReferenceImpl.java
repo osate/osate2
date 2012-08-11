@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -254,8 +255,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	}
 
 	public boolean isActive(SystemOperationMode som) {
-		// TODO-LW: make this modal?
-		return false;
+		return ((ConnectionInstance) getOwner()).isActive(som);
 	}
 
 	/* (non-Javadoc)
