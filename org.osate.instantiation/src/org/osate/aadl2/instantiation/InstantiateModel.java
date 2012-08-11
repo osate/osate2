@@ -448,43 +448,11 @@ public class InstantiateModel {
 		 * modal subcomponents.
 		 */
 		if (impl != null) {
-			EList<Mode> modes = impl.getAllModes();
-			for (Iterator<Mode> it = modes.iterator(); it.hasNext();) {
-				Mode m = it.next();
-				ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
-				mi.setMode(m);
-				mi.setName(m.getName());
-				mi.setInitial(m.isInitial());
-				ci.getModeInstances().add(mi);
-			}
-			EList<ModeTransition> modetrans = impl.getAllModeTransitions();
-			for (Iterator<ModeTransition> it = modetrans.iterator(); it.hasNext();) {
-				ModeTransition m = it.next();
-				ModeTransitionInstance mti = InstanceFactory.eINSTANCE.createModeTransitionInstance();
-				Mode srcmode = m.getSource();
-				Mode dstmode = m.getDestination();
-				ModeInstance srcI = ci.findModeInstance(srcmode);
-				ModeInstance dstI = ci.findModeInstance(dstmode);
-				mti.setSource(srcI);
-				mti.setDestination(dstI);
-				mti.setModeTransition(m);
-				EList<ModeTransitionTrigger> triggers = m.getOwnedTriggers();
-				String eventName = "";
-				if (!triggers.isEmpty()) {
-					if (triggers.get(0) instanceof TriggerPort) {
-						Context o = ((TriggerPort) triggers.get(0)).getContext();
-						if (o instanceof Subcomponent) {
-							eventName = ((Subcomponent) o).getName() + ".";
-						}
-						eventName = eventName + ((TriggerPort) triggers.get(0)).getPort().getName();
-					} else {
-						eventName = ((NamedElement) triggers.get(0)).getName();
-					}
-				}
-				mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "")
-						+ dstmode.getName());
-				ci.getModeTransitionInstances().add(mti);
-			}
+			fillModesAndTransitions(ci, impl.getAllModes(), impl.getAllModeTransitions());
+		} else if (type != null) {
+			fillModesAndTransitions(ci, type.getAllModes(), type.getAllModeTransitions());
+		}
+		if (impl != null) {
 			if (monitor.isCanceled()) {
 				return;
 			}
@@ -513,8 +481,43 @@ public class InstantiateModel {
 				return;
 			}
 		}
-
 		return;
+	}
+
+	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans) {
+		for (Mode m : modes) {
+			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
+			mi.setMode(m);
+			mi.setName(m.getName());
+			mi.setInitial(m.isInitial());
+			ci.getModeInstances().add(mi);
+		}
+		for (ModeTransition m : modetrans) {
+			ModeTransitionInstance mti = InstanceFactory.eINSTANCE.createModeTransitionInstance();
+			Mode srcmode = m.getSource();
+			Mode dstmode = m.getDestination();
+			ModeInstance srcI = ci.findModeInstance(srcmode);
+			ModeInstance dstI = ci.findModeInstance(dstmode);
+			mti.setSource(srcI);
+			mti.setDestination(dstI);
+			mti.setModeTransition(m);
+			List<ModeTransitionTrigger> triggers = m.getOwnedTriggers();
+			String eventName = "";
+			if (!triggers.isEmpty()) {
+				if (triggers.get(0) instanceof TriggerPort) {
+					Context o = ((TriggerPort) triggers.get(0)).getContext();
+					if (o instanceof Subcomponent) {
+						eventName = ((Subcomponent) o).getName() + ".";
+					}
+					eventName = eventName + ((TriggerPort) triggers.get(0)).getPort().getName();
+				} else {
+					eventName = ((NamedElement) triggers.get(0)).getName();
+				}
+			}
+			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "")
+					+ dstmode.getName());
+			ci.getModeTransitionInstances().add(mti);
+		}
 	}
 
 	/*

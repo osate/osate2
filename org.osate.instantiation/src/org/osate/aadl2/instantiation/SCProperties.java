@@ -71,6 +71,10 @@ class SCProperties {
 		get(get(scProps, conni), prop).put(conn, pa);
 	}
 
+	public PropertyAssociation retrieveSCProperty( ConnectionInstance conni,  Property prop,  Connection conn) {
+		return get(get(scProps, conni), prop).get(conn);
+	}
+
 	public Map<Property, Map<Connection, PropertyAssociation>> get(ConnectionInstance sc) {
 		return scProps.get(sc);
 	}

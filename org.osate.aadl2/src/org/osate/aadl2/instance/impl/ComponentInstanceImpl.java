@@ -997,6 +997,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 	public boolean isActive(SystemOperationMode som) {
+		if (getInModes().isEmpty()) {
+			return getContainingComponentInstance().isActive(som);
+		}
 		for (ModeInstance m : getInModes()) {
 			if (som.getCurrentModes().contains(m)) {
 				return getContainingComponentInstance().isActive(som);

@@ -186,7 +186,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 */
 					try {
 						List<EvaluatedProperty> value = prop.evaluate(new EvaluationContext(connRef, classifierCache,
-								scProps.get(conni).get(prop).get(connRef.getConnection())));
+								scProps.retrieveSCProperty(conni, prop, connRef.getConnection())));
 
 						if (!value.isEmpty()) {
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
@@ -220,8 +220,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		EvaluatedProperty value = valueIter.next();
 
 		for (MpvProxy proxy : value.getProxies()) {
-			List<SystemOperationMode> inSOMs = new ArrayList<SystemOperationMode>();
 			ModalPropertyValue newVal = Aadl2Factory.eINSTANCE.createModalPropertyValue();
+			List<SystemOperationMode> inSOMs = new ArrayList<SystemOperationMode>();
 
 			newVal.setOwnedValue(EcoreUtil.copy(proxy.getValue()));
 			// process list appends
@@ -239,24 +239,16 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			if (!proxy.isModal()) {
 				pa.getOwnedValues().add(newVal);
 			} else {
-				for (Mode mode : proxy.getModes()) {
+				List<Mode> modes = proxy.getModes();
+				for (Mode mode : modes) {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						ModeInstance modeInst = null;
-						ComponentInstance comp = getComponentInstance(io);
-
-						while (comp != null) {
-							for (ModeInstance mi : comp.getModeInstances()) {
-								if (mi.getMode() == mode) {
-									modeInst = mi;
-									break;
-								}
+						for (ModeInstance mi : getComponentInstance(io).getModeInstances()) {
+							if (mi.getMode() == mode) {
+								inSOMs.addAll(mode2som.get(mi));
+								break;
 							}
-							comp = comp.getContainingComponentInstance();
-						}
-						if (modeInst != null) {
-							inSOMs.addAll(mode2som.get(modeInst));
 						}
 					}
 				}
@@ -281,25 +273,4 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		return (ComponentInstance) current;
 	}
 
-	/*
-	 * Returns a set of SystemOperationModes such that each SOM contains a
-	 * ModeInstance contained in the given modeContext and that ModeInstance is
-	 * an instance of a mode in inModes.
-	 */
-//	private List<SystemOperationMode> convertInModesToInSOMs(ComponentInstance modeContext, List<Mode> inModes) {
-//		List<SystemOperationMode> inSOM = new LinkedList<SystemOperationMode>();
-//		for (Iterator<Mode> i = inModes.iterator(); i.hasNext();) {
-//			Mode mode = i.next();
-//			for (Iterator<SystemOperationMode> soms = root.getSystemOperationModes().iterator(); soms.hasNext();) {
-//				SystemOperationMode som = soms.next();
-//				for (Iterator<ModeInstance> mis = som.getCurrentModes().iterator(); mis.hasNext();) {
-//					ModeInstance mi = mis.next();
-//					if (mi.eContainer().equals(modeContext) && mi.getMode().equals(mode)) {
-//						inSOM.add(som);
-//					}
-//				}
-//			}
-//		}
-//		return inSOM;
-//	}
 }
