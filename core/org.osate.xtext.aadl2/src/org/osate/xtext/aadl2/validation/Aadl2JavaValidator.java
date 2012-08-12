@@ -292,6 +292,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	@Check(CheckType.FAST)
+	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
+		checkFeatureGroupConnectionDirection(connection);
+		checkFeatureGroupConnectionClassifiers(connection);
+	}
+
+	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
 		checkFlowFeatureType(flow);
 		checkFlowFeatureDirection(flow);
@@ -3532,5 +3538,94 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		return (srcDirection.incoming() && destDirection.incoming()) ||
 				(srcDirection.outgoing() && destDirection.outgoing());
 	}
+	
+
+	/**
+	 * Check category of source and destination
+	 * Section 9.5 Legality rules L5-8
+	 */
+	private void checkFeatureGroupConnectionDirection(FeatureGroupConnection connection) {
+		if (connection.isBidirectional()) return;
+		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
+		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
+		Context srccxt = connection.getAllSourceContext();
+		Context dstcxt = connection.getAllDestinationContext();
+		if (!(source instanceof FeatureGroup) || !(destination instanceof FeatureGroup)) {
+			error(connection, "The both ends of a feature group connection must be a feature group");
+			return;
+		}
+		if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent){
+			// sibling to sibling
+			if(((FeatureGroup)source).getDirection().equals(DirectionType.IN)){
+				error(connection, "The direction of the source "+source.getName()+" of a directional feature group connection must not be in");
+			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN);
+			}
+			if(((FeatureGroup)destination).getDirection().equals(DirectionType.OUT)){
+				error(connection, "The direction of the destination "+destination.getName()+" of a directional feature group connection must not be in");
+			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT);
+			}
+		} else if (!(srccxt instanceof Subcomponent) ){
+			// going down
+			if(((FeatureGroup)source).getDirection().equals(DirectionType.OUT)){
+				error(connection, "The direction of the source "+source.getName()+" of this incoming directional feature group connection must not be out");
+			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.OUT);
+			}
+			if(((FeatureGroup)destination).getDirection().equals(DirectionType.OUT)){
+				error(connection, "The direction of the destination "+destination.getName()+" of this incoming directional feature group connection must not be out");
+			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT);
+			}
+		} else if (!( dstcxt instanceof Subcomponent)){
+			// going up
+			if(((FeatureGroup)source).getDirection().equals(DirectionType.IN)){
+				error(connection, "The direction of the source "+source.getName()+" of this outgoing directional feature group connection must not be in");
+			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN);
+			}
+			if(((FeatureGroup)destination).getDirection().equals(DirectionType.IN)){
+				error(connection, "The direction of the destination "+destination.getName()+" of this outgoing directional feature group connection must not be in");
+			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.IN);
+			}
+		}
+	}
+	
+
+	/**
+	 * Checks legality rule 8 in section 9.5 the endpoints of a directional feature group must be consistent with the direction.
+	 */
+	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir) {
+		for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
+			if (feature instanceof DirectedFeature
+					&& ((DirectedFeature) feature).getDirection().equals(notDir)) {
+				error(featureGroup,
+						"Feature "+feature.getName()+" in the referenced feature group must not be "+notDir.getName() +" due to the direction of the connection");
+			}
+		}
+	}
+
+	
+	private void checkFeatureGroupConnectionClassifiers(FeatureGroupConnection connection) {
+		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
+		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
+		if (!(source instanceof FeatureGroup)) {
+			error(connection, "The source of a feature group connection must be a feature group");
+		}
+
+		if (!(destination instanceof FeatureGroup)) {
+			error(connection, "The destination of a feature group connection must be a feature group");
+		}
+		FeatureGroupType srcfgt = ((FeatureGroup)source).getAllFeatureGroupType();
+		FeatureGroupType dstfgt = ((FeatureGroup)destination).getAllFeatureGroupType();
+		if (!srcfgt.isInverseOf(dstfgt)){
+			
+		}
+
+	}
+
+
 
 }
