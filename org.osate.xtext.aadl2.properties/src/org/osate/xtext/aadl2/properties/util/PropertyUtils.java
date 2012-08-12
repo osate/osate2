@@ -39,13 +39,18 @@ import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberType;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
@@ -54,11 +59,13 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.impl.ClassifierValueImpl;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
@@ -838,6 +845,29 @@ public class PropertyUtils {
 		}
 		return res;
 	}
+	
+	
+	/**
+	 * get non-model proeprty list value  
+	 */
+	 public static PropertyExpression getSimplePropertyListValue(final NamedElement ph, final Property pd)
+			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
+			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
+ 		if (ph == null) {
+			throw new IllegalArgumentException("NamedElement ph cannot be null.");
+		}
+		PropertyExpression res = ph.getSimplePropertyValue(pd);
+		if (res instanceof NamedValue){
+			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
+			if (nv instanceof Property){
+				res = ph.getSimplePropertyValue((Property)nv);
+			} else if (nv instanceof PropertyConstant){
+				res = ((PropertyConstant)nv).getConstantValue();
+			} 
+		}
+		return res;
+	}
+
 
 	/**
 	 * Check that UnitLiteral unit is part of Property pd's UnitsType and
@@ -882,6 +912,57 @@ public class PropertyUtils {
 		}
 		return pv;
 	}
+	
+	/**
+	 * get a property association from the properties section of the containing classifier if the context.
+	 * This method has been designed to work with end points of connections, i.e., consisting of a target and a context.
+	 * The context must be a NamedElement in its containing classifier, i.e., a feature, feature group, subcomponent.
+	 * The property holder is assumed to be contained in the context object, e.g., a feature in afeature group or a data subcomponent in a port, or feature in a subcomponent. 
+	 * The association must match the property definition.
+	 * if the context is null then the containing classifier of the target is used and the path must be one or no path.
+	 * The applies to clause of the property association must be of size 2 if the context is set and point to the context and then the property holder.
+	 * The property value of the property association is assumed not to be modal.
+	 * @param context NamedElement whose containing classifier's properties section is searched for the desired property
+	 * @param target NamedElement the model element to which the property is applied to via the applies to clause
+	 * @param pd Property the property definition
+	 * @return
+	 */
+	public static PropertyExpression getContainedSimplePropertyValue(final NamedElement context,final NamedElement target, final Property pd){
+		if (context == null) return target.getNonModalPropertyValue(pd);
+		Classifier cl = AadlUtil.getContainingClassifier(context);
+		EList<PropertyAssociation> props = cl.getAllPropertyAssociations();
+		for (PropertyAssociation propertyAssociation : props) {
+			if (propertyAssociation.getProperty().equals(pd)){
+				// we found a property with the corect type
+				// now we need to check whether the applies to points to the holder
+				EList<ContainedNamedElement> appliestos = propertyAssociation.getAppliesTos();
+				for (ContainedNamedElement containedNamedElement : appliestos) {
+					EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
+					if (cpes.size() == 2){
+						NamedElement pathcxt = cpes.get(0).getNamedElement();
+					 NamedElement pathelement = cpes.get(1).getNamedElement();
+					if (context.equals(pathcxt)&& target.equals(pathelement)){
+						EList<ModalPropertyValue> vallist = propertyAssociation.getOwnedValues();
+						if (!vallist.isEmpty()){
+							ModalPropertyValue elem = vallist.get(0);
+							PropertyExpression res = elem.getOwnedValue();
+							if (res instanceof NamedValue){
+								AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
+								if (nv instanceof Property){
+									res = target.getNonModalPropertyValue((Property)nv);
+								} else if (nv instanceof PropertyConstant){
+									res = ((PropertyConstant)nv).getConstantValue();
+								} 
+							}
 
+							return res;
+						}
+					}
+					}
+				}
+			}
+		}
+		return null;
+	}
 
 }
