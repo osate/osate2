@@ -1689,10 +1689,8 @@ public final class AadlUtil {
 	 * @return ConnectionInstance or null if not found
 	 */
 	public static ConnectionInstance findConnectionInstance(InstanceObject src, InstanceObject dst) {
-		SystemInstance si = src.getSystemInstance();
-		EList<ConnectionInstance> cilist = si.getConnectionInstances();
-		for (Iterator<ConnectionInstance> it = cilist.iterator(); it.hasNext();) {
-			ConnectionInstance conni = it.next();
+		Iterable<ConnectionInstance> it = src.allEnclosingConnectionInstances();
+		for (ConnectionInstance conni : it) {
 			if (src == conni.getSource() && dst == conni.getDestination()) {
 				return conni;
 			}

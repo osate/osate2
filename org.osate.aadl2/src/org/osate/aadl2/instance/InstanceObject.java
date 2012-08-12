@@ -37,6 +37,7 @@ package org.osate.aadl2.instance;
 
 import java.util.List;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.NamedElement;
 
@@ -99,5 +100,29 @@ public interface InstanceObject extends EObject, NamedElement {
 	public List<? extends NamedElement> getInstantiatedObjects();
 
 	boolean isActive(SystemOperationMode som);
+	
+	
+	/**
+	 * Iterates over all connection instances that are contained in enclosing component instances the instance model.
+	 * This will give you the subset of connection instances whose endpoints potentially refer to or into the target object.
+	 * This function is useful since we now store connection instances in the closest enclosing component instance 
+	 * rather than always with the the system instance. The allConnectionInstances method does collect all connection instances
+	 * by walking the whole model.
+	 * We start looking for connection instances at the containing component instance of the THIS
+	 * We then work our way up the enclosing component instance hierarchy.
+	 */
+	Iterable<ConnectionInstance> allEnclosingConnectionInstances();
+	
+	/**
+	 * Get all connection instances in the instance model that are contained in enclosing component instances the instance model.
+	 * This will give you the subset of connection instances whose endpoints potentially refer to or into the target object.
+	 * This function is useful since we now store connection instances in the closest enclosing component instance 
+	 * rather than always with the the system instance. The allConnectionInstances method does collect all connection instances
+	 * by walking the whole model.
+	 * We start looking for connection instances at the containing component instance of the THIS
+	 * We then work our way up the enclosing component instance hierarchy.
+	 */
+	EList<ConnectionInstance> getAllEnclosingConnectionInstances();
+
 
 } // InstanceObject
