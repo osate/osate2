@@ -433,7 +433,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	 * @return The property expression or null if the property has no value. 
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	private PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
+	public PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
 			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
 			PropertyDoesNotApplyToHolderException {
 		PropertyAssociation pa = getPropertyValue(property).first();
