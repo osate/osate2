@@ -50,9 +50,9 @@ public class Aadl2EObjectAtOffsetHelper extends
 	public EObject resolveElementAt(XtextResource resource, int offset) {
 		INode annexLeaf = findAnnexLeafNode(resource, offset);
 		if (annexLeaf!= null){
+			EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 			if (textpositionresolverregistry == null) initTextPositionResolverRegistry();
 			if (textpositionresolverregistry != null){
-				EObject obj = NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
 				if (obj instanceof NamedElement){
 					String annexName = ((NamedElement)obj).getName();
 					// find the actual subclause or library instead of the default one found from the NodeModel
@@ -68,11 +68,11 @@ public class Aadl2EObjectAtOffsetHelper extends
 				}
 			}
 			// now try xtext based annexes via adapted ParseResult
-			annexLeaf = getAnnexCrossReferenceLeaf((ILeafNode)annexLeaf, offset);
+			annexLeaf = getAnnexLeaf((ILeafNode)annexLeaf, offset);
 			if (annexLeaf!=null){
-				return getCrossReferencedElement(annexLeaf);
-			} else {
 				return NodeModelUtils.findActualSemanticObjectFor(annexLeaf);
+			} else {
+				return obj;
 
 			}
 		}
@@ -161,6 +161,7 @@ public class Aadl2EObjectAtOffsetHelper extends
 		IParseResult parseResult = resource.getParseResult();
 		if (parseResult != null && parseResult.getRootNode() != null) {
 			ILeafNode leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset);
+			// we look up annex leaf in the annex specific parse tree
 			leaf = getAnnexLeaf(leaf, offset);
 			if (leaf != null && leaf.isHidden() && leaf.getOffset() == offset) {
 				leaf = NodeModelUtils.findLeafNodeAtOffset(parseResult.getRootNode(), offset - 1);
@@ -219,15 +220,6 @@ protected ILeafNode getAnnexLeaf(ILeafNode leaf, int offset){
 		}
 	}
 	return leaf;
-}
-/**
- * find the leaf node inside the annex using the Xtext annex produced parsetree
- * @param leaf INode
- * @param offset int
- * @return INode
- */
-protected INode getAnnexCrossReferenceLeaf(ILeafNode leaf, int offset){
-	return findCrossReferenceNode (getAnnexLeaf(leaf, offset));
 }
 
 
