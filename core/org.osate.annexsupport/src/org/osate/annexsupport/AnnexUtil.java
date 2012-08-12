@@ -2,6 +2,8 @@ package org.osate.annexsupport;
 
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 
 public class AnnexUtil {
 	
@@ -31,6 +33,20 @@ public class AnnexUtil {
 			}
 		}
 		return null;
+	}
+
+	
+	/**
+	 * get the line number for a given model object in the core model
+	 * This method makes use of the Xtext parse tree.
+	 * @return line number
+	 */
+	public static int getLineNumberFor(EObject obj)	{
+		INode node = NodeModelUtils.findActualNodeFor(obj);
+		if (node != null){
+			return node.getStartLine();
+		}
+		return 0;
 	}
 
 }
