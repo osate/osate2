@@ -25,9 +25,8 @@ public class Aadl2InstanceUtil {
 	 */
 	public static EList<ConnectionInstance> getOutgoingConnections(ComponentInstance ci){
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		SystemInstance si = ci.getSystemInstance();
-		EList<ConnectionInstance> connilist = si.getConnectionInstances();
-		for (ConnectionInstance connectionInstance : connilist) {
+		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
 			if (containedIn(src,ci)&&!containedIn(dst, ci)){
@@ -43,9 +42,8 @@ public class Aadl2InstanceUtil {
 	 */
 	public static EList<ConnectionInstance> getIncomingConnections(ComponentInstance ci){
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		SystemInstance si = ci.getSystemInstance();
-		EList<ConnectionInstance> connilist = si.getConnectionInstances();
-		for (ConnectionInstance connectionInstance : connilist) {
+		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ConnectionInstanceEnd dst = connectionInstance.getDestination();
 			if (!containedIn(src,ci)&&containedIn(dst, ci)){
@@ -63,9 +61,8 @@ public class Aadl2InstanceUtil {
 	public static EList<ConnectionInstance> getOutgoingConnection(ComponentInstance ci,FeatureInstance fi){
 		Feature f = fi.getFeature();
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		SystemInstance si = ci.getSystemInstance();
-		EList<ConnectionInstance> connilist = si.getConnectionInstances();
-		for (ConnectionInstance connectionInstance : connilist) {
+		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ComponentInstance srcci = src.getContainingComponentInstance();
 			if (containedIn(srcci,ci)){
@@ -90,9 +87,8 @@ public class Aadl2InstanceUtil {
 	public static EList<ConnectionInstance> getIncomingConnection(ComponentInstance ci,FeatureInstance fi){
 		Feature f = fi.getFeature();
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		SystemInstance si = ci.getSystemInstance();
-		EList<ConnectionInstance> connilist = si.getConnectionInstances();
-		for (ConnectionInstance connectionInstance : connilist) {
+		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd dest = connectionInstance.getDestination();
 			ComponentInstance destci = dest.getContainingComponentInstance();
 			if (containedIn(destci,ci)){

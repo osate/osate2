@@ -63,6 +63,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -334,12 +335,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	}
 
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
-	 * (org.osate.aadl2.instance.FeatureInstance,
-	 * org.osate.aadl2.instance.FeatureInstance)
+	 * find connection instance in SystemInstance
 	 */
 	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
 		EList<ConnectionInstance> subcl = getConnectionInstances();
@@ -521,6 +517,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		}
 		return result;
 	}
+
 
 	
 } // SystemInstanceImpl

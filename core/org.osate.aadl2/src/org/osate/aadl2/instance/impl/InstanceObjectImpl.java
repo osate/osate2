@@ -35,8 +35,12 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.ecore.OCL;
@@ -44,6 +48,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
@@ -262,6 +267,72 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	@Override
 	public boolean acceptsProperty(Property property) {
 		return true;
+	}
+
+	@Override
+	public Iterable<ConnectionInstance> allEnclosingConnectionInstances() {
+		final InstanceObject target = this;
+		return new Iterable<ConnectionInstance>() {
+
+			@Override
+			public Iterator<ConnectionInstance> iterator() {
+				return new Iterator<ConnectionInstance>() {
+					ConnectionInstance next ;
+					ComponentInstance head = target instanceof ComponentInstance?(ComponentInstance)target: target.getContainingComponentInstance();
+					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
+					
+					private boolean advance() {
+						next = null;
+						if (iter.hasNext()) {
+							next = iter.next();
+							return true;
+						}
+						while (head != null){
+							head = head.getContainingComponentInstance();
+							if (head == null){
+								return false;
+							} else {
+								if (iter.hasNext()) {
+									next = iter.next();
+									return true;
+								}
+							}
+						}
+						return false;
+					}
+					
+					@Override
+					public boolean hasNext() {
+						return next != null || advance();
+					}
+
+					@Override
+					public ConnectionInstance next() {
+						if (next == null && !advance()) {
+							throw new NoSuchElementException();
+						}
+						ConnectionInstance result =  next;
+						next = null;
+						return result;
+					}
+
+					@Override
+					public void remove() {
+						throw new UnsupportedOperationException();
+					}
+				};
+			}
+			
+		};
+	}
+	@Override
+	public EList<ConnectionInstance> getAllEnclosingConnectionInstances() {
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		
+		for(ConnectionInstance conni : allEnclosingConnectionInstances()) {
+			result.add(conni);
+		}
+		return result;
 	}
 
 } // InstanceObjectImpl
