@@ -336,9 +336,11 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	/*
 	 * find connection instance in SystemInstance
+	 * You may want to call on AadlUtil.findConnectionInstance as it can handle any endpoint, not just
+	 * features on port connections.
 	 */
 	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
-		EList<ConnectionInstance> subcl = getConnectionInstances();
+		EList<ConnectionInstance> subcl = getAllConnectionInstances();
 		for (Iterator<ConnectionInstance> it = subcl.iterator(); it.hasNext();) {
 			ConnectionInstance conni = it.next();
 
@@ -367,7 +369,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
 		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : getConnectionInstances()) {
+		for (ConnectionInstance conni : getAllConnectionInstances()) {
 			boolean foundFirst = (first == second);
 
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
