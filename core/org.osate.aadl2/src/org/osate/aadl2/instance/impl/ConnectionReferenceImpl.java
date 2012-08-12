@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -274,4 +275,13 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		throw new UnsupportedOperationException();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty(org.osate.aadl2.Property)
+	 */
+	@Override
+	public boolean acceptsProperty(Property property) {
+		return getConnection().acceptsProperty(property);
+	}
+
+	
 } //ConnectionReferenceImpl
