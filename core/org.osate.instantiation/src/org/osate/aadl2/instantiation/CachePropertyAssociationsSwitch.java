@@ -176,8 +176,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				boolean unset = true;
 
-				// TODO high: implement acceptance test
-				if (connRef.acceptsProperty(prop)) {
+				// XXX changed acceptance test from test on connref to test on connection itself
+				if (connRef.getConnection().acceptsProperty(prop)) {
 					/*
 					 * Just look up the property. The property doesn't yet have
 					 * a local association, so lookup will get the value from
