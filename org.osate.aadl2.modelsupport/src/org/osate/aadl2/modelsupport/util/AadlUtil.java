@@ -1937,6 +1937,17 @@ public final class AadlUtil {
 		return null;
 	}
 
+	public static PropertyAssociation getContainingPropertyAssociation(EObject element) {
+		EObject container = element;
+		while (container != null ){
+			if (container instanceof PropertyAssociation){
+				return (PropertyAssociation)container;
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
 	public static PackageSection getContainingPackageSection(EObject element) {
 		EObject container = element;
 		while (container != null && !(container instanceof PackageSection))

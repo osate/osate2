@@ -823,7 +823,7 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 			sub = sub.getRefined();
 			cc = sub.getClassifier();
 		}
-		return cc;
+		return Aadl2Util.isNull(cc)?null:cc;
 	}
 
 	@Override
