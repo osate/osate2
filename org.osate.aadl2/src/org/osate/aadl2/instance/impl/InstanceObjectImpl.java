@@ -266,6 +266,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
+		for (NamedElement ne : getInstantiatedObjects()) {
+			if (!ne.acceptsProperty(property))
+				return false;
+		}
 		return true;
 	}
 
