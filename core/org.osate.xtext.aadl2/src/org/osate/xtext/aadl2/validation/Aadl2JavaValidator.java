@@ -3611,17 +3611,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkFeatureGroupConnectionClassifiers(FeatureGroupConnection connection) {
 		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
 		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
-		if (!(source instanceof FeatureGroup)) {
-			error(connection, "The source of a feature group connection must be a feature group");
-		}
-
-		if (!(destination instanceof FeatureGroup)) {
-			error(connection, "The destination of a feature group connection must be a feature group");
+		Context srccxt = connection.getAllSourceContext();
+		Context dstcxt = connection.getAllDestinationContext();
+		if (!(source instanceof FeatureGroup)||!(destination instanceof FeatureGroup)) {
+			return;
 		}
 		FeatureGroupType srcfgt = ((FeatureGroup)source).getAllFeatureGroupType();
 		FeatureGroupType dstfgt = ((FeatureGroup)destination).getAllFeatureGroupType();
-		if (!srcfgt.isInverseOf(dstfgt)){
-			
+		if (srcfgt == null || dstfgt == null) return ;
+		if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent){  // sibling connection
+				if( !(srcfgt.isInverseOf(dstfgt)||((((FeatureGroup)source).isInverse()&&!((FeatureGroup)destination).isInverse()))
+						||(!((FeatureGroup)source).isInverse()&&((FeatureGroup)destination).isInverse()))){
+			error(connection,
+					"Feature group types of feature group connection must be inverse types");
+		}
 		}
 
 	}
