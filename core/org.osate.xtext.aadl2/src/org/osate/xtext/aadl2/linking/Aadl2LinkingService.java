@@ -341,24 +341,24 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 					ns = (ComponentType)callContext;
 				} else if (callContext instanceof SubprogramGroupSubcomponent){
 					ns = ((SubprogramGroupSubcomponent)callContext).getComponentType();
-					if (ns == null) {
+					if (Aadl2Util.isNull(ns)) {
 						return Collections.<EObject> emptyList();
 					}
 				} else if (callContext instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)callContext).getKind() == AccessType.REQUIRES){
 					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess)callContext).getSubprogramGroupFeatureClassifier();
 					if (sst instanceof Classifier)
-						ns = (Classifier) sst;;
-					if (ns == null) {
+						ns = (Classifier) sst;
+					if (Aadl2Util.isNull(ns)) {
 						return Collections.<EObject> emptyList();
 					}
 				} else if (callContext instanceof FeatureGroup ){
 					ns = ((FeatureGroup)callContext).getFeatureGroupType();
-					if (ns == null) {
+					if (Aadl2Util.isNull(ns)) {
 						return Collections.<EObject> emptyList();
 					}
 				}
 				searchResult = ns.findNamedElement(callName);
-				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
+				if (!Aadl2Util.isNull(searchResult) && requiredType.isSuperTypeOf(searchResult.eClass())) {
 					return Collections.singletonList((EObject) searchResult);
 				}
 			}
@@ -425,7 +425,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			if (context.eContainer() instanceof Subcomponent){
 				Subcomponent sub = (Subcomponent) context.eContainer();
 				ns = sub.getAllClassifier();
-				searchResult = ns.findNamedElement(name);
+				if (!Aadl2Util.isNull(ns))
+					searchResult = ns.findNamedElement(name);
 			} else if (context.eContainer() instanceof ComponentPrototypeActual){
 				ComponentPrototypeActual cpa = (ComponentPrototypeActual)context.eContainer();
 				SubcomponentType subT = cpa.getSubcomponentType();
@@ -448,9 +449,10 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 						return Collections.emptyList();
 					}
 				}
-				searchResult = ns.findNamedElement(name);
+				if (!Aadl2Util.isNull(ns))
+					searchResult = ns.findNamedElement(name);
 			}
-			if (searchResult != null && searchResult instanceof Prototype) {
+			if (!Aadl2Util.isNull(searchResult) && searchResult instanceof Prototype) {
 				return Collections.singletonList((EObject) searchResult);
 			}
 			return Collections.<EObject> emptyList();
