@@ -149,6 +149,7 @@ import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
@@ -462,7 +463,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 					NamedElement ne = el.getNamedElement();
 					if (ne instanceof Subcomponent) {
 						Classifier ns = ((Subcomponent) ne).getClassifier();
-						if (ns != null)
+						if (!Aadl2Util.isNull(ns))
 							res = ns.findNamedElement(name);
 						// need to look for subprogram calls inside call sequences
 						if (res == null){

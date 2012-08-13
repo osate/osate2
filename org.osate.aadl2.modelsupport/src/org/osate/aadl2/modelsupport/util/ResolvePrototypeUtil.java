@@ -47,6 +47,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
 import org.osate.aadl2.FeatureGroupPrototypeBinding;
 import org.osate.aadl2.FeatureGroupType;
@@ -213,9 +214,17 @@ public class ResolvePrototypeUtil {
 			// find prototype binding in namespace of previous element
 			NamedElement ne = previous.getNamedElement();
 			if (ne instanceof Subcomponent){
-				ComponentClassifier cl = ((Subcomponent)ne).getAllClassifier();
-				PrototypeBinding res = resolvePrototype(proto, cl);
+				// look for prototype in prototype binding of subcomponent declaration
+				PrototypeBinding res = resolvePrototype(proto, ne);
+				if (res == null){
+					ComponentClassifier cl = ((Subcomponent)ne).getAllClassifier();
+					res = resolvePrototype(proto, cl);
+				}
 				return res;
+			} else if (ne instanceof FeatureGroup){
+				
+			} else if (ne instanceof Feature){
+				
 			}
 		} else {
 			// the context is the entity with the property association
