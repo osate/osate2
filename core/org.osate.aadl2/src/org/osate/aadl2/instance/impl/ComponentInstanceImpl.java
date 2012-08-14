@@ -877,7 +877,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			if (ne == this.subcomponent) {
 				continue;
 			} else
-				
+
 			if (ne instanceof Subcomponent) {
 				io = ((ComponentInstance) io).findSubcomponentInstance((Subcomponent) ne);
 			} else if (ne instanceof Feature) {
@@ -919,7 +919,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 		for (ConnectionInstance conni : getSystemInstance().allConnectionInstances()) {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
-				if (isSameOrRefined(connRef.getConnection(), conn) && ((this == connRef.getContext())|| connRef.getContext()==null)) {
+				if (isSameOrRefined(connRef.getConnection(), conn)
+						&& ((this == connRef.getContext()) || connRef.getContext() == null)) {
 					result.add(conni);
 					break;
 				}
@@ -1015,4 +1016,16 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return sub.getClassifier();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
+	 */
+	@Override
+	public String getPathName() {
+		String array = "";
+		for (Long i : getIndices()) {
+			if (i > 0)
+				array += "[" + i + "]";
+		}
+		return getName() + array;
+	}
 } //ComponentInstanceImpl
