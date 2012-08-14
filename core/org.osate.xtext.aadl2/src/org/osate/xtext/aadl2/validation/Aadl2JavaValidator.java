@@ -3598,11 +3598,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks legality rule 8 in section 9.5 the endpoints of a directional feature group must be consistent with the direction.
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir) {
-		for (Feature feature : featureGroup.getFeatureGroupType().getAllFeatures()) {
-			if (feature instanceof DirectedFeature
-					&& ((DirectedFeature) feature).getDirection().equals(notDir)) {
-				error(featureGroup,
-						"Feature "+feature.getName()+" in the referenced feature group must not be "+notDir.getName() +" due to the direction of the connection");
+		FeatureGroupType fgt = featureGroup.getFeatureGroupType();
+		for (Feature feature : fgt.getAllFeatures()) {
+			boolean invfg = featureGroup.isInverse();
+			boolean invfgt = fgt.getInverse() != null &&
+					fgt.getOwnedFeatures().isEmpty() &&
+					Aadl2Util.isNull(fgt.getExtended());
+			boolean inverse = (invfg && !invfgt)||(!invfg&& invfgt);
+			if (feature instanceof DirectedFeature){
+				boolean dirEquals = ((DirectedFeature) feature).getDirection().equals(notDir) ;
+			if ((!inverse && dirEquals)||(inverse&&!dirEquals)){
+					error(featureGroup,
+							"Feature "+feature.getName()+" in the referenced feature group must not be "+notDir.getName() +" due to the direction of the connection");
+				}
 			}
 		}
 	}
