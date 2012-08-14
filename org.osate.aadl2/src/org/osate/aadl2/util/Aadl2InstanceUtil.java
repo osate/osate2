@@ -61,7 +61,7 @@ public class Aadl2InstanceUtil {
 	public static EList<ConnectionInstance> getOutgoingConnection(ComponentInstance ci,FeatureInstance fi){
 		Feature f = fi.getFeature();
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		Iterable<ConnectionInstance> it = ci.allEnclosingConnectionInstances();
+		Iterable<ConnectionInstance> it = ci.getSystemInstance().getAllConnectionInstances();//allEnclosingConnectionInstances();
 		for (ConnectionInstance connectionInstance : it) {
 			ConnectionInstanceEnd src = connectionInstance.getSource();
 			ComponentInstance srcci = src.getContainingComponentInstance();
@@ -173,12 +173,14 @@ public class Aadl2InstanceUtil {
 	 */
 	public static InstanceObject getDestEndPointInstance(ComponentInstance ci, ConnectionInstance conni){
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
-			if (connRef.getContext() == ci){
+			if (connRef.getContext() == ci.getContainingComponentInstance()){
 				Connection conn = connRef.getConnection();
 				final ConnectionEnd dstF = conn.getAllDestination();
 				final Context dstCtxt = conn.getAllDestinationContext();
+				if (ci.getSubcomponent() == dstCtxt){
 				final InstanceObject dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF, dstCtxt);
 				return dstInstance;
+				}
 			}
 		}
 		return null;
