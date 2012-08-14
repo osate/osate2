@@ -662,4 +662,16 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 		return getContainingComponentInstance().isActive(som);
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getPathName()
+	 */
+	@Override
+	public String getPathName() {
+		String array = "";
+		if (getIndex() > 0) {
+				array = "[" + getIndex() + "]";
+		}
+		return getName() + array;
+	}
+
 } //FeatureInstanceImpl

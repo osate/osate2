@@ -68,6 +68,7 @@ import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
+import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -76,6 +77,7 @@ import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
@@ -85,23 +87,30 @@ import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortSpecification;
 import org.osate.aadl2.ProcessSubcomponent;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.SystemSubcomponent;
 import org.osate.aadl2.ThreadGroupSubcomponent;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
@@ -152,6 +161,8 @@ public class InstantiateModel {
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
 	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+
+	private SystemInstance root;
 
 	/*
 	 * Processing switch that gathers up all the component instances that have
@@ -317,7 +328,7 @@ public class InstantiateModel {
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
 	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
-		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
+		root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
@@ -411,6 +422,11 @@ public class InstantiateModel {
 		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
 				propertyDefinitionList, classifierCache, scProps, mode2som);
 		cpas.processPreOrderAll(root);
+		if (monitor.isCanceled()) {
+			return;
+		}
+
+		processConnections(root);
 		if (monitor.isCanceled()) {
 			return;
 		}
@@ -514,8 +530,7 @@ public class InstantiateModel {
 					eventName = ((NamedElement) triggers.get(0)).getName();
 				}
 			}
-			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "")
-					+ dstmode.getName());
+			mti.setName(srcmode.getName() + "." + (!eventName.equals("") ? eventName + "." : "") + dstmode.getName());
 			ci.getModeTransitionInstances().add(mti);
 		}
 	}
@@ -595,9 +610,9 @@ public class InstantiateModel {
 
 		newInstance.setSubcomponent(sub);
 		newInstance.setName(sub.getName() /*
-										 * + indexStackToString(indexStack) +
-										 * (index > 0 ? "_" + index : "")
-										 */);
+											* + indexStackToString(indexStack) +
+											* (index > 0 ? "_" + index : "")
+											*/);
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
@@ -857,6 +872,348 @@ public class InstantiateModel {
 				new ArrayInstantiator().process(0);
 			}
 		}
+	}
+
+	// --------------------------------------------------------------------------------------------
+	// Methods for connection sets and connection patterns
+	// --------------------------------------------------------------------------------------------
+
+	private void processConnections(SystemInstance root) {
+		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
+
+		for (ConnectionInstance conni : root.allConnectionInstances()) {
+			PropertyAssociation setPA = getPA(conni, "Connection_Set");
+			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
+			boolean defaultOneToOne = false;
+
+			if (setPA == null && patternPA == null) {
+				LinkedList<String> names = new LinkedList<String>();
+				LinkedList<Integer> dims = new LinkedList<Integer>();
+
+				analyzePath(conni.getSource(), names, dims, null);
+				for (int d : dims) {
+					if (d != 0) {
+						defaultOneToOne = true;
+						break;
+					}
+				}
+				if (!defaultOneToOne) {
+					continue;
+				}
+			}
+
+			if (defaultOneToOne) {
+				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
+				LinkedList<Integer> dstSizes = new LinkedList<Integer>();
+
+				analyzePath(conni.getSource(), null, null, srcSizes);
+				analyzePath(conni.getDestination(), null, null, dstSizes);
+				interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
+						new ArrayList<Long>());
+			}
+			if (patternPA != null) {
+				EcoreUtil.remove(patternPA);
+				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
+						.getOwnedListElements();
+				for (PropertyExpression pe : patterns) {
+					List<PropertyExpression> pattern = ((ListValue) pe).getOwnedListElements();
+					LinkedList<Integer> srcSizes = new LinkedList<Integer>();
+					LinkedList<Integer> dstSizes = new LinkedList<Integer>();
+
+					analyzePath(conni.getSource(), null, null, srcSizes);
+					analyzePath(conni.getDestination(), null, null, dstSizes);
+					interpretConnectionPatterns(conni, pattern, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
+							new ArrayList<Long>());
+				}
+			}
+			if (setPA != null) {
+				EcoreUtil.remove(setPA);
+				// TODO-LW: modal conn set allowed?
+				List<Long> srcIndices;
+				List<Long> dstIndices;
+				for (PropertyExpression pe : ((ListValue) setPA.getOwnedValues().get(0).getOwnedValue())
+						.getOwnedListElements()) {
+					RecordValue rv = (RecordValue) pe;
+
+					srcIndices = getIndices(rv, "src");
+					dstIndices = getIndices(rv, "dst");
+					createNewConnection(conni, srcIndices, dstIndices);
+				}
+			}
+			EcoreUtil.delete(conni);
+		}
+		for (ConnectionInstance conni : toRemove) {
+			conni.getContainingComponentInstance().getConnectionInstances().remove(conni);
+		}
+	}
+
+	private void interpretConnectionPatterns(ConnectionInstance conni, List<PropertyExpression> patterns, int offset,
+			List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset, List<Long> srcIndices,
+			List<Long> dstIndices) {
+		if (patterns != null ? offset == patterns.size() : srcOffset == srcSizes.size()) {
+			createNewConnection(conni, srcIndices, dstIndices);
+		} else if (patterns == null) {
+			// default one-to-one pattern
+			if (srcOffset >= srcSizes.size()) {
+				// error
+			}
+			if (dstOffset >= dstSizes.size()) {
+				// error
+			}
+			if (srcSizes.get(srcOffset) != dstSizes.get(dstOffset)) {
+				// TODO-LW: error
+			} else {
+				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+					srcIndices.add(i);
+					dstIndices.add(i);
+					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+							dstOffset + 1, srcIndices, dstIndices);
+					srcIndices.remove(srcOffset);
+					dstIndices.remove(dstOffset);
+				}
+			}
+		} else {
+			NamedValue nv = (NamedValue) patterns.get(offset);
+			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
+			String patternName = pattern.getName();
+
+			if (srcOffset >= srcSizes.size()) {
+				// error
+			}
+			if (dstOffset >= dstSizes.size()) {
+				// error
+			}
+			if (patternName.equalsIgnoreCase("All_To_All")) {
+				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+					srcIndices.add(i);
+					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+						dstIndices.add(j);
+						interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+								dstOffset + 1, srcIndices, dstIndices);
+						dstIndices.remove(dstOffset);
+					}
+					srcIndices.remove(srcOffset);
+				}
+			} else if (patternName.equalsIgnoreCase("One_To_All")) {
+				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
+					dstIndices.add(j);
+					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset, dstSizes,
+							dstOffset + 1, srcIndices, dstIndices);
+					dstIndices.remove(dstOffset);
+				}
+			} else if (patternName.equalsIgnoreCase("All_To_One")) {
+				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+					srcIndices.add(i);
+					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+							dstOffset, srcIndices, dstIndices);
+					srcIndices.remove(srcOffset);
+				}
+			} else {
+				if (srcSizes.get(srcOffset) != dstSizes.get(dstOffset)) {
+					// TODO-LW: error
+				} else {
+					if (patternName.equalsIgnoreCase("One_To_One")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i);
+							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+									dstOffset + 1, srcIndices, dstIndices);
+							srcIndices.remove(srcOffset);
+							dstIndices.remove(dstOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Next")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
+							srcIndices.add(i);
+							dstIndices.add(i + 1);
+							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+									dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Previous")) {
+						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i - 1);
+							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+									dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Cyclic_Next")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
+							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+									dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					} else if (patternName.equalsIgnoreCase("Cyclic_Previous")) {
+						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
+							srcIndices.add(i);
+							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
+							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
+									dstOffset + 1, srcIndices, dstIndices);
+							dstIndices.remove(dstOffset);
+							srcIndices.remove(srcOffset);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	private List<Long> getIndices(RecordValue rv, String field) {
+		List<Long> indices = new ArrayList<Long>();
+		for (BasicPropertyAssociation fv : rv.getOwnedFieldValues()) {
+			if (fv.getProperty().getName().equalsIgnoreCase(field)) {
+				ListValue lv = (ListValue) fv.getOwnedValue();
+				for (PropertyExpression elem : lv.getOwnedListElements()) {
+					indices.add(((IntegerLiteral) elem).getValue());
+				}
+			}
+		}
+		return indices;
+	}
+
+	private PropertyAssociation getPA(ConnectionInstance conni, String name) {
+		for (PropertyAssociation pa : conni.getOwnedPropertyAssociations()) {
+			if (pa.getProperty().getName().equalsIgnoreCase(name)
+					&& ((PropertySet) pa.getProperty().getOwner()).getName().equalsIgnoreCase(
+							"Communication_Properties")) {
+				return pa;
+			}
+		}
+		return null;
+	}
+
+	private void analyzePath(ConnectionInstanceEnd end, LinkedList<String> names, LinkedList<Integer> dims,
+			LinkedList<Integer> sizes) {
+		InstanceObject current = end;
+		while (!(current instanceof SystemInstance)) {
+			int d = 0;
+
+			if (names != null) {
+				names.addFirst(current.getName());
+			}
+			if (current instanceof ComponentInstance) {
+				d = ((ComponentInstance) current).getSubcomponent().getArrayDimensions().size();
+			} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+				d = 1;
+			}
+			if (dims != null) {
+				dims.addFirst(d);
+			}
+			if (sizes != null && d != 0) {
+				if (current instanceof ComponentInstance) {
+					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+
+					for (ArrayDimension ad : s.getArrayDimensions()) {
+						ArraySize as = ad.getSize();
+
+						sizes.add((int) getElementCount(as));
+					}
+
+				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
+					Feature f = ((FeatureInstance) current).getFeature();
+					ArraySize as = f.getArrayDimensions().get(0).getSize();
+
+					sizes.add((int) getElementCount(as));
+				}
+			}
+			current = (InstanceObject) current.getOwner();
+		}
+	}
+
+	// TODO-LW: check for invalid number of indices (in property vs. in model path)
+	private void createNewConnection(ConnectionInstance conni, List<Long> srcIndices, List<Long> dstIndices) {
+		LinkedList<String> names = new LinkedList<String>();
+		LinkedList<Integer> dims = new LinkedList<Integer>();
+		LinkedList<Integer> sizes = new LinkedList<Integer>();
+
+		analyzePath(conni.getSource(), names, dims, sizes);
+		InstanceObject src = findInstanceObject(names, dims, sizes, srcIndices);
+		names.clear();
+		dims.clear();
+		sizes.clear();
+		analyzePath(conni.getDestination(), names, dims, sizes);
+		InstanceObject dst = findInstanceObject(names, dims, sizes, dstIndices);
+
+		if (src != null && dst != null) {
+			// copy connection
+
+			String containerPath = conni.getContainingComponentInstance().getInstanceObjectPath();
+			int len = containerPath.length() + 1;
+			String srcPath = src.getInstanceObjectPath();
+			StringBuffer sb = new StringBuffer();
+			int i = (srcPath.startsWith(containerPath)) ? len : 0;
+			sb.append(srcPath.substring(i));
+			sb.append(" => ");
+			String dstPath = dst.getInstanceObjectPath();
+			i = (dstPath.startsWith(containerPath)) ? len : 0;
+			sb.append(dstPath.substring(i));
+
+			ConnectionInstance duplicate = (ConnectionInstance) AadlUtil.findNamedElementInList(conni
+					.getContainingComponentInstance().getConnectionInstances(), sb.toString());
+			if (duplicate == null || duplicate == conni) { // conni will be removed later
+				ConnectionInstance newConn = EcoreUtil.copy(conni);
+				newConn.setSource((ConnectionInstanceEnd) src);
+				newConn.setDestination((ConnectionInstanceEnd) dst);
+				newConn.setName(sb.toString());
+				conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
+			} else {
+				// warning
+			}
+		}
+	}
+
+	private InstanceObject findInstanceObject(List<String> names, List<Integer> dims, List<Integer> sizes,
+			List<Long> indices) {
+		InstanceObject result = root;
+		int offset = 0;
+		int count = 0;
+
+		for (String name : names) {
+			List<InstanceObject> owned = new ArrayList<InstanceObject>();
+			int dim = dims.get(count);
+
+			if (result instanceof ComponentInstance) {
+				owned.addAll(((ComponentInstance) result).getComponentInstances());
+				owned.addAll(((ComponentInstance) result).getFeatureInstances());
+			} else if (result instanceof FeatureInstance) {
+				owned.addAll(((FeatureInstance) result).getFeatureInstances());
+			}
+			result = null;
+
+			if (dim == 0) {
+				result = (InstanceObject) AadlUtil.findNamedElementInList(owned, name);
+			} else {
+				outer: for (InstanceObject io : owned) {
+					if (io.getName().equalsIgnoreCase(name)) {
+						if (io instanceof ComponentInstance) {
+							int d = 0;
+							for (long i : ((ComponentInstance) io).getIndices()) {
+								if (i != indices.get(offset + d))
+									continue outer;
+								d++;
+							}
+						} else {
+							if (((FeatureInstance) io).getIndex() != indices.get(offset))
+								continue outer;
+						}
+						result = io;
+						break;
+					}
+				}
+			}
+			if (result == null) {
+				// TODO-LW: error message 
+				return null;
+			}
+			offset += dim;
+			count++;
+		}
+		return result;
 	}
 
 	// --------------------------------------------------------------------------------------------
