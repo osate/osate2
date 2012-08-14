@@ -133,9 +133,13 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			return getName();
 		}
 		final String path = ((InstanceObject) eContainer).getInstanceObjectPath();
-		final String localname = getName();
+		final String localname = getPathName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
+	}
+
+	public String getPathName() {
+		return getName();
 	}
 
 	/*
@@ -147,8 +151,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		if (this instanceof SystemInstance) {
 			return "";
 		}
-		final String path = ((InstanceObject) eContainer).getInstanceObjectPath();
-		final String localname = getName();
+		final String path = ((InstanceObject) eContainer).getComponentInstancePath();
+		final String localname = getPathName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
 	}
