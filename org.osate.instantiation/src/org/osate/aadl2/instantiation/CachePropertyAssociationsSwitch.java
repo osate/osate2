@@ -229,7 +229,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				MpvProxy prx = valueIter.next().getProxies().get(0);
 
 				if (prx.isModal()) {
-					throw new InvalidModelException(prx.getMPV(), "Trying to append to a modal list value");
+					throw new InvalidModelException(pa, "Trying to append to a modal list value");
 				}
 				PropertyExpression lexp = EcoreUtil.copy(prx.getValue());
 				List<PropertyExpression> elems = ((ListValue) lexp).getOwnedListElements();
