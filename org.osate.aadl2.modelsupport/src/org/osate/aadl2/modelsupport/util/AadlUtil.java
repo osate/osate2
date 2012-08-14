@@ -2165,10 +2165,10 @@ public final class AadlUtil {
 		return true;
 	}
 	
-	public static boolean containedIn(ComponentInstance element, ComponentInstance parent){
+	public static boolean containedIn(InstanceObject element, ComponentInstance parent){
 		while (element != null){
 			if (element == parent) return true;
-			element = (ComponentInstance)element.getOwner();
+			element = (InstanceObject) element.getOwner();
 		}
 		return false;
 	}
