@@ -36,12 +36,16 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import java.util.Collections;
+import java.util.List;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -283,5 +287,12 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		return getConnection().acceptsProperty(property);
 	}
 
-	
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#getInstantiatedObjects()
+	 */
+	@Override
+	public List<? extends NamedElement> getInstantiatedObjects() {
+		return Collections.singletonList(getConnection());
+	}
+
 } //ConnectionReferenceImpl
