@@ -127,7 +127,7 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		 * Create a new model statistics analysis object and run it over the
 		 * declarative model. If an instance model exists, run it over that too.
 		 */
-		ModelStatistics stats = new ModelStatistics(monitor);
+		ModelStatistics stats = new ModelStatistics(monitor,getErrorManager());
 		/*
 		 * Accumulate the results in a StringBuffer, but also report them using
 		 * info markers attached to the root model object.

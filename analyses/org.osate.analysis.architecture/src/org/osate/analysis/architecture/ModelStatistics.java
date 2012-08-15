@@ -39,6 +39,8 @@
  */
 package org.osate.analysis.architecture;
 
+import java.util.logging.ErrorManager;
+
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
@@ -62,6 +64,7 @@ import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.xtext.aadl2.linking.Aadl2LinkingService;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 
 /**
@@ -94,6 +97,10 @@ public/* final */class ModelStatistics extends AadlProcessingSwitchWithProgress 
 
 	public ModelStatistics(final IProgressMonitor monitor) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
+	}
+
+	public ModelStatistics(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) {
+		super(monitor, PROCESS_PRE_ORDER_ALL,errmgr);
 	}
 
 	protected final void initSwitches() {
