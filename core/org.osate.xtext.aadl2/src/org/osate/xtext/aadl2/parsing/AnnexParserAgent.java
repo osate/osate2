@@ -219,6 +219,7 @@ public class AnnexParserAgent  extends LazyLinker {
 							// this adapter lets us get the acutal annex library or subclause from the default one
 							IParseResult parseResult = new ParseResult(asc, NodeModelUtils.getNode(defaultAnnexSubclause), false);
 							apr = new AnnexParseResultImpl(parseResult,offset);
+							asc.eAdapters().add(apr);
 							defaultAnnexSubclause.eAdapters().add(apr);
 						}
 						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
