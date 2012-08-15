@@ -54,6 +54,7 @@ import java.util.Stack;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -605,7 +606,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				balanceFeatureGroupEnds(parentci, connInfo, srcCi, dstFi);
 			}
 		} else {
-			// TODO-LW: internal error
+			error(parentci.getSystemInstance(), "Connection source is neither a feature nor a component: "
+					+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
 		}
 		if (idx != -1) {
 			upIndex.push(idx);
@@ -625,9 +627,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				balanceFeatureGroupEnds(parentci, connInfo, srcFi, dstCi);
 			}
 		} else if (connInfo.src instanceof ComponentInstance) {
-			// TODO-LW: error, component to component
+			error(parentci.getSystemInstance(),
+					"Connection source and destination are components: " + connInfo.src.getInstanceObjectPath()
+							+ " => " + connInfo.src.getInstanceObjectPath());
 		} else {
-			// TODO-LW: internal error
+			error(parentci.getSystemInstance(), "Connection source is neither a feature nor a component: "
+					+ connInfo.src.getInstanceObjectPath() + " => " + connInfo.src.getInstanceObjectPath());
 		}
 	}
 
@@ -1003,11 +1008,24 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 				// add SOMs based on mis
 				SystemInstance si = (SystemInstance) conni.getElementRoot();
-				List<SystemOperationMode> somlist = si.getSystemOperationModesFor(mis);
+				List<SystemOperationMode> somList = si.getSystemOperationModesFor(mis);
 
-				conni.getInSystemOperationModes().addAll(somlist);
+				// check if all parts of the connection exist
+				outer: for (SystemOperationMode som : somList) {
+					if (conni.getSource().isActive(som) && conni.getDestination().isActive(som)) {
+						for (ConnectionReference cr : conni.getConnectionReferences()) {
+							if (!cr.getContext().isActive(som)) {
+								continue outer;
+							}
+						}
+						conni.getInSystemOperationModes().add(som);
+					}
+				}
 				mis.remove(mi);
 			}
+		}
+		if (conni.getInSystemOperationModes().isEmpty()) {
+			EcoreUtil.delete(conni);
 		}
 	}
 
