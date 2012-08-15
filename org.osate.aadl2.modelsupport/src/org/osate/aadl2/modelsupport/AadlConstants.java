@@ -59,7 +59,6 @@ public class AadlConstants {
 	public static final String AADLTEXTGOTOMARKER = "org.osate.aadl2.modelsupport.AadlTextGotoMarker";
 	
 	public static final String INSTANTIATION_OBJECT_MARKER = "org.osate.aadl2.modelsupport.InstantiationObjectMarker";
-	public static final String DUPLICATE_FILE_MARKER = "org.osate.aadl2.modelsupport.DuplicateFileMarker";
 	
 	public static final String AADLURI = "uri";
 
