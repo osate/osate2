@@ -158,7 +158,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						for (Long index : ci.getIndices()) {
 							if (index > 1) {
 								inArray = true;
-								prefix = ci.getContainingComponentInstance().getInstanceObjectPath() + "." + ci.getName();						
+								prefix = ci.getContainingComponentInstance().getInstanceObjectPath() + "."
+										+ ci.getName();
 							}
 						}
 					} else {
@@ -428,61 +429,63 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// going up hierarchy, connection goes to a feature in the component
 				// implementation
 				if (ci instanceof SystemInstance) {
-					finalizeConnectionInstance(ci, connInfo, toCi.findFeatureInstance(toFeature));
-				} else if (toCtx instanceof FeatureGroup) {
-					toFeature = (FeatureGroup) toCtx;
-					// toFeature now points to the enclosing feature group
-					// this should be the starting feature for the next connection
-				}
-
-				ComponentInstance nextCi = ci.getContainingComponentInstance();
-				List<Connection> parentConns = InstanceUtil.getComponentImplementation(nextCi, 0, classifierCache)
-						.getAllConnections();
-				List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
-
-				if (conns.isEmpty() && !didModeTransitionConnection) {
-					// PropertyValue reqconn =
-					// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
-					// if (reqconn instanceof TRUE){
-					//warning(ci, "Connection declaration to enclosing component ends with feature " + toFeature.getName()
-					//		+ " for subcomponent " + ci.getName() + ". Connection instance not created.");
-					// }
-
-					// TODO phf: we should not create the instance while we are only outgoing
-					// if we do toFeature may point to the feature group rather than the feature of the feature group
-					// How does finalize handle such a feature group?
 					finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
 				} else {
-					if (!conns.isEmpty()) {
-						for (Connection nextConn : conns) {
-							// note: nextConn goes either up or across
-							final ConnectionInfo clone = connInfo.cloneInfo();
-							boolean opposite = false;
+					if (toCtx instanceof FeatureGroup) {
+						toFeature = (FeatureGroup) toCtx;
+						// toFeature now points to the enclosing feature group
+						// this should be the starting feature for the next connection
+					}
 
-							if (nextConn.isBidirectional()) {
-								ConnectionEnd nextDst = nextConn.getAllDestination();
+					ComponentInstance nextCi = ci.getContainingComponentInstance();
+					List<Connection> parentConns = InstanceUtil.getComponentImplementation(nextCi, 0, classifierCache)
+							.getAllConnections();
+					List<Connection> conns = filterOutgoingConnections(parentConns, toFeature, ci.getSubcomponent());
 
-								if (nextDst instanceof Feature) {
-									Feature nextDstFeature = (Feature) nextDst;
-									FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+					if (conns.isEmpty() && !didModeTransitionConnection) {
+						// PropertyValue reqconn =
+						// ((Feature)dest).getSimplePropertyValue(PredeclaredPropertyNames.REQUIRED_CONNECTION);
+						// if (reqconn instanceof TRUE){
+						//warning(ci, "Connection declaration to enclosing component ends with feature " + toFeature.getName()
+						//		+ " for subcomponent " + ci.getName() + ". Connection instance not created.");
+						// }
 
-									if (nextDstFi == null) {
-										// next goes across
-										Context nextDstCtx = nextConn.getAllDestinationContext();
+						// TODO phf: we should not create the instance while we are only outgoing
+						// if we do toFeature may point to the feature group rather than the feature of the feature group
+						// How does finalize handle such a feature group?
+						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+					} else {
+						if (!conns.isEmpty()) {
+							for (Connection nextConn : conns) {
+								// note: nextConn goes either up or across
+								final ConnectionInfo clone = connInfo.cloneInfo();
+								boolean opposite = false;
 
-										if (nextDstCtx instanceof Subcomponent) {
-											ComponentInstance nextDstSubi = nextCi
-													.findSubcomponentInstance((Subcomponent) nextDstCtx);
-											nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
+								if (nextConn.isBidirectional()) {
+									ConnectionEnd nextDst = nextConn.getAllDestination();
+
+									if (nextDst instanceof Feature) {
+										Feature nextDstFeature = (Feature) nextDst;
+										FeatureInstance nextDstFi = nextCi.findFeatureInstance(nextDstFeature);
+
+										if (nextDstFi == null) {
+											// next goes across
+											Context nextDstCtx = nextConn.getAllDestinationContext();
+
+											if (nextDstCtx instanceof Subcomponent) {
+												ComponentInstance nextDstSubi = nextCi
+														.findSubcomponentInstance((Subcomponent) nextDstCtx);
+												nextDstFi = nextDstSubi.findFeatureInstance(nextDstFeature);
+											}
+										}
+										if (nextDstFi != null) {
+											opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
 										}
 									}
-									if (nextDstFi != null) {
-										opposite = ci.findFeatureInstance(toFeature) == nextDstFi;
-									}
 								}
-							}
 
-							appendSegment(clone, nextConn, nextCi, opposite);
+								appendSegment(clone, nextConn, nextCi, opposite);
+							}
 						}
 					}
 				}

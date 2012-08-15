@@ -907,8 +907,10 @@ public class InstantiateModel {
 
 				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
 				analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
-				interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
-						new ArrayList<Long>());
+				if (interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
+						new ArrayList<Long>())) {
+					toRemove.add(conni);
+				}
 			}
 			if (patternPA != null) {
 				EcoreUtil.remove(patternPA);
@@ -921,8 +923,15 @@ public class InstantiateModel {
 
 					analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
 					analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
-					interpretConnectionPatterns(conni, pattern, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
-							new ArrayList<Long>());
+					if (srcSizes.size() == 0 || dstSizes.size() == 0) {
+						errManager.warning(conni,
+								"Connection pattern specified for connection that does not connect array elements.");
+					} else {
+						if (interpretConnectionPatterns(conni, pattern, 0, srcSizes, 0, dstSizes, 0,
+								new ArrayList<Long>(), new ArrayList<Long>())) {
+							toRemove.add(conni);
+						}
+					}
 				}
 			}
 			if (setPA != null) {
@@ -938,26 +947,31 @@ public class InstantiateModel {
 					dstIndices = getIndices(rv, "dst");
 					createNewConnection(conni, srcIndices, dstIndices);
 				}
+				toRemove.add(conni);
 			}
-			EcoreUtil.delete(conni);
 		}
 		for (ConnectionInstance conni : toRemove) {
+			EcoreUtil.delete(conni);
 //			conni.getContainingComponentInstance().getConnectionInstances().remove(conni);
 		}
 	}
 
-	private void interpretConnectionPatterns(ConnectionInstance conni, List<PropertyExpression> patterns, int offset,
-			List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset, List<Long> srcIndices,
-			List<Long> dstIndices) {
+	private boolean interpretConnectionPatterns(ConnectionInstance conni, List<PropertyExpression> patterns,
+			int offset, List<Integer> srcSizes, int srcOffset, List<Integer> dstSizes, int dstOffset,
+			List<Long> srcIndices, List<Long> dstIndices) {
+		boolean result = true;
+
 		if (patterns != null ? offset == patterns.size() : srcOffset == srcSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
 		} else if (patterns == null) {
 			// default one-to-one pattern
 			if (srcOffset >= srcSizes.size()) {
-				// error
+				errManager.error(conni, "Too few indices in for connection source");
+				return false;
 			}
 			if (dstOffset >= dstSizes.size()) {
-				// error
+				errManager.error(conni, "Too few indices for connection destination");
+				return false;
 			}
 			if (srcSizes.get(srcOffset) != dstSizes.get(dstOffset)) {
 				// TODO-LW: error
@@ -965,8 +979,8 @@ public class InstantiateModel {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
 					dstIndices.add(i);
-					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-							dstOffset + 1, srcIndices, dstIndices);
+					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							dstSizes, dstOffset + 1, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 					dstIndices.remove(dstOffset);
 				}
@@ -977,18 +991,20 @@ public class InstantiateModel {
 			String patternName = pattern.getName();
 
 			if (srcOffset >= srcSizes.size()) {
-				// error
+				errManager.error(conni, "Too few indices for connection source");
+				return false;
 			}
 			if (dstOffset >= dstSizes.size()) {
-				// error
+				errManager.error(conni, "Too few indices for connection destination");
+				return false;
 			}
 			if (patternName.equalsIgnoreCase("All_To_All")) {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
 					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 						dstIndices.add(j);
-						interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-								dstOffset + 1, srcIndices, dstIndices);
+						result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+								dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 					}
 					srcIndices.remove(srcOffset);
@@ -996,15 +1012,15 @@ public class InstantiateModel {
 			} else if (patternName.equalsIgnoreCase("One_To_All")) {
 				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 					dstIndices.add(j);
-					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset, dstSizes,
+					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset, dstSizes,
 							dstOffset + 1, srcIndices, dstIndices);
 					dstIndices.remove(dstOffset);
 				}
 			} else if (patternName.equalsIgnoreCase("All_To_One")) {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
-					interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-							dstOffset, srcIndices, dstIndices);
+					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							dstSizes, dstOffset, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 				}
 			} else {
@@ -1015,8 +1031,8 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i);
-							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-									dstOffset + 1, srcIndices, dstIndices);
+							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							srcIndices.remove(srcOffset);
 							dstIndices.remove(dstOffset);
 						}
@@ -1024,8 +1040,8 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
 							srcIndices.add(i);
 							dstIndices.add(i + 1);
-							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-									dstOffset + 1, srcIndices, dstIndices);
+							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
@@ -1033,8 +1049,8 @@ public class InstantiateModel {
 						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i - 1);
-							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-									dstOffset + 1, srcIndices, dstIndices);
+							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
@@ -1042,8 +1058,8 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-									dstOffset + 1, srcIndices, dstIndices);
+							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
@@ -1051,8 +1067,8 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-							interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1, dstSizes,
-									dstOffset + 1, srcIndices, dstIndices);
+							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
 						}
@@ -1060,6 +1076,7 @@ public class InstantiateModel {
 				}
 			}
 		}
+		return result;
 	}
 
 	private List<Long> getIndices(RecordValue rv, String field) {
@@ -1132,45 +1149,49 @@ public class InstantiateModel {
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
 
+		ConnectionInstance newConn = EcoreUtil.copy(conni);
+
+		conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
-		InstanceObject src = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, srcIndices);
+		InstanceObject src = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, srcIndices,
+				newConn);
 		names.clear();
 		dims.clear();
 		sizes.clear();
 		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
-		InstanceObject dst = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, dstIndices);
+		InstanceObject dst = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, dstIndices,
+				newConn);
 
-		if (src != null && dst != null) {
-			// copy connection
-
-			String containerPath = conni.getContainingComponentInstance().getInstanceObjectPath();
-			int len = containerPath.length() + 1;
-			String srcPath = src.getInstanceObjectPath();
-			StringBuffer sb = new StringBuffer();
-			int i = (srcPath.startsWith(containerPath)) ? len : 0;
-			sb.append(srcPath.substring(i));
-			sb.append(" => ");
-			String dstPath = dst.getInstanceObjectPath();
-			i = (dstPath.startsWith(containerPath)) ? len : 0;
-			sb.append(dstPath.substring(i));
-
-			ConnectionInstance duplicate = (ConnectionInstance) AadlUtil.findNamedElementInList(conni
-					.getContainingComponentInstance().getConnectionInstances(), sb.toString());
-			if (duplicate == null || duplicate == conni) { // conni will be removed later
-				ConnectionInstance newConn = EcoreUtil.copy(conni);
-				newConn.setSource((ConnectionInstanceEnd) src);
-				newConn.setDestination((ConnectionInstanceEnd) dst);
-				newConn.setName(sb.toString());
-
-				conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
-			} else {
-				// warning
-			}
+		if (src == null) {
+			errManager.error(newConn, "Connection source not found");
 		}
+		if (dst == null) {
+			errManager.error(newConn, "Connection destination not found");
+		}
+
+		String containerPath = conni.getContainingComponentInstance().getInstanceObjectPath();
+		int len = containerPath.length() + 1;
+		String srcPath = (src != null) ? src.getInstanceObjectPath() : "Source end not found";
+		StringBuffer sb = new StringBuffer();
+		int i = (srcPath.startsWith(containerPath)) ? len : 0;
+		sb.append(srcPath.substring(i));
+		sb.append(" => ");
+		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
+		i = (dstPath.startsWith(containerPath)) ? len : 0;
+		sb.append(dstPath.substring(i));
+
+		ConnectionInstance duplicate = (ConnectionInstance) AadlUtil.findNamedElementInList(conni
+				.getContainingComponentInstance().getConnectionInstances(), sb.toString());
+		if (duplicate != null && duplicate != conni) { // conni will be removed later
+			errManager.warning(newConn, "There is already another connection between the same endpoints");
+		}
+		newConn.setSource((ConnectionInstanceEnd) src);
+		newConn.setDestination((ConnectionInstanceEnd) dst);
+		newConn.setName(sb.toString());
 	}
 
 	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
-			List<Integer> sizes, List<Long> indices) {
+			List<Integer> sizes, List<Long> indices, InstanceObject errorHolder) {
 		InstanceObject result = container;
 		int offset = 0;
 		int count = 0;
@@ -1192,16 +1213,21 @@ public class InstantiateModel {
 			} else {
 				outer: for (InstanceObject io : owned) {
 					if (io.getName().equalsIgnoreCase(name)) {
-						if (io instanceof ComponentInstance) {
-							int d = 0;
-							for (long i : ((ComponentInstance) io).getIndices()) {
-								if (i != indices.get(offset + d))
+						try {
+							if (io instanceof ComponentInstance) {
+								int d = 0;
+								for (long i : ((ComponentInstance) io).getIndices()) {
+									if (i != indices.get(offset + d))
+										continue outer;
+									d++;
+								}
+							} else {
+								if (((FeatureInstance) io).getIndex() != indices.get(offset))
 									continue outer;
-								d++;
 							}
-						} else {
-							if (((FeatureInstance) io).getIndex() != indices.get(offset))
-								continue outer;
+						} catch (IndexOutOfBoundsException e) {
+							errManager.error(errorHolder,
+									"Too few indices for connection end, using fist found element");
 						}
 						result = io;
 						break;
@@ -1209,7 +1235,6 @@ public class InstantiateModel {
 				}
 			}
 			if (result == null) {
-				// TODO-LW: error message 
 				return null;
 			}
 			offset += dim;
