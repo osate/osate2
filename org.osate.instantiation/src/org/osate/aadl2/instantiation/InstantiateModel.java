@@ -47,6 +47,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.core.resources.IFile;
@@ -161,8 +162,6 @@ public class InstantiateModel {
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
 	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
-
-	private SystemInstance root;
 
 	/*
 	 * Processing switch that gathers up all the component instances that have
@@ -328,7 +327,7 @@ public class InstantiateModel {
 	 * @return SystemInstance or <code>null</code> if canceled.
 	 */
 	public SystemInstance createSystemInstanceInt(SystemImplementation si, Resource aadlResource) {
-		root = InstanceFactory.eINSTANCE.createSystemInstance();
+		SystemInstance root = InstanceFactory.eINSTANCE.createSystemInstance();
 		final String instanceName = si.getTypeName() + "_" + si.getImplementationName()
 				+ WorkspacePlugin.INSTANCE_MODEL_POSTFIX;
 
@@ -881,7 +880,7 @@ public class InstantiateModel {
 	private void processConnections(SystemInstance root) {
 		List<ConnectionInstance> toRemove = new ArrayList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : root.allConnectionInstances()) {
+		for (ConnectionInstance conni : root.getAllConnectionInstances()) {
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 			boolean defaultOneToOne = false;
@@ -890,7 +889,7 @@ public class InstantiateModel {
 				LinkedList<String> names = new LinkedList<String>();
 				LinkedList<Integer> dims = new LinkedList<Integer>();
 
-				analyzePath(conni.getSource(), names, dims, null);
+				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, null);
 				for (int d : dims) {
 					if (d != 0) {
 						defaultOneToOne = true;
@@ -906,8 +905,8 @@ public class InstantiateModel {
 				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
 				LinkedList<Integer> dstSizes = new LinkedList<Integer>();
 
-				analyzePath(conni.getSource(), null, null, srcSizes);
-				analyzePath(conni.getDestination(), null, null, dstSizes);
+				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
+				analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
 				interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
 						new ArrayList<Long>());
 			}
@@ -920,8 +919,8 @@ public class InstantiateModel {
 					LinkedList<Integer> srcSizes = new LinkedList<Integer>();
 					LinkedList<Integer> dstSizes = new LinkedList<Integer>();
 
-					analyzePath(conni.getSource(), null, null, srcSizes);
-					analyzePath(conni.getDestination(), null, null, dstSizes);
+					analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
+					analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
 					interpretConnectionPatterns(conni, pattern, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
 							new ArrayList<Long>());
 				}
@@ -943,7 +942,7 @@ public class InstantiateModel {
 			EcoreUtil.delete(conni);
 		}
 		for (ConnectionInstance conni : toRemove) {
-			conni.getContainingComponentInstance().getConnectionInstances().remove(conni);
+//			conni.getContainingComponentInstance().getConnectionInstances().remove(conni);
 		}
 	}
 
@@ -1087,10 +1086,10 @@ public class InstantiateModel {
 		return null;
 	}
 
-	private void analyzePath(ConnectionInstanceEnd end, LinkedList<String> names, LinkedList<Integer> dims,
-			LinkedList<Integer> sizes) {
+	private void analyzePath(ComponentInstance container, ConnectionInstanceEnd end, LinkedList<String> names,
+			LinkedList<Integer> dims, LinkedList<Integer> sizes) {
 		InstanceObject current = end;
-		while (!(current instanceof SystemInstance)) {
+		while (current != container) {
 			int d = 0;
 
 			if (names != null) {
@@ -1107,18 +1106,20 @@ public class InstantiateModel {
 			if (sizes != null && d != 0) {
 				if (current instanceof ComponentInstance) {
 					Subcomponent s = ((ComponentInstance) current).getSubcomponent();
+					List<Integer> temp = new ArrayList<Integer>();
 
 					for (ArrayDimension ad : s.getArrayDimensions()) {
 						ArraySize as = ad.getSize();
 
-						sizes.add((int) getElementCount(as));
+						temp.add((int) getElementCount(as));
 					}
+					sizes.addAll(0, temp);
 
 				} else if (current instanceof FeatureInstance && ((FeatureInstance) current).getIndex() != 0) {
 					Feature f = ((FeatureInstance) current).getFeature();
 					ArraySize as = f.getArrayDimensions().get(0).getSize();
 
-					sizes.add((int) getElementCount(as));
+					sizes.add(0, (int) getElementCount(as));
 				}
 			}
 			current = (InstanceObject) current.getOwner();
@@ -1131,13 +1132,13 @@ public class InstantiateModel {
 		LinkedList<Integer> dims = new LinkedList<Integer>();
 		LinkedList<Integer> sizes = new LinkedList<Integer>();
 
-		analyzePath(conni.getSource(), names, dims, sizes);
-		InstanceObject src = findInstanceObject(names, dims, sizes, srcIndices);
+		analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, sizes);
+		InstanceObject src = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, srcIndices);
 		names.clear();
 		dims.clear();
 		sizes.clear();
-		analyzePath(conni.getDestination(), names, dims, sizes);
-		InstanceObject dst = findInstanceObject(names, dims, sizes, dstIndices);
+		analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), names, dims, sizes);
+		InstanceObject dst = findInstanceObject(conni.getContainingComponentInstance(), names, dims, sizes, dstIndices);
 
 		if (src != null && dst != null) {
 			// copy connection
@@ -1160,6 +1161,7 @@ public class InstantiateModel {
 				newConn.setSource((ConnectionInstanceEnd) src);
 				newConn.setDestination((ConnectionInstanceEnd) dst);
 				newConn.setName(sb.toString());
+
 				conni.getContainingComponentInstance().getConnectionInstances().add(newConn);
 			} else {
 				// warning
@@ -1167,9 +1169,9 @@ public class InstantiateModel {
 		}
 	}
 
-	private InstanceObject findInstanceObject(List<String> names, List<Integer> dims, List<Integer> sizes,
-			List<Long> indices) {
-		InstanceObject result = root;
+	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
+			List<Integer> sizes, List<Long> indices) {
+		InstanceObject result = container;
 		int offset = 0;
 		int count = 0;
 
