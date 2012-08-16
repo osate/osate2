@@ -883,36 +883,39 @@ public class InstantiateModel {
 		for (ConnectionInstance conni : root.getAllConnectionInstances()) {
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
-			boolean defaultOneToOne = false;
 
 			if (setPA == null && patternPA == null) {
-				LinkedList<String> names = new LinkedList<String>();
-				LinkedList<Integer> dims = new LinkedList<Integer>();
+				LinkedList<Integer> srcDims = new LinkedList<Integer>();
+				LinkedList<Integer> dstDims = new LinkedList<Integer>();
+				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
+				LinkedList<Integer> dstSizes = new LinkedList<Integer>();
+				boolean done = false;
 
-				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), names, dims, null);
-				for (int d : dims) {
+				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, srcDims, srcSizes);
+				analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, dstDims, dstSizes);
+				for (int d : srcDims) {
 					if (d != 0) {
-						defaultOneToOne = true;
+						done = true;
+						if (interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0,
+								new ArrayList<Long>(), new ArrayList<Long>())) {
+							toRemove.add(conni);
+						}
 						break;
 					}
 				}
-				if (!defaultOneToOne) {
-					continue;
+				if (!done) {
+					for (int d : dstDims) {
+						if (d != 0) {
+							done = true;
+							if (interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0,
+									new ArrayList<Long>(), new ArrayList<Long>())) {
+								toRemove.add(conni);
+							}
+							break;
+						}
+					}
 				}
-			}
-
-			if (defaultOneToOne) {
-				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
-				LinkedList<Integer> dstSizes = new LinkedList<Integer>();
-
-				analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
-				analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
-				if (interpretConnectionPatterns(conni, null, 0, srcSizes, 0, dstSizes, 0, new ArrayList<Long>(),
-						new ArrayList<Long>())) {
-					toRemove.add(conni);
-				}
-			}
-			if (patternPA != null) {
+			} else if (patternPA != null) {
 				EcoreUtil.remove(patternPA);
 				List<PropertyExpression> patterns = ((ListValue) patternPA.getOwnedValues().get(0).getOwnedValue())
 						.getOwnedListElements();
@@ -923,7 +926,7 @@ public class InstantiateModel {
 
 					analyzePath(conni.getContainingComponentInstance(), conni.getSource(), null, null, srcSizes);
 					analyzePath(conni.getContainingComponentInstance(), conni.getDestination(), null, null, dstSizes);
-					if (srcSizes.size() == 0 || dstSizes.size() == 0) {
+					if (srcSizes.size() == 0 && dstSizes.size() == 0) {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
@@ -933,8 +936,7 @@ public class InstantiateModel {
 						}
 					}
 				}
-			}
-			if (setPA != null) {
+			} else if (setPA != null) {
 				EcoreUtil.remove(setPA);
 				// TODO-LW: modal conn set allowed?
 				List<Long> srcIndices;
@@ -952,7 +954,6 @@ public class InstantiateModel {
 		}
 		for (ConnectionInstance conni : toRemove) {
 			EcoreUtil.delete(conni);
-//			conni.getContainingComponentInstance().getConnectionInstances().remove(conni);
 		}
 	}
 
@@ -961,7 +962,7 @@ public class InstantiateModel {
 			List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
 
-		if (patterns != null ? offset == patterns.size() : srcOffset == srcSizes.size()) {
+		if (patterns != null ? offset == patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
 		} else if (patterns == null) {
 			// default one-to-one pattern
@@ -990,11 +991,11 @@ public class InstantiateModel {
 			EnumerationLiteral pattern = (EnumerationLiteral) nv.getNamedValue();
 			String patternName = pattern.getName();
 
-			if (srcOffset >= srcSizes.size()) {
+			if (!patternName.equalsIgnoreCase("One_To_All") && srcOffset >= srcSizes.size()) {
 				errManager.error(conni, "Too few indices for connection source");
 				return false;
 			}
-			if (dstOffset >= dstSizes.size()) {
+			if (!patternName.equalsIgnoreCase("All_To_One") && dstOffset >= dstSizes.size()) {
 				errManager.error(conni, "Too few indices for connection destination");
 				return false;
 			}
@@ -1175,7 +1176,7 @@ public class InstantiateModel {
 		StringBuffer sb = new StringBuffer();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
-		sb.append(" => ");
+		sb.append(" -> ");
 		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
@@ -1226,8 +1227,8 @@ public class InstantiateModel {
 									continue outer;
 							}
 						} catch (IndexOutOfBoundsException e) {
-							errManager.error(errorHolder,
-									"Too few indices for connection end, using fist found element");
+							errManager.warning(errorHolder,
+									"Too few indices for connection end, using fist array element");
 						}
 						result = io;
 						break;

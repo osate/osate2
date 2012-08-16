@@ -662,7 +662,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
-		sb.append(" => ");
+		sb.append(" -> ");
 		if (dstI != null) {
 			String dstPath = dstI.getInstanceObjectPath();
 			i = (dstPath.startsWith(containerPath)) ? len : 0;
