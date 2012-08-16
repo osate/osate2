@@ -700,8 +700,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			if (conni == null) {
 				warning(systemInstance,
-						"Connection from " + connInfo.src.getInstanceObjectPath() + " to "
-								+ dstI.getInstanceObjectPath()
+						"Connection from " + connInfo.src.getComponentInstancePath() + " to "
+								+ dstI.getComponentInstancePath()
 								+ " does not connect two components. No connection instance created.");
 				return null;
 			} else {
