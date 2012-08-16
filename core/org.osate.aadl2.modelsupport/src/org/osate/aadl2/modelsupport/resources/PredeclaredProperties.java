@@ -31,7 +31,13 @@ public class PredeclaredProperties {
 	public static void initPluginContributedAadl() {
 		if (isInitialized) return;
 		try {
-			if (!existsPluginResourcesProject()){
+			if (!isOpenPluginResourcesProject()) {
+
+			Activator
+			.logErrorMessage("Cannot access plugin property sets predeclared properties. The project '"
+					+ PLUGIN_RESOURCES_DIRECTORY_NAME
+					+ "' is closed.");
+			} else {
 			new WorkspaceModifyOperation() {
 				protected void execute(IProgressMonitor monitor)
 						throws CoreException, InvocationTargetException {
@@ -69,14 +75,6 @@ public class PredeclaredProperties {
 					}
 				}
 			}.run(null);
-			} else {
-				if (!isOpenPluginResourcesProject()) {
-
-				Activator
-				.logErrorMessage("Cannot access plugin property sets predeclared properties. The project '"
-						+ PLUGIN_RESOURCES_DIRECTORY_NAME
-						+ "' is closed.");
-				}
 			}
 			isInitialized = true;
 		} catch (InvocationTargetException e) {
