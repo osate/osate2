@@ -930,7 +930,7 @@ public class InstantiateModel {
 						errManager.warning(conni,
 								"Connection pattern specified for connection that does not connect array elements.");
 					} else {
-						if (interpretConnectionPatterns(conni, pattern, 0, srcSizes, 0, dstSizes, 0,
+						if (interpretConnectionPatterns(conni, pattern, pattern.size() - 1, srcSizes, 0, dstSizes, 0,
 								new ArrayList<Long>(), new ArrayList<Long>())) {
 							toRemove.add(conni);
 						}
@@ -962,7 +962,7 @@ public class InstantiateModel {
 			List<Long> srcIndices, List<Long> dstIndices) {
 		boolean result = true;
 
-		if (patterns != null ? offset == patterns.size() : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
+		if (patterns != null ? offset < 0 : srcOffset == srcSizes.size() && dstOffset == dstSizes.size()) {
 			createNewConnection(conni, srcIndices, dstIndices);
 		} else if (patterns == null) {
 			// default one-to-one pattern
@@ -975,12 +975,14 @@ public class InstantiateModel {
 				return false;
 			}
 			if (srcSizes.get(srcOffset) != dstSizes.get(dstOffset)) {
-				// TODO-LW: error
+				errManager.error(conni, "Array size mismatch (One_To_One): " + srcSizes.get(srcOffset)
+						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
+				return false;
 			} else {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
 					dstIndices.add(i);
-					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+					result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 							dstSizes, dstOffset + 1, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 					dstIndices.remove(dstOffset);
@@ -1004,7 +1006,7 @@ public class InstantiateModel {
 					srcIndices.add(i);
 					for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 						dstIndices.add(j);
-						result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+						result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 								dstSizes, dstOffset + 1, srcIndices, dstIndices);
 						dstIndices.remove(dstOffset);
 					}
@@ -1013,26 +1015,28 @@ public class InstantiateModel {
 			} else if (patternName.equalsIgnoreCase("One_To_All")) {
 				for (long j = 1; j <= dstSizes.get(dstOffset); j++) {
 					dstIndices.add(j);
-					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset, dstSizes,
+					result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset, dstSizes,
 							dstOffset + 1, srcIndices, dstIndices);
 					dstIndices.remove(dstOffset);
 				}
 			} else if (patternName.equalsIgnoreCase("All_To_One")) {
 				for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 					srcIndices.add(i);
-					result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+					result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 							dstSizes, dstOffset, srcIndices, dstIndices);
 					srcIndices.remove(srcOffset);
 				}
 			} else {
 				if (srcSizes.get(srcOffset) != dstSizes.get(dstOffset)) {
-					// TODO-LW: error
+					errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
+							+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
+					return false;
 				} else {
 					if (patternName.equalsIgnoreCase("One_To_One")) {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i);
-							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							srcIndices.remove(srcOffset);
 							dstIndices.remove(dstOffset);
@@ -1041,7 +1045,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset) - 1; i++) {
 							srcIndices.add(i);
 							dstIndices.add(i + 1);
-							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1050,7 +1054,7 @@ public class InstantiateModel {
 						for (long i = 2; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i - 1);
-							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1059,7 +1063,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == srcSizes.get(srcOffset) ? 1 : i + 1);
-							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1068,7 +1072,7 @@ public class InstantiateModel {
 						for (long i = 1; i <= srcSizes.get(srcOffset); i++) {
 							srcIndices.add(i);
 							dstIndices.add(i == 1 ? srcSizes.get(srcOffset) : i - 1);
-							result &= interpretConnectionPatterns(conni, patterns, offset + 1, srcSizes, srcOffset + 1,
+							result &= interpretConnectionPatterns(conni, patterns, offset - 1, srcSizes, srcOffset + 1,
 									dstSizes, dstOffset + 1, srcIndices, dstIndices);
 							dstIndices.remove(dstOffset);
 							srcIndices.remove(srcOffset);
@@ -1176,7 +1180,7 @@ public class InstantiateModel {
 		StringBuffer sb = new StringBuffer();
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
-		sb.append(" -> ");
+		sb.append(" --> ");
 		String dstPath = (dst != null) ? dst.getInstanceObjectPath() : "Destination end not found";
 		i = (dstPath.startsWith(containerPath)) ? len : 0;
 		sb.append(dstPath.substring(i));
