@@ -98,6 +98,9 @@ options {
   package fr.tpt.aadl.annex.behavior.parser;
   
   import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter;
+  import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
+  import fr.tpt.aadl.annex.behavior.texteditor.DefaultAadlBaHighlighter;
+  import org.osate.annexsupport.AnnexHighlighterPositionAcceptor;
 }
 
 @members {
@@ -204,15 +207,21 @@ options {
     int column = token.getCharPositionInLine() + 1 ; // Zero index based.
     int line = token.getLine() ;
     
-    AadlBaLocationReference location = new AadlBaLocationReference(_ba,
-                                         filename, line, offset, length, column,
-                                         behaviorElementId);
+    AadlBaLocationReference location = new AadlBaLocationReference(_annexOffset,
+                                             filename, line, offset, length, column,
+                                             behaviorElementId);
     
     obj.setLocationReference(location);
   
   }
   
   private BehaviorAnnex _ba = null ;
+  private int _annexOffset=0;
+  
+  public void setAnnexOffset(int offset)
+  {
+  	_annexOffset = offset;
+  }
   
   // Default highlighter does nothing.
   private AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
@@ -224,17 +233,39 @@ options {
   
   private void highlight(Token token, String id)
   {
-    _ht.addToHighlighting(_ba, token, id);  
+    _ht.addToHighlighting(_annexOffset, token, id);  
   }
 }
 
 @lexer::members {
   public static final int COMMENT_CHANNEL=10;
   
+  private int comment_length=0;
+  
   protected String filename=null;
   
   public void setFilename(String n){
    filename=n;
+  }
+  
+  private int _annexOffset=0;
+  
+  public void setAnnexOffset(int offset)
+  {
+  	_annexOffset = offset;
+  }
+  
+  // Default highlighter does nothing.
+  private AadlBaHighlighter _ht = new DefaultAadlBaHighlighter() ;
+  
+  public void setHighlighter(AadlBaHighlighter ht)
+  {
+    _ht = ht ;
+  }
+  
+  private void highlight(int annexOffset, int offset, int length, String id)
+  {
+    _ht.addToHighlighting(annexOffset, offset, length, id);  
   }
   
   /**
@@ -392,7 +423,7 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
    int line = input.get(0).getLine() ;
 
    AadlBaLocationReference location = new AadlBaLocationReference(
-                                         _ba, filename, line);
+                                         _annexOffset, filename, line);
    BehAnnex.setLocationReference(location) ; 
  }
   : 
@@ -462,9 +493,9 @@ behavior_variable returns [BehaviorVariable bv]
    bv = _fact.createBehaviorVariable();
  }
   :
-    identifier=IDENT { 
-                       setLocationReference(bv, identifier);
-                       bv.setName(identifier.getText()) ;
+    identifier_ident=IDENT { 
+                       setLocationReference(bv, identifier_ident);
+                       bv.setName(identifier_ident.getText()) ;
                      }
     ( LBRACK IntValue=integer_value_constant RBRACK
       { 
@@ -557,18 +588,18 @@ behavior_state_list returns [List<BehaviorState> lbs]
    lbs = new ArrayList<BehaviorState>() ;
  }
   :
-    identifier=IDENT 
+    identifier4=IDENT 
      {
         BehaviorState bs = _fact.createBehaviorState() ;
-        bs.setName(identifier.getText());
-        setLocationReference(bs, identifier); 
+        bs.setName(identifier4.getText());
+        setLocationReference(bs, identifier4); 
         lbs.add(bs) ; 
       } 
-   ( COMMA identifier=IDENT 
+   ( COMMA identifier5=IDENT 
      {
         BehaviorState bs = _fact.createBehaviorState() ;
-        bs.setName(identifier.getText());
-        setLocationReference(bs, identifier); 
+        bs.setName(identifier5.getText());
+        setLocationReference(bs, identifier5); 
         lbs.add(bs) ; 
      } 
    )*
@@ -601,8 +632,6 @@ behavior_state_list returns [List<BehaviorState> lbs]
      highlight(keyword_complete, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
    if(keyword_final!=null)
      highlight(keyword_final, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
-   if (identifier!=null)
-     highlight(identifier, AnnexHighlighterPositionAcceptor.DEFAULT_ID);
    highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
    }
 ;
@@ -1111,14 +1140,14 @@ behavior_action returns [BehaviorAction BehAction]
      )
    |
      //For statement.
-     ( identifier=FOR LPAREN { ForStat = _fact.createForOrForAllStatement(); 
-                               setLocationReference(ForStat, identifier);
-                               highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
+     ( identifier_for=FOR LPAREN { ForStat = _fact.createForOrForAllStatement(); 
+                               setLocationReference(ForStat, identifier_for);
+                               highlight(identifier_for, AnnexHighlighterPositionAcceptor.KEYWORD_ID); 
                              } 
-       identifier=IDENT {  
+       identifier_ident=IDENT {  
                           itVar = _fact.createIterativeVariable(); 
-                          itVar.setName(identifier.getText());
-                          setLocationReference(itVar, identifier); 
+                          itVar.setName(identifier_ident.getText());
+                          setLocationReference(itVar, identifier_ident); 
                           ForStat.setIterativeVariable(itVar); 
                         }
        COLON dt=unique_component_classifier_reference
@@ -1937,11 +1966,11 @@ logical_operator returns [LogicalOperator LogicalOp]
  }
   :
    (
-     identifier=AND { LogicalOp=LogicalOperator.AND; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+     identifier_and=AND { LogicalOp=LogicalOperator.AND; highlight(identifier_and, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    |
-     identifier=OR { LogicalOp=LogicalOperator.OR; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+     identifier_or=OR { LogicalOp=LogicalOperator.OR; highlight(identifier_or, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    |
-     identifier=XOR { LogicalOp=LogicalOperator.XOR; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+     identifier_xor=XOR { LogicalOp=LogicalOperator.XOR; highlight(identifier_xor, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    )
 ;
 catch [RecognitionException ex] {
@@ -2030,9 +2059,9 @@ multiplying_operator returns [MultiplyingOperator MultiplyingOp]
    |
      DIVIDE { MultiplyingOp = MultiplyingOperator.DIVIDE; }
    |
-     identifier=MOD { MultiplyingOp = MultiplyingOperator.MOD; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+     identifier_mod=MOD { MultiplyingOp = MultiplyingOperator.MOD; highlight(identifier_mod, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    |
-     identifier=REM { MultiplyingOp = MultiplyingOperator.REM; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+     identifier_rem=REM { MultiplyingOp = MultiplyingOperator.REM; highlight(identifier_rem, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
    )
 ;
 catch [RecognitionException ex] {
@@ -2065,7 +2094,7 @@ unary_numeric_operator returns [UnaryNumericOperator UnaryNumOp]
    //UnaryNumericOperator UnaryNumOp = null;
  }
   :
-   keyword=ABS { UnaryNumOp = UnaryNumericOperator.ABS; highlight(keyword, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+   keyword_abs=ABS { UnaryNumOp = UnaryNumericOperator.ABS; highlight(keyword_abs, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2081,7 +2110,7 @@ unary_boolean_operator returns [UnaryBooleanOperator UnaryBoolOp]
    //UnaryBooleanOperator UnaryBoolOp = null;
  }
   :
-   identifier=NOT { UnaryBoolOp = UnaryBooleanOperator.NOT; highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+   identifier_not=NOT { UnaryBoolOp = UnaryBooleanOperator.NOT; highlight(identifier_not, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2096,11 +2125,12 @@ boolean_literal returns [BehaviorBooleanLiteral BoolLit]
  }
   :
    (
-       identifier=TRUE { BoolLit.setValue(true); highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
+       identifier_true=TRUE { BoolLit.setValue(true); highlight(identifier_true, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+       setLocationReference(BoolLit, identifier_true) ;}
      |
-       identifier=FALSE { BoolLit.setValue(false); highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);}
-   )
-   {setLocationReference(BoolLit, identifier) ;} 
+       identifier_false=FALSE { BoolLit.setValue(false); highlight(identifier_false, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+       setLocationReference(BoolLit, identifier_false) ;}
+   ) 
 ;
 catch [RecognitionException ex] {
   reportError(ex);
@@ -2437,8 +2467,9 @@ WS : ( ' '
     
 // Single-line comments
 SL_COMMENT
-  : comment='--'
-(~('\n'|'\r' ))* {//highlight(comment, AnnexHighlighterPositionAcceptor.COMMENT_ID);
+  : comment='--' (~('\n'|'\r' ){comment_length++;})* 
+  {highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
+	comment_length=0;
           $channel=COMMENT_CHANNEL;}
   ;
 

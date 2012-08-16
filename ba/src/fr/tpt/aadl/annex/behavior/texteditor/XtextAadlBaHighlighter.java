@@ -16,15 +16,11 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 public class XtextAadlBaHighlighter implements AadlBaHighlighter
 {
   
-	
-  private Map<BehaviorAnnex, List<AadlBaLocationReference>> _elementToHighlightPerAnnex =
-	        new HashMap<BehaviorAnnex, List<AadlBaLocationReference>>() ;
-  
   private List<AadlBaLocationReference> _elementToHighlight =
         new ArrayList<AadlBaLocationReference>() ;
   
   @Override
-  public void addToHighlighting(BehaviorAnnex annex, Token token, String id)
+  public void addToHighlighting(int annexOffset, Token token, String id)
   {
     int offset = ((CommonToken)token).getStartIndex();
     int length = token.getText().length() ;
@@ -33,14 +29,19 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
     // DEBUG
     System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
     
-    _elementToHighlight.add(new AadlBaLocationReference(annex, offset, length, column,
+    _elementToHighlight.add(new AadlBaLocationReference(annexOffset, offset, length, column,
                                                         id));
-    _elementToHighlightPerAnnex.put(annex, _elementToHighlight);
   }
   
   public List<AadlBaLocationReference> getElementsToHighlitght(BehaviorAnnex annex)
   {
-	  return _elementToHighlightPerAnnex.get(annex);
+	  return _elementToHighlight;
+  }
+
+  @Override
+  public void addToHighlighting(int annexOffset, int relativeOffset, int length, String id) {
+	_elementToHighlight.add(new AadlBaLocationReference(annexOffset, relativeOffset, length, 0,
+              id));
   }
   
 }

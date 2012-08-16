@@ -1,14 +1,11 @@
 package fr.tpt.aadl.annex.behavior.utils;
 
-import org.osate.aadl2.parsesupport.LocationReference ;
-
-import fr.tpt.aadl.annex.behavior.AadlBaParserAction;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import org.osate.aadl2.parsesupport.LocationReference;
 
 public class AadlBaLocationReference extends LocationReference
 {
   
-  private BehaviorAnnex _ba = null;
+  private int annexOffset = 0;
   private int _column = -1 ;
   
   private String _id = "" ;
@@ -18,30 +15,30 @@ public class AadlBaLocationReference extends LocationReference
     // fields are not set.
   }
 
-  public AadlBaLocationReference(BehaviorAnnex annex, String fileName, int lineNumber)
+  public AadlBaLocationReference(int annex, String fileName, int lineNumber)
   {
     super(fileName, lineNumber) ;
-    _ba = annex;
+    annexOffset = annex;
   }
   
-  public AadlBaLocationReference(BehaviorAnnex annex, String fileName, int lineNumber, int offset,
+  public AadlBaLocationReference(int annex, String fileName, int lineNumber, int offset,
                                   int length, int column, String id)
   {
     super(fileName, lineNumber) ;
     super.setOffset(offset) ;
     super.setLength(length) ;
-    _ba=annex;
+    annexOffset=annex;
     _column = column ;
     _id = id ;
   }
   
   // LocationReference's fields are not set.
-  public AadlBaLocationReference(BehaviorAnnex annex, int offset,int length, int column, String id)
+  public AadlBaLocationReference(int annex, int offset,int length, int column, String id)
   {
     super() ;
     super.setOffset(offset) ;
     super.setLength(length) ;
-    _ba = annex;
+    annexOffset = annex;
     _column = column ;
     _id = id ;
   }
@@ -64,7 +61,7 @@ public class AadlBaLocationReference extends LocationReference
   @Override
   public int getOffset() 
   {
-	return ((AadlBaLocationReference)_ba.getLocationReference()).getSuperOffset()+super.getOffset();
+	return annexOffset+super.getOffset();
   };
   
   @Override
@@ -73,7 +70,7 @@ public class AadlBaLocationReference extends LocationReference
     
     
     AadlBaLocationReference clone = new 
-                                  AadlBaLocationReference(this._ba,
+                                  AadlBaLocationReference(this.annexOffset,
                                 		  				  this.getFilename(),
                                                           this.getLine(),
                                                           this.getOffset(),
