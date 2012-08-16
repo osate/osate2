@@ -7,5 +7,17 @@
             file="resources/properties/SEI.aadl"
             id="org.osate.contributes.SEI.aadlcontribution1">
       </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/ARINC653.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution1">
+      </aadlcontribution>
+c      <aadlcontribution
+            file="resources/properties/Data_Model.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution2">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/packages/Base_Types.aadl"
+            id="org.osate.contributes.SAE.aadlcontribution3">
+      </aadlcontribution>
    </extension>
 </plugin>
