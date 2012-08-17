@@ -32,7 +32,7 @@ import org.osate.aadl2.instance.InstanceFactory;
  */
 class ConnectionInfo {
 	private ConnectionKind kind;
-	private final List<Connection> connections;
+	final List<Connection> connections;
 	private final List<Boolean> opposites;
 	private final List<ComponentInstance> contexts;
 	ConnectionInstanceEnd src;
