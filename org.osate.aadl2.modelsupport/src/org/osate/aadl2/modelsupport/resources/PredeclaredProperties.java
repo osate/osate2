@@ -27,17 +27,24 @@ public class PredeclaredProperties {
 
 
 	public static final String PLUGIN_RESOURCES_DIRECTORY_NAME = "Plugin_Resources";
+	
+	public static void createUpdatePluginContributedAadl(){
+		isInitialized = false;
+		initPluginContributedAadl();
+	}
 
 	public static void initPluginContributedAadl() {
 		if (isInitialized) return;
 		try {
-			if (!isOpenPluginResourcesProject()) {
+			if (existsPluginResourcesProject()&&!isOpenPluginResourcesProject()) {
 
 			Activator
 			.logErrorMessage("Cannot access plugin property sets predeclared properties. The project '"
 					+ PLUGIN_RESOURCES_DIRECTORY_NAME
 					+ "' is closed.");
-			} else {
+			isInitialized = true;
+			return;
+			}
 			new WorkspaceModifyOperation() {
 				protected void execute(IProgressMonitor monitor)
 						throws CoreException, InvocationTargetException {
@@ -56,11 +63,6 @@ public class PredeclaredProperties {
 											contributedResourceUri,
 											contributedResourceInWorkspace);
 							}
-						} else {
-							Activator
-									.logErrorMessage("Cannot access plugin property sets and packages.  The project '"
-											+ PLUGIN_RESOURCES_DIRECTORY_NAME
-											+ "' is closed.");
 						}
 						IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
 						.getDescription();
@@ -75,7 +77,6 @@ public class PredeclaredProperties {
 					}
 				}
 			}.run(null);
-			}
 			isInitialized = true;
 		} catch (InvocationTargetException e) {
 			Activator.logThrowable(e.getCause());

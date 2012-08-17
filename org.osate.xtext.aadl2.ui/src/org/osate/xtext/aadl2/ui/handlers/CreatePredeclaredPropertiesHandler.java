@@ -43,7 +43,7 @@ public class CreatePredeclaredPropertiesHandler extends AbstractHandler {
 
 
 		public Object execute(ExecutionEvent event) throws ExecutionException {
-			PredeclaredProperties.initPluginContributedAadl();
+			PredeclaredProperties.createUpdatePluginContributedAadl();
 			return null;
 		}
 
