@@ -203,6 +203,10 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 		description.setLocation(newPath);
 		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		IProject plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+		if (plugins == null){
+			PredeclaredProperties.initPluginContributedAadl();
+			plugins = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME);
+		}
 		if (referencePage != null) {
 			IProject[] refProjects = referencePage.getReferencedProjects();
 			if (refProjects.length > 0) {

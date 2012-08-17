@@ -58,10 +58,14 @@ public class PredeclaredProperties {
 								if (!contributedResourceInWorkspace.exists()
 										|| contributedResourceInWorkspace
 												.getResourceAttributes()
-												.isReadOnly())
-									copyContributedResourceIntoWorkspace(
-											contributedResourceUri,
-											contributedResourceInWorkspace);
+												.isReadOnly()){
+									try {
+										copyContributedResourceIntoWorkspace(
+												contributedResourceUri,
+												contributedResourceInWorkspace);
+									} catch (Exception e) {
+									}
+								}
 							}
 						}
 						IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
@@ -142,7 +146,7 @@ public class PredeclaredProperties {
 
 	private static void copyContributedResourceIntoWorkspace(
 			URI contributedResourceUri, IFile contributedResourceInWorkspace)
-			throws IOException, CoreException {
+			 {
 		try {
 			URIConverter uricvt = OsateResourceUtil.createResourceSet().getURIConverter();
 			InputStream contributedResourceContentsAsStream = uricvt
@@ -184,13 +188,9 @@ public class PredeclaredProperties {
 						@Override
 						protected void execute(IProgressMonitor monitor)
 								throws CoreException, InvocationTargetException {
-							try {
-								copyContributedResourceIntoWorkspace(
-										contributedResourceUri,
-										contributedResourceInWorkspace);
-							} catch (IOException e) {
-								throw new InvocationTargetException(e);
-							}
+							copyContributedResourceIntoWorkspace(
+									contributedResourceUri,
+									contributedResourceInWorkspace);
 						}
 					}.run(null);
 				} catch (InvocationTargetException e) {
