@@ -91,7 +91,7 @@ public class OsateResourceUtil {
     			return null;
     		}
     	}
-        PredeclaredProperties.initPluginContributedAadl();
+//        PredeclaredProperties.initPluginContributedAadl();
         if (fResourceSetProvider == null)
         	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
