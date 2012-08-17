@@ -167,7 +167,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						inArray = ci.getInstanceObjectPath().startsWith(prefix);
 					}
 					if (!inArray) {
-						// process first component of array only
+						// process first component of innermost array only
 						instantiateConnections(ci);
 					}
 				}
@@ -662,24 +662,50 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		int i = (srcPath.startsWith(containerPath)) ? len : 0;
 		sb.append(srcPath.substring(i));
-		sb.append(" => ");
+		sb.append(" -> ");
 		if (dstI != null) {
 			String dstPath = dstI.getInstanceObjectPath();
 			i = (dstPath.startsWith(containerPath)) ? len : 0;
 			sb.append(dstPath.substring(i));
 		}
 
-		final ConnectionInstance conni = connInfo.createConnectionInstance(sb.toString(), dstI);
+		// with arrays we can get duplicates that we don't need
+		boolean duplicate = false;
+		ComponentInstance container = connInfo.container;
 
-		if (conni == null) {
-			warning(systemInstance,
-					"Connection from " + connInfo.src.getInstanceObjectPath() + " to " + dstI.getInstanceObjectPath()
-							+ " does not connect two components. No connection instance created.");
-		} else {
-			if (connInfo.container != null) {
-				connInfo.container.getConnectionInstances().add(conni);
+		if (container == null) {
+			container = systemInstance;
+		}
+		outer: for (ConnectionInstance test : container.getConnectionInstances()) {
+			if (connInfo.connections.size() == test.getConnectionReferences().size()) {
+				Iterator<Connection> conns = connInfo.connections.iterator();
+				Iterator<ConnectionReference> testRefs = test.getConnectionReferences().iterator();
+
+				duplicate = true;
+				while (conns.hasNext()) {
+					Connection t = testRefs.next().getConnection();
+
+					if (t != conns.next()) {
+						duplicate = false;
+						break;
+					}
+				}
+			}
+			if (duplicate)
+				break;
+		}
+		ConnectionInstance conni = null;
+		if (!duplicate) {
+			conni = connInfo.createConnectionInstance(sb.toString(), dstI);
+
+			if (conni == null) {
+				warning(systemInstance,
+						"Connection from " + connInfo.src.getComponentInstancePath() + " to "
+								+ dstI.getComponentInstancePath()
+								+ " does not connect two components. No connection instance created.");
+				return null;
 			} else {
-				systemInstance.getConnectionInstances().add(conni);
+				container.getConnectionInstances().add(conni);
 			}
 
 			// determine whether connection is delayed
