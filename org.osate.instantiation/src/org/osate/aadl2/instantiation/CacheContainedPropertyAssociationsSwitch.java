@@ -188,7 +188,6 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 * @param propertyAssociations
 	 */
 	// TODO: LW applies to arrays
-	// TODO: LW connections
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {

@@ -139,7 +139,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected void cachePropertyAssociations(InstanceObject io) {
 		for (Property property : propertyFilter) {
-			// TODO high: implement acceptance test
 			if (io.acceptsProperty(property)) {
 				/*
 				 * Just look up the property. The property doesn't yet have a
