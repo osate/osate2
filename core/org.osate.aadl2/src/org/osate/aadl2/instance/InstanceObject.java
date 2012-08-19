@@ -39,6 +39,8 @@ import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 
 /**
@@ -105,6 +107,15 @@ public interface InstanceObject extends EObject, NamedElement {
 	 *         exists, such as in the case of {@link ModeTransitionInstance}s.
 	 */
 	public List<? extends NamedElement> getInstantiatedObjects();
+
+	/**
+	 * Find all instance object that match a given containment path.
+	 * 
+	 * @param referencePath the search path for contained instance objects
+	 * @return the list of matching instance objects
+	 */
+	List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
+	boolean matchesIndex(List<ArrayRange> ranges);
 
 	boolean isActive(SystemOperationMode som);
 	

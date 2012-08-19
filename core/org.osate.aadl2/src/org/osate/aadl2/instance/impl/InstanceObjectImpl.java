@@ -36,7 +36,9 @@
 package org.osate.aadl2.instance.impl;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.NoSuchElementException;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -44,6 +46,8 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ocl.ecore.OCL;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.impl.NamedElementImpl;
@@ -285,19 +289,20 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			@Override
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
-					ConnectionInstance next ;
-					ComponentInstance head = target instanceof ComponentInstance?(ComponentInstance)target: target.getContainingComponentInstance();
+					ConnectionInstance next;
+					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target : target
+							.getContainingComponentInstance();
 					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
-					
+
 					private boolean advance() {
 						next = null;
 						if (iter.hasNext()) {
 							next = iter.next();
 							return true;
 						}
-						while (head != null){
+						while (head != null) {
 							head = head.getContainingComponentInstance();
-							if (head == null){
+							if (head == null) {
 								return false;
 							} else {
 								if (iter.hasNext()) {
@@ -308,7 +313,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 						}
 						return false;
 					}
-					
+
 					@Override
 					public boolean hasNext() {
 						return next != null || advance();
@@ -319,7 +324,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 						if (next == null && !advance()) {
 							throw new NoSuchElementException();
 						}
-						ConnectionInstance result =  next;
+						ConnectionInstance result = next;
 						next = null;
 						return result;
 					}
@@ -330,17 +335,64 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 					}
 				};
 			}
-			
+
 		};
 	}
+
 	@Override
 	public EList<ConnectionInstance> getAllEnclosingConnectionInstances() {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		
-		for(ConnectionInstance conni : allEnclosingConnectionInstances()) {
+
+		for (ConnectionInstance conni : allEnclosingConnectionInstances()) {
 			result.add(conni);
 		}
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
+	 */
+	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
+		List<InstanceObject> result = new LinkedList<InstanceObject>();
+
+		findInstanceObjectsHelper(referencePath.listIterator(), result);
+		return result;
+	}
+
+	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
+		boolean result = false;
+		
+		if (!pathIter.hasNext()) {
+			ios.add(this);
+			result = true;
+		} else {
+			ContainmentPathElement cpe = pathIter.next();
+			NamedElement ne = cpe.getNamedElement();
+
+			for (EObject eo : eContents()) {
+				if (eo instanceof InstanceObjectImpl) {
+					InstanceObjectImpl next = (InstanceObjectImpl) eo;
+
+					if (next.getName().equalsIgnoreCase(ne.getName())) {
+						EList<ArrayRange> ranges = cpe.getArrayRanges();
+
+						if (next.matchesIndex(ranges)) {
+							next.findInstanceObjectsHelper(pathIter, ios);
+						}
+						result = true;
+					}
+				}
+			}
+			pathIter.previous();
+		}
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
+	 */
+	@Override
+	public boolean matchesIndex(List<ArrayRange> ranges) {
+		return false;
+	}
 } // InstanceObjectImpl

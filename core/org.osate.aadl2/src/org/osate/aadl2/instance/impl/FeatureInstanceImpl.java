@@ -51,6 +51,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.DataAccess;
@@ -627,11 +628,6 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 			for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
 				NamedElement ne = pathIter.next().getNamedElement();
 
-				// TODO: remove temporary workaround
-				if (ne == this.feature) {
-					continue;
-				} else
-
 				if (ne instanceof Feature) {
 					fi = fi.findFeatureInstance((Feature) ne);
 					while ((fi != null) && (ne instanceof FeatureGroup) && pathIter.hasNext()) {
@@ -669,9 +665,29 @@ public class FeatureInstanceImpl extends ConnectionInstanceEndImpl implements Fe
 	public String getPathName() {
 		String array = "";
 		if (getIndex() > 0) {
-				array = "[" + getIndex() + "]";
+			array = "[" + getIndex() + "]";
 		}
 		return getName() + array;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
+	 */
+	@Override
+	public boolean matchesIndex(List<ArrayRange> ranges) {
+		if (ranges.size() == 0) {
+			return true;
+		}
+		if (ranges.size() == 1) {
+			ArrayRange r = ranges.get(0);
+			if ((r.getLowerBound() == 0 && r.getUpperBound() == 0)
+					|| (r.getLowerBound() == 0 && index == r.getUpperBound())
+					|| (r.getUpperBound() == 0 && index == r.getLowerBound())
+					|| (r.getLowerBound() <= index && index <= r.getUpperBound())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 } //FeatureInstanceImpl

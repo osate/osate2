@@ -416,22 +416,6 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	FlowSpecificationInstance findFlowSpecInstance(FlowSpecification flowspec);
 
 	/**
-	 * Find the instance object based on the referencePath relative to this
-	 * component instance.
-	 * 
-	 * <p>This method is sensitive to the current system operation mode
-	 * of the containing system instance.  The object is only returned
-	 * if it exists in the current som.
-	 * 
-	 * @param referencePath
-	 * 			  sequence of pointers into the declarative model to
-	 * 			  subcomponents, features, etc.
-	 * @return InstanceObject collection
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
-	Collection<? extends InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
-
-	/**
 	 * Find the semantic connection instances that pass through this component instance
 	 * that utilize the given connection.  Returns a list
 	 * because a connection can be in multiple semantic connections if there are
