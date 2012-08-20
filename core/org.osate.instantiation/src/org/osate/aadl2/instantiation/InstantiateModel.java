@@ -163,22 +163,6 @@ public class InstantiateModel {
 	 */
 	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
-	/*
-	 * Processing switch that gathers up all the component instances that have
-	 * modes.
-	 */
-	private static final class ModeSearch extends ForAllElement {
-		public boolean hasModalComponents = false;
-
-		protected void action(final Element o) {
-			final List<ModeInstance> modes = ((ComponentInstance) o).getModeInstances();
-			if (modes != null && !modes.isEmpty()) {
-				hasModalComponents = true;
-			}
-			resultList.add(o);
-		}
-	}
-
 	// Constructors
 
 	/*
@@ -1285,6 +1269,22 @@ public class InstantiateModel {
 	// --------------------------------------------------------------------------------------------
 
 	/*
+	 * Processing switch that gathers up all the component instances that have
+	 * modes.
+	 */
+	private static final class ModeSearch extends ForAllElement {
+		public boolean hasModalComponents = false;
+
+		protected void action(final Element o) {
+			final List<ModeInstance> modes = ((ComponentInstance) o).getModeInstances();
+			if (!modes.isEmpty()) {
+				hasModalComponents = true;
+				resultList.add(o);
+			}
+		}
+	}
+
+	/*
 	 * Create the system operation mode objects for the instance model.
 	 */
 	protected void createSystemOperationModes(SystemInstance root) {
@@ -1330,6 +1330,7 @@ public class InstantiateModel {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
 		final LinkedList<ModeInstance> currentModes = new LinkedList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
+		
 		if (modes != null && modes.size() > 0) {
 			for (final Iterator<ModeInstance> i = modes.iterator(); i.hasNext();) {
 				currentModes.addLast(i.next());
