@@ -172,9 +172,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected void cacheConnectionPropertyAssociations(ConnectionInstance conni) {
 		for (Property prop : propertyFilter) {
-			for (ConnectionReference connRef : conni.getConnectionReferences()) {
-				boolean unset = true;
+			PropertyAssociation setPA = null;
 
+			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				// acceptance test of connref tests connection itself
 				if (connRef.acceptsProperty(prop)) {
 					/*
@@ -194,9 +194,17 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							fillPropertyValue(connRef, newPA, value);
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
-							if (unset) {
+							if (setPA == null) {
 								conni.getOwnedPropertyAssociations().add(newPA);
-								unset = false;
+								setPA = newPA;
+							} else {
+								// check consistency
+								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
+									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
+										error(conni, "Value for property " + setPA.getProperty().getQualifiedName() + " not consistent along connection");
+										break;
+									}
+								}
 							}
 						}
 					} catch (IllegalStateException e) {
@@ -243,7 +251,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						for (ModeInstance mi : getComponentInstance(io).getModeInstances()) {
+						for (ModeInstance mi : io.getContainingComponentInstance().getModeInstances()) {
 							if (mi.getMode() == mode) {
 								inSOMs.addAll(mode2som.get(mi));
 								break;
@@ -261,15 +269,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
-	}
-
-	protected ComponentInstance getComponentInstance(InstanceObject io) {
-		EObject current = io;
-
-		while (current != null && !(current instanceof ComponentInstance)) {
-			current = current.eContainer();
-		}
-		return (ComponentInstance) current;
 	}
 
 }
