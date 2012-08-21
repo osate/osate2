@@ -66,14 +66,16 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(subclause, acceptor);
 
 				if(annexAcceptor != null) {
-					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(subclause);
-					if (apr != null){
-						addHighlight(apr, annexAcceptor);
-					} else {
-						AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
-						if(highlighter != null)	{
-							highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
-						}
+					AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
+					if(highlighter != null)    {
+					    highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
+					}
+					else
+					{
+					    AnnexParseResult apr = AnnexUtil.getAnnexParseResult(subclause);
+					    if (apr != null){
+					        addHighlight(apr, annexAcceptor);
+					    }
 					}
 				}
 			}
