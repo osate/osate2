@@ -38,6 +38,7 @@ package org.osate.xtext.aadl2.properties.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
@@ -53,6 +54,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.ui.util.WorkspaceClasspathUriResolver;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractType;
@@ -197,21 +199,28 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-//		psNode.setText(crossRefString);
-//		List<EObject> el;
-//		try {
-//			el = super.getLinkedObjects(context, reference, psNode);
-//		} catch (Exception e) {
-//			return null;
-//		}
-//		EObject res = (el.isEmpty()?null: el.get(0));
-//		if (res != null&&res.eIsProxy()){
-//			res = EcoreUtil.resolve(res,context);
-//			if (res.eIsProxy()) return null;
-//		}
-		// XXX phf: lookup in global index without regard to project dependencies
-		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-		return res;
+		if(false == Platform.isRunning())
+		{
+			psNode.setText(crossRefString);
+			List<EObject> el;
+			try {
+				el = super.getLinkedObjects(context, reference, psNode);
+			} catch (Exception e) {
+				return null;
+			}
+			EObject res = (el.isEmpty()?null: el.get(0));
+			if (res != null&&res.eIsProxy()){
+				res = EcoreUtil.resolve(res,context);
+				if (res.eIsProxy()) return null;
+			}
+			return res;
+		}
+		else
+		{
+			// XXX phf: lookup in global index without regard to project dependencies
+			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+			return res;
+		}
 
 	}
 
