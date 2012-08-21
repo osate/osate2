@@ -451,17 +451,17 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	@Override
 	public Iterable<ConnectionInstance> allConnectionInstances() {
 		final TreeIterator iter = EcoreUtil.getAllContents(this, true);
-		
+
 		return new Iterable<ConnectionInstance>() {
 
 			@Override
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
 					ConnectionInstance next;
-					
+
 					private boolean advance() {
 						boolean found = false;
-						
+
 						next = null;
 						while (iter.hasNext()) {
 							Object obj = iter.next();
@@ -473,7 +473,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 						}
 						return found;
 					}
-					
+
 					@Override
 					public boolean hasNext() {
 						return next != null || advance();
@@ -484,7 +484,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 						if (next == null && !advance()) {
 							throw new NoSuchElementException();
 						}
-						ConnectionInstance result =  next;
+						ConnectionInstance result = next;
 						next = null;
 						return result;
 					}
@@ -495,20 +495,18 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 					}
 				};
 			}
-			
+
 		};
 	}
 
 	@Override
 	public EList<ConnectionInstance> getAllConnectionInstances() {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		
-		for(ConnectionInstance conni : allConnectionInstances()) {
+
+		for (ConnectionInstance conni : allConnectionInstances()) {
 			result.add(conni);
 		}
 		return result;
 	}
 
-
-	
 } // SystemInstanceImpl

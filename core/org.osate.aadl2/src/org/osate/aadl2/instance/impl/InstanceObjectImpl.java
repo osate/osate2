@@ -361,7 +361,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 
 	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
 		boolean result = false;
-		
+
 		if (!pathIter.hasNext()) {
 			ios.add(this);
 			result = true;
