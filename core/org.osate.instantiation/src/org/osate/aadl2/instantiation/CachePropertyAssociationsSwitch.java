@@ -201,7 +201,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
-										error(conni, "Value for property " + setPA.getProperty().getQualifiedName() + " not consistent along connection");
+										error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+												+ " not consistent along connection");
 										break;
 									}
 								}
@@ -251,10 +252,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						for (ModeInstance mi : io.getContainingComponentInstance().getModeInstances()) {
-							if (mi.getMode() == mode) {
-								inSOMs.addAll(mode2som.get(mi));
-								break;
+						if (io.getContainingComponentInstance() != null) {
+							for (ModeInstance mi : io.getContainingComponentInstance().getModeInstances()) {
+								if (mi.getMode() == mode) {
+									inSOMs.addAll(mode2som.get(mi));
+									break;
+								}
 							}
 						}
 					}
