@@ -121,7 +121,6 @@ public interface SystemInstance extends ComponentInstance {
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	List<SystemOperationMode> getSystemOperationModesFor(final List<ModeInstance> mis);
 
 	/**
@@ -138,21 +137,18 @@ public interface SystemInstance extends ComponentInstance {
 	 * @see #clearCurrentSystemOperationMode()
 	 * @see #getCurrentSystemOperationMode()
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	void setCurrentSystemOperationMode(SystemOperationMode som);
 
 	/**
 	 * Get the current system operation mode of the system, or <code>null</code>
 	 * if it has not been set.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	SystemOperationMode getCurrentSystemOperationMode();
 
 	/**
 	 * Clear the mode states for a given SystemInstance. That is, the modal
 	 * adapters for the model all have their modes set to <code>null</code>.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	void clearCurrentSystemOperationMode();
 
 	/**
@@ -169,7 +165,6 @@ public interface SystemInstance extends ComponentInstance {
 	 *         <code>null</code> if no such connection exists in the current
 	 *         som.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI);
 
 	/**
@@ -191,7 +186,6 @@ public interface SystemInstance extends ComponentInstance {
 	 * @param mi The mode instance to look for
 	 * @return The system operation modes containing the given mode instance.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	List<SystemOperationMode> getSystemOperationModesFor(ModeInstance mi);
 
 	SystemOperationMode getInitialSystemOperationMode();

@@ -49,6 +49,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Stack;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -210,12 +211,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			// connection instance may start at a feature
 			List<Connection> outsideSubConns = filterOutgoingConnections(parentConns, sub);
 			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
+			@SuppressWarnings("unchecked")
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
 			boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci
 					.getComponentInstances());
 
 			for (FeatureInstance featurei : ci.getFeatureInstances()) {
-				List<FeatureInstance> featureInsts;
 				final boolean inFeatureGroup = !featurei.getFeatureInstances().isEmpty();
 				Feature feature = featurei.getFeature();
 				// TODO warning if subcomponents with outgoing features exist
@@ -509,7 +510,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 
 				ComponentImplementation toImpl = InstanceUtil.getComponentImplementation(toCi, 0, classifierCache);
-				boolean toFeatureGroup = !toFi.getFeatureInstances().isEmpty();
 				if (toImpl == null) {
 					finalizeConnectionInstance(ci, connInfo, toFi);
 				} else {
@@ -676,7 +676,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		if (container == null) {
 			container = systemInstance;
 		}
-		outer: for (ConnectionInstance test : container.getConnectionInstances()) {
+		for (ConnectionInstance test : container.getConnectionInstances()) {
 			if (connInfo.connections.size() == test.getConnectionReferences().size()) {
 				Iterator<Connection> conns = connInfo.connections.iterator();
 				Iterator<ConnectionReference> testRefs = test.getConnectionReferences().iterator();
@@ -806,7 +806,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param conni
 	 */
 	// TODO-LW: implement new AADL2 rules
-	private void checkSemanticConnection(ConnectionInstance conni) {
+//	private void checkSemanticConnection(ConnectionInstance conni) {
 		// perform checking on matching src and dst ports
 		// we need to do this since the wrong element from a port group may have
 		// been picked
@@ -851,7 +851,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		 * "' port data types do not match for semantic connection '" +
 		 * conni.getName() + "'"); } } }
 		 */
-	}
+//	}
 
 	// ------------------------------------------------------------------------
 	// Methods related to mode transition connections
@@ -867,30 +867,30 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param fi FeatureInstance
 	 * @return true if we created a ModetransitionInstance
 	 */
-	private boolean doModeTransitionConnections(ComponentInstance ci, FeatureInstance fi) {
-		boolean didTransition = false;
-		if (fi.getCategory() == FeatureCategory.EVENT_PORT) {
-			Subcomponent sub = ci.getSubcomponent();
-			Feature f = fi.getFeature();
-
-			for (ModeTransitionInstance mti : ci.getContainingComponentInstance().getModeTransitionInstances()) {
-				for (ModeTransitionTrigger trigger : mti.getModeTransition().getOwnedTriggers()) {
-					if (trigger instanceof TriggerPort) {
-						Port o = ((TriggerPort) trigger).getPort();
-						Context co = ((TriggerPort) trigger).getContext();
-
-						if (f == o && co == sub) {
-							addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
-							didTransition = true;
-						}
-					} else {
-						//TODO-LW: what if it's a processor port or internal event?
-					}
-				}
-			}
-		}
-		return didTransition;
-	}
+//	private boolean doModeTransitionConnections(ComponentInstance ci, FeatureInstance fi) {
+//		boolean didTransition = false;
+//		if (fi.getCategory() == FeatureCategory.EVENT_PORT) {
+//			Subcomponent sub = ci.getSubcomponent();
+//			Feature f = fi.getFeature();
+//
+//			for (ModeTransitionInstance mti : ci.getContainingComponentInstance().getModeTransitionInstances()) {
+//				for (ModeTransitionTrigger trigger : mti.getModeTransition().getOwnedTriggers()) {
+//					if (trigger instanceof TriggerPort) {
+//						Port o = ((TriggerPort) trigger).getPort();
+//						Context co = ((TriggerPort) trigger).getContext();
+//
+//						if (f == o && co == sub) {
+//							addConnectionInstance(ci.getSystemInstance(), ConnectionInfo.newModeTransition(fi), mti);
+//							didTransition = true;
+//						}
+//					} else {
+//						//TODO-LW: what if it's a processor port or internal event?
+//					}
+//				}
+//			}
+//		}
+//		return didTransition;
+//	}
 
 	/**
 	 * As we are following connection declarations we need to check whether the
@@ -983,16 +983,35 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param conni the connection instance
 	 */
 	private void fillInModes(ConnectionInstance conni) {
-		EList<ConnectionReference> connRefs = conni.getConnectionReferences();
+		ListIterator<ConnectionReference> refIter = conni.getConnectionReferences().listIterator();
 
-		for (int idx = 0; idx < connRefs.size(); idx++) {
-			Connection conn = connRefs.get(idx).getConnection();
+		while (refIter.hasNext()) {
+			ConnectionReference connRef = refIter.next();
+			Connection conn = connRef.getConnection();
+			ComponentInstance ci = connRef.getContext();
 			EList<Mode> connModes = conn.getAllInModes();
+			EList<ModeInstance> mis = null;
 
-			if (!connModes.isEmpty()) {
-				EList<ModeInstance> mis = new BasicEList<ModeInstance>();
-
-				generateModeCombinations(conni, mis, connModes, idx);
+			if (connModes.isEmpty()) {
+				while (!(ci instanceof SystemInstance)) {
+					if (ci.getInModes().isEmpty()) {
+						ci = ci.getContainingComponentInstance();
+					} else {
+						mis = ci.getInModes();
+						break;
+					}
+				}
+			} else {
+				mis = new BasicEList<ModeInstance>();
+				for (Mode m : connModes) {
+					mis.add(ci.findModeInstance(m));
+				}
+			}
+			if (mis != null) {
+				for (ModeInstance mi : mis) {
+					generateModeCombinations(conni, refIter,
+							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
+				}
 				break;
 			}
 		}
@@ -1013,41 +1032,52 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param idx the index of the connection declaration in the connection
 	 * instance whose mode set is being processed
 	 */
-	private void generateModeCombinations(ConnectionInstance conni, EList<ModeInstance> mis, EList<Mode> connModes,
-			int idx) {
-		EList<ConnectionReference> connRefs = conni.getConnectionReferences();
-		ComponentInstance parentci = connRefs.get(idx).getContext();
+	private void generateModeCombinations(ConnectionInstance conni, ListIterator<ConnectionReference> refIter,
+			List<ModeInstance> mis) {
+		if (!refIter.hasNext()) {
+			// add SOMs based on mis
+			SystemInstance si = (SystemInstance) conni.getElementRoot();
+			List<SystemOperationMode> somList = si.getSystemOperationModesFor(mis);
 
-		for (Mode m : connModes) {
-			ModeInstance mi = parentci.findModeInstance(m);
-
-			if (mi != null) {
-				mis.add(mi);
-				for (int index = idx + 1; index < connRefs.size(); index++) {
-					Connection conn = connRefs.get(index).getConnection();
-					EList<Mode> cms = conn.getAllInModes();
-
-					if (!cms.isEmpty()) {
-						generateModeCombinations(conni, mis, cms, index);
-						return;
-					}
-				}
-				// add SOMs based on mis
-				SystemInstance si = (SystemInstance) conni.getElementRoot();
-				List<SystemOperationMode> somList = si.getSystemOperationModesFor(mis);
-
-				// check if all parts of the connection exist
-				outer: for (SystemOperationMode som : somList) {
-					if (conni.getSource().isActive(som) && conni.getDestination().isActive(som)) {
-						for (ConnectionReference cr : conni.getConnectionReferences()) {
-							if (!cr.getContext().isActive(som)) {
-								continue outer;
-							}
+			// check if all parts of the connection exist
+			outer: for (SystemOperationMode som : somList) {
+				if (conni.getSource().isActive(som) && conni.getDestination().isActive(som)) {
+					for (ConnectionReference cr : conni.getConnectionReferences()) {
+						if (!cr.getContext().isActive(som)) {
+							continue outer;
 						}
-						conni.getInSystemOperationModes().add(som);
+					}
+					conni.getInSystemOperationModes().add(som);
+				}
+			}
+		} else {
+			ConnectionReference connRef = refIter.next();
+			Connection conn = connRef.getConnection();
+			ComponentInstance ci = connRef.getContext();
+			EList<Mode> connModes = conn.getAllInModes();
+			List<ModeInstance> nextMis = null;
+
+			if (connModes.isEmpty()) {
+				while (!(ci instanceof SystemInstance)) {
+					if (ci.getInModes().isEmpty()) {
+						ci = ci.getContainingComponentInstance();
+					} else {
+						nextMis = ci.getInModes();
+						break;
 					}
 				}
-				mis.remove(mi);
+			} else {
+				nextMis = new BasicEList<ModeInstance>();
+				for (Mode m : connModes) {
+					nextMis.add(ci.findModeInstance(m));
+				}
+			}
+			if (nextMis != null) {
+				for (ModeInstance mi : nextMis) {
+					mis.add(mi);
+					generateModeCombinations(conni, refIter, mis);
+					mis.remove(mi);
+				}
 			}
 		}
 		if (conni.getInSystemOperationModes().isEmpty()) {
@@ -1108,18 +1138,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @return those connections from connlist that have a subcomponent feature
 	 *         as their destination
 	 */
-	private List<Connection> filterIncomingConnections(List<Connection> connlist, Subcomponent sub) {
-		List<Connection> result = new ArrayList<Connection>(connlist.size());
-		List<Subcomponent> sclist = sub.getAllSubcomponentRefinements();
-
-		for (Connection conn : connlist) {
-			if (sclist.contains(conn.getAllDestinationContext()) || conn.isBidirectional()
-					&& sclist.contains(conn.getAllSourceContext())) {
-				result.add(conn);
-			}
-		}
-		return result;
-	}
+//	private List<Connection> filterIncomingConnections(List<Connection> connlist, Subcomponent sub) {
+//		List<Connection> result = new ArrayList<Connection>(connlist.size());
+//		List<Subcomponent> sclist = sub.getAllSubcomponentRefinements();
+//
+//		for (Connection conn : connlist) {
+//			if (sclist.contains(conn.getAllDestinationContext()) || conn.isBidirectional()
+//					&& sclist.contains(conn.getAllSourceContext())) {
+//				result.add(conn);
+//			}
+//		}
+//		return result;
+//	}
 
 	/**
 	 * get incoming connections for specified feature This method does not work
