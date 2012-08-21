@@ -35,10 +35,7 @@
 package org.osate.aadl2.operations;
 
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeFeature;

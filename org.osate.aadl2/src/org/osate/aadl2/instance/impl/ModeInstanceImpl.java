@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.EObjectWithInverseResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Mode;
@@ -65,6 +66,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getDstModeTransitions <em>Dst Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#isInitial <em>Initial</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getMode <em>Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#isDerived <em>Derived</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ModeInstanceImpl#getParents <em>Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -120,6 +123,36 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * @ordered
 	 */
 	protected Mode mode;
+
+	/**
+	 * The default value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDerived()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean DERIVED_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isDerived() <em>Derived</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isDerived()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean derived = DERIVED_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getParents() <em>Parent</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getParents()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeInstance> parents;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -212,6 +245,41 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isDerived() {
+		return derived;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDerived(boolean newDerived) {
+		boolean oldDerived = derived;
+		derived = newDerived;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.MODE_INSTANCE__DERIVED, oldDerived,
+					derived));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeInstance> getParents() {
+		if (parents == null) {
+			parents = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+					InstancePackage.MODE_INSTANCE__PARENT);
+		}
+		return parents;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
@@ -282,6 +350,10 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 			if (resolve)
 				return getMode();
 			return basicGetMode();
+		case InstancePackage.MODE_INSTANCE__DERIVED:
+			return isDerived();
+		case InstancePackage.MODE_INSTANCE__PARENT:
+			return getParents();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -309,6 +381,13 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		case InstancePackage.MODE_INSTANCE__MODE:
 			setMode((Mode) newValue);
 			return;
+		case InstancePackage.MODE_INSTANCE__DERIVED:
+			setDerived((Boolean) newValue);
+			return;
+		case InstancePackage.MODE_INSTANCE__PARENT:
+			getParents().clear();
+			getParents().addAll((Collection<? extends ModeInstance>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -333,6 +412,12 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		case InstancePackage.MODE_INSTANCE__MODE:
 			setMode((Mode) null);
 			return;
+		case InstancePackage.MODE_INSTANCE__DERIVED:
+			setDerived(DERIVED_EDEFAULT);
+			return;
+		case InstancePackage.MODE_INSTANCE__PARENT:
+			getParents().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -353,6 +438,10 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 			return initial != INITIAL_EDEFAULT;
 		case InstancePackage.MODE_INSTANCE__MODE:
 			return mode != null;
+		case InstancePackage.MODE_INSTANCE__DERIVED:
+			return derived != DERIVED_EDEFAULT;
+		case InstancePackage.MODE_INSTANCE__PARENT:
+			return parents != null && !parents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -370,6 +459,8 @@ public class ModeInstanceImpl extends InstanceObjectImpl implements ModeInstance
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (initial: "); //$NON-NLS-1$
 		result.append(initial);
+		result.append(", derived: "); //$NON-NLS-1$
+		result.append(derived);
 		result.append(')');
 		return result.toString();
 	}

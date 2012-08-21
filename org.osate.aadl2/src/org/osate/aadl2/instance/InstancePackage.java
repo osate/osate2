@@ -764,13 +764,31 @@ public interface InstancePackage extends EPackage {
 	int MODE_INSTANCE__MODE = INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_INSTANCE__DERIVED = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_INSTANCE__PARENT = INSTANCE_OBJECT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Mode Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_INSTANCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int MODE_INSTANCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl <em>Mode Transition Instance</em>}' class.
@@ -1891,6 +1909,28 @@ public interface InstancePackage extends EPackage {
 	EReference getModeInstance_Mode();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ModeInstance#isDerived <em>Derived</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Derived</em>'.
+	 * @see org.osate.aadl2.instance.ModeInstance#isDerived()
+	 * @see #getModeInstance()
+	 * @generated
+	 */
+	EAttribute getModeInstance_Derived();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ModeInstance#getParents <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Parent</em>'.
+	 * @see org.osate.aadl2.instance.ModeInstance#getParents()
+	 * @see #getModeInstance()
+	 * @generated
+	 */
+	EReference getModeInstance_Parent();
+
+	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ModeInstance#isInitial <em>Initial</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2531,6 +2571,22 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODE_INSTANCE__MODE = eINSTANCE.getModeInstance_Mode();
+
+		/**
+		 * The meta object literal for the '<em><b>Derived</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODE_INSTANCE__DERIVED = eINSTANCE.getModeInstance_Derived();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_INSTANCE__PARENT = eINSTANCE.getModeInstance_Parent();
 
 		/**
 		 * The meta object literal for the '<em><b>Initial</b></em>' attribute feature.

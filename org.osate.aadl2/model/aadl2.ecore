@@ -607,9 +607,9 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mode" eSuperTypes="#//ModeFeature">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="initial" ordered="false"
-        lowerBound="1" eType="#//Boolean"/>
+        lowerBound="1" eType="#//Boolean" defaultValueLiteral="false"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="derived" ordered="false"
-        lowerBound="1" eType="#//Boolean"/>
+        lowerBound="1" eType="#//Boolean" defaultValueLiteral="false"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ModeFeature" abstract="true" eSuperTypes="#//ClassifierFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="Prototype" abstract="true" eSuperTypes="#//StructuralFeature #//CalledSubprogram">

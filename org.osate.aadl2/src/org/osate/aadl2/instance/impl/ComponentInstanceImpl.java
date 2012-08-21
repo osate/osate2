@@ -974,7 +974,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	@Override
 	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
 		boolean result = super.findInstanceObjectsHelper(pathIter, ios);
-	
+
 		if (!result && pathIter.hasNext()) {
 			// add connections
 			ContainmentPathElement cpe = pathIter.next();

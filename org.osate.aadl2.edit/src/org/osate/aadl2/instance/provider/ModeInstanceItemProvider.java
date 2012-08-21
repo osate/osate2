@@ -85,6 +85,8 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 			addDstModeTransitionPropertyDescriptor(object);
 			addInitialPropertyDescriptor(object);
 			addModePropertyDescriptor(object);
+			addDerivedPropertyDescriptor(object);
+			addParentPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -160,6 +162,40 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	}
 
 	/**
+	 * This adds a property descriptor for the Derived feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDerivedPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ModeInstance_derived_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_derived_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.MODE_INSTANCE__DERIVED, true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Parent feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addParentPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ModeInstance_parent_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_parent_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.MODE_INSTANCE__PARENT, true, false, true, null, null, null));
+	}
+
+	/**
 	 * This returns ModeInstance.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -196,6 +232,7 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 
 		switch (notification.getFeatureID(ModeInstance.class)) {
 		case InstancePackage.MODE_INSTANCE__INITIAL:
+		case InstancePackage.MODE_INSTANCE__DERIVED:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		}

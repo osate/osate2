@@ -115,11 +115,11 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * @return the list of matching instance objects
 	 */
 	List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
+
 	boolean matchesIndex(List<ArrayRange> ranges);
 
 	boolean isActive(SystemOperationMode som);
-	
-	
+
 	/**
 	 * Iterates over all connection instances that are contained in enclosing component instances the instance model.
 	 * This will give you the subset of connection instances whose endpoints potentially refer to or into the target object.
@@ -130,7 +130,7 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * We then work our way up the enclosing component instance hierarchy.
 	 */
 	Iterable<ConnectionInstance> allEnclosingConnectionInstances();
-	
+
 	/**
 	 * Get all connection instances in the instance model that are contained in enclosing component instances the instance model.
 	 * This will give you the subset of connection instances whose endpoints potentially refer to or into the target object.
@@ -141,6 +141,5 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * We then work our way up the enclosing component instance hierarchy.
 	 */
 	EList<ConnectionInstance> getAllEnclosingConnectionInstances();
-
 
 } // InstanceObject
