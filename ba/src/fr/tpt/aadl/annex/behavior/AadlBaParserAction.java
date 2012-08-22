@@ -67,18 +67,8 @@ public class AadlBaParserAction implements AnnexParser
       CharStream cs = new CaseInsensitiveCharStream(source) ;
       cs.setLine(line) ;
       cs.setCharPositionInLine(column) ;
-      AadlBaLexer lexer = new AadlBaLexer(cs) ;
-      lexer.setParseErrorReporter(reporter) ;
-      lexer.setFilename(filename) ;
-      CommonTokenStream tokens = new CommonTokenStream(lexer) ;
-      // Necessary but why ???
-      tokens.toString() ;
-      AadlBaParser parser = new AadlBaParser(tokens) ;
-      parser.setParseErrorReporter(reporter) ;
-      parser.setFilename(filename) ;
       
       AadlBaHighlighter highlighter ;
-      
       // Set a Xtext highlighter if AADLBA Front End is running under OSATE2.
       if(Platform.isRunning())
       {
@@ -89,6 +79,19 @@ public class AadlBaParserAction implements AnnexParser
         // Default highlighter does nothing.
         highlighter = new DefaultAadlBaHighlighter() ;
       }
+      
+      AadlBaLexer lexer = new AadlBaLexer(cs) ;
+      lexer.setParseErrorReporter(reporter) ;
+      lexer.setFilename(filename) ;
+      lexer.setAnnexOffset(column);
+      lexer.setHighlighter(highlighter);
+      CommonTokenStream tokens = new CommonTokenStream(lexer) ;
+      // Necessary but why ???
+      tokens.toString() ;
+      AadlBaParser parser = new AadlBaParser(tokens) ;
+      parser.setParseErrorReporter(reporter) ;
+      parser.setFilename(filename) ;
+      parser.setAnnexOffset(column);
       
       parser.setHighlighter(highlighter) ;
       
