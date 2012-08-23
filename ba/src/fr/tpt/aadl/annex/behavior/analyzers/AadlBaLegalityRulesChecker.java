@@ -242,81 +242,119 @@ public class AadlBaLegalityRulesChecker
       String firstChar ;
       int firstCharIndex ;
       
-      // For each component that the initialize entrypoint property is applied
-      // to, gets the component's name and transform into the corresponding
-      // class name and populates the class list.
-      for (PropertyOwner p : ((Property) ne).getAppliesTos())
+      if (ne != null)
       {
-         klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
-         klassName.append('.');
-         
-         firstCharIndex = klassName.length() ;
-         
-         klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
-         
-         firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
-         
-         // Transform the first char of the property name to upper case.
-         firstChar.toUpperCase() ;
-         
-         klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
-         
-         klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
-         
-         try
-         {
-            klass = (Class<? extends org.osate.aadl2.Element>) 
-                        Class.forName(klassName.toString()) ;
-            
-            klassl.add(klass);
-         }
-         catch (java.lang.ClassNotFoundException e)
-         {
-            continue ;
-         }
-         finally
-         {
-            klassName.setLength(0) ;
-         }
+    	  EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ; 
+    	  // For each component that the initialize entrypoint property is applied
+          // to, gets the component's name and transform into the corresponding
+          // class name and populates the class list.
+          for (PropertyOwner p : pol)
+          {
+             klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
+             klassName.append('.');
+             
+             firstCharIndex = klassName.length() ;
+             
+             klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
+             
+             firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
+             
+             // Transform the first char of the property name to upper case.
+             firstChar.toUpperCase() ;
+             
+             klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
+             
+             klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
+             
+             try
+             {
+                klass = (Class<? extends org.osate.aadl2.Element>) 
+                            Class.forName(klassName.toString()) ;
+                
+                klassl.add(klass);
+             }
+             catch (java.lang.ClassNotFoundException e)
+             {
+                continue ;
+             }
+             finally
+             {
+                klassName.setLength(0) ;
+             }
+          }
+          
+          // Checks the rule for the given component list.
+          for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
+          {
+             if(tmp.isAssignableFrom(_baParentContainer.getClass()))
+             {  
+                String reportElements = null ;
+                 
+                if(initialStates.size() > 1)
+                {
+                   result = false ;
+                   reportElements = AadlBaUtils.identifierListToString(initialStates,
+                                                                   LIST_SEPARATOR) ;
+                   this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                         + " can't have more than one initial state : " +
+                           reportElements +
+                             " : Behavior Annex D.3.(L4) legality rule failed") ;
+                }
+                else
+                   if(initialStates.size() == 0)
+                   {
+                      result = false ;
+                      this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                            + " has no initial state : " +
+                              "Behavior Annex D.3.(L4) legality rule failed") ;
+                   }
+                 
+                if(finalStates.size() == 0)
+                {
+                   result = false ;
+                   this.reportLegalityError(_ba,
+                      _baParentContainer.getQualifiedName() + 
+                         " has no final state : Behavior Annex D.3.(L4)"+
+                            " legality rules failed") ;
+                }
+                 
+                return result ; 
+             }
+          }
       }
-      
-      // Checks the rule for the given component list.
-      for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
+      else
       {
-         if(tmp.isAssignableFrom(_baParentContainer.getClass()))
-         {  
-            String reportElements = null ;
-             
-            if(initialStates.size() > 1)
-            {
-               result = false ;
-               reportElements = AadlBaUtils.identifierListToString(initialStates,
-                                                               LIST_SEPARATOR) ;
-               this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
-                     + " can't have more than one initial state : " +
-                       reportElements +
-                         " : Behavior Annex D.3.(L4) legality rule failed") ;
-            }
-            else
-               if(initialStates.size() == 0)
-               {
-                  result = false ;
-                  this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
-                        + " has no initial state : " +
-                          "Behavior Annex D.3.(L4) legality rule failed") ;
-               }
-             
-            if(finalStates.size() == 0)
-            {
-               result = false ;
-               this.reportLegalityError(_ba,
-                  _baParentContainer.getQualifiedName() + 
-                     " has no final state : Behavior Annex D.3.(L4)"+
-                        " legality rules failed") ;
-            }
-             
-            return result ; 
-         }
+    	  String reportElements = null ;
+          
+          if(initialStates.size() > 1)
+          {
+             result = false ;
+             reportElements = AadlBaUtils.identifierListToString(initialStates,
+                                                             LIST_SEPARATOR) ;
+             this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                   + " can't have more than one initial state : " +
+                     reportElements +
+                       " : Behavior Annex D.3.(L4) legality rule failed") ;
+          }
+          else
+             if(initialStates.size() == 0)
+             {
+                result = false ;
+                this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                      + " has no initial state : " +
+                        "Behavior Annex D.3.(L4) legality rule failed") ;
+             }
+           
+          if(finalStates.size() == 0)
+          {
+             result = false ;
+             this.reportLegalityError(_ba,
+                _baParentContainer.getQualifiedName() + 
+                   " has no final state : Behavior Annex D.3.(L4)"+
+                      " legality rules failed") ;
+          }
+           
+          return result ;
       }
       
       return result ;
