@@ -1012,6 +1012,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					generateModeCombinations(conni, refIter,
 							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
 				}
+				if (conni.getInSystemOperationModes().isEmpty()) {
+					EcoreUtil.delete(conni);
+				}
 				break;
 			}
 		}
@@ -1078,10 +1081,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					generateModeCombinations(conni, refIter, mis);
 					mis.remove(mi);
 				}
+			} else {
+				generateModeCombinations(conni, refIter, mis);
 			}
-		}
-		if (conni.getInSystemOperationModes().isEmpty()) {
-			EcoreUtil.delete(conni);
+			refIter.previous();
 		}
 	}
 
