@@ -1049,7 +1049,8 @@ public class AadlBaTypeChecker
   {
     try
     {
-      return new ValueAndTypeHolder(v, AadlBaUtils.getTypeHolder(v));
+      return new ValueAndTypeHolder(v, AadlBaUtils.getTypeHolder(v,
+                                                           _baParentContainer));
     }
     catch(DimensionException e)
     {
