@@ -161,7 +161,7 @@ public class AadlBaSemanticRulesChecker
          
          if(bt != null)
          {
-           List<Identifier> sourceStateList = btOwner.getSrcStates() ;
+           List<Identifier> sourceStateList = bt.getSrcStates() ;
            
            for (Identifier srcState : sourceStateList)
             {

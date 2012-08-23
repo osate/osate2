@@ -21,9 +21,6 @@
 
 package fr.tpt.aadl.annex.behavior ;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.antlr.runtime.CharStream ;
 import org.antlr.runtime.CommonTokenStream ;
 import org.eclipse.core.runtime.Platform ;
@@ -33,7 +30,6 @@ import antlr.RecognitionException;
 import org.osate.aadl2.AnnexLibrary ;
 import org.osate.aadl2.AnnexSubclause ;
 import org.osate.aadl2.modelsupport.errorreporting.ParseErrorReporter ;
-import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 import org.osate.annexsupport.AnnexParser;
 
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;

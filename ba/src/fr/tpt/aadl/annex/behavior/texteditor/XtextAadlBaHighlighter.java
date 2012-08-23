@@ -1,15 +1,11 @@
 package fr.tpt.aadl.annex.behavior.texteditor;
 
 import java.util.ArrayList ;
-import java.util.HashMap;
 import java.util.List ;
-import java.util.Map;
 
 import org.antlr.runtime.CommonToken;
 import org.antlr.runtime.Token;
-import org.osate.annexsupport.AnnexHighlighterPositionAcceptor ;
 
-import fr.tpt.aadl.annex.behavior.AadlBaParserAction;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
@@ -27,7 +23,7 @@ public class XtextAadlBaHighlighter implements AadlBaHighlighter
     int column = token.getCharPositionInLine() ;
     
     // DEBUG
-    System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
+//    System.out.println("token : " + token.getText() + ", offset : " + offset + ", char length : " + length);
     
     _elementToHighlight.add(new AadlBaLocationReference(annexOffset, offset, length, column,
                                                         id));

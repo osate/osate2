@@ -28,7 +28,9 @@ import java.util.Set ;
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference ;
 
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ArrayDimension ;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierValue;
@@ -1281,23 +1283,23 @@ public class AadlBaNameResolver
    {
       PackageSection context = Aadl2Visitors.getContainingPackageSection(_ba);
       
-      PropertiesLinkingService pls = PropertiesLinkingService.
-                                          getPropertiesLinkingService(context) ;
+      PropertiesLinkingService pls = new PropertiesLinkingService () ;                                          
       
-      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.
-                                            INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
-                                            context, null);
-      if(ne==null)
+      NamedElement pt = pls.findPropertyType(context, (AadlBaVisitors.
+                                           INITIALIZE_ENTRYPOINT_PROPERTY_NAME));
+      if(pt==null)
       {
         PropertySet ps = pls.findPropertySet(context, TIME_UNITS_PROPERTY_SET);
         if(ps!=null)
-          ne = ps.findNamedElement(TIME_UNITS_PROPERTY_ID);
+        {
+          pt = ps.findNamedElement(TIME_UNITS_PROPERTY_ID);
+        }
       }
       
       // Property set Time_Units is found.
-      if (ne instanceof org.osate.aadl2.UnitsType)
+      if (pt instanceof org.osate.aadl2.UnitsType)
       {
-         org.osate.aadl2.UnitsType ut = (org.osate.aadl2.UnitsType) ne ;
+         org.osate.aadl2.UnitsType ut = (org.osate.aadl2.UnitsType) pt ;
          
          // Find the given time unit in the enumeration.
          org.osate.aadl2.UnitLiteral ul = ut.findLiteral(
@@ -1341,17 +1343,18 @@ public class AadlBaNameResolver
 	   // Now check the type in each current package's sections.
 	   for(Namespace ns: _contextsTab)
 	   {
-	      pls = PropertiesLinkingService.getPropertiesLinkingService(ns) ;
+	      pls = new PropertiesLinkingService() ;
 	      
 	      // If namespace is null than the element must be declared in the
 	      // current package.
 	      ne = pls.findNamedElementInAadlPackage(packageName,
 	                                             qne.getBaName().getId(), ns);
-	         
 	      if(ne == null)
 	      {
+	        EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+	        
 	        ne=pls.findNamedElementInPredeclaredPropertySets(qne.getBaName().getId(),
-	                                                         ns, null);
+	                                                         ns, reference);
 	        if(ne==null)
 	        {
 	              PropertySet ps = pls.findPropertySet(ns, packageName);
@@ -1359,6 +1362,7 @@ public class AadlBaNameResolver
 	                ne = ps.findNamedElement(qne.getBaName().getId());
 	        }
 	      }
+
 	      // An element is found.
 	      if(ne != null && ne instanceof NamedElement)
 	      {

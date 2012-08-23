@@ -378,6 +378,10 @@ public class AadlBaTypeChecker
         cond.setDispatchTriggerCondition(tmp) ;
       }
     }
+    else
+    {
+      result = true ;
+    }
 
     if(cond.isSetFrozenPorts())
     {

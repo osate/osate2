@@ -29,7 +29,9 @@ import java.util.Set ;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference ;
 
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DeviceClassifier;
 import org.osate.aadl2.EnumerationLiteral ;
@@ -214,15 +216,20 @@ public class AadlBaLegalityRulesChecker
       
       PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
       
-      PropertiesLinkingService pls = PropertiesLinkingService.
-                                   getPropertiesLinkingService(contextsTab[0]) ;
+      PropertiesLinkingService pls = new PropertiesLinkingService() ;
       
-      EObject ne=pls.findNamedElementInPredeclaredPropertySets(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME, contextsTab[0], null);
+      EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+      
+      EObject ne=pls.findNamedElementInPredeclaredPropertySets(
+                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
+                             contextsTab[0], reference);
       if(ne==null)
       {
-        PropertySet ps = pls.findPropertySet(contextsTab[0], AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET);
+        PropertySet ps = pls.findPropertySet(contextsTab[0],
+                              AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET);
         if(ps!=null)
-          ne = ps.findNamedElement(AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
+          ne = ps.findNamedElement(AadlBaVisitors.
+                                      INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
       }
       
       ArrayList<Class<? extends org.osate.aadl2.Element>> klassl = 
