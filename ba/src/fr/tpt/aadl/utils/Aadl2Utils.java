@@ -21,23 +21,32 @@
 
 package fr.tpt.aadl.utils;
 
-import java.util.ArrayList ;
-import java.util.Collections ;
-import java.util.Comparator ;
-import java.util.Iterator ;
-import java.util.List ;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
 
-import org.eclipse.emf.ecore.EObject ;
-import org.eclipse.xtext.nodemodel.INode ;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils ;
-import org.osate.aadl2.ComponentType ;
-import org.osate.aadl2.DataAccess ;
-import org.osate.aadl2.EnumerationLiteral ;
-import org.osate.aadl2.Feature ;
-import org.osate.aadl2.NamedValue ;
-import org.osate.aadl2.Property ;
-import org.osate.aadl2.PropertySet ;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
+import org.osate.aadl2.AccessConnection;
+import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ConnectedElement;
+import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.DataAccess;
+import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.Parameter;
+import org.osate.aadl2.ParameterConnection;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertySet;
+import org.osate.aadl2.SubprogramCall;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 
 public class Aadl2Utils
 {
@@ -57,6 +66,60 @@ public class Aadl2Utils
     FeaturePositionComparator comparator = new FeaturePositionComparator() ;
     Collections.sort(res, comparator) ;
     return res ;
+  }
+  
+  public static ConnectionEnd getConnectedEnd(SubprogramCall sc , Feature p)
+  {
+	NamedElement parent = (NamedElement) sc.eContainer().eContainer();
+	if(parent instanceof BehavioredImplementation)
+	{
+	  BehavioredImplementation bi = (BehavioredImplementation) parent;
+	  for( ParameterConnection paramCnx: bi.getOwnedParameterConnections())
+	  {
+		ConnectedElement sourceConnectedElement = (ConnectedElement) paramCnx.getSource();
+		ConnectedElement destinationConnectedElement = (ConnectedElement) paramCnx.getDestination();
+		if(sourceConnectedElement.getContext() == sc 
+				&& sourceConnectedElement.getConnectionEnd() == p)
+		  return destinationConnectedElement.getConnectionEnd();
+		else if (destinationConnectedElement.getContext() == sc 
+				&& destinationConnectedElement.getConnectionEnd() == p)
+		  return sourceConnectedElement.getConnectionEnd();
+	  }
+	  for(AccessConnection accessCnx: bi.getOwnedAccessConnections())
+	  {
+		ConnectedElement sourceConnectedElement = (ConnectedElement) accessCnx.getSource();
+		ConnectedElement destinationConnectedElement = (ConnectedElement) accessCnx.getDestination();
+		if(sourceConnectedElement.getContext() == sc 
+				&& sourceConnectedElement.getConnectionEnd() == p)
+		  return destinationConnectedElement.getConnectionEnd();
+		else if (destinationConnectedElement.getContext() == sc 
+				&& destinationConnectedElement.getConnectionEnd() == p)
+		  return sourceConnectedElement.getConnectionEnd();
+	  }
+	}
+	return null;
+  } 
+  
+  public static boolean isInOutParameter(Parameter p)
+  {
+	return p.getDirection().equals(DirectionType.IN_OUT);
+  }
+  
+  public static boolean isOutParameter(Parameter p)
+  {
+	  return p.getDirection().equals(DirectionType.OUT);
+  }
+  
+  public boolean isReadWriteDataAccess(DataAccess da)
+  {
+    String accessRight = Aadl2Utils.getAccessRight(da) ;	  
+    return accessRight.equalsIgnoreCase("Read_Write");
+  }
+  
+  public boolean isWriteOnlyDataAccess(DataAccess da)
+  {
+    String accessRight = Aadl2Utils.getAccessRight(da) ;	  
+    return accessRight.equalsIgnoreCase("Write_Only");
   }
   
   /**
