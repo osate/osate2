@@ -69,16 +69,6 @@ http://www.eclipse.org/org/documents/epl-v10.php
    </extension>
 
   <extension
-         point="org.eclipse.ui.editors">
-      <editor
-            class="fr.tpt.aadl.annex.behavior.texteditor.Aadl2TextEditor"
-            default="false"
-            extensions="aadl, aadl2"
-            id="fr.tpt.aadl.annex.behavior.texteditor.AadlBaTextEditorID"
-            name="AADL-BA-FrontEnd Text Editor">
-      </editor>
-   </extension>
-  <extension
         point="org.osate.annexsupport.highlighter">
      <highlighter
            annexName="behavior_specification"
