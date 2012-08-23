@@ -817,10 +817,10 @@ public class PropertyUtils {
                                                   String propertyName)
     {
     EList<PropertyExpression> result = new BasicEList<PropertyExpression>();
-
+ 
     EList<PropertyAssociation> lpa = getPropertyAssociations(cc,
                                                          propertyName) ;
-
+    
     for (PropertyAssociation pa : lpa)
     {
       result.addAll(getPropertyExpression(pa)) ;
@@ -902,6 +902,8 @@ public class PropertyUtils {
           lparesult.add(pa) ;
         }
       }
+      if(lparesult.isEmpty() && cc.getExtended() != null)
+      	lparesult.addAll(getPropertyAssociations(cc.getExtended(), propertyName));
     }
     return lparesult ;
   }
