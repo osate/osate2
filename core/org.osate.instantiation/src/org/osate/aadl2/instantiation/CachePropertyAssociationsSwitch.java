@@ -247,12 +247,32 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				pa.getOwnedValues().add(newVal);
 			} else {
 				List<Mode> modes = proxy.getModes();
+
 				for (Mode mode : modes) {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						if (io.getContainingComponentInstance() != null) {
-							for (ModeInstance mi : io.getContainingComponentInstance().getModeInstances()) {
+
+						if (io instanceof ConnectionReference) {
+							List<SystemOperationMode> conniModes = ((ConnectionInstance) io.eContainer())
+									.getInSystemOperationModes();
+							List<ModeInstance> holderModes = ((ConnectionReference) io).getContext().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									for (SystemOperationMode som : conniModes) {
+										if (som.getCurrentModes().contains(mi)) {
+											inSOMs.add(som);
+										}
+									}
+									break;
+								}
+							}
+						} else {
+							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
+									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
 								if (mi.getMode() == mode) {
 									inSOMs.addAll(mode2som.get(mi));
 									break;
