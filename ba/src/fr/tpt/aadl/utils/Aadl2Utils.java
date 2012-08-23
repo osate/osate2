@@ -110,15 +110,15 @@ public class Aadl2Utils
 	  return p.getDirection().equals(DirectionType.OUT);
   }
   
-  public boolean isReadWriteDataAccess(DataAccess da)
+  public static boolean isReadWriteDataAccess(DataAccess da)
   {
-    String accessRight = Aadl2Utils.getAccessRight(da) ;	  
+    String accessRight = getAccessRight(da);
     return accessRight.equalsIgnoreCase("Read_Write");
   }
   
-  public boolean isWriteOnlyDataAccess(DataAccess da)
+  public static boolean isWriteOnlyDataAccess(DataAccess da)
   {
-    String accessRight = Aadl2Utils.getAccessRight(da) ;	  
+    String accessRight = getAccessRight(da);	  
     return accessRight.equalsIgnoreCase("Write_Only");
   }
   
