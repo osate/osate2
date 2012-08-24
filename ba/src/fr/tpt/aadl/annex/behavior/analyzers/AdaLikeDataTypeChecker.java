@@ -81,7 +81,17 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                              boolean hasToCheckDimension)
    {
       boolean result = true ;
-      
+      /*
+       * As type checking is not mature, we disable it (this method always
+       * returns true). It impacts:
+       *  _ assignment checking
+       *  _ for/forall checking
+       *  _ integer range checking
+       *  _ port dequeue action checking
+       *  _ port send action checking
+       *  _ subprogram parameters checking
+       * 
+       * 
       // Preliminaries checking. 
       if(type1 == null || type2 == null ||
          type1.dataRep == null || type2.dataRep == null || 
@@ -121,7 +131,7 @@ public class AdaLikeDataTypeChecker implements DataTypeChecker
                                                 type2.klass.getQualifiedName());
         }
       }
-
+      */
       return result ;
    }
    
