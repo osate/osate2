@@ -957,9 +957,8 @@ public class AadlBaUtils {
           // core way. We don't evaluate array behavior expressed in 
           // the Data Model Annex standard as we don't want to mix up
           // the two standards.
-           String msg = DimensionException.formatMessage(result, exprDim,
-                     declaredDim) ;
-               throw new DimensionException(el, msg);
+          String msg = "mixs up AADL standard array and data model array" ;
+          throw new DimensionException(el, msg, true) ;
         }
       }
       
@@ -980,9 +979,9 @@ public class AadlBaUtils {
   // TypeHolder object.
   // The given expression dimension is used as an dimension offset.
   private static void processArrayDataRepresentation(Element el,
-                                                     TypeHolder type,
-                                                     int exprDim)
-                                                       throws DimensionException
+                                                       TypeHolder type,
+                                                       int exprDim)
+                                                      throws DimensionException
   {
     // Treats only type declared as an array. Otherwise returns.
     if(type.dataRep == DataRepresentation.ARRAY)
@@ -996,55 +995,54 @@ public class AadlBaUtils {
       if(false == pel.isEmpty())
       {
          // Fetches the array element data type.             
-            ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
+         ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
 
-            if(cv != null && cv.getClassifier() instanceof DataClassifier)
-            {
-               DataClassifier dc = (DataClassifier) cv.getClassifier() ; 
-               type.klass = dc ;
-               type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
-            }
-            else
-            {
-               type.klass = null ;
-            }
+         if(cv != null && cv.getClassifier() instanceof DataClassifier)
+         {
+           DataClassifier dc = (DataClassifier) cv.getClassifier() ; 
+           type.klass = dc ;
+           type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
+         }
+         else
+         {
+           type.klass = null ;
+         }
          
          // pel has only one element, according to AADL core standard.
          PropertyExpression pe = pel.get(pel.size() - 1);
          
          if(pe instanceof ListValue)
-            {
-               ListValue lv = (ListValue) pe;
-               EList<PropertyExpression> lve = 
-                                               lv.getOwnedListElements() ;
-               declareDimBT= lve.size() ;
+         {
+           ListValue lv = (ListValue) pe;
+           EList<PropertyExpression> lve = lv.getOwnedListElements() ;
+           declareDimBT= lve.size() ;
                
-               if(declareDimBT >= exprDim)
-               {
-                  declareDimSizeBT = new long[declareDimBT - exprDim];
-                  
-                  for(int i = exprDim ; i < declareDimBT ; i++)
-                  {
-                     IntegerLiteral il = (IntegerLiteral) lve.get(i) ;
-                     declareDimSizeBT[i - exprDim] = il.getValue() ;
-                  }
-                  
-                  type.dimension = declareDimBT - exprDim ;
-                  type.dimension_sizes = declareDimSizeBT ;
-               }
-               else
-               {
-                  String msg = DimensionException.formatMessage(type, exprDim,
-                                                                declareDimBT) ;
-                  throw new DimensionException(el, msg);
-               }
+          if(declareDimBT >= exprDim)
+          {
+            declareDimSizeBT = new long[declareDimBT - exprDim] ;
+
+            for(int i = exprDim ; i < declareDimBT ; i++)
+            {
+              IntegerLiteral il = (IntegerLiteral) lve.get(i) ;
+              declareDimSizeBT[i - exprDim] = il.getValue() ;
             }
+
+            type.dimension = declareDimBT - exprDim ;
+            type.dimension_sizes = declareDimSizeBT ;
+          }
+          else
+          {
+            String msg = "must be an array but is resolved as " +
+                           type.klass.getQualifiedName() ;
+            
+            throw new DimensionException(el, msg, false) ;
+          }
+        }
       }
       else 
       {
-        // The given type is declared as an array but dimension size
-        // is not specified. Returns as the type is not an array.
-        return ;
+        String msg = "is declared as an array but the dimension property is set" ;
+        throw new DimensionException(el, msg, true) ;
       }
     }
     else

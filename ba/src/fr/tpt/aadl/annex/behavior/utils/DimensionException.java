@@ -2,8 +2,6 @@ package fr.tpt.aadl.annex.behavior.utils;
 
 import org.osate.aadl2.Element ;
 
-import fr.tpt.aadl.annex.behavior.analyzers.TypeHolder ;
-
 /**
  * Represents an exception raised when out of array dimension accessing.
  */
@@ -16,21 +14,18 @@ public class DimensionException extends Exception
    
    public Element _element ;
    
-   public DimensionException(Element element, String message)
+   public boolean _isWarning = false ;
+   
+   public DimensionException(Element element, String message,
+                              boolean isWarning)
    {
       super(message) ;
       _element = element ;
+      _isWarning = isWarning ;
    }
    
-   public static String formatMessage(TypeHolder type, int exprDim,
-                                      int declaredDim)
+   public boolean isWarning()
    {
-      StringBuilder sb = new StringBuilder();
-      
-      sb.append("the type of the expression must be an array type but it is ") ;
-      sb.append("resolved as ");
-      sb.append(type.klass.getQualifiedName());
-      
-      return sb.toString() ;
+     return _isWarning ;
    }
 }

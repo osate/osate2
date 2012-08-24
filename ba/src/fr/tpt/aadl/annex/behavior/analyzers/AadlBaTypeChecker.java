@@ -1519,7 +1519,25 @@ public class AadlBaTypeChecker
 
   private void reportDimensionException(DimensionException de)
   {
-    _errManager.error(de._element, de.getMessage()) ;
+    StringBuilder msg = new StringBuilder();
+    
+    if(de._element instanceof BehaviorElement)
+    {
+      msg.append('"') ;
+      msg.append(this.unparseNameElement((BehaviorElement) de._element)) ;
+      msg.append("\" ") ;
+    }
+    
+    msg.append(de.getMessage());
+    
+    if(de.isWarning())
+    {
+      _errManager.warning(de._element, msg.toString()) ;
+    }
+    else
+    {
+      _errManager.error(de._element, msg.toString()) ;
+    }
   }
 
  private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
