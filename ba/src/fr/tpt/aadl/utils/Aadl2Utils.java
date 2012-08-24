@@ -213,9 +213,7 @@ public class Aadl2Utils
     {
       if(DEFAULT_ACCESS_RIGHT == null)
       {
-        PropertiesLinkingService pls = null ;
-        
-        pls = PropertiesLinkingService.getPropertiesLinkingService(data) ;
+        PropertiesLinkingService pls = new PropertiesLinkingService() ;
         
         EObject ne = null ;
         PropertySet ps = pls.findPropertySet(data, "Memory_Properties");
