@@ -1041,7 +1041,7 @@ public class AadlBaUtils {
       }
       else 
       {
-        String msg = "is declared as an array but the dimension property is set" ;
+        String msg = "is declared as an array but the dimension property is not set" ;
         throw new DimensionException(el, msg, true) ;
       }
     }
