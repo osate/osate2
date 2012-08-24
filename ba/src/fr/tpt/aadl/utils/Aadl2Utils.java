@@ -155,10 +155,14 @@ public class Aadl2Utils
         return 0 ;
       }
 
-      INode node0 = NodeModelUtils.findActualNodeFor(arg0) ;
+       
+      Feature ancestor0 = arg0.getRefined() != null ? arg0.getRefined() : arg0;
+      Feature ancestor1 = arg1.getRefined() != null ? arg1.getRefined() : arg1;
+      
+      INode node0 = NodeModelUtils.findActualNodeFor(ancestor0) ;
       int offset0 = node0.getOffset() ;
       int line0 = node0.getStartLine() ;
-      INode node1 = NodeModelUtils.findActualNodeFor(arg1) ;
+      INode node1 = NodeModelUtils.findActualNodeFor(ancestor1) ;
       int offset1 = node1.getOffset() ;
       int line1 = node1.getStartLine() ;
 
