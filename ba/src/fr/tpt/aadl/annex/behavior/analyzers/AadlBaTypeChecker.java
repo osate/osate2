@@ -429,6 +429,11 @@ public class AadlBaTypeChecker
 
   private void reportError (BehaviorElement el, String msg)
   {
+    if(el.eContainer() == null)
+    {
+      DeclarativeUtils.setEcontainer(_ba, el) ;
+    }
+    
     _errManager.error(el, msg);
   }
 
@@ -1211,7 +1216,6 @@ public class AadlBaTypeChecker
           // Not an arrayable element.
           String msg = currentElementholder.getElement().getName() +
                                                     " can't have array index." ;
-          DeclarativeUtils.setEcontainer(_ba, currentElementholder) ;
           reportError(currentElementholder, msg) ;
           return null ;
         }
@@ -1762,8 +1766,10 @@ public class AadlBaTypeChecker
         TypeHolder t1, t2 ;
         try
         {
-          t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue());
-          t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue());
+          t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue(),
+                                         _baParentContainer);
+          t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue(),
+                                         _baParentContainer);
         }
         catch (DimensionException de)
         {
@@ -1930,8 +1936,10 @@ public class AadlBaTypeChecker
       
       try
       {
-        t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue()) ;
-        t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue()) ;
+        t1 = AadlBaUtils.getTypeHolder((Value) ir.getLowerIntegerValue(),
+                                       _baParentContainer) ;
+        t2 = AadlBaUtils.getTypeHolder((Value) ir.getUpperIntegerValue(),
+                                       _baParentContainer) ;
       }
       catch (DimensionException de)
          {
@@ -2100,8 +2108,9 @@ public class AadlBaTypeChecker
           
           try
           {
-              portType = AadlBaUtils.getTypeHolder(portHolder) ;
-              tarType = AadlBaUtils.getTypeHolder(tarTmp) ;
+              portType = AadlBaUtils.getTypeHolder(portHolder,
+                                                   _baParentContainer) ;
+              tarType = AadlBaUtils.getTypeHolder(tarTmp, _baParentContainer) ;
           }
           catch (DimensionException de)
           {
@@ -2293,8 +2302,6 @@ public class AadlBaTypeChecker
             String msg = "missing subprogram access for : " + 
               firstHolder.getElement().getName() ;
             
-            DeclarativeUtils.setEcontainer(_ba, firstHolder) ;
-            
             reportError(firstHolder, msg) ;
             
             return null ;
@@ -2350,7 +2357,7 @@ public class AadlBaTypeChecker
           
           try
           {
-             portType = AadlBaUtils.getTypeHolder(portHolder) ;
+             portType = AadlBaUtils.getTypeHolder(portHolder, _baParentContainer) ;
           }
           catch (DimensionException de)
           {
@@ -2698,7 +2705,7 @@ public class AadlBaTypeChecker
             try
             {
                t1 = AadlBaUtils.getTypeHolder(klass) ;
-               t2 = AadlBaUtils.getTypeHolder(tar) ;
+               t2 = AadlBaUtils.getTypeHolder(tar, _baParentContainer) ;
             }
             catch (DimensionException de)
                 {
@@ -2818,9 +2825,14 @@ public class AadlBaTypeChecker
     return isconsistent && hasCheckingPassed ;
   }
 
-  private void reportWarning(Element obj, String msg)
+  private void reportWarning(Element el, String msg)
   {
-    _errManager.warning(obj, msg) ;
+    if(el.eContainer() == null)
+    {
+      DeclarativeUtils.setEcontainer(_ba, el) ;
+    }
+    
+    _errManager.warning(el, msg) ;
   }
 
   private void reportSubprogParamMatchingError(
@@ -2922,7 +2934,7 @@ public class AadlBaTypeChecker
         // Performs data type consistency checking.
         try
         {
-           tarType = AadlBaUtils.getTypeHolder(tmp) ;
+           tarType = AadlBaUtils.getTypeHolder(tmp, _baParentContainer) ;
         }
         catch (DimensionException de)
         {

@@ -1327,7 +1327,7 @@ public class AadlBaNameResolver
    }
 
    private boolean qualifiedNamedElementResolver(QualifiedNamedElement qne,
-		                                             boolean hasToReport)
+		                                               boolean hasToReport)
    {
 	   String packageName = null ;
 	   EObject ne ;
@@ -1657,8 +1657,13 @@ public class AadlBaNameResolver
    }
 
    // TODO Provide column number.
-   private void reportNameError(BehaviorElement obj, String name) 
+   private void reportNameError(BehaviorElement el, String name) 
    {
-      _errManager.error(obj, "\'" + name + "\' is not found");
+     if(el.eContainer() == null)
+     {
+       DeclarativeUtils.setEcontainer(_ba, el) ;
+     } 
+     
+     _errManager.error(el, "\'" + name + "\' is not found");
    }
 }
