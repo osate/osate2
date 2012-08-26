@@ -50,6 +50,7 @@ import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
@@ -242,7 +243,13 @@ public class PropertyUtils {
 				}
 			}
 		}
-
+		// try on a refined NamedElement
+		if(i instanceof RefinableElement)
+		{
+		  RefinableElement re = (RefinableElement) i;
+		  if(re.getRefinedElement()!=null)
+			return getFloatValue(re.getRefinedElement(), propertyName, unit);
+		}
 		throw new Exception("Property " + propertyName + " not found for " + i.getName());
 	}
 
@@ -278,7 +285,13 @@ public class PropertyUtils {
 				}
 			}
 		}
-
+		// try on a refined NamedElement
+		if(i instanceof RefinableElement)
+		{
+		  RefinableElement re = (RefinableElement) i;
+		  if(re.getRefinedElement()!=null)
+			return getFloatValue(re.getRefinedElement(), propertyName);
+		}
 		throw new Exception("Property " + propertyName + " not found for " + i.getName());
 	}
 
@@ -441,7 +454,13 @@ public class PropertyUtils {
 				}
 			}
 		}
-
+		// try on a refined NamedElement
+		if(i instanceof RefinableElement)
+		{
+		  RefinableElement re = (RefinableElement) i;
+		  if(re.getRefinedElement()!=null)
+			return getEnumValue(re.getRefinedElement(), propertyName);
+		}
 		throw new Exception("Property " + propertyName + " not found for " + i.getName());
 	}
 
