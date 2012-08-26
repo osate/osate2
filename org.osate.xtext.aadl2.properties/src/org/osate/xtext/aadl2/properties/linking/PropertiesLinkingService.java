@@ -35,6 +35,7 @@
 package org.osate.xtext.aadl2.properties.linking;
 
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,6 +46,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
@@ -165,6 +167,37 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		super();
 	}
 
+	private static ResourceSet standAloneResourceSet=null;
+	
+	public void setStandAloneResourceSet(ResourceSet rs)
+	{
+		standAloneResourceSet=rs;
+	}
+	
+	private NamedElement StandAloneFindEObject(String qualifedName)
+	{
+		final String separator = "::";
+		String[] segments = qualifedName.split(separator);
+		for(Resource r: standAloneResourceSet.getResources())
+		{
+			if(r.getContents().isEmpty())
+				continue;
+			if(r.getContents().get(0) instanceof NamedElement)
+			{	
+				NamedElement ne = (NamedElement) r.getContents().get(0);
+				if(!ne.getName().equalsIgnoreCase(segments[0]))
+					continue;
+				for(int i=1; i<segments.length; i++)
+				{
+					ne = getContainedNamedElement(ne, segments[i]);
+					if(ne==null)
+						break;
+				}
+				if(ne!=null) return ne;
+			}
+		}
+		return null;
+	}
 	
 	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(){
@@ -202,21 +235,26 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		if(false == Platform.isRunning())
 		{
 			psNode.setText(crossRefString);
-			List<EObject> el;
+			EObject res = null;
 			try {
+				List<EObject> el;
 				el = super.getLinkedObjects(context, reference, psNode);
+				res = (el.isEmpty()?null: el.get(0));
+				if (res != null&&res.eIsProxy()){
+					res = EcoreUtil.resolve(res,context);
+					if (res.eIsProxy()) return null;
+				}
 			} catch (Exception e) {
-				return null;
+				//e.printStackTrace();
 			}
-			EObject res = (el.isEmpty()?null: el.get(0));
-			if (res != null&&res.eIsProxy()){
-				res = EcoreUtil.resolve(res,context);
-				if (res.eIsProxy()) return null;
-			}
-			return res;
+			if(res!=null)
+				return res;
+			else
+				return StandAloneFindEObject(crossRefString);
 		}
 		else
 		{
+
 			// XXX phf: lookup in global index without regard to project dependencies
 			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
 			return res;
@@ -230,6 +268,21 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 
 
 	
+	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
+		for(EObject e:r.eContents())
+		{
+			if(e instanceof NamedElement)
+			{
+				NamedElement ne = (NamedElement) e;
+				if(ne.getName().equalsIgnoreCase(segment))
+					return ne;
+			}
+		}
+		return null;
+	}
+	
+
+
 	@Override
 	public String getCrossRefNodeAsString(INode node)
 			throws IllegalNodeException {
