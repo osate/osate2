@@ -786,6 +786,13 @@ public class PropertyUtils {
 				}
 			}
 		}
+		// try on a refined NamedElement
+		if(object instanceof RefinableElement)
+		{
+		  RefinableElement re = (RefinableElement) object;
+		  if(re.getRefinedElement()!=null)
+			res.addAll(getIntListValue((ProcessorSubcomponent)re.getRefinedElement(), propertyName));
+		}
 		return res;
 	}
 
@@ -809,7 +816,7 @@ public class PropertyUtils {
 						for (PropertyExpression pe : lv.getOwnedListElements()) {
 							if (pe instanceof ReferenceValue) {
 								ReferenceValue c = ((ReferenceValue) pe);
-								ContainmentPathElement cpe = c.getContainmentPathElements().get(0);
+								ContainmentPathElement cpe = c.getContainmentPathElements().get(c.getContainmentPathElements().size()-1);
 								res.add((Subcomponent) cpe.getNamedElement());
 							}
 						}
@@ -817,7 +824,13 @@ public class PropertyUtils {
 				}
 			}
 		}
-
+		// try on a refined NamedElement
+		if(object instanceof RefinableElement)
+		{
+		  RefinableElement re = (RefinableElement) object;
+		  if(re.getRefinedElement()!=null)
+			res.addAll(getSubcomponentList((ProcessorSubcomponent)re.getRefinedElement(), propertyName));
+		}
 		return res;
 	}
 	
