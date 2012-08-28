@@ -62,6 +62,14 @@ public interface InstanceObject extends EObject, NamedElement {
 	ComponentInstance getContainingComponentInstance();
 
 	/**
+	 * Get the containing component instance of an instance object, or itself if
+	 * this is a component instance
+	 * 
+	 * @return containing component instance
+	 */
+	ComponentInstance getComponentInstance();
+
+		/**
 	 * find the enclosing SystemInstance
 	 * 
 	 * @return SytstemInstance object

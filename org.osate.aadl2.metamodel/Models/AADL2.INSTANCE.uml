@@ -353,7 +353,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
       <ownedComment xmi:id="_K9iYkFn8Ed-39ebAzHAVCA">
         <body>An instantiated end to end flow.</body>
       </ownedComment>
-      <generalization xmi:id="EndToEndFlowInstance-_generalization.0" general="InstanceObject"/>
+      <generalization xmi:id="_UEWgMO03EeGntauB9Bwgiw" general="FlowElementInstance"/>
       <ownedAttribute xmi:id="EndToEndFlowInstance-flowElementInstance" name="flowElement" type="FlowElementInstance" isOrdered="true" association="_packagedElement.30">
         <ownedComment xmi:id="_ME6QUFn8Ed-39ebAzHAVCA">
           <body>The ordered sequence flow elements in this end to end flow instance.</body>

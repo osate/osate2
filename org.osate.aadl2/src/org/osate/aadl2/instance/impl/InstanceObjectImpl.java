@@ -236,14 +236,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		}
 	}
 
-	/**
-	 * get the containing component instance of an instance object, or itself if
-	 * this is a component instance
-	 * 
-	 * @return containing component instance
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.InstanceObject#getComponentInstance()
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	protected ComponentInstance getContainingComponentInstanceOrSelf() {
+	public ComponentInstance getComponentInstance() {
 		EObject current = this;
 		while (current != null && !(current instanceof ComponentInstance)) {
 			current = current.eContainer();
@@ -260,7 +256,6 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *         elements. Returns an empty list if no named declarative object
 	 *         exists, such as in the case of {@link ModeTransitionInstance}s.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return null;
 	}

@@ -72,7 +72,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class EndToEndFlowInstanceImpl extends InstanceObjectImpl implements EndToEndFlowInstance {
+public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements EndToEndFlowInstance {
 	/**
 	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -116,7 +116,6 @@ public class EndToEndFlowInstanceImpl extends InstanceObjectImpl implements EndT
 	/**
 	 * to temporarily hold the list of modes for each modal component&flow
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	protected EList<EList<ModeInstance>> modesList;
 
 	/**
@@ -321,17 +320,15 @@ public class EndToEndFlowInstanceImpl extends InstanceObjectImpl implements EndT
 		return super.eIsSet(featureID);
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public EList<EList<ModeInstance>> getModesList() {
 		if (modesList == null)
 			modesList = new BasicEList<EList<ModeInstance>>();
 		return modesList;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public final List<SystemOperationMode> getExistsInModes() {
+	public List<SystemOperationMode> getExistsInModes() {
 		// be overly cautious
-		final List<ModeInstance> inModes = getInModes();
+		List<ModeInstance> inModes = getInModes();
 		if (inModes == null || inModes.isEmpty()) {
 			return null;
 		} else {
@@ -339,12 +336,9 @@ public class EndToEndFlowInstanceImpl extends InstanceObjectImpl implements EndT
 			//			/* inModes is a list of ModeInstances.  We want all the SOMs that contain
 			//			 * these mode instances.
 			//			 */
-			final List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
-			final List<SystemOperationMode> SOMs = getSystemInstance().getSystemOperationModes();
-			for (final Iterator<SystemOperationMode> i = SOMs.iterator(); i.hasNext();) {
-				final SystemOperationMode som = i.next();
-				for (final Iterator<ModeInstance> j = som.getCurrentModes().iterator(); j.hasNext();) {
-					final ModeInstance mi = j.next();
+			List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
+			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
+				for (ModeInstance mi : som.getCurrentModes()) {
 					if (inModes.contains(mi)) {
 						processedModes.add(som);
 						break;
@@ -356,7 +350,6 @@ public class EndToEndFlowInstanceImpl extends InstanceObjectImpl implements EndT
 		}
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<EndToEndFlow> getInstantiatedObjects() {
 		return Collections.singletonList(getEndToEndFlow());
 	}

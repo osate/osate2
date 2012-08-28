@@ -57,7 +57,7 @@ import org.osate.aadl2.EndToEndFlow;
  * @model
  * @generated
  */
-public interface EndToEndFlowInstance extends InstanceObject {
+public interface EndToEndFlowInstance extends FlowElementInstance {
 	/**
 	 * Returns the value of the '<em><b>Flow Element</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.instance.FlowElementInstance}.
@@ -132,7 +132,6 @@ public interface EndToEndFlowInstance extends InstanceObject {
 	 */
 	EList<SystemOperationMode> getInSystemOperationModes();
 
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	EList<EList<ModeInstance>> getModesList();
 
 } // EndToEndFlowInstance
