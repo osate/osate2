@@ -434,7 +434,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (res == null){
 				// check about in modes in a contained property association
 				PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(context);
-				if (!pa.getAppliesTos().isEmpty()){
+				if (!Aadl2Util.isNull(pa)&&!pa.getAppliesTos().isEmpty()){
 					ContainedNamedElement path = pa.getAppliesTos().get(0);
 					EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
 					Classifier cpecl = null;
