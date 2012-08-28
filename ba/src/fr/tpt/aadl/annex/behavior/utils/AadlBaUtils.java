@@ -986,28 +986,28 @@ public class AadlBaUtils {
     // Treats only type declared as an array. Otherwise returns.
     if(type.dataRep == DataRepresentation.ARRAY)
     {
+      // Fetches the array element data type.             
+      ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
+
+      if(cv != null && cv.getClassifier() instanceof DataClassifier)
+      {
+        DataClassifier dc = (DataClassifier) cv.getClassifier() ; 
+        type.klass = dc ;
+        type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
+      }
+      else
+      {
+        type.klass = null ;
+      }
+      
       EList<PropertyExpression> pel = 
                                  PropertyUtils.getPropertyExpression(type.klass,
                                                 DataModelProperties.DIMENSION) ;
       int declareDimBT = 0 ;
       long[] declareDimSizeBT ;
-      
+
       if(false == pel.isEmpty())
       {
-         // Fetches the array element data type.             
-         ClassifierValue cv = AadlBaUtils.getBaseType(type.klass) ;
-
-         if(cv != null && cv.getClassifier() instanceof DataClassifier)
-         {
-           DataClassifier dc = (DataClassifier) cv.getClassifier() ; 
-           type.klass = dc ;
-           type.dataRep = AadlBaUtils.getDataRepresentation(dc) ;
-         }
-         else
-         {
-           type.klass = null ;
-         }
-         
          // pel has only one element, according to AADL core standard.
          PropertyExpression pe = pel.get(pel.size() - 1);
          
@@ -1041,8 +1041,14 @@ public class AadlBaUtils {
       }
       else 
       {
-        String msg = "is declared as an array but the dimension property is not set" ;
-        throw new DimensionException(el, msg, true) ;
+        // Returning -1 and null means that the expression is declared as an
+        // array but the dimension property is not set.  
+        
+        type.dimension = -1 ;
+        type.dimension_sizes = null ;
+        return ;
+//        String msg = "is declared as an array but the dimension property is not set" ;
+//        throw new DimensionException(el, msg, true) ;
       }
     }
     else

@@ -1534,14 +1534,7 @@ public class AadlBaTypeChecker
     
     msg.append(de.getMessage());
     
-    if(de.isWarning())
-    {
-      _errManager.warning(de._element, msg.toString()) ;
-    }
-    else
-    {
-      _errManager.error(de._element, msg.toString()) ;
-    }
+    _errManager.error(de._element, msg.toString()) ;
   }
 
  private ValueConstant behaviorPropertyResolver(QualifiedNamedElement qne)
