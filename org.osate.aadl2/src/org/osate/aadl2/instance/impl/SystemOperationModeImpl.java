@@ -216,11 +216,14 @@ public class SystemOperationModeImpl extends ModeImpl implements SystemOperation
 		for (Iterator it = ml.iterator(); it.hasNext();) {
 			final ModeInstance mi = (ModeInstance) it.next();
 			final ComponentInstance ci = (ComponentInstance) mi.eContainer();
-			name.append(ci.getInstanceObjectPath());
-			name.append(".");
+			name.append(ci.getComponentInstancePath());
+			if (name.length() > 0) {
+				name.append(".");
+			}
 			name.append(mi.getName());
-			if (it.hasNext())
-				name.append(",");
+			if (it.hasNext()) {
+				name.append(" # ");
+			}
 		}
 		return name.toString();
 	}

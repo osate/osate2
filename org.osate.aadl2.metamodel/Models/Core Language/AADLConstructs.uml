@@ -2086,12 +2086,14 @@ The context owns the connection end instance.</body>
             <body>Specifies the initial mode of a component.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_QvW4cOvFEeGRG-ZDxoY3dg" value="false"/>
         </ownedAttribute>
         <ownedAttribute xmi:id="Modes-Mode-derived" name="derived">
           <ownedComment xmi:id="Modes-Mode-derived-_ownedComment.0">
             <body>Specifies that this mode is derived from the mode of the parent component.</body>
           </ownedComment>
           <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralString" xmi:id="_TYQNUOvFEeGRG-ZDxoY3dg" value="false"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Modes-ModeTransition" name="ModeTransition">

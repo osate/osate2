@@ -50,6 +50,8 @@ import org.osate.aadl2.Mode;
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#getDstModeTransitions <em>Dst Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#isInitial <em>Initial</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ModeInstance#getMode <em>Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ModeInstance#isDerived <em>Derived</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ModeInstance#getParents <em>Parent</em>}</li>
  * </ul>
  * </p>
  *
@@ -121,7 +123,51 @@ public interface ModeInstance extends InstanceObject {
 	void setMode(Mode value);
 
 	/**
+	 * Returns the value of the '<em><b>Derived</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Derived</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Derived</em>' attribute.
+	 * @see #setDerived(boolean)
+	 * @see org.osate.aadl2.instance.InstancePackage#getModeInstance_Derived()
+	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isDerived();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.ModeInstance#isDerived <em>Derived</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Derived</em>' attribute.
+	 * @see #isDerived()
+	 * @generated
+	 */
+	void setDerived(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Parent</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ModeInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Parent</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Parent</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getModeInstance_Parent()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	EList<ModeInstance> getParents();
+
+	/**
 	 * Returns the value of the '<em><b>Initial</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Initial</em>' attribute isn't clear,
@@ -131,7 +177,7 @@ public interface ModeInstance extends InstanceObject {
 	 * @return the value of the '<em>Initial</em>' attribute.
 	 * @see #setInitial(boolean)
 	 * @see org.osate.aadl2.instance.InstancePackage#getModeInstance_Initial()
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isInitial();

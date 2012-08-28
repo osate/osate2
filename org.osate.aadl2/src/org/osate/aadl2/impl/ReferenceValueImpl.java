@@ -35,7 +35,7 @@
  */
 package org.osate.aadl2.impl;
 
-import java.util.Collection;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
@@ -80,13 +80,13 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	}
 
 	public PropertyExpression instantiate(ComponentInstance root) throws InvalidModelException {
-		final Collection<? extends InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
+		List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
 			throw new InvalidModelException(this, "Reference does not refer to an instance object");
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one instance object");
 		} else {
-			final InstanceObject io = iol.iterator().next();
+			final InstanceObject io = iol.get(0);
 			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
 			irv.setReferencedInstanceObject(io);
 			return irv;
@@ -94,13 +94,13 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 	}
 
 	public PropertyExpression instantiate(FeatureInstance root) throws InvalidModelException {
-		final Collection<? extends InstanceObject> iol = root.findFeatureInstances(getContainmentPathElements());
+		final List<InstanceObject> iol = root.findInstanceObjects(getContainmentPathElements());
 		if (iol.size() == 0) {
 			throw new InvalidModelException(this, "Reference does not refer to a nested feature");
 		} else if (iol.size() > 1) {
 			throw new InvalidModelException(this, "Reference refers to more than one feature");
 		} else {
-			final InstanceObject io = iol.iterator().next();
+			final InstanceObject io = iol.get(0);
 			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
 			irv.setReferencedInstanceObject(io);
 			return irv;

@@ -40,6 +40,7 @@ package org.osate.aadl2.instantiation;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
@@ -67,6 +68,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
+import org.osate.aadl2.properties.InvalidModelException;
 
 /**
  * TODO: Add comment
@@ -82,8 +84,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 */
 	private SCProperties scProps;
 
-	CacheContainedPropertyAssociationsSwitch(final HashMap<InstanceObject, InstantiatedClassifier> classifierCache, SCProperties scProps,
-			final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
+	CacheContainedPropertyAssociationsSwitch(final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			SCProperties scProps, final IProgressMonitor pm, final AnalysisErrorReporterManager errManager) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		this.classifierCache = classifierCache;
 		this.scProps = scProps;
@@ -187,8 +189,6 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	 * @param ci
 	 * @param propertyAssociations
 	 */
-	// TODO: LW applies to arrays
-	// TODO: LW connections
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
@@ -201,33 +201,34 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
-					final Collection<? extends InstanceObject> ios = ci.findInstanceObjects(cpes);
+					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
 
-					if (!ios.isEmpty()) {
-						for (InstanceObject io : ios) {
-							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+					for (InstanceObject io : ios) {
+						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
-							newPA.setProperty(prop);
-							newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
+						newPA.setProperty(prop);
+						newPA.getOwnedValues().addAll(EcoreUtil.copyAll(pa.getOwnedValues()));
 
-							// replace reference values in the context of the contained PA's owner
-							for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
-									.hasNext();) {
-								Element elem = content.next();
+						// replace reference values in the context of the contained PA's owner
+						for (Iterator<Element> content = EcoreUtil.getAllProperContents(newPA, false); content
+								.hasNext();) {
+							Element elem = content.next();
 
-								if (elem instanceof ReferenceValue) {
-									// TODO: LW what if ref to connection?
+							if (elem instanceof ReferenceValue) {
+								try {
 									PropertyExpression irv = ((ReferenceValue) elem).instantiate(ci);
 									EcoreUtil.replace(elem, irv);
+								} catch (InvalidModelException e) {
+									error(io, e.getMessage());
 								}
 							}
+						}
 
-							if (last instanceof Connection) {
-								scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
-							} else {
-								io.removePropertyAssociations(prop);
-								io.getOwnedPropertyAssociations().add(newPA);
-							}
+						if (last instanceof Connection) {
+							scProps.recordSCProperty((ConnectionInstance) io, prop, (Connection) last, newPA);
+						} else {
+							io.removePropertyAssociations(prop);
+							io.getOwnedPropertyAssociations().add(newPA);
 						}
 					}
 				}
@@ -238,5 +239,4 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			}
 		}
 	}
-
 }

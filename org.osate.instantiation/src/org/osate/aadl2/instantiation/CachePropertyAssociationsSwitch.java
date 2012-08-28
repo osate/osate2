@@ -43,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ListValue;
@@ -139,7 +138,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected void cachePropertyAssociations(InstanceObject io) {
 		for (Property property : propertyFilter) {
-			// TODO high: implement acceptance test
 			if (io.acceptsProperty(property)) {
 				/*
 				 * Just look up the property. The property doesn't yet have a
@@ -173,9 +171,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected void cacheConnectionPropertyAssociations(ConnectionInstance conni) {
 		for (Property prop : propertyFilter) {
-			for (ConnectionReference connRef : conni.getConnectionReferences()) {
-				boolean unset = true;
+			PropertyAssociation setPA = null;
 
+			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				// acceptance test of connref tests connection itself
 				if (connRef.acceptsProperty(prop)) {
 					/*
@@ -195,9 +193,18 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							fillPropertyValue(connRef, newPA, value);
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
-							if (unset) {
+							if (setPA == null) {
 								conni.getOwnedPropertyAssociations().add(newPA);
-								unset = false;
+								setPA = newPA;
+							} else {
+								// check consistency
+								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
+									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
+										error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+												+ " not consistent along connection");
+										break;
+									}
+								}
 							}
 						}
 					} catch (IllegalStateException e) {
@@ -240,14 +247,36 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				pa.getOwnedValues().add(newVal);
 			} else {
 				List<Mode> modes = proxy.getModes();
+
 				for (Mode mode : modes) {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						for (ModeInstance mi : getComponentInstance(io).getModeInstances()) {
-							if (mi.getMode() == mode) {
-								inSOMs.addAll(mode2som.get(mi));
-								break;
+
+						if (io instanceof ConnectionReference) {
+							List<SystemOperationMode> conniModes = ((ConnectionInstance) io.eContainer())
+									.getInSystemOperationModes();
+							List<ModeInstance> holderModes = ((ConnectionReference) io).getContext().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									for (SystemOperationMode som : conniModes) {
+										if (som.getCurrentModes().contains(mi)) {
+											inSOMs.add(som);
+										}
+									}
+									break;
+								}
+							}
+						} else {
+							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
+									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									inSOMs.addAll(mode2som.get(mi));
+									break;
+								}
 							}
 						}
 					}
@@ -262,15 +291,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 		}
-	}
-
-	protected ComponentInstance getComponentInstance(InstanceObject io) {
-		EObject current = io;
-
-		while (current != null && !(current instanceof ComponentInstance)) {
-			current = current.eContainer();
-		}
-		return (ComponentInstance) current;
 	}
 
 }
