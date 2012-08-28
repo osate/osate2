@@ -987,7 +987,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		componentInstanceEClass.getESuperTypes().add(this.getConnectionInstanceEnd());
 		componentInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
 		flowSpecificationInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
-		endToEndFlowInstanceEClass.getESuperTypes().add(this.getInstanceObject());
+		endToEndFlowInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
 		systemInstanceEClass.getESuperTypes().add(this.getComponentInstance());
 		instanceReferenceValueEClass.getESuperTypes().add(theAadl2Package.getPropertyValue());
 
