@@ -856,7 +856,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	}
 
 	public boolean isActive(SystemOperationMode som) {
-		if (getInSystemOperationModes().contains(som)) {
+		if (getInSystemOperationModes().isEmpty() || getInSystemOperationModes().contains(som)) {
 			return getContainingComponentInstance().isActive(som);
 		}
 		return false;

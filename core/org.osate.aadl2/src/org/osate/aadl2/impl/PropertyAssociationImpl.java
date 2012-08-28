@@ -51,8 +51,10 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ModalPropertyValue;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
@@ -496,6 +498,26 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 			result.add(mpv.evaluate(ctx));
 		}
 		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.PropertyAssociation#valueInMode(org.osate.aadl2.Mode)
+	 */
+	@Override
+	public PropertyExpression valueInMode(Mode mode) {
+		PropertyExpression def = null;
+		for (ModalPropertyValue mpv : getOwnedValues()) {
+			if (mpv.getInModes().isEmpty()) {
+				def = mpv.getOwnedValue();
+			} else {
+				for (Mode m : mpv.getInModes()) {
+					if (m == mode) {
+						return mpv.getOwnedValue();
+					}
+				}
+			}
+		}
+		return def;
 	}
 
 } //PropertyAssociationImpl

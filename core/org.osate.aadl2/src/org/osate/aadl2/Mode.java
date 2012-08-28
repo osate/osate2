@@ -55,6 +55,7 @@ package org.osate.aadl2;
 public interface Mode extends ModeFeature {
 	/**
 	 * Returns the value of the '<em><b>Initial</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Initial</em>' attribute isn't clear,
@@ -64,7 +65,7 @@ public interface Mode extends ModeFeature {
 	 * @return the value of the '<em>Initial</em>' attribute.
 	 * @see #setInitial(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getMode_Initial()
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isInitial();
@@ -81,6 +82,7 @@ public interface Mode extends ModeFeature {
 
 	/**
 	 * Returns the value of the '<em><b>Derived</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Derived</em>' attribute isn't clear,
@@ -90,7 +92,7 @@ public interface Mode extends ModeFeature {
 	 * @return the value of the '<em>Derived</em>' attribute.
 	 * @see #setDerived(boolean)
 	 * @see org.osate.aadl2.Aadl2Package#getMode_Derived()
-	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @model default="false" dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
 	 * @generated
 	 */
 	boolean isDerived();

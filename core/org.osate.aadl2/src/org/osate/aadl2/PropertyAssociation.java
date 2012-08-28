@@ -232,4 +232,6 @@ public interface PropertyAssociation extends Element {
 	 */
 	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
 
+	PropertyExpression valueInMode(Mode mode);
+
 } // PropertyAssociation

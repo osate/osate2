@@ -40,6 +40,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -53,13 +54,13 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -739,7 +740,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param mt mode transition whose instance is to be found
 	 * @return mode transition with the specified mode transition, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public ModeTransitionInstance findModeTransitionInstance(ModeTransition mt) {
 		EList<ModeTransitionInstance> subcil = getModeTransitionInstances();
 		for (Iterator<ModeTransitionInstance> it = subcil.iterator(); it.hasNext();) {
@@ -755,7 +755,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param mode mode whose instance is to be found
 	 * @return mode instance with the specified mode, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public ModeInstance findModeInstance(Mode mode) {
 		EList<ModeInstance> subcil = getModeInstances();
 		if (subcil == null)
@@ -773,7 +772,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param sc subcomponent
 	 * @return component instance with the specified subcomponent, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public ComponentInstance findSubcomponentInstance(Subcomponent sc) {
 		if (sc == null)
 			return null;
@@ -793,7 +791,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param feature feature whose instance is to be found
 	 * @return feature instance with the specified feature, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public FeatureInstance findFeatureInstance(Feature feature) {
 		if (feature == null)
 			return null;
@@ -812,7 +809,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * an element of {@link #getModeInstances()}, but this is not currently
 	 * checked.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public void setCurrentMode(ModeInstance newMode) {
 		currentMode = newMode;
 	}
@@ -822,7 +818,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param flowspec flowspec whose instance is to be found
 	 * @return flowspec instance with the specified flowspec, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public FlowSpecificationInstance findFlowSpecInstance(FlowSpecification flowspec) {
 		if (flowspec == null)
 			return null;
@@ -835,7 +830,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return null;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<SystemOperationMode> getExistsInModes() {
 		final List<ModeInstance> inModes = getInModes();
 
@@ -854,58 +848,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				}
 			}
 			return processedModes;
-		}
-	}
-
-	/**
-	 * Get all instance objects that fit a given path.
-	 */
-	// TODO: LW find all flows
-	// TODO: LW array elements
-	public Collection<? extends InstanceObject> findInstanceObjects(final EList<ContainmentPathElement> referencePath) {
-		if (referencePath.isEmpty()) {
-			return Collections.singleton(this);
-		}
-
-		InstanceObject io = this;
-		EList<ConnectionInstance> clist = null;
-
-		for (Iterator<ContainmentPathElement> pathIter = referencePath.iterator(); pathIter.hasNext();) {
-			NamedElement ne = pathIter.next().getNamedElement();
-
-			// TODO: remove temporary workaround
-			if (ne == this.subcomponent) {
-				continue;
-			} else
-
-			if (ne instanceof Subcomponent) {
-				io = ((ComponentInstance) io).findSubcomponentInstance((Subcomponent) ne);
-			} else if (ne instanceof Feature) {
-				io = ((ComponentInstance) io).findFeatureInstance((Feature) ne);
-				while ((io != null) && (ne instanceof FeatureGroup) && pathIter.hasNext()) {
-					// we may point to a port in a feature group
-					ne = pathIter.next().getNamedElement();
-					if (ne instanceof Feature) {
-						io = ((FeatureInstance) io).findFeatureInstance((Feature) ne);
-					}
-				}
-			} else if (ne instanceof Mode) {
-				io = ((ComponentInstance) io).findModeInstance((Mode) ne);
-			} else if (ne instanceof Connection) {
-				clist = ((ComponentInstance) io).findConnectionInstance((Connection) ne);
-			} else if (ne instanceof FlowSpecification) {
-				io = ((ComponentInstance) io).findFlowSpecInstance((FlowSpecification) ne);
-			} else if (ne instanceof EndToEndFlow) {
-				io = ((ComponentInstance) io).findEndToEndFlowInstance((EndToEndFlow) ne);
-			}
-			if (io == null) {
-				return Collections.emptyList();
-			}
-		}
-		if (clist != null) {
-			return clist;
-		} else {
-			return Collections.singleton(io);
 		}
 	}
 
@@ -934,7 +876,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param ete endtoendflow whose instance is to be found
 	 * @return endtoendflow instance with the specified endtoendflow, or null
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	public EndToEndFlowInstance findEndToEndFlowInstance(EndToEndFlow ete) {
 		if (ete == null)
 			return null;
@@ -953,7 +894,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param secondconn Connection
 	 * @return boolean true if same or refined
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	private static boolean isSameOrRefined(Connection firstconn, Connection secondconn) {
 		if (firstconn == secondconn)
 			return true;
@@ -974,7 +914,6 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return false;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getSubcomponent());
 	}
@@ -1028,4 +967,50 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		}
 		return getName() + array;
 	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
+	 */
+	@Override
+	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
+		boolean result = super.findInstanceObjectsHelper(pathIter, ios);
+
+		if (!result && pathIter.hasNext()) {
+			// add connections
+			ContainmentPathElement cpe = pathIter.next();
+			NamedElement ne = cpe.getNamedElement();
+
+			if (ne instanceof Connection) {
+				ios.addAll(findConnectionInstance((Connection) ne));
+			}
+			pathIter.previous();
+		}
+
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.osate.aadl2.instance.InstanceObject#matchesIndex(java.util.List)
+	 */
+	@Override
+	public boolean matchesIndex(List<ArrayRange> ranges) {
+		if (ranges.size() == 0) {
+			return true;
+		}
+		if (ranges.size() == indices.size()) {
+			int i = 0;
+			for (ArrayRange r : ranges) {
+				if (r.getLowerBound() > 0 || r.getUpperBound() > 0) {
+					if (indices.get(i) < (r.getLowerBound() > 0 ? r.getLowerBound() : r.getUpperBound())
+							|| indices.get(i) > (r.getUpperBound() > 0 ? r.getUpperBound() : r.getLowerBound())) {
+						return false;
+					}
+				}
+				i++;
+			}
+			return true;
+		}
+		return false;
+	}
+
 } //ComponentInstanceImpl

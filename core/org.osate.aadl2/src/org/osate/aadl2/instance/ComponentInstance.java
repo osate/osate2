@@ -35,14 +35,11 @@
  */
 package org.osate.aadl2.instance;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
@@ -414,22 +411,6 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 */
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	FlowSpecificationInstance findFlowSpecInstance(FlowSpecification flowspec);
-
-	/**
-	 * Find the instance object based on the referencePath relative to this
-	 * component instance.
-	 * 
-	 * <p>This method is sensitive to the current system operation mode
-	 * of the containing system instance.  The object is only returned
-	 * if it exists in the current som.
-	 * 
-	 * @param referencePath
-	 * 			  sequence of pointers into the declarative model to
-	 * 			  subcomponents, features, etc.
-	 * @return InstanceObject collection
-	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
-	Collection<? extends InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
 
 	/**
 	 * Find the semantic connection instances that pass through this component instance

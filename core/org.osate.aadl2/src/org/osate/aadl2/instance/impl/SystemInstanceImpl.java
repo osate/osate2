@@ -63,7 +63,6 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionKind;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -109,8 +108,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * 
 	 * @see #setCurrentSystemOperationMode
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
-	// work.
 	private SystemOperationMode currentSOM = null;
 
 	/**
@@ -287,15 +284,13 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
-		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
-			final SystemOperationMode som = i.next();
+		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis))
 				output.add(som);
 		}
 		return Collections.unmodifiableList(output);
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
 		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
@@ -306,7 +301,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		currentSOM = som;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public SystemOperationMode getCurrentSystemOperationMode() {
 		return currentSOM;
 	}
@@ -315,7 +309,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * Clear the mode states for a given SystemInstance. That is, the modal
 	 * adapters for the model all have their modes set to <code>null</code>.
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	public void clearCurrentSystemOperationMode() {
 		/*
 		 * Just walk the whole tree and clear the modes of all the components.
@@ -397,7 +390,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param ffi The feature instance involved in the flow
 	 * @return true if connection goes through the ffi
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	private boolean leadsOutof(ConnectionInstance conni, FeatureInstance cfi, FeatureInstance ffi) {
 		if (cfi == ffi)
 			return true;
@@ -411,7 +403,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return false;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public final List<SystemOperationMode> getExistsInModes() {
 		// System always exists
 		return null;
@@ -423,7 +414,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mi Mode Instance
 	 * @return List of SOM that contains the mode instance
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
@@ -434,7 +424,6 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		return Collections.unmodifiableList(output);
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public final List<SystemImplementation> getInstantiatedObjects() {
 		return Collections.singletonList(getSystemImplementation());
 	}
@@ -462,17 +451,17 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	@Override
 	public Iterable<ConnectionInstance> allConnectionInstances() {
 		final TreeIterator iter = EcoreUtil.getAllContents(this, true);
-		
+
 		return new Iterable<ConnectionInstance>() {
 
 			@Override
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
 					ConnectionInstance next;
-					
+
 					private boolean advance() {
 						boolean found = false;
-						
+
 						next = null;
 						while (iter.hasNext()) {
 							Object obj = iter.next();
@@ -484,7 +473,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 						}
 						return found;
 					}
-					
+
 					@Override
 					public boolean hasNext() {
 						return next != null || advance();
@@ -495,7 +484,7 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 						if (next == null && !advance()) {
 							throw new NoSuchElementException();
 						}
-						ConnectionInstance result =  next;
+						ConnectionInstance result = next;
 						next = null;
 						return result;
 					}
@@ -506,20 +495,18 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 					}
 				};
 			}
-			
+
 		};
 	}
 
 	@Override
 	public EList<ConnectionInstance> getAllConnectionInstances() {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
-		
-		for(ConnectionInstance conni : allConnectionInstances()) {
+
+		for (ConnectionInstance conni : allConnectionInstances()) {
 			result.add(conni);
 		}
 		return result;
 	}
 
-
-	
 } // SystemInstanceImpl

@@ -55,7 +55,8 @@ import org.osate.annexsupport.AnnexSource;
 import org.osate.annexsupport.AnnexUtil;
 
 public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightingCalculator {
-	
+	private final String ANNEXTEXTKEYWORD = "annex";
+	private final String SEMICOLONKEYWORD = ";";
 	@Override
 	public void provideHighlightingFor(XtextResource resource, final IHighlightedPositionAcceptor acceptor) {
 		if (resource == null) return;
@@ -66,14 +67,16 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 				AnnexHighlighterPositionAcceptor annexAcceptor = createAcceptor(subclause, acceptor);
 
 				if(annexAcceptor != null) {
-					AnnexParseResult apr = AnnexUtil.getAnnexParseResult(subclause);
-					if (apr != null){
-						addHighlight(apr, annexAcceptor);
-					} else {
-						AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
-						if(highlighter != null)	{
-							highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
-						}
+					AnnexHighlighter highlighter = registry.getAnnexHighlighter(subclause.getName());
+					if(highlighter != null)    {
+					    highlighter.highlightAnnexSubclause(subclause, annexAcceptor);
+					}
+					else
+					{
+					    AnnexParseResult apr = AnnexUtil.getAnnexParseResult(subclause);
+					    if (apr != null){
+					        addHighlight(apr, annexAcceptor);
+					    }
 					}
 				}
 			}
@@ -149,10 +152,18 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		INode root = parseResult.getRootNode();
 		for (INode node : root.getAsTreeIterable()) {
 			EObject ge = node.getGrammarElement();
-			if (ge instanceof Keyword) {
+			if (ge instanceof Keyword)
+			{
+				String keywordValue = ((Keyword) ge).getValue();
+				int offset = node.getOffset()-annexParseResult.getAnnexOffset();
+				if(offset < 0 && keywordValue.equalsIgnoreCase(ANNEXTEXTKEYWORD))
+					continue;
+				int annexLength = getAnnexSource(parseResult.getRootASTElement()).getSourceText().length();
+				if(offset > annexLength && keywordValue.equalsIgnoreCase(SEMICOLONKEYWORD))
+					continue;
 				// adjust for added whitespace in front of annex text
-				acceptor.addPosition(node.getOffset()-annexParseResult.getAnnexOffset(), node.getLength(), 
-						AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+				acceptor.addPosition(offset, node.getLength(), 
+							AnnexHighlighterPositionAcceptor.KEYWORD_ID);
 			} else if (ge instanceof TerminalRule) {
 				if (((TerminalRule)ge).getName().equalsIgnoreCase("SL_COMMENT")){
 					// adjust for added whitespace in front of annex text
