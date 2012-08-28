@@ -577,12 +577,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
 		ICompositeNode n = NodeModelUtils.getNode(flow);
 		INode lln = getLastLeaf(n);
-		String outFeatureName = lln.getText().replaceAll(" ","");
+		String outFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		lln = getPreviousNode(lln);
 		String outContextName = null;
-		if (lln.getText().replaceAll(" ","").equals(".")) {
+		if (lln != null && lln.getText().replaceAll(" ","").replaceAll("\t","").equals(".")) {
 			lln = getPreviousNode(lln);
-			outContextName = lln.getText().replaceAll(" ","");
+			outContextName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
@@ -613,13 +613,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode)
 			lln = lln.getNextSibling();
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
-		String inFeatureName = lln.getText().replaceAll(" ","");
-		lln = getNextNode(lln);
+		String inFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		String inContextName = null;
-		if (lln.getText().replaceAll(" ","").equals(".")) {
-			lln = getNextNode(lln);
-			inContextName = inFeatureName;
-			inFeatureName = lln.getText().replaceAll(" ","");
+		int idx = inFeatureName.indexOf(".");
+		if (idx >= 0) {
+			inContextName = inFeatureName.substring(0, idx);
+			inFeatureName = inFeatureName.substring(idx+1, inFeatureName.length());
 		}
 		Context specContext = flow.getSpecification().getAllInEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
