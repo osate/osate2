@@ -190,6 +190,10 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	protected  double doETEF(final EndToEndFlowInstance etef){
+		return doETEF(etef, 0.0);
+	}
+
+		protected  double doETEF(final EndToEndFlowInstance etef, double incomingAdditiveLatency){
 		final EList<FlowElementInstance> fel = etef.getFlowElements();
 		if (fel.isEmpty()) return 0;
 		
@@ -204,7 +208,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 		// The actual latency along the flow so far
 		double totalLatency = 0; 
 		// The amount of latency in a processing chain since the last sampling point
-		double additiveLatency = 0; 
+		double additiveLatency = incomingAdditiveLatency; 
 		// remember period of immediate predecessor that samples (periodic)
 		// used to determine whether we have harmonic threads talking to each other.
 		double previousSamplingPeriod = 0;
@@ -274,7 +278,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 					log("flow connection "+conn.getName()+": additive latency: "+additiveLatency+ " added connection latency: "+conlat);
 					logLatency("ETEF ", etef.getName(),"Connection",conn.getName(),totalLatency+additiveLatency,additiveLatency,0.0,0.0,0.0,getConnectionLatency(conn),myLatencyETE);
 				}
-			} else {
+			} else if (fe instanceof FlowSpecificationInstance){
 				// we are dealing with a component flow spec
 				fefs = (FlowSpecificationInstance)fe;
 				boolean previousPeriodic = ci==null?false:
@@ -416,6 +420,11 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				previouslyAddedDeadline = delayToAdd;
 				log("flow spec "+fefs.getName()+": total latency: "+totalLatency+" additive latency: "+additiveLatency+" including delay to add: "+delayToAdd);
 				logLatency("ETEF ", etef.getName(),"Subcomponent",ci.getName()+":"+fefs.getName(),totalLatency+additiveLatency,additiveLatency,fsLatency,samplingLatency,savedPartitionLatency,GetProperties.getDeadlineinMS(ci),myLatencyETE);
+			} else if (fe instanceof EndToEndFlowInstance){
+				// process recursively
+				double eteflatency = doETEF((EndToEndFlowInstance)fe);
+				// TODO walk the etef recursively, pass in the existing additive latency
+				additiveLatency = additiveLatency + doETEF((EndToEndFlowInstance)fe);
 			}
 		}
 		
