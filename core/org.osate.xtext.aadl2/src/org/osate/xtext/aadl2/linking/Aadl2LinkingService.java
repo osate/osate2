@@ -514,7 +514,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getModeFeature() == requiredType) {
-			// referenced by mode transition and inmodes
+			// referenced by inmodes in connections and flows
 			EObject searchResult = AadlUtil.getContainingClassifier(context)
 					.findNamedElement(name);
 			if (searchResult != null && searchResult instanceof ModeFeature) {
