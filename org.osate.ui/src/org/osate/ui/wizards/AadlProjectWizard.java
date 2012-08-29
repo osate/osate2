@@ -419,7 +419,7 @@ public class AadlProjectWizard extends BasicNewResourceWizard implements IExecut
 						try {
 							if( project.isOpen() )
 							{
-								if (project.hasNature(AadlNature.ID)) {
+								if (project.hasNature(XtextProjectHelper.NATURE_ID)) {
 									projectsWithNatures.add(project);
 								}
 							}
