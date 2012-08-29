@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,6 +58,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
@@ -395,74 +397,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkExtendCycles(cl);
 	}
 
-//	
-//	@Check(CheckType.FAST)
-//	public void caseClassifier(Classifier pack){
-//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesClassifier(pack)){
-//			error(pack,"Duplicate classifiers "+ pack.getName());
-//		}
-//	}
-
-//	@Check(CheckType.FAST)
-//	public void caseAadlPackageSection(PackageSection ps) {
-//		checkPropertyAssocs(ps);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseMode(Mode m) {
-//		checkPropertyAssocs(m);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseComponentClassifier(ComponentClassifier cc) {
-//		checkPropertyAssocs(cc);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseThreadSubcomponent(ThreadSubcomponent ts) {
-//		checkPropertyAssocs(ts);
-//	}
-//
-//	// public void caseFeatureGroupType(FeatureGroupType f){
-//	// checkPropertyAssocs(f);
-//	// }
-//	// public void caseConnection(Connection conn) {
-//	// checkPropertyAssocs(conn);
-//	// }
-
-//
-//	/**
-//	 * Check that PropertyReference elements that are referenced in boolean
-//	 * expressions have boolean type.
-//	 */
-//	@Check(CheckType.FAST)
-//	public void casePropertyReference(PropertyReference bopr) {
-//		checkPropertyReference(bopr);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void casePropertyConstant(PropertyConstant pc) {
-//		checkPropertyConstant(pc);
-//	}
-
-//
-//	@Check(CheckType.FAST)
-//	public void caseFlowSpec(FlowSpecification fs) {
-//		checkPropertyAssocs(fs);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseFlowSequence(FlowSequence fs) {
-//		checkPropertyAssocs(fs);
-//	}
-//
-//	/**
-//	 * check property definition
-//	 */
-//	@Check(CheckType.FAST)
-//	public void caseProperty(Property pd) {
-//		checkProperty(pd);
-//	}
 
 	@Check(CheckType.FAST)
 	public void caseUnitsType(final UnitsType ut) {
@@ -3543,15 +3477,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public boolean hasDuplicatesAadlPackage(EObject context) {
 		String crossRefString = ((NamedElement) context).getName();
+		if (crossRefString == null) return false;
 		int count = 0;
-		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
-		for (IEObjectDescription ieObjectDescription : plist) {
-			String s = ieObjectDescription.getQualifiedName().toString();
-			if (crossRefString.equalsIgnoreCase(s)) {
-				count++;
+		Iterable<IEObjectDescription> el = PropertiesLinkingService.getPropertiesLinkingService().getIndexedObjects(context, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), crossRefString);
+		Iterator<IEObjectDescription> it = el.iterator();
+		if (it.hasNext()){
+			IEObjectDescription ed = it.next();
+			if (it.hasNext()){
+				ed = it.next();
+				return true;
 			}
 		}
-		return count > 1;
+		return false;
+//		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
+//		for (IEObjectDescription ieObjectDescription : plist) {
+//			String s = ieObjectDescription.getQualifiedName().toString();
+//			if (crossRefString.equalsIgnoreCase(s)) {
+//				count++;
+//			}
+//		}
+//		return count > 1;
 	}
 
 	public boolean hasExtendCycles(Classifier cl) {
