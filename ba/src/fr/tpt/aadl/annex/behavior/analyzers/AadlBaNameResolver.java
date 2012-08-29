@@ -1357,9 +1357,11 @@ public class AadlBaNameResolver
 	                                                         ns, reference);
 	        if(ne==null)
 	        {
-	              PropertySet ps = pls.findPropertySet(ns, packageName);
-	              if(ps!=null)
-	                ne = ps.findNamedElement(qne.getBaName().getId());
+	              PropertySet ps = null;
+	              if(packageName!=null)
+	                ps = pls.findPropertySet(ns, packageName);
+	                if(ps!=null)
+	                  ne = ps.findNamedElement(qne.getBaName().getId());
 	        }
 	      }
 
