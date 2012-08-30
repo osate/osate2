@@ -231,7 +231,7 @@ public interface PropertyAssociation extends Element {
 	 * @return copies of the owned modal property values.
 	 */
 	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
-	
+
 	PropertyExpression valueInMode(Mode mode);
 
 } // PropertyAssociation

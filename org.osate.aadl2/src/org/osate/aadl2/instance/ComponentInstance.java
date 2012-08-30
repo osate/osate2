@@ -35,14 +35,11 @@
  */
 package org.osate.aadl2.instance;
 
-import java.util.Collection;
-
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;

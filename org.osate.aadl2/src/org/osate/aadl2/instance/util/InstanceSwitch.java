@@ -16,6 +16,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -249,6 +250,8 @@ public class InstanceSwitch<T> extends Switch<T> {
 		case InstancePackage.END_TO_END_FLOW_INSTANCE: {
 			EndToEndFlowInstance endToEndFlowInstance = (EndToEndFlowInstance) theEObject;
 			T result = caseEndToEndFlowInstance(endToEndFlowInstance);
+			if (result == null)
+				result = caseFlowElementInstance(endToEndFlowInstance);
 			if (result == null)
 				result = caseInstanceObject(endToEndFlowInstance);
 			if (result == null)

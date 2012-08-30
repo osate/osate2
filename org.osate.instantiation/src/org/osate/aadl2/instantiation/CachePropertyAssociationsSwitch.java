@@ -43,7 +43,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ListValue;
@@ -60,12 +59,12 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
-import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.InvalidModelException;
 
 /**
@@ -201,7 +200,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
-										error(conni, "Value for property " + setPA.getProperty().getQualifiedName() + " not consistent along connection");
+										error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+												+ " not consistent along connection");
 										break;
 									}
 								}
@@ -247,14 +247,36 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				pa.getOwnedValues().add(newVal);
 			} else {
 				List<Mode> modes = proxy.getModes();
+
 				for (Mode mode : modes) {
 					if (mode instanceof SystemOperationMode) {
 						inSOMs.add((SystemOperationMode) mode);
 					} else {
-						for (ModeInstance mi : io.getContainingComponentInstance().getModeInstances()) {
-							if (mi.getMode() == mode) {
-								inSOMs.addAll(mode2som.get(mi));
-								break;
+
+						if (io instanceof ConnectionReference) {
+							List<SystemOperationMode> conniModes = ((ConnectionInstance) io.eContainer())
+									.getInSystemOperationModes();
+							List<ModeInstance> holderModes = ((ConnectionReference) io).getContext().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									for (SystemOperationMode som : conniModes) {
+										if (som.getCurrentModes().contains(mi)) {
+											inSOMs.add(som);
+										}
+									}
+									break;
+								}
+							}
+						} else {
+							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
+									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
+
+							for (ModeInstance mi : holderModes) {
+								if (mi.getMode() == mode) {
+									inSOMs.addAll(mode2som.get(mi));
+									break;
+								}
 							}
 						}
 					}

@@ -454,7 +454,7 @@
             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
                commandId="org.osate.xtext.aadl2.ui.predeclaredproperties"
-               label="Create/update Predeclared Properties"
+               label="Create/update Predeclared and Annex Properties"
                style="push">
          </command>
       </menuContribution>
@@ -463,7 +463,7 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.xtext.aadl2.ui.predeclaredproperties"
-            name="Create/update Predeclared Properties project">
+            name="Create/update Predeclared and Annex Properties project">
       </command>
    </extension>
    	<extension

@@ -493,6 +493,24 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getModeInstance_Derived() {
+		return (EAttribute) modeInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getModeInstance_Parent() {
+		return (EReference) modeInstanceEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EAttribute getModeInstance_Initial() {
 		return (EAttribute) modeInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -875,6 +893,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEReference(modeInstanceEClass, MODE_INSTANCE__DST_MODE_TRANSITION);
 		createEAttribute(modeInstanceEClass, MODE_INSTANCE__INITIAL);
 		createEReference(modeInstanceEClass, MODE_INSTANCE__MODE);
+		createEAttribute(modeInstanceEClass, MODE_INSTANCE__DERIVED);
+		createEReference(modeInstanceEClass, MODE_INSTANCE__PARENT);
 
 		modeTransitionInstanceEClass = createEClass(MODE_TRANSITION_INSTANCE);
 		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__DESTINATION);
@@ -967,7 +987,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		componentInstanceEClass.getESuperTypes().add(this.getConnectionInstanceEnd());
 		componentInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
 		flowSpecificationInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
-		endToEndFlowInstanceEClass.getESuperTypes().add(this.getInstanceObject());
+		endToEndFlowInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
 		systemInstanceEClass.getESuperTypes().add(this.getComponentInstance());
 		instanceReferenceValueEClass.getESuperTypes().add(theAadl2Package.getPropertyValue());
 
@@ -1085,12 +1105,21 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEAttribute(
 				getModeInstance_Initial(),
 				theAadl2Package.getBoolean(),
-				"initial", null, 1, 1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"initial", "false", 1, 1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
 		initEReference(
 				getModeInstance_Mode(),
 				theAadl2Package.getMode(),
 				null,
 				"mode", null, 1, 1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+		initEAttribute(
+				getModeInstance_Derived(),
+				theAadl2Package.getBoolean(),
+				"derived", "false", 1, 1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$ //$NON-NLS-2$
+		initEReference(
+				getModeInstance_Parent(),
+				this.getModeInstance(),
+				null,
+				"parent", null, 0, -1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(modeTransitionInstanceEClass, ModeTransitionInstance.class,
 				"ModeTransitionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$

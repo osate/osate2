@@ -764,13 +764,31 @@ public interface InstancePackage extends EPackage {
 	int MODE_INSTANCE__MODE = INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Derived</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_INSTANCE__DERIVED = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Parent</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int MODE_INSTANCE__PARENT = INSTANCE_OBJECT_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Mode Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int MODE_INSTANCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int MODE_INSTANCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 6;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.ModeTransitionInstanceImpl <em>Mode Transition Instance</em>}' class.
@@ -1252,7 +1270,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__OWNED_ELEMENT = INSTANCE_OBJECT__OWNED_ELEMENT;
+	int END_TO_END_FLOW_INSTANCE__OWNED_ELEMENT = FLOW_ELEMENT_INSTANCE__OWNED_ELEMENT;
 
 	/**
 	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
@@ -1261,7 +1279,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__OWNED_COMMENT = INSTANCE_OBJECT__OWNED_COMMENT;
+	int END_TO_END_FLOW_INSTANCE__OWNED_COMMENT = FLOW_ELEMENT_INSTANCE__OWNED_COMMENT;
 
 	/**
 	 * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1270,7 +1288,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__NAME = INSTANCE_OBJECT__NAME;
+	int END_TO_END_FLOW_INSTANCE__NAME = FLOW_ELEMENT_INSTANCE__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
@@ -1279,7 +1297,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__QUALIFIED_NAME = INSTANCE_OBJECT__QUALIFIED_NAME;
+	int END_TO_END_FLOW_INSTANCE__QUALIFIED_NAME = FLOW_ELEMENT_INSTANCE__QUALIFIED_NAME;
 
 	/**
 	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
@@ -1288,7 +1306,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__OWNED_PROPERTY_ASSOCIATION = INSTANCE_OBJECT__OWNED_PROPERTY_ASSOCIATION;
+	int END_TO_END_FLOW_INSTANCE__OWNED_PROPERTY_ASSOCIATION = FLOW_ELEMENT_INSTANCE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
 	 * The feature id for the '<em><b>Flow Element</b></em>' reference list.
@@ -1297,7 +1315,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = INSTANCE_OBJECT_FEATURE_COUNT + 0;
+	int END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>In Modes</b></em>' reference list.
@@ -1306,7 +1324,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__IN_MODES = INSTANCE_OBJECT_FEATURE_COUNT + 1;
+	int END_TO_END_FLOW_INSTANCE__IN_MODES = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>In System Operation Mode</b></em>' reference list.
@@ -1315,7 +1333,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE = INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>End To End Flow</b></em>' reference.
@@ -1324,7 +1342,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW = INSTANCE_OBJECT_FEATURE_COUNT + 3;
+	int END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 3;
 
 	/**
 	 * The number of structural features of the '<em>End To End Flow Instance</em>' class.
@@ -1333,7 +1351,7 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int END_TO_END_FLOW_INSTANCE_FEATURE_COUNT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.SystemInstanceImpl <em>System Instance</em>}' class.
@@ -1889,6 +1907,28 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getModeInstance_Mode();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ModeInstance#isDerived <em>Derived</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Derived</em>'.
+	 * @see org.osate.aadl2.instance.ModeInstance#isDerived()
+	 * @see #getModeInstance()
+	 * @generated
+	 */
+	EAttribute getModeInstance_Derived();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ModeInstance#getParents <em>Parent</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Parent</em>'.
+	 * @see org.osate.aadl2.instance.ModeInstance#getParents()
+	 * @see #getModeInstance()
+	 * @generated
+	 */
+	EReference getModeInstance_Parent();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ModeInstance#isInitial <em>Initial</em>}'.
@@ -2531,6 +2571,22 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference MODE_INSTANCE__MODE = eINSTANCE.getModeInstance_Mode();
+
+		/**
+		 * The meta object literal for the '<em><b>Derived</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute MODE_INSTANCE__DERIVED = eINSTANCE.getModeInstance_Derived();
+
+		/**
+		 * The meta object literal for the '<em><b>Parent</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference MODE_INSTANCE__PARENT = eINSTANCE.getModeInstance_Parent();
 
 		/**
 		 * The meta object literal for the '<em><b>Initial</b></em>' attribute feature.

@@ -189,13 +189,13 @@ public interface SystemInstance extends ComponentInstance {
 	List<SystemOperationMode> getSystemOperationModesFor(ModeInstance mi);
 
 	SystemOperationMode getInitialSystemOperationMode();
-	
+
 	/**
 	 * Iterates over all connection instances in the instance model.
 	 * This iterator give you all connection instances in the model by collecting them by walking the model.
 	 */
 	Iterable<ConnectionInstance> allConnectionInstances();
-	
+
 	/**
 	 * Get all connection instances in the instance model.
 	 * This iterator give you all connection instances in the model by collecting them by walking the model.
@@ -204,5 +204,5 @@ public interface SystemInstance extends ComponentInstance {
 	 * of both endpoints.
 	 */
 	EList<ConnectionInstance> getAllConnectionInstances();
-	
+
 } // SystemInstance

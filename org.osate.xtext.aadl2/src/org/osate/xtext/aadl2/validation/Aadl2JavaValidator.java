@@ -39,6 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -57,6 +58,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
@@ -395,74 +397,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkExtendCycles(cl);
 	}
 
-//	
-//	@Check(CheckType.FAST)
-//	public void caseClassifier(Classifier pack){
-//		if (PropertiesLinkingService.getPropertiesLinkingService(pack).hasDuplicatesClassifier(pack)){
-//			error(pack,"Duplicate classifiers "+ pack.getName());
-//		}
-//	}
-
-//	@Check(CheckType.FAST)
-//	public void caseAadlPackageSection(PackageSection ps) {
-//		checkPropertyAssocs(ps);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseMode(Mode m) {
-//		checkPropertyAssocs(m);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseComponentClassifier(ComponentClassifier cc) {
-//		checkPropertyAssocs(cc);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseThreadSubcomponent(ThreadSubcomponent ts) {
-//		checkPropertyAssocs(ts);
-//	}
-//
-//	// public void caseFeatureGroupType(FeatureGroupType f){
-//	// checkPropertyAssocs(f);
-//	// }
-//	// public void caseConnection(Connection conn) {
-//	// checkPropertyAssocs(conn);
-//	// }
-
-//
-//	/**
-//	 * Check that PropertyReference elements that are referenced in boolean
-//	 * expressions have boolean type.
-//	 */
-//	@Check(CheckType.FAST)
-//	public void casePropertyReference(PropertyReference bopr) {
-//		checkPropertyReference(bopr);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void casePropertyConstant(PropertyConstant pc) {
-//		checkPropertyConstant(pc);
-//	}
-
-//
-//	@Check(CheckType.FAST)
-//	public void caseFlowSpec(FlowSpecification fs) {
-//		checkPropertyAssocs(fs);
-//	}
-//
-//	@Check(CheckType.FAST)
-//	public void caseFlowSequence(FlowSequence fs) {
-//		checkPropertyAssocs(fs);
-//	}
-//
-//	/**
-//	 * check property definition
-//	 */
-//	@Check(CheckType.FAST)
-//	public void caseProperty(Property pd) {
-//		checkProperty(pd);
-//	}
 
 	@Check(CheckType.FAST)
 	public void caseUnitsType(final UnitsType ut) {
@@ -577,12 +511,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
 		ICompositeNode n = NodeModelUtils.getNode(flow);
 		INode lln = getLastLeaf(n);
-		String outFeatureName = lln.getText().replaceAll(" ","");
+		String outFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		lln = getPreviousNode(lln);
 		String outContextName = null;
-		if (lln.getText().replaceAll(" ","").equals(".")) {
+		if (lln != null && lln.getText().replaceAll(" ","").replaceAll("\t","").equals(".")) {
 			lln = getPreviousNode(lln);
-			outContextName = lln.getText().replaceAll(" ","");
+			outContextName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
@@ -613,13 +547,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode)
 			lln = lln.getNextSibling();
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
-		String inFeatureName = lln.getText().replaceAll(" ","");
-		lln = getNextNode(lln);
+		String inFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
 		String inContextName = null;
-		if (lln.getText().replaceAll(" ","").equals(".")) {
-			lln = getNextNode(lln);
-			inContextName = inFeatureName;
-			inFeatureName = lln.getText().replaceAll(" ","");
+		int idx = inFeatureName.indexOf(".");
+		if (idx >= 0) {
+			inContextName = inFeatureName.substring(0, idx);
+			inFeatureName = inFeatureName.substring(idx+1, inFeatureName.length());
 		}
 		Context specContext = flow.getSpecification().getAllInEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
@@ -2543,13 +2476,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * @param flow
 	 */
 	private void checkFlowFeatureDirection(FlowSpecification flow) {
-		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-				MemoryProperties.ACCESS_RIGHT);
-
 		Feature inFeature = null;
 		if (flow.getInEnd() != null)
 			inFeature = flow.getInEnd().getFeature();
 
+		checkIncomingFeatureDirection(inFeature, flow);
+		
+		Feature outFeature = null;
+		if (flow.getOutEnd() != null)
+			outFeature = flow.getOutEnd().getFeature();
+
+		checkOutgoingFeatureDirection(outFeature, flow);
+
+	}
+	
+	private void checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow){
+		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+				MemoryProperties.ACCESS_RIGHT);
 		//Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter) {
 			if (!((DirectedFeature) inFeature).getDirection().incoming()) {
@@ -2602,6 +2545,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							acceptableFeatureFound = true;
 							break;
 						}
+					} else if (f instanceof FeatureGroup){
+						checkIncomingFeatureDirection(f, flow);
 					}
 				}
 				if (fgt.getAllFeatures().isEmpty())
@@ -2617,10 +2562,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 
-		Feature outFeature = null;
-		if (flow.getOutEnd() != null)
-			outFeature = flow.getOutEnd().getFeature();
-
+	}
+	
+	private void checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow){
+		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+				MemoryProperties.ACCESS_RIGHT);
 		//Test for L3
 		if (outFeature instanceof Port || outFeature instanceof Parameter) {
 			if (!((DirectedFeature) outFeature).getDirection().outgoing()) {
@@ -2673,6 +2619,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							acceptableFeatureFound = true;
 							break;
 						}
+					} else if (f instanceof FeatureGroup){
+						checkOutgoingFeatureDirection(f, flow);
 					}
 				}
 				if (fgt.getAllFeatures().isEmpty())
@@ -2687,6 +2635,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 		}
+
 	}
 
 	/**
@@ -2695,6 +2644,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkPropertyDefinition(final Property pn) {
 		// Check the type correctness of the default value, if any
 		typeCheckPropertyValues(pn.getPropertyType(), pn.getDefaultValue());
+		checkAppliesTo(pn);
+	}
+	
+	/**
+	 * check that the Meate model names exist
+	 * @param pd
+	 */
+	private void checkAppliesTo(final Property pd){
+		for (PropertyOwner appliesTo : pd.getAppliesTos()) {
+			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
+			try {
+				if (appliesTo instanceof MetaclassReference
+						&& ((MetaclassReference) appliesTo).getMetaclass() != null) {
+				}
+			} catch (IllegalArgumentException e) {
+//				e.printStackTrace();
+				String msg = e.getMessage();
+				error(pd, msg);//"Meta class reference "+((MetaclassReference) appliesTo).getMetaclass().get+" not found in Meta model.");
+			}
+		}
 	}
 
 	private void checkPropertyConstant(final PropertyConstant pc) {
@@ -3508,15 +3477,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public boolean hasDuplicatesAadlPackage(EObject context) {
 		String crossRefString = ((NamedElement) context).getName();
+		if (crossRefString == null) return false;
 		int count = 0;
-		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
-		for (IEObjectDescription ieObjectDescription : plist) {
-			String s = ieObjectDescription.getQualifiedName().toString();
-			if (crossRefString.equalsIgnoreCase(s)) {
-				count++;
+		Iterable<IEObjectDescription> el = PropertiesLinkingService.getPropertiesLinkingService().getIndexedObjects(context, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), crossRefString);
+		Iterator<IEObjectDescription> it = el.iterator();
+		if (it.hasNext()){
+			IEObjectDescription ed = it.next();
+			if (it.hasNext()){
+				ed = it.next();
+				return true;
 			}
 		}
-		return count > 1;
+		return false;
+//		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
+//		for (IEObjectDescription ieObjectDescription : plist) {
+//			String s = ieObjectDescription.getQualifiedName().toString();
+//			if (crossRefString.equalsIgnoreCase(s)) {
+//				count++;
+//			}
+//		}
+//		return count > 1;
 	}
 
 	public boolean hasExtendCycles(Classifier cl) {
@@ -3559,36 +3539,36 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if(((FeatureGroup)source).getDirection().equals(DirectionType.IN)){
 				error(connection, "The direction of the source "+source.getName()+" of a directional feature group connection must not be in");
 			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN,connection);
 			}
 			if(((FeatureGroup)destination).getDirection().equals(DirectionType.OUT)){
 				error(connection, "The direction of the destination "+destination.getName()+" of a directional feature group connection must not be in");
 			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT,connection);
 			}
 		} else if (!(srccxt instanceof Subcomponent) ){
 			// going down
 			if(((FeatureGroup)source).getDirection().equals(DirectionType.OUT)){
 				error(connection, "The direction of the source "+source.getName()+" of this incoming directional feature group connection must not be out");
 			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.OUT);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.OUT,connection);
 			}
 			if(((FeatureGroup)destination).getDirection().equals(DirectionType.OUT)){
 				error(connection, "The direction of the destination "+destination.getName()+" of this incoming directional feature group connection must not be out");
 			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.OUT,connection);
 			}
 		} else if (!( dstcxt instanceof Subcomponent)){
 			// going up
 			if(((FeatureGroup)source).getDirection().equals(DirectionType.IN)){
 				error(connection, "The direction of the source "+source.getName()+" of this outgoing directional feature group connection must not be in");
 			} else if (((FeatureGroup)source).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)source, DirectionType.IN,connection);
 			}
 			if(((FeatureGroup)destination).getDirection().equals(DirectionType.IN)){
 				error(connection, "The direction of the destination "+destination.getName()+" of this outgoing directional feature group connection must not be in");
 			} else if (((FeatureGroup)destination).getDirection().equals(DirectionType.IN_OUT)){
-				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.IN);
+				checkDirectionOfFeatureGroupMembers((FeatureGroup)destination, DirectionType.IN,connection);
 			}
 		}
 	}
@@ -3597,7 +3577,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * Checks legality rule 8 in section 9.5 the endpoints of a directional feature group must be consistent with the direction.
 	 */
-	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir) {
+	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir, Connection conn) {
 		FeatureGroupType fgt = featureGroup.getFeatureGroupType();
 		for (Feature feature : fgt.getAllFeatures()) {
 			boolean invfg = featureGroup.isInverse();
@@ -3608,8 +3588,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (feature instanceof DirectedFeature){
 				boolean dirEquals = ((DirectedFeature) feature).getDirection().equals(notDir) ;
 			if ((!inverse && dirEquals)||(inverse&&!dirEquals)){
-					error(featureGroup,
-							"Feature "+feature.getName()+" in the referenced feature group must not be "+notDir.getName() +" due to the direction of the connection");
+					error(conn,
+							"Feature "+feature.getName()+" in the referenced feature group "+featureGroup.getName()+" must not be "+notDir.getName() +" due to the direction of the connection");
 				}
 			}
 		}
