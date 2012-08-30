@@ -44,6 +44,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeBinding;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -154,7 +155,7 @@ public class ModeBindingImpl extends ElementImpl implements ModeBinding {
 							oldDerivedMode, derivedMode));
 			}
 		}
-		return derivedMode;
+		return Aadl2Util.isNull(derivedMode)?null:derivedMode;
 	}
 
 	/**

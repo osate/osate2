@@ -163,6 +163,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
           <body>Indicates if this is is the initial mode of the owning component instance.</body>
         </ownedComment>
         <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_7y_MMOvEEeGRG-ZDxoY3dg" value="false"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_Yy9Y0FhmEd-rYOZ3UaShDA" name="mode" association="_Yy9YzFhmEd-rYOZ3UaShDA">
         <ownedComment xmi:id="_TBQ-cFn8Ed-39ebAzHAVCA">
@@ -171,6 +172,14 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#Mode"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Yy9Y0VhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Yy9Y0lhmEd-rYOZ3UaShDA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_1WjeoOugEeGFpMJjDNLhvw" name="derived">
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_6VzcgOvEEeGRG-ZDxoY3dg" value="false"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qEyPdOugEeGFpMJjDNLhvw" name="parent" type="ModeInstance" association="_qEyPcOugEeGFpMJjDNLhvw">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qEyPdeugEeGFpMJjDNLhvw" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qEyPduugEeGFpMJjDNLhvw"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ModeTransitionInstance" name="ModeTransitionInstance">
@@ -344,7 +353,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
       <ownedComment xmi:id="_K9iYkFn8Ed-39ebAzHAVCA">
         <body>An instantiated end to end flow.</body>
       </ownedComment>
-      <generalization xmi:id="EndToEndFlowInstance-_generalization.0" general="InstanceObject"/>
+      <generalization xmi:id="_UEWgMO03EeGntauB9Bwgiw" general="FlowElementInstance"/>
       <ownedAttribute xmi:id="EndToEndFlowInstance-flowElementInstance" name="flowElement" type="FlowElementInstance" isOrdered="true" association="_packagedElement.30">
         <ownedComment xmi:id="_ME6QUFn8Ed-39ebAzHAVCA">
           <body>The ordered sequence flow elements in this end to end flow instance.</body>
@@ -557,10 +566,16 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XQA_YlhmEd-rYOZ3UaShDA" value="1"/>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_mRe8kHV0Ed-5Z-hOGUPk8w" name="A_&lt;connectionInstance>_&lt;connectionReference>" memberEnd="_mRe8kXV0Ed-5Z-hOGUPk8w _mRVLkHV0Ed-5Z-hOGUPk8w">
+    <packagedElement xmi:type="uml:Association" xmi:id="_mRe8kHV0Ed-5Z-hOGUPk8w" name="A_connectionInstance_connectionReference" memberEnd="_mRe8kXV0Ed-5Z-hOGUPk8w _mRVLkHV0Ed-5Z-hOGUPk8w">
       <ownedEnd xmi:id="_mRe8kXV0Ed-5Z-hOGUPk8w" name="owner" type="ConnectionInstance" association="_mRe8kHV0Ed-5Z-hOGUPk8w">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mRe8knV0Ed-5Z-hOGUPk8w" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mRe8k3V0Ed-5Z-hOGUPk8w" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_qEyPcOugEeGFpMJjDNLhvw" name="A_modeInstance_parent" memberEnd="_qEyPceugEeGFpMJjDNLhvw _qEyPdOugEeGFpMJjDNLhvw">
+      <ownedEnd xmi:id="_qEyPceugEeGFpMJjDNLhvw" name="modeInstance" type="ModeInstance" association="_qEyPcOugEeGFpMJjDNLhvw">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qEyPcuugEeGFpMJjDNLhvw" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qEyPc-ugEeGFpMJjDNLhvw"/>
       </ownedEnd>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">

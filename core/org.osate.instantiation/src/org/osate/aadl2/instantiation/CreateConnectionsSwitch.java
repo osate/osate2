@@ -92,11 +92,11 @@ import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.properties.InstanceUtil;
-import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 
 /**
  * This class adds all connection instances to an instance model.
@@ -1012,6 +1012,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					generateModeCombinations(conni, refIter,
 							new BasicEList<ModeInstance>(Collections.singletonList(mi)));
 				}
+				if (conni.getInSystemOperationModes().isEmpty()) {
+					warning(conni.getContainingComponentInstance(), "Connection " + conni.getPathName() + " was removed because it is not active in any system operation mode");
+					EcoreUtil.delete(conni);
+				}
 				break;
 			}
 		}
@@ -1078,10 +1082,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					generateModeCombinations(conni, refIter, mis);
 					mis.remove(mi);
 				}
+			} else {
+				generateModeCombinations(conni, refIter, mis);
 			}
-		}
-		if (conni.getInSystemOperationModes().isEmpty()) {
-			EcoreUtil.delete(conni);
+			refIter.previous();
 		}
 	}
 

@@ -51,11 +51,14 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
 import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
+import org.eclipse.xtext.naming.IQualifiedNameConverter;
+import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
+import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.ui.util.WorkspaceClasspathUriResolver;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -157,9 +160,14 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
+import com.google.inject.Inject;
+
 
 public class PropertiesLinkingService extends DefaultLinkingService {
 
+	
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	private static PropertiesLinkingService eInstance = null;
 
@@ -232,35 +240,61 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-		if(false == Platform.isRunning())
-		{
-			psNode.setText(crossRefString);
-			EObject res = null;
-			try {
-				List<EObject> el;
-				el = super.getLinkedObjects(context, reference, psNode);
-				res = (el.isEmpty()?null: el.get(0));
-				if (res != null&&res.eIsProxy()){
-					res = EcoreUtil.resolve(res,context);
-					if (res.eIsProxy()) return null;
-				}
-			} catch (Exception e) {
-				//e.printStackTrace();
+		psNode.setText(crossRefString);
+		EObject res = null;
+		try {
+			List<EObject> el;
+			el = super.getLinkedObjects(context, reference, psNode);
+			res = (el.isEmpty()?null: el.get(0));
+			if (res != null&&res.eIsProxy()){
+				res = EcoreUtil.resolve(res,context);
+				if (res.eIsProxy()) return null;
 			}
-			if(res!=null)
-				return res;
-			else
-				return StandAloneFindEObject(crossRefString);
+		} catch (Exception e) {
+			//e.printStackTrace();
 		}
-		else
-		{
-
-			// XXX phf: lookup in global index without regard to project dependencies
-			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-			return res;
-		}
+		if(res ==null && Platform.isRunning()==false)
+			return StandAloneFindEObject(crossRefString);
+		return res;
+		// XXX phf: lookup in global index without regard to project dependencies
+//		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+//		return res;
 
 	}
+	
+
+	/**
+	 * copy of a method from within Xtext. Needed to change getSingleElement to getElements to see if we have doubles
+	 * in different files and the same project or in different projects.
+	 * @param context
+	 * @param reference
+	 * @param crossRefString
+	 * @return
+	 */
+	public  Iterable<IEObjectDescription> getIndexedObjects(EObject context,
+			EReference reference, String crossRefString) {
+			List<EObject> el;
+			try {
+
+				if (crossRefString != null && !crossRefString.equals("")) {
+						
+					final IScope scope = getScope(context, reference);
+					QualifiedName qualifiedLinkName =  qualifiedNameConverter.toQualifiedName(crossRefString);
+					Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
+					return eObjectDescriptions;
+				}
+//				el = super.getLinkedObjects(context, reference, psNode);
+			} catch (Exception e) {
+				return null;
+			}
+//			EObject res = (el.isEmpty()?null: el.get(0));
+//			if (res != null&&res.eIsProxy()){
+//				res = EcoreUtil.resolve(res,context);
+//				if (res.eIsProxy()) return null;
+//			}
+			return null;
+	}
+
 
 
 	
@@ -477,39 +511,42 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 		} else if (Aadl2Package.eINSTANCE.getMode() == requiredType) {
-			// referenced by mode transition and inmodes
-			EObject res = AadlUtil.getContainingClassifier(context)
-					.findNamedElement(name);
-			if (res == null){
-				 Classifier sub = AadlUtil.getContainingSubcomponentClassifier(context);
-				if (sub != null) res = sub.findNamedElement(name);
-			}
-			if (res == null){
-				// check about in modes in a contained property association
-				PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(context);
-				if (!pa.getAppliesTos().isEmpty()){
-					ContainedNamedElement path = pa.getAppliesTos().get(0);
-					EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
-					Classifier cpecl = null;
-					for (ContainmentPathElement containmentPathElement : cpelist) {
-						if (containmentPathElement.getNamedElement() instanceof Subcomponent){
-							cpecl = ((Subcomponent)containmentPathElement.getNamedElement()).getClassifier();
-						} else {
-							break;
+			// referenced by mode transition, inmodes, ModeBinding
+			EObject res = null;
+			if (context instanceof ModeBinding){
+				if (reference == Aadl2Package.eINSTANCE.getModeBinding_ParentMode()){
+					res = AadlUtil.getContainingClassifier(context)
+							.findNamedElement(name);
+				} else if (reference == Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()){
+					 Classifier sub = AadlUtil.getContainingSubcomponentClassifier(context);
+						if (sub != null) res = sub.findNamedElement(name);
+				}
+			} else {
+				res = AadlUtil.getContainingClassifier(context)
+						.findNamedElement(name);
+				if (res == null){
+					// check about in modes in a contained property association
+					PropertyAssociation pa = AadlUtil.getContainingPropertyAssociation(context);
+					if (!Aadl2Util.isNull(pa)&&!pa.getAppliesTos().isEmpty()){
+						ContainedNamedElement path = pa.getAppliesTos().get(0);
+						EList<ContainmentPathElement> cpelist = path.getContainmentPathElements();
+						Classifier cpecl = null;
+						for (ContainmentPathElement containmentPathElement : cpelist) {
+							if (containmentPathElement.getNamedElement() instanceof Subcomponent){
+								cpecl = ((Subcomponent)containmentPathElement.getNamedElement()).getClassifier();
+							} else {
+								break;
+							}
 						}
-					}
-					if (cpecl != null){
-						res = cpecl.findNamedElement(name);
+						if (cpecl != null){
+							res = cpecl.findNamedElement(name);
+						}
 					}
 				}
 			}
 			if (res != null && res instanceof Mode) {
 				searchResult = res;
 			}
-			if (context instanceof ModeBinding && Aadl2Package.eINSTANCE.getModeBinding_DerivedMode()==reference ){
-				return Collections.singletonList((EObject) searchResult);
-			}
-
 		} else if (Aadl2Package.eINSTANCE.getNamedElement() == requiredType) {
 			// containment path element
 			if (context instanceof ContainmentPathElement) {

@@ -37,6 +37,8 @@
 package org.osate.aadl2.impl;
 
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
@@ -206,11 +208,22 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		if (getClass() != obj.getClass())
 			return false;
 		ListValueImpl other = (ListValueImpl) obj;
-		if (ownedListElements == null) {
-			if (other.ownedListElements != null)
-				return false;
-		} else if (!ownedListElements.equals(other.ownedListElements))
+		if (ownedListElements == null && other.ownedListElements != null || ownedListElements != null
+				&& other.ownedListElements == null)
 			return false;
+		if (ownedListElements == other.ownedListElements)
+			return true;
+		if (ownedListElements.size() != other.ownedListElements.size()) {
+			return false;
+		}
+
+		for (int i = 0; i < ownedListElements.size(); ++i) {
+			PropertyExpression pe1 = ownedListElements.get(i);
+			PropertyExpression pe2 = other.ownedListElements.get(i);
+			if (pe1 == null ? pe2 != null : !pe1.equals(pe2)) {
+				return false;
+			}
+		}
 		return true;
 	}
 

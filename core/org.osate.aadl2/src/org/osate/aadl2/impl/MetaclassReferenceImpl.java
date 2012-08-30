@@ -240,7 +240,7 @@ public class MetaclassReferenceImpl extends PropertyOwnerImpl implements Metacla
 	}
 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
-	public EClass getMetaclass() {
+	public EClass getMetaclass() throws IllegalArgumentException {
 		if (metaclass == null) {
 			StringBuilder metaclassName = new StringBuilder();
 			String errorMessage = null;

@@ -37,6 +37,7 @@ import java.util.HashMap;
 
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.util.InstanceUtil;
 
 /**
  * @author lwrage

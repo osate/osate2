@@ -47,7 +47,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 import org.eclipse.core.resources.IFile;
@@ -91,6 +90,7 @@ import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
@@ -120,6 +120,8 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
@@ -127,8 +129,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.properties.InstanceUtil;
-import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -486,9 +486,22 @@ public class InstantiateModel {
 	private void fillModesAndTransitions(ComponentInstance ci, List<Mode> modes, List<ModeTransition> modetrans) {
 		for (Mode m : modes) {
 			ModeInstance mi = InstanceFactory.eINSTANCE.createModeInstance();
+
 			mi.setMode(m);
 			mi.setName(m.getName());
 			mi.setInitial(m.isInitial());
+			mi.setDerived(m.isDerived());
+			if (m.isDerived()) {
+				Subcomponent sub = ci.getSubcomponent();
+				ComponentInstance parentci = ci.getContainingComponentInstance();
+
+				for (ModeBinding mb : sub.getOwnedModeBindings()) {
+					if (mb.getDerivedMode() == m || mb.getDerivedMode() == null
+							&& mb.getParentMode().getName().equalsIgnoreCase(m.getName())) {
+						mi.getParents().add(parentci.findModeInstance(mb.getParentMode()));
+					}
+				}
+			}
 			ci.getModeInstances().add(mi);
 		}
 		for (ModeTransition m : modetrans) {
@@ -497,6 +510,7 @@ public class InstantiateModel {
 			Mode dstmode = m.getDestination();
 			ModeInstance srcI = ci.findModeInstance(srcmode);
 			ModeInstance dstI = ci.findModeInstance(dstmode);
+
 			mti.setSource(srcI);
 			mti.setDestination(dstI);
 			mti.setModeTransition(m);
@@ -1277,7 +1291,7 @@ public class InstantiateModel {
 
 		protected void action(final Element o) {
 			final List<ModeInstance> modes = ((ComponentInstance) o).getModeInstances();
-			if (!modes.isEmpty()) {
+			if (!modes.isEmpty() && !modes.get(0).isDerived()) {
 				hasModalComponents = true;
 				resultList.add(o);
 			}
@@ -1328,14 +1342,24 @@ public class InstantiateModel {
 	 */
 	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances) {
 		final LinkedList<ComponentInstance> skipped = new LinkedList<ComponentInstance>();
-		final LinkedList<ModeInstance> currentModes = new LinkedList<ModeInstance>();
+		final List<ModeInstance> currentModes = new ArrayList<ModeInstance>();
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
-		
-		if (modes != null && modes.size() > 0) {
-			for (final Iterator<ModeInstance> i = modes.iterator(); i.hasNext();) {
-				currentModes.addLast(i.next());
-				enumerateSystemOperationModes(root, instances, 1, skipped, currentModes);
-				currentModes.removeLast();
+
+		if (!modes.isEmpty()) {
+			for (ModeInstance mi : modes) {
+				if (!mi.isDerived()) {
+					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
+					
+					nextModes.add(mi);
+					for (ComponentInstance child : instances[0].getComponentInstances()) {
+						for (ModeInstance childMode : child.getModeInstances()) {
+							if (childMode.isDerived() && childMode.getParents().contains(mi)) {
+								nextModes.add(childMode);
+							}
+						}
+					}
+					enumerateSystemOperationModes(root, instances, 1, skipped, nextModes);
+				}
 			}
 		} else {
 			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes);
@@ -1360,9 +1384,8 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(final SystemInstance root, final ComponentInstance[] instances,
-			final int currentInstance, final LinkedList<ComponentInstance> skipped,
-			final LinkedList<ModeInstance> modeState) {
+	protected void enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
+			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState) {
 		if (currentInstance == instances.length) {
 			// Completed an SOM
 			root.getSystemOperationModes().add(createSOM(modeState));
@@ -1373,15 +1396,25 @@ public class InstantiateModel {
 			 * and component exists in the currently selected mode of its
 			 * parent.
 			 */
-			final ComponentInstance ci = instances[currentInstance];
+			ComponentInstance ci = instances[currentInstance];
+			
 			if (!skipped.contains(ci.eContainer()) && existsGiven(modeState, ci.getInModes())) {
-				final EList<ModeInstance> modes = ci.getModeInstances();
+				EList<ModeInstance> modes = ci.getModeInstances();
+				
 				if (modes != null && modes.size() > 0) {
 					// Modal component
-					for (final Iterator<ModeInstance> i = modes.iterator(); i.hasNext();) {
-						modeState.addLast(i.next());
-						enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState);
-						modeState.removeLast();
+					for (ModeInstance mi : modes) {
+						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
+						
+						nextModes.add(mi);
+						for (ComponentInstance child : ci.getComponentInstances()) {
+							for (ModeInstance childMode : child.getModeInstances()) {
+								if (childMode.isDerived() && childMode.getParents().contains(mi)) {
+									nextModes.add(childMode);
+								}
+							}
+						}
+						enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes);
 					}
 				} else {
 					// non-modal component
@@ -1399,8 +1432,8 @@ public class InstantiateModel {
 
 	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes) {
 		if (inModes != null && inModes.size() > 0) {
-			for (final Iterator<ModeInstance> i = inModes.iterator(); i.hasNext();) {
-				if (modeState.contains(i.next())) {
+			for (ModeInstance mi : inModes) {
+				if (modeState.contains(mi)) {
 					return true;
 				}
 			}

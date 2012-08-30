@@ -440,9 +440,9 @@ public interface NamedElement extends Element {
 	public List<? extends PropertyExpression> getPropertyValueList(final Property property);
 
 	public PropertyAssociation setPropertyValue(final Property pd, final PropertyValue pv);
-	
+
 	public PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
-	PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
-	PropertyDoesNotApplyToHolderException;
+			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
+			PropertyDoesNotApplyToHolderException;
 
 } // NamedElement

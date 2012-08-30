@@ -44,8 +44,8 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.aadl2.properties.InstanceUtil;
 
 
 /**
