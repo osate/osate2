@@ -35,7 +35,7 @@
  * $Id: InstanceUtil.java,v 1.2 2010-05-07 20:01:29 lwrage Exp $
  *
  */
-package org.osate.aadl2.properties;
+package org.osate.aadl2.instance.util;
 
 import java.util.HashMap;
 
