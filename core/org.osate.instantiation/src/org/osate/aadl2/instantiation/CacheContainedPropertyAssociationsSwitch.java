@@ -64,10 +64,10 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
+import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.aadl2.properties.InstanceUtil;
-import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.InvalidModelException;
 
 /**
