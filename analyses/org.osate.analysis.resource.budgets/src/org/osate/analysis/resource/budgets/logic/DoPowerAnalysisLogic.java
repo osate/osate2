@@ -56,13 +56,13 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.OsateLogger;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.aadl2.properties.InstanceUtil;
-import org.osate.aadl2.properties.InstanceUtil.InstantiatedClassifier;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
