@@ -49,6 +49,7 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
+
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 	protected Bundle getBundle() {
 		return ArchitecturePlugin.getDefault().getBundle();
