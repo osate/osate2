@@ -131,7 +131,7 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	/**
 	 * Name of preference for standard AADL property set file
 	 */
-	public static final String EMF_REFERENCE_FLAG = "XMLeferenceFormat";
+	public static final String PROJECT_DEPENDENT_SCOPE_FLAG = "projectDependentScope";
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 

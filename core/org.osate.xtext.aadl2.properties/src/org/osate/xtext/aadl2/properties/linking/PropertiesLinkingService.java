@@ -155,6 +155,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
@@ -204,8 +205,8 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-//		if(false == Platform.isRunning())
-//		{
+		if(//! Platform.isRunning() || 
+				WorkspacePlugin.getDefault().getPluginPreferences().getBoolean(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG)){
 			psNode.setText(crossRefString);
 			List<EObject> el;
 			try {
@@ -219,13 +220,13 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 				if (res.eIsProxy()) return null;
 			}
 			return res;
-//		}
-//		else
-//		{
-//			// XXX phf: lookup in global index without regard to project dependencies
-//			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-//			return res;
-//		}
+		}
+		else
+		{
+			// XXX phf: lookup in global index without regard to project dependencies
+			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+			return res;
+		}
 
 	}
 	
