@@ -39,27 +39,14 @@
  */
 package org.osate.analysis.architecture.actions;
 
-import java.util.Iterator;
-
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.ModelLoadingAdapter;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.properties.InstanceUtil;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osgi.framework.Bundle;
 
 public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
