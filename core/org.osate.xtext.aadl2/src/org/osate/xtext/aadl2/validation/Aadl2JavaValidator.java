@@ -43,16 +43,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.print.Doc;
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
+import org.eclipse.xtext.linking.LinkingScopeProviderBinding;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
+import org.eclipse.xtext.scoping.IGlobalScopeProvider;
+import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
@@ -63,6 +69,9 @@ import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
+import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider;
+
+import com.google.inject.Inject;
 
 public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
@@ -382,8 +391,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseAadlPackage(AadlPackage pack) {
-		if (hasDuplicatesAadlPackage(pack)) {
-			error(pack, "Duplicate packages " + pack.getName());
+		 List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(pack);
+		if (!findings.isEmpty()) {
+			error(pack, "Package " + pack.getName()+" has duplicates "+getNames(findings));//EObjectURI());
+		}
+	}
+
+	@Check(CheckType.FAST)
+	public void casePropertySet(PropertySet propSet) {
+		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet)) {
+			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
 		}
 	}
 
@@ -3471,24 +3488,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+	
+	
+	@Inject
+	private IGlobalScopeProvider scopeProvider;
+
 
 	/**
 	 * check whether there are duplicate names
 	 */
-	public boolean hasDuplicatesAadlPackage(EObject context) {
-		String crossRefString = ((NamedElement) context).getName();
-		if (crossRefString == null) return false;
-		int count = 0;
-		Iterable<IEObjectDescription> el = PropertiesLinkingService.getPropertiesLinkingService().getIndexedObjects(context, Aadl2Package.eINSTANCE.getPackageSection_ImportedUnit(), crossRefString);
-		Iterator<IEObjectDescription> it = el.iterator();
-		if (it.hasNext()){
-			IEObjectDescription ed = it.next();
-			if (it.hasNext()){
-				ed = it.next();
-				return true;
-			}
+	public String hasDuplicatesAadlPackage(AadlPackage context) {
+		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
+		if (!findings.isEmpty()) {
+			return getNames(findings);
 		}
-		return false;
+		return null;
+//		String crossRefString = ((NamedElement) context).getName();
+//		int count = 0;
 //		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
 //		for (IEObjectDescription ieObjectDescription : plist) {
 //			String s = ieObjectDescription.getQualifiedName().toString();
@@ -3498,6 +3514,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //		}
 //		return count > 1;
 	}
+	
+protected String getNames(List<IEObjectDescription> findings){
+	String res = "";
+	boolean doComma = false;
+	for (IEObjectDescription ieObjectDescription : findings) {
+		URI uri = ieObjectDescription.getEObjectURI().trimFragment();
+		String pack = uri.path().replaceFirst("/resource/", "");
+		res = res + (doComma?", ":"")+pack;
+		doComma = true;
+	}
+	return res;
+}
+
 
 	public boolean hasExtendCycles(Classifier cl) {
 		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
