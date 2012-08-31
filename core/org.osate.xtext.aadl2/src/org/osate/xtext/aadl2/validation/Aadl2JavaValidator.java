@@ -42,6 +42,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 import javax.print.Doc;
 
@@ -64,6 +65,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -391,9 +393,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseAadlPackage(AadlPackage pack) {
-		 List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(pack);
-		if (!findings.isEmpty()) {
-			error(pack, "Package " + pack.getName()+" has duplicates "+getNames(findings));//EObjectURI());
+		 String findings = hasDuplicatesAadlPackage(pack);
+		if (findings != null) {
+			error(pack, "Package " + pack.getName()+" has duplicates "+findings);
 		}
 	}
 
@@ -3498,21 +3500,31 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * check whether there are duplicate names
 	 */
 	public String hasDuplicatesAadlPackage(AadlPackage context) {
-		List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
-		if (!findings.isEmpty()) {
-			return getNames(findings);
+		if (WorkspacePlugin.getDefault().getPluginPreferences().getBoolean(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG)){
+			// project dependency based global scope
+			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
+			if (!findings.isEmpty()) {
+				return getNames(findings);
+			}
+			return null;
+		} else {
+			// workspace is global namespace
+			String crossRefString = ((NamedElement) context).getName();
+			List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
+			EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
+			for (IEObjectDescription ieObjectDescription : plist) {
+				String s = ieObjectDescription.getQualifiedName().toString();
+				if (crossRefString.equalsIgnoreCase(s)) {
+					if (ieObjectDescription.getEObjectOrProxy() != context){
+						ielist.add(ieObjectDescription);
+					}
+				}
+			}
+			if( !ielist.isEmpty())  {
+				return getNames(ielist);
+			}
 		}
 		return null;
-//		String crossRefString = ((NamedElement) context).getName();
-//		int count = 0;
-//		EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
-//		for (IEObjectDescription ieObjectDescription : plist) {
-//			String s = ieObjectDescription.getQualifiedName().toString();
-//			if (crossRefString.equalsIgnoreCase(s)) {
-//				count++;
-//			}
-//		}
-//		return count > 1;
 	}
 	
 protected String getNames(List<IEObjectDescription> findings){
