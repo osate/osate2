@@ -70,4 +70,5 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 
 	public void init(IWorkbench workbench) {
 	}
+	
 }
