@@ -97,4 +97,10 @@ public Class<? extends org.eclipse.xtext.resource.DefaultLocationInFileProvider>
 	}
 
 
+	@Override
+	public Class<? extends org.eclipse.xtext.scoping.IGlobalScopeProvider> bindIGlobalScopeProvider() {
+		return org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider.class;
+	}
+
+
 }
