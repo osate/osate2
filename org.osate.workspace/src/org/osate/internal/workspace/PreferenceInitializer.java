@@ -56,8 +56,8 @@ public class PreferenceInitializer extends AbstractPreferenceInitializer {
 		 * Sets the default values of the preferences.
 		 */
 		IPreferenceStore store = WorkspacePlugin.getDefault().getPreferenceStore();
-		store.setDefault(WorkspacePlugin.EXPAND_DEFAULT_FLAG, "false");
-		store.setDefault(WorkspacePlugin.EMF_REFERENCE_FLAG, "false");
+		store.setDefault(WorkspacePlugin.EXPAND_DEFAULT_FLAG, false);
+		store.setDefault(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG, true);
 		store.setDefault(WorkspacePlugin.AUTO_REINSTANTIATE, true);
 	}
 }

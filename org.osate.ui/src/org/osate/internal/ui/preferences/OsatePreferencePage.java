@@ -62,8 +62,8 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 	public void createFieldEditors() {
 		BooleanFieldEditor be = new BooleanFieldEditor(WorkspacePlugin.EXPAND_DEFAULT_FLAG,"Store Default Attribute Values in XML File (Normally defaults recorded in the schema are not stored)",getFieldEditorParent());
 		addField(be);
-		// XML reference format
-		BooleanFieldEditor bex = new BooleanFieldEditor(WorkspacePlugin.EMF_REFERENCE_FLAG,"Use EMF reference format (Default is AADL XPath format). Please execute Project/Clean... all projects.",getFieldEditorParent());
+		// GLobal Scoping based on Project Dependency
+		BooleanFieldEditor bex = new BooleanFieldEditor(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG,"Use Project Dependency for Global Scope",getFieldEditorParent());
 		addField(bex);
 		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_REINSTANTIATE, "Automatically reinstantiate models during build.", getFieldEditorParent()));
 	}
