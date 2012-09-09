@@ -608,35 +608,49 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
 			if (flow.getOwnedFlowSegments().get(i).getFlowElement() instanceof Connection) {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
+				boolean didReverse =false;
 				if (i == 0) {
 					FlowEnd inEnd = flow.getSpecification().getAllInEnd();
 					if (!connection.getAllSource().equals(inEnd.getFeature())
 							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
 									connection.getAllSourceContext()))) {
+						if (connection.isBidirectional()&&!connection.getAllDestination().equals(inEnd.getFeature())
+							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
+									connection.getAllDestinationContext()))){
 						error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName()
 								+ "' does not match the in flow feature '"
 								+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 								+ inEnd.getFeature().getName() + '\'');
+						} else {
+							didReverse = true;
+						}
 					}
 				} else {
 					if (flow.getOwnedFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments()
 								.get(i - 1).getFlowElement();
 						if (!connection.getAllSource().equals(previousFlowSegment.getAllOutEnd().getFeature())) {
+							if (connection.isBidirectional()&&!connection.getAllDestination().equals(previousFlowSegment.getAllOutEnd().getFeature())){
 							error(flow.getOwnedFlowSegments().get(i),
 									"The source of connection '"
 											+ connection.getName()
 											+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
 											+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
 											+ previousFlowSegment.getName() + '\'');
+							} else {
+								didReverse = true;
+							}
 						}
 					}
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
-					if (!connection.getAllDestination().equals(outEnd.getFeature())
+					if (didReverse?(!connection.getAllSource().equals(outEnd.getFeature())
 							|| (outEnd.getContext() != null && !outEnd.getContext().equals(
-									connection.getAllDestinationContext()))) {
+									connection.getAllSourceContext())))
+						:(!connection.getAllDestination().equals(outEnd.getFeature())
+							|| (outEnd.getContext() != null && !outEnd.getContext().equals(
+									connection.getAllDestinationContext())))) {
 						error(flow.getOwnedFlowSegments().get(i),
 								"The destination of connection '" + connection.getName()
 										+ "' does not match the out flow feature '"
@@ -647,7 +661,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (flow.getOwnedFlowSegments().get(i + 1).getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification nextFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments().get(i + 1)
 								.getFlowElement();
-						if (!connection.getAllDestination().equals(nextFlowSegment.getAllInEnd().getFeature())) {
+						if (didReverse?(!connection.getAllSource().equals(nextFlowSegment.getAllInEnd().getFeature()))
+								:(!connection.getAllDestination().equals(nextFlowSegment.getAllInEnd().getFeature()))) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination of connection '"
 											+ connection.getName()
@@ -2509,7 +2524,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	}
 	
-	private void checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow){
+	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow){
 		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
 				MemoryProperties.ACCESS_RIGHT);
 		//Test for L2
@@ -2518,6 +2533,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(flow.getInEnd(), '\''
 						+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
 						+ inFeature.getName() + "' must be an in or in out feature.");
+				return false;
+			} else {
+				return true;
 			}
 		}
 		//Test for L4
@@ -2528,6 +2546,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(flow.getInEnd(), '\''
 						+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
 						+ inFeature.getName() + "' must have an access right of Read_Only or Read_Write.");
+				return false;
+			} else {
+				return true;
 			}
 		}
 		//Test for L6
@@ -2565,7 +2586,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							break;
 						}
 					} else if (f instanceof FeatureGroup){
-						checkIncomingFeatureDirection(f, flow);
+						if (checkIncomingFeatureDirection(f, flow))
+							acceptableFeatureFound = true;
 					}
 				}
 				if (fgt.getAllFeatures().isEmpty())
@@ -2577,13 +2599,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 											: "")
 									+ inFeature.getName()
 									+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
+					return false;
+				} else {
+					return true;
 				}
 			}
+			return true;
 		}
+		return false;
 
 	}
 	
-	private void checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow){
+	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow){
 		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
 				MemoryProperties.ACCESS_RIGHT);
 		//Test for L3
@@ -2592,6 +2619,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(flow.getOutEnd(), '\''
 						+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
 						+ outFeature.getName() + "' must be an out or in out feature.");
+				return false;
+			} else {
+				return true;
 			}
 		}
 		//Test for L5
@@ -2602,6 +2632,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				error(flow.getOutEnd(), '\''
 						+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
 						+ outFeature.getName() + "' must have an access right of Write_Only or Read_Write.");
+				return false;
+			} else {
+				return true;
 			}
 		}
 		//Test for L7
@@ -2639,7 +2672,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							break;
 						}
 					} else if (f instanceof FeatureGroup){
-						checkOutgoingFeatureDirection(f, flow);
+						if (checkOutgoingFeatureDirection(f, flow))
+							acceptableFeatureFound = true;
 					}
 				}
 				if (fgt.getAllFeatures().isEmpty())
@@ -2651,9 +2685,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 											: "")
 									+ outFeature.getName()
 									+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
+					return false;
+				} else {
+					return true;
 				}
 			}
+			return true;
 		}
+		return false;
 
 	}
 
@@ -3627,6 +3666,7 @@ protected String getNames(List<IEObjectDescription> findings){
 					Aadl2Util.isNull(fgt.getExtended());
 			boolean inverse = (invfg && !invfgt)||(!invfg&& invfgt);
 			if (feature instanceof DirectedFeature){
+				if (((DirectedFeature) feature).getDirection() == DirectionType.IN_OUT ) break;
 				boolean dirEquals = ((DirectedFeature) feature).getDirection().equals(notDir) ;
 			if ((!inverse && dirEquals)||(inverse&&!dirEquals)){
 					error(conn,
