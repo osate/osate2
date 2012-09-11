@@ -30,7 +30,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="ConnectionInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
         ordered="false" upperBound="-1" eType="#//SystemOperationMode"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeTransitions" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeTransition" ordered="false"
         upperBound="-1" eType="#//ModeTransitionInstance"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="complete" ordered="false"
         lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
@@ -96,7 +96,7 @@
         ordered="false" upperBound="-1" eType="#//ModeTransitionInstance" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="category" ordered="false"
         lowerBound="1" eType="ecore:EEnum aadl2.ecore#//ComponentCategory"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inModes" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" ordered="false"
         upperBound="-1" eType="#//ModeInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
         upperBound="-1" eType="#//FlowSpecificationInstance" containment="true"/>
@@ -116,11 +116,15 @@
         eType="#//FeatureInstance" eOpposite="#//FeatureInstance/dstFlowSpec"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowSpecification" ordered="false"
         lowerBound="1" eType="ecore:EClass aadl2.ecore#//FlowSpecification"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" ordered="false"
+        upperBound="-1" eType="#//ModeInstance"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inModeTransition" ordered="false"
+        upperBound="-1" eType="#//ModeTransitionInstance"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="EndToEndFlowInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="flowElement" upperBound="-1"
         eType="#//FlowElementInstance"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="inModes" ordered="false"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inMode" ordered="false"
         upperBound="-1" eType="#//ModeInstance"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inSystemOperationMode"
         ordered="false" upperBound="-1" eType="#//SystemOperationMode"/>

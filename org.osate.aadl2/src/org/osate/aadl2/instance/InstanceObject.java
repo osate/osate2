@@ -69,11 +69,11 @@ public interface InstanceObject extends EObject, NamedElement {
 	 */
 	ComponentInstance getComponentInstance();
 
-		/**
-	 * find the enclosing SystemInstance
-	 * 
-	 * @return SytstemInstance object
-	 */
+	/**
+	* find the enclosing SystemInstance
+	* 
+	* @return SytstemInstance object
+	*/
 	SystemInstance getSystemInstance();
 
 	/**

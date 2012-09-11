@@ -75,7 +75,7 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/inSystemOperationMode"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/inModeTransitions"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionInstance/inModeTransition"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ConnectionInstance/complete"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ConnectionInstance/kind"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
@@ -127,7 +127,7 @@
           createChild="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/modeTransitionInstance"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ComponentInstance/category"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/inModes"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/inMode"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/flowSpecification"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -145,12 +145,16 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//FlowSpecificationInstance/destination"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//FlowSpecificationInstance/flowSpecification"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//FlowSpecificationInstance/inMode"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//FlowSpecificationInstance/inModeTransition"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//EndToEndFlowInstance">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//EndToEndFlowInstance/flowElement"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
-          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//EndToEndFlowInstance/inModes"/>
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//EndToEndFlowInstance/inMode"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//EndToEndFlowInstance/inSystemOperationMode"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

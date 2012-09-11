@@ -60,7 +60,7 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getModeInstances <em>Mode Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getModeTransitionInstances <em>Mode Transition Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getCategory <em>Category</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getInModes <em>In Modes</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getFlowSpecifications <em>Flow Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getEndToEndFlows <em>End To End Flow</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getConnectionInstances <em>Connection Instance</em>}</li>
@@ -261,7 +261,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	void setCategory(ComponentCategory value);
 
 	/**
-	 * Returns the value of the '<em><b>In Modes</b></em>' reference list.
+	 * Returns the value of the '<em><b>In Mode</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.instance.ModeInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -269,8 +269,8 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Modes</em>' reference list.
-	 * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance_InModes()
+	 * @return the value of the '<em>In Mode</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance_InMode()
 	 * @model ordered="false"
 	 * @generated
 	 */

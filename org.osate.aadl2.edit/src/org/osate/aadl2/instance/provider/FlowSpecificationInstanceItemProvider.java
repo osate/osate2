@@ -83,6 +83,8 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 			addSourcePropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
 			addFlowSpecificationPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
+			addInModeTransitionPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -138,6 +140,42 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_flowSpecification_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION, true, false, true,
+						null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In Mode feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInModePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_FlowSpecificationInstance_inMode_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_inMode_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE, true, false, true, null, null,
+						null));
+	}
+
+	/**
+	 * This adds a property descriptor for the In Mode Transition feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addInModeTransitionPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_FlowSpecificationInstance_inModeTransition_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_FlowSpecificationInstance_inModeTransition_feature", "_UI_FlowSpecificationInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION, true, false, true,
 						null, null, null));
 	}
 
