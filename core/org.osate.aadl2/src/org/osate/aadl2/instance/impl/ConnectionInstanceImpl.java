@@ -78,7 +78,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getInModeTransitions <em>In Mode Transitions</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getInModeTransitions <em>In Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#isComplete <em>Complete</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionInstanceImpl#getDestination <em>Destination</em>}</li>
@@ -101,7 +101,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	protected EList<SystemOperationMode> inSystemOperationModes;
 
 	/**
-	 * The cached value of the '{@link #getInModeTransitions() <em>In Mode Transitions</em>}' reference list.
+	 * The cached value of the '{@link #getInModeTransitions() <em>In Mode Transition</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInModeTransitions()
@@ -220,7 +220,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
 			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
-					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS);
+					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
 	}
@@ -485,7 +485,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			return getInSystemOperationModes();
-		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS:
+		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			return getInModeTransitions();
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
 			return isComplete();
@@ -518,7 +518,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			getInSystemOperationModes().clear();
 			getInSystemOperationModes().addAll((Collection<? extends SystemOperationMode>) newValue);
 			return;
-		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS:
+		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			getInModeTransitions().clear();
 			getInModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
 			return;
@@ -553,7 +553,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			getInSystemOperationModes().clear();
 			return;
-		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS:
+		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			getInModeTransitions().clear();
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
@@ -585,7 +585,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			return inSystemOperationModes != null && !inSystemOperationModes.isEmpty();
-		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS:
+		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			return inModeTransitions != null && !inModeTransitions.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
 			return complete != COMPLETE_EDEFAULT;

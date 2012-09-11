@@ -85,7 +85,7 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 			super.getPropertyDescriptors(object);
 
 			addInSystemOperationModePropertyDescriptor(object);
-			addInModeTransitionsPropertyDescriptor(object);
+			addInModeTransitionPropertyDescriptor(object);
 			addCompletePropertyDescriptor(object);
 			addKindPropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
@@ -113,20 +113,20 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	}
 
 	/**
-	 * This adds a property descriptor for the In Mode Transitions feature.
+	 * This adds a property descriptor for the In Mode Transition feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInModeTransitionsPropertyDescriptor(Object object) {
+	protected void addInModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
 						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
-						getString("_UI_ConnectionInstance_inModeTransitions_feature"), //$NON-NLS-1$
+						getString("_UI_ConnectionInstance_inModeTransition_feature"), //$NON-NLS-1$
 						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inModeTransitions_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITIONS, true, false, true, null,
+								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inModeTransition_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITION, true, false, true, null,
 						null, null));
 	}
 

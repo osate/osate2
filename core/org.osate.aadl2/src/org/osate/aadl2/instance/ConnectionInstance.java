@@ -53,7 +53,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions <em>In Mode Transitions</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions <em>In Mode Transition</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#isComplete <em>Complete</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionInstance#getDestination <em>Destination</em>}</li>
@@ -84,7 +84,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	EList<SystemOperationMode> getInSystemOperationModes();
 
 	/**
-	 * Returns the value of the '<em><b>In Mode Transitions</b></em>' reference list.
+	 * Returns the value of the '<em><b>In Mode Transition</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.instance.ModeTransitionInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -92,8 +92,8 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Mode Transitions</em>' reference list.
-	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance_InModeTransitions()
+	 * @return the value of the '<em>In Mode Transition</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionInstance_InModeTransition()
 	 * @model ordered="false"
 	 * @generated
 	 */
