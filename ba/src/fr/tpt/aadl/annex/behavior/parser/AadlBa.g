@@ -544,7 +544,7 @@ qualifiable_named_element [QualifiedNamedElement qne]
        nameSpaceId.setId(id1);
        setLocationReference(nameSpaceId, identifier1); 
        qne.setBaNamespace(nameSpaceId);
-       setLocationReference(qne, identifier1);
+       setLocationReference(qne, identifier2);
      }
      else
      {
@@ -732,10 +732,10 @@ behavior_action_block returns [BehaviorActionBlock BehActionBlock]
        setLocationReference(BehActionBlock, identifier);
     }
       
-    ( TIMEOUT BehTime=behavior_time
+    ( keyword_timeout=TIMEOUT BehTime=behavior_time
       {
         BehActionBlock.setTimeout(BehTime) ;
-        highlight(identifier, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
+        highlight(keyword_timeout, AnnexHighlighterPositionAcceptor.KEYWORD_ID);
       }
     )?
 ;

@@ -22,7 +22,6 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
-import fr.tpt.aadl.annex.behavior.aadlba.BehaviorElement;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
@@ -43,6 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
+import org.osate.aadl2.Element ;
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 
 /**
@@ -77,10 +77,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
    * @generated NOT
    */
   
-  private Map<AadlBaLocationReference, BehaviorElement> _links = new HashMap
-	        <AadlBaLocationReference, BehaviorElement>() ;
+  private Map<AadlBaLocationReference, Element> _links = new HashMap
+	        <AadlBaLocationReference, Element>() ;
   
-  public Map<AadlBaLocationReference, BehaviorElement> getLinks()
+  public Map<AadlBaLocationReference, Element> getLinks()
   {
 	  return _links;
   }

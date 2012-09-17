@@ -24,6 +24,7 @@ import java.util.Map;
 import org.eclipse.emf.common.util.EList;
 
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.Element ;
 
 import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
@@ -71,7 +72,7 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
    * @generated NOT
    */
   
-  Map<AadlBaLocationReference, BehaviorElement> getLinks();
+  Map<AadlBaLocationReference, Element> getLinks();
   
   public Map<BehaviorAnnex, AadlBaHighlighter> getHighlighters();
   

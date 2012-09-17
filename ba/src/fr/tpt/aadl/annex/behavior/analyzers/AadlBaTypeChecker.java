@@ -163,6 +163,9 @@ public class AadlBaTypeChecker
            uniqueComponentClassifierReferenceResolver(uccr,
                                                       TypeCheckRule.DATA_UCCR) ;
       
+      _hl.addToHyperlinking(uccr.getAadlBaLocationReference(),
+                            dc) ;
+      
       result &= dc != null ;
       bv.setDataClassifier(dc) ;
       
