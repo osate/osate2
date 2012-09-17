@@ -27,7 +27,6 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AccessConnection;
@@ -44,9 +43,8 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertySet;
 import org.osate.aadl2.SubprogramCall;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class Aadl2Utils
 {
@@ -217,14 +215,9 @@ public class Aadl2Utils
     {
       if(DEFAULT_ACCESS_RIGHT == null)
       {
-        PropertiesLinkingService pls = new PropertiesLinkingService() ;
-        
-        EObject ne = null ;
-        PropertySet ps = pls.findPropertySet(data, "Memory_Properties");
-        ne = ps.findNamedElement("Access_Right");
         try
         {
-          Property prop = (Property) ne ;
+          Property prop = GetProperties.lookupPropertyDefinition(data, "Memory_Properties", "Access_Right");
           NamedValue nv = (NamedValue) prop.getDefaultValue() ;
           result = ((EnumerationLiteral) nv.getNamedValue()).getName();
         }
