@@ -35,7 +35,6 @@
 package org.osate.xtext.aadl2.properties.linking;
 
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,7 +45,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
@@ -55,11 +53,7 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IReferenceDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.ui.util.WorkspaceClasspathUriResolver;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractType;
@@ -157,7 +151,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
@@ -174,43 +167,12 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	public PropertiesLinkingService(){
 		super();
 	}
-
-	private static ResourceSet standAloneResourceSet=null;
-	
-	public void setStandAloneResourceSet(ResourceSet rs)
-	{
-		standAloneResourceSet=rs;
-	}
-	
-	private NamedElement StandAloneFindEObject(String qualifedName)
-	{
-		final String separator = "::";
-		String[] segments = qualifedName.split(separator);
-		for(Resource r: standAloneResourceSet.getResources())
-		{
-			if(r.getContents().isEmpty())
-				continue;
-			if(r.getContents().get(0) instanceof NamedElement)
-			{	
-				NamedElement ne = (NamedElement) r.getContents().get(0);
-				if(!ne.getName().equalsIgnoreCase(segments[0]))
-					continue;
-				for(int i=1; i<segments.length; i++)
-				{
-					ne = getContainedNamedElement(ne, segments[i]);
-					if(ne==null)
-						break;
-				}
-				if(ne!=null) return ne;
-			}
-		}
-		return null;
-	}
 	
 	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(){
 		if (eInstance == null) {
-			PredeclaredProperties.initPluginContributedAadl();
+			if(Platform.isRunning())
+				PredeclaredProperties.initPluginContributedAadl();
 			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
 		}
@@ -253,8 +215,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		} catch (Exception e) {
 			//e.printStackTrace();
 		}
-		if(res ==null && Platform.isRunning()==false)
-			return StandAloneFindEObject(crossRefString);
 		return res;
 		// XXX phf: lookup in global index without regard to project dependencies
 //		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
@@ -273,7 +233,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	 */
 	public  Iterable<IEObjectDescription> getIndexedObjects(EObject context,
 			EReference reference, String crossRefString) {
-			List<EObject> el;
+//			List<EObject> el;
 			try {
 
 				if (crossRefString != null && !crossRefString.equals("")) {

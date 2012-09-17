@@ -42,6 +42,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -92,13 +93,26 @@ public class OsateResourceUtil {
     		}
     	}
 //        PredeclaredProperties.initPluginContributedAadl();
-        if (fResourceSetProvider == null)
-        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+    	if(Platform.isRunning())
+    	{
+    		if (fResourceSetProvider == null)
+    			fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
-        if (resourceSet == null) 
-        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);//project);
+    		if (resourceSet == null) 
+    			resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);//project);
+    	}
+    	else
+    	{
+    		if (resourceSet == null) 
+    			resourceSet = injector
+    				.getInstance(XtextResourceSet.class) ;
+    	}
         return resourceSet;
    	
+    }
+    
+    public static void setResourceSet(XtextResourceSet rs){
+    	resourceSet=rs;
     }
     
     public static XtextResourceSet createResourceSet(){

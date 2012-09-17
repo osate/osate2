@@ -34,7 +34,6 @@
 package org.osate.annexsupport;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.XtextResource;
 
 
 public interface AnnexTextPositionResolver {
