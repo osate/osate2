@@ -514,19 +514,20 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
 					EndToEndFlowElement leaf = null;
+					ComponentInstance target = null;
 
 					if (conni.getDestination() instanceof ComponentInstance) {
-						ComponentInstance target = (ComponentInstance) conni.getDestination();
+						target = (ComponentInstance) conni.getDestination();
 
 						if (target.getCategory() == ComponentCategory.DATA) {
 							leaf = target.getSubcomponent();
 						}
-					} else if (conni.getDestination() instanceof FeatureInstance) {
-						FeatureInstance target = (FeatureInstance) conni.getDestination();
-
-						if (target.getCategory() == FeatureCategory.DATA_ACCESS) {
-							leaf = (DataAccess) target.getFeature();
-						}
+//					} else if (conni.getDestination() instanceof FeatureInstance) {
+//						FeatureInstance target = (FeatureInstance) conni.getDestination();
+//
+//						if (target.getCategory() == FeatureCategory.DATA_ACCESS) {
+//							leaf = (DataAccess) target.getFeature();
+//						}
 					} else {
 						if (!errorReported) {
 							errorReported = true;
@@ -544,27 +545,39 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						}
 
 						etei.getFlowElements().add(conni);
-						addLeafElement(ci, etei, leaf);
+						addLeafElement(target, etei, leaf);
 
 						// prepare next connection filter
 						Connection lastConn = connections.get(connections.size() - 1);
 
 						connections.clear();
 						if (iter.hasNext()) {
-							Connection nextConn = (Connection) iter.next();
-							int i = conni.getConnectionReferences().size() - 1;
-							Connection preConn = null;
-
-							while (i > 0 && preConn != lastConn) {
-								preConn = connections.get(i--);
-								if (preConn != lastConn) {
-									connections.add(preConn);
-								}
+							Element obj = iter.next();
+							Connection nextConn = null;
+							if (obj instanceof FlowSegment) {
+								FlowElement fe = ((FlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection)
+									nextConn = (Connection) fe;
+							} else if (obj instanceof EndToEndFlowSegment) {
+								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection)
+									nextConn = (Connection) fe;
 							}
-							connections.add(nextConn);
+							if (nextConn != null) {
+								int i = conni.getConnectionReferences().size() - 1;
+								Connection preConn = null;
+
+								while (i > 0 && preConn != lastConn) {
+									preConn = conni.getConnectionReferences().get(i--).getConnection();
+									if (preConn != lastConn) {
+										connections.add(preConn);
+									}
+								}
+								connections.add(nextConn);
+							}
 						}
 
-						continueFlow(ci.getContainingComponentInstance(), etei, state.pop(), ci);
+						continueFlow(ci, etei, state.pop(), ci);
 
 						if (prepareNext) {
 							// add clone
@@ -752,14 +765,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		} else if (leaf instanceof Subcomponent) {
 			// append a subcomponent instance
 			etei.getFlowElements().add(ci);
-		} else if (leaf instanceof DataAccess) {
-			if (ci != null) {
-				// append a data instance
-				etei.getFlowElements().add(ci);
-			} else {
-				error(etei, "Incomplete End-to-end flow instance " + etei.getName()
-						+ ": No data component connected to data access feature " + ((DataAccess) leaf).getName());
-			}
+//		} else if (leaf instanceof DataAccess) {
+//			if (ci != null) {
+//				// append a data instance
+//				etei.getFlowElements().add(ci);
+//			} else {
+//				error(etei, "Incomplete End-to-end flow instance " + etei.getName()
+//						+ ": No data component connected to data access feature " + ((DataAccess) leaf).getName());
+//			}
 		}
 	}
 
