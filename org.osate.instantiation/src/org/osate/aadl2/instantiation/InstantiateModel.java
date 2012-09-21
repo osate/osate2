@@ -611,10 +611,8 @@ public class InstantiateModel {
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName() /*
-											* + indexStackToString(indexStack) +
-											* (index > 0 ? "_" + index : "")
-											*/);
+		newInstance.setCategory(sub.getCategory());
+		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
@@ -624,7 +622,6 @@ public class InstantiateModel {
 			cc = null;
 		} else {
 			cc = (ComponentClassifier) ic.classifier;
-			newInstance.setCategory(cc.getCategory());
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
