@@ -36,19 +36,24 @@
  */
 package org.osate.aadl2.instance.impl;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.ModeInstance;
+import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
 /**
@@ -61,6 +66,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getFlowSpecification <em>Flow Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl#getInModeTransitions <em>In Mode Transition</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +101,26 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * @ordered
 	 */
 	protected FlowSpecification flowSpecification;
+
+	/**
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeInstance> inModes;
+
+	/**
+	 * The cached value of the '{@link #getInModeTransitions() <em>In Mode Transition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getInModeTransitions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<ModeTransitionInstance> inModeTransitions;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -297,6 +324,32 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<ModeInstance> getInModes() {
+		if (inModes == null) {
+			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE);
+		}
+		return inModes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<ModeTransitionInstance> getInModeTransitions() {
+		if (inModeTransitions == null) {
+			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+					InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
+		}
+		return inModeTransitions;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -350,6 +403,10 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 			if (resolve)
 				return getFlowSpecification();
 			return basicGetFlowSpecification();
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE:
+			return getInModes();
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION:
+			return getInModeTransitions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -359,6 +416,7 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
@@ -370,6 +428,14 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 			return;
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION:
 			setFlowSpecification((FlowSpecification) newValue);
+			return;
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE:
+			getInModes().clear();
+			getInModes().addAll((Collection<? extends ModeInstance>) newValue);
+			return;
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION:
+			getInModeTransitions().clear();
+			getInModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -392,6 +458,12 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION:
 			setFlowSpecification((FlowSpecification) null);
 			return;
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE:
+			getInModes().clear();
+			return;
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION:
+			getInModeTransitions().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -410,23 +482,33 @@ public class FlowSpecificationInstanceImpl extends FlowElementInstanceImpl imple
 			return destination != null;
 		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION:
 			return flowSpecification != null;
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE:
+			return inModes != null && !inModes.isEmpty();
+		case InstancePackage.FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION:
+			return inModeTransitions != null && !inModeTransitions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public final List<SystemOperationMode> getExistsInModes() {
 		// Modes always exist
 		return null;
 	}
 
-	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public List<FlowSpecification> getInstantiatedObjects() {
 		return Collections.singletonList(getFlowSpecification());
 	}
 
 	public boolean isActive(SystemOperationMode som) {
-		return getContainingComponentInstance().isActive(som);
+		if (getInModes().isEmpty()) {
+			return getContainingComponentInstance().isActive(som);
+		}
+		for (ModeInstance m : getInModes()) {
+			if (som.getCurrentModes().contains(m)) {
+				return getContainingComponentInstance().isActive(som);
+			}
+		}
+		return false;
 	}
 
 } //FlowSpecificationInstanceImpl

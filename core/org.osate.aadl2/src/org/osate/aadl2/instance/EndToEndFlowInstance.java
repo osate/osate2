@@ -47,7 +47,7 @@ import org.osate.aadl2.EndToEndFlow;
  * The following features are supported:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getFlowElements <em>Flow Element</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInModes <em>In Modes</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.EndToEndFlowInstance#getEndToEndFlow <em>End To End Flow</em>}</li>
  * </ul>
@@ -101,7 +101,7 @@ public interface EndToEndFlowInstance extends FlowElementInstance {
 	void setEndToEndFlow(EndToEndFlow value);
 
 	/**
-	 * Returns the value of the '<em><b>In Modes</b></em>' reference list.
+	 * Returns the value of the '<em><b>In Mode</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.instance.ModeInstance}.
 	 * <!-- begin-user-doc -->
 	 * <p>
@@ -109,8 +109,8 @@ public interface EndToEndFlowInstance extends FlowElementInstance {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>In Modes</em>' reference list.
-	 * @see org.osate.aadl2.instance.InstancePackage#getEndToEndFlowInstance_InModes()
+	 * @return the value of the '<em>In Mode</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getEndToEndFlowInstance_InMode()
 	 * @model ordered="false"
 	 * @generated
 	 */

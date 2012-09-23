@@ -1,9 +1,9 @@
 /**
  * <copyright>
- * Copyright  20012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/legal/epl-v10.html.
+ * at http://www.eclipse.org/legal/cpl-v10.html.
  *
  * NO WARRANTY
  *

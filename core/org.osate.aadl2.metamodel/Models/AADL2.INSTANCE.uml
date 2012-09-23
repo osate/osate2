@@ -82,7 +82,7 @@ A connecton instance is unidirectional. A sequence of bidirectional declarative 
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-inSystemOperationMode-_upperValue" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ConnectionInstance-inSystemOperationMode-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="ConnectionInstance-inModeTransitions" name="inModeTransitions" type="ModeTransitionInstance" association="_packagedElement.35">
+      <ownedAttribute xmi:id="ConnectionInstance-inModeTransitions" name="inModeTransition" type="ModeTransitionInstance" association="_packagedElement.35">
         <ownedComment xmi:id="_MACbkFn1Ed-39ebAzHAVCA">
           <body>The mode transitions in which this connection instance is active. These are the transitions in which all declarative connections are active that participate in the connection instance.</body>
         </ownedComment>
@@ -257,7 +257,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <type xmi:type="uml:Enumeration" href="AADL2.EMF.merged.uml#ComponentCategory"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentInstance-category-_lowerValue" value="1"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentInstance-inModes" name="inModes" type="ModeInstance" association="_packagedElement.22">
+      <ownedAttribute xmi:id="ComponentInstance-inModes" name="inMode" type="ModeInstance" association="_packagedElement.22">
         <ownedComment xmi:id="_DOXGYFn8Ed-39ebAzHAVCA">
           <body>The mode instances (of the parent component) in which this component is active.</body>
         </ownedComment>
@@ -315,7 +315,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.21" visibility="private" memberEnd="ComponentInstance-modeTransitionInstance _packagedElement.21-_ownedEnd.0">
       <ownedEnd xmi:id="_packagedElement.21-_ownedEnd.0" name="owner" type="ComponentInstance" association="_packagedElement.21"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.22" visibility="private" memberEnd="ComponentInstance-inModes _packagedElement.22-_ownedEnd.0">
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.22" name="A_component_inMode" visibility="private" memberEnd="ComponentInstance-inModes _packagedElement.22-_ownedEnd.0">
       <ownedEnd xmi:id="_packagedElement.22-_ownedEnd.0" name="component" type="ComponentInstance" association="_packagedElement.22"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FlowSpecInstance" name="FlowSpecificationInstance">
@@ -343,6 +343,14 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Xx16EVhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Xx16ElhmEd-rYOZ3UaShDA" value="1"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_i-cYBPt8EeG_drLDhPLMOA" name="inMode" type="ModeInstance" association="_i-cYAPt8EeG_drLDhPLMOA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-cYBft8EeG_drLDhPLMOA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-cYBvt8EeG_drLDhPLMOA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_nwnNrvwYEeG0W_V5cpDKXA" name="inModeTransition" type="ModeTransitionInstance" association="_nwnNqvwYEeG0W_V5cpDKXA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwnNr_wYEeG0W_V5cpDKXA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwnNsPwYEeG0W_V5cpDKXA"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.25" name="A_flowSpecificationInstance_source" visibility="private" memberEnd="FeatureInstance-srcFlowSpec FlowSpecInstance-src"/>
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.26" name="A_flowSpecificationInstance_destination" visibility="private" memberEnd="FeatureInstance-dstFlowSpec FlowSpecInstance-dst"/>
@@ -361,7 +369,7 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="EndToEndFlowInstance-flowElementInstance-_upperValue" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="EndToEndFlowInstance-flowElementInstance-_lowerValue"/>
       </ownedAttribute>
-      <ownedAttribute xmi:id="EndToEndFlowInstance-inModes" name="inModes" type="ModeInstance" association="_packagedElement.31">
+      <ownedAttribute xmi:id="EndToEndFlowInstance-inModes" name="inMode" type="ModeInstance" association="_packagedElement.31">
         <ownedComment xmi:id="_LzeiEFn8Ed-39ebAzHAVCA">
           <body>The mode instances (of the owning component instance) in which this flow instance is active.</body>
         </ownedComment>
@@ -391,7 +399,7 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_hmcbwFnTEd-NdemEyhSnJg"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.31" visibility="private" memberEnd="EndToEndFlowInstance-inModes _packagedElement.31-_ownedEnd.0">
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.31" name="A_flow_inMode" visibility="private" memberEnd="EndToEndFlowInstance-inModes _packagedElement.31-_ownedEnd.0">
       <ownedEnd xmi:id="_packagedElement.31-_ownedEnd.0" name="flow" type="EndToEndFlowInstance" association="_packagedElement.31"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.32" visibility="private" memberEnd="EndToEndFlowInstance-inSystemOperationMode _packagedElement.32-_ownedEnd.0">
@@ -406,7 +414,7 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4TmowHV1Ed-5Z-hOGUPk8w"/>
       </ownedEnd>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.35" visibility="private" memberEnd="ConnectionInstance-inModeTransitions _packagedElement.35-_ownedEnd.0">
+    <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.35" name="A_connection_inModeTransition" visibility="private" memberEnd="ConnectionInstance-inModeTransitions _packagedElement.35-_ownedEnd.0">
       <ownedEnd xmi:id="_packagedElement.35-_ownedEnd.0" name="connection" type="ConnectionInstance" association="_packagedElement.35"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.36" name="A_featureInstance_featureInstance" visibility="private" memberEnd="FeatureInstance-featureInstance _packagedElement.36-_ownedEnd.0">
@@ -576,6 +584,18 @@ These are those SOMs in which all of this flow's elements  are active.</body>
       <ownedEnd xmi:id="_qEyPceugEeGFpMJjDNLhvw" name="modeInstance" type="ModeInstance" association="_qEyPcOugEeGFpMJjDNLhvw">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qEyPcuugEeGFpMJjDNLhvw" value="*"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qEyPc-ugEeGFpMJjDNLhvw"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_i-cYAPt8EeG_drLDhPLMOA" name="A_flowSpecification_inMode" memberEnd="_i-cYAft8EeG_drLDhPLMOA _i-cYBPt8EeG_drLDhPLMOA">
+      <ownedEnd xmi:id="_i-cYAft8EeG_drLDhPLMOA" name="flowSpecification" type="FlowSpecInstance" association="_i-cYAPt8EeG_drLDhPLMOA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_i-cYAvt8EeG_drLDhPLMOA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_i-cYA_t8EeG_drLDhPLMOA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_nwnNqvwYEeG0W_V5cpDKXA" name="A_flowSpecification_inModeTransition" memberEnd="_nwnNq_wYEeG0W_V5cpDKXA _nwnNrvwYEeG0W_V5cpDKXA">
+      <ownedEnd xmi:id="_nwnNq_wYEeG0W_V5cpDKXA" name="flowSpecification" type="FlowSpecInstance" association="_nwnNqvwYEeG0W_V5cpDKXA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwnNrPwYEeG0W_V5cpDKXA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwnNrfwYEeG0W_V5cpDKXA" value="1"/>
       </ownedEnd>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">

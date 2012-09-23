@@ -510,13 +510,13 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>In Mode Transitions</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode Transition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_INSTANCE__IN_MODE_TRANSITIONS = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 1;
+	int CONNECTION_INSTANCE__IN_MODE_TRANSITION = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Complete</b></em>' attribute.
@@ -1100,13 +1100,13 @@ public interface InstancePackage extends EPackage {
 	int COMPONENT_INSTANCE__CATEGORY = CONNECTION_INSTANCE_END_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>In Modes</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INSTANCE__IN_MODES = CONNECTION_INSTANCE_END_FEATURE_COUNT + 5;
+	int COMPONENT_INSTANCE__IN_MODE = CONNECTION_INSTANCE_END_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Flow Specification</b></em>' containment reference list.
@@ -1245,13 +1245,31 @@ public interface InstancePackage extends EPackage {
 	int FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 2;
 
 	/**
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION_INSTANCE__IN_MODE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>In Mode Transition</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Flow Specification Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_SPECIFICATION_INSTANCE_FEATURE_COUNT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 3;
+	int FLOW_SPECIFICATION_INSTANCE_FEATURE_COUNT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl <em>End To End Flow Instance</em>}' class.
@@ -1318,13 +1336,13 @@ public interface InstancePackage extends EPackage {
 	int END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>In Modes</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int END_TO_END_FLOW_INSTANCE__IN_MODES = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 1;
+	int END_TO_END_FLOW_INSTANCE__IN_MODE = FLOW_ELEMENT_INSTANCE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>In System Operation Mode</b></em>' reference list.
@@ -1472,13 +1490,13 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE__CATEGORY = COMPONENT_INSTANCE__CATEGORY;
 
 	/**
-	 * The feature id for the '<em><b>In Modes</b></em>' reference list.
+	 * The feature id for the '<em><b>In Mode</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int SYSTEM_INSTANCE__IN_MODES = COMPONENT_INSTANCE__IN_MODES;
+	int SYSTEM_INSTANCE__IN_MODE = COMPONENT_INSTANCE__IN_MODE;
 
 	/**
 	 * The feature id for the '<em><b>Flow Specification</b></em>' containment reference list.
@@ -1769,15 +1787,15 @@ public interface InstancePackage extends EPackage {
 	EReference getConnectionInstance_InSystemOperationMode();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions <em>In Mode Transitions</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions <em>In Mode Transition</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In Mode Transitions</em>'.
+	 * @return the meta object for the reference list '<em>In Mode Transition</em>'.
 	 * @see org.osate.aadl2.instance.ConnectionInstance#getInModeTransitions()
 	 * @see #getConnectionInstance()
 	 * @generated
 	 */
-	EReference getConnectionInstance_InModeTransitions();
+	EReference getConnectionInstance_InModeTransition();
 
 	/**
 	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ConnectionInstance#isComplete <em>Complete</em>}'.
@@ -2114,6 +2132,28 @@ public interface InstancePackage extends EPackage {
 	EReference getFlowSpecificationInstance_FlowSpecification();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModes <em>In Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>In Mode</em>'.
+	 * @see org.osate.aadl2.instance.FlowSpecificationInstance#getInModes()
+	 * @see #getFlowSpecificationInstance()
+	 * @generated
+	 */
+	EReference getFlowSpecificationInstance_InMode();
+
+	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModeTransitions <em>In Mode Transition</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>In Mode Transition</em>'.
+	 * @see org.osate.aadl2.instance.FlowSpecificationInstance#getInModeTransitions()
+	 * @see #getFlowSpecificationInstance()
+	 * @generated
+	 */
+	EReference getFlowSpecificationInstance_InModeTransition();
+
+	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.instance.ComponentInstance#getModeInstances <em>Mode Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2147,15 +2187,15 @@ public interface InstancePackage extends EPackage {
 	EAttribute getComponentInstance_Category();
 
 	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ComponentInstance#getInModes <em>In Modes</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.ComponentInstance#getInModes <em>In Mode</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In Modes</em>'.
+	 * @return the meta object for the reference list '<em>In Mode</em>'.
 	 * @see org.osate.aadl2.instance.ComponentInstance#getInModes()
 	 * @see #getComponentInstance()
 	 * @generated
 	 */
-	EReference getComponentInstance_InModes();
+	EReference getComponentInstance_InMode();
 
 	/**
 	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.instance.ComponentInstance#getFlowSpecifications <em>Flow Specification</em>}'.
@@ -2212,6 +2252,17 @@ public interface InstancePackage extends EPackage {
 	EReference getEndToEndFlowInstance_FlowElement();
 
 	/**
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInModes <em>In Mode</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>In Mode</em>'.
+	 * @see org.osate.aadl2.instance.EndToEndFlowInstance#getInModes()
+	 * @see #getEndToEndFlowInstance()
+	 * @generated
+	 */
+	EReference getEndToEndFlowInstance_InMode();
+
+	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.EndToEndFlowInstance#getEndToEndFlow <em>End To End Flow</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2221,17 +2272,6 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EReference getEndToEndFlowInstance_EndToEndFlow();
-
-	/**
-	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInModes <em>In Modes</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>In Modes</em>'.
-	 * @see org.osate.aadl2.instance.EndToEndFlowInstance#getInModes()
-	 * @see #getEndToEndFlowInstance()
-	 * @generated
-	 */
-	EReference getEndToEndFlowInstance_InModes();
 
 	/**
 	 * Returns the meta object for the reference list '{@link org.osate.aadl2.instance.EndToEndFlowInstance#getInSystemOperationModes <em>In System Operation Mode</em>}'.
@@ -2463,12 +2503,12 @@ public interface InstancePackage extends EPackage {
 				.getConnectionInstance_InSystemOperationMode();
 
 		/**
-		 * The meta object literal for the '<em><b>In Mode Transitions</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>In Mode Transition</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_INSTANCE__IN_MODE_TRANSITIONS = eINSTANCE.getConnectionInstance_InModeTransitions();
+		EReference CONNECTION_INSTANCE__IN_MODE_TRANSITION = eINSTANCE.getConnectionInstance_InModeTransition();
 
 		/**
 		 * The meta object literal for the '<em><b>Complete</b></em>' attribute feature.
@@ -2734,6 +2774,23 @@ public interface InstancePackage extends EPackage {
 				.getFlowSpecificationInstance_FlowSpecification();
 
 		/**
+		 * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FLOW_SPECIFICATION_INSTANCE__IN_MODE = eINSTANCE.getFlowSpecificationInstance_InMode();
+
+		/**
+		 * The meta object literal for the '<em><b>In Mode Transition</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION = eINSTANCE
+				.getFlowSpecificationInstance_InModeTransition();
+
+		/**
 		 * The meta object literal for the '<em><b>Mode Instance</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -2759,12 +2816,12 @@ public interface InstancePackage extends EPackage {
 		EAttribute COMPONENT_INSTANCE__CATEGORY = eINSTANCE.getComponentInstance_Category();
 
 		/**
-		 * The meta object literal for the '<em><b>In Modes</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__IN_MODES = eINSTANCE.getComponentInstance_InModes();
+		EReference COMPONENT_INSTANCE__IN_MODE = eINSTANCE.getComponentInstance_InMode();
 
 		/**
 		 * The meta object literal for the '<em><b>Flow Specification</b></em>' containment reference list feature.
@@ -2809,20 +2866,20 @@ public interface InstancePackage extends EPackage {
 		EReference END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = eINSTANCE.getEndToEndFlowInstance_FlowElement();
 
 		/**
+		 * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference END_TO_END_FLOW_INSTANCE__IN_MODE = eINSTANCE.getEndToEndFlowInstance_InMode();
+
+		/**
 		 * The meta object literal for the '<em><b>End To End Flow</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW = eINSTANCE.getEndToEndFlowInstance_EndToEndFlow();
-
-		/**
-		 * The meta object literal for the '<em><b>In Modes</b></em>' reference list feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference END_TO_END_FLOW_INSTANCE__IN_MODES = eINSTANCE.getEndToEndFlowInstance_InModes();
 
 		/**
 		 * The meta object literal for the '<em><b>In System Operation Mode</b></em>' reference list feature.
