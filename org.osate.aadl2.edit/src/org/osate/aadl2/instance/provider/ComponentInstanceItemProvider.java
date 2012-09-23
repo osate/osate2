@@ -87,7 +87,7 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 			super.getPropertyDescriptors(object);
 
 			addCategoryPropertyDescriptor(object);
-			addInModesPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
 			addSubcomponentPropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
 		}
@@ -113,19 +113,19 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 	}
 
 	/**
-	 * This adds a property descriptor for the In Modes feature.
+	 * This adds a property descriptor for the In Mode feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInModesPropertyDescriptor(Object object) {
+	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
-						getString("_UI_ComponentInstance_inModes_feature"), //$NON-NLS-1$
+						getString("_UI_ComponentInstance_inMode_feature"), //$NON-NLS-1$
 						getString(
-								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_inModes_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.COMPONENT_INSTANCE__IN_MODES, true, false, true, null, null, null));
+								"_UI_PropertyDescriptor_description", "_UI_ComponentInstance_inMode_feature", "_UI_ComponentInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.COMPONENT_INSTANCE__IN_MODE, true, false, true, null, null, null));
 	}
 
 	/**

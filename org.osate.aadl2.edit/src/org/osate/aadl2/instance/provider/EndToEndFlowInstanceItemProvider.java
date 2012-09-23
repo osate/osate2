@@ -81,7 +81,7 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 			super.getPropertyDescriptors(object);
 
 			addFlowElementPropertyDescriptor(object);
-			addInModesPropertyDescriptor(object);
+			addInModePropertyDescriptor(object);
 			addInSystemOperationModePropertyDescriptor(object);
 			addEndToEndFlowPropertyDescriptor(object);
 		}
@@ -107,21 +107,19 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 	}
 
 	/**
-	 * This adds a property descriptor for the In Modes feature.
+	 * This adds a property descriptor for the In Mode feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addInModesPropertyDescriptor(Object object) {
+	protected void addInModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
 						getResourceLocator(),
-						getString("_UI_EndToEndFlowInstance_inModes_feature"), //$NON-NLS-1$
+						getString("_UI_EndToEndFlowInstance_inMode_feature"), //$NON-NLS-1$
 						getString(
-								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_inModes_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_MODES, true, false, true, null, null,
-						null));
+								"_UI_PropertyDescriptor_description", "_UI_EndToEndFlowInstance_inMode_feature", "_UI_EndToEndFlowInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.END_TO_END_FLOW_INSTANCE__IN_MODE, true, false, true, null, null, null));
 	}
 
 	/**

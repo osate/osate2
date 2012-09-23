@@ -376,7 +376,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getConnectionInstance_InModeTransitions() {
+	public EReference getConnectionInstance_InModeTransition() {
 		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -664,6 +664,24 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getFlowSpecificationInstance_InMode() {
+		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getFlowSpecificationInstance_InModeTransition() {
+		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getComponentInstance_ModeInstance() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(2);
 	}
@@ -691,7 +709,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getComponentInstance_InModes() {
+	public EReference getComponentInstance_InMode() {
 		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -745,8 +763,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEndToEndFlowInstance_EndToEndFlow() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(3);
+	public EReference getEndToEndFlowInstance_InMode() {
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -754,8 +772,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getEndToEndFlowInstance_InModes() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(1);
+	public EReference getEndToEndFlowInstance_EndToEndFlow() {
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -876,7 +894,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 
 		connectionInstanceEClass = createEClass(CONNECTION_INSTANCE);
 		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
-		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_MODE_TRANSITIONS);
+		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		createEAttribute(connectionInstanceEClass, CONNECTION_INSTANCE__COMPLETE);
 		createEAttribute(connectionInstanceEClass, CONNECTION_INSTANCE__KIND);
 		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__DESTINATION);
@@ -911,7 +929,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__MODE_INSTANCE);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
 		createEAttribute(componentInstanceEClass, COMPONENT_INSTANCE__CATEGORY);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__IN_MODES);
+		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__IN_MODE);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__FLOW_SPECIFICATION);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__END_TO_END_FLOW);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__CONNECTION_INSTANCE);
@@ -922,10 +940,12 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__SOURCE);
 		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__DESTINATION);
 		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION);
+		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__IN_MODE);
+		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
 
 		endToEndFlowInstanceEClass = createEClass(END_TO_END_FLOW_INSTANCE);
 		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT);
-		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__IN_MODES);
+		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__IN_MODE);
 		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW);
 
@@ -1051,10 +1071,10 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"inSystemOperationMode", null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
-				getConnectionInstance_InModeTransitions(),
+				getConnectionInstance_InModeTransition(),
 				this.getModeTransitionInstance(),
 				null,
-				"inModeTransitions", null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"inModeTransition", null, 0, -1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(
 				getConnectionInstance_Complete(),
 				theAadl2Package.getBoolean(),
@@ -1179,10 +1199,10 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				theAadl2Package.getComponentCategory(),
 				"category", null, 1, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
-				getComponentInstance_InModes(),
+				getComponentInstance_InMode(),
 				this.getModeInstance(),
 				null,
-				"inModes", null, 0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"inMode", null, 0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
 				getComponentInstance_FlowSpecification(),
 				this.getFlowSpecificationInstance(),
@@ -1225,6 +1245,16 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				theAadl2Package.getFlowSpecification(),
 				null,
 				"flowSpecification", null, 1, 1, FlowSpecificationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getFlowSpecificationInstance_InMode(),
+				this.getModeInstance(),
+				null,
+				"inMode", null, 0, -1, FlowSpecificationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getFlowSpecificationInstance_InModeTransition(),
+				this.getModeTransitionInstance(),
+				null,
+				"inModeTransition", null, 0, -1, FlowSpecificationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(endToEndFlowInstanceEClass, EndToEndFlowInstance.class,
 				"EndToEndFlowInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
@@ -1234,10 +1264,10 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"flowElement", null, 0, -1, EndToEndFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 		initEReference(
-				getEndToEndFlowInstance_InModes(),
+				getEndToEndFlowInstance_InMode(),
 				this.getModeInstance(),
 				null,
-				"inModes", null, 0, -1, EndToEndFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"inMode", null, 0, -1, EndToEndFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEReference(
 				getEndToEndFlowInstance_InSystemOperationMode(),
 				this.getSystemOperationMode(),

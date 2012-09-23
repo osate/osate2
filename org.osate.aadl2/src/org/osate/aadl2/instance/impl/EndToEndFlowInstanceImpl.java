@@ -38,7 +38,6 @@ package org.osate.aadl2.instance.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -64,7 +63,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * The following features are implemented:
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getFlowElements <em>Flow Element</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getInModes <em>In Modes</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getInSystemOperationModes <em>In System Operation Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl#getEndToEndFlow <em>End To End Flow</em>}</li>
  * </ul>
@@ -84,7 +83,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	protected EList<FlowElementInstance> flowElements;
 
 	/**
-	 * The cached value of the '{@link #getInModes() <em>In Modes</em>}' reference list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInModes()
@@ -208,7 +207,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
-					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODES);
+					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE);
 		}
 		return inModes;
 	}
@@ -236,7 +235,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		switch (featureID) {
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT:
 			return getFlowElements();
-		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODES:
+		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			return getInModes();
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			return getInSystemOperationModes();
@@ -261,7 +260,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			getFlowElements().clear();
 			getFlowElements().addAll((Collection<? extends FlowElementInstance>) newValue);
 			return;
-		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODES:
+		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends ModeInstance>) newValue);
 			return;
@@ -287,7 +286,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT:
 			getFlowElements().clear();
 			return;
-		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODES:
+		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			getInModes().clear();
 			return;
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
@@ -310,7 +309,7 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		switch (featureID) {
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT:
 			return flowElements != null && !flowElements.isEmpty();
-		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODES:
+		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			return inSystemOperationModes != null && !inSystemOperationModes.isEmpty();

@@ -64,6 +64,7 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
@@ -244,10 +245,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		created.add(myInfo = new ETEInfo(etei));
 		EList<EList<ModeInstance>> ml = etei.getModesList();
 		ml.clear();
-		EList<Mode> inmodesList = ete.getAllInModes();
-		if (!inmodesList.isEmpty()) {
-			ml.add(getModeInstances(ci, inmodesList));
-		}
+		ml.add(getModeInstances(ci, ete));
 		processETE(ci, etei, ete);
 		ml.clear();
 	}
@@ -391,11 +389,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @return if elements were added to the end to end flow instance
 	 */
 	protected boolean processFlowImpl(ComponentInstance ci, EndToEndFlowInstance etei, FlowImplementation flowImpl) {
-		EList<Mode> iml = flowImpl.getAllInModes();
-
-		if (!iml.isEmpty()) {
-			etei.getModesList().add(getModeInstances(ci, iml));
-		}
+		etei.getModesList().add(getModeInstances(ci, flowImpl));
 
 		if (flowImpl.getOwnedFlowSegments().size() < 2) {
 			// the flow impl doesn't include a subcomponent, nothing to do
@@ -520,19 +514,20 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
 					EndToEndFlowElement leaf = null;
+					ComponentInstance target = null;
 
 					if (conni.getDestination() instanceof ComponentInstance) {
-						ComponentInstance target = (ComponentInstance) conni.getDestination();
+						target = (ComponentInstance) conni.getDestination();
 
 						if (target.getCategory() == ComponentCategory.DATA) {
 							leaf = target.getSubcomponent();
 						}
-					} else if (conni.getDestination() instanceof FeatureInstance) {
-						FeatureInstance target = (FeatureInstance) conni.getDestination();
-
-						if (target.getCategory() == FeatureCategory.DATA_ACCESS) {
-							leaf = (DataAccess) target.getFeature();
-						}
+//					} else if (conni.getDestination() instanceof FeatureInstance) {
+//						FeatureInstance target = (FeatureInstance) conni.getDestination();
+//
+//						if (target.getCategory() == FeatureCategory.DATA_ACCESS) {
+//							leaf = (DataAccess) target.getFeature();
+//						}
 					} else {
 						if (!errorReported) {
 							errorReported = true;
@@ -550,27 +545,39 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						}
 
 						etei.getFlowElements().add(conni);
-						addLeafElement(ci, etei, leaf);
+						addLeafElement(target, etei, leaf);
 
 						// prepare next connection filter
 						Connection lastConn = connections.get(connections.size() - 1);
 
 						connections.clear();
 						if (iter.hasNext()) {
-							Connection nextConn = (Connection) iter.next();
-							int i = conni.getConnectionReferences().size() - 1;
-							Connection preConn = null;
-
-							while (i > 0 && preConn != lastConn) {
-								preConn = connections.get(i--);
-								if (preConn != lastConn) {
-									connections.add(preConn);
-								}
+							Element obj = iter.next();
+							Connection nextConn = null;
+							if (obj instanceof FlowSegment) {
+								FlowElement fe = ((FlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection)
+									nextConn = (Connection) fe;
+							} else if (obj instanceof EndToEndFlowSegment) {
+								EndToEndFlowElement fe = ((EndToEndFlowSegment) obj).getFlowElement();
+								if (fe instanceof Connection)
+									nextConn = (Connection) fe;
 							}
-							connections.add(nextConn);
+							if (nextConn != null) {
+								int i = conni.getConnectionReferences().size() - 1;
+								Connection preConn = null;
+
+								while (i > 0 && preConn != lastConn) {
+									preConn = conni.getConnectionReferences().get(i--).getConnection();
+									if (preConn != lastConn) {
+										connections.add(preConn);
+									}
+								}
+								connections.add(nextConn);
+							}
 						}
 
-						continueFlow(ci.getContainingComponentInstance(), etei, state.pop(), ci);
+						continueFlow(ci, etei, state.pop(), ci);
 
 						if (prepareNext) {
 							// add clone
@@ -758,14 +765,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		} else if (leaf instanceof Subcomponent) {
 			// append a subcomponent instance
 			etei.getFlowElements().add(ci);
-		} else if (leaf instanceof DataAccess) {
-			if (ci != null) {
-				// append a data instance
-				etei.getFlowElements().add(ci);
-			} else {
-				error(etei, "Incomplete End-to-end flow instance " + etei.getName()
-						+ ": No data component connected to data access feature " + ((DataAccess) leaf).getName());
-			}
+//		} else if (leaf instanceof DataAccess) {
+//			if (ci != null) {
+//				// append a data instance
+//				etei.getFlowElements().add(ci);
+//			} else {
+//				error(etei, "Incomplete End-to-end flow instance " + etei.getName()
+//						+ ": No data component connected to data access feature " + ((DataAccess) leaf).getName());
+//			}
 		}
 	}
 
@@ -884,14 +891,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				}
 			}
 		}
-		// TODO-LW: test does not work if we continue after nested ete
 		if (match && connections.size() == 1) {
 			// make sure connection instance goes in the same direction as the flow
 			ComponentInstance connci = conni.getSource().getComponentInstance();
 			FlowElementInstance fei = etei;
 
 			while (fei instanceof EndToEndFlowInstance) {
-				fei = ((EndToEndFlowInstance) fei).getFlowElements().get(((EndToEndFlowInstance) fei).getFlowElements().size() - 1);
+				fei = ((EndToEndFlowInstance) fei).getFlowElements().get(
+						((EndToEndFlowInstance) fei).getFlowElements().size() - 1);
 			}
 			if (fei instanceof FlowSpecificationInstance) {
 				fei = fei.getComponentInstance();
@@ -906,16 +913,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					break;
 				}
 				ci = ci.getContainingComponentInstance();
-			}
-			if (!match) {
-				ci = flowci;
-				while (!(ci instanceof SystemInstance)) {
-					if (ci == connci) {
-						match = true;
-						break;
-					}
-					ci = ci.getContainingComponentInstance();
-				}
 			}
 		}
 		return match;
@@ -933,54 +930,119 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param mlist mode list
 	 * @return list of mode instances
 	 */
-	protected EList<ModeInstance> getModeInstances(ComponentInstance ci, EList<Mode> mlist) {
+	protected EList<ModeInstance> getModeInstances(ComponentInstance ci, ModalElement e) {
 		EList<ModeInstance> mis = new BasicEList<ModeInstance>();
-		for (Iterator<Mode> it = mlist.iterator(); it.hasNext();) {
-			Mode m = it.next();
-			ModeInstance mi = ci.findModeInstance(m);
-			if (mi != null) {
-				mis.add(mi);
+		List<Mode> mlist = e.getAllInModes();
+
+		if (!mlist.isEmpty()) {
+			for (Mode m : mlist) {
+				ModeInstance mi = ci.findModeInstance(m);
+
+				if (mi != null) {
+					mis.add(mi);
+				}
+			}
+		} else {
+			// get modes form containment hierarchy
+			while (!(ci instanceof SystemInstance)) {
+				if (ci.getInModes().isEmpty()) {
+					ci = ci.getContainingComponentInstance();
+				} else {
+					mis = ci.getInModes();
+					break;
+				}
 			}
 		}
 		return mis;
 	}
 
 	protected void fillinModes(EndToEndFlowInstance etei) {
-		if (etei.getModesList().isEmpty())
+
+		if (etei.getSystemInstance().getSystemOperationModes().size() <= 1) {
 			return;
-		Stack<ModeInstance> modes = new Stack<ModeInstance>();
-		EList<ModeInstance> mlist = etei.getModesList().get(0);
-		for (Iterator<ModeInstance> it = mlist.iterator(); it.hasNext();) {
-			ModeInstance m = it.next();
-			modes.push(m);
-			fillinNextInModes(etei, 1, modes);
-			modes.pop();
 		}
+
+		// first, calculate intersection of all connection and ete instance SOMs
+		EList<FlowElementInstance> feis = etei.getFlowElements();
+		List<SystemOperationMode> soms = new ArrayList<SystemOperationMode>(etei.getSystemInstance()
+				.getSystemOperationModes());
+
+		for (FlowElementInstance fei : feis) {
+			List<SystemOperationMode> newSoms = new ArrayList<SystemOperationMode>();
+
+			if (fei instanceof ConnectionInstance) {
+				ConnectionInstance conni = (ConnectionInstance) fei;
+
+				if (conni.getInSystemOperationModes().isEmpty()) {
+					continue;
+				}
+				for (SystemOperationMode som : soms) {
+					if (conni.getInSystemOperationModes().contains(som)) {
+						newSoms.add(som);
+					}
+				}
+			} else if (fei instanceof EndToEndFlowInstance) {
+				EndToEndFlowInstance efi = (EndToEndFlowInstance) fei;
+
+				if (efi.getInSystemOperationModes().isEmpty()) {
+					continue;
+				}
+				for (SystemOperationMode som : soms) {
+					if (efi.getInSystemOperationModes().contains(som)) {
+						newSoms.add(som);
+					}
+				}
+			} else {
+				continue;
+			}
+			soms = newSoms;
+		}
+
+		// then, keep those SOMs where all other flow elements are active
+		for (FlowElementInstance fei : feis) {
+			List<SystemOperationMode> newSoms = new ArrayList<SystemOperationMode>();
+			if (fei instanceof FlowSpecificationInstance) {
+				FlowSpecificationInstance fsi = (FlowSpecificationInstance) fei;
+
+				for (SystemOperationMode som : soms) {
+					if (fsi.isActive(som)) {
+						newSoms.add(som);
+					}
+				}
+			} else if (fei instanceof ComponentInstance) {
+				ComponentInstance ci = (ComponentInstance) fei;
+
+				for (SystemOperationMode som : soms) {
+					if (ci.isActive(som)) {
+						newSoms.add(som);
+					}
+				}
+			} else {
+				continue;
+			}
+			soms = newSoms;
+		}
+
+		// finally, keep those SOMs where the ete and used flow implementations are active
+		for (SystemOperationMode som : soms) {
+			if (containsModeInstances(som, etei.getModesList())) {
+				etei.getInSystemOperationModes().add(som);
+			}
+		}
+
 		etei.getModesList().clear();
 	}
 
-	/**
-	 * fill in rest of modes starting with index idx of modesList
-	 * 
-	 * @param etei end to end flow instance
-	 * @param idx index in modesList to be processed next
-	 * @param modes set of modes whose SOMs must be included
-	 */
-	private void fillinNextInModes(EndToEndFlowInstance etei, int idx, Stack<ModeInstance> modes) {
-		int mlsize = etei.getModesList().size();
-		if (idx == mlsize) {
-			SystemInstance si = (SystemInstance) etei.getElementRoot();
-			List<SystemOperationMode> somlist = si.getSystemOperationModesFor(modes);
-			etei.getInSystemOperationModes().addAll(somlist);
-		} else {
-			EList<ModeInstance> mlist = etei.getModesList().get(idx);
-			for (Iterator<ModeInstance> it = mlist.iterator(); it.hasNext();) {
-				ModeInstance m = it.next();
-				modes.push(m);
-				fillinNextInModes(etei, idx + 1, modes);
-				modes.pop();
+	private boolean containsModeInstances(SystemOperationMode som, List<EList<ModeInstance>> modeLists) {
+		outer: for (List<ModeInstance> mis : modeLists) {
+			for (ModeInstance mi : mis) {
+				if (som.getCurrentModes().contains(mi)) {
+					continue outer;
+				}
 			}
+			return false;
 		}
+		return true;
 	}
 
 	// -------------------------------------------------------------------------

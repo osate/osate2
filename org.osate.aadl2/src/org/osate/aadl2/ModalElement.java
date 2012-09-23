@@ -72,8 +72,7 @@ public interface ModalElement extends NamedElement {
 
 	/**
 	 * Returns the list of modes the modal element belongs to.
-	 * This may be kept with the modal element or an ancestor in the extends hierarchy.
-	 * The in modes of the closest ancestor returned.
+	 * Also searches refined elements.
 	 * @model kind="operation" ordered="false"
 	 * @generated
 	 */

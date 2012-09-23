@@ -92,7 +92,7 @@ import org.osate.aadl2.util.Aadl2Util;
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getModeInstances <em>Mode Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getModeTransitionInstances <em>Mode Transition Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getCategory <em>Category</em>}</li>
- *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getInModes <em>In Modes</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getInModes <em>In Mode</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getFlowSpecifications <em>Flow Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getEndToEndFlows <em>End To End Flow</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getConnectionInstances <em>Connection Instance</em>}</li>
@@ -165,7 +165,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	protected ComponentCategory category = CATEGORY_EDEFAULT;
 
 	/**
-	 * The cached value of the '{@link #getInModes() <em>In Modes</em>}' reference list.
+	 * The cached value of the '{@link #getInModes() <em>In Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getInModes()
@@ -438,7 +438,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
 			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
-					InstancePackage.COMPONENT_INSTANCE__IN_MODES);
+					InstancePackage.COMPONENT_INSTANCE__IN_MODE);
 		}
 		return inModes;
 	}
@@ -559,7 +559,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return getModeTransitionInstances();
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			return getCategory();
-		case InstancePackage.COMPONENT_INSTANCE__IN_MODES:
+		case InstancePackage.COMPONENT_INSTANCE__IN_MODE:
 			return getInModes();
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
 			return getFlowSpecifications();
@@ -605,7 +605,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			setCategory((ComponentCategory) newValue);
 			return;
-		case InstancePackage.COMPONENT_INSTANCE__IN_MODES:
+		case InstancePackage.COMPONENT_INSTANCE__IN_MODE:
 			getInModes().clear();
 			getInModes().addAll((Collection<? extends ModeInstance>) newValue);
 			return;
@@ -655,7 +655,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			setCategory(CATEGORY_EDEFAULT);
 			return;
-		case InstancePackage.COMPONENT_INSTANCE__IN_MODES:
+		case InstancePackage.COMPONENT_INSTANCE__IN_MODE:
 			getInModes().clear();
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
@@ -695,7 +695,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return modeTransitionInstances != null && !modeTransitionInstances.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			return category != CATEGORY_EDEFAULT;
-		case InstancePackage.COMPONENT_INSTANCE__IN_MODES:
+		case InstancePackage.COMPONENT_INSTANCE__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
 			return flowSpecifications != null && !flowSpecifications.isEmpty();

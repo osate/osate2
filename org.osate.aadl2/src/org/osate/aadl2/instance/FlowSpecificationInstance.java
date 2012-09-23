@@ -36,6 +36,7 @@
  */
 package org.osate.aadl2.instance;
 
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.FlowSpecification;
 
 /**
@@ -49,6 +50,8 @@ import org.osate.aadl2.FlowSpecification;
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getDestination <em>Destination</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getFlowSpecification <em>Flow Specification</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModes <em>In Mode</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.FlowSpecificationInstance#getInModeTransitions <em>In Mode Transition</em>}</li>
  * </ul>
  * </p>
  *
@@ -138,5 +141,37 @@ public interface FlowSpecificationInstance extends FlowElementInstance {
 	 * @generated
 	 */
 	void setFlowSpecification(FlowSpecification value);
+
+	/**
+	 * Returns the value of the '<em><b>In Mode</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ModeInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>In Modes</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In Mode</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getFlowSpecificationInstance_InMode()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	EList<ModeInstance> getInModes();
+
+	/**
+	 * Returns the value of the '<em><b>In Mode Transition</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.aadl2.instance.ModeTransitionInstance}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>In Mode Transition</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>In Mode Transition</em>' reference list.
+	 * @see org.osate.aadl2.instance.InstancePackage#getFlowSpecificationInstance_InModeTransition()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	EList<ModeTransitionInstance> getInModeTransitions();
 
 } // FlowSpecificationInstance

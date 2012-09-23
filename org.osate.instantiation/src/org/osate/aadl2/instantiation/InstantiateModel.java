@@ -44,7 +44,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -86,6 +85,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FeaturePrototype;
 import org.osate.aadl2.FeaturePrototypeActual;
 import org.osate.aadl2.FeatureType;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalElement;
@@ -114,6 +114,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.ModeInstance;
@@ -479,6 +480,10 @@ public class InstantiateModel {
 			if (monitor.isCanceled()) {
 				return;
 			}
+			instantiateFlowSpecs(ci);
+			if (monitor.isCanceled()) {
+				return;
+			}
 		}
 		return;
 	}
@@ -606,10 +611,8 @@ public class InstantiateModel {
 		final InstantiatedClassifier ic;
 
 		newInstance.setSubcomponent(sub);
-		newInstance.setName(sub.getName() /*
-											* + indexStackToString(indexStack) +
-											* (index > 0 ? "_" + index : "")
-											*/);
+		newInstance.setCategory(sub.getCategory());
+		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
@@ -619,7 +622,6 @@ public class InstantiateModel {
 			cc = null;
 		} else {
 			cc = (ComponentClassifier) ic.classifier;
-			newInstance.setCategory(cc.getCategory());
 		}
 		if (cc == null) {
 			errManager.warning(newInstance, "Instantiated subcomponent doesn't have a component classifier");
@@ -630,16 +632,37 @@ public class InstantiateModel {
 			}
 		}
 
-		EList<Mode> inmodesList = mm.getAllInModes();
-		if (!inmodesList.isEmpty()) {
-			for (Iterator<Mode> it = inmodesList.iterator(); it.hasNext();) {
-				final Mode mode = it.next();
-				final ModeInstance mi = parent.findModeInstance(mode);
-				if (mi != null)
-					newInstance.getInModes().add(mi);
+		for (Mode mode : mm.getAllInModes()) {
+			ModeInstance mi = parent.findModeInstance(mode);
+
+			if (mi != null) {
+				newInstance.getInModes().add(mi);
 			}
 		}
 		populateComponentInstance(newInstance, index);
+	}
+
+	private void instantiateFlowSpecs(ComponentInstance ci) {
+		for (FlowSpecification spec : InstanceUtil.getComponentType(ci, 0, classifierCache).getAllFlowSpecifications()) {
+			FlowSpecificationInstance speci = ci.createFlowSpecification();
+			speci.setName(spec.getName());
+			speci.setFlowSpecification(spec);
+
+			for (Mode mode : spec.getAllInModes()) {
+				ModeInstance mi = ci.findModeInstance(mode);
+				if (mi != null) {
+					speci.getInModes().add(mi);
+				}
+			}
+			
+			for (ModeTransition mt : spec.getInModeTransitions()) {
+				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
+				
+				if (ti != null) {
+					speci.getInModeTransitions().add(ti);
+				}
+			}
+		}
 	}
 
 	/*
@@ -1349,7 +1372,7 @@ public class InstantiateModel {
 			for (ModeInstance mi : modes) {
 				if (!mi.isDerived()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
-					
+
 					nextModes.add(mi);
 					for (ComponentInstance child : instances[0].getComponentInstances()) {
 						for (ModeInstance childMode : child.getModeInstances()) {
@@ -1397,15 +1420,15 @@ public class InstantiateModel {
 			 * parent.
 			 */
 			ComponentInstance ci = instances[currentInstance];
-			
+
 			if (!skipped.contains(ci.eContainer()) && existsGiven(modeState, ci.getInModes())) {
 				EList<ModeInstance> modes = ci.getModeInstances();
-				
+
 				if (modes != null && modes.size() > 0) {
 					// Modal component
 					for (ModeInstance mi : modes) {
 						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
-						
+
 						nextModes.add(mi);
 						for (ComponentInstance child : ci.getComponentInstances()) {
 							for (ModeInstance childMode : child.getModeInstances()) {
