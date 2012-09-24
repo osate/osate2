@@ -49,6 +49,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
@@ -62,6 +63,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <ul>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getContext <em>Context</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getConnection <em>Connection</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getSource <em>Source</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getDestination <em>Destination</em>}</li>
  * </ul>
  * </p>
  *
@@ -87,6 +90,26 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * @ordered
 	 */
 	protected Connection connection;
+
+	/**
+	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getSource()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConnectionInstanceEnd source;
+
+	/**
+	 * The cached value of the '{@link #getDestination() <em>Destination</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDestination()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConnectionInstanceEnd destination;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -192,6 +215,86 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ConnectionInstanceEnd getSource() {
+		if (source != null && source.eIsProxy()) {
+			InternalEObject oldSource = (InternalEObject) source;
+			source = (ConnectionInstanceEnd) eResolveProxy(oldSource);
+			if (source != oldSource) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.CONNECTION_REFERENCE__SOURCE, oldSource, source));
+			}
+		}
+		return source;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionInstanceEnd basicGetSource() {
+		return source;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setSource(ConnectionInstanceEnd newSource) {
+		ConnectionInstanceEnd oldSource = source;
+		source = newSource;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__SOURCE,
+					oldSource, source));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionInstanceEnd getDestination() {
+		if (destination != null && destination.eIsProxy()) {
+			InternalEObject oldDestination = (InternalEObject) destination;
+			destination = (ConnectionInstanceEnd) eResolveProxy(oldDestination);
+			if (destination != oldDestination) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.CONNECTION_REFERENCE__DESTINATION, oldDestination, destination));
+			}
+		}
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionInstanceEnd basicGetDestination() {
+		return destination;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDestination(ConnectionInstanceEnd newDestination) {
+		ConnectionInstanceEnd oldDestination = destination;
+		destination = newDestination;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__DESTINATION,
+					oldDestination, destination));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -203,6 +306,14 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			if (resolve)
 				return getConnection();
 			return basicGetConnection();
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			if (resolve)
+				return getSource();
+			return basicGetSource();
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			if (resolve)
+				return getDestination();
+			return basicGetDestination();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -220,6 +331,12 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			return;
 		case InstancePackage.CONNECTION_REFERENCE__CONNECTION:
 			setConnection((Connection) newValue);
+			return;
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			setSource((ConnectionInstanceEnd) newValue);
+			return;
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			setDestination((ConnectionInstanceEnd) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -239,6 +356,12 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		case InstancePackage.CONNECTION_REFERENCE__CONNECTION:
 			setConnection((Connection) null);
 			return;
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			setSource((ConnectionInstanceEnd) null);
+			return;
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			setDestination((ConnectionInstanceEnd) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -255,6 +378,10 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			return context != null;
 		case InstancePackage.CONNECTION_REFERENCE__CONNECTION:
 			return connection != null;
+		case InstancePackage.CONNECTION_REFERENCE__SOURCE:
+			return source != null;
+		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
+			return destination != null;
 		}
 		return super.eIsSet(featureID);
 	}

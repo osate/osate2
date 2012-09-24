@@ -973,13 +973,31 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_REFERENCE__CONNECTION = INSTANCE_OBJECT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Source</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_REFERENCE__SOURCE = INSTANCE_OBJECT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Destination</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_REFERENCE__DESTINATION = INSTANCE_OBJECT_FEATURE_COUNT + 3;
+
+	/**
 	 * The number of structural features of the '<em>Connection Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_REFERENCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 2;
+	int CONNECTION_REFERENCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -2035,6 +2053,28 @@ public interface InstancePackage extends EPackage {
 	EReference getConnectionReference_Connection();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.ConnectionReference#getSource <em>Source</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Source</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionReference#getSource()
+	 * @see #getConnectionReference()
+	 * @generated
+	 */
+	EReference getConnectionReference_Source();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.ConnectionReference#getDestination <em>Destination</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Destination</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionReference#getDestination()
+	 * @see #getConnectionReference()
+	 * @generated
+	 */
+	EReference getConnectionReference_Destination();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.ComponentInstance <em>Component Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -2695,6 +2735,22 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONNECTION_REFERENCE__CONNECTION = eINSTANCE.getConnectionReference_Connection();
+
+		/**
+		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_REFERENCE__SOURCE = eINSTANCE.getConnectionReference_Source();
+
+		/**
+		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference CONNECTION_REFERENCE__DESTINATION = eINSTANCE.getConnectionReference_Destination();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
