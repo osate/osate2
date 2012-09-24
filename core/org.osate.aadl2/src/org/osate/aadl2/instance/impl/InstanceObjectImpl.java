@@ -300,7 +300,7 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 							if (head == null) {
 								return false;
 							} else {
-								iter = head.getConnectionInstances().iterator();			
+								iter = head.getConnectionInstances().iterator();
 								if (iter.hasNext()) {
 									next = iter.next();
 									return true;

@@ -583,6 +583,24 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EReference getConnectionReference_Source() {
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getConnectionReference_Destination() {
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EClass getComponentInstance() {
 		return componentInstanceEClass;
 	}
@@ -922,6 +940,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		connectionReferenceEClass = createEClass(CONNECTION_REFERENCE);
 		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__CONTEXT);
 		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__CONNECTION);
+		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__SOURCE);
+		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__DESTINATION);
 
 		componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__FEATURE_INSTANCE);
@@ -1171,6 +1191,16 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				theAadl2Package.getConnection(),
 				null,
 				"connection", null, 1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getConnectionReference_Source(),
+				this.getConnectionInstanceEnd(),
+				null,
+				"source", null, 1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+		initEReference(
+				getConnectionReference_Destination(),
+				this.getConnectionInstanceEnd(),
+				null,
+				"destination", null, 1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
 		initEClass(componentInstanceEClass, ComponentInstance.class,
 				"ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$

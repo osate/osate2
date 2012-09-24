@@ -573,6 +573,14 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_XQA_YVhmEd-rYOZ3UaShDA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_XQA_YlhmEd-rYOZ3UaShDA" value="1"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_9tcLtAZoEeKg0o0PHpVqpA" name="source" type="ConnectionInstanceEnd" association="_9tcLsAZoEeKg0o0PHpVqpA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9tcLtQZoEeKg0o0PHpVqpA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9tcLtgZoEeKg0o0PHpVqpA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_lbgcZAZpEeKg0o0PHpVqpA" name="destination" type="ConnectionInstanceEnd" association="_lbgcYAZpEeKg0o0PHpVqpA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lbgcZQZpEeKg0o0PHpVqpA" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcZgZpEeKg0o0PHpVqpA" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_mRe8kHV0Ed-5Z-hOGUPk8w" name="A_connectionInstance_connectionReference" memberEnd="_mRe8kXV0Ed-5Z-hOGUPk8w _mRVLkHV0Ed-5Z-hOGUPk8w">
       <ownedEnd xmi:id="_mRe8kXV0Ed-5Z-hOGUPk8w" name="owner" type="ConnectionInstance" association="_mRe8kHV0Ed-5Z-hOGUPk8w">
@@ -596,6 +604,18 @@ These are those SOMs in which all of this flow's elements  are active.</body>
       <ownedEnd xmi:id="_nwnNq_wYEeG0W_V5cpDKXA" name="flowSpecification" type="FlowSpecInstance" association="_nwnNqvwYEeG0W_V5cpDKXA">
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_nwnNrPwYEeG0W_V5cpDKXA" value="1"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_nwnNrfwYEeG0W_V5cpDKXA" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_9tcLsAZoEeKg0o0PHpVqpA" name="A_connectionReference_source" memberEnd="_9tcLsQZoEeKg0o0PHpVqpA _9tcLtAZoEeKg0o0PHpVqpA">
+      <ownedEnd xmi:id="_9tcLsQZoEeKg0o0PHpVqpA" name="connectionReference" visibility="public" type="_iPP2OHV0Ed-5Z-hOGUPk8w" association="_9tcLsAZoEeKg0o0PHpVqpA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9tcLsgZoEeKg0o0PHpVqpA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9tcLswZoEeKg0o0PHpVqpA"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_lbgcYAZpEeKg0o0PHpVqpA" name="A_connectionReference_destination" memberEnd="_lbgcYQZpEeKg0o0PHpVqpA _lbgcZAZpEeKg0o0PHpVqpA">
+      <ownedEnd xmi:id="_lbgcYQZpEeKg0o0PHpVqpA" name="connectionReference" type="_iPP2OHV0Ed-5Z-hOGUPk8w" association="_lbgcYAZpEeKg0o0PHpVqpA">
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lbgcYgZpEeKg0o0PHpVqpA" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcYwZpEeKg0o0PHpVqpA"/>
       </ownedEnd>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">

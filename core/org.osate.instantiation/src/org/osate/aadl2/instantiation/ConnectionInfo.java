@@ -35,6 +35,8 @@ class ConnectionInfo {
 	final List<Connection> connections;
 	private final List<Boolean> opposites;
 	private final List<ComponentInstance> contexts;
+	private final List<ConnectionInstanceEnd> sources;
+	private final List<ConnectionInstanceEnd> destinations;
 	ConnectionInstanceEnd src;
 	private boolean bidirectional = true;
 	boolean complete = false;
@@ -47,6 +49,8 @@ class ConnectionInfo {
 		connections = new ArrayList<Connection>(info.connections);
 		opposites = new ArrayList<Boolean>(info.opposites);
 		contexts = new ArrayList<ComponentInstance>(info.contexts);
+		sources = new ArrayList<ConnectionInstanceEnd>(info.sources);
+		destinations = new ArrayList<ConnectionInstanceEnd>(info.destinations);
 		bidirectional = info.bidirectional;
 		complete = info.complete;
 		across = info.across;
@@ -63,12 +67,18 @@ class ConnectionInfo {
 		connections = new ArrayList<Connection>();
 		opposites = new ArrayList<Boolean>();
 		contexts = new ArrayList<ComponentInstance>();
+		sources = new ArrayList<ConnectionInstanceEnd>();
+		sources.add(s);
+		destinations = new ArrayList<ConnectionInstanceEnd>();
 	}
 
 	private ConnectionInfo(final ConnectionInfo base, final ConnectionInstanceEnd s) {
 		connections = base.connections;
 		opposites = base.opposites;
 		contexts = base.contexts;
+		sources = base.sources;
+		sources.add(s);
+		destinations = base.destinations;
 		src = s;
 	}
 
@@ -102,6 +112,7 @@ class ConnectionInfo {
 		final boolean goingDown = !(srcCtx instanceof Subcomponent);
 
 		if (srcFi != null) {
+			sources.add(srcFi);
 			DirectionType dir = srcFi.getDirection();
 
 			bidirectional &= (dir == DirectionType.IN_OUT);
@@ -115,6 +126,7 @@ class ConnectionInfo {
 		}
 		bidirectional &= newSeg.isBidirectional();
 		if (dstFi != null) {
+			destinations.add(dstFi);
 			DirectionType dir = dstFi.getDirection();
 
 			bidirectional &= (dir == DirectionType.IN_OUT);
@@ -159,16 +171,20 @@ class ConnectionInfo {
 		}
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
-
+		destinations.add(dst);
 		conni = InstanceFactory.eINSTANCE.createConnectionInstance();
 		conni.setName(name);
 		Iterator<Connection> connIter = connections.iterator();
 		Iterator<ComponentInstance> ctxIter = contexts.iterator();
+		Iterator<ConnectionInstanceEnd> srcIter = sources.iterator();
+		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
 		while (connIter.hasNext()) {
 			ConnectionReference connRef = conni.createConnectionReference();
 
 			connRef.setConnection(connIter.next());
 			connRef.setContext(ctxIter.next());
+			connRef.setSource(srcIter.next());
+			connRef.setDestination(dstIter.next());
 		}
 		conni.setSource(src);
 		conni.setDestination(dst);
@@ -178,8 +194,7 @@ class ConnectionInfo {
 	}
 
 	private ConnectionKind getKind(ConnectionInstanceEnd dst) {
-		if (isComponent(src) && isAccess(dst) || isAccess(src) && isComponent(dst) || isAccess(src)
-				&& isAccess(dst)) {
+		if (isComponent(src) && isAccess(dst) || isAccess(src) && isComponent(dst) || isAccess(src) && isAccess(dst)) {
 			return ACCESS_CONNECTION;
 		}
 		if (isParameter(src) || isParameter(dst)) {
@@ -204,8 +219,7 @@ class ConnectionInfo {
 	}
 
 	private boolean isFeatureGroup(ConnectionInstanceEnd end) {
-		return end instanceof FeatureInstance
-				&& ((FeatureInstance) end).getCategory() == FeatureCategory.FEATURE_GROUP;
+		return end instanceof FeatureInstance && ((FeatureInstance) end).getCategory() == FeatureCategory.FEATURE_GROUP;
 	}
 
 	private boolean isAccess(ConnectionInstanceEnd end) {

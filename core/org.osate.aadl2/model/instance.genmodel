@@ -115,6 +115,10 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/context"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/connection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/source"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/destination"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//ComponentInstance">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"

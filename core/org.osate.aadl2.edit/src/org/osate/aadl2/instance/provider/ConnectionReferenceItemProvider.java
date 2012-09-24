@@ -81,6 +81,8 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 
 			addContextPropertyDescriptor(object);
 			addConnectionPropertyDescriptor(object);
+			addSourcePropertyDescriptor(object);
+			addDestinationPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -115,6 +117,38 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_connection_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 						InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Source feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addSourcePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ConnectionReference_source_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_source_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, true, false, true, null, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Destination feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addDestinationPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_ConnectionReference_destination_feature"), //$NON-NLS-1$
+						getString(
+								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_destination_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+						InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, true, false, true, null, null, null));
 	}
 
 	/**
