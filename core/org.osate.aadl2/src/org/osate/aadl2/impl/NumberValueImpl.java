@@ -187,14 +187,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((unit == null) ? 0 : unit.hashCode());
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
