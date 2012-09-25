@@ -2468,7 +2468,7 @@ WS : ( ' '
 // Single-line comments
 SL_COMMENT
   : comment='--' (~('\n'|'\r' ){comment_length++;})* 
-  {highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
+  {//highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
 	comment_length=0;
           $channel=COMMENT_CHANNEL;}
   ;

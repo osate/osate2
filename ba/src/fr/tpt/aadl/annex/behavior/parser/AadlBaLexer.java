@@ -2985,7 +2985,7 @@ public class AadlBaLexer extends Lexer {
             } while (true);
 
 
-            highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
+            //highlight(_annexOffset, ((CommonToken)comment).getStartIndex(), comment_length+comment.getInputStream().size(), AnnexHighlighterPositionAcceptor.COMMENT_ID);
             	comment_length=0;
                       _channel=COMMENT_CHANNEL;
 
