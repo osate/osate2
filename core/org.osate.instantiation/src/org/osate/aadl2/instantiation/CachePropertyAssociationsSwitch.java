@@ -256,6 +256,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 						if (io instanceof ConnectionReference) {
 							List<SystemOperationMode> conniModes = ((ConnectionInstance) io.eContainer())
 									.getInSystemOperationModes();
+							if (conniModes.isEmpty()) {
+								conniModes = io.getSystemInstance().getSystemOperationModes();
+							}
 							List<ModeInstance> holderModes = ((ConnectionReference) io).getContext().getModeInstances();
 
 							for (ModeInstance mi : holderModes) {
