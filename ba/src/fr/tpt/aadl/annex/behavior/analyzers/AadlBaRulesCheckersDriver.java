@@ -21,6 +21,7 @@
 
 package fr.tpt.aadl.annex.behavior.analyzers ;
 
+import java.util.ArrayList ;
 import java.util.Iterator ;
 import java.util.List ;
 
@@ -185,27 +186,53 @@ public class AadlBaRulesCheckersDriver
             return result ;
          }
          
-         // A warning is raised if there are transitions after an otherwise
-         // transition.
+         // A warning is raised if there is more than one transition with
+         // an otherwise execute condition.
          private void otherwiseCheck(BehaviorAnnex ba)
          {
-           // Checks for dead transitions (after an otherwise transition).
            boolean otherwise = false ;
            BehaviorTransition[] dead_trans = new 
                               BehaviorTransition[ba.getTransitions().size()-1];
+           
            int index = 0 ;
            
-           for(BehaviorTransition bt : ba.getTransitions())
+           List<BehaviorTransition> btTmp = new 
+                    ArrayList<BehaviorTransition>
+                              (ba.getTransitions().size()-1);
+           
+           for (BehaviorState s : ba.getStates())
            {
-             if(otherwise)
+             for(BehaviorTransition bt : ba.getTransitions())
              {
-               dead_trans[index] = bt ;
-               index++ ;
+               DeclarativeBehaviorTransition tmp = (DeclarativeBehaviorTransition)
+                                                                            bt ;
+               for(Identifier src : tmp.getSrcStates())
+               {
+                 if(s.getName().equalsIgnoreCase(src.getId()))
+                 {
+                   btTmp.add(tmp) ;
+                 }
+               }
              }
-             else
+             
+             for(BehaviorTransition bt : btTmp)
              {
-               otherwise = bt.getCondition() instanceof Otherwise ;
+               if(bt.getCondition() instanceof Otherwise)
+               {
+                 if(otherwise)
+                 {
+                   dead_trans[index] = bt ;
+                   index++ ;
+                 }
+                 else
+                 {
+                   otherwise = true ;
+                 }
+               }
              }
+             
+             btTmp.clear() ;
+             otherwise = false ;
            }
            
            // Report a warning.
