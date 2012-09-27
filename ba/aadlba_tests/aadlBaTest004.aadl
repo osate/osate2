@@ -47,6 +47,8 @@ states
  t8 [4] : a -[otherwise]-> c ;
  t5 : a -[]-> c ;
 
+ b -[]-> c ;
+ b -[otherwise]-> c ;
  
 **};  
 end myThread ;
