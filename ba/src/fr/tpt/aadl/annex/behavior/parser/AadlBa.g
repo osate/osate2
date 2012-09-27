@@ -690,7 +690,7 @@ behavior_transition returns [DeclarativeBehaviorTransition BehTrans]
        // behavior condition can be null.
        if (BehCond != null)
        {
-         DeclarativeUtils.setEcontainer(_ba, BehCond);
+         _ba.getConditions().add(BehCond);
          BehTrans.setCondition(BehCond);
        }
      } 
@@ -707,7 +707,7 @@ behavior_transition returns [DeclarativeBehaviorTransition BehTrans]
     
    ( BehActionBlock=behavior_action_block 
         { 
-          DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
+          _ba.getActions().add(BehActionBlock);
           BehTrans.setActionBlock(BehActionBlock);
         }
    )? 

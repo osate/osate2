@@ -1235,7 +1235,7 @@ public class AadlBaParser extends Parser {
                    // behavior condition can be null.
                    if (BehCond != null)
                    {
-                     DeclarativeUtils.setEcontainer(_ba, BehCond);
+                     _ba.getConditions().add(BehCond);
                      BehTrans.setCondition(BehCond);
                    }
                  }
@@ -1272,7 +1272,7 @@ public class AadlBaParser extends Parser {
                     if (state.failed) return BehTrans;
 
                     if ( state.backtracking==0 ) { 
-                              DeclarativeUtils.setEcontainer(_ba, BehActionBlock);
+                              _ba.getActions().add(BehActionBlock);
                               BehTrans.setActionBlock(BehActionBlock);
                             }
 

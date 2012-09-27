@@ -41,6 +41,7 @@ import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getStates <em>States</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getActions <em>Actions</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getConditions <em>Conditions</em>}</li>
  * </ul>
  * </p>
  *
@@ -190,5 +191,21 @@ public interface BehaviorAnnex extends AnnexSubclause, BehaviorElement
 	 * @generated
 	 */
 	EList<BehaviorActionBlock> getActions();
+
+		/**
+	 * Returns the value of the '<em><b>Conditions</b></em>' containment reference list.
+	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Conditions</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Conditions</em>' containment reference list.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorAnnex_Conditions()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<BehaviorCondition> getConditions();
 
 } // BehaviorAnnex

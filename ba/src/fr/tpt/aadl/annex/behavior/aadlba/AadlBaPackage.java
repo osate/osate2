@@ -1615,13 +1615,22 @@ public interface AadlBaPackage extends EPackage
 	int BEHAVIOR_ANNEX__ACTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 3;
 
 		/**
+	 * The feature id for the '<em><b>Conditions</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int BEHAVIOR_ANNEX__CONDITIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
+
+		/**
 	 * The number of structural features of the '<em>Behavior Annex</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int BEHAVIOR_ANNEX_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
+  int BEHAVIOR_ANNEX_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
 
   /**
 	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
@@ -2299,7 +2308,7 @@ public interface AadlBaPackage extends EPackage
   int BEHAVIOR_TRANSITION__SOURCE_STATE = BEHAVIOR_NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
-	 * The feature id for the '<em><b>Condition</b></em>' reference.
+	 * The feature id for the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -5724,6 +5733,17 @@ public interface AadlBaPackage extends EPackage
 	EReference getBehaviorAnnex_Actions();
 
 		/**
+	 * Returns the meta object for the containment reference list '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getConditions <em>Conditions</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Conditions</em>'.
+	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex#getConditions()
+	 * @see #getBehaviorAnnex()
+	 * @generated
+	 */
+	EReference getBehaviorAnnex_Conditions();
+
+		/**
 	 * Returns the meta object for class '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorBooleanLiteral <em>Behavior Boolean Literal</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5986,10 +6006,10 @@ public interface AadlBaPackage extends EPackage
   EReference getBehaviorTransition_SourceState();
 
   /**
-	 * Returns the meta object for the reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}'.
+	 * Returns the meta object for the containment reference '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Condition</em>'.
+	 * @return the meta object for the containment reference '<em>Condition</em>'.
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition()
 	 * @see #getBehaviorTransition()
 	 * @generated
@@ -7669,6 +7689,14 @@ public interface AadlBaPackage extends EPackage
 		EReference BEHAVIOR_ANNEX__ACTIONS = eINSTANCE.getBehaviorAnnex_Actions();
 
 				/**
+		 * The meta object literal for the '<em><b>Conditions</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference BEHAVIOR_ANNEX__CONDITIONS = eINSTANCE.getBehaviorAnnex_Conditions();
+
+				/**
 		 * The meta object literal for the '{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorBooleanLiteralImpl <em>Behavior Boolean Literal</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -7895,7 +7923,7 @@ public interface AadlBaPackage extends EPackage
     EReference BEHAVIOR_TRANSITION__SOURCE_STATE = eINSTANCE.getBehaviorTransition_SourceState();
 
     /**
-		 * The meta object literal for the '<em><b>Condition</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Condition</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated

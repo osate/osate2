@@ -1661,10 +1661,10 @@ public class AadlBaNameResolver
    // TODO Provide column number.
    private void reportNameError(BehaviorElement el, String name) 
    {
-     if(el.eContainer() == null)
-     {
-       DeclarativeUtils.setEcontainer(_ba, el) ;
-     } 
+//     if(el.eContainer() == null)
+//     {
+//       DeclarativeUtils.setEcontainer(_ba, el) ;
+//     } 
      
      _errManager.error(el, "\'" + name + "\' is not found");
    }

@@ -69,26 +69,26 @@ public interface BehaviorTransition extends BehaviorNamedElement
   void setSourceState(BehaviorState value);
 
   /**
-	 * Returns the value of the '<em><b>Condition</b></em>' reference.
+	 * Returns the value of the '<em><b>Condition</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Condition</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Condition</em>' reference.
+	 * @return the value of the '<em>Condition</em>' containment reference.
 	 * @see #setCondition(BehaviorCondition)
 	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorTransition_Condition()
-	 * @model
+	 * @model containment="true"
 	 * @generated
 	 */
   BehaviorCondition getCondition();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}' reference.
+	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition#getCondition <em>Condition</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Condition</em>' reference.
+	 * @param value the new value of the '<em>Condition</em>' containment reference.
 	 * @see #getCondition()
 	 * @generated
 	 */

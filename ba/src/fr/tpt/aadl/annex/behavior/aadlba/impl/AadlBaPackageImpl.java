@@ -1189,6 +1189,15 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
 		/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getBehaviorAnnex_Conditions() {
+		return (EReference)behaviorAnnexEClass.getEStructuralFeatures().get(4);
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -2937,6 +2946,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__STATES);
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__TRANSITIONS);
 		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__ACTIONS);
+		createEReference(behaviorAnnexEClass, BEHAVIOR_ANNEX__CONDITIONS);
 
 		behaviorBooleanLiteralEClass = createEClass(BEHAVIOR_BOOLEAN_LITERAL);
 
@@ -3428,6 +3438,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 		initEReference(getBehaviorAnnex_States(), this.getBehaviorState(), null, "states", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorAnnex_Transitions(), this.getBehaviorTransition(), null, "transitions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorAnnex_Actions(), this.getBehaviorActionBlock(), null, "actions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorAnnex_Conditions(), this.getBehaviorCondition(), null, "conditions", null, 0, -1, BehaviorAnnex.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(behaviorBooleanLiteralEClass, BehaviorBooleanLiteral.class, "BehaviorBooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -3469,7 +3480,7 @@ public class AadlBaPackageImpl extends EPackageImpl implements AadlBaPackage
 
 		initEClass(behaviorTransitionEClass, BehaviorTransition.class, "BehaviorTransition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getBehaviorTransition_SourceState(), this.getBehaviorState(), null, "sourceState", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getBehaviorTransition_Condition(), this.getBehaviorCondition(), null, "condition", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getBehaviorTransition_Condition(), this.getBehaviorCondition(), null, "condition", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorTransition_DestinationState(), this.getBehaviorState(), null, "destinationState", null, 1, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getBehaviorTransition_ActionBlock(), this.getBehaviorActionBlock(), null, "actionBlock", null, 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getBehaviorTransition_Priority(), theAadl2Package.getInteger(), "priority", "-1", 0, 1, BehaviorTransition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

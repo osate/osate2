@@ -432,10 +432,10 @@ public class AadlBaTypeChecker
 
   private void reportError (BehaviorElement el, String msg)
   {
-    if(el.eContainer() == null)
-    {
-      DeclarativeUtils.setEcontainer(_ba, el) ;
-    }
+//    if(el.eContainer() == null)
+//    {
+//      DeclarativeUtils.setEcontainer(_ba, el) ;
+//    }
     
     _errManager.error(el, msg);
   }
@@ -2823,10 +2823,10 @@ public class AadlBaTypeChecker
 
   private void reportWarning(Element el, String msg)
   {
-    if(el.eContainer() == null)
-    {
-      DeclarativeUtils.setEcontainer(_ba, el) ;
-    }
+//    if(el.eContainer() == null)
+//    {
+//      DeclarativeUtils.setEcontainer(_ba, el) ;
+//    }
     
     _errManager.warning(el, msg) ;
   }

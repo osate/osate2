@@ -22,9 +22,11 @@ package fr.tpt.aadl.annex.behavior.aadlba.impl;
 import fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorAnnex;
+import fr.tpt.aadl.annex.behavior.aadlba.BehaviorCondition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorState;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorTransition;
 import fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable;
+import fr.tpt.aadl.annex.behavior.aadlba.DataComponentReference;
 import fr.tpt.aadl.annex.behavior.texteditor.AadlBaHighlighter;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaLocationReference ;
 
@@ -56,6 +58,7 @@ import org.osate.aadl2.impl.AnnexSubclauseImpl;
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorAnnexImpl#getStates <em>States</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorAnnexImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorAnnexImpl#getActions <em>Actions</em>}</li>
+ *   <li>{@link fr.tpt.aadl.annex.behavior.aadlba.impl.BehaviorAnnexImpl#getConditions <em>Conditions</em>}</li>
  * </ul>
  * </p>
  *
@@ -123,6 +126,16 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 	 * @ordered
 	 */
 	protected EList<BehaviorActionBlock> actions;
+
+		/**
+	 * The cached value of the '{@link #getConditions() <em>Conditions</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConditions()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BehaviorCondition> conditions;
 
 		/**
 	 * <!-- begin-user-doc -->
@@ -258,6 +271,18 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 
 		/**
 	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<BehaviorCondition> getConditions() {
+		if (conditions == null) {
+			conditions = new EObjectContainmentEList<BehaviorCondition>(BehaviorCondition.class, this, AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS);
+		}
+		return conditions;
+	}
+
+		/**
+	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 */
@@ -273,6 +298,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
 			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
 				return ((InternalEList<?>)getActions()).basicRemove(otherEnd, msgs);
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return ((InternalEList<?>)getConditions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -294,6 +321,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 				return getTransitions();
 			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
 				return getActions();
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return getConditions();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -324,6 +353,10 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 				getActions().clear();
 				getActions().addAll((Collection<? extends BehaviorActionBlock>)newValue);
 				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				getConditions().clear();
+				getConditions().addAll((Collection<? extends BehaviorCondition>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -349,6 +382,9 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
 				getActions().clear();
 				return;
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				getConditions().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -370,6 +406,8 @@ public class BehaviorAnnexImpl extends AnnexSubclauseImpl implements BehaviorAnn
 				return isSetTransitions();
 			case AadlBaPackage.BEHAVIOR_ANNEX__ACTIONS:
 				return actions != null && !actions.isEmpty();
+			case AadlBaPackage.BEHAVIOR_ANNEX__CONDITIONS:
+				return conditions != null && !conditions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
