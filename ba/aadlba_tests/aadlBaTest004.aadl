@@ -43,12 +43,14 @@ states
  t1 [3] : a -[]-> a ;
  t3 [1] : a -[]-> c ;
  t6 [4] : a -[otherwise]-> c ;
- t7 [4] : a -[otherwise]-> c ;
- t8 [4] : a -[otherwise]-> c ;
+ t7 [4] : a -[otherwise]-> c ; -- Should raise a warning.
+ t8 [4] : a -[otherwise]-> c ; -- Should raise a warning.
  t5 : a -[]-> c ;
 
  b -[]-> c ;
- b -[otherwise]-> c ;
+ b,c -[otherwise]-> c ;
+ 
+ c -[otherwise]-> c ; -- Should raise a warning.
  
 **};  
 end myThread ;
