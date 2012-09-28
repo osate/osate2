@@ -54,7 +54,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -68,6 +70,7 @@ import org.osate.aadl2.ArrayDimension;
 import org.osate.aadl2.ArraySize;
 import org.osate.aadl2.ArraySizeProperty;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -395,7 +398,7 @@ public class InstantiateModel {
 		// we could also use getAllPropertyDefinition(as), which returns all declared property definitions
 		// retrieving that set is faster, but it may contain property definitions that are not used;
 		// this in that case the caching of those properties would be slower
-		EList<Property> propertyDefinitionList = AadlUtil.getAllUsedPropertyDefinition(root.getSystemImplementation());
+		EList<Property> propertyDefinitionList = getAllUsedPropertyDefinitions(root);
 		CacheContainedPropertyAssociationsSwitch ccpas = new CacheContainedPropertyAssociationsSwitch(classifierCache,
 				scProps, monitor, errManager);
 		ccpas.processPostOrderAll(root);
@@ -654,10 +657,10 @@ public class InstantiateModel {
 					speci.getInModes().add(mi);
 				}
 			}
-			
+
 			for (ModeTransition mt : spec.getInModeTransitions()) {
 				ModeTransitionInstance ti = ci.findModeTransitionInstance(mt);
-				
+
 				if (ti != null) {
 					speci.getInModeTransitions().add(ti);
 				}
@@ -1299,6 +1302,85 @@ public class InstantiateModel {
 			}
 		}
 		return result;
+	}
+
+	// --------------------------------------------------------------------------------------------
+	// Methods related to properties
+	// --------------------------------------------------------------------------------------------
+
+	/**
+	 * Get all property definitions that are used in the Aadl model. This
+	 * includes the predeclared properties and any property definitions in user
+	 * declared property sets.
+	 * 
+	 * @param si System Implementation
+	 * @return property definitions
+	 */
+	public EList<Property> getAllUsedPropertyDefinitions(SystemInstance root) {
+		EList<Property> result = new UniqueEList<Property>();
+
+		addUsedProperties(root.getSystemImplementation(), result);
+		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
+		// collect topdown component impl. do it and its type to find PA
+		while (it.hasNext()) {
+			Element elem = it.next();
+
+			if (elem instanceof ComponentInstance) {
+				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
+						classifierCache);
+
+				addUsedProperties(ic.classifier, result);
+			} else if (elem instanceof FeatureInstance) {
+				FeatureInstance fi = (FeatureInstance) elem;
+
+				if (fi.getFeature() instanceof FeatureGroup) {
+					InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(fi, 0, classifierCache);
+					addUsedProperties(ic.classifier, result);
+				} else {
+					Classifier c = fi.getFeature().getClassifier();
+					
+					addUsedProperties(c, result);
+				}
+			}
+		}
+		return result;
+	}
+
+	private void addUsedProperties(Classifier cc, EList<Property> result) {
+		if (cc instanceof ComponentImplementation) {
+			ComponentImplementation impl = (ComponentImplementation) cc;
+
+			while (impl != null) {
+				addUsedPropertyDefinitions(impl, result);
+				impl = impl.getExtended();
+			}
+			cc = ((ComponentImplementation) cc).getType();
+		}
+		while (cc != null) {
+			addUsedPropertyDefinitions(cc, result);
+			cc = (ComponentClassifier) cc.getExtended();
+		}
+	}
+
+	/**
+	 * find all property associations and add its property definition to the
+	 * results
+	 * 
+	 * @param root Element whose subtree is being searched
+	 * @param result EList holding the used property definitions
+	 * @return List holding the used property definitions
+	 */
+	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
+		while (it.hasNext()) {
+			EObject ao = it.next();
+			if (ao instanceof PropertyAssociation) {
+				Property pd = ((PropertyAssociation) ao).getProperty();
+				if (pd != null) {
+					result.add(pd);
+				}
+			}
+		}
 	}
 
 	// --------------------------------------------------------------------------------------------
