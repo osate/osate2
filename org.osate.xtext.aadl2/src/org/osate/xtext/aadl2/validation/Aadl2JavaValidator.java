@@ -323,6 +323,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (flow.getKind().equals(FlowKind.SINK) || flow.getKind().equals(FlowKind.PATH))
 			checkInFeatureIdentifier(flow);
 		checkFlowConnectionEnds(flow);
+		checkFlowSegmentModes(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -670,6 +671,44 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 											+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
 											+ nextFlowSegment.getName() + '\'');
 						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Checks legality rule 5 in section 10.2 (Flow Implementations) on page 189.
+	 * "In case of a mode-specific flow implementation, the connections and the
+	 * subcomponents named in the flow implementation must be declared at least
+	 * for the modes listed in the in modes statement of the flow implementation."
+	 */
+	private void checkFlowSegmentModes(FlowImplementation flow) {
+		if (flow.getContainingComponentImpl().getAllModes().isEmpty())
+			return;
+		EList<Mode> flowModes = flow.getAllInModes();
+		if (flowModes.isEmpty())
+			flowModes = flow.getContainingComponentImpl().getAllModes();
+		for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
+			if (flowSegment.getContext() instanceof Subcomponent) {
+				Subcomponent subcomponent = (Subcomponent)flowSegment.getContext();
+				EList<Mode> subcomponentModes = subcomponent.getAllInModes();
+				if (subcomponentModes.isEmpty())
+					subcomponentModes = subcomponent.getContainingComponentImpl().getAllModes();
+				for (Mode flowMode : flowModes) {
+					if (!subcomponentModes.contains(flowMode)) {
+						error(flowSegment, "Subcomponent '" + subcomponent.getName() + "' does not exist in mode '" + flowMode.getName() + '\'');
+					}
+				}
+			}
+			else if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Connection) {
+				Connection connection = (Connection)flowSegment.getFlowElement();
+				EList<Mode> connectionModes = connection.getAllInModes();
+				if (connectionModes.isEmpty())
+					connectionModes = connection.getContainingComponentImpl().getAllModes();
+				for (Mode flowMode : flowModes) {
+					if (!connectionModes.contains(flowMode)) {
+						error(flowSegment, "Connection '" + connection.getName() + "' does not exist in mode '" + flowMode.getName() + '\'');
 					}
 				}
 			}
