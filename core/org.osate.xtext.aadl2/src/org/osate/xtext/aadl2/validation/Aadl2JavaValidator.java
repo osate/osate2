@@ -417,8 +417,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseUnitsType(final UnitsType ut) {
-		final Set seen = new HashSet();
-		final EList literals = ut.getOwnedLiterals();
+		final EList<EnumerationLiteral> literals = ut.getOwnedLiterals();
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
@@ -429,8 +428,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseEnumerationType(final EnumerationType et) {
-		final Set seen = new HashSet();
-		final EList literals = et.getOwnedLiterals();
+		final EList<EnumerationLiteral> literals = et.getOwnedLiterals();
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(literals);
 		if (doubles.size() > 0) {
 			for (NamedElement ne : doubles) {
@@ -872,7 +870,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public void checkComponentTypeUniqueNames(ComponentType type) {
 		// process in core package
-		EList l = new BasicEList();
+		EList<NamedElement> l = new BasicEList<NamedElement>();
 		l.addAll(type.getAllFlowSpecifications());
 		l.addAll(type.getAllFeatures());
 		l.addAll(type.getAllModes());
@@ -892,7 +890,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public void checkComponentImplementationUniqueNames(ComponentImplementation impl) {
 		// process in core package
-		EList usedNames = new BasicEList();
+		EList<NamedElement> usedNames = new BasicEList<NamedElement>();
 		usedNames.addAll(impl.getAllPrototypes());
 		usedNames.addAll(impl.getAllFeatures());
 		usedNames.addAll(impl.getAllSubcomponents());
@@ -930,7 +928,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	public void checkFeatureGroupTypeUniqueNames(FeatureGroupType type) {
 		// process in core package
-		EList l = new BasicEList();
+		EList<NamedElement> l = new BasicEList<NamedElement>();
 		l.addAll(type.getAllFeatures());
 		l.addAll(type.getAllPrototypes());
 		EList<NamedElement> doubles = AadlUtil.findDoubleNamedElementsInList(l);
@@ -3672,7 +3670,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	protected void checkAadlinteger(final AadlInteger ai) {
 		final UnitsType units = ai.getUnitsType();
 		if (units != null) {
-			for (Iterator i = units.getOwnedLiterals().iterator(); i.hasNext();) {
+			for (Iterator<EnumerationLiteral> i = units.getOwnedLiterals().iterator(); i.hasNext();) {
 				final UnitLiteral ul = (UnitLiteral) i.next();
 				final NumberValue factor = ul.getFactor();
 				if (factor != null && !(factor instanceof IntegerLiteral)) {
@@ -3736,8 +3734,6 @@ protected String getNames(List<IEObjectDescription> findings){
 		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
 		cls.add(cl);
 		while (cl.getExtended() != null) {
-			Classifier ncl = cl.getExtended();
-			String n = ncl.getName();
 			if (cls.contains(cl.getExtended())) {
 				return true;
 			}
