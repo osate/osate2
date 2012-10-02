@@ -35,6 +35,7 @@
 
 package org.osate.xtext.aadl2.validation;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -44,29 +45,24 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 
-import javax.print.Doc;
-
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.BasicInternalEList;
-import org.eclipse.xtext.linking.LinkingScopeProviderBinding;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.scoping.IGlobalScopeProvider;
-import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
@@ -83,6 +79,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentImplementationUniqueNames(componentImplementation);
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
+		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -713,6 +710,123 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
+	 * "Component type extensions may refine flow specifications and component implementation
+	 * extensions may refine subcomponents and connections with in modes statements.  A flow
+	 * implementation that is inherited by the extension must be consistent with the modes of
+	 * the refined flow specifications, subcomponents, and connections if named in the flow
+	 * implementation according to rules (L4) and (L5).  Otherwise, the flow implementation
+	 * has to be defined again in the component implementation extension and satisfy rules
+	 * (L4) and (L5)."
+	 * This method checks the (L5) portion of (L7).
+	 */
+	private void checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(ComponentImplementation componentImplementation) {
+		if (componentImplementation.getAllModes().isEmpty())
+			return;
+		ArrayList<Subcomponent> subcomponentRefinements = new ArrayList<Subcomponent>();
+		for (Subcomponent subcomponent : componentImplementation.getOwnedSubcomponents()) {
+			if (subcomponent.getRefined() != null) {
+				subcomponentRefinements.add(subcomponent);
+			}
+		}
+		ArrayList<Connection> connectionRefinements = new ArrayList<Connection>();
+		for (Connection connection : componentImplementation.getOwnedConnections()) {
+			if (connection.getRefined() != null) {
+				connectionRefinements.add(connection);
+			}
+		}
+		if (subcomponentRefinements.size() == 0 && connectionRefinements.size() == 0)
+			return;
+		ArrayList<FlowImplementation> inheritedFlows = new ArrayList<FlowImplementation>();
+		for (FlowImplementation flow : removeOverridenFlowImplementations(componentImplementation.getAllFlowImplementations())) {
+			if (!componentImplementation.getOwnedFlowImplementations().contains(flow)) {
+				inheritedFlows.add(flow);
+			}
+		}
+		if (inheritedFlows.size() == 0)
+			return;
+		for (FlowImplementation flow : inheritedFlows) {
+			EList<Mode> flowModes = flow.getAllInModes();
+			if (flowModes.isEmpty())
+				componentImplementation.getAllModes();
+			for (FlowSegment flowSegment : flow.getOwnedFlowSegments()) {
+				if (flowSegment.getContext() instanceof Subcomponent) {
+					Subcomponent subcomponentRefinement = findSubcomponentRefinement((Subcomponent)flowSegment.getContext(), subcomponentRefinements);
+					if (subcomponentRefinement != null) {
+						EList<Mode> subcomponentModes = subcomponentRefinement.getAllInModes();
+						if (subcomponentModes.isEmpty())
+							subcomponentModes = componentImplementation.getAllModes();
+						for (Mode flowMode : flowModes) {
+							if (!subcomponentModes.contains(flowMode)) {
+								error(componentImplementation, "Inherited flow implementation '" + flow.getSpecification().getName() + "' refers to subcomponent refinement '" +
+										subcomponentRefinement.getName() + "' which does not exist in mode '" + flowMode.getName() + '\'');
+							}
+						}
+					}
+				}
+				else if (flowSegment.getContext() == null && flowSegment.getFlowElement() instanceof Connection) {
+					Connection connectionRefinement = findConnectionRefinement((Connection)flowSegment.getFlowElement(), connectionRefinements);
+					if (connectionRefinement != null) {
+						EList<Mode> connectionModes = connectionRefinement.getAllInModes();
+						if (connectionModes.isEmpty())
+							connectionModes = componentImplementation.getAllModes();
+						for (Mode flowMode : flowModes) {
+							if (!connectionModes.contains(flowMode)) {
+								error(componentImplementation, "Inherited flow implementation '" + flow.getSpecification().getName() + "' refers to connection refinement '" +
+										connectionRefinement.getName() + "' which does not exist in mode '" + flowMode.getName() + '\'');
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	private ArrayList<FlowImplementation> removeOverridenFlowImplementations(EList<FlowImplementation> flows) {
+		ArrayList<FlowImplementation> flowsToReturn = new ArrayList<FlowImplementation>();
+		HashSet<Integer> indiciesToIgnore = new HashSet<Integer>();
+		for (int i = 0; i < flows.size(); i++) {
+			if (!indiciesToIgnore.contains(i)) {
+				FlowImplementation correctFlow = flows.get(i);
+				for (int j = i + 1; j < flows.size(); j++) {
+					if (!indiciesToIgnore.contains(j)) {
+						if (correctFlow.getSpecification() == flows.get(j).getSpecification()) {
+							if (flows.get(j).getContainingClassifier().isDescendentOf(correctFlow.getContainingClassifier())) {
+								correctFlow = flows.get(j);
+							}
+							indiciesToIgnore.add(j);
+						}
+					}
+				}
+				flowsToReturn.add(correctFlow);
+			}
+		}
+		return flowsToReturn;
+	}
+	
+	private Subcomponent findSubcomponentRefinement(Subcomponent baseSubcomponent, ArrayList<Subcomponent> subcomponentRefinements) {
+		for (Subcomponent refinement : subcomponentRefinements) {
+			for (Subcomponent currentParent = refinement.getRefined(); currentParent != null; currentParent = currentParent.getRefined()) {
+				if (currentParent == baseSubcomponent) {
+					return refinement;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Connection findConnectionRefinement(Connection baseConnection, ArrayList<Connection> connectionRefinements) {
+		for (Connection refinement : connectionRefinements) {
+			for (Connection currentParent = refinement.getRefined(); currentParent != null; currentParent = currentParent.getRefined()) {
+				if (currentParent == baseConnection) {
+					return refinement;
+				}
+			}
+		}
+		return null;
 	}
 
 	public void checkExtendCycles(Classifier cl) {
