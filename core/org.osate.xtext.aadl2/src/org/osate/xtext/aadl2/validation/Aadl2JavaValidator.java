@@ -42,6 +42,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.Stack;
 
@@ -80,6 +81,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkComponentImplementationInPackageSection(componentImplementation);
 		checkComponentImplementationModes(componentImplementation);
 		checkFlowImplementationModeCompatibilityWithRefinedFlowSegments(componentImplementation);
+		checkModeSpecificFlowImplementations(componentImplementation);
 	}
 
 	@Check(CheckType.FAST)
@@ -825,6 +827,51 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Checks legality rule 4 in section 10.2 (Flow Implementations) on page 189.
+	 * "If the component implementation provides mode-specific flow implementations,
+	 * as indicated by the in modes statement, then the set of modes in the in modes
+	 * statement of all flow implementations for a given flow specification must
+	 * include all the modes for which the flow specification is declared."
+	 * 
+	 * Partially checks legality rule 7 in section 10.2 (Flow Implementations) on page 189.
+	 * "Component type extensions may refine flow specifications and component implementation
+	 * extensions may refine subcomponents and connections with in modes statements.  A flow
+	 * implementation that is inherited by the extension must be consistent with the modes of
+	 * the refined flow specifications, subcomponents, and connections if named in the flow
+	 * implementation according to rules (L4) and (L5).  Otherwise, the flow implementation
+	 * has to be defined again in the component implementation extension and satisfy rules
+	 * (L4) and (L5).
+	 * This method checks the (L4) portion of (L7).
+	 */
+	private void checkModeSpecificFlowImplementations(ComponentImplementation componentImplementation) {
+		EList<Mode> componentModes = componentImplementation.getAllModes();
+		if (componentModes.isEmpty())
+			return;
+		HashMap<FlowSpecification, HashSet<Mode>> allFlowImplementationModes = new HashMap<FlowSpecification, HashSet<Mode>>();
+		for (FlowImplementation flowImplementation : componentImplementation.getAllFlowImplementations()) {
+			HashSet<Mode> flowModesSet = allFlowImplementationModes.get(flowImplementation.getSpecification());
+			if (flowModesSet == null) {
+				flowModesSet = new HashSet<Mode>();
+				allFlowImplementationModes.put(flowImplementation.getSpecification(), flowModesSet);
+			}
+			if (flowImplementation.getAllInModes().isEmpty())
+				flowModesSet.addAll(componentModes);
+			else
+				flowModesSet.addAll(flowImplementation.getAllInModes());
+		}
+		for (Entry<FlowSpecification, HashSet<Mode>> entry : allFlowImplementationModes.entrySet()) {
+			EList<Mode> flowSpecificationModes = entry.getKey().getAllInModes();
+			if (flowSpecificationModes.isEmpty())
+				flowSpecificationModes = componentImplementation.getAllModes();
+			for (Mode flowSpecificationMode : flowSpecificationModes) {
+				if (!entry.getValue().contains(flowSpecificationMode)) {
+					error(componentImplementation, "Flow implementation '" + entry.getKey().getName() + "' needs to be declared for mode '" + flowSpecificationMode.getName() + '\'');
+				}
+			}
+		}
 	}
 
 	public void checkExtendCycles(Classifier cl) {
