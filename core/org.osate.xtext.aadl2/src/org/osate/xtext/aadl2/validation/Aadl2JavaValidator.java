@@ -391,7 +391,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void caseAadlPackage(AadlPackage pack) {
 		 String findings = hasDuplicatesAadlPackage(pack);
 		if (findings != null) {
@@ -399,14 +399,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void casePropertySet(PropertySet propSet) {
 		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet)) {
 			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
 		}
 	}
 
-	@Check(CheckType.FAST)
+	@Check(CheckType.NORMAL)
 	public void caseModelUnit(ModelUnit pack) {
 		checkEndId(pack);
 	}
