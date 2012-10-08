@@ -55,6 +55,9 @@ public class Aadl2GlobalScopeProvider extends DefaultGlobalScopeProvider {
 		List<IContainer> containers = Lists.newArrayList(getVisibleContainers(context));
 //		Collections.reverse(containers);
 		Iterator<IContainer> iter = containers.iterator();
+		if (target.getName() == null || target.getName().isEmpty()){
+			return Collections.EMPTY_LIST;
+		}
 		QualifiedName qn = qualifiedNameConverter.toQualifiedName(target.getName());
 		boolean foundOne =false;
 		List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
