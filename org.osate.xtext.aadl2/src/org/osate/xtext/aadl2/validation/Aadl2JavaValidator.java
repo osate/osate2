@@ -324,6 +324,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowConnectionEnds(flow);
 		checkFlowSegmentModes(flow);
 	}
+	
+	@Check(CheckType.FAST)
+	public void caseEndToEndFlow(EndToEndFlow flow) {
+		checkEndToEndFlowSegments(flow);
+	}
 
 	@Check(CheckType.FAST)
 	public void caseDirectedFeature(DirectedFeature feature) {
@@ -869,6 +874,77 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			for (Mode flowSpecificationMode : flowSpecificationModes) {
 				if (!entry.getValue().contains(flowSpecificationMode)) {
 					error(componentImplementation, "Flow implementation '" + entry.getKey().getName() + "' needs to be declared for mode '" + flowSpecificationMode.getName() + '\'');
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Partially checks naming rule 3 in section 10.3 (End-To-End Flows) on page 191.
+	 * "The subcomponent flow identifier of an end-to-end flow declaration must name
+	 * an optional flow specification in the component type of the named subcomponent
+	 * or to a data component in the form of a data subcomponent, provides data access,
+	 * or requires data access."
+	 * This method only checks if the reference is to a connection.
+	 * 
+	 * Checks legality rule 1 in section 10.3 (End-To-End Flows) on page 191.
+	 * "The flow specifications identified by the flow_path_subcomponent_flow_identifier
+	 * must be flow paths, if present."
+	 * 
+	 * Checks legality rule 2 in section 10.3 (End-To-End Flows) on page 191.
+	 * "The start_subcomponent_flow_identifier must refer to a flow path or  flow source,
+	 * or to a data component."
+	 * 
+	 * Checks legality rule 3 in section 10.3 (End-To-End Flows) on page 191.
+	 * "The end_subcomponent_flow_identifier must refer to a flow path or a flow sink, or
+	 * to a data component."
+	 */
+	private void checkEndToEndFlowSegments(EndToEndFlow flow) {
+		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
+			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
+			if (i % 2 == 0) {
+				if (segment.getFlowElement() instanceof Connection && segment.getContext() == null) {
+					error(segment, "Illegal reference to connection '" + segment.getFlowElement().getName() + "'.  Expecting subcomponent flow or end-to-end flow reference.");
+				}
+				else if (i == 0) {
+					if (segment.getFlowElement() instanceof FlowSpecification) {
+						if (segment.getContext() == null) {
+							error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a flow specification in the local classifier's namespace.");
+						}
+						else if (((FlowSpecification)segment.getFlowElement()).getKind() == FlowKind.SINK) {
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.' + segment.getFlowElement().getName() +
+									"'.  First segment of end-to-end flow cannot refer to a flow sink.");
+						}
+					}
+				}
+				else if (i == flow.getOwnedEndToEndFlowSegments().size() - 1) {
+					if (segment.getFlowElement() instanceof FlowSpecification) {
+						if (segment.getContext() == null) {
+							error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a flow specification in the local classifier's namespace.");
+						}
+						else if (((FlowSpecification)segment.getFlowElement()).getKind() == FlowKind.SOURCE) {
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.' + segment.getFlowElement().getName() +
+									"'.  Last segment of end-to-end flow cannot refer to a flow source.");
+						}
+					}
+				}
+				else {
+					if (segment.getFlowElement() instanceof DataAccess && segment.getContext() == null) {
+						error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.");
+					}
+					else if (segment.getFlowElement() instanceof FlowSpecification) {
+						if (segment.getContext() == null) {
+							error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a flow specification in the local classifier's namespace.");
+						}
+						else if (((FlowSpecification)segment.getFlowElement()).getKind() == FlowKind.SOURCE) {
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.' + segment.getFlowElement().getName() +
+									"'.  Cannot refer to a flow source except for the first segment of an end-to-end flow.");
+						}
+						else if (((FlowSpecification)segment.getFlowElement()).getKind() == FlowKind.SINK) {
+							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.' + segment.getFlowElement().getName() +
+									"'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
+						}
+					}
 				}
 			}
 		}
