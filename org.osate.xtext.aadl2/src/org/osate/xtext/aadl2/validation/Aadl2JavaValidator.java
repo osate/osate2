@@ -328,6 +328,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseEndToEndFlow(EndToEndFlow flow) {
 		checkEndToEndFlowSegments(flow);
+		checkNestedEndToEndFlows(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -943,6 +944,62 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						else if (((FlowSpecification)segment.getFlowElement()).getKind() == FlowKind.SINK) {
 							error(segment, "Illegal reference to '" + segment.getContext().getName() + '.' + segment.getFlowElement().getName() +
 									"'.  Cannot refer to a flow sink except for the last segment of an end-to-end flow.");
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Checks legality rule 4 in section 10.3 (End-To-End Flows) on page 191.
+	 * "If an end-to-end flow is referenced in an end-to-end flow declaration, then its
+	 * first and last subcomponent flow must name the same port as the preceding or
+	 * succeeding connection."
+	 * 
+	 * Checks a proposed legality rule for end-to-end flows.
+	 * "If the start_subcomponent_flow_identifier or flow_path_subcomponent_flow_identifier
+	 * refers to an end-to-end flow, then the referenced flow's last subcomponent flow
+	 * cannot be a flow sink."
+	 * 
+	 * Checks a proposed legality rule for end-to-end flows.
+	 * "If the end_subcomponent_flow_identifier or flow_path_subcomponent_flow_identifier
+	 * refers to an end-to-end flow, then the referenced flows's first subcomponent flow
+	 * cannot be a flow source."
+	 */
+	private void checkNestedEndToEndFlows(EndToEndFlow flow) {
+		for (int i = 0; i < flow.getOwnedEndToEndFlowSegments().size(); i++) {
+			EndToEndFlowSegment segment = flow.getOwnedEndToEndFlowSegments().get(i);
+			if (segment.getFlowElement() instanceof EndToEndFlow) {
+				EndToEndFlow referencedFlow = (EndToEndFlow)segment.getFlowElement();
+				if (i < flow.getOwnedEndToEndFlowSegments().size() - 1) {
+					if (referencedFlow.getOwnedEndToEndFlowSegments().get(referencedFlow.getOwnedEndToEndFlowSegments().size() - 1).getFlowElement() instanceof FlowSpecification) {
+						FlowSpecification referencedEndFlowSpec =
+								(FlowSpecification)referencedFlow.getOwnedEndToEndFlowSegments().get(referencedFlow.getOwnedEndToEndFlowSegments().size() - 1).getFlowElement();
+						if (referencedEndFlowSpec.getKind() == FlowKind.SINK) {
+							error(segment, "The last subcomponent flow of '" + referencedFlow.getName() + "' cannot be a flow sink.");
+						}
+						else if (referencedEndFlowSpec.getKind() == FlowKind.PATH && flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement() instanceof Connection) {
+							Connection nextConnection = (Connection)flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
+							if (referencedEndFlowSpec.getAllOutEnd().getFeature() != nextConnection.getAllSource()) {
+								error(segment, "The last subcomponent flow of '" + referencedFlow.getName() + "' does not name the same feature as the source of the succeeding connection '" +
+										nextConnection.getName() + "'.");
+							}
+						}
+					}
+				}
+				if (i > 0) {
+					if (referencedFlow.getOwnedEndToEndFlowSegments().get(0).getFlowElement() instanceof FlowSpecification) {
+						FlowSpecification referencedStartFlowSpec = (FlowSpecification)referencedFlow.getOwnedEndToEndFlowSegments().get(0).getFlowElement();
+						if (referencedStartFlowSpec.getKind() == FlowKind.SOURCE) {
+							error(segment, "The first subcomponent flow of '" + referencedFlow.getName() + "' cannot be a flow source.");
+						}
+						else if (referencedStartFlowSpec.getKind() == FlowKind.PATH && flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof Connection) {
+							Connection previousConnection = (Connection)flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement();
+							if (referencedStartFlowSpec.getAllInEnd().getFeature() != previousConnection.getAllDestination()) {
+								error(segment, "The first subcomponent flow of '" + referencedFlow.getName() + "' does not name the same feature as the destination of the preceding connection '" +
+										previousConnection.getName() + "'.");
+							}
 						}
 					}
 				}
