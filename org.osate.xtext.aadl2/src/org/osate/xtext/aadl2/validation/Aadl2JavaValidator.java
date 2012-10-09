@@ -329,6 +329,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseEndToEndFlow(EndToEndFlow flow) {
 		checkEndToEndFlowSegments(flow);
 		checkNestedEndToEndFlows(flow);
+		checkEndToEndFlowModes(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -1001,6 +1002,37 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 										previousConnection.getName() + "'.");
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Checks legality rule 5 in section 10.3 (End-To-End Flows) on page 192.
+	 * "In case of a mode specific end-to-end flow declarations, the named connections
+	 * and the subcomponents of the named flow specifications must be declared for the
+	 * modes listed in the in modes statement."
+	 */
+	private void checkEndToEndFlowModes(EndToEndFlow flow) {
+		EList<Mode> neededModes = flow.getAllInModes();
+		if (neededModes.isEmpty())
+			neededModes = flow.getContainingComponentImpl().getAllModes();
+		if (neededModes.isEmpty())
+			return;
+		for (EndToEndFlowSegment segment : flow.getAllFlowSegments()) {
+			EList<Mode> segmentModes = null;
+			if (segment.getContext() != null && segment.getContext() instanceof ModalElement) {
+				segmentModes = ((ModalElement)segment.getContext()).getAllInModes();
+			}
+			else if (segment.getContext() == null && segment.getFlowElement() instanceof ModalElement) {
+				segmentModes = ((ModalElement)segment.getFlowElement()).getAllInModes();
+			}
+			if (segmentModes != null && !segmentModes.isEmpty()) {
+				for (Mode neededMode : neededModes) {
+					if (!segmentModes.contains(neededMode)) {
+						error(segment, "'" + (segment.getContext() == null ? "" : segment.getContext().getName() + '.') + segment.getFlowElement().getName() + "' does not exist in mode '" +
+								neededMode.getName() + "'.");
 					}
 				}
 			}
