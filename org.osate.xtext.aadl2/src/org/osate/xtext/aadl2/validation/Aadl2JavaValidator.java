@@ -506,7 +506,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode) {
 			lln = lln.getPreviousSibling();
 		}
-		String ss = lln.getText().replaceAll(" ", "");
+		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
 		if (!cl.getName().equalsIgnoreCase(ss)) {
 			error(cl, "Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'");
 		}
