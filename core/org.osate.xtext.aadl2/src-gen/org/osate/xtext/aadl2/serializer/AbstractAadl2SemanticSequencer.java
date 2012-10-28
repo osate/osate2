@@ -2008,7 +2008,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID sourceText=ANNEXTEXT)
+	 *     (name=ID sourceText=ANNEXTEXT (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
 	protected void sequence_DefaultAnnexSubclause(EObject context, DefaultAnnexSubclause semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
