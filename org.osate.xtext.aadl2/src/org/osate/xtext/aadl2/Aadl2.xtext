@@ -1787,7 +1787,8 @@ AnnexSubclause returns aadl2::AnnexSubclause:
 
 DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	'annex' name=ID
-		sourceText=ANNEXTEXT 
+	 sourceText=ANNEXTEXT 
+	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? 
 	';';
 
 

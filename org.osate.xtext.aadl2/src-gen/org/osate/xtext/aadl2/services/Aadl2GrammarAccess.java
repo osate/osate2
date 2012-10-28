@@ -22162,13 +22162,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		private final Assignment cSourceTextAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cSourceTextANNEXTEXTTerminalRuleCall_2_0 = (RuleCall)cSourceTextAssignment_2.eContents().get(0);
-		private final Keyword cSemicolonKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cInKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cModesKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final Group cGroup_3_3 = (Group)cGroup_3.eContents().get(3);
+		private final Assignment cInModeAssignment_3_3_0 = (Assignment)cGroup_3_3.eContents().get(0);
+		private final CrossReference cInModeModeCrossReference_3_3_0_0 = (CrossReference)cInModeAssignment_3_3_0.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_3_3_0_0_1 = (RuleCall)cInModeModeCrossReference_3_3_0_0.eContents().get(1);
+		private final Group cGroup_3_3_1 = (Group)cGroup_3_3.eContents().get(1);
+		private final Keyword cCommaKeyword_3_3_1_0 = (Keyword)cGroup_3_3_1.eContents().get(0);
+		private final Assignment cInModeAssignment_3_3_1_1 = (Assignment)cGroup_3_3_1.eContents().get(1);
+		private final CrossReference cInModeModeCrossReference_3_3_1_1_0 = (CrossReference)cInModeAssignment_3_3_1_1.eContents().get(0);
+		private final RuleCall cInModeModeIDTerminalRuleCall_3_3_1_1_0_1 = (RuleCall)cInModeModeCrossReference_3_3_1_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
+		private final Keyword cSemicolonKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-		//	"annex" name=ID sourceText=ANNEXTEXT ";";
+		//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 		public ParserRule getRule() { return rule; }
 
-		//"annex" name=ID sourceText=ANNEXTEXT ";"
+		//"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";"
 		public Group getGroup() { return cGroup; }
 
 		//"annex"
@@ -22186,8 +22200,50 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//ANNEXTEXT
 		public RuleCall getSourceTextANNEXTEXTTerminalRuleCall_2_0() { return cSourceTextANNEXTEXTTerminalRuleCall_2_0; }
 
+		//("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")?
+		public Group getGroup_3() { return cGroup_3; }
+
+		//"in"
+		public Keyword getInKeyword_3_0() { return cInKeyword_3_0; }
+
+		//"modes"
+		public Keyword getModesKeyword_3_1() { return cModesKeyword_3_1; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_3_2() { return cLeftParenthesisKeyword_3_2; }
+
+		//inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*
+		public Group getGroup_3_3() { return cGroup_3_3; }
+
+		//inMode+=[aadl2::Mode]
+		public Assignment getInModeAssignment_3_3_0() { return cInModeAssignment_3_3_0; }
+
+		//[aadl2::Mode]
+		public CrossReference getInModeModeCrossReference_3_3_0_0() { return cInModeModeCrossReference_3_3_0_0; }
+
+		//ID
+		public RuleCall getInModeModeIDTerminalRuleCall_3_3_0_0_1() { return cInModeModeIDTerminalRuleCall_3_3_0_0_1; }
+
+		//("," inMode+=[aadl2::Mode])*
+		public Group getGroup_3_3_1() { return cGroup_3_3_1; }
+
+		//","
+		public Keyword getCommaKeyword_3_3_1_0() { return cCommaKeyword_3_3_1_0; }
+
+		//inMode+=[aadl2::Mode]
+		public Assignment getInModeAssignment_3_3_1_1() { return cInModeAssignment_3_3_1_1; }
+
+		//[aadl2::Mode]
+		public CrossReference getInModeModeCrossReference_3_3_1_1_0() { return cInModeModeCrossReference_3_3_1_1_0; }
+
+		//ID
+		public RuleCall getInModeModeIDTerminalRuleCall_3_3_1_1_0_1() { return cInModeModeIDTerminalRuleCall_3_3_1_1_0_1; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_3_4() { return cRightParenthesisKeyword_3_4; }
+
 		//";"
-		public Keyword getSemicolonKeyword_3() { return cSemicolonKeyword_3; }
+		public Keyword getSemicolonKeyword_4() { return cSemicolonKeyword_4; }
 	}
 
 	public class PropertySetElements extends AbstractParserRuleElementFinder {
@@ -26688,7 +26744,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
-	//	"annex" name=ID sourceText=ANNEXTEXT ";";
+	//	"annex" name=ID sourceText=ANNEXTEXT ("in" "modes" "(" (inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])*) ")")? ";";
 	public DefaultAnnexSubclauseElements getDefaultAnnexSubclauseAccess() {
 		return (pDefaultAnnexSubclause != null) ? pDefaultAnnexSubclause : (pDefaultAnnexSubclause = new DefaultAnnexSubclauseElements());
 	}

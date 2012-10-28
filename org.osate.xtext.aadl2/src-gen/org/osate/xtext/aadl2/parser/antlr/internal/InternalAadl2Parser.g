@@ -30570,10 +30570,61 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
 	    }
 
 )
-)
-	otherlv_3=KEYWORD_9
+)(
+	otherlv_3=KEYWORD_19
     {
-    	newLeafNode(otherlv_3, grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getDefaultAnnexSubclauseAccess().getInKeyword_3_0());
+    }
+
+	otherlv_4=KEYWORD_50
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getDefaultAnnexSubclauseAccess().getModesKeyword_3_1());
+    }
+
+	otherlv_5=KEYWORD_1
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getDefaultAnnexSubclauseAccess().getLeftParenthesisKeyword_3_2());
+    }
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDefaultAnnexSubclauseRule());
+	        }
+        }
+	otherlv_6=RULE_ID
+	{
+		newLeafNode(otherlv_6, grammarAccess.getDefaultAnnexSubclauseAccess().getInModeModeCrossReference_3_3_0_0()); 
+	}
+
+)
+)(
+	otherlv_7=KEYWORD_5
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getDefaultAnnexSubclauseAccess().getCommaKeyword_3_3_1_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDefaultAnnexSubclauseRule());
+	        }
+        }
+	otherlv_8=RULE_ID
+	{
+		newLeafNode(otherlv_8, grammarAccess.getDefaultAnnexSubclauseAccess().getInModeModeCrossReference_3_3_1_1_0()); 
+	}
+
+)
+))*)
+	otherlv_9=KEYWORD_2
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getDefaultAnnexSubclauseAccess().getRightParenthesisKeyword_3_4());
+    }
+)?
+	otherlv_10=KEYWORD_9
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getDefaultAnnexSubclauseAccess().getSemicolonKeyword_4());
     }
 )
 ;

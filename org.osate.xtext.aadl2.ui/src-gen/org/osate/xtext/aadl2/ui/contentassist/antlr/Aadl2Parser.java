@@ -1228,6 +1228,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeRefAccess().getGroup_1(), "rule__ModeRef__Group_1__0");
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getGroup(), "rule__DefaultAnnexLibrary__Group__0");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup(), "rule__DefaultAnnexSubclause__Group__0");
+					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup_3(), "rule__DefaultAnnexSubclause__Group_3__0");
+					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup_3_3(), "rule__DefaultAnnexSubclause__Group_3_3__0");
+					put(grammarAccess.getDefaultAnnexSubclauseAccess().getGroup_3_3_1(), "rule__DefaultAnnexSubclause__Group_3_3_1__0");
 					put(grammarAccess.getPropertySetAccess().getGroup(), "rule__PropertySet__Group__0");
 					put(grammarAccess.getPropertySetAccess().getGroup_4(), "rule__PropertySet__Group_4__0");
 					put(grammarAccess.getPropertySetAccess().getGroup_4_2(), "rule__PropertySet__Group_4_2__0");
@@ -2467,6 +2470,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDefaultAnnexLibraryAccess().getSourceTextAssignment_2(), "rule__DefaultAnnexLibrary__SourceTextAssignment_2");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getNameAssignment_1(), "rule__DefaultAnnexSubclause__NameAssignment_1");
 					put(grammarAccess.getDefaultAnnexSubclauseAccess().getSourceTextAssignment_2(), "rule__DefaultAnnexSubclause__SourceTextAssignment_2");
+					put(grammarAccess.getDefaultAnnexSubclauseAccess().getInModeAssignment_3_3_0(), "rule__DefaultAnnexSubclause__InModeAssignment_3_3_0");
+					put(grammarAccess.getDefaultAnnexSubclauseAccess().getInModeAssignment_3_3_1_1(), "rule__DefaultAnnexSubclause__InModeAssignment_3_3_1_1");
 					put(grammarAccess.getPropertySetAccess().getNameAssignment_2(), "rule__PropertySet__NameAssignment_2");
 					put(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_1(), "rule__PropertySet__ImportedUnitAssignment_4_1");
 					put(grammarAccess.getPropertySetAccess().getImportedUnitAssignment_4_2_1(), "rule__PropertySet__ImportedUnitAssignment_4_2_1");
