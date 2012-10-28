@@ -57,6 +57,7 @@ import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
+import org.osate.aadl2.Mode;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisToParseErrorReporterAdapter;
@@ -223,6 +224,11 @@ public class AnnexParserAgent  extends LazyLinker {
 							defaultAnnexSubclause.eAdapters().add(apr);
 						}
 						asc.eAdapters().add(new AnnexSourceImpl(annexText, offset)); // Attach Annex Source text information to the new object
+						// copy in modes list
+						EList<Mode> inmodelist = defaultAnnexSubclause.getInModes();
+						for (Mode mode : inmodelist) {
+							asc.getInModes().add(mode);
+						}
 														
 						// replace default annex library with the new one. 
 						EList<AnnexSubclause> ael= ((Classifier)defaultAnnexSubclause.eContainer()).getOwnedAnnexSubclauses();
