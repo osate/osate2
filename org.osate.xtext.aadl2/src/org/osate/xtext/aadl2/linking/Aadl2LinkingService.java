@@ -160,14 +160,22 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			}
 			if (!(context instanceof Generalization) && sct.isSuperTypeOf(requiredType)){
 				// need to resolve prototype
-				EObject res = AadlUtil.getContainingClassifier(context)
-						.findNamedElement(name);
-				if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
-					if( res instanceof DataPrototype ){
+				Classifier containingClassifier = AadlUtil.getContainingClassifier(context);
+				/*
+				 * This test was put here as a quick and dirty fix to a NullPointerException that was
+				 * being thrown while typing up a component type renames statement.  Need to figure out
+				 * what we should really be doing for renames.
+				 */
+				if (containingClassifier != null) {
+					EObject res = AadlUtil.getContainingClassifier(context)
+							.findNamedElement(name);
+					if (Aadl2Package.eINSTANCE.getDataPrototype()==reference ){
+						if( res instanceof DataPrototype ){
+							return Collections.singletonList(res);
+						}
+					} else if ( res instanceof ComponentPrototype) {
 						return Collections.singletonList(res);
 					}
-				} else if ( res instanceof ComponentPrototype) {
-					return Collections.singletonList(res);
 				}
 			}
 			return Collections.EMPTY_LIST;
