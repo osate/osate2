@@ -1791,9 +1791,9 @@ DefaultAnnexSubclause returns aadl2::DefaultAnnexSubclause:
 	( 'in' 'modes' '(' (inMode+=[aadl2::Mode|ID](',' inMode+=[aadl2::Mode|ID])* ) ')')? 
 	';';
 
-
-terminal ANNEXTEXT:
-	'{**'->'**}';
+//
+//terminal ANNEXTEXT:
+//	'{**'->'**}';
 
 
 //terminal ANNEXTEXT	: 

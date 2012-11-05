@@ -48,7 +48,11 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
+	( 'annex' containmentPathElement+=AnnexPath )?
 ;
+
+AnnexPath returns aadl2::ContainmentPathElement:
+	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
@@ -96,6 +100,10 @@ ReferenceTerm returns aadl2::ReferenceValue:
   'reference' '(' 	
   containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
+	( 'annex' ID '{**' 
+	containmentPathElement+=ContainmentPathElement
+	( '.' containmentPathElement+=ContainmentPathElement)*
+	'**}')?
   ')'
   ;
 
@@ -142,8 +150,8 @@ FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	((namedElement=[aadl2::NamedElement|ID]
 	 (arrayRange+=ArrayRange)?
-	 ) |
-	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
+	 ) 
+//	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	)
 ;
 
@@ -255,6 +263,10 @@ QCREF:
 	
 STAR : '*';
 
+terminal IDANNEXTEXT: ID ANNEXTEXT;
+
+terminal ANNEXTEXT:
+	'{**'->'**}';
 
 
 terminal STRING	: 

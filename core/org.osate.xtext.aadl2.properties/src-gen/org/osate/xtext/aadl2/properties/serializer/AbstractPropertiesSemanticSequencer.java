@@ -1,5 +1,7 @@
 package org.osate.xtext.aadl2.properties.serializer;
 
+import com.google.inject.Inject;
+import com.google.inject.Provider;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
@@ -28,9 +30,6 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
-
-import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 @SuppressWarnings("restriction")
 public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequencer {
@@ -100,7 +99,11 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 				}
 				else break;
 			case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
-				if(context == grammarAccess.getContainmentPathElementRule()) {
+				if(context == grammarAccess.getAnnexPathRule()) {
+					sequence_AnnexPath(context, (ContainmentPathElement) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getContainmentPathElementRule()) {
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
@@ -217,6 +220,15 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
+	 *     namedElement=[NamedElement|IDANNEXTEXT]
+	 */
+	protected void sequence_AnnexPath(EObject context, ContainmentPathElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
 	 */
 	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
@@ -288,7 +300,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     ((namedElement=[NamedElement|ID] arrayRange+=ArrayRange?) | namedElement=[NamedElement|ANNEXREF])
+	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange?)
 	 */
 	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -297,7 +309,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement* containmentPathElement+=AnnexPath?)
 	 */
 	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -430,7 +442,11 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 *     (
+	 *         containmentPathElement+=ContainmentPathElement 
+	 *         containmentPathElement+=ContainmentPathElement* 
+	 *         (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)?
+	 *     )
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
