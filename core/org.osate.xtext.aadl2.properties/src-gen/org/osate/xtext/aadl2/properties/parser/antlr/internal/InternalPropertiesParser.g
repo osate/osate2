@@ -363,19 +363,23 @@ ruleContainmentPath returns [EObject current=null]
     {
     	newLeafNode(otherlv_4, grammarAccess.getContainmentPathAccess().getAnnexKeyword_3_0());
     }
+this_ID_5=RULE_ID
+    { 
+    newLeafNode(this_ID_5, grammarAccess.getContainmentPathAccess().getIDTerminalRuleCall_3_1()); 
+    }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_1_0()); 
+	        newCompositeNode(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_2_0()); 
 	    }
-		lv_containmentPathElement_5_0=ruleAnnexPath		{
+		lv_containmentPathElement_6_0=ruleAnnexPath		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getContainmentPathRule());
 	        }
        		add(
        			$current, 
        			"containmentPathElement",
-        		lv_containmentPathElement_5_0, 
+        		lv_containmentPathElement_6_0, 
         		"AnnexPath");
 	        afterParserOrEnumRuleCall();
 	    }

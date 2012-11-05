@@ -48,7 +48,7 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
-	( 'annex' containmentPathElement+=AnnexPath )?
+	( 'annex' ID containmentPathElement+=AnnexPath )?
 ;
 
 AnnexPath returns aadl2::ContainmentPathElement:
