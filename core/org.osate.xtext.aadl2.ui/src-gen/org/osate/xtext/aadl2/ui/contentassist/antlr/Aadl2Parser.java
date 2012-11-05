@@ -387,7 +387,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPropertyAssociationAccess().getAlternatives_1(), "rule__PropertyAssociation__Alternatives_1");
 					put(grammarAccess.getPropertyExpressionAccess().getAlternatives(), "rule__PropertyExpression__Alternatives");
 					put(grammarAccess.getBooleanLiteralAccess().getAlternatives_1(), "rule__BooleanLiteral__Alternatives_1");
-					put(grammarAccess.getContainmentPathElementAccess().getAlternatives(), "rule__ContainmentPathElement__Alternatives");
 					put(grammarAccess.getPlusMinusAccess().getAlternatives(), "rule__PlusMinus__Alternatives");
 					put(grammarAccess.getSignedIntAccess().getAlternatives_0(), "rule__SignedInt__Alternatives_0");
 					put(grammarAccess.getSignedRealAccess().getAlternatives_0(), "rule__SignedReal__Alternatives_0");
@@ -1306,6 +1305,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBasicPropertyAssociationAccess().getGroup(), "rule__BasicPropertyAssociation__Group__0");
 					put(grammarAccess.getContainmentPathAccess().getGroup(), "rule__ContainmentPath__Group__0");
 					put(grammarAccess.getContainmentPathAccess().getGroup_2(), "rule__ContainmentPath__Group_2__0");
+					put(grammarAccess.getContainmentPathAccess().getGroup_3(), "rule__ContainmentPath__Group_3__0");
 					put(grammarAccess.getModalPropertyValueAccess().getGroup(), "rule__ModalPropertyValue__Group__0");
 					put(grammarAccess.getModalPropertyValueAccess().getGroup_5(), "rule__ModalPropertyValue__Group_5__0");
 					put(grammarAccess.getOptionalModalPropertyValueAccess().getGroup(), "rule__OptionalModalPropertyValue__Group__0");
@@ -1314,6 +1314,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBooleanLiteralAccess().getGroup(), "rule__BooleanLiteral__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup(), "rule__ReferenceTerm__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup_3(), "rule__ReferenceTerm__Group_3__0");
+					put(grammarAccess.getReferenceTermAccess().getGroup_4(), "rule__ReferenceTerm__Group_4__0");
+					put(grammarAccess.getReferenceTermAccess().getGroup_4_4(), "rule__ReferenceTerm__Group_4_4__0");
 					put(grammarAccess.getRecordTermAccess().getGroup(), "rule__RecordTerm__Group__0");
 					put(grammarAccess.getOldRecordTermAccess().getGroup(), "rule__OldRecordTerm__Group__0");
 					put(grammarAccess.getComputedTermAccess().getGroup(), "rule__ComputedTerm__Group__0");
@@ -1321,8 +1323,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getListTermAccess().getGroup(), "rule__ListTerm__Group__0");
 					put(grammarAccess.getListTermAccess().getGroup_2(), "rule__ListTerm__Group_2__0");
 					put(grammarAccess.getFieldPropertyAssociationAccess().getGroup(), "rule__FieldPropertyAssociation__Group__0");
-					put(grammarAccess.getContainmentPathElementAccess().getGroup_0(), "rule__ContainmentPathElement__Group_0__0");
-					put(grammarAccess.getContainmentPathElementAccess().getGroup_1(), "rule__ContainmentPathElement__Group_1__0");
+					put(grammarAccess.getContainmentPathElementAccess().getGroup(), "rule__ContainmentPathElement__Group__0");
 					put(grammarAccess.getANNEXREFAccess().getGroup(), "rule__ANNEXREF__Group__0");
 					put(grammarAccess.getArrayRangeAccess().getGroup(), "rule__ArrayRange__Group__0");
 					put(grammarAccess.getArrayRangeAccess().getGroup_3(), "rule__ArrayRange__Group_3__0");
@@ -2572,6 +2573,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBasicPropertyAssociationAccess().getOwnedValueAssignment_2(), "rule__BasicPropertyAssociation__OwnedValueAssignment_2");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_1");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_2_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_2_1");
+					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_2(), "rule__ContainmentPath__ContainmentPathElementAssignment_3_2");
+					put(grammarAccess.getAnnexPathAccess().getNamedElementAssignment(), "rule__AnnexPath__NamedElementAssignment");
 					put(grammarAccess.getModalPropertyValueAccess().getOwnedValueAssignment_0(), "rule__ModalPropertyValue__OwnedValueAssignment_0");
 					put(grammarAccess.getModalPropertyValueAccess().getInModeAssignment_4(), "rule__ModalPropertyValue__InModeAssignment_4");
 					put(grammarAccess.getModalPropertyValueAccess().getInModeAssignment_5_1(), "rule__ModalPropertyValue__InModeAssignment_5_1");
@@ -2584,6 +2587,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantValueAccess().getNamedValueAssignment(), "rule__ConstantValue__NamedValueAssignment");
 					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_2(), "rule__ReferenceTerm__ContainmentPathElementAssignment_2");
 					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_3_1(), "rule__ReferenceTerm__ContainmentPathElementAssignment_3_1");
+					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_4_3(), "rule__ReferenceTerm__ContainmentPathElementAssignment_4_3");
+					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_4_4_1(), "rule__ReferenceTerm__ContainmentPathElementAssignment_4_4_1");
 					put(grammarAccess.getRecordTermAccess().getOwnedFieldValueAssignment_1(), "rule__RecordTerm__OwnedFieldValueAssignment_1");
 					put(grammarAccess.getOldRecordTermAccess().getOwnedFieldValueAssignment_1(), "rule__OldRecordTerm__OwnedFieldValueAssignment_1");
 					put(grammarAccess.getComputedTermAccess().getFunctionAssignment_2(), "rule__ComputedTerm__FunctionAssignment_2");
@@ -2592,9 +2597,8 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_1(), "rule__ListTerm__OwnedListElementAssignment_2_1");
 					put(grammarAccess.getFieldPropertyAssociationAccess().getPropertyAssignment_0(), "rule__FieldPropertyAssociation__PropertyAssignment_0");
 					put(grammarAccess.getFieldPropertyAssociationAccess().getOwnedValueAssignment_2(), "rule__FieldPropertyAssociation__OwnedValueAssignment_2");
-					put(grammarAccess.getContainmentPathElementAccess().getNamedElementAssignment_0_0(), "rule__ContainmentPathElement__NamedElementAssignment_0_0");
-					put(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1(), "rule__ContainmentPathElement__ArrayRangeAssignment_0_1");
-					put(grammarAccess.getContainmentPathElementAccess().getNamedElementAssignment_1_1(), "rule__ContainmentPathElement__NamedElementAssignment_1_1");
+					put(grammarAccess.getContainmentPathElementAccess().getNamedElementAssignment_0(), "rule__ContainmentPathElement__NamedElementAssignment_0");
+					put(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_1(), "rule__ContainmentPathElement__ArrayRangeAssignment_1");
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getArrayRangeAccess().getLowerBoundAssignment_2(), "rule__ArrayRange__LowerBoundAssignment_2");
 					put(grammarAccess.getArrayRangeAccess().getUpperBoundAssignment_3_1(), "rule__ArrayRange__UpperBoundAssignment_3_1");
