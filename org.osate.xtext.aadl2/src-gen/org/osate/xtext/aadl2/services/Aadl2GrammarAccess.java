@@ -22276,6 +22276,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
 		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
+		////
+		////terminal ANNEXTEXT:
+		////	'{**'->'**}';
 		////terminal ANNEXTEXT	: 
 		////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
 		////		; 
@@ -24767,7 +24770,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private DefaultAnnexLibraryElements pDefaultAnnexLibrary;
 	private AnnexSubclauseElements pAnnexSubclause;
 	private DefaultAnnexSubclauseElements pDefaultAnnexSubclause;
-	private TerminalRule tANNEXTEXT;
 	private PropertySetElements pPropertySet;
 	private PropertyTypeElements pPropertyType;
 	private UnnamedPropertyTypeElements pUnnamedPropertyType;
@@ -26753,12 +26755,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getDefaultAnnexSubclauseAccess().getRule();
 	}
 
-	//terminal ANNEXTEXT:
-	//	"{**"->"**}";
-	public TerminalRule getANNEXTEXTRule() {
-		return (tANNEXTEXT != null) ? tANNEXTEXT : (tANNEXTEXT = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "ANNEXTEXT"));
-	} 
-
+	////
+	////terminal ANNEXTEXT:
+	////	'{**'->'**}';
 	////terminal ANNEXTEXT	: 
 	////			 ( '\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\') | !('\\'|'}') )*  '**}'
 	////		; 
@@ -27324,13 +27323,23 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-	//	containmentPathElement+=ContainmentPathElement)*;
+	//	containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
 	}
 	
 	public ParserRule getContainmentPathRule() {
 		return getContainmentPathAccess().getRule();
+	}
+
+	//AnnexPath returns aadl2::ContainmentPathElement:
+	//	namedElement=[aadl2::NamedElement|ANNEXTEXT];
+	public PropertiesGrammarAccess.AnnexPathElements getAnnexPathAccess() {
+		return gaProperties.getAnnexPathAccess();
+	}
+	
+	public ParserRule getAnnexPathRule() {
+		return getAnnexPathAccess().getRule();
 	}
 
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
@@ -27408,7 +27417,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
 	//	"reference" "(" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-	//	")";
+	//	("annex" ID "{**" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
+	//	"**}")? ")";
 	public PropertiesGrammarAccess.ReferenceTermElements getReferenceTermAccess() {
 		return gaProperties.getReferenceTermAccess();
 	}
@@ -27479,8 +27489,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// from AADL2
 	//// need to add annex path element
+	////	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	//ContainmentPathElement returns aadl2::ContainmentPathElement:
-	//	namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange? | "annex" namedElement=[aadl2::NamedElement|ANNEXREF];
+	//	namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?;
 	public PropertiesGrammarAccess.ContainmentPathElementElements getContainmentPathElementAccess() {
 		return gaProperties.getContainmentPathElementAccess();
 	}
@@ -27703,6 +27714,12 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public ParserRule getSTARRule() {
 		return getSTARAccess().getRule();
 	}
+
+	//terminal ANNEXTEXT:
+	//	"{**"->"**}";
+	public TerminalRule getANNEXTEXTRule() {
+		return gaProperties.getANNEXTEXTRule();
+	} 
 
 	//terminal STRING:
 	//	"\"" ("\\" ("b" | "t" | "n" | "f" | "r" | "u" | "\"" | "\'" | "\\") | !("\\" | "\""))* "\"" | "\'" ("\\" ("b" | "t" |
