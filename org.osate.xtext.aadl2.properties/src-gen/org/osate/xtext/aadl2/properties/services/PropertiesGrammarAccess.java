@@ -348,16 +348,17 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cContainmentPathElementContainmentPathElementParserRuleCall_2_1_0 = (RuleCall)cContainmentPathElementAssignment_2_1.eContents().get(0);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cAnnexKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final Assignment cContainmentPathElementAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
-		private final RuleCall cContainmentPathElementAnnexPathParserRuleCall_3_1_0 = (RuleCall)cContainmentPathElementAssignment_3_1.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
+		private final Assignment cContainmentPathElementAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final RuleCall cContainmentPathElementAnnexPathParserRuleCall_3_2_0 = (RuleCall)cContainmentPathElementAssignment_3_2.eContents().get(0);
 		
 		//ContainmentPath returns aadl2::ContainedNamedElement:
 		//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-		//	containmentPathElement+=ContainmentPathElement)* ("annex" containmentPathElement+=AnnexPath)?;
+		//	containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?;
 		public ParserRule getRule() { return rule; }
 
 		//{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-		//containmentPathElement+=ContainmentPathElement)* ("annex" containmentPathElement+=AnnexPath)?
+		//containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?
 		public Group getGroup() { return cGroup; }
 
 		//{aadl2::ContainedNamedElement}
@@ -381,17 +382,20 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ContainmentPathElement
 		public RuleCall getContainmentPathElementContainmentPathElementParserRuleCall_2_1_0() { return cContainmentPathElementContainmentPathElementParserRuleCall_2_1_0; }
 
-		//("annex" containmentPathElement+=AnnexPath)?
+		//("annex" ID containmentPathElement+=AnnexPath)?
 		public Group getGroup_3() { return cGroup_3; }
 
 		//"annex"
 		public Keyword getAnnexKeyword_3_0() { return cAnnexKeyword_3_0; }
 
+		//ID
+		public RuleCall getIDTerminalRuleCall_3_1() { return cIDTerminalRuleCall_3_1; }
+
 		//containmentPathElement+=AnnexPath
-		public Assignment getContainmentPathElementAssignment_3_1() { return cContainmentPathElementAssignment_3_1; }
+		public Assignment getContainmentPathElementAssignment_3_2() { return cContainmentPathElementAssignment_3_2; }
 
 		//AnnexPath
-		public RuleCall getContainmentPathElementAnnexPathParserRuleCall_3_1_0() { return cContainmentPathElementAnnexPathParserRuleCall_3_1_0; }
+		public RuleCall getContainmentPathElementAnnexPathParserRuleCall_3_2_0() { return cContainmentPathElementAnnexPathParserRuleCall_3_2_0; }
 	}
 
 	public class AnnexPathElements extends AbstractParserRuleElementFinder {
@@ -1627,7 +1631,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-	//	containmentPathElement+=ContainmentPathElement)* ("annex" containmentPathElement+=AnnexPath)?;
+	//	containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?;
 	public ContainmentPathElements getContainmentPathAccess() {
 		return (pContainmentPath != null) ? pContainmentPath : (pContainmentPath = new ContainmentPathElements());
 	}

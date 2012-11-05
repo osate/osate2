@@ -2573,7 +2573,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBasicPropertyAssociationAccess().getOwnedValueAssignment_2(), "rule__BasicPropertyAssociation__OwnedValueAssignment_2");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_1");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_2_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_2_1");
-					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_3_1");
+					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_2(), "rule__ContainmentPath__ContainmentPathElementAssignment_3_2");
 					put(grammarAccess.getAnnexPathAccess().getNamedElementAssignment(), "rule__AnnexPath__NamedElementAssignment");
 					put(grammarAccess.getModalPropertyValueAccess().getOwnedValueAssignment_0(), "rule__ModalPropertyValue__OwnedValueAssignment_0");
 					put(grammarAccess.getModalPropertyValueAccess().getInModeAssignment_4(), "rule__ModalPropertyValue__InModeAssignment_4");

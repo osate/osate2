@@ -27323,7 +27323,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-	//	containmentPathElement+=ContainmentPathElement)* ("annex" containmentPathElement+=AnnexPath)?;
+	//	containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
 	}

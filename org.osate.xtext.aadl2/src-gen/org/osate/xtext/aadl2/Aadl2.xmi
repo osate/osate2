@@ -9723,6 +9723,7 @@
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="annex"/>
+          <elements xsi:type="xtext:RuleCall" rule="/1/@rules.48"/>
           <elements xsi:type="xtext:Assignment" feature="containmentPathElement" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.5"/>
           </elements>

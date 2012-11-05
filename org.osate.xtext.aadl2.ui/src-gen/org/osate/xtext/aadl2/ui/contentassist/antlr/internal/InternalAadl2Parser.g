@@ -111434,6 +111434,7 @@ rule__ContainmentPath__Group_3__1
     }
 :
 	rule__ContainmentPath__Group_3__1__Impl
+	rule__ContainmentPath__Group_3__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -111445,15 +111446,45 @@ rule__ContainmentPath__Group_3__1__Impl
     }
 :
 (
-{ before(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_1()); }
-(rule__ContainmentPath__ContainmentPathElementAssignment_3_1)
-{ after(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_1()); }
+{ before(grammarAccess.getContainmentPathAccess().getIDTerminalRuleCall_3_1()); }
+	RULE_ID
+{ after(grammarAccess.getContainmentPathAccess().getIDTerminalRuleCall_3_1()); }
 )
 
 ;
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__ContainmentPath__Group_3__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ContainmentPath__Group_3__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ContainmentPath__Group_3__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_2()); }
+(rule__ContainmentPath__ContainmentPathElementAssignment_3_2)
+{ after(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -134720,14 +134751,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ContainmentPath__ContainmentPathElementAssignment_3_1
+rule__ContainmentPath__ContainmentPathElementAssignment_3_2
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_1_0()); }
-	ruleAnnexPath{ after(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_1_0()); }
+{ before(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_2_0()); }
+	ruleAnnexPath{ after(grammarAccess.getContainmentPathAccess().getContainmentPathElementAnnexPathParserRuleCall_3_2_0()); }
 )
 
 ;
