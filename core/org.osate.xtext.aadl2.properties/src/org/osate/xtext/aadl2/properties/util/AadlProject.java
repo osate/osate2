@@ -90,6 +90,10 @@ public final class AadlProject {
 	public static final String ADA95_LITERAL = "Ada95";
 	public static final String C_LITERAL = "C";
 	public static final String SIMULINK_6_5_LITERAL = "Simulink_6_5";
+	
+	public static final String SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES = "Supported_Classifier_Equivalence_Matches";
+	public static final String SUPPORTED_CLASSIFIER_SUBSET_MATCHES = "Supported_Classifier_Subset_Matches";
+	public static final String SUPPORTED_TYPE_CONVERSIONS = "Supported_Type_Conversions";
 
 	public static final String MAX_AADLINTEGER = "Max_Aadlinteger";
 	public static final String MAX_BASE_ADDRESS = "Max_Base_Address";
