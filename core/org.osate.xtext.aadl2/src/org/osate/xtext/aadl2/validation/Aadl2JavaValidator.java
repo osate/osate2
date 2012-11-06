@@ -62,11 +62,14 @@ import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
+import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.MemoryProperties;
+import org.osate.xtext.aadl2.properties.util.ModelingProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 import org.osate.xtext.aadl2.scoping.Aadl2GlobalScopeProvider;
 
@@ -2492,50 +2495,191 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //			warning(conn, "Connection is missing defining identifier. Required in AADL V2.1");
 //		}
 	}
-
+	
 	/**
-	 * Quickly done to get ready for the course in November 2009. Need to review
-	 * this method and make sure that it is complete and in compliance with the
-	 * standard. TODO: Review this method
+	 * Checks legality rule L13 for section 9.2 (Port Connections)
+	 * "For connections between data ports, event data ports, and data access,
+	 * the data classifier of the source port must match the data type of the
+	 * destination port.  The Classifier_Matching_Rule property specifies the
+	 * rule to be applied to match the data classifier of a connection source
+	 * to the data classifier of a connection destination."
+	 * 
+	 * Checks legality rule L14 for section 9.2 (Port Connections)
+	 * "The following rules are supported:
+	 * 
+	 * -Classifier_Match: The source data type and data implementation must be
+	 * identical to the data type or data implementation of the destination.
+	 * If the destination classifier is a component type, then any
+	 * implementation of the source matches.  This is the default rule.
+	 * 
+	 * -Equivalence: An indication that the two classifiers of a connection are
+	 * considered to match if they are listed in the
+	 * Supported_Classifier_Equivalence_Matches property.  Acceptable data
+	 * classifiers matches are specified as
+	 * Supported_Classifier_Equivalence_Matches property with pairs of
+	 * classifier values representing acceptable matches.  Either element of
+	 * the pair can be the source or destination classifier.  Equivalence is
+	 * intended to be used when the data types are considered to be identical,
+	 * i.e., no conversion is necessary.  The
+	 * Supported_Classifier_Equivalence_Matches property is declared globally
+	 * as a property constant.
+	 * 
+	 * -Subset: A mapping of (a subset of) data elements of the source port
+	 * data type to all data elements of the destination port data type.
+	 * Acceptable data classifier matches are specified as
+	 * Supported_Classifier_Subset_Matches property with pairs of classifier
+	 * values representing acceptable matches.  The first element of each pair
+	 * specifies the acceptable source classifier, while the second element
+	 * specifies the acceptable destination classifier.  The
+	 * Supported_Classifier_Subset_Matches property is declared globally as a
+	 * property constant.  A virtual bus or bus must represent a protocol that
+	 * supports subsetting, such as OMG DDS.
+	 * 
+	 * -Conversion: A mapping of the source port data type to the destination
+	 * port data type, where the source port data type requires a conversion to
+	 * the destination port data type.  Acceptable data classifier matches are
+	 * specified as Supported_Type_Conversions property with pairs of
+	 * classifier values representing acceptable matches.  The first element of
+	 * each pair specifies the acceptable source classifier, while the second
+	 * element specifies the acceptable destination classifier.  The
+	 * Supported_Type_Conversions property may be declared globally as a
+	 * property constant.  A virtual bus or bus must support the conversion
+	 * from the source data classifier to the destination classifier."
 	 */
 	private void checkPortConnectionClassifiers(PortConnection connection) {
 		ConnectionEnd source = connection.getAllSource();
 		ConnectionEnd destination = connection.getAllDestination();
-		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort || source instanceof EventDataPort)
-				&& (destination instanceof DataAccess || destination instanceof DataSubcomponent
-						|| destination instanceof DataPort || destination instanceof EventDataPort)) {
+		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort || source instanceof EventDataPort) &&
+				(destination instanceof DataAccess || destination instanceof DataSubcomponent || destination instanceof DataPort || destination instanceof EventDataPort)) {
 			ComponentClassifier sourceClassifier;
 			ComponentClassifier destinationClassifier;
 			if (source instanceof DataSubcomponent)
-				sourceClassifier = ((DataSubcomponent) source).getAllClassifier();
+				sourceClassifier = ((DataSubcomponent)source).getAllClassifier();
 			else
-				sourceClassifier = ((Feature) source).getAllClassifier();
+				sourceClassifier = ((Feature)source).getAllClassifier();
 			if (destination instanceof DataSubcomponent)
-				destinationClassifier = ((DataSubcomponent) destination).getAllClassifier();
+				destinationClassifier = ((DataSubcomponent)destination).getAllClassifier();
 			else
-				destinationClassifier = ((Feature) destination).getAllClassifier();
-			if (sourceClassifier != destinationClassifier) {
-				if (sourceClassifier == null)
-					warning(connection, '\'' + source.getName() + "' is missing a classifier.");
-				else if (destinationClassifier == null)
-					warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
-				else if (sourceClassifier instanceof ComponentType
-						&& destinationClassifier instanceof ComponentImplementation) {
-					if (!sourceClassifier.equals(((ComponentImplementation) destinationClassifier).getType())) {
-						warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' do not match.");
+				destinationClassifier = ((Feature)destination).getAllClassifier();
+			if (sourceClassifier == null && destinationClassifier != null)
+				warning(connection, '\'' + source.getName() + "' is missing a classifier.");
+			else if (sourceClassifier != null && destinationClassifier == null)
+				warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
+			else if (sourceClassifier != null && destinationClassifier != null) {
+				Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
+				EnumerationLiteral classifierMatchingRuleValue;
+				try {
+					classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(connection, classifierMatchingRuleProperty);
+				}
+				catch (PropertyNotPresentException e) {
+					classifierMatchingRuleValue = null;
+				}
+				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
+						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+					if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
+								"' instead.");
 					}
-				} else if (sourceClassifier instanceof ComponentImplementation
-						&& destinationClassifier instanceof ComponentType) {
-					if (!destinationClassifier.equals(((ComponentImplementation) sourceClassifier).getType())) {
-						warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName()
-								+ "' do not match.");
+					if (sourceClassifier != destinationClassifier) {
+						if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
+							if (!sourceClassifier.equals(((ComponentImplementation)destinationClassifier).getType())) {
+								warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+							}
+						}
+						else if (sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentType) {
+							if (!destinationClassifier.equals(((ComponentImplementation)sourceClassifier).getType())) {
+								warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+							}
+						}
+						else {
+							error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
+						}
 					}
-				} else
-					error(connection, '\'' + source.getName() + "' and '" + destination.getName()
-							+ "' have incompatible classifiers.");
+				}
+				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
+					if (!classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES +
+								"'.");
+					}
+				}
+				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.SUBSET)) {
+					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+					}
+				}
+				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CONVERSION)) {
+					if (!classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier, destinationClassifier)) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+					}
+				}
 			}
 		}
+	}
+	
+	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(PortConnection connection, ComponentClassifier source, ComponentClassifier destination) {
+		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
+		if (matchesPropertyConstant == null)
+			return false;
+		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue))
+			return false;
+		for (PropertyExpression classifierPair : ((ListValue)constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue)classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue && innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue)innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue)innerListElements.get(1)).getClassifier();
+					if ((firstPairElement == source && secondPairElement == destination) || (firstPairElement == destination && secondPairElement == source))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean classifiersFoundInSupportedClassifierSubsetMatchesProperty(PortConnection connection, ComponentClassifier source, ComponentClassifier destination) {
+		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES);
+		if (matchesPropertyConstant == null)
+			return false;
+		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue))
+			return false;
+		for (PropertyExpression classifierPair : ((ListValue)constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue)classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue && innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue)innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue)innerListElements.get(1)).getClassifier();
+					if (firstPairElement == source && secondPairElement == destination)
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	private boolean classifiersFoundInSupportedTypeConversionsProperty(PortConnection connection, ComponentClassifier source, ComponentClassifier destination) {
+		PropertyConstant conversionsPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_TYPE_CONVERSIONS);
+		if (conversionsPropertyConstant == null)
+			return false;
+		PropertyExpression constantValue = conversionsPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue))
+			return false;
+		for (PropertyExpression classifierPair : ((ListValue)constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue)classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue && innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue)innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue)innerListElements.get(1)).getClassifier();
+					if (firstPairElement == source && secondPairElement == destination)
+						return true;
+				}
+			}
+		}
+		return false;
 	}
 
 	/**

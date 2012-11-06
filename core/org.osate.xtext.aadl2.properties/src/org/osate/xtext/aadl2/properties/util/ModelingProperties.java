@@ -38,4 +38,10 @@ public final class ModelingProperties {
 	}
 
 	public static final String _NAME = "Modeling_Properties";
+	public static final String CLASSIFIER_MATCHING_RULE = "Classifier_Matching_Rule";
+	public static final String CLASSIFIER_MATCH = "Classifier_Match";
+	public static final String EQUIVALENCE = "Equivalence";
+	public static final String SUBSET = "Subset";
+	public static final String CONVERSION = "Conversion";
+	public static final String COMPLEMENT = "Complement";
 }
