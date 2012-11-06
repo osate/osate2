@@ -133,9 +133,10 @@ ComponentClassifierTerm returns aadl2::ClassifierValue:
 
 
 ListTerm returns aadl2::ListValue:
+	{aadl2::ListValue}
    '(' 	
-   ownedListElement+=(PropertyExpression)
-   (',' ownedListElement+=(PropertyExpression))*
+   (ownedListElement+=(PropertyExpression)
+   (',' ownedListElement+=(PropertyExpression))*)?
   ')'
   ;
 

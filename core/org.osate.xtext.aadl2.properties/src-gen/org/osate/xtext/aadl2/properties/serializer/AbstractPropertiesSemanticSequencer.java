@@ -336,7 +336,7 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	
 	/**
 	 * Constraint:
-	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
+	 *     ((ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?)
 	 */
 	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
