@@ -935,42 +935,50 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	public class ListTermElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ListTerm");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cOwnedListElementAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_1_0 = (RuleCall)cOwnedListElementAssignment_1.eContents().get(0);
+		private final Action cListValueAction_0 = (Action)cGroup.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cCommaKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cOwnedListElementAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_2_1_0 = (RuleCall)cOwnedListElementAssignment_2_1.eContents().get(0);
+		private final Assignment cOwnedListElementAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
+		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_2_0_0 = (RuleCall)cOwnedListElementAssignment_2_0.eContents().get(0);
+		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
+		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cOwnedListElementAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0 = (RuleCall)cOwnedListElementAssignment_2_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//ListTerm returns aadl2::ListValue:
-		//	"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")";
+		//	{aadl2::ListValue} "(" (ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)*)? ")";
 		public ParserRule getRule() { return rule; }
 
-		//"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")"
+		//{aadl2::ListValue} "(" (ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)*)? ")"
 		public Group getGroup() { return cGroup; }
 
+		//{aadl2::ListValue}
+		public Action getListValueAction_0() { return cListValueAction_0; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
+		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 
-		//ownedListElement+=PropertyExpression
-		public Assignment getOwnedListElementAssignment_1() { return cOwnedListElementAssignment_1; }
-
-		//PropertyExpression
-		public RuleCall getOwnedListElementPropertyExpressionParserRuleCall_1_0() { return cOwnedListElementPropertyExpressionParserRuleCall_1_0; }
-
-		//("," ownedListElement+=PropertyExpression)*
+		//(ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)*)?
 		public Group getGroup_2() { return cGroup_2; }
 
-		//","
-		public Keyword getCommaKeyword_2_0() { return cCommaKeyword_2_0; }
-
 		//ownedListElement+=PropertyExpression
-		public Assignment getOwnedListElementAssignment_2_1() { return cOwnedListElementAssignment_2_1; }
+		public Assignment getOwnedListElementAssignment_2_0() { return cOwnedListElementAssignment_2_0; }
 
 		//PropertyExpression
-		public RuleCall getOwnedListElementPropertyExpressionParserRuleCall_2_1_0() { return cOwnedListElementPropertyExpressionParserRuleCall_2_1_0; }
+		public RuleCall getOwnedListElementPropertyExpressionParserRuleCall_2_0_0() { return cOwnedListElementPropertyExpressionParserRuleCall_2_0_0; }
+
+		//("," ownedListElement+=PropertyExpression)*
+		public Group getGroup_2_1() { return cGroup_2_1; }
+
+		//","
+		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
+
+		//ownedListElement+=PropertyExpression
+		public Assignment getOwnedListElementAssignment_2_1_1() { return cOwnedListElementAssignment_2_1_1; }
+
+		//PropertyExpression
+		public RuleCall getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0() { return cOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
@@ -1776,7 +1784,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ListTerm returns aadl2::ListValue:
-	//	"(" ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)* ")";
+	//	{aadl2::ListValue} "(" (ownedListElement+=PropertyExpression ("," ownedListElement+=PropertyExpression)*)? ")";
 	public ListTermElements getListTermAccess() {
 		return (pListTerm != null) ? pListTerm : (pListTerm = new ListTermElements());
 	}
