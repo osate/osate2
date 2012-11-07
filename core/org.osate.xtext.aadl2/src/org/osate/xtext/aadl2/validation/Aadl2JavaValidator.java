@@ -298,6 +298,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkPortConnectionEnds(connection);
 
 	}
+	
+	@Check(CheckType.FAST)
+	public void caseParameterConnection(ParameterConnection connection) {
+		checkParameterConnectionClassifiers(connection);
+	}
 
 	@Check(CheckType.FAST)
 	public void caseAccessConnection(AccessConnection connection) {
@@ -2576,7 +2581,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
 						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
 						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
 								"' instead.");
 					}
@@ -2808,6 +2813,81 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 	}
+	
+	/**
+	 * Checks legality rule L4 for section 9.3 (Parameter Connections)
+	 * "The data classifier of the source and destination must match.  The matching
+	 * rules as specified by the Classifier_Matching_Rule property apply (see
+	 * Section 9.2 (L13)).  By default the data classifiers must be match."
+	 */
+	private void checkParameterConnectionClassifiers(ParameterConnection connection) {
+		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd destination = connection.getAllDestination();
+		ComponentClassifier sourceClassifier;
+		ComponentClassifier destinationClassifier;
+		if (source instanceof DataSubcomponent)
+			sourceClassifier = ((DataSubcomponent)source).getAllClassifier();
+		else
+			sourceClassifier = ((Feature)source).getAllClassifier();
+		if (destination instanceof DataSubcomponent)
+			destinationClassifier = ((DataSubcomponent)destination).getAllClassifier();
+		else
+			destinationClassifier = ((Feature)destination).getAllClassifier();
+		if (sourceClassifier == null && destinationClassifier != null)
+			warning(connection, '\'' + source.getName() + "' is missing a classifier.");
+		else if (sourceClassifier != null && destinationClassifier == null)
+			warning(connection, '\'' + destination.getName() + "' is missing a classifier.");
+		else if (sourceClassifier != null && destinationClassifier != null) {
+			Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
+			EnumerationLiteral classifierMatchingRuleValue;
+			try {
+				classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(connection, classifierMatchingRuleProperty);
+			}
+			catch (PropertyNotPresentException e) {
+				classifierMatchingRuleValue = null;
+			}
+			if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
+					classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+				if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for parameter connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
+							"' instead.");
+				}
+				if (sourceClassifier != destinationClassifier) {
+					if (sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentImplementation) {
+						if (!sourceClassifier.equals(((ComponentImplementation)destinationClassifier).getType())) {
+							warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+						}
+					}
+					else if (sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentType) {
+						if (!destinationClassifier.equals(((ComponentImplementation)sourceClassifier).getType())) {
+							warning(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' do not match.");
+						}
+					}
+					else {
+						error(connection, '\'' + source.getName() + "' and '" + destination.getName() + "' have incompatible classifiers.");
+					}
+				}
+			}
+			else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
+				if (!classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+							destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+				}
+			}
+			else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.SUBSET)) {
+				if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+							destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
+				}
+			}
+			else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CONVERSION)) {
+				if (!classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier, destinationClassifier)) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
+							destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");
+				}
+			}
+		}
+	}
 
 	/**
 	 * Check category of source and destination
@@ -2981,7 +3061,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
 						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
 						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for access connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
 								"' instead.");
 					}
