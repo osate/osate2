@@ -48,11 +48,11 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
-	( 'annex' ID containmentPathElement+=AnnexPath )?
+//	( 'annex' containmentPathElement+=AnnexPath )?
 ;
 
-AnnexPath returns aadl2::ContainmentPathElement:
-	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
+//AnnexPath returns aadl2::ContainmentPathElement:
+//	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
@@ -100,10 +100,10 @@ ReferenceTerm returns aadl2::ReferenceValue:
   'reference' '(' 	
   containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
-	( 'annex' ID '{**' 
-	containmentPathElement+=ContainmentPathElement
-	( '.' containmentPathElement+=ContainmentPathElement)*
-	'**}')?
+//	( 'annex' ID '{**' 
+//	containmentPathElement+=ContainmentPathElement
+//	( '.' containmentPathElement+=ContainmentPathElement)*
+//	'**}')?
   ')'
   ;
 
@@ -263,7 +263,7 @@ QCREF:
 	
 STAR : '*';
 
-terminal IDANNEXTEXT: ID ANNEXTEXT;
+//terminal IDANNEXTEXT: ID ANNEXTEXT;
 
 terminal ANNEXTEXT:
 	'{**'->'**}';

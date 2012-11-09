@@ -58,7 +58,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBasicPropertyAssociationAccess().getGroup(), "rule__BasicPropertyAssociation__Group__0");
 					put(grammarAccess.getContainmentPathAccess().getGroup(), "rule__ContainmentPath__Group__0");
 					put(grammarAccess.getContainmentPathAccess().getGroup_2(), "rule__ContainmentPath__Group_2__0");
-					put(grammarAccess.getContainmentPathAccess().getGroup_3(), "rule__ContainmentPath__Group_3__0");
 					put(grammarAccess.getModalPropertyValueAccess().getGroup(), "rule__ModalPropertyValue__Group__0");
 					put(grammarAccess.getModalPropertyValueAccess().getGroup_5(), "rule__ModalPropertyValue__Group_5__0");
 					put(grammarAccess.getOptionalModalPropertyValueAccess().getGroup(), "rule__OptionalModalPropertyValue__Group__0");
@@ -67,8 +66,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBooleanLiteralAccess().getGroup(), "rule__BooleanLiteral__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup(), "rule__ReferenceTerm__Group__0");
 					put(grammarAccess.getReferenceTermAccess().getGroup_3(), "rule__ReferenceTerm__Group_3__0");
-					put(grammarAccess.getReferenceTermAccess().getGroup_4(), "rule__ReferenceTerm__Group_4__0");
-					put(grammarAccess.getReferenceTermAccess().getGroup_4_4(), "rule__ReferenceTerm__Group_4_4__0");
 					put(grammarAccess.getRecordTermAccess().getGroup(), "rule__RecordTerm__Group__0");
 					put(grammarAccess.getOldRecordTermAccess().getGroup(), "rule__OldRecordTerm__Group__0");
 					put(grammarAccess.getComputedTermAccess().getGroup(), "rule__ComputedTerm__Group__0");
@@ -110,8 +107,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBasicPropertyAssociationAccess().getOwnedValueAssignment_2(), "rule__BasicPropertyAssociation__OwnedValueAssignment_2");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_1");
 					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_2_1(), "rule__ContainmentPath__ContainmentPathElementAssignment_2_1");
-					put(grammarAccess.getContainmentPathAccess().getContainmentPathElementAssignment_3_2(), "rule__ContainmentPath__ContainmentPathElementAssignment_3_2");
-					put(grammarAccess.getAnnexPathAccess().getNamedElementAssignment(), "rule__AnnexPath__NamedElementAssignment");
 					put(grammarAccess.getModalPropertyValueAccess().getOwnedValueAssignment_0(), "rule__ModalPropertyValue__OwnedValueAssignment_0");
 					put(grammarAccess.getModalPropertyValueAccess().getInModeAssignment_4(), "rule__ModalPropertyValue__InModeAssignment_4");
 					put(grammarAccess.getModalPropertyValueAccess().getInModeAssignment_5_1(), "rule__ModalPropertyValue__InModeAssignment_5_1");
@@ -124,8 +119,6 @@ public class PropertiesParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConstantValueAccess().getNamedValueAssignment(), "rule__ConstantValue__NamedValueAssignment");
 					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_2(), "rule__ReferenceTerm__ContainmentPathElementAssignment_2");
 					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_3_1(), "rule__ReferenceTerm__ContainmentPathElementAssignment_3_1");
-					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_4_3(), "rule__ReferenceTerm__ContainmentPathElementAssignment_4_3");
-					put(grammarAccess.getReferenceTermAccess().getContainmentPathElementAssignment_4_4_1(), "rule__ReferenceTerm__ContainmentPathElementAssignment_4_4_1");
 					put(grammarAccess.getRecordTermAccess().getOwnedFieldValueAssignment_1(), "rule__RecordTerm__OwnedFieldValueAssignment_1");
 					put(grammarAccess.getOldRecordTermAccess().getOwnedFieldValueAssignment_1(), "rule__OldRecordTerm__OwnedFieldValueAssignment_1");
 					put(grammarAccess.getComputedTermAccess().getFunctionAssignment_2(), "rule__ComputedTerm__FunctionAssignment_2");

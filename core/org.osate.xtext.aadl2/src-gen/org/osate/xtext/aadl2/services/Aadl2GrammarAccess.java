@@ -27321,9 +27321,10 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getBasicPropertyAssociationAccess().getRule();
 	}
 
+	////	( 'annex' containmentPathElement+=AnnexPath )?
 	//ContainmentPath returns aadl2::ContainedNamedElement:
 	//	{aadl2::ContainedNamedElement} containmentPathElement+=ContainmentPathElement ("."
-	//	containmentPathElement+=ContainmentPathElement)* ("annex" ID containmentPathElement+=AnnexPath)?;
+	//	containmentPathElement+=ContainmentPathElement)*;
 	public PropertiesGrammarAccess.ContainmentPathElements getContainmentPathAccess() {
 		return gaProperties.getContainmentPathAccess();
 	}
@@ -27332,16 +27333,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getContainmentPathAccess().getRule();
 	}
 
-	//AnnexPath returns aadl2::ContainmentPathElement:
-	//	namedElement=[aadl2::NamedElement|IDANNEXTEXT];
-	public PropertiesGrammarAccess.AnnexPathElements getAnnexPathAccess() {
-		return gaProperties.getAnnexPathAccess();
-	}
-	
-	public ParserRule getAnnexPathRule() {
-		return getAnnexPathAccess().getRule();
-	}
-
+	////AnnexPath returns aadl2::ContainmentPathElement:
+	////	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 	//ModalPropertyValue returns aadl2::ModalPropertyValue:
 	//	ownedValue=PropertyExpression "in" "modes" "(" inMode+=[aadl2::Mode] ("," inMode+=[aadl2::Mode])* ")";
 	public PropertiesGrammarAccess.ModalPropertyValueElements getModalPropertyValueAccess() {
@@ -27416,9 +27409,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ReferenceTerm returns aadl2::ReferenceValue:
-	//	"reference" "(" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-	//	("annex" ID "{**" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)*
-	//	"**}")? ")";
+	//	"reference" "(" containmentPathElement+=ContainmentPathElement ("." containmentPathElement+=ContainmentPathElement)* //	( 'annex' ID '{**' 
+	//	//	containmentPathElement+=ContainmentPathElement
+	//	//	( '.' containmentPathElement+=ContainmentPathElement)*
+	//	//	'**}')?
+	//	")";
 	public PropertiesGrammarAccess.ReferenceTermElements getReferenceTermAccess() {
 		return gaProperties.getReferenceTermAccess();
 	}
@@ -27715,12 +27710,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		return getSTARAccess().getRule();
 	}
 
-	//terminal IDANNEXTEXT:
-	//	ID ANNEXTEXT;
-	public TerminalRule getIDANNEXTEXTRule() {
-		return gaProperties.getIDANNEXTEXTRule();
-	} 
-
+	////terminal IDANNEXTEXT: ID ANNEXTEXT;
 	//terminal ANNEXTEXT:
 	//	"{**"->"**}";
 	public TerminalRule getANNEXTEXTRule() {

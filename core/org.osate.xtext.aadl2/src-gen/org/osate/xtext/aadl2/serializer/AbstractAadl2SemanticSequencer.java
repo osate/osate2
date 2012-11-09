@@ -454,11 +454,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.CONTAINMENT_PATH_ELEMENT:
-				if(context == grammarAccess.getAnnexPathRule()) {
-					sequence_AnnexPath(context, (ContainmentPathElement) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getContainmentPathElementRule()) {
+				if(context == grammarAccess.getContainmentPathElementRule()) {
 					sequence_ContainmentPathElement(context, (ContainmentPathElement) semanticObject); 
 					return; 
 				}
@@ -1608,15 +1604,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     namedElement=[NamedElement|IDANNEXTEXT]
-	 */
-	protected void sequence_AnnexPath(EObject context, ContainmentPathElement semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (size=ArraySize?)
 	 */
 	protected void sequence_ArrayDimension(EObject context, ArrayDimension semanticObject) {
@@ -1893,7 +1880,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement* containmentPathElement+=AnnexPath?)
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
 	 */
 	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
@@ -3410,11 +3397,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         containmentPathElement+=ContainmentPathElement 
-	 *         containmentPathElement+=ContainmentPathElement* 
-	 *         (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)?
-	 *     )
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
 	 */
 	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);
