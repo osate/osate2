@@ -2517,7 +2517,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
+	 *     ((ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?)
 	 */
 	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
 		superSequencer.createSequence(context, (EObject)semanticObject);

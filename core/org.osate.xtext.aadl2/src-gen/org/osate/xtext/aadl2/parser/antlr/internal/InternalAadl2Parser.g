@@ -35703,56 +35703,62 @@ ruleListTerm returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(
-	otherlv_0=KEYWORD_1
+((
     {
-    	newLeafNode(otherlv_0, grammarAccess.getListTermAccess().getLeftParenthesisKeyword_0());
+        $current = forceCreateModelElement(
+            grammarAccess.getListTermAccess().getListValueAction_0(),
+            $current);
     }
-(
+)
+	otherlv_1=KEYWORD_1
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getListTermAccess().getLeftParenthesisKeyword_1());
+    }
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_0_0()); 
 	    }
-		lv_ownedListElement_1_0=rulePropertyExpression		{
+		lv_ownedListElement_2_0=rulePropertyExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getListTermRule());
 	        }
        		add(
        			$current, 
        			"ownedListElement",
-        		lv_ownedListElement_1_0, 
+        		lv_ownedListElement_2_0, 
         		"PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )(
-	otherlv_2=KEYWORD_5
+	otherlv_3=KEYWORD_5
     {
-    	newLeafNode(otherlv_2, grammarAccess.getListTermAccess().getCommaKeyword_2_0());
+    	newLeafNode(otherlv_3, grammarAccess.getListTermAccess().getCommaKeyword_2_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0()); 
 	    }
-		lv_ownedListElement_3_0=rulePropertyExpression		{
+		lv_ownedListElement_4_0=rulePropertyExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getListTermRule());
 	        }
        		add(
        			$current, 
        			"ownedListElement",
-        		lv_ownedListElement_3_0, 
+        		lv_ownedListElement_4_0, 
         		"PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-))*
-	otherlv_4=KEYWORD_2
+))*)?
+	otherlv_5=KEYWORD_2
     {
-    	newLeafNode(otherlv_4, grammarAccess.getListTermAccess().getRightParenthesisKeyword_3());
+    	newLeafNode(otherlv_5, grammarAccess.getListTermAccess().getRightParenthesisKeyword_3());
     }
 )
 ;

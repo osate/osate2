@@ -112423,11 +112423,11 @@ rule__ListTerm__Group__0__Impl
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getLeftParenthesisKeyword_0()); }
+{ before(grammarAccess.getListTermAccess().getListValueAction_0()); }
+(
 
-	KEYWORD_1 
-
-{ after(grammarAccess.getListTermAccess().getLeftParenthesisKeyword_0()); }
+)
+{ after(grammarAccess.getListTermAccess().getListValueAction_0()); }
 )
 
 ;
@@ -112454,9 +112454,11 @@ rule__ListTerm__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getOwnedListElementAssignment_1()); }
-(rule__ListTerm__OwnedListElementAssignment_1)
-{ after(grammarAccess.getListTermAccess().getOwnedListElementAssignment_1()); }
+{ before(grammarAccess.getListTermAccess().getLeftParenthesisKeyword_1()); }
+
+	KEYWORD_1 
+
+{ after(grammarAccess.getListTermAccess().getLeftParenthesisKeyword_1()); }
 )
 
 ;
@@ -112484,7 +112486,7 @@ rule__ListTerm__Group__2__Impl
 :
 (
 { before(grammarAccess.getListTermAccess().getGroup_2()); }
-(rule__ListTerm__Group_2__0)*
+(rule__ListTerm__Group_2__0)?
 { after(grammarAccess.getListTermAccess().getGroup_2()); }
 )
 
@@ -112550,11 +112552,9 @@ rule__ListTerm__Group_2__0__Impl
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getCommaKeyword_2_0()); }
-
-	KEYWORD_5 
-
-{ after(grammarAccess.getListTermAccess().getCommaKeyword_2_0()); }
+{ before(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_0()); }
+(rule__ListTerm__OwnedListElementAssignment_2_0)
+{ after(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_0()); }
 )
 
 ;
@@ -112580,9 +112580,72 @@ rule__ListTerm__Group_2__1__Impl
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_1()); }
-(rule__ListTerm__OwnedListElementAssignment_2_1)
-{ after(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_1()); }
+{ before(grammarAccess.getListTermAccess().getGroup_2_1()); }
+(rule__ListTerm__Group_2_1__0)*
+{ after(grammarAccess.getListTermAccess().getGroup_2_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__ListTerm__Group_2_1__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ListTerm__Group_2_1__0__Impl
+	rule__ListTerm__Group_2_1__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ListTerm__Group_2_1__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getListTermAccess().getCommaKeyword_2_1_0()); }
+
+	KEYWORD_5 
+
+{ after(grammarAccess.getListTermAccess().getCommaKeyword_2_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__ListTerm__Group_2_1__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__ListTerm__Group_2_1__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__ListTerm__Group_2_1__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_1_1()); }
+(rule__ListTerm__OwnedListElementAssignment_2_1_1)
+{ after(grammarAccess.getListTermAccess().getOwnedListElementAssignment_2_1_1()); }
 )
 
 ;
@@ -134537,14 +134600,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ListTerm__OwnedListElementAssignment_1
+rule__ListTerm__OwnedListElementAssignment_2_0
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_1_0()); }
-	rulePropertyExpression{ after(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_1_0()); }
+{ before(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_0_0()); }
+	rulePropertyExpression{ after(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_0_0()); }
 )
 
 ;
@@ -134552,14 +134615,14 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__ListTerm__OwnedListElementAssignment_2_1
+rule__ListTerm__OwnedListElementAssignment_2_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_0()); }
-	rulePropertyExpression{ after(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_0()); }
+{ before(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0()); }
+	rulePropertyExpression{ after(grammarAccess.getListTermAccess().getOwnedListElementPropertyExpressionParserRuleCall_2_1_1_0()); }
 )
 
 ;
