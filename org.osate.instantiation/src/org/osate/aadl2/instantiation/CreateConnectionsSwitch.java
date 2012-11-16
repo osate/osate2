@@ -431,7 +431,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// going up hierarchy, connection goes to a feature in the component
 				// implementation
 				if (ci instanceof SystemInstance) {
-					finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+					if (toCtx instanceof FeatureGroup){
+						// XXX: PHF: going up into an element of a feature group
+						// should we go to the FG or to the feature?
+						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance((FeatureGroup)toCtx));
+					} else {
+						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+					}
 				} else {
 					if (toCtx instanceof FeatureGroup) {
 						toFeature = (FeatureGroup) toCtx;
