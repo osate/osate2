@@ -50,4 +50,6 @@ public final class SEI {
 	public static final String KBPS_LITERAL = "KBPS";
 	public static final String MBPS_LITERAL = "MBPS";
 	public static final String GBPS_LITERAL = "GBPS";
+	
+	public static final String NSLOC = "nsloc";
 }
