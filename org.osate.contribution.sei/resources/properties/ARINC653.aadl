@@ -102,7 +102,7 @@ Supported_Criticality_Type : type enumeration (LEVEL_A, LEVEL_B, LEVEL_C, LEVEL_
 
 --The Criticality property defines the Design Assurance Level of a partition. It is associated to the
 --runtime of each partition (an AADL virtual processor component).
-Criticality : ARINC653::Supported_Criticality_Type applies to (virtual processor );
+Criticality : ARINC653::Supported_Criticality_Type applies to (virtual processor, system, abstract);
 
 --The System_Overhead_Time property specifies the time needed for a module or a partition to switch
 --from one partition or process to another. This time may represent the context switch overhead during a
