@@ -62,10 +62,12 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -730,9 +732,23 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return result.toString();
 	}
 
-	@Override
+
 	public boolean acceptsProperty(Property property) {
-		return true;
+		for ( final PropertyOwner propOwner : property.getAppliesTos() ) {
+			if ( propOwner instanceof MetaclassReference ) {
+				final String catLitteral = ( (MetaclassReference) propOwner ).getMetaclass().getName().toLowerCase();
+				final ComponentCategory categ = ComponentCategory.get( catLitteral );
+
+				if ( getCategory().equals( categ ) ) {
+					return true;
+				}
+			}
+		}
+
+		final ComponentClassifier cc = getComponentClassifier();
+
+		return (cc == null) ? false : cc.checkAppliesToClassifier( property );
+
 	}
 
 	/**
