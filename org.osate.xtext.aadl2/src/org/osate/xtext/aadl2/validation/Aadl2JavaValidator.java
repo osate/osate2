@@ -1291,6 +1291,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkRealizationCategory(Realization realization) {
 		ComponentType type = realization.getImplemented();
+		if (Aadl2Util.isNull(type)) return; // unresolved type. has been reported already as such. no need to check category 
 		ComponentImplementation implementation = (ComponentImplementation) realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory()))
 			error(realization,
