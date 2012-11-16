@@ -4062,14 +4062,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks if {@code child} can extend {@code parent}.
 	 */
 	public static boolean canExtend(ComponentType parent, ComponentType child) {
-		return parent.eClass() == child.eClass() || parent instanceof AbstractType;
+		// null test to handle unresolved parent reference
+		return (!Aadl2Util.isNull(parent))&&(parent.eClass() == child.eClass() || parent instanceof AbstractType);
 	}
 
 	/**
 	 * Checks if {@code child} can extend {@code parent}.
 	 */
 	public static boolean canExtend(ComponentImplementation parent, ComponentImplementation child) {
-		return parent.eClass() == child.eClass() || parent instanceof AbstractImplementation;
+		// null test to handle unresolved parent reference
+		return (!Aadl2Util.isNull(parent))&&( parent.eClass() == child.eClass() || parent instanceof AbstractImplementation);
 	}
 
 	public static ComponentCategory getComponentPrototypeCategory(ComponentPrototype prototype) {
