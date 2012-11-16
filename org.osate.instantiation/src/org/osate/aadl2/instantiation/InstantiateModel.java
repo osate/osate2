@@ -133,6 +133,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -812,7 +813,8 @@ public class InstantiateModel {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
 			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
-
+			if (Aadl2Util.isNull(ft)) return;
+			
 			inverse ^= fg.isInverse();
 
 			while (ft instanceof FeatureGroupPrototype) {
@@ -1332,10 +1334,9 @@ public class InstantiateModel {
 				addUsedProperties(ic.classifier, result);
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
-
 				if (fi.getFeature() instanceof FeatureGroup) {
-					InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(fi, 0, classifierCache);
-					addUsedProperties(ic.classifier, result);
+					FeatureGroupType fgt = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+					addUsedProperties(fgt, result);
 				} else {
 					Classifier c = fi.getFeature().getClassifier();
 					
