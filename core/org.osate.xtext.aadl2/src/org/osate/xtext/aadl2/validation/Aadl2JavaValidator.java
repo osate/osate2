@@ -1291,6 +1291,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkRealizationCategory(Realization realization) {
 		ComponentType type = realization.getImplemented();
+		if (Aadl2Util.isNull(type)) return; // unresolved type. has been reported already as such. no need to check category 
 		ComponentImplementation implementation = (ComponentImplementation) realization.getSpecific();
 		if (!type.getCategory().equals(implementation.getCategory()))
 			error(realization,
@@ -4061,14 +4062,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Checks if {@code child} can extend {@code parent}.
 	 */
 	public static boolean canExtend(ComponentType parent, ComponentType child) {
-		return parent.eClass() == child.eClass() || parent instanceof AbstractType;
+		// null test to handle unresolved parent reference
+		return (!Aadl2Util.isNull(parent))&&(parent.eClass() == child.eClass() || parent instanceof AbstractType);
 	}
 
 	/**
 	 * Checks if {@code child} can extend {@code parent}.
 	 */
 	public static boolean canExtend(ComponentImplementation parent, ComponentImplementation child) {
-		return parent.eClass() == child.eClass() || parent instanceof AbstractImplementation;
+		// null test to handle unresolved parent reference
+		return (!Aadl2Util.isNull(parent))&&( parent.eClass() == child.eClass() || parent instanceof AbstractImplementation);
 	}
 
 	public static ComponentCategory getComponentPrototypeCategory(ComponentPrototype prototype) {
