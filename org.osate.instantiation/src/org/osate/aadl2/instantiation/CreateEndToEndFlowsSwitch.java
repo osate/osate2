@@ -860,7 +860,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private List<ConnectionInstance> collectConnectionInstances(ComponentInstance ci, EndToEndFlowInstance etei) {
 		List<ConnectionInstance> result = new ArrayList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : ci.getSystemInstance().getAllConnectionInstances()) {
+		for (ConnectionInstance conni : ci.getAllEnclosingConnectionInstances()){//XXX: phf: ci.getSystemInstance().getAllConnectionInstances()) {
 			if (testConnection(conni, etei)) {
 				result.add(conni);
 			}
