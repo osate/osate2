@@ -200,60 +200,60 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	private static PSNode psNode = new PSNode();
 
-	public  EObject getIndexedObject(EObject context,
-			EReference reference, String crossRefString) {
-		psNode.setText(crossRefString);
-		EObject res = null;
-		try {
-			List<EObject> el;
-			el = super.getLinkedObjects(context, reference, psNode);
-			res = (el.isEmpty()?null: el.get(0));
-			if (res != null&&res.eIsProxy()){
-				res = EcoreUtil.resolve(res,context);
-				if (res.eIsProxy()) return null;
-			}
-		} catch (Exception e) {
-			//e.printStackTrace();
-		}
-		return res;
-		// XXX phf: lookup in global index without regard to project dependencies
-//		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-//		return res;
+   public EObject getIndexedObject(EObject context,
+   EReference reference, String crossRefString) {
+   psNode.setText(crossRefString);
+   EObject res = null;
+   try {
+   List<EObject> el;
+   el = super.getLinkedObjects(context, reference, psNode);
+   res = (el.isEmpty()?null: el.get(0));
+   if (res != null&&res.eIsProxy()){
+   res = EcoreUtil.resolve(res,context);
+   if (res.eIsProxy()) return null;
+   }
+   } catch (Exception e) {
+   //e.printStackTrace();
+   }
+   return res;
+   // XXX phf: lookup in global index without regard to project dependencies
+   // EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+   // return res;
 
-	}
-	
-
-	/**
-	 * copy of a method from within Xtext. Needed to change getSingleElement to getElements to see if we have doubles
-	 * in different files and the same project or in different projects.
-	 * @param context
-	 * @param reference
-	 * @param crossRefString
-	 * @return
-	 */
-	public  Iterable<IEObjectDescription> getIndexedObjects(EObject context,
-			EReference reference, String crossRefString) {
-//			List<EObject> el;
-			try {
-
-				if (crossRefString != null && !crossRefString.equals("")) {
-						
-					final IScope scope = getScope(context, reference);
-					QualifiedName qualifiedLinkName =  qualifiedNameConverter.toQualifiedName(crossRefString);
-					Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
-					return eObjectDescriptions;
-				}
-//				el = super.getLinkedObjects(context, reference, psNode);
-			} catch (Exception e) {
-				return null;
-			}
+   }
 
 
+   /**
+   * copy of a method from within Xtext. Needed to change getSingleElement to getElements to see if we have doubles
+   * in different files and the same project or in different projects.
+   * @param context
+   * @param reference
+   * @param crossRefString
+   * @return
+   */
+   public Iterable<IEObjectDescription> getIndexedObjects(EObject context,
+   EReference reference, String crossRefString) {
+   // List<EObject> el;
+   try {
 
-	
-	 
-	 
+   if (crossRefString != null && !crossRefString.equals("")) {
 
+   final IScope scope = getScope(context, reference);
+   QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
+   Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
+   return eObjectDescriptions;
+   }
+   // el = super.getLinkedObjects(context, reference, psNode);
+   } catch (Exception e) {
+   return null;
+   }
+   // EObject res = (el.isEmpty()?null: el.get(0));
+   // if (res != null&&res.eIsProxy()){
+   // res = EcoreUtil.resolve(res,context);
+   // if (res.eIsProxy()) return null;
+   // }
+   return null;
+   }
 	
 	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
 		for(EObject e:r.eContents())
