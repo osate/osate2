@@ -53,11 +53,7 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IReferenceDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.ui.util.WorkspaceClasspathUriResolver;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractType;
@@ -155,8 +151,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
@@ -164,18 +158,21 @@ import com.google.inject.Inject;
 
 public class PropertiesLinkingService extends DefaultLinkingService {
 
+	
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	private static PropertiesLinkingService eInstance = null;
 
 	public PropertiesLinkingService(){
 		super();
 	}
-
 	
 	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(){
 		if (eInstance == null) {
-			PredeclaredProperties.initPluginContributedAadl();
+			if(Platform.isRunning())
+				PredeclaredProperties.initPluginContributedAadl();
 			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
 		}
@@ -205,34 +202,74 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public  EObject getIndexedObject(EObject context,
 			EReference reference, String crossRefString) {
-		if(//! Platform.isRunning() || 
-				WorkspacePlugin.getDefault().getPluginPreferences().getBoolean(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG)){
-			psNode.setText(crossRefString);
+		psNode.setText(crossRefString);
+		EObject res = null;
+		try {
 			List<EObject> el;
-			try {
-				el = super.getLinkedObjects(context, reference, psNode);
-			} catch (Exception e) {
-				return null;
-			}
-			EObject res = (el.isEmpty()?null: el.get(0));
+			el = super.getLinkedObjects(context, reference, psNode);
+			res = (el.isEmpty()?null: el.get(0));
 			if (res != null&&res.eIsProxy()){
 				res = EcoreUtil.resolve(res,context);
 				if (res.eIsProxy()) return null;
 			}
-			return res;
+		} catch (Exception e) {
+			//e.printStackTrace();
 		}
-		else
-		{
-			// XXX phf: lookup in global index without regard to project dependencies
-			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-			return res;
-		}
+		return res;
+		// XXX phf: lookup in global index without regard to project dependencies
+//		EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+//		return res;
 
 	}
 	
 
+	/**
+	 * copy of a method from within Xtext. Needed to change getSingleElement to getElements to see if we have doubles
+	 * in different files and the same project or in different projects.
+	 * @param context
+	 * @param reference
+	 * @param crossRefString
+	 * @return
+	 */
+	public  Iterable<IEObjectDescription> getIndexedObjects(EObject context,
+			EReference reference, String crossRefString) {
+//			List<EObject> el;
+			try {
+
+				if (crossRefString != null && !crossRefString.equals("")) {
+						
+					final IScope scope = getScope(context, reference);
+					QualifiedName qualifiedLinkName =  qualifiedNameConverter.toQualifiedName(crossRefString);
+					Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
+					return eObjectDescriptions;
+				}
+//				el = super.getLinkedObjects(context, reference, psNode);
+			} catch (Exception e) {
+				return null;
+			}
+
+
 
 	
+	 
+	 
+
+	
+	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
+		for(EObject e:r.eContents())
+		{
+			if(e instanceof NamedElement)
+			{
+				NamedElement ne = (NamedElement) e;
+				if(ne.getName().equalsIgnoreCase(segment))
+					return ne;
+			}
+		}
+		return null;
+	}
+	
+
+
 	@Override
 	public String getCrossRefNodeAsString(INode node)
 			throws IllegalNodeException {
