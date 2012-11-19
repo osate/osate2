@@ -52,8 +52,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.uml2.uml.internal.impl.ComponentImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ClassifierValue;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.MetaclassReference;
@@ -525,8 +527,14 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
+				System.out.println (appliesTo);
 				if (appliesTo instanceof MetaclassReference
 						&& ((MetaclassReference) appliesTo).getMetaclass().isSuperTypeOf(eClass())) {
+					return true;
+				}
+				if (appliesTo instanceof ClassifierValue)
+				{
+					ClassifierValue cv = (ClassifierValue) appliesTo;
 					return true;
 				}
 			} catch (Exception e) {
