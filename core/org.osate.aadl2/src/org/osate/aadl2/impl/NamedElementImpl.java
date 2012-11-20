@@ -527,7 +527,7 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
-				System.out.println (appliesTo);
+				//System.out.println (appliesTo);
 				if (appliesTo instanceof MetaclassReference
 						&& ((MetaclassReference) appliesTo).getMetaclass().isSuperTypeOf(eClass())) {
 					return true;
