@@ -52,4 +52,5 @@ public final class SEI {
 	public static final String GBPS_LITERAL = "GBPS";
 	
 	public static final String NSLOC = "nsloc";
+	public static final String VDID_INSPECT = "vdid_inspect";
 }
