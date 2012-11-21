@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.osate.analysis.arinc653.actionSet"
+            label="%actionSet.label"
+            visible="false">
+
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.arinc653"
+               label="ARINC653"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+         
+           
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConnections.action"
+               label="Check Connections"
+               tooltip="Check connection with regards to criticality levels"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnections"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               toolbarPath="arinc653.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+      </actionSet>
+   </extension>
+   
+   <extension
+   	   point="org.eclipse.ui.perspectiveExtensions">
+   	   <perspectiveExtension
+   		   targetID="org.osate.ui.perspective.AadlPerspective">
+   		   <actionSet
+   		 	   id="org.osate.analysis.arinc653.actionSet"/>
+   	   </perspectiveExtension>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.osate.analysis.arinc653.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+            <or>
+               <and>
+                  <objectClass name="org.eclipse.core.resources.IFile"/>
+                  <objectState name="extension" value="aaxl2"/>
+               </and>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+            </or>
+         </visibility>
+                 
+         <menu
+               id="org.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label"
+               path="additions">
+            <groupMarker name="anal.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <menu
+               id="org.osate.analysis.arinc653.popupMenu.arinc653"
+               label="ARINC653"
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
+            <groupMarker name="anal.grp"/>
+         </menu>
+        
+
+         
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConnections.popupAction"
+               label="Check Connections"
+               tooltip="Check Connections with regards to criticality levels"
+               icon="icons/arinc.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnections"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
+               enablesFor="1"/>
+      </objectContribution>
+   </extension>
+
+   <extension
+         id="SafetyCheckerObjectMarker"
+         name="Safety Level Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+
+   <extension
+         id="Arinc653ObjectMarker"
+         name="ARINC653 Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   <extension point="org.osate.ui.analysis">
+      <analysis
+   		 id="org.osate.analysis.arinc653.actions.CheckConnections"
+   		 name="ARINC653 connection analysis"
+   		 class="org.osate.analysis.arinc653.actions.DoCheckConnections">
+   		 <declarativeModel selectRootObject="true">
+   		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
+   		 </declarativeModel>
+   		 <instanceModel selectRootObject="true"/>
+   	  </analysis>
+
+   </extension>
+</plugin>
