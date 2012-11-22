@@ -1,17 +1,19 @@
 package org.osate.analysis.arinc653;
 
+import java.util.List;
+
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.analysis.arinc653.helpers.CriticalityHelper;
 
 
 public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
@@ -64,7 +66,8 @@ public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
 			public String caseComponentInstance(ComponentInstance obj) {
 			
 				
-				switch (obj.getCategory()) {
+				switch (obj.getCategory()) 
+				{
 				case THREAD:
 					return DONE;
 				case PROCESS:
@@ -87,6 +90,32 @@ public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
 
 			public String caseConnectionInstance(ConnectionInstance ci) 
 			{
+				List<ConnectionReference> refs;
+				ComponentInstance compSource;
+				ComponentInstance compDest;
+				
+				refs = ci.getConnectionReferences();
+				
+				for (ConnectionReference ref : refs)
+				{
+					compSource 	= ref.getSource().getContainingComponentInstance();
+					compDest 	= ref.getDestination().getContainingComponentInstance();
+					
+					if ((compSource == null) || (compDest == null))
+					{
+						continue;
+					}
+					
+					if ((compSource.getCategory() != ComponentCategory.PROCESS) || (compDest.getCategory() != ComponentCategory.PROCESS))
+					{
+						continue;
+					}
+					
+					if (CriticalityHelper.getCriticalityForProcess(compSource) != CriticalityHelper.getCriticalityForProcess(compDest))
+					{
+						System.out.println ("[ConnectionInspector] components " + compSource + " and " + compDest + " does not share the same criticality level" );
+					}
+				}
 				
 				return DONE;
 			}
