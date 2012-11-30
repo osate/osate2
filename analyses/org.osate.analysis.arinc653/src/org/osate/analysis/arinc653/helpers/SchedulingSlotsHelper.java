@@ -19,7 +19,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConnectionInspector;
+import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.contribution.sei.names.ARINC653;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;

@@ -16,16 +16,16 @@ import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.analysis.arinc653.helpers.CriticalityHelper;
 
 
-public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
+public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress {
 
 
-	public ConnectionInspector(final IProgressMonitor monitor) 
+	public ConnectionLatencyAnalysis(final IProgressMonitor monitor) 
 	{
 		super(monitor, PROCESS_PRE_ORDER_ALL);
 
 	}
 
-	public ConnectionInspector(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) 
+	public ConnectionLatencyAnalysis(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) 
 	{
 		super(monitor, PROCESS_PRE_ORDER_ALL, errmgr);
 
@@ -90,6 +90,7 @@ public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
 
 			public String caseConnectionInstance(ConnectionInstance ci) 
 			{
+				/*
 				List<ConnectionReference> refs;
 				ComponentInstance compSource;
 				ComponentInstance compDest;
@@ -113,10 +114,10 @@ public class ConnectionInspector extends AadlProcessingSwitchWithProgress {
 					
 					if (CriticalityHelper.getCriticalityForProcess(compSource) != CriticalityHelper.getCriticalityForProcess(compDest))
 					{
-						System.out.println ("[ConnectionInspector] components " + compSource + " and " + compDest + " does not share the same criticality level" );
+						System.out.println ("[ConnectionLatency] components " + compSource + " and " + compDest + " does not share the same criticality level" );
 					}
 				}
-				
+				*/
 				return DONE;
 			}
 

@@ -6,14 +6,15 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConnectionInspector;
+import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
+import org.osate.analysis.arinc653.ConnectionLatencyAnalysis;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
 
 
-public final class DoCheckConnections extends AaxlReadOnlyActionAsJob {
+public final class DoCheckConnectionsLatency extends AaxlReadOnlyActionAsJob {
 	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -24,7 +25,7 @@ public final class DoCheckConnections extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getActionName() {
-		return "ARINC653 connection analysis";
+		return "ARINC653 inter-partitions communication latency analysis";
 	}
 
 		
@@ -32,11 +33,11 @@ public final class DoCheckConnections extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj)
 	{
 		SystemInstance si;
-		ConnectionInspector connectionInspector;
+		ConnectionLatencyAnalysis validator;
 		
-		monitor.beginTask("Inspect architecture", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("Analyze inter-partitions latency", IProgressMonitor.UNKNOWN);
 		
-		connectionInspector = new ConnectionInspector (monitor,getErrorManager());
+		validator = new ConnectionLatencyAnalysis (monitor,getErrorManager());
 		
 		if (obj instanceof InstanceObject)
 		{
@@ -47,16 +48,16 @@ public final class DoCheckConnections extends AaxlReadOnlyActionAsJob {
 			si = null;
 		}
 
-		connectionInspector.defaultTraversalAllDeclarativeModels();
+		validator.defaultTraversalAllDeclarativeModels();
 		
 		if (si != null) 
 		{
-			connectionInspector.defaultTraversal(si);
-			Dialog.showInfo("Inspect architecture", "Done");
+			validator.defaultTraversal(si);
+			Dialog.showInfo("Analyze inter-partitions latency", "Done");
 		}
 		else
 		{
-			Dialog.showInfo("Inspect architecture", "Please choose an instance model");	
+			Dialog.showInfo("Analyze inter-partitions latency", "Please choose an instance model");	
 		}
 		monitor.done();
 

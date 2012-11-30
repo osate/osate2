@@ -59,7 +59,7 @@
                tooltip="Check connection with regards to criticality levels"
                icon="icons/arinc.gif"
                disabledIcon="icons/arincd.gif"
-               class="org.osate.analysis.arinc653.actions.DoCheckConnections"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnectionsCriticality"
                menubarPath="menu.analyses/menu.arinc653/stuff.grp"
                toolbarPath="arinc653.toolbar"
                enablesFor="1">
@@ -72,6 +72,36 @@
                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
+         </action>
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConnectionsLatency.action"
+               label="Analyze connections latency"
+               tooltip="Report latencies for inter-partitions connections"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnectionsLatency"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               toolbarPath="arinc653.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+         <action
+               id="org.osate.analysis.arinc653.actions.OpenPreferences.action"
+               label="Preferences"
+               tooltip="Preferences for analysis of ARINC653 architectures"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoOpenPreferences"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               enablesFor="1">
          </action>
       </actionSet>
    </extension>
@@ -115,7 +145,14 @@
             <groupMarker name="anal.grp"/>
          </menu>
         
-
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConnectionsLatency.popupAction"
+               label="Analyze Latency"
+               tooltip="Analyze Latency"
+               icon="icons/arinc.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnectionsLatency"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
+               enablesFor="1"/>  
          <action
                id="org.osate.analysis.arinc653.actions.CheckConfiguration.popupAction"
                label="Check Configuration"
@@ -129,7 +166,7 @@
                label="Check Connections"
                tooltip="Check Connections with regards to criticality levels"
                icon="icons/arinc.gif"
-               class="org.osate.analysis.arinc653.actions.DoCheckConnections"
+               class="org.osate.analysis.arinc653.actions.DoCheckConnectionsCriticality"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
                enablesFor="1"/>
       </objectContribution>
@@ -152,6 +189,19 @@
    </extension>
    
    
+   
+   <extension point="org.osate.ui.analysis">
+      <analysis
+   		 id="org.osate.analysis.arinc653.actions.LatencyAnalysis"
+   		 name="ARINC653 connection analysis"
+   		 class="org.osate.analysis.arinc653.actions.DoCheckConnectionsLatency">
+   		 <declarativeModel selectRootObject="true">
+   		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
+   		 </declarativeModel>
+   		 <instanceModel selectRootObject="true"/>
+   	  </analysis>
+   </extension>
+   
    <extension point="org.osate.ui.analysis">
       <analysis
    		 id="org.osate.analysis.arinc653.actions.CheckConfiguration"
@@ -162,14 +212,13 @@
    		 </declarativeModel>
    		 <instanceModel selectRootObject="true"/>
    	  </analysis>
-
    </extension>
    
    <extension point="org.osate.ui.analysis">
       <analysis
    		 id="org.osate.analysis.arinc653.actions.CheckConnections"
    		 name="ARINC653 connection analysis"
-   		 class="org.osate.analysis.arinc653.actions.DoCheckConnections">
+   		 class="org.osate.analysis.arinc653.actions.DoCheckConnectionsCriticality">
    		 <declarativeModel selectRootObject="true">
    		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
    		 </declarativeModel>

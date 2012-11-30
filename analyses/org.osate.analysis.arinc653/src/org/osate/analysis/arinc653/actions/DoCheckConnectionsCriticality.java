@@ -2,15 +2,10 @@ package org.osate.analysis.arinc653.actions;
 
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Status;
-import org.eclipse.jface.dialogs.ErrorDialog;
-import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConfigurationValidation;
 import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
@@ -18,7 +13,7 @@ import org.osgi.framework.Bundle;
 
 
 
-public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
+public final class DoCheckConnectionsCriticality extends AaxlReadOnlyActionAsJob {
 	
 	protected Bundle getBundle() {
 		return Activator.getDefault().getBundle();
@@ -29,7 +24,7 @@ public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected String getActionName() {
-		return "ARINC653 configuration analysis";
+		return "ARINC653 connection analysis";
 	}
 
 		
@@ -37,11 +32,11 @@ public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj)
 	{
 		SystemInstance si;
-		ConfigurationValidation validator;
+		ConnectionCriticalityValidation connectionInspector;
 		
-		monitor.beginTask("Check ARINC653 configuration compliance", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("Inspect architecture", IProgressMonitor.UNKNOWN);
 		
-		validator = new ConfigurationValidation (monitor,getErrorManager());
+		connectionInspector = new ConnectionCriticalityValidation (monitor,getErrorManager());
 		
 		if (obj instanceof InstanceObject)
 		{
@@ -52,24 +47,16 @@ public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
 			si = null;
 		}
 
-		validator.defaultTraversalAllDeclarativeModels();
+		connectionInspector.defaultTraversalAllDeclarativeModels();
 		
 		if (si != null) 
 		{
-			validator.defaultTraversal(si);
-			if (!validator.isSuccessful())
-			{
-				getErrorManager().error(validator.getErrorElement(), validator.getErrorMessage());
-			    Dialog.showError(validator.getErrorTitle(), validator.getErrorMessage());
-			}
-			else
-			{
-				Dialog.showInfo("Configuration compliance checking", "Done");
-			}
+			connectionInspector.defaultTraversal(si);
+			Dialog.showInfo("Inspect architecture", "Done");
 		}
 		else
 		{
-			Dialog.showInfo("Configuration compliance checking", "Please choose an instance model");	
+			Dialog.showInfo("Inspect architecture", "Please choose an instance model");	
 		}
 		monitor.done();
 
