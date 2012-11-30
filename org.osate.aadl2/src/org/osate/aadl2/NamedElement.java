@@ -441,8 +441,22 @@ public interface NamedElement extends Element {
 
 	public PropertyAssociation setPropertyValue(final Property pd, final PropertyValue pv);
 
-	public PropertyExpression getNonModalPropertyValue(final Property property) throws InvalidModelException,
-			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
+	/**
+	 * DB: Added for OCL.
+	 * @param property
+	 * @param mode
+	 * @return
+	 * @throws InvalidModelException
+	 * @throws IllegalArgumentException
+	 * @throws PropertyIsModalException
+	 * @throws IllegalStateException
+	 * @throws PropertyDoesNotApplyToHolderException
+	 */
+	EList<PropertyExpression> getPropertyValues( String propertySetName, String propertyName )
+			throws InvalidModelException, IllegalArgumentException,
+			PropertyIsModalException, IllegalStateException,
 			PropertyDoesNotApplyToHolderException;
+
+	PropertyExpression getNonModalPropertyValue(Property pd);
 
 } // NamedElement
