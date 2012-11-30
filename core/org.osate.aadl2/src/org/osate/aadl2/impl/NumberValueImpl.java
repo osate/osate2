@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 
 /**
  * <!-- begin-user-doc -->
@@ -203,4 +204,22 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		return true;
 	}
 
+	/* DB Added for OCL
+	 * (non-Javadoc)
+	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
+	 */
+	@Override
+	public double getScaledValue(String target) {
+		final UnitLiteral currentUnit = getUnit();
+		final UnitLiteral targetUnit;
+		
+		if ( currentUnit == null ) {
+			targetUnit = null;
+		}
+		else {
+			targetUnit = ( (UnitsType) currentUnit.eContainer() ).findLiteral( target );
+		}
+		
+		return getScaledValue( targetUnit );
+	}
 } //NumberValueImpl

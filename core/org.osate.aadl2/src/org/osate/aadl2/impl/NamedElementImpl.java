@@ -52,7 +52,6 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-import org.eclipse.uml2.uml.internal.impl.ComponentImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ClassifierValue;
@@ -79,7 +78,7 @@ import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsListException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-
+import org.osate.aadl2.properties.UndefinedPropertyException;
 /**
  * <!-- begin-user-doc -->
  * An implementation of the model object '<em><b>Named Element</b></em>'.
@@ -527,7 +526,6 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
-				//System.out.println (appliesTo);
 				if (appliesTo instanceof MetaclassReference
 						&& ((MetaclassReference) appliesTo).getMetaclass().isSuperTypeOf(eClass())) {
 					return true;
@@ -716,6 +714,17 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 
 		this.getOwnedPropertyAssociations().add(pa);
 		return pa;
+	}
+
+	/* DB: Added for OCL to call this method instead of reimplementing the property lookup algo.
+	 * (non-Javadoc)
+	 * @see org.osate.aadl2.NamedElement#getPropertyValues(org.osate.aadl2.Property, java.lang.String)
+	 */
+	public EList<PropertyExpression> getPropertyValues(	final String p_propertySetName,
+														final String p_propertyName )
+	throws 	InvalidModelException, IllegalArgumentException, PropertyIsModalException,
+			IllegalStateException, PropertyDoesNotApplyToHolderException {
+		return null;
 	}
 
 } //NamedElementImpl

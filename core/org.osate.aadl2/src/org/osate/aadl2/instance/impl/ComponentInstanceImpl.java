@@ -386,7 +386,7 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return newModeInstance;
 	}
 
-	/**
+	/**f
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
