@@ -33,7 +33,26 @@
             <groupMarker name="stuff.grp"/>
          </menu>
          
-           
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConfiguration.action"
+               label="Check Configuration"
+               tooltip="Check configuration of ARINC653 systems"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConfiguration"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               toolbarPath="arinc653.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>           
          <action
                id="org.osate.analysis.arinc653.actions.CheckConnections.action"
                label="Check Connections"
@@ -97,7 +116,14 @@
          </menu>
         
 
-         
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConfiguration.popupAction"
+               label="Check Configuration"
+               tooltip="Check Configuration"
+               icon="icons/arinc.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConfiguration"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
+               enablesFor="1"/>         
          <action
                id="org.osate.analysis.arinc653.actions.CheckConnections.popupAction"
                label="Check Connections"
@@ -123,6 +149,20 @@
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
+   </extension>
+   
+   
+   <extension point="org.osate.ui.analysis">
+      <analysis
+   		 id="org.osate.analysis.arinc653.actions.CheckConfiguration"
+   		 name="ARINC653 connection analysis"
+   		 class="org.osate.analysis.arinc653.actions.DoCheckConfiguration">
+   		 <declarativeModel selectRootObject="true">
+   		    <selectedObject objectType="org.osate.aadl2.ComponentImplementation"/>
+   		 </declarativeModel>
+   		 <instanceModel selectRootObject="true"/>
+   	  </analysis>
+
    </extension>
    
    <extension point="org.osate.ui.analysis">
