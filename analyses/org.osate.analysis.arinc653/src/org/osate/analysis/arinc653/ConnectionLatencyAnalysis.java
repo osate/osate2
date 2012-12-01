@@ -14,6 +14,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.analysis.arinc653.helpers.CriticalityHelper;
+import org.osate.analysis.arinc653.helpers.DeploymentHelper;
 
 
 public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress {
@@ -90,10 +91,11 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 
 			public String caseConnectionInstance(ConnectionInstance ci) 
 			{
-				/*
+				
 				List<ConnectionReference> refs;
 				ComponentInstance compSource;
 				ComponentInstance compDest;
+				boolean partitionsOnSameProcessor;
 				
 				refs = ci.getConnectionReferences();
 				
@@ -112,12 +114,13 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						continue;
 					}
 					
-					if (CriticalityHelper.getCriticalityForProcess(compSource) != CriticalityHelper.getCriticalityForProcess(compDest))
-					{
-						System.out.println ("[ConnectionLatency] components " + compSource + " and " + compDest + " does not share the same criticality level" );
-					}
+					System.out.println ("[ConnectionLatency] connection between " + compSource + " and " + compDest);
+					partitionsOnSameProcessor = DeploymentHelper.sameProcessor(compSource, compDest);
+					
+					System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
+					
 				}
-				*/
+				
 				return DONE;
 			}
 
