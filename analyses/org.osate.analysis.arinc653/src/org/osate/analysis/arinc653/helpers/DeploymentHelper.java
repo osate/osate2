@@ -1,5 +1,10 @@
 package org.osate.analysis.arinc653.helpers;
 
+import org.osate.aadl2.Element;
+import org.osate.aadl2.ListValue;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -34,5 +39,95 @@ public class DeploymentHelper {
 			return false;
 		}
 		
+	}
+	
+	public static ComponentInstance getModule (ComponentInstance partition)
+	{
+		ComponentInstance runtimePartition;
+		ComponentInstance modulePartition;
+		
+		
+		runtimePartition = GetProperties.getActualProcessorBinding (partition).get(0);
+		
+		modulePartition = runtimePartition.getContainingComponentInstance();
+		
+		return modulePartition;
+		
+	}
+	
+	public static ComponentInstance getPartitionRuntime (ComponentInstance partition)
+	{
+		return GetProperties.getActualProcessorBinding (partition).get(0);
+	}
+	
+	public static int schedulingOrder (ComponentInstance module, ComponentInstance partition)
+	{
+		ListValue slotsAllocationList;
+		ComponentInstance partitionRuntime;
+		
+		int val;
+		int tmp;
+		
+		partitionRuntime = getPartitionRuntime (partition);
+		slotsAllocationList = SchedulingSlotsHelper.getSlotsAllocation(module);
+		val = -1;
+		tmp = 0;
+		for (Element e : slotsAllocationList.getChildren())
+		{
+
+			if (e instanceof ReferenceValue)
+			{
+				ReferenceValue rv = (ReferenceValue) e;
+				System.out.println("rv=" + rv);
+				for (Element e2 : rv.getChildren())
+				{
+					if (e2 instanceof ContainmentPathElementImpl)
+					{
+						ContainmentPathElementImpl cpei = (ContainmentPathElementImpl) e2;
+						if (cpei.getNamedElement() instanceof VirtualProcessorSubcomponent)
+						{
+							VirtualProcessorSubcomponent vp = (VirtualProcessorSubcomponent) cpei.getNamedElement();
+							if (vp.getName().equals (partitionRuntime.getName()))
+							{
+								System.out.println("[DeploymentHelper] Found scheduled partition at" + tmp);
+
+								val = tmp;
+							}
+						}
+					}
+					tmp++;
+						
+				}
+			}
+		}
+		
+		return val;
+	}
+	
+	public static int schedulingListSize (ComponentInstance module)
+	{
+		ListValue slotsAllocationList;
+		int val;
+		int tmp;
+		
+		slotsAllocationList = SchedulingSlotsHelper.getSlotsAllocation(module);
+		
+		tmp = 0;
+		for (Element e : slotsAllocationList.getChildren())
+		{
+
+			if (e instanceof ReferenceValue)
+			{
+				ReferenceValue rv = (ReferenceValue) e;
+				System.out.println("rv=" + rv);
+				for (Element e2 : rv.getChildren())
+				{
+					tmp++;
+						
+				}
+			}
+		}
+		
+		return tmp;
 	}
 }

@@ -6,8 +6,11 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ListValue;
 import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
@@ -15,6 +18,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.analysis.arinc653.helpers.CriticalityHelper;
 import org.osate.analysis.arinc653.helpers.DeploymentHelper;
+import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 
 
 public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress {
@@ -95,8 +99,23 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				List<ConnectionReference> refs;
 				ComponentInstance compSource;
 				ComponentInstance compDest;
+				ComponentInstance processorSource;
+				ComponentInstance processorDest;
+				ComponentInstance partitionSource;
+				ComponentInstance partitionDest;
 				boolean partitionsOnSameProcessor;
+				ListValue slots;
+				ListValue slotsAllocation;
+				int schedulingSourceIndex;
+				int schedulingDestIndex;
+				long latency;
 				
+				
+				latency = 0;
+				schedulingSourceIndex = 0;
+				schedulingDestIndex = 0;
+				processorSource = null;
+				processorDest = null;
 				refs = ci.getConnectionReferences();
 				
 				for (ConnectionReference ref : refs)
@@ -113,12 +132,60 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					{
 						continue;
 					}
+					partitionSource = compSource;
+					partitionDest = compDest;
 					
 					System.out.println ("[ConnectionLatency] connection between " + compSource + " and " + compDest);
 					partitionsOnSameProcessor = DeploymentHelper.sameProcessor(compSource, compDest);
 					
 					System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
-					
+					if (partitionsOnSameProcessor)
+					{
+						processorSource = DeploymentHelper.getModule (partitionSource);
+						slots = SchedulingSlotsHelper.getSlots(processorSource);
+						slotsAllocation = SchedulingSlotsHelper.getSlots(processorSource);
+						schedulingSourceIndex = DeploymentHelper.schedulingOrder(processorSource, partitionSource);
+						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorSource, partitionDest);
+
+						if (schedulingSourceIndex < schedulingDestIndex)
+						{
+							for (int tmp = schedulingSourceIndex ; tmp < schedulingDestIndex ; tmp++)
+							{
+								Element e = slots.getChildren().get(tmp);
+								
+								if (e instanceof IntegerLiteral)
+								{
+									IntegerLiteral il = (IntegerLiteral) e;
+									latency = latency + il.getValue();
+								}					
+							}
+						}
+						else
+						{
+							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
+							{
+								Element e = slots.getChildren().get(tmp);
+								
+								if (e instanceof IntegerLiteral)
+								{
+									IntegerLiteral il = (IntegerLiteral) e;
+									latency = latency + il.getValue();
+								}					
+							}
+							for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
+							{
+								Element e = slots.getChildren().get(tmp);
+								
+								if (e instanceof IntegerLiteral)
+								{
+									IntegerLiteral il = (IntegerLiteral) e;
+									latency = latency + il.getValue();
+								}					
+							}
+						}
+					}
+					System.out.println ("[ConnectionLatency] latency= " + latency);
+
 				}
 				
 				return DONE;
