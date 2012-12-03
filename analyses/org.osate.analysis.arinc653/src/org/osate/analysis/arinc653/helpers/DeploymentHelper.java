@@ -1,11 +1,16 @@
 package org.osate.analysis.arinc653.helpers;
 
+import java.util.List;
+
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DeploymentHelper {
@@ -53,6 +58,110 @@ public class DeploymentHelper {
 		
 		return modulePartition;
 		
+	}
+	
+	public static ComponentInstance getConnectedBus (ComponentInstance device)
+	{
+		ComponentInstance bus;
+		ComponentInstance component;	
+		List<FeatureInstance> features;
+	
+		bus = null;
+		features = device.getFeatureInstances();
+		for (FeatureInstance fi : features)
+		{
+			for ( ConnectionInstance conn : fi.getDstConnectionInstances() )
+			{
+
+				System.out.println("e " + conn.getSource());
+				if ((conn.getSource() != null) && (conn.getSource() instanceof ComponentInstance))
+				{
+					
+					bus = (ComponentInstance)conn.getSource();
+				}
+			}
+		}
+
+		
+		return bus;
+	}
+	
+	
+	public static ComponentInstance getDeviceConnected (ComponentInstance processor, String busName)
+	{
+		ComponentInstance root;
+		ComponentInstance device;
+		ComponentInstance component;
+		
+		List<FeatureInstance> features;
+		boolean busChecked;
+		boolean processorChecked;
+		
+		
+		device = null;
+		busChecked = false;
+		processorChecked = false;
+		
+		root = processor.getContainingComponentInstance();
+		
+		for (Element child : root.getChildren())
+		{
+			if (child instanceof ComponentInstance)
+			{
+				component = (ComponentInstance) child;
+				if (component.getCategory() != ComponentCategory.DEVICE)
+				{
+					continue;
+				}
+				
+				busChecked = false;
+				processorChecked = false;
+				features = component.getFeatureInstances();
+				
+				for (FeatureInstance fi : features)
+				{
+					for ( ConnectionInstance conn : fi.getDstConnectionInstances() )
+					{
+						
+						System.out.println("e " + conn.getSource());
+						System.out.println("bus " + busName);
+						if (conn.getSource().getName() == busName)
+						{
+							System.out.println("[DeploymentHelper] bus found");
+
+							busChecked = true;
+						}
+					}
+				}
+				
+				
+
+				
+				if ((GetProperties.getActualProcessorBinding(component).get(0) == processor) ||
+					(GetProperties.getActualProcessorBinding(component).get(0).getContainingComponentInstance() == processor))
+				{
+					processorChecked = true;
+				}
+				
+				if (busChecked && processorChecked)
+				{
+					return component;
+				}
+			}
+
+			
+		}
+		
+		return device;
+	}
+	
+	public static boolean isDeviceConnectedToBus (ComponentInstance device, ComponentInstance bus)
+	{
+		boolean result;
+		
+		result = false;
+		
+		return result;
 	}
 	
 	public static ComponentInstance getPartitionRuntime (ComponentInstance partition)
@@ -119,7 +228,7 @@ public class DeploymentHelper {
 			if (e instanceof ReferenceValue)
 			{
 				ReferenceValue rv = (ReferenceValue) e;
-				System.out.println("rv=" + rv);
+		//		System.out.println("rv=" + rv);
 				for (Element e2 : rv.getChildren())
 				{
 					tmp++;
