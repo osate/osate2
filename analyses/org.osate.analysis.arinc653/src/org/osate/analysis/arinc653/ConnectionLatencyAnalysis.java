@@ -167,13 +167,13 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					partitionSource = compSource;
 					partitionDest = compDest;
 					
-					System.out.println ("[ConnectionLatency] connection between " + compSource + " and " + compDest);
+//					System.out.println ("[ConnectionLatency] connection between " + compSource + " and " + compDest);
 					partitionsOnSameProcessor = DeploymentHelper.sameProcessor(compSource, compDest);
 					
-					System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
+//					System.out.println ("[ConnectionLatency] local inter-partition= " + partitionsOnSameProcessor);
 					if (partitionsOnSameProcessor)
 					{
-						System.out.println ("[ConnectionLatency] Partitions are on the same processor");
+//						System.out.println ("[ConnectionLatency] Partitions are on the same processor");
 
 						processorSource = DeploymentHelper.getModule (partitionSource);
 						slots = SchedulingSlotsHelper.getSlots(processorSource);
@@ -251,15 +251,14 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 								{
 									IntegerLiteral il = (IntegerLiteral) e;
 									latency = latency + il.getValue();
-									System.out.println ("Add value" + il.getValue ());
+					//				System.out.println ("Add value" + il.getValue ());
 								}					
 							}
 						}
 					}
 					else
 					{
-
-						System.out.println ("[ConnectionLatency] Partitions are on a different processor");
+						//System.out.println ("[ConnectionLatency] Partitions are on a different processor");
 						
 						/*
 						 * Suite of the if/else : connection is separated
@@ -272,14 +271,13 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						
 						try
 						{
-							System.out.println ("get="+ GetProperties.getActualConnectionBinding (ci).get(0));
+						//	System.out.println ("get="+ GetProperties.getActualConnectionBinding (ci).get(0));
 							ReferenceValueImpl busref = (ReferenceValueImpl)GetProperties.getActualConnectionBinding (ci).get(0);
-							System.out.println ("bla=" + busref.getContainmentPathElements().get(0).getNamedElement());
 							
 							if (busref.getContainmentPathElements().get(0).getNamedElement() instanceof BusSubcomponent)
 							{
 								BusSubcomponent busSub = (BusSubcomponent) busref.getContainmentPathElements().get(0).getNamedElement();
-								System.out.println ("bussub=" + busSub.getImplementationReferences());
+						//		System.out.println ("bussub=" + busSub.getImplementationReferences());
 								connectionBusName = busSub.getName();
 							}
 							else
@@ -289,8 +287,8 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							deviceSource = DeploymentHelper.getDeviceConnected (processorSource, connectionBusName);
 							deviceDestination = DeploymentHelper.getDeviceConnected (processorDest, connectionBusName);
 							connectionBus = DeploymentHelper.getConnectedBus (deviceSource);
-							System.out.println ("[ConnectionLatency] Device source " + deviceSource);
-							System.out.println ("[ConnectionLatency] Device dest " + deviceDestination);
+						//	System.out.println ("[ConnectionLatency] Device source " + deviceSource);
+						//	System.out.println ("[ConnectionLatency] Device dest " + deviceDestination);
 
 							busLatency = GetProperties.getLatencyinMS (connectionBus);
 						}
@@ -299,7 +297,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							deviceSource = null;
 							deviceDestination = null;
 							busLatency = 0;
-							System.out.println ("[ConnectionLatency] Exception while trying to get informations about devices/buses" );
+						//	System.out.println ("[ConnectionLatency] Exception while trying to get informations about devices/buses" );
 							e.printStackTrace();
 							
 						}
@@ -423,7 +421,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 								{
 									IntegerLiteral il = (IntegerLiteral) e;
 									senderLatency = senderLatency + il.getValue();
-									System.out.println ("Add value" + il.getValue ());
+								//	System.out.println ("Add value" + il.getValue ());
 
 								}					
 							}
@@ -435,7 +433,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 								{
 									IntegerLiteral il = (IntegerLiteral) e;
 									senderLatency = senderLatency + il.getValue();
-									System.out.println ("Add value" + il.getValue ());
+							//		System.out.println ("Add value" + il.getValue ());
 								}					
 							}
 							
@@ -454,7 +452,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 								{
 									IntegerLiteral il = (IntegerLiteral) e;
 									receiverLatency = receiverLatency + il.getValue();
-									System.out.println ("Add value" + il.getValue ());
+						//			System.out.println ("Add value" + il.getValue ());
 
 								}					
 							}
@@ -466,7 +464,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 								{
 									IntegerLiteral il = (IntegerLiteral) e;
 									receiverLatency = receiverLatency + il.getValue();
-									System.out.println ("Add value" + il.getValue ());
+									//System.out.println ("Add value" + il.getValue ());
 								}					
 							}
 							
@@ -477,8 +475,8 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 					}
 					report = new ConnectionLatencyReport (partitionSource, partitionDest, latency);
 					reports.add(report);
-					System.out.println ("[ConnectionLatency] latency= " + latency);
-					System.out.println ("[ConnectionLatency] buslatency= " + busLatency);
+					//System.out.println ("[ConnectionLatency] latency= " + latency);
+					//System.out.println ("[ConnectionLatency] buslatency= " + busLatency);
 
 
 				}
