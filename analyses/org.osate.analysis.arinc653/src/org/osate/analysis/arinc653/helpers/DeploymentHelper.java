@@ -26,14 +26,14 @@ public class DeploymentHelper {
 		runtimePartition1 = GetProperties.getActualProcessorBinding (partition1).get(0);
 		runtimePartition2 = GetProperties.getActualProcessorBinding (partition2).get(0);
 		
-		System.out.println("[DeploymentHelper] runtime partition1=" + runtimePartition1);
-		System.out.println("[DeploymentHelper] runtime partition2=" + runtimePartition2);
+//		System.out.println("[DeploymentHelper] runtime partition1=" + runtimePartition1);
+//		System.out.println("[DeploymentHelper] runtime partition2=" + runtimePartition2);
 
 		modulePartition1 = runtimePartition1.getContainingComponentInstance();
 		modulePartition2 = runtimePartition2.getContainingComponentInstance();
 
-		System.out.println("[DeploymentHelper] module partition1=" + modulePartition1);
-		System.out.println("[DeploymentHelper] module partition2=" + modulePartition2);
+//		System.out.println("[DeploymentHelper] module partition1=" + modulePartition1);
+//		System.out.println("[DeploymentHelper] module partition2=" + modulePartition2);
 		
 		if (modulePartition1 == modulePartition2)
 		{
@@ -73,7 +73,7 @@ public class DeploymentHelper {
 			for ( ConnectionInstance conn : fi.getDstConnectionInstances() )
 			{
 
-				System.out.println("e " + conn.getSource());
+//				System.out.println("e " + conn.getSource());
 				if ((conn.getSource() != null) && (conn.getSource() instanceof ComponentInstance))
 				{
 					
@@ -123,11 +123,11 @@ public class DeploymentHelper {
 					for ( ConnectionInstance conn : fi.getDstConnectionInstances() )
 					{
 						
-						System.out.println("e " + conn.getSource());
-						System.out.println("bus " + busName);
+//						System.out.println("e " + conn.getSource());
+//						System.out.println("bus " + busName);
 						if (conn.getSource().getName() == busName)
 						{
-							System.out.println("[DeploymentHelper] bus found");
+//							System.out.println("[DeploymentHelper] bus found");
 
 							busChecked = true;
 						}
@@ -187,7 +187,7 @@ public class DeploymentHelper {
 			if (e instanceof ReferenceValue)
 			{
 				ReferenceValue rv = (ReferenceValue) e;
-				System.out.println("rv=" + rv);
+//				System.out.println("rv=" + rv);
 				for (Element e2 : rv.getChildren())
 				{
 					if (e2 instanceof ContainmentPathElementImpl)
@@ -198,7 +198,7 @@ public class DeploymentHelper {
 							VirtualProcessorSubcomponent vp = (VirtualProcessorSubcomponent) cpei.getNamedElement();
 							if (vp.getName().equals (partitionRuntime.getName()))
 							{
-								System.out.println("[DeploymentHelper] Found scheduled partition at" + tmp);
+//								System.out.println("[DeploymentHelper] Found scheduled partition at" + tmp);
 
 								val = tmp;
 							}
