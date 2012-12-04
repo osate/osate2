@@ -8,6 +8,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
 import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.analysis.arinc653.ConnectionLatencyAnalysis;
+import org.osate.analysis.arinc653.ConnectionLatencyReport;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
@@ -34,6 +35,9 @@ public final class DoCheckConnectionsLatency extends AaxlReadOnlyActionAsJob {
 	{
 		SystemInstance si;
 		ConnectionLatencyAnalysis validator;
+		String result;
+		
+		result = "";
 		
 		monitor.beginTask("Analyze inter-partitions latency", IProgressMonitor.UNKNOWN);
 		
@@ -53,7 +57,18 @@ public final class DoCheckConnectionsLatency extends AaxlReadOnlyActionAsJob {
 		if (si != null) 
 		{
 			validator.defaultTraversal(si);
-			Dialog.showInfo("Analyze inter-partitions latency", "Done");
+			if(validator.getReports().size() == 0)
+			{
+				result = "no inter-partition connection";
+			}
+			else
+			{
+				for (ConnectionLatencyReport clr : validator.getReports())
+				{
+					result += "Connection between " + clr.getPartitionSource().getName() + " and " + clr.getPartitionDestination().getName() + " worst-case latency: " + clr.getLatency();
+				}
+			}
+			Dialog.showInfo("Analyze inter-partitions latency", result);
 		}
 		else
 		{

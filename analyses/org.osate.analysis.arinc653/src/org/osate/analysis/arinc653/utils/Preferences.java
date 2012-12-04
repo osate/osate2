@@ -35,12 +35,16 @@ public class Preferences {
 	
 	public boolean useMajorFrameDelayedCommunication ()
 	{
+		System.out.println ("[Preferences] use major frame");
+
 		return (this.connectionType == MAJOR_FRAME_DELAYED);
 	}
 	
 	
 	public boolean useImmediateCommunication ()
 	{
+		System.out.println ("[Preferences] use immediate connection");
+
 		return (this.connectionType == IMMEDIATE);
 	}
 }
