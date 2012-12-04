@@ -49,6 +49,7 @@ import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.CallContext;
+import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -94,6 +95,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
+import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
@@ -304,47 +306,31 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 
 		} else if (Aadl2Package.eINSTANCE.getCalledSubprogram() == requiredType) {
-			// full name comes here
 			// first check whether it is a reference to a classifier
 			Classifier ns = AadlUtil.getContainingClassifier(context);
 			EObject searchResult = findClassifier(context, reference,  name);
 			if (searchResult != null
 					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
-				((SubprogramCall) context).setContext(null); 
 				return Collections.singletonList((EObject) searchResult);
 			}
-			int idx = name.lastIndexOf(".");
-			if (idx < 0){
-				// name without dot
-				// if it was a qualified component type name it would have been found before
-				if (!name.contains("::")){
-					// no package qualifier. Look up in local name space
-					searchResult = ns.findNamedElement(name);
-					if (searchResult != null
-							&& requiredType.isSuperTypeOf(searchResult.eClass())) {
-						return Collections.singletonList((EObject) searchResult);
-					}
-				}
+			// if it was a qualified component type name it would have been found before
+			if (name.contains("::")){
+				// Qualified classifier should have been found before
 				return Collections.<EObject> emptyList();
 			}
-			// we have a name with a dot that is not a component implementation
-			// lets find the context and the calledSubprogram
-			String contextName = name.substring(0, idx);
-			String callName = name.substring(idx+1);
-			EReference contextReference = Aadl2Package.eINSTANCE.getSubprogramCall_Context();
-			searchResult = findClassifier(context, contextReference,  contextName);
-			if (searchResult == null){
-				searchResult = ns.findNamedElement(contextName);
+			// no package qualifier. Look up in local name space, e.g., subprogram access feature or subprogram subcomponent
+			searchResult = ns.findNamedElement(name);
+			if (searchResult != null
+					&& requiredType.isSuperTypeOf(searchResult.eClass())) {
+				return Collections.singletonList((EObject) searchResult);
 			}
-			if (searchResult instanceof CallContext) {
+			// we have a name with context
+			// lets first find it in its context
+			if (context instanceof SubprogramCall) {
 				// we have a context
 				// lets set it and find the called subprogram
-				CallContext callContext = (CallContext)searchResult;
-				if (context instanceof SubprogramCall){
-					((SubprogramCall)context).setContext(callContext);
-				} else {
-					return Collections.<EObject> emptyList();
-				}
+				SubprogramCall callSpec = (SubprogramCall)context;
+				CallContext callContext = callSpec.getContext();
 				if (callContext instanceof ComponentType){
 					ns = (ComponentType)callContext;
 				} else if (callContext instanceof SubprogramGroupSubcomponent){
@@ -365,9 +351,18 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 						return Collections.<EObject> emptyList();
 					}
 				}
-				searchResult = ns.findNamedElement(callName);
+				searchResult = ns.findNamedElement(name);
 				if (!Aadl2Util.isNull(searchResult) && requiredType.isSuperTypeOf(searchResult.eClass())) {
 					return Collections.singletonList((EObject) searchResult);
+				}
+				// it might be a component implementation. The type is already recorded in the context
+				if (callContext instanceof SubprogramType){
+					String contextName = ((SubprogramType)callContext).getName();
+					searchResult = findClassifier(context, reference, contextName+"."+name);
+					if (!Aadl2Util.isNull(searchResult) ) {
+						return Collections.singletonList((EObject) searchResult);
+					}
+					return Collections.<EObject> emptyList();
 				}
 			}
 

@@ -1764,7 +1764,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID calledSubprogram=[CalledSubprogram|QCREF] ownedPropertyAssociation+=PropertyAssociation*)
+	 *     (
+	 *         name=ID 
+	 *         ((context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | calledSubprogram=[CalledSubprogram|PNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_CallSpecification(EObject context, SubprogramCall semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
