@@ -627,6 +627,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 
 	@Override
 	public int hashCode() {
+		if (eIsProxy()){
+			return this.eProxyURI().toString().hashCode();
+		}
 		return this.getQualifiedName().hashCode();
 	}
 
