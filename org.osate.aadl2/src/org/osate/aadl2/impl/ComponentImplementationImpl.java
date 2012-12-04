@@ -83,6 +83,7 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -1453,6 +1454,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			final ComponentImplementation current = (ComponentImplementation) it.next();
 			returnlist.addAll(current.getOwnedModes());
 		}
+		ComponentType type = getType();
+		if (Aadl2Util.isNull(type)) return returnlist;
 		ancestors = getType().getAllExtendPlusSelf();
 		for (Iterator<Classifier> it = ancestors.iterator(); it.hasNext();) {
 			final ComponentType current = (ComponentType) it.next();
@@ -1509,6 +1512,8 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 				}
 			}
 		}
+		ComponentType type = getType();
+		if (Aadl2Util.isNull(type)) return returnlist;
 		ancestors = getType().getAllExtendPlusSelf();
 		// Process from farthest ancestor to self
 		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {

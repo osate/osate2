@@ -514,8 +514,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode) {
 			lln = lln.getPreviousSibling();
 		}
+		if (lln == null) return;
 		String ss = lln.getText().replaceAll("--.*(\\r|\\n)", "").replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
-		if (!cl.getName().equalsIgnoreCase(ss)) {
+		if (!ss.equalsIgnoreCase(cl.getName())) {
 			error(cl, "Ending '" + ss + "' does not match defining identifier '" + cl.getName() + "'");
 		}
 	}
@@ -530,7 +531,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 //			ss = lln.getText() + "::" + ss;
 //		}
 		ss = ss.replaceAll(" ", "");
-		if (!mu.getName().equalsIgnoreCase(ss)) {
+		if (!ss.equalsIgnoreCase(mu.getName())) {
 			error(mu, "Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'");
 		}
 	}
@@ -1117,7 +1118,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		usedNames.addAll(impl.getAllConnections());
 		usedNames.addAll(impl.getAllModes());
 		usedNames.addAll(impl.getAllModeTransitions());
-		usedNames.addAll(impl.getType().getAllFlowSpecifications());
+		if (!Aadl2Util.isNull(impl.getType()))
+			usedNames.addAll(impl.getType().getAllFlowSpecifications());
 		usedNames.addAll(impl.getAllEndToEndFlows());
 		EList<SubprogramCallSequence> csl = null;
 		if (impl instanceof ThreadImplementation) {
@@ -2580,9 +2582,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				catch (PropertyNotPresentException e) {
 					classifierMatchingRuleValue = null;
 				}
-				if (classifierMatchingRuleValue == null || classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CLASSIFIER_MATCH) ||
+				if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
 						classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
-					if (classifierMatchingRuleValue != null && classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.COMPLEMENT)) {
+					if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 						warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT + "' is not supported for port connections. Using rule '" + ModelingProperties.CLASSIFIER_MATCH +
 								"' instead.");
 					}
@@ -2602,20 +2604,20 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					}
 				}
-				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
+				else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
 						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
 								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES +
 								"'.");
 					}
 				}
-				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.SUBSET)) {
+				else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier, destinationClassifier)) {
 						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
 								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 					}
 				}
-				else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.CONVERSION)) {
+				else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					if (!classifiersFoundInSupportedTypeConversionsProperty(connection, sourceClassifier, destinationClassifier)) {
 						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceClassifier.getQualifiedName() + "' and '" +
 								destinationClassifier.getQualifiedName() + "') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_TYPE_CONVERSIONS + "'.");

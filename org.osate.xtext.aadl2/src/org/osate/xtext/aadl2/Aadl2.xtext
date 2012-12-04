@@ -981,9 +981,9 @@ CallSpecification returns aadl2::CallSpecification:
      ({aadl2::SubprogramCall}name=ID ':' 'subprogram'
 // direct assignment of context does not work because the name <id>.<id> could also refer to a component implementation
 // therefore we let the LinkingService figure out what kind of reference we have and set the context as appropriate
-//    	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
-//     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
-calledSubprogram=[aadl2::CalledSubprogram|QCREF]
+    	((context=[aadl2::CallContext|PNAME] '.' calledSubprogram=[aadl2::CalledSubprogram|ID]) 
+     	|calledSubprogram=[aadl2::CalledSubprogram|PNAME])
+//calledSubprogram=[aadl2::CalledSubprogram|QCREF]
      ))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	';'
