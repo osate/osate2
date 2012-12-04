@@ -52,7 +52,31 @@
                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
                </or>
             </enablement>
-         </action>           
+         </action>
+         
+         
+         <action
+               id="org.osate.analysis.arinc653.actions.Refactor.action"
+               label="Suggest refactor ideas"
+               tooltip="Get suggestions for refactoring the architecture"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoRefactor"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               toolbarPath="arinc653.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>  
+         
+                    
          <action
                id="org.osate.analysis.arinc653.actions.CheckConnections.action"
                label="Check Connections"
@@ -160,7 +184,15 @@
                icon="icons/arinc.gif"
                class="org.osate.analysis.arinc653.actions.DoCheckConfiguration"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
-               enablesFor="1"/>         
+               enablesFor="1"/>
+         <action
+               id="org.osate.analysis.arinc653.actions.Refactor.popupAction"
+               label="Refactor architecture"
+               tooltip="Get suggestion for refactoring the architecture"
+               icon="icons/arinc.gif"
+               class="org.osate.analysis.arinc653.actions.DoRefactor"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.arinc653.popupMenu.arinc653/anal.grp"
+               enablesFor="1"/>          
          <action
                id="org.osate.analysis.arinc653.actions.CheckConnections.popupAction"
                label="Check Connections"
