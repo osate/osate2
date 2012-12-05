@@ -27,6 +27,7 @@ import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 {
 	private boolean validationSuccess;
+	
 	private List<RefactorSuggestion> suggestions;
 	
 
@@ -77,15 +78,112 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 		
 		instanceSwitch = new InstanceSwitch<String>() 
 		{
-			public String caseComponentInstance(ComponentInstance obj) 
+			public String caseComponentInstance(ComponentInstance componentInstance) 
 			{
-				switch (obj.getCategory()) 
+				switch (componentInstance.getCategory()) 
 				{
 					case THREAD:
 						return DONE;
 					case PROCESS:
 						return DONE;
 					case PROCESSOR:
+						RefactorSuggestion suggestion;
+						int nbPartitionsForLevelA;
+						int nbPartitionsForLevelB;
+						int nbPartitionsForLevelC;
+						int nbPartitionsForLevelD;
+						int nbPartitionsForLevelE;
+						ComponentInstance subcomponent;
+						
+						nbPartitionsForLevelA = 0;
+						nbPartitionsForLevelB = 0;
+						nbPartitionsForLevelC = 0;
+						nbPartitionsForLevelD = 0;
+						nbPartitionsForLevelE = 0;
+						
+						for (Element sub : componentInstance.getChildren())
+						{
+							if (sub instanceof ComponentInstance)
+							{
+								subcomponent = (ComponentInstance) sub;
+
+								if (subcomponent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+								{
+									System.out.println ("subc=" + subcomponent);
+
+									switch (CriticalityHelper.getCriticality(subcomponent.getSubcomponent()))
+									{
+										case CriticalityHelper.LEVEL_A:
+										{
+											nbPartitionsForLevelA++;
+											break;
+										}
+										case CriticalityHelper.LEVEL_B:
+										{
+											nbPartitionsForLevelB++;
+											System.out.println ("One more partition at level B");
+											break;
+										}
+										case CriticalityHelper.LEVEL_C:
+										{
+											nbPartitionsForLevelC++;
+											break;
+										}
+										case CriticalityHelper.LEVEL_D:
+										{
+											nbPartitionsForLevelD++;
+											break;
+										}
+										case CriticalityHelper.LEVEL_E:
+										{
+											nbPartitionsForLevelE++;
+											break;
+										}
+									}
+								}
+							}
+						}
+						
+						
+						if (nbPartitionsForLevelA > 1)
+						{
+							suggestion = new RefactorSuggestion ();
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("processor has more than one partition at criticality A, they might be grouped");
+							suggestions.add(suggestion);
+						}
+						
+						if (nbPartitionsForLevelB > 1)
+						{
+							suggestion = new RefactorSuggestion ();
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("processor has more than one partition at criticality B, they might be grouped");
+							suggestions.add(suggestion);
+						}
+						
+						if (nbPartitionsForLevelC > 1)
+						{
+							suggestion = new RefactorSuggestion ();
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("processor has more than one partition at criticality C, they might be grouped");
+							suggestions.add(suggestion);
+						}
+						
+						if (nbPartitionsForLevelD > 1)
+						{
+							suggestion = new RefactorSuggestion ();
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("processor has more than one partition at criticality D, they might be grouped");
+							suggestions.add(suggestion);
+						}
+						
+						if (nbPartitionsForLevelE > 1)
+						{
+							suggestion = new RefactorSuggestion ();
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("processor has more than one partition at criticality E, they might be grouped");
+							suggestions.add(suggestion);
+						}
 						return DONE;
 					case VIRTUAL_PROCESSOR:
 						return DONE;

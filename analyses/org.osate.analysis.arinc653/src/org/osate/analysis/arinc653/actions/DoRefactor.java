@@ -7,6 +7,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
 import org.osate.analysis.arinc653.ConfigurationValidation;
+import org.osate.analysis.arinc653.RefactorSuggestion;
 import org.osate.analysis.arinc653.RefactoringAnalyzer;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
@@ -33,10 +34,11 @@ public final class DoRefactor extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj)
 	{
 		SystemInstance si;
+		StringBuffer result;
 		RefactoringAnalyzer refactor;
 		
 		monitor.beginTask("Check system for refactoring", IProgressMonitor.UNKNOWN);
-		
+		result = new StringBuffer ();
 		refactor = new RefactoringAnalyzer (monitor,getErrorManager());
 		
 		if (obj instanceof InstanceObject)
@@ -54,7 +56,19 @@ public final class DoRefactor extends AaxlReadOnlyActionAsJob {
 		{
 			refactor.defaultTraversal(si);
 			
-			Dialog.showInfo("Check system for refactoring", "Done");
+			if (refactor.getSuggestions().size() == 0)
+			{
+				result.append ("No suggestion has been proposed regarding your architecture");
+			}
+			else
+			{
+				for (RefactorSuggestion rs : refactor.getSuggestions())
+				{
+					result.append ("Suggestion for component " + rs.getAssociatedComponent().getName() +": " + rs.getMessage() + "\n");
+				}
+			}
+			
+			Dialog.showInfo("Check system for refactoring", result.toString());
 			
 		}
 		else

@@ -34,7 +34,7 @@ public class CriticalityHelper
 	public static final int LEVEL_B 		= 1;
 	public static final int LEVEL_C 		= 2;
 	public static final int LEVEL_D 		= 3;
-	public static final int LEVEL_E 		= 3;
+	public static final int LEVEL_E 		= 4;
 	public static final int LEVEL_UNKNOWN 	= 5;
 	public static final int LEVEL_INVALID 	= 5;
 	
@@ -59,7 +59,6 @@ public class CriticalityHelper
 	
 	public static int getCriticality(final NamedElement ph) 
 	{
-		PropertyExpression pv;
 	
 		if (criticalityProperty == null)
 		{
@@ -70,6 +69,7 @@ public class CriticalityHelper
 		try
 		{
 			EnumerationLiteral el = PropertyUtils.getEnumLiteral(ph, criticalityProperty);
+			System.out.println ("[CriticalityHelper] criticality=" + el);
 			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_A))
 			{
 				return LEVEL_A;
@@ -98,6 +98,7 @@ public class CriticalityHelper
 		}
 		catch (PropertyLookupException e)
 		{	
+			System.out.println ("[CriticalityHelper] Property not defined on " + ph);
 			return LEVEL_INVALID;
 		}
 		
