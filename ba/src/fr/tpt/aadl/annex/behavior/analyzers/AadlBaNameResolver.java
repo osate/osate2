@@ -778,12 +778,12 @@ public class AadlBaNameResolver
    }
 
    private boolean featureResolver(Classifier parentContainer,
-                                   Identifier id, boolean hasToReport)
+                                     Identifier id, boolean hasToReport)
    {
       String nameToFind = id.getId(); 
       
       Feature f = Aadl2Visitors.findFeatureInComponent(parentContainer,
-                                                        nameToFind) ;
+                                                       nameToFind) ;
       if (f != null)
       {
          id.setOsateRef(f);
@@ -831,8 +831,8 @@ public class AadlBaNameResolver
    // Resolves identifiers within the prototypes, features and subcomponent of
    // the given component.
    private boolean identifierComponentResolver(Identifier id,                                 
-		    								                       Classifier component,
-		    								                       boolean hasToReport)
+		    								                         Classifier component,
+		    								                         boolean hasToReport)
    {
 	  // Resolves within the given component features names.
 	  if(featureResolver(component, id, false))
@@ -859,7 +859,7 @@ public class AadlBaNameResolver
 	    		 // property Data_Model::Element Names
 	    		 if (component instanceof DataClassifier)
 	    		 {
-	    			 return structOrUnionIdResolver(id,
+	    			 return structOrUnionOrArrayIdResolver(id,
 	    					                        (DataClassifier) component,
 	    					                        true) ;
 	    		 }
@@ -882,7 +882,7 @@ public class AadlBaNameResolver
    // of a declared struct or union component (event if element names is set).
    // If the given component is not declared as a struct or union, it returns
    // false and reports error according to the hasToReport flag.
-   private boolean structOrUnionIdResolver(Identifier id,
+   private boolean structOrUnionOrArrayIdResolver(Identifier id,
 		                                   DataClassifier component,
 		                                   boolean hasToReport)
    {
@@ -935,6 +935,19 @@ public class AadlBaNameResolver
 			  
 			  id.setOsateRef(cv) ;
 		  }
+	  }
+	  else if (rep == DataRepresentation.ARRAY)
+	  {
+	    EList<PropertyExpression> lpv =
+	       PropertyUtils.getPropertyExpression(component,
+                                          DataModelProperties.BASE_TYPE) ;
+	    
+	    ClassifierValue cv ;
+      
+      cv = (ClassifierValue ) ((ListValue) lpv.get(0)).
+                                   getOwnedListElements().get(0) ;
+      
+      result = identifierComponentResolver(id, cv.getClassifier(), hasToReport) ;
 	  }
 	  
 	  if(! result && hasToReport)
@@ -1044,7 +1057,7 @@ public class AadlBaNameResolver
    // within parent component's features ones and ba's variables ones and
    // for/forall's iterative variable scope handler.
    private boolean refResolver(Classifier parentContainer,
-                               Reference ref)
+                                 Reference ref)
    {
       boolean result = true ;
       boolean currentIdResult = false ;
@@ -1086,7 +1099,7 @@ public class AadlBaNameResolver
           }
         }
 
-        // If the current id is found, proceed to the next id.
+        // If the current id is found, fetch the container for the next id.
         if(currentIdResult && it.hasNext())
         {
           Element el = AadlBaTypeChecker.getBindedElement(id) ;
