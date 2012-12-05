@@ -4286,6 +4286,7 @@ protected String getNames(List<IEObjectDescription> findings){
 	 */
 	private void checkDirectionOfFeatureGroupMembers(FeatureGroup featureGroup, DirectionType notDir, Connection conn) {
 		FeatureGroupType fgt = featureGroup.getFeatureGroupType();
+		if (fgt == null ) return;
 		for (Feature feature : fgt.getAllFeatures()) {
 			boolean invfg = featureGroup.isInverse();
 			boolean invfgt = fgt.getInverse() != null &&
