@@ -88,7 +88,7 @@
                class="org.osate.imv.ui.actions.OpenImvEditor"
                enablesFor="1"
                id="org.osate.imv.ui.actions.OpenImvEditor"
-               label="Explore instance in IMV"
+               label="Explore instance or package implementation in IMV"
                style="push">
             <enablement>
                <or>
@@ -101,8 +101,20 @@
                            value="aaxl2">
                      </objectState>
                   </and>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aadl">
+                     </objectState>
+                  </and>
                   <objectClass
                         name="org.osate.aadl2.instance.SystemInstance">
+                  </objectClass>
+                  <objectClass
+                        name="org.osate.aadl2.AadlPackage">
                   </objectClass>
                </or>
             </enablement>
@@ -118,9 +130,10 @@
                class="org.osate.imv.ui.actions.OpenImvEditor"
                enablesFor="1"
                id="org.osate.imv.ui.actions.OpenImvEditor.popUpMenu"
-               label="Explore instance in IMV"
+               label="Explore instance or package implementation in IMV"
                menubarPath="org.osate.ui.popupMenu.Aadl/general.grp">
             <enablement>
+            <or>
                <and>
                   <objectClass
                         name="org.eclipse.core.resources.IFile">
@@ -130,9 +143,20 @@
                         value="aaxl2">
                   </objectState>
                </and>
+               <and>
+                  <objectClass
+                        name="org.eclipse.core.resources.IFile">
+                  </objectClass>
+                  <objectState
+                        name="extension"
+                        value="aadl">
+                  </objectState>
+               </and>
+               </or>
             </enablement>
          </action>
          <visibility>
+         <or>
             <and>
                <objectClass
                      name="org.eclipse.core.resources.IFile">
@@ -142,6 +166,16 @@
                      value="aaxl2">
                </objectState>
             </and>
+            <and>
+               <objectClass
+                     name="org.eclipse.core.resources.IFile">
+               </objectClass>
+               <objectState
+                     name="extension"
+                     value="aadl">
+               </objectState>
+            </and>
+            </or>
          </visibility>
       </objectContribution>
    </extension>
