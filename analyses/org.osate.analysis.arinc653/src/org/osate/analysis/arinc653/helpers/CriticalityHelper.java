@@ -3,26 +3,16 @@ package org.osate.analysis.arinc653.helpers;
 
 import java.util.List;
 
-import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.PropertyLookupException;
-import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.contribution.sei.names.ARINC653;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
-import org.osgi.framework.Bundle;
 
 
 
@@ -132,4 +122,36 @@ public class CriticalityHelper
 		
 		return LEVEL_INVALID;
 	}
+	
+	public static String getStringFromCode (int c)
+	{
+		switch (c)
+		{
+			case LEVEL_A:
+			{
+				return "A";
+			}
+			case LEVEL_B:
+			{
+				return "B";
+			}
+			case LEVEL_C:
+			{
+				return "C";
+			}
+			case LEVEL_D:
+			{
+				return "D";
+			}
+			case LEVEL_E:
+			{
+				return "E";
+			}
+			default:
+			{
+				return "unknown";
+			}
+		}
+	}
+	
 }

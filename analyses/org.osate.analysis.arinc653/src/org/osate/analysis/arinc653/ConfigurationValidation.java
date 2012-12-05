@@ -15,12 +15,13 @@ import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
-import org.osate.aadl2.instance.*;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.EndToEndFlowInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
-import org.osate.analysis.arinc653.helpers.CriticalityHelper;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 
 

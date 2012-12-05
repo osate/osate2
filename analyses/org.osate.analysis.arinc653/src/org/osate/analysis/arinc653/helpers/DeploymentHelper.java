@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.osate.aadl2.ComponentCategory;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ReferenceValue;
@@ -65,8 +64,7 @@ public class DeploymentHelper {
 	
 	public static ComponentInstance getConnectedBus (ComponentInstance device)
 	{
-		ComponentInstance bus;
-		ComponentInstance component;	
+		ComponentInstance bus;	
 		List<FeatureInstance> features;
 	
 		bus = null;
@@ -219,7 +217,6 @@ public class DeploymentHelper {
 	public static int schedulingListSize (ComponentInstance module)
 	{
 		ListValue slotsAllocationList;
-		int val;
 		int tmp;
 		
 		slotsAllocationList = SchedulingSlotsHelper.getSlotsAllocation(module);
@@ -230,13 +227,13 @@ public class DeploymentHelper {
 
 			if (e instanceof ReferenceValue)
 			{
+				tmp++;
+				/*
 				ReferenceValue rv = (ReferenceValue) e;
-		//		System.out.println("rv=" + rv);
 				for (Element e2 : rv.getChildren())
 				{
 					tmp++;
-						
-				}
+				}*/
 			}
 		}
 		

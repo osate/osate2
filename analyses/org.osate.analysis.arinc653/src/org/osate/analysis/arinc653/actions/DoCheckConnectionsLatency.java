@@ -6,7 +6,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.analysis.arinc653.ConnectionLatencyAnalysis;
 import org.osate.analysis.arinc653.ConnectionLatencyReport;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;

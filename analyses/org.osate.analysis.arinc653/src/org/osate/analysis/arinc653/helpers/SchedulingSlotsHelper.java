@@ -1,31 +1,16 @@
 package org.osate.analysis.arinc653.helpers;
 
 
-import java.util.List;
-
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
-import org.osate.aadl2.PropertyValue;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.InstanceReferenceValue;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.analysis.arinc653.Activator;
-import org.osate.analysis.arinc653.ConnectionCriticalityValidation;
 import org.osate.contribution.sei.names.ARINC653;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
-import org.osgi.framework.Bundle;
 
 
 
@@ -53,7 +38,11 @@ public class SchedulingSlotsHelper
 			moduleMajorFrameProperty = GetProperties.lookupPropertyDefinition (ph, ARINC653._NAME, ARINC653.MODULE_MAJOR_FRAME);
 		}
 	}
-	
+	/*
+	 * Get the ARINC653::Partitions_Slots property
+	 * from a processor. The argument must be a ComponentInstance that has
+	 * is a kind of processor.
+	 */
 	public static ListValue getSlots (ComponentInstance ci)
 	{
 		PropertyExpression pe;
@@ -68,6 +57,11 @@ public class SchedulingSlotsHelper
 		return null;
 	}
 	
+	/*
+	 * Get the ARINC653::Slots_Allocation property
+	 * from a processor. The argument must be a ComponentInstance that has
+	 * is a kind of processor.
+	 */
 	public static ListValue getSlotsAllocation (ComponentInstance ci) 
 	{
 		PropertyExpression pe;
@@ -82,6 +76,11 @@ public class SchedulingSlotsHelper
 		return null;
 	}
 	
+	/*
+	 * Get the ARINC653::Module_Major_Frame property
+	 * from a processor component. The argument
+	 * must be a ComponentInstance that is a processor.
+	 */
 	public static long getMajorFrame (ComponentInstance ci) 
 	{
 		PropertyExpression pv;
