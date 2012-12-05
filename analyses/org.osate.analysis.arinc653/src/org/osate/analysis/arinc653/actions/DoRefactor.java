@@ -36,6 +36,7 @@ public final class DoRefactor extends AaxlReadOnlyActionAsJob {
 		SystemInstance si;
 		StringBuffer result;
 		RefactoringAnalyzer refactor;
+		int tmp;
 		
 		monitor.beginTask("Check system for refactoring", IProgressMonitor.UNKNOWN);
 		result = new StringBuffer ();
@@ -62,9 +63,11 @@ public final class DoRefactor extends AaxlReadOnlyActionAsJob {
 			}
 			else
 			{
+				tmp = 0;
 				for (RefactorSuggestion rs : refactor.getSuggestions())
 				{
-					result.append ("Suggestion for component " + rs.getAssociatedComponent().getName() +": " + rs.getMessage() + "\n");
+					tmp++;
+					result.append (tmp + " " + rs.getAssociatedComponent().getName() +": " + rs.getMessage() + "\n");
 				}
 			}
 			

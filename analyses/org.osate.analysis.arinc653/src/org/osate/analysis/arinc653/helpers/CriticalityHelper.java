@@ -4,6 +4,7 @@ package org.osate.analysis.arinc653.helpers;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
@@ -53,9 +54,36 @@ public class CriticalityHelper
 		
 		proc =  cpus.get(0);
 		crit = getCriticality (proc.getSubcomponent());
-		System.out.println("[CriticalityHelper] Found criticality for process " + process + " (processor="+cpus.get(0)+") =" + crit);
+		//System.out.println("[CriticalityHelper] Found criticality for process " + process + " (processor="+cpus.get(0)+") =" + crit);
 		return crit;
 	}
+	
+	
+	public static int getNbPartitionsForCriticalityLevel (ComponentInstance processor, int level)
+	{
+		int nb;
+		nb = 0;
+		ComponentInstance subcomponent;
+		for (Element sub : processor.getChildren())
+		{
+			if (sub instanceof ComponentInstance)
+			{
+				subcomponent = (ComponentInstance) sub;
+
+				if (subcomponent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+				{
+					//System.out.println ("subc=" + subcomponent);
+
+					if (CriticalityHelper.getCriticality(subcomponent.getSubcomponent())== level)
+					{
+						nb = nb + 1;
+					}
+				}
+			}
+		}
+		return nb;
+	}
+	
 	
 	public static int getCriticality(final NamedElement ph) 
 	{
@@ -69,7 +97,7 @@ public class CriticalityHelper
 		try
 		{
 			EnumerationLiteral el = PropertyUtils.getEnumLiteral(ph, criticalityProperty);
-			System.out.println ("[CriticalityHelper] criticality=" + el);
+			//System.out.println ("[CriticalityHelper] criticality=" + el);
 			if (el.getName().equals(ARINC653.CRITICALITY_LEVEL_A))
 			{
 				return LEVEL_A;

@@ -2,6 +2,7 @@ package org.osate.analysis.arinc653;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentCategory;
@@ -21,6 +22,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.analysis.arinc653.helpers.CriticalityHelper;
+import org.osate.analysis.arinc653.helpers.DeploymentHelper;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
 
 
@@ -80,74 +82,58 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 		{
 			public String caseComponentInstance(ComponentInstance componentInstance) 
 			{
+				RefactorSuggestion suggestion;
+
+				suggestion = new RefactorSuggestion ();
+				
 				switch (componentInstance.getCategory()) 
 				{
 					case THREAD:
 						return DONE;
 					case PROCESS:
+						ComponentInstance localProcessor;
+						Map <ComponentInstance,Integer> connections;
+						int nbConnectionsLocal;
+						int tmp;
+						ComponentInstance suggestedProcessor;
+						
+						suggestedProcessor = null;
+						connections = DeploymentHelper.getConnectionsPerProcessor (componentInstance);
+						nbConnectionsLocal = connections.get (DeploymentHelper.getModule (componentInstance));
+						
+						for (ComponentInstance remoteProcessor : connections.keySet())
+						{
+							tmp = connections.get(remoteProcessor);
+							if (tmp > nbConnectionsLocal)
+							{
+								suggestedProcessor = remoteProcessor;
+							}
+						}
+						
+						if (suggestedProcessor != null)
+						{
+							suggestion.setAssociatedComponent(componentInstance);
+							suggestion.setMessage("this partition has more connection with processor " + suggestedProcessor.getName() + ", moving the partition would improve performance and avoid network usage.");
+							suggestions.add(suggestion);
+						}
+						
 						return DONE;
+						
 					case PROCESSOR:
-						RefactorSuggestion suggestion;
 						int nbPartitionsForLevelA;
 						int nbPartitionsForLevelB;
 						int nbPartitionsForLevelC;
 						int nbPartitionsForLevelD;
 						int nbPartitionsForLevelE;
-						ComponentInstance subcomponent;
 						
-						nbPartitionsForLevelA = 0;
-						nbPartitionsForLevelB = 0;
-						nbPartitionsForLevelC = 0;
-						nbPartitionsForLevelD = 0;
-						nbPartitionsForLevelE = 0;
-						
-						for (Element sub : componentInstance.getChildren())
-						{
-							if (sub instanceof ComponentInstance)
-							{
-								subcomponent = (ComponentInstance) sub;
-
-								if (subcomponent.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
-								{
-									System.out.println ("subc=" + subcomponent);
-
-									switch (CriticalityHelper.getCriticality(subcomponent.getSubcomponent()))
-									{
-										case CriticalityHelper.LEVEL_A:
-										{
-											nbPartitionsForLevelA++;
-											break;
-										}
-										case CriticalityHelper.LEVEL_B:
-										{
-											nbPartitionsForLevelB++;
-											System.out.println ("One more partition at level B");
-											break;
-										}
-										case CriticalityHelper.LEVEL_C:
-										{
-											nbPartitionsForLevelC++;
-											break;
-										}
-										case CriticalityHelper.LEVEL_D:
-										{
-											nbPartitionsForLevelD++;
-											break;
-										}
-										case CriticalityHelper.LEVEL_E:
-										{
-											nbPartitionsForLevelE++;
-											break;
-										}
-									}
-								}
-							}
-						}
-						
+						nbPartitionsForLevelA = CriticalityHelper.getNbPartitionsForCriticalityLevel(componentInstance, CriticalityHelper.LEVEL_A);		
+						nbPartitionsForLevelB = CriticalityHelper.getNbPartitionsForCriticalityLevel(componentInstance, CriticalityHelper.LEVEL_B);
+						nbPartitionsForLevelC = CriticalityHelper.getNbPartitionsForCriticalityLevel(componentInstance, CriticalityHelper.LEVEL_C);
+						nbPartitionsForLevelD = CriticalityHelper.getNbPartitionsForCriticalityLevel(componentInstance, CriticalityHelper.LEVEL_D);;
+						nbPartitionsForLevelE = CriticalityHelper.getNbPartitionsForCriticalityLevel(componentInstance, CriticalityHelper.LEVEL_E);;
 						
 						if (nbPartitionsForLevelA > 1)
 						{
-							suggestion = new RefactorSuggestion ();
 							suggestion.setAssociatedComponent(componentInstance);
 							suggestion.setMessage("processor has more than one partition at criticality A, they might be grouped");
 							suggestions.add(suggestion);
@@ -155,7 +141,6 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 						
 						if (nbPartitionsForLevelB > 1)
 						{
-							suggestion = new RefactorSuggestion ();
 							suggestion.setAssociatedComponent(componentInstance);
 							suggestion.setMessage("processor has more than one partition at criticality B, they might be grouped");
 							suggestions.add(suggestion);
@@ -163,7 +148,6 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 						
 						if (nbPartitionsForLevelC > 1)
 						{
-							suggestion = new RefactorSuggestion ();
 							suggestion.setAssociatedComponent(componentInstance);
 							suggestion.setMessage("processor has more than one partition at criticality C, they might be grouped");
 							suggestions.add(suggestion);
@@ -171,7 +155,6 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 						
 						if (nbPartitionsForLevelD > 1)
 						{
-							suggestion = new RefactorSuggestion ();
 							suggestion.setAssociatedComponent(componentInstance);
 							suggestion.setMessage("processor has more than one partition at criticality D, they might be grouped");
 							suggestions.add(suggestion);
@@ -179,7 +162,6 @@ public class RefactoringAnalyzer extends AadlProcessingSwitchWithProgress
 						
 						if (nbPartitionsForLevelE > 1)
 						{
-							suggestion = new RefactorSuggestion ();
 							suggestion.setAssociatedComponent(componentInstance);
 							suggestion.setMessage("processor has more than one partition at criticality E, they might be grouped");
 							suggestions.add(suggestion);

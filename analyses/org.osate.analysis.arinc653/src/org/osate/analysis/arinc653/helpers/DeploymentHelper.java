@@ -1,8 +1,11 @@
 package org.osate.analysis.arinc653.helpers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ReferenceValue;
@@ -238,5 +241,53 @@ public class DeploymentHelper {
 		}
 		
 		return tmp;
+	}
+
+	public static Map<ComponentInstance, Integer> getConnectionsPerProcessor (ComponentInstance partition) {
+		Map<ComponentInstance, Integer> result;
+		ComponentInstance localProcessor;
+		ComponentInstance remoteProcessor;
+		ComponentInstance remotePartition;
+		int temp;
+		
+		localProcessor= DeploymentHelper.getModule (partition);
+		result = new HashMap<ComponentInstance,Integer>();
+		
+		result.put(localProcessor, 0);
+		
+		for (FeatureInstance fi : partition.getFeatureInstances())
+		{
+			//System.out.println(fi);
+			if (fi.getDirection().outgoing())
+			{
+				//System.out.println ("current process=" + partition);
+
+				//System.out.println ("outgoing=" + fi);
+
+				for (ConnectionInstance ci : fi.getSrcConnectionInstances())
+				{
+					remotePartition = ci.getDestination().getContainingComponentInstance();
+					System.out.println ("remote part=" + remotePartition);
+
+					if (remotePartition.getCategory() != ComponentCategory.PROCESS)
+					{
+						continue;
+					}
+					
+					remoteProcessor= DeploymentHelper.getModule (remotePartition);
+					System.out.println ("remote cpu=" + remoteProcessor);
+					temp = 0;
+					
+					if (result.containsKey(remoteProcessor))
+					{
+						temp = result.get(remoteProcessor);
+					}
+					temp = temp + 1;
+					result.put(remoteProcessor,  temp);
+				}
+			}
+		}
+		
+		return result;
 	}
 }
