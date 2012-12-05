@@ -199,6 +199,12 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 					System.out.println("slots sum" + slotsSum);
 					System.out.println("major frame" + majorFrame);
 					
+					/*
+					 * Checking that the major frame (declared
+					 * with the ARINC653::Module_Major_Frame is basically the same
+					 * than the sum of all partitions slots. Otherwise, we would
+					 * have a partition inconsistency.
+					 */
 					if (slotsSum != majorFrame)
 					{
 						errorTitle = "Inconsistency between Major Frame and Slots";
@@ -207,6 +213,10 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 						errorElement = obj;
 					}
 					
+					/*
+					 * Also, we must check that the major frame is valid and
+					 * more than 0.
+					 */
 					if (majorFrame == 0)
 					{
 						errorTitle = "Definition of Major Frame";
@@ -215,7 +225,9 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 						errorElement = obj;
 					}
 					
-
+					/*
+					 * Check that we schedule at least one partition.
+					 */
 					if (slotsAllocationListSize == 0)
 					{
 						errorTitle = "Definition of partitions slots allocation";
@@ -232,7 +244,10 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 						errorElement = obj;
 					}
 					
-					
+					/*
+					 * Verify that all partitions hosted on the processor
+					 * are being scheduled.
+					 */
 					for (String p : containedPartitions)
 					{
 						if (! scheduledPartitions.contains(p))

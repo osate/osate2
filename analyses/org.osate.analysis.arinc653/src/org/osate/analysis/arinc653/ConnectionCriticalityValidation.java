@@ -90,6 +90,11 @@ public class ConnectionCriticalityValidation extends AadlProcessingSwitchWithPro
 
 			public String caseConnectionInstance(ConnectionInstance ci) 
 			{
+				/*
+				 * We check that partitions being connected (either
+				 * on the same processor or not) share the same criticality
+				 * level. If not, we raise a warning.
+				 */
 				List<ConnectionReference> refs;
 				ComponentInstance compSource;
 				ComponentInstance compDest;
