@@ -33,7 +33,7 @@ public class TypeHolder
    /**
     * Holds a DataRepresentation that models Data_Model::Data_Representation.  
     */
-   public DataRepresentation dataRep ;
+   public DataRepresentation dataRep = DataRepresentation.UNKNOWN ;
    
    /**
     * Holds a DataClassifier.

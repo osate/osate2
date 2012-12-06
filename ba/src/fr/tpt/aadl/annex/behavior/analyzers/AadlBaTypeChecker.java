@@ -2500,9 +2500,11 @@ public class AadlBaTypeChecker
 
       if(cp instanceof SubprogramPrototype)
       {
-        if (cp.getConstrainingClassifier() != null)
+        ComponentClassifier cc = cp.getConstrainingClassifier() ;
+        
+        if (cc != null && cc instanceof SubprogramType)
         {
-          result = (SubprogramType) cp.getConstrainingClassifier() ;
+          result = (SubprogramType) cc ;
         }
         else
         {

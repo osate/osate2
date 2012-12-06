@@ -842,7 +842,8 @@ public class AadlBaUtils {
    * @param el the given Element object.
    * @param parentContainer only for AADLBA declarative objects which have no
    * parent set, yet
-   * @return the type holder of the given Element object
+   * @return the type holder of the given Element object. If the given element
+   * is null, it returns the default type holder object.
    * @exception UnsupportedOperationException for the unsupported types
    * or Element instances.
    * @exception DimensionException in any case of array dimension overflow. 
@@ -974,7 +975,11 @@ public class AadlBaUtils {
       
       return result ;
     }
-    else
+    else if (el == null)
+    {
+      // returns the default type holder for untyped prototypes.
+      return new TypeHolder() ; 
+    }
     {
       String errorMsg = "getTypeHolder : " + el.getClass().getSimpleName()
           + " is not supported yet at line " +
