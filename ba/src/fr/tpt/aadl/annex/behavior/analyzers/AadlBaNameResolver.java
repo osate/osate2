@@ -942,12 +942,20 @@ public class AadlBaNameResolver
 	       PropertyUtils.getPropertyExpression(component,
                                           DataModelProperties.BASE_TYPE) ;
 	    
-	    ClassifierValue cv ;
-      
-      cv = (ClassifierValue ) ((ListValue) lpv.get(0)).
-                                   getOwnedListElements().get(0) ;
-      
-      result = identifierComponentResolver(id, cv.getClassifier(), hasToReport) ;
+	    if(lpv.isEmpty() == false)
+	    {
+	      ClassifierValue cv ;
+	      
+	      cv = (ClassifierValue ) ((ListValue) lpv.get(0)).
+	                                   getOwnedListElements().get(0) ;
+	      
+	      result = identifierComponentResolver(id, cv.getClassifier(),
+	                                           hasToReport) ;
+	    }
+	    else
+	    {
+	      result = false ;
+	    }
 	  }
 	  
 	  if(! result && hasToReport)

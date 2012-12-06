@@ -448,6 +448,11 @@ public class AadlBaUtils {
         FeaturePrototype fp = (FeaturePrototype) el ;
         result = fp.getConstrainingClassifier() ;
       }
+      else if (el instanceof FeatureGroupPrototype)
+      {
+        FeatureGroupPrototype fgp = (FeatureGroupPrototype) el ;
+        result = fgp.getConstrainingFeatureGroupType() ;
+      } 
       else
       {
         // Reports error.
@@ -486,6 +491,11 @@ public class AadlBaUtils {
           System.err.println(errorMsg);
           throw new UnsupportedOperationException(errorMsg) ;
         }
+      }
+      else if (el instanceof FeatureGroupPrototypeBinding)
+      {
+        FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) el ;
+        result = (FeatureGroupType) fgpb.getActual().getFeatureType() ;
       }
       else // ComponentPrototypeBinding case.
       {
