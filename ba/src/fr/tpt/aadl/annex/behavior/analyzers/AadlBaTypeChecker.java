@@ -3203,8 +3203,10 @@ public class AadlBaTypeChecker
            TypeCheckRule.DATA_ACCESS_PROTOTYPE,
            BehaviorFeatureType.BEHAVIOR_VARIABLE}),
 
-    DATA_COMPONENT_REFERENCE_OTHER_NAMES("data subcomponent", new Enum[]
+    DATA_COMPONENT_REFERENCE_OTHER_NAMES("data field", new Enum[]
           {FeatureType.DATA_SUBCOMPONENT,
+           TypeCheckRule.DATA_ACCESS,
+           TypeCheckRule.DATA_ACCESS_PROTOTYPE,
            FeatureType.CLASSIFIER_VALUE}),
 
     // Always include at the end of an array:
