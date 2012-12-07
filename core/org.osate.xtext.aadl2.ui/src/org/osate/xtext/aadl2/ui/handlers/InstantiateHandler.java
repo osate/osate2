@@ -115,6 +115,10 @@ public class InstantiateHandler extends AbstractHandler {
 										SystemImplementation si = target.getSystemImplementation();
 //										if (si.eResource().getErrors().isEmpty()){
 											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+											if (sinst == null)
+											{
+												Dialog.showError("Model Instantiate", "Error when instantiating the model");
+											}
 											//										InstantiateModel.rebuildInstanceModelFile(res);
 											//										// unloading causes other entities (e.g., instance editor) to have to load the instance again
 											//										// which they can do when notified
@@ -162,6 +166,11 @@ public class InstantiateHandler extends AbstractHandler {
 										if (cc instanceof SystemImplementation){
 											SystemImplementation si = (SystemImplementation)cc;
 											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+											if (sinst == null)
+											{
+												Dialog.showError("Model Instantiate", "Error when instantiating the model");
+
+											}
 //											if (targetElement.eResource().getErrors().isEmpty()){
 //												// the operation is performed in a transactional editing domain.
 //												try {

@@ -178,7 +178,7 @@ public class InstantiateModel {
 	 * @param pm
 	 * 
 	 * @param errMgr
-	 */
+	 */ 
 	public InstantiateModel(final IProgressMonitor pm) {
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
@@ -222,6 +222,7 @@ public class InstantiateModel {
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
+
 		return root;
 	}
 
@@ -246,6 +247,7 @@ public class InstantiateModel {
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, res);
+
 		return root;
 	}
 
@@ -278,6 +280,11 @@ public class InstantiateModel {
 	 */
 	@SuppressWarnings("unchecked")
 	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
+		List<SystemInstance> resultList;
+		SystemInstance result;
+		
+		result = null;
+		
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
@@ -294,16 +301,26 @@ public class InstantiateModel {
 			}
 		};
 
-		try {
+		try 
+		{
 			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-		} catch (InterruptedException e) {
+			resultList = (List<SystemInstance>)cmd.getResult();
+			result = resultList.get(0);	
+		} 
+		catch (InterruptedException e)
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (RollbackException e) {
+			return null;
+		} 
+		catch (RollbackException e) 
+		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return ((List<SystemInstance>) cmd.getResult()).get(0);
+
+		return result;
 	}
 
 	/*
@@ -328,21 +345,23 @@ public class InstantiateModel {
 		// IResource as we build it.
 		try {
 			aadlResource.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		fillSystemInstance(root);
-		// We're done: Save the model.
-		// We don't respond to a cancel at this point
 
-		monitor.subTask("Saving instance model");
+			fillSystemInstance(root);
+			// We're done: Save the model.
+			// We don't respond to a cancel at this point
 
-		try {
+			monitor.subTask("Saving instance model");
+
 			aadlResource.save(null);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
+		}
+		catch (NullPointerException npe)
+		{
+			npe.printStackTrace();
+			return null;
 		}
 		return root;
 	}
