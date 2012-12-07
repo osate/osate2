@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.menus">
+       <menuContribution locationURI="menu:org.eclipse.ui.main.menu">
+           <menu id="org.osate.validation" label="AADL Validation">
+	           <separator name="translator"  visible="true"/>
+	           <separator name="lute" visible="true"/>
+	           <separator name="modelcheck" visible="true"/>
+	       </menu>
+       </menuContribution>
+   </extension>
+   <extension
+         point="org.osate.pluginsupport.aadlcontribution">
+      <aadlcontribution
+            file="resources/META_Properties.aadl"
+            id="com.rockwellcollins.atc.meta.aadlcontribution.META_Properties">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/PALS_Properties.aadl"
+            id="com.rockwellcollins.atc.meta.aadlcontribution.PALS_Properties">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/PSL_Properties.aadl"
+            id="com.rockwellcollins.atc.meta.aadlcontribution.PSL_Properties">
+      </aadlcontribution>
+   </extension>
+</plugin>

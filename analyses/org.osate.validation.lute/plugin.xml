@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.actionSets">
+		<actionSet
+			id="org.osate.validation.lute.actionSet"
+			label="Lute Set"
+			visible="true">
+			<action
+				id="org.osate.validation.lute.CustomLuteAction.action"
+				label="Run Custom Lute Theorems..."
+				tooltip="Run Custom Lute Theorems..."
+				class="org.osate.validation.lute.CustomLuteAction"
+				menubarPath="org.osate.validation/lute"
+				enablesFor="1">
+				<enablement>
+					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
+				</enablement>
+			</action>
+			<action
+				id="org.osate.validation.lute.BuiltinLuteAction.action"
+				label="Run META theorems"
+				tooltip="Run Built-in METATheorems"
+				class="org.osate.validation.lute.BuiltinLuteAction"
+				menubarPath="org.osate.validation/lute"
+				enablesFor="1">
+				<enablement>
+					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
+				</enablement>
+			</action>
+		</actionSet>
+   </extension>
+</plugin>

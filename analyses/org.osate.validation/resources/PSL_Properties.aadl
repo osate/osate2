@@ -1,0 +1,4 @@
+property set PSL_Properties is
+  Contract: aadlstring applies to (system, process, thread);
+  Facts: aadlstring applies to (system, process, thread);
+end PSL_Properties;

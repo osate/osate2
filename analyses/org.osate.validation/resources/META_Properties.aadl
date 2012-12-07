@@ -1,0 +1,25 @@
+property set META_Properties is
+  Not_Collocated: list of reference (system) applies to (system);
+  Output_Delay: inherit Time applies to (system, process, thread);
+  Leader_Select_ID: aadlinteger applies to (system, process, thread);
+  
+  --------------------------------------------------------------------------------------------------
+  -- Properties of integers
+  --------------------------------------------------------------------------------------------------
+  Init_Value_Int: 	inherit aadlinteger applies to (data);
+  Min_Value_Int:  	inherit aadlinteger applies to (data);
+  Max_Value_Int:  	inherit aadlinteger applies to (data);
+  
+  --------------------------------------------------------------------------------------------------
+  -- Properties of reals
+  --------------------------------------------------------------------------------------------------
+  Init_Value_Real: 	inherit aadlreal applies to (data);
+  Min_Value_Real:  	inherit aadlreal applies to (data);
+  Max_Value_Real:  	inherit aadlreal applies to (data);
+ 
+  --------------------------------------------------------------------------------------------------
+  -- Properties of Boolean
+  --------------------------------------------------------------------------------------------------
+  Init_Value_Bool: 	inherit aadlboolean applies to (data);
+ 
+end META_Properties;
