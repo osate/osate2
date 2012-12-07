@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class LockActionImpl extends SharedDataActionImpl implements LockAction
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected LockActionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.LOCK_ACTION;
-	}
+    return AadlBaPackage.Literals.LOCK_ACTION;
+  }
 
 } //LockActionImpl

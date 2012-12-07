@@ -1471,6 +1471,27 @@ public class AadlBaTypeChecker
             Prototype p = (Prototype) el ;
             tmp.setPrototype(p) ;
           }
+          result = tmp ;
+          break ;
+        }
+        
+        case IN_FEATURE_PROTOTYPE:
+        case OUT_FEATURE_PROTOTYPE:
+        case IN_OUT_FEATURE_PROTOTYPE:
+        {
+          Element el = id.getOsateRef() ;
+          FeaturePrototypeHolder tmp = _fact.createFeaturePrototypeHolder() ;
+          if (el instanceof PrototypeBinding)
+          {
+            PrototypeBinding pb = (PrototypeBinding) el ;
+            tmp.setPrototype(pb.getFormal()) ;
+            tmp.setPrototypeBinding(pb) ;
+          }
+          else
+          {
+            Prototype p = (Prototype) el ;
+            tmp.setPrototype(p) ;
+          }
           
           result = tmp ;
           break ;
@@ -2644,7 +2665,6 @@ public class AadlBaTypeChecker
       {
         DataAccess data = (DataAccess) feat ;
         String accessRight = Aadl2Utils.getAccessRight(data) ;
-        
         currentDirRight = Enum.valueOf(DataAccessRight.class, accessRight);
         expectedDirRight.add(currentDirRight) ;
       }
@@ -3157,7 +3177,11 @@ public class AadlBaTypeChecker
             FeatureType.IN_OUT_EVENT_PORT_PROTOTYPE,
             FeatureType.OUT_EVENT_DATA_PORT_PROTOTYPE,
             FeatureType.IN_OUT_EVENT_DATA_PORT_PROTOTYPE}),
-           
+    
+    FEATURE_PROTOTYPE("feature prototype", new Enum[]
+           {FeatureType.IN_FEATURE_PROTOTYPE,
+            FeatureType.OUT_FEATURE_PROTOTYPE,
+            FeatureType.IN_OUT_FEATURE_PROTOTYPE}), 
            
     IN_PARAMETER("in parameter", new Enum[]
           {FeatureType.IN_PARAMETER,
@@ -3201,12 +3225,14 @@ public class AadlBaTypeChecker
           {FeatureType.DATA_SUBCOMPONENT,
            TypeCheckRule.DATA_ACCESS,
            TypeCheckRule.DATA_ACCESS_PROTOTYPE,
+           TypeCheckRule.FEATURE_PROTOTYPE,
            BehaviorFeatureType.BEHAVIOR_VARIABLE}),
 
     DATA_COMPONENT_REFERENCE_OTHER_NAMES("data field", new Enum[]
           {FeatureType.DATA_SUBCOMPONENT,
            TypeCheckRule.DATA_ACCESS,
            TypeCheckRule.DATA_ACCESS_PROTOTYPE,
+           TypeCheckRule.FEATURE_PROTOTYPE,
            FeatureType.CLASSIFIER_VALUE}),
 
     // Always include at the end of an array:

@@ -40,19 +40,19 @@ import org.eclipse.emf.common.util.EList;
 public interface DispatchTriggerLogicalExpression extends DispatchTriggerCondition
 {
   /**
-	 * Returns the value of the '<em><b>Dispatch Conjunctions</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.DispatchConjunction}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Dispatch Conjunctions</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.DispatchConjunction}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Dispatch Conjunctions</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Dispatch Conjunctions</em>' containment reference list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchTriggerLogicalExpression_DispatchConjunctions()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Dispatch Conjunctions</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getDispatchTriggerLogicalExpression_DispatchConjunctions()
+   * @model containment="true" required="true"
+   * @generated
+   */
   EList<DispatchConjunction> getDispatchConjunctions();
 
 } // DispatchTriggerLogicalExpression

@@ -1759,7 +1759,7 @@ public class AadlBaUtils {
   
   /**
    * If the given Target object is a DataAccessHolder object or a
-   * DataComponentReference object which first element is a DataAccessHolder
+   * DataComponentReference object which the last element is a DataAccessHolder
    * object, it returns the data access right or {@code null} if the default
    * data access right is not set. Else it returns {@code null}.
    * 
@@ -1781,10 +1781,11 @@ public class AadlBaUtils {
       el = dhl.get(dhl.size() -1) ;
     }
     
-    if (el instanceof DataAccessHolder)
+    if (el instanceof DataAccessHolder ||
+          el instanceof DataAccessPrototypeHolder ||
+          el instanceof FeaturePrototypeHolder)
     {
-      return Aadl2Utils.getAccessRight((DataAccess) ((DataAccessHolder)el).
-                                                                 getElement()) ;
+      return Aadl2Utils.getAccessRight(el.getElement()) ;
     }
     else
     {

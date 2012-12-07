@@ -34,21 +34,21 @@ import org.osate.aadl2.Port;
 public interface ActualPortHolder extends PortHolder
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model portRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = port ;'"
-	 * @generated
-	 */
+   * @model portRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = port ;'"
+   * @generated
+   */
   void setPort(Port port);
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Port) element;'"
-	 * @generated
-	 */
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Port) element;'"
+   * @generated
+   */
   Port getPort();
 
 } // ActualPortHolder

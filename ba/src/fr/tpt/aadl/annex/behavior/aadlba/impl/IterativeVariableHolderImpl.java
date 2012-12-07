@@ -38,44 +38,44 @@ import org.eclipse.emf.ecore.EClass;
 public class IterativeVariableHolderImpl extends DataHolderImpl implements IterativeVariableHolder
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected IterativeVariableHolderImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.ITERATIVE_VARIABLE_HOLDER;
-	}
+    return AadlBaPackage.Literals.ITERATIVE_VARIABLE_HOLDER;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setIterativeVariable(IterativeVariable itV)
   {
-		element = itV ;
-	}
+    element = itV ;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public IterativeVariable getIterativeVariable()
   {
-		return (IterativeVariable) element;
-	}
+    return (IterativeVariable) element;
+  }
 
 } //IterativeVariableHolderImpl

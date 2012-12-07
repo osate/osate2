@@ -34,21 +34,21 @@ import org.osate.aadl2.DataSubcomponent;
 public interface DataSubcomponentHolder extends DataHolder, GroupableElement, IndexableElement, Target, ElementValues
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model dataSubcomponentRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataSubcomponent ;'"
-	 * @generated
-	 */
+   * @model dataSubcomponentRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = dataSubcomponent ;'"
+   * @generated
+   */
   void setDataSubcomponent(DataSubcomponent dataSubcomponent);
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataSubcomponent) element;'"
-	 * @generated
-	 */
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (DataSubcomponent) element;'"
+   * @generated
+   */
   DataSubcomponent getDataSubcomponent();
 
 } // DataSubcomponentHolder

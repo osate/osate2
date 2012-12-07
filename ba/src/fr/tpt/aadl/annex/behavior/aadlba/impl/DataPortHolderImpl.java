@@ -38,44 +38,44 @@ import org.osate.aadl2.DataPort;
 public class DataPortHolderImpl extends ActualPortHolderImpl implements DataPortHolder
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected DataPortHolderImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.DATA_PORT_HOLDER;
-	}
+    return AadlBaPackage.Literals.DATA_PORT_HOLDER;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setDataPort(DataPort dataPort)
   {
-		element = dataPort ;
-	}
+    element = dataPort ;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public DataPort getDataPort()
   {
-		return (DataPort) element;
-	}
+    return (DataPort) element;
+  }
 
 } //DataPortHolderImpl

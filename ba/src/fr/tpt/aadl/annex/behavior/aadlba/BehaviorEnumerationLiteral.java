@@ -44,81 +44,81 @@ import org.osate.aadl2.StringLiteral;
 public interface BehaviorEnumerationLiteral extends Literal
 {
   /**
-	 * Returns the value of the '<em><b>Property</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Property</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Property</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Property</em>' reference.
-	 * @see #setProperty(PropertyExpression)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_Property()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Property</em>' reference.
+   * @see #setProperty(PropertyExpression)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_Property()
+   * @model required="true"
+   * @generated
+   */
   PropertyExpression getProperty();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getProperty <em>Property</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getProperty <em>Property</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Property</em>' reference.
-	 * @see #getProperty()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Property</em>' reference.
+   * @see #getProperty()
+   * @generated
+   */
   void setProperty(PropertyExpression value);
 
   /**
-	 * Returns the value of the '<em><b>Enum Literal</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Enum Literal</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Enum Literal</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Enum Literal</em>' reference.
-	 * @see #setEnumLiteral(StringLiteral)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_EnumLiteral()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Enum Literal</em>' reference.
+   * @see #setEnumLiteral(StringLiteral)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_EnumLiteral()
+   * @model required="true"
+   * @generated
+   */
   StringLiteral getEnumLiteral();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getEnumLiteral <em>Enum Literal</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getEnumLiteral <em>Enum Literal</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Enum Literal</em>' reference.
-	 * @see #getEnumLiteral()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Enum Literal</em>' reference.
+   * @see #getEnumLiteral()
+   * @generated
+   */
   void setEnumLiteral(StringLiteral value);
 
   /**
-	 * Returns the value of the '<em><b>Component</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Component</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Component</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Component</em>' reference.
-	 * @see #setComponent(ComponentClassifier)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_Component()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Component</em>' reference.
+   * @see #setComponent(ComponentClassifier)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorEnumerationLiteral_Component()
+   * @model required="true"
+   * @generated
+   */
   ComponentClassifier getComponent();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getComponent <em>Component</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorEnumerationLiteral#getComponent <em>Component</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Component</em>' reference.
-	 * @see #getComponent()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Component</em>' reference.
+   * @see #getComponent()
+   * @generated
+   */
   void setComponent(ComponentClassifier value);
 
 } // BehaviorEnumerationLiteral

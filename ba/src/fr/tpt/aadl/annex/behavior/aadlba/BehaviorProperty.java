@@ -40,29 +40,29 @@ import org.osate.aadl2.PropertySet;
 public interface BehaviorProperty extends ValueConstant, IntegerValueConstant
 {
   /**
-	 * Returns the value of the '<em><b>Property Set</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Property Set</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Property Set</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Property Set</em>' reference.
-	 * @see #setPropertySet(PropertySet)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorProperty_PropertySet()
-	 * @model
-	 * @generated
-	 */
+   * @return the value of the '<em>Property Set</em>' reference.
+   * @see #setPropertySet(PropertySet)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorProperty_PropertySet()
+   * @model
+   * @generated
+   */
   PropertySet getPropertySet();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty#getPropertySet <em>Property Set</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorProperty#getPropertySet <em>Property Set</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Property Set</em>' reference.
-	 * @see #getPropertySet()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Property Set</em>' reference.
+   * @see #getPropertySet()
+   * @generated
+   */
   void setPropertySet(PropertySet value);
 
 } // BehaviorProperty

@@ -179,7 +179,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues"/>
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccessPrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues #//GroupableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataComponentReference" eSuperTypes="#//ElementValues #//Target #//ValueVariable #//IntegerValueVariable">
     <eStructuralFeatures xsi:type="ecore:EReference" name="data" lowerBound="2" upperBound="-1"
         eType="#//DataHolder" containment="true"/>
@@ -293,6 +293,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="unaryBooleanOperator" unique="false"
         eType="#//UnaryBooleanOperator" unsettable="true"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FeaturePrototypeHolder" eSuperTypes="#//DataHolder #//PrototypeHolder #//IndexableElement #//Target #//ElementValues #//GroupableElement"/>
   <eClassifiers xsi:type="ecore:EEnum" name="FeatureType">
     <eLiterals name="NONE" literal="unknown aadl classifier"/>
     <eLiterals name="IN_DATA_PORT" value="1" literal="in data port"/>
@@ -594,7 +595,7 @@
       </eAnnotations>
     </eOperations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramPrototypeHolder" eSuperTypes="#//CalledSubprogramHolder #//PrototypeHolder #//GroupableElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Target" eSuperTypes="#//ParameterLabel #//BehaviorElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="Term" eSuperTypes="#//BehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="factors" lowerBound="1"

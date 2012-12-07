@@ -40,29 +40,29 @@ import org.osate.aadl2.NamedElement;
 public interface ElementHolder extends BehaviorElement
 {
   /**
-	 * Returns the value of the '<em><b>Element</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Element</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Element</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Element</em>' reference.
-	 * @see #setElement(NamedElement)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElementHolder_Element()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Element</em>' reference.
+   * @see #setElement(NamedElement)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getElementHolder_Element()
+   * @model required="true"
+   * @generated
+   */
   NamedElement getElement();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementHolder#getElement <em>Element</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.ElementHolder#getElement <em>Element</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Element</em>' reference.
-	 * @see #getElement()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Element</em>' reference.
+   * @see #getElement()
+   * @generated
+   */
   void setElement(NamedElement value);
 
 } // ElementHolder

@@ -30,6 +30,6 @@ package fr.tpt.aadl.annex.behavior.aadlba;
  * @model
  * @generated
  */
-public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder
+public interface SubprogramPrototypeHolder extends CalledSubprogramHolder, PrototypeHolder, GroupableElement
 {
 } // SubprogramPrototypeHolder

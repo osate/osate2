@@ -34,21 +34,21 @@ import org.osate.aadl2.Subprogram;
 public interface SubprogramHolder extends CalledSubprogramHolder
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model subprogramRequired="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subprogram ;'"
-	 * @generated
-	 */
+   * @model subprogramRequired="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='element = subprogram ;'"
+   * @generated
+   */
   void setSubprogram(Subprogram subprogram);
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @model kind="operation" required="true"
-	 *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Subprogram) element;'"
-	 * @generated
-	 */
+   * @model kind="operation" required="true"
+   *        annotation="http://www.eclipse.org/emf/2002/GenModel body='return (Subprogram) element;'"
+   * @generated
+   */
   Subprogram getSubprogram();
 
 } // SubprogramHolder

@@ -40,55 +40,55 @@ package fr.tpt.aadl.annex.behavior.aadlba;
 public interface BehaviorActionBlock extends BehaviorAction, BehaviorElement
 {
   /**
-	 * Returns the value of the '<em><b>Content</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Content</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Content</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Content</em>' containment reference.
-	 * @see #setContent(BehaviorActions)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Content()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Content</em>' containment reference.
+   * @see #setContent(BehaviorActions)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Content()
+   * @model containment="true" required="true"
+   * @generated
+   */
   BehaviorActions getContent();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getContent <em>Content</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getContent <em>Content</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Content</em>' containment reference.
-	 * @see #getContent()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Content</em>' containment reference.
+   * @see #getContent()
+   * @generated
+   */
   void setContent(BehaviorActions value);
 
   /**
-	 * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Timeout</b></em>' containment reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Timeout</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Timeout</em>' containment reference.
-	 * @see #setTimeout(BehaviorTime)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Timeout()
-	 * @model containment="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Timeout</em>' containment reference.
+   * @see #setTimeout(BehaviorTime)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorActionBlock_Timeout()
+   * @model containment="true"
+   * @generated
+   */
   BehaviorTime getTimeout();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorActionBlock#getTimeout <em>Timeout</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Timeout</em>' containment reference.
-	 * @see #getTimeout()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Timeout</em>' containment reference.
+   * @see #getTimeout()
+   * @generated
+   */
   void setTimeout(BehaviorTime value);
 
 } // BehaviorActionBlock

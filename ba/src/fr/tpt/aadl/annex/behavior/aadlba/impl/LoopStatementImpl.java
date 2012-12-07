@@ -47,157 +47,164 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public abstract class LoopStatementImpl extends BehaviorElementImpl implements LoopStatement
 {
   /**
-	 * The cached value of the '{@link #getBehaviorActions() <em>Behavior Actions</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getBehaviorActions() <em>Behavior Actions</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getBehaviorActions()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getBehaviorActions()
+   * @generated
+   * @ordered
+   */
   protected BehaviorActions behaviorActions;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected LoopStatementImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.LOOP_STATEMENT;
-	}
+    return AadlBaPackage.Literals.LOOP_STATEMENT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public BehaviorActions getBehaviorActions()
   {
-		return behaviorActions;
-	}
+    return behaviorActions;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetBehaviorActions(BehaviorActions newBehaviorActions, NotificationChain msgs)
   {
-		BehaviorActions oldBehaviorActions = behaviorActions;
-		behaviorActions = newBehaviorActions;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, oldBehaviorActions, newBehaviorActions);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    BehaviorActions oldBehaviorActions = behaviorActions;
+    behaviorActions = newBehaviorActions;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, oldBehaviorActions, newBehaviorActions);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setBehaviorActions(BehaviorActions newBehaviorActions)
   {
-		if (newBehaviorActions != behaviorActions) {
-			NotificationChain msgs = null;
-			if (behaviorActions != null)
-				msgs = ((InternalEObject)behaviorActions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
-			if (newBehaviorActions != null)
-				msgs = ((InternalEObject)newBehaviorActions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
-			msgs = basicSetBehaviorActions(newBehaviorActions, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, newBehaviorActions, newBehaviorActions));
-	}
+    if (newBehaviorActions != behaviorActions)
+    {
+      NotificationChain msgs = null;
+      if (behaviorActions != null)
+        msgs = ((InternalEObject)behaviorActions).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
+      if (newBehaviorActions != null)
+        msgs = ((InternalEObject)newBehaviorActions).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, null, msgs);
+      msgs = basicSetBehaviorActions(newBehaviorActions, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS, newBehaviorActions, newBehaviorActions));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
-				return basicSetBehaviorActions(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
+        return basicSetBehaviorActions(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
-				return getBehaviorActions();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
+        return getBehaviorActions();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
-				setBehaviorActions((BehaviorActions)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
+        setBehaviorActions((BehaviorActions)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
-				setBehaviorActions((BehaviorActions)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
+        setBehaviorActions((BehaviorActions)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
-				return behaviorActions != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.LOOP_STATEMENT__BEHAVIOR_ACTIONS:
+        return behaviorActions != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //LoopStatementImpl

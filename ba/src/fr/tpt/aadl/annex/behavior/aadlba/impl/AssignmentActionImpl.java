@@ -49,225 +49,234 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 public class AssignmentActionImpl extends BehaviorElementImpl implements AssignmentAction
 {
   /**
-	 * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getTarget() <em>Target</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTarget()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getTarget()
+   * @generated
+   * @ordered
+   */
   protected Target target;
 
   /**
-	 * The cached value of the '{@link #getValueExpression() <em>Value Expression</em>}' containment reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getValueExpression() <em>Value Expression</em>}' containment reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getValueExpression()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getValueExpression()
+   * @generated
+   * @ordered
+   */
   protected ValueExpression valueExpression;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected AssignmentActionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.ASSIGNMENT_ACTION;
-	}
+    return AadlBaPackage.Literals.ASSIGNMENT_ACTION;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public Target getTarget()
   {
-		return target;
-	}
+    return target;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetTarget(Target newTarget, NotificationChain msgs)
   {
-		Target oldTarget = target;
-		target = newTarget;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__TARGET, oldTarget, newTarget);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    Target oldTarget = target;
+    target = newTarget;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__TARGET, oldTarget, newTarget);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setTarget(Target newTarget)
   {
-		if (newTarget != target) {
-			NotificationChain msgs = null;
-			if (target != null)
-				msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__TARGET, null, msgs);
-			if (newTarget != null)
-				msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__TARGET, null, msgs);
-			msgs = basicSetTarget(newTarget, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__TARGET, newTarget, newTarget));
-	}
+    if (newTarget != target)
+    {
+      NotificationChain msgs = null;
+      if (target != null)
+        msgs = ((InternalEObject)target).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__TARGET, null, msgs);
+      if (newTarget != null)
+        msgs = ((InternalEObject)newTarget).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__TARGET, null, msgs);
+      msgs = basicSetTarget(newTarget, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__TARGET, newTarget, newTarget));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public ValueExpression getValueExpression()
   {
-		return valueExpression;
-	}
+    return valueExpression;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public NotificationChain basicSetValueExpression(ValueExpression newValueExpression, NotificationChain msgs)
   {
-		ValueExpression oldValueExpression = valueExpression;
-		valueExpression = newValueExpression;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, oldValueExpression, newValueExpression);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
+    ValueExpression oldValueExpression = valueExpression;
+    valueExpression = newValueExpression;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, oldValueExpression, newValueExpression);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setValueExpression(ValueExpression newValueExpression)
   {
-		if (newValueExpression != valueExpression) {
-			NotificationChain msgs = null;
-			if (valueExpression != null)
-				msgs = ((InternalEObject)valueExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, null, msgs);
-			if (newValueExpression != null)
-				msgs = ((InternalEObject)newValueExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, null, msgs);
-			msgs = basicSetValueExpression(newValueExpression, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, newValueExpression, newValueExpression));
-	}
+    if (newValueExpression != valueExpression)
+    {
+      NotificationChain msgs = null;
+      if (valueExpression != null)
+        msgs = ((InternalEObject)valueExpression).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, null, msgs);
+      if (newValueExpression != null)
+        msgs = ((InternalEObject)newValueExpression).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, null, msgs);
+      msgs = basicSetValueExpression(newValueExpression, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION, newValueExpression, newValueExpression));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-		switch (featureID) {
-			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
-				return basicSetTarget(null, msgs);
-			case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
-				return basicSetValueExpression(null, msgs);
-		}
-		return super.eInverseRemove(otherEnd, featureID, msgs);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
+        return basicSetTarget(null, msgs);
+      case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
+        return basicSetValueExpression(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
-				return getTarget();
-			case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
-				return getValueExpression();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
+        return getTarget();
+      case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
+        return getValueExpression();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
-				setTarget((Target)newValue);
-				return;
-			case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
-				setValueExpression((ValueExpression)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
+        setTarget((Target)newValue);
+        return;
+      case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
+        setValueExpression((ValueExpression)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
-				setTarget((Target)null);
-				return;
-			case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
-				setValueExpression((ValueExpression)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
+        setTarget((Target)null);
+        return;
+      case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
+        setValueExpression((ValueExpression)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
-				return target != null;
-			case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
-				return valueExpression != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.ASSIGNMENT_ACTION__TARGET:
+        return target != null;
+      case AadlBaPackage.ASSIGNMENT_ACTION__VALUE_EXPRESSION:
+        return valueExpression != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //AssignmentActionImpl

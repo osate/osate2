@@ -41,60 +41,60 @@ import org.eclipse.emf.common.util.EList;
 public interface Term extends BehaviorElement
 {
   /**
-	 * Returns the value of the '<em><b>Factors</b></em>' containment reference list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Factor}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Factors</b></em>' containment reference list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.Factor}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Factors</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Factors</em>' containment reference list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_Factors()
-	 * @model containment="true" required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Factors</em>' containment reference list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_Factors()
+   * @model containment="true" required="true"
+   * @generated
+   */
   EList<Factor> getFactors();
 
   /**
-	 * Returns the value of the '<em><b>Multiplying Operators</b></em>' attribute list.
-	 * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
-	 * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Multiplying Operators</b></em>' attribute list.
+   * The list contents are of type {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
+   * The literals are from the enumeration {@link fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator}.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Multiplying Operators</em>' attribute list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Multiplying Operators</em>' attribute list.
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator
-	 * @see #isSetMultiplyingOperators()
-	 * @see #unsetMultiplyingOperators()
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_MultiplyingOperators()
-	 * @model unique="false" unsettable="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Multiplying Operators</em>' attribute list.
+   * @see fr.tpt.aadl.annex.behavior.aadlba.MultiplyingOperator
+   * @see #isSetMultiplyingOperators()
+   * @see #unsetMultiplyingOperators()
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getTerm_MultiplyingOperators()
+   * @model unique="false" unsettable="true"
+   * @generated
+   */
   EList<MultiplyingOperator> getMultiplyingOperators();
 
   /**
-	 * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list.
-	 * <!-- begin-user-doc -->
+   * Unsets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #isSetMultiplyingOperators()
-	 * @see #getMultiplyingOperators()
-	 * @generated
-	 */
+   * @see #isSetMultiplyingOperators()
+   * @see #getMultiplyingOperators()
+   * @generated
+   */
   void unsetMultiplyingOperators();
 
   /**
-	 * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list is set.
-	 * <!-- begin-user-doc -->
+   * Returns whether the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.Term#getMultiplyingOperators <em>Multiplying Operators</em>}' attribute list is set.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Multiplying Operators</em>' attribute list is set.
-	 * @see #unsetMultiplyingOperators()
-	 * @see #getMultiplyingOperators()
-	 * @generated
-	 */
+   * @return whether the value of the '<em>Multiplying Operators</em>' attribute list is set.
+   * @see #unsetMultiplyingOperators()
+   * @see #getMultiplyingOperators()
+   * @generated
+   */
   boolean isSetMultiplyingOperators();
 
 } // Term

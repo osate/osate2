@@ -41,29 +41,29 @@ import org.osate.aadl2.DataClassifier;
 public interface BehaviorVariable extends BehaviorNamedElement, ArrayableElement
 {
   /**
-	 * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
-	 * <!-- begin-user-doc -->
+   * Returns the value of the '<em><b>Data Classifier</b></em>' reference.
+   * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Data Classifier</em>' reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>Data Classifier</em>' reference.
-	 * @see #setDataClassifier(DataClassifier)
-	 * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorVariable_DataClassifier()
-	 * @model required="true"
-	 * @generated
-	 */
+   * @return the value of the '<em>Data Classifier</em>' reference.
+   * @see #setDataClassifier(DataClassifier)
+   * @see fr.tpt.aadl.annex.behavior.aadlba.AadlBaPackage#getBehaviorVariable_DataClassifier()
+   * @model required="true"
+   * @generated
+   */
   DataClassifier getDataClassifier();
 
   /**
-	 * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * Sets the value of the '{@link fr.tpt.aadl.annex.behavior.aadlba.BehaviorVariable#getDataClassifier <em>Data Classifier</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Data Classifier</em>' reference.
-	 * @see #getDataClassifier()
-	 * @generated
-	 */
+   * @param value the new value of the '<em>Data Classifier</em>' reference.
+   * @see #getDataClassifier()
+   * @generated
+   */
   void setDataClassifier(DataClassifier value);
 
 } // BehaviorVariable

@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class UnlockActionImpl extends SharedDataActionImpl implements UnlockAction
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected UnlockActionImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.UNLOCK_ACTION;
-	}
+    return AadlBaPackage.Literals.UNLOCK_ACTION;
+  }
 
 } //UnlockActionImpl

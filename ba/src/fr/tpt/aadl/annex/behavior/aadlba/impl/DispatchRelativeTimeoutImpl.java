@@ -36,24 +36,24 @@ import org.eclipse.emf.ecore.EClass;
 public class DispatchRelativeTimeoutImpl extends BehaviorElementImpl implements DispatchRelativeTimeout
 {
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected DispatchRelativeTimeoutImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.DISPATCH_RELATIVE_TIMEOUT;
-	}
+    return AadlBaPackage.Literals.DISPATCH_RELATIVE_TIMEOUT;
+  }
 
 } //DispatchRelativeTimeoutImpl

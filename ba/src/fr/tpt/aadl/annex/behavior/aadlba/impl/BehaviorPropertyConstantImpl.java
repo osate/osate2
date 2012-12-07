@@ -48,138 +48,144 @@ import org.osate.aadl2.PropertyConstant;
 public class BehaviorPropertyConstantImpl extends BehaviorPropertyImpl implements BehaviorPropertyConstant
 {
   /**
-	 * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
-	 * <!-- begin-user-doc -->
+   * The cached value of the '{@link #getProperty() <em>Property</em>}' reference.
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getProperty()
-	 * @generated
-	 * @ordered
-	 */
+   * @see #getProperty()
+   * @generated
+   * @ordered
+   */
   protected PropertyConstant property;
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   protected BehaviorPropertyConstantImpl()
   {
-		super();
-	}
+    super();
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   protected EClass eStaticClass()
   {
-		return AadlBaPackage.Literals.BEHAVIOR_PROPERTY_CONSTANT;
-	}
+    return AadlBaPackage.Literals.BEHAVIOR_PROPERTY_CONSTANT;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropertyConstant getProperty()
   {
-		if (property != null && ((EObject)property).eIsProxy()) {
-			InternalEObject oldProperty = (InternalEObject)property;
-			property = (PropertyConstant)eResolveProxy(oldProperty);
-			if (property != oldProperty) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY, oldProperty, property));
-			}
-		}
-		return property;
-	}
+    if (property != null && ((EObject)property).eIsProxy())
+    {
+      InternalEObject oldProperty = (InternalEObject)property;
+      property = (PropertyConstant)eResolveProxy(oldProperty);
+      if (property != oldProperty)
+      {
+        if (eNotificationRequired())
+          eNotify(new ENotificationImpl(this, Notification.RESOLVE, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY, oldProperty, property));
+      }
+    }
+    return property;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public PropertyConstant basicGetProperty()
   {
-		return property;
-	}
+    return property;
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   public void setProperty(PropertyConstant newProperty)
   {
-		PropertyConstant oldProperty = property;
-		property = newProperty;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY, oldProperty, property));
-	}
+    PropertyConstant oldProperty = property;
+    property = newProperty;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY, oldProperty, property));
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
-				if (resolve) return getProperty();
-				return basicGetProperty();
-		}
-		return super.eGet(featureID, resolve, coreType);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
+        if (resolve) return getProperty();
+        return basicGetProperty();
+    }
+    return super.eGet(featureID, resolve, coreType);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eSet(int featureID, Object newValue)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
-				setProperty((PropertyConstant)newValue);
-				return;
-		}
-		super.eSet(featureID, newValue);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
+        setProperty((PropertyConstant)newValue);
+        return;
+    }
+    super.eSet(featureID, newValue);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public void eUnset(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
-				setProperty((PropertyConstant)null);
-				return;
-		}
-		super.eUnset(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
+        setProperty((PropertyConstant)null);
+        return;
+    }
+    super.eUnset(featureID);
+  }
 
   /**
-	 * <!-- begin-user-doc -->
+   * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @generated
-	 */
+   * @generated
+   */
   @Override
   public boolean eIsSet(int featureID)
   {
-		switch (featureID) {
-			case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
-				return property != null;
-		}
-		return super.eIsSet(featureID);
-	}
+    switch (featureID)
+    {
+      case AadlBaPackage.BEHAVIOR_PROPERTY_CONSTANT__PROPERTY:
+        return property != null;
+    }
+    return super.eIsSet(featureID);
+  }
 
 } //BehaviorPropertyConstantImpl
