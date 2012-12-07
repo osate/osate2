@@ -376,7 +376,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							}
 							else
 							{
-								for (int tmp = schedulingSourceIndex ; tmp <= DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
+								for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
 								{
 									Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
 									

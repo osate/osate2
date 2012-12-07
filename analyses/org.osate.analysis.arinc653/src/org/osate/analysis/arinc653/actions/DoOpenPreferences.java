@@ -58,7 +58,7 @@ class PreferencesDialog extends TitleAreaDialog {
 	    gridData.horizontalAlignment = GridData.FILL;
 
 	    Label label1 = new Label(parent, SWT.NONE);
-	    label1.setText("Dependency weight method");
+	    label1.setText("O/S inter-partition policy");
 
 	    interPartitionsConnectionTypeCombo = new Combo(parent, SWT.BORDER | SWT.READ_ONLY);
 
