@@ -64,7 +64,7 @@ class PreferencesDialog extends TitleAreaDialog {
 
 	    
 	    interPartitionsConnectionTypeCombo.setItems(interPartitionsConnectionType);
-	    interPartitionsConnectionTypeCombo.setText(interPartitionsConnectionType[0]);
+	    interPartitionsConnectionTypeCombo.setText(interPartitionsConnectionType[Preferences.getInstance().getConnectionType()]);
 	    
 
 	    return parent;
