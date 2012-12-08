@@ -29,6 +29,17 @@
 					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
 				</enablement>
 			</action>
+			<action
+				id="org.osate.validation.lute.ConsoleLuteAction.action"
+				label="Run LUTE Console"
+				tooltip="Run LUTE Console"
+				class="org.osate.validation.lute.RunConsoleAction"
+				menubarPath="org.osate.validation/lute"
+				enablesFor="1">
+				<enablement>
+					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
+				</enablement>
+			</action>
 		</actionSet>
    </extension>
 </plugin>
