@@ -89,7 +89,6 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 	{
 		int[] dashes = { 4, 2, 10, 5};
 
-		System.out.println("paint binding");
 		// Configure GC.
 		g.setForegroundColor(ColorConstants.red);
 		g.setLineWidth (5);

@@ -206,6 +206,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		}
 	}
 
+	// JD: Add bindings information
 	public void addBindingsToComponent(AadlComponentAdapter componentAdapter) 
 	{
 		Object[] 				subcomponents;
@@ -223,7 +224,6 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		boundProcessor = null;
 		processorContainer = null;
 		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
-		//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 
 		for (int i = 0; i < subcomponents.length; i++) 
 		{
@@ -244,14 +244,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 				if (boundProcessors.size() > 0)
 				{
 					boundProcessor = boundProcessors.get(0);
-					System.out.println ("associated processor " + boundProcessor);
+					//System.out.println ("associated processor " + boundProcessor);
 					if (boundProcessor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
 					{
 						processorContainer = boundProcessor.getContainingComponentInstance();
-						System.out.println ("containing associated processor " + processorContainer);
+						//System.out.println ("containing associated processor " + processorContainer);
 						if ( ! (this.modelElementToAdapterMap.containsKey(boundProcessor)))
 						{
-							System.out.println ("virtual processor not visible, try to take " + processorContainer);
+							//System.out.println ("virtual processor not visible, try to take " + processorContainer);
 							boundProcessor = processorContainer;
 						}	
 					}
@@ -264,13 +264,17 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					if ( (processAdapter != null) && (boundResourceAdapter != null))
 					{
 						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
-						// Add to the main component.
+
+						// JD: check if this happens
+
 						if (bindingAdapter != null)
 						{
+							// JD: Add to the main component.
 							componentAdapter.addChild(bindingAdapter);
 						}
 						else
-						{
+						{	
+							
 							System.out.println ("adapter is null");
 						}
 					}
