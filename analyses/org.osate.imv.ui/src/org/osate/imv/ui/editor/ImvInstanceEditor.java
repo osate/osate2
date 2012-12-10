@@ -15,20 +15,16 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.draw2d.IFigure;
@@ -52,15 +48,9 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorSite;
 import org.eclipse.ui.IFileEditorInput;
-import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.ISelectionListener;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PartInitException;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.WorkbenchException;
 import org.eclipse.ui.actions.ActionFactory.IWorkbenchAction;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.ui.part.FileEditorInput;
@@ -70,10 +60,7 @@ import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.imv.aadldiagram.viewer.AadlDiagramViewerListener;
 import org.osate.imv.aadldiagram.viewer.AadlPersistentDiagramViewer;
 import org.osate.imv.image.AutoImageType;
@@ -93,12 +80,9 @@ import org.osate.imv.ui.actions.AutoImageAction;
 import org.osate.imv.ui.actions.AutoImageSaveNowAction;
 import org.osate.imv.ui.actions.SaveImageAsAction;
 import org.osate.imv.ui.outline.ImvContentOutlinePage;
-import org.osate.imv.ui.perspective.ImvPerspectiveFactory;
 import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 
 public class ImvInstanceEditor extends EditorPart implements ISelectionListener, PropertyChangeListener, AadlDiagramViewerListener {
@@ -180,54 +164,75 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 		resourceFile = fileInput.getFile();
 		String fileName = resourceFile.getName();
 		IPath imvPath = resourceFile.getFullPath();
-		String ext = resourceFile.getFileExtension();
 		IPath instancePath = imvPath.removeFileExtension().removeLastSegments(2);
-		String instanceFileName = fileName.substring(0, fileName.indexOf('.') ) ;
-		if (instanceFileName.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX)){
+		String instanceFileName = fileName.substring(0, fileName.indexOf('.') );
+		
+		if (instanceFileName.endsWith(WorkspacePlugin.INSTANCE_MODEL_POSTFIX))
+		{
 			instancePath = instancePath.append("instances").append(instanceFileName).addFileExtension(WorkspacePlugin.INSTANCE_FILE_EXT);
-		} else {
+		} 
+		else 
+		{
 			// TODO check about aadl2 extension
 			instancePath = instancePath.append(instanceFileName).addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT);
 		}
+		
+		
 		ResourceSet resourceSet = new ResourceSetImpl();
-		if (resourceSet != null) {
+		if (resourceSet != null) 
+		{
 			Resource r = null;
-			try{
-			r = resourceSet.getResource(URI.createPlatformResourceURI(instancePath.toString(), false), true);
-			} catch (Exception e){
-				instancePath = instancePath.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT2);
-				try{
+			try
+			{
 				r = resourceSet.getResource(URI.createPlatformResourceURI(instancePath.toString(), false), true);
-				} catch (Exception e1){
+			} catch (Exception e)
+			{
+				instancePath = instancePath.removeFileExtension().addFileExtension(WorkspacePlugin.SOURCE_FILE_EXT2);
+				try
+				{
+					r = resourceSet.getResource(URI.createPlatformResourceURI(instancePath.toString(), false), true);
+				} 
+				catch (Exception e1)
+				{
 					e1.printStackTrace();
 				}
 			}
+			
 			Object root = r.getContents().get(0);
-			if (root instanceof SystemInstance) {
+			if (root instanceof SystemInstance) 
+			{
 				si = (SystemInstance) root;
 			}
-			if (root instanceof AadlPackage) {
+			if (root instanceof AadlPackage) 
+			{
 				pkg = (AadlPackage) root;
 			}
 
-			try {
+			try 
+			{
 				DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 				DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
-				if (resourceFile.exists()) {
+				if (resourceFile.exists())
+				{
 					// Create Document object from file.
 					imvDocument = docBuilder.parse(resourceFile.getContents());
 					imvDocument.getDocumentElement().normalize();
-				} else {
+				}
+				else
+				{
 					// Create empty document object.
 					imvDocument = docBuilder.newDocument();
 
 					// Create root element.
-					if (si != null){
-					Element rootElement = imvDocument.createElement("instance");
-					rootElement.setAttribute("name", si.getName());
-					imvDocument.appendChild(rootElement);
-					} else {
+					if (si != null)
+					{
+						Element rootElement = imvDocument.createElement("instance");
+						rootElement.setAttribute("name", si.getName());
+						imvDocument.appendChild(rootElement);
+					} 
+					else 
+					{
 						Element rootElement = imvDocument.createElement("package");
 						rootElement.setAttribute("name", pkg.getName());
 						imvDocument.appendChild(rootElement);
@@ -247,22 +252,15 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 
 				initialized = true;
 
-			} catch (CoreException e) {
-				e.printStackTrace();
-			} catch (TransformerException e) {
-				e.printStackTrace();
-			} catch (ParserConfigurationException e) {
-				e.printStackTrace();
-			} catch (SAXException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
+			} 
+			catch (Exception e) 
+			{
 				e.printStackTrace();
 			}
 		}
 
 	}
 
-	@Override
 	public void createPartControl(Composite parent) {
 		this.parent = parent;
 
@@ -489,7 +487,6 @@ public class ImvInstanceEditor extends EditorPart implements ISelectionListener,
 		return modelProvider;
 	}
 
-	@Override
 	public Object getAdapter(Class required) {
 		if(!this.initialized)
 			return null;

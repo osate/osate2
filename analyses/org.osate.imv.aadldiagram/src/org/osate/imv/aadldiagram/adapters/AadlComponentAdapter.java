@@ -186,7 +186,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 			this.figureMoverDelegate.mouseReleased(me);
 	}
 
-	@Override
+
 	public ConnectionAnchor getConnectionAnchor(Connection connection) {
 		return new ComponentConnectionAnchor(this.getFigure(), connection);
 	}

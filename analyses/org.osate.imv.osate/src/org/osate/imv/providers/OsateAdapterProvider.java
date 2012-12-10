@@ -70,7 +70,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 	private ILabelProvider labelProvider;
 
-	public OsateAdapterProvider(){
+	public OsateAdapterProvider()
+	{
 		this.modelElementToAdapterMap = new HashMap<Object, IAadlElementAdapter>();
 		this.labelProvider = new FigureLabelProvider();
 	}
@@ -85,66 +86,82 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 		// Add the container's features.
 		this.addFeaturesToAdapter(containerAdapter);
-		if (modelElement instanceof ComponentImplementation|| modelElement instanceof ComponentInstance){
+		if ((modelElement instanceof ComponentImplementation) || (modelElement instanceof ComponentInstance))
+		{
 			// Add the container's subcomponents.
 			this.addSubcomponentsToComponent(containerAdapter, nesting);
 			// Add connections.
 			this.addConnectionsToComponent(containerAdapter);
+			this.addBindingsToComponent(containerAdapter);
 		}
 
 		return containerAdapter;
 	}
 
 
-	private ComponentAdapterCategory getComponentCategory(Object comp) {
-		ComponentAdapterCategory category = null;
-		ComponentCategory cat = null;
+	private ComponentAdapterCategory getComponentCategory (Object comp) 
+	{
+		ComponentAdapterCategory category 	= null;
+		ComponentCategory cat 				= null;
 		if (comp instanceof ComponentClassifier)
+		{
 			cat =((ComponentClassifier)comp).getCategory();
+		}
 		else if (comp instanceof Subcomponent)
+		{
 			cat =((Subcomponent)comp).getCategory();
+		}
 		else if (comp instanceof ComponentInstance)
+		{
 			cat =((ComponentInstance)comp).getCategory();
-		switch(cat) {
-		case SYSTEM:
-			category = ComponentAdapterCategory.SYSTEM;
-			break;
-		case PROCESS:
-			category = ComponentAdapterCategory.PROCESS;
-			break;
-		case THREAD:
-			category = ComponentAdapterCategory.THREAD;
-			break;
-		case DEVICE:
-			category = ComponentAdapterCategory.DEVICE;
-			break;
-		case BUS:
-			category = ComponentAdapterCategory.BUS;
-			break;
-		case VIRTUAL_BUS:
-			category = ComponentAdapterCategory.VIRTUAL_BUS;
-			break;
-		case MEMORY:
-			category = ComponentAdapterCategory.MEMORY;
-			break;
-		case ABSTRACT:
-			category = ComponentAdapterCategory.ABSTRACT;
-			break;
-		case PROCESSOR:
-			category = ComponentAdapterCategory.PROCESSOR;
-			break;
-		case VIRTUAL_PROCESSOR:
-			category = ComponentAdapterCategory.VIRTUAL_PROCESSOR;
-			break;
-		case THREAD_GROUP:
-			category = ComponentAdapterCategory.THREAD_GROUP;
-			break;
-		case DATA:
-			category = ComponentAdapterCategory.DATA;
-			break;
-		case SUBPROGRAM:
-			category = ComponentAdapterCategory.SUBPROGRAM;
-			break;
+		}
+		
+		if (cat == null)
+		{
+			return null;
+		}
+		
+		switch(cat) 
+		{
+			case SYSTEM:
+				category = ComponentAdapterCategory.SYSTEM;
+				break;
+			case PROCESS:
+				category = ComponentAdapterCategory.PROCESS;
+				break;
+			case THREAD:
+				category = ComponentAdapterCategory.THREAD;
+				break;
+			case DEVICE:
+				category = ComponentAdapterCategory.DEVICE;
+				break;
+			case BUS:
+				category = ComponentAdapterCategory.BUS;
+				break;
+			case VIRTUAL_BUS:
+				category = ComponentAdapterCategory.VIRTUAL_BUS;
+				break;
+			case MEMORY:
+				category = ComponentAdapterCategory.MEMORY;
+				break;
+			case ABSTRACT:
+				category = ComponentAdapterCategory.ABSTRACT;
+				break;
+			case PROCESSOR:
+				category = ComponentAdapterCategory.PROCESSOR;
+				break;
+			case VIRTUAL_PROCESSOR:
+				category = ComponentAdapterCategory.VIRTUAL_PROCESSOR;
+				break;
+			case THREAD_GROUP:
+				category = ComponentAdapterCategory.THREAD_GROUP;
+				break;
+			case DATA:
+				category = ComponentAdapterCategory.DATA;
+				break;
+			case SUBPROGRAM:
+				category = ComponentAdapterCategory.SUBPROGRAM;
+				break;
 		}
 
 		return category;
@@ -176,23 +193,61 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			// Add subcomponent to component.
 			componentAdapter.addChild(subcomponentAdapter);
 			// phf: recursively add subcomponents
-			if (nesting > 1 && subcomponentAdapter.getModelElement() instanceof ComponentInstance){
-			this.addSubcomponentsToComponent(subcomponentAdapter, nesting-1);
-			// Add connections.
-			this.addConnectionsToComponent(subcomponentAdapter);
+			if ((nesting > 1) && (subcomponentAdapter.getModelElement() instanceof ComponentInstance))
+			{
+				this.addSubcomponentsToComponent(subcomponentAdapter, nesting-1);
+				// Add connections.
+				this.addConnectionsToComponent(subcomponentAdapter);
 			}
 		}
 	}
 
-	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) {
-		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
+	public void addBindingsToComponent(AadlComponentAdapter componentAdapter) 
+	{
+		Object[] 				subcomponents;
+		IAadlElementAdapter 	adapter;
+		List<ComponentInstance> boundProcessors;
+		ComponentInstance 		boundProcessor;
+		ComponentInstance		processorContainer;
+		
+		System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 
+		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
+		//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
+
+		for (int i = 0; i < subcomponents.length; i++) 
+		{
+			if (! this.modelElementToAdapterMap.containsKey(subcomponents[i]))
+			{
+	
+				continue;
+			}
+			
+			adapter = this.modelElementToAdapterMap.get(subcomponents[i]);
+			
+			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+			{
+				System.out.println ("process " + adapter.getModelElement());
+				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
+				
+				if (boundProcessors.size() > 0)
+				{
+					boundProcessor = boundProcessors.get(0);
+					System.out.println ("associated processor " + boundProcessor);
+				}
+			}
+			
+		}
+	}
+	
+	
+	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) 
+	{
+		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
+//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
 			ConnectionItem connectionItem = it.next();
-
-			Connection conn = (Connection)connectionItem.getModelElement();
-			Context srcCxt = conn.getAllSourceContext();
-			Context dstCxt = conn.getAllDestinationContext();
+			
 //			IAadlElementAdapter srcAdapter = null;
 //			IAadlElementAdapter dstAdapter = null;
 //			if (srcCxt instanceof Subcomponent){

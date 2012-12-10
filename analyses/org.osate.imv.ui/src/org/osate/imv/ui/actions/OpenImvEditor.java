@@ -12,24 +12,16 @@
 package org.osate.imv.ui.actions;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IFolder;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IPerspectiveDescriptor;
-import org.eclipse.ui.ISelectionListener;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchPart;
@@ -38,13 +30,11 @@ import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
-import org.eclipse.ui.actions.ActionFactory;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.imv.ui.ImvUiPlugin;
@@ -81,12 +71,15 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 	private void openImvEditor(NamedElement si){
 		// Create the editor input object.
 		IEditorInput input = createEditorInput(si);
-		if(input != null) {
+		if(input != null) 
+		{
 			IWorkbenchPage page = window.getActivePage();
-			try{
+			try
+			{
 				page.openEditor(input, ImvInstanceEditor.ID);
 				openImvPerspective();
-			}catch(PartInitException e){
+			}
+			catch(PartInitException e){
 				System.err.println("Failed to open IMV editor for: " + si.getName());
 				e.printStackTrace();
 			}
@@ -95,24 +88,26 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 
 
 
-	private IEditorInput createEditorInput(NamedElement si) {
+	private IEditorInput createEditorInput(NamedElement si) 
+	{
 		IEditorInput editorInput = null;
-		IWorkspaceRoot workspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 		Resource eRes = si.eResource();
 		URI eUri = eRes.getURI();
 
 		String last = eUri.lastSegment();
 		String filename = last.substring(0, last.indexOf('.'));
 		URI path = eUri.trimSegments(1);
-		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR)){
+		if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_INSTANCES_DIR))
+		{
 			path = path.trimSegments(1);
 		}
-		URI imvURI = path.appendSegment("imv");
-		imvURI = imvURI.appendSegment(filename );
-		imvURI = imvURI.appendFileExtension("imv");
-			AadlUtil.makeSureFoldersExist(OsateResourceUtil.getOsatePath(imvURI));
-			IFile imvFile = OsateResourceUtil.getOsateIFile(imvURI);
-			editorInput = new FileEditorInput(imvFile);
+		
+		URI imvURI = path.appendSegment ("imv");
+		imvURI = imvURI.appendSegment (filename);
+		imvURI = imvURI.appendFileExtension ("imv");
+		AadlUtil.makeSureFoldersExist(OsateResourceUtil.getOsatePath (imvURI));
+		IFile imvFile = OsateResourceUtil.getOsateIFile (imvURI);
+		editorInput = new FileEditorInput (imvFile);
 
 		return editorInput;
 	}
@@ -126,7 +121,8 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		// the Aadl2Activator must be instantiated before we get the ResourceSet.
 		Aadl2Activator.getInstance();
 		root = AadlUtil.getElement(currentSelection);
-		if(root == null){
+		if(root == null)
+		{
 			Resource resource = OsateResourceUtil.getResource((IResource) currentSelection);
 			EObject eobj = resource.getContents().get(0);
 			if(eobj instanceof Element)
@@ -134,63 +130,77 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		}
 
 		// Get the system instance (if any)
-		if (root instanceof InstanceObject || root instanceof AadlPackage){
+		if (root instanceof InstanceObject || root instanceof AadlPackage)
+		{
 			final NamedElement si = (NamedElement)root;
+			
 			// We MUST open the IMV editor from the UI thread!
-			window.getShell().getDisplay().syncExec(new Runnable(){
+			window.getShell().getDisplay().syncExec(new Runnable()
+			{
 
-				@Override
-				public void run() {
+				public void run() 
+				{
 					// Open the IMV editor for the currently selected instance model or Aadl Package.
 					openImvEditor(si);
 				}
 			});
-		}else{
+		}
+		else
+		{
 			System.err.println("Action should NOT be enabled: OpenImvEditor");
 		}
 
 	}
 
-	private void openImvPerspective(){
+	private void openImvPerspective()
+	{
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
 		// Get the active page if one exists.
 		IWorkbenchPage activePage = window.getActivePage();
 		// Get perspective descriptor.
 		IPerspectiveDescriptor desc = workbench.getPerspectiveRegistry().findPerspectiveWithId(ImvPerspectiveFactory.ID);
-		if(activePage != null && desc != null){
-			try {
+		if(activePage != null && desc != null)
+		{
+			try
+			{
 				// Make the IMV perspective the active perspective if it is not already.
-				if(ImvPerspectiveFactory.ID != activePage.getPerspective().getId()){
+				if(ImvPerspectiveFactory.ID != activePage.getPerspective().getId())
+				{
 					workbench.showPerspective(ImvPerspectiveFactory.ID, window);
 				}
-			} catch (WorkbenchException e) {
+			} 
+			catch (WorkbenchException e) 
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 
-	@Override
+
 	public void dispose() {
 		// Nothing to dispose of.
 	}
 
 
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) {
+
+	public void selectionChanged(IAction action, ISelection selection) 
+	{
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection)selection).size() == 1) 
+		{
 			Object object = ((IStructuredSelection)selection).getFirstElement();
 			currentSelection = object;
 		}
 	}
 
-	@Override
-	public void init(IWorkbenchWindow window) {
+
+	public void init(IWorkbenchWindow window)
+	{
 		this.window = window;
 	}
 
-	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
+	public void setActivePart(IAction action, IWorkbenchPart targetPart) 
+	{
 		this.window = targetPart.getSite().getWorkbenchWindow();
 	}
 
