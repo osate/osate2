@@ -40,11 +40,13 @@ import org.eclipse.draw2d.Connection;
 import org.eclipse.draw2d.ConnectionAnchor;
 import org.eclipse.draw2d.MouseEvent;
 import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.zest.layouts.LayoutRelationship;
 import org.osate.imv.aadldiagram.aadlfigures.AadlFigureFactory;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecorationType;
 import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecorationType;
+import org.osate.imv.aadldiagram.draw2d.SelectableMevBindingFigure;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
 import org.osate.imv.aadldiagram.layout.GraphLayoutBinding;
 import org.osate.imv.aadldiagram.layout.GraphLayoutConnection;
@@ -56,7 +58,7 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 	public static final int HIGLIGHTED_LINE_WIDTH = 3;
 	public static final int NORMAL_LINE_WIDTH = 1;
 
-	private SelectableMevConnectionFigure figure;
+	private SelectableMevBindingFigure figure;
 
 	private IAadlElementAdapter processAdapter;
 	private IAadlElementAdapter boundResourceAdapter;
@@ -74,10 +76,11 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 		this.processAdapter = processAdapter;
 		this.boundResourceAdapter = boundResourceAdapter;
 		this.decorationType = decorationType;
+		
 	}
 
-	@Override
-	public SelectableMevConnectionFigure getFigure() {
+
+	public SelectableMevBindingFigure getFigure() {
 		if(figure == null) {
 			// Build figure.
 			figure = AadlFigureFactory.getInstance().buildFigure(this);
@@ -100,6 +103,7 @@ public class AadlBindingAdapter extends AbstractAadlElementAdapter {
 		super.highlight(highlight, highlightColor);
 		// Since this is a connection, the line width will be increased when the connection
 		// is highlighted.
+		this.getFigure().setLineStyle(SWT.LINE_DASH);
 		if(highlight)
 			this.getFigure().setLineWidth(HIGLIGHTED_LINE_WIDTH);
 		else

@@ -23,4 +23,5 @@ Export-Package: org.osate.imv.aadldiagram,
  org.osate.imv.aadldiagram.viewer,
  org.osate.imv.aadldiagram.visitors
 Import-Package: org.eclipse.emf.common.util,
- org.osate.aadl2.instance
+ org.osate.aadl2.instance,
+ org.osate.imv.aadldiagram.draw2d

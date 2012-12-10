@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -53,6 +54,7 @@ import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecoratorLocato
 import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration;
 import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration.DecorationType;
 import org.osate.imv.aadldiagram.draw2d.BendpointHelper;
+import org.osate.imv.aadldiagram.draw2d.SelectableMevBindingFigure;
 import org.osate.imv.aadldiagram.draw2d.SelectableMevConnectionFigure;
 import org.osate.imv.aadldiagram.layout.AadlComponentLayout;
 import org.osate.imv.aadldiagram.propertydecorations.PropertyDecorationSupport;
@@ -233,13 +235,13 @@ public class AadlFigureFactory {
 		return figure;
 	}
 
-	public SelectableMevConnectionFigure buildFigure(AadlBindingAdapter adapter) {
-		SelectableMevConnectionFigure figure = null;
+	public SelectableMevBindingFigure buildFigure(AadlBindingAdapter adapter) {
+		SelectableMevBindingFigure figure = null;
 		IAadlElementAdapter processAdapter = adapter.getProcessAdapter();
 		IAadlElementAdapter boundResourceAdapter = adapter.getBoundResourceAdapter();
 
 		// Create figure.
-		figure = new SelectableMevConnectionFigure();
+		figure = new SelectableMevBindingFigure();
 
 		// Set connection anchors.
 		figure.setSourceAnchor(processAdapter.getConnectionAnchor(figure));

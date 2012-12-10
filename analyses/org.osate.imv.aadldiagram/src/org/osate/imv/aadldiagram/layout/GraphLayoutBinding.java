@@ -33,93 +33,75 @@
  *
  * </copyright>
  */
-package org.osate.imv.aadldiagram.bindingdecorations;
 
-import org.eclipse.draw2d.ColorConstants;
-import org.eclipse.draw2d.Figure;
-import org.eclipse.draw2d.Graphics;
-import org.eclipse.draw2d.RotatableDecoration;
-import org.eclipse.draw2d.geometry.Dimension;
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.swt.SWT;
+package org.osate.imv.aadldiagram.layout;
 
-public class BindingDecoration extends Figure implements RotatableDecoration {
+import org.eclipse.zest.layouts.LayoutBendPoint;
+import org.eclipse.zest.layouts.LayoutEntity;
+import org.eclipse.zest.layouts.LayoutRelationship;
+import org.eclipse.zest.layouts.constraints.LayoutConstraint;
+import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
+import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
+import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 
-	private static final Dimension SIZE = new Dimension(20, 20);
 
-	public static enum DecorationType {MEMORY, PROCESS, NONE};
+public class GraphLayoutBinding implements LayoutRelationship {
 
-	private float rotationDegrees;
-	private DecorationType decorationType;
+	private Object layoutInformation = null;
 
-	/**
-	 * Constructs a PortConnectionDecoration.
-	 */
-	public BindingDecoration(DecorationType decorationType) {
-		this.decorationType = decorationType;
-		this.getBounds().setSize(SIZE);
+	private AadlBindingAdapter adapter;
+
+	public GraphLayoutBinding(AadlBindingAdapter adapter) {
+		this.adapter = adapter;
 	}
 
-	/**
-	 * Sets the location of this figure.
-	 *
-	 * @param p The location
-	 */
-	public void setLocation(Point p)
-	{
-		this.getBounds().setLocation(p.x - (int)(SIZE.width / 2.0f), p.y - (int)(SIZE.height / 2.0f));
+	public void clearBendPoints() {
+		// Not used.
 	}
 
-	/**
-	 * Sets the reference point used to determine the rotation angle.
-	 *
-	 * @param p
-	 *            The reference point
-	 */
-	public void setReferencePoint(Point ref)
-	{
-		Point pt = Point.SINGLETON;
-		pt.setLocation(ref);
-		pt.negate().translate(getBounds().getLocation());
-		rotationDegrees = (float)Math.toDegrees(Math.atan2(pt.y, pt.x));
-		this.repaint();
+	public LayoutEntity getDestinationInLayout() {
+		// We need to return the destinations parent figure if the parent figure is not
+		// currently the container figure.
+		IAadlElementAdapter parentAdapter = this.adapter.getBoundResourceAdapter().getParentAdapter();
+		if(!parentAdapter.isContainer())
+			return (LayoutEntity)parentAdapter.getLayoutItem();
+		else
+			return (LayoutEntity)this.adapter.getBoundResourceAdapter().getLayoutItem();
 	}
 
-	public void paintFigure(Graphics g) 
-	{
-		int[] dashes = { 4, 2, 10, 5};
-
-		System.out.println("paint binding");
-		// Configure GC.
-		g.setForegroundColor(ColorConstants.red);
-		g.setLineWidth (5);
-		g.setLineStyle(SWT.LINE_DASH);
-		g.setLineDash(dashes);
-		
-		g.setAntialias(SWT.ON);
-
-		// Transform GC
-		g.translate(this.getBounds().getCenter());
-		g.rotate(this.rotationDegrees);
-
-		switch(this.decorationType)
-		{
-			default:
-			{
-				this.paintDefaultBindingDecoration(g);
-				break;
-			}
-
-		}
+	public Object getLayoutInformation() {
+		return layoutInformation;
 	}
 
+	public LayoutEntity getSourceInLayout() {
+		// We need to return the sources parent figure if the parent figure is not
+		// currently the container figure.
+		IAadlElementAdapter parentAdapter = this.adapter.getProcessAdapter().getParentAdapter();
+		if(!parentAdapter.isContainer())
+			return (LayoutEntity)parentAdapter.getLayoutItem();
+		else
+			return (LayoutEntity)this.adapter.getProcessAdapter().getLayoutItem();
+	}
 
-	protected void paintDefaultBindingDecoration(Graphics g) {
-		int x = 0;
-		int h = 5;
-		g.drawLine(x, h, x, -h);
-		x = -4;
-		g.drawLine(x, h, x, -h);
+	public void populateLayoutConstraint(LayoutConstraint constraint) {
+		// Not used.
+	}
+
+	public void setBendPoints(LayoutBendPoint[] bendPoints) {
+		// Not used.
+	}
+
+	public void setLayoutInformation(Object layoutInformation) {
+		this.layoutInformation = layoutInformation;
+		System.out.println("set layout info" + layoutInformation);
+	}
+
+	public Object getGraphData() {
+		return this.adapter.getModelElement();
+	}
+
+	public void setGraphData(Object o) {
+		// Do nothing.
 	}
 
 }
