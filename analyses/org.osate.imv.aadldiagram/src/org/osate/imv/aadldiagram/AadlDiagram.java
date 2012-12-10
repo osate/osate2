@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -9,10 +10,7 @@
  *                                                                                  *
  ************************************************************************************/
 
-
 package org.osate.imv.aadldiagram;
-
-
 
 import java.util.ArrayList;
 import java.util.Iterator;

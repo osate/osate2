@@ -42,10 +42,13 @@ import org.osate.imv.aadldiagram.aadlfigures.features.FeatureFigure;
 import org.osate.imv.aadldiagram.aadlfigures.features.FeatureGroupFigure;
 import org.osate.imv.aadldiagram.aadlfigures.features.ParameterFeatureFigure;
 import org.osate.imv.aadldiagram.aadlfigures.features.FeatureFigure.FeatureLabelStyle;
+import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
+import org.osate.imv.aadldiagram.bindingdecorations.BindingDecoration;
+import org.osate.imv.aadldiagram.bindingdecorations.BindingDecoratorLocator;
 import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecoratorLocator;
 import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration;
 import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration.DecorationType;
@@ -213,18 +216,56 @@ public class AadlFigureFactory {
 		figure.setAntialias(SWT.ON);
 
 		// Set decoration.
-		switch(adapter.getDecorationType()) {
-		case IMMEDIATE:
-			figure.add(new PortConnectionDecoration(DecorationType.IMMEDIATE), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-			break;
-		case DELAYED:
-			figure.add(new PortConnectionDecoration(DecorationType.DELAYED), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
-			break;
+		switch(adapter.getDecorationType()) 
+		{
+			case IMMEDIATE:
+			{
+				figure.add(new PortConnectionDecoration(DecorationType.IMMEDIATE), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+				break;
+			}
+			case DELAYED:
+			{
+				figure.add(new PortConnectionDecoration(DecorationType.DELAYED), new ConnectionDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+				break;
+			}
 		}
 
 		return figure;
 	}
 
+	public SelectableMevConnectionFigure buildFigure(AadlBindingAdapter adapter) {
+		SelectableMevConnectionFigure figure = null;
+		IAadlElementAdapter processAdapter = adapter.getProcessAdapter();
+		IAadlElementAdapter boundResourceAdapter = adapter.getBoundResourceAdapter();
+
+		// Create figure.
+		figure = new SelectableMevConnectionFigure();
+
+		// Set connection anchors.
+		figure.setSourceAnchor(processAdapter.getConnectionAnchor(figure));
+		figure.setTargetAnchor(boundResourceAdapter.getConnectionAnchor(figure));
+
+		figure.setConnectionRouter(new BendpointConnectionRouter());
+		figure.setLayoutManager(new DelegatingLayout());
+
+		BendpointHelper.setDefaultBendpoints(figure);
+
+		// Configure connection figure.
+		figure.setAntialias(SWT.ON);
+
+		// Set decoration.
+		switch(adapter.getDecorationType()) 
+		{
+			default:
+			{
+				figure.add(new BindingDecoration(BindingDecoration.DecorationType.PROCESS), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			}
+		}
+
+		return figure;
+	}
+	
+	
 	private ComponentFigure buildBusFigure(AadlComponentAdapter adapter, boolean virtual) {
 		ComponentFigure figure = new BusFigure(virtual);
 		return figure;

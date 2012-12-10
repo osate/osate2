@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -38,6 +39,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 
 	private List<AadlComponentAdapter> childComponents;
 	private List<AadlFeatureAdapter> childFeatures;
+	private List<AadlBindingAdapter> childBindings;
 	private List<AadlConnectionAdapter> childConnections;
 
 	/**
@@ -110,7 +112,12 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 	}
 
 	public void addChild(AadlComponentAdapter adapter) {
-		this.childComponents.add(adapter);
+		this.childComponents.add (adapter);
+		this.addChildFigure(adapter);
+	}
+	
+	public void addChild (AadlBindingAdapter adapter) {
+		this.childBindings.add (adapter);
 		this.addChildFigure(adapter);
 	}
 
@@ -142,6 +149,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		retList.addAll(this.childComponents);
 		retList.addAll(this.childFeatures);
 		retList.addAll(this.childConnections);
+		retList.addAll(this.childBindings);
 		// phf:  recurse on subcomponent adapters
 		for(AadlComponentAdapter comp : this.childComponents) {
 			for(Iterator<IAadlElementAdapter> it = comp.getAllChildren(); it.hasNext();)
@@ -155,6 +163,7 @@ public class AadlComponentAdapter extends AbstractAadlElementAdapter {
 		this.childComponents = new ArrayList<AadlComponentAdapter>();
 		this.childFeatures = new ArrayList<AadlFeatureAdapter>();
 		this.childConnections = new ArrayList<AadlConnectionAdapter>();
+		this.childBindings = new ArrayList<AadlBindingAdapter>();
 	}
 
 	private void addChildFigure(IAadlElementAdapter elementAdapter) {

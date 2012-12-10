@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -51,12 +52,15 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.impl.ConnectionReferenceImpl;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
+
+import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.ComponentAdapterCategory;
 import org.osate.imv.aadldiagram.adapters.FeatureAdapterCategory;
 import org.osate.imv.aadldiagram.adapters.FeatureDirectionType;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecorationType;
+import org.osate.imv.aadldiagram.bindingdecorations.BindingDecorationType;
 import org.osate.imv.aadldiagram.providers.IAadlAdapterProvider;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -209,9 +213,15 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		List<ComponentInstance> boundProcessors;
 		ComponentInstance 		boundProcessor;
 		ComponentInstance		processorContainer;
-		
-		System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
+		ComponentInstance		process;
+		IAadlElementAdapter 	processAdapter;
+		IAadlElementAdapter 	boundResourceAdapter;
+		AadlBindingAdapter	 	bindingAdapter; 
 
+		System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
+		process = null;
+		boundProcessor = null;
+		processorContainer = null;
 		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
 		//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 
@@ -228,12 +238,42 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
 			{
 				System.out.println ("process " + adapter.getModelElement());
+				process = (ComponentInstance) adapter.getModelElement();
 				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
 				
 				if (boundProcessors.size() > 0)
 				{
 					boundProcessor = boundProcessors.get(0);
 					System.out.println ("associated processor " + boundProcessor);
+					if (boundProcessor.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR)
+					{
+						processorContainer = boundProcessor.getContainingComponentInstance();
+						System.out.println ("containing associated processor " + processorContainer);
+						if ( ! (this.modelElementToAdapterMap.containsKey(boundProcessor)))
+						{
+							System.out.println ("virtual processor not visible, try to take " + processorContainer);
+							boundProcessor = processorContainer;
+						}	
+					}
+				}
+				
+				if ( (process != null) && (boundProcessor != null))
+				{
+					processAdapter = this.modelElementToAdapterMap.get(process);
+					boundResourceAdapter = this.modelElementToAdapterMap.get(boundProcessor);
+					if ( (processAdapter != null) && (boundResourceAdapter != null))
+					{
+						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
+						// Add to the main component.
+						if (bindingAdapter != null)
+						{
+							componentAdapter.addChild(bindingAdapter);
+						}
+						else
+						{
+							System.out.println ("adapter is null");
+						}
+					}
 				}
 			}
 			

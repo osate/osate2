@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -11,6 +12,7 @@
 
 package org.osate.imv.aadldiagram.visitors;
 
+import org.osate.imv.aadldiagram.adapters.AadlBindingAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
@@ -33,6 +35,10 @@ public class AadlAdapterVisitor {
 	}
 
 	public void visitAadlConnectionAdapter(AadlConnectionAdapter adapter) {
+		// Explicitly do nothing - this is a default implementation.
+	}
+	
+	public void visitAadlBindingAdapter(AadlBindingAdapter adapter) {
 		// Explicitly do nothing - this is a default implementation.
 	}
 }

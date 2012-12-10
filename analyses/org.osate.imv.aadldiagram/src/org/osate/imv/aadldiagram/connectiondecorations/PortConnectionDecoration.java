@@ -1,5 +1,6 @@
 /************************************************************************************
- * Copyright (c) 2012 Brandon Breuil. Contributions by Peter Feiler.                                               *
+ * Copyright (c) 2012 Brandon Breuil.                                               *
+ * Contributions by Peter Feiler and Julien Delange                                 *
  *                                                                                  *
  * All rights reserved. This program and the accompanying materials are made        *
  * available under the terms of the Eclipse Public License v1.0 which accompanies   *
@@ -42,7 +43,8 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 	 * @param p The location
 	 */
 	@Override
-	public void setLocation(Point p) {
+	public void setLocation(Point p)
+	{
 		this.getBounds().setLocation(p.x - (int)(SIZE.width / 2.0f), p.y - (int)(SIZE.height / 2.0f));
 	}
 
@@ -53,7 +55,8 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 	 *            The reference point
 	 */
 	@Override
-	public void setReferencePoint(Point ref) {
+	public void setReferencePoint(Point ref)
+	{
 		Point pt = Point.SINGLETON;
 		pt.setLocation(ref);
 		pt.negate().translate(getBounds().getLocation());
@@ -73,13 +76,18 @@ public class PortConnectionDecoration extends Figure implements RotatableDecorat
 		g.translate(this.getBounds().getCenter());
 		g.rotate(this.rotationDegrees);
 
-		switch(this.decorationType) {
-		case IMMEDIATE:
-			this.paintImmediateConnectionDecoration(g);
-			break;
-		case DELAYED:
-			this.paintDelayedConnectionDecoration(g);
-			break;
+		switch(this.decorationType)
+		{
+			case IMMEDIATE:
+			{
+				this.paintImmediateConnectionDecoration(g);
+				break;
+			}
+			case DELAYED:
+			{
+				this.paintDelayedConnectionDecoration(g);
+				break;
+			}
 		}
 	}
 
