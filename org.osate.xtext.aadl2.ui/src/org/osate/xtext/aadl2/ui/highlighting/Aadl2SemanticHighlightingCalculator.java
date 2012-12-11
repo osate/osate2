@@ -115,13 +115,13 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 		return new AnnexHighlighterPositionAcceptor() {
 			@Override
 			public void addPosition(int offset, int length, String... id) {
-//				if(offset < 0) {
-//					return;//throw new RuntimeException("Offset is less than 0");
-//				}
-//				
-//				if(offset > annexSource.getSourceText().length()) {
-//					return;//throw new RuntimeException("Offset is greater than source text length");
-//				}
+				if(offset < 0) {
+					return;//throw new RuntimeException("Offset is less than 0");
+				}
+				
+				if(offset > annexSource.getSourceText().length()) {
+					return;//throw new RuntimeException("Offset is greater than source text length");
+				}
 				
 				// Calculate the absolute offset
 				int absOffset = annexSource.getSourceTextOffset() + offset;
