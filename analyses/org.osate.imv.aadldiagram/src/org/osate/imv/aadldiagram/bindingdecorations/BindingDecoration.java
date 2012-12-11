@@ -87,13 +87,12 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 
 	public void paintFigure(Graphics g) 
 	{
-		int[] dashes = { 4, 2, 10, 5};
 
 		// Configure GC.
-		g.setForegroundColor(ColorConstants.red);
+		g.setForegroundColor(ColorConstants.black);
 		g.setLineWidth (5);
-		g.setLineStyle(SWT.LINE_DASH);
-		g.setLineDash(dashes);
+		g.setLineStyle(SWT.LINE_SOLID);
+
 		
 		g.setAntialias(SWT.ON);
 
@@ -116,9 +115,17 @@ public class BindingDecoration extends Figure implements RotatableDecoration {
 	protected void paintDefaultBindingDecoration(Graphics g) {
 		int x = 0;
 		int h = 5;
-		g.drawLine(x, h, x, -h);
+		int[] points = {-20, 20, 0, 0, 20, 20};
+		//g.drawLine(x, h, x, -h);
 		x = -4;
-		g.drawLine(x, h, x, -h);
+		//g.drawLine(x, h, x, -h);
+		//g.drawLine(x, h, x -50, h - 50);
+		//g.rotate(90);
+		//g.drawLine(x, h, x -50, h - 50);
+		g.rotate(-90);
+		g.drawPolyline(points);
+
+		//g.drawPolyline({-20,0,20}, {20,0,20}, 3);
 	}
 
 }

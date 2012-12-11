@@ -65,15 +65,17 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 
 	public SelectableMevBindingFigure() {
 		// Initially the connection is NOT selected.
+		
 		this.isSelected = false;
 		this.isMoveInProgress = false;
 		this.cursorHelper = new CursorHelper();
 		super.setLineStyle(SWT.LINE_DASH);
-
-	}
+		
+	} 
 
 
 	public void setSelected(boolean isSelected) {
+		
 		if(this.isSelected == isSelected)
 			return; // No changes need to be made.
 		super.setLineStyle(SWT.LINE_DASH);
@@ -180,6 +182,8 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 
 	@Override
 	public void paintFigure(Graphics g){
+		int x;
+		int y;
 		super.paintFigure(g);
 
 		// Highlight figure if it is selected.
@@ -190,18 +194,28 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 			// Configure context.
 			g.setBackgroundColor(ColorConstants.green);
 			g.setForegroundColor(ColorConstants.white);
-			g.setLineWidth(1);
-			g.setLineStyle(SWT.LINE_DASH);
+			
 
 			/* Draw selection handles. */
 
 			// Get the selection handles.
 			Rectangle[] handles = this.getSelectionHandles();
-			for(int i = 0; i < handles.length; i++) {
+			for(int i = 0; i < handles.length - 1 ; i++) {
 				// Draw handles.
+				//System.out.println (" handle " + i + ", x = " +  handles[i].getCenter().x + ", y = " +  handles[i].getCenter().y);
 				g.fillRectangle(handles[i]);
 				g.drawRectangle(handles[i]);
 			}
+			
+			g.setLineWidth(3);
+			g.setLineStyle(SWT.LINE_SOLID);
+			g.setBackgroundColor(ColorConstants.white);
+			g.setForegroundColor(ColorConstants.black);
+			x = handles[handles.length - 1].x;
+			y = handles[handles.length - 1].y;
+			int[] points = {x - 10 , y + 10, x , y , x + 10, y + 10};
+			//g.rotate(-90);
+			g.drawPolyline(points);
 
 			// Restore graphics state.
 			g.popState();
