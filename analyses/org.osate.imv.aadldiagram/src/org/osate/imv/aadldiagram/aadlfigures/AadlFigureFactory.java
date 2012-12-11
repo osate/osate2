@@ -49,6 +49,7 @@ import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlFeatureAdapter;
 import org.osate.imv.aadldiagram.adapters.IAadlElementAdapter;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecoration;
+import org.osate.imv.aadldiagram.bindingdecorations.BindingDecorationType;
 import org.osate.imv.aadldiagram.bindingdecorations.BindingDecoratorLocator;
 import org.osate.imv.aadldiagram.connectiondecorations.ConnectionDecoratorLocator;
 import org.osate.imv.aadldiagram.connectiondecorations.PortConnectionDecoration;
@@ -258,9 +259,23 @@ public class AadlFigureFactory {
 		// Set decoration.
 		switch(adapter.getDecorationType()) 
 		{
+		
+		case MEMORY:
+			{
+				figure.add(new BindingDecoration(BindingDecorationType.MEMORY), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+			break;
+			}
+		
+		case PROCESSOR:
+			{
+				figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+				break;
+			}
+			
 			default:
 			{
-				figure.add(new BindingDecoration(BindingDecoration.DecorationType.PROCESS), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+				figure.add(new BindingDecoration(BindingDecorationType.PROCESSOR), new BindingDecoratorLocator(figure, ConnectionLocator.MIDDLE));
+				break;
 			}
 		}
 

@@ -207,6 +207,13 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 				g.drawRectangle(handles[i]);
 			}
 			
+			
+			/*
+			 * JD : TODO an FIXME
+			 * Here, we try to put an arrow on the target component but 
+			 * at this time, the arrow needs to be oriented according to the
+			 * other figures (position, etc ...). Check for the rotation parameter.
+			 */
 			g.setLineWidth(3);
 			g.setLineStyle(SWT.LINE_SOLID);
 			g.setBackgroundColor(ColorConstants.white);

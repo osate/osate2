@@ -244,9 +244,14 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 
 			adapter = this.modelElementToAdapterMap.get(subcomponents[i]);
 
+			
+			/*
+			 * For each process, try to find the associated processor/virtual processor
+			 * and add a binding relation with it.
+			 */
 			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
 			{
-				System.out.println ("process " + adapter.getModelElement());
+				//System.out.println ("process " + adapter.getModelElement());
 				process = (ComponentInstance) adapter.getModelElement();
 				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
 
@@ -258,6 +263,11 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					{
 						processorContainer = boundProcessor.getContainingComponentInstance();
 						//System.out.println ("containing associated processor " + processorContainer);
+						/*
+						 * If the boundProcessor component is not in the list of the components
+						 * to be shown in the diagram, we try to take the main component, which
+						 * should be hopefully a processor (in case of a virtual processor).
+						 */
 						if ( ! (this.modelElementToAdapterMap.containsKey(boundProcessor)))
 						{
 							//System.out.println ("virtual processor not visible, try to take " + processorContainer);
@@ -292,23 +302,34 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			}
 			
 			
+			/*
+			 * Now, for each proceess, try to find the associated memory component
+			 * and add a binding relation between these two.
+			 */
+			
 			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
 			{
-				System.out.println ("memory " + adapter.getModelElement());
+				//System.out.println ("memory " + adapter.getModelElement());
 				memory = (ComponentInstance) adapter.getModelElement();
 				boundMemories = GetProperties.getActualMemoryBinding((ComponentInstance)adapter.getModelElement());
 
 				if (boundMemories.size() > 0)
 				{
 					boundMemory = boundMemories.get(0);
-					System.out.println ("associated memory " + boundMemory);
+					//System.out.println ("associated memory " + boundMemory);
 					if (boundMemory.getCategory() == ComponentCategory.MEMORY)
 					{
 						memoryContainer = boundMemory.getContainingComponentInstance();
-						System.out.println ("containing associated memory " + memoryContainer);
+						//System.out.println ("containing associated memory " + memoryContainer);
+						/*
+						 * We check if the memory is in the list of the components
+						 * to be supposed to be shown. If the target component
+						 * is not in the list, we try to establish a connection with the
+						 * container, which should be hopefully another memory.
+						 */
 						if ( ! (this.modelElementToAdapterMap.containsKey(boundMemory)))
 						{
-							System.out.println ("memory not visible, try to take " + memoryContainer);
+							//System.out.println ("memory not visible, try to take " + memoryContainer);
 							boundMemory = memoryContainer;
 						}	
 					}
@@ -326,7 +347,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 					boundResourceAdapter = this.modelElementToAdapterMap.get(boundMemory);
 					if ( (processAdapter != null) && (boundResourceAdapter != null))
 					{
-						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
+						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.MEMORY, this.labelProvider, processAdapter, boundResourceAdapter);
 
 						// JD: check if this happens
 
