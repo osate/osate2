@@ -119,53 +119,53 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		{
 			cat =((ComponentInstance)comp).getCategory();
 		}
-		
+
 		if (cat == null)
 		{
 			return null;
 		}
-		
+
 		switch(cat) 
 		{
-			case SYSTEM:
-				category = ComponentAdapterCategory.SYSTEM;
-				break;
-			case PROCESS:
-				category = ComponentAdapterCategory.PROCESS;
-				break;
-			case THREAD:
-				category = ComponentAdapterCategory.THREAD;
-				break;
-			case DEVICE:
-				category = ComponentAdapterCategory.DEVICE;
-				break;
-			case BUS:
-				category = ComponentAdapterCategory.BUS;
-				break;
-			case VIRTUAL_BUS:
-				category = ComponentAdapterCategory.VIRTUAL_BUS;
-				break;
-			case MEMORY:
-				category = ComponentAdapterCategory.MEMORY;
-				break;
-			case ABSTRACT:
-				category = ComponentAdapterCategory.ABSTRACT;
-				break;
-			case PROCESSOR:
-				category = ComponentAdapterCategory.PROCESSOR;
-				break;
-			case VIRTUAL_PROCESSOR:
-				category = ComponentAdapterCategory.VIRTUAL_PROCESSOR;
-				break;
-			case THREAD_GROUP:
-				category = ComponentAdapterCategory.THREAD_GROUP;
-				break;
-			case DATA:
-				category = ComponentAdapterCategory.DATA;
-				break;
-			case SUBPROGRAM:
-				category = ComponentAdapterCategory.SUBPROGRAM;
-				break;
+		case SYSTEM:
+			category = ComponentAdapterCategory.SYSTEM;
+			break;
+		case PROCESS:
+			category = ComponentAdapterCategory.PROCESS;
+			break;
+		case THREAD:
+			category = ComponentAdapterCategory.THREAD;
+			break;
+		case DEVICE:
+			category = ComponentAdapterCategory.DEVICE;
+			break;
+		case BUS:
+			category = ComponentAdapterCategory.BUS;
+			break;
+		case VIRTUAL_BUS:
+			category = ComponentAdapterCategory.VIRTUAL_BUS;
+			break;
+		case MEMORY:
+			category = ComponentAdapterCategory.MEMORY;
+			break;
+		case ABSTRACT:
+			category = ComponentAdapterCategory.ABSTRACT;
+			break;
+		case PROCESSOR:
+			category = ComponentAdapterCategory.PROCESSOR;
+			break;
+		case VIRTUAL_PROCESSOR:
+			category = ComponentAdapterCategory.VIRTUAL_PROCESSOR;
+			break;
+		case THREAD_GROUP:
+			category = ComponentAdapterCategory.THREAD_GROUP;
+			break;
+		case DATA:
+			category = ComponentAdapterCategory.DATA;
+			break;
+		case SUBPROGRAM:
+			category = ComponentAdapterCategory.SUBPROGRAM;
+			break;
 		}
 
 		return category;
@@ -213,34 +213,43 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		IAadlElementAdapter 	adapter;
 		List<ComponentInstance> boundProcessors;
 		ComponentInstance 		boundProcessor;
+		List<ComponentInstance> boundMemories;
+		ComponentInstance 		boundMemory;
 		ComponentInstance		processorContainer;
 		ComponentInstance		process;
 		IAadlElementAdapter 	processAdapter;
+		ComponentInstance		memoryContainer;
+		ComponentInstance		memory;
+		IAadlElementAdapter 	memoryAdapter;
 		IAadlElementAdapter 	boundResourceAdapter;
 		AadlBindingAdapter	 	bindingAdapter; 
 
 		System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
-		process = null;
-		boundProcessor = null;
-		processorContainer = null;
+		process 			= null;
+		boundProcessor 		= null;
+		processorContainer 	= null;
+		memory 				= null;
+		boundMemory 		= null;
+		memoryContainer 	= null;
+		
 		subcomponents = this.getSubcomponents(componentAdapter.getModelElement());
 
 		for (int i = 0; i < subcomponents.length; i++) 
 		{
 			if (! this.modelElementToAdapterMap.containsKey(subcomponents[i]))
 			{
-	
+
 				continue;
 			}
-			
+
 			adapter = this.modelElementToAdapterMap.get(subcomponents[i]);
-			
+
 			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
 			{
 				System.out.println ("process " + adapter.getModelElement());
 				process = (ComponentInstance) adapter.getModelElement();
 				boundProcessors = GetProperties.getActualProcessorBinding((ComponentInstance)adapter.getModelElement());
-				
+
 				if (boundProcessors.size() > 0)
 				{
 					boundProcessor = boundProcessors.get(0);
@@ -256,7 +265,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 						}	
 					}
 				}
-				
+
+
 				if ( (process != null) && (boundProcessor != null))
 				{
 					processAdapter = this.modelElementToAdapterMap.get(process);
@@ -274,44 +284,97 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 						}
 						else
 						{	
-							
+
 							System.out.println ("adapter is null");
 						}
 					}
 				}
 			}
 			
+			
+			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+			{
+				System.out.println ("memory " + adapter.getModelElement());
+				memory = (ComponentInstance) adapter.getModelElement();
+				boundMemories = GetProperties.getActualMemoryBinding((ComponentInstance)adapter.getModelElement());
+
+				if (boundMemories.size() > 0)
+				{
+					boundMemory = boundMemories.get(0);
+					System.out.println ("associated memory " + boundMemory);
+					if (boundMemory.getCategory() == ComponentCategory.MEMORY)
+					{
+						memoryContainer = boundMemory.getContainingComponentInstance();
+						System.out.println ("containing associated memory " + memoryContainer);
+						if ( ! (this.modelElementToAdapterMap.containsKey(boundMemory)))
+						{
+							System.out.println ("memory not visible, try to take " + memoryContainer);
+							boundMemory = memoryContainer;
+						}	
+					}
+				}
+				else
+				{
+					System.out.println ("no memory associated");
+				}
+
+
+				if ( (memory != null) && (boundMemory != null))
+				{
+					processAdapter = this.modelElementToAdapterMap.get(process);
+
+					boundResourceAdapter = this.modelElementToAdapterMap.get(boundMemory);
+					if ( (processAdapter != null) && (boundResourceAdapter != null))
+					{
+						bindingAdapter = new AadlBindingAdapter(process, BindingDecorationType.PROCESSOR, this.labelProvider, processAdapter, boundResourceAdapter);
+
+						// JD: check if this happens
+
+						if (bindingAdapter != null)
+						{
+							// JD: Add to the main component.
+							componentAdapter.addChild(bindingAdapter);
+						}
+						else
+						{	
+
+							System.out.println ("adapter is null");
+						}
+					}
+				}
+			}
+
 		}
 	}
-	
-	
+
+
 	public void addConnectionsToComponent(AadlComponentAdapter componentAdapter) 
 	{
 		List<ConnectionItem> connectionList = this.getConnections(componentAdapter.getModelElement());
-//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
+		//System.out.println("adding connection to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 		for(Iterator<ConnectionItem> it = connectionList.iterator(); it.hasNext();){
 			ConnectionItem connectionItem = it.next();
-			
-//			IAadlElementAdapter srcAdapter = null;
-//			IAadlElementAdapter dstAdapter = null;
-//			if (srcCxt instanceof Subcomponent){
-//				srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
-//			} else	if (srcCxt instanceof FeatureGroup){
-//				srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
-//			} else	if (connectionItem.getSrc() instanceof Subcomponent){
-//				srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
-//			} else {
-//				srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
-//			}
-//			if (dstCxt instanceof Subcomponent){
-//				dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
-//			} else	if (dstCxt instanceof FeatureGroup){
-//				dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
-//			} else if (connectionItem.getDest() instanceof Subcomponent){
-//				dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
-//			} else {
-//				dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
-//			}
+
+			//			IAadlElementAdapter srcAdapter = null;
+			//			IAadlElementAdapter dstAdapter = null;
+			//			if (srcCxt instanceof Subcomponent){
+			//				srcAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, srcCxt), (NamedElement)connectionItem.getSrc());
+			//			} else	if (srcCxt instanceof FeatureGroup){
+			//				srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)srcCxt);
+			//			} else	if (connectionItem.getSrc() instanceof Subcomponent){
+			//				srcAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+			//			} else {
+			//				srcAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getSrc());
+			//			}
+			//			if (dstCxt instanceof Subcomponent){
+			//				dstAdapter = this.findFeatureAdapter(this.findSubcomponentAdapter(componentAdapter, dstCxt), (NamedElement)connectionItem.getDest());
+			//			} else	if (dstCxt instanceof FeatureGroup){
+			//				dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)dstCxt);
+			//			} else if (connectionItem.getDest() instanceof Subcomponent){
+			//				dstAdapter = this.findSubcomponentAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+			//			} else {
+			//				dstAdapter = this.findFeatureAdapter(componentAdapter, (NamedElement)connectionItem.getDest());
+			//			}
 			IAadlElementAdapter srcAdapter = this.modelElementToAdapterMap.get(connectionItem.getSrc());
 			IAadlElementAdapter dstAdapter = this.modelElementToAdapterMap.get(connectionItem.getDest());
 
@@ -506,54 +569,54 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			return FeatureAdapterCategory.EVENT_DATA_PORT;
 		if (feature instanceof EventPort)
 			return FeatureAdapterCategory.EVENT_PORT;
-			if (feature instanceof BusAccess)
+		if (feature instanceof BusAccess)
 			return FeatureAdapterCategory.BUS_ACCESS;
-			if (feature instanceof DataAccess)
+		if (feature instanceof DataAccess)
 			return FeatureAdapterCategory.DATA_ACCESS;
-			if (feature instanceof SubprogramAccess)
+		if (feature instanceof SubprogramAccess)
 			return FeatureAdapterCategory.SUBPROGRAM_ACCESS;
-			if (feature instanceof SubprogramGroupAccess)
+		if (feature instanceof SubprogramGroupAccess)
 			return FeatureAdapterCategory.SUBPROGRAM_GROUP_ACCESS;
-			if (feature instanceof FeatureGroup)
+		if (feature instanceof FeatureGroup)
 			return FeatureAdapterCategory.FEATURE_GROUP;
-			if (feature instanceof AbstractFeature)
+		if (feature instanceof AbstractFeature)
 			return FeatureAdapterCategory.ABSTRACT_FEATURE;
-			if (feature instanceof Parameter)
+		if (feature instanceof Parameter)
 			return FeatureAdapterCategory.PARAMETER;
 
 		if (feature instanceof FeatureInstance){
-		switch(((FeatureInstance)feature).getCategory()) {
-		case DATA_PORT:
-			category = FeatureAdapterCategory.DATA_PORT;
-			break;
-		case EVENT_DATA_PORT:
-			category = FeatureAdapterCategory.EVENT_DATA_PORT;
-			break;
-		case EVENT_PORT:
-			category = FeatureAdapterCategory.EVENT_PORT;
-			break;
-		case BUS_ACCESS:
-			category = FeatureAdapterCategory.BUS_ACCESS;
-			break;
-		case DATA_ACCESS:
-			category = FeatureAdapterCategory.DATA_ACCESS;
-			break;
-		case SUBPROGRAM_ACCESS:
-			category = FeatureAdapterCategory.SUBPROGRAM_ACCESS;
-			break;
-		case SUBPROGRAM_GROUP_ACCESS:
-			category = FeatureAdapterCategory.SUBPROGRAM_GROUP_ACCESS;
-			break;
-		case FEATURE_GROUP:
-			category = FeatureAdapterCategory.FEATURE_GROUP;
-			break;
-		case ABSTRACT_FEATURE:
-			category = FeatureAdapterCategory.ABSTRACT_FEATURE;
-			break;
-		case PARAMETER:
-			category = FeatureAdapterCategory.PARAMETER;
-			break;
-		}
+			switch(((FeatureInstance)feature).getCategory()) {
+			case DATA_PORT:
+				category = FeatureAdapterCategory.DATA_PORT;
+				break;
+			case EVENT_DATA_PORT:
+				category = FeatureAdapterCategory.EVENT_DATA_PORT;
+				break;
+			case EVENT_PORT:
+				category = FeatureAdapterCategory.EVENT_PORT;
+				break;
+			case BUS_ACCESS:
+				category = FeatureAdapterCategory.BUS_ACCESS;
+				break;
+			case DATA_ACCESS:
+				category = FeatureAdapterCategory.DATA_ACCESS;
+				break;
+			case SUBPROGRAM_ACCESS:
+				category = FeatureAdapterCategory.SUBPROGRAM_ACCESS;
+				break;
+			case SUBPROGRAM_GROUP_ACCESS:
+				category = FeatureAdapterCategory.SUBPROGRAM_GROUP_ACCESS;
+				break;
+			case FEATURE_GROUP:
+				category = FeatureAdapterCategory.FEATURE_GROUP;
+				break;
+			case ABSTRACT_FEATURE:
+				category = FeatureAdapterCategory.ABSTRACT_FEATURE;
+				break;
+			case PARAMETER:
+				category = FeatureAdapterCategory.PARAMETER;
+				break;
+			}
 		}
 
 		return category;
