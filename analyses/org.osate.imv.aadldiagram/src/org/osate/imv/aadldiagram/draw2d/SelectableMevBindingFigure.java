@@ -68,33 +68,36 @@ public class SelectableMevBindingFigure extends PolylineConnection {
 		this.isSelected = false;
 		this.isMoveInProgress = false;
 		this.cursorHelper = new CursorHelper();
+		super.setLineStyle(SWT.LINE_DASH);
+
 	}
 
 
 	public void setSelected(boolean isSelected) {
 		if(this.isSelected == isSelected)
 			return; // No changes need to be made.
-
+		super.setLineStyle(SWT.LINE_DASH);
 		this.isSelected = isSelected;
 
 		if(isSelected) {
 			this.lineWidth = this.getLineWidth();
 			super.setLineWidth(SETECTED_LINE_WIDTH);
 		} else {
-			super.setLineWidth(this.lineWidth + 10);
+			super.setLineWidth(this.lineWidth);
 		}
 		this.repaint();
 	}
 
 	@Override
 	public void setLineWidth(int lineWidth) {
+		this.setLineStyle(SWT.LINE_DASH);
 		if(this.isSelected)
 		{
 			this.lineWidth = lineWidth;
 		}
 		else
 		{
-			super.setLineWidth(lineWidth + 10);
+			super.setLineWidth(lineWidth );
 		}
 	}
 
