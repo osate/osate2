@@ -224,7 +224,7 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		IAadlElementAdapter 	boundResourceAdapter;
 		AadlBindingAdapter	 	bindingAdapter; 
 
-		System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
+		//System.out.println("Try to add binding to " + this + "; " + this.getComponentCategory(componentAdapter.getModelElement()) + " adapter " + componentAdapter);
 		process 			= null;
 		boundProcessor 		= null;
 		processorContainer 	= null;
