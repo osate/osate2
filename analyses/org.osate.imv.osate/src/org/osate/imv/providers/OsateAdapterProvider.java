@@ -249,7 +249,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			 * For each process, try to find the associated processor/virtual processor
 			 * and add a binding relation with it.
 			 */
-			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)||
+				(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE))
 			{
 				//System.out.println ("process " + adapter.getModelElement());
 				process = (ComponentInstance) adapter.getModelElement();
@@ -307,7 +308,8 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			 * and add a binding relation between these two.
 			 */
 			
-			if (this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)
+			if ((this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.PROCESS)||
+				(this.getComponentCategory(adapter.getModelElement()) == ComponentAdapterCategory.DEVICE))
 			{
 				//System.out.println ("memory " + adapter.getModelElement());
 				memory = (ComponentInstance) adapter.getModelElement();
