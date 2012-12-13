@@ -34,6 +34,7 @@ import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ui.dialogs.Dialog;
 import org.osate.validation.AadlAction;
 import org.osate.validation.Logger;
 
@@ -57,13 +58,23 @@ public abstract class LuteAction extends AadlAction {
 		InstantiateModel im = new InstantiateModel(new NullProgressMonitor(), getErrorManager());
 		URI uri = OsateResourceUtil.getInstanceModelURI(sysimpl);
 		Resource resource = OsateResourceUtil.getEmptyAaxl2Resource(uri);
-		SystemInstance si = im.createSystemInstance(sysimpl, resource);
 		
-		LuteInterpreter interpreter = new LuteInterpreter(si, log);
-		InputStream stream = getLuteInput();
-		if (stream == null) return Status.CANCEL_STATUS;
-		interpreter.run(stream);
-		return Status.OK_STATUS;
+		try
+		{
+			SystemInstance si = im.createSystemInstance(sysimpl, resource);
+			LuteInterpreter interpreter = new LuteInterpreter(si, log);
+			InputStream stream = getLuteInput();
+			if (stream == null) return Status.CANCEL_STATUS;
+			interpreter.run(stream);
+			return Status.OK_STATUS;
+		}
+		catch (Exception e)
+		{
+			Dialog.showError("Model Instantiate", "Error while re-instantiating the model: " + e.getMessage());
+			return Status.CANCEL_STATUS;
+		}
+		
+
 	}
 	
 	abstract public InputStream getLuteInput();

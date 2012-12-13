@@ -13,3 +13,4 @@ Require-Bundle: org.osate.validation,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
+Import-Package: org.osate.ui.dialogs
