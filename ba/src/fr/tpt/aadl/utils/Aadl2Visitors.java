@@ -141,7 +141,7 @@ public class Aadl2Visitors
    * {@code null}
    */
   public static Feature findFeatureInComponent(Classifier cc,
-                                               String featureName)
+                                                 String featureName)
   {
      for(Feature f : cc.getAllFeatures())
      {

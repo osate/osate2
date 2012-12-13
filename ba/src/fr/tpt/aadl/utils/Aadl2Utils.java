@@ -38,11 +38,13 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeaturePrototype ;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.StructuralFeature ;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -65,7 +67,25 @@ public class Aadl2Utils
     Collections.sort(res, comparator) ;
     return res ;
   }
-  
+  /*
+  public static List<StructuralFeature> orderFeaturesAndFeaturesPrototype(ComponentType cpt)
+  {
+    List<StructuralFeature> result = new  ArrayList<StructuralFeature>() ;
+    
+    for (NamedElement ne : Aadl2Visitors.getMembers(cpt))
+    {
+      if (ne instanceof Feature || ne instanceof FeaturePrototype)
+      {
+        result.add((StructuralFeature) ne) ;
+      }
+    }
+    
+    FeaturePositionComparator comparator = new FeaturePositionComparator() ;
+    Collections.sort(result, comparator) ;
+    
+    return result ;
+  }
+  */
   public static ConnectionEnd getConnectedEnd(SubprogramCall sc , Feature p)
   {
 	NamedElement parent = (NamedElement) sc.eContainer().eContainer();
@@ -192,7 +212,7 @@ public class Aadl2Utils
   }
   
   /**
-   * Returns the access right of the given DataAccess object.<BR>
+   * Returns the access right of the given NamedElement object.<BR>
    * <BR>
    * 
    * Returns the local "Access_Right" property value, if it is set. Otherwise,
@@ -200,16 +220,16 @@ public class Aadl2Utils
    * declared property set). If the default access right is not found,
    * returns {@null}.  
    * 
-   * @param data the given DataAccess object
+   * @param ne the given NamedElement object
    * @return local access right or default access right or {@code null}
    */
-  public static String getAccessRight(DataAccess data)
+  public static String getAccessRight(NamedElement ne)
   {
     String result = null ;
     
     try
     {
-      result = PropertyUtils.getEnumValue(data, "Access_Right") ;
+      result = PropertyUtils.getEnumValue(ne, "Access_Right") ;
     }
     catch(Exception e)
     {
@@ -217,9 +237,10 @@ public class Aadl2Utils
       {
         try
         {
-          Property prop = GetProperties.lookupPropertyDefinition(data, "Memory_Properties", "Access_Right");
+          Property prop = GetProperties.lookupPropertyDefinition(ne, "Memory_Properties", "Access_Right");
           NamedValue nv = (NamedValue) prop.getDefaultValue() ;
           result = ((EnumerationLiteral) nv.getNamedValue()).getName();
+          DEFAULT_ACCESS_RIGHT = result ;
         }
         catch(Exception e1)
         {
