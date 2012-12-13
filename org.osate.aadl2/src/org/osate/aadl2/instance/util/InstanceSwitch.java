@@ -441,10 +441,11 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Component Instance</em>'.
+	 * @throws InstantiationException 
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseComponentInstance(ComponentInstance object) {
+	public T caseComponentInstance(ComponentInstance object)  {
 		return null;
 	}
 

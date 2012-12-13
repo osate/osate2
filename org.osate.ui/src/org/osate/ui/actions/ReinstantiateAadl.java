@@ -61,6 +61,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.core.AadlNature;
+import org.osate.ui.dialogs.Dialog;
 import org.osate.workspace.IResourceUtility;
 
 
@@ -126,7 +127,15 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 //				}
 //			}
 //			}
-			InstantiateModel.rebuildAllInstanceModelFiles();
+			try
+			{
+				InstantiateModel.rebuildAllInstanceModelFiles();
+			}
+			catch (Exception e)
+			{
+				Dialog.showError("Model Instantiate", "Error while re-instantiating the model: " + e.getMessage());
+
+			}
 			monitor.done();
 			return Status.OK_STATUS;
 		}

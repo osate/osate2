@@ -41,7 +41,6 @@ import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.text.ITextSelection;
@@ -85,7 +84,7 @@ public class InstantiateHandler extends AbstractHandler {
 			.getDefault().getBundle());
 
 
-	
+
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IWorkbench wb = PlatformUI.getWorkbench();
 		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
@@ -99,34 +98,50 @@ public class InstantiateHandler extends AbstractHandler {
 				for (Iterator iterator = ((TreeSelection)selection).iterator(); iterator.hasNext();) {
 					final Object f = (Object) iterator.next();
 					if (f instanceof IResource){
-//						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-//						for (int i = 0; i < editorRefs.length; i++) {
-//							IEditorReference edref = editorRefs[i];
-//							String pname = edref.getPartName();
-//							IEditorPart edpart = edref.getEditor(true);
-//							String fname = ((IResource) f).getName();
-//							if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
-//								page.closeEditor(edpart, true);
-//							}
-//						}
-					    
-										Resource res = OsateResourceUtil.getResource((IResource)f);
-										SystemInstance target = (SystemInstance)res.getContents().get(0);
-										SystemImplementation si = target.getSystemImplementation();
-//										if (si.eResource().getErrors().isEmpty()){
-											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
-											if (sinst == null)
-											{
-												Dialog.showError("Model Instantiate", "Error when instantiating the model");
-											}
-											//										InstantiateModel.rebuildInstanceModelFile(res);
-											//										// unloading causes other entities (e.g., instance editor) to have to load the instance again
-											//										// which they can do when notified
-											//										res.unload();
-//										} else {
-//											OsateResourceUtil.deleteAaxl2Resource(res.getURI());
-//											Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
-//										}
+						//						IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
+						//						for (int i = 0; i < editorRefs.length; i++) {
+						//							IEditorReference edref = editorRefs[i];
+						//							String pname = edref.getPartName();
+						//							IEditorPart edpart = edref.getEditor(true);
+						//							String fname = ((IResource) f).getName();
+						//							if (edpart instanceof Aadl2ModelEditor && pname.equals(fname)){
+						//								page.closeEditor(edpart, true);
+						//							}
+						//						}
+
+						Resource res = OsateResourceUtil.getResource((IResource)f);
+						SystemInstance target = (SystemInstance)res.getContents().get(0);
+						SystemImplementation si = target.getSystemImplementation();
+						//										if (si.eResource().getErrors().isEmpty()){
+						SystemInstance sinst;
+						try
+						{
+							sinst = InstantiateModel.buildInstanceModelFile(si);
+							if (sinst == null)
+							{
+								Dialog.showError("Model Instantiate", "Error when instantiating the model");
+							}
+						}
+						catch (UnsupportedOperationException uoe)
+						{
+							Dialog.showError("Model Instantiate", "Unsupported operation: " + uoe.getMessage());
+						}
+						catch (Exception e)
+						{
+							Dialog.showError("Model Instantiate", "Unknown error: " + e.getMessage());
+
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						//										InstantiateModel.rebuildInstanceModelFile(res);
+						//										// unloading causes other entities (e.g., instance editor) to have to load the instance again
+						//										// which they can do when notified
+						//										res.unload();
+						//										} else {
+						//											OsateResourceUtil.deleteAaxl2Resource(res.getURI());
+						//											Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
+						//										}
 
 					}
 				}
@@ -147,7 +162,7 @@ public class InstantiateHandler extends AbstractHandler {
 						new IUnitOfWork<EObject, XtextResource>() {
 							public EObject exec(XtextResource resource) throws Exception {
 								EObject targetElement = null;
-									if (selection instanceof IStructuredSelection) {
+								if (selection instanceof IStructuredSelection) {
 									IStructuredSelection ss = (IStructuredSelection) selection;
 									Object eon = ss.getFirstElement();
 									if (eon instanceof EObjectNode) {
@@ -157,7 +172,7 @@ public class InstantiateHandler extends AbstractHandler {
 									targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
 											((ITextSelection)selection).getOffset());
 								}
-								
+
 								if (targetElement != null) {
 
 									if (targetElement instanceof NamedElement){
@@ -165,28 +180,29 @@ public class InstantiateHandler extends AbstractHandler {
 										ComponentImplementation cc = ((NamedElement) targetElement).getContainingComponentImpl();
 										if (cc instanceof SystemImplementation){
 											SystemImplementation si = (SystemImplementation)cc;
-											SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
-											if (sinst == null)
-											{
-												Dialog.showError("Model Instantiate", "Error when instantiating the model");
 
+											try
+											{
+												SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
+												if (sinst == null)
+												{
+													Dialog.showError("Model Instantiate", "Error when instantiating the model");
+
+												}
 											}
-//											if (targetElement.eResource().getErrors().isEmpty()){
-//												// the operation is performed in a transactional editing domain.
-//												try {
-//													SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
-//												} catch (Exception e) {
-//													e.printStackTrace();
-//													URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-////													OsateResourceUtil.deleteAaxl2Resource(instanceURI);
-//													Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
-//												}
-////											} else {
-////												URI instanceURI = OsateResourceUtil.getInstanceModelURI(si);
-////												OsateResourceUtil.deleteAaxl2Resource(instanceURI);
-////												Dialog.showInfo("Model Instantiation", "Did not instantiate because model has errors");
-////											}
-										} else {
+											catch (UnsupportedOperationException uoe)
+											{
+												Dialog.showError("Model Instantiate", "Operation is not supported: " + uoe.getMessage());
+											}
+											catch (Exception other)
+											{
+												other.printStackTrace();
+												Dialog.showError("Model Instantiate", "Error when instantiating the model");
+											}
+
+										} 
+										else 
+										{
 											Dialog.showInfo("Model Instantiation","Must select a system implementation. Selected " + targetElement.eClass().getName()+" "+targetElement.toString());
 										}
 									} else {
@@ -201,41 +217,41 @@ public class InstantiateHandler extends AbstractHandler {
 		}
 		return null;
 	}
-	
-//	@Override
-//	public boolean isEnabled() {
-//		IWorkbench wb = PlatformUI.getWorkbench();
-//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//		IWorkbenchPage page = win.getActivePage();
-//		IWorkbenchPart part = page.getActivePart();
-//		IEditorPart activeEditor = page.getActiveEditor();
-//		if (activeEditor == null)
-//			return false;
-//		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
-//		final ISelection selection;
-//		if (xtextEditor != null) {
-//			if (part instanceof ContentOutline) {
-//				selection = ((ContentOutline) part).getSelection();
-//			} else {
-//				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
-//			}
-//		}
-//		Resource resource = xtextEditor.getResource();
-//		Resource resource = xtextEditor.getEditorSite().g;
-//		EObject targetElement = null;
-//		if (selection instanceof IStructuredSelection) {
-//			IStructuredSelection ss = (IStructuredSelection) selection;
-//			Object eon = ss.getFirstElement();
-//			if (eon instanceof EObjectNode) {
-//				targetElement = ((EObjectNode)eon).getEObject(resource);
-//			}
-//		} else {
-//			targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
-//					((ITextSelection)selection).getOffset());
-//		}
-//
-//		return  true;
-//	}
+
+	//	@Override
+	//	public boolean isEnabled() {
+	//		IWorkbench wb = PlatformUI.getWorkbench();
+	//		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+	//		IWorkbenchPage page = win.getActivePage();
+	//		IWorkbenchPart part = page.getActivePart();
+	//		IEditorPart activeEditor = page.getActiveEditor();
+	//		if (activeEditor == null)
+	//			return false;
+	//		XtextEditor xtextEditor = (XtextEditor) activeEditor.getAdapter(XtextEditor.class);
+	//		final ISelection selection;
+	//		if (xtextEditor != null) {
+	//			if (part instanceof ContentOutline) {
+	//				selection = ((ContentOutline) part).getSelection();
+	//			} else {
+	//				selection = (ITextSelection) xtextEditor.getSelectionProvider().getSelection();
+	//			}
+	//		}
+	//		Resource resource = xtextEditor.getResource();
+	//		Resource resource = xtextEditor.getEditorSite().g;
+	//		EObject targetElement = null;
+	//		if (selection instanceof IStructuredSelection) {
+	//			IStructuredSelection ss = (IStructuredSelection) selection;
+	//			Object eon = ss.getFirstElement();
+	//			if (eon instanceof EObjectNode) {
+	//				targetElement = ((EObjectNode)eon).getEObject(resource);
+	//			}
+	//		} else {
+	//			targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+	//					((ITextSelection)selection).getOffset());
+	//		}
+	//
+	//		return  true;
+	//	}
 
 	/*
 	 * XXX buildInstanceModelFile has moved to InstantiateModel

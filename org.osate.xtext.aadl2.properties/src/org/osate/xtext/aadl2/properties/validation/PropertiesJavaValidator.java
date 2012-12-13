@@ -90,7 +90,7 @@ import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 
- 
+
 
 public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
@@ -110,20 +110,20 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	public void casePropertyAssociation(PropertyAssociation pa) {
 		checkPropertyAssociation(pa);
 	}
-	
+
 	/**
 	 * Check Classifier reference for right type.
 	 */
 
 	@Check(CheckType.FAST)
 	public void caseClassifierValue(ClassifierValue nt) {
-			checkClassifierReference(nt.getClassifier(), nt);
+		checkClassifierReference(nt.getClassifier(), nt);
 	}
 
-	
+
 	// checking methods
-	
-	
+
+
 	protected void checkPropertyAssociation(PropertyAssociation pa){
 		// type check value against type
 		Property pdef = pa.getProperty();
@@ -138,7 +138,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		checkAssociationAppliesTo( pa);
 		checkInBinding( pa);
 	}
-	
+
 	protected void checkInBinding(final PropertyAssociation pa){
 		for (Classifier c: pa.getInBindings()){
 			checkClassifierReference(c, pa);
@@ -155,38 +155,49 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 * for in its Property_Owner_Category list. </blockquote>
 	 */
 	private void checkAssociationAppliesTo(
-		final PropertyAssociation pa) {
+			final PropertyAssociation pa)
+	{
 		final Property pn = pa.getProperty();
 		final EList<ContainedNamedElement> appliesTo = pa.getAppliesTos();
-		if (appliesTo == null || appliesTo.size() == 0) {
+		if (appliesTo == null || appliesTo.size() == 0) 
+		{
 			Element element = pa.getOwner();
-			if (element instanceof NamedElement){
-			final boolean applies = ((NamedElement)element).acceptsProperty(pn);
-			if (!applies) {
-				error(pa,
-						"Property "	+ pa.getProperty().getQualifiedName() +
-						" does not apply to " + ((NamedElement)element).getName());
-//				error(pa,
-//						"Property "	+ pa.getQualifiedName() +
-//						" does not apply to " + element.eClass().getName());
+			if (element instanceof NamedElement)
+			{
+				final boolean applies = ((NamedElement)element).acceptsProperty(pn);
+				if (!applies) 
+				{
+					error(pa,
+							"Property "	+ pa.getProperty().getQualifiedName() +
+							" does not apply to " + ((NamedElement)element).getName());
+					//				error(pa,
+					//						"Property "	+ pa.getQualifiedName() +
+					//						" does not apply to " + element.eClass().getName());
+				}
+				System.out.println ("apples bool=" + applies);
 			}
-			}
-		} else {
-			for (ContainedNamedElement cna : appliesTo){
+		} 
+		else 
+		{
+			for (ContainedNamedElement cna : appliesTo)
+			{
 				EList<ContainmentPathElement> path = cna.getContainmentPathElements();
-				if (!path.isEmpty()){
+				if (!path.isEmpty())
+				{
 					NamedElement firstElement = path.get(0).getNamedElement();
 					Subcomponent sub = AadlUtil.getContainingSubcomponent(firstElement);
-				// only the last value is interesting to us
-				final ContainmentPathElement ph =  path.get(path.size()-1);
-				if (!Aadl2Util.isNull(ph.getNamedElement())){
-					final boolean applies = ph.getNamedElement().acceptsProperty(pn);
-					if (!applies) {
-						error(pa,
-								"Property " + pa.getProperty().getQualifiedName() +
-								" does not apply to "+unparseAppliesTo(cna));
+					// only the last value is interesting to us
+					final ContainmentPathElement ph =  path.get(path.size()-1);
+					if (!Aadl2Util.isNull(ph.getNamedElement()))
+					{
+						final boolean applies = ph.getNamedElement().acceptsProperty(pn);
+						if (!applies) 
+						{
+							error(pa,
+									"Property " + pa.getProperty().getQualifiedName() +
+									" does not apply to "+unparseAppliesTo(cna));
+						}
 					}
-				}
 				}
 			}
 		}
@@ -203,7 +214,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		return sb.toString();
 	}
 
-	
+
 	/**
 	 * Make sure that a NamedValue object pointing to a property or property constant referenced as a
 	 * subclause of a boolean expression actually refers to a boolean-valued
@@ -240,7 +251,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				}
 				current = current.eContainer();
 			}
-			
+
 			if (current == null) {
 				error("Couldn't find enclosing property association or property definition for property reference");
 			} else {
@@ -263,21 +274,21 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				if (!refAppliesToClass.containsAll(appliesToClass)) {
 					error(pr, "Referenced property definition does not apply to all the classifiers that the referring property applies to");
 				}
-				
+
 			}
 		}
 	}
 
-	
-/**
- * checks and report mismatch in type of value and type	
- * @param pt: PropertyType or unresolved proxy or null
- * @param pv: PropertyExpression or null
- */
+
+	/**
+	 * checks and report mismatch in type of value and type	
+	 * @param pt: PropertyType or unresolved proxy or null
+	 * @param pv: PropertyExpression or null
+	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv){
 		typeCheckPropertyValues(pt, pv, "");
 	}
-	
+
 	/**
 	 * checks and report mismatch in type of value and type	
 	 * @param pt: PropertyType or unresolved proxy or null
@@ -358,13 +369,13 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		} 
 	}
-	
+
 	protected void typeMatchListElements(PropertyType pt, EList<PropertyExpression> pel){
 		for (PropertyExpression propertyExpression : pel) {
 			typeCheckPropertyValues(pt,propertyExpression,"list element");
 		}
 	}
-	
+
 	protected void typeMatchRecordFields(EList<BasicPropertyAssociation> rfl){
 		for (BasicPropertyAssociation field : rfl) {
 			if (field.getProperty() != null){
@@ -372,8 +383,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			}
 		}
 	}
-	
-	
+
+
 	protected void checkUnits(NumberType nt, NumberValue nv){
 		UnitsType ut = nt.getUnitsType();
 		UnitLiteral ul = nv.getUnit();
@@ -381,13 +392,13 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		if (ul == null){
 			error(nv, "Number value is missing a unit");
 		} else
-		if (!ut.getOwnedLiterals().contains(ul)){
-			error(nv, "Unit '"+ul.getName()+"'of number value is not of Units type "+ut.getQualifiedName());
-		}
+			if (!ut.getOwnedLiterals().contains(ul)){
+				error(nv, "Unit '"+ul.getName()+"'of number value is not of Units type "+ut.getQualifiedName());
+			}
 	}
-	
 
-	
+
+
 	public void checkClassifierReference(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
@@ -400,7 +411,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		}
 	}
 
-	
+
 	public void checkPropertySetElementReference(NamedElement pse, Element context){
 		if (Aadl2Util.isNull(pse)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
@@ -415,7 +426,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	}
 
 
-	
+
 	// helper methods
 
 	protected void error(String message, EObject source,

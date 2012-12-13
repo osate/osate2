@@ -182,8 +182,10 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<ContainedNamedElement> getAppliesTos() {
-		if (appliesTos == null) {
+	public EList<ContainedNamedElement> getAppliesTos() 
+	{
+		if (appliesTos == null) 
+		{
 			appliesTos = new EObjectContainmentEList<ContainedNamedElement>(ContainedNamedElement.class, this,
 					Aadl2Package.PROPERTY_ASSOCIATION__APPLIES_TO);
 		}

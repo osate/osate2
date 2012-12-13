@@ -148,7 +148,6 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-
 	private final AnalysisErrorReporterManager errManager;
 	private final IProgressMonitor monitor;
 
@@ -179,7 +178,8 @@ public class InstantiateModel {
 	 * 
 	 * @param errMgr
 	 */ 
-	public InstantiateModel(final IProgressMonitor pm) {
+	public InstantiateModel(final IProgressMonitor pm)
+	{
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
@@ -187,7 +187,8 @@ public class InstantiateModel {
 		monitor = pm;
 	}
 
-	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
+	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) 
+	{
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
@@ -207,7 +208,8 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) {
+	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) throws Exception 
+	{
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		SystemImplementation isi = si;
@@ -236,7 +238,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance rebuildInstanceModelFile(final Resource res) {
+	public static SystemInstance rebuildInstanceModelFile(final Resource res) throws Exception {
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		SystemImplementation si = target.getSystemImplementation();
 		URI uri = EcoreUtil.getURI(si);
@@ -254,7 +256,7 @@ public class InstantiateModel {
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles() {
+	public static void rebuildAllInstanceModelFiles() throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile iFile : files) {
 			Resource res = OsateResourceUtil.getResource((IResource) iFile);
@@ -277,9 +279,12 @@ public class InstantiateModel {
 	 * @param si
 	 * @param aadlResource
 	 * @return
+	 * @throws RollbackException 
+	 * @throws InterruptedException 
 	 */
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) throws Exception
+	{
 		List<SystemInstance> resultList;
 		SystemInstance result;
 		
@@ -301,24 +306,9 @@ public class InstantiateModel {
 			}
 		};
 
-		try 
-		{
-			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-			resultList = (List<SystemInstance>)cmd.getResult();
-			result = resultList.get(0);	
-		} 
-		catch (InterruptedException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		} 
-		catch (RollbackException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+		resultList = (List<SystemInstance>)cmd.getResult();
+		result = resultList.get(0);	
 
 		return result;
 	}
