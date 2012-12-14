@@ -2627,7 +2627,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 	
-	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(Connection connection, ComponentClassifier source, ComponentClassifier destination) {
+	private boolean classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(Connection connection, Classifier source, Classifier destination) {
 		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES);
 		if (matchesPropertyConstant == null)
 			return false;
@@ -4304,28 +4304,401 @@ protected String getNames(List<IEObjectDescription> findings){
 		}
 	}
 
-	
+	/**
+	 * Checks legality rule L3 for section 9.5 (Feature Group Connections)
+	 * "The following rules are supported for feature group connection declarations
+	 * that represent a connection up or down the containment hierarchy:
+	 * 
+	 * -Classifier_Match: The source feature group type must be identical to the
+	 * feature group type of the destination.  This is the default rule.
+	 * 
+	 * -Equivalence: An indication that the two classifiers of a connection are
+	 * considered to match if they are listed in the
+	 * Supported_Classifier_Equivalence_Matches property.  Matching feature group
+	 * types are specified by the Supported_Classifier_Equivalence_Matches property
+	 * with pairs of classifier values representing acceptable matches.  Either
+	 * element of the pair can be the source or destination classifier.  Equivalence
+	 * is intended to be used when the feature group types are considered to be
+	 * identical, i.e., their elements match.  The
+	 * Supported_Classifier_Equivalence_Matches property is declared globally as a
+	 * property constant.
+	 * 
+	 * -Subset: An indication that the two classifiers of a connection are considered
+	 * to match if the outer feature group has outcoming features that are a subset
+	 * of outgoing features of the inner feature group, and if the inner feature
+	 * group has incoming features that are a subset of incoming features of the
+	 * outer feature group.  The pairs of features are expected to have the same name."
+	 * 
+	 * Checks legality rule L4 for section 9.5 (Feature Group Connections)
+	 * "The following rules are supported for feature group connection declarations
+	 * that represent a connection between two subcomponents, i.e., sibling component:
+	 * 
+	 * -Classifier_Match: The source feature group type must be the complement of the
+	 * feature group type of the destination.  This is the default rule.
+	 * 
+	 * -Complement: An indication that the two classifiers of a connection are
+	 * considered to complement if they are listed in the
+	 * Supported_Classifier_Complement_Matches property.  Matching feature group types
+	 * are specified by the Supported_Classifier_Complement_Matches property with pairs
+	 * of classifier values representing acceptable matches.  Either element of the
+	 * pair can be the source or destination classifier.  Complement is intended to be
+	 * used when the feature group types are considered to be identical, i.e., their
+	 * elements match.  The Supported_Classifier_Complement_Matches property is
+	 * declared globally as a property constant.
+	 * 
+	 * -Subset: An indication that the two classifiers of a connection are considered
+	 * to match if each has incoming features that are a subset of outgoing features
+	 * of the other.  The pairs of features are expected to have the same name."
+	 */
 	private void checkFeatureGroupConnectionClassifiers(FeatureGroupConnection connection) {
-		ConnectionEnd source = (ConnectionEnd) connection.getAllSource();
-		ConnectionEnd destination = (ConnectionEnd) connection.getAllDestination();
-		Context srccxt = connection.getAllSourceContext();
-		Context dstcxt = connection.getAllDestinationContext();
-		if (!(source instanceof FeatureGroup)||!(destination instanceof FeatureGroup)) {
+		if (!(connection.getAllSource() instanceof FeatureGroup) || !(connection.getAllDestination() instanceof FeatureGroup))
 			return;
+		FeatureGroup source = (FeatureGroup)connection.getAllSource();
+		FeatureGroup destination = (FeatureGroup)connection.getAllDestination();
+		FeatureGroupType sourceType = source.getAllFeatureGroupType();
+		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
+		if (sourceType == null || destinationType == null)
+			return;
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(connection, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_MATCHING_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(connection, classifierMatchingRuleProperty);
 		}
-		FeatureGroupType srcfgt = ((FeatureGroup)source).getAllFeatureGroupType();
-		FeatureGroupType dstfgt = ((FeatureGroup)destination).getAllFeatureGroupType();
-		if (srcfgt == null || dstfgt == null) return ;
-		if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent){  // sibling connection
-				if( !(srcfgt.isInverseOf(dstfgt)||((((FeatureGroup)source).isInverse()&&!((FeatureGroup)destination).isInverse()))
-						||(!((FeatureGroup)source).isInverse()&&((FeatureGroup)destination).isInverse()))){
-			error(connection,
-					"Feature group types of feature group connection must be inverse types");
+		catch (PropertyNotPresentException e) {
+			classifierMatchingRuleValue = null;
 		}
+		//sibling connection
+		if (connection.getAllSourceContext() instanceof Subcomponent && connection.getAllDestinationContext() instanceof Subcomponent) {
+			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
+					ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				if (classifierMatchingRuleValue != null && ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+					warning(connection, "The classifier matching rule '" + ModelingProperties.EQUIVALENCE + "' is not supported for feature group connections between two subcomponents. Using rule '" +
+							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+				}
+				if (classifierMatchingRuleValue != null && ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION + "' is not supported for feature group connections. Using rule '" +
+							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+				}
+				if (sourceType.isInverseOf(destinationType)) {
+					if (source.isInverse() || destination.isInverse())
+						error(connection, "The feature group types of '" + source.getName() + "' and '" + destination.getName() + "' are not inverse types.");
+				}
+				else if (sourceType == destinationType) {
+					if (source.isInverse() == destination.isInverse())
+						error(connection, "The feature group types of '" + source.getName() + "' and '" + destination.getName() + "' are not inverse types.");
+				}
+				else
+					error(connection, "The feature group types of '" + source.getName() + "' and '" + destination.getName() + "' are not inverse types.");
+			}
+			else if (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				if (!classifiersFoundInSupportedClassifierComplementMatchesProperty(connection, sourceType, destinationType)) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+							"') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES + "'.");
+				}
+			}
+			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				//TODO: Sibling Subset
+				if (!checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType, destination.isInverse())) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+							"') do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of each feature group must be a subset of the outgoing" +
+							" feature in the opposite feature group.");
+				}
+			}
 		}
-
+		else { //up or down hierarchy
+			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
+					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				if (classifierMatchingRuleValue != null && ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION + "' is not supported for feature group connections. Using rule '" +
+							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+				}
+				if (classifierMatchingRuleValue != null && ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+					warning(connection, "The classifier matching rule '" + ModelingProperties.COMPLEMENT +
+							"' is not supported for feature group connections that connect up or down the containment hierarchy. Using rule '" + ModelingProperties.CLASSIFIER_MATCH + "' instead.");
+				}
+				if (sourceType == destinationType) {
+					if (source.isInverse() != destination.isInverse()) {
+						error(connection, "For connections that connect up or down the containment hierarchy, the feature group types of the source and destination must be identical." +
+								" They cannot be inverses of each other.");
+					}
+				}
+				else
+					error(connection, "The feature group types of the source and destination feature groups must be identical for connections that connect up or down the containment hierarchy.");
+			}
+			else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				if (!classifiersFoundInSupportedClassifierEquivalenceMatchesProperty(connection, sourceType, destinationType)) {
+					error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+							"') are not listed as matching classifiers in the property constant '" + AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
+				}
+			}
+			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+				if (connection.getAllSourceContext() instanceof Subcomponent) {
+					if (checkIfFeatureGroupTypesAreUpAndDownSubsets(sourceType, source.isInverse(), destinationType, destination.isInverse())) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+								"') do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of the inner feature group must be a subset of the incoming" +
+								" features of the outer feature group and the outgoing features of the outer feature group must be a subset of the outgoing features of the inner feature group.");
+					}
+				}
+				else {
+					if (checkIfFeatureGroupTypesAreUpAndDownSubsets(destinationType, destination.isInverse(), sourceType, source.isInverse())) {
+						error(connection, "The types of '" + source.getName() + "' and '" + destination.getName() + "' ('" + sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName() +
+								"') do not satisfy the Subset rule for classifier matching.  In order to satisfy this rule, the incoming features of the inner feature group must be a subset of the incoming" +
+								" features of the outer feature group and the outgoing features of the outer feature group must be a subset of the outgoing features of the inner feature group.");
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Complies with the criteria for complementing feature group types specified in legality
+	 *  rules L8 through L12 in section 8.2 (Feature Groups and Feature Group Types)
+	 * "(L8)	The number of feature or feature groups contained in the feature group and
+	 * 			its complement must be identical;
+	 * (L9)		Each of the decalred features or feature groups in a feature group must be a
+	 * 			pair-wise complement with that in the feature group complement, with pairs
+	 * 			determined by declaration order.  In the case of feature group types
+	 * 			extensions, the feature and feature group declarations in the extension are
+	 * 			considered to be declared after the declarations in the feature group type
+	 * 			being extended;
+	 * (L10)	If both feature group types have zero features, then they are considered to
+	 * 			complement each other;
+	 * (L11)	Ports are pair-wise complementary if they satisfy the port connection rules
+	 * 			specified in Section 9.2.1.  This includes appropriate port direction and
+	 * 			matching of data component classifier references according to classifier
+	 * 			matching rules (see Section 9.5 legality rules (L3) and (L4);
+	 * (L12)	Access features are pair-wise complementary if they satisfy the access
+	 * 			connection rules in Section 9.4."
+	 */
+	//It seems that this method may not be needed anymore.  It is left here just in case it will
+	//be needed in the future.  It is currently incomplete.
+//	private boolean checkIfFeatureGroupTypesComplementEachOther(FeatureGroupType sourceType, boolean isSourceFGInverse, FeatureGroupType destinationType, boolean isDestinationFGInverse) {
+//		EList<Feature> allSourceFeatures = sourceType.getAllFeatures();
+//		EList<Feature> allDestinationFeatures = destinationType.getAllFeatures();
+//		if (allSourceFeatures.size() == 0 && allDestinationFeatures.size() == 0)
+//			return true;
+//		if (allSourceFeatures.size() != allDestinationFeatures.size())
+//			return false;
+//		Iterator<Feature> sourceFeaturesIterator = allSourceFeatures.iterator();
+//		Iterator<Feature> destinationFeaturesIterator = allDestinationFeatures.iterator();
+//		while (sourceFeaturesIterator.hasNext() && destinationFeaturesIterator.hasNext()) {
+//			Feature sourceFeature = sourceFeaturesIterator.next();
+//			Feature destinationFeature = destinationFeaturesIterator.next();
+//			if (sourceFeature instanceof Port && destinationFeature instanceof Port) {
+//				//Check port types
+//				if (sourceFeature instanceof EventPort && !(destinationFeature instanceof EventPort))
+//					return false;
+//				
+//				//Check direction
+//				DirectionType sourceDirection = ((Port)sourceFeature).getDirection();
+//				DirectionType destinationDirection = ((Port)destinationFeature).getDirection();
+//				if (isSourceFGInverse)
+//					sourceDirection = sourceDirection.getInverseDirection();
+//				if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
+//					//feature group type has inverse and feature is defined in the inverse FGT
+//					sourceDirection = sourceDirection.getInverseDirection();
+//				}
+//				if (isDestinationFGInverse)
+//					destinationDirection = destinationDirection.getInverseDirection();
+//				if (destinationType != destinationFeature.getContainingClassifier() && destinationType.getInverse() != null) {
+//					//feature group type has inverse and feature is defined in the inverse FGT
+//					destinationDirection = destinationDirection.getInverseDirection();
+//				}
+//				if ((sourceDirection == DirectionType.IN && destinationDirection == DirectionType.IN) || (sourceDirection == DirectionType.OUT && destinationDirection == DirectionType.OUT))
+//					return false;
+//				
+//				//Check classifier
+//				ComponentClassifier sourceClassifier = sourceFeature.getAllClassifier();
+//				ComponentClassifier destinationClassifier = destinationFeature.getAllClassifier();
+//				if (sourceClassifier != null && destinationClassifier != null && sourceClassifier != destinationClassifier) {
+//					if ((sourceClassifier instanceof ComponentType && destinationClassifier instanceof ComponentType) ||
+//							(sourceClassifier instanceof ComponentImplementation && destinationClassifier instanceof ComponentImplementation)) {
+//						return false;
+//					}
+//				}
+//			}
+//		}
+//		return true;
+//	}
+	
+	private boolean checkIfFeatureGroupTypesAreUpAndDownSubsets(FeatureGroupType innerType, boolean isInnerFGInverse, FeatureGroupType outerType, boolean isOuterFGInverse) {
+		for (Feature innerFeature : innerType.getAllFeatures()) {
+			if (innerFeature instanceof DirectedFeature) {
+				DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
+				if (isInnerFGInverse)
+					innerDirection = innerDirection.getInverseDirection();
+				if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
+					//feature group type has inverse and feature is defined in the inverse FGT
+					innerDirection = innerDirection.getInverseDirection();
+				}
+				if (innerDirection.incoming()) {
+					//need to find incoming feature in outer feature group
+					boolean matchingFeatureFound = false;
+					for (Feature outerFeature : outerType.getAllFeatures()) {
+						if (innerFeature.getName().equalsIgnoreCase(outerFeature.getName())) {
+							matchingFeatureFound = true;
+							if (outerFeature instanceof DirectedFeature) {
+								DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
+								if (isOuterFGInverse)
+									outerDirection = outerDirection.getInverseDirection();
+								if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
+									//feature group type has inverse and feature is defined in the inverse FGT
+									outerDirection = outerDirection.getInverseDirection();
+								}
+								if (!outerDirection.incoming())
+									return false;
+								if (!innerFeature.eClass().equals(outerFeature.eClass()))
+									return false;
+							}
+							else
+								return false;
+						}
+					}
+					if (!matchingFeatureFound)
+						return false;
+				}
+			}
+		}
+		
+		for (Feature outerFeature : outerType.getAllFeatures()) {
+			if (outerFeature instanceof DirectedFeature) {
+				DirectionType outerDirection = ((DirectedFeature)outerFeature).getDirection();
+				if (isOuterFGInverse)
+					outerDirection = outerDirection.getInverseDirection();
+				if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
+					//feature group type has inverse and feature is defined in the inverse FGT
+					outerDirection = outerDirection.getInverseDirection();
+				}
+				if (outerDirection.outgoing()) {
+					//need to find outgoing feature in inner feature group
+					boolean matchingFeatureFound = false;
+					for (Feature innerFeature : innerType.getAllFeatures()) {
+						if (outerFeature.getName().equalsIgnoreCase(innerFeature.getName())) {
+							matchingFeatureFound = true;
+							if (innerFeature instanceof DirectedFeature) {
+								DirectionType innerDirection = ((DirectedFeature)innerFeature).getDirection();
+								if (isInnerFGInverse)
+									innerDirection = innerDirection.getInverseDirection();
+								if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
+									//feature group type has inverse and feature is defined in the inverse FGT
+									innerDirection = innerDirection.getInverseDirection();
+								}
+								if (!innerDirection.outgoing())
+									return false;
+								if (!outerFeature.eClass().equals(innerFeature.eClass()))
+									return false;
+							}
+							else
+								return false;
+						}
+					}
+					if (!matchingFeatureFound)
+						return false;
+				}
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean checkIfFeatureGroupTypesAreSiblingSubsets(FeatureGroupType sourceType, boolean isSourceFGInverse, FeatureGroupType destinationType, boolean isDestinationFGInverse) {
+		for (Feature sourceFeature : sourceType.getAllFeatures()) {
+			if (sourceFeature instanceof DirectedFeature) {
+				DirectionType sourceDirection = ((DirectedFeature)sourceFeature).getDirection();
+				if (isSourceFGInverse)
+					sourceDirection = sourceDirection.getInverseDirection();
+				if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
+					//feature group type has inverse and feature is defined in the inverse FGT
+					sourceDirection = sourceDirection.getInverseDirection();
+				}
+				if (sourceDirection.incoming()) {
+					//need to find outgoing feature in destination
+					boolean matchingFeatureFound = false;
+					for (Feature destinationFeature : destinationType.getAllFeatures()) {
+						if (sourceFeature.getName().equalsIgnoreCase(destinationFeature.getName())) {
+							matchingFeatureFound = true;
+							if (destinationFeature instanceof DirectedFeature) {
+								DirectionType destinationDirection = ((DirectedFeature)destinationFeature).getDirection();
+								if (isDestinationFGInverse)
+									destinationDirection = destinationDirection.getInverseDirection();
+								if (destinationType != destinationFeature.getContainingClassifier() && destinationType.getInverse() != null) {
+									//feature group type has inverse and feature is defined in the inverse FGT
+									destinationDirection = destinationDirection.getInverseDirection();
+								}
+								if (!destinationDirection.outgoing())
+									return false;
+								if (!sourceFeature.eClass().equals(destinationFeature.eClass()))
+									return false;
+							}
+							else
+								return false;
+						}
+					}
+					if (!matchingFeatureFound)
+						return false;
+				}
+			}
+		}
+		
+		for (Feature destinationFeature : destinationType.getAllFeatures()) {
+			if (destinationFeature instanceof DirectedFeature) {
+				DirectionType destinationDirection = ((DirectedFeature)destinationFeature).getDirection();
+				if (isDestinationFGInverse)
+					destinationDirection = destinationDirection.getInverseDirection();
+				if (destinationType != destinationFeature.getContainingClassifier() && destinationType.getInverse() != null) {
+					//feature group type has inverse and feature is defined in the inverse FGT
+					destinationDirection = destinationDirection.getInverseDirection();
+				}
+				if (destinationDirection.incoming()) {
+					//need to find outgoing feature in source
+					boolean matchingFeatureFound = false;
+					for (Feature sourceFeature : sourceType.getAllFeatures()) {
+						if (destinationFeature.getName().equalsIgnoreCase(sourceFeature.getName())) {
+							matchingFeatureFound = true;
+							if (sourceFeature instanceof DirectedFeature) {
+								DirectionType sourceDirection = ((DirectedFeature)sourceFeature).getDirection();
+								if (isSourceFGInverse)
+									sourceDirection = sourceDirection.getInverseDirection();
+								if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
+									//feature group type has inverse and feature is defined in the inverse FGT
+									sourceDirection = sourceDirection.getInverseDirection();
+								}
+								if (!sourceDirection.outgoing())
+									return false;
+								if (!destinationFeature.eClass().equals(sourceFeature.eClass()))
+									return false;
+							}
+							else
+								return false;
+						}
+					}
+					if (!matchingFeatureFound)
+						return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 
-
-
+	private boolean classifiersFoundInSupportedClassifierComplementMatchesProperty(FeatureGroupConnection connection, FeatureGroupType source, FeatureGroupType destination) {
+		PropertyConstant matchesPropertyConstant = GetProperties.lookupPropertyConstant(connection, AadlProject.SUPPORTED_CLASSIFIER_COMPLEMENT_MATCHES);
+		if (matchesPropertyConstant == null)
+			return false;
+		PropertyExpression constantValue = matchesPropertyConstant.getConstantValue();
+		if (!(constantValue instanceof ListValue))
+			return false;
+		for (PropertyExpression classifierPair : ((ListValue)constantValue).getOwnedListElements()) {
+			if (classifierPair instanceof ListValue) {
+				EList<PropertyExpression> innerListElements = ((ListValue)classifierPair).getOwnedListElements();
+				if (innerListElements.size() == 2 && innerListElements.get(0) instanceof ClassifierValue && innerListElements.get(1) instanceof ClassifierValue) {
+					Classifier firstPairElement = ((ClassifierValue)innerListElements.get(0)).getClassifier();
+					Classifier secondPairElement = ((ClassifierValue)innerListElements.get(1)).getClassifier();
+					if ((firstPairElement == source && secondPairElement == destination) || (firstPairElement == destination && secondPairElement == source))
+						return true;
+				}
+			}
+		}
+		return false;
+	}
 }

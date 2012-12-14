@@ -141,6 +141,35 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		this.classifierCache = classifierCache;
 	}
 
+	private boolean isOpposite (Feature feature, Connection connection) throws UnsupportedOperationException
+	{
+		boolean 		result;
+		List<Feature> 	features;
+		
+		result = feature.getAllFeatureRefinements().contains(connection.getAllDestination());
+//		System.out.println ("opposite=" + result);
+		
+		if (result == true)
+		{
+			features = feature.getAllFeatureRefinements();
+			
+			for (Feature f : features)
+			{
+				if (feature.getContainingClassifier () == f.getContainingClassifier())
+				{
+					throw new UnsupportedOperationException ("Connection between two components that inherit features is not supported");
+				}
+				//System.out.println ("feature container=" + feature.getContainingClassifier());
+				System.out.println ("feature2 container=" + f.getContainingClassifier());
+			}
+			
+			
+		}
+		
+		return result;
+	}
+		
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -154,7 +183,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			boolean inArray = false;
 			String prefix = "";
 
-			public String caseComponentInstance(final ComponentInstance ci) {
+			public String caseComponentInstance(final ComponentInstance ci) throws UnsupportedOperationException {
 				if (!(ci instanceof SystemInstance)) {
 					if (!inArray) {
 						for (Long index : ci.getIndices()) {
@@ -170,6 +199,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					if (!inArray) {
 						// process first component of innermost array only
 						instantiateConnections(ci);
+						
 					}
 				}
 				return DONE;
@@ -182,11 +212,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * 
 	 * @param ci The component that is the ultimate source; this should be a
 	 *            thread, processor or device
+	 * @throws InstantiationException 
 	 */
 	// TODO-LW: handle access to subprograms and subprogram groups
 	// TODO-LW: connections inside threads (mode conn, access)
 	// TODO-LW: warning if connection incomplete
-	private void instantiateConnections(final ComponentInstance ci) {
+	private void instantiateConnections(final ComponentInstance ci) throws UnsupportedOperationException {
 		ComponentCategory cat = ci.getCategory();
 		Subcomponent sub = ci.getSubcomponent();
 		ComponentInstance parentci = ci.getContainingComponentInstance();
@@ -199,24 +230,29 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
 			// connection instance may start at a shared component
-			for (Connection conn : filterStartingConnections(parentConns, sub)) {
+			for (Connection conn : filterStartingConnections(parentConns, sub))
+			{
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
 
 				appendSegment(ConnectionInfo.newConnectionInfo(ci), conn, parentci, opposite);
-				if (monitor.isCanceled()) {
+				if (monitor.isCanceled()) 
+				{
 					return;
 				}
 			}
-		} else {
+		} 
+		else 
+		{
 			// connection instance may start at a feature
 			List<Connection> outsideSubConns = filterOutgoingConnections(parentConns, sub);
 			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 			@SuppressWarnings("unchecked")
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
-			boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci
-					.getComponentInstances());
+			boolean hasOutgoingFeatureSubcomponents = 
+					AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
 
-			for (FeatureInstance featurei : ci.getFeatureInstances()) {
+			for (FeatureInstance featurei : ci.getFeatureInstances()) 
+			{
 				final boolean inFeatureGroup = !featurei.getFeatureInstances().isEmpty();
 				Feature feature = featurei.getFeature();
 				// TODO warning if subcomponents with outgoing features exist
@@ -240,8 +276,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						// conn is first segment if it can't continue inside the subcomponent
 						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) {
 							// TODO-LW: check if this logic is correct
-							final boolean opposite = feature.getAllFeatureRefinements().contains(
-									conn.getAllDestination());
+							
+							boolean opposite = isOpposite (feature, conn);
+							//System.out.println ("opposite=" + opposite);
 //								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
 //									if (f instanceof FeatureGroup) {
 //										warning(featurei,
