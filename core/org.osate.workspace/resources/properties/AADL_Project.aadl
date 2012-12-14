@@ -28,6 +28,18 @@ property set AADL_Project is
 	
 	Supported_Classifier_Substitutions: type enumeration (Classifier_Match, Type_Extension, Signature_Match);
 	
+	--The following four property constants support values which are lists of pairs of classifiers.  An example value could be the following:
+	--		((classifier (pkg::a), classifier (pkg::b)), (classifier (pkg::c), classifier (pkg::d)), (classifier (pkg::e), classifier (pkg::f)))
+	--The size of each inner list must be exactly two.  There are no restrictions on the size of the outer list.
+	
+	Supported_Classifier_Equivalence_Matches: constant list of list of classifier (data, bus, subprogram, subprogram group, feature group) => ();
+	
+	Supported_Classifier_Subset_Matches: constant list of list of classifier (data, bus, subprogram, subprogram group) => ();
+	
+	Supported_Type_Conversions: constant list of list of classifier (data, bus, subprogram, subprogram group) => ();
+	
+	Supported_Classifier_Complement_Matches: constant list of list of classifier (feature group) => ();
+	
 	
 	Data_Volume: type aadlinteger 0 bitsps .. Max_Data_Volume
 		units Data_Volume_Units;
