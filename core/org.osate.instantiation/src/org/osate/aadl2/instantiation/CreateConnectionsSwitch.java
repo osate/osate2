@@ -144,14 +144,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private boolean isOpposite (Feature feature, Connection connection) throws UnsupportedOperationException
 	{
 		boolean 		result;
-		List<Feature> 	features;
+		List<Feature> 	features= feature.getAllFeatureRefinements();
+		if (feature == connection.getAllSource()){
+			result = features.contains(connection.getAllDestination());
+		} else {
+			// we are going the other way on a bi-directional connection
+			result = features.contains(connection.getAllSource());
+		}
 		
-		result = feature.getAllFeatureRefinements().contains(connection.getAllDestination());
 //		System.out.println ("opposite=" + result);
 		
 		if (result == true)
 		{
-			features = feature.getAllFeatureRefinements();
 			
 			for (Feature f : features)
 			{
