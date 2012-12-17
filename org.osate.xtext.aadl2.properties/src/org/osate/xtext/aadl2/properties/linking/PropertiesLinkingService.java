@@ -397,15 +397,18 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
 			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
 			if (context instanceof NamedValue){
-				List<EObject> res = findPropertyConstant(context, reference, name);
-				if (res.isEmpty()){
-					res = findPropertyDefinitionAsList(context, reference, name);
-				}
-				if (res.isEmpty() && name.indexOf("::")==-1){
+				List<EObject> res = Collections.EMPTY_LIST;
+				if ( name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
 					res = findEnumLiteralAsList(context, reference, name);
 					if (res.isEmpty())
 						res = findUnitLiteralAsList(context, reference, name);
+				}
+				if (res.isEmpty()){
+					res = findPropertyConstant(context, reference, name);
+				}
+				if (res.isEmpty()){
+					res = findPropertyDefinitionAsList(context, reference, name);
 				}
 				return res;
 			}
