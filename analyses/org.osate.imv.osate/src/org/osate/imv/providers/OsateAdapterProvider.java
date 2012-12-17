@@ -96,7 +96,9 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 			this.addSubcomponentsToComponent(containerAdapter, nesting);
 			// Add connections.
 			this.addConnectionsToComponent(containerAdapter);
-			this.addBindingsToComponent(containerAdapter);
+			if (modelElement instanceof ComponentInstance){
+				this.addBindingsToComponent(containerAdapter);
+			}
 		}
 
 		return containerAdapter;
