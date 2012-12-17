@@ -2726,7 +2726,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			FeatureGroupType srcFGT = ((FeatureGroup) srcContext).getFeatureGroupType();
 			FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
-			if (srcFGT != contsrcFGT && srcFGT.getInverse() != null) {
+			if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
 				// feature group type has inverse and feature is defined in the inverse FGT
 				srcDirection = srcDirection.getInverseDirection();
 			}
@@ -2737,7 +2737,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			FeatureGroupType dstFGT = ((FeatureGroup) dstContext).getFeatureGroupType();
 			FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
-			if (dstFGT != contdstFGT && dstFGT.getInverse() != null) {
+			if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT)  && dstFGT.getInverse() != null) {
 				dstDirection = dstDirection.getInverseDirection();
 			}
 		}
