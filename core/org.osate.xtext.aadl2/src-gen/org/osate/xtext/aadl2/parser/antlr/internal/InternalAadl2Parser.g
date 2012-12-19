@@ -33705,91 +33705,91 @@ ruleConstantPropertyExpression returns [EObject current=null]
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getOldRecordTermParserRuleCall_0()); 
     }
-    this_RecordTerm_0=ruleRecordTerm
+    this_OldRecordTerm_0=ruleOldRecordTerm
     {
-        $current = $this_RecordTerm_0.current;
+        $current = $this_OldRecordTerm_0.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_1()); 
     }
-    this_NumericRangeTerm_1=ruleNumericRangeTerm
+    this_RecordTerm_1=ruleRecordTerm
     {
-        $current = $this_NumericRangeTerm_1.current;
+        $current = $this_RecordTerm_1.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); 
     }
-    this_ComputedTerm_2=ruleComputedTerm
+    this_ComponentClassifierTerm_2=ruleComponentClassifierTerm
     {
-        $current = $this_ComputedTerm_2.current;
+        $current = $this_ComponentClassifierTerm_2.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_3()); 
     }
-    this_StringTerm_3=ruleStringTerm
+    this_ComputedTerm_3=ruleComputedTerm
     {
-        $current = $this_StringTerm_3.current;
+        $current = $this_ComputedTerm_3.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_4()); 
     }
-    this_RealTerm_4=ruleRealTerm
+    this_StringTerm_4=ruleStringTerm
     {
-        $current = $this_RealTerm_4.current;
+        $current = $this_StringTerm_4.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); 
     }
-    this_IntegerTerm_5=ruleIntegerTerm
+    this_NumericRangeTerm_5=ruleNumericRangeTerm
     {
-        $current = $this_IntegerTerm_5.current;
+        $current = $this_NumericRangeTerm_5.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_6()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_6()); 
     }
-    this_ComponentClassifierTerm_6=ruleComponentClassifierTerm
+    this_RealTerm_6=ruleRealTerm
     {
-        $current = $this_ComponentClassifierTerm_6.current;
+        $current = $this_RealTerm_6.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); 
     }
-    this_ListTerm_7=ruleListTerm
+    this_IntegerTerm_7=ruleIntegerTerm
     {
-        $current = $this_ListTerm_7.current;
+        $current = $this_IntegerTerm_7.current;
         afterParserOrEnumRuleCall();
     }
 
     |
     { 
-        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); 
     }
-    this_LiteralorReferenceTerm_8=ruleLiteralorReferenceTerm
+    this_ListTerm_8=ruleListTerm
     {
-        $current = $this_LiteralorReferenceTerm_8.current;
+        $current = $this_ListTerm_8.current;
         afterParserOrEnumRuleCall();
     }
 
@@ -33800,6 +33800,16 @@ ruleConstantPropertyExpression returns [EObject current=null]
     this_BooleanLiteral_9=ruleBooleanLiteral
     {
         $current = $this_BooleanLiteral_9.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); 
+    }
+    this_LiteralorReferenceTerm_10=ruleLiteralorReferenceTerm
+    {
+        $current = $this_LiteralorReferenceTerm_10.current;
         afterParserOrEnumRuleCall();
     }
 )

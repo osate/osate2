@@ -24145,55 +24145,59 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	public class ConstantPropertyExpressionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ConstantPropertyExpression");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cRecordTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cNumericRangeTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cComputedTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final RuleCall cStringTermParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
-		private final RuleCall cRealTermParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cIntegerTermParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
-		private final RuleCall cComponentClassifierTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
-		private final RuleCall cListTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
-		private final RuleCall cLiteralorReferenceTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
+		private final RuleCall cOldRecordTermParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cRecordTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cComponentClassifierTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cComputedTermParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cStringTermParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cNumericRangeTermParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cRealTermParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		private final RuleCall cIntegerTermParserRuleCall_7 = (RuleCall)cAlternatives.eContents().get(7);
+		private final RuleCall cListTermParserRuleCall_8 = (RuleCall)cAlternatives.eContents().get(8);
 		private final RuleCall cBooleanLiteralParserRuleCall_9 = (RuleCall)cAlternatives.eContents().get(9);
+		private final RuleCall cLiteralorReferenceTermParserRuleCall_10 = (RuleCall)cAlternatives.eContents().get(10);
 		
 		//ConstantPropertyExpression returns aadl2::PropertyExpression:
-		//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-		//	ListTerm | LiteralorReferenceTerm | BooleanLiteral;
+		//	OldRecordTerm | RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+		//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 		public ParserRule getRule() { return rule; }
 
-		//RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm | ListTerm
-		//| LiteralorReferenceTerm | BooleanLiteral
+		//OldRecordTerm | RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+		//IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm
 		public Alternatives getAlternatives() { return cAlternatives; }
 
+		//OldRecordTerm
+		public RuleCall getOldRecordTermParserRuleCall_0() { return cOldRecordTermParserRuleCall_0; }
+
 		//RecordTerm
-		public RuleCall getRecordTermParserRuleCall_0() { return cRecordTermParserRuleCall_0; }
-
-		//NumericRangeTerm
-		public RuleCall getNumericRangeTermParserRuleCall_1() { return cNumericRangeTermParserRuleCall_1; }
-
-		//ComputedTerm
-		public RuleCall getComputedTermParserRuleCall_2() { return cComputedTermParserRuleCall_2; }
-
-		//StringTerm
-		public RuleCall getStringTermParserRuleCall_3() { return cStringTermParserRuleCall_3; }
-
-		//RealTerm
-		public RuleCall getRealTermParserRuleCall_4() { return cRealTermParserRuleCall_4; }
-
-		//IntegerTerm
-		public RuleCall getIntegerTermParserRuleCall_5() { return cIntegerTermParserRuleCall_5; }
+		public RuleCall getRecordTermParserRuleCall_1() { return cRecordTermParserRuleCall_1; }
 
 		//ComponentClassifierTerm
-		public RuleCall getComponentClassifierTermParserRuleCall_6() { return cComponentClassifierTermParserRuleCall_6; }
+		public RuleCall getComponentClassifierTermParserRuleCall_2() { return cComponentClassifierTermParserRuleCall_2; }
+
+		//ComputedTerm
+		public RuleCall getComputedTermParserRuleCall_3() { return cComputedTermParserRuleCall_3; }
+
+		//StringTerm
+		public RuleCall getStringTermParserRuleCall_4() { return cStringTermParserRuleCall_4; }
+
+		//NumericRangeTerm
+		public RuleCall getNumericRangeTermParserRuleCall_5() { return cNumericRangeTermParserRuleCall_5; }
+
+		//RealTerm
+		public RuleCall getRealTermParserRuleCall_6() { return cRealTermParserRuleCall_6; }
+
+		//IntegerTerm
+		public RuleCall getIntegerTermParserRuleCall_7() { return cIntegerTermParserRuleCall_7; }
 
 		//ListTerm
-		public RuleCall getListTermParserRuleCall_7() { return cListTermParserRuleCall_7; }
-
-		//LiteralorReferenceTerm
-		public RuleCall getLiteralorReferenceTermParserRuleCall_8() { return cLiteralorReferenceTermParserRuleCall_8; }
+		public RuleCall getListTermParserRuleCall_8() { return cListTermParserRuleCall_8; }
 
 		//BooleanLiteral
 		public RuleCall getBooleanLiteralParserRuleCall_9() { return cBooleanLiteralParserRuleCall_9; }
+
+		//LiteralorReferenceTerm
+		public RuleCall getLiteralorReferenceTermParserRuleCall_10() { return cLiteralorReferenceTermParserRuleCall_10; }
 	}
 
 	public class IntegerRangeElements extends AbstractParserRuleElementFinder {
@@ -27182,8 +27186,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ConstantPropertyExpression returns aadl2::PropertyExpression:
-	//	RecordTerm | NumericRangeTerm | ComputedTerm | StringTerm | RealTerm | IntegerTerm | ComponentClassifierTerm |
-	//	ListTerm | LiteralorReferenceTerm | BooleanLiteral;
+	//	OldRecordTerm | RecordTerm | ComponentClassifierTerm | ComputedTerm | StringTerm | NumericRangeTerm | RealTerm |
+	//	IntegerTerm | ListTerm | BooleanLiteral | LiteralorReferenceTerm;
 	public ConstantPropertyExpressionElements getConstantPropertyExpressionAccess() {
 		return (pConstantPropertyExpression != null) ? pConstantPropertyExpression : (pConstantPropertyExpression = new ConstantPropertyExpressionElements());
 	}

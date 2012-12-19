@@ -16487,63 +16487,69 @@ rule__ConstantPropertyExpression__Alternatives
     }
 :
 (
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_0()); }
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getOldRecordTermParserRuleCall_0()); }
+	ruleOldRecordTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getOldRecordTermParserRuleCall_0()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_1()); }
 	ruleRecordTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_0()); }
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getRecordTermParserRuleCall_1()); }
 )
 
     |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1()); }
-	ruleNumericRangeTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_1()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_2()); }
-	ruleComputedTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_2()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_3()); }
-	ruleStringTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_3()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_4()); }
-	ruleRealTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_4()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_5()); }
-	ruleIntegerTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_5()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_6()); }
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); }
 	ruleComponentClassifierTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_6()); }
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getComponentClassifierTermParserRuleCall_2()); }
 )
 
     |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); }
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_3()); }
+	ruleComputedTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getComputedTermParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_4()); }
+	ruleStringTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getStringTermParserRuleCall_4()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); }
+	ruleNumericRangeTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getNumericRangeTermParserRuleCall_5()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_6()); }
+	ruleRealTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getRealTermParserRuleCall_6()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); }
+	ruleIntegerTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getIntegerTermParserRuleCall_7()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); }
 	ruleListTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_7()); }
-)
-
-    |(
-{ before(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_8()); }
-	ruleLiteralorReferenceTerm
-{ after(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_8()); }
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getListTermParserRuleCall_8()); }
 )
 
     |(
 { before(grammarAccess.getConstantPropertyExpressionAccess().getBooleanLiteralParserRuleCall_9()); }
 	ruleBooleanLiteral
 { after(grammarAccess.getConstantPropertyExpressionAccess().getBooleanLiteralParserRuleCall_9()); }
+)
+
+    |(
+{ before(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); }
+	ruleLiteralorReferenceTerm
+{ after(grammarAccess.getConstantPropertyExpressionAccess().getLiteralorReferenceTermParserRuleCall_10()); }
 )
 
 ;
