@@ -102,9 +102,10 @@ public class AadlBaRulesCheckersDriver
         return result ;
     }
     else
-    {
+    {System.out.println(theElement.getLocationReference().getLine()) ;
       // Declarative objects are not supported.
-      System.err.println("the given element doesn't come from AADL BA model") ;
+      System.err.println("the given element -" + theElement.getClass().getSimpleName() + 
+                         "- doesn't come from AADL BA model") ;
       return false ;
     }
   }

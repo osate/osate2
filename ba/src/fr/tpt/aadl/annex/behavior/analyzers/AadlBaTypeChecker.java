@@ -1997,7 +1997,7 @@ public class AadlBaTypeChecker
       }
       else
       {
-        result &= behaviorActionsCheck(elseStat.getBehaviorActions(), stat);
+        result &= behaviorActionsCheck(elseStat.getBehaviorActions(), elseStat);
       }
     }
 
