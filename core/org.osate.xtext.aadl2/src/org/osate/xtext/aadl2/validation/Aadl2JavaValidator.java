@@ -1274,6 +1274,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ComponentType typeOfParent = parent.getType();
 		ComponentType typeOfChild = child.getType();
 		boolean isAncestor = false;
+		if (Aadl2Util.isNull(typeOfParent)) return;
+		if (Aadl2Util.isNull(typeOfChild)) return;
 		if (hasExtendCycles(typeOfChild))
 			return;
 		for (ComponentType currentType = typeOfChild; currentType != null && !isAncestor; currentType = currentType
