@@ -75,7 +75,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	OldRecordTerm |
+//	OldRecordTerm |
 	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
 	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 

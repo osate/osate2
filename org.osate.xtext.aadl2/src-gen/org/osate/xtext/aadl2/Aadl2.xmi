@@ -9412,7 +9412,6 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.14"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.13"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.16"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.15"/>
@@ -9826,7 +9825,6 @@
         <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
       </type>
       <alternatives xsi:type="xtext:Alternatives">
-        <elements xsi:type="xtext:RuleCall" rule="/1/@rules.14"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.13"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.12"/>
         <elements xsi:type="xtext:RuleCall" rule="/1/@rules.16"/>
