@@ -17,13 +17,24 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DeploymentHelper {
 
-	public static boolean sameProcessor (ComponentInstance partition1, ComponentInstance partition2)
+	public static boolean sameProcessor (ComponentInstance partition1, ComponentInstance partition2) throws Exception
 	{
 		ComponentInstance runtimePartition1;
 		ComponentInstance runtimePartition2;
 		ComponentInstance modulePartition1;
 		ComponentInstance modulePartition2;
 		
+		
+		if (GetProperties.getActualProcessorBinding (partition1).size() < 1)
+		{
+			throw new UnsupportedOperationException ("partition " + partition1 + " does not have a runtime");
+		}
+		
+		if (GetProperties.getActualProcessorBinding (partition2).size() < 1)
+		{
+			throw new UnsupportedOperationException ("partition " + partition2 + " does not have a runtime");
+
+		}
 		
 		runtimePartition1 = GetProperties.getActualProcessorBinding (partition1).get(0);
 		runtimePartition2 = GetProperties.getActualProcessorBinding (partition2).get(0);
@@ -68,6 +79,12 @@ public class DeploymentHelper {
 		List<FeatureInstance> features;
 	
 		bus = null;
+		
+		if (device == null)
+		{
+			return null;
+		}
+		
 		features = device.getFeatureInstances();
 		for (FeatureInstance fi : features)
 		{
@@ -167,6 +184,10 @@ public class DeploymentHelper {
 	
 	public static ComponentInstance getPartitionRuntime (ComponentInstance partition)
 	{
+		if (GetProperties.getActualProcessorBinding (partition).size() < 1)
+		{
+			return null;
+		}
 		return GetProperties.getActualProcessorBinding (partition).get(0);
 	}
 	
@@ -180,6 +201,12 @@ public class DeploymentHelper {
 		
 		partitionRuntime = getPartitionRuntime (partition);
 		slotsAllocationList = SchedulingSlotsHelper.getSlotsAllocation(module);
+		
+		if (partitionRuntime == null)
+		{
+			return -1;
+		}
+		
 		val = -1;
 		tmp = 0;
 		for (Element e : slotsAllocationList.getChildren())
