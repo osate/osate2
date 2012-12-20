@@ -376,7 +376,7 @@ public class AadlBaUtils {
    * object types.
    */
   public static Classifier getClassifier(Element el,
-                                           ComponentClassifier parentContainer)
+                                           Classifier parentContainer)
   {
     Classifier result = null ;
 
@@ -386,7 +386,19 @@ public class AadlBaUtils {
       
       if(el instanceof FeatureGroup)
       {
-        result = ((FeatureGroup)el).getFeatureGroupType() ;
+        org.osate.aadl2.FeatureType ft = ((FeatureGroup)el).getFeatureType() ;
+        
+        if (ft != null)
+        {
+          if(ft instanceof FeatureGroupType)
+          {
+            result = (FeatureGroupType) ft ;
+          }
+          else // FeatureGroupPrototype case
+          {
+            result = getClassifier((FeatureGroupPrototype)ft, parentContainer) ;
+          }
+        }
       }
       else
       {
@@ -397,7 +409,7 @@ public class AadlBaUtils {
         // Feature without classifier returns null.
         if(result == null && f.getPrototype() != null)
         {
-          result = componentPrototypeResolver((ComponentPrototype)
+          result = prototypeResolver((ComponentPrototype)
                                                 f.getPrototype(),
                                                 parentContainer) ;
         }
@@ -420,7 +432,7 @@ public class AadlBaUtils {
         // Subcomponent without classifier returns null.
         if(result == null && sub.getPrototype() != null)
         {
-          result = componentPrototypeResolver(sub.getPrototype(),
+          result = prototypeResolver(sub.getPrototype(),
                                               parentContainer) ;
         }
       }
@@ -438,88 +450,12 @@ public class AadlBaUtils {
     }
     else if (el instanceof Prototype)
     {
-      if(el instanceof ComponentPrototype)
-      {
-        ComponentPrototype cp = (ComponentPrototype) el ;
-        result = cp.getConstrainingClassifier() ;
-      }
-      else if (el instanceof FeaturePrototype)
-      {
-        FeaturePrototype fp = (FeaturePrototype) el ;
-        result = fp.getConstrainingClassifier() ;
-      }
-      else if (el instanceof FeatureGroupPrototype)
-      {
-        FeatureGroupPrototype fgp = (FeatureGroupPrototype) el ;
-        result = fgp.getConstrainingFeatureGroupType() ;
-      } 
-      else
-      {
-        // Reports error.
-        String errorMsg = "getClassifier : " + 
-            el.getClass().getSimpleName()+
-            " is not supported yet." ;
-
-        System.err.println(errorMsg);
-        throw new UnsupportedOperationException(errorMsg) ;
-      }
+      result = prototypeResolver((Prototype) el, parentContainer) ;
     }
     else if (el instanceof PrototypeBinding)
     {
       // Prototype binding case.
-
-      if (el instanceof FeaturePrototypeBinding)
-      {
-        FeaturePrototypeActual fpa ;
-        fpa = ((FeaturePrototypeBinding)el).getActual() ;
-
-        if (fpa instanceof AccessSpecification)
-        {
-          result = ((AccessSpecification) fpa).getClassifier() ; 
-        }
-        else if(fpa instanceof PortSpecification)
-        {
-          result = ((PortSpecification)fpa).getClassifier() ;
-        }
-        else
-        {
-          // Reports error.
-          String errorMsg = "getClassifier : " + 
-              fpa.getClass().getSimpleName()+
-              " is not supported yet." ;
-
-          System.err.println(errorMsg);
-          throw new UnsupportedOperationException(errorMsg) ;
-        }
-      }
-      else if (el instanceof FeatureGroupPrototypeBinding)
-      {
-        FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) el ;
-        result = (FeatureGroupType) fgpb.getActual().getFeatureType() ;
-      }
-      else // ComponentPrototypeBinding case.
-      {
-        EList<ComponentPrototypeActual> lcpa ;
-        lcpa = ((ComponentPrototypeBinding) el).getActuals() ;
-
-        // Takes the last binding.
-        ComponentPrototypeActual cpa = lcpa.get(lcpa.size() -1) ;
-
-        if(cpa.getSubcomponentType() instanceof Classifier)
-        {
-          result = (Classifier) cpa.getSubcomponentType() ;
-        }
-        else
-        {
-          // Reports error.
-          String errorMsg = "getClassifier : " + 
-              cpa.getClass().getSimpleName()+
-              " is not supported yet." ;
-
-          System.err.println(errorMsg);
-          throw new UnsupportedOperationException(errorMsg) ;
-        }
-      }
+      result = prototypeBindingResolver((PrototypeBinding) el, parentContainer) ;
     }
     else if (el instanceof ClassifierValue)
     {
@@ -544,18 +480,17 @@ public class AadlBaUtils {
   }
 
   /**
-   * Resolves the given component prototype by returning the binded classifier
+   * Resolves the given prototype by returning the binded classifier
    * or if there is no binded classifier, the constraining classifier.
-   * It returns {@code null} if the given component prototype is not defined. 
+   * It returns {@code null} if the given prototype is not defined. 
    * 
-   * @param prototype the given component prototype
+   * @param prototype the given prototype
    * @param parentContainer the element's parent component
    * @return the binded classifier at first then the constraining classifier or
    * {@code null}
    */
-  public static Classifier componentPrototypeResolver(
-                                          ComponentPrototype prototype,
-                                          ComponentClassifier parentContainer)
+  public static Classifier prototypeResolver(Prototype prototype,
+                                               Classifier parentContainer)
   {
     Classifier result = null ;
 
@@ -566,21 +501,104 @@ public class AadlBaUtils {
 
     if(pb != null)
     {
-      ComponentPrototypeBinding cpb = (ComponentPrototypeBinding) pb ;
-
-      // Takes the last binding.
-      ComponentPrototypeActual cpa = cpb.getActuals().
-          get(cpb.getActuals().size() -1) ;
-
-      result = (Classifier) cpa.getSubcomponentType() ;
+      result = prototypeBindingResolver(pb, parentContainer) ;
     }
     else
     {
       // If there is no prototype binding found, returns the constraining
       // classifier from the prototype declaration (it may be null).
-      result = prototype.getConstrainingClassifier() ;
+            
+      if(prototype instanceof ComponentPrototype)
+      {
+        result = ((ComponentPrototype) prototype).getConstrainingClassifier() ;
+      }
+      else if (prototype instanceof FeaturePrototype)
+      {
+        result = ((FeaturePrototype) prototype).getConstrainingClassifier() ;
+      }
+      else if (prototype instanceof FeatureGroupPrototype)
+      {
+        result = ((FeatureGroupPrototype) prototype).getConstrainingFeatureGroupType() ;
+      }
+      else
+      {
+        // Reports error.
+        String errorMsg = "prototypeResolver : " +  prototype.getClass().getSimpleName()+
+                          " is not supported yet." ;
+
+        System.err.println(errorMsg);
+        throw new UnsupportedOperationException(errorMsg) ;
+      }
     }
 
+    return result ;
+  }
+
+  /**
+   * Resolves the given prototype binding by returning the binded classifier
+   * It returns {@code null} if the given prototype binding is not defined. 
+   * 
+   * @param prototype the given prototype binding
+   * @param parentContainer the element's parent component
+   * @return the binded classifier or {@code null}
+   */
+  public static Classifier prototypeBindingResolver(PrototypeBinding pb,
+                                                     Classifier parentContainer)
+  {
+    Classifier result = null ;
+    
+    if(pb instanceof ComponentPrototypeBinding)
+    {
+      ComponentPrototypeBinding cpb ;
+      cpb = (ComponentPrototypeBinding) pb ;
+
+      // Takes the last binding.
+      ComponentPrototypeActual cpa = cpb.getActuals().
+          get(cpb.getActuals().size() -1) ;
+      
+      result = (Classifier) cpa.getSubcomponentType() ;
+    }
+    else if (pb instanceof FeaturePrototypeBinding)
+    {
+      FeaturePrototypeBinding fpb ;
+      fpb = (FeaturePrototypeBinding) pb ;
+      FeaturePrototypeActual fpa = fpb.getActual() ;
+      
+      if (fpa instanceof AccessSpecification)
+      {
+        result = ((AccessSpecification) fpa).getClassifier() ; 
+      }
+      else if(fpa instanceof PortSpecification)
+      {
+        result = ((PortSpecification)fpa).getClassifier() ;
+      }
+      else
+      {
+        // Reports error.
+        String errorMsg = "prototypeBindingResolver : " + 
+            fpa.getClass().getSimpleName()+
+            " is not supported yet." ;
+
+        System.err.println(errorMsg);
+        throw new UnsupportedOperationException(errorMsg) ;
+      }
+    }
+    else if (pb instanceof FeatureGroupPrototypeBinding)
+    {
+      FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding) pb ;
+      result = (FeatureGroupType) fgpb.getActual().getFeatureType() ;
+    }
+    else
+    {
+      // Reports error.
+      String errorMsg = "prototypeBindingResolver : " + 
+          pb.getClass().getSimpleName()+
+          " is not supported yet." ;
+
+      System.err.println(errorMsg);
+      throw new UnsupportedOperationException(errorMsg) ;
+    }
+    
     return result ;
   }
 

@@ -1131,7 +1131,7 @@ public class AadlBaNameResolver
           }
           else
           {
-            parentContainer = AadlBaUtils.getClassifier(el, _baParentContainer);
+            parentContainer = AadlBaUtils.getClassifier(el, parentContainer);
           }
         }
         
