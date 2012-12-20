@@ -2008,7 +2008,8 @@ IntegerLit returns aadl2::IntegerLiteral:
 	value=SignedInt ;
 
 ConstantPropertyExpression returns aadl2::PropertyExpression:
-	OldRecordTerm | RecordTerm | ComponentClassifierTerm
+//	OldRecordTerm | 
+	RecordTerm | ComponentClassifierTerm
 	| ComputedTerm | StringTerm |NumericRangeTerm
 	| RealTerm | IntegerTerm 
 	  	| ListTerm 

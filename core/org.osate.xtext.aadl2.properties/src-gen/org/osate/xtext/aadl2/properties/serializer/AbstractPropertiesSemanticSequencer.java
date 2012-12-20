@@ -187,11 +187,8 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_PropertyExpression(context, (RecordValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getRecordTermRule()) {
+				else if(context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -387,15 +384,6 @@ public class AbstractPropertiesSemanticSequencer extends AbstractSemanticSequenc
 	 *     )
 	 */
 	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
-	 */
-	protected void sequence_PropertyExpression(EObject context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	

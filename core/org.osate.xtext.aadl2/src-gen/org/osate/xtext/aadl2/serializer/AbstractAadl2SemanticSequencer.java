@@ -1105,19 +1105,13 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getConstantPropertyExpressionRule()) {
-					sequence_ConstantPropertyExpression(context, (RecordValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getOldRecordTermRule()) {
+				if(context == grammarAccess.getOldRecordTermRule()) {
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_PropertyExpression(context, (RecordValue) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getRecordTermRule()) {
+				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule() ||
+				   context == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -1846,15 +1840,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     flowElement=[Connection|ID]
 	 */
 	protected void sequence_ConnectionFlow(EObject context, FlowSegment semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
-	 */
-	protected void sequence_ConstantPropertyExpression(EObject context, RecordValue semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3034,15 +3019,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_PropertyDefinition(EObject context, Property semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
-	 */
-	protected void sequence_PropertyExpression(EObject context, RecordValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	

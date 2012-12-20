@@ -16,8 +16,8 @@ property set Memory_Properties is
 	Access_Time: record (
 		First: IO_Time_Spec;
 		Last: IO_Time_Spec;)
-		=> (First => (Time => Start; Offset => 0 ns .. 0 ns;);
-			Last => (Time => Completion; Offset => 0 ns .. 0 ns;);)
+		=> [First => [Time => Start; Offset => 0 ns .. 0 ns;];
+			Last => [Time => Completion; Offset => 0 ns .. 0 ns;];]
 		applies to (data access);
 	
 	Allowed_Message_Size: Size_Range
