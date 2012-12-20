@@ -361,7 +361,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				typeCheckPropertyValues(pt,((PropertyConstant)nv).getConstantValue());
 			} else if (nv instanceof Property){
 				PropertyType pvt = ((Property)nv).getPropertyType();
-				if (pvt.eClass() != pt.eClass()){
+				if (!Aadl2Util.isNull(pvt) && pvt.eClass() != pt.eClass()){
 					error(pv, "Type "+pvt.eClass().getName()+" of referenced property does not match"+prefix+" type '"+pt.eClass().getName()+"' of property definition");
 				}
 			} else {
