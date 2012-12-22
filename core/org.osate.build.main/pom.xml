@@ -50,6 +50,10 @@
     <module>../../plugins/org.osate.analysis.resource.management</module>
     <module>../../plugins/org.osate.analysis.security</module>
     <module>../../plugins/org.osate.analysis.arinc653</module>
+    <module>../../plugins/org.osate.imv.osate</module>
+    <module>../../plugins/org.osate.imv.propertydecorations</module>
+    <module>../../plugins/org.osate.imv.ui</module>
+    <module>../../plugins/org.osate.imv.aadldiagram</module>
     <module>../../plugins/org.osate.analysis.binpacking</module>
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
