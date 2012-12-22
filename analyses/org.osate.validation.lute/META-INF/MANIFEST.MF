@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: OSATE Validation - Lute
 Bundle-SymbolicName: org.osate.validation.lute;singleton:=true
-Bundle-Version: 1.0.0
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.validation.lute.Activator
 Bundle-Vendor: CMU-SEI
 Require-Bundle: org.osate.validation,
