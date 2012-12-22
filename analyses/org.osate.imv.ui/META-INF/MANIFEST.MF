@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: IMV UI
 Bundle-SymbolicName: org.osate.imv.ui;singleton:=true
-Bundle-Version: 1.2.0.qualifier
+Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.imv.ui.ImvUiPlugin
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
