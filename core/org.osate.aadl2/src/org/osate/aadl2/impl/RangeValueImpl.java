@@ -42,6 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Operation;
 import org.osate.aadl2.PropertyConstant;
@@ -404,6 +405,13 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			EvaluatedProperty minVal = minimum.evaluate(ctx);
 			EvaluatedProperty deltaVal = null;
 
+			System.out.println (maxVal.first().getValue());
+			ModalPropertyValue mpv = (ModalPropertyValue) maxVal.first().getMPV();
+			NamedValueImpl nvi = (NamedValueImpl)maxVal.first().getValue();
+			System.out.println ("mpv="+mpv);
+			System.out.println ("nvi="+nvi);
+
+			
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
 				throw new InvalidModelException(this, "Range maximum is modal");
 			}

@@ -1628,7 +1628,14 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	public PrototypeBinding lookupPrototypeBinding(Prototype proto) {
 		PrototypeBinding pb = lookupPrototypeBindingHelper(proto);
 		if (pb == null) {
-			pb = getType().lookupPrototypeBinding(proto);
+			try
+			{
+				pb = getType().lookupPrototypeBinding(proto);
+			}
+			catch (NullPointerException npe)
+			{
+				return null;
+			}
 		}
 		return pb;
 	}

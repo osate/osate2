@@ -523,7 +523,11 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 	}
 
 	public boolean acceptsProperty(Property property) {
-		for (PropertyOwner appliesTo : property.getAppliesTos()) {
+		
+		System.out.println("[NamedElementImpl] property=" + property);
+		for (PropertyOwner appliesTo : property.getAppliesTos())
+		{
+			System.out.println("[NamedElementImpl] appliesTo=" + appliesTo);
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
 				if (appliesTo instanceof MetaclassReference
@@ -535,8 +539,10 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 					ClassifierValue cv = (ClassifierValue) appliesTo;
 					return true;
 				}
-			} catch (Exception e) {
-//				e.printStackTrace();
+			} 
+			catch (Exception e) 
+			{
+				e.printStackTrace();
 				return false;
 			}
 		}
