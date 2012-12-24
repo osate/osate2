@@ -69,6 +69,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
@@ -193,17 +194,24 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
+			//OsateDebug.osateDebug  ("[CacheContainedProperty] Process contained property association" + pa);
 			Property prop = pa.getProperty();
 			if (prop == null || prop.getType() == null) {
 				// PA is missing the prop def, skip to the next one
+				OsateDebug.osateDebug  ("   skip");
+
 				continue;
 			}
+			//OsateDebug.osateDebug  ("   appliesto=" + pa.getAppliesTos());
+
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+				//OsateDebug.osateDebug ("   cpes=" + cpes);
+
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-
+					//OsateDebug.osateDebug ("   ios=" + ios);
 					for (InstanceObject io : ios) {
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 

@@ -66,6 +66,7 @@ import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
@@ -136,9 +137,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		return scProps;
 	}
 
-	protected void cachePropertyAssociations(InstanceObject io) {
+	protected void cachePropertyAssociations(InstanceObject io)
+	{
+		//OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io);
+		
 		for (Property property : propertyFilter) {
-			if (io.acceptsProperty(property)) {
+			//OsateDebug.osateDebug  ("   property=" + property);
+			if (io.acceptsProperty(property))
+			{
 				/*
 				 * Just look up the property. The property doesn't yet have a
 				 * local association, so lookup will get the value from the
@@ -147,6 +153,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				 */
 				try {
 					List<EvaluatedProperty> value = property.evaluate(new EvaluationContext(io, classifierCache));
+					//OsateDebug.osateDebug ("   value=" + value);
 
 					if (!value.isEmpty()) {
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
@@ -160,8 +167,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					// xxx: this is a misleading place to put the marker
 					error(io, e.getMessage());
 				} catch (InvalidModelException e) {
+					
 					error(e.getElement(), e.getMessage());
 				}
+			}
+			else
+			{
+				//OsateDebug.osateDebug ("   prperty not accepted on " + io);
+
 			}
 			checkIfCancelled();
 			if (cancelled())

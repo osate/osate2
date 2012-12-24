@@ -134,6 +134,7 @@ import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -622,13 +623,16 @@ public class InstantiateModel {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
-
 		newInstance.setSubcomponent(sub);
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
+		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
+		//OsateDebug.osateDebug ("   stack " + indexStack);
+		//OsateDebug.osateDebug ("   index " + index);
+		//OsateDebug.osateDebug ("   modalelem " + mm);
 
 		ic = getInstantiatedClassifier(newInstance, 0);
 		if (ic == null) {
@@ -1387,6 +1391,7 @@ public class InstantiateModel {
 			if (ao instanceof PropertyAssociation) {
 				Property pd = ((PropertyAssociation) ao).getProperty();
 				if (pd != null) {
+					//OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
 					result.add(pd);
 				}
 			}
