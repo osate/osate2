@@ -174,7 +174,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					//						"Property "	+ pa.getQualifiedName() +
 					//						" does not apply to " + element.eClass().getName());
 				}
-				System.out.println ("apples bool=" + applies);
 			}
 		} 
 		else 
