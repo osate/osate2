@@ -60,6 +60,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -268,7 +269,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 * sei.aadl.aadl2.Property)
 	 */
 	@Override
-	public boolean acceptsProperty(Property property) {
+	public boolean acceptsProperty(Property property)
+	{
+		//OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
+
 		for (NamedElement ne : getInstantiatedObjects()) {
 			if (!ne.acceptsProperty(property))
 				return false;

@@ -81,6 +81,7 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -733,13 +734,45 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	}
 
 
-	public boolean acceptsProperty(Property property) {
-		for ( final PropertyOwner propOwner : property.getAppliesTos() ) {
-			if ( propOwner instanceof MetaclassReference ) {
-				final String catLitteral = ( (MetaclassReference) propOwner ).getMetaclass().getName().toLowerCase();
-				final ComponentCategory categ = ComponentCategory.get( catLitteral );
+	public boolean acceptsProperty(Property property)
+	{	
+		//OsateDebug.osateDebug("[CompnentInstanceImpl] property=" + property);
 
-				if ( getCategory().equals( categ ) ) {
+		for ( final PropertyOwner propOwner : property.getAppliesTos() )
+		{
+			//OsateDebug.osateDebug("   property owner=" + propOwner);
+
+			if ( propOwner instanceof MetaclassReference )
+			{
+				String catLitteral = ( (MetaclassReference) propOwner ).getMetaclass().getName().toLowerCase();
+				
+				/*
+				 * JD: fixes for bug #126
+				 * The following line has been added to fix bug #126
+				 * When getting the literal value of the category from the meta model,
+				 * we get the literal "virtualprocessor" or "virtualbus" because
+				 * it is splitted into two words. On the other hand, the ComponentCategory
+				 * class use a space between the two. For these reason, we
+				 * force the category litteral when finding virtualprocessor
+				 * or virtualbus.
+				 */
+				if (catLitteral.equals("virtualprocessor"))
+				{
+					catLitteral = "virtual processor";
+				}
+				if (catLitteral.equals("virtualbus"))
+				{
+					catLitteral = "virtual bus";
+				}
+				
+				final ComponentCategory categ = ComponentCategory.get (catLitteral);
+				
+				//OsateDebug.osateDebug("   catLitteral=" + catLitteral);
+				//OsateDebug.osateDebug("   categ=" + categ);
+				//OsateDebug.osateDebug("   getCateg=" + getCategory());
+
+				if (getCategory().equals (categ)) 
+				{
 					return true;
 				}
 			}
