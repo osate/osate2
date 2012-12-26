@@ -11,7 +11,7 @@
             file="resources/properties/ARINC653.aadl"
             id="org.osate.contributes.SAE.aadlcontribution4">
       </aadlcontribution>
-c      <aadlcontribution
+      <aadlcontribution
             file="resources/properties/Data_Model.aadl"
             id="org.osate.contributes.SAE.aadlcontribution2">
       </aadlcontribution>
