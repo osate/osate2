@@ -405,12 +405,6 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			EvaluatedProperty minVal = minimum.evaluate(ctx);
 			EvaluatedProperty deltaVal = null;
 
-			System.out.println (maxVal.first().getValue());
-			ModalPropertyValue mpv = (ModalPropertyValue) maxVal.first().getMPV();
-			NamedValueImpl nvi = (NamedValueImpl)maxVal.first().getValue();
-			System.out.println ("mpv="+mpv);
-			System.out.println ("nvi="+nvi);
-
 			
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
 				throw new InvalidModelException(this, "Range maximum is modal");
