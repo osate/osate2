@@ -256,7 +256,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
    }
 	
 	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
-		for(EObject e:r.eContents())
+		for(EObject e:r.getOwnedElements())
 		{
 			if(e instanceof NamedElement)
 			{
