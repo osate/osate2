@@ -61,6 +61,11 @@
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
     
+    <module>../../error-model2/org.osate.aadl2.errormodel.analysis</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel.feature</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel.ui</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel</module>
+    
     <module>../../error-model1/edu.cmu.sei.aadl.errorannex</module>
     <module>../../error-model1/edu.cmu.sei.aadl.errorannex.edit</module>
     <module>../../error-model1/edu.cmu.sei.aadl.errorannex.feature</module>
