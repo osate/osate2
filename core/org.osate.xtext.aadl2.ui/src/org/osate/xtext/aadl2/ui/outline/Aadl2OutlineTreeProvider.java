@@ -55,14 +55,15 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	protected void _createChildren(DocumentRootNode parentNode,	ModelUnit aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
-				System.out.println("element" + element);
+		if (aadlModel instanceof AadlPackage) 
+		{
+			for (Element element : aadlModel.getOwnedElements()) 
+			{
 				createNode(parentNode, element);
 			}
-		} else {
-			System.out.println("createNode" + parentNode);
-
+		} 
+		else 
+		{
 			createNode(parentNode, aadlModel);
 		}
 	}
