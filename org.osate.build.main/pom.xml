@@ -44,6 +44,7 @@
     <module>../org.osate.xtext.aadl2.properties</module>
     <module>../org.osate.xtext.aadl2.properties.ui</module>
     <module>../org.osate.xtext.aadl2.ui</module>
+    
     <module>../../plugins/org.osate.analysis.architecture</module>
     <module>../../plugins/org.osate.analysis.flows</module>
     <module>../../plugins/org.osate.analysis.resource.budgets</module>
@@ -59,6 +60,14 @@
     <module>../../plugins/org.osate.analysis.binpacking</module>
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
+    
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.edit</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.feature</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.parser</module>
+    <module>../../error-model1/edu.laas.aadl.aadl2gspn</module>
+    <module>../../error-model1/edu.laas.aadl.dependency</module>
+    <module>../../error-model1/edu.laas.aadl.gspn.model</module>
   </modules>
 
   <build>
