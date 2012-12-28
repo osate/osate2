@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<plugin>
+
+  <extension point="org.eclipse.emf.ecore.generated_package">
+    <package 
+       uri = "http://www.osate.org/xtext/aadl2/errormodel/ErrorModel" 
+       class = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
+       genModel = "org/osate/xtext/aadl2/errormodel/ErrorModel.genmodel" /> 
+	
+  </extension>
+
+
+
+
+</plugin>

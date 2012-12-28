@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+
+     <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="org.osate.analysis.fault.actionSet"
+            label="%actionSet.label"
+            visible="true">
+
+         <menu
+               id="menu.osate"
+               label="%menu.osate.label"
+               path="project">
+            <groupMarker name="file.grp"/>
+            <separator name="instance.grp"/>
+            <separator name="general.grp"/>
+         </menu>
+
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label"
+               path="menu.osate">
+            <groupMarker name="top.grp"/>
+            <groupMarker name="bottom.grp"/>
+         </menu>
+
+         <menu
+               id="menu.fault"
+               label="%menu.fault.label"
+               path="menu.analyses/top.grp">
+            <groupMarker name="stuff.grp"/>
+         </menu>
+
+         
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FHA.action"
+               label="%FHA.label"
+               tooltip="%FHA.toolTip"
+               icon="%FHA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FHAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
+        
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.action"
+               label="%FaultImpact.label"
+               tooltip="%FaultImpact.toolTip"
+               icon="%FaultImpact.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FaultImpactAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
+        
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FMEA.action"
+               label="%FMEA.label"
+               tooltip="%FMEA.toolTip"
+               icon="%FMEA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FMEAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
+         
+      </actionSet>
+   </extension>
+
+   <extension
+         point="org.eclipse.ui.popupMenus">
+      <objectContribution
+            id="org.osate.analysis.architecture.oc1"
+            objectClass="java.lang.Object">
+         <visibility>
+            <or>
+               <and>
+                  <objectClass name="org.eclipse.core.resources.IFile"/>
+                  <objectState name="extension" value="aaxl2"/>
+               </and>
+               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+            </or>
+         </visibility> 
+
+         <menu
+               id="org.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label"
+               path="additions">
+            <groupMarker name="anal.grp"/>
+            <groupMarker name="subMenus.grp"/>
+         </menu>
+
+         <menu
+               id="org.osate.analysis.architecture.popupMenu.Fault"
+               label="%popupMenu.Fault.label"
+               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
+            <groupMarker name="anal.grp"/>
+         </menu>
+        
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FHA.popupAction"
+               label="%FHA.label"
+               tooltip="%FHA.toolTip"
+               icon="%FHA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FHAAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FaultImpact.popupAction"
+               label="%FaultImpact.label"
+               tooltip="%FaultImpact.toolTip"
+               icon="%FaultImpact.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FaultImpactAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.FMEA.popupAction"
+               label="%FMEA.label"
+               tooltip="%FMEA.toolTip"
+               icon="%FMEA.icon"
+               class="org.osate.aadl2.errormodel.analysis.actions.FMEAAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+      </objectContribution>
+
+   </extension>
+
+   <extension
+         id="FaultImpactMarker"
+         name="Fault Impact Marker"
+         point="org.eclipse.core.resources.markers">
+      <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
+      <persistent value="true"/>
+   </extension>
+   
+   
+</plugin>

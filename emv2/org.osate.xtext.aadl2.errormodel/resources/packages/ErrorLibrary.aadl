@@ -1,0 +1,66 @@
+--ErrorLibrary.aadl
+
+package ErrorLibrary
+public
+annex EMV2 {**
+error types 
+ServiceError: type;
+ItemComission: type extends ServiceError; 
+ItemOmission: type extends ServiceError; 
+ServiceOmission: type extends ServiceError;
+LateServiceStart: type extends ServiceOmission;
+EarlyServiceTermination: type extends ServiceOmission;
+ServiceCommission: type extends ServiceError;
+EarlyServiceStart: type extends ServiceCommission;
+LateServiceTermination: type extends ServiceCommission;
+BoundedItemOmissionSequence: type extends ServiceOmission; 
+BoundedItemOmissionInterval: type extends ServiceOmission; 
+TimingError: type; 
+EarlyDelivery: type extends TimingError; 
+LateDelivery: type extends TimingError; 
+ValueError: type; 
+SubtleValueError: type extends ValueError; 
+BenignValueError: type extends ValueError;
+OutOfRange: type extends BenignValueError;
+OutOfBounds: type extends BenignValueError;
+BelowRange: type extends OutOfRange;
+AboveRange: type extends OutOfRange;
+RateError: type; 
+VariableRate: type extends RateError; 
+HighRate: type extends RateError; 
+LowRate: type extends RateError; 
+SequenceError: type;
+ValueChange: type extends SequenceError; 
+OutOfOrder: type extends SequenceError; 
+ReplicationError: type; 
+InconsistentValue: type extends ReplicationError; 
+InconsistentApproximateValue: type extends InconsistentValue;
+InconsistentTiming: type extends ReplicationError; 
+InconsistentOmission: type extends ReplicationError;
+InconsistentItemOmission: type extends InconsistentOmission;
+InconsistentServiceOmission: type extends InconsistentOmission;
+ValueCorruption renames type ValueError;
+SubtleValueCorruption renames type SubtleValueError;
+BenignValueCorruption renames type BenignValueError;
+IncorrectValue renames type ValueError;
+BadValue renames type SubtleValueError;
+EarlyData renames type EarlyDelivery;
+LateData renames type LateDelivery;
+AsymmetricValue renames type InconsistentValue;
+SymmetricValue renames type ValueError;
+AsymmetricItemOmission renames type InconsistentItemOmission;
+SymmetricItemOmission renames type ItemOmission;
+AsymmetricServiceOmission renames type InconsistentServiceOmission;
+SymmetricServiceOmission renames type ServiceOmission;
+AsymmetricTransmissive renames type InconsistentValue;
+SymmetricTransmissive renames type ValueError;
+ConcurrencyError: type;
+RaceCondition: type extends ConcurrencyError;
+ReadWriteRace: type extends RaceCondition;
+WriteWriteRace: type extends RaceCondition;
+MutExError: type extends ConcurrencyError;
+Deadlock: type extends MutExError;
+Starvation: type extends MutExError;
+end types;
+**}; 
+ end ErrorLibrary;

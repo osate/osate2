@@ -1,0 +1,1455 @@
+/**
+ * <copyright>
+ * </copyright>
+ *
+ */
+package org.osate.xtext.aadl2.errormodel.errorModel.util;
+
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EPackage;
+
+import org.eclipse.emf.ecore.util.Switch;
+
+import org.osate.aadl2.AnnexLibrary;
+import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.ModalElement;
+import org.osate.aadl2.NamedElement;
+
+import org.osate.xtext.aadl2.errormodel.errorModel.*;
+
+/**
+ * <!-- begin-user-doc -->
+ * The <b>Switch</b> for the model's inheritance hierarchy.
+ * It supports the call {@link #doSwitch(EObject) doSwitch(object)}
+ * to invoke the <code>caseXXX</code> method for each class of the model,
+ * starting with the actual class of the object
+ * and proceeding up the inheritance hierarchy
+ * until a non-null result is returned,
+ * which is the result of the switch.
+ * <!-- end-user-doc -->
+ * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
+ * @generated
+ */
+public class ErrorModelSwitch<T> extends Switch<T>
+{
+  /**
+	 * The cached model package
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  protected static ErrorModelPackage modelPackage;
+
+  /**
+	 * Creates an instance of the switch.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public ErrorModelSwitch()
+  {
+		if (modelPackage == null) {
+			modelPackage = ErrorModelPackage.eINSTANCE;
+		}
+	}
+
+  /**
+	 * Checks whether this is a switch for the given package.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @parameter ePackage the package in question.
+	 * @return whether this is a switch for the given package.
+	 * @generated
+	 */
+  @Override
+  protected boolean isSwitchFor(EPackage ePackage)
+  {
+		return ePackage == modelPackage;
+	}
+
+  /**
+	 * Calls <code>caseXXX</code> for each class of the model until one returns a non null result; it yields that result.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the first non-null result returned by a <code>caseXXX</code> call.
+	 * @generated
+	 */
+  @Override
+  protected T doSwitch(int classifierID, EObject theEObject)
+  {
+		switch (classifierID) {
+			case ErrorModelPackage.ERROR_MODEL_GRAMMAR_ROOT: {
+				ErrorModelGrammarRoot errorModelGrammarRoot = (ErrorModelGrammarRoot)theEObject;
+				T result = caseErrorModelGrammarRoot(errorModelGrammarRoot);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE: {
+				ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
+				T result = caseErrorModelSubclause(errorModelSubclause);
+				if (result == null) result = caseAnnexSubclause(errorModelSubclause);
+				if (result == null) result = caseModalElement(errorModelSubclause);
+				if (result == null) result = caseNamedElement(errorModelSubclause);
+				if (result == null) result = caseElement(errorModelSubclause);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_MODEL_LIBRARY: {
+				ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)theEObject;
+				T result = caseErrorModelLibrary(errorModelLibrary);
+				if (result == null) result = caseAnnexLibrary(errorModelLibrary);
+				if (result == null) result = caseNamedElement(errorModelLibrary);
+				if (result == null) result = caseElement(errorModelLibrary);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_TYPES: {
+				ErrorTypes errorTypes = (ErrorTypes)theEObject;
+				T result = caseErrorTypes(errorTypes);
+				if (result == null) result = caseNamedElement(errorTypes);
+				if (result == null) result = caseElement(errorTypes);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_TYPE: {
+				ErrorType errorType = (ErrorType)theEObject;
+				T result = caseErrorType(errorType);
+				if (result == null) result = caseErrorTypes(errorType);
+				if (result == null) result = caseNamedElement(errorType);
+				if (result == null) result = caseElement(errorType);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_SET: {
+				TypeSet typeSet = (TypeSet)theEObject;
+				T result = caseTypeSet(typeSet);
+				if (result == null) result = caseErrorTypes(typeSet);
+				if (result == null) result = caseErrorBehaviorStateOrTypeSet(typeSet);
+				if (result == null) result = caseNamedElement(typeSet);
+				if (result == null) result = caseElement(typeSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_TOKEN: {
+				TypeToken typeToken = (TypeToken)theEObject;
+				T result = caseTypeToken(typeToken);
+				if (result == null) result = caseElement(typeToken);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_TRANSFORMATION_SET: {
+				TypeTransformationSet typeTransformationSet = (TypeTransformationSet)theEObject;
+				T result = caseTypeTransformationSet(typeTransformationSet);
+				if (result == null) result = caseNamedElement(typeTransformationSet);
+				if (result == null) result = caseTypeUseContext(typeTransformationSet);
+				if (result == null) result = caseElement(typeTransformationSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_TRANSFORMATION: {
+				TypeTransformation typeTransformation = (TypeTransformation)theEObject;
+				T result = caseTypeTransformation(typeTransformation);
+				if (result == null) result = caseElement(typeTransformation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_TOKEN_TRANSFORMATION: {
+				TypeTokenTransformation typeTokenTransformation = (TypeTokenTransformation)theEObject;
+				T result = caseTypeTokenTransformation(typeTokenTransformation);
+				if (result == null) result = caseTypeTransformation(typeTokenTransformation);
+				if (result == null) result = caseElement(typeTokenTransformation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ELEMENT_TYPE_TRANSFORMATION: {
+				ElementTypeTransformation elementTypeTransformation = (ElementTypeTransformation)theEObject;
+				T result = caseElementTypeTransformation(elementTypeTransformation);
+				if (result == null) result = caseTypeTransformation(elementTypeTransformation);
+				if (result == null) result = caseElement(elementTypeTransformation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_MAPPING_SET: {
+				TypeMappingSet typeMappingSet = (TypeMappingSet)theEObject;
+				T result = caseTypeMappingSet(typeMappingSet);
+				if (result == null) result = caseNamedElement(typeMappingSet);
+				if (result == null) result = caseTypeUseContext(typeMappingSet);
+				if (result == null) result = caseElement(typeMappingSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_MAPPING: {
+				TypeMapping typeMapping = (TypeMapping)theEObject;
+				T result = caseTypeMapping(typeMapping);
+				if (result == null) result = caseElement(typeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TOKEN_TYPE_MAPPING: {
+				TokenTypeMapping tokenTypeMapping = (TokenTypeMapping)theEObject;
+				T result = caseTokenTypeMapping(tokenTypeMapping);
+				if (result == null) result = caseTypeMapping(tokenTypeMapping);
+				if (result == null) result = caseElement(tokenTypeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ELEMENT_TYPE_MAPPING: {
+				ElementTypeMapping elementTypeMapping = (ElementTypeMapping)theEObject;
+				T result = caseElementTypeMapping(elementTypeMapping);
+				if (result == null) result = caseTypeMapping(elementTypeMapping);
+				if (result == null) result = caseElement(elementTypeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_PROPAGATIONS: {
+				ErrorPropagations errorPropagations = (ErrorPropagations)theEObject;
+				T result = caseErrorPropagations(errorPropagations);
+				if (result == null) result = caseNamedElement(errorPropagations);
+				if (result == null) result = caseEBSMUseContext(errorPropagations);
+				if (result == null) result = caseElement(errorPropagations);
+				if (result == null) result = caseTypeUseContext(errorPropagations);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_PROPAGATION: {
+				ErrorPropagation errorPropagation = (ErrorPropagation)theEObject;
+				T result = caseErrorPropagation(errorPropagation);
+				if (result == null) result = caseNamedElement(errorPropagation);
+				if (result == null) result = caseEventOrPropagation(errorPropagation);
+				if (result == null) result = caseElement(errorPropagation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_FLOW: {
+				ErrorFlow errorFlow = (ErrorFlow)theEObject;
+				T result = caseErrorFlow(errorFlow);
+				if (result == null) result = caseNamedElement(errorFlow);
+				if (result == null) result = caseElement(errorFlow);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_SOURCE: {
+				ErrorSource errorSource = (ErrorSource)theEObject;
+				T result = caseErrorSource(errorSource);
+				if (result == null) result = caseErrorFlow(errorSource);
+				if (result == null) result = caseNamedElement(errorSource);
+				if (result == null) result = caseElement(errorSource);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_OR_TYPE_SET: {
+				ErrorBehaviorStateOrTypeSet errorBehaviorStateOrTypeSet = (ErrorBehaviorStateOrTypeSet)theEObject;
+				T result = caseErrorBehaviorStateOrTypeSet(errorBehaviorStateOrTypeSet);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_SINK: {
+				ErrorSink errorSink = (ErrorSink)theEObject;
+				T result = caseErrorSink(errorSink);
+				if (result == null) result = caseErrorFlow(errorSink);
+				if (result == null) result = caseNamedElement(errorSink);
+				if (result == null) result = caseElement(errorSink);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_PATH: {
+				ErrorPath errorPath = (ErrorPath)theEObject;
+				T result = caseErrorPath(errorPath);
+				if (result == null) result = caseErrorFlow(errorPath);
+				if (result == null) result = caseNamedElement(errorPath);
+				if (result == null) result = caseElement(errorPath);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTIONS: {
+				ObservablePropagationConnections observablePropagationConnections = (ObservablePropagationConnections)theEObject;
+				T result = caseObservablePropagationConnections(observablePropagationConnections);
+				if (result == null) result = caseElement(observablePropagationConnections);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.OBSERVABLE_PROPAGATION_CONNECTION: {
+				ObservablePropagationConnection observablePropagationConnection = (ObservablePropagationConnection)theEObject;
+				T result = caseObservablePropagationConnection(observablePropagationConnection);
+				if (result == null) result = caseNamedElement(observablePropagationConnection);
+				if (result == null) result = caseElement(observablePropagationConnection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT: {
+				QualifiedObservableErrorPropagationPoint qualifiedObservableErrorPropagationPoint = (QualifiedObservableErrorPropagationPoint)theEObject;
+				T result = caseQualifiedObservableErrorPropagationPoint(qualifiedObservableErrorPropagationPoint);
+				if (result == null) result = caseElement(qualifiedObservableErrorPropagationPoint);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_BEHAVIOR_STATE_MACHINE: {
+				ErrorBehaviorStateMachine errorBehaviorStateMachine = (ErrorBehaviorStateMachine)theEObject;
+				T result = caseErrorBehaviorStateMachine(errorBehaviorStateMachine);
+				if (result == null) result = caseNamedElement(errorBehaviorStateMachine);
+				if (result == null) result = caseTypeUseContext(errorBehaviorStateMachine);
+				if (result == null) result = caseElement(errorBehaviorStateMachine);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_BEHAVIOR_EVENT: {
+				ErrorBehaviorEvent errorBehaviorEvent = (ErrorBehaviorEvent)theEObject;
+				T result = caseErrorBehaviorEvent(errorBehaviorEvent);
+				if (result == null) result = caseNamedElement(errorBehaviorEvent);
+				if (result == null) result = caseEventOrPropagation(errorBehaviorEvent);
+				if (result == null) result = caseElement(errorBehaviorEvent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_EVENT: {
+				ErrorEvent errorEvent = (ErrorEvent)theEObject;
+				T result = caseErrorEvent(errorEvent);
+				if (result == null) result = caseErrorBehaviorEvent(errorEvent);
+				if (result == null) result = caseNamedElement(errorEvent);
+				if (result == null) result = caseEventOrPropagation(errorEvent);
+				if (result == null) result = caseElement(errorEvent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.REPAIR_EVENT: {
+				RepairEvent repairEvent = (RepairEvent)theEObject;
+				T result = caseRepairEvent(repairEvent);
+				if (result == null) result = caseErrorBehaviorEvent(repairEvent);
+				if (result == null) result = caseNamedElement(repairEvent);
+				if (result == null) result = caseEventOrPropagation(repairEvent);
+				if (result == null) result = caseElement(repairEvent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.RECOVER_EVENT: {
+				RecoverEvent recoverEvent = (RecoverEvent)theEObject;
+				T result = caseRecoverEvent(recoverEvent);
+				if (result == null) result = caseErrorBehaviorEvent(recoverEvent);
+				if (result == null) result = caseNamedElement(recoverEvent);
+				if (result == null) result = caseEventOrPropagation(recoverEvent);
+				if (result == null) result = caseElement(recoverEvent);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_BEHAVIOR_STATE: {
+				ErrorBehaviorState errorBehaviorState = (ErrorBehaviorState)theEObject;
+				T result = caseErrorBehaviorState(errorBehaviorState);
+				if (result == null) result = caseNamedElement(errorBehaviorState);
+				if (result == null) result = caseErrorBehaviorStateOrTypeSet(errorBehaviorState);
+				if (result == null) result = caseElement(errorBehaviorState);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: {
+				ErrorBehaviorTransition errorBehaviorTransition = (ErrorBehaviorTransition)theEObject;
+				T result = caseErrorBehaviorTransition(errorBehaviorTransition);
+				if (result == null) result = caseNamedElement(errorBehaviorTransition);
+				if (result == null) result = caseElement(errorBehaviorTransition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TRANSITION_BRANCH: {
+				TransitionBranch transitionBranch = (TransitionBranch)theEObject;
+				T result = caseTransitionBranch(transitionBranch);
+				if (result == null) result = caseElement(transitionBranch);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.CONNECTION_TRANSFORMATION: {
+				ConnectionTransformation connectionTransformation = (ConnectionTransformation)theEObject;
+				T result = caseConnectionTransformation(connectionTransformation);
+				if (result == null) result = caseElement(connectionTransformation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.EBSM_USE_CONTEXT: {
+				EBSMUseContext ebsmUseContext = (EBSMUseContext)theEObject;
+				T result = caseEBSMUseContext(ebsmUseContext);
+				if (result == null) result = caseTypeUseContext(ebsmUseContext);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.TYPE_USE_CONTEXT: {
+				TypeUseContext typeUseContext = (TypeUseContext)theEObject;
+				T result = caseTypeUseContext(typeUseContext);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR: {
+				ComponentErrorBehavior componentErrorBehavior = (ComponentErrorBehavior)theEObject;
+				T result = caseComponentErrorBehavior(componentErrorBehavior);
+				if (result == null) result = caseElement(componentErrorBehavior);
+				if (result == null) result = caseEBSMUseContext(componentErrorBehavior);
+				if (result == null) result = caseTypeUseContext(componentErrorBehavior);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.CONDITION_EXPRESSION: {
+				ConditionExpression conditionExpression = (ConditionExpression)theEObject;
+				T result = caseConditionExpression(conditionExpression);
+				if (result == null) result = caseElement(conditionExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ORMORE_EXPRESSION: {
+				OrmoreExpression ormoreExpression = (OrmoreExpression)theEObject;
+				T result = caseOrmoreExpression(ormoreExpression);
+				if (result == null) result = caseConditionExpression(ormoreExpression);
+				if (result == null) result = caseElement(ormoreExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ORLESS_EXPRESSION: {
+				OrlessExpression orlessExpression = (OrlessExpression)theEObject;
+				T result = caseOrlessExpression(orlessExpression);
+				if (result == null) result = caseConditionExpression(orlessExpression);
+				if (result == null) result = caseElement(orlessExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.CONDITION_ELEMENT: {
+				ConditionElement conditionElement = (ConditionElement)theEObject;
+				T result = caseConditionElement(conditionElement);
+				if (result == null) result = caseConditionExpression(conditionElement);
+				if (result == null) result = caseElement(conditionElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.EVENT_OR_PROPAGATION: {
+				EventOrPropagation eventOrPropagation = (EventOrPropagation)theEObject;
+				T result = caseEventOrPropagation(eventOrPropagation);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.OUTGOING_PROPAGATION_CONDITION: {
+				OutgoingPropagationCondition outgoingPropagationCondition = (OutgoingPropagationCondition)theEObject;
+				T result = caseOutgoingPropagationCondition(outgoingPropagationCondition);
+				if (result == null) result = caseElement(outgoingPropagationCondition);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_DETECTION: {
+				ErrorDetection errorDetection = (ErrorDetection)theEObject;
+				T result = caseErrorDetection(errorDetection);
+				if (result == null) result = caseNamedElement(errorDetection);
+				if (result == null) result = caseElement(errorDetection);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_CODE_VALUE: {
+				ErrorCodeValue errorCodeValue = (ErrorCodeValue)theEObject;
+				T result = caseErrorCodeValue(errorCodeValue);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: {
+				ErrorStateToModeMapping errorStateToModeMapping = (ErrorStateToModeMapping)theEObject;
+				T result = caseErrorStateToModeMapping(errorStateToModeMapping);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR: {
+				CompositeErrorBehavior compositeErrorBehavior = (CompositeErrorBehavior)theEObject;
+				T result = caseCompositeErrorBehavior(compositeErrorBehavior);
+				if (result == null) result = caseElement(compositeErrorBehavior);
+				if (result == null) result = caseEBSMUseContext(compositeErrorBehavior);
+				if (result == null) result = caseTypeUseContext(compositeErrorBehavior);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.COMPOSITE_STATE: {
+				CompositeState compositeState = (CompositeState)theEObject;
+				T result = caseCompositeState(compositeState);
+				if (result == null) result = caseElement(compositeState);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.SUBCOMPONENT_ELEMENT: {
+				SubcomponentElement subcomponentElement = (SubcomponentElement)theEObject;
+				T result = caseSubcomponentElement(subcomponentElement);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.OR_EXPRESSION: {
+				OrExpression orExpression = (OrExpression)theEObject;
+				T result = caseOrExpression(orExpression);
+				if (result == null) result = caseConditionExpression(orExpression);
+				if (result == null) result = caseElement(orExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.AND_EXPRESSION: {
+				AndExpression andExpression = (AndExpression)theEObject;
+				T result = caseAndExpression(andExpression);
+				if (result == null) result = caseConditionExpression(andExpression);
+				if (result == null) result = caseElement(andExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.SOR_EXPRESSION: {
+				SOrExpression sOrExpression = (SOrExpression)theEObject;
+				T result = caseSOrExpression(sOrExpression);
+				if (result == null) result = caseConditionExpression(sOrExpression);
+				if (result == null) result = caseElement(sOrExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case ErrorModelPackage.SAND_EXPRESSION: {
+				SAndExpression sAndExpression = (SAndExpression)theEObject;
+				T result = caseSAndExpression(sAndExpression);
+				if (result == null) result = caseConditionExpression(sAndExpression);
+				if (result == null) result = caseElement(sAndExpression);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			default: return defaultCase(theEObject);
+		}
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Grammar Root</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Grammar Root</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorModelGrammarRoot(ErrorModelGrammarRoot object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Subclause</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subclause</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorModelSubclause(ErrorModelSubclause object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Library</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Library</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorModelLibrary(ErrorModelLibrary object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Types</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Types</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorTypes(ErrorTypes object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Type</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Type</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorType(ErrorType object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Set</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeSet(TypeSet object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Token</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Token</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeToken(TypeToken object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Transformation Set</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Transformation Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeTransformationSet(TypeTransformationSet object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Transformation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Transformation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeTransformation(TypeTransformation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Token Transformation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Token Transformation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeTokenTransformation(TypeTokenTransformation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Element Type Transformation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element Type Transformation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseElementTypeTransformation(ElementTypeTransformation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Mapping Set</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Mapping Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeMappingSet(TypeMappingSet object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Mapping</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeMapping(TypeMapping object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Token Type Mapping</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Token Type Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTokenTypeMapping(TokenTypeMapping object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Element Type Mapping</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element Type Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseElementTypeMapping(ElementTypeMapping object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Propagations</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Propagations</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorPropagations(ErrorPropagations object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Propagation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Propagation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorPropagation(ErrorPropagation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Flow</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Flow</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorFlow(ErrorFlow object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Source</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Source</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorSource(ErrorSource object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior State Or Type Set</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior State Or Type Set</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorBehaviorStateOrTypeSet(ErrorBehaviorStateOrTypeSet object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Sink</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Sink</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorSink(ErrorSink object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Path</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Path</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorPath(ErrorPath object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Observable Propagation Connections</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Observable Propagation Connections</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseObservablePropagationConnections(ObservablePropagationConnections object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Observable Propagation Connection</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Observable Propagation Connection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseObservablePropagationConnection(ObservablePropagationConnection object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Qualified Observable Error Propagation Point</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Qualified Observable Error Propagation Point</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseQualifiedObservableErrorPropagationPoint(QualifiedObservableErrorPropagationPoint object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior State Machine</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior State Machine</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorBehaviorStateMachine(ErrorBehaviorStateMachine object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior Event</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior Event</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorBehaviorEvent(ErrorBehaviorEvent object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Event</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Event</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorEvent(ErrorEvent object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Repair Event</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Repair Event</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseRepairEvent(RepairEvent object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Recover Event</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Recover Event</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseRecoverEvent(RecoverEvent object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorBehaviorState(ErrorBehaviorState object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Behavior Transition</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Behavior Transition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorBehaviorTransition(ErrorBehaviorTransition object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Transition Branch</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Transition Branch</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTransitionBranch(TransitionBranch object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Connection Transformation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Connection Transformation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseConnectionTransformation(ConnectionTransformation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>EBSM Use Context</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EBSM Use Context</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseEBSMUseContext(EBSMUseContext object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Type Use Context</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseTypeUseContext(TypeUseContext object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Component Error Behavior</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Component Error Behavior</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseComponentErrorBehavior(ComponentErrorBehavior object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseConditionExpression(ConditionExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Ormore Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Ormore Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseOrmoreExpression(OrmoreExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Orless Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Orless Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseOrlessExpression(OrlessExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Condition Element</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Condition Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseConditionElement(ConditionElement object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Event Or Propagation</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Event Or Propagation</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseEventOrPropagation(EventOrPropagation object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Outgoing Propagation Condition</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseOutgoingPropagationCondition(OutgoingPropagationCondition object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Detection</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Detection</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorDetection(ErrorDetection object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error Code Value</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error Code Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorCodeValue(ErrorCodeValue object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Error State To Mode Mapping</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Error State To Mode Mapping</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseErrorStateToModeMapping(ErrorStateToModeMapping object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite Error Behavior</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite Error Behavior</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseCompositeErrorBehavior(CompositeErrorBehavior object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Composite State</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Composite State</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseCompositeState(CompositeState object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Subcomponent Element</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Subcomponent Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseSubcomponentElement(SubcomponentElement object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Or Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Or Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseOrExpression(OrExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>And Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>And Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseAndExpression(AndExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>SOr Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>SOr Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseSOrExpression(SOrExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>SAnd Expression</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>SAnd Expression</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseSAndExpression(SAndExpression object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseElement(Element object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseNamedElement(NamedElement object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Modal Element</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Modal Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseModalElement(ModalElement object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Annex Subclause</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annex Subclause</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseAnnexSubclause(AnnexSubclause object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Annex Library</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseAnnexLibrary(AnnexLibrary object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch, but this is the last case anyway.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>EObject</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject)
+	 * @generated
+	 */
+  @Override
+  public T defaultCase(EObject object)
+  {
+		return null;
+	}
+
+} //ErrorModelSwitch

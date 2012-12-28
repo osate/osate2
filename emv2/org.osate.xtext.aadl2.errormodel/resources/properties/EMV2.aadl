@@ -1,0 +1,47 @@
+--EMV2.aadl
+
+property set EMV2
+  is
+  
+Occurrence : EMV2::Occurrence_Type
+	  applies to (all); 
+
+--needed to separate the property "Occurrence" from its type declaration
+--so other properties may have that type
+Occurrence_Type : type record (
+	Probability : aadlreal;
+	Distribution : EMV2::Distribution;);
+	
+Distribution : type enumeration (Poisson,Fixed);
+  
+Duration : record (
+	TimeInterval : Time_Range;
+	Distribution : EMV2::Distribution;)
+	  applies to (all); 
+
+RepairOccurrence : record (
+	Probability : aadlreal;
+	Distribution : EMV2::Distribution;)
+	  applies to (all); 
+
+StateKind : EMV2::StateKindEnum
+	  applies to (all); 
+
+StateKindEnum: type enumeration (Working, NonWorking);
+
+SeverityLevel : type aadlinteger;
+CriticalityRanking : type aadlinteger;
+
+Hazard: type record
+  (crossreference: aadlstring;
+  	failure : aadlstring;
+  	phase : aadlstring;
+  	environment : aadlstring;
+  	description : aadlstring;
+  	severity : EMV2::SeverityLevel;
+  	criticality : EMV2::CriticalityRanking;
+  	verificationmethod : aadlstring;
+  	risk : aadlstring;
+  	comment : aadlstring;);
+
+end EMV2;
