@@ -524,10 +524,8 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 
 	public boolean acceptsProperty(Property property) {
 		
-		System.out.println("[NamedElementImpl] property=" + property);
 		for (PropertyOwner appliesTo : property.getAppliesTos())
 		{
-			System.out.println("[NamedElementImpl] appliesTo=" + appliesTo);
 			//	for (MetaclassReference metaclassReference : property.getAppliesToMetaclasses())
 			try {
 				if (appliesTo instanceof MetaclassReference
