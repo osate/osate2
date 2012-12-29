@@ -59,7 +59,7 @@ public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
 			}
 			else
 			{
-				Dialog.showInfo("Configuration compliance checking", "Done");
+				Dialog.showInfo("Configuration compliance checking", "Complete, configuration seems correct");
 			}
 		}
 		else

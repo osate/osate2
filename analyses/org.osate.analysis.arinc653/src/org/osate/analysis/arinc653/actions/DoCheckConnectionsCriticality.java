@@ -32,6 +32,7 @@ public final class DoCheckConnectionsCriticality extends AaxlReadOnlyActionAsJob
 	public void doAaxlAction(IProgressMonitor monitor, Element obj)
 	{
 		SystemInstance si;
+		String str;
 		ConnectionCriticalityValidation connectionInspector;
 		
 		monitor.beginTask("Inspect architecture", IProgressMonitor.UNKNOWN);
@@ -51,8 +52,20 @@ public final class DoCheckConnectionsCriticality extends AaxlReadOnlyActionAsJob
 		
 		if (si != null) 
 		{
+			str = "Analysis complete\n";
 			connectionInspector.defaultTraversal(si);
-			Dialog.showInfo("Inspect architecture", "Done");
+			if (connectionInspector.getMessages().size() == 0)
+			{
+				str = str + "nothing to report";
+			}
+			else
+			{
+				for (String s : connectionInspector.getMessages())
+				{
+					str = str + " * " + s + "\n";
+				}
+			}
+			Dialog.showInfo("Inspect architecture", str);
 		}
 		else
 		{

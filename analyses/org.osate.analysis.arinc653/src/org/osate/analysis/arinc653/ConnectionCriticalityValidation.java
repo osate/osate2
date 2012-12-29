@@ -1,5 +1,6 @@
 package org.osate.analysis.arinc653;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -17,22 +18,27 @@ import org.osate.analysis.arinc653.helpers.CriticalityHelper;
 
 
 public class ConnectionCriticalityValidation extends AadlProcessingSwitchWithProgress {
-
+	public List<String> messages;
 
 	public ConnectionCriticalityValidation(final IProgressMonitor monitor) 
 	{
 		super(monitor, PROCESS_PRE_ORDER_ALL);
+		messages = new ArrayList<String>();
 
 	}
 
 	public ConnectionCriticalityValidation(final IProgressMonitor monitor, AnalysisErrorReporterManager errmgr) 
 	{
 		super(monitor, PROCESS_PRE_ORDER_ALL, errmgr);
+		messages = new ArrayList<String>();
 
 	}
 
 
-	
+	public List<String> getMessages()
+	{
+		return this.messages;
+	}
 	
 	protected final void initSwitches() {
 
@@ -119,6 +125,7 @@ public class ConnectionCriticalityValidation extends AadlProcessingSwitchWithPro
 					if (CriticalityHelper.getCriticalityForProcess(compSource) != CriticalityHelper.getCriticalityForProcess(compDest))
 					{
 						System.out.println ("[ConnectionInspector] components " + compSource + " and " + compDest + " does not share the same criticality level" );
+						messages.add("components " + compSource.getName() + " and " + compDest.getName() + " does not share the same criticality level");
 					}
 				}
 				

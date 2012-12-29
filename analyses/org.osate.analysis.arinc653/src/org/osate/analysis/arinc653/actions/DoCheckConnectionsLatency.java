@@ -64,7 +64,7 @@ public final class DoCheckConnectionsLatency extends AaxlReadOnlyActionAsJob {
 			{
 				for (ConnectionLatencyReport clr : validator.getReports())
 				{
-					result += "Connection between " + clr.getPartitionSource().getName() + " and " + clr.getPartitionDestination().getName() + " worst-case latency: " + clr.getLatency();
+					result += " * Connection between " + clr.getPartitionSource().getName() + " and " + clr.getPartitionDestination().getName() + " worst-case latency: " + clr.getLatency() + "\n";
 				}
 			}
 			Dialog.showInfo("Analyze inter-partitions latency", result);
