@@ -830,8 +830,6 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	// XXX: [AADL 1 -> AADL 2] Added to make property lookup work.
 	public boolean acceptsProperty(Property property)
 	{
-		System.out.println("[SubcomponentImpl] property=" + property);
-
 		if (super.acceptsProperty(property))
 			return true;
 		else if (getClassifier() != null)
