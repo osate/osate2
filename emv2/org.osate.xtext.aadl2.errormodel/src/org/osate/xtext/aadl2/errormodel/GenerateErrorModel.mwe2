@@ -28,7 +28,7 @@ Workflow {
 	component = Generator {
 		pathRtProject = runtimeProject
 		pathUiProject = "${runtimeProject}.ui"
-		pathTestProject = "${runtimeProject}.test"
+//		pathTestProject = "${runtimeProject}.test"
 		projectNameRt = projectName
 		projectNameUi = "${projectName}.ui"
 		language = {
@@ -69,7 +69,7 @@ Workflow {
 			// java-based API for validation 
 			fragment = validation.JavaValidatorFragment {
 //				composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
-				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
+//				composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 				// registerForImportedPackages = true
 			}
 
