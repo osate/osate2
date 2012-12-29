@@ -122,7 +122,7 @@ public class AnnexParserAgent  extends LazyLinker {
 				.getRegistry(AnnexRegistry.ANNEX_LINKINGSERVICE_EXT_ID);
 
 
-		List<DefaultAnnexLibrary> all=EcoreUtil2.eAllOfType(model, DefaultAnnexLibrary.class);
+		List<DefaultAnnexLibrary> all=AnnexUtil.getAllDefaultAnnexLibraries(model);
 		for (DefaultAnnexLibrary defaultAnnexLibrary : all) {
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexLibrary);
 			int offset = node.getOffset();
@@ -188,7 +188,7 @@ public class AnnexParserAgent  extends LazyLinker {
 				}
 			}
 		}
-		List<DefaultAnnexSubclause> asl=EcoreUtil2.eAllOfType(model, DefaultAnnexSubclause.class);
+		List<DefaultAnnexSubclause> asl=AnnexUtil.getAllDefaultAnnexSubclauses(model);
 		for (DefaultAnnexSubclause defaultAnnexSubclause : asl) {
 			INode node = NodeModelUtils.findActualNodeFor(defaultAnnexSubclause);
 			int offset = node.getOffset();
