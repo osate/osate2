@@ -482,13 +482,13 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			}
 		}
 		if (srcprop == null&& dstprop != null){
-			error(conn,"Source has no error propagation while destination has one: "+EM2Util.getPrintName(dstprop)+" "+EM2Util.getPrintName(dstprop.getTypeSet()));
+			warning(conn,"Source has no error propagation  : "+EM2Util.getPrintName(dstprop)+" "+EM2Util.getPrintName(dstprop.getTypeSet()));
 		}
 	}
-
-	protected void error(EObject source, String message) {
-		error(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-	}
+//
+//	protected void error(EObject source, String message) {
+//		error(message, source, null,
+//				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+//	}
 
 }
