@@ -65,7 +65,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface AbstractImplementation extends BehavioredImplementation, AbstractClassifier {
+public interface AbstractImplementation extends BehavioredImplementation,
+		AbstractClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Bus Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.BusSubcomponent}.

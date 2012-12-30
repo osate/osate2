@@ -91,6 +91,7 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 	protected void registerInjectorFor(String language) throws Exception {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
+//						language));
 		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 

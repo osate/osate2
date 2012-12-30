@@ -48,8 +48,8 @@ import org.osate.aadl2.VirtualProcessorClassifier;
  *
  * @generated
  */
-public abstract class VirtualProcessorClassifierImpl extends ComponentClassifierImpl implements
-		VirtualProcessorClassifier {
+public abstract class VirtualProcessorClassifierImpl extends
+		ComponentClassifierImpl implements VirtualProcessorClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

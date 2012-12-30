@@ -14,8 +14,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
-@SuppressWarnings("restriction")
-public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected Aadl2GrammarAccess grammarAccess;
 	protected AbstractElementAlias match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q;
@@ -43,31 +43,62 @@ public class AbstractAadl2SyntacticSequencer extends AbstractSyntacticSequencer 
 		return "";
 	}
 	
+	/**
+	 * FLOWIN: (ID '.')? ID
+	 * ;
+	 */
 	protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "";
 	}
+	
+	/**
+	 * FLOWOUT: (ID '.')? ID
+	 * ;
+	 */
 	protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "";
 	}
+	
+	/**
+	 * FULLINAME:
+	 * 	ID '.' ID;
+	 */
 	protected String getFULLINAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return ".";
 	}
+	
+	/**
+	 * terminal ID:	('a'..'z'
+	 *         |'A'..'Z'
+	 *         ) ( ('_')? ('a'..'z'
+	 *         |'A'..'Z'
+	 *         |'0'..'9'))*;
+	 */
 	protected String getIDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "";
 	}
+	
+	/**
+	 * PNAME:
+	 * 	ID ('::' ID)*;
+	 */
 	protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "";
 	}
+	
+	/**
+	 * STAR : '*';
+	 */
 	protected String getSTARToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);

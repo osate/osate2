@@ -13,9 +13,9 @@
     copyrightFields="false" providerRootExtendsClass="" testsPluginID="org.osate.aadl2.editor"
     language="" 
     >
-  <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
+    <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
       resource="XMI" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
-      contentTypeIdentifier="" ecorePackage="platform:/resource/org.osate.aadl2/model/aadl2.ecore#/" >
+      contentTypeIdentifier="" ecorePackage="aadl2.ecore#/" >
     <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//FlowKind">
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//FlowKind/source"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//FlowKind/path"/>
@@ -324,28 +324,28 @@
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedSubcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/extended"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedExtension"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedRealization"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAbstractSubcomponent"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noSubcomponents"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noConnections"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noCalls"/>
@@ -410,11 +410,14 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/InEnd"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowFeature"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Flow"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModeTransitions"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getAllInModeTransitions"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowElement"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EndToEndFlowElement"/>
@@ -484,7 +487,8 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Access">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/kind"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/category"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/category"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AccessConnectionEnd"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//BusSubcomponentType"/>
@@ -502,7 +506,8 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataPort/dataFeatureClassifier"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Port">
-      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataPort">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

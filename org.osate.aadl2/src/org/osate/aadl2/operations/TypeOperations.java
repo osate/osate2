@@ -99,16 +99,20 @@ public class TypeOperations extends NamedElementOperations {
 	public static boolean conformsTo(Type type, Type other) {
 		if (CONFORMS_TO__TYPE__EOCL_QRY == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
-			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(), Aadl2Package.eINSTANCE.getType()
-					.getEAllOperations().get(12));
+			helper.setOperationContext(Aadl2Package.eINSTANCE.getType(),
+					Aadl2Package.eINSTANCE.getType().getEAllOperations()
+							.get(12));
 			try {
-				CONFORMS_TO__TYPE__EOCL_QRY = helper.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
+				CONFORMS_TO__TYPE__EOCL_QRY = helper
+						.createQuery(CONFORMS_TO__TYPE__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
 		OCL.Query query = EOCL_ENV.createQuery(CONFORMS_TO__TYPE__EOCL_QRY);
-		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query.getEvaluationEnvironment();
+		EvaluationEnvironment<?, ?, ?, ?, ?> environment = query
+				.getEvaluationEnvironment();
 		environment.add("other", other);
 		return ((Boolean) query.evaluate(type)).booleanValue();
 	}

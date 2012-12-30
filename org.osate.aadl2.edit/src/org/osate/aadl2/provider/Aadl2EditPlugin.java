@@ -70,7 +70,8 @@ public final class Aadl2EditPlugin extends EMFPlugin {
 	 * @generated
 	 */
 	public Aadl2EditPlugin() {
-		super(new ResourceLocator[] { EcoreEditPlugin.INSTANCE, UMLEditPlugin.INSTANCE, });
+		super(new ResourceLocator[] { EcoreEditPlugin.INSTANCE,
+				UMLEditPlugin.INSTANCE, });
 	}
 
 	/**

@@ -48,7 +48,8 @@ import org.osate.aadl2.PortConnection;
  *
  * @generated
  */
-public class PortConnectionImpl extends ConnectionImpl implements PortConnection {
+public class PortConnectionImpl extends ConnectionImpl implements
+		PortConnection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

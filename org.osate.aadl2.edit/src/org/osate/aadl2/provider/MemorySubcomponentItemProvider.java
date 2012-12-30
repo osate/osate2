@@ -56,8 +56,9 @@ import org.osate.aadl2.MemorySubcomponent;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MemorySubcomponentItemProvider extends SubcomponentItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class MemorySubcomponentItemProvider extends SubcomponentItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,14 +92,19 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider imp
 	 * @generated
 	 */
 	protected void addMemorySubcomponentTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_MemorySubcomponent_memorySubcomponentType_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_MemorySubcomponent_memorySubcomponentType_feature", "_UI_MemorySubcomponent_type"),
-				Aadl2Package.eINSTANCE.getMemorySubcomponent_MemorySubcomponentType(), true, false, true, null, null,
-				null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_MemorySubcomponent_memorySubcomponentType_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_MemorySubcomponent_memorySubcomponentType_feature",
+								"_UI_MemorySubcomponent_type"),
+						Aadl2Package.eINSTANCE
+								.getMemorySubcomponent_MemorySubcomponentType(),
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -109,7 +115,8 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider imp
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemorySubcomponent"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/MemorySubcomponent"));
 	}
 
 	/**
@@ -146,7 +153,8 @@ public class MemorySubcomponentItemProvider extends SubcomponentItemProvider imp
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

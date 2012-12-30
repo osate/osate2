@@ -58,8 +58,9 @@ import org.osate.aadl2.MemoryType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,12 +95,16 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedDataPort());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventDataPort());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getMemoryType_OwnedDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getMemoryType_OwnedEventDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getMemoryType_OwnedEventPort());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +130,8 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/MemoryType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/MemoryType"));
 	}
 
 	/**
@@ -156,7 +162,8 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 		case Aadl2Package.MEMORY_TYPE__OWNED_DATA_PORT:
 		case Aadl2Package.MEMORY_TYPE__OWNED_EVENT_DATA_PORT:
 		case Aadl2Package.MEMORY_TYPE__OWNED_EVENT_PORT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -170,16 +177,20 @@ public class MemoryTypeItemProvider extends ComponentTypeItemProvider implements
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryType_OwnedDataPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getMemoryType_OwnedDataPort(),
 				Aadl2Factory.eINSTANCE.createDataPort()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventDataPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getMemoryType_OwnedEventDataPort(),
 				Aadl2Factory.eINSTANCE.createEventDataPort()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getMemoryType_OwnedEventPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getMemoryType_OwnedEventPort(),
 				Aadl2Factory.eINSTANCE.createEventPort()));
 	}
 

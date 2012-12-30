@@ -48,7 +48,8 @@ import org.osate.aadl2.ProcessorClassifier;
  *
  * @generated
  */
-public abstract class ProcessorClassifierImpl extends ComponentClassifierImpl implements ProcessorClassifier {
+public abstract class ProcessorClassifierImpl extends ComponentClassifierImpl
+		implements ProcessorClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

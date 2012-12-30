@@ -54,8 +54,9 @@ import org.osate.aadl2.Aadl2Package;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FlowSegmentItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class FlowSegmentItemProvider extends ElementItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -91,12 +92,15 @@ public class FlowSegmentItemProvider extends ElementItemProvider implements IEdi
 	 */
 	protected void addFlowElementPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSegment_flowElement_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSegment_flowElement_feature",
-						"_UI_FlowSegment_type"), Aadl2Package.eINSTANCE.getFlowSegment_FlowElement(), true, false,
-				true, null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowSegment_flowElement_feature",
+						"_UI_FlowSegment_type"), Aadl2Package.eINSTANCE
+						.getFlowSegment_FlowElement(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -107,12 +111,15 @@ public class FlowSegmentItemProvider extends ElementItemProvider implements IEdi
 	 */
 	protected void addContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_FlowSegment_context_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_FlowSegment_context_feature",
-						"_UI_FlowSegment_type"), Aadl2Package.eINSTANCE.getFlowSegment_Context(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_FlowSegment_context_feature",
+						"_UI_FlowSegment_type"), Aadl2Package.eINSTANCE
+						.getFlowSegment_Context(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -123,7 +130,8 @@ public class FlowSegmentItemProvider extends ElementItemProvider implements IEdi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FlowSegment"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/FlowSegment"));
 	}
 
 	/**
@@ -158,7 +166,8 @@ public class FlowSegmentItemProvider extends ElementItemProvider implements IEdi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
