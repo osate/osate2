@@ -54,9 +54,10 @@ import org.osate.aadl2.AbstractImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractImplementationItemProvider extends BehavioredImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class AbstractImplementationItemProvider extends
+		BehavioredImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -90,7 +91,10 @@ public class AbstractImplementationItemProvider extends BehavioredImplementation
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractImplementation"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/AbstractImplementation"));
 	}
 
 	/**
@@ -127,7 +131,8 @@ public class AbstractImplementationItemProvider extends BehavioredImplementation
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

@@ -67,7 +67,8 @@ public class MyAadl2Activator extends Aadl2Activator {
 	protected void registerInjectorFor(String language) throws Exception {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
-		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+						language));
+//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 	
 	

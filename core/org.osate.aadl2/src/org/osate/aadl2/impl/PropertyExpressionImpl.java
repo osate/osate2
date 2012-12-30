@@ -50,7 +50,8 @@ import org.osate.aadl2.properties.EvaluationContext;
  *
  * @generated
  */
-public abstract class PropertyExpressionImpl extends ElementImpl implements PropertyExpression {
+public abstract class PropertyExpressionImpl extends ElementImpl implements
+		PropertyExpression {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

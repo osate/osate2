@@ -125,7 +125,8 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 			implemented = (ComponentType) eResolveProxy(oldImplemented);
 			if (implemented != oldImplemented) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.REALIZATION__IMPLEMENTED,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.REALIZATION__IMPLEMENTED,
 							oldImplemented, implemented));
 			}
 		}
@@ -150,8 +151,9 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 		ComponentType oldImplemented = implemented;
 		implemented = newImplemented;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REALIZATION__IMPLEMENTED,
-					oldImplemented, implemented));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.REALIZATION__IMPLEMENTED, oldImplemented,
+					implemented));
 	}
 
 	/**
@@ -221,7 +223,8 @@ public class RealizationImpl extends GeneralizationImpl implements Realization {
 	 */
 	@Override
 	public boolean isSetGeneral() {
-		return super.isSetGeneral() || eIsSet(Aadl2Package.REALIZATION__IMPLEMENTED);
+		return super.isSetGeneral()
+				|| eIsSet(Aadl2Package.REALIZATION__IMPLEMENTED);
 	}
 
 } //RealizationImpl

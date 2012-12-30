@@ -59,9 +59,10 @@ import org.osate.aadl2.BehavioredImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BehavioredImplementationItemProvider extends ComponentImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class BehavioredImplementationItemProvider extends
+		ComponentImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,14 +96,19 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * @generated
 	 */
 	protected void addCallSpecificationPropertyDescriptor(Object object) {
-		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-				getResourceLocator(),
-				getString("_UI_BehavioredImplementation_callSpecification_feature"),
-				getString("_UI_PropertyDescriptor_description",
-						"_UI_BehavioredImplementation_callSpecification_feature", "_UI_BehavioredImplementation_type"),
-				Aadl2Package.eINSTANCE.getBehavioredImplementation_CallSpecification(), true, false, true, null, null,
-				null));
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
+						getResourceLocator(),
+						getString("_UI_BehavioredImplementation_callSpecification_feature"),
+						getString(
+								"_UI_PropertyDescriptor_description",
+								"_UI_BehavioredImplementation_callSpecification_feature",
+								"_UI_BehavioredImplementation_type"),
+						Aadl2Package.eINSTANCE
+								.getBehavioredImplementation_CallSpecification(),
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -114,10 +120,12 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getBehavioredImplementation_OwnedSubprogramCallSequence());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getBehavioredImplementation_OwnedSubprogramCallSequence());
 		}
 		return childrenFeatures;
 	}
@@ -161,7 +169,8 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 
 		switch (notification.getFeatureID(BehavioredImplementation.class)) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -175,11 +184,12 @@ public class BehavioredImplementationItemProvider extends ComponentImplementatio
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getBehavioredImplementation_OwnedSubprogramCallSequence(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getBehavioredImplementation_OwnedSubprogramCallSequence(),
 				Aadl2Factory.eINSTANCE.createSubprogramCallSequence()));
 	}
 

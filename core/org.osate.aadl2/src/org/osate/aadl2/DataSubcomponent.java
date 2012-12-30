@@ -51,8 +51,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DataSubcomponent extends Subcomponent, AccessConnectionEnd, Data, ParameterConnectionEnd,
-		PortConnectionEnd {
+public interface DataSubcomponent extends Subcomponent, AccessConnectionEnd,
+		Data, ParameterConnectionEnd, PortConnectionEnd {
 
 	/**
 	 * Returns the value of the '<em><b>Data Subcomponent Type</b></em>' reference.

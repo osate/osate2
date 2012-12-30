@@ -59,8 +59,9 @@ import org.osate.aadl2.ArraySize;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ArraySizeItemProvider extends ElementItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ArraySizeItemProvider extends ElementItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,9 +97,12 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 	 */
 	protected void addSizePropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(), getResourceLocator(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
+				getResourceLocator(),
 				getString("_UI_ArraySize_size_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ArraySize_size_feature", "_UI_ArraySize_type"),
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ArraySize_size_feature", "_UI_ArraySize_type"),
 				Aadl2Package.eINSTANCE.getArraySize_Size(), true, false, false,
 				ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
@@ -111,12 +115,15 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 	 */
 	protected void addSizePropertyPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ArraySize_sizeProperty_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ArraySize_sizeProperty_feature",
-						"_UI_ArraySize_type"), Aadl2Package.eINSTANCE.getArraySize_SizeProperty(), true, false, true,
-				null, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ArraySize_sizeProperty_feature",
+						"_UI_ArraySize_type"), Aadl2Package.eINSTANCE
+						.getArraySize_SizeProperty(), true, false, true, null,
+				null, null));
 	}
 
 	/**
@@ -144,7 +151,8 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 
 		switch (notification.getFeatureID(ArraySize.class)) {
 		case Aadl2Package.ARRAY_SIZE__SIZE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -158,7 +166,8 @@ public class ArraySizeItemProvider extends ElementItemProvider implements IEditi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

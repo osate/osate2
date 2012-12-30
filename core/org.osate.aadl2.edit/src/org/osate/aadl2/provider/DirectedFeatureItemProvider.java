@@ -59,8 +59,9 @@ import org.osate.aadl2.DirectedFeature;
  * <!-- end-user-doc -->
  * @generated
  */
-public class DirectedFeatureItemProvider extends FeatureItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class DirectedFeatureItemProvider extends FeatureItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider implements 
 	 */
 	protected void addDirectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_DirectedFeature_direction_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_DirectedFeature_direction_feature",
-						"_UI_DirectedFeature_type"), Aadl2Package.eINSTANCE.getDirectedFeature_Direction(), true,
-				false, false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_DirectedFeature_direction_feature",
+						"_UI_DirectedFeature_type"), Aadl2Package.eINSTANCE
+						.getDirectedFeature_Direction(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -129,7 +133,8 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider implements 
 
 		switch (notification.getFeatureID(DirectedFeature.class)) {
 		case Aadl2Package.DIRECTED_FEATURE__DIRECTION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -143,7 +148,8 @@ public class DirectedFeatureItemProvider extends FeatureItemProvider implements 
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 
