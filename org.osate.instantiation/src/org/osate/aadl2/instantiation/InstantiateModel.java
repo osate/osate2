@@ -337,7 +337,12 @@ public class InstantiateModel {
 		try {
 			aadlResource.save(null);
 
-			fillSystemInstance(root);
+			try {
+				fillSystemInstance(root);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// We're done: Save the model.
 			// We don't respond to a cancel at this point
 
