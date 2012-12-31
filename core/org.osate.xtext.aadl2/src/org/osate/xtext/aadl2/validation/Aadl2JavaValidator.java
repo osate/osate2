@@ -558,13 +558,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void checkEndId(ModelUnit mu) {
 		ICompositeNode n = NodeModelUtils.getNode(mu);
 		INode lln = getPreviousNode(getLastLeaf(n));
-		String ss = lln.getText().replaceAll(" ", "");
-		lln = getPreviousNode(lln);
+		String ss = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\n", "").replaceAll("\r", "");
+//		lln = getPreviousNode(lln);
 //		while (lln.getText().equalsIgnoreCase("::")) {
 //			lln = getPreviousNode(lln);
 //			ss = lln.getText() + "::" + ss;
 //		}
-		ss = ss.replaceAll(" ", "");
+//		ss = ss.replaceAll(" ", "");
 		if (!ss.equalsIgnoreCase(mu.getName())) {
 			error(mu, "Ending '" + ss + "' does not match defining identifier '" + mu.getName() + "'");
 		}
@@ -578,12 +578,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
 		ICompositeNode n = NodeModelUtils.getNode(flow);
 		INode lln = getLastLeaf(n);
-		String outFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
+		String outFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","");
 		lln = getPreviousNode(lln);
 		String outContextName = null;
-		if (lln != null && lln.getText().replaceAll(" ","").replaceAll("\t","").equals(".")) {
+		if (lln != null && lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","").equals(".")) {
 			lln = getPreviousNode(lln);
-			outContextName = lln.getText().replaceAll(" ","").replaceAll("\t","");
+			outContextName = lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","");
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
@@ -614,7 +614,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		while (lln instanceof HiddenLeafNode)
 			lln = lln.getNextSibling();
 		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
-		String inFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","");
+		String inFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","");
 		String inContextName = null;
 		int idx = inFeatureName.indexOf(".");
 		if (idx >= 0) {
