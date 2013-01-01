@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AadlPackage" deleted="false" description="Package" enabled="true" name="Package" id="Package">package ${name}&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AadlPackage" deleted="false" description="Package" enabled="true" name="Package" id="Package">package ${name}&#13;
 public&#13;
 ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="Abstract Implementation" id="Abstract Implementation">abstract implementation ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AnnexSubclause" deleted="false" description="Annex Subclause" enabled="true" name="AnnexSubclause" id="AnnexSubclause">annex ${name} {**&#13;
+${cursor}&#13;
+**} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="Abstract Implementation" id="Abstract Implementation">abstract implementation ${name}&#13;
 subcomponents&#13;
   ${cursor}&#13;
 connections&#13;
