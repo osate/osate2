@@ -2,7 +2,6 @@ package org.osate.xtext.aadl2.ui.editor.autoedit;
 
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.xtext.ui.editor.autoedit.DefaultAutoEditStrategyProvider;
-import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider.IEditStrategyAcceptor;
 
 public class Aadl2AutoEditStrategyPprovider extends
 		DefaultAutoEditStrategyProvider {
@@ -35,3 +34,4 @@ public class Aadl2AutoEditStrategyPprovider extends
 	}
 
 }
+
