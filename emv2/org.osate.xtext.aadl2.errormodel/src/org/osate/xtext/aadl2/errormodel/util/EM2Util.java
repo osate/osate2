@@ -78,12 +78,14 @@ public class EM2Util {
 	 * find the error propagation point of the specified name
 	 * @param eps List of error propagations
 	 * @param eppName Name of error propagation point we are looking for
+	 * @param pd Directiontype
+	 * @param isNot boolean Error Containment
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findErrorPropagation(ErrorPropagations eps, String eppName, DirectionType pd){
+	public static ErrorPropagation findErrorPropagation(ErrorPropagations eps, String eppName, DirectionType pd, boolean isNot){
 		for (ErrorPropagation ep : eps.getPropagations()) {
 			Feature f = ep.getFeature();
-			if (ep.getDirection() == pd && !Aadl2Util.isNull(f)&&(eppName.equalsIgnoreCase(f.getName())||eppName.equalsIgnoreCase(ep.getKind()))){
+			if (ep.isNot() == isNot && ep.getDirection() == pd && !Aadl2Util.isNull(f)&&(eppName.equalsIgnoreCase(f.getName())||eppName.equalsIgnoreCase(ep.getKind()))){
 				return ep;
 			}
 		}
@@ -97,7 +99,7 @@ public class EM2Util {
 	 * @return ErrorPropagation
 	 */
 	public static ErrorPropagation findIncomingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.IN);
+		return findErrorPropagation(eps, eppName, DirectionType.IN,false);
 	}
 	
 	/**
@@ -107,7 +109,27 @@ public class EM2Util {
 	 * @return ErrorPropagation
 	 */
 	public static ErrorPropagation findOutgoingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.OUT);
+		return findErrorPropagation(eps, eppName, DirectionType.OUT,false);
+	}
+	
+	/**
+	 * find the outgoing error containment point of the specified name
+	 * @param eps List of error propagations
+	 * @param eppName Name of error containment point we are looking for
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation findIncomingErrorContainment(ErrorPropagations eps, String eppName){
+		return findErrorPropagation(eps, eppName, DirectionType.IN,true);
+	}
+	
+	/**
+	 * find the outgoing error containment point of the specified name
+	 * @param eps List of error propagations
+	 * @param eppName Name of error containment point we are looking for
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation findOutgoingErrorContainment(ErrorPropagations eps, String eppName){
+		return findErrorPropagation(eps, eppName, DirectionType.OUT,true);
 	}
 	
 	/**
