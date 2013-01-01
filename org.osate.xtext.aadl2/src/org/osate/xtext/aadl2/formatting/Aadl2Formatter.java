@@ -63,6 +63,12 @@ public class Aadl2Formatter extends AbstractDeclarativeFormatter {
 		      c.setNoSpace().after(pair.getFirst());
 		      c.setNoSpace().before(pair.getSecond());
 		    }
+	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{**", "**}")) {
+		      c.setIndentationIncrement().after(pair.getFirst());
+		      c.setLinewrap().after(pair.getFirst());
+		      c.setIndentationDecrement().before(pair.getSecond());
+		      c.setLinewrap().before(pair.getSecond());
+		    }
 	    for (Pair<Keyword, Keyword> pair : f.findKeywordPairs("{", "}")) {
 		      c.setIndentationIncrement().after(pair.getFirst());
 		      c.setLinewrap().after(pair.getFirst());
