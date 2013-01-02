@@ -196,7 +196,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedFeatures()
@@ -267,7 +267,7 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()

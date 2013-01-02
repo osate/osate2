@@ -176,7 +176,7 @@ public class ThreadGroupTypeImpl extends ComponentTypeImpl implements ThreadGrou
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedFeatures()

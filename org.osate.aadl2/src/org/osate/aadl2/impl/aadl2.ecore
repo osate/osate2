@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadl2" nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadl2"
+    nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
     <eOperations name="not_own_self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eParameters name="diagnostics" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDiagnosticChain"/>
@@ -25,7 +27,7 @@
     <eOperations name="mustBeOwned" ordered="false" lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedElement" ordered="false"
         upperBound="-1" eType="#//Element" changeable="false" volatile="true" transient="true"
-        derived="true">
+        derived="true" containment="true">
       <eAnnotations source="union"/>
       <eAnnotations source="http://www.topcased.org/documentation">
         <details key="documentation" value="The Elements owned by this element."/>
@@ -198,8 +200,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="classifierFeature" ordered="false"
         upperBound="-1" eType="#//ClassifierFeature" changeable="false" volatile="true"
         transient="true" derived="true" eOpposite="#//ClassifierFeature/featuringClassifier">
-      <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Namespace/member"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inheritedMember" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
@@ -209,8 +211,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="generalization" ordered="false"
         upperBound="-1" eType="#//Generalization" changeable="false" volatile="true"
         transient="true" derived="true" eOpposite="#//Generalization/specific">
-      <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Element/ownedElement"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="general" ordered="false"
         upperBound="-1" eType="#//Classifier" changeable="false" volatile="true" transient="true"
@@ -250,9 +252,9 @@
     <eOperations name="membersAreDistinguishable" ordered="false" lowerBound="1" eType="#//Boolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedMember" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
-        transient="true" derived="true">
-      <eAnnotations source="union"/>
+        transient="true" derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
+      <eAnnotations source="union"/>
       <eAnnotations source="http://www.topcased.org/documentation">
         <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
       </eAnnotations>
@@ -275,8 +277,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="general" ordered="false"
         lowerBound="1" eType="#//Classifier" changeable="false" volatile="true" transient="true"
         derived="true">
-      <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//DirectedRelationship/target"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specific" ordered="false"
         lowerBound="1" eType="#//Classifier" volatile="true" transient="true" derived="true"
@@ -289,14 +291,14 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//Element" changeable="false" volatile="true"
         transient="true" derived="true">
-      <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//Element" changeable="false" volatile="true"
         transient="true" derived="true">
-      <eAnnotations source="union"/>
       <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Relationship" abstract="true" eSuperTypes="#//Element">
@@ -409,9 +411,9 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubcomponent" ordered="false"
         upperBound="-1" eType="#//Subcomponent" changeable="false" volatile="true"
-        transient="true" derived="true">
-      <eAnnotations source="union"/>
+        transient="true" derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//ComponentImplementation" volatile="true" transient="true" derived="true">
@@ -423,9 +425,9 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConnection" ordered="false"
         upperBound="-1" eType="#//Connection" changeable="false" volatile="true" transient="true"
-        derived="true">
-      <eAnnotations source="union"/>
+        derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
         eType="#//ImplementationExtension" containment="true">
@@ -500,9 +502,9 @@
   <eClassifiers xsi:type="ecore:EClass" name="ComponentType" abstract="true" eSuperTypes="#//ComponentClassifier">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" ordered="false"
         upperBound="-1" eType="#//Feature" changeable="false" volatile="true" transient="true"
-        derived="true">
-      <eAnnotations source="union"/>
+        derived="true" containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//ComponentType" volatile="true" transient="true" derived="true">
@@ -641,9 +643,10 @@
       <details key="documentation" value="To be merged with AADLConstructs::Features::FeatureGroupType"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" upperBound="-1"
-        eType="#//Feature" changeable="false" volatile="true" transient="true" derived="true">
-      <eAnnotations source="union"/>
+        eType="#//Feature" changeable="false" volatile="true" transient="true" derived="true"
+        containment="true">
       <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
+      <eAnnotations source="union"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//FeatureGroupType" volatile="true" transient="true" derived="true">
@@ -1121,7 +1124,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorCall" eSuperTypes="#//CallSpecification">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subprogramAccessName" ordered="false"
-        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/uml2/4.0.0/Types#//String"/>
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
       eSuperTypes="#//ComponentImplementation">
