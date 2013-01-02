@@ -293,7 +293,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedElements() <em>Owned Element</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedElements() <em>Owned Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedElements()
@@ -328,7 +328,7 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()

@@ -210,7 +210,7 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()

@@ -68,7 +68,7 @@ import org.eclipse.emf.common.util.EList;
  */
 public interface FeatureGroupType extends Classifier, FeatureType {
 	/**
-	 * Returns the value of the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Feature</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Feature}.
 	 * <p>
 	 * This feature subsets the following features:
@@ -84,9 +84,9 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Feature</em>' containment reference list.
+	 * @return the value of the '<em>Owned Feature</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getFeatureGroupType_OwnedFeature()
-	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model transient="true" changeable="false" volatile="true" derived="true"
 	 * @generated
 	 */
 	EList<Feature> getOwnedFeatures();

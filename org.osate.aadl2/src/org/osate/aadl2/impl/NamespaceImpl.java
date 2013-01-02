@@ -155,7 +155,7 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedElements() <em>Owned Element</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedElements() <em>Owned Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedElements()

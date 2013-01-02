@@ -80,7 +80,7 @@ public interface Namespace extends NamedElement {
 	EList<NamedElement> getMembers();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Member</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Member</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.NamedElement}.
 	 * <p>
 	 * This feature subsets the following features:
@@ -95,9 +95,9 @@ public interface Namespace extends NamedElement {
 	 * <!-- begin-model-doc -->
 	 * A collection of NamedElements owned by the Namespace.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Owned Member</em>' containment reference list.
+	 * @return the value of the '<em>Owned Member</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getNamespace_OwnedMember()
-	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 *        annotation="http://www.topcased.org/documentation documentation='A collection of NamedElements owned by the Namespace.'"
 	 * @generated
 	 */
