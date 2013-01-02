@@ -404,7 +404,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			Aadl2Package.COMPONENT_IMPLEMENTATION__EXTENDED };
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedSubcomponents()
@@ -430,7 +430,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 			Aadl2Package.COMPONENT_IMPLEMENTATION__OWNED_END_TO_END_FLOW };
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()
@@ -613,7 +613,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedConnections() <em>Owned Connection</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedConnections() <em>Owned Connection</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedConnections()

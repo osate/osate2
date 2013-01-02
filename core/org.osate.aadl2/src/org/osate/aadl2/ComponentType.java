@@ -87,7 +87,7 @@ public interface ComponentType extends ComponentClassifier {
 	void setNoFeatures(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Feature</b></em>' reference list.
+	 * Returns the value of the '<em><b>Owned Feature</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Feature}.
 	 * <p>
 	 * This feature subsets the following features:
@@ -103,9 +103,9 @@ public interface ComponentType extends ComponentClassifier {
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Feature</em>' reference list.
+	 * @return the value of the '<em>Owned Feature</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentType_OwnedFeature()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Feature> getOwnedFeatures();

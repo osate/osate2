@@ -318,7 +318,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedFeatures()
@@ -344,7 +344,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] { Aadl2Package.FEATURE_GROUP_TYPE__OWNED_FEATURE };
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()

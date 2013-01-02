@@ -185,7 +185,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	void setNoConnections(boolean value);
 
 	/**
-	 * Returns the value of the '<em><b>Owned Subcomponent</b></em>' reference list.
+	 * Returns the value of the '<em><b>Owned Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Subcomponent}.
 	 * <p>
 	 * This feature subsets the following features:
@@ -201,9 +201,9 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Subcomponent</em>' reference list.
+	 * @return the value of the '<em>Owned Subcomponent</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedSubcomponent()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Subcomponent> getOwnedSubcomponents();
@@ -275,7 +275,7 @@ public interface ComponentImplementation extends ComponentClassifier {
 	FlowImplementation createOwnedFlowImplementation();
 
 	/**
-	 * Returns the value of the '<em><b>Owned Connection</b></em>' reference list.
+	 * Returns the value of the '<em><b>Owned Connection</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Connection}.
 	 * <p>
 	 * This feature subsets the following features:
@@ -291,9 +291,9 @@ public interface ComponentImplementation extends ComponentClassifier {
 	 * list isn't clear, there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Owned Connection</em>' reference list.
+	 * @return the value of the '<em>Owned Connection</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getComponentImplementation_OwnedConnection()
-	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 * @generated
 	 */
 	EList<Connection> getOwnedConnections();
