@@ -51,8 +51,7 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class AbstractConnectionEndImpl extends AObjectImpl implements
-		AbstractConnectionEnd {
+public abstract class AbstractConnectionEndImpl extends AObjectImpl implements AbstractConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -95,4 +94,4 @@ public abstract class AbstractConnectionEndImpl extends AObjectImpl implements
 		return CacheAdapter.getCacheAdapter(this);
 	}
 
-} //AbstractConnectionEndImpl
+} // AbstractConnectionEndImpl

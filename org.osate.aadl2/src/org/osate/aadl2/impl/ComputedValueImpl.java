@@ -55,8 +55,7 @@ import org.osate.aadl2.ComputedValue;
  *
  * @generated
  */
-public class ComputedValueImpl extends PropertyValueImpl implements
-		ComputedValue {
+public class ComputedValueImpl extends PropertyValueImpl implements ComputedValue {
 	/**
 	 * The default value of the '{@link #getFunction() <em>Function</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -114,8 +113,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements
 		String oldFunction = function;
 		function = newFunction;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPUTED_VALUE__FUNCTION, oldFunction,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPUTED_VALUE__FUNCTION, oldFunction,
 					function));
 	}
 
@@ -172,8 +170,7 @@ public class ComputedValueImpl extends PropertyValueImpl implements
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			return FUNCTION_EDEFAULT == null ? function != null
-					: !FUNCTION_EDEFAULT.equals(function);
+			return FUNCTION_EDEFAULT == null ? function != null : !FUNCTION_EDEFAULT.equals(function);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -195,4 +192,4 @@ public class ComputedValueImpl extends PropertyValueImpl implements
 		return result.toString();
 	}
 
-} //ComputedValueImpl
+} // ComputedValueImpl

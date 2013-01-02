@@ -97,8 +97,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null
-				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -121,15 +120,14 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * @generated
 	 */
 	public DataSubcomponentType getDataFeatureClassifier() {
-		if (dataFeatureClassifier != null
-				&& ((EObject) dataFeatureClassifier).eIsProxy()) {
+		if (dataFeatureClassifier != null && ((EObject) dataFeatureClassifier).eIsProxy()) {
 			InternalEObject oldDataFeatureClassifier = (InternalEObject) dataFeatureClassifier;
 			dataFeatureClassifier = (DataSubcomponentType) eResolveProxy(oldDataFeatureClassifier);
 			if (dataFeatureClassifier != oldDataFeatureClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER,
-							oldDataFeatureClassifier, dataFeatureClassifier));
+							Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER, oldDataFeatureClassifier,
+							dataFeatureClassifier));
 			}
 		}
 		return dataFeatureClassifier;
@@ -149,13 +147,11 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDataFeatureClassifier(
-			DataSubcomponentType newDataFeatureClassifier) {
+	public void setDataFeatureClassifier(DataSubcomponentType newDataFeatureClassifier) {
 		DataSubcomponentType oldDataFeatureClassifier = dataFeatureClassifier;
 		dataFeatureClassifier = newDataFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER,
 					oldDataFeatureClassifier, dataFeatureClassifier));
 	}
 
@@ -226,8 +222,7 @@ public class ParameterImpl extends DirectedFeatureImpl implements Parameter {
 	 */
 	@Override
 	public boolean isSetFeatureClassifier() {
-		return super.isSetFeatureClassifier()
-				|| eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER);
+		return super.isSetFeatureClassifier() || eIsSet(Aadl2Package.PARAMETER__DATA_FEATURE_CLASSIFIER);
 	}
 
-} //ParameterImpl
+} // ParameterImpl

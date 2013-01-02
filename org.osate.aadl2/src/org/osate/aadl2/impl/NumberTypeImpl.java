@@ -62,8 +62,7 @@ import org.osate.aadl2.UnitsType;
  *
  * @generated
  */
-public abstract class NumberTypeImpl extends NonListTypeImpl implements
-		NumberType {
+public abstract class NumberTypeImpl extends NonListTypeImpl implements NumberType {
 	/**
 	 * The cached value of the '{@link #getUnitsType() <em>Units Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -126,15 +125,12 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedUnitsType(
-			UnitsType newOwnedUnitsType, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedUnitsType(UnitsType newOwnedUnitsType, NotificationChain msgs) {
 		UnitsType oldOwnedUnitsType = ownedUnitsType;
 		ownedUnitsType = newOwnedUnitsType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
-					oldOwnedUnitsType, newOwnedUnitsType);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, oldOwnedUnitsType, newOwnedUnitsType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -160,21 +156,16 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 		if (newOwnedUnitsType != ownedUnitsType) {
 			NotificationChain msgs = null;
 			if (ownedUnitsType != null)
-				msgs = ((InternalEObject) ownedUnitsType).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) ownedUnitsType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
 			if (newOwnedUnitsType != null)
-				msgs = ((InternalEObject) newOwnedUnitsType).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
-						null, msgs);
+				msgs = ((InternalEObject) newOwnedUnitsType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE, null, msgs);
 			msgs = basicSetOwnedUnitsType(newOwnedUnitsType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE,
 					newOwnedUnitsType, newOwnedUnitsType));
 	}
 
@@ -184,8 +175,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 	 * @generated
 	 */
 	public UnitsType createOwnedUnitsType() {
-		UnitsType newOwnedUnitsType = (UnitsType) create(Aadl2Package.eINSTANCE
-				.getUnitsType());
+		UnitsType newOwnedUnitsType = (UnitsType) create(Aadl2Package.eINSTANCE.getUnitsType());
 		setOwnedUnitsType(newOwnedUnitsType);
 		return newOwnedUnitsType;
 	}
@@ -201,9 +191,8 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 			unitsType = (UnitsType) eResolveProxy(oldUnitsType);
 			if (unitsType != oldUnitsType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.NUMBER_TYPE__UNITS_TYPE, oldUnitsType,
-							unitsType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_TYPE__UNITS_TYPE,
+							oldUnitsType, unitsType));
 			}
 		}
 		return unitsType;
@@ -251,8 +240,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 		UnitsType oldUnitsType = unitsType;
 		unitsType = newUnitsType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMBER_TYPE__UNITS_TYPE, oldUnitsType,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__UNITS_TYPE, oldUnitsType,
 					unitsType));
 	}
 
@@ -270,14 +258,12 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetRange(NumericRange newRange,
-			NotificationChain msgs) {
+	public NotificationChain basicSetRange(NumericRange newRange, NotificationChain msgs) {
 		NumericRange oldRange = range;
 		range = newRange;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, Aadl2Package.NUMBER_TYPE__RANGE,
-					oldRange, newRange);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_TYPE__RANGE, oldRange, newRange);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -295,19 +281,16 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 		if (newRange != range) {
 			NotificationChain msgs = null;
 			if (range != null)
-				msgs = ((InternalEObject) range).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
+				msgs = ((InternalEObject) range).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
 			if (newRange != null)
-				msgs = ((InternalEObject) newRange).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
+				msgs = ((InternalEObject) newRange).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMBER_TYPE__RANGE, null, msgs);
 			msgs = basicSetRange(newRange, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMBER_TYPE__RANGE, newRange, newRange));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_TYPE__RANGE, newRange, newRange));
 	}
 
 	/**
@@ -316,8 +299,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 	 * @generated
 	 */
 	public NumericRange createRange() {
-		NumericRange newRange = (NumericRange) create(Aadl2Package.eINSTANCE
-				.getNumericRange());
+		NumericRange newRange = (NumericRange) create(Aadl2Package.eINSTANCE.getNumericRange());
 		setRange(newRange);
 		return newRange;
 	}
@@ -328,8 +310,7 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NUMBER_TYPE__OWNED_UNITS_TYPE:
 			return basicSetOwnedUnitsType(null, msgs);
@@ -421,4 +402,4 @@ public abstract class NumberTypeImpl extends NonListTypeImpl implements
 		return super.eIsSet(featureID);
 	}
 
-} //NumberTypeImpl
+} // NumberTypeImpl

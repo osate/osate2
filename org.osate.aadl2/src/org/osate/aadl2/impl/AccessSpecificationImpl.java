@@ -62,8 +62,7 @@ import org.osate.aadl2.ComponentClassifier;
  *
  * @generated
  */
-public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
-		implements AccessSpecification {
+public class AccessSpecificationImpl extends FeaturePrototypeActualImpl implements AccessSpecification {
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -151,8 +150,8 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__KIND, oldKind,
+					kind));
 	}
 
 	/**
@@ -173,9 +172,8 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		AccessCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -190,8 +188,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -215,8 +212,7 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS_SPECIFICATION__CLASSIFIER,
 					oldClassifier, classifier));
 	}
 
@@ -319,4 +315,4 @@ public class AccessSpecificationImpl extends FeaturePrototypeActualImpl
 		return result.toString();
 	}
 
-} //AccessSpecificationImpl
+} // AccessSpecificationImpl

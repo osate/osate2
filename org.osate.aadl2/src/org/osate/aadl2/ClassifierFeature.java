@@ -76,8 +76,9 @@ public interface ClassifierFeature extends NamedElement {
 	EList<Classifier> getFeaturingClassifiers();
 
 	// FIXME: add these back in somewhere else (also the implementations)
-	// The MM uses multiple inheritance. As Java doesn't do that on the class level, the implementations of these methods are lost.
-	//void setClassifierReference(ClassifierReference cr);
-	//ClassifierReference getClassifierReference();
+	// The MM uses multiple inheritance. As Java doesn't do that on the class
+	// level, the implementations of these methods are lost.
+	// void setClassifierReference(ClassifierReference cr);
+	// ClassifierReference getClassifierReference();
 
 } // ClassifierFeature

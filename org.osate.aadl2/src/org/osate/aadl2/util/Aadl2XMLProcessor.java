@@ -41,7 +41,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.xmi.util.XMLProcessor;
 import org.osate.aadl2.Aadl2Package;
 
-
 /**
  * This class contains helper methods to serialize and deserialize XML documents
  * <!-- begin-user-doc -->
@@ -77,4 +76,4 @@ public class Aadl2XMLProcessor extends XMLProcessor {
 		return registrations;
 	}
 
-} //Aadl2XMLProcessor
+} // Aadl2XMLProcessor

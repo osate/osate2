@@ -68,8 +68,7 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class ComponentPrototypeActualImpl extends ElementImpl implements
-		ComponentPrototypeActual {
+public class ComponentPrototypeActualImpl extends ElementImpl implements ComponentPrototypeActual {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -147,8 +146,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__CATEGORY,
 					oldCategory, category));
 	}
 
@@ -159,8 +157,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 	 */
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(
-					PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;
@@ -188,11 +185,9 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 			subcomponentType = (SubcomponentType) eResolveProxy(oldSubcomponentType);
 			if (subcomponentType != oldSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE,
-							oldSubcomponentType, subcomponentType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE, oldSubcomponentType,
+							subcomponentType));
 			}
 		}
 		return subcomponentType.eIsProxy() ? null : subcomponentType;
@@ -217,8 +212,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 		subcomponentType = newSubcomponentType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE,
-					oldSubcomponentType, subcomponentType));
+					Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE, oldSubcomponentType, subcomponentType));
 	}
 
 	/**
@@ -227,12 +221,10 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
-			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -271,8 +263,7 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 			return;
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__BINDING:
 			getBindings().clear();
-			getBindings().addAll(
-					(Collection<? extends PrototypeBinding>) newValue);
+			getBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_PROTOTYPE_ACTUAL__SUBCOMPONENT_TYPE:
 			setSubcomponentType((SubcomponentType) newValue);
@@ -337,4 +328,4 @@ public class ComponentPrototypeActualImpl extends ElementImpl implements
 		return result.toString();
 	}
 
-} //ComponentPrototypeActualImpl
+} // ComponentPrototypeActualImpl

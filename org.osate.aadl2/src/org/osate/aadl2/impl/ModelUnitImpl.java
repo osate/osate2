@@ -47,8 +47,7 @@ import org.osate.aadl2.ModelUnit;
  *
  * @generated
  */
-public abstract class ModelUnitImpl extends NamedElementImpl implements
-		ModelUnit {
+public abstract class ModelUnitImpl extends NamedElementImpl implements ModelUnit {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public abstract class ModelUnitImpl extends NamedElementImpl implements
 		return Aadl2Package.eINSTANCE.getModelUnit();
 	}
 
-} //ModelUnitImpl
+} // ModelUnitImpl

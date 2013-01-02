@@ -47,8 +47,7 @@ import org.osate.aadl2.SystemSubcomponentType;
  *
  * @generated
  */
-public abstract class SystemSubcomponentTypeImpl extends SubcomponentTypeImpl
-		implements SystemSubcomponentType {
+public abstract class SystemSubcomponentTypeImpl extends SubcomponentTypeImpl implements SystemSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public abstract class SystemSubcomponentTypeImpl extends SubcomponentTypeImpl
 		return Aadl2Package.eINSTANCE.getSystemSubcomponentType();
 	}
 
-} //SystemSubcomponentTypeImpl
+} // SystemSubcomponentTypeImpl

@@ -49,8 +49,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class ProcessSubcomponentTypeImpl extends ProcessImpl implements
-		ProcessSubcomponentType {
+public abstract class ProcessSubcomponentTypeImpl extends ProcessImpl implements ProcessSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -79,4 +78,4 @@ public abstract class ProcessSubcomponentTypeImpl extends ProcessImpl implements
 		return TypeOperations.conformsTo(this, other);
 	}
 
-} //ProcessSubcomponentTypeImpl
+} // ProcessSubcomponentTypeImpl

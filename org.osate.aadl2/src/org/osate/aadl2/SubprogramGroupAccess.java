@@ -82,7 +82,6 @@ public interface SubprogramGroupAccess extends Access, CallContext {
 	 * @see #getSubprogramGroupFeatureClassifier()
 	 * @generated
 	 */
-	void setSubprogramGroupFeatureClassifier(
-			SubprogramGroupSubcomponentType value);
+	void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType value);
 
 } // SubprogramGroupAccess

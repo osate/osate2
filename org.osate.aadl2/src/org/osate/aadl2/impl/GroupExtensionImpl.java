@@ -59,8 +59,7 @@ import org.osate.aadl2.GroupExtension;
  *
  * @generated
  */
-public class GroupExtensionImpl extends GeneralizationImpl implements
-		GroupExtension {
+public class GroupExtensionImpl extends GeneralizationImpl implements GroupExtension {
 
 	/**
 	 * The cached value of the '{@link #getExtended() <em>Extended</em>}' reference.
@@ -127,8 +126,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements
 			extended = (FeatureGroupType) eResolveProxy(oldExtended);
 			if (extended != oldExtended) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.GROUP_EXTENSION__EXTENDED,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.GROUP_EXTENSION__EXTENDED,
 							oldExtended, extended));
 			}
 		}
@@ -153,8 +151,7 @@ public class GroupExtensionImpl extends GeneralizationImpl implements
 		FeatureGroupType oldExtended = extended;
 		extended = newExtended;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.GROUP_EXTENSION__EXTENDED, oldExtended,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.GROUP_EXTENSION__EXTENDED, oldExtended,
 					extended));
 	}
 
@@ -225,7 +222,6 @@ public class GroupExtensionImpl extends GeneralizationImpl implements
 	 */
 	@Override
 	public boolean isSetGeneral() {
-		return super.isSetGeneral()
-				|| eIsSet(Aadl2Package.GROUP_EXTENSION__EXTENDED);
+		return super.isSetGeneral() || eIsSet(Aadl2Package.GROUP_EXTENSION__EXTENDED);
 	}
-} //GroupExtensionImpl
+} // GroupExtensionImpl

@@ -68,4 +68,4 @@ public abstract class BusImpl extends NamedElementImpl implements Bus {
 		return Aadl2Package.eINSTANCE.getBus();
 	}
 
-} //BusImpl
+} // BusImpl

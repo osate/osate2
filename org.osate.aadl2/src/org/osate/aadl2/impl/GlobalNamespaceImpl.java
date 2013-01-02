@@ -63,8 +63,7 @@ import org.osate.aadl2.PublicPackageSection;
  *
  * @generated
  */
-public class GlobalNamespaceImpl extends NamespaceImpl implements
-		GlobalNamespace {
+public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespace {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -95,21 +94,17 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(
-					eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(
-								NamedElement.class, this,
-								Aadl2Package.GLOBAL_NAMESPACE__MEMBER,
-								MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+								Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
-				this, Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
+				Aadl2Package.GLOBAL_NAMESPACE__MEMBER, MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -120,10 +115,8 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] MEMBER_ESUBSETS = new int[] {
-			Aadl2Package.GLOBAL_NAMESPACE__OWNED_MEMBER,
-			Aadl2Package.GLOBAL_NAMESPACE__PACKAGE,
-			Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET };
+	protected static final int[] MEMBER_ESUBSETS = new int[] { Aadl2Package.GLOBAL_NAMESPACE__OWNED_MEMBER,
+			Aadl2Package.GLOBAL_NAMESPACE__PACKAGE, Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -142,7 +135,8 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 	 * @generated
 	 */
 	public EList<PropertySet> getPropertySets() {
-		// TODO: implement this method to return the 'Property Set' reference list
+		// TODO: implement this method to return the 'Property Set' reference
+		// list
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
 	}
@@ -174,13 +168,11 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 		switch (featureID) {
 		case Aadl2Package.GLOBAL_NAMESPACE__PACKAGE:
 			getPackages().clear();
-			getPackages().addAll(
-					(Collection<? extends PublicPackageSection>) newValue);
+			getPackages().addAll((Collection<? extends PublicPackageSection>) newValue);
 			return;
 		case Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET:
 			getPropertySets().clear();
-			getPropertySets().addAll(
-					(Collection<? extends PropertySet>) newValue);
+			getPropertySets().addAll((Collection<? extends PropertySet>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -227,9 +219,8 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements
 	 */
 	@Override
 	public boolean isSetMembers() {
-		return super.isSetMembers()
-				|| eIsSet(Aadl2Package.GLOBAL_NAMESPACE__PACKAGE)
+		return super.isSetMembers() || eIsSet(Aadl2Package.GLOBAL_NAMESPACE__PACKAGE)
 				|| eIsSet(Aadl2Package.GLOBAL_NAMESPACE__PROPERTY_SET);
 	}
 
-} //GlobalNamespaceImpl
+} // GlobalNamespaceImpl

@@ -57,8 +57,7 @@ import org.osate.aadl2.PublicPackageSection;
  *
  * @generated
  */
-public class PrivatePackageSectionImpl extends PackageSectionImpl implements
-		PrivatePackageSection {
+public class PrivatePackageSectionImpl extends PackageSectionImpl implements PrivatePackageSection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -145,4 +144,4 @@ public class PrivatePackageSectionImpl extends PackageSectionImpl implements
 		return ((AadlPackage) getOwner()).getName() + "_private";
 	}
 
-} //PrivatePackageSectionImpl
+} // PrivatePackageSectionImpl

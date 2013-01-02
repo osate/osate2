@@ -68,4 +68,4 @@ public class RecordFieldImpl extends BasicPropertyImpl implements RecordField {
 		return Aadl2Package.eINSTANCE.getRecordField();
 	}
 
-} //RecordFieldImpl
+} // RecordFieldImpl

@@ -53,8 +53,7 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class CallContextImpl extends AObjectImpl implements
-		CallContext {
+public abstract class CallContextImpl extends AObjectImpl implements CallContext {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -97,4 +96,4 @@ public abstract class CallContextImpl extends AObjectImpl implements
 		return CacheAdapter.getCacheAdapter(this);
 	}
 
-} //CallContextImpl
+} // CallContextImpl

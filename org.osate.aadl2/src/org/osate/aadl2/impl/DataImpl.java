@@ -68,4 +68,4 @@ public abstract class DataImpl extends NamedElementImpl implements Data {
 		return Aadl2Package.eINSTANCE.getData();
 	}
 
-} //DataImpl
+} // DataImpl

@@ -48,8 +48,7 @@ import org.osate.aadl2.SubprogramClassifier;
  *
  * @generated
  */
-public abstract class SubprogramClassifierImpl extends ComponentClassifierImpl
-		implements SubprogramClassifier {
+public abstract class SubprogramClassifierImpl extends ComponentClassifierImpl implements SubprogramClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class SubprogramClassifierImpl extends ComponentClassifierImpl
 		return Aadl2Package.eINSTANCE.getSubprogramClassifier();
 	}
 
-} //SubprogramClassifierImpl
+} // SubprogramClassifierImpl

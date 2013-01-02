@@ -62,8 +62,7 @@ import org.osate.aadl2.PortSpecification;
  *
  * @generated
  */
-public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
-		PortSpecification {
+public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements PortSpecification {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -151,9 +150,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__DIRECTION, oldDirection,
-					direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__DIRECTION,
+					oldDirection, direction));
 	}
 
 	/**
@@ -174,9 +172,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		PortCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__CATEGORY, oldCategory,
-					category));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__CATEGORY,
+					oldCategory, category));
 	}
 
 	/**
@@ -191,8 +188,7 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 			if (classifier != oldClassifier) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.PORT_SPECIFICATION__CLASSIFIER,
-							oldClassifier, classifier));
+							Aadl2Package.PORT_SPECIFICATION__CLASSIFIER, oldClassifier, classifier));
 			}
 		}
 		return classifier;
@@ -216,9 +212,8 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		ComponentClassifier oldClassifier = classifier;
 		classifier = newClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.PORT_SPECIFICATION__CLASSIFIER, oldClassifier,
-					classifier));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PORT_SPECIFICATION__CLASSIFIER,
+					oldClassifier, classifier));
 	}
 
 	/**
@@ -320,4 +315,4 @@ public class PortSpecificationImpl extends FeaturePrototypeActualImpl implements
 		return result.toString();
 	}
 
-} //PortSpecificationImpl
+} // PortSpecificationImpl

@@ -47,8 +47,7 @@ import org.osate.aadl2.SubprogramGroupPrototype;
  *
  * @generated
  */
-public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl
-		implements SubprogramGroupPrototype {
+public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl implements SubprogramGroupPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public class SubprogramGroupPrototypeImpl extends ComponentPrototypeImpl
 		return Aadl2Package.eINSTANCE.getSubprogramGroupPrototype();
 	}
 
-} //SubprogramGroupPrototypeImpl
+} // SubprogramGroupPrototypeImpl

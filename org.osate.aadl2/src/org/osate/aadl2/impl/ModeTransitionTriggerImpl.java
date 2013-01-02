@@ -48,8 +48,7 @@ import org.osate.aadl2.ModeTransitionTrigger;
  *
  * @generated
  */
-public abstract class ModeTransitionTriggerImpl extends ElementImpl implements
-		ModeTransitionTrigger {
+public abstract class ModeTransitionTriggerImpl extends ElementImpl implements ModeTransitionTrigger {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class ModeTransitionTriggerImpl extends ElementImpl implements
 		return Aadl2Package.eINSTANCE.getModeTransitionTrigger();
 	}
 
-} //ModeTransitionTriggerImpl
+} // ModeTransitionTriggerImpl

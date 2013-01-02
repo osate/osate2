@@ -66,8 +66,7 @@ import org.osate.aadl2.NamedElement;
  *
  * @generated
  */
-public class ContainmentPathElementImpl extends ElementImpl implements
-		ContainmentPathElement {
+public class ContainmentPathElementImpl extends ElementImpl implements ContainmentPathElement {
 	/**
 	 * The cached value of the '{@link #getArrayRanges() <em>Array Range</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -114,8 +113,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 */
 	public EList<ArrayRange> getArrayRanges() {
 		if (arrayRanges == null) {
-			arrayRanges = new EObjectContainmentEList<ArrayRange>(
-					ArrayRange.class, this,
+			arrayRanges = new EObjectContainmentEList<ArrayRange>(ArrayRange.class, this,
 					Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE);
 		}
 		return arrayRanges;
@@ -127,8 +125,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * @generated
 	 */
 	public ArrayRange createArrayRange() {
-		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE
-				.getArrayRange());
+		ArrayRange newArrayRange = (ArrayRange) create(Aadl2Package.eINSTANCE.getArrayRange());
 		getArrayRanges().add(newArrayRange);
 		return newArrayRange;
 	}
@@ -144,11 +141,8 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 			namedElement = (NamedElement) eResolveProxy(oldNamedElement);
 			if (namedElement != oldNamedElement) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
-							oldNamedElement, namedElement));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT, oldNamedElement, namedElement));
 			}
 		}
 		return namedElement;
@@ -172,8 +166,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		NamedElement oldNamedElement = namedElement;
 		namedElement = newNamedElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT,
 					oldNamedElement, namedElement));
 	}
 
@@ -183,12 +176,10 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
-			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd,
-					msgs);
+			return ((InternalEList<?>) getArrayRanges()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -222,8 +213,7 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		switch (featureID) {
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__ARRAY_RANGE:
 			getArrayRanges().clear();
-			getArrayRanges()
-					.addAll((Collection<? extends ArrayRange>) newValue);
+			getArrayRanges().addAll((Collection<? extends ArrayRange>) newValue);
 			return;
 		case Aadl2Package.CONTAINMENT_PATH_ELEMENT__NAMED_ELEMENT:
 			setNamedElement((NamedElement) newValue);
@@ -266,4 +256,4 @@ public class ContainmentPathElementImpl extends ElementImpl implements
 		return super.eIsSet(featureID);
 	}
 
-} //ContainmentPathElementImpl
+} // ContainmentPathElementImpl

@@ -72,8 +72,7 @@ import org.osate.aadl2.Subcomponent;
  *
  * @generated
  */
-public class MemoryImplementationImpl extends ComponentImplementationImpl
-		implements MemoryImplementation {
+public class MemoryImplementationImpl extends ComponentImplementationImpl implements MemoryImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedBusSubcomponents() <em>Owned Bus Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -123,30 +122,21 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
-					.get(eResource, this, Aadl2Package.eINSTANCE
-							.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
+					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(
-						eResource,
-						this,
-						Aadl2Package.eINSTANCE
-								.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
-								Subcomponent.class,
-								this,
-								Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-								OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+								Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
-				this, Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT,
-				OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
+				Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedSubcomponents()
@@ -165,8 +155,7 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	 */
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(
-					BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
 					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -178,8 +167,7 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	 * @generated
 	 */
 	public BusSubcomponent createOwnedBusSubcomponent() {
-		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE
-				.getBusSubcomponent());
+		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
 		return newOwnedBusSubcomponent;
 	}
@@ -191,9 +179,7 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	 */
 	public EList<MemorySubcomponent> getOwnedMemorySubcomponents() {
 		if (ownedMemorySubcomponents == null) {
-			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(
-					MemorySubcomponent.class,
-					this,
+			ownedMemorySubcomponents = new EObjectContainmentEList<MemorySubcomponent>(MemorySubcomponent.class, this,
 					Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 		}
 		return ownedMemorySubcomponents;
@@ -259,15 +245,12 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedMemorySubcomponents())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedMemorySubcomponents()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -299,13 +282,11 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 		switch (featureID) {
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			getOwnedBusSubcomponents().clear();
-			getOwnedBusSubcomponents().addAll(
-					(Collection<? extends BusSubcomponent>) newValue);
+			getOwnedBusSubcomponents().addAll((Collection<? extends BusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
 			getOwnedMemorySubcomponents().clear();
-			getOwnedMemorySubcomponents().addAll(
-					(Collection<? extends MemorySubcomponent>) newValue);
+			getOwnedMemorySubcomponents().addAll((Collection<? extends MemorySubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -338,11 +319,9 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ownedBusSubcomponents != null
-					&& !ownedBusSubcomponents.isEmpty();
+			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT:
-			return ownedMemorySubcomponents != null
-					&& !ownedMemorySubcomponents.isEmpty();
+			return ownedMemorySubcomponents != null && !ownedMemorySubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -354,12 +333,11 @@ public class MemoryImplementationImpl extends ComponentImplementationImpl
 	 */
 	@Override
 	public boolean isSetOwnedSubcomponents() {
-		return super.isSetOwnedSubcomponents()
-				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
+		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.MEMORY_IMPLEMENTATION__OWNED_MEMORY_SUBCOMPONENT);
 	}
 
 	public ComponentCategory getCategory() {
 		return ComponentCategory.MEMORY;
 	}
-} //MemoryImplementationImpl
+} // MemoryImplementationImpl

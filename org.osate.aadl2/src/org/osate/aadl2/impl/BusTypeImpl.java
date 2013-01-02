@@ -141,37 +141,30 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(
-					eResource, this,
+			EList<Feature> ownedFeatures = (EList<Feature>) cache.get(eResource, this,
 					Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			if (ownedFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE
-						.getComponentType_OwnedFeature(),
-						ownedFeatures = new DerivedUnionEObjectEList<Feature>(
-								Feature.class, this,
-								Aadl2Package.BUS_TYPE__OWNED_FEATURE,
-								OWNED_FEATURE_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature(),
+						ownedFeatures = new DerivedUnionEObjectEList<Feature>(Feature.class, this,
+								Aadl2Package.BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS));
 			}
 			return ownedFeatures;
 		}
-		return new DerivedUnionEObjectEList<Feature>(Feature.class, this,
-				Aadl2Package.BUS_TYPE__OWNED_FEATURE, OWNED_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<Feature>(Feature.class, this, Aadl2Package.BUS_TYPE__OWNED_FEATURE,
+				OWNED_FEATURE_ESUBSETS);
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedFeatures()
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.BUS_TYPE__OWNED_FEATURE_GROUP,
-			Aadl2Package.BUS_TYPE__OWNED_ABSTRACT_FEATURE,
-			Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS,
-			Aadl2Package.BUS_TYPE__OWNED_DATA_PORT,
-			Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT,
+	protected static final int[] OWNED_FEATURE_ESUBSETS = new int[] { Aadl2Package.BUS_TYPE__OWNED_FEATURE_GROUP,
+			Aadl2Package.BUS_TYPE__OWNED_ABSTRACT_FEATURE, Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS,
+			Aadl2Package.BUS_TYPE__OWNED_DATA_PORT, Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT,
 			Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT };
 
 	/**
@@ -181,8 +174,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	public EList<BusAccess> getOwnedBusAccesses() {
 		if (ownedBusAccesses == null) {
-			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(
-					BusAccess.class, this,
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS);
 		}
 		return ownedBusAccesses;
@@ -194,8 +186,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	public BusAccess createOwnedBusAccess() {
-		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE
-				.getBusAccess());
+		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
 		getOwnedBusAccesses().add(newOwnedBusAccess);
 		return newOwnedBusAccess;
 	}
@@ -207,8 +198,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	public EList<DataPort> getOwnedDataPorts() {
 		if (ownedDataPorts == null) {
-			ownedDataPorts = new EObjectContainmentEList<DataPort>(
-					DataPort.class, this,
+			ownedDataPorts = new EObjectContainmentEList<DataPort>(DataPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_DATA_PORT);
 		}
 		return ownedDataPorts;
@@ -220,8 +210,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	public DataPort createOwnedDataPort() {
-		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE
-				.getDataPort());
+		DataPort newOwnedDataPort = (DataPort) create(Aadl2Package.eINSTANCE.getDataPort());
 		getOwnedDataPorts().add(newOwnedDataPort);
 		return newOwnedDataPort;
 	}
@@ -233,8 +222,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	public EList<EventDataPort> getOwnedEventDataPorts() {
 		if (ownedEventDataPorts == null) {
-			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(
-					EventDataPort.class, this,
+			ownedEventDataPorts = new EObjectContainmentEList<EventDataPort>(EventDataPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT);
 		}
 		return ownedEventDataPorts;
@@ -246,8 +234,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	public EventDataPort createOwnedEventDataPort() {
-		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE
-				.getEventDataPort());
+		EventDataPort newOwnedEventDataPort = (EventDataPort) create(Aadl2Package.eINSTANCE.getEventDataPort());
 		getOwnedEventDataPorts().add(newOwnedEventDataPort);
 		return newOwnedEventDataPort;
 	}
@@ -259,8 +246,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	public EList<EventPort> getOwnedEventPorts() {
 		if (ownedEventPorts == null) {
-			ownedEventPorts = new EObjectContainmentEList<EventPort>(
-					EventPort.class, this,
+			ownedEventPorts = new EObjectContainmentEList<EventPort>(EventPort.class, this,
 					Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT);
 		}
 		return ownedEventPorts;
@@ -272,8 +258,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	public EventPort createOwnedEventPort() {
-		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE
-				.getEventPort());
+		EventPort newOwnedEventPort = (EventPort) create(Aadl2Package.eINSTANCE.getEventPort());
 		getOwnedEventPorts().add(newOwnedEventPort);
 		return newOwnedEventPort;
 	}
@@ -284,21 +269,16 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS:
-			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.BUS_TYPE__OWNED_DATA_PORT:
-			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDataPorts()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT:
-			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedEventDataPorts()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT:
-			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(
-					otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedEventPorts()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -334,23 +314,19 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 		switch (featureID) {
 		case Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS:
 			getOwnedBusAccesses().clear();
-			getOwnedBusAccesses().addAll(
-					(Collection<? extends BusAccess>) newValue);
+			getOwnedBusAccesses().addAll((Collection<? extends BusAccess>) newValue);
 			return;
 		case Aadl2Package.BUS_TYPE__OWNED_DATA_PORT:
 			getOwnedDataPorts().clear();
-			getOwnedDataPorts().addAll(
-					(Collection<? extends DataPort>) newValue);
+			getOwnedDataPorts().addAll((Collection<? extends DataPort>) newValue);
 			return;
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT:
 			getOwnedEventDataPorts().clear();
-			getOwnedEventDataPorts().addAll(
-					(Collection<? extends EventDataPort>) newValue);
+			getOwnedEventDataPorts().addAll((Collection<? extends EventDataPort>) newValue);
 			return;
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT:
 			getOwnedEventPorts().clear();
-			getOwnedEventPorts().addAll(
-					(Collection<? extends EventPort>) newValue);
+			getOwnedEventPorts().addAll((Collection<? extends EventPort>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -393,8 +369,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 		case Aadl2Package.BUS_TYPE__OWNED_DATA_PORT:
 			return ownedDataPorts != null && !ownedDataPorts.isEmpty();
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT:
-			return ownedEventDataPorts != null
-					&& !ownedEventDataPorts.isEmpty();
+			return ownedEventDataPorts != null && !ownedEventDataPorts.isEmpty();
 		case Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT:
 			return ownedEventPorts != null && !ownedEventPorts.isEmpty();
 		}
@@ -408,8 +383,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	 */
 	@Override
 	public boolean isSetOwnedFeatures() {
-		return super.isSetOwnedFeatures()
-				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS)
+		return super.isSetOwnedFeatures() || eIsSet(Aadl2Package.BUS_TYPE__OWNED_BUS_ACCESS)
 				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_DATA_PORT)
 				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_EVENT_DATA_PORT)
 				|| eIsSet(Aadl2Package.BUS_TYPE__OWNED_EVENT_PORT);
@@ -418,4 +392,4 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	public ComponentCategory getCategory() {
 		return ComponentCategory.BUS;
 	}
-} //BusTypeImpl
+} // BusTypeImpl

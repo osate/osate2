@@ -49,8 +49,7 @@ import org.osate.aadl2.InternalEvent;
  *
  * @generated
  */
-public class InternalEventImpl extends NamedElementImpl implements
-		InternalEvent {
+public class InternalEventImpl extends NamedElementImpl implements InternalEvent {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -78,4 +77,4 @@ public class InternalEventImpl extends NamedElementImpl implements
 		return getName();
 	}
 
-} //InternalEventImpl
+} // InternalEventImpl
