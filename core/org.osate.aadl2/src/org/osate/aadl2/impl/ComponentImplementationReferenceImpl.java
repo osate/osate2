@@ -66,8 +66,7 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public class ComponentImplementationReferenceImpl extends ElementImpl implements
-		ComponentImplementationReference {
+public class ComponentImplementationReferenceImpl extends ElementImpl implements ComponentImplementationReference {
 	/**
 	 * The cached value of the '{@link #getImplementation() <em>Implementation</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -118,11 +117,9 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 			implementation = (ComponentImplementation) eResolveProxy(oldImplementation);
 			if (implementation != oldImplementation) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION,
-							oldImplementation, implementation));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation,
+							implementation));
 			}
 		}
 		return implementation;
@@ -146,11 +143,8 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 		ComponentImplementation oldImplementation = implementation;
 		implementation = newImplementation;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(
-					this,
-					Notification.SET,
-					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION,
-					oldImplementation, implementation));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION, oldImplementation, implementation));
 	}
 
 	/**
@@ -160,9 +154,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 */
 	public EList<PrototypeBinding> getOwnedPrototypeBindings() {
 		if (ownedPrototypeBindings == null) {
-			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(
-					PrototypeBinding.class,
-					this,
+			ownedPrototypeBindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
 					Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING);
 		}
 		return ownedPrototypeBindings;
@@ -185,12 +177,10 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING:
-			return ((InternalEList<?>) getOwnedPrototypeBindings())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPrototypeBindings()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -227,8 +217,7 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 			return;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING:
 			getOwnedPrototypeBindings().clear();
-			getOwnedPrototypeBindings().addAll(
-					(Collection<? extends PrototypeBinding>) newValue);
+			getOwnedPrototypeBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -263,10 +252,9 @@ public class ComponentImplementationReferenceImpl extends ElementImpl implements
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__IMPLEMENTATION:
 			return implementation != null;
 		case Aadl2Package.COMPONENT_IMPLEMENTATION_REFERENCE__OWNED_PROTOTYPE_BINDING:
-			return ownedPrototypeBindings != null
-					&& !ownedPrototypeBindings.isEmpty();
+			return ownedPrototypeBindings != null && !ownedPrototypeBindings.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ComponentImplementationReferenceImpl
+} // ComponentImplementationReferenceImpl

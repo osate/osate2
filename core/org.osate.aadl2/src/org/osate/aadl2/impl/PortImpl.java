@@ -123,4 +123,4 @@ public abstract class PortImpl extends DirectedFeatureImpl implements Port {
 		return super.eIsSet(featureID);
 	}
 
-} //PortImpl
+} // PortImpl

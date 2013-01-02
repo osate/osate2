@@ -47,8 +47,7 @@ import org.osate.aadl2.MemoryPrototype;
  *
  * @generated
  */
-public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements
-		MemoryPrototype {
+public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements MemoryPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public class MemoryPrototypeImpl extends ComponentPrototypeImpl implements
 		return Aadl2Package.eINSTANCE.getMemoryPrototype();
 	}
 
-} //MemoryPrototypeImpl
+} // MemoryPrototypeImpl

@@ -47,8 +47,7 @@ import org.osate.aadl2.VitualBusSubcomponentType;
  *
  * @generated
  */
-public abstract class VitualBusSubcomponentTypeImpl extends
-		SubcomponentTypeImpl implements VitualBusSubcomponentType {
+public abstract class VitualBusSubcomponentTypeImpl extends SubcomponentTypeImpl implements VitualBusSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public abstract class VitualBusSubcomponentTypeImpl extends
 		return Aadl2Package.eINSTANCE.getVitualBusSubcomponentType();
 	}
 
-} //VitualBusSubcomponentTypeImpl
+} // VitualBusSubcomponentTypeImpl

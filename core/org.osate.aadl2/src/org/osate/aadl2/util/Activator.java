@@ -9,7 +9,7 @@ import org.osgi.framework.BundleContext;
  * The activator class controls the plug-in life cycle
  */
 public class Activator extends Plugin {
-	
+
 	private static final String ERROR_PREFIX = "*** Internal error: ";
 
 	// The plug-in ID
@@ -17,7 +17,7 @@ public class Activator extends Plugin {
 
 	// The shared instance
 	private static Activator plugin;
-	
+
 	/**
 	 * The constructor
 	 */
@@ -50,23 +50,20 @@ public class Activator extends Plugin {
 	public static Activator getDefault() {
 		return plugin;
 	}
-	
-	public static void log(IStatus aStatus)
-	{
+
+	public static void log(IStatus aStatus) {
 		getDefault().getLog().log(aStatus);
 	}
-	
-	public static void logErrorMessage(String aMessage)
-	{
+
+	public static void logErrorMessage(String aMessage) {
 		log(new Status(IStatus.ERROR, PLUGIN_ID, Status.OK, aMessage, null));
 	}
-	
+
 	/**
 	 * log message with this plugin log
 	 * @param message
 	 */
-	public static void internalError(String message)
-	{
+	public static void internalError(String message) {
 		logErrorMessage(ERROR_PREFIX + message);
 	}
 }

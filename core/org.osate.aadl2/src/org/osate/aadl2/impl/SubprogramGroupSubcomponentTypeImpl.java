@@ -47,8 +47,8 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
  *
  * @generated
  */
-public abstract class SubprogramGroupSubcomponentTypeImpl extends
-		SubcomponentTypeImpl implements SubprogramGroupSubcomponentType {
+public abstract class SubprogramGroupSubcomponentTypeImpl extends SubcomponentTypeImpl implements
+		SubprogramGroupSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +68,4 @@ public abstract class SubprogramGroupSubcomponentTypeImpl extends
 		return Aadl2Package.eINSTANCE.getSubprogramGroupSubcomponentType();
 	}
 
-} //SubprogramGroupSubcomponentTypeImpl
+} // SubprogramGroupSubcomponentTypeImpl

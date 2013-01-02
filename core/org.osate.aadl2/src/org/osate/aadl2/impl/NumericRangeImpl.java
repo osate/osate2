@@ -112,14 +112,12 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetUpperBound(
-			PropertyExpression newUpperBound, NotificationChain msgs) {
+	public NotificationChain basicSetUpperBound(PropertyExpression newUpperBound, NotificationChain msgs) {
 		PropertyExpression oldUpperBound = upperBound;
 		upperBound = newUpperBound;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, Aadl2Package.NUMERIC_RANGE__UPPER_BOUND,
-					oldUpperBound, newUpperBound);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, oldUpperBound, newUpperBound);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -137,22 +135,17 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 		if (newUpperBound != upperBound) {
 			NotificationChain msgs = null;
 			if (upperBound != null)
-				msgs = ((InternalEObject) upperBound).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMERIC_RANGE__UPPER_BOUND,
-						null, msgs);
+				msgs = ((InternalEObject) upperBound).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, null, msgs);
 			if (newUpperBound != null)
-				msgs = ((InternalEObject) newUpperBound).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMERIC_RANGE__UPPER_BOUND,
-						null, msgs);
+				msgs = ((InternalEObject) newUpperBound).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, null, msgs);
 			msgs = basicSetUpperBound(newUpperBound, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMERIC_RANGE__UPPER_BOUND, newUpperBound,
-					newUpperBound));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMERIC_RANGE__UPPER_BOUND,
+					newUpperBound, newUpperBound));
 	}
 
 	/**
@@ -180,14 +173,12 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetLowerBound(
-			PropertyExpression newLowerBound, NotificationChain msgs) {
+	public NotificationChain basicSetLowerBound(PropertyExpression newLowerBound, NotificationChain msgs) {
 		PropertyExpression oldLowerBound = lowerBound;
 		lowerBound = newLowerBound;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET, Aadl2Package.NUMERIC_RANGE__LOWER_BOUND,
-					oldLowerBound, newLowerBound);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, oldLowerBound, newLowerBound);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -205,22 +196,17 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 		if (newLowerBound != lowerBound) {
 			NotificationChain msgs = null;
 			if (lowerBound != null)
-				msgs = ((InternalEObject) lowerBound).eInverseRemove(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMERIC_RANGE__LOWER_BOUND,
-						null, msgs);
+				msgs = ((InternalEObject) lowerBound).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, null, msgs);
 			if (newLowerBound != null)
-				msgs = ((InternalEObject) newLowerBound).eInverseAdd(this,
-						EOPPOSITE_FEATURE_BASE
-								- Aadl2Package.NUMERIC_RANGE__LOWER_BOUND,
-						null, msgs);
+				msgs = ((InternalEObject) newLowerBound).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, null, msgs);
 			msgs = basicSetLowerBound(newLowerBound, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.NUMERIC_RANGE__LOWER_BOUND, newLowerBound,
-					newLowerBound));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMERIC_RANGE__LOWER_BOUND,
+					newLowerBound, newLowerBound));
 	}
 
 	/**
@@ -240,8 +226,7 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.NUMERIC_RANGE__UPPER_BOUND:
 			return basicSetUpperBound(null, msgs);
@@ -319,4 +304,4 @@ public class NumericRangeImpl extends ElementImpl implements NumericRange {
 		return super.eIsSet(featureID);
 	}
 
-} //NumericRangeImpl
+} // NumericRangeImpl

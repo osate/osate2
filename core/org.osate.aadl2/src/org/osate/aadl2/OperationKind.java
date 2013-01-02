@@ -182,8 +182,7 @@ public enum OperationKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final OperationKind[] VALUES_ARRAY = new OperationKind[] {
-			AND, OR, NOT, PLUS, MINUS, };
+	private static final OperationKind[] VALUES_ARRAY = new OperationKind[] { AND, OR, NOT, PLUS, MINUS, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Operation Kind</b></em>' enumerators.
@@ -191,8 +190,7 @@ public enum OperationKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<OperationKind> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<OperationKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Operation Kind</b></em>' literal with the specified literal value.
@@ -319,4 +317,4 @@ public enum OperationKind implements Enumerator {
 		return literal;
 	}
 
-} //OperationKind
+} // OperationKind

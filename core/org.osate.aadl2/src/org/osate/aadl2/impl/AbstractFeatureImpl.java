@@ -58,8 +58,7 @@ import org.osate.aadl2.FeaturePrototype;
  *
  * @generated
  */
-public class AbstractFeatureImpl extends DirectedFeatureImpl implements
-		AbstractFeature {
+public class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
 	/**
 	 * The cached value of the '{@link #getFeaturePrototype() <em>Feature Prototype</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -101,8 +100,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements
 			if (featurePrototype != oldFeaturePrototype) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE,
-							oldFeaturePrototype, featurePrototype));
+							Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE, oldFeaturePrototype, featurePrototype));
 			}
 		}
 		return featurePrototype;
@@ -126,8 +124,7 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements
 		FeaturePrototype oldFeaturePrototype = featurePrototype;
 		featurePrototype = newFeaturePrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ABSTRACT_FEATURE__FEATURE_PROTOTYPE,
 					oldFeaturePrototype, featurePrototype));
 	}
 
@@ -191,4 +188,4 @@ public class AbstractFeatureImpl extends DirectedFeatureImpl implements
 		return super.eIsSet(featureID);
 	}
 
-} //AbstractFeatureImpl
+} // AbstractFeatureImpl

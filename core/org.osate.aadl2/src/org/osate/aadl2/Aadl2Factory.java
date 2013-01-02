@@ -1466,4 +1466,4 @@ public interface Aadl2Factory extends EFactory {
 	 */
 	Aadl2Package getAadl2Package();
 
-} //Aadl2Factory
+} // Aadl2Factory

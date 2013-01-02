@@ -69,4 +69,4 @@ public abstract class ContextImpl extends NamedElementImpl implements Context {
 		return Aadl2Package.eINSTANCE.getContext();
 	}
 
-} //ContextImpl
+} // ContextImpl

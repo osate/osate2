@@ -48,8 +48,7 @@ import org.osate.aadl2.VirtualProcessor;
  *
  * @generated
  */
-public abstract class VirtualProcessorImpl extends NamedElementImpl implements
-		VirtualProcessor {
+public abstract class VirtualProcessorImpl extends NamedElementImpl implements VirtualProcessor {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class VirtualProcessorImpl extends NamedElementImpl implements
 		return Aadl2Package.eINSTANCE.getVirtualProcessor();
 	}
 
-} //VirtualProcessorImpl
+} // VirtualProcessorImpl

@@ -56,8 +56,7 @@ import org.eclipse.emf.common.util.EList;
  * @model abstract="true"
  * @generated
  */
-public interface Feature extends StructuralFeature, FeatureConnectionEnd,
-		ArrayableElement {
+public interface Feature extends StructuralFeature, FeatureConnectionEnd, ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Prototype</b></em>' reference.
 	 * <p>
@@ -152,7 +151,8 @@ public interface Feature extends StructuralFeature, FeatureConnectionEnd,
 	 * Return the feature and any of the features it refines
 	 * @return EList of feature
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
+	// work.
 	EList<Feature> getAllFeatureRefinements();
 
 	/**

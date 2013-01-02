@@ -78,4 +78,4 @@ public abstract class TypeImpl extends NamedElementImpl implements Type {
 		return TypeOperations.conformsTo(this, other);
 	}
 
-} //TypeImpl
+} // TypeImpl

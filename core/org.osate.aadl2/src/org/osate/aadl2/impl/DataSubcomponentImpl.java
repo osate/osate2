@@ -60,8 +60,7 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class DataSubcomponentImpl extends SubcomponentImpl implements
-		DataSubcomponent {
+public class DataSubcomponentImpl extends SubcomponentImpl implements DataSubcomponent {
 	/**
 	 * The cached value of the '{@link #getDataSubcomponentType() <em>Data Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -99,8 +98,7 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null
-				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -123,17 +121,14 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	 * @generated
 	 */
 	public DataSubcomponentType getDataSubcomponentType() {
-		if (dataSubcomponentType != null
-				&& ((EObject) dataSubcomponentType).eIsProxy()) {
+		if (dataSubcomponentType != null && ((EObject) dataSubcomponentType).eIsProxy()) {
 			InternalEObject oldDataSubcomponentType = (InternalEObject) dataSubcomponentType;
 			dataSubcomponentType = (DataSubcomponentType) eResolveProxy(oldDataSubcomponentType);
 			if (dataSubcomponentType != oldDataSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
-							Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE,
-							oldDataSubcomponentType, dataSubcomponentType));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
+							dataSubcomponentType));
 			}
 		}
 		return dataSubcomponentType;
@@ -153,14 +148,13 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setDataSubcomponentType(
-			DataSubcomponentType newDataSubcomponentType) {
+	public void setDataSubcomponentType(DataSubcomponentType newDataSubcomponentType) {
 		DataSubcomponentType oldDataSubcomponentType = dataSubcomponentType;
 		dataSubcomponentType = newDataSubcomponentType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE,
-					oldDataSubcomponentType, dataSubcomponentType));
+					Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE, oldDataSubcomponentType,
+					dataSubcomponentType));
 	}
 
 	/**
@@ -230,11 +224,10 @@ public class DataSubcomponentImpl extends SubcomponentImpl implements
 	 */
 	@Override
 	public boolean isSetSubcomponentType() {
-		return super.isSetSubcomponentType()
-				|| eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE);
+		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.DATA_SUBCOMPONENT__DATA_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DATA;
 	}
-} //DataSubcomponentImpl
+} // DataSubcomponentImpl

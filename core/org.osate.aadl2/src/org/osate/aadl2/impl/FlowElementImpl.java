@@ -48,8 +48,7 @@ import org.osate.aadl2.FlowElement;
  *
  * @generated
  */
-public abstract class FlowElementImpl extends EndToEndFlowElementImpl implements
-		FlowElement {
+public abstract class FlowElementImpl extends EndToEndFlowElementImpl implements FlowElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class FlowElementImpl extends EndToEndFlowElementImpl implements
 		return Aadl2Package.eINSTANCE.getFlowElement();
 	}
 
-} //FlowElementImpl
+} // FlowElementImpl

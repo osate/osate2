@@ -68,4 +68,4 @@ public class AadlBooleanImpl extends NonListTypeImpl implements AadlBoolean {
 		return Aadl2Package.eINSTANCE.getAadlBoolean();
 	}
 
-} //AadlBooleanImpl
+} // AadlBooleanImpl

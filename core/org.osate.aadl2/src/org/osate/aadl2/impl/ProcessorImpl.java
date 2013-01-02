@@ -48,8 +48,7 @@ import org.osate.aadl2.Processor;
  *
  * @generated
  */
-public abstract class ProcessorImpl extends NamedElementImpl implements
-		Processor {
+public abstract class ProcessorImpl extends NamedElementImpl implements Processor {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class ProcessorImpl extends NamedElementImpl implements
 		return Aadl2Package.eINSTANCE.getProcessor();
 	}
 
-} //ProcessorImpl
+} // ProcessorImpl

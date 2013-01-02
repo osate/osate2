@@ -48,8 +48,7 @@ import org.osate.aadl2.AccessConnectionEnd;
  *
  * @generated
  */
-public abstract class AccessConnectionEndImpl extends ConnectionEndImpl
-		implements AccessConnectionEnd {
+public abstract class AccessConnectionEndImpl extends ConnectionEndImpl implements AccessConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +68,4 @@ public abstract class AccessConnectionEndImpl extends ConnectionEndImpl
 		return Aadl2Package.eINSTANCE.getAccessConnectionEnd();
 	}
 
-} //AccessConnectionEndImpl
+} // AccessConnectionEndImpl

@@ -60,8 +60,7 @@ import org.osate.aadl2.TriggerPort;
  *
  * @generated
  */
-public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
-		TriggerPort {
+public class TriggerPortImpl extends ModeTransitionTriggerImpl implements TriggerPort {
 	/**
 	 * The cached value of the '{@link #getContext() <em>Context</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -112,9 +111,8 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.TRIGGER_PORT__CONTEXT, oldContext,
-							context));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TRIGGER_PORT__CONTEXT,
+							oldContext, context));
 			}
 		}
 		return context;
@@ -138,8 +136,8 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
 		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.TRIGGER_PORT__CONTEXT, oldContext, context));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TRIGGER_PORT__CONTEXT, oldContext,
+					context));
 	}
 
 	/**
@@ -153,8 +151,8 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
 			port = (Port) eResolveProxy(oldPort);
 			if (port != oldPort) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.TRIGGER_PORT__PORT, oldPort, port));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TRIGGER_PORT__PORT, oldPort,
+							port));
 			}
 		}
 		return port;
@@ -178,8 +176,7 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
 		Port oldPort = port;
 		port = newPort;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.TRIGGER_PORT__PORT, oldPort, port));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TRIGGER_PORT__PORT, oldPort, port));
 	}
 
 	/**
@@ -254,4 +251,4 @@ public class TriggerPortImpl extends ModeTransitionTriggerImpl implements
 		return super.eIsSet(featureID);
 	}
 
-} //TriggerPortImpl
+} // TriggerPortImpl

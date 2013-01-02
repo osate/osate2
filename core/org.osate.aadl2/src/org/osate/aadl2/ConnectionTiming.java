@@ -263,4 +263,4 @@ public enum ConnectionTiming implements Enumerator {
 		return literal;
 	}
 
-} //ConnectionTiming
+} // ConnectionTiming

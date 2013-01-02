@@ -61,8 +61,7 @@ import org.osate.aadl2.properties.InvalidModelException;
  *
  * @generated
  */
-public class ModalPropertyValueImpl extends ModalElementImpl implements
-		ModalPropertyValue {
+public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPropertyValue {
 	/**
 	 * The cached value of the '{@link #getOwnedValue() <em>Owned Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -106,15 +105,12 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedValue(
-			PropertyExpression newOwnedValue, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedValue(PropertyExpression newOwnedValue, NotificationChain msgs) {
 		PropertyExpression oldOwnedValue = ownedValue;
 		ownedValue = newOwnedValue;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this,
-					Notification.SET,
-					Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
-					oldOwnedValue, newOwnedValue);
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, oldOwnedValue, newOwnedValue);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -132,25 +128,16 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements
 		if (newOwnedValue != ownedValue) {
 			NotificationChain msgs = null;
 			if (ownedValue != null)
-				msgs = ((InternalEObject) ownedValue)
-						.eInverseRemove(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
-								null, msgs);
+				msgs = ((InternalEObject) ownedValue).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
 			if (newOwnedValue != null)
-				msgs = ((InternalEObject) newOwnedValue)
-						.eInverseAdd(
-								this,
-								EOPPOSITE_FEATURE_BASE
-										- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
-								null, msgs);
+				msgs = ((InternalEObject) newOwnedValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
+						- Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE, null, msgs);
 			msgs = basicSetOwnedValue(newOwnedValue, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE,
 					newOwnedValue, newOwnedValue));
 	}
 
@@ -171,8 +158,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODAL_PROPERTY_VALUE__OWNED_VALUE:
 			return basicSetOwnedValue(null, msgs);
@@ -238,8 +224,7 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements
 		return super.eIsSet(featureID);
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		EvaluatedProperty value = ownedValue.evaluate(ctx);
 
 		if (!getInModes().isEmpty()) {
@@ -254,4 +239,4 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements
 		return value;
 	}
 
-} //ModalPropertyValueImpl
+} // ModalPropertyValueImpl

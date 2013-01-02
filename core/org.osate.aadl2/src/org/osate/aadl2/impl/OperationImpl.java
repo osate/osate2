@@ -138,8 +138,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		OperationKind oldOp = op;
 		op = newOp == null ? OP_EDEFAULT : newOp;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.OPERATION__OP, oldOp, op));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.OPERATION__OP, oldOp, op));
 	}
 
 	/**
@@ -149,8 +148,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 */
 	public EList<PropertyExpression> getOwnedPropertyExpressions() {
 		if (ownedPropertyExpressions == null) {
-			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(
-					PropertyExpression.class, this,
+			ownedPropertyExpressions = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this,
 					Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION);
 		}
 		return ownedPropertyExpressions;
@@ -173,12 +171,10 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd,
-			int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION:
-			return ((InternalEList<?>) getOwnedPropertyExpressions())
-					.basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedPropertyExpressions()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -213,8 +209,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 			return;
 		case Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION:
 			getOwnedPropertyExpressions().clear();
-			getOwnedPropertyExpressions().addAll(
-					(Collection<? extends PropertyExpression>) newValue);
+			getOwnedPropertyExpressions().addAll((Collection<? extends PropertyExpression>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -249,8 +244,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		case Aadl2Package.OPERATION__OP:
 			return op != OP_EDEFAULT;
 		case Aadl2Package.OPERATION__OWNED_PROPERTY_EXPRESSION:
-			return ownedPropertyExpressions != null
-					&& !ownedPropertyExpressions.isEmpty();
+			return ownedPropertyExpressions != null && !ownedPropertyExpressions.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -272,11 +266,9 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		return result.toString();
 	}
 
-	public EvaluatedProperty evaluate(EvaluationContext ctx)
-			throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
 		if (ownedPropertyExpressions.size() < 1) {
-			throw new InvalidModelException(this,
-					"Property expression has no operands");
+			throw new InvalidModelException(this, "Property expression has no operands");
 		}
 		EvaluatedProperty left = ownedPropertyExpressions.get(0).evaluate(ctx);
 		EvaluatedProperty right = null;
@@ -284,17 +276,14 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		PropertyExpression arg2 = null;
 
 		if (left.size() == 0) {
-			throw new InvalidModelException(ownedPropertyExpressions.get(0),
-					"Argument has no value");
+			throw new InvalidModelException(ownedPropertyExpressions.get(0), "Argument has no value");
 		}
 		if (left.size() != 1 || left.first().isModal()) {
-			throw new InvalidModelException(ownedPropertyExpressions.get(0),
-					"Argument to operation cannot be modal");
+			throw new InvalidModelException(ownedPropertyExpressions.get(0), "Argument to operation cannot be modal");
 		}
 		arg1 = left.first().getValue();
 		if (arg1 == null) {
-			throw new InvalidModelException(ownedPropertyExpressions.get(0),
-					"Argument missing");
+			throw new InvalidModelException(ownedPropertyExpressions.get(0), "Argument missing");
 		}
 
 		// check for required arguments to operation
@@ -302,34 +291,27 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		case AND:
 		case OR:
 			if (ownedPropertyExpressions.size() < 2) {
-				throw new InvalidModelException(this,
-						"Second operand missing for binary operation");
+				throw new InvalidModelException(this, "Second operand missing for binary operation");
 			}
 			if (ownedPropertyExpressions.size() > 2) {
-				throw new InvalidModelException(this,
-						"Too many operands in expression");
+				throw new InvalidModelException(this, "Too many operands in expression");
 			}
 			right = ownedPropertyExpressions.get(1).evaluate(ctx);
 			if (right.size() != 1 || right.first().isModal()) {
-				throw new InvalidModelException(
-						ownedPropertyExpressions.get(1),
+				throw new InvalidModelException(ownedPropertyExpressions.get(1),
 						"Argument to operation cannot be modal");
 			}
 			if (right.size() == 0) {
-				throw new InvalidModelException(
-						ownedPropertyExpressions.get(1),
-						"Argument has no value");
+				throw new InvalidModelException(ownedPropertyExpressions.get(1), "Argument has no value");
 			}
 			arg2 = right.first().getValue();
 			if (arg2 == null) {
-				throw new InvalidModelException(
-						ownedPropertyExpressions.get(1), "Argument missing");
+				throw new InvalidModelException(ownedPropertyExpressions.get(1), "Argument missing");
 			}
 			break;
 		default:
 			if (ownedPropertyExpressions.size() > 1) {
-				throw new InvalidModelException(this,
-						"Too many operands in expression");
+				throw new InvalidModelException(this, "Too many operands in expression");
 			}
 			break;
 		}
@@ -338,21 +320,21 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		switch (op) {
 		case NOT:
 			if (!(arg1 instanceof BooleanLiteral)) {
-				throw new InvalidModelException(getOwnedPropertyExpressions()
-						.get(0), "Does not evaluate to a boolean value");
+				throw new InvalidModelException(getOwnedPropertyExpressions().get(0),
+						"Does not evaluate to a boolean value");
 			}
 			// fall through!
 		case AND:
 		case OR:
 			if (!(arg2 instanceof BooleanLiteral)) {
-				throw new InvalidModelException(getOwnedPropertyExpressions()
-						.get(1), "Does not evaluate to a boolean value");
+				throw new InvalidModelException(getOwnedPropertyExpressions().get(1),
+						"Does not evaluate to a boolean value");
 			}
 			break;
 		default:
 			if (!(arg1 instanceof NumberValue)) {
-				throw new InvalidModelException(getOwnedPropertyExpressions()
-						.get(0), "Does not evaluate to a numeric value");
+				throw new InvalidModelException(getOwnedPropertyExpressions().get(0),
+						"Does not evaluate to a numeric value");
 			}
 			break;
 		}
@@ -364,15 +346,13 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		case AND:
 			BooleanLiteral abv = Aadl2Factory.eINSTANCE.createBooleanLiteral();
 
-			abv.setValue(((BooleanLiteral) arg1).getValue()
-					&& ((BooleanLiteral) arg1).getValue());
+			abv.setValue(((BooleanLiteral) arg1).getValue() && ((BooleanLiteral) arg1).getValue());
 			result = new EvaluatedProperty(abv);
 			break;
 		case OR:
 			BooleanLiteral obv = Aadl2Factory.eINSTANCE.createBooleanLiteral();
 
-			obv.setValue(((BooleanLiteral) arg1).getValue()
-					|| ((BooleanLiteral) arg1).getValue());
+			obv.setValue(((BooleanLiteral) arg1).getValue() || ((BooleanLiteral) arg1).getValue());
 			result = new EvaluatedProperty(obv);
 			break;
 		case NOT:
@@ -385,8 +365,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 			result = left;
 			break;
 		case MINUS:
-			result = new EvaluatedProperty(
-					((NumberValue) arg1).cloneAndInvert());
+			result = new EvaluatedProperty(((NumberValue) arg1).cloneAndInvert());
 			break;
 		default:
 			throw new AssertionError("Unexpected enum literal: " + getOp());
@@ -395,4 +374,4 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 		return result;
 	}
 
-} //OperationImpl
+} // OperationImpl

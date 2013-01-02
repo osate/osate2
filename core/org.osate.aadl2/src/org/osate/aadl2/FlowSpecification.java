@@ -193,36 +193,36 @@ public interface FlowSpecification extends FlowFeature, ModalPath, FlowElement {
 	void setRefined(FlowSpecification value);
 
 	// FIXME-LW: instantiation
-	//	/**
-	//	 * get in feature of a flow source, sink, or path spec.
-	//	 * In case of a refined flowspec get it from the flowspec being refined
-	//	 * @return Feature or null
-	//	 */
-	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	//	Feature getAllInFeature();
+	// /**
+	// * get in feature of a flow source, sink, or path spec.
+	// * In case of a refined flowspec get it from the flowspec being refined
+	// * @return Feature or null
+	// */
+	// // XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	// Feature getAllInFeature();
 	//
-	//	/**
-	//	 * get in flow context of a flow source, sink, or path spec.
-	//	 * In case of a refined flowspec get it from the flowspec being refined
-	//	 * @return Context or null
-	//	 */
-	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	//	Context getAllInContext();
+	// /**
+	// * get in flow context of a flow source, sink, or path spec.
+	// * In case of a refined flowspec get it from the flowspec being refined
+	// * @return Context or null
+	// */
+	// // XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	// Context getAllInContext();
 	//
-	//	/**
-	//	 * get out feature of a flow source, sink, or path spec.
-	//	 * In case of a refined flowspec get it from the flowspec being refined
-	//	 * @return Feature or null
-	//	 */
-	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	//	Feature getAllOutFeature();
+	// /**
+	// * get out feature of a flow source, sink, or path spec.
+	// * In case of a refined flowspec get it from the flowspec being refined
+	// * @return Feature or null
+	// */
+	// // XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	// Feature getAllOutFeature();
 	//
-	//	/**
-	//	 * get out flow context of flow source, sink, or path spec.
-	//	 * In case of a refined flowspec get it from the flowspec being refined
-	//	 * @return Context or null
-	//	 */
-	//	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
-	//	Context getAllOutContext();
+	// /**
+	// * get out flow context of flow source, sink, or path spec.
+	// * In case of a refined flowspec get it from the flowspec being refined
+	// * @return Context or null
+	// */
+	// // XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	// Context getAllOutContext();
 
 } // FlowSpecification

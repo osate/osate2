@@ -68,4 +68,4 @@ public class AadlIntegerImpl extends NumberTypeImpl implements AadlInteger {
 		return Aadl2Package.eINSTANCE.getAadlInteger();
 	}
 
-} //AadlIntegerImpl
+} // AadlIntegerImpl

@@ -58,8 +58,7 @@ import org.osate.aadl2.FeatureGroupType;
  *
  * @generated
  */
-public class FeatureGroupPrototypeImpl extends PrototypeImpl implements
-		FeatureGroupPrototype {
+public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureGroupPrototype {
 	/**
 	 * The cached value of the '{@link #getConstrainingFeatureGroupType() <em>Constraining Feature Group Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -95,18 +94,14 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements
 	 * @generated
 	 */
 	public FeatureGroupType getConstrainingFeatureGroupType() {
-		if (constrainingFeatureGroupType != null
-				&& ((EObject) constrainingFeatureGroupType).eIsProxy()) {
+		if (constrainingFeatureGroupType != null && ((EObject) constrainingFeatureGroupType).eIsProxy()) {
 			InternalEObject oldConstrainingFeatureGroupType = (InternalEObject) constrainingFeatureGroupType;
 			constrainingFeatureGroupType = (FeatureGroupType) eResolveProxy(oldConstrainingFeatureGroupType);
 			if (constrainingFeatureGroupType != oldConstrainingFeatureGroupType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(
-							this,
-							Notification.RESOLVE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE,
-							oldConstrainingFeatureGroupType,
-							constrainingFeatureGroupType));
+							oldConstrainingFeatureGroupType, constrainingFeatureGroupType));
 			}
 		}
 		return constrainingFeatureGroupType;
@@ -126,17 +121,13 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConstrainingFeatureGroupType(
-			FeatureGroupType newConstrainingFeatureGroupType) {
+	public void setConstrainingFeatureGroupType(FeatureGroupType newConstrainingFeatureGroupType) {
 		FeatureGroupType oldConstrainingFeatureGroupType = constrainingFeatureGroupType;
 		constrainingFeatureGroupType = newConstrainingFeatureGroupType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(
-					this,
-					Notification.SET,
+			eNotify(new ENotificationImpl(this, Notification.SET,
 					Aadl2Package.FEATURE_GROUP_PROTOTYPE__CONSTRAINING_FEATURE_GROUP_TYPE,
-					oldConstrainingFeatureGroupType,
-					constrainingFeatureGroupType));
+					oldConstrainingFeatureGroupType, constrainingFeatureGroupType));
 	}
 
 	/**
@@ -199,4 +190,4 @@ public class FeatureGroupPrototypeImpl extends PrototypeImpl implements
 		return super.eIsSet(featureID);
 	}
 
-} //FeatureGroupPrototypeImpl
+} // FeatureGroupPrototypeImpl

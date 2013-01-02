@@ -56,8 +56,7 @@ import org.osate.aadl2.DirectionType;
  *
  * @generated
  */
-public abstract class DirectedFeatureImpl extends FeatureImpl implements
-		DirectedFeature {
+public abstract class DirectedFeatureImpl extends FeatureImpl implements DirectedFeature {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -115,9 +114,8 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.DIRECTED_FEATURE__DIRECTION, oldDirection,
-					direction));
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DIRECTED_FEATURE__DIRECTION,
+					oldDirection, direction));
 	}
 
 	/**
@@ -195,4 +193,4 @@ public abstract class DirectedFeatureImpl extends FeatureImpl implements
 		return result.toString();
 	}
 
-} //DirectedFeatureImpl
+} // DirectedFeatureImpl

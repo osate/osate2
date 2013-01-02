@@ -68,4 +68,4 @@ public abstract class MemoryImpl extends NamedElementImpl implements Memory {
 		return Aadl2Package.eINSTANCE.getMemory();
 	}
 
-} //MemoryImpl
+} // MemoryImpl

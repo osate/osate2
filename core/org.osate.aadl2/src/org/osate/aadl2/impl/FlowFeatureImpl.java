@@ -47,8 +47,7 @@ import org.osate.aadl2.FlowFeature;
  *
  * @generated
  */
-public abstract class FlowFeatureImpl extends StructuralFeatureImpl implements
-		FlowFeature {
+public abstract class FlowFeatureImpl extends StructuralFeatureImpl implements FlowFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +67,4 @@ public abstract class FlowFeatureImpl extends StructuralFeatureImpl implements
 		return Aadl2Package.eINSTANCE.getFlowFeature();
 	}
 
-} //FlowFeatureImpl
+} // FlowFeatureImpl

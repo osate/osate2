@@ -49,8 +49,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class DeviceSubcomponentTypeImpl extends DeviceImpl implements
-		DeviceSubcomponentType {
+public abstract class DeviceSubcomponentTypeImpl extends DeviceImpl implements DeviceSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -79,4 +78,4 @@ public abstract class DeviceSubcomponentTypeImpl extends DeviceImpl implements
 		return TypeOperations.conformsTo(this, other);
 	}
 
-} //DeviceSubcomponentTypeImpl
+} // DeviceSubcomponentTypeImpl

@@ -133,8 +133,7 @@ public enum FlowKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final FlowKind[] VALUES_ARRAY = new FlowKind[] { SOURCE,
-			PATH, SINK, };
+	private static final FlowKind[] VALUES_ARRAY = new FlowKind[] { SOURCE, PATH, SINK, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Flow Kind</b></em>' enumerators.
@@ -142,8 +141,7 @@ public enum FlowKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<FlowKind> VALUES = Collections
-			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<FlowKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Flow Kind</b></em>' literal with the specified literal value.
@@ -266,4 +264,4 @@ public enum FlowKind implements Enumerator {
 		return literal;
 	}
 
-} //FlowKind
+} // FlowKind

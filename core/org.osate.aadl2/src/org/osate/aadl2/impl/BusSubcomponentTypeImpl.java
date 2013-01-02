@@ -49,8 +49,7 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class BusSubcomponentTypeImpl extends BusImpl implements
-		BusSubcomponentType {
+public abstract class BusSubcomponentTypeImpl extends BusImpl implements BusSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -79,4 +78,4 @@ public abstract class BusSubcomponentTypeImpl extends BusImpl implements
 		return TypeOperations.conformsTo(this, other);
 	}
 
-} //BusSubcomponentTypeImpl
+} // BusSubcomponentTypeImpl
