@@ -155,7 +155,7 @@ public class BusTypeImpl extends ComponentTypeImpl implements BusType {
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedFeatures() <em>Owned Feature</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedFeatures()
