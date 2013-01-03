@@ -135,8 +135,7 @@ public class GlobalNamespaceImpl extends NamespaceImpl implements GlobalNamespac
 	 * @generated
 	 */
 	public EList<PropertySet> getPropertySets() {
-		// TODO: implement this method to return the 'Property Set' reference
-		// list
+		// TODO: implement this method to return the 'Property Set' reference list
 		// Ensure that you remove @generated or mark it @generated NOT
 		throw new UnsupportedOperationException();
 	}
