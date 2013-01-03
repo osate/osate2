@@ -32,9 +32,9 @@ public class MyErrorModelActivator extends ErrorModelActivator {
 	protected void registerInjectorFor(String language) throws Exception {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
-//						language));
+						language));
 //		// change in Xtext 2.3
-		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 
 }

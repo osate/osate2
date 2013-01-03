@@ -1,8 +1,4 @@
 /**
- * <copyright>
- * </copyright>
- *
-
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
