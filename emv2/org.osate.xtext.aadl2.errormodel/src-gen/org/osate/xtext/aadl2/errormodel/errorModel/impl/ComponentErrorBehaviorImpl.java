@@ -44,10 +44,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getUseTransformation <em>Use Transformation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getEvents <em>Events</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getTransition <em>Transition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getOutgoingPropagationCondition <em>Outgoing Propagation Condition</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getDetectionEvent <em>Detection Event</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getErrorStateToModeMapping <em>Error State To Mode Mapping</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getTransitions <em>Transitions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getOutgoingPropagationConditions <em>Outgoing Propagation Conditions</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getErrorDetections <em>Error Detections</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -97,44 +97,44 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   protected EList<ErrorBehaviorEvent> events;
 
   /**
-	 * The cached value of the '{@link #getTransition() <em>Transition</em>}' containment reference list.
+	 * The cached value of the '{@link #getTransitions() <em>Transitions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getTransition()
+	 * @see #getTransitions()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<ErrorBehaviorTransition> transition;
+  protected EList<ErrorBehaviorTransition> transitions;
 
   /**
-	 * The cached value of the '{@link #getOutgoingPropagationCondition() <em>Outgoing Propagation Condition</em>}' containment reference list.
+	 * The cached value of the '{@link #getOutgoingPropagationConditions() <em>Outgoing Propagation Conditions</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getOutgoingPropagationCondition()
+	 * @see #getOutgoingPropagationConditions()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<OutgoingPropagationCondition> outgoingPropagationCondition;
+  protected EList<OutgoingPropagationCondition> outgoingPropagationConditions;
 
   /**
-	 * The cached value of the '{@link #getDetectionEvent() <em>Detection Event</em>}' containment reference list.
+	 * The cached value of the '{@link #getErrorDetections() <em>Error Detections</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getDetectionEvent()
+	 * @see #getErrorDetections()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<ErrorDetection> detectionEvent;
+  protected EList<ErrorDetection> errorDetections;
 
   /**
-	 * The cached value of the '{@link #getErrorStateToModeMapping() <em>Error State To Mode Mapping</em>}' containment reference list.
+	 * The cached value of the '{@link #getErrorStateToModeMappings() <em>Error State To Mode Mappings</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getErrorStateToModeMapping()
+	 * @see #getErrorStateToModeMappings()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<ErrorStateToModeMapping> errorStateToModeMapping;
+  protected EList<ErrorStateToModeMapping> errorStateToModeMappings;
 
   /**
 	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
@@ -280,12 +280,12 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<ErrorBehaviorTransition> getTransition()
+  public EList<ErrorBehaviorTransition> getTransitions()
   {
-		if (transition == null) {
-			transition = new EObjectContainmentEList<ErrorBehaviorTransition>(ErrorBehaviorTransition.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION);
+		if (transitions == null) {
+			transitions = new EObjectContainmentEList<ErrorBehaviorTransition>(ErrorBehaviorTransition.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS);
 		}
-		return transition;
+		return transitions;
 	}
 
   /**
@@ -293,12 +293,12 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<OutgoingPropagationCondition> getOutgoingPropagationCondition()
+  public EList<OutgoingPropagationCondition> getOutgoingPropagationConditions()
   {
-		if (outgoingPropagationCondition == null) {
-			outgoingPropagationCondition = new EObjectContainmentEList<OutgoingPropagationCondition>(OutgoingPropagationCondition.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION);
+		if (outgoingPropagationConditions == null) {
+			outgoingPropagationConditions = new EObjectContainmentEList<OutgoingPropagationCondition>(OutgoingPropagationCondition.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS);
 		}
-		return outgoingPropagationCondition;
+		return outgoingPropagationConditions;
 	}
 
   /**
@@ -306,12 +306,12 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<ErrorDetection> getDetectionEvent()
+  public EList<ErrorDetection> getErrorDetections()
   {
-		if (detectionEvent == null) {
-			detectionEvent = new EObjectContainmentEList<ErrorDetection>(ErrorDetection.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT);
+		if (errorDetections == null) {
+			errorDetections = new EObjectContainmentEList<ErrorDetection>(ErrorDetection.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS);
 		}
-		return detectionEvent;
+		return errorDetections;
 	}
 
   /**
@@ -319,12 +319,12 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<ErrorStateToModeMapping> getErrorStateToModeMapping()
+  public EList<ErrorStateToModeMapping> getErrorStateToModeMappings()
   {
-		if (errorStateToModeMapping == null) {
-			errorStateToModeMapping = new EObjectContainmentEList<ErrorStateToModeMapping>(ErrorStateToModeMapping.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING);
+		if (errorStateToModeMappings == null) {
+			errorStateToModeMappings = new EObjectContainmentEList<ErrorStateToModeMapping>(ErrorStateToModeMapping.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS);
 		}
-		return errorStateToModeMapping;
+		return errorStateToModeMappings;
 	}
 
   /**
@@ -351,14 +351,14 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 		switch (featureID) {
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__EVENTS:
 				return ((InternalEList<?>)getEvents()).basicRemove(otherEnd, msgs);
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION:
-				return ((InternalEList<?>)getTransition()).basicRemove(otherEnd, msgs);
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION:
-				return ((InternalEList<?>)getOutgoingPropagationCondition()).basicRemove(otherEnd, msgs);
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT:
-				return ((InternalEList<?>)getDetectionEvent()).basicRemove(otherEnd, msgs);
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING:
-				return ((InternalEList<?>)getErrorStateToModeMapping()).basicRemove(otherEnd, msgs);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS:
+				return ((InternalEList<?>)getTransitions()).basicRemove(otherEnd, msgs);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS:
+				return ((InternalEList<?>)getOutgoingPropagationConditions()).basicRemove(otherEnd, msgs);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS:
+				return ((InternalEList<?>)getErrorDetections()).basicRemove(otherEnd, msgs);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
+				return ((InternalEList<?>)getErrorStateToModeMappings()).basicRemove(otherEnd, msgs);
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
 				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
@@ -384,14 +384,14 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				return basicGetUseTransformation();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__EVENTS:
 				return getEvents();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION:
-				return getTransition();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION:
-				return getOutgoingPropagationCondition();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT:
-				return getDetectionEvent();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING:
-				return getErrorStateToModeMapping();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS:
+				return getTransitions();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS:
+				return getOutgoingPropagationConditions();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS:
+				return getErrorDetections();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
+				return getErrorStateToModeMappings();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
 				return getProperties();
 		}
@@ -422,21 +422,21 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				getEvents().clear();
 				getEvents().addAll((Collection<? extends ErrorBehaviorEvent>)newValue);
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION:
-				getTransition().clear();
-				getTransition().addAll((Collection<? extends ErrorBehaviorTransition>)newValue);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS:
+				getTransitions().clear();
+				getTransitions().addAll((Collection<? extends ErrorBehaviorTransition>)newValue);
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION:
-				getOutgoingPropagationCondition().clear();
-				getOutgoingPropagationCondition().addAll((Collection<? extends OutgoingPropagationCondition>)newValue);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS:
+				getOutgoingPropagationConditions().clear();
+				getOutgoingPropagationConditions().addAll((Collection<? extends OutgoingPropagationCondition>)newValue);
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT:
-				getDetectionEvent().clear();
-				getDetectionEvent().addAll((Collection<? extends ErrorDetection>)newValue);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS:
+				getErrorDetections().clear();
+				getErrorDetections().addAll((Collection<? extends ErrorDetection>)newValue);
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING:
-				getErrorStateToModeMapping().clear();
-				getErrorStateToModeMapping().addAll((Collection<? extends ErrorStateToModeMapping>)newValue);
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
+				getErrorStateToModeMappings().clear();
+				getErrorStateToModeMappings().addAll((Collection<? extends ErrorStateToModeMapping>)newValue);
 				return;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
 				getProperties().clear();
@@ -467,17 +467,17 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__EVENTS:
 				getEvents().clear();
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION:
-				getTransition().clear();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS:
+				getTransitions().clear();
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION:
-				getOutgoingPropagationCondition().clear();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS:
+				getOutgoingPropagationConditions().clear();
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT:
-				getDetectionEvent().clear();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS:
+				getErrorDetections().clear();
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING:
-				getErrorStateToModeMapping().clear();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
+				getErrorStateToModeMappings().clear();
 				return;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
 				getProperties().clear();
@@ -503,14 +503,14 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				return useTransformation != null;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__EVENTS:
 				return events != null && !events.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITION:
-				return transition != null && !transition.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION:
-				return outgoingPropagationCondition != null && !outgoingPropagationCondition.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT:
-				return detectionEvent != null && !detectionEvent.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING:
-				return errorStateToModeMapping != null && !errorStateToModeMapping.isEmpty();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__TRANSITIONS:
+				return transitions != null && !transitions.isEmpty();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS:
+				return outgoingPropagationConditions != null && !outgoingPropagationConditions.isEmpty();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS:
+				return errorDetections != null && !errorDetections.isEmpty();
+			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
+				return errorStateToModeMappings != null && !errorStateToModeMappings.isEmpty();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
 				return properties != null && !properties.isEmpty();
 		}

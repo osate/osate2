@@ -214,13 +214,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
 
   /**
+	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int ERROR_MODEL_SUBCLAUSE__PROPERTIES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
+
+  /**
 	 * The number of structural features of the '<em>Subclause</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
+  int ERROR_MODEL_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 7;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl <em>Library</em>}' class.
@@ -2787,40 +2796,40 @@ public interface ErrorModelPackage extends EPackage
   int COMPONENT_ERROR_BEHAVIOR__EVENTS = Aadl2Package.ELEMENT_FEATURE_COUNT + 3;
 
   /**
-	 * The feature id for the '<em><b>Transition</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Transitions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int COMPONENT_ERROR_BEHAVIOR__TRANSITION = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
+  int COMPONENT_ERROR_BEHAVIOR__TRANSITIONS = Aadl2Package.ELEMENT_FEATURE_COUNT + 4;
 
   /**
-	 * The feature id for the '<em><b>Outgoing Propagation Condition</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Outgoing Propagation Conditions</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION = Aadl2Package.ELEMENT_FEATURE_COUNT + 5;
+  int COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS = Aadl2Package.ELEMENT_FEATURE_COUNT + 5;
 
   /**
-	 * The feature id for the '<em><b>Detection Event</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Error Detections</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT = Aadl2Package.ELEMENT_FEATURE_COUNT + 6;
+  int COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS = Aadl2Package.ELEMENT_FEATURE_COUNT + 6;
 
   /**
-	 * The feature id for the '<em><b>Error State To Mode Mapping</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Error State To Mode Mappings</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING = Aadl2Package.ELEMENT_FEATURE_COUNT + 7;
+  int COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS = Aadl2Package.ELEMENT_FEATURE_COUNT + 7;
 
   /**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3445,13 +3454,13 @@ public interface ErrorModelPackage extends EPackage
   int COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
-	 * The feature id for the '<em><b>State</b></em>' containment reference list.
+	 * The feature id for the '<em><b>States</b></em>' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int COMPOSITE_ERROR_BEHAVIOR__STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
+  int COMPOSITE_ERROR_BEHAVIOR__STATES = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -3864,6 +3873,17 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 */
   EReference getErrorModelSubclause_ConnectionTransformation();
+
+  /**
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Properties</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties()
+	 * @see #getErrorModelSubclause()
+	 * @generated
+	 */
+  EReference getErrorModelSubclause_Properties();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary <em>Library</em>}'.
@@ -5118,48 +5138,48 @@ public interface ErrorModelPackage extends EPackage
   EReference getComponentErrorBehavior_Events();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getTransition <em>Transition</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getTransitions <em>Transitions</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Transition</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getTransition()
+	 * @return the meta object for the containment reference list '<em>Transitions</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getTransitions()
 	 * @see #getComponentErrorBehavior()
 	 * @generated
 	 */
-  EReference getComponentErrorBehavior_Transition();
+  EReference getComponentErrorBehavior_Transitions();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getOutgoingPropagationCondition <em>Outgoing Propagation Condition</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getOutgoingPropagationConditions <em>Outgoing Propagation Conditions</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Outgoing Propagation Condition</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getOutgoingPropagationCondition()
+	 * @return the meta object for the containment reference list '<em>Outgoing Propagation Conditions</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getOutgoingPropagationConditions()
 	 * @see #getComponentErrorBehavior()
 	 * @generated
 	 */
-  EReference getComponentErrorBehavior_OutgoingPropagationCondition();
+  EReference getComponentErrorBehavior_OutgoingPropagationConditions();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getDetectionEvent <em>Detection Event</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorDetections <em>Error Detections</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Detection Event</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getDetectionEvent()
+	 * @return the meta object for the containment reference list '<em>Error Detections</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorDetections()
 	 * @see #getComponentErrorBehavior()
 	 * @generated
 	 */
-  EReference getComponentErrorBehavior_DetectionEvent();
+  EReference getComponentErrorBehavior_ErrorDetections();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorStateToModeMapping <em>Error State To Mode Mapping</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Error State To Mode Mapping</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorStateToModeMapping()
+	 * @return the meta object for the containment reference list '<em>Error State To Mode Mappings</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getErrorStateToModeMappings()
 	 * @see #getComponentErrorBehavior()
 	 * @generated
 	 */
-  EReference getComponentErrorBehavior_ErrorStateToModeMapping();
+  EReference getComponentErrorBehavior_ErrorStateToModeMappings();
 
   /**
 	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior#getProperties <em>Properties</em>}'.
@@ -5603,15 +5623,15 @@ public interface ErrorModelPackage extends EPackage
   EReference getCompositeErrorBehavior_UseBehavior();
 
   /**
-	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getState <em>State</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getStates <em>States</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>State</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getState()
+	 * @return the meta object for the containment reference list '<em>States</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getStates()
 	 * @see #getCompositeErrorBehavior()
 	 * @generated
 	 */
-  EReference getCompositeErrorBehavior_State();
+  EReference getCompositeErrorBehavior_States();
 
   /**
 	 * Returns the meta object for the containment reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getProperties <em>Properties</em>}'.
@@ -5889,6 +5909,14 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EReference ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION = eINSTANCE.getErrorModelSubclause_ConnectionTransformation();
+
+    /**
+		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EReference ERROR_MODEL_SUBCLAUSE__PROPERTIES = eINSTANCE.getErrorModelSubclause_Properties();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl <em>Library</em>}' class.
@@ -6897,36 +6925,36 @@ public interface ErrorModelPackage extends EPackage
     EReference COMPONENT_ERROR_BEHAVIOR__EVENTS = eINSTANCE.getComponentErrorBehavior_Events();
 
     /**
-		 * The meta object literal for the '<em><b>Transition</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Transitions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference COMPONENT_ERROR_BEHAVIOR__TRANSITION = eINSTANCE.getComponentErrorBehavior_Transition();
+    EReference COMPONENT_ERROR_BEHAVIOR__TRANSITIONS = eINSTANCE.getComponentErrorBehavior_Transitions();
 
     /**
-		 * The meta object literal for the '<em><b>Outgoing Propagation Condition</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Outgoing Propagation Conditions</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITION = eINSTANCE.getComponentErrorBehavior_OutgoingPropagationCondition();
+    EReference COMPONENT_ERROR_BEHAVIOR__OUTGOING_PROPAGATION_CONDITIONS = eINSTANCE.getComponentErrorBehavior_OutgoingPropagationConditions();
 
     /**
-		 * The meta object literal for the '<em><b>Detection Event</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Error Detections</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference COMPONENT_ERROR_BEHAVIOR__DETECTION_EVENT = eINSTANCE.getComponentErrorBehavior_DetectionEvent();
+    EReference COMPONENT_ERROR_BEHAVIOR__ERROR_DETECTIONS = eINSTANCE.getComponentErrorBehavior_ErrorDetections();
 
     /**
-		 * The meta object literal for the '<em><b>Error State To Mode Mapping</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Error State To Mode Mappings</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPING = eINSTANCE.getComponentErrorBehavior_ErrorStateToModeMapping();
+    EReference COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS = eINSTANCE.getComponentErrorBehavior_ErrorStateToModeMappings();
 
     /**
 		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
@@ -7277,12 +7305,12 @@ public interface ErrorModelPackage extends EPackage
     EReference COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR = eINSTANCE.getCompositeErrorBehavior_UseBehavior();
 
     /**
-		 * The meta object literal for the '<em><b>State</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>States</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
 		 * @generated
 		 */
-    EReference COMPOSITE_ERROR_BEHAVIOR__STATE = eINSTANCE.getCompositeErrorBehavior_State();
+    EReference COMPOSITE_ERROR_BEHAVIOR__STATES = eINSTANCE.getCompositeErrorBehavior_States();
 
     /**
 		 * The meta object literal for the '<em><b>Properties</b></em>' containment reference list feature.
