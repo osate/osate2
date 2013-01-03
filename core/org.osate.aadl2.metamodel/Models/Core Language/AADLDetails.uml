@@ -35,7 +35,7 @@
       <packagedElement xmi:type="uml:Class" xmi:id="Calls-ProcessorCall" name="ProcessorCall">
         <generalization xmi:id="Calls-ProcessorCall-_generalization.0" general="Calls-CallSpecification"/>
         <ownedAttribute xmi:id="Calls-ProcessorCall-subprogramAccessName" name="subprogramAccessName">
-          <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#String"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="Calls-A_behavioredImplementation_ownedSubprogramCallSequence" name="A_behavioredImplementation_ownedSubprogramCallSequence" memberEnd="Calls-A_behavioredImplementation_ownedSubprogramCallSequence-owner Calls-BehavioredImplementation-ownedSubprogramCallSequence">
