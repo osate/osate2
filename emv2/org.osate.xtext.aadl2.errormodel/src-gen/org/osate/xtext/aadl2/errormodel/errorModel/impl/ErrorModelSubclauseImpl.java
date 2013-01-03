@@ -1,14 +1,27 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
+import java.util.Collection;
+
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
+
+import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.aadl2.impl.AnnexSubclauseImpl;
 
@@ -34,6 +47,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnecti
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getCompositeBehavior <em>Composite Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getObservablePropagationConnections <em>Observable Propagation Connections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getConnectionTransformation <em>Connection Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -100,6 +114,16 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 	 * @ordered
 	 */
   protected ConnectionTransformation connectionTransformation;
+
+  /**
+	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #getProperties()
+	 * @generated
+	 * @ordered
+	 */
+  protected EList<PropertyAssociation> properties;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -398,6 +422,19 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public EList<PropertyAssociation> getProperties()
+  {
+		if (properties == null) {
+			properties = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES);
+		}
+		return properties;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -412,6 +449,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return basicSetObservablePropagationConnections(null, msgs);
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
 				return basicSetConnectionTransformation(null, msgs);
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
+				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -438,6 +477,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return getObservablePropagationConnections();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
 				return getConnectionTransformation();
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
+				return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -447,6 +488,7 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -468,6 +510,10 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
 				setConnectionTransformation((ConnectionTransformation)newValue);
+				return;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
+				getProperties().clear();
+				getProperties().addAll((Collection<? extends PropertyAssociation>)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -500,6 +546,9 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
 				setConnectionTransformation((ConnectionTransformation)null);
 				return;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
+				getProperties().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -525,6 +574,8 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
 				return observablePropagationConnections != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION:
 				return connectionTransformation != null;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPERTIES:
+				return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="errorModel" nsURI="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel"
-    nsPrefix="errorModel">
+<ecore:EPackage xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="errorModel"
+    nsURI="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel" nsPrefix="errorModel">
   <eClassifiers xsi:type="ecore:EClass" name="ErrorModelGrammarRoot">
     <eStructuralFeatures xsi:type="ecore:EReference" name="eml" eType="#//ErrorModelLibrary"
         containment="true"/>
@@ -20,6 +21,9 @@
         eType="#//ObservablePropagationConnections" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="connectionTransformation"
         eType="#//ConnectionTransformation" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
+        eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorModelLibrary" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//AnnexLibrary">
     <eStructuralFeatures xsi:type="ecore:EReference" name="extends" unique="false"
@@ -214,13 +218,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTransformation" eType="#//TypeTransformationSet"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="events" upperBound="-1"
         eType="#//ErrorBehaviorEvent" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="transition" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="transitions" upperBound="-1"
         eType="#//ErrorBehaviorTransition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingPropagationCondition"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="outgoingPropagationConditions"
         upperBound="-1" eType="#//OutgoingPropagationCondition" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="detectionEvent" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorDetections" upperBound="-1"
         eType="#//ErrorDetection" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="errorStateToModeMapping"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="errorStateToModeMappings"
         upperBound="-1" eType="#//ErrorStateToModeMapping" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
@@ -288,7 +292,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="useTypes" unique="false"
         upperBound="-1" eType="#//ErrorModelLibrary"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="useBehavior" eType="#//ErrorBehaviorStateMachine"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="state" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="states" upperBound="-1"
         eType="#//CompositeState" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="properties" upperBound="-1"
         eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"

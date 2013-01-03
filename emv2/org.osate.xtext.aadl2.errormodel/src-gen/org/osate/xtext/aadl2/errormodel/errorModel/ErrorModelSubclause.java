@@ -1,10 +1,17 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
 import org.osate.aadl2.AnnexSubclause;
+import org.osate.aadl2.PropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,6 +27,7 @@ import org.osate.aadl2.AnnexSubclause;
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getObservablePropagationConnections <em>Observable Propagation Connections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getConnectionTransformation <em>Connection Transformation</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -184,5 +192,21 @@ public interface ErrorModelSubclause extends EObject, AnnexSubclause
 	 * @generated
 	 */
   void setConnectionTransformation(ConnectionTransformation value);
+
+  /**
+	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>Properties</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_Properties()
+	 * @model containment="true"
+	 * @generated
+	 */
+  EList<PropertyAssociation> getProperties();
 
 } // ErrorModelSubclause

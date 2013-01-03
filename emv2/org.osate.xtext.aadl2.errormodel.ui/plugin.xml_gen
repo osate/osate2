@@ -151,28 +151,6 @@
     </extension>
 
 
-    <!-- marker definitions for org.osate.xtext.aadl2.errormodel.ErrorModel -->
-    <extension
-            id="errormodel.check.fast"
-            name="ErrorModel Problem"
-            point="org.eclipse.core.resources.markers">
-        <super type="org.eclipse.xtext.ui.check.fast"/>
-        <persistent value="true"/>
-    </extension>
-    <extension
-            id="errormodel.check.normal"
-            name="ErrorModel Problem"
-            point="org.eclipse.core.resources.markers">
-        <super type="org.eclipse.xtext.ui.check.normal"/>
-        <persistent value="true"/>
-    </extension>
-    <extension
-            id="errormodel.check.expensive"
-            name="ErrorModel Problem"
-            point="org.eclipse.core.resources.markers">
-        <super type="org.eclipse.xtext.ui.check.expensive"/>
-        <persistent value="true"/>
-    </extension>
 
 	<!-- Quick Outline -->
 	<extension
@@ -207,34 +185,13 @@
 			</command>
 		</menuContribution>
 	</extension>
-    <!-- quickfix marker resolution generator for org.osate.xtext.aadl2.errormodel.ErrorModel -->
-    <extension
-            point="org.eclipse.ui.ide.markerResolution">
-        <markerResolutionGenerator
-            class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="org.osate.xtext.aadl2.errormodel.ui.errormodel.check.fast">
-            <attribute
-                name="FIXABLE_KEY"
-                value="true">
-            </attribute>
-        </markerResolutionGenerator>
-        <markerResolutionGenerator
-            class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="org.osate.xtext.aadl2.errormodel.ui.errormodel.check.normal">
-            <attribute
-                name="FIXABLE_KEY"
-                value="true">
-            </attribute>
-        </markerResolutionGenerator>
-        <markerResolutionGenerator
-            class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="org.osate.xtext.aadl2.errormodel.ui.errormodel.check.expensive">
-            <attribute
-                name="FIXABLE_KEY"
-                value="true">
-            </attribute>
-        </markerResolutionGenerator>
-    </extension>
+   <!-- quickfix marker resolution generator -->
+   <extension
+         point="org.eclipse.ui.ide.markerResolution">
+      <markerResolutionGenerator
+            class="org.osate.xtext.aadl2.errormodel.ui.ErrorModelExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator">
+      </markerResolutionGenerator>
+   </extension>
    	<!-- Rename Refactoring -->
 	<extension point="org.eclipse.ui.handlers">
 		<handler 

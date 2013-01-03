@@ -1,4 +1,8 @@
 /**
+ * <copyright>
+ * </copyright>
+ *
+
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
@@ -37,7 +41,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl#getStates <em>States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -67,14 +71,14 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
   protected ErrorBehaviorStateMachine useBehavior;
 
   /**
-	 * The cached value of the '{@link #getState() <em>State</em>}' containment reference list.
+	 * The cached value of the '{@link #getStates() <em>States</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-	 * @see #getState()
+	 * @see #getStates()
 	 * @generated
 	 * @ordered
 	 */
-  protected EList<CompositeState> state;
+  protected EList<CompositeState> states;
 
   /**
 	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
@@ -166,12 +170,12 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<CompositeState> getState()
+  public EList<CompositeState> getStates()
   {
-		if (state == null) {
-			state = new EObjectContainmentEList<CompositeState>(CompositeState.class, this, ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE);
+		if (states == null) {
+			states = new EObjectContainmentEList<CompositeState>(CompositeState.class, this, ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES);
 		}
-		return state;
+		return states;
 	}
 
   /**
@@ -196,8 +200,8 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
 		switch (featureID) {
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE:
-				return ((InternalEList<?>)getState()).basicRemove(otherEnd, msgs);
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES:
+				return ((InternalEList<?>)getStates()).basicRemove(otherEnd, msgs);
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__PROPERTIES:
 				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
@@ -218,8 +222,8 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR:
 				if (resolve) return getUseBehavior();
 				return basicGetUseBehavior();
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE:
-				return getState();
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES:
+				return getStates();
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__PROPERTIES:
 				return getProperties();
 		}
@@ -243,9 +247,9 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR:
 				setUseBehavior((ErrorBehaviorStateMachine)newValue);
 				return;
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE:
-				getState().clear();
-				getState().addAll((Collection<? extends CompositeState>)newValue);
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES:
+				getStates().clear();
+				getStates().addAll((Collection<? extends CompositeState>)newValue);
 				return;
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__PROPERTIES:
 				getProperties().clear();
@@ -270,8 +274,8 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR:
 				setUseBehavior((ErrorBehaviorStateMachine)null);
 				return;
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE:
-				getState().clear();
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES:
+				getStates().clear();
 				return;
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__PROPERTIES:
 				getProperties().clear();
@@ -293,8 +297,8 @@ public class CompositeErrorBehaviorImpl extends ElementImpl implements Composite
 				return useTypes != null && !useTypes.isEmpty();
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__USE_BEHAVIOR:
 				return useBehavior != null;
-			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATE:
-				return state != null && !state.isEmpty();
+			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__STATES:
+				return states != null && !states.isEmpty();
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR__PROPERTIES:
 				return properties != null && !properties.isEmpty();
 		}

@@ -125,6 +125,12 @@
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="connectionTransformation" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.50"/>
         </elements>
+        <elements xsi:type="xtext:Group" cardinality="?">
+          <elements xsi:type="xtext:Keyword" value="properties"/>
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="properties" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="/1/@rules.1"/>
+          </elements>
+        </elements>
       </alternatives>
     </rules>
     <rules xsi:type="xtext:ParserRule" name="ErrorModelLibrary">
@@ -1377,26 +1383,26 @@
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="transitions"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="transition" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="transitions" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.47"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="propagations"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="outgoingPropagationCondition" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="outgoingPropagationConditions" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.61"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="detections"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="detectionEvent" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="errorDetections" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.62"/>
           </elements>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="mode"/>
           <elements xsi:type="xtext:Keyword" value="mappings"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="errorStateToModeMapping" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="errorStateToModeMappings" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.64"/>
           </elements>
         </elements>
@@ -1777,7 +1783,7 @@
         </elements>
         <elements xsi:type="xtext:Group" cardinality="?">
           <elements xsi:type="xtext:Keyword" value="states"/>
-          <elements xsi:type="xtext:Assignment" cardinality="+" feature="state" operator="+=">
+          <elements xsi:type="xtext:Assignment" cardinality="+" feature="states" operator="+=">
             <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.67"/>
           </elements>
         </elements>

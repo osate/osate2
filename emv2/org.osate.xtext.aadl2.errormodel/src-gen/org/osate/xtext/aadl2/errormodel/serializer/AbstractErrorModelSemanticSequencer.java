@@ -7,6 +7,7 @@ import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
@@ -79,11 +80,37 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 
-@SuppressWarnings("all")
-public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSemanticSequencer {
+@SuppressWarnings("restriction")
+public class AbstractErrorModelSemanticSequencer extends AbstractSemanticSequencer {
 
 	@Inject
-	private ErrorModelGrammarAccess grammarAccess;
+	protected ErrorModelGrammarAccess grammarAccess;
+	
+	@Inject
+	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
+	
+	@Inject
+	protected ITransientValueService transientValues;
+	
+	@Inject
+	@GenericSequencer
+	protected Provider<ISemanticSequencer> genericSequencerProvider;
+	
+	protected ISemanticSequencer genericSequencer;
+	
+	@Inject
+	protected Provider<PropertiesSemanticSequencer> superSequencerProvider;
+	 
+	protected PropertiesSemanticSequencer superSequencer; 
+	
+	@Override
+	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
+		super.init(sequencer, sequenceAcceptor, errorAcceptor);
+		this.genericSequencer = genericSequencerProvider.get();
+		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
+		this.superSequencer = superSequencerProvider.get();
+		this.superSequencer.init(sequencer, sequenceAcceptor, errorAcceptor); 
+	}
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -440,7 +467,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.ERROR_TYPE:
 				if(context == grammarAccess.getErrorTypesRule() ||
 				   context == grammarAccess.getNamedElementRule()) {
-					sequence_ErrorTypes_TypeAlias_TypeDefinition(context, (ErrorType) semanticObject); 
+					sequence_ErrorTypes(context, (ErrorType) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeAliasRule()) {
@@ -603,7 +630,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 			case ErrorModelPackage.TYPE_SET:
 				if(context == grammarAccess.getErrorTypesRule() ||
 				   context == grammarAccess.getNamedElementRule()) {
-					sequence_ErrorTypes_TypeSetAlias_TypeSetDefinition(context, (TypeSet) semanticObject); 
+					sequence_ErrorTypes(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getNoErrorRule()) {
@@ -633,7 +660,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else if(context == grammarAccess.getElementRule()) {
-					sequence_Element_ElementErrorType_TypeToken(context, (TypeToken) semanticObject); 
+					sequence_Element(context, (TypeToken) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getTypeTokenRule()) {
@@ -672,15 +699,51 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
+	 */
+	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
+	 */
+	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value?='true'?)
+	 */
+	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     classifier=[ComponentClassifier|QCREF]
+	 */
+	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
 	 *         events+=ErrorBehaviorEvent* 
-	 *         transition+=ErrorBehaviorTransition* 
-	 *         outgoingPropagationCondition+=OutgoingPropagationCondition* 
-	 *         detectionEvent+=ErrorDetection* 
-	 *         errorStateToModeMapping+=ErrorStateToModeMapping* 
+	 *         transitions+=ErrorBehaviorTransition* 
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *         errorDetections+=ErrorDetection* 
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -694,7 +757,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         state+=CompositeState* 
+	 *         states+=CompositeState* 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -709,6 +772,15 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_CompositeState(EObject context, CompositeState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     function=ID
+	 */
+	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -736,6 +808,50 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_ConnectionTransformation(EObject context, ConnectionTransformation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     namedValue=[PropertyConstant|QPREF]
+	 */
+	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
+	 *         inBinding+=[Classifier|QCREF]?
+	 *     )
+	 */
+	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange?)
+	 */
+	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 */
+	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -770,7 +886,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     ((type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*) | (type+=[ErrorType|QEMREF] type+=[ErrorType|QEMREF]*))
 	 */
-	protected void sequence_Element_ElementErrorType_TypeToken(EObject context, TypeToken semanticObject) {
+	protected void sequence_Element(EObject context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -884,7 +1000,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 
 	 *         observablePropagationConnections=ObservablePropagationConnections? 
-	 *         connectionTransformation=ConnectionTransformation?
+	 *         connectionTransformation=ConnectionTransformation? 
+	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_ErrorModelSubclause(EObject context, ErrorModelSubclause semanticObject) {
@@ -972,7 +1089,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     ((name=ID superType=[ErrorType|QEMREF]?) | (name=ID aliasedType=[ErrorType|QEMREF]))
 	 */
-	protected void sequence_ErrorTypes_TypeAlias_TypeDefinition(EObject context, ErrorType semanticObject) {
+	protected void sequence_ErrorTypes(EObject context, ErrorType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -981,8 +1098,26 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 * Constraint:
 	 *     ((name=ID elementType+=ElementErrorType elementType+=ElementErrorType*) | (name=ID aliasedType=[TypeSet|QEMREF]))
 	 */
-	protected void sequence_ErrorTypes_TypeSetAlias_TypeSetDefinition(EObject context, TypeSet semanticObject) {
+	protected void sequence_ErrorTypes(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
+	 */
+	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
+	 */
+	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -997,10 +1132,46 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     ((ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?)
+	 */
+	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     namedValue=[AbstractNamedValue|QPREF]
+	 */
+	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
+	 */
+	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     {TypeSet}
 	 */
 	protected void sequence_NoError(EObject context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
+	 */
+	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1019,6 +1190,24 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_ObservablePropagationConnections(EObject context, ObservablePropagationConnections semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedFieldValue+=FieldPropertyAssociation+
+	 */
+	protected void sequence_OldRecordTerm(EObject context, RecordValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
+	 */
+	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1056,6 +1245,31 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         property=[Property|QPREF] 
+	 *         append?='+=>'? 
+	 *         constant?='constant'? 
+	 *         ownedValue+=OptionalModalPropertyValue 
+	 *         ownedValue+=OptionalModalPropertyValue* 
+	 *         inBinding+=[Classifier|QCREF]?
+	 *     )
+	 */
+	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedValue=PropertyExpression
+	 */
+	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (subcomponent=[Subcomponent|ID]? observablePoint=[ErrorPropagation|ErrorPropagationPoint])
 	 */
 	protected void sequence_QualifiedObservableErrorPropagationPoint(EObject context, QualifiedObservableErrorPropagationPoint semanticObject) {
@@ -1065,10 +1279,37 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
+	 */
+	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     ownedFieldValue+=FieldPropertyAssociation+
+	 */
+	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (name=ID condition=STRING?)
 	 */
 	protected void sequence_RecoverEvent(EObject context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
+	 */
+	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1123,6 +1364,24 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 */
 	protected void sequence_SOrmoreExpression(EObject context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
+	 */
+	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=NoQuoteString
+	 */
+	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
+		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
