@@ -24,9 +24,10 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		if (!(obj instanceof NamedElement) ) return null;
-		if (((NamedElement)obj).getName() == null) return null;
+		if (((NamedElement)obj).getName() == null) 
+			return null;
 		if (obj instanceof AadlPackage){
-			return getConverter().toQualifiedName(((AadlPackage) obj).getElementRoot().getName());
+			return getConverter().toQualifiedName(((AadlPackage) obj).getName());
 		}
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet || obj instanceof ErrorModelLibrary
 				|| obj instanceof ErrorType || obj instanceof TypeSet || obj instanceof TypeTransformationSet){
@@ -38,7 +39,7 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	protected String getTheName(NamedElement namedElement){
 		NamedElement root = namedElement.getElementRoot();
 		if (namedElement instanceof ErrorModelLibrary){
-			return root.getName() + "::emv2";
+			return root.getName() + "::"+"emv2";
 		} 
 		return root.getName() + "::emv2::" + namedElement.getName();
 	}

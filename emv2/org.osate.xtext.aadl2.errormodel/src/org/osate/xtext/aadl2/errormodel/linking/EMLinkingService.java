@@ -234,13 +234,13 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	/**
 	 * find the error model library. The String name refers to the package and the default EML name is added ("emv2")
-	 * @param context context of search to identify resourceset
+	 * @param context context of search to identify package and EML
 	 * @param name
 	 * @return
 	 */
 	public ErrorModelLibrary findErrorModelLibrary(EObject context, String name){
 
-		ErrorModelLibrary eml = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name+"::emv2");
+		ErrorModelLibrary eml = (ErrorModelLibrary) EMFIndexRetrieval.getEObjectOfType(context, ErrorModelPackage.eINSTANCE.getErrorModelLibrary(), name+"::"+"emv2");
 		if (eml != null) return eml;
 		AadlPackage ap = findAadlPackageReference(name, AadlUtil.getContainingPackageSection(context));
 		if (ap == null)

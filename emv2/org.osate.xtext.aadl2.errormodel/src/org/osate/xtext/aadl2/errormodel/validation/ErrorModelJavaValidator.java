@@ -305,7 +305,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		for (ErrorModelLibrary etl : EM2Util.getUseTypes(tuc)){
 			if (etlset.contains(etl)){
 				error(tuc,
-						"Error type library "+etl.getName()+"exists more than once in 'uses types' clause");
+						"Error type library "+EM2Util.getPrintName(etl)+" exists more than once in 'uses types' clause");
 			} else {
 				etlset.add(etl);
 			}
@@ -319,7 +319,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			for (ErrorTypes errorTypes : typeslist) {
 				if (etlset.contains(errorTypes)){
 					warning(tuc,
-							"Error type or type set "+etl.getName()+" in library "+etl.getName()+" exists in an earlier error type library. Please qualify any reference to it.");
+							"Error type or type set "+errorTypes.getName()+" in library "+etl.getName()+" exists in an earlier error type library. Please qualify any reference to it.");
 				} else {
 					etlset.add(errorTypes);
 				}
@@ -396,7 +396,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					info(et, "Error type or type set (alias) "+et.getName()+" shadows identifier in error type library "+etl.getName()+". Please qualify references to shadowed type or type set.");
 				}
 			} 
-			// XX: may override an existing value; if it raises an exception we have to remove the old one first
 			types.put(et.getName(),et);
 		}
 	}

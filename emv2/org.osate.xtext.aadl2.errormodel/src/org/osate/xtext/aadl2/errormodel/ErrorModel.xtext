@@ -183,6 +183,7 @@ ElementTypeMapping returns ElementTypeMapping:
 
 ErrorPropagations returns ErrorPropagations: 
    'error' 'propagations'
+   {ErrorPropagations}
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
    (propagations+=ErrorPropagation)* 

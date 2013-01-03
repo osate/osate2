@@ -385,6 +385,12 @@ public class EM2Util {
 			return getPrintableName(ts, ", ");
 	}
 	
+	
+	public static String getPrintName(ErrorModelLibrary eml){
+			return AadlUtil.getContainingPackage(eml).getName();
+	}
+
+	
 	public static String getTableName(TypeSet ts){
 			return getPrintableName(ts, "/");
 	}
