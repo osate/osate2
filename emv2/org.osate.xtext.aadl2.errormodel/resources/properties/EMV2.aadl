@@ -30,9 +30,27 @@ StateKind : EMV2::StateKindEnum
 StateKindEnum: type enumeration (Working, NonWorking);
 
 SeverityLevel : type aadlinteger;
-CriticalityRanking : type aadlinteger;
+-- ARP 4761
+Catastrophic : constant aadlinteger => 1;
+Hazardous : constant aadlinteger => 2;
+Major : constant aadlinteger => 3;
+Minor : constant aadlinteger => 4;
+NoEffect : constant aadlinteger => 5;
+-- MILSTD 882
+--Catastrophic : constant aadlinteger => 1;
+Critical : constant aadlinteger => 2;
+Marginal : constant aadlinteger => 3;
+Negligible : constant aadlinteger => 4;
 
-Hazard: type record
+CriticalityRanking : type aadlinteger;
+-- MILSTD 882
+Frequent : constant aadlinteger => 1;
+Probable : constant aadlinteger => 2;
+Occasional : constant aadlinteger => 3;
+Remote : constant aadlinteger => 4;
+Improbable : constant aadlinteger => 45;
+
+Hazard: record
   (crossreference: aadlstring;
   	failure : aadlstring;
   	phase : aadlstring;
@@ -42,6 +60,6 @@ Hazard: type record
   	criticality : EMV2::CriticalityRanking;
   	verificationmethod : aadlstring;
   	risk : aadlstring;
-  	comment : aadlstring;);
+  	comment : aadlstring;) applies to (all);
 
 end EMV2;

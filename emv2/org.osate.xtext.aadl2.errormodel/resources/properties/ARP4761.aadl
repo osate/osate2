@@ -1,0 +1,22 @@
+--ARP4761.aadl
+-- define ARP4761 Hazard specifications
+
+property set ARP4761
+  is
+
+SeverityLevel : type enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect);
+CriticalityRanking : type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+
+Hazard: record
+  (crossreference: aadlstring;
+  	failure : aadlstring;
+  	phase : aadlstring;
+  	environment : aadlstring;
+  	description : aadlstring;
+  	severity : ARP4761::SeverityLevel;
+  	criticality : ARP4761::CriticalityRanking;
+  	verificationmethod : aadlstring;
+  	risk : aadlstring;
+  	comment : aadlstring;) applies to (all);
+
+end ARP4761;
