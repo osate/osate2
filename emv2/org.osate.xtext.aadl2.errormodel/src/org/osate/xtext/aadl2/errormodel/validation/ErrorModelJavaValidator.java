@@ -127,6 +127,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseTypeUseContext(
 			TypeUseContext typeUseContext) {
 		checkMultipleUses(typeUseContext);
+		checkMultipleErrorTypesInUsesTypes(typeUseContext);
 	}
 	
 	@Check(CheckType.NORMAL)
@@ -307,6 +308,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 						"Error type library "+etl.getName()+"exists more than once in 'uses types' clause");
 			} else {
 				etlset.add(etl);
+			}
+		}
+	}
+
+	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc){
+		HashSet<ErrorTypes> etlset = new HashSet<ErrorTypes>();
+		for (ErrorModelLibrary etl : EM2Util.getUseTypes(tuc)){
+			EList<ErrorTypes> typeslist = etl.getTypes();
+			for (ErrorTypes errorTypes : typeslist) {
+				if (etlset.contains(errorTypes)){
+					warning(tuc,
+							"Error type or type set "+etl.getName()+" in library "+etl.getName()+" exists in an earlier error type library. Please qualify any reference to it.");
+				} else {
+					etlset.add(errorTypes);
+				}
 			}
 		}
 	}
