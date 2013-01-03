@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class ErrorModelExecutableExtensionFactory extends AbstractGuiceAwareExec
 
 	@Override
 	protected Bundle getBundle() {
-		return org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator.getInstance().getBundle();
+		return ErrorModelActivator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return org.osate.xtext.aadl2.errormodel.ui.internal.ErrorModelActivator.getInstance().getInjector("org.osate.xtext.aadl2.errormodel.ErrorModel");
+		return ErrorModelActivator.getInstance().getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
 	}
 	
 }

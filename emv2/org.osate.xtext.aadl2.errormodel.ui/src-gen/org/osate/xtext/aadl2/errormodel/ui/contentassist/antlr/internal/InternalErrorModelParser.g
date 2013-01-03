@@ -8555,16 +8555,9 @@ rule__ErrorPropagations__Group__4__Impl
     }
 :
 (
-(
-{ before(grammarAccess.getErrorPropagationsAccess().getPropagationsAssignment_4()); }
-(rule__ErrorPropagations__PropagationsAssignment_4)
-{ after(grammarAccess.getErrorPropagationsAccess().getPropagationsAssignment_4()); }
-)
-(
 { before(grammarAccess.getErrorPropagationsAccess().getPropagationsAssignment_4()); }
 (rule__ErrorPropagations__PropagationsAssignment_4)*
 { after(grammarAccess.getErrorPropagationsAccess().getPropagationsAssignment_4()); }
-)
 )
 
 ;

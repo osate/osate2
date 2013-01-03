@@ -21,11 +21,11 @@
             id="org.osate.contributes.EMV2.aadlcontribution2">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/packages/ARP4761.aadl"
+            file="resources/properties/ARP4761.aadl"
             id="org.osate.contributes.EMV2.aadlcontribution3">
       </aadlcontribution>
       <aadlcontribution
-            file="resources/packages/MILSTD882.aadl"
+            file="resources/properties/MILSTD882.aadl"
             id="org.osate.contributes.EMV2.aadlcontribution4">
       </aadlcontribution>
    </extension>

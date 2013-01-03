@@ -2040,7 +2040,7 @@ ruleErrorPropagations returns [EObject current=null]
 	    }
 
 )
-)+(((
+)*(((
 KEYWORD_45
 )=>
 	otherlv_13=KEYWORD_45

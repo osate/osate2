@@ -14,8 +14,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess;
 
-@SuppressWarnings("restriction")
-public class AbstractErrorModelSyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected ErrorModelGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_a;
