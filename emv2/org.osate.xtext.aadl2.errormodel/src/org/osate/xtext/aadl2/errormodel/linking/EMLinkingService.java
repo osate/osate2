@@ -405,8 +405,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (packName != null){
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);
-			// XXX PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			return findEMLNamedElement(eml, typeName, eclass);
+			// XXX PHF: change to findEMLNamedElement if we do make inherited names externally visible
+			return findNamedElementInThisEML(eml, typeName, eclass);
 		}
 		ErrorModelLibrary owneml = EM2Util.getContainingErrorModelLibrary(context);
 		TypeUseContext tuns = EM2Util.getContainingTypeUseContext(context);
@@ -420,10 +420,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (res != null) return res;
 			otheremls = owneml.getExtends();
 		}
-
 		for (ErrorModelLibrary etll: otheremls){
-			// XXX PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
-			EObject res = findEMLNamedElement(etll, typeName, eclass);
+			// XXX PHF: change to findEMLNamedElement if we do make inherited names externally visible
+			EObject res = findNamedElementInThisEML(etll, typeName, eclass);
 			if (res != null) {
 				return res;
 			}
