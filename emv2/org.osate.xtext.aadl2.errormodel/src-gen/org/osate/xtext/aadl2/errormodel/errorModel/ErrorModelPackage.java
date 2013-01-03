@@ -106,7 +106,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE = 1;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -233,7 +233,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_LIBRARY = 2;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -351,7 +351,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_TYPES = 3;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -415,7 +415,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_TYPE = 4;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -506,7 +506,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_SET = 5;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -597,7 +597,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TOKEN = 6;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -643,7 +643,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TRANSFORMATION_SET = 7;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -725,7 +725,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TRANSFORMATION = 8;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -762,7 +762,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_TOKEN_TRANSFORMATION = 9;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -826,7 +826,7 @@ public interface ErrorModelPackage extends EPackage
   int ELEMENT_TYPE_TRANSFORMATION = 10;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -890,7 +890,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_MAPPING_SET = 11;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -972,7 +972,7 @@ public interface ErrorModelPackage extends EPackage
   int TYPE_MAPPING = 12;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1009,7 +1009,7 @@ public interface ErrorModelPackage extends EPackage
   int TOKEN_TYPE_MAPPING = 13;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1064,7 +1064,7 @@ public interface ErrorModelPackage extends EPackage
   int ELEMENT_TYPE_MAPPING = 14;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1119,7 +1119,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PROPAGATIONS = 15;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1228,7 +1228,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PROPAGATION = 16;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1346,7 +1346,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_FLOW = 17;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1419,7 +1419,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_SOURCE = 18;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1547,7 +1547,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_SINK = 20;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1629,7 +1629,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_PATH = 21;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1747,7 +1747,7 @@ public interface ErrorModelPackage extends EPackage
   int OBSERVABLE_PROPAGATION_CONNECTIONS = 22;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1793,7 +1793,7 @@ public interface ErrorModelPackage extends EPackage
   int OBSERVABLE_PROPAGATION_CONNECTION = 23;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1875,7 +1875,7 @@ public interface ErrorModelPackage extends EPackage
   int QUALIFIED_OBSERVABLE_ERROR_PROPAGATION_POINT = 24;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -1930,7 +1930,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_STATE_MACHINE = 25;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2057,7 +2057,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_EVENT = 26;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2130,7 +2130,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_EVENT = 27;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2212,7 +2212,7 @@ public interface ErrorModelPackage extends EPackage
   int REPAIR_EVENT = 28;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2285,7 +2285,7 @@ public interface ErrorModelPackage extends EPackage
   int RECOVER_EVENT = 29;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2358,7 +2358,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_STATE = 30;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2440,7 +2440,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_TRANSITION = 31;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2576,7 +2576,7 @@ public interface ErrorModelPackage extends EPackage
   int TRANSITION_BRANCH = 32;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2649,7 +2649,7 @@ public interface ErrorModelPackage extends EPackage
   int CONNECTION_TRANSFORMATION = 33;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2733,7 +2733,7 @@ public interface ErrorModelPackage extends EPackage
   int COMPONENT_ERROR_BEHAVIOR = 36;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2851,7 +2851,7 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_EXPRESSION = 37;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2888,7 +2888,7 @@ public interface ErrorModelPackage extends EPackage
   int ORMORE_EXPRESSION = 38;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2943,7 +2943,7 @@ public interface ErrorModelPackage extends EPackage
   int ORLESS_EXPRESSION = 39;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -2998,7 +2998,7 @@ public interface ErrorModelPackage extends EPackage
   int CONDITION_ELEMENT = 40;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3090,7 +3090,7 @@ public interface ErrorModelPackage extends EPackage
   int OUTGOING_PROPAGATION_CONDITION = 42;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3199,7 +3199,7 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_DETECTION = 43;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3409,7 +3409,7 @@ public interface ErrorModelPackage extends EPackage
   int COMPOSITE_ERROR_BEHAVIOR = 46;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3482,7 +3482,7 @@ public interface ErrorModelPackage extends EPackage
   int COMPOSITE_STATE = 47;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3583,7 +3583,7 @@ public interface ErrorModelPackage extends EPackage
   int OR_EXPRESSION = 49;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3629,7 +3629,7 @@ public interface ErrorModelPackage extends EPackage
   int AND_EXPRESSION = 50;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3675,7 +3675,7 @@ public interface ErrorModelPackage extends EPackage
   int SOR_EXPRESSION = 51;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -3721,7 +3721,7 @@ public interface ErrorModelPackage extends EPackage
   int SAND_EXPRESSION = 52;
 
   /**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
