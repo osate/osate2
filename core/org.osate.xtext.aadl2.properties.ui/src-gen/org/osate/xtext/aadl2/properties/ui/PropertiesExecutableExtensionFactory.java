@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class PropertiesExecutableExtensionFactory extends AbstractGuiceAwareExec
 
 	@Override
 	protected Bundle getBundle() {
-		return org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator.getInstance().getBundle();
+		return PropertiesActivator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator.getInstance().getInjector("org.osate.xtext.aadl2.properties.Properties");
+		return PropertiesActivator.getInstance().getInjector(PropertiesActivator.ORG_OSATE_XTEXT_AADL2_PROPERTIES_PROPERTIES);
 	}
 	
 }
