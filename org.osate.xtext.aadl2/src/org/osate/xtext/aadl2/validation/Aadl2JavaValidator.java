@@ -413,33 +413,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		NamedElement ne2;
 
 		
-		/*
-		 * Unique name validator, JD
-		 * TODO: we may use the same code as for the property validation
-		 * (see code below).
-		 * 
-		 * Fixes #141
-		 */
-		for (Element e : pack.getPublicSection().getOwnedElements())
-		{
-
-			for (Element e2 : pack.getPublicSection().getOwnedElements())
-			{
-				if (( e instanceof NamedElement) &&
-					( e2 instanceof NamedElement))
-				{
-					ne1 = (NamedElement)e;
-					ne2 = (NamedElement)e2;
-
-					if ( (e != e2) && (ne1.getName().equalsIgnoreCase(ne2.getName())))
-					{
-						error(e, "Component " + ne1.getName()+" has duplicates");
-
-					}
-				}
-			}
-				
-		}
+//		/*
+//		 * Unique name validator, JD
+//		 * TODO: we may use the same code as for the property validation
+//		 * (see code below).
+//		 * 
+//		 * Fixes #141
+//		 */
+//		for (Element e : pack.getPublicSection().getOwnedElements())
+//		{
+//
+//			for (Element e2 : pack.getPublicSection().getOwnedElements())
+//			{
+//				if (( e instanceof NamedElement) &&
+//					( e2 instanceof NamedElement))
+//				{
+//					ne1 = (NamedElement)e;
+//					ne2 = (NamedElement)e2;
+//
+//					if ( (e != e2) && (ne1.getName().equalsIgnoreCase(ne2.getName())))
+//					{
+//						error(e, "Component " + ne1.getName()+" has duplicates");
+//
+//					}
+//				}
+//			}
+//				
+//		}
 
 		findings = hasDuplicatesAadlPackage(pack);
 		if (findings != null)

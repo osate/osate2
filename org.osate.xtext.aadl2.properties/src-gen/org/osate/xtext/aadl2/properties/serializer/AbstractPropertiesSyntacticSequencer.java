@@ -11,8 +11,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
 
-@SuppressWarnings("restriction")
-public class AbstractPropertiesSyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractPropertiesSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected PropertiesGrammarAccess grammarAccess;
 	
