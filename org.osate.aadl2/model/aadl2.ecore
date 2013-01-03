@@ -1429,7 +1429,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="CallSpecification" abstract="true" eSuperTypes="#//BehavioralFeature"/>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorCall" eSuperTypes="#//CallSpecification">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subprogramAccessName" ordered="false"
-        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.uml2.types/model/Types.ecore#//String"/>
+        lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehavioredImplementation" abstract="true"
       eSuperTypes="#//ComponentImplementation">
