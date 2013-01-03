@@ -313,15 +313,15 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc){
-		HashSet<ErrorTypes> etlset = new HashSet<ErrorTypes>();
+		HashSet<String> etlset = new HashSet<String>();
 		for (ErrorModelLibrary etl : EM2Util.getUseTypes(tuc)){
 			EList<ErrorTypes> typeslist = etl.getTypes();
 			for (ErrorTypes errorTypes : typeslist) {
-				if (etlset.contains(errorTypes)){
+				if (etlset.contains(errorTypes.getName())){
 					warning(tuc,
-							"Error type or type set "+errorTypes.getName()+" in library "+etl.getName()+" exists in an earlier error type library. Please qualify any reference to it.");
+							"Error type or type set "+errorTypes.getName()+" in library "+EM2Util.getPrintName(etl)+" exists in an earlier error type library. Please qualify any reference to it.");
 				} else {
-					etlset.add(errorTypes);
+					etlset.add(errorTypes.getName());
 				}
 			}
 		}
