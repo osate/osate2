@@ -97,6 +97,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 	
 	@Check(CheckType.NORMAL)
+	public void caseErrorPropagations(
+			ErrorPropagations errorPropagations) {
+		checkOnePropagationAndContainmentPoint(errorPropagations);
+	}
+	
+	@Check(CheckType.NORMAL)
 	public void caseTypeMappingSet(
 			TypeMappingSet tms) {
 		checkElementRuleConsistency(tms);
@@ -162,6 +168,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 	
+	private void checkOnePropagationAndContainmentPoint(ErrorPropagations errorPropagations){
+		EList<ErrorPropagation> eps = errorPropagations.getPropagations();
+		int epssize = eps.size();
+		for (int i=0;i<epssize-1;i++){
+			ErrorPropagation ep1 = eps.get(i);
+			for (int k=i+1;k<epssize;k++){
+				ErrorPropagation ep2 = eps.get(k);
+				if (ep1.getFeature() == ep2.getFeature()){
+					if (ep1.isNot() && ep2.isNot() || !ep1.isNot() && ! ep2.isNot()){
+						error(ep2, (ep1.isNot()?"Error containment ":"Error propagation ")+EM2Util.getPrintName(ep2)+" already defined.");
+					}
+				}
+			}
+		}
+	}
 	
 	private void checkFlowDirection(ErrorSource errorSource){
 		ErrorPropagation ep = errorSource.getOutgoing();
@@ -443,52 +464,89 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkConnectionErrorTypes(Connection conn){
-		// XXX DOTO needs to take into account the propagation direction as well as the direction of the connection
 		ComponentImplementation cimpl = conn.getContainingComponentImpl();
 		ConnectionEnd src = conn.getAllSource();
 		Context srcCxt = conn.getAllSourceContext();
 		ErrorPropagation srcprop = null;
-		boolean srcNot = false;
+		ErrorPropagation srccontain = null;
+		ErrorPropagations srceps = null;
 		if (srcCxt instanceof Subcomponent){
 			ComponentClassifier cl = ((Subcomponent)srcCxt).getClassifier();
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cl);
-			if (eps != null) srcprop = EM2Util.findOutgoingErrorPropagation(eps, src.getName());
+			srceps = EM2Util.getContainingErrorPropagations(cl);
 		} else {
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cimpl);
-			if (eps != null) srcprop = EM2Util.findOutgoingErrorPropagation(eps, src.getName());
-			if (srcprop != null) srcNot = srcprop.isNot();
+			srceps = EM2Util.getContainingErrorPropagations(cimpl);
 		}
-		// not expected
-		if (srcNot) return;
+		if (srceps != null) {
+			srcprop = EM2Util.findOutgoingErrorPropagation(srceps, src.getName());
+			srccontain = EM2Util.findOutgoingErrorContainment(srceps, src.getName());
+		}
+		
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
-		boolean dstNot = false;
+		ErrorPropagations dsteps = null;
 		ErrorPropagation dstprop = null;
+		ErrorPropagation dstcontain = null;
 		if (dstCxt instanceof Subcomponent){
 			ComponentClassifier cl = ((Subcomponent)dstCxt).getClassifier();
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cl);
-			if (eps != null) dstprop = EM2Util.findIncomingErrorPropagation(eps, dst.getName());
-			if (dstprop != null) dstNot = dstprop.isNot();
+			dsteps = EM2Util.getContainingErrorPropagations(cl);
 		} else {
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cimpl);
-			if (eps != null ) dstprop = EM2Util.findIncomingErrorPropagation(eps, dst.getName());
+			dsteps = EM2Util.getContainingErrorPropagations(cimpl);
 		}
+		if (dsteps != null) {
+			dstprop = EM2Util.findIncomingErrorPropagation(dsteps, dst.getName());
+			dstcontain = EM2Util.findIncomingErrorContainment(dsteps, dst.getName());
+		}
+
 		if (srcprop != null && dstprop != null){
-			boolean dstIsContained = EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet());
-			if ( !dstIsContained ){
-				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop.getTypeSet()) +" is not handled. Expected incoming "+(dstNot?"not ":"")+EM2Util.getPrintName(dstprop.getTypeSet()));
-			} else if (dstIsContained && dstNot){
-				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop.getTypeSet()) +" is not expected. Incoming "+(dstNot?"not ":"")+EM2Util.getPrintName(dstprop.getTypeSet()));
+			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
+				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if (srcprop == null&& dstprop != null){
-			warning(conn,"Source has no error propagation  : "+EM2Util.getPrintName(dstprop)+" "+EM2Util.getPrintName(dstprop.getTypeSet()));
+		if (srccontain != null && dstcontain != null){
+			if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
+				error(conn,"Outgoing containment  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+			}
+		}
+		if (srcCxt instanceof Subcomponent && srcprop == null&&srccontain == null &&dstCxt instanceof Subcomponent&& (dstprop != null||dstcontain != null)){
+			// TODO go to subcomponent's classifier
+			warning(conn,"connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+		}
+		if (dstCxt instanceof Subcomponent && dstprop == null  &&dstCxt instanceof Subcomponent&& dstcontain == null && (srcprop != null||srccontain != null)){
+			// TODO go to subcomponent's classifier
+			warning(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain)));
+		}
+		
+		if (conn.isBidirectional()){
+			// check for error flow in the opposite direction
+			if (srceps != null) {
+				dstprop = EM2Util.findIncomingErrorPropagation(srceps, src.getName());
+				dstcontain = EM2Util.findIncomingErrorContainment(srceps, src.getName());
+			}
+			if (dsteps != null) {
+				srcprop = EM2Util.findOutgoingErrorPropagation(dsteps, dst.getName());
+				srccontain = EM2Util.findOutgoingErrorContainment(dsteps, dst.getName());
+			}
+
+			if (srcprop != null && dstprop != null){
+				if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
+					error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+				}
+			}
+			if (srccontain != null && dstcontain != null){
+				if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
+					error(conn,"Outgoing containment  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+				}
+			}
+			if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& srcprop == null&&srccontain == null && (dstprop != null||dstcontain != null)){
+				// TODO go to subcomponent's classifier
+				warning(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+			}
+			if (dstCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& dstprop == null && dstcontain == null && (srcprop != null||srccontain != null)){
+				// TODO go to subcomponent's classifier
+				warning(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain)));
+			}
+			
 		}
 	}
-//
-//	protected void error(EObject source, String message) {
-//		error(message, source, null,
-//				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
-//	}
 
 }
