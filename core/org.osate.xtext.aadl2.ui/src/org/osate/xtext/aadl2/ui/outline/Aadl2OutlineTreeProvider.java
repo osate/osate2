@@ -57,7 +57,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	protected void _createChildren(DocumentRootNode parentNode,	ModelUnit aadlModel) {
 		if (aadlModel instanceof AadlPackage) 
 		{
-			for (Element element : aadlModel.getOwnedElements()) 
+			for (Element element : aadlModel.getChildren()) 
 			{
 				createNode(parentNode, element);
 			}
@@ -69,7 +69,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		for (EObject childElement : modelElement.getOwnedElements())
+		for (EObject childElement : modelElement.getChildren())
 			createNode(parentNode, childElement);
 	}
 
