@@ -701,10 +701,19 @@ public abstract class PackageSectionImpl extends NamespaceImpl implements Packag
 					return ctRename.getRenamedComponentType();
 				}
 			}
-			for (FeatureGroupTypeRename fgtRename : getOwnedFeatureGroupTypeRenames()) {
-				if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType())
-						&& name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) {
-					return fgtRename.getRenamedFeatureGroupType();
+			for (FeatureGroupTypeRename fgtRename : getOwnedFeatureGroupTypeRenames()) 
+			{
+				try
+				{
+					if (fgtRename.getName() == null && !Aadl2Util.isNull(fgtRename.getRenamedFeatureGroupType())
+							&& name.equalsIgnoreCase(fgtRename.getRenamedFeatureGroupType().getName())) 
+					{
+						return fgtRename.getRenamedFeatureGroupType();
+					}
+				}
+				catch (AssertionError ae)
+				{
+					return null;
 				}
 			}
 			return null;
