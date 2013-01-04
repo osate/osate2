@@ -1060,23 +1060,52 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	public ConnectionEnd findAccessConnectionEnd(AccessConnection conn,
-			Context cxt, String name) {
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(conn)
-					.findNamedElement(name);
+			Context cxt, String name) 
+	{
+
+		if (cxt == null) 
+		{
+			NamedElement searchResult = AadlUtil.getContainingClassifier(conn).findNamedElement(name);
 			if (searchResult instanceof AccessConnectionEnd)
+			{
 				return (AccessConnectionEnd) searchResult;
+			}
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
 			while (subcomponent.getClassifier() == null
 					&& subcomponent.getPrototype() == null
 					&& subcomponent.getRefined() != null)
+			{
 				subcomponent = subcomponent.getRefined();
-			if (subcomponent.getClassifier() != null) {
-				NamedElement searchResult = subcomponent.getClassifier()
-						.findNamedElement(name);
-				if (searchResult instanceof Access)
+			}
+			
+			if (subcomponent.getClassifier() != null) 
+			{
+				NamedElement searchResult;
+				
+				searchResult = null;
+				for (Feature f : subcomponent.getAllFeatures())
+				{
+					if (f.getName().equalsIgnoreCase(name))
+					{
+						searchResult = f;
+					}
+				}
+				/*
+				 * FIX JD: old code that triggered a bug, see #121
+				 * Instead of searching the name using findNamedElement that
+				 * searches in the whole package, we search in the component features.
+				 * 
+				 * Related to bug report #121
+				 * 
+				 * NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
+				 */
+				if ((searchResult != null) &&
+				    (searchResult instanceof Access))
+				{
+					Access a = (Access) searchResult;
 					return (Access) searchResult;
+				}
 			} else if (subcomponent.getPrototype() != null) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
 						AadlUtil.getContainingClassifier(conn),
