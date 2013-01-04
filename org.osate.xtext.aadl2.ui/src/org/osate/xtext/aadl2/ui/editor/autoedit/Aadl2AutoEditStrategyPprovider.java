@@ -12,15 +12,15 @@ public class Aadl2AutoEditStrategyPprovider extends
 		configureStringLiteral(acceptor);
 		configureParenthesis(acceptor);
 		configureSquareBrackets(acceptor);
-		configureCurlyBracesBlock(acceptor);
 		configureAnnexBracesBlock(acceptor);
+		configureCurlyBracesBlock(acceptor);
 		configureMultilineComments(acceptor);
 		configureCompoundBracesBlocks(acceptor);
 	}
 
 	@Override
 	protected void configureCompoundBracesBlocks(IEditStrategyAcceptor acceptor) {
-		acceptor.accept(compoundMultiLineTerminals.newInstanceFor("{ ", "}").and("{**", "**}").and("[", "]").and("(", ")"), IDocument.DEFAULT_CONTENT_TYPE);
+		acceptor.accept(compoundMultiLineTerminals.newInstanceFor("{**", "**};").and("{ ", "}").and("[", "]").and("(", ")"), IDocument.DEFAULT_CONTENT_TYPE);
 	}  
 	
 @Override
@@ -30,7 +30,7 @@ public class Aadl2AutoEditStrategyPprovider extends
 
 
 	protected void configureAnnexBracesBlock(IEditStrategyAcceptor acceptor) {
-		acceptor.accept(singleLineTerminals.newInstance("{**", "**}"),IDocument.DEFAULT_CONTENT_TYPE);
+		acceptor.accept(singleLineTerminals.newInstance("{**", "**};"),IDocument.DEFAULT_CONTENT_TYPE);
 	}
 
 }
