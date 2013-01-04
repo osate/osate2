@@ -92,15 +92,21 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupType getRenamedFeatureGroupType() {
-		if (renamedFeatureGroupType != null && ((EObject) renamedFeatureGroupType).eIsProxy()) {
+	public FeatureGroupType getRenamedFeatureGroupType() throws AssertionError
+	{
+		if (renamedFeatureGroupType != null && ((EObject) renamedFeatureGroupType).eIsProxy())
+		{
 			InternalEObject oldRenamedFeatureGroupType = (InternalEObject) renamedFeatureGroupType;
+			
 			renamedFeatureGroupType = (FeatureGroupType) eResolveProxy(oldRenamedFeatureGroupType);
-			if (renamedFeatureGroupType != oldRenamedFeatureGroupType) {
+			if (renamedFeatureGroupType != oldRenamedFeatureGroupType) 
+			{
 				if (eNotificationRequired())
+				{
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
 							Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE,
 							oldRenamedFeatureGroupType, renamedFeatureGroupType));
+				}
 			}
 		}
 		return renamedFeatureGroupType;
