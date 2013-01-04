@@ -67,7 +67,7 @@
                icon="%CheckRequiredConnection.icon"
                class="org.osate.analysis.architecture.actions.CheckRequiredConnection"
                menubarPath="menu.analyses/menu.semantic/stuff.grp"
-               toolbarPath="arch.toolbar/semantic.grp"
+               toolbarPath="arch.toolbar"
                enablesFor="1">
             <enablement>
                <or>
