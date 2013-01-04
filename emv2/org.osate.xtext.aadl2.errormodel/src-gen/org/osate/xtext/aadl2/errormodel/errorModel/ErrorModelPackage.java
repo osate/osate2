@@ -160,22 +160,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_MODEL_SUBCLAUSE__IN_MODE = Aadl2Package.ANNEX_SUBCLAUSE__IN_MODE;
 
   /**
-	 * The feature id for the '<em><b>Use Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
-
-  /**
 	 * The feature id for the '<em><b>Propagation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__PROPAGATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
+  int ERROR_MODEL_SUBCLAUSE__PROPAGATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Component Behavior</b></em>' containment reference.
@@ -184,7 +175,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
+  int ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
 
   /**
 	 * The feature id for the '<em><b>Composite Behavior</b></em>' containment reference.
@@ -193,7 +184,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 3;
+  int ERROR_MODEL_SUBCLAUSE__COMPOSITE_BEHAVIOR = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 2;
 
   /**
 	 * The feature id for the '<em><b>Observable Propagation Connections</b></em>' containment reference.
@@ -202,7 +193,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__OBSERVABLE_PROPAGATION_CONNECTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
+  int ERROR_MODEL_SUBCLAUSE__OBSERVABLE_PROPAGATION_CONNECTIONS = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 3;
 
   /**
 	 * The feature id for the '<em><b>Connection Transformation</b></em>' containment reference.
@@ -211,7 +202,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
+  int ERROR_MODEL_SUBCLAUSE__CONNECTION_TRANSFORMATION = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 4;
 
   /**
 	 * The feature id for the '<em><b>Properties</b></em>' containment reference list.
@@ -220,7 +211,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE__PROPERTIES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
+  int ERROR_MODEL_SUBCLAUSE__PROPERTIES = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 5;
 
   /**
 	 * The number of structural features of the '<em>Subclause</em>' class.
@@ -229,7 +220,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_MODEL_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 7;
+  int ERROR_MODEL_SUBCLAUSE_FEATURE_COUNT = Aadl2Package.ANNEX_SUBCLAUSE_FEATURE_COUNT + 6;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelLibraryImpl <em>Library</em>}' class.
@@ -3809,17 +3800,6 @@ public interface ErrorModelPackage extends EPackage
   EClass getErrorModelSubclause();
 
   /**
-	 * Returns the meta object for the reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Use Behavior</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior()
-	 * @see #getErrorModelSubclause()
-	 * @generated
-	 */
-  EReference getErrorModelSubclause_UseBehavior();
-
-  /**
 	 * Returns the meta object for the containment reference '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagation <em>Propagation</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -5861,14 +5841,6 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EClass ERROR_MODEL_SUBCLAUSE = eINSTANCE.getErrorModelSubclause();
-
-    /**
-		 * The meta object literal for the '<em><b>Use Behavior</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EReference ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR = eINSTANCE.getErrorModelSubclause_UseBehavior();
 
     /**
 		 * The meta object literal for the '<em><b>Propagation</b></em>' containment reference feature.

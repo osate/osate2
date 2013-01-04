@@ -97,19 +97,6 @@
             <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorModelSubclause"/>
           </type>
         </elements>
-        <elements xsi:type="xtext:Group" cardinality="?">
-          <elements xsi:type="xtext:Keyword" value="use"/>
-          <elements xsi:type="xtext:Keyword" value="behavior"/>
-          <elements xsi:type="xtext:Assignment" feature="useBehavior" operator="=">
-            <terminal xsi:type="xtext:CrossReference">
-              <type metamodel="/0/@metamodelDeclarations.0">
-                <classifier xsi:type="ecore:EClass" href="http://www.osate.org/xtext/aadl2/errormodel/ErrorModel#//ErrorBehaviorStateMachine"/>
-              </type>
-              <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.77"/>
-            </terminal>
-          </elements>
-          <elements xsi:type="xtext:Keyword" value=";"/>
-        </elements>
         <elements xsi:type="xtext:Assignment" cardinality="?" feature="propagation" operator="=">
           <terminal xsi:type="xtext:RuleCall" rule="/0/@rules.28"/>
         </elements>

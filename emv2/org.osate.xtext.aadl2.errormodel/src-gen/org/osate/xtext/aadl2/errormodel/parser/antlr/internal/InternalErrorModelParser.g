@@ -151,48 +151,18 @@ ruleErrorModelSubclause returns [EObject current=null]
             $current);
     }
 )(
-	otherlv_1=KEYWORD_31
-    {
-    	newLeafNode(otherlv_1, grammarAccess.getErrorModelSubclauseAccess().getUseKeyword_1_0());
-    }
-
-	otherlv_2=KEYWORD_71
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_1_1());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getErrorModelSubclauseRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getUseBehaviorErrorBehaviorStateMachineCrossReference_1_2_0()); 
-	    }
-		ruleQEMREF		{ 
-	        afterParserOrEnumRuleCall();
-	    }
-
-)
-)
-	otherlv_4=KEYWORD_9
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_1_3());
-    }
-)?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropagationErrorPropagationsParserRuleCall_2_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropagationErrorPropagationsParserRuleCall_1_0()); 
 	    }
-		lv_propagation_5_0=ruleErrorPropagations		{
+		lv_propagation_1_0=ruleErrorPropagations		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		set(
        			$current, 
        			"propagation",
-        		lv_propagation_5_0, 
+        		lv_propagation_1_0, 
         		"ErrorPropagations");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -201,16 +171,16 @@ ruleErrorModelSubclause returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getComponentBehaviorComponentErrorBehaviorParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getComponentBehaviorComponentErrorBehaviorParserRuleCall_2_0()); 
 	    }
-		lv_componentBehavior_6_0=ruleComponentErrorBehavior		{
+		lv_componentBehavior_2_0=ruleComponentErrorBehavior		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		set(
        			$current, 
        			"componentBehavior",
-        		lv_componentBehavior_6_0, 
+        		lv_componentBehavior_2_0, 
         		"ComponentErrorBehavior");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -219,16 +189,16 @@ ruleErrorModelSubclause returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getCompositeBehaviorCompositeErrorBehaviorParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getCompositeBehaviorCompositeErrorBehaviorParserRuleCall_3_0()); 
 	    }
-		lv_compositeBehavior_7_0=ruleCompositeErrorBehavior		{
+		lv_compositeBehavior_3_0=ruleCompositeErrorBehavior		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		set(
        			$current, 
        			"compositeBehavior",
-        		lv_compositeBehavior_7_0, 
+        		lv_compositeBehavior_3_0, 
         		"CompositeErrorBehavior");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -237,16 +207,16 @@ ruleErrorModelSubclause returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_5_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_4_0()); 
 	    }
-		lv_observablePropagationConnections_8_0=ruleObservablePropagationConnections		{
+		lv_observablePropagationConnections_4_0=ruleObservablePropagationConnections		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		set(
        			$current, 
        			"observablePropagationConnections",
-        		lv_observablePropagationConnections_8_0, 
+        		lv_observablePropagationConnections_4_0, 
         		"ObservablePropagationConnections");
 	        afterParserOrEnumRuleCall();
 	    }
@@ -255,39 +225,39 @@ ruleErrorModelSubclause returns [EObject current=null]
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getConnectionTransformationConnectionTransformationParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getConnectionTransformationConnectionTransformationParserRuleCall_5_0()); 
 	    }
-		lv_connectionTransformation_9_0=ruleConnectionTransformation		{
+		lv_connectionTransformation_5_0=ruleConnectionTransformation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		set(
        			$current, 
        			"connectionTransformation",
-        		lv_connectionTransformation_9_0, 
+        		lv_connectionTransformation_5_0, 
         		"ConnectionTransformation");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
 )?(
-	otherlv_10=KEYWORD_82
+	otherlv_6=KEYWORD_82
     {
-    	newLeafNode(otherlv_10, grammarAccess.getErrorModelSubclauseAccess().getPropertiesKeyword_7_0());
+    	newLeafNode(otherlv_6, grammarAccess.getErrorModelSubclauseAccess().getPropertiesKeyword_6_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropertiesContainedPropertyAssociationParserRuleCall_7_1_0()); 
+	        newCompositeNode(grammarAccess.getErrorModelSubclauseAccess().getPropertiesContainedPropertyAssociationParserRuleCall_6_1_0()); 
 	    }
-		lv_properties_11_0=ruleContainedPropertyAssociation		{
+		lv_properties_7_0=ruleContainedPropertyAssociation		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getErrorModelSubclauseRule());
 	        }
        		add(
        			$current, 
        			"properties",
-        		lv_properties_11_0, 
+        		lv_properties_7_0, 
         		"ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }

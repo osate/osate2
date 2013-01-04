@@ -879,7 +879,6 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         propagation=ErrorPropagations? 
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 

@@ -9,7 +9,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorModelSubclause" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//AnnexSubclause">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="useBehavior" eType="#//ErrorBehaviorStateMachine"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="propagation" eType="#//ErrorPropagations"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="componentBehavior" eType="#//ComponentErrorBehavior"
@@ -40,11 +39,11 @@
         eType="#//TypeTransformationSet" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorTypes" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
- <eClassifiers xsi:type="ecore:EClass" name="ErrorType" eSuperTypes="#//ErrorTypes">
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorType" eSuperTypes="#//ErrorTypes">
     <eStructuralFeatures xsi:type="ecore:EReference" name="superType" eType="#//ErrorType"
         eOpposite="#//ErrorType/subType"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="aliasedType" eType="#//ErrorType"/>
-     <eStructuralFeatures xsi:type="ecore:EReference" name="subType" upperBound="-1"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="subType" upperBound="-1"
         eType="#//ErrorType" eOpposite="#//ErrorType/superType"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TypeSet" eSuperTypes="#//ErrorTypes #//ErrorBehaviorStateOrTypeSet">

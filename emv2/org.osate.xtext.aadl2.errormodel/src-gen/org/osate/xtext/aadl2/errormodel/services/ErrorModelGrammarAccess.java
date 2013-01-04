@@ -248,109 +248,79 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ErrorModelSubclause");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cErrorModelSubclauseAction_0 = (Action)cGroup.eContents().get(0);
-		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cUseKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
-		private final Keyword cBehaviorKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
-		private final Assignment cUseBehaviorAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
-		private final CrossReference cUseBehaviorErrorBehaviorStateMachineCrossReference_1_2_0 = (CrossReference)cUseBehaviorAssignment_1_2.eContents().get(0);
-		private final RuleCall cUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_1_2_0_1 = (RuleCall)cUseBehaviorErrorBehaviorStateMachineCrossReference_1_2_0.eContents().get(1);
-		private final Keyword cSemicolonKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
-		private final Assignment cPropagationAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cPropagationErrorPropagationsParserRuleCall_2_0 = (RuleCall)cPropagationAssignment_2.eContents().get(0);
-		private final Assignment cComponentBehaviorAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cComponentBehaviorComponentErrorBehaviorParserRuleCall_3_0 = (RuleCall)cComponentBehaviorAssignment_3.eContents().get(0);
-		private final Assignment cCompositeBehaviorAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cCompositeBehaviorCompositeErrorBehaviorParserRuleCall_4_0 = (RuleCall)cCompositeBehaviorAssignment_4.eContents().get(0);
-		private final Assignment cObservablePropagationConnectionsAssignment_5 = (Assignment)cGroup.eContents().get(5);
-		private final RuleCall cObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_5_0 = (RuleCall)cObservablePropagationConnectionsAssignment_5.eContents().get(0);
-		private final Assignment cConnectionTransformationAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cConnectionTransformationConnectionTransformationParserRuleCall_6_0 = (RuleCall)cConnectionTransformationAssignment_6.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cPropertiesKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cPropertiesAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_7_1_0 = (RuleCall)cPropertiesAssignment_7_1.eContents().get(0);
+		private final Assignment cPropagationAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cPropagationErrorPropagationsParserRuleCall_1_0 = (RuleCall)cPropagationAssignment_1.eContents().get(0);
+		private final Assignment cComponentBehaviorAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cComponentBehaviorComponentErrorBehaviorParserRuleCall_2_0 = (RuleCall)cComponentBehaviorAssignment_2.eContents().get(0);
+		private final Assignment cCompositeBehaviorAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cCompositeBehaviorCompositeErrorBehaviorParserRuleCall_3_0 = (RuleCall)cCompositeBehaviorAssignment_3.eContents().get(0);
+		private final Assignment cObservablePropagationConnectionsAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_4_0 = (RuleCall)cObservablePropagationConnectionsAssignment_4.eContents().get(0);
+		private final Assignment cConnectionTransformationAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cConnectionTransformationConnectionTransformationParserRuleCall_5_0 = (RuleCall)cConnectionTransformationAssignment_5.eContents().get(0);
+		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
+		private final Keyword cPropertiesKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
+		private final Assignment cPropertiesAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
+		private final RuleCall cPropertiesContainedPropertyAssociationParserRuleCall_6_1_0 = (RuleCall)cPropertiesAssignment_6_1.eContents().get(0);
 		
 		////	'**}'
 		//ErrorModelSubclause: //'{**' 
-		//	{ErrorModelSubclause} ("use" "behavior" useBehavior=[ErrorBehaviorStateMachine|QEMREF] ";")?
-		//	propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior? compositeBehavior=CompositeErrorBehavior?
-		//	observablePropagationConnections=ObservablePropagationConnections? connectionTransformation=ConnectionTransformation?
-		//	("properties" properties+=ContainedPropertyAssociation+)?;
+		//	{ErrorModelSubclause} propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior?
+		//	compositeBehavior=CompositeErrorBehavior? observablePropagationConnections=ObservablePropagationConnections?
+		//	connectionTransformation=ConnectionTransformation? ("properties" properties+=ContainedPropertyAssociation+)?;
 		public ParserRule getRule() { return rule; }
 
 		////'{**' 
-		//{ErrorModelSubclause} ("use" "behavior" useBehavior=[ErrorBehaviorStateMachine|QEMREF] ";")?
-		//propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior? compositeBehavior=CompositeErrorBehavior?
-		//observablePropagationConnections=ObservablePropagationConnections? connectionTransformation=ConnectionTransformation?
-		//("properties" properties+=ContainedPropertyAssociation+)?
+		//{ErrorModelSubclause} propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior?
+		//compositeBehavior=CompositeErrorBehavior? observablePropagationConnections=ObservablePropagationConnections?
+		//connectionTransformation=ConnectionTransformation? ("properties" properties+=ContainedPropertyAssociation+)?
 		public Group getGroup() { return cGroup; }
 
 		////'{**' 
 		//{ErrorModelSubclause}
 		public Action getErrorModelSubclauseAction_0() { return cErrorModelSubclauseAction_0; }
 
-		//("use" "behavior" useBehavior=[ErrorBehaviorStateMachine|QEMREF] ";")?
-		public Group getGroup_1() { return cGroup_1; }
-
-		//"use"
-		public Keyword getUseKeyword_1_0() { return cUseKeyword_1_0; }
-
-		//"behavior"
-		public Keyword getBehaviorKeyword_1_1() { return cBehaviorKeyword_1_1; }
-
-		//useBehavior=[ErrorBehaviorStateMachine|QEMREF]
-		public Assignment getUseBehaviorAssignment_1_2() { return cUseBehaviorAssignment_1_2; }
-
-		//[ErrorBehaviorStateMachine|QEMREF]
-		public CrossReference getUseBehaviorErrorBehaviorStateMachineCrossReference_1_2_0() { return cUseBehaviorErrorBehaviorStateMachineCrossReference_1_2_0; }
-
-		//QEMREF
-		public RuleCall getUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_1_2_0_1() { return cUseBehaviorErrorBehaviorStateMachineQEMREFParserRuleCall_1_2_0_1; }
-
-		//";"
-		public Keyword getSemicolonKeyword_1_3() { return cSemicolonKeyword_1_3; }
-
 		//propagation=ErrorPropagations?
-		public Assignment getPropagationAssignment_2() { return cPropagationAssignment_2; }
+		public Assignment getPropagationAssignment_1() { return cPropagationAssignment_1; }
 
 		//ErrorPropagations
-		public RuleCall getPropagationErrorPropagationsParserRuleCall_2_0() { return cPropagationErrorPropagationsParserRuleCall_2_0; }
+		public RuleCall getPropagationErrorPropagationsParserRuleCall_1_0() { return cPropagationErrorPropagationsParserRuleCall_1_0; }
 
 		//componentBehavior=ComponentErrorBehavior?
-		public Assignment getComponentBehaviorAssignment_3() { return cComponentBehaviorAssignment_3; }
+		public Assignment getComponentBehaviorAssignment_2() { return cComponentBehaviorAssignment_2; }
 
 		//ComponentErrorBehavior
-		public RuleCall getComponentBehaviorComponentErrorBehaviorParserRuleCall_3_0() { return cComponentBehaviorComponentErrorBehaviorParserRuleCall_3_0; }
+		public RuleCall getComponentBehaviorComponentErrorBehaviorParserRuleCall_2_0() { return cComponentBehaviorComponentErrorBehaviorParserRuleCall_2_0; }
 
 		//compositeBehavior=CompositeErrorBehavior?
-		public Assignment getCompositeBehaviorAssignment_4() { return cCompositeBehaviorAssignment_4; }
+		public Assignment getCompositeBehaviorAssignment_3() { return cCompositeBehaviorAssignment_3; }
 
 		//CompositeErrorBehavior
-		public RuleCall getCompositeBehaviorCompositeErrorBehaviorParserRuleCall_4_0() { return cCompositeBehaviorCompositeErrorBehaviorParserRuleCall_4_0; }
+		public RuleCall getCompositeBehaviorCompositeErrorBehaviorParserRuleCall_3_0() { return cCompositeBehaviorCompositeErrorBehaviorParserRuleCall_3_0; }
 
 		//observablePropagationConnections=ObservablePropagationConnections?
-		public Assignment getObservablePropagationConnectionsAssignment_5() { return cObservablePropagationConnectionsAssignment_5; }
+		public Assignment getObservablePropagationConnectionsAssignment_4() { return cObservablePropagationConnectionsAssignment_4; }
 
 		//ObservablePropagationConnections
-		public RuleCall getObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_5_0() { return cObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_5_0; }
+		public RuleCall getObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_4_0() { return cObservablePropagationConnectionsObservablePropagationConnectionsParserRuleCall_4_0; }
 
 		//connectionTransformation=ConnectionTransformation?
-		public Assignment getConnectionTransformationAssignment_6() { return cConnectionTransformationAssignment_6; }
+		public Assignment getConnectionTransformationAssignment_5() { return cConnectionTransformationAssignment_5; }
 
 		//ConnectionTransformation
-		public RuleCall getConnectionTransformationConnectionTransformationParserRuleCall_6_0() { return cConnectionTransformationConnectionTransformationParserRuleCall_6_0; }
+		public RuleCall getConnectionTransformationConnectionTransformationParserRuleCall_5_0() { return cConnectionTransformationConnectionTransformationParserRuleCall_5_0; }
 
 		//("properties" properties+=ContainedPropertyAssociation+)?
-		public Group getGroup_7() { return cGroup_7; }
+		public Group getGroup_6() { return cGroup_6; }
 
 		//"properties"
-		public Keyword getPropertiesKeyword_7_0() { return cPropertiesKeyword_7_0; }
+		public Keyword getPropertiesKeyword_6_0() { return cPropertiesKeyword_6_0; }
 
 		//properties+=ContainedPropertyAssociation+
-		public Assignment getPropertiesAssignment_7_1() { return cPropertiesAssignment_7_1; }
+		public Assignment getPropertiesAssignment_6_1() { return cPropertiesAssignment_6_1; }
 
 		//ContainedPropertyAssociation
-		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_7_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_7_1_0; }
+		public RuleCall getPropertiesContainedPropertyAssociationParserRuleCall_6_1_0() { return cPropertiesContainedPropertyAssociationParserRuleCall_6_1_0; }
 	}
 
 	public class ErrorModelLibraryElements extends AbstractParserRuleElementFinder {
@@ -4719,10 +4689,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	////	'**}'
 	//ErrorModelSubclause: //'{**' 
-	//	{ErrorModelSubclause} ("use" "behavior" useBehavior=[ErrorBehaviorStateMachine|QEMREF] ";")?
-	//	propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior? compositeBehavior=CompositeErrorBehavior?
-	//	observablePropagationConnections=ObservablePropagationConnections? connectionTransformation=ConnectionTransformation?
-	//	("properties" properties+=ContainedPropertyAssociation+)?;
+	//	{ErrorModelSubclause} propagation=ErrorPropagations? componentBehavior=ComponentErrorBehavior?
+	//	compositeBehavior=CompositeErrorBehavior? observablePropagationConnections=ObservablePropagationConnections?
+	//	connectionTransformation=ConnectionTransformation? ("properties" properties+=ContainedPropertyAssociation+)?;
 	public ErrorModelSubclauseElements getErrorModelSubclauseAccess() {
 		return (pErrorModelSubclause != null) ? pErrorModelSubclause : (pErrorModelSubclause = new ErrorModelSubclauseElements());
 	}

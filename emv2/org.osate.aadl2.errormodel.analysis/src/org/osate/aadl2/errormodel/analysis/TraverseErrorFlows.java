@@ -141,7 +141,7 @@ public class TraverseErrorFlows {
 	 * @param ci component instance
 	 */
 	public void startErrorFlows(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps == null) return;
 		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
 		String componentText = generateItemText(ci);
@@ -324,7 +324,7 @@ public class TraverseErrorFlows {
 //		}
 		String myText=", "+generateItemText(conni);
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps != null){
 			ErrorFlow ef=EM2Util.findErrorFlow(eps, desti);
 			if (ef instanceof ErrorSink){
@@ -398,7 +398,7 @@ public class TraverseErrorFlows {
 //		}
 		String myText=", "+generateItemText(conni);
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps != null){
 			ErrorFlow ef=EM2Util.findReverseErrorFlow(eps, srci);
 			if (ef instanceof ErrorSource){

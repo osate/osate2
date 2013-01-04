@@ -294,6 +294,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	public ErrorBehaviorState findErrorBehaviorState(EObject context, String name){
 		ErrorBehaviorStateMachine ebsm = null;
 		if (context instanceof ConditionElement && !((ConditionElement)context).getSubcomponents().isEmpty()){
+			// look up state in state machine of subcomponent
 			ConditionElement tcs = (ConditionElement)context;
 			 EList<SubcomponentElement> sublist = tcs.getSubcomponents();
 			Subcomponent sub = sublist.get(sublist.size()-1).getSubcomponent();
@@ -314,10 +315,17 @@ public class EMLinkingService extends PropertiesLinkingService {
 			ebsm = EM2Util.getContainingErrorBehaviorStateMachine(context);
 			if (ebsm == null) ebsm = EM2Util.getUsedErrorBehaviorStateMachine(context);
 		}
+		return findErrorBehaviorStateInEBSM(ebsm, name);
+	}
+	
+	public ErrorBehaviorState findErrorBehaviorStateInEBSM(ErrorBehaviorStateMachine ebsm, String name){
 		if (ebsm != null){
 			EList<ErrorBehaviorState> ebsl= ebsm.getStates();
 			for (ErrorBehaviorState ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorStateInEBSM(ebsm.getExtends(), name);
 			}
 		}
 		return null;
@@ -327,16 +335,27 @@ public class EMLinkingService extends PropertiesLinkingService {
 		ErrorBehaviorStateMachine ebsm = EM2Util.getContainingErrorBehaviorStateMachine(context);
 		if (ebsm == null) ebsm = EM2Util.getUsedErrorBehaviorStateMachine(context);
 		if (ebsm != null){
-			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
-			for (ErrorBehaviorTransition ebs : ebsl){
-				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
-			}
+			ErrorBehaviorTransition ebs = findErrorBehaviorTransitionInEBSM(ebsm,name);
+			if (ebs != null) return ebs;
 		}
 		ComponentErrorBehavior compbehavior = EM2Util.getContainingComponentErrorBehavior(context);
 		if (compbehavior != null){
 			EList<ErrorBehaviorTransition> ebsl= compbehavior.getTransitions();
 			for (ErrorBehaviorTransition ebs : ebsl){
 				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+		}
+		return null;
+	}
+	
+	public ErrorBehaviorTransition findErrorBehaviorTransitionInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+		if (ebsm != null){
+			EList<ErrorBehaviorTransition> ebsl= ebsm.getTransitions();
+			for (ErrorBehaviorTransition ebs : ebsl){
+				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorTransitionInEBSM(ebsm.getExtends(), name);
 			}
 		}
 		return null;
@@ -368,10 +387,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 		ErrorBehaviorStateMachine ebsm = EM2Util.getContainingErrorBehaviorStateMachine(context);
 		if (ebsm == null) ebsm = EM2Util.getUsedErrorBehaviorStateMachine(context);
 		if (ebsm != null){
-			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
-			for (ErrorBehaviorEvent ebs : ebsl){
-				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
-			}
+			ErrorBehaviorEvent ebs = findErrorBehaviorEventInEBSM(ebsm,name);
+			if (ebs != null) return ebs;
 		}
 		// this is code to find the error event in the subclause event declaration itself
 		ComponentErrorBehavior ceb = EM2Util.getContainingComponentErrorBehavior(context);
@@ -385,6 +402,21 @@ public class EMLinkingService extends PropertiesLinkingService {
 		}
 		return null;
 	}
+	
+	
+	public ErrorBehaviorEvent findErrorBehaviorEventInEBSM(ErrorBehaviorStateMachine ebsm, String name){
+		if (ebsm != null){
+			EList<ErrorBehaviorEvent> ebsl= ebsm.getEvents();
+			for (ErrorBehaviorEvent ebs : ebsl){
+				if (EM2Util.getItemName(name).equalsIgnoreCase(ebs.getName())) return ebs;
+			}
+			if (ebsm.getExtends() != null){
+				return findErrorBehaviorEventInEBSM(ebsm.getExtends(), name);
+			}
+		}
+		return null;
+	}
+
 
 	public ErrorType findErrorType(EObject context, String typeName){
 		return (ErrorType)findEMLNamedElement(context, typeName, ErrorModelPackage.eINSTANCE.getErrorType());
@@ -405,8 +437,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 		if (packName != null){
 			// qualified reference; look there only
 			ErrorModelLibrary eml = findErrorModelLibrary(context, packName);
-			// XXX PHF: change to findEMLNamedElement if we do make inherited names externally visible
-			return findNamedElementInThisEML(eml, typeName, eclass);
+			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+			return findEMLNamedElement(eml, typeName, eclass);
 		}
 		ErrorModelLibrary owneml = EM2Util.getContainingErrorModelLibrary(context);
 		TypeUseContext tuns = EM2Util.getContainingTypeUseContext(context);
@@ -421,8 +453,8 @@ public class EMLinkingService extends PropertiesLinkingService {
 			otheremls = owneml.getExtends();
 		}
 		for (ErrorModelLibrary etll: otheremls){
-			// XXX PHF: change to findEMLNamedElement if we do make inherited names externally visible
-			EObject res = findNamedElementInThisEML(etll, typeName, eclass);
+			// PHF: change to findNamedElementInThisEML if we do not make inherited names externally visible
+			EObject res = findEMLNamedElement(etll, typeName, eclass);
 			if (res != null) {
 				return res;
 			}
@@ -431,6 +463,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	}
 	
 	public EObject findNamedElementInThisEML(ErrorModelLibrary eml, String typeName, EClass eclass){
+		if (eml == null) return null;
 		EList<ErrorTypes> elt = eml.getTypes();
 		for (ErrorTypes ets : elt){
 			if (eclass.isSuperTypeOf(ets.eClass()) && typeName.equalsIgnoreCase(ets.getName())) return ets;
@@ -443,9 +476,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 		ErrorPropagations eps =null;
 		if (context instanceof QualifiedObservableErrorPropagationPoint){
 			Subcomponent sub = ((QualifiedObservableErrorPropagationPoint)context).getSubcomponent();
-			eps =  EM2Util.getContainingErrorPropagations(sub.getAllClassifier());
+			eps =  EM2Util.getContainingClassifierErrorPropagations(sub.getAllClassifier());
 		} else {
-			eps =  EM2Util.getContainingErrorPropagations(context);
+			eps =  EM2Util.getContainingClassifierErrorPropagations(context);
 		}
 		if (eps != null){
 			for (ErrorPropagation ep : eps.getPropagations()){
@@ -469,7 +502,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	
 	
 	public ErrorPropagation findObservableErrorPropagationPoint(EObject context, String name){
-		ErrorPropagations eps =  EM2Util.getContainingErrorPropagations(context);
+		ErrorPropagations eps =  EM2Util.getContainingClassifierErrorPropagations(context);
 		if (eps != null){
 			for (ErrorPropagation ep : eps.getPropagations()){
 				if (ep.isObservable()){
@@ -481,7 +514,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 	}
 	
 	public ErrorFlow findErrorFlow(EObject context, String name){
-		ErrorPropagations eps =  EM2Util.getContainingErrorPropagations(context);
+		ErrorPropagations eps =  EM2Util.getContainingClassifierErrorPropagations(context);
 		if (eps != null){
 			for (ErrorFlow ef : eps.getFlows()){
 				if (name.equalsIgnoreCase(ef.getName())) return ef;
@@ -492,7 +525,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 
 	
 	public ErrorPropagation findContainedErrorSpecification(EObject context, String name){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(context);
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(context);
 		if (eps != null){
 			for (ErrorPropagation ep : eps.getPropagations()){
 				if (ep.isNot()){

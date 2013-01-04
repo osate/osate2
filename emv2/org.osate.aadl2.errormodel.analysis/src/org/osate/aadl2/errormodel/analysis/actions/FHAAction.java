@@ -95,7 +95,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 	
 	protected void processHazards(ComponentInstance ci, WriteToFile report){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps == null) return;
 		EList<PropertyAssociation> props = eps.getProperties();
 		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);

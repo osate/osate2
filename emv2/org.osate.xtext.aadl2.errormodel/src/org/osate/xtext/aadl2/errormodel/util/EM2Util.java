@@ -56,7 +56,7 @@ public class EM2Util {
 	 * @param element declarative model element or error annex element
 	 * @return ErrorPropagations
 	 */
-	public static ErrorPropagations getContainingErrorPropagations(EObject element) {
+	public static ErrorPropagations getContainingClassifierErrorPropagations(EObject element) {
 		ErrorPropagations result = null;
 		Classifier cl = AadlUtil.getContainingClassifier(element);
 		if (cl == null) return null;
@@ -69,7 +69,28 @@ public class EM2Util {
 			if (result != null) return result;
 		}
 		if (!Aadl2Util.isNull(cl.getExtended())){
-			return  getContainingErrorPropagations(cl.getExtended());
+			return  getContainingClassifierErrorPropagations(cl.getExtended());
+		}
+		return null;
+	}
+
+	/**
+	 * get ErrorModelSubclause object in the classifier containing the element object.
+	 * The extends hierarchy and the type in the case of an implementation are searched for the ErrorModelSubclause
+	 * @param element declarative model element or error annex element
+	 * @return ErrorModelSubclause
+	 */
+	public static ErrorModelSubclause getContainingClassifierEMV2Subclause(EObject element) {
+		Classifier cl = AadlUtil.getContainingClassifier(element);
+		if (cl == null) return null;
+		ErrorModelSubclause ems = getErrorModelSubclause(cl);
+		if (ems != null) return ems;
+		if (cl instanceof ComponentImplementation){
+			ems = getErrorModelSubclause(((ComponentImplementation)cl).getType());
+			if (ems != null) return ems;
+		}
+		if (!Aadl2Util.isNull(cl.getExtended())){
+			return  getContainingClassifierEMV2Subclause(cl.getExtended());
 		}
 		return null;
 	}
@@ -139,7 +160,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, fi.getName());
 		return ep;
 	}
@@ -151,7 +172,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, fi.getName());
 		return ep;
 	}
@@ -162,7 +183,7 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, "access");
 		return ep;
 	}
@@ -173,7 +194,7 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, "access");
 		return ep;
 	}
@@ -496,7 +517,6 @@ public class EM2Util {
 		if (context instanceof ComponentErrorBehavior) return ((ComponentErrorBehavior)context).getUseBehavior();
 		if (context instanceof CompositeErrorBehavior) return ((CompositeErrorBehavior)context).getUseBehavior();
 		if (context instanceof ErrorPropagations) return ((ErrorPropagations)context).getUseBehavior();
-		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseBehavior();
 		return null;
 	}
 	
@@ -649,7 +669,7 @@ public class EM2Util {
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
-		return EM2Util.getContainingErrorPropagations(cl) != null;
+		return EM2Util.getContainingClassifierErrorPropagations(cl) != null;
 	}
 	
 	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
@@ -675,7 +695,7 @@ public class EM2Util {
 	}
 
 	public static ErrorPropagations getErrorPropagations(ComponentClassifier cl){
-		return EM2Util.getContainingErrorPropagations(cl);
+		return EM2Util.getContainingClassifierErrorPropagations(cl);
 	}
 	
 	public static ComponentErrorBehavior getComponentErrorBehavior(ComponentInstance ci){

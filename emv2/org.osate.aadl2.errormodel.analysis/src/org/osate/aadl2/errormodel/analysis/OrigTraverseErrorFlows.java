@@ -132,7 +132,7 @@ public class OrigTraverseErrorFlows {
 		} else {
 			report(ci,"");
 		}
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps == null) return;
 		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
 		for (ErrorSource errorSource : eslist) {
@@ -287,7 +287,7 @@ public class OrigTraverseErrorFlows {
 			report(incie,"Visited before: ");
 		}
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (incie instanceof FeatureInstance){
 			if (!process(source,conni,(FeatureInstance)incie)) { return;}
 		} else {
