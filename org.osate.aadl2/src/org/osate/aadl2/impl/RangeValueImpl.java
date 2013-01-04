@@ -406,25 +406,26 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		 */
 		try {
 			NumberValue maxNumberValue;
+			NumberValue minNumberValue;
 			EvaluatedProperty maxVal = maximum.evaluate(ctx);
 			EvaluatedProperty minVal = minimum.evaluate(ctx);
 			EvaluatedProperty deltaVal = null;
 
 			
 			maxNumberValue = null;
+			minNumberValue = null;
 			
+			
+			
+			/*
+			 * First, retrieve the maximum value.
+			 */
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
 				throw new InvalidModelException(this, "Range maximum is modal");
 			}
 			
-			
 			/*
-			 * TODO-JD: implemented the same mechanism for the minValue than
-			 * for the maxValue.
-			 */
-			
-			/*
-			 * FIXME JD
+			 * FIX JD
 			 * Fixes bug #129 : when the maxvalue is a constant, we try to resolve it.
 			 */
 			if (maxVal.first().getValue() instanceof NamedValue)
@@ -451,12 +452,38 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 				throw new InvalidModelException(this, "Range maximum is not numeric");
 			}
 			
+			
+			/*
+			 * So now, retrieve the minimum value.
+			 */
 			if (minVal.size() != 1 || minVal.first().isModal()) {
 				throw new InvalidModelException(this, "Range minimum is modal");
 			}
-			if (!(minVal.first().getValue() instanceof NumberValue)) {
+
+			if (minVal.first().getValue() instanceof NamedValue)
+			{
+				try
+				{
+					NamedValue nv = (NamedValue) minVal.first().getValue();
+					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
+					minNumberValue = (NumberValue) ((PropertyConstant)aadlInteger.eContainer()).getConstantValue();
+				}
+				catch (Exception e)
+				{
+					minNumberValue = null;
+				}
+			}
+			
+			if (minVal.first().getValue() instanceof NumberValue)
+			{
+				minNumberValue = (NumberValue) minVal.first().getValue();
+			}
+
+			if (minNumberValue == null)
+			{
 				throw new InvalidModelException(this, "Range minimum is not numeric");
 			}
+			
 			if (delta != null) {
 				deltaVal = delta.evaluate(ctx);
 				if (deltaVal.size() != 1 || deltaVal.first().isModal()) {
@@ -468,7 +495,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			}
 			RangeValue newVal = Aadl2Factory.eINSTANCE.createRangeValue();
 			newVal.setMaximum(maxNumberValue.cloneNumber());
-			newVal.setMinimum(((NumberValue) minVal.first().getValue()).cloneNumber());
+			newVal.setMinimum(minNumberValue.cloneNumber());
 			if (deltaVal != null) {
 				newVal.setDelta(((NumberValue) deltaVal.first().getValue()).cloneNumber());
 			}
