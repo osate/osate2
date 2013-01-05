@@ -118,6 +118,7 @@ public class EM2TypeSetUtil {
 	}
 	
 	
+	
 	/**
 	 * true if TypeSet ts contains TypeToken token
 	 * The type set can represent a constraint, i.e., product types, and Type matching are taken into account

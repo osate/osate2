@@ -14,16 +14,23 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
@@ -52,7 +59,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Override
 		protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
 		return (eObject.eClass().getEPackage() == ErrorModelPackageImpl.eINSTANCE
-				|| eObject instanceof Connection);
+				|| eObject instanceof Connection || eObject instanceof PropertyAssociation);
 	}
 	
 	@Check(CheckType.FAST)
@@ -60,6 +67,37 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation errorPropagation) {
 		checkDirectionType(errorPropagation);
 		checkUniqueObservablePropagationPoint(errorPropagation);
+	}
+	
+	@Check(CheckType.FAST)
+	public void casePropertyAssociation(
+			PropertyAssociation propertyAssociation) {
+		// check that error type is contained in type set of target element
+		EList<ContainedNamedElement> apto = propertyAssociation.getAppliesTos();
+		for (ContainedNamedElement containedNamedElement : apto) {
+			EList<ContainmentPathElement> cpe = containedNamedElement.getContainmentPathElements();
+			if (cpe.size() > 1){
+				 ContainmentPathElement obj = cpe.get(cpe.size()-1);
+				if (obj.getNamedElement() instanceof ErrorType){
+					ErrorType et = (ErrorType) obj.getNamedElement();
+					ContainmentPathElement target = cpe.get(cpe.size()-2);
+					NamedElement ne = target.getNamedElement();
+					TypeSet tts = null;
+					if (ne instanceof ErrorBehaviorState){
+						tts = ((ErrorBehaviorState)ne).getTypeSet();
+					} else if (ne instanceof ErrorPropagation){
+						tts = ((ErrorPropagation)ne).getTypeSet();
+					} else if (ne instanceof ErrorEvent){
+						tts = ((ErrorEvent)ne).getTypeSet();
+					}
+					TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+					tt.getType().add(et);
+					if (EM2TypeSetUtil.contains(tts, tt)){
+						
+					}
+				}
+			}
+		}
 	}
 	
 	@Check(CheckType.FAST)

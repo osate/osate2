@@ -42,10 +42,12 @@ import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
@@ -59,8 +61,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public final class FHAAction extends AaxlReadOnlyActionAsJob {
@@ -92,68 +96,93 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
 	
+	protected EList<PropertyAssociation> getHazardProperty(ComponentInstance ci, Element localContext,Element target){
+		EList<PropertyAssociation> result = EM2Util.getProperty("MILSTD882::hazard",ci,localContext,target);
+		if (result == null)result = EM2Util.getProperty("ARP4761::hazard",ci,localContext,target);
+		if (result == null)result = EM2Util.getProperty("EMV2::hazard",ci,localContext,target);
+		return result;
+	}
+	
+
 	protected void processHazards(ComponentInstance ci, WriteToFile report){
 		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps == null) return;
-		EList<PropertyAssociation> props = eps.getProperties();
 		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
+			EList<PropertyAssociation> PA = null;
+			TypeSet ts = null;
+			ErrorBehaviorState failureMode = null;
+			NamedElement target =null;
+			// not dealing with type set as failure mode
 			if (fmr instanceof ErrorBehaviorState){
-			ErrorBehaviorState failureMode =  null;
-			// only propagate if error propagation?// XXX TODO phf fix up
-			PropertyAssociation failureModePA = EM2Util.getProperty(props, "EMV2::hazard",failureMode);
-			PropertyAssociation errorPropPA = EM2Util.getProperty(props, "EMV2::hazard",ep);
-			PropertyAssociation errorSourcePA = EM2Util.getProperty(props, "EMV2::hazard",errorSource);
-			EList<ErrorType> targetType = null;
-			EList<ModalPropertyValue> vallist;
-			TypeSet ts ;
-			// process if hazard defined for error source, error state, or error propagation (or its error type)
-			if (failureModePA == null && errorPropPA == null && errorSourcePA == null) break;
-			if (failureModePA != null){
-				vallist = failureModePA.getOwnedValues();
-				targetType = EM2Util.getContainmentErrorType(failureModePA,failureMode);
+				// state is originating hazard
+				failureMode =  (ErrorBehaviorState) fmr;
+				PA = getHazardProperty(ci,errorSource,failureMode);
 				ts = failureMode.getTypeSet();
-			} else if (errorPropPA != null){
-				targetType = EM2Util.getContainmentErrorType(errorPropPA,ep);
-				vallist = errorPropPA.getOwnedValues();
+				target = failureMode;
+			}
+			if (PA.isEmpty()) {
+				// error propagation is originating hazard
+				PA = getHazardProperty(ci, null,ep);
 				ts = ep.getTypeSet();
-				if (ts == null) ts = failureMode.getTypeSet();
-			} else {
-				// error source)
-				targetType = EM2Util.getContainmentErrorType(errorSourcePA,ep);
-				vallist = errorSourcePA.getOwnedValues();
+				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
+				target = ep;
+			}
+			if (PA.isEmpty()) {
+				// error source is originating hazard
+				PA = getHazardProperty(ci, null,errorSource);
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) ts = ep.getTypeSet();
-				if (ts == null) ts = failureMode.getTypeSet();
+				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
+				target = errorSource;
 			}
-			for (ModalPropertyValue modalPropertyValue : vallist) {
-				PropertyExpression val = modalPropertyValue.getOwnedValue();
-				if (val instanceof RecordValue){
-					RecordValue rv = (RecordValue)val;
-					EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
-					// for all error types/aliases in type set or the element identified in the containment clause 
-					if (targetType.isEmpty()){
-						if (ts != null){
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(ep),EM2Util.getTableName(ts));
-						} else {
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(ep),failureMode!=null?EM2Util.getPrintName(failureMode):"");
-						}
-					} else {
-						// property points to type
-						for (ErrorType et : targetType) {
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(failureModePA!=null?failureMode:ep), EM2Util.getPrintName(et));
-						}
-					}
-				}
-			}
+			if (PA.isEmpty()) return;
+			for (PropertyAssociation propertyAssociation : PA) {
+				reportHazardProperty(ci, propertyAssociation, target, ts, fmr,report);
 			}
 		}
 	}
-	
+	protected void reportHazardProperty(ComponentInstance ci,PropertyAssociation PA, NamedElement target, TypeSet ts, ErrorBehaviorStateOrTypeSet fmr,WriteToFile report){
+		EList<ErrorType> targetType = EM2Util.getContainmentErrorType(PA,target); // type as last element of hazard containment path
+
+		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof RecordValue){
+				RecordValue rv = (RecordValue)val;
+				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
+				// for all error types/aliases in type set or the element identified in the containment clause 
+				if (targetType.isEmpty()){
+					if (ts != null){
+						for(TypeToken token: ts.getElementType()){
+							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
+						}
+					} else {
+						// did not have a type set. Let's use fmr (state of type set as failure mode.
+						if (fmr == null){
+							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),"");
+						} else if (fmr instanceof ErrorBehaviorState){
+							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getPrintName((ErrorBehaviorState)fmr));
+						} else {
+							// typeset as failure mode
+							TypeSet fmts = (TypeSet)fmr;
+							for(TypeToken token:fmts.getElementType()){
+								reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
+							}
+						}
+					}
+				} else {
+					// property points to type
+					for (ErrorType et : targetType) {
+						reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target), EM2Util.getPrintName(et));
+					}
+				}
+			}
+		}
+	}
+
 	protected String makeCVSText(String text){
 		return text.replaceAll(",", ";");
 	}
@@ -184,10 +213,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportStringProperty(fields, "description", report);
 		// severity
 		addComma(report);
-		reportEnumerationProperty(fields, "severity", report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
 		// criticality
 		addComma(report);
-		reportEnumerationProperty(fields, "criticality", report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "criticality", report);
 		// comment
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
@@ -212,14 +241,27 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		}
 	}
 	
-	protected void reportEnumerationProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
+	/**
+	 * Handle enumeration literals or integer values possibly assigned as property constant
+	 * @param fields
+	 * @param fieldName
+	 * @param report
+	 */
+	protected void reportEnumerationOrIntegerPropertyConstantPropertyValue(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){
+		// added code to handle integer value and use of property constant instead of enumeration literal
 		BasicPropertyAssociation xref = EM2Util.getRecordField(fields, fieldName);
 		if (xref != null){
 			PropertyExpression val = xref.getOwnedValue();
 			if (val instanceof NamedValue){
-				 AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
-				 if (eval instanceof EnumerationLiteral)
-				report.addOutput(((EnumerationLiteral)eval).getName());
+				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
+				if (eval instanceof EnumerationLiteral){
+					report.addOutput(((EnumerationLiteral)eval).getName());
+
+				}else if (eval instanceof PropertyConstant){
+					report.addOutput(((PropertyConstant)eval).getName());
+				}
+			} else if (val instanceof IntegerLiteral){
+				report.addOutput(""+((IntegerLiteral)val).getValue());
 			}
 		}
 	}
