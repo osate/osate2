@@ -674,7 +674,7 @@ public class EM2Util {
 	 * retrieve an error model property (such as Hazard) attached to an error model element.
 	 * @param props list of property associations from the properties section in the error model
 	 * @param propertyName name of property we are looking for
-	 * @param target the error model element (first item in teh containment path)
+	 * @param target the error model element
 	 * @return property association
 	 */
 	public static EList<PropertyAssociation> getProperty(EList<PropertyAssociation> props,String propertyName, Element target){
@@ -692,12 +692,12 @@ public class EM2Util {
 	}
 	
 	/**
-	 * determine whether the property applies to specified error model element or items reachable from it by containment path
-	 * The eme is assumed to be first element in the containment path 
-	 * Items reachable from the eme can be an error type
+	 * determine whether the property applies to specified error model element or elements contained in it
+	 * (typically error types inside an error model element)
+	 * In other words eme must be the last or second to last element in a path.
 	 * @param propertyAssociation
 	 * @param eme Error Model element
-	 * @return true if eme is the first element on one of the containment paths
+	 * @return true if eme is the lst or second to last element in one of the containment paths
 	 */
 	public static boolean isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element eme){
 		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
@@ -833,7 +833,7 @@ public class EM2Util {
 	 * retrieve list of component instances that have error propagations specified
 	 * For process component instances do not recurse below and include the component instance
 	 * even if no error propagation is attached.
-	 * Foe other component instances include the component instance if it does not have children even if it does not include
+	 * For other component instances include the component instance if it does not have children even if it does not include
 	 * error propagations
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances

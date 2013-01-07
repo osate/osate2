@@ -8,13 +8,17 @@ import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.xtext.aadl2.errormodel.util.EM2Util;
-
+/**
+ * The purpose of this class is to keep track of model elements involved in a particular EM analysis.
+ * @author phf
+ *
+ */
 public class AnalysisModel {
 
-	protected ComponentInstance root;
-	protected EList<ComponentInstance> subComponents = new UniqueEList<ComponentInstance>();
-	protected EList<ConnectionInstance> connections = new UniqueEList<ConnectionInstance>();
-	protected EList<FlowSpecificationInstance> flows = new UniqueEList<FlowSpecificationInstance>();
+	protected ComponentInstance root; // component instance that is the root of the analysis
+	protected EList<ComponentInstance> subComponents = new UniqueEList<ComponentInstance>(); // component instances (with emv2 subclauses) within the root
+	protected EList<ConnectionInstance> connections = new UniqueEList<ConnectionInstance>(); // connections between the subcomponents
+	protected EList<FlowSpecificationInstance> flows = new UniqueEList<FlowSpecificationInstance>(); // flow spec instances of the subcomponents
 	
 	
 	
@@ -34,7 +38,11 @@ public class AnalysisModel {
 	public void setSubComponents(EList<ComponentInstance> subComponents) {
 		this.subComponents = subComponents;
 	}
-	
+	/**
+	 * find component instance in Analysis Model subcomponent list that contains the specified CI
+	 * @param ci
+	 * @return
+	 */
 	public ComponentInstance getContainingComponentInstance(InstanceObject ci){
 		for (ComponentInstance modelCI : subComponents) {
 			if (AadlUtil.containedIn(ci, modelCI)) return modelCI;

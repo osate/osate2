@@ -9,7 +9,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.instance.InstanceObject;
 
 public class EMSUtil {
-	
+	// clear error model state objects in all objects contained in root
 	public static void unsetAll(InstanceObject root){
 		TreeIterator<Object> it = EcoreUtil.getAllContents(root, false);
 		while (it.hasNext()) {
@@ -19,6 +19,7 @@ public class EMSUtil {
 		}
 	}
 	
+	// remove error model state objects in all objects contained in root
 	public static void removeAll(InstanceObject root){
 		TreeIterator<Object> it = EcoreUtil.getAllContents(root, false);
 		while (it.hasNext()) {
