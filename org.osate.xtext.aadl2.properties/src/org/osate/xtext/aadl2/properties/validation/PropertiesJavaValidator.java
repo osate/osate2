@@ -84,11 +84,12 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
+import org.osate.aadl2.impl.MetaclassReferenceImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 
 
 
@@ -132,11 +133,12 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 		PropertyType pt = pdef.getPropertyType();
 		if (Aadl2Util.isNull(pt)) return;
 		EList<ModalPropertyValue> pvl = pa.getOwnedValues();
-		for (ModalPropertyValue modalPropertyValue : pvl) {
+		for (ModalPropertyValue modalPropertyValue : pvl) 
+		{
 			typeCheckPropertyValues(pt, modalPropertyValue.getOwnedValue());
 		}
-		checkAssociationAppliesTo( pa);
-		checkInBinding( pa);
+		checkAssociationAppliesTo (pa);
+		checkInBinding (pa);
 	}
 
 	protected void checkInBinding(final PropertyAssociation pa){
@@ -183,8 +185,6 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				EList<ContainmentPathElement> path = cna.getContainmentPathElements();
 				if (!path.isEmpty())
 				{
-					NamedElement firstElement = path.get(0).getNamedElement();
-					Subcomponent sub = AadlUtil.getContainingSubcomponent(firstElement);
 					// only the last value is interesting to us
 					final ContainmentPathElement ph =  path.get(path.size()-1);
 					if (!Aadl2Util.isNull(ph.getNamedElement()))
@@ -205,8 +205,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	private static String unparseAppliesTo(final ContainedNamedElement cna){
 		final StringBuffer sb = new StringBuffer();
 		EList<ContainmentPathElement> path = cna.getContainmentPathElements();
-		for (final Iterator it = path.iterator(); it.hasNext();) {
-			final ContainmentPathElement pc = (ContainmentPathElement) it.next();
+		for (final Iterator<ContainmentPathElement> it = path.iterator(); it.hasNext();) {
+			final ContainmentPathElement pc = it.next();
 			sb.append(pc.getNamedElement().getName());
 			if (it.hasNext()) sb.append(".");
 		}
@@ -295,6 +295,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 	 * @param prefix: String prefix to error message used for lists
 	 */
 	protected void typeCheckPropertyValues(PropertyType pt, PropertyExpression pv, String prefix){
+
 		if (Aadl2Util.isNull(pt)) return;
 		if (pv == null) return;
 		if (!prefix.isEmpty() && !prefix.startsWith(" ")) prefix = prefix+" ";
@@ -341,9 +342,38 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				typeCheckPropertyValues(((RangeType)pt).getNumberType(),((RangeValue)pv).getDeltaValue());
 			}
 		} else if (pv instanceof ClassifierValue ){
-			if(!(pt instanceof ClassifierType)){
+			if(!(pt instanceof ClassifierType))
+			{
 				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value to a classifier");
 			}
+			
+			
+			ClassifierValue cv = (ClassifierValue) pv;
+			ClassifierType ct = (ClassifierType) pt;
+			
+			/*
+			 * JD: fix bug #68 by checking the type of the associated classifier.
+			 * TODO-JD: check if we can do better than comparing strings.
+			 */
+			
+			if (ct.getClassifierReferences().get(0) instanceof MetaclassReferenceImpl)
+			{
+				MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(0);
+			
+				OsateDebug.osateDebug ("first part="+cv.getClassifier().eClass().getName().toLowerCase());
+				OsateDebug.osateDebug ("second part="+mcri.getMetaclass().getName().toLowerCase());
+
+				if (! cv.getClassifier().eClass().getName().toLowerCase().contains(mcri.getMetaclass().getName().toLowerCase()))
+				{
+					error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
+				}
+			}
+			else
+			{
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' cannot be found");
+
+			}
+			
 		} else if (pv instanceof RecordValue){
 			if(!(pt instanceof RecordType )){
 				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match record value");
