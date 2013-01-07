@@ -39,7 +39,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -55,6 +54,7 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -139,7 +139,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		BasicEList<Classifier> list = new BasicEList<Classifier>();
+		//BasicEList<Classifier> list = new BasicEList<Classifier>();
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>( Classifier.class, this, Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER );
 		list.add(getContainingClassifier());
 		return list;
 	}

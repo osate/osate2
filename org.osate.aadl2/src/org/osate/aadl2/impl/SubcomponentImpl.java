@@ -46,7 +46,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.Aadl2Package;
@@ -75,6 +74,7 @@ import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -196,7 +196,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
-		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
+//		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
+		// DB This should be an EStructuralFeature.Setting
+		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>( Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE );
 		// XXX the resolving EList was notifying the Thread subcomponent of a
 		// change to In_Modes
 		// which recursively caused the thread subcomponent notify itself

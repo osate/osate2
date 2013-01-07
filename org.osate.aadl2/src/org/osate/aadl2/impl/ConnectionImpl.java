@@ -39,7 +39,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -70,6 +69,7 @@ import org.osate.aadl2.operations.ModalElementOperations;
 import org.osate.aadl2.operations.ModalPathOperations;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -258,7 +258,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		BasicEList<Classifier> list = new BasicEList<Classifier>();
+		// DB This should be an EStructuralFeature.Setting
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>( Classifier.class, this, Aadl2Package.CONNECTION__FEATURING_CLASSIFIER );
+//		BasicEList<Classifier> list = new BasicEList<Classifier>();
 		list.add(getContainingClassifier());
 		return list;
 	}
