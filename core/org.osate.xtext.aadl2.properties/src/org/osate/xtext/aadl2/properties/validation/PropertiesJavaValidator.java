@@ -361,11 +361,12 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 				for (int k = 0 ; k < ct.getClassifierReferences().size() ; k++)
 				{
 					MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
-			
-					OsateDebug.osateDebug ("first part="+cv.getClassifier().eClass().getName().toLowerCase());
-					OsateDebug.osateDebug ("second part="+mcri.getMetaclass().getName().toLowerCase());
+					String typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "");
+					String classifierName = mcri.getMetaclass().getName().toLowerCase().replace("classifier", "");
+					OsateDebug.osateDebug ("First  part = " + typeName);
+					OsateDebug.osateDebug ("Second part = " +classifierName);
 
-					if ( cv.getClassifier().eClass().getName().toLowerCase().contains(mcri.getMetaclass().getName().toLowerCase()))
+					if (typeName.equals(classifierName))
 					{
 						return;
 					}
