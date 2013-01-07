@@ -358,15 +358,21 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 			
 			if (ct.getClassifierReferences().get(0) instanceof MetaclassReferenceImpl)
 			{
-				MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(0);
-			
-				OsateDebug.osateDebug ("first part="+cv.getClassifier().eClass().getName().toLowerCase());
-				OsateDebug.osateDebug ("second part="+mcri.getMetaclass().getName().toLowerCase());
-
-				if (! cv.getClassifier().eClass().getName().toLowerCase().contains(mcri.getMetaclass().getName().toLowerCase()))
+				for (int k = 0 ; k < ct.getClassifierReferences().size() ; k++)
 				{
-					error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
+					MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
+			
+					OsateDebug.osateDebug ("first part="+cv.getClassifier().eClass().getName().toLowerCase());
+					OsateDebug.osateDebug ("second part="+mcri.getMetaclass().getName().toLowerCase());
+
+					if ( cv.getClassifier().eClass().getName().toLowerCase().contains(mcri.getMetaclass().getName().toLowerCase()))
+					{
+						return;
+					}
 				}
+				
+				error(pv, prefix+"type '"+pt.eClass().getName()+"' of property definition does not match reference value with the appropriate classifier");
+
 			}
 			else
 			{
