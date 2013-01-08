@@ -180,16 +180,26 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line, description);
+        errReporter.error(this.getFilename(), e.line - _lineOffset, description);
   }
 
-  /**
-   * Reports parser error.
-   * @param e  any exception 
-   */
-  public  void reportError(Exception e) {
-    //AadlParserPlugin.INSTANCE.log(e);
-    errReporter.error(this.getFilename(), 0, e.toString());
+  private void reportError(String msg, Token locationRef)
+  {
+     int line, col ;
+     
+     if (locationRef == null)
+     {
+       locationRef = input.get(input.index()) ;
+     }
+     
+     line = locationRef.getLine() - _lineOffset ;
+     col = locationRef.getCharPositionInLine() + 1 ; // Zero index based.
+     
+     msg += " at line " + line + ", col " + col ; 
+     errReporter.error(this.getFilename(), line, msg);
+     consumeUntil(input,SEMICOLON);
+     input.consume();
+     state.failed = true ;
   }
 
   /**
@@ -205,7 +215,7 @@ options {
     int offset = ((CommonToken)token).getStartIndex() ;
     int length = token.getText().length() ;
     int column = token.getCharPositionInLine() + 1 ; // Zero index based.
-    int line = token.getLine() ;
+    int line = token.getLine() - _lineOffset ;
     
     AadlBaLocationReference location = new AadlBaLocationReference(_annexOffset,
                                              filename, line, offset, length, column,
@@ -217,6 +227,7 @@ options {
   
   private BehaviorAnnex _ba = null ;
   private int _annexOffset=0;
+  private int _lineOffset=0 ;
   
   public void setAnnexOffset(int offset)
   {
@@ -241,6 +252,8 @@ options {
   public static final int COMMENT_CHANNEL=10;
   
   private int comment_length=0;
+  
+  private int _lineOffset=0 ;
   
   protected String filename=null;
   
@@ -313,7 +326,7 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line, description);
+        errReporter.error(this.getFilename(), e.line - _lineOffset, description);
   }
   
   public String getFilename(){
@@ -421,7 +434,9 @@ behavior_annex returns [BehaviorAnnex BehAnnex]
    _ba = BehAnnex ;
    
    int line = input.get(0).getLine() ;
-
+   
+   // compute lineOffset here.
+   _lineOffset = 1 ;
    AadlBaLocationReference location = new AadlBaLocationReference(
                                          _annexOffset, filename, line);
    BehAnnex.setLocationReference(location) ; 
@@ -1029,14 +1044,14 @@ behavior_actions returns [BehaviorActions BehActs]
    }
 
    (   
-        ( SEMICOLON BehAction2=behavior_action
+        ( id=SEMICOLON BehAction2=behavior_action
             {
               tmpList.add(BehAction2) ;
             }
         )*
         { col = _fact.createBehaviorActionSequence() ; } 
       |
-        ( CONCAT BehAction2=behavior_action
+        ( id=CONCAT BehAction2=behavior_action
             {
               tmpList.add(BehAction2) ;
             }
@@ -1053,6 +1068,20 @@ behavior_actions returns [BehaviorActions BehActs]
       }
    } 
 ;
+catch [NoViableAltException ex] {
+   
+   if(ex.grammarDecisionDescription.isEmpty())
+   {
+      reportError("too many semicolon or ampersand given (missing behavior action ?)", id) ;
+   }
+   else
+   {
+     reportError(ex);
+     consumeUntil(input,SEMICOLON);
+     input.consume();
+   }
+}
+
 catch [RecognitionException ex] {
   reportError(ex);
   consumeUntil(input,SEMICOLON);
@@ -1221,9 +1250,18 @@ behavior_action returns [BehaviorAction BehAction]
    )
 ;
 catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
+  // May be an extra ampersand or a semicolon given. Let the caller handles the exception.
+  if(ex instanceof NoViableAltException && 
+        ((NoViableAltException)ex).grammarDecisionDescription.isEmpty())
+  {
+     throw ex ;
+  }
+  else
+  {
+    reportError(ex);
+    consumeUntil(input,SEMICOLON);
+    input.consume();
+  }
 }
 
 // element_values ::=
@@ -1923,31 +1961,63 @@ factor returns [Factor Fact]
   :
    (
     ( val=value {
-                  Fact.setLocationReference(val.getLocationReference()) ;
-                  Fact.setFirstValue(val);
+                  if(val != null)
+                  {
+                    Fact.setLocationReference(val.getLocationReference()) ;
+                    Fact.setFirstValue(val);
+                  }
+                  else
+                  {
+                    reportError("unparsable value", null) ;
+                    return Fact ;
+                  }
                 } 
       (
         BinaryNumOp=binary_numeric_operator val2=value
         {
-          Fact.setBinaryNumericOperator(BinaryNumOp);
-          Fact.setSecondValue(val2);
+          if(val2 != null)
+          {
+            Fact.setBinaryNumericOperator(BinaryNumOp);
+            Fact.setSecondValue(val2);          
+          }
+          else
+          {
+            reportError("unparsable value", null) ;
+            return Fact ;
+          }
         }
       )?
     )
    |
     ( UnaryNumOp=unary_numeric_operator val=value
       {
-         Fact.setUnaryNumericOperator(UnaryNumOp);
-         Fact.setFirstValue(val);
-         Fact.setLocationReference(val.getLocationReference()) ;
+         if(val != null)
+         {
+           Fact.setUnaryNumericOperator(UnaryNumOp);
+           Fact.setFirstValue(val);
+           Fact.setLocationReference(val.getLocationReference()) ;
+         }
+         else
+         {
+           reportError("unparsable value", null) ;
+           return Fact ;
+         }
       }
     )
    |
     ( UnaryBoolOp=unary_boolean_operator val=value
       {
-         Fact.setUnaryBooleanOperator(UnaryBoolOp);
-         Fact.setFirstValue(val);
-         Fact.setLocationReference(val.getLocationReference()) ;
+         if(val != null)
+         {
+           Fact.setUnaryBooleanOperator(UnaryBoolOp);
+           Fact.setFirstValue(val);
+           Fact.setLocationReference(val.getLocationReference()) ;
+         }
+         else
+         {
+           reportError("unparsable value", null) ;
+           return Fact ;
+         }
       }
     )
    )
@@ -2335,6 +2405,7 @@ integer_literal returns [BehaviorIntegerLiteral bil]
       }
       catch (IllegalArgumentException e)
       {
+          /*
           int line = integerval.getLine() ;
           int col = integerval.getCharPositionInLine() ; 
           String fileName = this.getFilename() ;
@@ -2343,6 +2414,9 @@ integer_literal returns [BehaviorIntegerLiteral bil]
           ex.charPositionInLine = col ;
           ex.input = input ;
           throw ex ;
+          */
+          reportError("integer literal bad format", integerval) ;
+          return null ;
       }
     }
 ;
