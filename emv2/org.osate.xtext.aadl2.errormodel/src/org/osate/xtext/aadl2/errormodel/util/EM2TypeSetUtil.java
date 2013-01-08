@@ -39,26 +39,17 @@ public class EM2TypeSetUtil {
 	 * @return boolean
 	 */
 	public static boolean inSameTypeHierarchy(ErrorType et1, ErrorType et2){
-		return isSame(rootType(et1), rootType(et2));
+		return rootType(et1)== rootType(et2);//XXX assumes the root types are not aliases. Assured by rootType
 	}
 	
 	/**
 	 * true if error type t1 is same type as t2
-	 * aliases are resolved before the error types are compared
 	 * @param t1
 	 * @param t2
 	 * @return
 	 */
-	public static boolean isSame(ErrorType t1, ErrorType t2){
-		boolean result = EM2Util.resolveAlias(t1) == EM2Util.resolveAlias(t2);
-		if (!result && EM2Util.resolveAlias(t1).getName().equalsIgnoreCase(EM2Util.resolveAlias(t2).getName())){
-			System.out.println("ErrorType string comparison ok, but not object comparison "+t1.getName()+" == "+t2.getName());
-		}
-		return result;
-		// XXX had to do string compare when ErrorTypeLibrary did not have a name
-		// resulted in Xtext URI to ErrorType resolving to an element without container
-		// ErrorTypeLibrary is now assigned a name
-		//EM2Util.resolveAlias(t1).getName().equalsIgnoreCase(EM2Util.resolveAlias(t2).getName());
+	protected static boolean isSame(ErrorType t1, ErrorType t2){
+		return EM2Util.resolveAlias(t1) == EM2Util.resolveAlias(t2);
 	}
 	
 	/**
@@ -74,7 +65,7 @@ public class EM2TypeSetUtil {
 		type = EM2Util.resolveAlias(type);
 		supertype = EM2Util.resolveAlias(supertype);
 		while (type != null){
-			if (isSame(type,supertype)){
+			if (type==supertype){
 				return true;
 			} else {
 				type = type.getSuperType();
@@ -121,7 +112,7 @@ public class EM2TypeSetUtil {
 	
 	/**
 	 * true if TypeSet ts contains TypeToken token
-	 * The type set can represent a constraint, i.e., product types, and Type matching are taken into account
+	 * The type set can represent a constraint
 	 * aliases are resolved before the error types are compared
 	 * @param ts TypeSet
 	 * @param token TypeToken
@@ -136,6 +127,24 @@ public class EM2TypeSetUtil {
 			if (tselement.getType().size() == toksize){
 				if( contains(tselement,token)) return true;
 			}
+		}
+		return false;
+	}
+	
+	/**
+	 * true if TypeSet ts contains ErrorType et
+	 * The type set can represent a constraint
+	 * aliases are resolved before the error types are compared
+	 * @param ts TypeSet
+	 * @param et ErrorType
+	 * @return boolean
+	 */
+	public static boolean contains(TypeSet ts, ErrorType et){
+		if (ts == null ) return false;
+		if ( et == null) return true;
+		ts = EM2Util.resolveAlias(ts);
+		for (TypeToken tselement : ts.getElementType()) {
+				if( contains(tselement,et)) return true;
 		}
 		return false;
 	}

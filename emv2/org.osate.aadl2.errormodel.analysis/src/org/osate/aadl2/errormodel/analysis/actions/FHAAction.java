@@ -33,6 +33,7 @@
  */
 package org.osate.aadl2.errormodel.analysis.actions;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -40,6 +41,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.xtext.EcoreUtil2;
 import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
@@ -55,6 +57,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateOrTypeSet;
@@ -97,10 +100,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		monitor.done();
 	}
 	
-	protected EList<PropertyAssociation> getHazardProperty(ComponentInstance ci, Element localContext,Element target){
-		EList<PropertyAssociation> result = EM2Util.getProperty("MILSTD882::hazard",ci,localContext,target);
-		if (result == null)result = EM2Util.getProperty("ARP4761::hazard",ci,localContext,target);
-		if (result == null)result = EM2Util.getProperty("EMV2::hazard",ci,localContext,target);
+	protected ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::hazard",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("ARP4761::hazard",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
 		return result;
 	}
 	
@@ -112,72 +115,66 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		for (ErrorSource errorSource : eslist) {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			EList<PropertyAssociation> PA = null;
+			ContainedNamedElement PA = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
 			NamedElement target =null;
+			NamedElement localContext = null;
 			// not dealing with type set as failure mode
 			if (fmr instanceof ErrorBehaviorState){
 				// state is originating hazard
 				failureMode =  (ErrorBehaviorState) fmr;
-				PA = getHazardProperty(ci,errorSource,failureMode);
 				ts = failureMode.getTypeSet();
+				PA = getHazardProperty(ci,errorSource,failureMode,ts);
 				target = failureMode;
+				localContext = errorSource;
 			}
-			if (PA.isEmpty()) {
+			if (PA==null) {
 				// error propagation is originating hazard
-				PA = getHazardProperty(ci, null,ep);
 				ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
+				PA = getHazardProperty(ci, null,ep,ts);
 				target = ep;
+				localContext = null;
 			}
-			if (PA.isEmpty()) {
+			if (PA==null) {
 				// error source is originating hazard
-				PA = getHazardProperty(ci, null,errorSource);
 				ts = errorSource.getTypeTokenConstraint();
 				if (ts == null) ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
+				PA = getHazardProperty(ci, null,errorSource,ts);
 				target = errorSource;
+				localContext = null;
 			}
-			if (PA.isEmpty()) return;
-			for (PropertyAssociation propertyAssociation : PA) {
-				reportHazardProperty(ci, propertyAssociation, target, ts, fmr,report);
-			}
+			if (PA==null) return;
+			reportHazardProperty(ci, PA, target, ts, localContext,report);
 		}
 	}
-	protected void reportHazardProperty(ComponentInstance ci,PropertyAssociation PA, NamedElement target, TypeSet ts, ErrorBehaviorStateOrTypeSet fmr,WriteToFile report){
-		EList<ErrorType> targetType = EM2Util.getContainmentErrorType(PA,target); // type as last element of hazard containment path
-
-		for (ModalPropertyValue modalPropertyValue : PA.getOwnedValues()) {
+	protected void reportHazardProperty(ComponentInstance ci,ContainedNamedElement PAContainmentPath, NamedElement target, TypeSet ts, NamedElement localContext,WriteToFile report){
+		
+		ErrorType targetType = EM2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 
-				if (targetType.isEmpty()){
+				if (targetType==null){
 					if (ts != null){
 						for(TypeToken token: ts.getElementType()){
 							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
 						}
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
-						if (fmr == null){
+						if (localContext == null){
 							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),"");
-						} else if (fmr instanceof ErrorBehaviorState){
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getPrintName((ErrorBehaviorState)fmr));
 						} else {
-							// typeset as failure mode
-							TypeSet fmts = (TypeSet)fmr;
-							for(TypeToken token:fmts.getElementType()){
-								reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
-							}
+							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(localContext),EM2Util.getPrintName(target));
 						}
 					}
 				} else {
 					// property points to type
-					for (ErrorType et : targetType) {
-						reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target), EM2Util.getPrintName(et));
-					}
+					reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target), EM2Util.getPrintName(targetType));
 				}
 			}
 		}

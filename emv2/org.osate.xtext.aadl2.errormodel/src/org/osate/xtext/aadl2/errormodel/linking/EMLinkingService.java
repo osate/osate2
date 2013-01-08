@@ -442,7 +442,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 		}
 		ErrorModelLibrary owneml = EM2Util.getContainingErrorModelLibrary(context);
 		TypeUseContext tuns = EM2Util.getContainingTypeUseContext(context);
-		EList<ErrorModelLibrary> otheremls = null;
+		List<ErrorModelLibrary> otheremls = Collections.EMPTY_LIST;
 		if (tuns != null) {
 			// we are in a transformation set, mapping set etc.
 			otheremls = EM2Util.getUseTypes(tuns);
