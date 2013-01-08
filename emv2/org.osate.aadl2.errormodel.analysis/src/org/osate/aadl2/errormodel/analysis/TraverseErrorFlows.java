@@ -80,10 +80,15 @@ public class TraverseErrorFlows {
 		
 	}
 
-	public TraverseErrorFlows(String reportType, EObject root, int maxLevel){
+	public TraverseErrorFlows(String reportType, ComponentInstance root, int maxLevel){
 		report = new WriteToFile(reportType, root);
+		faultModel = new AnalysisModel(root);
 		visited = new UniqueEList<EObject>();
 		this.maxLevel = maxLevel;
+	}
+	
+	public EList<ComponentInstance> getModelSubcomponents(){
+		return faultModel.getSubComponents();
 	}
 	
 	public void setMaxDepth(int maxLevel){
@@ -151,10 +156,12 @@ public class TraverseErrorFlows {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			TypeSet ts = errorSource.getTypeTokenConstraint();
 			if (ts == null) ep.getTypeSet();
-			 ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
-			 if (fmr instanceof ErrorBehaviorState){
-				 // XXX TODO how about the other case
-			ErrorBehaviorState failureMode = (ErrorBehaviorState) fmr;
+			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
+			ErrorBehaviorState failureMode = null;
+			if (fmr instanceof ErrorBehaviorState){
+				// XXX TODO how about the other case
+				failureMode = (ErrorBehaviorState) fmr;
+			}
 			EList<TypeToken> result = EM2TypeSetUtil.generateAllTypeTokens(ts);
 			for (TypeToken typeToken : result) {
 				String failuremodeText = generateFailureModeText(failureMode!=null?failureMode:typeToken);
@@ -170,7 +177,6 @@ public class TraverseErrorFlows {
 					}
 				}
 			}
-			 }
 		}
 	}
 	
