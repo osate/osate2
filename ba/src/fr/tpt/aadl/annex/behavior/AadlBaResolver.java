@@ -49,79 +49,70 @@ public class AadlBaResolver implements AnnexResolver
    public void resolveAnnex(String annexName, List annexElements,
                             AnalysisErrorReporterManager errManager)
    {
-      // Can't resolve behavior annex if there are AADL errors.
-      // XXX As errManager is shared between the behavior annexes in 
-      // standalone and OSATE 2 editions, if one behavior specification failed
-      // on analysis, the others will not be analysed because of this condition.
-
-     // ****************** DEBUG ********************* //
-     //      if(errManager.getNumErrors() == 0)
-      {
-         Iterator<?> it = annexElements.iterator() ;
-         BehaviorAnnex ba ;
-         AadlBaNameResolver nameResolver ;
-         AadlBaRulesCheckersDriver semanticAnalysis;
-         AadlBaTypeChecker typeChecker ;
-         DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(
-                                                                   errManager) ;
-         
-         while(it.hasNext())
-         {
-            boolean result = false ;
-            ba = (BehaviorAnnex) it.next() ;
-            nameResolver = new AadlBaNameResolver(ba, errManager) ;
-            
-            result = nameResolver.resolveNames() ;
-            
-            // It doesnt't perform semantic tests if the name resolution has
-            // failed. 
-            if (result)
-            {
-               typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
-                                                       errManager) ;
-               AadlBaHyperlink hyperlinker ;
-               
-               // Set a Xtext hyperlink builder if AADLBA Front End is running
-               // under OSATE2.
-               if(Platform.isRunning())
-               {
-            	 hyperlinker = new XtextAadlBaHyperlink(ba) ;
-               }
-               else // Set the default hyperlink builder that does nothing.
-               {
-            	 hyperlinker = new DefaultAadlBaHyperlink() ;
-               }
-               typeChecker.setAadlBaHyperlink(hyperlinker);
-               result = typeChecker.checkTypes() ;
-               
-               if (result)
-               {
-                 
-                 semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
-                 result = semanticAnalysis.process(ba) ;
-               }  
-               
-               DeclarativeUtils.reinstanciateBehaviorTransition(ba, hyperlinker) ;
-               for(BehaviorTransition trans : ba.getTransitions())
-               {
-            	 if(trans.getSourceState()!=null)
-            		hyperlinker.addToHyperlinking(trans.getSourceState().getAadlBaLocationReference(),
-            				trans.getSourceState()) ;
-            	 
-            	 if(trans.getDestinationState()!=null)
-            		 hyperlinker.addToHyperlinking(trans.getDestinationState().getAadlBaLocationReference(),
-            				 trans.getSourceState()) ;
-               }
-               
-               
-               // XXX DEBUG
-//               AadlBaUnparser unparser = new AadlBaUnparser() ;
-//               System.out.println(unparser.process(ba));
-               
-               // DEBUG
-//               System.out.println("### nb errors : " + errManager.getNumErrors()) ;
-            }
-         }
-      }
+     Iterator<?> it = annexElements.iterator() ;
+     BehaviorAnnex ba ;
+     AadlBaNameResolver nameResolver ;
+     AadlBaRulesCheckersDriver semanticAnalysis;
+     AadlBaTypeChecker typeChecker ;
+     DataTypeChecker dataTypeChecker = new AdaLikeDataTypeChecker(
+                                                               errManager) ;
+     
+     while(it.hasNext())
+     {
+        boolean result = false ;
+        ba = (BehaviorAnnex) it.next() ;
+        nameResolver = new AadlBaNameResolver(ba, errManager) ;
+        
+        result = nameResolver.resolveNames() ;
+        
+        // It doesnt't perform semantic tests if the name resolution has
+        // failed. 
+        if (result)
+        {
+           typeChecker = new AadlBaTypeChecker(ba, dataTypeChecker,
+                                                   errManager) ;
+           AadlBaHyperlink hyperlinker ;
+           
+           // Set a Xtext hyperlink builder if AADLBA Front End is running
+           // under OSATE2.
+           if(Platform.isRunning())
+           {
+           hyperlinker = new XtextAadlBaHyperlink(ba) ;
+           }
+           else // Set the default hyperlink builder that does nothing.
+           {
+           hyperlinker = new DefaultAadlBaHyperlink() ;
+           }
+           typeChecker.setAadlBaHyperlink(hyperlinker);
+           result = typeChecker.checkTypes() ;
+           
+           if (result)
+           {
+             
+             semanticAnalysis = new AadlBaRulesCheckersDriver(ba, errManager);
+             result = semanticAnalysis.process(ba) ;
+           }  
+           
+           DeclarativeUtils.reinstanciateBehaviorTransition(ba, hyperlinker) ;
+           for(BehaviorTransition trans : ba.getTransitions())
+           {
+           if(trans.getSourceState()!=null)
+            hyperlinker.addToHyperlinking(trans.getSourceState().getAadlBaLocationReference(),
+                trans.getSourceState()) ;
+           
+           if(trans.getDestinationState()!=null)
+             hyperlinker.addToHyperlinking(trans.getDestinationState().getAadlBaLocationReference(),
+                 trans.getSourceState()) ;
+           }
+           
+           
+           // XXX DEBUG
+//           AadlBaUnparser unparser = new AadlBaUnparser() ;
+//           System.out.println(unparser.process(ba));
+           
+           // DEBUG
+//           System.out.println("### nb errors : " + errManager.getNumErrors()) ;
+        }
+     }
    }
 }  
