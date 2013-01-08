@@ -139,7 +139,7 @@ public class RMA {
 		double Ecurrent = 0, Emax = 0;
 		double taskBlockingTime, taskExecTime, taskPeriod, taskDeadline, startVal;
 		int k = 0;
-		List responseTimes = new ArrayList();
+		List<Double> responseTimes = new ArrayList<Double>();
 		boolean pastDeadline = false;
 
 		taskBlockingTime = taskArray[taskIndex].getBlockingTime();

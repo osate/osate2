@@ -18,11 +18,15 @@ import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.util.Aadl2Switch;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
+import org.osate.validation.*;
+import org.osate.validation.lute.utils.*;
 
 
 public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
@@ -288,6 +292,19 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 
 	}
 	
-	
+	public void applyTheorems (SystemInstance systemInstance)
+	{
+		Logger luteLogger;
+		String theorem;
+		
+		theorem = "theorem Deadline_Defined \n"+
+					"foreach s in Thread_Set do \n"+
+					"		check Property_Exists(s, \"Deadline\");\n"+
+					"end;";
+		luteLogger = new Logger (Logger.INFO);
+		OsateDebug.osateDebug("[ConfigurationValidation] Call applyTheorems on " + systemInstance);
+		Invoke.invoke (systemInstance, theorem, luteLogger); 
+		return;
+	}
 	
 }

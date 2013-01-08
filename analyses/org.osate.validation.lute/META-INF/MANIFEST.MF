@@ -14,3 +14,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Import-Package: org.osate.ui.dialogs
+Export-Package: org.osate.validation.lute.utils

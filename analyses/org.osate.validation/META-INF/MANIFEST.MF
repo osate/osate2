@@ -14,3 +14,5 @@ Export-Package: org.antlr.runtime,
  org.osate.validation
 Bundle-ClassPath: antlr-3.3-complete.jar,
  .
+Import-Package: org.osate.aadl2.instantiation,
+ org.osate.ui.dialogs

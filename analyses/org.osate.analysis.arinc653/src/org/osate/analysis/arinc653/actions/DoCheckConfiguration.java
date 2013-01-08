@@ -52,8 +52,9 @@ public final class DoCheckConfiguration extends AaxlReadOnlyActionAsJob {
 		if (si != null) 
 		{
 			validator.defaultTraversal(si);
+			validator.applyTheorems (si);
 			if (!validator.isSuccessful())
-			{
+			{ 
 				getErrorManager().error(validator.getErrorElement(), validator.getErrorMessage());
 			    Dialog.showError(validator.getErrorTitle(), validator.getErrorMessage());
 			}

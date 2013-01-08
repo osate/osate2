@@ -54,7 +54,14 @@ public class LuteInterpreter {
 		for (Command cmd : program) {
 			try {
 				env = cmd.exec(env, log);
-			} catch (LuteException e) {
+			}
+			catch (NullPointerException npe)
+			{
+				log.error("Command failed: " + npe.getMessage());
+				//npe.printStackTrace();	
+			}
+			catch (LuteException e) 
+			{
 				log.error("Command failed: " + e.getMessage());
 				e.printStackTrace();
 			}
