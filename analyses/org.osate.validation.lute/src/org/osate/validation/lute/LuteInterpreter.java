@@ -90,6 +90,8 @@ public class LuteInterpreter {
 				filterComponents(components, ComponentCategory.PROCESSOR));
 		env = env.add("Bus_Set", 
 				filterComponents(components, ComponentCategory.BUS));
+		env = env.add("Virtual_Processor_Set", 
+				filterComponents(components, ComponentCategory.VIRTUAL_PROCESSOR));
 		
 		List<Val> conns = new ArrayList<Val>();
 		for (ConnectionInstance ci : top.getAllConnectionInstances()) {

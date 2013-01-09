@@ -78,9 +78,6 @@ public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
 	{
 		final SystemInstance si;
-		final Logger logger;
-		
-		logger = new Logger (Logger.INFO);
 		
 		if (obj instanceof InstanceObject)
 		{
@@ -104,7 +101,10 @@ public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
 				Shell sh = window.getShell();
-				final DialogConsole dialog = new DialogConsole (sh, si, logger);
+
+				Logger logger = new Logger(Logger.WARN, "AADL Validation", getWindow());
+
+				DialogConsole dialog = new DialogConsole (sh, si, logger);
 				dialog.open();
 			}});
 		
