@@ -38,38 +38,75 @@
 package org.osate.validation.lute;
 
 import java.io.ByteArrayInputStream;
+
+import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import java.io.InputStream;
 
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
+import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.ui.dialogs.Dialog;
+import org.osate.validation.Logger;
+import org.osgi.framework.Bundle;
 
 
-public class RunConsoleAction extends LuteAction {
-	protected String s;
-	public InputStream getLuteInput() {
+public class RunConsoleAction extends AaxlReadOnlyActionAsJob {
+	
+	
+	private String outputFile;
+	
+	protected Bundle getBundle() {
+		return Activator.getDefault().getBundle();
+	}
+
+
+
+	protected String getActionName() {
+		return "Run LUTE console";
+	}
+	
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) 
+	{
+		final SystemInstance si;
+		final Logger logger;
 		
-		final Display d = PlatformUI.getWorkbench().getDisplay();
-		d.syncExec(new Runnable(){
+		logger = new Logger (Logger.INFO);
+		
+		if (obj instanceof InstanceObject)
+		{
+			si = ((InstanceObject)obj).getSystemInstance();
+		}
+		else
+		{
+			si = null;
+		}
+		
+		
+		if (si == null)
+		{
+			Dialog.showError("LUTE console", "Invalid System Instance");
+			return;
+		}
+
+		 PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable(){
 
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
 				Shell sh = window.getShell();
-				DialogConsole fd = new DialogConsole (sh);
-				fd.open();
-				s = fd.getTheorem();
+				final DialogConsole dialog = new DialogConsole (sh, si, logger);
+				dialog.open();
 			}});
-		
-		if (s != null)
-		{
-			return new ByteArrayInputStream(s.getBytes());
-		}
-		else
-		{
-			return null;
-		}
 		
 	}
 }

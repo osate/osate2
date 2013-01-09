@@ -41,6 +41,11 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.validation.Logger;
 import org.osate.validation.lute.LuteInterpreter;
 
+/**
+ * This class provides helpers to execute LUTE theorems
+ * on SystemInstance objects. We can use either theorems directly
+ * from a String or from an InputStream (for example, using files).
+ */
 public class Invoke {
 
 	

@@ -2,7 +2,7 @@
  * Created on Dec, 7 2012
  *
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2012-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -54,6 +54,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.validation.Logger;
+import org.osate.validation.lute.utils.Invoke;
 
 /*
  * Custom class to read an inputstream line by line
@@ -62,12 +65,14 @@ class MyInputStream
 {  
     private static final int _CR = 13;  
     private static final int _LF = 10;  
-    private int _last=-1;  
-    private int _ch = -1; 
+    private int	 			_last=-1;  
+    private int 			_ch = -1;
+
+    
     private InputStream in;  
     public MyInputStream(InputStream i)  
     {  
-      in = i;  
+    	in 				= i;  
     }  
 
     
@@ -108,9 +113,10 @@ class MyInputStream
  } 
 
 public class DialogConsole extends Dialog {
-	  private String theorem;
-	  private String input;
-
+	  private String 			theorem;
+	  private String 			input;
+	  private Logger 			logger;
+	  private SystemInstance 	systemInstance;
 	  
 	  public List<String> getTheoremList ()
 	  {
@@ -186,8 +192,17 @@ public class DialogConsole extends Dialog {
 	  public DialogConsole(Shell parent)
 	  {
 	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+    	logger			= null;
+    	systemInstance 	= null;
 	  }
 
+	  public DialogConsole(Shell parent, SystemInstance systemInstance, Logger log)
+	  {
+	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+	    this.logger 			= log;
+	    this.systemInstance 	= systemInstance;
+	  }
+	  
 	  
 	  public DialogConsole(Shell parent, int style) 
 	  {
@@ -271,18 +286,18 @@ public class DialogConsole extends Dialog {
 	    
 
 	    Button ok = new Button(shell, SWT.PUSH);
-	    ok.setText("OK");
+	    ok.setText("Check");
 	    data = new GridData(GridData.FILL_HORIZONTAL);
 	    ok.setLayoutData(data);
 	    ok.addSelectionListener(new SelectionAdapter() {
 	      public void widgetSelected(SelectionEvent event) {
 	        theorem = text.getText();
-	        shell.close();
+	        Invoke.invoke(systemInstance, theorem, logger);
 	      }
 	    });
 
 	    Button cancel = new Button(shell, SWT.PUSH);
-	    cancel.setText("Cancel");
+	    cancel.setText("Close");
 	    data = new GridData(GridData.FILL_HORIZONTAL);
 	    cancel.setLayoutData(data);
 	    cancel.addSelectionListener(new SelectionAdapter() {

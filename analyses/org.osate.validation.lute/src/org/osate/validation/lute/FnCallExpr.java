@@ -30,6 +30,7 @@ import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
@@ -295,15 +296,22 @@ public class FnCallExpr extends Expr {
 		} else if (expr instanceof InstanceReferenceValue) {
 			InstanceReferenceValue irv = (InstanceReferenceValue) expr;
 			return new AADLVal(irv.getReferencedInstanceObject());
-		} else if (expr instanceof ListValue) {
+		}
+		else if (expr instanceof NamedValue) {
+			NamedValue nv = (NamedValue)expr;
+			throw new LuteException("NamedValue not implemented now " + nv );
+		}
+		else if (expr instanceof ListValue) {
 			ListValue lv = (ListValue) expr;
 			ArrayList<Val> list = new ArrayList<Val>();
 			for (PropertyExpression pe : lv.getOwnedListElements()) {
 				list.add(AADLPropertyValueToValue(pe));
 			}
 			return new SetVal(list);
-		} else {
-			throw new LuteException("Unknown AADL property value " + expr);
+		} else 
+		{
+
+			throw new LuteException("Unknown AADL property value " + expr + " ("+expr.getOwner()+")on " + expr.getContainingClassifier());
 		}
 	}
 	
