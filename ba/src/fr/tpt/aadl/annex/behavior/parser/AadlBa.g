@@ -189,7 +189,13 @@ options {
      
      if (locationRef == null)
      {
-       locationRef = input.get(input.index()) ;
+       int index = input.index() ;
+       if (index >= input.size())
+       {
+         index-- ;
+       }
+       
+       locationRef = input.get(index) ;
      }
      
      line = locationRef.getLine() - _lineOffset ;
@@ -1072,7 +1078,7 @@ catch [NoViableAltException ex] {
    
    if(ex.grammarDecisionDescription.isEmpty())
    {
-      reportError("too many semicolon or ampersand given (missing behavior action ?)", id) ;
+      reportError("too many semicolon/ampersand given or missing behavior action", id) ;
    }
    else
    {
@@ -1731,9 +1737,8 @@ fact_value returns [Value Val]
    )
 ;
 catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
+  
+  throw ex ;
 }  
 
 /** 
@@ -1760,10 +1765,9 @@ value returns [Value Val]
        )
    )
 ;
+
 catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
+  throw ex ;
 }
 
 // value_variable ::=
@@ -1961,67 +1965,41 @@ factor returns [Factor Fact]
   :
    (
     ( val=value {
-                  if(val != null)
-                  {
-                    Fact.setLocationReference(val.getLocationReference()) ;
-                    Fact.setFirstValue(val);
-                  }
-                  else
-                  {
-                    reportError("unparsable value", null) ;
-                    return Fact ;
-                  }
+                  Fact.setLocationReference(val.getLocationReference()) ;
+                  Fact.setFirstValue(val);
                 } 
       (
         BinaryNumOp=binary_numeric_operator val2=value
         {
-          if(val2 != null)
-          {
-            Fact.setBinaryNumericOperator(BinaryNumOp);
-            Fact.setSecondValue(val2);          
-          }
-          else
-          {
-            reportError("unparsable value", null) ;
-            return Fact ;
-          }
+          Fact.setBinaryNumericOperator(BinaryNumOp);
+          Fact.setSecondValue(val2);
         }
       )?
     )
    |
     ( UnaryNumOp=unary_numeric_operator val=value
       {
-         if(val != null)
-         {
-           Fact.setUnaryNumericOperator(UnaryNumOp);
-           Fact.setFirstValue(val);
-           Fact.setLocationReference(val.getLocationReference()) ;
-         }
-         else
-         {
-           reportError("unparsable value", null) ;
-           return Fact ;
-         }
+        Fact.setUnaryNumericOperator(UnaryNumOp);
+        Fact.setFirstValue(val);
+        Fact.setLocationReference(val.getLocationReference()) ;
       }
     )
    |
     ( UnaryBoolOp=unary_boolean_operator val=value
       {
-         if(val != null)
-         {
-           Fact.setUnaryBooleanOperator(UnaryBoolOp);
-           Fact.setFirstValue(val);
-           Fact.setLocationReference(val.getLocationReference()) ;
-         }
-         else
-         {
-           reportError("unparsable value", null) ;
-           return Fact ;
-         }
+        Fact.setUnaryBooleanOperator(UnaryBoolOp);
+        Fact.setFirstValue(val);
+        Fact.setLocationReference(val.getLocationReference()) ;
       }
     )
    )
 ;
+
+catch [NoViableAltException ex] 
+{
+   reportError("unexpected value", null) ;
+}
+
 catch [RecognitionException ex] {
   reportError(ex);
   consumeUntil(input,SEMICOLON);
@@ -2243,9 +2221,7 @@ integer_value returns [IntegerValue IntVal]
    
 ;
 catch [RecognitionException ex] {
-  reportError(ex);
-  consumeUntil(input,SEMICOLON);
-  input.consume();
+  throw ex ;
 }
 
 // behavior_time ::= integer_value unit_identifier
