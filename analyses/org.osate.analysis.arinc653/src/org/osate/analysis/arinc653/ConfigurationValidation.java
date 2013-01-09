@@ -337,7 +337,7 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 					"end;";
 		luteLogger = new Logger (Logger.INFO);
 		OsateDebug.osateDebug("[ConfigurationValidation] Call applyTheorems on " + systemInstance);
-		Invoke.invoke (systemInstance, theorem, luteLogger); 
+		Invoke.invoke (systemInstance, ConfigurationValidation.class.getResourceAsStream("/resource/configuration-memory.lute"), luteLogger); 
 		return;
 	}
 	

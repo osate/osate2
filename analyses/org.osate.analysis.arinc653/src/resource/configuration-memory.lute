@@ -1,0 +1,12 @@
+theorem Period_Defined
+  foreach s in Thread_Set do
+    check Property_Exists(s, "Period");
+end;
+
+
+
+
+theorem Deadline_Defined
+  foreach s in Thread_Set do
+    check Property_Exists(s, "Deadline");
+end;
