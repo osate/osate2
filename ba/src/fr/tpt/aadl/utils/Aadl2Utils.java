@@ -38,13 +38,11 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeaturePrototype ;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.StructuralFeature ;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
