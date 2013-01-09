@@ -329,15 +329,11 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 	public void applyTheorems (SystemInstance systemInstance)
 	{
 		Logger luteLogger;
-		String theorem;
-		
-		theorem = "theorem Deadline_Defined \n"+
-					"foreach s in Thread_Set do \n"+
-					"		check Property_Exists(s, \"Deadline\");\n"+
-					"end;";
+
 		luteLogger = new Logger (Logger.INFO);
+		
 		OsateDebug.osateDebug("[ConfigurationValidation] Call applyTheorems on " + systemInstance);
-		Invoke.invoke (systemInstance, ConfigurationValidation.class.getResourceAsStream("/resource/configuration-memory.lute"), luteLogger); 
+		Invoke.invoke (systemInstance, ConfigurationValidation.class.getResourceAsStream("/resource/configuration-memory-segments.lute"), luteLogger); 
 		return;
 	}
 	

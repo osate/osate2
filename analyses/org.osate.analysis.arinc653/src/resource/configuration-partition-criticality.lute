@@ -1,0 +1,4 @@
+theorem check_partitions_criticality
+   foreach vp in Virtual_Processor_Set do
+      check (Property_Exists (vp, "ARINC653::Criticality"));
+end;
