@@ -72,8 +72,10 @@ public class Aadl2InstanceUtil {
 					ComponentInstance pci = connectionReference.getContext();
 					Connection conn = connectionReference.getConnection();
 					ConnectionEnd ce = conn.getAllSource();
-					if (pci == ci.getContainingComponentInstance() && ce == f)
+					if (pci == ci.getContainingComponentInstance() && ce == f){
+						// add connection if it goers through feature instance
 						result.add(connectionInstance);
+					}
 				}
 			}
 		}
@@ -151,13 +153,13 @@ public class Aadl2InstanceUtil {
 	 * @param conni connection instance
 	 * @return InstanceObject
 	 */
-	public static InstanceObject getSrcEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
+	public static ConnectionInstanceEnd getSrcEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			if (connRef.getContext() == ci) {
 				Connection conn = connRef.getConnection();
 				final ConnectionEnd srcF = conn.getAllSource();
 				final Context srcCtxt = conn.getAllSourceContext();
-				final InstanceObject srcInstance = conni.getInstantiatedEndPoint(connRef.getContext(), srcF, srcCtxt);
+				final ConnectionInstanceEnd srcInstance = conni.getInstantiatedEndPoint(connRef.getContext(), srcF, srcCtxt);
 				return srcInstance;
 			}
 		}
@@ -172,14 +174,14 @@ public class Aadl2InstanceUtil {
 	 * @param conni connection instance
 	 * @return InstanceObject
 	 */
-	public static InstanceObject getDestEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
+	public static ConnectionInstanceEnd getDestEndPointInstance(ComponentInstance ci, ConnectionInstance conni) {
 		for (ConnectionReference connRef : conni.getConnectionReferences()) {
 			if (connRef.getContext() == ci.getContainingComponentInstance()) {
 				Connection conn = connRef.getConnection();
 				final ConnectionEnd dstF = conn.getAllDestination();
 				final Context dstCtxt = conn.getAllDestinationContext();
 				if (ci.getSubcomponent() == dstCtxt) {
-					final InstanceObject dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF,
+					final ConnectionInstanceEnd dstInstance = conni.getInstantiatedEndPoint(connRef.getContext(), dstF,
 							dstCtxt);
 					return dstInstance;
 				}
