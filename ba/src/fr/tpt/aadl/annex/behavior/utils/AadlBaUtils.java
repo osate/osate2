@@ -61,26 +61,34 @@ public class AadlBaUtils {
   public static DataRepresentation getDataRepresentation(DataClassifier c)
   {
     DataRepresentation result = null ;
-
-    EList<PropertyExpression> l = 
-                                    PropertyUtils.getPropertyExpression(c,
-                                      DataModelProperties.DATA_REPRESENTATION) ;
-    if(l.size() > 0)
+    
+    if(c == null)
     {
-      // Fetches the last enumeration value from the inheritance stack of 
-      // properties. 
-      NamedValue nv = (NamedValue) l.get(l.size()-1);
-      String tmp = ((EnumerationLiteral)nv.getNamedValue()).getName() ;
-      result = DataRepresentation.getByName(tmp) ;
-
-      if(result == null)
-      {
-        result = DataRepresentation.UNKNOWN ;
-      }
+      result = DataRepresentation.UNKNOWN ;
     }
     else
     {
-      result = DataRepresentation.UNKNOWN ;
+      
+      EList<PropertyExpression> l = 
+            PropertyUtils.getPropertyExpression(c,
+              DataModelProperties.DATA_REPRESENTATION) ;
+      if(l.size() > 0)
+      {
+        // Fetches the last enumeration value from the inheritance stack of 
+        // properties. 
+        NamedValue nv = (NamedValue) l.get(l.size() - 1) ;
+        String tmp = ((EnumerationLiteral) nv.getNamedValue()).getName() ;
+        result = DataRepresentation.getByName(tmp) ;
+
+        if(result == null)
+        {
+          result = DataRepresentation.UNKNOWN ;
+        }
+      }
+      else
+      {
+        result = DataRepresentation.UNKNOWN ;
+      }
     }
 
     return result ;
@@ -237,69 +245,67 @@ public class AadlBaUtils {
     {
       return DataRepresentation.INTEGER ;
     }
+    else if(v instanceof PortFreshValue)
+    {
+      return DataRepresentation.BOOLEAN ;
+    }
     else
     {
-      if(v instanceof PortFreshValue)
-      {
-        return DataRepresentation.BOOLEAN ;
-      }
-      else
-      {
-        // Either ElementHolder or DataComponentReference object.
-        Element el = null ;
+      // Either ElementHolder or DataComponentReference object.
+      Element el = null ;
         
-        if(v instanceof ElementHolder)
+      if(v instanceof ElementHolder)
+      {
+        if(v instanceof PrototypeHolder)
         {
-          if(v instanceof PrototypeHolder)
+          PrototypeHolder ph = (PrototypeHolder) v ;
+           
+          if (ph.getPrototypeBinding() != null)
           {
-            PrototypeHolder ph = (PrototypeHolder) v ;
-            
-            if (ph.getPrototypeBinding() != null)
-            {
-              el = ph.getPrototypeBinding() ;
-            }
-            else
-            {
-              el = ph.getPrototype() ;
-            }
+            el = ph.getPrototypeBinding() ;
           }
           else
           {
-            el = ((ElementHolder)v).getElement() ;
+            el = ph.getPrototype() ;
           }
-        }
-        else // DataComponentReference case.
-        {
-          DataComponentReference dcr = (DataComponentReference) v ;
-          
-          DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
-          el = lastElement.getElement() ;
-        }
-
-        if(el instanceof Feature)
-        {
-          return getDataRepresentation((DataClassifier)((Feature) el).
-              getClassifier()) ;
-        }
-        else if(el instanceof DataSubcomponent)
-        {
-          return getDataRepresentation((DataClassifier)((DataSubcomponent)
-              el).getClassifier());
-        }
-        else if(el instanceof BehaviorVariable)
-        {
-          // Behavior case.      
-          return getDataRepresentation((BehaviorVariable)el) ;
         }
         else
         {
-          // FeaturePrototypeBinding case.
-          Classifier klass ;
-          ComponentClassifier baParentComponent = 
-              (ComponentClassifier) v.getContainingClassifier() ;
-          klass = AadlBaUtils.getClassifier(el, baParentComponent) ;
-          return getDataRepresentation((DataClassifier) klass) ;
+          el = ((ElementHolder)v).getElement() ;
         }
+      }
+      else // DataComponentReference case.
+      {
+        DataComponentReference dcr = (DataComponentReference) v ;
+          
+        DataHolder lastElement = dcr.getData().get(dcr.getData().size()-1) ;
+        el = lastElement.getElement() ;
+      }
+
+      if(el instanceof Feature)
+      {
+        return getDataRepresentation((DataClassifier)((Feature) el).
+                    getClassifier()) ;
+      }
+      else if(el instanceof DataSubcomponent)
+      {
+        return getDataRepresentation((DataClassifier)((DataSubcomponent)
+                  el).getClassifier());
+      }
+      else if(el instanceof BehaviorVariable)
+      {
+        // Behavior case.      
+        return getDataRepresentation((BehaviorVariable)el) ;
+      }
+      else
+      {
+        // Prototype cases.
+        Classifier klass ;
+        ComponentClassifier baParentComponent = 
+              (ComponentClassifier) v.getContainingClassifier() ;
+          
+        klass = AadlBaUtils.getClassifier(el, baParentComponent) ;
+        return getDataRepresentation((DataClassifier) klass) ;
       }
     }
   }
@@ -455,7 +461,7 @@ public class AadlBaUtils {
     else if (el instanceof PrototypeBinding)
     {
       // Prototype binding case.
-      result = prototypeBindingResolver((PrototypeBinding) el, parentContainer) ;
+      result = prototypeBindingResolver((PrototypeBinding) el) ;
     }
     else if (el instanceof ClassifierValue)
     {
@@ -501,7 +507,7 @@ public class AadlBaUtils {
 
     if(pb != null)
     {
-      result = prototypeBindingResolver(pb, parentContainer) ;
+      result = prototypeBindingResolver(pb) ;
     }
     else
     {
@@ -539,11 +545,9 @@ public class AadlBaUtils {
    * It returns {@code null} if the given prototype binding is not defined. 
    * 
    * @param prototype the given prototype binding
-   * @param parentContainer the element's parent component
    * @return the binded classifier or {@code null}
    */
-  public static Classifier prototypeBindingResolver(PrototypeBinding pb,
-                                                     Classifier parentContainer)
+  public static Classifier prototypeBindingResolver(PrototypeBinding pb)
   {
     Classifier result = null ;
     
