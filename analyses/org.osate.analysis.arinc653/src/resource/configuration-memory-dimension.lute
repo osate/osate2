@@ -9,3 +9,5 @@ theorem check_memory_requirements_partitions
             < (sum (property (mems, "word_count")))
          );
 end;
+
+FIXME

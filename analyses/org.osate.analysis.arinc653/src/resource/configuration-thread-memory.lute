@@ -8,3 +8,5 @@ theorem check_memory_requirements_threads
             and
             (sum (property (spgs, "Source_Data_Size")) < property (thr, "Source_Data_Size")));
 end;
+
+FIXME
