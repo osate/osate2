@@ -39,7 +39,7 @@ Persistence : EMV2::PersistenceEnum
 PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 
 
-SeverityLevel : type enumeration (I, II, III, IV, V);
+SeverityLevel : type aadlinteger;
 
 
 LikelihoodLevel : type enumeration (A, B, C, D, E);
