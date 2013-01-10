@@ -73,6 +73,30 @@
                </or>
             </enablement>
          </action>
+         
+         
+         <action
+               id="org.osate.analysis.arinc653.actions.CheckConfiguration.actionConnectionCriticality"
+               label="Check Configuration - Criticality between Connected Partitions "
+               tooltip="Check Execution of all partitions"
+               icon="icons/arinc.gif"
+               disabledIcon="icons/arincd.gif"
+               class="org.osate.analysis.arinc653.actions.DoCheckConfigurationConnectionCriticality"
+               menubarPath="menu.analyses/menu.arinc653/stuff.grp"
+               toolbarPath="arinc653.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
+         </action>
+         
+         
          <action
                id="org.osate.analysis.arinc653.actions.CheckConfiguration.actionPartitionExecution"
                label="Check Configuration - Partitions Execution"

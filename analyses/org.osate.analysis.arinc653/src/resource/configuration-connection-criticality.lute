@@ -1,0 +1,10 @@
+theorem safety
+foreach Conn in Connection_Set do
+   foreach P_Src in {x in Process_Set | Owner (Source(Conn)) = x} do
+   foreach P_Dst in {y in Process_Set | Owner (Destination(Conn)) = y} do
+
+   foreach Runtime_Src  in {w in Virtual_Processor_Set | Is_Bound_To (P_Src, w)} do
+   foreach Runtime_Dst  in {z in Virtual_Processor_Set | Is_Bound_To (P_Dst, z)} do
+         check ( (Property (Runtime_Src, "ARINC653::Criticality")) = (Property (Runtime_Dst, "ARINC653::Criticality")));
+
+end;
