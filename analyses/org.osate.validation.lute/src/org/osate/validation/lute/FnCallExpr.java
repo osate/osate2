@@ -64,19 +64,25 @@ import java.util.List;
 
 import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.impl.ContainmentPathElementImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
@@ -91,6 +97,26 @@ public class FnCallExpr extends Expr {
 		this.args = args;
 	}
 
+	private static ComponentInstance lookUp ( ComponentInstance ci, String refName)
+	{
+		ComponentInstance ret;
+		ret = null;
+		System.out.println (" looking for " + refName);
+		for (Element e : ci.getChildren())
+		{
+			if (e instanceof ComponentInstance)
+			{
+				ComponentInstance ne = (ComponentInstance) e;
+				if (ne.getName().equalsIgnoreCase(refName))
+				{
+					ret = ne;
+				}
+			}
+		}
+		return ret;
+		
+	}
+	
 	@Override
 	public Val eval(Environment env) {
 		ArrayList<Val> argValues = new ArrayList<Val>();
@@ -145,8 +171,8 @@ public class FnCallExpr extends Expr {
 		} else if (fn.equals("Member")) {
 			expectArgs(2);
 			Val e = argValues.get(0);
-			//System.out.println (" e1 = " + e.getClass() );
-			//System.out.println (" e2 = " + argValues.get(1).getClass() );
+			System.out.println (" e1 = " + e.getClass() );
+			System.out.println (" e2 = " + argValues.get(1).getClass() );
 
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
@@ -399,7 +425,34 @@ public class FnCallExpr extends Expr {
 				list.add(AADLPropertyValueToValue(pe));
 			}
 			return new SetVal(list);
-		} else 
+		} 
+		else if (expr instanceof ReferenceValue) {
+			String refName;
+			ComponentInstance ref;
+			
+			ref = null;
+			
+			ReferenceValue rv = (ReferenceValue) expr;
+			
+			ContainmentPathElementImpl cpei = (ContainmentPathElementImpl)rv.getChildren().get(0);
+			NamedElement ne = cpei.getNamedElement();
+
+			refName = ne.getName();
+			Element e = cpei.getOwner();
+			while ((e != null) && (! ( e instanceof SystemInstance)))
+			{
+				if (e instanceof ComponentInstance)
+				{
+					ComponentInstance ci = (ComponentInstance)e;
+
+					ref = lookUp (ci, refName);
+					break;
+				}
+				e = e.getOwner();
+			}
+
+			return new AADLVal(ref);
+		}else 
 		{
 
 			throw new LuteException("Unknown AADL property value " + expr + " ("+expr.getOwner()+")on " + expr.getContainingClassifier());
