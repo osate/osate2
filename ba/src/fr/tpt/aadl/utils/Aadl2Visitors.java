@@ -194,7 +194,12 @@ public class Aadl2Visitors
   public static PrototypeBinding findPrototypeBindingInComponent(
                                            Classifier c, String prototypeName)
   {
-     PrototypeBinding result = null ;
+    if(c == null)
+    {
+      return null ;
+    }
+    
+    PrototypeBinding result = null ;
      
      for(PrototypeBinding pb : c.getOwnedPrototypeBindings())
      {
