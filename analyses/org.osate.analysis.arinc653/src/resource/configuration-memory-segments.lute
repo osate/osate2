@@ -1,9 +1,6 @@
 theorem Contains_Memories
    foreach s in System_Set do
-      mainmem := {y in Memory_Set | Is_Subcomponent_Of (y, s)};
-      partitionsmem := {x in Memory_Set | Is_Subcomponent_Of (x, mainmem)};
-
-    check ( (Cardinal (mainmem) > 0) and
-            (Property_Exists (partitionsmem, "Word_Count"))
-          );
+      foreach mainmem in {m in Memory_Set | Is_Subcomponent_Of (m, s)} do
+         foreach seg in {m2 in Memory_Set | Is_Subcomponent_Of (m2, mainmem)} do
+            check (Property_Exists (seg,"Byte_Count"));
 end;
