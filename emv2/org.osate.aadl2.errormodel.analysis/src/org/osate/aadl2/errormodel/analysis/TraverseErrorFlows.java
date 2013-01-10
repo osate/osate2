@@ -218,9 +218,9 @@ public class TraverseErrorFlows {
 	 * @param ci component instance
 	 * @return String
 	 */
-	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst){
-			return (generateItemText(src)+"-"+
-			EM2Util.getPrintName(getToken(dst))+
+	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst, TypeToken token){
+			return (generateItemText(src)+
+			EM2Util.getPrintName(token)+
 			"->"+generateItemText(dst));
 	}
 	
@@ -339,7 +339,7 @@ public class TraverseErrorFlows {
 			//			reportEntry(entryText, depth);
 			//			return;
 			//		}
-			String myText=", "+generateConnectionText(sourcei, desti);
+			String myText=", "+generateConnectionText(sourcei, desti,getToken(sourcei));
 			ci =desti.getContainingComponentInstance();
 			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
 			ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
