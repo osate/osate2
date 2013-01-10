@@ -59,6 +59,7 @@ package org.osate.validation.lute;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 import org.osate.aadl2.BooleanLiteral;
@@ -196,6 +197,18 @@ public class FnCallExpr extends Expr {
 			}
 			return new BoolVal(false);
 		}
+		else if (fn.equals("Sum")) {
+			BigInteger retInt = new BigInteger("0");
+			SetVal sv = (SetVal) argValues.get(0);
+			Iterator<Val> iter = sv.getSet().iterator();
+			while (iter.hasNext())
+			{
+				Val tmp = iter.next();
+				retInt = retInt.add(tmp.getInt());
+			}
+			
+			return new IntVal(retInt);
+		}
 		else if (fn.equals("Max")) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
@@ -222,7 +235,8 @@ public class FnCallExpr extends Expr {
 				return min(argValues);
 			}
 			
-		} else if (fn.equals("Cardinal")) {
+		} else if (fn.equals("Cardinal")) 
+		{
 			expectArgs(1);
 			Collection<Val> set = argValues.get(0).getSet();
 			return new IntVal(set.size());
