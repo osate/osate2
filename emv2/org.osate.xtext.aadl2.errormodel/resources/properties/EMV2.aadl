@@ -3,52 +3,63 @@
 property set EMV2
   is
   
-Occurrence : EMV2::Occurrence_Type
-	  applies to (all); 
+OccurrenceProbability : EMV2::OccurrenceProbabilityType
+	  applies to (all); -- (error propagation, error source, error behavior event)
 
 --needed to separate the property "Occurrence" from its type declaration
 --so other properties may have that type
-Occurrence_Type : type record (
-	Probability : aadlreal;
-	Distribution : EMV2::Distribution;);
+OccurrenceProbabilityType : type record (
+	ProbabilityValue : aadlreal;
+	Distribution : EMV2::DistributionFunction;);
 	
-Distribution : type enumeration (Poisson,Fixed);
+DistributionFunction : type enumeration (Poisson,Fixed);
   
-Duration : record (
+Duration : type record (
 	TimeInterval : Time_Range;
-	Distribution : EMV2::Distribution;)
-	  applies to (all); 
+	Distribution : EMV2::DistributionFunction;); 
 
-RepairOccurrence : record (
-	Probability : aadlreal;
-	Distribution : EMV2::Distribution;)
-	  applies to (all); 
+RepairProbability : EMV2::OccurrenceProbabilityType
+	  applies to (all);  -- (Repair Event);
+	  
+RepairDuration : EMV2::Duration applies to (all); -- (Repair Event);
 
 StateKind : EMV2::StateKindEnum
-	  applies to (all); 
+	  applies to (all); -- (error behavior state);
 
 StateKindEnum: type enumeration (Working, NonWorking);
 
-SeverityLevel : type aadlinteger;
--- ARP 4761
-Catastrophic : constant aadlinteger => 1;
-Hazardous : constant aadlinteger => 2;
-Major : constant aadlinteger => 3;
-Minor : constant aadlinteger => 4;
-NoEffect : constant aadlinteger => 5;
--- MILSTD 882
---Catastrophic : constant aadlinteger => 1;
-Critical : constant aadlinteger => 2;
-Marginal : constant aadlinteger => 3;
-Negligible : constant aadlinteger => 4;
+FaultKind : EMV2::FaultKindEnum
+	  applies to (all); -- error event, error propagation, error type, type set, type token); 
 
-CriticalityRanking : type aadlinteger;
+FaultKindEnum: type enumeration (Design, Operational);
+
+Persistence : EMV2::PersistenceEnum
+	  applies to (all); -- (error type, type token, type set, error behavior state, error behavior event, error propagation);
+
+PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
+
+
+SeverityLevel : type enumeration (A, B, C, D, E);
+
+-- ARP 4761
+Catastrophic : constant EMV2::SeverityLevel => A;
+Hazardous : constant EMV2::SeverityLevel => B;
+Major : constant EMV2::SeverityLevel => C;
+Minor : constant EMV2::SeverityLevel => D;
+NoEffect : constant EMV2::SeverityLevel => E;
+-- MILSTD 882
+--Catastrophic : constant EMV2::SeverityLevel => A;
+Critical : constant EMV2::SeverityLevel => B;
+Marginal : constant EMV2::SeverityLevel => C;
+Negligible : constant EMV2::SeverityLevel => D;
+
+LikelihoodLevel : type aadlinteger;
 -- MILSTD 882
 Frequent : constant aadlinteger => 1;
 Probable : constant aadlinteger => 2;
 Occasional : constant aadlinteger => 3;
 Remote : constant aadlinteger => 4;
-Improbable : constant aadlinteger => 45;
+Improbable : constant aadlinteger => 5;
 
 Hazard: record
   (crossreference: aadlstring;
@@ -57,7 +68,7 @@ Hazard: record
   	environment : aadlstring;
   	description : aadlstring;
   	severity : EMV2::SeverityLevel;
-  	criticality : EMV2::CriticalityRanking;
+  	likelihood : EMV2::LikelihoodLevel;
   	verificationmethod : aadlstring;
   	risk : aadlstring;
   	comment : aadlstring;) applies to (all);
