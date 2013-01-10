@@ -117,6 +117,8 @@ public class FnCallExpr extends Expr {
 			
 		} else if (fn.equals("Is_Bound_To")) {
 			expectArgs(2);
+			System.out.println( argValues.get(0));
+			System.out.println( argValues.get(1));
 			InstanceObject s = argValues.get(0).getAADL();
 			InstanceObject t = argValues.get(1).getAADL();
 			return new BoolVal(isBoundTo(s, t));
@@ -143,6 +145,9 @@ public class FnCallExpr extends Expr {
 		} else if (fn.equals("Member")) {
 			expectArgs(2);
 			Val e = argValues.get(0);
+			//System.out.println (" e1 = " + e.getClass() );
+			//System.out.println (" e2 = " + argValues.get(1).getClass() );
+
 			Collection<Val> set = argValues.get(1).getSet();
 			return new BoolVal(set.contains(e));
 			
@@ -405,6 +410,8 @@ public class FnCallExpr extends Expr {
 		if (t instanceof ComponentInstance) {
 			ComponentInstance platform = (ComponentInstance) t;
 			if (platform.getCategory() == ComponentCategory.PROCESSOR) {
+				return checkBinding(s, "actual_processor_binding", t);
+			} else if (platform.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) {
 				return checkBinding(s, "actual_processor_binding", t);
 			} else if (platform.getCategory() == ComponentCategory.MEMORY) {
 				return checkBinding(s, "actual_memory_binding", t);
