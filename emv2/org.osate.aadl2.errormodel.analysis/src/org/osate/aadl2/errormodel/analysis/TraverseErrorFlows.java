@@ -34,6 +34,7 @@
 package org.osate.aadl2.errormodel.analysis;
 
 import java.io.ObjectInputStream.GetField;
+import java.util.Collection;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.UniqueEList;
@@ -171,10 +172,7 @@ public class TraverseErrorFlows {
 					FeatureInstance fi = ci.findFeatureInstance(f);
 					// Call on process to attach the typeToken to the outgoing feature
 					setToken(fi,typeToken);
-					EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getOutgoingConnection(ci,fi);
-					for (ConnectionInstance connectionInstance : connilist) {
-						traceErrorFlows(fi,connectionInstance,2,componentText+", "+failuremodeText+", "+generateEffectText(fi, ep));
-					}
+					traceErrorFlows(fi,2,componentText+", "+failuremodeText+", "+generateEffectText(fi, ep));
 				}
 			}
 		}
@@ -212,6 +210,18 @@ public class TraverseErrorFlows {
 		} else {
 			return (io.getName());
 		}
+	}
+	
+	/**
+	 * get the text to be used for the item (Component or feature)
+	 * that is the source of a failure mode
+	 * @param ci component instance
+	 * @return String
+	 */
+	public String generateConnectionText(ConnectionInstanceEnd src, ConnectionInstanceEnd dst){
+			return (generateItemText(src)+"-"+
+			EM2Util.getPrintName(getToken(dst))+
+			"->"+generateItemText(dst));
 	}
 	
 	/**
@@ -320,72 +330,62 @@ public class TraverseErrorFlows {
 	 * traverse through the destination of the connection instance 
 	 * @param conni
 	 */
-	protected void traceErrorFlows(InstanceObject source,ConnectionInstance conni, int depth, String entryText){
-		ComponentInstance ci = faultModel.getContainingComponentInstance(conni.getDestination());
-		InstanceObject desti = Aadl2InstanceUtil.getDestEndPointInstance(ci,conni);
-//		if (!visited.add(desti)){
-//			// this should be only when visited with the same token
-//			reportEntry(entryText, depth);
-//			return;
-//		}
-		String myText=", "+generateItemText(conni);
-		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
-		if (eps != null){
-			ErrorFlow ef=EM2Util.findErrorFlow(eps, desti);
-			if (ef instanceof ErrorSink){
-				// process should have returned false, but for safety we check again
-				String maskText = ", "+generateItemText(desti)+": "+EM2Util.getPrintName(getToken(source))+" Masked";
-				reportEntry(entryText+myText+maskText, depth);
-				return;
-			} else if (ef instanceof ErrorPath){ // error path
-				ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
-				FeatureInstance outfi = ci.findFeatureInstance(outp.getFeature());
-				processToken(getToken(source),ef,outfi);
-					EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getOutgoingConnection(ci,outfi);
-					for (ConnectionInstance connectionInstance : connilist) {
-						traceErrorFlows(outfi,connectionInstance,depth+1,entryText+myText+", "+generateEffectText(outfi, outp));
-					}
-				return;
-			} 
-		}
-		// no error flows: 
-		// try flows or propagate to all outgoing connections
-		if (desti instanceof FeatureInstance){
-			FeatureInstance infi = ((FeatureInstance)desti);
-			EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
-			if (!flowlist.isEmpty()){
-				for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
-					if (flowSpecificationInstance.getSource() == infi){
-						processToken(getToken(infi),flowSpecificationInstance,infi);
-						FeatureInstance outp = flowSpecificationInstance.getDestination();
-						if (outp != null){
-							// assumes connection instance does not start inside
-							EList<ConnectionInstance> outconnlist = outp.getSrcConnectionInstances();
-							for (ConnectionInstance connectionInstance : outconnlist) {
-								ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation(infi);
-								traceErrorFlows(outp,connectionInstance,depth+1,entryText+myText+generateEffectText(infi, ep));
+	protected void traceErrorFlows(ConnectionInstanceEnd sourcei, int depth, String entryText){
+		Collection<ConnectionInstanceEnd> dstlist = faultModel.getConnectionDestinations(sourcei);
+		ComponentInstance ci;
+		for (ConnectionInstanceEnd desti : dstlist) {
+			//			if (!visited.add(desti)){
+			//			// this should be only when visited with the same token
+			//			reportEntry(entryText, depth);
+			//			return;
+			//		}
+			String myText=", "+generateConnectionText(sourcei, desti);
+			ci =desti.getContainingComponentInstance();
+			// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
+			ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
+			if (eps != null){
+				ErrorFlow ef=EM2Util.findErrorFlow(eps, desti);
+				if (ef instanceof ErrorSink){
+					// process should have returned false, but for safety we check again
+					String maskText = ", "+generateItemText(desti)+": "+EM2Util.getPrintName(getToken(sourcei))+" Masked";
+					reportEntry(entryText+myText+maskText, depth);
+					return;
+				} else if (ef instanceof ErrorPath){ // error path
+					ErrorPropagation outp = ((ErrorPath)ef).getOutgoing();
+					FeatureInstance outfi = ci.findFeatureInstance(outp.getFeature());
+					processToken(getToken(sourcei),ef,outfi);
+					traceErrorFlows(outfi,depth+1,entryText+myText+", "+generateEffectText(outfi, outp));
+					return;
+				} 
+				// no error flows: XXX need to fix ef being more than one. also no error flows. and no flows condition
+				// try flows or propagate to all outgoing connections
+				if (desti instanceof FeatureInstance){
+					FeatureInstance infi = ((FeatureInstance)desti);
+					EList<FlowSpecificationInstance> flowlist = ci.getFlowSpecifications();
+					if (!flowlist.isEmpty()){
+						for (FlowSpecificationInstance flowSpecificationInstance : flowlist) {
+							if (flowSpecificationInstance.getSource() == infi){
+								processToken(getToken(infi),flowSpecificationInstance,infi);
+								FeatureInstance outp = flowSpecificationInstance.getDestination();
+								if (outp != null){
+									ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation(infi);
+									traceErrorFlows(outp,depth+1,entryText+myText+generateEffectText(infi, ep));
+								}
 							}
 						}
+						return;
 					}
 				}
-				return;
-			}
-		}
-		// now all outgoing connections since we did not find flows
-		EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getOutgoingConnections(ci);
-		for (ConnectionInstance connectionInstance : connilist) {
-//			ConnectionInstanceEnd srcci = connectionInstance.getSource();
-			ConnectionInstanceEnd srcci = (ConnectionInstanceEnd)Aadl2InstanceUtil.getSrcEndPointInstance(ci, conni);
-			// this may be a feature instance of a contained component instance
-			// we may want to find the feature of the component we are starting out from
-			if (srcci instanceof FeatureInstance){
-				processToken(getToken(srcci),null,(FeatureInstance)srcci);
-					ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation((FeatureInstance)srcci);
-					traceErrorFlows(srcci,connectionInstance,depth+1,entryText+myText+generateEffectText(srcci, ep));
-			} else {
-				// component instance
-				process(desti,null,(ComponentInstance)srcci);
+
+				// now all outgoing connections since we did not find flows
+				EList<FeatureInstance> filist = ci.getFeatureInstances();
+				for (FeatureInstance fi : filist) {
+					if (fi.getDirection().outgoing()){
+						processToken(getToken(fi),null,fi);
+							ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation(fi);
+							traceErrorFlows(fi,depth+1,entryText+myText+generateEffectText(fi, ep));
+					}
+				}
 			}
 		}
 	}
@@ -416,10 +416,7 @@ public class TraverseErrorFlows {
 				ErrorPropagation inp = ((ErrorPath)ef).getIncoming();
 				FeatureInstance infi = ci.findFeatureInstance(inp.getFeature());
 				processToken(getToken(dest),ef,infi);
-					EList<ConnectionInstance> connilist = Aadl2InstanceUtil.getIncomingConnection(ci,infi);
-					for (ConnectionInstance connectionInstance : connilist) {
-						traceErrorFlows(infi,connectionInstance,depth+1,entryText+myText+", "+generateEffectText(infi, inp));
-					}
+						traceErrorFlows(infi,depth+1,entryText+myText+", "+generateEffectText(infi, inp));
 				return;
 			} 
 		}
@@ -434,12 +431,8 @@ public class TraverseErrorFlows {
 						processToken(getToken(infi),flowSpecificationInstance,infi);
 						FeatureInstance outp = flowSpecificationInstance.getDestination();
 						if (outp != null){
-							// assumes connection instance does not start inside
-							EList<ConnectionInstance> outconnlist = outp.getSrcConnectionInstances();
-							for (ConnectionInstance connectionInstance : outconnlist) {
 								ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation(infi);
-								traceErrorFlows(outp,connectionInstance,depth+1,entryText+myText+generateEffectText(infi, ep));
-							}
+								traceErrorFlows(outp,depth+1,entryText+myText+generateEffectText(infi, ep));
 						}
 					}
 				}
@@ -456,7 +449,7 @@ public class TraverseErrorFlows {
 			if (srcci instanceof FeatureInstance){
 				processToken(getToken(srcci),null,(FeatureInstance)srcci);
 					ErrorPropagation ep = EM2Util.getOutgoingErrorPropagation((FeatureInstance)srcci);
-					traceErrorFlows(srcci,connectionInstance,depth+1,entryText+myText+generateEffectText(srcci, ep));
+					traceErrorFlows(srcci,depth+1,entryText+myText+generateEffectText(srcci, ep));
 			} else {
 				// component instance
 				process(srci,null,(ComponentInstance)srcci);

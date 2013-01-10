@@ -213,7 +213,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
 		// criticality
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "criticality", report);
+		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report);
 		// comment
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
