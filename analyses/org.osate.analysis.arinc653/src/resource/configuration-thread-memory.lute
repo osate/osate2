@@ -1,0 +1,10 @@
+theorem check_memory_requirements_threads
+
+   foreach thr in thread_set do
+
+      spgs := {x in Subprogram_Set | Is_Called_By (x, thr)};
+
+      check ((sum (property (spgs, "Source_Code_Size")) < property (thr, "Source_Code_Size"))
+            and
+            (sum (property (spgs, "Source_Data_Size")) < property (thr, "Source_Data_Size")));
+end;

@@ -1,6 +1,4 @@
 theorem scheduling_major_frame
-    foreach cpu in processor_set do
-    check 
-         (float (property (cpu, "ARINC653::Module_Major_Frame")) = 
-           sum (property (cpu, "ARINC653::Partition_Slots")));
+    foreach cpu in Processor_Set do
+    check ((Property (cpu, "ARINC653::Module_Major_Frame")) =  (Sum (Property (cpu, "ARINC653::Partition_Slots"))));
 end;
