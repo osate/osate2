@@ -1,5 +1,5 @@
---ARP4761.aadl
--- define ARP4761 Hazard specifications
+--MILSTD882.aadl
+-- define MILSTD882 Hazard specifications
 
 property set MILSTD882
   is

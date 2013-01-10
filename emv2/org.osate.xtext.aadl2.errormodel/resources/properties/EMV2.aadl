@@ -39,27 +39,11 @@ Persistence : EMV2::PersistenceEnum
 PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 
 
-SeverityLevel : type enumeration (A, B, C, D, E);
+SeverityLevel : type enumeration (I, II, III, IV, V);
 
--- ARP 4761
-Catastrophic : constant EMV2::SeverityLevel => A;
-Hazardous : constant EMV2::SeverityLevel => B;
-Major : constant EMV2::SeverityLevel => C;
-Minor : constant EMV2::SeverityLevel => D;
-NoEffect : constant EMV2::SeverityLevel => E;
--- MILSTD 882
---Catastrophic : constant EMV2::SeverityLevel => A;
-Critical : constant EMV2::SeverityLevel => B;
-Marginal : constant EMV2::SeverityLevel => C;
-Negligible : constant EMV2::SeverityLevel => D;
 
-LikelihoodLevel : type aadlinteger;
--- MILSTD 882
-Frequent : constant aadlinteger => 1;
-Probable : constant aadlinteger => 2;
-Occasional : constant aadlinteger => 3;
-Remote : constant aadlinteger => 4;
-Improbable : constant aadlinteger => 5;
+LikelihoodLevel : type enumeration (A, B, C, D, E);
+
 
 Hazard: record
   (crossreference: aadlstring;

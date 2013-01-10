@@ -5,7 +5,7 @@ property set ARP4761
   is
 
 SeverityLevel : type enumeration (Catastrophic, Hazardous, Major, Minor, NoEffect);
-LikelihoodLevel : type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
+LikelihoodLevel : type enumeration (Probable, Remote, ExtremelyRemote, ExtremelyImprobable);
 
 Hazard: record
   (crossreference: aadlstring;
