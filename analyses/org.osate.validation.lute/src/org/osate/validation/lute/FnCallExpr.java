@@ -155,8 +155,17 @@ public class FnCallExpr extends Expr {
 			throw new LuteException("Owner called on un-owned object");
 			
 		} else if (fn.equals("Is_Subcomponent_Of")) {
+			/*
+			 * Is_Subcomponent_Of looks if the component is
+			 * contained in the whole hierarchy and browse the whole
+			 * component tree, trying to look for a parent.
+			 * If you do not want to navigate through the component
+			 * hierarchy, use the Is_Direct_Subcomponent_Of
+			 * function instead.
+			 */
 			expectArgs(2);
 			InstanceObject sub = argValues.get(0).getAADL();
+
 			InstanceObject top = argValues.get(1).getAADL();
 			while (sub.getOwner() instanceof InstanceObject) {
 				InstanceObject owner = (InstanceObject) sub.getOwner();
@@ -167,7 +176,27 @@ public class FnCallExpr extends Expr {
 			}
 			return new BoolVal(false);
 			
-		} else if (fn.equals("Max")) {
+		} 
+		else if (fn.equals("Is_Direct_Subcomponent_Of")) 
+		{
+			/*
+			 * Is_Direct_Subcomponent_Of look if the component
+			 * is directly a subcomponent of the other and does
+			 * not look at the entire component hierarchy.
+			 */
+			expectArgs(2);
+			InstanceObject sub = argValues.get(0).getAADL();
+
+			InstanceObject top = argValues.get(1).getAADL();
+			if (sub.getOwner() instanceof InstanceObject) {
+				InstanceObject owner = (InstanceObject) sub.getOwner();
+				if (top.equals(owner)) {
+					return new BoolVal(true);
+				}
+			}
+			return new BoolVal(false);
+		}
+		else if (fn.equals("Max")) {
 			if (argValues.size() == 1) {
 				Val arg = argValues.get(0);
 				if (arg instanceof SetVal) {

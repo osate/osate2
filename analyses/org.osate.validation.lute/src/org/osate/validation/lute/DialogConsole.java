@@ -191,14 +191,14 @@ public class DialogConsole extends Dialog {
 	  
 	  public DialogConsole(Shell parent)
 	  {
-	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+	    this(parent, SWT.DIALOG_TRIM | SWT.RESIZE | SWT.APPLICATION_MODAL);
     	logger			= null;
     	systemInstance 	= null;
 	  }
 
 	  public DialogConsole(Shell parent, SystemInstance systemInstance, Logger log)
 	  {
-	    this(parent, SWT.DIALOG_TRIM | SWT.APPLICATION_MODAL);
+	    this(parent, SWT.DIALOG_TRIM | SWT.RESIZE |  SWT.APPLICATION_MODAL);
 	    this.logger 			= log;
 	    this.systemInstance 	= systemInstance;
 	  }
