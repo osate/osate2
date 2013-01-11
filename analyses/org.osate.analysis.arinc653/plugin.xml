@@ -118,12 +118,12 @@
             </enablement>
          </action>
          <action
-               id="org.osate.analysis.arinc653.actions.CheckConfiguration.actionThreadMemory"
-               label="Check Configuration - Thread Memory Properties"
-               tooltip="Check Execution of all partitions"
+               id="org.osate.analysis.arinc653.actions.CheckConfiguration.actionPartitionBindings"
+               label="Check Configuration - Partitions Bindings"
+               tooltip="Check Partitions associations with memory and runtimes"
                icon="icons/arinc.gif"
                disabledIcon="icons/arincd.gif"
-               class="org.osate.analysis.arinc653.actions.DoCheckConfigurationThreadMemory"
+               class="org.osate.analysis.arinc653.actions.DoCheckConfigurationPartitionBindings"
                menubarPath="menu.analyses/menu.arinc653/stuff.grp"
                toolbarPath="arinc653.toolbar"
                enablesFor="1">

@@ -1,10 +1,6 @@
-
-theorem Contains_Memories
+theorem Memories_Properties
    foreach s in System_Set do
-      foreach mainmem in {m in Memory_Set | Is_Subcomponent_Of (m, s)} do
-         foreach seg in {m2 in Memory_Set | Is_Subcomponent_Of (m2, mainmem)} do
+      foreach mainmem in {m in Memory_Set | Is_Direct_Subcomponent_Of (m, s)} do
+         foreach seg in  {n in Memory_Set | Is_Direct_Subcomponent_Of (n, mainmem)} do
             check (Property_Exists (seg,"Byte_Count"));
 end;
-
-
-FIXME

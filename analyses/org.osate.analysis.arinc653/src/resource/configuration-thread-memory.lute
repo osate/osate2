@@ -1,5 +1,4 @@
 theorem check_memory_requirements_threads
-
    foreach thr in thread_set do
 
       spgs := {x in Subprogram_Set | Is_Called_By (x, thr)};

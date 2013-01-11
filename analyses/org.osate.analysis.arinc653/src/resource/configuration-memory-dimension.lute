@@ -1,13 +1,9 @@
 theorem check_memory_requirements_partitions
-   foreach prs in process_set do
-      Thrs := {x in Thread_Set | is_subcomponent_of (x, prs)};
-      mems := { x in Memory_Set | is_bound_to (Prs, x)};
-
+   foreach prs in Process_Set do
+      Thrs := {x in Thread_Set | Is_Direct_Subcomponent_Of (x, prs)};
+      mems := {x in Memory_Set | Is_Bound_To (prs, x)};
       check
-         (
-            (sum (property (Thrs, "Source_Stack_Size")) + sum (property (Thrs, "Source_Data_Size")) + sum (property (Thrs, "Source_Code_Size")))
-            < (sum (property (mems, "word_count")))
+         ((Sum (Property (Thrs, "Source_Stack_Size")) + Sum (Property (Thrs, "Source_Data_Size")) + Sum (Property (Thrs, "Source_Code_Size")))
+            < (Sum (Property (mems, "byte_count")))
          );
 end;
-
-FIXME
