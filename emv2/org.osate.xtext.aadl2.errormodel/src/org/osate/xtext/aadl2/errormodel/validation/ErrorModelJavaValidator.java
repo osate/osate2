@@ -606,7 +606,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				error(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
 			} else {
 				// TODO check in instance model for connection end point if no error model subclause
-				info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please validate propagations in instance model");
+				info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please add error model to source or validate against error model of source subcomponents in instance model");
 			}
 		}
 		if (dstCxt instanceof Subcomponent && dstprop == null  &&dstCxt instanceof Subcomponent&& dstcontain == null && (srcprop != null||srccontain != null)){
@@ -615,7 +615,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				error(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain)));
 			} else {
 				// TODO check in instance model for connection end point if no error model subclause
-				error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain))+". Please validate propagations in instance model");
+				error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain))+". Please add error model to target or validate against error model of target subcomponents in instance model");
 			}
 		}
 		
