@@ -18,7 +18,7 @@ DurationType : type record (
 	TimeInterval : Time_Range;
 	Distribution : EMV2::DistributionFunction;); 
 	  
-Duration : EMV2::Duration applies to (all); -- (Repair Event, Recover Event);
+Duration : EMV2::DurationType applies to (all); -- (Repair Event, Recover Event);
 
 StateKind : EMV2::StateKindEnum
 	  applies to (all); -- (error behavior state);
