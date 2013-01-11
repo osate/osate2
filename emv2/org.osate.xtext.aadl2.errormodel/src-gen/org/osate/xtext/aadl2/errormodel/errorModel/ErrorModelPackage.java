@@ -2102,22 +2102,13 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_BEHAVIOR_EVENT__OWNED_PROPERTY_ASSOCIATION = Aadl2Package.NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-	 * The feature id for the '<em><b>Condition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_BEHAVIOR_EVENT__CONDITION = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
 	 * The number of structural features of the '<em>Error Behavior Event</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_BEHAVIOR_EVENT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 1;
+  int ERROR_BEHAVIOR_EVENT_FEATURE_COUNT = Aadl2Package.NAMED_ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorEventImpl <em>Error Event</em>}' class.
@@ -2175,15 +2166,6 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_EVENT__OWNED_PROPERTY_ASSOCIATION = ERROR_BEHAVIOR_EVENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-	 * The feature id for the '<em><b>Condition</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-  int ERROR_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT__CONDITION;
-
-  /**
 	 * The feature id for the '<em><b>Type Set</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2193,13 +2175,22 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_EVENT__TYPE_SET = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
 
   /**
+	 * The feature id for the '<em><b>Condition</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int ERROR_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
+
+  /**
 	 * The number of structural features of the '<em>Error Event</em>' class.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
+  int ERROR_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 2;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl <em>Repair Event</em>}' class.
@@ -2263,7 +2254,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int REPAIR_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT__CONDITION;
+  int REPAIR_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
 
   /**
 	 * The number of structural features of the '<em>Repair Event</em>' class.
@@ -2272,7 +2263,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int REPAIR_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
+  int REPAIR_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl <em>Recover Event</em>}' class.
@@ -2330,13 +2321,13 @@ public interface ErrorModelPackage extends EPackage
   int RECOVER_EVENT__OWNED_PROPERTY_ASSOCIATION = ERROR_BEHAVIOR_EVENT__OWNED_PROPERTY_ASSOCIATION;
 
   /**
-	 * The feature id for the '<em><b>Condition</b></em>' attribute.
+	 * The feature id for the '<em><b>Condition</b></em>' reference list.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int RECOVER_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT__CONDITION;
+  int RECOVER_EVENT__CONDITION = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
 
   /**
 	 * The number of structural features of the '<em>Recover Event</em>' class.
@@ -2345,7 +2336,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int RECOVER_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 0;
+  int RECOVER_EVENT_FEATURE_COUNT = ERROR_BEHAVIOR_EVENT_FEATURE_COUNT + 1;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateImpl <em>Error Behavior State</em>}' class.
@@ -4787,17 +4778,6 @@ public interface ErrorModelPackage extends EPackage
   EClass getErrorBehaviorEvent();
 
   /**
-	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent#getCondition <em>Condition</em>}'.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Condition</em>'.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent#getCondition()
-	 * @see #getErrorBehaviorEvent()
-	 * @generated
-	 */
-  EAttribute getErrorBehaviorEvent_Condition();
-
-  /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent <em>Error Event</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4819,6 +4799,17 @@ public interface ErrorModelPackage extends EPackage
   EReference getErrorEvent_TypeSet();
 
   /**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Condition</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent#getCondition()
+	 * @see #getErrorEvent()
+	 * @generated
+	 */
+  EAttribute getErrorEvent_Condition();
+
+  /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent <em>Repair Event</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4829,6 +4820,17 @@ public interface ErrorModelPackage extends EPackage
   EClass getRepairEvent();
 
   /**
+	 * Returns the meta object for the attribute '{@link org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Condition</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.RepairEvent#getCondition()
+	 * @see #getRepairEvent()
+	 * @generated
+	 */
+  EAttribute getRepairEvent_Condition();
+
+  /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent <em>Recover Event</em>}'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -4837,6 +4839,17 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 */
   EClass getRecoverEvent();
+
+  /**
+	 * Returns the meta object for the reference list '{@link org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent#getCondition <em>Condition</em>}'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Condition</em>'.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent#getCondition()
+	 * @see #getRecoverEvent()
+	 * @generated
+	 */
+  EReference getRecoverEvent_Condition();
 
   /**
 	 * Returns the meta object for class '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState <em>Error Behavior State</em>}'.
@@ -6629,14 +6642,6 @@ public interface ErrorModelPackage extends EPackage
     EClass ERROR_BEHAVIOR_EVENT = eINSTANCE.getErrorBehaviorEvent();
 
     /**
-		 * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-		 * @generated
-		 */
-    EAttribute ERROR_BEHAVIOR_EVENT__CONDITION = eINSTANCE.getErrorBehaviorEvent_Condition();
-
-    /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorEventImpl <em>Error Event</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6655,6 +6660,14 @@ public interface ErrorModelPackage extends EPackage
     EReference ERROR_EVENT__TYPE_SET = eINSTANCE.getErrorEvent_TypeSet();
 
     /**
+		 * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EAttribute ERROR_EVENT__CONDITION = eINSTANCE.getErrorEvent_Condition();
+
+    /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RepairEventImpl <em>Repair Event</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6665,6 +6678,14 @@ public interface ErrorModelPackage extends EPackage
     EClass REPAIR_EVENT = eINSTANCE.getRepairEvent();
 
     /**
+		 * The meta object literal for the '<em><b>Condition</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EAttribute REPAIR_EVENT__CONDITION = eINSTANCE.getRepairEvent_Condition();
+
+    /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl <em>Recover Event</em>}' class.
 		 * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -6673,6 +6694,14 @@ public interface ErrorModelPackage extends EPackage
 		 * @generated
 		 */
     EClass RECOVER_EVENT = eINSTANCE.getRecoverEvent();
+
+    /**
+		 * The meta object literal for the '<em><b>Condition</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+		 * @generated
+		 */
+    EReference RECOVER_EVENT__CONDITION = eINSTANCE.getRecoverEvent_Condition();
 
     /**
 		 * The meta object literal for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorBehaviorStateImpl <em>Error Behavior State</em>}' class.

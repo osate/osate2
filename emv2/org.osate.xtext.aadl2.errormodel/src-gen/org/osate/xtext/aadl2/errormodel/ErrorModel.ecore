@@ -168,15 +168,19 @@
         eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//PropertyAssociation"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorEvent" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//EventOrPropagation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorEvent" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//EventOrPropagation"/>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorEvent" eSuperTypes="#//ErrorBehaviorEvent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//TypeSet"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RepairEvent" eSuperTypes="#//ErrorBehaviorEvent"/>
-  <eClassifiers xsi:type="ecore:EClass" name="RecoverEvent" eSuperTypes="#//ErrorBehaviorEvent"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RepairEvent" eSuperTypes="#//ErrorBehaviorEvent">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="condition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RecoverEvent" eSuperTypes="#//ErrorBehaviorEvent">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="condition" unique="false"
+        upperBound="-1" eType="ecore:EClass ../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ErrorBehaviorState" eSuperTypes="../../../../../../../org.osate.aadl2/model/aadl2.ecore#//NamedElement #//ErrorBehaviorStateOrTypeSet">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="intial" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="typeSet" eType="#//TypeSet"

@@ -43,6 +43,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -141,6 +142,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 						searchResult = ns.findNamedElement(name);
 					}
 				}
+			} else if (context instanceof RecoverEvent){
+				Classifier ns = AadlUtil.getContainingClassifier(context);
+				searchResult = ns.findNamedElement(name);
 			}
 		} else if (ErrorModelPackage.eINSTANCE.getErrorType() == requiredType) {
 			searchResult = findErrorType(context, name);
@@ -302,6 +306,10 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (sc == null) return null;
 			ErrorModelSubclause ems = EM2Util.getErrorModelSubclause(sc);
 			if (ems == null) return null;
+			ErrorPropagations eps = ems.getPropagation();
+			if (eps != null){
+				ebsm = eps.getUseBehavior();
+			}
 			ComponentErrorBehavior ceb = ems.getComponentBehavior();
 			if (ceb != null){
 				ebsm = ceb.getUseBehavior();
@@ -312,6 +320,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 				}
 			}
 		} else {
+			// resolve in local context
 			ebsm = EM2Util.getContainingErrorBehaviorStateMachine(context);
 			if (ebsm == null) ebsm = EM2Util.getUsedErrorBehaviorStateMachine(context);
 		}

@@ -1476,16 +1476,6 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EAttribute getErrorBehaviorEvent_Condition()
-  {
-		return (EAttribute)errorBehaviorEventEClass.getEStructuralFeatures().get(0);
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   public EClass getErrorEvent()
   {
 		return errorEventEClass;
@@ -1506,6 +1496,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public EAttribute getErrorEvent_Condition()
+  {
+		return (EAttribute)errorEventEClass.getEStructuralFeatures().get(1);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   public EClass getRepairEvent()
   {
 		return repairEventEClass;
@@ -1516,9 +1516,29 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
    * <!-- end-user-doc -->
 	 * @generated
 	 */
+  public EAttribute getRepairEvent_Condition()
+  {
+		return (EAttribute)repairEventEClass.getEStructuralFeatures().get(0);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
   public EClass getRecoverEvent()
   {
 		return recoverEventEClass;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public EReference getRecoverEvent_Condition()
+  {
+		return (EReference)recoverEventEClass.getEStructuralFeatures().get(0);
 	}
 
   /**
@@ -2553,14 +2573,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		createEReference(errorBehaviorStateMachineEClass, ERROR_BEHAVIOR_STATE_MACHINE__PROPERTIES);
 
 		errorBehaviorEventEClass = createEClass(ERROR_BEHAVIOR_EVENT);
-		createEAttribute(errorBehaviorEventEClass, ERROR_BEHAVIOR_EVENT__CONDITION);
 
 		errorEventEClass = createEClass(ERROR_EVENT);
 		createEReference(errorEventEClass, ERROR_EVENT__TYPE_SET);
+		createEAttribute(errorEventEClass, ERROR_EVENT__CONDITION);
 
 		repairEventEClass = createEClass(REPAIR_EVENT);
+		createEAttribute(repairEventEClass, REPAIR_EVENT__CONDITION);
 
 		recoverEventEClass = createEClass(RECOVER_EVENT);
+		createEReference(recoverEventEClass, RECOVER_EVENT__CONDITION);
 
 		errorBehaviorStateEClass = createEClass(ERROR_BEHAVIOR_STATE);
 		createEAttribute(errorBehaviorStateEClass, ERROR_BEHAVIOR_STATE__INTIAL);
@@ -2889,14 +2911,16 @@ public class ErrorModelPackageImpl extends EPackageImpl implements ErrorModelPac
 		initEReference(getErrorBehaviorStateMachine_Properties(), theAadl2Package.getPropertyAssociation(), null, "properties", null, 0, -1, ErrorBehaviorStateMachine.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorBehaviorEventEClass, ErrorBehaviorEvent.class, "ErrorBehaviorEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getErrorBehaviorEvent_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, ErrorBehaviorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorEventEClass, ErrorEvent.class, "ErrorEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getErrorEvent_TypeSet(), this.getTypeSet(), null, "typeSet", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getErrorEvent_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, ErrorEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(repairEventEClass, RepairEvent.class, "RepairEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getRepairEvent_Condition(), ecorePackage.getEString(), "condition", null, 0, 1, RepairEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(recoverEventEClass, RecoverEvent.class, "RecoverEvent", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEReference(getRecoverEvent_Condition(), theAadl2Package.getNamedElement(), null, "condition", null, 0, -1, RecoverEvent.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(errorBehaviorStateEClass, ErrorBehaviorState.class, "ErrorBehaviorState", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getErrorBehaviorState_Intial(), ecorePackage.getEBoolean(), "intial", null, 0, 1, ErrorBehaviorState.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

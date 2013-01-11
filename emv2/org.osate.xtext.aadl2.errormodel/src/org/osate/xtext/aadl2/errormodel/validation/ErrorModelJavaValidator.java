@@ -19,12 +19,15 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -42,6 +45,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
@@ -136,6 +140,18 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkElementTransformTypeConsistency(etXform);
 	}
 	
+	
+	@Check(CheckType.FAST)
+	public void caseRecoverEvent(
+			RecoverEvent recoverEvent) {
+		checkRecoverEventTriggerType(recoverEvent);
+	}
+	
+	@Check(CheckType.NORMAL)
+	public void caseErrorModelSubclause(
+			ErrorModelSubclause subclause) {
+		checkConsistentEBSMUse(subclause);
+	}
 	@Check(CheckType.NORMAL)
 	public void caseErrorPropagations(
 			ErrorPropagations errorPropagations) {
@@ -196,6 +212,52 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			Connection conn) {
 		checkConnectionErrorTypes(conn);
 	}
+	
+	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent){
+		EList<NamedElement> cl = recoverEvent.getCondition();
+		for (NamedElement namedElement : cl) {
+			if (!(namedElement instanceof Port || namedElement instanceof ModeTransition)){
+				error(recoverEvent,
+						"Recover event trigger reference '"+namedElement.getName()+"' is not a port or mode transition.");
+			}
+		}
+	}
+	
+	private void checkConsistentEBSMUse(ErrorModelSubclause subclause){
+		ErrorPropagations props = subclause.getPropagation();
+		ComponentErrorBehavior componentbehavior = subclause.getComponentBehavior();
+		CompositeErrorBehavior composite = subclause.getCompositeBehavior();
+		if (props != null){
+			ErrorBehaviorStateMachine propebsm = props.getUseBehavior();
+			if (componentbehavior != null){
+				ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
+				if (propebsm != null && compEBSM != null && !isSame(propebsm,compEBSM)){
+					error(subclause,
+							"Error propagation state machine "+propebsm.getName()+" is different from component error behavior state machine "+compEBSM.getName());
+				}
+			}
+			if (composite != null){
+				ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
+				if (propebsm != null && composite != null && !isSame(propebsm,compositeEBSM)){
+					error(subclause,
+							"Error propagation state machine "+propebsm.getName()+" is different from Composite error behavior state machine "+compositeEBSM.getName());
+				}
+			}
+		}
+		if (componentbehavior != null && composite != null){
+			ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
+			ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
+			if ( !isSame(compEBSM,compositeEBSM)){
+				error(subclause,
+						"Component error behavior state machine "+compEBSM.getName()+" is different from composite error behavior state machine "+compositeEBSM.getName());
+			}
+		}
+	}
+	
+	private boolean isSame(ErrorBehaviorStateMachine ebsm1, ErrorBehaviorStateMachine ebsm2){
+		return ebsm1 == ebsm2;
+	}
+	
 	
 	private void checkDirectionType(ErrorPropagation errorPropagation){
 		DirectionType pd = errorPropagation.getDirection();

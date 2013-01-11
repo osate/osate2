@@ -12929,6 +12929,7 @@ rule__RecoverEvent__Group_4__1
     }
 :
 	rule__RecoverEvent__Group_4__1__Impl
+	rule__RecoverEvent__Group_4__2
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -12943,6 +12944,99 @@ rule__RecoverEvent__Group_4__1__Impl
 { before(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_1()); }
 (rule__RecoverEvent__ConditionAssignment_4_1)
 { after(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__RecoverEvent__Group_4__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__RecoverEvent__Group_4__2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RecoverEvent__Group_4__2__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getRecoverEventAccess().getGroup_4_2()); }
+(rule__RecoverEvent__Group_4_2__0)*
+{ after(grammarAccess.getRecoverEventAccess().getGroup_4_2()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+
+
+rule__RecoverEvent__Group_4_2__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__RecoverEvent__Group_4_2__0__Impl
+	rule__RecoverEvent__Group_4_2__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RecoverEvent__Group_4_2__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getRecoverEventAccess().getCommaKeyword_4_2_0()); }
+
+	KEYWORD_5 
+
+{ after(grammarAccess.getRecoverEventAccess().getCommaKeyword_4_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__RecoverEvent__Group_4_2__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__RecoverEvent__Group_4_2__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RecoverEvent__Group_4_2__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_2_1()); }
+(rule__RecoverEvent__ConditionAssignment_4_2_1)
+{ after(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_2_1()); }
 )
 
 ;
@@ -25023,8 +25117,31 @@ rule__RecoverEvent__ConditionAssignment_4_1
     }
 :
 (
-{ before(grammarAccess.getRecoverEventAccess().getConditionSTRINGTerminalRuleCall_4_1_0()); }
-	RULE_STRING{ after(grammarAccess.getRecoverEventAccess().getConditionSTRINGTerminalRuleCall_4_1_0()); }
+{ before(grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_1_0()); }
+(
+{ before(grammarAccess.getRecoverEventAccess().getConditionNamedElementIDTerminalRuleCall_4_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getRecoverEventAccess().getConditionNamedElementIDTerminalRuleCall_4_1_0_1()); }
+)
+{ after(grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__RecoverEvent__ConditionAssignment_4_2_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); }
+(
+{ before(grammarAccess.getRecoverEventAccess().getConditionNamedElementIDTerminalRuleCall_4_2_1_0_1()); }
+	RULE_ID{ after(grammarAccess.getRecoverEventAccess().getConditionNamedElementIDTerminalRuleCall_4_2_1_0_1()); }
+)
+{ after(grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); }
 )
 
 ;

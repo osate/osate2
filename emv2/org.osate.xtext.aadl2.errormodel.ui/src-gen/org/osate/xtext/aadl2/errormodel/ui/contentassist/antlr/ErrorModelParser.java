@@ -148,6 +148,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRepairEventAccess().getGroup_4(), "rule__RepairEvent__Group_4__0");
 					put(grammarAccess.getRecoverEventAccess().getGroup(), "rule__RecoverEvent__Group__0");
 					put(grammarAccess.getRecoverEventAccess().getGroup_4(), "rule__RecoverEvent__Group_4__0");
+					put(grammarAccess.getRecoverEventAccess().getGroup_4_2(), "rule__RecoverEvent__Group_4_2__0");
 					put(grammarAccess.getErrorBehaviorStateAccess().getGroup(), "rule__ErrorBehaviorState__Group__0");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getGroup(), "rule__ErrorBehaviorTransition__Group__0");
 					put(grammarAccess.getErrorBehaviorTransitionAccess().getGroup_0(), "rule__ErrorBehaviorTransition__Group_0__0");
@@ -358,6 +359,7 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getRepairEventAccess().getConditionAssignment_4_1(), "rule__RepairEvent__ConditionAssignment_4_1");
 					put(grammarAccess.getRecoverEventAccess().getNameAssignment_0(), "rule__RecoverEvent__NameAssignment_0");
 					put(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_1(), "rule__RecoverEvent__ConditionAssignment_4_1");
+					put(grammarAccess.getRecoverEventAccess().getConditionAssignment_4_2_1(), "rule__RecoverEvent__ConditionAssignment_4_2_1");
 					put(grammarAccess.getErrorBehaviorStateAccess().getNameAssignment_0(), "rule__ErrorBehaviorState__NameAssignment_0");
 					put(grammarAccess.getErrorBehaviorStateAccess().getIntialAssignment_2(), "rule__ErrorBehaviorState__IntialAssignment_2");
 					put(grammarAccess.getErrorBehaviorStateAccess().getTypeSetAssignment_4(), "rule__ErrorBehaviorState__TypeSetAssignment_4");

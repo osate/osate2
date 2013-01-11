@@ -3652,26 +3652,39 @@ ruleRecoverEvent returns [EObject current=null]
     }
 (
 (
-		lv_condition_5_0=RULE_STRING
 		{
-			newLeafNode(lv_condition_5_0, grammarAccess.getRecoverEventAccess().getConditionSTRINGTerminalRuleCall_4_1_0()); 
-		}
-		{
-	        if ($current==null) {
+			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getRecoverEventRule());
 	        }
-       		setWithLastConsumed(
-       			$current, 
-       			"condition",
-        		lv_condition_5_0, 
-        		"STRING");
-	    }
+        }
+	otherlv_5=RULE_ID
+	{
+		newLeafNode(otherlv_5, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_1_0()); 
+	}
 
 )
-))?
-	otherlv_6=KEYWORD_9
+)(
+	otherlv_6=KEYWORD_5
     {
-    	newLeafNode(otherlv_6, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getRecoverEventAccess().getCommaKeyword_4_2_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getRecoverEventRule());
+	        }
+        }
+	otherlv_7=RULE_ID
+	{
+		newLeafNode(otherlv_7, grammarAccess.getRecoverEventAccess().getConditionNamedElementCrossReference_4_2_1_0()); 
+	}
+
+)
+))*)?
+	otherlv_8=KEYWORD_9
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getRecoverEventAccess().getSemicolonKeyword_5());
     }
 )
 ;

@@ -280,7 +280,9 @@ RepairEvent returns RepairEvent:
     
 RecoverEvent returns RecoverEvent:
     name=ID ':' 'recover' 'event' 
-    ('when' condition=STRING)?
+    ('when' condition+=[aadl2::NamedElement|ID]
+    	( "," condition+=[aadl2::NamedElement|ID])*
+    )?
     ';'; //add recover initiator 
 
 ErrorBehaviorState returns ErrorBehaviorState: 
