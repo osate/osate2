@@ -125,12 +125,37 @@ public class FnCallExpr extends Expr {
 		}
 		
 		if (fn.equals("Property")) {
+			Val result;
+			String property;
+						
 			expectArgs(2);
-			InstanceObject aadl = argValues.get(0).getAADL();
-			String property = argValues.get(1).getString();
-			Val result = getProperty(aadl, property);
-			if (result == null) { 
-				throw new LuteException("Failed to find property " + property);
+
+			property = argValues.get(1).getString();
+			result = null;
+
+			
+			System.out.println ("arg=" + argValues.get(0).getClass());
+			if (argValues.get(0) instanceof SetVal)
+			{
+				ArrayList<Val> list = new ArrayList<Val>();
+
+				SetVal set = (SetVal) argValues.get(0);
+				Iterator<Val> iter= set.getSet().iterator();
+				
+				while (iter.hasNext())
+				{
+					Val val = iter.next();
+					list.add(getProperty (val.getAADL(), property));
+				}
+				result = new SetVal (list);
+			}
+			else
+			{
+				InstanceObject aadl = argValues.get(0).getAADL();
+				result = getProperty(aadl, property);
+				if (result == null) { 
+					throw new LuteException("Failed to find property " + property);
+				}
 			}
 			return result;
 			
