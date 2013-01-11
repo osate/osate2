@@ -11,7 +11,7 @@ public class ErrorModelValueConverter extends DefaultTerminalConverters {
     public IValueConverter<DirectionType> InOutDirection() {
         return new IValueConverter<DirectionType>() {
             public DirectionType toValue(String string, INode node) {
-            	
+            	if (string == null) return DirectionType.OUT;
 				return DirectionType.get(string.toLowerCase());
 			}
 
