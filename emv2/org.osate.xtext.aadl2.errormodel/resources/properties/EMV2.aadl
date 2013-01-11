@@ -14,14 +14,11 @@ OccurrenceProbabilityType : type record (
 	
 DistributionFunction : type enumeration (Poisson,Fixed);
   
-Duration : type record (
+DurationType : type record (
 	TimeInterval : Time_Range;
 	Distribution : EMV2::DistributionFunction;); 
-
-RepairProbability : EMV2::OccurrenceProbabilityType
-	  applies to (all);  -- (Repair Event);
 	  
-RepairDuration : EMV2::Duration applies to (all); -- (Repair Event);
+Duration : EMV2::Duration applies to (all); -- (Repair Event, Recover Event);
 
 StateKind : EMV2::StateKindEnum
 	  applies to (all); -- (error behavior state);
