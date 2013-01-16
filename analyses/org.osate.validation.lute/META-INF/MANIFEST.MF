@@ -10,7 +10,6 @@ Require-Bundle: org.osate.validation,
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
  org.osate.aadl2.modelsupport;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0"
-Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
 Import-Package: org.osate.ui.actions,
