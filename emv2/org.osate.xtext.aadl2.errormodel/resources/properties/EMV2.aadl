@@ -3,45 +3,55 @@
 property set EMV2
   is
   
-Occurrence : EMV2::Occurrence_Type
-	  applies to (all); 
+OccurrenceProbability : EMV2::OccurrenceProbabilityType
+	  applies to (all); -- (error propagation, error source, error behavior event)
 
 --needed to separate the property "Occurrence" from its type declaration
 --so other properties may have that type
-Occurrence_Type : type record (
-	Probability : aadlreal;
-	Distribution : EMV2::Distribution;);
+OccurrenceProbabilityType : type record (
+	ProbabilityValue : aadlreal;
+	Distribution : EMV2::DistributionFunction;);
 	
-Distribution : type enumeration (Poisson,Fixed);
+DistributionFunction : type enumeration (Poisson,Fixed);
   
-Duration : record (
+DurationType : type record (
 	TimeInterval : Time_Range;
-	Distribution : EMV2::Distribution;)
-	  applies to (all); 
-
-RepairOccurrence : record (
-	Probability : aadlreal;
-	Distribution : EMV2::Distribution;)
-	  applies to (all); 
+	Distribution : EMV2::DistributionFunction;); 
+	  
+Duration : EMV2::DurationType applies to (all); -- (Repair Event, Recover Event);
 
 StateKind : EMV2::StateKindEnum
-	  applies to (all); 
+	  applies to (all); -- (error behavior state);
 
 StateKindEnum: type enumeration (Working, NonWorking);
 
-SeverityLevel : type aadlinteger;
-CriticalityRanking : type aadlinteger;
+FaultKind : EMV2::FaultKindEnum
+	  applies to (all); -- error event, error propagation, error type, type set, type token); 
 
-Hazard: type record
+FaultKindEnum: type enumeration (Design, Operational);
+
+Persistence : EMV2::PersistenceEnum
+	  applies to (all); -- (error type, type token, type set, error behavior state, error behavior event, error propagation);
+
+PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
+
+
+SeverityLevel : type aadlinteger;
+
+
+LikelihoodLevel : type enumeration (A, B, C, D, E);
+
+
+Hazard: record
   (crossreference: aadlstring;
   	failure : aadlstring;
   	phase : aadlstring;
   	environment : aadlstring;
   	description : aadlstring;
   	severity : EMV2::SeverityLevel;
-  	criticality : EMV2::CriticalityRanking;
+  	likelihood : EMV2::LikelihoodLevel;
   	verificationmethod : aadlstring;
   	risk : aadlstring;
-  	comment : aadlstring;);
+  	comment : aadlstring;) applies to (all);
 
 end EMV2;

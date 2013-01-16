@@ -54,19 +54,20 @@ ElementErrorType|TypeToken
 
 ErrorModelSubclause returns ErrorModelSubclause:
      {ErrorModelSubclause}//'{**' 
-   		('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';')? 
 	    ( propagation=ErrorPropagations)?
 	    (componentBehavior=ComponentErrorBehavior)?
 		(compositeBehavior=CompositeErrorBehavior )?
 		( observablePropagationConnections=ObservablePropagationConnections )?
 		( connectionTransformation=ConnectionTransformation	)?
+    ('properties'
+ 	(properties+=ContainedPropertyAssociation )+)?
 //	'**}'
 	 ;
 
 ErrorModelLibrary returns ErrorModelLibrary:
 	{ErrorModelLibrary}
   //    '{**' 
-(
+	(
     'error' 'types' 
     ('extends' extends+=[ErrorModelLibrary|QEMREF] (','extends+=[ErrorModelLibrary|QEMREF])*
     'with')?     
@@ -81,8 +82,6 @@ ErrorModelLibrary returns ErrorModelLibrary:
 //	'**}'
 	 ;
 	
-  
-
 
 ErrorTypes returns ErrorTypes:
 	TypeDefinition | TypeSetDefinition | TypeAlias | TypeSetAlias
@@ -181,9 +180,10 @@ ElementTypeMapping returns ElementTypeMapping:
 
 ErrorPropagations returns ErrorPropagations: 
    'error' 'propagations'
+   {ErrorPropagations}
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
-   (propagations+=ErrorPropagation)+ 
+   (propagations+=ErrorPropagation)* 
    ( => 'flows'
    (flows+=ErrorFlow)+)? 
     ('properties'
@@ -280,7 +280,9 @@ RepairEvent returns RepairEvent:
     
 RecoverEvent returns RecoverEvent:
     name=ID ':' 'recover' 'event' 
-    ('when' condition=STRING)?
+    ('when' condition+=[aadl2::NamedElement|ID]
+    	( "," condition+=[aadl2::NamedElement|ID])*
+    )?
     ';'; //add recover initiator 
 
 ErrorBehaviorState returns ErrorBehaviorState: 
@@ -327,13 +329,13 @@ ComponentErrorBehavior returns ComponentErrorBehavior:
    ('use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF] ';')?
   ( 'events' (events+=ErrorBehaviorEvent )+ )?
    (  'transitions' 
-    ( transition+=ErrorBehaviorTransition )+ )?
+    ( transitions+=ErrorBehaviorTransition )+ )?
    (  'propagations'
-    ( outgoingPropagationCondition+=OutgoingPropagationCondition )+ )?
+    ( outgoingPropagationConditions+=OutgoingPropagationCondition )+ )?
    (  'detections'
-    ( detectionEvent+=ErrorDetection )+ )?
+    ( errorDetections+=ErrorDetection )+ )?
    (  'mode' 'mappings'
-    ( errorStateToModeMapping+=ErrorStateToModeMapping )+ )?
+    ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
   (  'properties' (properties+=ContainedPropertyAssociation )+ )?
    'end' 'component' ';'
 ;  
@@ -418,7 +420,7 @@ CompositeErrorBehavior returns CompositeErrorBehavior:
    ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
    ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
    ( 'states' 
-    ( state+=CompositeState )+ 
+    ( states+=CompositeState )+ 
     )?
   (  'properties' (properties+=ContainedPropertyAssociation )+ )?
    'end' 'composite' ';'

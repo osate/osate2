@@ -3,7 +3,6 @@ package org.osate.xtext.aadl2.errormodel.naming;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.NamedElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -12,7 +11,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.EM2Util;
 
 public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualifiedNameProvider {
 	
@@ -24,9 +22,10 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	@Override
 	public QualifiedName getFullyQualifiedName(final EObject obj) {
 		if (!(obj instanceof NamedElement) ) return null;
-		if (((NamedElement)obj).getName() == null) return null;
+		if (((NamedElement)obj).getName() == null) 
+			return null;
 		if (obj instanceof AadlPackage){
-			return getConverter().toQualifiedName(((AadlPackage) obj).getElementRoot().getName());
+			return getConverter().toQualifiedName(((AadlPackage) obj).getName());
 		}
 		if (obj instanceof ErrorBehaviorStateMachine || obj instanceof TypeMappingSet || obj instanceof ErrorModelLibrary
 				|| obj instanceof ErrorType || obj instanceof TypeSet || obj instanceof TypeTransformationSet){
@@ -38,7 +37,7 @@ public class ErrorModelQualifiedNameProvider extends DefaultDeclarativeQualified
 	protected String getTheName(NamedElement namedElement){
 		NamedElement root = namedElement.getElementRoot();
 		if (namedElement instanceof ErrorModelLibrary){
-			return root.getName() + "::emv2";
+			return root.getName() + "::"+"emv2";
 		} 
 		return root.getName() + "::emv2::" + namedElement.getName();
 	}

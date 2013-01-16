@@ -677,10 +677,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
 	 *         events+=ErrorBehaviorEvent* 
-	 *         transition+=ErrorBehaviorTransition* 
-	 *         outgoingPropagationCondition+=OutgoingPropagationCondition* 
-	 *         detectionEvent+=ErrorDetection* 
-	 *         errorStateToModeMapping+=ErrorStateToModeMapping* 
+	 *         transitions+=ErrorBehaviorTransition* 
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *         errorDetections+=ErrorDetection* 
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -694,7 +694,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         state+=CompositeState* 
+	 *         states+=CompositeState* 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
@@ -879,12 +879,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
-	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         propagation=ErrorPropagations? 
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 
 	 *         observablePropagationConnections=ObservablePropagationConnections? 
-	 *         connectionTransformation=ConnectionTransformation?
+	 *         connectionTransformation=ConnectionTransformation? 
+	 *         properties+=ContainedPropertyAssociation*
 	 *     )
 	 */
 	protected void sequence_ErrorModelSubclause(EObject context, ErrorModelSubclause semanticObject) {
@@ -926,7 +926,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         propagations+=ErrorPropagation+ 
+	 *         propagations+=ErrorPropagation* 
 	 *         flows+=ErrorFlow* 
 	 *         properties+=ContainedPropertyAssociation*
 	 *     )
@@ -1065,7 +1065,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (name=ID condition=STRING?)
+	 *     (name=ID (condition+=[NamedElement|ID] condition+=[NamedElement|ID]*)?)
 	 */
 	protected void sequence_RecoverEvent(EObject context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

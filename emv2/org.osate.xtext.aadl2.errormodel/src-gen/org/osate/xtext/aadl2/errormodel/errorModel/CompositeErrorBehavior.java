@@ -17,7 +17,7 @@ import org.osate.aadl2.PropertyAssociation;
  * <ul>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getUseTypes <em>Use Types</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getUseBehavior <em>Use Behavior</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getState <em>State</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getStates <em>States</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
@@ -71,20 +71,20 @@ public interface CompositeErrorBehavior extends Element, EBSMUseContext
   void setUseBehavior(ErrorBehaviorStateMachine value);
 
   /**
-	 * Returns the value of the '<em><b>State</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>States</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.CompositeState}.
 	 * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>State</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>States</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-	 * @return the value of the '<em>State</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getCompositeErrorBehavior_State()
+	 * @return the value of the '<em>States</em>' containment reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getCompositeErrorBehavior_States()
 	 * @model containment="true"
 	 * @generated
 	 */
-  EList<CompositeState> getState();
+  EList<CompositeState> getStates();
 
   /**
 	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.

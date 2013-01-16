@@ -111,7 +111,7 @@ public class PropagateErrorFlows {
 	 * @param ci component instance
 	 */
 	public void startErrorFlows(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (eps == null) return;
 		EList<ErrorSource> eslist = EM2Util.getErrorSources(eps);
 		 EList<EObject> nextStep =new UniqueEList<EObject>();
@@ -260,7 +260,7 @@ public class PropagateErrorFlows {
 		ComponentInstance ci = incie instanceof ComponentInstance? (ComponentInstance)incie: incie.getContainingComponentInstance();
 		faultModel.getContainingComponentInstance(ci);
 		// we go to the end of the connection instance, not an enclosing component that may have an error model abstraction
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		if (incie instanceof FeatureInstance){
 			if (!process(source,conni,(FeatureInstance)incie)) { return;}
 		} else {

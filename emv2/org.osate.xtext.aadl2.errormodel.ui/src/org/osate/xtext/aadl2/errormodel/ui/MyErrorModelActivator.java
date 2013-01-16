@@ -33,7 +33,7 @@ public class MyErrorModelActivator extends ErrorModelActivator {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
 						language));
-		// change in Xtext 2.3
+//		// change in Xtext 2.3
 //		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 

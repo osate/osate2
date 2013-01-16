@@ -14,17 +14,28 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
+import org.osate.aadl2.ContainedNamedElement;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Port;
+import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
+import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.ElementTypeTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelFactory;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPath;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
@@ -34,10 +45,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnection;
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedObservableErrorPropagationPoint;
+import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeUseContext;
 import org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelPackageImpl;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
@@ -50,7 +63,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Override
 		protected boolean isResponsible(Map<Object, Object> context, EObject eObject) {
 		return (eObject.eClass().getEPackage() == ErrorModelPackageImpl.eINSTANCE
-				|| eObject instanceof Connection);
+				|| eObject instanceof Connection || eObject instanceof PropertyAssociation);
 	}
 	
 	@Check(CheckType.FAST)
@@ -58,6 +71,37 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 			ErrorPropagation errorPropagation) {
 		checkDirectionType(errorPropagation);
 		checkUniqueObservablePropagationPoint(errorPropagation);
+	}
+	
+	@Check(CheckType.FAST)
+	public void casePropertyAssociation(
+			PropertyAssociation propertyAssociation) {
+		// check that error type is contained in type set of target element
+		EList<ContainedNamedElement> apto = propertyAssociation.getAppliesTos();
+		for (ContainedNamedElement containedNamedElement : apto) {
+			EList<ContainmentPathElement> cpe = containedNamedElement.getContainmentPathElements();
+			if (cpe.size() > 1){
+				 ContainmentPathElement obj = cpe.get(cpe.size()-1);
+				if (obj.getNamedElement() instanceof ErrorType){
+					ErrorType et = (ErrorType) obj.getNamedElement();
+					ContainmentPathElement target = cpe.get(cpe.size()-2);
+					NamedElement ne = target.getNamedElement();
+					TypeSet tts = null;
+					if (ne instanceof ErrorBehaviorState){
+						tts = ((ErrorBehaviorState)ne).getTypeSet();
+					} else if (ne instanceof ErrorPropagation){
+						tts = ((ErrorPropagation)ne).getTypeSet();
+					} else if (ne instanceof ErrorEvent){
+						tts = ((ErrorEvent)ne).getTypeSet();
+					}
+					TypeToken tt = ErrorModelFactory.eINSTANCE.createTypeToken();
+					tt.getType().add(et);
+					if (EM2TypeSetUtil.contains(tts, tt)){
+						
+					}
+				}
+			}
+		}
 	}
 	
 	@Check(CheckType.FAST)
@@ -96,6 +140,24 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkElementTransformTypeConsistency(etXform);
 	}
 	
+	
+	@Check(CheckType.FAST)
+	public void caseRecoverEvent(
+			RecoverEvent recoverEvent) {
+		checkRecoverEventTriggerType(recoverEvent);
+	}
+	
+	@Check(CheckType.NORMAL)
+	public void caseErrorModelSubclause(
+			ErrorModelSubclause subclause) {
+		checkConsistentEBSMUse(subclause);
+	}
+	@Check(CheckType.NORMAL)
+	public void caseErrorPropagations(
+			ErrorPropagations errorPropagations) {
+		checkOnePropagationAndContainmentPoint(errorPropagations);
+	}
+	
 	@Check(CheckType.NORMAL)
 	public void caseTypeMappingSet(
 			TypeMappingSet tms) {
@@ -105,9 +167,9 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelLibrary(ErrorModelLibrary errorModelLibrary) {
 		if (errorModelLibrary.getName() == null)
-			errorModelLibrary.setName("etl");
-		checkCyclicExtends(errorModelLibrary);
-		checkUniqueErrorTypes(errorModelLibrary);
+			errorModelLibrary.setName("emv2");
+		boolean cyclicextends = checkCyclicExtends(errorModelLibrary);
+		checkUniqueDefiningIdentifiers(errorModelLibrary,cyclicextends);
 	}
 	
 	@Check(CheckType.NORMAL)
@@ -121,6 +183,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseTypeUseContext(
 			TypeUseContext typeUseContext) {
 		checkMultipleUses(typeUseContext);
+		checkMultipleErrorTypesInUsesTypes(typeUseContext);
 	}
 	
 	@Check(CheckType.NORMAL)
@@ -150,6 +213,52 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		checkConnectionErrorTypes(conn);
 	}
 	
+	private void checkRecoverEventTriggerType(RecoverEvent recoverEvent){
+		EList<NamedElement> cl = recoverEvent.getCondition();
+		for (NamedElement namedElement : cl) {
+			if (!(namedElement instanceof Port || namedElement instanceof ModeTransition)){
+				error(recoverEvent,
+						"Recover event trigger reference '"+namedElement.getName()+"' is not a port or mode transition.");
+			}
+		}
+	}
+	
+	private void checkConsistentEBSMUse(ErrorModelSubclause subclause){
+		ErrorPropagations props = subclause.getPropagation();
+		ComponentErrorBehavior componentbehavior = subclause.getComponentBehavior();
+		CompositeErrorBehavior composite = subclause.getCompositeBehavior();
+		if (props != null){
+			ErrorBehaviorStateMachine propebsm = props.getUseBehavior();
+			if (componentbehavior != null){
+				ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
+				if (propebsm != null && compEBSM != null && !isSame(propebsm,compEBSM)){
+					error(subclause,
+							"Error propagation state machine "+propebsm.getName()+" is different from component error behavior state machine "+compEBSM.getName());
+				}
+			}
+			if (composite != null){
+				ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
+				if (propebsm != null && composite != null && !isSame(propebsm,compositeEBSM)){
+					error(subclause,
+							"Error propagation state machine "+propebsm.getName()+" is different from Composite error behavior state machine "+compositeEBSM.getName());
+				}
+			}
+		}
+		if (componentbehavior != null && composite != null){
+			ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
+			ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
+			if ( !isSame(compEBSM,compositeEBSM)){
+				error(subclause,
+						"Component error behavior state machine "+compEBSM.getName()+" is different from composite error behavior state machine "+compositeEBSM.getName());
+			}
+		}
+	}
+	
+	private boolean isSame(ErrorBehaviorStateMachine ebsm1, ErrorBehaviorStateMachine ebsm2){
+		return ebsm1 == ebsm2;
+	}
+	
+	
 	private void checkDirectionType(ErrorPropagation errorPropagation){
 		DirectionType pd = errorPropagation.getDirection();
 		Feature f = errorPropagation.getFeature();
@@ -162,6 +271,21 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 	
+	private void checkOnePropagationAndContainmentPoint(ErrorPropagations errorPropagations){
+		EList<ErrorPropagation> eps = errorPropagations.getPropagations();
+		int epssize = eps.size();
+		for (int i=0;i<epssize-1;i++){
+			ErrorPropagation ep1 = eps.get(i);
+			for (int k=i+1;k<epssize;k++){
+				ErrorPropagation ep2 = eps.get(k);
+				if (ep1.getFeature() == ep2.getFeature()){
+					if (ep1.isNot() && ep2.isNot() || !ep1.isNot() && ! ep2.isNot()){
+						error(ep2, (ep1.isNot()?"Error containment ":"Error propagation ")+EM2Util.getPrintName(ep2)+" already defined.");
+					}
+				}
+			}
+		}
+	}
 	
 	private void checkFlowDirection(ErrorSource errorSource){
 		ErrorPropagation ep = errorSource.getOutgoing();
@@ -283,16 +407,32 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		for (ErrorModelLibrary etl : EM2Util.getUseTypes(tuc)){
 			if (etlset.contains(etl)){
 				error(tuc,
-						"Error type library "+etl.getName()+"exists more than once in 'uses types' clause");
+						"Error type library "+EM2Util.getPrintName(etl)+" exists more than once in 'uses types' clause");
 			} else {
 				etlset.add(etl);
 			}
 		}
 	}
 
+	private void checkMultipleErrorTypesInUsesTypes(TypeUseContext tuc){
+		Hashtable<String, EObject> etlset = new Hashtable<String, EObject>(10,10);
+		for (ErrorModelLibrary etl : EM2Util.getUseTypes(tuc)){
+			EList<ErrorTypes> typeslist = etl.getTypes();
+			for (ErrorTypes errorTypes : typeslist) {
+				if (etlset.containsKey(errorTypes.getName())){
+					ErrorModelLibrary eml = EM2Util.getContainingErrorModelLibrary(etlset.get(errorTypes.getName()));
+					error(tuc,
+							"Error type or type set "+errorTypes.getName()+" in library "+EM2Util.getPrintName(etl)+" already exists in error type library "+EM2Util.getPrintName(eml));
+				} else {
+					etlset.put(errorTypes.getName(),errorTypes);
+				}
+			}
+		}
+	}
+
 	private void checkUniqueObservablePropagationPoint(ErrorPropagation ep){
 		if (!ep.isObservable()) return;
-		for (ErrorPropagation oep : EM2Util.getContainingErrorPropagations(ep).getPropagations()){
+		for (ErrorPropagation oep : EM2Util.getContainingClassifierErrorPropagations(ep).getPropagations()){
 			if (oep.isObservable() && oep != ep && oep.getName().equalsIgnoreCase(ep.getName())){
 				error(ep,
 						"Observable propagation point "+ep.getName()+" defined more than once in error propagations clause.");
@@ -341,48 +481,78 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 
-	private void checkUniqueErrorTypes(ErrorModelLibrary etl){
-		Hashtable<String, ErrorTypes> types = new Hashtable<String, ErrorTypes>(10,10);
-		checkUniqueErrorTypes(etl, types);
+	private void checkUniqueDefiningIdentifiers(ErrorModelLibrary etl, boolean cyclicextends){
+		Hashtable<String, EObject> types = new Hashtable<String, EObject>(10,10);
+		checkUniqueDefiningEBSMMappingsTransformations(etl, types);
+		if (cyclicextends) return;
+		for (ErrorModelLibrary xetl : etl.getExtends()){
+			checkUniqueInheritedDefiningErrorTypes(xetl, types);
+		}
 	}
 
-	private void checkUniqueErrorTypes(ErrorModelLibrary etl, Hashtable<String, ErrorTypes> types){
-		for (ErrorModelLibrary xetl : etl.getExtends()){
-			checkUniqueErrorTypes(xetl, types);
+
+	private void checkUniqueDefiningEBSMMappingsTransformations(ErrorModelLibrary etl, Hashtable<String, EObject> types){
+		for (ErrorBehaviorStateMachine ebsm : etl.getBehaviors()){
+			if (types.containsKey(ebsm.getName())){
+					error(ebsm, "Error behavior state machine identifier "+ebsm.getName()+" is not unique in error model library");
+			} 
+			types.put(ebsm.getName(),ebsm);
 		}
+		for (TypeMappingSet tms : etl.getMappings()){
+			if (types.containsKey(tms.getName())){
+					error(tms, "Type mapping set identifier "+tms.getName()+" is not unique in error model library");
+			} 
+			types.put(tms.getName(),tms);
+		}
+		for (TypeTransformationSet tts : etl.getTransformations()){
+			if (types.containsKey(tts.getName())){
+					error(tts, "Type transformation set identifier "+tts.getName()+" is not unique in error model library");
+			} 
+			types.put(tts.getName(),tts);
+		}
+		for (ErrorTypes ets : etl.getTypes()){
+			if (types.containsKey(ets.getName())){
+					error(ets, "Error type or type set (alias) identifier "+ets.getName()+" is not unique in error model library");
+			} 
+			types.put(ets.getName(),ets);
+		}
+	}
+
+	private void checkUniqueInheritedDefiningErrorTypes(ErrorModelLibrary etl, Hashtable<String, EObject> types){
 		for (ErrorTypes et : etl.getTypes()){
 			if (types.containsKey(et.getName())){
-				ErrorModelLibrary xetl = EM2Util.getContainingErrorModelLibrary((ErrorTypes)types.get(et.getName()));
-				if (EM2Util.getContainingErrorModelLibrary(et) == xetl){
-					error(et, "Error type or type set (alias) with identifier "+et.getName()+" already exists in error type library");
-				} else {
-					info(et, "Error type or type set (alias) "+et.getName()+" shadows identifier in error type library "+etl.getName()+". Please qualify references to shadowed type or type set.");
-				}
+				ErrorModelLibrary eml = EM2Util.getContainingErrorModelLibrary(et);
+				error(et, "Error type or type set (alias) "+et.getName()+" inherited from "+EM2Util.getPrintName(eml)+" conflicts with another defining identifier in error type library");
 			} 
-			// XX: may override an existing value; if it raises an exception we have to remove the old one first
 			types.put(et.getName(),et);
+		}
+		for (ErrorModelLibrary xetl : etl.getExtends()){
+			checkUniqueInheritedDefiningErrorTypes(xetl, types);
 		}
 	}
 
-	private void checkCyclicExtends(ErrorModelLibrary etl){
-		if (etl.getExtends() == null) return;
+	private boolean checkCyclicExtends(ErrorModelLibrary etl){
+		if (etl.getExtends() == null) return false;
 		HashSet<ErrorModelLibrary> result = new HashSet<ErrorModelLibrary>();
-		recursiveCheckCyclicExtends(etl,result);
+		return recursiveCheckCyclicExtends(etl,result);
 	}
 	
-	private void recursiveCheckCyclicExtends(ErrorModelLibrary etl, HashSet<ErrorModelLibrary> shetl){
+	private boolean recursiveCheckCyclicExtends(ErrorModelLibrary etl, HashSet<ErrorModelLibrary> shetl){
+		boolean result = false;
 		if (etl.getExtends() != null){
 			shetl.add(etl);
 			EList<ErrorModelLibrary> etllist = etl.getExtends();
 			for (ErrorModelLibrary  xetl : etllist){
 				if (shetl.contains(xetl)){
 					error(xetl, "Cycle in extends of error type library "+etl.getName());
+					result = true;
 				} else {
-					recursiveCheckCyclicExtends(xetl,shetl);
+					result = result || recursiveCheckCyclicExtends(xetl,shetl);
 				}
 			}
 			shetl.remove(etl);
 		}
+		return result;
 	}
 
 	private void checkCyclicExtends(ErrorType origet){
@@ -443,52 +613,115 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	}
 
 	private void checkConnectionErrorTypes(Connection conn){
-		// XXX DOTO needs to take into account the propagation direction as well as the direction of the connection
 		ComponentImplementation cimpl = conn.getContainingComponentImpl();
 		ConnectionEnd src = conn.getAllSource();
 		Context srcCxt = conn.getAllSourceContext();
 		ErrorPropagation srcprop = null;
-		boolean srcNot = false;
+		ErrorPropagation srccontain = null;
+		ErrorModelSubclause srcems = null;
+		ErrorPropagations srceps = null;
 		if (srcCxt instanceof Subcomponent){
 			ComponentClassifier cl = ((Subcomponent)srcCxt).getClassifier();
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cl);
-			if (eps != null) srcprop = EM2Util.findOutgoingErrorPropagation(eps, src.getName());
+			srcems = EM2Util.getContainingClassifierEMV2Subclause(cl);
+			if (srcems != null) srceps = srcems.getPropagation();
 		} else {
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cimpl);
-			if (eps != null) srcprop = EM2Util.findOutgoingErrorPropagation(eps, src.getName());
-			if (srcprop != null) srcNot = srcprop.isNot();
+			srcems = EM2Util.getContainingClassifierEMV2Subclause(cimpl);
+			if (srcems != null) srceps = srcems.getPropagation();
 		}
-		// not expected
-		if (srcNot) return;
+		if (srceps != null) {
+			srcprop = EM2Util.findOutgoingErrorPropagation(srceps, src.getName());
+			srccontain = EM2Util.findOutgoingErrorContainment(srceps, src.getName());
+		}
+		
 		ConnectionEnd dst = conn.getAllDestination();
 		Context dstCxt = conn.getAllDestinationContext();
-		boolean dstNot = false;
+		ErrorPropagations dsteps = null;
+		ErrorModelSubclause dstems = null;
 		ErrorPropagation dstprop = null;
+		ErrorPropagation dstcontain = null;
 		if (dstCxt instanceof Subcomponent){
 			ComponentClassifier cl = ((Subcomponent)dstCxt).getClassifier();
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cl);
-			if (eps != null) dstprop = EM2Util.findIncomingErrorPropagation(eps, dst.getName());
-			if (dstprop != null) dstNot = dstprop.isNot();
+			dstems = EM2Util.getContainingClassifierEMV2Subclause(cl);
+			if (dstems != null) dsteps = dstems.getPropagation();
 		} else {
-			ErrorPropagations eps = EM2Util.getContainingErrorPropagations(cimpl);
-			if (eps != null ) dstprop = EM2Util.findIncomingErrorPropagation(eps, dst.getName());
+			dstems = EM2Util.getContainingClassifierEMV2Subclause(cimpl);
+			if (dstems != null) dsteps = dstems.getPropagation();
 		}
+		if (dsteps != null) {
+			dstprop = EM2Util.findIncomingErrorPropagation(dsteps, dst.getName());
+			dstcontain = EM2Util.findIncomingErrorContainment(dsteps, dst.getName());
+		}
+
 		if (srcprop != null && dstprop != null){
-			boolean dstIsContained = EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet());
-			if ( !dstIsContained ){
-				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop.getTypeSet()) +" is not handled. Expected incoming "+(dstNot?"not ":"")+EM2Util.getPrintName(dstprop.getTypeSet()));
-			} else if (dstIsContained && dstNot){
-				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop.getTypeSet()) +" is not expected. Incoming "+(dstNot?"not ":"")+EM2Util.getPrintName(dstprop.getTypeSet()));
+			if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
+				error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
 			}
 		}
-		if (srcprop == null&& dstprop != null){
-			error(conn,"Source has no error propagation while destination has one: "+EM2Util.getPrintName(dstprop)+" "+EM2Util.getPrintName(dstprop.getTypeSet()));
+		if (srccontain != null && dstcontain != null){
+			if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
+				error(conn,"Outgoing containment  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+			}
 		}
-	}
+		if (srcCxt instanceof Subcomponent && srcprop == null&&srccontain == null &&dstCxt instanceof Subcomponent&& (dstprop != null||dstcontain != null)){
+			if (srcems != null){
+				// has an EMV2 subclause but no propagation specification for the feature
+				error(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+			} else {
+				// TODO check in instance model for connection end point if no error model subclause
+				info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please add error model to source or validate against error model of source subcomponents in instance model");
+			}
+		}
+		if (dstCxt instanceof Subcomponent && dstprop == null  &&dstCxt instanceof Subcomponent&& dstcontain == null && (srcprop != null||srccontain != null)){
+			if (dstems != null){
+				// has an EMV2 subclause but no propagation specification for the feature
+				error(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain)));
+			} else {
+				// TODO check in instance model for connection end point if no error model subclause
+				error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain))+". Please add error model to target or validate against error model of target subcomponents in instance model");
+			}
+		}
+		
+		if (conn.isBidirectional()){
+			// check for error flow in the opposite direction
+			if (srceps != null) {
+				dstprop = EM2Util.findIncomingErrorPropagation(srceps, src.getName());
+				dstcontain = EM2Util.findIncomingErrorContainment(srceps, src.getName());
+			}
+			if (dsteps != null) {
+				srcprop = EM2Util.findOutgoingErrorPropagation(dsteps, dst.getName());
+				srccontain = EM2Util.findOutgoingErrorContainment(dsteps, dst.getName());
+			}
 
-	protected void error(EObject source, String message) {
-		error(message, source, null,
-				ValidationMessageAcceptor.INSIGNIFICANT_INDEX, null);
+			if (srcprop != null && dstprop != null){
+				if(! EM2TypeSetUtil.contains(dstprop.getTypeSet(),srcprop.getTypeSet())){
+					error(conn,"Outgoing propagation  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" has error types not handled by incoming propagation "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+				}
+			}
+			if (srccontain != null && dstcontain != null){
+				if(! EM2TypeSetUtil.contains(srccontain.getTypeSet(),dstcontain.getTypeSet())){
+					error(conn,"Outgoing containment  "+EM2Util.getPrintName(srcprop)+EM2Util.getPrintName(srcprop.getTypeSet()) +" does not contain error types listed by incoming containment "+EM2Util.getPrintName(dstprop)+EM2Util.getPrintName(dstprop.getTypeSet()));
+				}
+			}
+			if (srcCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& srcprop == null&&srccontain == null && (dstprop != null||dstcontain != null)){
+				if (dstems != null){ // we are doing opposite direction
+					// has an EMV2 subclause but no propagation specification for the feature
+					error(conn,"Connection source has no error propagation/containment but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain)));
+				} else {
+					// TODO check in instance model for connection end point if no error model subclause
+					info(conn,"Connection source has no error model subclause but target does: "+(dstprop!=null?EM2Util.getPrintName(dstprop):EM2Util.getPrintName(dstcontain))+". Please validate propagations in instance model");
+				}
+			}
+			if (dstCxt instanceof Subcomponent &&dstCxt instanceof Subcomponent&& dstprop == null && dstcontain == null && (srcprop != null||srccontain != null)){
+				if (dstems != null){
+					// has an EMV2 subclause but no propagation specification for the feature
+				error(conn,"Connection target has no error propagation/containment but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain)));
+				} else {
+					// TODO check in instance model for connection end point if no error model subclause
+					error(conn,"Connection target has no error model subclause but source does: "+(srcprop!=null?EM2Util.getPrintName(srcprop):EM2Util.getPrintName(srccontain))+". Please validate propagations in instance model");
+				}
+			}
+			
+		}
 	}
 
 }

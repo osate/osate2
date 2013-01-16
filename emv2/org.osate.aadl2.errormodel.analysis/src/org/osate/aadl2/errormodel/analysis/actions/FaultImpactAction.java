@@ -70,7 +70,7 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 		 */
 		TraverseErrorFlows faultimpact = new TraverseErrorFlows("FaultImpact", si); // optional third parameter maxLevel
 		faultimpact.reportHeading();
-		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
+		List<ComponentInstance> cilist = faultimpact.getModelSubcomponents();//EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
 		for (ComponentInstance componentInstance : cilist) {
 			faultimpact.startErrorFlows(componentInstance);
 		}

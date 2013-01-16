@@ -2,7 +2,15 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel.impl;
 
+import java.util.Collection;
+
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EClass;
+
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
+
+import org.osate.aadl2.NamedElement;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
@@ -12,12 +20,26 @@ import org.osate.xtext.aadl2.errormodel.errorModel.RecoverEvent;
  * An implementation of the model object '<em><b>Recover Event</b></em>'.
  * <!-- end-user-doc -->
  * <p>
+ * The following features are implemented:
+ * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.RecoverEventImpl#getCondition <em>Condition</em>}</li>
+ * </ul>
  * </p>
  *
  * @generated
  */
 public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverEvent
 {
+  /**
+	 * The cached value of the '{@link #getCondition() <em>Condition</em>}' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #getCondition()
+	 * @generated
+	 * @ordered
+	 */
+  protected EList<NamedElement> condition;
+
   /**
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -37,6 +59,83 @@ public class RecoverEventImpl extends ErrorBehaviorEventImpl implements RecoverE
   protected EClass eStaticClass()
   {
 		return ErrorModelPackage.Literals.RECOVER_EVENT;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public EList<NamedElement> getCondition()
+  {
+		if (condition == null) {
+			condition = new EObjectResolvingEList<NamedElement>(NamedElement.class, this, ErrorModelPackage.RECOVER_EVENT__CONDITION);
+		}
+		return condition;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  @Override
+  public Object eGet(int featureID, boolean resolve, boolean coreType)
+  {
+		switch (featureID) {
+			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+				return getCondition();
+		}
+		return super.eGet(featureID, resolve, coreType);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  @SuppressWarnings("unchecked")
+  @Override
+  public void eSet(int featureID, Object newValue)
+  {
+		switch (featureID) {
+			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+				getCondition().clear();
+				getCondition().addAll((Collection<? extends NamedElement>)newValue);
+				return;
+		}
+		super.eSet(featureID, newValue);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  @Override
+  public void eUnset(int featureID)
+  {
+		switch (featureID) {
+			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+				getCondition().clear();
+				return;
+		}
+		super.eUnset(featureID);
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  @Override
+  public boolean eIsSet(int featureID)
+  {
+		switch (featureID) {
+			case ErrorModelPackage.RECOVER_EVENT__CONDITION:
+				return condition != null && !condition.isEmpty();
+		}
+		return super.eIsSet(featureID);
 	}
 
 } //RecoverEventImpl

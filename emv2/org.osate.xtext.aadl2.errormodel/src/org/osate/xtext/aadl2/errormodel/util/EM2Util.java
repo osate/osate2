@@ -1,5 +1,9 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -50,13 +54,52 @@ public class EM2Util {
 	public static String ErrorModelAnnexName = "EMV2";
 
 	/**
+	 * get error propagations object that contains the element object.
+	 * @param element declarative model element or error annex element
+	 * @return ErrorPropagations
+	 */
+	public static ErrorPropagations getContainingErrorPropagations(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof ErrorPropagations))
+			container = container.eContainer();
+		return (ErrorPropagations) container;
+	}
+
+	
+
+	/**
+	 * get enclosing object within the error annex that is a property list holder..
+	 * @param element declarative model element or error annex element
+	 * @return ErrorPropagations, ComponentErrorBehavior, CompositeErrorBehavior, ErrorBehaviorStateMachine
+	 */
+	public static EList<PropertyAssociation> getContainingPropertiesHolder(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof ErrorModelLibrary || container instanceof ErrorModelSubclause)){
+			if (container instanceof ErrorPropagations ){
+				return ((ErrorPropagations)container).getProperties();
+			}
+			if (container instanceof ErrorBehaviorStateMachine ){
+				return ((ErrorBehaviorStateMachine)container).getProperties();
+			}
+			if (container instanceof ComponentErrorBehavior ){
+				return ((ComponentErrorBehavior)container).getProperties();
+			}
+			if (container instanceof CompositeErrorBehavior){
+				return ((CompositeErrorBehavior)container).getProperties();
+			}
+			container = container.eContainer();
+		}
+		return null;
+	}
+
+	/**
 	 * get error propagations object in the classifier containing the element object.
 	 * The extends hierarchy and the type in the case of an implementation are searched for the error propagations declaration
 	 * This object contains the list of propagations and error flows.
 	 * @param element declarative model element or error annex element
 	 * @return ErrorPropagations
 	 */
-	public static ErrorPropagations getContainingErrorPropagations(EObject element) {
+	public static ErrorPropagations getContainingClassifierErrorPropagations(EObject element) {
 		ErrorPropagations result = null;
 		Classifier cl = AadlUtil.getContainingClassifier(element);
 		if (cl == null) return null;
@@ -69,7 +112,28 @@ public class EM2Util {
 			if (result != null) return result;
 		}
 		if (!Aadl2Util.isNull(cl.getExtended())){
-			return  getContainingErrorPropagations(cl.getExtended());
+			return  getContainingClassifierErrorPropagations(cl.getExtended());
+		}
+		return null;
+	}
+
+	/**
+	 * get ErrorModelSubclause object in the classifier containing the element object.
+	 * The extends hierarchy and the type in the case of an implementation are searched for the ErrorModelSubclause
+	 * @param element declarative model element or error annex element
+	 * @return ErrorModelSubclause
+	 */
+	public static ErrorModelSubclause getContainingClassifierEMV2Subclause(EObject element) {
+		Classifier cl = AadlUtil.getContainingClassifier(element);
+		if (cl == null) return null;
+		ErrorModelSubclause ems = getErrorModelSubclause(cl);
+		if (ems != null) return ems;
+		if (cl instanceof ComponentImplementation){
+			ems = getErrorModelSubclause(((ComponentImplementation)cl).getType());
+			if (ems != null) return ems;
+		}
+		if (!Aadl2Util.isNull(cl.getExtended())){
+			return  getContainingClassifierEMV2Subclause(cl.getExtended());
 		}
 		return null;
 	}
@@ -78,12 +142,14 @@ public class EM2Util {
 	 * find the error propagation point of the specified name
 	 * @param eps List of error propagations
 	 * @param eppName Name of error propagation point we are looking for
+	 * @param pd Directiontype
+	 * @param isNot boolean Error Containment
 	 * @return ErrorPropagation
 	 */
-	public static ErrorPropagation findErrorPropagation(ErrorPropagations eps, String eppName, DirectionType pd){
+	public static ErrorPropagation findErrorPropagation(ErrorPropagations eps, String eppName, DirectionType pd, boolean isNot){
 		for (ErrorPropagation ep : eps.getPropagations()) {
 			Feature f = ep.getFeature();
-			if (ep.getDirection() == pd && !Aadl2Util.isNull(f)&&(eppName.equalsIgnoreCase(f.getName())||eppName.equalsIgnoreCase(ep.getKind()))){
+			if (ep.isNot() == isNot && ep.getDirection() == pd && !Aadl2Util.isNull(f)&&(eppName.equalsIgnoreCase(f.getName())||eppName.equalsIgnoreCase(ep.getKind()))){
 				return ep;
 			}
 		}
@@ -97,7 +163,7 @@ public class EM2Util {
 	 * @return ErrorPropagation
 	 */
 	public static ErrorPropagation findIncomingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.IN);
+		return findErrorPropagation(eps, eppName, DirectionType.IN,false);
 	}
 	
 	/**
@@ -107,7 +173,27 @@ public class EM2Util {
 	 * @return ErrorPropagation
 	 */
 	public static ErrorPropagation findOutgoingErrorPropagation(ErrorPropagations eps, String eppName){
-		return findErrorPropagation(eps, eppName, DirectionType.OUT);
+		return findErrorPropagation(eps, eppName, DirectionType.OUT,false);
+	}
+	
+	/**
+	 * find the outgoing error containment point of the specified name
+	 * @param eps List of error propagations
+	 * @param eppName Name of error containment point we are looking for
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation findIncomingErrorContainment(ErrorPropagations eps, String eppName){
+		return findErrorPropagation(eps, eppName, DirectionType.IN,true);
+	}
+	
+	/**
+	 * find the outgoing error containment point of the specified name
+	 * @param eps List of error propagations
+	 * @param eppName Name of error containment point we are looking for
+	 * @return ErrorPropagation
+	 */
+	public static ErrorPropagation findOutgoingErrorContainment(ErrorPropagations eps, String eppName){
+		return findErrorPropagation(eps, eppName, DirectionType.OUT,true);
 	}
 	
 	/**
@@ -117,7 +203,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getOutgoingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, fi.getName());
 		return ep;
 	}
@@ -129,7 +215,7 @@ public class EM2Util {
 	 */
 	public static ErrorPropagation getIncomingErrorPropagation(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, fi.getName());
 		return ep;
 	}
@@ -140,7 +226,7 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getIncomingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findIncomingErrorPropagation(eps, "access");
 		return ep;
 	}
@@ -151,7 +237,7 @@ public class EM2Util {
 	 * @return error propagation
 	 */
 	public static ErrorPropagation getOutgoingAccessErrorPropagation(ComponentInstance ci){
-		ErrorPropagations eps = EM2Util.getContainingErrorPropagations(ci.getComponentClassifier());
+		ErrorPropagations eps = EM2Util.getContainingClassifierErrorPropagations(ci.getComponentClassifier());
 		ErrorPropagation ep = EM2Util.findOutgoingErrorPropagation(eps, "access");
 		return ep;
 	}
@@ -363,6 +449,12 @@ public class EM2Util {
 			return getPrintableName(ts, ", ");
 	}
 	
+	
+	public static String getPrintName(ErrorModelLibrary eml){
+			return AadlUtil.getContainingPackage(eml).getName();
+	}
+
+	
 	public static String getTableName(TypeSet ts){
 			return getPrintableName(ts, "/");
 	}
@@ -387,15 +479,19 @@ public class EM2Util {
 	}
 	
 	public static String getPrintName(TypeToken tu){
-		if (tu == null) return "{}";
-		String res ="{";
+		return "{"+getName(tu)+"}";
+	}
+	
+	public static String getName(TypeToken tu){
+		if (tu == null) return "";
+		String res ="";
 		EList<ErrorType> te = tu.getType();
 		boolean docomma = false;
 		for (ErrorType et : te) {
 			if (docomma) res = res+"+"; else docomma = true;
 			res = res + et.getName();
 		}
-		return res+"}";
+		return res;
 	}
 	
 	public static String getPrintName(EList<TypeToken> tul){
@@ -414,7 +510,7 @@ public class EM2Util {
 	 */
 	public static ErrorBehaviorStateMachine getUsedErrorBehaviorStateMachine(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof EBSMUseContext|| container instanceof ErrorModelSubclause))
+		while (container != null && !(container instanceof EBSMUseContext))
 			container = container.eContainer();
 		if (container == null) return null;
 		return getUseBehavior((EBSMUseContext) container);
@@ -468,7 +564,6 @@ public class EM2Util {
 		if (context instanceof ComponentErrorBehavior) return ((ComponentErrorBehavior)context).getUseBehavior();
 		if (context instanceof CompositeErrorBehavior) return ((CompositeErrorBehavior)context).getUseBehavior();
 		if (context instanceof ErrorPropagations) return ((ErrorPropagations)context).getUseBehavior();
-		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseBehavior();
 		return null;
 	}
 	
@@ -506,8 +601,8 @@ public class EM2Util {
 	 * @param propertyName name of property
 	 * @return EList<PropertyAssociation>
 	 */
-	public static EList<PropertyAssociation> getProperty(EList<PropertyAssociation> props,String propertyName){
-		EList<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
+	public static List<PropertyAssociation> getProperty(EList<PropertyAssociation> props,String propertyName){
+		List<PropertyAssociation> result = new BasicEList<PropertyAssociation>();
 		for (PropertyAssociation propertyAssociation : props) {
 			Property prop = propertyAssociation.getProperty();
 			String name = prop.getQualifiedName();
@@ -519,91 +614,174 @@ public class EM2Util {
 	}
 	
 	/**
-	 * retrieve an error model property (such as Hazard) attached to an error model element.
+	 * find property by first looking for it down the component instance hierarchy to ci
+	 * Then try to find it in the local context if not null. The context is the context object of the referenced target.
+	 * For example: the transition for a state reference.
+	 * Finally, we look for the property at the definition site of the referenced object.
+	 * @param propertyName String
+	 * @param ci ComponentInstance the component with the error model element, whose property we are retrieving
+	 * @param localContext Element the object that contains the reference to a target object, or null.
+	 * @param target Element the target object in the error model whose property we retrieve
+	 * @return
+	 */
+	public static ContainedNamedElement getProperty(String propertyName, ComponentInstance ci,NamedElement localContext,NamedElement target, TypeSet ts){
+		Stack<ComponentInstance> ciStack = new Stack<ComponentInstance>();
+		ContainedNamedElement result = getPropertyInInstanceHierarchy(propertyName,ci,target,localContext,ciStack, ts);
+		if (result==null&& localContext != null){
+			// look up in local context of target reference
+			// for example: the flow source in error propagations or transition in component error behavior for a state reference
+			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(localContext);
+			if (props != null) {
+				result = getProperty(props, propertyName, target,localContext,ciStack,ts);
+			}
+		}
+		if (result==null){
+			// look up in context of target definition
+			// for example: for a state reference the properties section of the EBSM that defines the state
+			EList<PropertyAssociation> props = EM2Util.getContainingPropertiesHolder(target);
+			if (props != null) {
+				result = getProperty(props, propertyName, target,localContext,ciStack,ts);
+			}
+		}
+		return result;
+	}
+	
+	
+	
+	
+	/**
+	 * retrieve an error model property (such as Hazard) attached to an error model element based on contained property associations
+	 * in the annex subclause properties section.
+	 * Here we come down the component instance hierarchy to find the outmost property association
+	 * in the properties section of the annex subclauses. Those are the ones that can override down the component hierarchy.
 	 * @param props list of property associations from the properties section in the error model
 	 * @param propertyName name of property we are looking for
 	 * @param target the error model element (first item in teh containment path)
 	 * @return property association
 	 */
-	public static PropertyAssociation getProperty(EList<PropertyAssociation> props,String propertyName, Element target){
-		PropertyAssociation result = null;
-		for (PropertyAssociation propertyAssociation : props) {
-			Property prop = propertyAssociation.getProperty();
-			String name = prop.getQualifiedName();
-			if (propertyName.equalsIgnoreCase(name)){
-				if (EM2Util.isErrorModelElementProperty(propertyAssociation, target))
-				return propertyAssociation;
-			}
+	public static ContainedNamedElement getPropertyInInstanceHierarchy(String propertyName, ComponentInstance ci,NamedElement target, 
+			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts){
+		ContainedNamedElement result = null;
+
+		if (ci.getContainingComponentInstance() != null) {
+			ciStack.push(ci);
+			result = getPropertyInInstanceHierarchy(propertyName, ci.getContainingComponentInstance(), target,localContext,ciStack,ts);
+			ciStack.pop();
 		}
-		return result;
-	}
-	
-	/**
-	 * determine whether the property applies to specified error model element or items reachable from it by containment path
-	 * The eme is assumed to be first element in the containment path 
-	 * Items reachable from the eme can be an error type
-	 * @param propertyAssociation
-	 * @param eme Error Model element
-	 * @return true if eme is the first element on one of the containment paths
-	 */
-	public static boolean isErrorModelElementProperty(PropertyAssociation propertyAssociation, Element eme){
-		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
-		for (ContainedNamedElement containedNamedElement : applies) {
-			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			if (!cpes.isEmpty()){
-				ContainmentPathElement cpe = cpes.get(0);
-				NamedElement appliestome = cpe.getNamedElement();
-				if ( eme == appliestome){
-					return true;
-				}
-			}
-		}
-		return false;
-	}
-	
-	/**
-	 * get list of error types, one for each containment path
-	 * We assume that each path is of length one
-	 * @param pa PropertyAssociation
-	 * @return EList<ErrorType>
-	 */
-	public static EList<ErrorType> getContainmentErrorType(PropertyAssociation pa){
-		EList<ErrorType> result = new BasicEList<ErrorType>();
-		EList<ContainedNamedElement> applies = pa.getAppliesTos();
-		for (ContainedNamedElement containedNamedElement : applies) {
-			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			if (cpes.size()==1){
-				ContainmentPathElement cpe = cpes.get(0);
-				NamedElement appliestome = cpe.getNamedElement();
-				if (appliestome instanceof ErrorType)
-					result.add((ErrorType)appliestome);
-			}
-		}
-		return result;
-	}
-	
-	/**
-	 * get list of error types, one for each containment path that points to an error propagation
-	 * We assume that each path is of length one
-	 * @param pa PropertyAssociation
-	 * @param ep ErrorPropagation
-	 * @return EList<ErrorType>
-	 */
-	public static EList<ErrorType> getContainmentErrorType(PropertyAssociation pa,NamedElement ep){
-		EList<ErrorType> result = new BasicEList<ErrorType>();
-		EList<ContainedNamedElement> applies = pa.getAppliesTos();
-		for (ContainedNamedElement containedNamedElement : applies) {
-			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
-			if (cpes.size()==2&& cpes.get(0).getNamedElement()==ep){
-				ContainmentPathElement cpe = cpes.get(1);
-				NamedElement appliestome = cpe.getNamedElement();
-				if (appliestome instanceof ErrorType)
-					result.add((ErrorType)appliestome);
+		if (result==null){
+			ErrorModelSubclause ems = EM2Util.getContainingClassifierEMV2Subclause(ci.getComponentClassifier());
+			if (ems != null) {
+				EList<PropertyAssociation> props = ems.getProperties();
+				result = getProperty(props, propertyName, target, localContext,ciStack,ts);
 			}
 		}
 		return result;
 	}
 
+
+	
+	/**
+	 * retrieve an error model property (such as Hazard) attached to an error model element.
+	 * @param props list of property associations from the properties section in the error model
+	 * @param propertyName name of property we are looking for
+	 * @param target the error model element
+	 * @param ciStack stack of nested CI
+	 * @return property association
+	 */
+	public static ContainedNamedElement getProperty(EList<PropertyAssociation> props,String propertyName, NamedElement target,
+			NamedElement localContext, Stack<ComponentInstance> ciStack, TypeSet ts){
+		if (props == null) return null;
+		ContainedNamedElement result = null;
+		for (PropertyAssociation propertyAssociation : props) {
+			Property prop = propertyAssociation.getProperty();
+			String name = prop.getQualifiedName();
+			if (propertyName.equalsIgnoreCase(name)){
+				result = EM2Util.isErrorModelElementProperty(propertyAssociation, target,localContext,ciStack,ts);
+				if (result!=null)
+				return result;
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * determine whether the property applies to specified error model element or elements contained in it
+	 * (typically error types inside an error model element)
+	 * In other words eme must be the last or second to last element in a path.
+	 * @param propertyAssociation
+	 * @param eme Error Model element
+	 * @return the containment path the property is actually associated with
+	 */
+	public static ContainedNamedElement isErrorModelElementProperty(PropertyAssociation propertyAssociation, NamedElement target, 
+			NamedElement localContext,Stack<ComponentInstance> ciStack, TypeSet ts ){
+		EList<ContainedNamedElement> applies = propertyAssociation.getAppliesTos();
+		for (ContainedNamedElement containedNamedElement : applies) {
+			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
+			int targetsize = (ciStack.size()+1+(localContext==null?0:1));
+			boolean nomatch = false;
+			if (cpes.size() == targetsize || cpes.size()== targetsize+1){
+				for (int i = 0; i< ciStack.size(); i++){
+					if (ciStack.get(i).getSubcomponent() != cpes.get(i).getNamedElement()){
+						nomatch = true;
+						break;
+					}
+				}
+				if (nomatch) break;
+				NamedElement targetel = cpes.get(cpes.size()-1).getNamedElement();
+				if (targetel instanceof ErrorTypes){
+					if (ts !=null){
+						if (targetel instanceof ErrorType){
+							// we refer to a type
+							if (!EM2TypeSetUtil.contains(ts, (ErrorType)targetel)){
+								break;
+							}
+						} else if (targetel instanceof TypeSet){
+							// we refer to a type
+							if (!EM2TypeSetUtil.contains(ts, (TypeSet)targetel)){
+								break;
+							}
+						}
+					}
+					targetel = cpes.get(cpes.size()-2).getNamedElement();
+					if (targetel == target)
+						return containedNamedElement;
+				} else {
+					// last element should be target element
+					if ( target == targetel){
+						if (localContext != null){
+							NamedElement localContextme = cpes.get(cpes.size()-2).getNamedElement();
+							if ( localContext != localContextme){
+								break;
+							} else {
+								return containedNamedElement;
+							}
+						}
+					} else {
+						break;
+					}
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * get list of error types, one for each containment path
+	 * We assume that each path is of length one
+	 * @param containedNamedElement Containment path
+	 * @return EList<ErrorType>
+	 */
+	public static ErrorType getContainmentErrorType(ContainedNamedElement containedNamedElement){
+			EList<ContainmentPathElement> cpes = containedNamedElement.getContainmentPathElements();
+			if (cpes.size()==1){
+				ContainmentPathElement cpe = cpes.get(0);
+				NamedElement appliestome = cpe.getNamedElement();
+				if (appliestome instanceof ErrorType)
+					return((ErrorType)appliestome);
+			}
+		return null;
+	}
+	
 	
 	public static BasicPropertyAssociation getRecordField(EList<BasicPropertyAssociation> props,String fieldName){
 		for (BasicPropertyAssociation propertyAssociation : props) {
@@ -621,7 +799,7 @@ public class EM2Util {
 	}
 
 	public static boolean hasErrorPropagations(ComponentClassifier cl){
-		return EM2Util.getContainingErrorPropagations(cl) != null;
+		return EM2Util.getContainingClassifierErrorPropagations(cl) != null;
 	}
 	
 	public static boolean hasComponentErrorBehavior(ComponentInstance ci){
@@ -647,7 +825,7 @@ public class EM2Util {
 	}
 
 	public static ErrorPropagations getErrorPropagations(ComponentClassifier cl){
-		return EM2Util.getContainingErrorPropagations(cl);
+		return EM2Util.getContainingClassifierErrorPropagations(cl);
 	}
 	
 	public static ComponentErrorBehavior getComponentErrorBehavior(ComponentInstance ci){
@@ -672,7 +850,7 @@ public class EM2Util {
 	 * retrieve list of component instances that have error propagations specified
 	 * For process component instances do not recurse below and include the component instance
 	 * even if no error propagation is attached.
-	 * Foe other component instances include the component instance if it does not have children even if it does not include
+	 * For other component instances include the component instance if it does not have children even if it does not include
 	 * error propagations
 	 * @param ci ComponentInstance
 	 * @return EList of leaf component instances
