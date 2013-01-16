@@ -22,7 +22,6 @@ Import-Package: org.apache.commons.logging,
  org.apache.log4j,
  org.osate.aadl2.modelsupport.util,
  org.osate.core
-Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Export-Package: org.osate.xtext.aadl2.errormodel.parsing,
  org.osate.xtext.aadl2.errormodel.ui,
  org.osate.xtext.aadl2.errormodel.ui.contentassist,
