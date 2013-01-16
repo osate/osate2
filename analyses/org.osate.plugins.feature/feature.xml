@@ -28,24 +28,21 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
    </url>
 
    <requires>
-      <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.eclipse.emf.edit"/>
-      <import plugin="org.eclipse.emf.ecore"/>
-      <import plugin="org.eclipse.ui"/>
-      <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.osate.aadl2"/>
-      <import plugin="org.osate.aadl2.modelsupport"/>
       <import plugin="org.osate.ui"/>
-      <import plugin="org.osate.pluginsupport"/>
-      <import plugin="org.osate.workspace"/>
       <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.xtext.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.contribution.sei"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.osate.aadl2.modelsupport"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.core.resources"/>
       <import plugin="org.eclipse.emf.common"/>
+      <import plugin="org.eclipse.emf.edit"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.osate.ui" version="1.0.0" match="greaterOrEqual"/>
-      <import feature="org.osate.core.feature" version="2.0.0.qualifier"/>
-      <import plugin="org.osate.xtext.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.draw2d" version="3.7.1" match="greaterOrEqual"/>
       <import plugin="org.eclipse.zest.layouts" version="1.1.0" match="greaterOrEqual"/>
       <import plugin="org.osate.imv.aadldiagram" version="1.0.0" match="greaterOrEqual"/>
@@ -64,6 +61,7 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.eclipse.emf.transaction" version="1.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.console"/>
       <import plugin="org.osate.xtext.aadl2.properties.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import feature="org.osate.core.feature" version="2.0.0.qualifier"/>
    </requires>
 
    <plugin
