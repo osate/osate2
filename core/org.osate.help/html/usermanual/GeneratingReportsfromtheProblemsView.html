@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Generating Reports from the “Problems” View</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   6. Generating Reports from the “Problems” View
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="SemanticCheckingandTranslationtoXML.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheAADLObjectEditor.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic43"></a>
+          <span class=outlineNumberFirst>6. </span><span class=topicLineFirst>Generating Reports from the “Problems” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE can generate HTML reports detailing the markers attached to a particular project.  To 
+generate a marker report, select an resource, i.e., a file, folder, or project, that contains at least 
+one error, warning, or information marker then click on the “Generate Marker Report” (</span></font><span><img src="NotesImages/Topic43NotesImage2.jpg" align="bottom" width="15" height="15" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">) 
+button on the toolbar or select “OSATE &gt; Generate Marker Report.” A dialog box will allow 
+you to choose where to save the report.  <i>For files/folders in AADL Projects, you may use 
+either the “Navigator” or “Package Explorer” view to make the selection.</i></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The marker reporter functionality is not specific to AADL projects and can be used for any 
+file/folder/project in an Eclipse workspace, including Java projects.  To generate a report for a 
+file/folder in a Java project, however, the file/folder <i>must</i> be selected using the “Navigator” 
+view; it will not work if you select the file/folder in the “Package Explorer.”</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The layout of a report can be modified.  These settings are project specific.  To modify the 
+report layout: select a resource within a project or the project itself, and then select “OSATE &gt; 
+Report Generator Settings.”  Figure 15 shows the dialog box that is then displayed.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic43NotesImage4.jpg" align="bottom" width="507" height="405" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 15: Report Generator Settings dialog box.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The markers in the report are organized into groups.  You can specify whether to group the 
+markers by file name or marker type.  If you choose to group by files, you can then choose to 
+sort the order of the groups by their file names or type.  You can also specify the sort order of 
+markers within the groups.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">At the end of each report are certain totals about the report.  For example, it displays the total 
+number of markers in the report.  It also displays the total number of files, and the number of 
+markers per file.  You can specify which totals are to be displayed in the report by modifying 
+the check boxes in the Reporter Generator Setting dialog box.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The Reporter Generator Settings dialog allows you to specify what type of markers are to be 
+included in the report.  To do this, click on the “Filter” tab in the Reporter Generator Settings 
+dialog; see Figure 16.  The filter works the same way the filter on the Eclipse “Problems” View.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic43NotesImage6.jpg" align="bottom" width="507" height="405" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 16: Use the &quot;filter&quot; tab to control which markers are reported.</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

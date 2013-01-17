@@ -1,0 +1,898 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Component Package of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLMetaModelinEcore.html">7. The AADL Meta Model in Ecore</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.2 The Component Package of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheCorePackageoftheAADLMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheConnectionPackageoftheAADLMetaModel.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic30"></a>
+          <span class=outlineNumberFirst>7.2 </span><span class=topicLineFirst>The Component Package of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font size="1"><span style="font-size:9pt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;ecore:EPackage xmi:version=&quot;2.0&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:xmi=&quot;http://www.omg.org/XMI&quot; 
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:ecore=&quot;http://www.eclipse.org/emf/2002/Ecore&quot; 
+name=&quot;component&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; nsURI=&quot;http:///AADL/component&quot; 
+nsPrefix=&quot;component&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//SystemClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//SystemImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//SystemType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//SystemFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DataType&quot; eSuperTypes=&quot;core.ecore#//ComponentType 
+#//DataClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//DataImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//DataType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//DataFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//ThreadClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//ThreadImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ThreadType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//ThreadFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadGroupType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//ThreadGroupClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadGroupImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//ThreadGroupImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ThreadGroupType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//ThreadGroupFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//ProcessClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ProcessImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//ProcessImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ProcessType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//ProcessFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SubprogramType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//SubprogramClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SubprogramImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//SubprogramImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//SubprogramType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//SubprogramFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessorType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//ProcessorClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ProcessorImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//ProcessorImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ProcessorType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//ProcessorFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;MemoryType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//MemoryClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//MemoryImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//MemoryImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//MemoryType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//MemoryFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BusType&quot; eSuperTypes=&quot;core.ecore#//ComponentType 
+#//BusClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//BusImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//BusImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//BusType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//BusFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DeviceType&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentType #//DeviceClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;implementations&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DeviceImpl&quot; transient=&quot;true&quot; eOpposite=&quot;#//DeviceImpl/compType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//DeviceType&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;features&quot; eType=&quot;ecore:EClass 
+feature.ecore#//DeviceFeatures&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//SystemClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//SystemSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemType&quot; eOpposite=&quot;#//SystemType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//SystemImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DataImpl&quot; eSuperTypes=&quot;core.ecore#//ComponentImpl 
+#//DataClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//DataSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataType&quot; eOpposite=&quot;#//DataType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//DataImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadImpl&quot; eSuperTypes=&quot;core.ecore#//ComponentImpl 
+#//ThreadClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//ThreadSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadType&quot; eOpposite=&quot;#//ThreadType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ThreadImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;callSequences&quot; eType=&quot;#//CallSequences&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadGroupImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//ThreadGroupClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//ThreadGroupSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadGroupType&quot; eOpposite=&quot;#//ThreadGroupType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ThreadGroupImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//ProcessClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//ProcessSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ProcessType&quot; eOpposite=&quot;#//ProcessType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ProcessImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SubprogramImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//SubprogramClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SubprogramType&quot; eOpposite=&quot;#//SubprogramType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//SubprogramImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//SubprogramSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;callSequences&quot; eType=&quot;#//CallSequences&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessorImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//ProcessorClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//ProcessorSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ProcessorType&quot; eOpposite=&quot;#//ProcessorType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//ProcessorImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;MemoryImpl&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentImpl #//MemoryClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//MemorySubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//MemoryType&quot; eOpposite=&quot;#//MemoryType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//MemoryImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BusImpl&quot; eSuperTypes=&quot;core.ecore#//ComponentImpl 
+#//BusClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//BusType&quot; eOpposite=&quot;#//BusType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//BusImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//BusSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DeviceImpl&quot; eSuperTypes=&quot;core.ecore#//ComponentImpl 
+#//DeviceClassifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponents&quot; 
+eType=&quot;#//DeviceSubcomponents&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;compType&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DeviceType&quot; eOpposite=&quot;#//DeviceType/implementations&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;extend&quot; eType=&quot;#//DeviceImpl&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//SystemSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//SystemClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DataSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent connection.ecore#//DataAccessEnd&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//DataSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//DataClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//ThreadSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//ThreadClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadGroupSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; 
+eType=&quot;#//ThreadGroupSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; 
+eType=&quot;#//ThreadGroupClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//ProcessSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//ProcessClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SubprogramSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubprogram&quot; eType=&quot;ecore:EClass 
+feature.ecore#//Subprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; 
+eType=&quot;#//SubprogramClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessorSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; 
+eType=&quot;#//ProcessorSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//ProcessorClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;MemorySubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//MemorySubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//MemoryClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BusSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent connection.ecore#//BusAccessEnd&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//BusSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//BusClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DeviceSubcomponent&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponent&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;refines&quot; eType=&quot;#//DeviceSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+unsettable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;classifier&quot; eType=&quot;#//DeviceClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;systemSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;processSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ProcessSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;processorSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ProcessorSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+derived=&quot;true&quot; containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;memorySubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//MemorySubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;busSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//BusSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;deviceSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DeviceSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;system#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;subcomponents&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;kind&quot; value=&quot;group&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;namespace&quot; value=&quot;system&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DataSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataSubcomponent&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataSubcomponent&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadGroupSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;threadGroup#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;threadSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;threadGroup#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;threadGroupSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ThreadGroupSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+derived=&quot;true&quot; containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;threadGroup#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;subcomponents&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;kind&quot; value=&quot;group&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;namespace&quot; value=&quot;threadGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dataSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//DataSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;process#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;threadSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot; derived=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;process#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;threadGroupSubcomponent&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ThreadGroupSubcomponent&quot; volatile=&quot;true&quot; transient=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+derived=&quot;true&quot; containment=&quot;true&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;group&quot; value=&quot;process#subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;subcomponents&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EDataType 
+http://www.eclipse.org/emf/2002/Ecore#//EFeatureMapEntry&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;eAnnotations 
+source=&quot;http:///org/eclipse/emf/ecore/util/ExtendedMetaData&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;kind&quot; value=&quot;group&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+&lt;details key=&quot;namespace&quot; value=&quot;process&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; &lt;/eAnnotations&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;/eStructuralFeatures&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessorSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;memorySubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//MemorySubcomponent&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;MemorySubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;memorySubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//MemorySubcomponent&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DeviceSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;threadSubcomponent&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ThreadSubcomponent&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DataClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BusClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SubprogramSubcomponents&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;core.ecore#//Subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;CallSequence&quot; 
+eSuperTypes=&quot;core.ecore#//ModeMember&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;call&quot; lowerBound=&quot;1&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SubprogramSubcomponent&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SubprogramClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;CallSequences&quot; eSuperTypes=&quot;core.ecore#//AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;callSequence&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//CallSequence&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ThreadGroupClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ProcessorClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;MemoryClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;DeviceClassifier&quot; 
+eSuperTypes=&quot;core.ecore#//ComponentClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;BusSubcomponents&quot; 
+eSuperTypes=&quot;core.ecore#//Subcomponents&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;/ecore:EPackage&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

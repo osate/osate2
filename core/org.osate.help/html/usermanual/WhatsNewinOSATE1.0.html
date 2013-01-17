@@ -1,0 +1,212 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>What’s New in OSATE 1.0</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WhatsNew.html">2. What’s New</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   2.3 What’s New in OSATE 1.0
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="WhatsNewinOSATE1.1.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="DownloadandInstallation.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic6"></a>
+          <span class=outlineNumberFirst>2.3 </span><span class=topicLineFirst>What’s New in OSATE 1.0</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The following are updated and new capabilities in OSATE 1.0.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Multi-file support for AADL models: AADL models can be split into separate files by 
+storing each AADL package and property set into a separate file. For details see 
+section 4.2.3.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Team support: AADL model files can be organized into projects.  Projects can be 
+managed by version control systems through the team support services of Eclipse. For 
+details see section 4.3.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Auto-build: OSATE now manages updating of AADL XML files (with extension 
+“aaxl”) when AADL text files (with extension “aadl”) are modified in the AADL Text 
+Editor.  Similarly, OSATE updates AADL text files when AADL XML files are 
+modified in the AADL Object Editor (and in the future in the Graphical AADL Editor). 
+Finally, OSATE automatically updates instance model files when the corresponding 
+AADL text file or AADL XML file has changed. For details see section 4.6.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL Object Editor Navigation: This editor now has the ability to follow references in 
+the object model.  This allows you to navigate from subcomponents to their classifiers, 
+from connections and flows to their source and destination, and from instance model 
+objects to the declarative model counterparts they were derived from. Through 
+navigation history the user can return to previously visited locations. For details see 
+section 7.2.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL Instance Models:  AADL instance models are now created with a complete set 
+of semantic connections for port connections, access connections, and for mode 
+transition triggering by event ports, with end-to-end flow instances and flow 
+specification instances, and modal information.  Instance model-based property lookup 
+is now fully supported, including modal property values.  In particular, property values 
+for semantic connections are retrieved from the appropriate connection declaration. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Instantiation of high-level AADL models:  OSATE now supports creation of instance 
+models with connection instances and flow instances for models, whose component 
+structure has not been elaborated down to the level of individual threads.  This allows 
+for early integration analysis of high-level model specifications for flow related analysis 
+such as partition latency analysis, or specification based network load analysis.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL Meta Model Implementation: OSATE V1.0 implements the AADL Meta 
+Model as defined in the AADL Meta Model &amp; XML/XMI Interchange Format Annex 
+V0.9.  This document has been included in the OSATE help system. Changes to the 
+meta model include a new abstract class “Classifier” to be compatible with the UML 
+profile, and the addition of a “connectionContext” association for connection instances. 
+For further details on Meta Model changes please see the Annex document.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Port groups and Semantic Connections:  When port groups are involved in semantic 
+connections those port groups are now unpacked into semantic connections for 
+individual ports for each “ultimate” source and destination of a semantic connection. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Updated Flow Latency Analysis plug-in:  The flow latency analysis plug-in has been 
+updated to handle delayed and immediate connections between periodic thread and to 
+operate in instance models as well as declarative models. For details see Section 10. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">New Resource Management plug-in: We have added a ResourceManagement plug-in 
+that supports priority inversion checking.  This plug-in also interfaces with a Java-based 
+implementation of Rate-Monotonic Analysis (RMA) algorithm to provide scheduling 
+analysis of independently executing periodic threads.  We have also developed an 
+interface to a Java-based implementation of a constraint-based resource that allocates 
+processor, memory, and bus resources to application systems utilizing a binpacking 
+approach.  This resource management implementation is part of the TimeWeaver 
+embedded systems engineering framework developed at Carnegie Mellon University 
+(http://www-2.cs.cmu.edu/~rtml/timeweaverweb/). If you are interested in further 
+resource scheduling analyses, U. Penn has interfaced their Process Algebra toolset to 
+perform analysis of AADL models and will make their work available to others (see 
+“AADL User Presentations” at </span></font><a href="http://www.aadl.info"><font face="Times New Roman" size="3"><span style="font-size:12pt">www.aadl.info</span></font></a><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> for details). </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE Plug-in Development: The OSATE infrastructure for analysis plug-in 
+development has been updated to support the multi-file capability of OSATE.  A four 
+part presentation series on OSATE Plug-in Development was given in January 2005 
+and is available on CD. A OSATE Plug-in Development Guide document is in 
+development and a first draft is available as part of the OSATE help system or can be 
+requested as printable document.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Online Help: Now includes the JavaDoc of major OSATE functionality, the OSATE 
+Plug-in Development Guide in its current draft form, and a description of the AADL 
+meta model and XML/XMI interchange format.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Several semantic checks have been added, in particular checks relating to modal 
+systems.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Bug fixes: A number of bugs have been fixed.  A thank you to all who have reported 
+problems to us.  For a detailed list of bug fixes please see the OSATE pages at 
+</span></font><a href="http://www.aadl.info"><font face="Times New Roman" size="3"><span style="font-size:12pt">www.aadl.info</span></font></a><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
