@@ -110,6 +110,15 @@
                            value="aadl">
                      </objectState>
                   </and>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aadl2">
+                     </objectState>
+                  </and>
                   <objectClass
                         name="org.osate.aadl2.instance.SystemInstance">
                   </objectClass>
@@ -150,6 +159,15 @@
                   <objectState
                         name="extension"
                         value="aadl">
+                  </objectState>
+               </and>
+               <and>
+                  <objectClass
+                        name="org.eclipse.core.resources.IFile">
+                  </objectClass>
+                  <objectState
+                        name="extension"
+                        value="aadl2">
                   </objectState>
                </and>
                </or>
