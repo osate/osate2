@@ -835,9 +835,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param connEndPoint ConnectionEnd
 	 * @param connCtxt Context of th eendpoint
 	 */
-	public InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
+	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt) {
-		InstanceObject instance = null;
+		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
 			//lookup subcomponent using the connection src
 			instance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);

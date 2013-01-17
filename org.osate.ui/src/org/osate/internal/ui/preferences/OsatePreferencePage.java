@@ -65,7 +65,7 @@ public class OsatePreferencePage extends FieldEditorPreferencePage implements IW
 		// GLobal Scoping based on Project Dependency
 		BooleanFieldEditor bex = new BooleanFieldEditor(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG,"Use Project Dependency for Global Scope",getFieldEditorParent());
 		addField(bex);
-		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_REINSTANTIATE, "Automatically reinstantiate models during build.", getFieldEditorParent()));
+//		addField(new BooleanFieldEditor(WorkspacePlugin.AUTO_REINSTANTIATE, "Automatically reinstantiate models during build.", getFieldEditorParent()));
 	}
 
 	public void init(IWorkbench workbench) {
