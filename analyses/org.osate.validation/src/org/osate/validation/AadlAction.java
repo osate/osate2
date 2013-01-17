@@ -61,7 +61,6 @@ abstract public class AadlAction implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 	private Object currentSelection;
 
-	@Override
 	public void selectionChanged(IAction action, ISelection selection) {
 		if (selection instanceof IStructuredSelection) {
 			IStructuredSelection iss = (IStructuredSelection) selection;
@@ -73,7 +72,6 @@ abstract public class AadlAction implements IWorkbenchWindowActionDelegate {
 	
 	abstract protected IStatus runJob(Element sel, IProgressMonitor monitor, Logger log);
 	
-	@Override
 	public void run(IAction action) {
 		final Logger log = new Logger(Logger.WARN, "AADL Validation", getWindow());
 
@@ -133,11 +131,9 @@ abstract public class AadlAction implements IWorkbenchWindowActionDelegate {
 		job.schedule();
 	}
 	
-	@Override
 	public void dispose() {
 	}
 
-	@Override
 	public void init(IWorkbenchWindow window) {
 		this.window = window;
 	}
