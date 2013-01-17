@@ -273,7 +273,7 @@ public interface ConnectionInstance extends FlowElementInstance {
 	 */
 	List<InstanceObject> getThroughFeatureInstances();
 
-	InstanceObject getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
+	ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt);
 
 } // ConnectionInstance
