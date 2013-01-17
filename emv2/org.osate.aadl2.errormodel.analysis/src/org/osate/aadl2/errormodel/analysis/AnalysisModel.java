@@ -110,9 +110,8 @@ public class AnalysisModel {
 							// 
 							ConnectionInstanceEnd dst = connectionInstance.getDestination();
 							ComponentInstance dstci = getContainingComponentInstance(dst);
-							//ConnectionInstanceEnd desti = Aadl2InstanceUtil.getDestEndPointInstance(dstci,connectionInstance);
-							//FIXME !!!
-							ConnectionInstanceEnd desti = null;
+							ConnectionInstanceEnd desti = Aadl2InstanceUtil.getDestEndPointInstance(dstci,connectionInstance);
+
 							outgoingConnections.put(fi,desti);
 						}
 					}
@@ -124,17 +123,13 @@ public class AnalysisModel {
 	protected ConnectionInstanceEnd getDestEndPointInstance(ConnectionInstance connectionInstance){
 		ConnectionInstanceEnd dst = connectionInstance.getDestination();
 		ComponentInstance dstci = getContainingComponentInstance(dst);
-		//FIXME !!!
-		return null;
-		//return Aadl2InstanceUtil.getDestEndPointInstance(dstci,connectionInstance);
+		return Aadl2InstanceUtil.getDestEndPointInstance(dstci,connectionInstance);
 	}
 	
 	protected ConnectionInstanceEnd getSrcEndPointInstance(ConnectionInstance connectionInstance){
 		ConnectionInstanceEnd src = connectionInstance.getSource();
 		ComponentInstance srcci = getContainingComponentInstance(src);
-		//FIXME !!!
-		return null;
-		//return Aadl2InstanceUtil.getDestEndPointInstance(srcci,connectionInstance);
+		return Aadl2InstanceUtil.getDestEndPointInstance(srcci,connectionInstance);
 	}
 
 	
