@@ -1,0 +1,1322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Notes on Accessing Models</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingofAADLModels.html">4. Processing of AADL Models</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.2 Notes on Accessing Models
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="MetaModelDefinedAADLModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AADLModelTraversalSupport.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic29"></a>
+          <span class=outlineNumberFirst>4.2 </span><span class=topicLineFirst>Notes on Accessing Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL meta model defines attributes for classes in the meta model as well as containment
+and reference associations between classes. Attributes are pieces of information stored in an
+object of an AADL model itself. An example attribute is the  timing attribute of the
+<b>DataConnection</b> class in Figure 18. The association  eventConnection is
+a <i>containment
+association</i> between the <b>Connections</b> and <b>EventConnection</b> class in Figure 18.
+The
+association  refines is a <i>reference association</i> between two AADL model objects of
+the
+class <b>EventConnection</b> in Figure 18. Attributes, containments, and references can be single
+valued (shown by an indicator of 0..1 or 1), or they can be multi-valued (shown by an indicator
+whose upper bound is greater than 1 with * indicating an arbitrary number).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic30"></a>
+          <span class=outlineNumber>4.2.1 </span><span class=topicLine>An API for Accessing AADL Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">EMF
+generates a collection of methods for accessing and changing AADL models. The API
+for accessing AADL models consists of a collection of  getter methods. These methods
+have
+the name <b>get</b> and the name of the attribute, containment, or reference to be accessed. For
+example, the method <b>getRefines()</b> provides access from an <b>EventConnection</b> object to the
+<b>EventConnection</b> object it refines. Reference associations automatically handle references
+between objects stored in different XML documents. If an attribute, containment, or reference
+is multi-valued, then the multi-value list is returned in form of an <b>EList</b> class.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+API for changing the model consists of  setter methods. For single values these methods
+have the name <b>set</b> and the name of the attribute, containment, or reference to be changed.
+For
+multi-valued attributes, containment, and references these methods have the name <b>add</b> and the
+name of the attribute, containment, or reference to be added to the multiplicity list. The multi-
+value list can also be retrieved with the getter method and cleared.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Some
+classes have a set of containment associations to concrete classes that represent different
+categories of an abstract class. In the meta model shown in Figure 18, the class <b>Connections</b>
+contains <b>EventConnection</b> objects, <b>DataConnection</b> objects, etc. under separate
+containment associations. As a result, the contained XML elements have tag names that
+correspond to the containment label. Although they have separate containment associations,
+they represent a collection of connections. An EMF provided method <b>eContents()</b> returns
+the
+objects of all containment associations of an AADL model object. An EMF feature map has
+been specified in the meta model (see [AADL Meta Model Annex]). This feature map
+maintains an ordering of all contained objects across the containment associations. This assures
+that the order in which connection objects are added to a model is the same order in which
+they are returned by <b>eContents()</b>. In the case of a parsed AADL model, this order is the
+declaration order encountered in the textual AADL model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">These
+methods are straightforward implementations and strictly follow the structure of the
+model. While in many cases these methods are perfectly adequate, we have introduced
+additional convenience methods into the API.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic31"></a>
+          <span class=outlineNumber>4.2.2 </span><span class=topicLine>Eliding Model Structure</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+meta model includes structural information that is sometimes not interesting to clients of the
+model. For example, <b>ComponentImpl</b> has a  connections containment that refers
+to a
+<b>Connections</b> object, which in turn, has the containments labeled  dataAccessConnection,
+ busAccessConnection,  parameterConnection,  eventConnection, etc.
+That is, there is an
+additional layer of abstraction between a component implementation and its connections that
+represents the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>connections</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> subclause of the component
+implementation; see Figure 18. This
+applies to all subclauses of classifiers. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic31NotesImage4.jpg" align="bottom" width="572" height="377" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 18: Portion of meta model
+hierarchy showing extra level of indirection in the representation of connections. Note that
+the classes referenced by <b>Connections</b> are all subclasses of <b>Connection</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Some
+processing of AADL models can be performed for all classifiers, component types, or
+component implementations and the same processing is done for all elements of each
+subclause. In this case the processing methods want to retrieve all elements of a component
+type or component implementation subclause, i.e., all connections of a component
+implementation in our example, directly.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For
+this reason we have provided convenience methods for the classes <b>Classifier</b>,
+<b>ComponentClassifier</b>, <b>ComponentType</b>, and <b>ComponentImpl</b>. For example, in addition
+to
+the method <b>ComponentImpl.getConnections()</b> that returns the <b>Connections</b> object,
+<b>ComponentImpl</b> has the method <b>getConnection()</b> that returns an <b>EList</b> of <b>Connection</b>
+objects representing the connection declarations and refinements specified in the component
+implementation.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic32"></a>
+          <span class=outlineNumber>4.2.3 </span><span class=topicLine>AADL Inheritance Semantics</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+meta model generated getter methods do not understand the inheritance semantics of
+AADL. For example, when retrieving the connections in a component implementation, analysis
+is often interested in the connections declared in that component implementation together with
+the connections defined in any ancestor component implementations. In addition, if an ancestor
+connection is refined, only the declaration of the refinement is interesting. However, the meta
+model only captures the syntactic structure of the AADL model. The connections referenced
+by the <b>Connections</b> model object are thus only those connections declared within the
+associated component implementation. We thus have the convention that a normal meta model
+<b>get</b> method returns only those elements that are locally declared within a component, and that
+an additional <b>getAll</b> method returns all elements that are visible in the component due to
+inheritance, taking refinement into account. Be aware that not all <b>getAll</b> methods return
+lists:
+some attributes are  inheritable via feature refinement, but they instead fill in previously
+unspecified information, for example, the component classifier of a subprogram feature.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+naming convention combines with the previous convention: continuing with the connections
+example, <b>ComponentImpl</b> also has the method <b>getAllConnection()</b> that returns an <b>EList</b>
+of
+<b>Connection</b> objects representing all the connections visible in the component implementation,
+including those inherited from ancestor component implementations.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic33"></a>
+          <span class=outlineNumber>4.2.4 </span><span class=topicLine>Specialized Reference Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+some cases the meta model has containment or reference associations defined for abstract
+classes that are specialized as containment or reference associations with the same label for
+concrete subclasses. For example, all the subclasses of <b>ComponentImpl</b> declare a
+ subcomponents containment. This abstract containment association is denoted in the
+meta
+model via a dashed line; see Figure 19. Example specializations of this  subcomponents
+containment association are shown in Figure 20: <b>DataImpl</b>&#146;s  subcomponents attribute
+refers
+to a <b>DataSubcomponents</b> object, <b>ThreadImpl</b>&#146;s  subcomponents attribute refers
+to a
+<b>ThreadSubcomponents</b> object, etc. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Because
+EMF does not support  abstract associations and their specializations, no access
+methods are automatically generated. Even if the appropriate access methods are added to the
+abstract classes&#151;in our example to <b>ComponentImpl</b>&#151;Java 1.4 would complain about
+incompatible return types because subclasses cannot refine the return value of a method. In our
+case, the return value of the access method <b>getSubcomponents()</b> of the subclass <b>DataImpl
+</b>would return <b>DataSubcomponents</b>, but the access method would have to be declared in
+<b>ComponentImpl</b> to return an instance of <b>Subcomponents</b>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic33NotesImage3.jpg" align="bottom" width="576" height="114" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 19: Portion of meta model
+showing the abstract  subcomponent attribute between <b>ComponentImpl</b> and
+<b>Subcomponents</b>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic33NotesImage6.jpg" align="bottom" width="575" height="215" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 20: Portion of meta model
+showing <b>DataImpl</b> and <b>ThreadImpl</b>'s specific  subcomponents attributes.
+This excerpt
+does not show the fact that <b>DataSubcomponents</b> and <b>ThreadSubcomponents</b> are subclasses of <b>Subcomponents</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+get around this problem, we have a third naming convention: we use <b>getX</b> methods to name
+generic getter methods in super classes. Again, this convention combines with the two
+previously described conventions. Thus <b>ComponentImpl</b> has the method
+<b>getXSubcomponents()</b> that returns a <b>Subcomponents</b> object (the super class of
+<b>DataSubcomponents</b>, <b>ThreadSubcomponents</b>, etc.), as well as the methods
+<b>getXSubcomponent()</b> and <b>getXAllSubcomponent()</b> that each return an <b>EList</b> of
+<b>Subcomponent</b> objects.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>Note:
+Java 1.5 fixes this problem by allowing covariant return types on overridden
+methods.</i> </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic34"></a>
+          <span class=outlineNumber>4.2.5 </span><span class=topicLine>Unifying “Either-Or” Associations</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+a few cases a class in the meta model has a reference and containment association where
+only one of the two is expected to be set. For example, <b>NumberType</b> has a reference
+association  unitsTypeReference and a containment association  unitsType.
+These two
+associations come about because the AADL syntax allows the declaration of a number type to
+either reference a declared units type or specify the unit type in-place within the number type
+declaration. Thus to get the unit type from a <b>NumberType</b>, you have to check both
+associations and use which ever is non-<b>null</b>. This is verbose and error prone, so the naming
+pattern <b>getThe</b> is used to name a single method that returns which ever association is non-null.
+For example, <b>NumberType</b> has the method <b>getTheUnitsType()</b>.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic35"></a>
+          <span class=outlineNumber>4.2.6 </span><span class=topicLine>Specific Instances of the Getter Method Patterns</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic36"></a>
+          <span class=outlineNumber></span><span class=topicLine>Package edu.cmu.sei.aadl.model.core</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="31%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Class</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="29%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Attribute</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Additional Methods</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>ComponentClassifier</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  features</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  extends</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXExtend</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="25" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>ComponentImpl</b></span></font><span></span></div>
+    </td>
+    <td rowspan="3" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  callSequences</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllCallSequence</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXCallSequence</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXCallSequences</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="4" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> connections</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllConnection</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllConnection(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getConnection</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getConnection(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  features</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllAbstractPort</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="4" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> flows</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllFlowSequence</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllFlowSequence(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getFlowSequence</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getFlowSequence(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="6" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> modes</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllMode</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllModeAndModeTransition</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllModeTransition</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getMode</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getModeAndModeTransition</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getModeTransition</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> refinesType</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllRefinedFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="5" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Abstract
+     subcomponents</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllSubcomponent</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllSubcomponent(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSubcomponent</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSubcomponent(Mode)</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSubcomponents</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="5" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>ComponentType</b></span></font><span></span></div>
+    </td>
+    <td rowspan="3" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  feature</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXFeatures</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> flowSpecs</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllFlowSpec</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getFlowSpec</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="9" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Connection</b></span></font><span></span></div>
+    </td>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  dst</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllDst</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXDst</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" height="13" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> dstContext</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" height="13" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getDstContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" height="13" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllDstContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  refines</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXRefines</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  src</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllSrc</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSrc</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" height="13" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> srcContext</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" height="13" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getSrcContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" height="13" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllSrcContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="3" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Feature</b></span></font><span></span></div>
+    </td>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  dataClassifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllDataClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXDataClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  refines</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXRefines</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PropertyHolder</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> properties</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getPropertyAssociation</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="4" align="right" valign="middle" width="31%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Subcomponent</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  classifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  feature</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllAbstractPort</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="29%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  refines</span></font><span></span></div>
+    </td>
+    <td valign="top" width="40%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXRefines</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic37"></a>
+          <span class=outlineNumber></span><span class=topicLine>Package edu.cmu.sei.aadl.model.feature</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Class</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Attribute</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Additional Methods</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>BusAccess</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> busClassifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllBusClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>DataAccess</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> dataClassifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllDataClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Parameter</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> direction</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllDirection</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Port</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> direction</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllDirection</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PortGroupType</b></span></font><span></span></div>
+    </td>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> feature</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getFeature</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>ServerSubprogram</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> subprogramClassifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllSubprogramClassifier</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="32%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Subprogram</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> subprogramClassifier</span></font><span></span></div>
+    </td>
+    <td valign="top" width="35%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getAllSubprogramClassifier</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic38"></a>
+          <span class=outlineNumber></span><span class=topicLine>Package edu.cmu.sei.aadl.model.flow</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Class</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Attribute</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Additional Methods</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>FlowImpl</b></span></font><span></span></div>
+    </td>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  implement</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllImplement</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXImplement</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="8" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>FlowSpec</b></span></font><span></span></div>
+    </td>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  dst</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllDst</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXDst</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  dstContext</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllDstContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXDstContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  src</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllSrc</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSrc</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  srcContext</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXAllSrcContext</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXSrcContext</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic39"></a>
+          <span class=outlineNumber></span><span class=topicLine>Package edu.cmu.sei.aadl.model.instance</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Class</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Attribute</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Additional Methods</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>ComponentInstance</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  componentImpl</span></font><span></span></div>
+    </td>
+    <td valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXComponentImpl</b></span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic40"></a>
+          <span class=outlineNumber></span><span class=topicLine>Package edu.cmu.sei.aadl.model.property</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><table border="1" width="590" cellpadding="7" style="border-collapse: collapse; border: none">
+    <tr>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Class</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Attribute</b></span></font><span></span></div>
+    </td>
+    <td align="center" valign="top" width="33%" style="border: solid 0.50pt;">
+    <div align="center" class="lastTableNotesDiv"><font face="Arial Narrow" color="#010101" size="3"><span
+    style="font-size:12pt"><b>Additional Methods</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>NumberType</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> unitsType</span></font><span></span></div>
+    </td>
+    <td rowspan="2" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getTheUnitsType</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> unitsTypeReference</span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>NumberValue</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt">Abstract  value</span></font><span></span></div>
+    </td>
+    <td valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getXValue</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PropertyConstant</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> propertyType</span></font><span></span></div>
+    </td>
+    <td rowspan="2" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getThePropertyType</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> propertyTypeReference</span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>PropertyDefinition</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> propertyType</span></font><span></span></div>
+    </td>
+    <td rowspan="2" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getThePropertyType</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> propertyTypeReference</span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td rowspan="2" align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>RangeType</b></span></font><span></span></div>
+    </td>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> numberType</span></font><span></span></div>
+    </td>
+    <td rowspan="2" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="left" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"><b>getTheNumberType</b></span></font><span></span></div>
+    </td></tr>
+    <tr>
+    <td align="right" valign="middle" width="33%" style="border: solid 0.50pt;">
+    <div align="right" class="lastTableNotesDiv"><font face="Times New Roman" color="#010101" size="3"><span
+    style="font-size:12pt"> numberTypeReference</span></font><span></span></div>
+    </td></tr>
+</table>
+<div align="left"></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
