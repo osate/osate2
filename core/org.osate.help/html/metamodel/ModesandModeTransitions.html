@@ -1,0 +1,163 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Modes and Mode Transitions</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.12 Modes and Mode Transitions
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="CallSequences.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="PropertyAssociations.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic20"></a>
+          <span class=outlineNumberFirst>4.12 </span><span class=topicLineFirst>Modes and Mode Transitions</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>The <i>Modes</i> class shown in Figure 28 has a containment 
+association with the <i>Mode</i> class 
+representing an AADL mode and a containment association with the <i>ModeTransition</i> class.&#160; 
+A 
+<i>Mode</i> class can have a <i>refines</i> reference association to itself.&#160; The <i>ModeMember</i> 
+abstract class 
+has an <i>inModes</i> reference association to the <i>Mode</i> class; the <i>members</i> reference association 
+in 
+the opposite direction is a non-persistent association, i.e., not stored persistently in XML 
+documents.&#160; </span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic20NotesImage3.jpg" align="bottom" width="574" height="212" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 28 Modes and Mode Transitions</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>The <i>ModeTransition</i> class represents a mode transition.&#160; 
+It has a <i>srcMode</i> and a <i>dstMode</i> reference 
+association with the <i>Mode</i> class.&#160; The opposite reference associations <i>outgoingModeTransition</i> 
+and 
+<i>incomingModeTransition</i> are not persistent, i.e., not stored in XML documents.&#160; The abstract 
+<i>Connection</i> class has an <i>inModeTransition</i> reference association to the <i>ModeTransition</i> 
+class; the 
+<i>members</i> reference association in the opposite direction is non-persistent, i.e., is not stored 
+in 
+XML documents.&#160; The Mode class has a state Attribute that records whether the mode is an <i>initial</i> 
+mode, or normal mode.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

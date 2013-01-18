@@ -1,0 +1,232 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Additional Semantic Checks</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AnalysisofDeclarativeAADLModelsandAADLIn.html">9. Analysis of Declarative AADL Models and AADL Instance Models</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   9.1 Additional Semantic Checks
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AnalysisofDeclarativeAADLModelsandAADLIn.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ArchitectureAnalyses.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic62"></a>
+          <span class=outlineNumberFirst>9.1 </span><span class=topicLineFirst>Additional Semantic Checks</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Two AADL semantic checks are provided as stand-alone analysis plug-ins instead of being 
+performed as part of the AADL build process.  </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic63"></a>
+          <span class=outlineNumber>9.1.1 </span><span class=topicLine>Check for Circular Property References</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This analysis checks that there are no circular dependencies among property references and is 
+available as “Analyses &gt; Semantic Checks &gt; Check for Circular Property References” in the 
+menu bar and as the </span></font><span><img src="NotesImages/Topic63NotesImage2.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> button on the toolbar.  This analysis may be invoked only on AADL 
+Specification objects and will not be enabled if no such object is selected.  This analysis  can be 
+time consuming on large models because it looks up every property value on every object that 
+can have properties.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">All property association that are involved in circular references are marked with errors.  For 
+example, the following component type creates a circular reference among the properties 
+</span></font><font face="Courier New" color="#010101"><span>Example::p1</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and </span></font><font face="Courier New" color="#010101"><span>Example::p2</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>system s</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>  properties</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>    Example::p1 =&gt; value(Example::p2);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>    Example::p2 =&gt; value(Example::p1);    </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>end s;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Running the check on the above specification creates the markers shown in Figure 26.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic63NotesImage4.jpg" align="bottom" width="576" height="92" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 26: Example output of the Circular Property Reference Check.</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic64"></a>
+          <span class=outlineNumber>9.1.2 </span><span class=topicLine>Check for Required Connection</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The </span></font><font face="Courier New" color="#010101"><span>Required_Connection</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property is a predeclared aadlboolean property for 
+ports. It is 
+true if a port must always be connected. This means that a component implementation must 
+have a connection from/to this port and a subcomponent port for every mode.  Similarly, a 
+subcomponent with a component classifier, whose port has this property set to true must have 
+that port connected within the enclosing component implementation for every mode. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This analysis can be invoked on any AADL specification or system instance as “Analyses &gt; 
+Semantic Checks &gt; Check for Required Connection”  in the menu bar or the </span></font><span><img src="NotesImages/Topic64NotesImage3.gif" align="bottom" width="16" height="16" border="0" alt="graphic" /></span><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> button in the 
+toolbar.  Any subcomponent port that requires a connection but does not have an incoming or 
+outgoing connection is reported. Any component implementation port that requires a 
+connection but does not have an incoming or outgoing connection is reported if the 
+implementation contains subcomponents.  The results are reported as warning markers that can 
+be viewed in the “Problems” view.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><i>Note: The default setting for this property is currently true.  This means unless the value 
+is explicitly set to false the check will be performed and violations reported. </i></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

@@ -1,0 +1,577 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Feature XMI Specification of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheXMISpecificationforAADL.html">8. The XMI Specification for AADL</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   8.4 The Feature XMI Specification of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheConnectionXMISpecificationoftheAADLMe.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheFlowXMISpecificationoftheAADLMetaMode.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic40"></a>
+          <span class=outlineNumberFirst>8.4 </span><span class=topicLineFirst>The Feature XMI Specification of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font size="1"><span style="font-size:9pt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;xsd:schema targetNamespace=&quot;http:///AADL/feature&quot; 
+xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; 
+xmlns:xmi=&quot;http://www.omg.org/XMI&quot; xmlns:feature=&quot;http:///AADL/feature&quot; xmlns:core=&quot;http:///AADL/core&quot; 
+xmlns:component=&quot;http:///AADL/component&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http:///AADL/component&quot; schemaLocation=&quot;component.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http:///AADL/core&quot; schemaLocation=&quot;core.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http://www.omg.org/XMI&quot; schemaLocation=&quot;XMI.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:simpleType 
+name=&quot;PortDirection&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:restriction 
+base=&quot;xsd:NCName&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:enumeration 
+value=&quot;in&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:enumeration 
+value=&quot;out&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:enumeration 
+value=&quot;inout&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:restriction&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:simpleType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:simpleType 
+name=&quot;AccessDirection&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:restriction 
+base=&quot;xsd:NCName&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:enumeration 
+value=&quot;provided&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:enumeration 
+value=&quot;required&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:restriction&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:simpleType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;Subprogram&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Feature&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:Subprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;subprogramClassifier&quot; type=&quot;component:SubprogramClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;subprogramClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;Subprogram&quot; type=&quot;feature:Subprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ServerSubprogram&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Feature&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:ServerSubprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;subprogramClassifier&quot; type=&quot;component:SubprogramClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;subprogram&quot; type=&quot;feature:Subprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;subprogramClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;subprogram&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ServerSubprogram&quot; type=&quot;feature:ServerSubprogram&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;DataAccess&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:ComponentAccess&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:DataAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dataClassifier&quot; type=&quot;component:DataClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dataClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;DataAccess&quot; type=&quot;feature:DataAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;BusAccess&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:ComponentAccess&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:BusAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;busClassifier&quot; type=&quot;component:BusClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;busClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;BusAccess&quot; type=&quot;feature:BusAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;Port&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:AbstractPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;direction&quot; type=&quot;feature:PortDirection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;Port&quot; type=&quot;feature:Port&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;DataPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:Port&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:DataPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dataClassifier&quot; type=&quot;component:DataClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dataClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;DataPort&quot; type=&quot;feature:DataPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;EventPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:Port&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:EventPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;EventPort&quot; type=&quot;feature:EventPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;EventDataPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:Port&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:EventDataPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dataClassifier&quot; type=&quot;component:DataClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dataClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;EventDataPort&quot; type=&quot;feature:EventDataPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;Parameter&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:AbstractPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:Parameter&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dataClassifier&quot; type=&quot;component:DataClassifier&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;direction&quot; type=&quot;feature:PortDirection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dataClassifier&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;Parameter&quot; type=&quot;feature:Parameter&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;PortGroupType&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Classifier&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;extend&quot; type=&quot;feature:PortGroupType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;inverseOf&quot; type=&quot;feature:PortGroupType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;feature:PortGroupFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;extend&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;inverseOf&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;PortGroupType&quot; type=&quot;feature:PortGroupType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;PortGroup&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:AbstractPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;portGroupType&quot; type=&quot;feature:PortGroupType&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;portGroupType&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;PortGroup&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;DataFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;DataFeatures&quot; type=&quot;feature:DataFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;SubprogramFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;SubprogramFeatures&quot; type=&quot;feature:SubprogramFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;SoftwareFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;SoftwareFeatures&quot; type=&quot;feature:SoftwareFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ThreadFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:SoftwareFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ThreadFeatures&quot; type=&quot;feature:ThreadFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ThreadGroupFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:SoftwareFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ThreadGroupFeatures&quot; type=&quot;feature:ThreadGroupFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ProcessFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:SoftwareFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ProcessFeatures&quot; type=&quot;feature:ProcessFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ProcessorFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ProcessorFeatures&quot; type=&quot;feature:ProcessorFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;MemoryFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;busAccess&quot; type=&quot;feature:BusAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;MemoryFeatures&quot; type=&quot;feature:MemoryFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;BusFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;busAccess&quot; type=&quot;feature:BusAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;BusFeatures&quot; type=&quot;feature:BusFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;DeviceFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Features&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;DeviceFeatures&quot; type=&quot;feature:DeviceFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;SystemFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;feature:SoftwareFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;SystemFeatures&quot; type=&quot;feature:SystemFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;ComponentAccess&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Feature&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;direction&quot; type=&quot;feature:AccessDirection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;ComponentAccess&quot; type=&quot;feature:ComponentAccess&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;PortGroupFeatures&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;features&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;PortGroupFeatures&quot; type=&quot;feature:PortGroupFeatures&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;AbstractPort&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:Feature&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;AbstractPort&quot; type=&quot;feature:AbstractPort&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;/xsd:schema&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

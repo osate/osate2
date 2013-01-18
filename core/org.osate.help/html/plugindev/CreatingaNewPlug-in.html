@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Creating a New Plug-in</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.1 Creating a New Plug-in
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AFirstPlug-in.ModelStatistics.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="GatheringModelStatistics.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic8"></a>
+          <span class=outlineNumberFirst>3.1 </span><span class=topicLineFirst>Creating a New Plug-in</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+simplest way to create an OSATE plug-in is to either copy and paste one of the example
+plug-in projects such as the Architecture project, or to import an OSATE plug-in project
+template (</span></font><font face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">we
+will need to set one up</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">).
+This is the simplest way because it already provides a
+skeleton implementation of the plug-in.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic9"></a>
+          <span class=outlineNumber>3.1.1 </span><span class=topicLine>Creating a Plug-in Project</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left" style="margin-left=6mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">Here we create a new plug-in project using the Eclipse project wizard. </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Select  </span></font><font
+face="Courier New" color="#010101"><span>File | New | Project...</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> to open the project wizard. See Figure 1.</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="center" style="margin-left=13mm; margin-right=0mm; text-indent=-6mm"><img src="NotesImages/Topic9NotesImage3.jpg" align="bottom" width="510" height="279" border="0" alt="graphic" /></div>
+</blockquote>
+<div align="center" style="margin-left=6mm; margin-right=0mm; text-indent=-6mm"><font face="Arial Narrow" color="#010101"><span>Figure
+1: Creating a new project.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Select  Plug-in Project
+and click on  Next. See Figure 2.</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="center" style="margin-left=13mm; margin-right=0mm; text-indent=-6mm"><img src="NotesImages/Topic9NotesImage5.jpg" align="bottom" width="338" height="355" border="0" alt="graphic" /></div>
+</blockquote>
+<div align="center" style="margin-left=6mm; margin-right=0mm; text-indent=-6mm"><font face="Arial Narrow" color="#010101"><span>Figure
+2: Selecting the plug-in project wizard.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Enter a name for the plug-in.
+This name is also used for the Java package that will
+contain the source files for this plug-in. Therefore, this name should be Java
+package- style name. Here we use <b>edu.cmu.sei.osate.statistics</b>.</span></font><span></span></li>
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Click on  Next. </span></font><span></span></li>
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Click on  Finish.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left" style="margin-left=6mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">A new project and source tree will be created; the structure of the newly created
+plug-in
+package is shown in Figure 3.</span></font><span></span></div>
+<div align="center" style="margin-left=6mm; margin-right=0mm; text-indent=0mm"><img src="NotesImages/Topic9NotesImage7.jpg" align="bottom" width="280" height="186" border="0" alt="graphic" /></div>
+<div align="center" style="margin-left=6mm; margin-right=0mm; text-indent=0mm"><font face="Arial Narrow" color="#010101"><span>Figure
+3: The contents of the new plug-in project.</span></font><span></span></div>
+<div align="left" style="margin-left=6mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The wizards creates</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A new Java package with
+the same name as the plug-in project.</span></font><span></span></li>
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A new class <b>StatisticsPlugin</b>
+that manages the lifecycle of the plug-in. In general,
+you do not need to edit this class.</span></font><span></span></li>
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A plug-in manifest file, </span></font><font
+face="Courier New" color="#010101"><span>plugin.xml</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">, that describes the appearance and structure
+of the plug-in. We will edit this file to declare the plug-in&#146;s dependencies on other
+plug- ins as well as to define the toolbar button that is used to activate the plug-in&#146;s
+action.</span></font><span></span></li>
+<li style="margin-left=3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A </span></font><font face="Courier New" color="#010101"><span>build.properties</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file that is used by Eclipse
+to influence how the plug-in in
+built. You generally do not have to edit this file.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic10"></a>
+          <span class=outlineNumber>3.1.2 </span><span class=topicLine>Setting the Plug-in’s Dependencies</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Our
+first concern is establishing the plug-in&#146;s dependencies on other plug-ins. Plug-ins export
+Java packages into the Eclipse environment and, conversely, must declare which plug-ins they
+depend on. By default, a plug-in project generated from the  Plug-in Project wizard
+already
+depends on the <b>org.eclipse.ui</b> and <b>org.eclipse.core.runtime</b> plug-ins. Our model statistics
+plug-in utilizes the AADL meta-model, which is itself modeled in the EMF framework. The
+plug-in, therefore, also depends on the <b>edu.cmu.sei.aadl.model</b> plug-in and the
+<b>org.eclipse.emf.ecore</b> plug-in. In general, it is expected that any OSATE plug-in will use
+the
+AADL meta-model, and thus depend on these two packages.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Our
+model statistics plug-in also depends on the plug-in <b>edu.cmu.sei.osate.ui</b>. This plug-in
+defines abstract implementations of Eclipse actions that we extend to drive the plug-in from
+Eclipse&#146;s user interface; see Section 3.3.1  Eclipse Actions. See Section 9  Packages
+Provided by the OSATE Plug-ins for a description of which packages are in which OSATE
+plug-ins.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Plug-in
+dependencies are declared in the </span></font><font face="Courier New" color="#010101"><span>plugin.xml</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> file:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Edit </span></font><font
+face="Courier New" color="#010101"><span>plugin.xml.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Go to the  Dependencies
+pane. See Figure 4.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Click on  Add...
+under  Required Plug-ins. </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Select the appropriate
+plug-in to add from the list. See Figure 5.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="center"><img src="NotesImages/Topic10NotesImage4.jpg" align="bottom" width="494" height="385" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 4: Editing a plug-in's dependencies.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic10NotesImage6.jpg" align="bottom" width="326" height="382" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 5: Selecting a plug-in.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Alternatively,
+you can edit the XML directly by going to the  plugin.xml pane. The
+dependencies are declared in the </span></font><font face="Courier New" color="#010101"><span>requires</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> clause, e.g.,</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>&lt;requires&gt; <br/>
+&lt;importplugin=&quot;org.eclipse.ui&quot;/&gt; <br/>
+&lt;importplugin=&quot;org.eclipse.core.runtime&quot;/&gt; <br/>
+&lt;importplugin=&quot;edu.cmu.sei.aadl.model&quot;/&gt; <br/>
+&lt;importplugin=&quot;org.eclipse.emf.ecore&quot;/&gt; <br/>
+&lt;importplugin=&quot;edu.cmu.sei.osate.ui&quot;/&gt; <br/>
+&lt;/requires&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

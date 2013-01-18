@@ -1,0 +1,626 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Flow Analysis Plug-in</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WorkingwithFlows.html">6. Working with Flows</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   6.3 The Flow Analysis Plug-in
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="FlowsintheAADLMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="Specification-BasedEnd-To-EndFlowAnalysi.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic111"></a>
+          <span class=outlineNumberFirst>6.3 </span><span class=topicLineFirst>The Flow Analysis Plug-in</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+flow analysis plug-in described here can be found as the Eclipse/OSATE plug-in
+<b>edu.cmu.sei.aadl.flowanalysis</b>. The objective of this plug-in is to demonstrate </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">how flow specifications
+can be processed,</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">how flow specification
+validation and specification-based end-to-end flow analysis can
+be achieved by operating on the declarative AADL model,</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">and how analysis written
+for declarative models can be reused to operate on instance
+models.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">First,
+we will focus on flow specification validation, and then on end-to-end flow analysis.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic112"></a>
+          <span class=outlineNumber>6.3.1 </span><span class=topicLine>Meeting Flow Requirements</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Flow
+specification declarations in component types can have properties that reflect expected
+flow characteristics that act as requirements. Flow implementations are expected to satisfy
+those requirements. Flow implementations are validated against the flow specification in terms
+of properties provided by the subcomponent flow specifications that are part of the flow
+implementation.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL standard has pre-declared three latency related properties:</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>Latency: Time applies to (flow, connections);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property specifies the
+maximum amount of elapsed time allowed between the
+time the data or events enter the connection or flow and the time it exits.</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>Expected_Latency: Time applies to (flow);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101" size="3"><span style="font-size:12pt">The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Expected_Latency</b></span></font><font
+face="Courier New" color="#010101" size="3"><span style="font-size:12pt"> property specifies the expected
+latency
+</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">for
+a flow specification. Actual latency must not exceed the expected latency.</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>Actual_Latency: Time applies to (flow);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101" size="3"><span style="font-size:12pt">The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Actual_Latency</b></span></font><font
+face="Courier New" color="#010101" size="3"><span style="font-size:12pt"> property specifies the actual
+latency </span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">as
+determined by the implementation of the end-to-end flow through semantic connections. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+our flow analysis plug-in we will make use of the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Latency</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property and the
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Expected_Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property. The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property associated with
+a flow specification is
+interpreted to represent the latency the component is expected to satisfy. The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">
+property associated with the flow implementation represents the latency determined by the
+connection latencies and the subcomponent flow specification latencies. The
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Expected_Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property is used on end-to-end
+flows to indicate the desired latency,
+while the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property of the end-to-end
+flow represents the calculated latency
+determined by the connection latencies and the subcomponent flow specification latencies.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The </span></font><font
+face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Actual_Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> property can be used to
+recursively propagate latency information up the
+system hierarchy.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+flow specification validation is implemented by checking that every flow implementation
+satisfies the corresponding flow specification properties. This is achieved by traversing the
+declarative AADL model and processing through the <b>caseFlowImpl</b> method. This method
+handles all three subclasses of flow implementations: flow source implementations, flow sink
+implementations, and flow path implementations.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+code is shown in below. We iterate over all flow elements that make up the flow
+implementation and add up the latency values of the connections and subcomponent flow
+specifications that we encounter. We determine whether we are dealing with a connection or a
+subcomponent flow specification by testing for <b>isConnectionReference()</b>. The AADL front-
+end has already made sure that the flow element sequence alternates between connection
+references and subcomponent flow spec references, therefore we do not have to track which
+element we processed last. We do all the arithmetic by retrieving the latency values with
+respect to a specific unit, in our case in micro seconds. We take advantage of the predeclared
+property definitions available in the <b>edu.cmu.sei.aadl.property.predeclared</b> package. Once
+the result is added up we store the result as </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Latency</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property value with the flow
+implementation and compare it to the </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Latency</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property of the flow specification. The
+property value is set by creating a new <b>IntegerValue</b> object, setting its value and measurement
+unit, and then performing a <b>setPropertyValue(PredeclaredProperties.LATENCY,newpv);
+</b>on the flow implementation object.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public Object caseFlowImpl(FlowImpl
+fi) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> FlowSpec fs = fi.getXImplement();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> EList fel = fi.getFlowElement();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double result = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> for (Iterator it = fel.iterator();
+it.hasNext();){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> FlowElement fe =
+(FlowElement)it.next();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fe.isConnectionReference()){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> Connection
+conn = fe.getConnection();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue
+cpv = (IntegerValue)conn.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (cpv
+!= null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+result = result + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+cpv.getScaledValue(PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> FlowSpec
+fefs = fe.getFlowSpec();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fefs
+!= null){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+IntegerValue fefspv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+(IntegerValue) fefs.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (fefspv != null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+result = result + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+fefspv.getScaledValue(PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+} else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+// handle the case when no latency is specified</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // store the result
+as flow implementation latency </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue newpv
+= </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PropertyFactory.eINSTANCE.createIntegerValue();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> newpv.setNewValue((long)
+result);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> newpv.setUnitLiteral(PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> fi.setPropertyValue(PredeclaredProperties.LATENCY,newpv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // now we compare
+the result to the latency in the flow spec</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue fspv
+= (IntegerValue) fs.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fspv != null)
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double
+fslv = fspv.getScaledValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (result
+&gt; fslv) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportError(fi, &quot;Flow implementation latency &quot; + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+result + &quot;exceeds flow spec latency &quot; + fslv);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic113"></a>
+          <span class=outlineNumber>6.3.2 </span><span class=topicLine>Handling of Missing Latency Properties</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This
+basic analysis algorithm can be refined in several ways.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">First,
+we deal with the case when a subcomponent flow specification does not have a </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Latency</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">
+property value and the subcomponent is a thread. In this case we can infer the worst case
+latency from the thread characteristics. If the thread is a periodic thread and the incoming
+connection is a delayed connection, then the period of the thread determines the latency
+contribution of the thread. If the thread is periodic and the incoming connection is an immediate
+connection or the thread is an aperiodic or sporadic thread then the latency contribution is the
+completion time, whose worst case is the thread deadline.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+add code to track whether the incoming connection was a delayed data connection. We
+do that every time we encounter a connection reference by checking the timing attribute of the
+<b>DataConnection</b>.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> boolean wasDelayedConnection
+= false;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> for (Iterator it = fel.iterator();
+it.hasNext();) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> FlowElement fe =
+(FlowElement) it.next();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fe.isConnectionReference())
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> Connection
+conn = fe.getConnection();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> <b>if
+(conn instanceof DataConnection &amp;&amp;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+((DataConnection)conn).getTiming() == </b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+ConnectionTiming.DELAYED_LITERAL) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+wasDelayedConnection = true;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> }
+else {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+wasDelayedConnection = false;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> }</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue cpv
+= (IntegerValue) conn.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Then
+we deal with the case when a </span></font><font face="Times New Roman" color="#0000ff" size="3"><span
+style="font-size:12pt"><b>Latency</b></span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt"> property value could not be found and the
+subcomponent is a thread subcomponent. In that case we retrieve the dispatch protocol from
+the thread classifier. We use the <b>getClassifier() </b>method that is defined for the
+<b>ThreadSubcomponent</b> to get the classifier. If the thread is periodic and the previous
+(incoming) connection was delayed we retrieve the period and add it, otherwise we retrieve the
+deadline and add it.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>} else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> Subcomponent sc = fe.getFlowContext();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (sc instanceof ThreadSubcomponent){</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> ThreadClassifier
+tc = ((ThreadSubcomponent) sc).getClassifier();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> EnumLiteral dp
+= tc.getDispatchProtocol();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (dp == PredeclaredProperties.PERIODIC
+&amp;&amp; wasDelayedConnection) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> IntegerValue
+period = (IntegerValue) sc.getSimplePropertyValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+PredeclaredProperties.PERIOD);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if
+(period != null){</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+result = result + </b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+period.getScaledValue(PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportInfo(sc, &quot;Thread subcomponent has no flowspec latency &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot;or periodic thread period&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> }</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> } else {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> IntegerValue
+deadline = (IntegerValue) sc.getSimplePropertyValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+PredeclaredProperties.DEADLINE);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if
+(deadline != null){</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+result = result+deadline.getValue();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportInfo(sc, &quot;Thread subcomponent has no flowspec latency &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot; or thread deadline&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(sc, sc.getComponentType().getCategory().getName()
++</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> &quot;
+subcomponent has no flowspec latency for flow &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> fefs.getName());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic114"></a>
+          <span class=outlineNumber>6.3.3 </span><span class=topicLine>Propagation of Flow Latency Information</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+second refinement is to record the flow implementation result as the flow specification
+latency if the flow specification does not have such a property value. If we do this and traverse
+the AADL model according to the use hierarchy of component implementations we will ensure
+that flow specification latency property values have been filled in before they are used. We
+accomplish this by adding a <b>caseComponentImpl</b> method that is invoked by the
+<b>processBottomUpComponentImpl()</b> method. This traversal method visits only component
+implementations and does so bottom up by processing component implementation classifiers
+before they are referenced by subcomponent declarations. This traversal method is invoked by
+the analysis action method <b>doAaxlAction</b>. The <b>caseComponentImpl</b> method retrieves
+the
+list of flow implementations and invoke the <b>processElist</b> method for switch-based processing.
+Instead, we simply could have invoked a second traversal method to process its content
+according to the case methods defined for the flow analysis. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // inside the caseFlowImpl method </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // set the sum value for the
+flow implementation</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> IntegerValue newpv = PropertyFactory.eINSTANCE.createIntegerValue();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> newpv.setNewValue((long)result);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> newpv.setUnitLiteral(PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> fi.setPropertyValue(PredeclaredProperties.LATENCY,newpv);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // now we compare the result
+to the latency in the flow spec</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> IntegerValue fspv = (IntegerValue)fs.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fspv != null){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> public Object
+caseComponentImpl(ComponentImpl ci) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> self.processEList(ci.getFlowSequence());</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> // alternative:
+self.processPreOrderAll(ci);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> public void doAaxlAction(AObject
+obj){</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> AObject root = obj.getAObjectRoot();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> AadlProcessingSwitch
+flowLatencySwitch =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> new
+FlowLatencyAnalysisSwitch(getMarkerReporter());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (root instanceof
+AadlSpec) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> flowLatencySwitch.processBottomUpComponentImpl((AadlSpec)root);</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic115"></a>
+          <span class=outlineNumber>6.3.4 </span><span class=topicLine>Reusing the Analysis for Instance Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+we refine the plug-in to allow the use of the analysis methods on instance models as
+well. This is feasible for analyses that can produce results based on processing of declarative
+AADL models. In this case we will traverse the AADL instance model in prefix order, i.e.,
+bottom up in terms of the instance hierarchy, by using the
+<b>processPreOrderComponentInstance</b> method. For each component instance we encounter
+we simply delegate the processing to the appropriate component implementation of the
+subcomponent that was instantiated as component instance. This is done with the
+<b>caseComponentInstance</b> method and for the system instance object with the
+<b>caseSystemInstance</b> method. The <b>caseComponentInstance</b> method checks for non-null
+component implementation classifiers; this is done to handle instance models with
+subcomponent classifiers of leaf component instances being component type only.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public void doAaxlAction(AObject
+obj){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> AObject root = obj.getAObjectRoot();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> AadlProcessingSwitch
+flowLatencySwitch =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> new
+FlowLatencyAnalysisSwitch(getMarkerReporter());</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (root instanceof
+AadlSpec){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> flowLatencySwitch.processBottomUpComponentImpl((AadlSpec)root);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> flowLatencySwitch.processPreOrderComponentInstance(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+(SystemInstance) root);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportDone(root,&quot;Flow
+Latency Checking&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public Object caseComponentInstance(ComponentInstance
+ci) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> Subcomponent sub
+= ci.getSubcomponent();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> ComponentImpl cii
+= sub.getComponentImpl();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (cii == null)
+return DONE;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> self.processPreOrderAll(cii);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public Object caseSystemInstance(SystemInstance
+ci) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> SystemImpl si =
+ci.getSystemImpl();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> self.processPreOrderAll(si);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

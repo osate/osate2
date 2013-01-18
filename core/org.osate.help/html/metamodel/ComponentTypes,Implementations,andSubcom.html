@@ -1,0 +1,231 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Component Types, Implementations, and Subcomponents</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="DeclarativeAADLModel.html">4. Declarative AADL Model</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.3 Component Types, Implementations, and Subcomponents
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="HierarchyofAbstractandConcreteClasses.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="Category-SpecificMetaModelClasses.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic11"></a>
+          <span class=outlineNumberFirst>4.3 </span><span class=topicLineFirst>Component Types, Implementations, and Subcomponents</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Helvetica"><span>Component types can contain features, flow specifications, 
+property associations, and annex 
+subclauses.&#160; Figure 15 shows the content of a component type. The <i>ComponentType</i> class has 
+containment associations to <i>Features</i>, <i>FlowSpecs</i>, and through inheritance to <i>AnnexSubclause</i> 
+and <i>Properties</i>.&#160; A component type can contain zero or one object of each of these classes, 
+and 
+zero or more objects in the case of <i>AnnexSubclause</i>.</span></font><span> </span><span></span></div>
+<div align="left">The <span><i>AnnexSubclause</i> abstract class represents annex subclauses that can 
+be declared for any 
+<i>Classifier</i>, i.e., for component types, component implementations, and port group types (see 
+Annex C.4.8).&#160; </span><span></span></div>
+<div align="center"><img src="NotesImages/Topic11NotesImage4.jpg" align="bottom" width="567" height="244" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 15 Contents of Component Types</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Representing the subclauses as explicit objects has several 
+advantages:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+XML representation preserves the subclause structure - making XML documents quite 
+readable.</span></font><span></span></li>
+<li style="margin-left=-4mm; margin-right=0mm; padding-left=0mm; font-family= Helvetica;  "><font face="Helvetica"><span>The 
+existence of such a subclause object provides a distinction between the lack of such a 
+subclause and a subclause with the <b>none</b> statement. This distinction is necessary to 
+reproduce textual AADL.</span></font><span></span></li>
+</ul>
+<div align="left">The <span><i>Features </i>class represents the features subclause. It is an abstract 
+class with concrete 
+subclasses that record category-specific feature limitations. The association is shown as a 
+containment association that is specialized for each of the component category-specific concrete 
+subclasses of <i>Features</i> (see Annex C.4.7).&#160; Each specialization restricts the containment 
+association for a specific component type to its respective <i>Features </i>subclass.&#160; The use 
+of the 
+same label for the containment association and its specializations permits the contained object to 
+be retrieved by subclass-specific methods as well as a generic method of <i>ComponentType</i>.</span><span></span></div>
+<div align="left">The reference association from the <span><i>ComponentImpl</i> class to the <i>ComponentType</i> 
+class is 
+specialized for each of the category-specific concrete subclasses of <i>ComponentImpl</i> and 
+<i>ComponentType</i>. Each specialization restricts the reference association to the respective category- 
+specific subclass (see Annex C.4.4).&#160; The use of the same label for the two ends of the reference 
+association and of its specializations permits the referenced objects to be retrieved by subclass- 
+specific methods as well as a generic method of the abstract classes.</span><span></span></div>
+<div align="left">The <span><i>FlowSpecs </i>class represents the flow specifications subclause.&#160; 
+It is a concrete class that 
+contains individual flow specifications.</span><span></span></div>
+<div align="left">The <span><i>Properties </i>class represents the properties subclause. It is a concrete 
+class that contains 
+property associations. Its XML element tag is <i>properties</i>.</span><span></span></div>
+<div align="center"><img src="NotesImages/Topic11NotesImage6.jpg" align="bottom" width="556" height="257" border="0" alt="graphic" /></div>
+<div align="center"><font face="Helvetica"><span><b>Figure 16 Contents of Component Implementations</b></span></font><span></span></div>
+<div align="left"><font face="Helvetica"><span>Figure 16</span></font><span> shows the content of a 
+component implementation. The <i>ComponentImpl</i> class has 
+containment associations to the <i>Subcomponents</i>, <i>RefinesType</i>, <i>Connections</i>, <i>CallSequences</i>, 
+<i>Flows</i>, <i>Modes</i> classes, and through inheritance to the <i>AnnexSubclause</i> (see </span><font 
+face="Helvetica"><span>Figure 15</span></font><span>) and 
+<i>Properties</i> classes. </span><font face="Helvetica"><span>A component type can contain zero or 
+one object of each of these classes, 
+zero or more objects in the case of <i>AnnexSubclauses</i>.</span></font><span>&#160; </span><span></span></div>
+<div align="left">The <span><i>Subcomponents </i>class represents the subcomponents subclause. It is 
+an abstract class with 
+concrete subclasses that record category-specific subcomponent limitations. The association is 
+shown as a containment association that is specialized for each of the component category- 
+specific concrete subclasses of <i>Subcomponents </i>(see Annex C.4.4).&#160; Each specialization restricts 
+the containment association for a specific component implementation to its respective 
+<i>Subcomponents </i>subclass.&#160; The use of the same label for the containment association and its 
+specializations permits the contained object to be retrieved by subclass-specific methods as well 
+as a generic method of <i>ComponentImpl</i>.</span><span></span></div>
+<div align="left">The <span><i>CallSequences </i>class represents the calls subclause. It is a concrete 
+class which is contained 
+in <i>ComponentImpl</i> by a containment association that is specialized for each of the component 
+category-specific concrete subclasses of <i>ComponentImpl </i>(see Annex C.4.4).&#160; Each specialization 
+determines whether the calls subclause is legal for a specific component category.&#160; The use of 
+the 
+same label for the containment association and its specializations permits the contained object to 
+be retrieved by subclass-specific methods as well as a generic method of <i>ComponentImpl</i>.</span><span></span></div>
+<div align="left">The reference association between the component implementation and its component type 
+represents a <span><i>component type inheritance</i> relationship.&#160; Similarly, the reference association 
+between 
+a subcomponent and its classifier represents a <i>component type inheritance</i> relationship.&#160; 
+This 
+means that the features defined in the component type are inherited by component 
+implementations as well as by subcomponents.&#160; Component implementations cannot add new 
+features. However, its connections can reference these inherited features as well as the features 
+inherited by any contained subcomponent from their respective component classifier.&#160; </span><span></span></div>
+<div align="left">Such a component type inheritance concept is not a built-in concept of the Ecore meta 
+modeling 
+capability.  Different from the UML profile for AADL, we have chosen not to replicate the features for 
+the component implementation, which would require maintaining consistency of the replicated 
+copies and would increase the size of the XML document considerably.  Instead, AADL object 
+model processing methods implement the inheritance by returning the appropriate set of features 
+when invoked on component implementations or subcomponents.  Feature references, such as 
+those of connections, identify the feature object in the component type and the context of the 
+inherited feature being referenced (see Annex C.4.8).</div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+
