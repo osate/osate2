@@ -281,7 +281,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkForFeatureArrays(feature);
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
+		if (feature instanceof FeatureGroup){
+			checkClassifierReference(((FeatureGroup)feature).getFeatureGroupType(), feature);
+		} else {
 		checkClassifierReference(feature.getClassifier(), feature);
+		}
 //		checkPropertyAssocs(feature);
 	}
 
