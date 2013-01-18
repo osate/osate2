@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="OSATE help"  topic="html/aadlhelp.html">
+<toc label="OSATE help"  topic="html/start/add-models.html">
     <topic href="html/overview.html" label="Overview">
     </topic>
-    <topic label="Getting started">
-       <topic label="Create a project">
+    <topic href="html/start/index.html" label="Getting started">
+       <topic href="html/start/create-project.html" label="Create a project">
        </topic>
-       <topic label="Adding models">
+       <topic href="html/start/add-models.html" label="Adding models">
        </topic>
-       <topic label="Instantiating models">
+       <topic href="html/start/instantiate.html" label="Instantiating models">
        </topic>
     </topic>
-    <topic label="Plug-ins">
-       <topic label="Instance Model Viewer">
+    <topic href="html/plugins/index.html" label="Plug-ins">
+       <topic href="html/plugins/imv.html" label="Instance Model Viewer">
        </topic>
-       <topic label="LUTE">
+       <topic href="html/plugins/lute.html" label="LUTE">
        </topic>
-       <topic label="ARINC653 validation">
+       <topic href="html/plugins/arinc653.html" label="ARINC653 validation">
        </topic>
-       <topic label="SEI validation tools">
+       <topic href="aadlhelp.html" label="SEI validation tools">
        </topic>
     </topic>
     
@@ -30,6 +30,6 @@
     <topic label="JavaDoc of OSATE"  href="api/index.html">
         <link toc="javadoccontents.xml"/>
     </topic>
-    <topic label="Copyright, links &amp; contact">
+    <topic href="html/about.html" label="Copyright, links &amp; contact">
     </topic>
 </toc>
