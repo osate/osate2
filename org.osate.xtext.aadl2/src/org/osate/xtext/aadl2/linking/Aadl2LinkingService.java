@@ -332,6 +332,13 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				SubprogramCall callSpec = (SubprogramCall)context;
 				CallContext callContext = callSpec.getContext();
 				if (callContext instanceof ComponentType){
+					//first try to find subprogram implementation
+					ComponentType ct = (ComponentType)callContext;
+					String implname = ct.getName()+"."+name;
+					searchResult = findClassifier(context, reference, implname);
+					if (searchResult != null && searchResult instanceof ComponentImplementation) {
+						return Collections.singletonList((EObject) searchResult);
+					}
 					ns = (ComponentType)callContext;
 				} else if (callContext instanceof SubprogramGroupSubcomponent){
 					ns = ((SubprogramGroupSubcomponent)callContext).getComponentType();
@@ -366,57 +373,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 				}
 			}
 
-  			////			CallContext callContext = ((SubprogramCall) context).getContext();
-//  			if (callContext == null){
-//				// look for prototype, subprogramsubcomponent
-//				searchResult = ns.findNamedElement(name);
-//				if (searchResult == null){
-//					// look for subprogramclassifier
-//					searchResult = findClassifier(context, reference,  name);
-//				}
-//				if (searchResult != null
-//						&& requiredType.isSuperTypeOf(searchResult.eClass())) {
-//					return Collections.singletonList((EObject) searchResult);
-//				}
-//			} else {
-//				if (callContext.eIsProxy()){
-//					INode n = node.getPreviousSibling();
-//					INode n1 = n.getPreviousSibling();
-//					String s1 = NodeModelUtils.getTokenText(n1);
-//					String implname = s1+"."+name;
-//					searchResult = findClassifier(context, reference,  s1);
-//					searchResult = findClassifier(context, reference,  implname);
-//					if (searchResult != null
-//							&& requiredType.isSuperTypeOf(searchResult.eClass())) {
-//						((SubprogramCall) context).setContext(null); 
-//						return Collections.singletonList((EObject) searchResult);
-//					}
-//				} else
-//				if (callContext instanceof ComponentType){
-//					ns = (ComponentType)callContext;
-//				} else if (callContext instanceof SubprogramGroupSubcomponent){
-//					ns = ((SubprogramGroupSubcomponent)callContext).getComponentType();
-//					if (ns == null) {
-//						return Collections.<EObject> emptyList();
-//					}
-//				} else if (callContext instanceof SubprogramGroupAccess && ((SubprogramGroupAccess)callContext).getKind() == AccessType.REQUIRED){
-//					SubprogramGroupSubcomponentType sst = ((SubprogramGroupAccess)callContext).getSubprogramGroupFeatureClassifier();
-//					if (sst instanceof Classifier)
-//						ns = (Classifier) sst;;
-//					if (ns == null) {
-//						return Collections.<EObject> emptyList();
-//					}
-//				} else if (callContext instanceof FeatureGroup ){
-//					ns = ((FeatureGroup)callContext).getFeatureGroupType();
-//					if (ns == null) {
-//						return Collections.<EObject> emptyList();
-//					}
-//				}
-//				searchResult = ns.findNamedElement(name);
-//				if (searchResult != null && requiredType.isSuperTypeOf(searchResult.eClass())) {
-//					return Collections.singletonList((EObject) searchResult);
-//				}
-//			}
  
 			return Collections.<EObject> emptyList();
 
