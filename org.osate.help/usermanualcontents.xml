@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="An Extensible Open Source AADL Tool Environment (OSATE)" href="html/usermanual/index.html#Topic1">
+  <topic label="Introduction" href="html/usermanual/Introduction.html#Topic2">
+  </topic>
+  <topic label="What’s New" href="html/usermanual/WhatsNew.html#Topic3">
+    <topic label="What’s New in OSATE 1.2" href="html/usermanual/WhatsNewinOSATE1.2.html#Topic4">
+    </topic>
+    <topic label="What’s New in OSATE 1.1" href="html/usermanual/WhatsNewinOSATE1.1.html#Topic5">
+    </topic>
+    <topic label="What’s New in OSATE 1.0" href="html/usermanual/WhatsNewinOSATE1.0.html#Topic6">
+    </topic>
+  </topic>
+  <topic label="Download and Installation" href="html/usermanual/DownloadandInstallation.html#Topic7">
+    <topic label="Installation of OSATE Bundled with Eclipse" href="html/usermanual/InstallationofOSATEBundledwithEclipse.html#Topic8">
+    </topic>
+    <topic label="Install into an existing Eclipse installation" href="html/usermanual/InstallintoanexistingEclipseinstallation.html#Topic9">
+    </topic>
+    <topic label="Use the Eclipse Installation/Update Manager" href="html/usermanual/UsetheEclipseInstallation.UpdateManager.html#Topic10">
+    </topic>
+    <topic label="Problems with the Installation" href="html/usermanual/ProblemswiththeInstallation.html#Topic11">
+      <topic label="Out of Memory Errors" href="html/usermanual/ProblemswiththeInstallation.html#Topic12">
+      </topic>
+      <topic label="Getting Help" href="html/usermanual/ProblemswiththeInstallation.html#Topic13">
+      </topic>
+    </topic>
+    <topic label="Updating Your Installation" href="html/usermanual/UpdatingYourInstallation.html#Topic14">
+    </topic>
+  </topic>
+  <topic label="Use of the AADL Tool Environment (OSATE)" href="html/usermanual/UseoftheAADLToolEnvironment(OSATE).html#Topic15">
+    <topic label="Starting Up OSATE for the First Time" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic16">
+      <topic label="The “Problems” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic17">
+      </topic>
+      <topic label="The “AADL Property Values” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic18">
+      </topic>
+      <topic label="The “Properties” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic19">
+      </topic>
+      <topic label="The “Tasks” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic20">
+      </topic>
+      <topic label="The “Aadl Navigator” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic21">
+      </topic>
+      <topic label="The “Progress” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic22">
+      </topic>
+      <topic label="The “Error log” View" href="html/usermanual/StartingUpOSATEfortheFirstTime.html#Topic23">
+      </topic>
+    </topic>
+    <topic label="Managing AADL Models with Eclipse Projects" href="html/usermanual/ManagingAADLModelswithEclipseProjects.html#Topic24">
+      <topic label="AADL Projects" href="html/usermanual/ManagingAADLModelswithEclipseProjects.html#Topic25">
+      </topic>
+      <topic label="AADL Models as Files" href="html/usermanual/ManagingAADLModelswithEclipseProjects.html#Topic26">
+      </topic>
+      <topic label="AADL Namespaces" href="html/usermanual/ManagingAADLModelswithEclipseProjects.html#Topic27">
+      </topic>
+    </topic>
+    <topic label="Eclipse Projects and Team Support" href="html/usermanual/EclipseProjectsandTeamSupport.html#Topic28">
+    </topic>
+    <topic label="Creating and Editing AADL Models" href="html/usermanual/CreatingandEditingAADLModels.html#Topic29">
+    </topic>
+    <topic label="Predeclared AADL Properties" href="html/usermanual/PredeclaredAADLProperties.html#Topic30">
+    </topic>
+    <topic label="Automatic Build with the AADL Builder" href="html/usermanual/AutomaticBuildwiththeAADLBuilder.html#Topic31">
+    </topic>
+    <topic label="Importing AADL Models into OSATE" href="html/usermanual/ImportingAADLModelsintoOSATE.html#Topic32">
+    </topic>
+    <topic label="Synchronizing Eclipse/OSATE with the File System" href="html/usermanual/SynchronizingEclipse.OSATEwiththeFileSys.html#Topic33">
+    </topic>
+  </topic>
+  <topic label="The AADL Text Editor" href="html/usermanual/TheAADLTextEditor.html#Topic34">
+    <topic label="Syntax/Semantics Checking of AADL Text" href="html/usermanual/Syntax.SemanticsCheckingofAADLText.html#Topic35">
+    </topic>
+    <topic label="Code Completion" href="html/usermanual/CodeCompletion.html#Topic36">
+    </topic>
+    <topic label="Text Hover" href="html/usermanual/TextHover.html#Topic37">
+    </topic>
+    <topic label="Working With Textual AADL Models" href="html/usermanual/WorkingWithTextualAADLModels.html#Topic38">
+    </topic>
+    <topic label="Semantic Checking and Translation to XML" href="html/usermanual/SemanticCheckingandTranslationtoXML.html#Topic39">
+      <topic label="Reporting of Errors and Warnings" href="html/usermanual/SemanticCheckingandTranslationtoXML.html#Topic40">
+      </topic>
+      <topic label="What do the Parser and Semantic Checker Check?" href="html/usermanual/SemanticCheckingandTranslationtoXML.html#Topic41">
+      </topic>
+      <topic label="The AADL Model as XML File" href="html/usermanual/SemanticCheckingandTranslationtoXML.html#Topic42">
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Generating Reports from the “Problems” View" href="html/usermanual/GeneratingReportsfromtheProblemsView.html#Topic43">
+  </topic>
+  <topic label="The AADL Object Editor" href="html/usermanual/TheAADLObjectEditor.html#Topic44">
+    <topic label="Viewing AADL Object Models" href="html/usermanual/ViewingAADLObjectModels.html#Topic45">
+    </topic>
+    <topic label="Navigating AADL Object Models" href="html/usermanual/NavigatingAADLObjectModels.html#Topic46">
+    </topic>
+    <topic label="Editing in the AADL Object Editor" href="html/usermanual/EditingintheAADLObjectEditor.html#Topic47">
+    </topic>
+    <topic label="Viewing the System Instance Hierarchy in the Declarative Model" href="html/usermanual/ViewingtheSystemInstanceHierarchyintheDe.html#Topic48">
+    </topic>
+    <topic label="Creating and Working with AADL Instance Models" href="html/usermanual/CreatingandWorkingwithAADLInstanceModels.html#Topic49">
+    </topic>
+    <topic label="Generating Textual AADL" href="html/usermanual/GeneratingTextualAADL.html#Topic50">
+    </topic>
+    <topic label="The “AADL Property Values” View" href="html/usermanual/TheAADLPropertyValuesView.html#Topic51">
+      <topic label="Viewing Property Associations" href="html/usermanual/TheAADLPropertyValuesView.html#Topic52">
+      </topic>
+      <topic label="Adding a New Property Association" href="html/usermanual/TheAADLPropertyValuesView.html#Topic53">
+      </topic>
+      <topic label="Modifying Existing Property Associations" href="html/usermanual/TheAADLPropertyValuesView.html#Topic54">
+        <topic label="Modifying Modal Property Associations" href="html/usermanual/TheAADLPropertyValuesView.html#Topic55">
+        </topic>
+      </topic>
+      <topic label="Removing Property Associations" href="html/usermanual/TheAADLPropertyValuesView.html#Topic56">
+      </topic>
+    </topic>
+  </topic>
+  <topic label="The AADL Graphical Editor" href="html/usermanual/TheAADLGraphicalEditor.html#Topic57">
+    <topic label="From AADL Text to a Graphical AADL Diagram" href="html/usermanual/FromAADLTexttoaGraphicalAADLDiagram.html#Topic58">
+    </topic>
+    <topic label="Graphical Editing" href="html/usermanual/GraphicalEditing.html#Topic59">
+      <topic label="From the Graphical Editor to the Text Editor" href="html/usermanual/GraphicalEditing.html#Topic60">
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Analysis of Declarative AADL Models and AADL Instance Models" href="html/usermanual/AnalysisofDeclarativeAADLModelsandAADLIn.html#Topic61">
+    <topic label="Additional Semantic Checks" href="html/usermanual/AdditionalSemanticChecks.html#Topic62">
+      <topic label="Check for Circular Property References" href="html/usermanual/AdditionalSemanticChecks.html#Topic63">
+      </topic>
+      <topic label="Check for Required Connection" href="html/usermanual/AdditionalSemanticChecks.html#Topic64">
+      </topic>
+    </topic>
+    <topic label="Architecture Analyses" href="html/usermanual/ArchitectureAnalyses.html#Topic65">
+      <topic label="Model Statistics" href="html/usermanual/ArchitectureAnalyses.html#Topic66">
+      </topic>
+      <topic label="Stream Miss Rate Checking" href="html/usermanual/ArchitectureAnalyses.html#Topic67">
+      </topic>
+    </topic>
+    <topic label="Security and Safety Level Checking" href="html/usermanual/SecurityandSafetyLevelChecking.html#Topic68">
+      <topic label="Check Security Levels" href="html/usermanual/SecurityandSafetyLevelChecking.html#Topic69">
+      </topic>
+      <topic label="Check Safety Levels" href="html/usermanual/SecurityandSafetyLevelChecking.html#Topic70">
+      </topic>
+    </topic>
+    <topic label="Flow Latency Analysis" href="html/usermanual/FlowLatencyAnalysis.html#Topic71">
+    </topic>
+    <topic label="MetaH Generation" href="html/usermanual/MetaHGeneration.html#Topic72">
+    </topic>
+    <topic label="Thread–Processor Binding" href="html/usermanual/ThreadProcessorBinding.html#Topic73">
+    </topic>
+    <topic label="Do It Yourself" href="html/usermanual/DoItYourself.html#Topic74">
+    </topic>
+  </topic>
+  <topic label="Flow Latency Analysis" href="html/usermanual/FlowLatencyAnalysis(2).html#Topic75">
+    <topic label="Fully and Partially Specified Instance Models" href="html/usermanual/FullyandPartiallySpecifiedInstanceModels.html#Topic76">
+    </topic>
+    <topic label="End-To-End Flow Latency Analysis on Instance Models" href="html/usermanual/End-To-EndFlowLatencyAnalysisonInstanceM.html#Topic77">
+    </topic>
+    <topic label="End-To-End Flow Latency Analysis on Declarative Models" href="html/usermanual/End-To-EndFlowLatencyAnalysisonDeclarati.html#Topic78">
+    </topic>
+    <topic label="Flow Implementation Latency Analysis on Declarative Models" href="html/usermanual/FlowImplementationLatencyAnalysisonDecla.html#Topic79">
+    </topic>
+    <topic label="Example Models for Flow Analysis" href="html/usermanual/ExampleModelsforFlowAnalysis.html#Topic80">
+    </topic>
+  </topic>
+  <topic label="Example Models" href="html/usermanual/ExampleModels.html#Topic81">
+    <topic label="Securityexample.aadl" href="html/usermanual/Securityexample.aadl.html#Topic82">
+      <topic label="Running the Example" href="html/usermanual/Securityexample.aadl.html#Topic83">
+      </topic>
+    </topic>
+    <topic label="Safetyexample.aadl" href="html/usermanual/Safetyexample.aadl.html#Topic84">
+    </topic>
+    <topic label="Sunseekerdemo.aadl" href="html/usermanual/Sunseekerdemo.aadl.html#Topic85">
+      <topic label="Running the Example" href="html/usermanual/Sunseekerdemo.aadl.html#Topic86">
+      </topic>
+      <topic label="Instantiating the System" href="html/usermanual/Sunseekerdemo.aadl.html#Topic87">
+      </topic>
+    </topic>
+    <topic label="Avionics_System.aadl" href="html/usermanual/Avionics_System.aadl.html#Topic88">
+      <topic label="Running the Example" href="html/usermanual/Avionics_System.aadl.html#Topic89">
+      </topic>
+    </topic>
+    <topic label="Display_System.aadl" href="html/usermanual/Display_System.aadl.html#Topic90">
+      <topic label="Running the Example" href="html/usermanual/Display_System.aadl.html#Topic91">
+      </topic>
+    </topic>
+    <topic label="Tripleredundant.aadl" href="html/usermanual/Tripleredundant.aadl.html#Topic92">
+      <topic label="Running the Example" href="html/usermanual/Tripleredundant.aadl.html#Topic93">
+      </topic>
+    </topic>
+    <topic label="Instancemodeexample.aadl" href="html/usermanual/Instancemodeexample.aadl.html#Topic94">
+      <topic label="Running the Example" href="html/usermanual/Instancemodeexample.aadl.html#Topic95">
+      </topic>
+    </topic>
+    <topic label="Flight Control System" href="html/usermanual/FlightControlSystem.html#Topic96">
+    </topic>
+    <topic label="Cruise_Control.aadl" href="html/usermanual/Cruise_Control.aadl.html#Topic97">
+    </topic>
+    <topic label="CockpitDisplay.aadl" href="html/usermanual/CockpitDisplay.aadl.html#Topic98">
+    </topic>
+  </topic>
+  <topic label="Problems and Errors" href="html/usermanual/ProblemsandErrors.html#Topic99">
+  </topic>
+  <topic label="OSATE Implementation Background" href="html/usermanual/OSATEImplementationBackground.html#Topic100">
+  </topic>
+
+</toc>

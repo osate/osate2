@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+
+<toc label="SAE AADL Online Help"  topic="html/aadlhelp.html">
+    <topic label="Overview" href="html/overview.html"/>
+    <topic label="User Manual"  href="html/usermanual/index.html">
+        <link toc="usermanualcontents.xml"/>
+    </topic>
+    
+    <topic label="Reference Manual"  href="html/ref/index.html">
+        <link toc="refcontents.xml"/>
+    </topic>
+    
+    <topic label="AADL Meta Model and XML/XMI"  href="html/metamodel/index.html">
+        <link toc="metamodelcontents.xml"/>
+    </topic>
+    <topic label="OSATE Plug-in Development"  href="html/plugindev/index.html">
+        <link toc="plugindevcontents.xml"/>
+    </topic>
+    <topic label="JavaDoc of OSATE"  href="api/index.html">
+        <link toc="javadoccontents.xml"/>
+    </topic>
+</toc>

@@ -135,6 +135,10 @@ public class PropertyUtils {
 			PropertyNotPresentException, PropertyIsModalException, IllegalStateException, IllegalArgumentException,
 			PropertyDoesNotApplyToHolderException, PropertyIsListException, ClassCastException {
 		final PropertyExpression pv = getSimplePropertyValue(ph, pd);
+		if (pv == null)
+		{
+			throw new PropertyNotPresentException(ph, pd, "cannot find the property");
+		}
 		return ((IntegerLiteral) pv).getValue();
 	}
 
