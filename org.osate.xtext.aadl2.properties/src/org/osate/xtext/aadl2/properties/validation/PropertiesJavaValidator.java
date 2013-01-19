@@ -118,7 +118,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseClassifierValue(ClassifierValue nt) {
-		checkClassifierReference(nt.getClassifier(), nt);
+		checkClassifierReferenceInWith(nt.getClassifier(), nt);
 	}
 
 
@@ -143,7 +143,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	protected void checkInBinding(final PropertyAssociation pa){
 		for (Classifier c: pa.getInBindings()){
-			checkClassifierReference(c, pa);
+			checkClassifierReferenceInWith(c, pa);
 		}
 	}
 
@@ -435,7 +435,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 
 
-	public void checkClassifierReference(Classifier cl, Element context){
+	public void checkClassifierReferenceInWith(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
 		PackageSection referenceNS = (PackageSection)AadlUtil.getContainingTopLevelNamespace(cl);
