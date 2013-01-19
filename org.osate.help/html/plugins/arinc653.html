@@ -4,20 +4,56 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-	<LINK REL="STYLESHEET" HREF="book.css" CHARSET="ISO-8859-1" TYPE="text/css">
-	<title>Open Source AADL Tool Environment (OSATE) Online Help</title>
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>OSATE plug-in: ARINC653 framework</title>
 </head>
 
 <body>
-<H2>Open Source AADL Tool Environment (OSATE) Online Help</H2>
-<P>The Open Source AADL Tool Environment (OSATE) Online Help utilizes the Eclipse Platform’s help system.  
-	This provides for a navigation and search capability of the help content.<BR>
-<BR>
-Currently, the online help consists of the User manual, the Reference Manual, documentation on the AADL meta model, and a plug-in development guide for OSATE.  
-The content of the reference manual was generated from the draft standard document.
-The content of the AADL meta model description was generated from the draft AAADL Meta Model & XML/XMI Interchange Format Annex V0.9.
-The plg-in development guide is also available as a separate document.
-</P>
+<H2>OSATE plug-in: ARINC653 framework</H2>
+<p>
+The ARINC653 validation framework provides functionality for analyzing AADL
+models that use the ARINC653 annex. The annex is available
+as <a href="http://standards.sae.org/as5506/2/">a SAE standard</a>.
+The plug-in provides the following functionalities:
+</p>
+<ul>
+	<li>
+		<strong>Connection latency analysis</strong>: report
+		the worst case time for exchanging a data from one partition
+		to another.
+	</li>
+	<li>
+		<strong>Refactoring suggestion</strong>: suggest potential
+		improvement regarding architecture characteristics such as
+		partition criticality levels, separation across different
+		partitions, etc.
+	</li>
+	<li>
+		<strong>Memory dimensioning validation</strong>: check
+		that memory segment size is correct regarding partition needs.
+	</li>
+	<li>
+		<strong>Major Frame configuration</strong>
+	</li>
+	<li>
+		<strong>Partitions Binding</strong>: each partition
+		is associated to a virtual processor.
+	</li>
+	<li>
+		<strong>Partitions execution</strong>: each partition
+		is executed at least one time by the separation kernel.
+	</li>
+	<li>
+		<strong>Interaction between partitions having different criticality levels</strong>:
+		show warning when partitions having different criticality levels are connected.
+	</li>
+	<li>
+		<strong>Space isolation</strong>: check that each partition is associated to 
+		a separate memory segment.
+	</li>
+
+	
+</ul>
 
 </body>
 </html>
