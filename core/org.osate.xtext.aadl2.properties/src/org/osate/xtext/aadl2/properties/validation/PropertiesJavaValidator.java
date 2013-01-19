@@ -118,7 +118,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseClassifierValue(ClassifierValue nt) {
-		checkClassifierReference(nt.getClassifier(), nt);
+		checkClassifierReferenceInWith(nt.getClassifier(), nt);
 	}
 
 
@@ -143,7 +143,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 	protected void checkInBinding(final PropertyAssociation pa){
 		for (Classifier c: pa.getInBindings()){
-			checkClassifierReference(c, pa);
+			checkClassifierReferenceInWith(c, pa);
 		}
 	}
 
@@ -363,8 +363,8 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 					MetaclassReferenceImpl mcri = (MetaclassReferenceImpl)ct.getClassifierReferences().get(k);
 					String typeName =  cv.getClassifier().eClass().getName().toLowerCase().replace("type", "").replace("implementation", "");
 					String classifierName = mcri.getMetaclass().getName().toLowerCase().replace("classifier", "");
-					OsateDebug.osateDebug ("First  part = " + typeName);
-					OsateDebug.osateDebug ("Second part = " +classifierName);
+//					OsateDebug.osateDebug ("First  part = " + typeName);
+//					OsateDebug.osateDebug ("Second part = " +classifierName);
 
 					if (typeName.equals(classifierName))
 					{
@@ -435,7 +435,7 @@ public class PropertiesJavaValidator extends AbstractPropertiesJavaValidator {
 
 
 
-	public void checkClassifierReference(Classifier cl, Element context){
+	public void checkClassifierReferenceInWith(Classifier cl, Element context){
 		if (Aadl2Util.isNull(cl)) return;
 		Namespace contextNS = AadlUtil.getContainingTopLevelNamespace(context);
 		PackageSection referenceNS = (PackageSection)AadlUtil.getContainingTopLevelNamespace(cl);
