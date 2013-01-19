@@ -50,6 +50,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.impl.ConnectionReferenceImpl;
 import org.osate.imv.aadldiagram.adapters.AadlComponentAdapter;
 import org.osate.imv.aadldiagram.adapters.AadlConnectionAdapter;
@@ -472,59 +473,110 @@ public class OsateAdapterProvider implements IAadlAdapterProvider{
 		List<FeatureGroupConnection> featureGroupConnections = new ArrayList<FeatureGroupConnection>();
 
 		// Only component instances have connections.
+		ComponentImplementation cimpl = null;
 		if(element instanceof ComponentInstance){
-			// Get connection instances.
-			Iterable<ConnectionInstance> res = ((ComponentInstance)element).allEnclosingConnectionInstances();
-			for (ConnectionInstance connection : res) {
-				// Get connection references.
-				for(Iterator<ConnectionReference> refsIterator = connection.getConnectionReferences().iterator(); refsIterator.hasNext();){
-					ConnectionInstanceEnd srcConnectionInstanceEnd = null;
-					ConnectionInstanceEnd dstConnectionInstanceEnd = null;
-					ConnectionReference ref = refsIterator.next();
-					ComponentInstance context = ref.getContext();
+//			// Get connection instances.
+//			Iterable<ConnectionInstance> res = ((ComponentInstance)element).allEnclosingConnectionInstances();
+//			for (ConnectionInstance connection : res) {
+//				// Get connection references.
+//				for(Iterator<ConnectionReference> refsIterator = connection.getConnectionReferences().iterator(); refsIterator.hasNext();){
+//					ConnectionInstanceEnd srcConnectionInstanceEnd = null;
+//					ConnectionInstanceEnd dstConnectionInstanceEnd = null;
+//					ConnectionReference ref = refsIterator.next();
+//					ComponentInstance context = ref.getContext();
+//
+//					if(context.equals(element)){
+//						Connection conn = ref.getConnection();
+//
+//						// Get connection source.
+//						ConnectionEnd srcEnd = conn.getAllSource();
+//						NamedElement componentCntxt = conn.getAllSrcContextComponent();
+//						NamedElement srcCxt = conn.getAllSourceContext();
+//						if (srcCxt instanceof FeatureGroup){
+//							// connect to feature group
+//							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
+//						} else {
+//							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
+//						}
+//
+//						// Get connection destination.
+//						ConnectionEnd dstEnd = conn.getAllDestination();
+//						componentCntxt = conn.getAllDstContextComponent();
+//						NamedElement dstCxt = conn.getAllDestinationContext();
+//						if (dstCxt instanceof FeatureGroup){
+//							// connect to feature group
+//							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
+//						} else {
+//							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
+//						}
+//
+//						if(srcEnd != null && dstEnd != null) {
+//							// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+//							// for feature group connections.
+//							if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
+//								connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
+//							}
+//						}
+//
+//						break;
+//					}
+//				}
+//			}
+			if (element instanceof SystemInstance){
+				cimpl = ((SystemInstance)element).getSystemImplementation();
+			} else {
+				ComponentClassifier cl = ((ComponentInstance)element).getComponentClassifier();
+				if (cl instanceof ComponentImplementation){
+					cimpl = (ComponentImplementation)cl;
+				} else {
+					return connectionList;
+				}
+			}
+			List<Connection> connections = cimpl.getAllConnections();
+			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
+				Connection conn = it.next();
+				ConnectionInstanceEnd srcConnectionInstanceEnd = null;
+				ConnectionInstanceEnd dstConnectionInstanceEnd = null;
+				ComponentInstance context = (ComponentInstance)element;
 
-					if(context.equals(element)){
-						Connection conn = ref.getConnection();
+				// Get connection source.
+				ConnectionEnd srcEnd = conn.getAllSource();
+				NamedElement componentCntxt = conn.getAllSrcContextComponent();
+				NamedElement srcCxt = conn.getAllSourceContext();
+				if (srcCxt instanceof FeatureGroup){
+					// connect to feature group
+					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
+				} else {
+					srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
+				}
 
-						// Get connection source.
-						ConnectionEnd srcEnd = conn.getAllSource();
-						NamedElement componentCntxt = conn.getAllSrcContextComponent();
-						NamedElement srcCxt = conn.getAllSourceContext();
-						if (srcCxt instanceof FeatureGroup){
-							// connect to feature group
-							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcCxt);
-						} else {
-							srcConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, srcEnd);
-						}
+				// Get connection destination.
+				ConnectionEnd dstEnd = conn.getAllDestination();
+				componentCntxt = conn.getAllDstContextComponent();
+				NamedElement dstCxt = conn.getAllDestinationContext();
+				if (dstCxt instanceof FeatureGroup){
+					// connect to feature group
+					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
+				} else {
+					dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
+				}
 
-						// Get connection destination.
-						ConnectionEnd dstEnd = conn.getAllDestination();
-						componentCntxt = conn.getAllDstContextComponent();
-						NamedElement dstCxt = conn.getAllDestinationContext();
-						if (dstCxt instanceof FeatureGroup){
-							// connect to feature group
-							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstCxt);
-						} else {
-							dstConnectionInstanceEnd = this.getConnectionInstanceEnd(context, componentCntxt, dstEnd);
-						}
-
-						if(srcEnd != null && dstEnd != null) {
-							// We need to check for duplicate feature group connections (i.e. only one connection should be returned
-							// for feature group connections.
-							if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
-								connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
-							}
-						}
-
-						break;
+				if(srcEnd != null && dstEnd != null) {
+					// We need to check for duplicate feature group connections (i.e. only one connection should be returned
+					// for feature group connections.
+					if(!this.checkForDuplicateFeatureGroupConnection(srcConnectionInstanceEnd, dstConnectionInstanceEnd, featureGroupConnections)) {
+						connectionList.add(new ConnectionItem(srcConnectionInstanceEnd, dstConnectionInstanceEnd, conn));
 					}
 				}
+
+//				break;
 			}
 		}
 		// Only component implementations have connections.
 		if(element instanceof ComponentImplementation){
+			cimpl = (ComponentImplementation)element;
 			// Get connection .
-			List<Connection> connections = ((ComponentImplementation)element).getAllConnections();
+			List<Connection> connections = cimpl.getAllConnections();
 			for(Iterator<Connection> it = connections.iterator(); it.hasNext();){
 				Connection conn = it.next();
 
