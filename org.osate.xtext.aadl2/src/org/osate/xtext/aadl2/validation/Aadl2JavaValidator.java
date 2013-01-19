@@ -91,7 +91,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseTypeExtension(TypeExtension typeExtension) {
 		checkTypeExtensionCategory(typeExtension);
 		checkFeaturesOfExtendedAbstractType((ComponentType) typeExtension.getSpecific());
-		checkClassifierReference(typeExtension.getExtended(), typeExtension);
+		checkClassifierReferenceInWith(typeExtension.getExtended(), typeExtension);
 	}
 
 	@Check(CheckType.FAST)
@@ -108,7 +108,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkImplementationExtensionCategory(implementationExtension);
 		checkSubcomponentsOfExtendedAbstractImplementation((ComponentImplementation) implementationExtension
 				.getSpecific());
-		checkClassifierReference(implementationExtension.getExtended(), implementationExtension);
+		checkClassifierReferenceInWith(implementationExtension.getExtended(), implementationExtension);
 	}
 
 	@Check(CheckType.FAST)
@@ -119,12 +119,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseComponentTypeRename(ComponentTypeRename componentTypeRename) {
 		checkComponentTypeRenameCategory(componentTypeRename);
-		checkClassifierReference(componentTypeRename.getRenamedComponentType(), componentTypeRename);
+		checkClassifierReferenceInWith(componentTypeRename.getRenamedComponentType(), componentTypeRename);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupTypeRename(FeatureGroupTypeRename fgtRename) {
-		checkClassifierReference(fgtRename.getRenamedFeatureGroupType(), fgtRename);
+		checkClassifierReferenceInWith(fgtRename.getRenamedFeatureGroupType(), fgtRename);
 	}
 
 	@Check(CheckType.FAST)
@@ -132,7 +132,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkSubcomponentCategory(subcomponent);
 		checkSubcomponentRefinementCategory(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
-		checkClassifierReference(subcomponent.getClassifier(), subcomponent);
+		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
 //		checkPropertyAssocs(subcomponent);
 	}
 
@@ -142,7 +142,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkRefinedOfComponentPrototype(prototype);
 		checkCategoryOfRefinedComponentPrototype(prototype);
 		checkArrayOfRefinedComponentPrototype(prototype);
-		checkClassifierReference(prototype.getConstrainingClassifier(), prototype);
+		checkClassifierReferenceInWith(prototype.getConstrainingClassifier(), prototype);
 	}
 
 	@Check(CheckType.FAST)
@@ -155,7 +155,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseComponentPrototypeActual(ComponentPrototypeActual prototypeActual) {
 		checkComponentPrototypeActualComponentCategory(prototypeActual);
 		if (prototypeActual.getSubcomponentType() instanceof Classifier) {
-			checkClassifierReference((Classifier) prototypeActual.getSubcomponentType(), prototypeActual);
+			checkClassifierReferenceInWith((Classifier) prototypeActual.getSubcomponentType(), prototypeActual);
 		}
 	}
 
@@ -173,7 +173,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupPrototypeActual(FeatureGroupPrototypeActual prototypeActual) {
 		if (prototypeActual.getFeatureType() instanceof Classifier) {
-			checkClassifierReference((Classifier) prototypeActual.getFeatureType(), prototypeActual);
+			checkClassifierReferenceInWith((Classifier) prototypeActual.getFeatureType(), prototypeActual);
 		}
 	}
 
@@ -190,17 +190,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePortSpecification(PortSpecification portspec) {
-		checkClassifierReference(portspec.getClassifier(), portspec);
+		checkClassifierReferenceInWith(portspec.getClassifier(), portspec);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseAccessSpecification(AccessSpecification accessspec) {
-		checkClassifierReference(accessspec.getClassifier(), accessspec);
+		checkClassifierReferenceInWith(accessspec.getClassifier(), accessspec);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseComponentImplementationReference(ComponentImplementationReference ciref) {
-		checkClassifierReference(ciref.getImplementation(), ciref);
+		checkClassifierReferenceInWith(ciref.getImplementation(), ciref);
 	}
 
 	@Check(CheckType.FAST)
@@ -282,9 +282,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
 		if (feature instanceof FeatureGroup){
-			checkClassifierReference(((FeatureGroup)feature).getFeatureGroupType(), feature);
+			checkClassifierReferenceInWith(((FeatureGroup)feature).getFeatureGroupType(), feature);
 		} else {
-		checkClassifierReference(feature.getClassifier(), feature);
+		checkClassifierReferenceInWith(feature.getClassifier(), feature);
 		}
 //		checkPropertyAssocs(feature);
 	}
@@ -370,7 +370,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkForExtendingAnInverseFeatureGroupType(extension);
 		checkForInverseInFeatureGroupTypeExtension(extension);
 		checkForRequiredInverseInFeatureGroupTypeExtension(extension);
-		checkClassifierReference(extension.getExtended(), extension);
+		checkClassifierReferenceInWith(extension.getExtended(), extension);
 	}
 
 	@Check(CheckType.FAST)
@@ -403,10 +403,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseSubprogramCall(SubprogramCall callSpec) {
 		if (callSpec.getCalledSubprogram() instanceof Classifier) {
-			checkClassifierReference((Classifier) callSpec.getCalledSubprogram(), callSpec);
+			checkClassifierReferenceInWith((Classifier) callSpec.getCalledSubprogram(), callSpec);
 		}
 		if (callSpec.getContext() instanceof Classifier) {
-			checkClassifierReference((Classifier) callSpec.getContext(), callSpec);
+			checkClassifierReferenceInWith((Classifier) callSpec.getContext(), callSpec);
 		}
 	}
 

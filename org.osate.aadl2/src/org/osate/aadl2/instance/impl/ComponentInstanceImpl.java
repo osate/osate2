@@ -759,18 +759,22 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				if (catLitteral.equals("virtualprocessor"))
 				{
 					catLitteral = "virtual processor";
-				}
+				} else
 				if (catLitteral.equals("virtualbus"))
 				{
 					catLitteral = "virtual bus";
+				} else
+				if (catLitteral.equals("subprogramgroup"))
+				{
+					catLitteral = "subprogram group";
+				} else
+				if (catLitteral.equals("threadgroup"))
+				{
+					catLitteral = "subprogram group";
 				}
 				
 				final ComponentCategory categ = ComponentCategory.get (catLitteral);
 				
-				//OsateDebug.osateDebug("   catLitteral=" + catLitteral);
-				//OsateDebug.osateDebug("   categ=" + categ);
-				//OsateDebug.osateDebug("   getCateg=" + getCategory());
-
 				if (getCategory().equals (categ)) 
 				{
 					return true;
