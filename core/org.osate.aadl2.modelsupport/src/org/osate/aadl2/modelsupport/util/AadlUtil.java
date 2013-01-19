@@ -262,8 +262,9 @@ public final class AadlUtil {
 				final Object obj = i.next();
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
-					final String name = lit.getName().toLowerCase();
+					 String name = lit.getName();
 					if (name != null && !name.isEmpty()) {
+						name = name.toLowerCase();
 						if (seen.contains(name)) {
 							result.add(lit);
 						} else {
