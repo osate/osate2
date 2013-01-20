@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="OSATE help"  topic="html/start/add-models.html">
+<toc label="OSATE help"  topic="html/overview.html">
     <topic href="html/overview.html" label="Overview">
     </topic>
     <topic href="html/start/index.html" label="Getting started">
