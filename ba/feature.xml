@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="fr.tpt.aadl.annex.behavior.feature"
+      label="AADL-BA-FrontEnd"
+      version="0.9.5"
+      provider-name="TELECOM ParisTech"
+      plugin="fr.tpt.aadl.annex.behavior">
+
+   <description url="http://aadl.telecom-paristech.fr/">
+      TELECOM Paristech AADL V2 Behavior Model Annex editor for OSATE2.
+Behavior Model Annex 0.94 compliant.
+   </description>
+
+   <copyright url="http://aadl.telecom-paristech.fr/">
+      AADL-BA-FrontEnd
+Copyright © 2011 TELECOM ParisTech and CNRS
+TELECOM ParisTech/LTCI
+   </copyright>
+
+   <license url="http://www.eclipse.org/org/documents/epl-v10.ph">
+      This program is free software: you can redistribute it and/or modify  it under the terms of the Eclipse Public License as published by Eclipse, either version 1.0 of the License, or (at your option) any later version.
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the Eclipse Public License for more details.
+You should have received a copy of the Eclipse Public License along with this program. If not, see http://www.eclipse.org/org/documents/epl-v10.ph
+   </license>
+
+   <url>
+      <discovery label="TELECOM ParisTech AADL corner" url="http://aadl.telecom-paristech.fr/"/>
+   </url>
+
+   <requires>
+      <import plugin="org.osate.aadl2.modelsupport" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.osate.xtext.aadl2.properties" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="fr.tpt.aadl.utils" version="0.9.5" match="greaterOrEqual"/>
+      <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="fr.tpt.aadl.annex.behavior"
+         download-size="0"
+         install-size="0"
+         version="0.9.5"
+         unpack="false"/>
+
+</feature>
