@@ -87,6 +87,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		final FlowLatencyAnalysisSwitch flowLatencySwitch =
 			new FlowLatencyAnalysisSwitch( monitor, errManager,root);
 		flowLatencySwitch.processPreOrderComponentInstance(root);
+		flowLatencySwitch.setIsAsynchronous();
+		flowLatencySwitch.processPreOrderComponentInstance(root);
 		if (monitor.isCanceled()) {
 			throw new OperationCanceledException();
 		}
