@@ -33,7 +33,11 @@ public final class SEI {
 	public static final String RAM_ACTUAL = "RAMActual";
 	public static final String ROM_ACTUAL = "ROMActual";
 	public static final String DATA_RATE = "Data_Rate";
-	
+
+	public static final String NETWEIGHT = "NetWeight";
+	public static final String GROSSWEIGHT = "GrossWeight";
+	public static final String WEIGHTLIMIT = "WeightLimit";
+
 	public static final String PROCESSOR_SPEED_UNITS = "Processor_Speed_Units";
 	public static final String KIPS_LITERAL = "KIPS";
 	public static final String MIPS_LITERAL = "MIPS";
