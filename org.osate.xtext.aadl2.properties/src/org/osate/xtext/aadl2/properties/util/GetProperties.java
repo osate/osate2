@@ -900,5 +900,22 @@ public class GetProperties {
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
+	
+
+	public static double getNetWeight(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.NETWEIGHT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
+	public static double getGrossWeight(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.GROSSWEIGHT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
+	public static double getWeightLimit(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.WEIGHTLIMIT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
 
 }
