@@ -15,6 +15,15 @@ public class Aadl2Util {
 	}
 
 	/**
+	 * Xtext resolver leaves unresolved proxy when reference cannot be resolved.
+	 * @param eo
+	 * @return
+	 */
+	public static boolean isUnresolved(EObject eo) {
+		return  eo.eIsProxy();
+	}
+
+	/**
 	 * Check to see if the Property definitions are the same
 	 * The methods compensates for the possible problem that the objects are different.
 	 * 
