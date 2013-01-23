@@ -4019,6 +4019,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseSubprogramClassifier(subprogramType);
 			if (result == null)
+				result = caseCallContext(subprogramType);
+			if (result == null)
 				result = caseComponentClassifier(subprogramType);
 			if (result == null)
 				result = caseSubprogramSubcomponentType(subprogramType);

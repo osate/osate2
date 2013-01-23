@@ -1710,8 +1710,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * specialized lookup method allows elements in the private section of a component implementation
 	 * to refer to elements in the public section of the component implementation.
 	 */
-	public NamedElement findNamedElement(String name)
-	{
+	public NamedElement findNamedElement(String name) {
 		NamedElement searchResult = super.findNamedElement(name);
 		if (searchResult != null)
 			return searchResult;
