@@ -45,9 +45,12 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
@@ -186,6 +189,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		for (Property prop : propertyFilter) {
 			PropertyAssociation setPA = null;
 
+			PropertyExpression defaultvalue = prop.getDefaultValue();
+			if (defaultvalue instanceof NamedValue){
+				AbstractNamedValue val = ((NamedValue)defaultvalue).getNamedValue();
+				if (val instanceof NamedElement){
+					
+				}
+			}
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				// acceptance test of connref tests connection itself
 				if (connRef.acceptsProperty(prop)) {
@@ -212,10 +222,16 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							} else {
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))) {
-										error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
-												+ " not consistent along connection");
-										break;
+									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))){
+										//  this comparison return inequality even if the two proeprty values are the same. They are
+										// enumeration literals kept in a NameValue object and there are two isntances of the NemdValue object pointing to the same literal
+										// The second issue is that evaluate may return the default value for the property, which may be different from the assigned value.
+										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue)) {
+											// TODO Fix
+//											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+//													+ " not consistent along connection");
+											break;
+										}
 									}
 								}
 							}
