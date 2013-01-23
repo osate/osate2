@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_dt3VcIYfEdynvrCoE60cvg">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_HJKxsEdvEdyOeaOA5AULsA" activeDiagram="_fZdJkWH5Edy7lM2deUfTpw">
   <model href="AADLConstructs.uml#_0"/>
   <diagrams xmi:id="_HKg1gEdvEdyOeaOA5AULsA" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_HbDL4EdvEdyOeaOA5AULsA" key="pageFormatName" value="A4"/>
@@ -4486,7 +4486,7 @@
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_BbYPSLFcEeCdCowcwygdUw" presentation="org.topcased.modeler.uml.classdiagram">
         <element href="AADLConstructs.uml#Features"/>
       </semanticModel>
-      <contained xsi:type="di:GraphNode" xmi:id="_BbYPSbFcEeCdCowcwygdUw" position="122,13" size="161,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_BbYPSbFcEeCdCowcwygdUw" position="105,14" size="196,-1">
         <anchorage xmi:id="_BbYPSrFcEeCdCowcwygdUw" graphEdge="_BbYPdbFcEeCdCowcwygdUw"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_BbYPS7FcEeCdCowcwygdUw" presentation="default">
           <element href="AADLInfrastructure.uml#Classifier"/>
@@ -5283,7 +5283,7 @@
       <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_dt3VcYYfEdynvrCoE60cvg" presentation="org.topcased.modeler.uml.classdiagram">
         <element href="AADLConstructs.uml#Modes"/>
       </semanticModel>
-      <contained xsi:type="di:GraphNode" xmi:id="_eBs3cIYfEdynvrCoE60cvg" position="12,98" size="129,-1">
+      <contained xsi:type="di:GraphNode" xmi:id="_eBs3cIYfEdynvrCoE60cvg" position="12,98" size="166,-1">
         <anchorage xmi:id="_jwm7AIYfEdynvrCoE60cvg" graphEdge="_jwwsAIYfEdynvrCoE60cvg _HoSI8IYgEdynvrCoE60cvg _H7zh4IYgEdynvrCoE60cvg"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_eBs3cYYfEdynvrCoE60cvg" presentation="default">
           <element href="AADLConstructs.uml#Modes-Mode"/>
@@ -5363,8 +5363,8 @@
         <contained xsi:type="di:EdgeObjectUV" xmi:id="_H7zh5YYgEdynvrCoE60cvg" id="targetCountEdgeObject" uDistance="10" vDistance="-10"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_H7zh5oYgEdynvrCoE60cvg" visible="false" id="middleNameEdgeObject" offset="492,27"/>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_H7zh54YgEdynvrCoE60cvg" id="stereotypeEdgeObject" offset="0,-10"/>
-        <waypoints>[0, 76, 301, 76]</waypoints>
-        <waypoints>[-302, 76, -1, 76]</waypoints>
+        <waypoints>[0, 71, 282, 74]</waypoints>
+        <waypoints>[-285, 71, -3, 74]</waypoints>
       </contained>
       <contained xsi:type="di:GraphNode" xmi:id="_XC6p0IyVEdyToqxDyTEFvQ" position="170,4" size="100,-1">
         <anchorage xmi:id="_Zq2VYIyVEdyToqxDyTEFvQ" graphEdge="_-f0IkYYfEdynvrCoE60cvg _jwwsAIYfEdynvrCoE60cvg"/>
