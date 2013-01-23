@@ -580,6 +580,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * out_flow feature of the corresponding flow specification."
 	 */
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
+		if (Aadl2Util.isNull(flow.getSpecification())||
+				Aadl2Util.isNull(flow.getSpecification().getAllOutEnd())	){
+			return;
+		}
 		ICompositeNode n = NodeModelUtils.getNode(flow);
 		INode lln = getLastLeaf(n);
 		String outFeatureName = lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","");
@@ -591,6 +595,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
+		if (Aadl2Util.isNull(specFeature)||Aadl2Util.isUnresolved(specContext)){
+			// the feature is unresolved or null; or the context is unresolved. 
+			// the context could be null but should not be unresolved for the checking to occur
+			return;
+		}
 		//if the feature names don't match
 		if (!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		//if the spec has a context, but the impl doesn't
