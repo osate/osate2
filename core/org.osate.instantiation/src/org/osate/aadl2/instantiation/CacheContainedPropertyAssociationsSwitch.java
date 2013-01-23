@@ -69,6 +69,7 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.OsateDebug;
 
 /**
@@ -141,7 +142,7 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
-			if (prop == null || prop.getType() == null) {
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
 				continue;
 			}
@@ -196,9 +197,9 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		for (PropertyAssociation pa : propertyAssociations) {
 			//OsateDebug.osateDebug  ("[CacheContainedProperty] Process contained property association" + pa);
 			Property prop = pa.getProperty();
-			if (prop == null || prop.getType() == null) {
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
-				OsateDebug.osateDebug  ("   skip");
+//				OsateDebug.osateDebug  ("   skip");
 
 				continue;
 			}
