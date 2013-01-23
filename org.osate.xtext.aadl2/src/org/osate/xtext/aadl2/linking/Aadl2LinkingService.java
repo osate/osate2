@@ -185,7 +185,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		if (Aadl2Package.eINSTANCE.getFeatureClassifier().isSuperTypeOf(requiredType)) {
 			// prototype for feature or component, or data,bus,subprogram, subprogram group classifier
 			EObject e = findClassifier(context, reference,  name);
-			if (e == null &&!(context instanceof Generalization) &&  !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)){
+			if (Aadl2Util.isNull(e) &&!(context instanceof Generalization) &&  !Aadl2Package.eINSTANCE.getComponentType().isSuperTypeOf(requiredType)){
 				// look for prototype
 				e = AadlUtil.getContainingClassifier(context).findNamedElement(name);
 				// TODO-phf: this can be removed if the FeatureClassifier class handles it
@@ -420,7 +420,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// look for flow element in flow segment
 			FlowSegment fs = (FlowSegment) context;
 			Context flowContext = fs.getContext();
-			if (flowContext == null){
+			if (Aadl2Util.isNull(flowContext)){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
 				if (Aadl2Util.isNull(cc)) return Collections.<EObject> emptyList();;
 				EObject searchResult = cc.findNamedElement(name);
@@ -444,7 +444,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			// look for flow element in flow segment
 			EndToEndFlowSegment fs = (EndToEndFlowSegment) context;
 			Context flowContext = fs.getContext();
-			if (flowContext == null){
+			if (Aadl2Util.isNull(flowContext)){
 				ComponentImplementation cc = fs.getContainingComponentImpl();
 				EObject searchResult = cc.findNamedElement(name);
 				if (searchResult instanceof EndToEndFlowElement){
@@ -539,7 +539,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 		} else if (Aadl2Package.eINSTANCE.getFeatureType() == requiredType) {
 			// feature group type or prototype
 			FeatureGroupType fgt = findFeatureGroupType(context, name, reference);
-			if (fgt == null){
+			if (Aadl2Util.isNull(fgt)){
 				// need to resolve prototype
 				EObject res = AadlUtil.getContainingClassifier(context)
 						.findNamedElement(name);
