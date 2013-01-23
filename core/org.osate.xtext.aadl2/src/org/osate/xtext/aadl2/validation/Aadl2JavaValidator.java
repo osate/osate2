@@ -61,6 +61,7 @@ import org.eclipse.xtext.scoping.IGlobalScopeProvider;
 import org.eclipse.xtext.validation.Check;
 import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
+import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
@@ -2170,6 +2171,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkTypeOfFeatureRefinement(Feature feature) {
 		Feature refined = feature.getRefined();
+		if (! Aadl2Util.isNull(refined))
+		{
+			if ((feature instanceof DataPortImpl) && (refined instanceof DataPortImpl))
+			{
+				if (! ((DataPortImpl)feature).getDataFeatureClassifier().equals (((DataPortImpl)refined).getDataFeatureClassifier()))
+				{
+					error(feature, "Cannot refine " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass()) + " into "
+							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ": mismatch data type.");
+				} 
+			}
+		
+		}
 		if (!Aadl2Util.isNull(refined) && !(feature.getRefined() instanceof AbstractFeature)
 				&& !feature.eClass().equals(refined.eClass())) {
 			error(feature, "Cannot refine " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass()) + " into "

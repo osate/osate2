@@ -729,5 +729,14 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 			PropertyDoesNotApplyToHolderException {
 		return null;
 	}
-
+	
+	public boolean equals(Object arg0) 
+	{
+		/*
+		if (arg0 instanceof DataPortImpl)
+		{
+			System.out.println ("equals on " +  arg0);
+		}*/
+		return (this == arg0);
+	}
 } // NamedElementImpl

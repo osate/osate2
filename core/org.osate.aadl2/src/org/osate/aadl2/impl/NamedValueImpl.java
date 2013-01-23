@@ -196,10 +196,10 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue, Com
 	public boolean equals(Object arg0) 
 	{
 
+		//System.out.println ("equals on " +  arg0);
 		if (arg0 instanceof NamedValueImpl)
 		{
 			NamedValueImpl nvi = (NamedValueImpl) arg0;
-			System.out.println ("nvi" + nvi.getNamedValue());
 
 			if ((this.getNamedValue() instanceof EnumerationLiteralImpl) &&
 				(nvi.getNamedValue() instanceof EnumerationLiteralImpl))
