@@ -386,7 +386,7 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @see org.osate.aadl2.BasicProperty#isList()
 	 */
 	public boolean isList() {
-		return type instanceof ListType;
+		return getType() instanceof ListType;
 	}
 
 } // BasicPropertyImpl
