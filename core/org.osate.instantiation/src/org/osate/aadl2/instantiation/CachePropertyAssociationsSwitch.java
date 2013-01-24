@@ -54,6 +54,8 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.impl.EnumerationLiteralImpl;
+import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -209,6 +211,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 						List<EvaluatedProperty> value = prop.evaluate(new EvaluationContext(connRef, classifierCache,
 								scProps.retrieveSCProperty(conni, prop, connRef.getConnection())));
 
+
 						if (!value.isEmpty()) {
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
@@ -216,20 +219,50 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							fillPropertyValue(connRef, newPA, value);
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
-							if (setPA == null) {
-								conni.getOwnedPropertyAssociations().add(newPA);
+							if (setPA == null) 
+							{
 								setPA = newPA;
-							} else {
+							} 
+							else 
+							{
+
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))){
-										//  this comparison return inequality even if the two proeprty values are the same. They are
-										// enumeration literals kept in a NameValue object and there are two isntances of the NemdValue object pointing to the same literal
+									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
+									{
+										//  this comparison return inequality even if the two property values are the same. They are
+										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the same literal
 										// The second issue is that evaluate may return the default value for the property, which may be different from the assigned value.
-										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue)) {
-											// TODO Fix
-//											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
-//													+ " not consistent along connection");
+										
+										/*
+										 * JD
+										 * Used to fix bug #158
+										 */
+										if ((newPA.valueInMode(m) instanceof NamedValueImpl) &&
+											(setPA.valueInMode(m) instanceof NamedValueImpl))
+										{
+											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m); 
+											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m); 
+											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl) &&
+											    (nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
+											{
+												EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1.getNamedValue();
+												EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2.getNamedValue();
+												if (ei1.getName() == ei2.getName())
+												{
+													
+													continue;
+												}
+
+											}
+											System.out.println (((NamedValueImpl)newPA.valueInMode(m)).getNamedValue());
+										}
+										
+										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue))
+										{
+											
+											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+													+ " not consistent along connection");
 											break;
 										}
 									}
