@@ -186,26 +186,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		return super.eIsSet(featureID);
 	}
 
-	public int compareTo(Object arg0) {
 
-		return (this == arg0) ? 0 : 1;
-	}
 
-	public boolean equals(Object arg0) {
 
-		//System.out.println ("equals on " +  arg0);
-		if (arg0 instanceof NamedValueImpl) {
-			NamedValueImpl nvi = (NamedValueImpl) arg0;
-
-			if ((this.getNamedValue() instanceof EnumerationLiteralImpl)
-					&& (nvi.getNamedValue() instanceof EnumerationLiteralImpl)) {
-				String str1 = ((EnumerationLiteralImpl) this.getNamedValue()).getName().toString();
-				String str2 = ((EnumerationLiteralImpl) nvi.getNamedValue()).getName().toString();
-				return (str1 == str2);
-			}
-
-		}
-
-		return (this == arg0);
-	}
 } // NamedValueImpl
