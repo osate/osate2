@@ -336,4 +336,21 @@
             name="%osate_logger_view.label">
       </view>
    </extension>
+   <extension
+         point="org.eclipse.ui.views">
+      <category
+            id="aadl.view_category"
+            name="%aadl_view_category.label">
+      </category>
+      <view
+            category="aadl.view_category"
+            class="org.osate.ui.propertyview.AadlPropertyView"
+            icon="%aadl_property_view.icon"
+            id="org.osate.ui.propertyview.AadlPropertyView"
+            name="%aadl_property_view.label">
+         <description>
+            Shows all the AADL property associations for the selected AADL element.
+         </description>
+      </view>
+   </extension>
 </plugin>
