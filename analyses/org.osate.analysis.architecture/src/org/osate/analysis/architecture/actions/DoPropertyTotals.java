@@ -55,7 +55,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 	}
 		
 	protected String getMarkerType() {
-		return "edu.cmu.sei.aadl.architecture.WeightTotalObjectMarker";
+		return "org.osate.analysis.architecture.WeightTotalObjectMarker";
 	}
 
 	protected String getActionName() {
