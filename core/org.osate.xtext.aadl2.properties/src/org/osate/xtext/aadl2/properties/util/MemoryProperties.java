@@ -33,6 +33,8 @@
  */
 package org.osate.xtext.aadl2.properties.util;
 
+import org.osate.aadl2.DirectionType;
+
 public final class MemoryProperties {
 	private MemoryProperties() {
 	}
@@ -47,4 +49,37 @@ public final class MemoryProperties {
 	public static final String SOURCE_CODE_SIZE = "Source_Code_Size";
 	public static final String SOURCE_STACK_SIZE = "Source_Stack_Size";
 	public static final String BYTE_COUNT = "Byte_Count";
+	
+
+	/**
+	 * access is read/write or write
+	 * @return boolean true it does write
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public static boolean isWrite(String access) {
+		return READ_WRITE.equalsIgnoreCase(access) || WRITE_ONLY.equalsIgnoreCase(access);
+	}
+
+	/**
+	 * DirectionType is IN or IN_OUT
+	 * @return boolean true if IN or IN_OUT
+	 */
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
+	public static boolean isRead(String access) {
+		return READ_WRITE.equalsIgnoreCase(access) || READ_ONLY.equalsIgnoreCase(access);
+	}
+
+	/** 
+	 * changes the access right direction
+	 *
+	 */
+	public static String getInverseDirection(String access) {
+		if (READ_WRITE.equalsIgnoreCase(access))
+			return access;
+		else if (READ_ONLY.equalsIgnoreCase(access))
+			return WRITE_ONLY;
+		else
+			return READ_ONLY;
+	}
+
 }
