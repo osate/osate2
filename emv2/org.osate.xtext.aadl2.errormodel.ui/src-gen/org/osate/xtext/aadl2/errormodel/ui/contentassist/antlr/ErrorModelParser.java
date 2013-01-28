@@ -42,6 +42,8 @@ public class ErrorModelParser extends AbstractContentAssistParser {
 					put(grammarAccess.getElementAccess().getAlternatives(), "rule__Element__Alternatives");
 					put(grammarAccess.getErrorTypesAccess().getAlternatives(), "rule__ErrorTypes__Alternatives");
 					put(grammarAccess.getTypeSetReferenceAccess().getAlternatives(), "rule__TypeSetReference__Alternatives");
+					put(grammarAccess.getElementErrorTypeAccess().getAlternatives_1_0(), "rule__ElementErrorType__Alternatives_1_0");
+					put(grammarAccess.getTypeTokenAccess().getAlternatives_3_0(), "rule__TypeToken__Alternatives_3_0");
 					put(grammarAccess.getTypeTokenConstraintNoErrorAccess().getAlternatives(), "rule__TypeTokenConstraintNoError__Alternatives");
 					put(grammarAccess.getTypeTransformationSetAccess().getAlternatives_4(), "rule__TypeTransformationSet__Alternatives_4");
 					put(grammarAccess.getTypeTransformationAccess().getAlternatives(), "rule__TypeTransformation__Alternatives");

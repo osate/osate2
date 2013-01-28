@@ -996,12 +996,18 @@ ruleElementErrorType returns [EObject current=null]
 	    }
 
 )
-)(
+)((
 	otherlv_1=KEYWORD_4
     {
-    	newLeafNode(otherlv_1, grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0());
+    	newLeafNode(otherlv_1, grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0_0());
     }
-(
+
+    |
+	otherlv_2=KEYWORD_3
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getElementErrorTypeAccess().getAsteriskKeyword_1_0_1());
+    }
+)(
 (
 		{
 			if ($current==null) {
@@ -1105,12 +1111,18 @@ ruleTypeToken returns [EObject current=null]
 	    }
 
 )
-)(
+)((
 	otherlv_3=KEYWORD_4
     {
-    	newLeafNode(otherlv_3, grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0());
+    	newLeafNode(otherlv_3, grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0_0());
     }
-(
+
+    |
+	otherlv_4=KEYWORD_3
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getTypeTokenAccess().getAsteriskKeyword_3_0_1());
+    }
+)(
 (
 		{
 			if ($current==null) {
@@ -1126,9 +1138,9 @@ ruleTypeToken returns [EObject current=null]
 
 )
 ))*
-	otherlv_5=KEYWORD_13
+	otherlv_6=KEYWORD_13
     {
-    	newLeafNode(otherlv_5, grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4());
+    	newLeafNode(otherlv_6, grammarAccess.getTypeTokenAccess().getRightCurlyBracketKeyword_4());
     }
 )
 ;

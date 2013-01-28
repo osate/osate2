@@ -7,6 +7,7 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
+import org.eclipse.xtext.serializer.analysis.GrammarAlias.AlternativeAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
@@ -20,18 +21,22 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	protected ErrorModelGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_a;
 	protected AbstractElementAlias match_ConditionTerm_LeftParenthesisKeyword_3_0_p;
+	protected AbstractElementAlias match_ElementErrorType_AsteriskKeyword_1_0_1_or_PlusSignKeyword_1_0_0;
 	protected AbstractElementAlias match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_5_TypesKeyword_1_6_SemicolonKeyword_1_7__q;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_3_0_a;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_3_0_p;
+	protected AbstractElementAlias match_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ErrorModelGrammarAccess) access;
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_ConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_3_0());
+		match_ElementErrorType_AsteriskKeyword_1_0_1_or_PlusSignKeyword_1_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getElementErrorTypeAccess().getAsteriskKeyword_1_0_1()), new TokenAlias(false, false, grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0_0()));
 		match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_5_TypesKeyword_1_6_SemicolonKeyword_1_7__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_5()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_6()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_7()));
 		match_SConditionTerm_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
 		match_SConditionTerm_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_3_0());
+		match_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0 = new AlternativeAlias(false, false, new TokenAlias(false, false, grammarAccess.getTypeTokenAccess().getAsteriskKeyword_3_0_1()), new TokenAlias(false, false, grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0_0()));
 	}
 	
 	@Override
@@ -50,12 +55,16 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 				emit_ConditionTerm_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ConditionTerm_LeftParenthesisKeyword_3_0_p.equals(syntax))
 				emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_ElementErrorType_AsteriskKeyword_1_0_1_or_PlusSignKeyword_1_0_0.equals(syntax))
+				emit_ElementErrorType_AsteriskKeyword_1_0_1_or_PlusSignKeyword_1_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_5_TypesKeyword_1_6_SemicolonKeyword_1_7__q.equals(syntax))
 				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_5_TypesKeyword_1_6_SemicolonKeyword_1_7__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SConditionTerm_LeftParenthesisKeyword_3_0_a.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_SConditionTerm_LeftParenthesisKeyword_3_0_p.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0.equals(syntax))
+				emit_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -73,6 +82,14 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     '('+
 	 */
 	protected void emit_ConditionTerm_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '*' | '+'
+	 */
+	protected void emit_ElementErrorType_AsteriskKeyword_1_0_1_or_PlusSignKeyword_1_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -97,6 +114,14 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     '('+
 	 */
 	protected void emit_SConditionTerm_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Syntax:
+	 *     '+' | '*'
+	 */
+	protected void emit_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

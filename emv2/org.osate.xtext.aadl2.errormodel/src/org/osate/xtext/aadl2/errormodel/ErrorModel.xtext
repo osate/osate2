@@ -118,7 +118,7 @@ TypeSetAlias returns TypeSet:
       ';';
       
 ElementErrorType returns TypeToken :
-	type+=[ErrorType|QEMREF] ('+' type+=[ErrorType|QEMREF])*
+	type+=[ErrorType|QEMREF] (('+'|'*') type+=[ErrorType|QEMREF])*
 ;
 
 NoError returns TypeSet:
@@ -128,7 +128,7 @@ NoError returns TypeSet:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-     '{' type+=[ErrorType|QEMREF] ('+' type+=[ErrorType|QEMREF])* '}'
+     '{' type+=[ErrorType|QEMREF] (('+'|'*') type+=[ErrorType|QEMREF])* '}'
 ;
 
 TypeTokenConstraint returns TypeSet:

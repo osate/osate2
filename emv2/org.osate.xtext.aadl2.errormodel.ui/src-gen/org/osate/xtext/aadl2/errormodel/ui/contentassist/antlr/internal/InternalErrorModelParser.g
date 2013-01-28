@@ -3002,6 +3002,58 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__ElementErrorType__Alternatives_1_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0_0()); }
+
+	KEYWORD_4 
+
+{ after(grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getElementErrorTypeAccess().getAsteriskKeyword_1_0_1()); }
+
+	KEYWORD_3 
+
+{ after(grammarAccess.getElementErrorTypeAccess().getAsteriskKeyword_1_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__TypeToken__Alternatives_3_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0_0()); }
+
+	KEYWORD_4 
+
+{ after(grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getTypeTokenAccess().getAsteriskKeyword_3_0_1()); }
+
+	KEYWORD_3 
+
+{ after(grammarAccess.getTypeTokenAccess().getAsteriskKeyword_3_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__TypeTokenConstraintNoError__Alternatives
     @init {
 		int stackSize = keepStackSize();
@@ -6262,11 +6314,9 @@ rule__ElementErrorType__Group_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0()); }
-
-	KEYWORD_4 
-
-{ after(grammarAccess.getElementErrorTypeAccess().getPlusSignKeyword_1_0()); }
+{ before(grammarAccess.getElementErrorTypeAccess().getAlternatives_1_0()); }
+(rule__ElementErrorType__Alternatives_1_0)
+{ after(grammarAccess.getElementErrorTypeAccess().getAlternatives_1_0()); }
 )
 
 ;
@@ -6616,11 +6666,9 @@ rule__TypeToken__Group_3__0__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0()); }
-
-	KEYWORD_4 
-
-{ after(grammarAccess.getTypeTokenAccess().getPlusSignKeyword_3_0()); }
+{ before(grammarAccess.getTypeTokenAccess().getAlternatives_3_0()); }
+(rule__TypeToken__Alternatives_3_0)
+{ after(grammarAccess.getTypeTokenAccess().getAlternatives_3_0()); }
 )
 
 ;

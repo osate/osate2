@@ -823,17 +823,19 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cTypeErrorTypeCrossReference_0_0 = (CrossReference)cTypeAssignment_0.eContents().get(0);
 		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_0_0_1 = (RuleCall)cTypeErrorTypeCrossReference_0_0.eContents().get(1);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
-		private final Keyword cPlusSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
+		private final Keyword cPlusSignKeyword_1_0_0 = (Keyword)cAlternatives_1_0.eContents().get(0);
+		private final Keyword cAsteriskKeyword_1_0_1 = (Keyword)cAlternatives_1_0.eContents().get(1);
 		private final Assignment cTypeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final CrossReference cTypeErrorTypeCrossReference_1_1_0 = (CrossReference)cTypeAssignment_1_1.eContents().get(0);
 		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_1_1_0_1 = (RuleCall)cTypeErrorTypeCrossReference_1_1_0.eContents().get(1);
 		
 		//ElementErrorType returns TypeToken:
 		//
-		//	type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])*;
+		//	type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])*;
 		public ParserRule getRule() { return rule; }
 
-		//type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])*
+		//type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])*
 		public Group getGroup() { return cGroup; }
 
 		//type+=[ErrorType|QEMREF]
@@ -845,11 +847,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//QEMREF
 		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_0_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_0_0_1; }
 
-		//("+" type+=[ErrorType|QEMREF])*
+		//(("+" | "*") type+=[ErrorType|QEMREF])*
 		public Group getGroup_1() { return cGroup_1; }
 
+		//"+" | "*"
+		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+
 		//"+"
-		public Keyword getPlusSignKeyword_1_0() { return cPlusSignKeyword_1_0; }
+		public Keyword getPlusSignKeyword_1_0_0() { return cPlusSignKeyword_1_0_0; }
+
+		//"*"
+		public Keyword getAsteriskKeyword_1_0_1() { return cAsteriskKeyword_1_0_1; }
 
 		//type+=[ErrorType|QEMREF]
 		public Assignment getTypeAssignment_1_1() { return cTypeAssignment_1_1; }
@@ -899,7 +907,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cTypeErrorTypeCrossReference_2_0 = (CrossReference)cTypeAssignment_2.eContents().get(0);
 		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_2_0_1 = (RuleCall)cTypeErrorTypeCrossReference_2_0.eContents().get(1);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
-		private final Keyword cPlusSignKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Alternatives cAlternatives_3_0 = (Alternatives)cGroup_3.eContents().get(0);
+		private final Keyword cPlusSignKeyword_3_0_0 = (Keyword)cAlternatives_3_0.eContents().get(0);
+		private final Keyword cAsteriskKeyword_3_0_1 = (Keyword)cAlternatives_3_0.eContents().get(1);
 		private final Assignment cTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
 		private final CrossReference cTypeErrorTypeCrossReference_3_1_0 = (CrossReference)cTypeAssignment_3_1.eContents().get(0);
 		private final RuleCall cTypeErrorTypeQEMREFParserRuleCall_3_1_0_1 = (RuleCall)cTypeErrorTypeCrossReference_3_1_0.eContents().get(1);
@@ -907,10 +917,10 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//TypeToken:
 		//
-		//	{TypeToken} "{" type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])* "}";
+		//	{TypeToken} "{" type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])* "}";
 		public ParserRule getRule() { return rule; }
 
-		//{TypeToken} "{" type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])* "}"
+		//{TypeToken} "{" type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])* "}"
 		public Group getGroup() { return cGroup; }
 
 		//{TypeToken}
@@ -928,11 +938,17 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//QEMREF
 		public RuleCall getTypeErrorTypeQEMREFParserRuleCall_2_0_1() { return cTypeErrorTypeQEMREFParserRuleCall_2_0_1; }
 
-		//("+" type+=[ErrorType|QEMREF])*
+		//(("+" | "*") type+=[ErrorType|QEMREF])*
 		public Group getGroup_3() { return cGroup_3; }
 
+		//"+" | "*"
+		public Alternatives getAlternatives_3_0() { return cAlternatives_3_0; }
+
 		//"+"
-		public Keyword getPlusSignKeyword_3_0() { return cPlusSignKeyword_3_0; }
+		public Keyword getPlusSignKeyword_3_0_0() { return cPlusSignKeyword_3_0_0; }
+
+		//"*"
+		public Keyword getAsteriskKeyword_3_0_1() { return cAsteriskKeyword_3_0_1; }
 
 		//type+=[ErrorType|QEMREF]
 		public Assignment getTypeAssignment_3_1() { return cTypeAssignment_3_1; }
@@ -5023,7 +5039,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ElementErrorType returns TypeToken:
 	//
-	//	type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])*;
+	//	type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])*;
 	public ElementErrorTypeElements getElementErrorTypeAccess() {
 		return (pElementErrorType != null) ? pElementErrorType : (pElementErrorType = new ElementErrorTypeElements());
 	}
@@ -5045,7 +5061,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 	//TypeToken:
 	//
-	//	{TypeToken} "{" type+=[ErrorType|QEMREF] ("+" type+=[ErrorType|QEMREF])* "}";
+	//	{TypeToken} "{" type+=[ErrorType|QEMREF] (("+" | "*") type+=[ErrorType|QEMREF])* "}";
 	public TypeTokenElements getTypeTokenAccess() {
 		return (pTypeToken != null) ? pTypeToken : (pTypeToken = new TypeTokenElements());
 	}
