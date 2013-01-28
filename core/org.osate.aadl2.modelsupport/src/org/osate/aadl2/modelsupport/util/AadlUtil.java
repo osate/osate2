@@ -1225,7 +1225,7 @@ public final class AadlUtil {
 				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
-			if (rl.isEmpty() && rl.get(0) instanceof Element)
+			if (!rl.isEmpty() && rl.get(0) instanceof Element)
 				return (Element) rl.get(0);
 		}
 		if (object instanceof TreeSelection) {
