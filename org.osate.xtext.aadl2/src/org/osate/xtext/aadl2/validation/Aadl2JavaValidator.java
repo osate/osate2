@@ -676,15 +676,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (!connection.getAllSource().equals(inEnd.getFeature())
 							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
 									connection.getAllSourceContext()))) {
-						if (connection.isBidirectional()&&!connection.getAllDestination().equals(inEnd.getFeature())
-							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
-									connection.getAllDestinationContext()))){
-						error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName()
-								+ "' does not match the in flow feature '"
-								+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
-								+ inEnd.getFeature().getName() + '\'');
-						} else {
-							didReverse = true;
+						if (connection.isBidirectional()){
+							if(!connection.getAllDestination().equals(inEnd.getFeature())
+									|| (inEnd.getContext() != null && !inEnd.getContext().equals(
+											connection.getAllDestinationContext()))){
+								error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName()
+										+ "' does not match the in flow feature '"
+										+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
+										+ inEnd.getFeature().getName() + '\'');
+							} else {
+								didReverse = true;
+							}
 						}
 					}
 				} else {
@@ -692,15 +694,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments()
 								.get(i - 1).getFlowElement();
 						if (!connection.getAllSource().equals(previousFlowSegment.getAllOutEnd().getFeature())) {
-							if (connection.isBidirectional()&&!connection.getAllDestination().equals(previousFlowSegment.getAllOutEnd().getFeature())){
-							error(flow.getOwnedFlowSegments().get(i),
-									"The source of connection '"
-											+ connection.getName()
-											+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
-											+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
-											+ previousFlowSegment.getName() + '\'');
-							} else {
-								didReverse = true;
+							if (connection.isBidirectional()){
+								if(!connection.getAllDestination().equals(previousFlowSegment.getAllOutEnd().getFeature())){
+									error(flow.getOwnedFlowSegments().get(i),
+											"The source of connection '"
+													+ connection.getName()
+													+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
+													+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
+													+ previousFlowSegment.getName() + '\'');
+								} else {
+									didReverse = true;
+								}
 							}
 						}
 					}
