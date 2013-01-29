@@ -35,10 +35,13 @@
 package org.osate.analysis.arinc653.helpers;
 
 
+import java.util.List;
+
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.impl.NamedElementImpl;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;
@@ -77,18 +80,12 @@ public class SchedulingSlotsHelper
 	 * from a processor. The argument must be a ComponentInstance that has
 	 * is a kind of processor.
 	 */
-	public static ListValue getSlots (ComponentInstance ci)
+	public static List<PropertyExpression> getSlots (ComponentInstance ci)
 	{
 		PropertyExpression pe;
 		loadProperties(ci);
-		
-		pe = PropertyUtils.getSimplePropertyListValue(ci, partitionsSlotsProperty);
-		if (pe instanceof ListValue)
-		{
-			ListValue list = (ListValue) pe;
-			return list;
-		}
-		return null;
+		List<PropertyExpression> l = ((NamedElementImpl)ci).getPropertyValueList(partitionsSlotsProperty);
+		return l;
 	}
 	
 	/*
@@ -96,18 +93,12 @@ public class SchedulingSlotsHelper
 	 * from a processor. The argument must be a ComponentInstance that has
 	 * is a kind of processor.
 	 */
-	public static ListValue getSlotsAllocation (ComponentInstance ci) 
+	public static List<PropertyExpression> getSlotsAllocation (ComponentInstance ci) 
 	{
 		PropertyExpression pe;
 		loadProperties(ci);
 		
-		pe = PropertyUtils.getSimplePropertyListValue(ci, slotsAllocationProperty);
-		if (pe instanceof ListValue)
-		{			
-			ListValue list = (ListValue) pe;
-			return list;
-		}
-		return null;
+		return ((NamedElementImpl)ci).getPropertyValueList(slotsAllocationProperty);
 	}
 	
 	/*

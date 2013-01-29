@@ -46,6 +46,7 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
@@ -139,8 +140,8 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 		
 		instanceSwitch = new InstanceSwitch<String>() {
 			public String caseComponentInstance(ComponentInstance obj) {
-				ListValue slotsList;
-				ListValue slotsAllocationList;
+				List<PropertyExpression> slotsList;
+				List<PropertyExpression> slotsAllocationList;
 				int slotsListSize;
 				int slotsAllocationListSize;
 				long slotsSum;
@@ -191,7 +192,7 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 					 * We inspect the slots list, check the size and make a sum
 					 * to check with the major frame.
 					 */
-					for (Element e : slotsList.getChildren())
+					for (Element e : slotsList)
 					{
 						if (e instanceof IntegerLiteral)
 						{
@@ -207,7 +208,7 @@ public class ConfigurationValidation extends AadlProcessingSwitchWithProgress
 					 * We check the allocation list and add the name of each
 					 * scheduled partition in a list.
 					 */
-					for (Element e : slotsAllocationList.getChildren())
+					for (Element e : slotsAllocationList)
 					{
 
 						if (e instanceof ReferenceValue)
