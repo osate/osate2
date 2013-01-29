@@ -2179,11 +2179,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		{
 			if ((feature instanceof DataPortImpl) && (refined instanceof DataPortImpl))
 			{
-				if (! ((DataPortImpl)feature).getDataFeatureClassifier().equals (((DataPortImpl)refined).getDataFeatureClassifier()))
+				DataSubcomponentType srccl = ((DataPortImpl)feature).getDataFeatureClassifier();
+				DataSubcomponentType dstcl = (((DataPortImpl)refined).getDataFeatureClassifier());
+				if (srccl instanceof Classifier && dstcl instanceof Classifier){
+				if (! AadlUtil.matchingClassifier((Classifier) srccl, (Classifier) dstcl))
 				{
 					error(feature, "Cannot refine " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass()) + " into "
 							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ": mismatch data type.");
 				} 
+				}
 			}
 		
 		}
