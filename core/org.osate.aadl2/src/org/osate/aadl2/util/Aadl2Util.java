@@ -1,7 +1,10 @@
 package org.osate.aadl2.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.RefinableElement;
 
 public class Aadl2Util {
 
@@ -36,6 +39,32 @@ public class Aadl2Util {
 		String p2Name = p2.getQualifiedName();
 		boolean sameName = p1Name.equalsIgnoreCase(p2Name);
 		return sameName;
+	}
+	
+	public static String getName(NamedElement ne){
+		if (ne.hasName()) return ne.getName();
+		return getRefinedName(ne, ne);
+	}
+	
+	public static String getRefinedName(NamedElement ne, NamedElement root){
+		if (ne instanceof RefinableElement){
+			RefinableElement re = (RefinableElement)ne;
+			RefinableElement ref = re.getRefinedElement();
+			if (ref == root) return null; // terminate on cycle
+			if (ref != null) return getRefinedName(ref, root);
+			// no additional reference pointer, return name
+			return ne.getName();
+		}
+		return null;
+	}
+	
+	public static NamedElement findOwnedNamedElement(Classifier owner, String name){
+		for (NamedElement ne : owner.getOwnedMembers()) { 
+			String neName = Aadl2Util.getName(ne);
+			if (neName != null && neName.equalsIgnoreCase(name))
+				return ne;
+		}
+		return null;
 	}
 
 }
