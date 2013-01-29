@@ -48,6 +48,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.aadl2.operations.NamespaceOperations;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -269,8 +270,9 @@ public abstract class NamespaceImpl extends NamedElementImpl implements Namespac
 	 *@return NamedElement
 	 */
 	public NamedElement findNamedElement(String name) {
-		for (NamedElement ne : getMembers()) {
-			if (ne.hasName() && ne.getName().equalsIgnoreCase(name))
+		for (NamedElement ne : getMembers()) { // XXX was getMembers()
+			String neName = Aadl2Util.getName(ne);
+			if (neName != null && neName.equalsIgnoreCase(name))
 				return ne;
 		}
 		return null;

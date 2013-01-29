@@ -1090,14 +1090,10 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 
 	@Override
 	public NamedElement findNamedElement(String name) {
-		EList<NamedElement> members = getMembers();
-		for (NamedElement ne : members)
-			if (ne.hasName() && ne.getName().equalsIgnoreCase(name))
-				return ne;
-		if (members.isEmpty() && getInverse() != null) {
-			NamedElement searchResult = getInverse().findNamedElement(name);
-			if (searchResult instanceof Feature)
-				return searchResult;
+		NamedElement searchResult = super.findNamedElement(name);
+		if (searchResult != null) return searchResult;
+		if ( getInverse() != null) {
+			return getInverse().findNamedElement(name);
 		}
 		return null;
 	}

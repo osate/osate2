@@ -1711,7 +1711,11 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 	 * to refer to elements in the public section of the component implementation.
 	 */
 	public NamedElement findNamedElement(String name) {
+		// first find in implementation as classifier and its extensions
 		NamedElement searchResult = super.findNamedElement(name);
+		if (searchResult != null) return searchResult;
+		searchResult = this.getType().findNamedElement(name);
+				// now look in type and its extensions
 		if (searchResult != null)
 			return searchResult;
 		// Checks if this component implementation is in a private section and a
