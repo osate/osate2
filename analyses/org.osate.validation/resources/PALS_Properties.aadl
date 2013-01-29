@@ -1,5 +1,0 @@
-property set PALS_Properties is
-  PALS_Id     : inherit aadlstring applies to (system, process, thread);
-  PALS_Period : inherit Time       applies to (system, process, thread);
-  
-end PALS_Properties;
