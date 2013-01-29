@@ -1376,7 +1376,6 @@ public class InstantiateModel {
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
-		System.out.println("cc=" + cc);
 		while (cc != null)
 		{
 			addUsedPropertyDefinitions(cc, result);
