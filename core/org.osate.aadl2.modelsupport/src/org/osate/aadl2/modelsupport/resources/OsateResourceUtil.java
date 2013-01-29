@@ -156,6 +156,7 @@ public class OsateResourceUtil {
 	public static IResource convertToIResource(Resource res) {
 		if (res == null)
 			return null;
+		
 		URI uri = res.getURI();
 		if (uri != null) {
 			return getOsateIFile(uri);
@@ -173,6 +174,7 @@ public class OsateResourceUtil {
 	 *                protocol.
 	 */
 	public static IFile getOsateIFile(final URI resourceURI) {
+		
 		/*
 		 * I don't really understand why this method does what it does, but the
 		 * point seems to be to take a URI for a Resource that resembles
@@ -187,22 +189,11 @@ public class OsateResourceUtil {
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
 		if (resourceURI.scheme() != null
-				&& resourceURI.scheme().equalsIgnoreCase("platform")) {
-			// Get the segments. See if the first is "resource"
-			final String[] segments = resourceURI.segments();
-			final StringBuffer path = new StringBuffer();
-
-			if (segments.length >= 1) {
-				final int firstSegment = segments[0].equals("resource") ? 1 : 0;
-				final int lastIdx = segments.length - 1;
-				for (int i = firstSegment; i < (lastIdx); i++) {
-					path.append(segments[i]);
-					path.append('/');
-				}
-				if (lastIdx >= 0)
-					path.append(segments[lastIdx]);
-			}
-			return myWorkspaceRoot.getFile(new Path(null, path.toString()));
+				&& resourceURI.scheme().equalsIgnoreCase("platform")) 
+		{
+			// FIXME JD
+			// Fixes bug 162, see https://github.com/osate/osate2-core/issues/162
+			return myWorkspaceRoot.getFile(new Path(null, resourceURI.toPlatformString(true)));
 		} else if (resourceURI.isFile()) {
 			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
 		} else {
