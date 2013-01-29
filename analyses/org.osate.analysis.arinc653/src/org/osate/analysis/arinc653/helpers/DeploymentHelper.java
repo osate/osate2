@@ -41,6 +41,7 @@ import java.util.Map;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.VirtualProcessorSubcomponent;
 import org.osate.aadl2.impl.ContainmentPathElementImpl;
@@ -227,7 +228,7 @@ public class DeploymentHelper {
 	
 	public static int schedulingOrder (ComponentInstance module, ComponentInstance partition)
 	{
-		ListValue slotsAllocationList;
+		List<PropertyExpression> slotsAllocationList;
 		ComponentInstance partitionRuntime;
 		
 		int val;
@@ -243,7 +244,7 @@ public class DeploymentHelper {
 		
 		val = -1;
 		tmp = 0;
-		for (Element e : slotsAllocationList.getChildren())
+		for (Element e : slotsAllocationList)
 		{
 
 			if (e instanceof ReferenceValue)
@@ -277,13 +278,13 @@ public class DeploymentHelper {
 	
 	public static int schedulingListSize (ComponentInstance module)
 	{
-		ListValue slotsAllocationList;
+		List<PropertyExpression> slotsAllocationList;
 		int tmp;
 		
 		slotsAllocationList = SchedulingSlotsHelper.getSlotsAllocation(module);
 		
 		tmp = 0;
-		for (Element e : slotsAllocationList.getChildren())
+		for (Element e : slotsAllocationList)
 		{
 
 			if (e instanceof ReferenceValue)

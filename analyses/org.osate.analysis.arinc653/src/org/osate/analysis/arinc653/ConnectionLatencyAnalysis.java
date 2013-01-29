@@ -47,6 +47,7 @@ import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.ListValue;
+import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.ReferenceValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -158,7 +159,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 				ComponentInstance			connectionBus;
 				
 				boolean partitionsOnSameProcessor;
-				ListValue slots;
+				List<PropertyExpression> slots;
 				int schedulingSourceIndex;
 				int schedulingDestIndex;
 				long latency;
@@ -257,7 +258,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp < schedulingDestIndex ; tmp++)
 							{
-								Element e = slots.getChildren().get(tmp);
+								Element e = slots.get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -270,7 +271,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
 							{
-								Element e = slots.getChildren().get(tmp);
+								Element e = slots.get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -280,7 +281,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							}
 							for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
 							{
-								Element e = slots.getChildren().get(tmp);
+								Element e = slots.get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -299,7 +300,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						 */
 						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
 						{
-							Element e = slots.getChildren().get(tmp);
+							Element e = slots.get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
@@ -311,7 +312,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						}
 						for (int tmp = 0 ; tmp <= schedulingDestIndex ; tmp++)
 						{
-							Element e = slots.getChildren().get(tmp);
+							Element e = slots.get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
@@ -387,7 +388,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp < schedulingDestIndex ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorSource).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -400,7 +401,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorSource).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -410,7 +411,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							}
 							for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorSource).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -431,7 +432,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp <= schedulingDestIndex ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -444,7 +445,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						{
 							for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -454,7 +455,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 							}
 							for (int tmp = 0 ; tmp <= schedulingDestIndex ; tmp++)
 							{
-								Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
+								Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
 								if (e instanceof IntegerLiteral)
 								{
@@ -482,7 +483,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorSource, deviceSource);
 						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorSource) ; tmp++)
 						{
-							Element e = SchedulingSlotsHelper.getSlots(processorSource).getChildren().get(tmp);
+							Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
@@ -494,7 +495,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						}
 						for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
 						{
-							Element e = SchedulingSlotsHelper.getSlots(processorSource).getChildren().get(tmp);
+							Element e = SchedulingSlotsHelper.getSlots(processorSource).get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
@@ -513,7 +514,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						schedulingDestIndex = DeploymentHelper.schedulingOrder(processorDest, deviceDestination);
 						for (int tmp = schedulingSourceIndex ; tmp < DeploymentHelper.schedulingListSize (processorDest) ; tmp++)
 						{
-							Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
+							Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
@@ -525,7 +526,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						}
 						for (int tmp = 0 ; tmp < schedulingDestIndex ; tmp++)
 						{
-							Element e = SchedulingSlotsHelper.getSlots(processorDest).getChildren().get(tmp);
+							Element e = SchedulingSlotsHelper.getSlots(processorDest).get(tmp);
 
 							if (e instanceof IntegerLiteral)
 							{
