@@ -975,4 +975,18 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 		}
 		return result;
 	}
+	
+	@Override
+	/**
+	 * find in owned members of classifier and then in extends
+	 */
+	public NamedElement findNamedElement(String name) {
+		NamedElement ne = Aadl2Util.findOwnedNamedElement(this, name);
+		if (ne != null) return ne;
+		if (this.getExtended() != null){
+			return Aadl2Util.findOwnedNamedElement(this.getExtended(),name);
+		}
+		return null;
+	}
+
 } // ClassifierImpl
