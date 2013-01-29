@@ -342,6 +342,7 @@ public class InstantiateModel {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return null;
 			}
 			// We're done: Save the model.
 			// We don't respond to a cancel at this point
@@ -1375,10 +1376,15 @@ public class InstantiateModel {
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
-		while (cc != null) {
+		System.out.println("cc=" + cc);
+		while (cc != null)
+		{
 			addUsedPropertyDefinitions(cc, result);
-			cc = (ComponentClassifier) cc.getExtended();
+
+				cc = (Classifier) cc.getExtended();
+		
 		}
+			
 	}
 
 	/**
