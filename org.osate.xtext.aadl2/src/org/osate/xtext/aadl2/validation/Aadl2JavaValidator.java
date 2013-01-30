@@ -281,7 +281,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFeature(Feature feature) {
 		checkTypeOfFeatureRefinement(feature);
-		checkSubcomponentRefinementClassifierSubstitution(feature);
+		checkFeatureRefinementClassifierSubstitution(feature);
 		checkForFeatureArrays(feature);
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
@@ -2758,7 +2758,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 	
 	
-	private void checkSubcomponentRefinementClassifierSubstitution(Feature feature){
+	private void checkFeatureRefinementClassifierSubstitution(Feature feature){
 		if (!Aadl2Util.isNull(feature.getRefined() )){
 			 ComponentClassifier refinedCl = feature.getClassifier();
 			 ComponentClassifier originalCl = feature.getRefined().getClassifier();
@@ -3240,19 +3240,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (flow.getInEnd() != null)
 			inFeature = flow.getInEnd().getFeature();
 
-		checkIncomingFeatureDirection(inFeature, flow);
+		checkIncomingFeatureDirection(inFeature, flow, false);
 		
 		Feature outFeature = null;
 		if (flow.getOutEnd() != null)
 			outFeature = flow.getOutEnd().getFeature();
 
-		checkOutgoingFeatureDirection(outFeature, flow);
+		checkOutgoingFeatureDirection(outFeature, flow, false);
 
 	}
 	
-	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow){
-		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-				MemoryProperties.ACCESS_RIGHT);
+	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf){
 		//Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
@@ -3265,6 +3263,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
 					fDirection = fDirection.getInverseDirection();
 			}
+			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
 			if (!fDirection.incoming()) {
 				error(flow.getInEnd(), '\''
 						+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
@@ -3276,6 +3275,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		//Test for L4
 		else if (inFeature instanceof DataAccess) {
+			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+					MemoryProperties.ACCESS_RIGHT);
 			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
 			String accessrightname = accessRightValue.getName();
 			Context cxt = flow.getInEnd().getContext();
@@ -3287,6 +3288,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
 					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 			}
+			if (inverseOf) 	accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				error(flow.getInEnd(), '\''
@@ -3300,40 +3302,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//Test for L6
 		else if (inFeature instanceof FeatureGroup) {
 			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
+			boolean inInverseof = ((FeatureGroup)inFeature).isInverse();
 			if (fgt != null) {
 				boolean acceptableFeatureFound = false;
 				for (Feature f : fgt.getAllFeatures()) {
-					if (f instanceof Port || f instanceof Parameter) {
-						DirectionType fDirection = ((DirectedFeature) f).getDirection();
-						if (((FeatureGroup) inFeature).isInverse())
-							fDirection = fDirection.getInverseDirection();
-						if (!fgt.equals(f.getContainingClassifier()) && fgt.getInverse() != null)
-							fDirection = fDirection.getInverseDirection();
-						if (flow.getInEnd().getContext() instanceof FeatureGroup) {
-							FeatureGroup contextFeatureGroup = (FeatureGroup) flow.getInEnd().getContext();
-							if (contextFeatureGroup.isInverse())
-								fDirection = fDirection.getInverseDirection();
-							if (contextFeatureGroup.getAllFeatureGroupType() != null
-									&& !contextFeatureGroup.getAllFeatureGroupType().equals(
-											inFeature.getContainingClassifier())
-									&& contextFeatureGroup.getAllFeatureGroupType().getInverse() != null) {
-								fDirection = fDirection.getInverseDirection();
-							}
-						}
-						if (fDirection.incoming()) {
-							acceptableFeatureFound = true;
-							break;
-						}
-					} else if (f instanceof DataAccess) {
-						EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(f, accessRightProperty);
-						if (accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_ONLY)
-								|| accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
-							acceptableFeatureFound = true;
-							break;
-						}
-					} else if (f instanceof FeatureGroup){
-						if (checkIncomingFeatureDirection(f, flow))
-							acceptableFeatureFound = true;
+					if (checkIncomingFeatureDirection(f, flow,inInverseof?!inverseOf:inverseOf)){
+						return true;
 					}
 				}
 				if (fgt.getAllFeatures().isEmpty())
@@ -3356,21 +3330,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	}
 	
-	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow){
-		Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
-				MemoryProperties.ACCESS_RIGHT);
+	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow, boolean inverseOf){
 		//Test for L3
 		if (outFeature instanceof Port || outFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
 			Context cxt = flow.getOutEnd().getContext();
 			if (cxt instanceof FeatureGroup) {
-				// we need to consider the inverse of of the fg
+				// we need to consider the inverse of the fg
 				if (((FeatureGroup) cxt).isInverse())
 					fDirection = fDirection.getInverseDirection();
 				FeatureGroupType fgt = ((FeatureGroup) cxt).getAllFeatureGroupType();
 				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
 					fDirection = fDirection.getInverseDirection();
 			}
+			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
+
 			if (!fDirection.outgoing()) {
 				error(flow.getOutEnd(), '\''
 						+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
@@ -3382,6 +3356,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		//Test for L5
 		else if (outFeature instanceof DataAccess) {
+			Property accessRightProperty = GetProperties.lookupPropertyDefinition(flow, MemoryProperties._NAME,
+					MemoryProperties.ACCESS_RIGHT);
 			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
 			String accessrightname = accessRightValue.getName();
 			Context cxt = flow.getOutEnd().getContext();
@@ -3393,6 +3369,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
 					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 			}
+			if (inverseOf) 	accessrightname = MemoryProperties.getInverseDirection(accessrightname);
+
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
 				error(flow.getOutEnd(), '\''
@@ -3406,45 +3384,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//Test for L7
 		else if (outFeature instanceof FeatureGroup) {
 			FeatureGroupType fgt = ((FeatureGroup) outFeature).getAllFeatureGroupType();
+			boolean outInverseof = ((FeatureGroup)outFeature).isInverse();
 			if (fgt != null) {
-				boolean acceptableFeatureFound = false;
+				if( fgt.getAllFeatures().isEmpty()) return true;
 				for (Feature f : fgt.getAllFeatures()) {
-					if (f instanceof Port || f instanceof Parameter) {
-						DirectionType fDirection = ((DirectedFeature) f).getDirection();
-						if (((FeatureGroup) outFeature).isInverse())
-							fDirection = fDirection.getInverseDirection();
-						if (!fgt.equals(f.getContainingClassifier()) && fgt.getInverse() != null)
-							fDirection = fDirection.getInverseDirection();
-						if (flow.getOutEnd().getContext() instanceof FeatureGroup) {
-							FeatureGroup contextFeatureGroup = (FeatureGroup) flow.getOutEnd().getContext();
-							if (contextFeatureGroup.isInverse())
-								fDirection = fDirection.getInverseDirection();
-							if (contextFeatureGroup.getAllFeatureGroupType() != null
-									&& !contextFeatureGroup.getAllFeatureGroupType().equals(
-											outFeature.getContainingClassifier())
-									&& contextFeatureGroup.getAllFeatureGroupType().getInverse() != null) {
-								fDirection = fDirection.getInverseDirection();
-							}
-						}
-						if (fDirection.outgoing()) {
-							acceptableFeatureFound = true;
-							break;
-						}
-					} else if (f instanceof DataAccess) {
-						EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(f, accessRightProperty);
-						if (accessRightValue.getName().equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
-								|| accessRightValue.getName().equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
-							acceptableFeatureFound = true;
-							break;
-						}
-					} else if (f instanceof FeatureGroup){
-						if (checkOutgoingFeatureDirection(f, flow))
-							acceptableFeatureFound = true;
+					if (checkOutgoingFeatureDirection(f, flow,outInverseof?!inverseOf:inverseOf)){
+						return true;
 					}
 				}
-				if (fgt.getAllFeatures().isEmpty())
-					acceptableFeatureFound = true;
-				if (!acceptableFeatureFound) {
 					error(flow.getOutEnd(),
 							'\''
 									+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
@@ -3455,8 +3402,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				} else {
 					return true;
 				}
-			}
-			return true;
 		}
 		return false;
 
