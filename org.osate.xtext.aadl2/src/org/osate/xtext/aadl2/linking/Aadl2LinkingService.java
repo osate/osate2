@@ -37,6 +37,7 @@ package org.osate.xtext.aadl2.linking;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -575,7 +576,8 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	@Deprecated
 	public static Aadl2LinkingService getAadl2LinkingService(){
 		if (eInstance == null) {
-			PredeclaredProperties.initPluginContributedAadl();
+			if(Platform.isRunning())
+				PredeclaredProperties.initPluginContributedAadl();
 			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
 			eInstance = (Aadl2LinkingService)((LazyLinkingResource)rsrc).getLinkingService();
 		}
