@@ -63,6 +63,7 @@ import org.eclipse.xtext.validation.CheckType;
 import org.osate.aadl2.*;
 import org.osate.aadl2.impl.DataPortImpl;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.workspace.WorkspacePlugin;
@@ -132,6 +133,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	public void caseSubcomponent(Subcomponent subcomponent) {
 		checkSubcomponentCategory(subcomponent);
 		checkSubcomponentRefinementCategory(subcomponent);
+		checkSubcomponentRefinementClassifierSubstitution(subcomponent);
 		checkSubcomponentsHierarchy(subcomponent);
 		checkClassifierReferenceInWith(subcomponent.getClassifier(), subcomponent);
 //		checkPropertyAssocs(subcomponent);
@@ -279,6 +281,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFeature(Feature feature) {
 		checkTypeOfFeatureRefinement(feature);
+		checkSubcomponentRefinementClassifierSubstitution(feature);
 		checkForFeatureArrays(feature);
 		checkForArraysInRefinedFeature(feature);
 		checkForArrayDimensionSizeInRefinedFeature(feature);
@@ -2175,22 +2178,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 */
 	private void checkTypeOfFeatureRefinement(Feature feature) {
 		Feature refined = feature.getRefined();
-		if (! Aadl2Util.isNull(refined))
-		{
-			if ((feature instanceof DataPortImpl) && (refined instanceof DataPortImpl))
-			{
-				DataSubcomponentType srccl = ((DataPortImpl)feature).getDataFeatureClassifier();
-				DataSubcomponentType dstcl = (((DataPortImpl)refined).getDataFeatureClassifier());
-				if (srccl instanceof Classifier && dstcl instanceof Classifier){
-				if (! AadlUtil.matchingClassifier((Classifier) srccl, (Classifier) dstcl))
-				{
-					error(feature, "Cannot refine " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass()) + " into "
-							+ FEATURE_CLASS_NAMES_WITH_ARTICLE.get(feature.eClass()) + ": mismatch data type.");
-				} 
-				}
-			}
-		
-		}
 		if (!Aadl2Util.isNull(refined) && !(feature.getRefined() instanceof AbstractFeature)
 				&& !feature.eClass().equals(refined.eClass())) {
 			error(feature, "Cannot refine " + FEATURE_CLASS_NAMES_WITH_ARTICLE.get(refined.eClass()) + " into "
@@ -2769,6 +2756,51 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		return false;
 	}
+	
+	
+	private void checkSubcomponentRefinementClassifierSubstitution(Feature feature){
+		if (!Aadl2Util.isNull(feature.getRefined() )){
+			 ComponentClassifier refinedCl = feature.getClassifier();
+			 ComponentClassifier originalCl = feature.getRefined().getClassifier();
+			if (!Aadl2Util.isNull(refinedCl)&&!Aadl2Util.isNull(originalCl)){
+				checkClassifierSubstitutionMatch(feature,originalCl,refinedCl);
+			}
+		}
+	}
+
+	
+	private void checkSubcomponentRefinementClassifierSubstitution(Subcomponent subcomponent){
+		if (!Aadl2Util.isNull(subcomponent.getRefined() )){
+			 ComponentClassifier refinedCl = subcomponent.getClassifier();
+			 ComponentClassifier originalCl = subcomponent.getRefined().getClassifier();
+			if (!Aadl2Util.isNull(refinedCl)&&!Aadl2Util.isNull(originalCl)){
+				checkClassifierSubstitutionMatch(subcomponent,originalCl,refinedCl);
+			}
+		}
+	}
+	
+	private void checkClassifierSubstitutionMatch(NamedElement target, ComponentClassifier originalClassifier,ComponentClassifier refinedClassifier){
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(target, ModelingProperties._NAME, ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(target, classifierMatchingRuleProperty);
+		}
+		catch (PropertyLookupException e) {
+			classifierMatchingRuleValue = null;
+		}
+		if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ) {
+			if (!AadlUtil.isokClassifierSubstitutionMatch(originalClassifier, refinedClassifier))
+				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Classifier Match'");
+		}
+		else if (classifierMatchingRuleValue.getName().equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
+			if (!AadlUtil.isokClassifierSubstitutionTypeExtension(originalClassifier, refinedClassifier))
+				error(target, "Classifier " + originalClassifier.getName() + " refined to " + refinedClassifier.getName() + " does not satisfy 'Type Extension'");
+		}
+		else if (ModelingProperties.SIGNATURE_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+			warning(target, "Signature Match checking in clasifier substitution of refinement check not implemented yet.");
+		}
+	}
+
 
 	/**
 	 * Check direction of ConnectionEnd in port connections
