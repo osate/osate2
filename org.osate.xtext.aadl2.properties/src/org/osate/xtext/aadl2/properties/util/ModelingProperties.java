@@ -44,4 +44,7 @@ public final class ModelingProperties {
 	public static final String SUBSET = "Subset";
 	public static final String CONVERSION = "Conversion";
 	public static final String COMPLEMENT = "Complement";
+	public static final String CLASSIFIER_SUBSTITUTION_RULE = "Classifier_Substitution_Rule";
+	public static final String TYPE_EXTENSION = "Type_Extension";
+	public static final String SIGNATURE_MATCH = "Signature_Match";
 }
