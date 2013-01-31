@@ -66,6 +66,9 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyLookupException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.internal.workspace.AadlWorkspace;
+import org.osate.workspace.IAadlProject;
+import org.osate.workspace.IAadlWorkspace;
 import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -458,7 +461,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void casePropertySet(PropertySet propSet) {
-		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet)) {
+		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet))
+		{
+			if (propSet.getName().equals("AADL_Project"))
+			{
+				IAadlWorkspace workspace;
+				workspace = AadlWorkspace.getAadlWorkspace();
+				IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
+				for (int i = 0 ; i < aadlProjects.length ; i++)
+				{
+					IAadlProject aadlProject = aadlProjects[i];
+					if (aadlProject.getAadlProjectFile() != null)
+					{
+						return;
+					}		
+				}
+				
+			}
 			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
 		}
 	}

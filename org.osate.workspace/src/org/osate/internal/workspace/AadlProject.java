@@ -503,5 +503,19 @@ public class AadlProject extends AadlElement implements IAadlProject {
 		}
 		return new BasicEList<IFile>();
 	}
+	
+	public String getAadlProjectFile ()
+	{
+		String customFile = 
+				WorkspacePlugin.getPreferenceStore(project).getString(WorkspacePlugin.AADL_PROJECT_FILE);
+		
+		if (project.getFile(customFile).exists())
+		{
+			return customFile;
+		}
+		return null;
+	}
+	
+
 
 }
