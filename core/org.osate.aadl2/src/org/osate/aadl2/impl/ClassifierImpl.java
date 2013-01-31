@@ -983,8 +983,8 @@ public abstract class ClassifierImpl extends NamespaceImpl implements Classifier
 	public NamedElement findNamedElement(String name) {
 		NamedElement ne = Aadl2Util.findOwnedNamedElement(this, name);
 		if (ne != null) return ne;
-		if (this.getExtended() != null){
-			return Aadl2Util.findOwnedNamedElement(this.getExtended(),name);
+		if (!Aadl2Util.isNull(this.getExtended())){
+			return this.getExtended().findNamedElement(name);
 		}
 		return null;
 	}
