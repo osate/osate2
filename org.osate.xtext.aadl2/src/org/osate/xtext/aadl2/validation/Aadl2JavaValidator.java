@@ -597,8 +597,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			lln = getPreviousNode(lln);
 			outContextName = lln.getText().replaceAll(" ","").replaceAll("\t","").replaceAll("\r", "").replaceAll("\n","");
 		}
-		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
-		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
+		FlowSpecification spec = flow.getSpecification();
+		if (Aadl2Util.isNull(spec)) return;
+		FlowEnd outEnd = spec.getAllOutEnd();
+		if (Aadl2Util.isNull(outEnd)) return;
+		Context specContext = outEnd.getContext();
+		Feature specFeature = outEnd.getFeature();
 		if (Aadl2Util.isNull(specFeature)||(specContext!= null &&Aadl2Util.isUnresolved(specContext))){
 			// the feature is unresolved or null; or the context is unresolved. 
 			// the context could be null but should not be unresolved for the checking to occur
@@ -607,9 +611,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//if the feature names don't match
 		if (!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		//if the spec has a context, but the impl doesn't
-				(outContextName == null && specContext != null) ||
+				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
 				//if the impl has a context, but the spec doesn't
-				(outContextName != null && specContext == null) ||
+				(outContextName != null && Aadl2Util.isNull(specContext)) ||
 				//if the context names don't match
 				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName()))) {
 			error(flow,
@@ -638,14 +642,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			inContextName = inFeatureName.substring(0, idx);
 			inFeatureName = inFeatureName.substring(idx+1, inFeatureName.length());
 		}
-		Context specContext = flow.getSpecification().getAllInEnd().getContext();
-		Feature specFeature = flow.getSpecification().getAllInEnd().getFeature();
+		FlowSpecification spec = flow.getSpecification();
+		if (Aadl2Util.isNull(spec)) return;
+		FlowEnd inEnd = spec.getAllInEnd();
+		if (Aadl2Util.isNull(inEnd)) return;
+		Context specContext = inEnd.getContext();
+		Feature specFeature = inEnd.getFeature();
+		if (Aadl2Util.isNull(specFeature)||(specContext!= null &&Aadl2Util.isUnresolved(specContext))){
+			// the feature is unresolved or null; or the context is unresolved. 
+			// the context could be null but should not be unresolved for the checking to occur
+			return;
+		}
 		//if the feature names don't match
 		if (!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
 		//if the spec has a context, but the impl doesn't
-				(inContextName == null && specContext != null) ||
+				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
 				//if the impl has a context, but the spec doesn't
-				(inContextName != null && specContext == null) ||
+				(inContextName != null && Aadl2Util.isNull(specContext)) ||
 				//if the context names don't match
 				(inContextName != null && !inContextName.equalsIgnoreCase(specContext.getName()))) {
 			error(flow,
@@ -670,12 +683,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * specification, if present.
 	 */
 	private void checkFlowConnectionEnds(FlowImplementation flow) {
+		if (Aadl2Util.isNull(flow.getSpecification())) return;
 		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
 			if (flow.getOwnedFlowSegments().get(i).getFlowElement() instanceof Connection) {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
 				boolean didReverse =false;
 				if (i == 0) {
 					FlowEnd inEnd = flow.getSpecification().getAllInEnd();
+					if (Aadl2Util.isNull(inEnd)) return;
 					if (!connection.getAllSource().equals(inEnd.getFeature())
 							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
 									connection.getAllSourceContext()))) {
@@ -696,9 +711,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (flow.getOwnedFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments()
 								.get(i - 1).getFlowElement();
-						if (!connection.getAllSource().equals(previousFlowSegment.getAllOutEnd().getFeature())) {
+						FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
+						if (Aadl2Util.isNull(outEnd)) return;
+						if (!(connection.getAllSource().equals(outEnd.getFeature())|| connection.getAllSource().equals(outEnd.getContext()))) {
 							if (connection.isBidirectional()){
-								if(!connection.getAllDestination().equals(previousFlowSegment.getAllOutEnd().getFeature())){
+								if(!(connection.getAllDestination().equals(outEnd.getFeature())||connection.getAllDestination().equals(outEnd.getContext()) )){
 									error(flow.getOwnedFlowSegments().get(i),
 											"The source of connection '"
 													+ connection.getName()
@@ -714,13 +731,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
-					if (didReverse?(!connection.getAllSource().equals(outEnd.getFeature())
-							|| (outEnd.getContext() != null && !outEnd.getContext().equals(
-									connection.getAllSourceContext())))
-						:(!connection.getAllDestination().equals(outEnd.getFeature())
-							|| (outEnd.getContext() != null && !outEnd.getContext().equals(
-									connection.getAllDestinationContext())))) {
-						error(flow.getOwnedFlowSegments().get(i),
+					if (Aadl2Util.isNull(outEnd)) return;
+					if (didReverse?!(connection.getAllSource().equals(outEnd.getFeature())
+							// both have context and they don't match
+							|| (!Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllSourceContext())&&
+									outEnd.getContext().equals(connection.getAllSourceContext()))
+									// connection to fg.port and flow to fg
+							|| (Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllSourceContext()) 
+									&& outEnd.getFeature().equals(connection.getAllSourceContext()))
+							)
+						:!(connection.getAllDestination().equals(outEnd.getFeature())
+								// both have context and they don't match
+								|| (!Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllDestinationContext())&& 
+										outEnd.getContext().equals(connection.getAllDestinationContext()))
+										// connection to fg.port and flow to fg
+								|| (Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllDestinationContext()) 
+										&& outEnd.getFeature().equals(connection.getAllDestinationContext()))
+									)) {
+						error(flow.getOwnedFlowSegments().get(i), 
 								"The destination of connection '" + connection.getName()
 										+ "' does not match the out flow feature '"
 										+ (outEnd.getContext() != null ? outEnd.getContext().getName() + '.' : "")
@@ -730,8 +758,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (flow.getOwnedFlowSegments().get(i + 1).getFlowElement() instanceof FlowSpecification) {
 						FlowSpecification nextFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments().get(i + 1)
 								.getFlowElement();
-						if (didReverse?(!connection.getAllSource().equals(nextFlowSegment.getAllInEnd().getFeature()))
-								:(!connection.getAllDestination().equals(nextFlowSegment.getAllInEnd().getFeature()))) {
+						FlowEnd inEnd = nextFlowSegment.getAllInEnd();
+						if (Aadl2Util.isNull(inEnd)) return;
+						if (didReverse?(!(connection.getAllSource().equals(inEnd.getFeature())|| connection.getAllSource().equals(inEnd.getContext())))
+								:(!(connection.getAllDestination().equals(inEnd.getFeature())|| connection.getAllDestination().equals(inEnd.getContext())) )) {
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination of connection '"
 											+ connection.getName()
