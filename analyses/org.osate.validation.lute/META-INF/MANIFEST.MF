@@ -5,6 +5,7 @@ Bundle-SymbolicName: org.osate.validation.lute;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: org.osate.validation.lute.Activator
 Bundle-Vendor: CMU-SEI
+Bundle-Localization: plugin
 Require-Bundle: org.osate.validation,
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.aadl2.instantiation;bundle-version="1.0.0",
