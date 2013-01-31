@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -39,6 +39,7 @@ import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.preference.DirectoryFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.PreferenceStore;
+import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.ui.IWorkbenchPropertyPage;
 import org.osate.workspace.WorkspacePlugin;
 
@@ -46,8 +47,7 @@ import org.osate.workspace.WorkspacePlugin;
 /**
  * Property page for configuring the project directories
  * 
- * @author lwrage
- * @version $Revision: 1.7 $
+ * @author jdelange
  */
 public class ProjectPropertyPage extends FieldEditorPreferencePage implements IWorkbenchPropertyPage {
 
@@ -82,7 +82,17 @@ public class ProjectPropertyPage extends FieldEditorPreferencePage implements IW
 	 * 
 	 * @see org.eclipse.jface.preference.FieldEditorPreferencePage#createFieldEditors()
 	 */
-	protected void createFieldEditors() {
+	protected void createFieldEditors() 
+	{
+		projectProperties = WorkspacePlugin.getPreferenceStore(getProject());
+		setPreferenceStore(projectProperties);
+		StringFieldEditor fe = new StringFieldEditor 
+				(WorkspacePlugin.AADL_PROJECT_FILE,
+				"AADL_Project File",
+				getFieldEditorParent());
+		addField (fe);
+		
+		/*
 		projectProperties = WorkspacePlugin.getPreferenceStore(getProject());
 		setPreferenceStore(projectProperties);
 		DirectoryFieldEditor de = new ProjectDirectoryFieldEditor(getProject(),
@@ -92,6 +102,7 @@ public class ProjectPropertyPage extends FieldEditorPreferencePage implements IW
 		de = new ProjectDirectoryFieldEditor(getProject(), "XML model folder must exist in current project",
 				WorkspacePlugin.PROJECT_MODEL_DIR, "XML model folder:", getFieldEditorParent());
 		addField(de);
+		*/
 	}
 
 	/*
