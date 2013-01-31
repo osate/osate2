@@ -427,7 +427,7 @@ public class GetProperties {
 	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME_IN_US);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, 0.0);
 	}
 
 	public static double getCycleTimeinMS(final NamedElement ne) {

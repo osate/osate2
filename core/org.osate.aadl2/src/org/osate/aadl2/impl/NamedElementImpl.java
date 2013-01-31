@@ -448,6 +448,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		} else {
 			if (!pa.isModal()) {
 				// should always exist because it's not modal
+				if (pa.getOwnedValues().isEmpty()){
+					throw new PropertyNotPresentException(this, property, "Property association has no value (yet)");
+				}
 				return pa.getOwnedValues().get(0).getOwnedValue();
 			} else {
 				// If we are an InstanceObject, get the value in the current SOM
