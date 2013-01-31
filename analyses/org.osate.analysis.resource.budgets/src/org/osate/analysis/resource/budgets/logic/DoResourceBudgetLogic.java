@@ -286,7 +286,7 @@ public class DoResourceBudgetLogic {
 		if (budgetTotal < 0)
 			budgetTotal = 0;
 
-		String modelStats = resourceName + " capacity " + unit.getName() + " : "
+		String modelStats = resourceName + " capacity " + GetProperties.toStringScaled(capacity, unit) + " : "
 				+ resourceName + " budget " + GetProperties.toStringScaled(budgetTotal, unit);
 		if (budgetTotal > capacity) {
 			modelStats = "System " + si.getName() + " over capacity: " + modelStats;
