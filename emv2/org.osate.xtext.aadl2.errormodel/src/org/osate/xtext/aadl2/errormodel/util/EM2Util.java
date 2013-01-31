@@ -394,6 +394,7 @@ public class EM2Util {
 	 * @return
 	 */
 	public static ErrorModelSubclause getErrorModelSubclause(Classifier cl){
+		if (cl == null) return null;
 		EList<AnnexSubclause> asl = cl.getOwnedAnnexSubclauses();
 		for (AnnexSubclause al : asl){
 			if (al instanceof ErrorModelSubclause){
