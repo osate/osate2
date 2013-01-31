@@ -3240,17 +3240,17 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (flow.getInEnd() != null)
 			inFeature = flow.getInEnd().getFeature();
 
-		checkIncomingFeatureDirection(inFeature, flow, false);
+		checkIncomingFeatureDirection(inFeature, flow, false,true);
 		
 		Feature outFeature = null;
 		if (flow.getOutEnd() != null)
 			outFeature = flow.getOutEnd().getFeature();
 
-		checkOutgoingFeatureDirection(outFeature, flow, false);
+		checkOutgoingFeatureDirection(outFeature, flow, false,true);
 
 	}
 	
-	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf){
+	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf, boolean report){
 		//Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
@@ -3265,6 +3265,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
 			if (!fDirection.incoming()) {
+				if (report)
 				error(flow.getInEnd(), '\''
 						+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
 						+ inFeature.getName() + "' must be an in or in out feature.");
@@ -3291,6 +3292,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (inverseOf) 	accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
+				if (report)
 				error(flow.getInEnd(), '\''
 						+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.' : "")
 						+ inFeature.getName() + "' must have an access right of Read_Only or Read_Write.");
@@ -3304,15 +3306,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
 			boolean inInverseof = ((FeatureGroup)inFeature).isInverse();
 			if (fgt != null) {
-				boolean acceptableFeatureFound = false;
+				if (!Aadl2Util.isNull(fgt.getInverse())){
+					inInverseof = ! inInverseof;
+				}
+				if( fgt.getAllFeatures().isEmpty()) return true;
 				for (Feature f : fgt.getAllFeatures()) {
-					if (checkIncomingFeatureDirection(f, flow,inInverseof?!inverseOf:inverseOf)){
+					if (checkIncomingFeatureDirection(f, flow,inInverseof?!inverseOf:inverseOf,false)){
 						return true;
 					}
 				}
-				if (fgt.getAllFeatures().isEmpty())
-					acceptableFeatureFound = true;
-				if (!acceptableFeatureFound) {
+				if (report) {
 					error(flow.getInEnd(),
 							'\''
 									+ (flow.getInEnd().getContext() != null ? flow.getInEnd().getContext().getName() + '.'
@@ -3320,8 +3323,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 									+ inFeature.getName()
 									+ "' must contain at least one in or in out port or parameter, at least data access with an access right of Read_Only or Read_Write, or be empty.");
 					return false;
-				} else {
-					return true;
 				}
 			}
 			return true;
@@ -3330,7 +3331,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	}
 	
-	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow, boolean inverseOf){
+	private boolean checkOutgoingFeatureDirection(Feature outFeature, FlowSpecification flow, boolean inverseOf,boolean report){
 		//Test for L3
 		if (outFeature instanceof Port || outFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
@@ -3346,7 +3347,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
 
 			if (!fDirection.outgoing()) {
-				error(flow.getOutEnd(), '\''
+				if (report) 
+					error(flow.getOutEnd(), '\''
 						+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
 						+ outFeature.getName() + "' must be an out or in out feature.");
 				return false;
@@ -3373,7 +3375,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
-				error(flow.getOutEnd(), '\''
+				if (report)
+					error(flow.getOutEnd(), '\''
 						+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.' : "")
 						+ outFeature.getName() + "' must have an access right of Write_Only or Read_Write.");
 				return false;
@@ -3386,22 +3389,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			FeatureGroupType fgt = ((FeatureGroup) outFeature).getAllFeatureGroupType();
 			boolean outInverseof = ((FeatureGroup)outFeature).isInverse();
 			if (fgt != null) {
+				if (!Aadl2Util.isNull(fgt.getInverse())){
+					outInverseof = ! outInverseof;
+				}
 				if( fgt.getAllFeatures().isEmpty()) return true;
 				for (Feature f : fgt.getAllFeatures()) {
-					if (checkOutgoingFeatureDirection(f, flow,outInverseof?!inverseOf:inverseOf)){
+					if (checkOutgoingFeatureDirection(f, flow,outInverseof?!inverseOf:inverseOf,false)){
 						return true;
 					}
 				}
+				if (report) 
 					error(flow.getOutEnd(),
 							'\''
-									+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
-											: "")
+							+ (flow.getOutEnd().getContext() != null ? flow.getOutEnd().getContext().getName() + '.'
+									: "")
 									+ outFeature.getName()
 									+ "' must contain at least one out or in out port or parameter, at least one data access with an access right of Write_Only or Read_Write, or be empty.");
-					return false;
-				} else {
-					return true;
-				}
+				return false;
+			} else {
+				return true;
+			}
 		}
 		return false;
 
