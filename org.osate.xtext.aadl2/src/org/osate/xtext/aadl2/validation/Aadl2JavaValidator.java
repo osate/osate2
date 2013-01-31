@@ -599,7 +599,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		Context specContext = flow.getSpecification().getAllOutEnd().getContext();
 		Feature specFeature = flow.getSpecification().getAllOutEnd().getFeature();
-		if (Aadl2Util.isNull(specFeature)||Aadl2Util.isUnresolved(specContext)){
+		if (Aadl2Util.isNull(specFeature)||(specContext!= null &&Aadl2Util.isUnresolved(specContext))){
 			// the feature is unresolved or null; or the context is unresolved. 
 			// the context could be null but should not be unresolved for the checking to occur
 			return;
