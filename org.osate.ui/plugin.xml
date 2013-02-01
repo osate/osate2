@@ -201,23 +201,7 @@
       </actionSet>
    </extension>
    
-   <!--extension
-         point="org.eclipse.ui.propertyPages">
-      <page
-            id="org.osate.ui.preferences.ProjectPropertyPage"
-            name="%buildPathPageName"
-            class="org.osate.internal.ui.preferences.ProjectPropertyPage">
-         <filter
-               name="nature"
-               value="org.osate.core.aadlnature">
-         </filter>
-         <enabledWhen>
-            <instanceof
-                  value="org.eclipse.core.resources.IProject">
-            </instanceof>
-         </enabledWhen>
-      </page>
-   </extension-->
+
    
    <extension
          point="org.eclipse.ui.preferencePages">
@@ -352,5 +336,23 @@
             Shows all the AADL property associations for the selected AADL element.
          </description>
       </view>
+   </extension>
+   
+      <extension
+         point="org.eclipse.ui.propertyPages">
+      <page
+            id="org.osate.ui.preferences.ProjectPropertyPage"
+            name="%projectPreferencesPageName"
+            class="org.osate.internal.ui.preferences.ProjectPropertyPage">
+         <filter
+               name="nature"
+               value="org.osate.core.aadlnature">
+         </filter>
+         <enabledWhen>
+            <instanceof
+                  value="org.eclipse.core.resources.IProject">
+            </instanceof>
+         </enabledWhen>
+      </page>
    </extension>
 </plugin>
