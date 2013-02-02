@@ -2468,9 +2468,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		FeatureGroupType extending = (FeatureGroupType) extension.getSpecific();
 		if (!extended.getOwnedFeatures().isEmpty() && extended.getInverse() != null
 				&& !extending.getOwnedFeatures().isEmpty() && extending.getInverse() == null) {
-			error(extending,
-					"Must specify inverse because local features are defined and the extended feature group type has an"
-							+ " 'inverse of' declaration.");
+// XXX: phf commented out because we may allow independnet refinement and then pick up the inverseof from the ancestor
+			//			warning(extending,
+//					"Must specify inverse because local features are defined and the extended feature group type has an"
+//							+ " 'inverse of' declaration.");
 		}
 	}
 
