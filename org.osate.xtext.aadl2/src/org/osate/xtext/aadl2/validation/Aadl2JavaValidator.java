@@ -3303,15 +3303,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//Test for L2
 		if (inFeature instanceof Port || inFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) inFeature).getDirection();
-			Context cxt = flow.getInEnd().getContext();
-			if (cxt instanceof FeatureGroup) {
-				// we need to consider the inverse of of the fg
-				if (((FeatureGroup) cxt).isInverse())
-					fDirection = fDirection.getInverseDirection();
-				FeatureGroupType fgt = ((FeatureGroup) cxt).getAllFeatureGroupType();
-				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
-					fDirection = fDirection.getInverseDirection();
-			}
 			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
 			if (!fDirection.incoming()) {
 				if (report)
@@ -3329,15 +3320,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					MemoryProperties.ACCESS_RIGHT);
 			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(inFeature, accessRightProperty);
 			String accessrightname = accessRightValue.getName();
-			Context cxt = flow.getInEnd().getContext();
-			if (cxt instanceof FeatureGroup) {
-				// we need to consider the inverse of of the fg
-				if (((FeatureGroup) cxt).isInverse())
-					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
-				FeatureGroupType fgt = ((FeatureGroup) cxt).getAllFeatureGroupType();
-				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
-					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
-			}
 			if (inverseOf) 	accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.READ_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
@@ -3354,7 +3336,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		else if (inFeature instanceof FeatureGroup) {
 			FeatureGroupType fgt = ((FeatureGroup) inFeature).getAllFeatureGroupType();
 			boolean inInverseof = ((FeatureGroup)inFeature).isInverse();
-			if (fgt != null) {
+			if (!Aadl2Util.isNull(fgt)) {
 				if (!Aadl2Util.isNull(fgt.getInverse())&& fgt.getAllFeatures().isEmpty()){
 					inInverseof = ! inInverseof;
 				}
@@ -3384,15 +3366,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		//Test for L3
 		if (outFeature instanceof Port || outFeature instanceof Parameter) {
 			DirectionType fDirection = ((DirectedFeature) outFeature).getDirection();
-			Context cxt = flow.getOutEnd().getContext();
-			if (cxt instanceof FeatureGroup) {
-				// we need to consider the inverse of the fg
-				if (((FeatureGroup) cxt).isInverse())
-					fDirection = fDirection.getInverseDirection();
-				FeatureGroupType fgt = ((FeatureGroup) cxt).getAllFeatureGroupType();
-				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
-					fDirection = fDirection.getInverseDirection();
-			}
 			if (inverseOf) 	fDirection = fDirection.getInverseDirection();
 
 			if (!fDirection.outgoing()) {
@@ -3411,16 +3384,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					MemoryProperties.ACCESS_RIGHT);
 			EnumerationLiteral accessRightValue = PropertyUtils.getEnumLiteral(outFeature, accessRightProperty);
 			String accessrightname = accessRightValue.getName();
-			Context cxt = flow.getOutEnd().getContext();
-			if (cxt instanceof FeatureGroup) {
-				// we need to consider the inverse of of the fg
-				if (((FeatureGroup) cxt).isInverse())
-					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
-				FeatureGroupType fgt = ((FeatureGroup) cxt).getAllFeatureGroupType();
-				if (!fgt.equals(cxt.getContainingClassifier()) && fgt.getInverse() != null)
-					accessrightname = MemoryProperties.getInverseDirection(accessrightname);
-			}
-			if (inverseOf) 	accessrightname = MemoryProperties.getInverseDirection(accessrightname);
 
 			if (!accessrightname.equalsIgnoreCase(MemoryProperties.WRITE_ONLY)
 					&& !accessrightname.equalsIgnoreCase(MemoryProperties.READ_WRITE)) {
