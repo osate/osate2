@@ -1862,7 +1862,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			.getUnitsType();
 		if (unitsType != null) {
 			return (UnitLiteral) unitsType
-					.findNamedElement(name);
+					.findLiteral(name);
 		}
 		return null;
 	}
@@ -1958,7 +1958,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 			if (unitsType != null) {
 				return (UnitLiteral) unitsType
-						.findNamedElement(name);
+						.findLiteral(name);
 			}
 		}
 		return null;
@@ -1966,7 +1966,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 	public static EnumerationLiteral findEnumerationLiteral(EnumerationType enumType, String name){
-		return (EnumerationLiteral) enumType.findNamedElement(name);
+		return (EnumerationLiteral) enumType.findLiteral(name);
 	}
 
 	public static EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
@@ -2034,7 +2034,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
 				EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)
-						.findNamedElement(name);
+						.findLiteral(name);
 				if (literal != null)
 					return Collections.singletonList((EObject) literal);
 			}

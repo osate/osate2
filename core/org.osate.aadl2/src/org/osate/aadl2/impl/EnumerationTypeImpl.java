@@ -268,5 +268,11 @@ public class EnumerationTypeImpl extends NamespaceImpl implements EnumerationTyp
 		}
 		return null;
 	}
+	
+	@Override
+	public NamedElement findNamedElement(String name) {
+		return findLiteral(name);
+	}
+
 
 } // EnumerationTypeImpl
