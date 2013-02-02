@@ -42,7 +42,7 @@ property set Memory_Properties is
 		applies to (data, thread, thread group, process, system, subprogram, processor, device);
 	
 	Source_Data_Size: Size
-		applies to (data, subprogram, thread, thread group, process, system, processor, device);
+		applies to (data, data port, event data port, data access, subprogram, thread, thread group, process, system, processor, device);
 	
 	Source_Heap_Size: Size
 		applies to (thread, subprogram);
