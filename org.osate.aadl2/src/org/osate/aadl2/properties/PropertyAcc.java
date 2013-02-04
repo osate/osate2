@@ -40,6 +40,7 @@ import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * Fill this in
@@ -56,10 +57,14 @@ public class PropertyAcc {
 	}
 
 	public boolean add(PropertyAssociation pa) {
-		if (pa.getProperty().equals(property) && pa.getAppliesTos().isEmpty()) {
+		if (pa.getProperty().equals(property) && pa.getAppliesTos().isEmpty())
+		{
 			assocs.add(pa);
+			//OsateDebug.osateDebug("[PropertyAcc] add true");
+
 			return !property.isList();
 		}
+		//OsateDebug.osateDebug("[PropertyAcc] add false");
 		return false;
 	}
 
@@ -72,12 +77,20 @@ public class PropertyAcc {
 	 * @return If we're done.
 	 */
 	public boolean addLocal(NamedElement target) {
+		
+//		OsateDebug.osateDebug("[PropertyAcc] addLocal " + target + " this=" + this);
+
 		for (PropertyAssociation pa : target.getOwnedPropertyAssociations()) {
 			if (pa.getProperty().equals(property) && pa.getAppliesTos().isEmpty()) {
 				assocs.add(pa);
+
+//				OsateDebug.osateDebug("[PropertyAcc] addLocal true this=" + this);
+
 				return !property.isList();
 			}
 		}
+//		OsateDebug.osateDebug("[PropertyAcc] addLocal false");
+
 		return false;
 	}
 
@@ -95,21 +108,32 @@ public class PropertyAcc {
 	 * @return If we're done
 	 */
 	public boolean addLocalContained(NamedElement target, NamedElement container) {
+		//OsateDebug.osateDebug("[PropertyAcc] addLocalContained target=" + target + ";container=" + container + "this=" + this);
+
 		for (PropertyAssociation pa : container.getOwnedPropertyAssociations()) {
+			
+		//	OsateDebug.osateDebug("[PropertyAcc]    pa=" + pa);
+
 			if (pa.getProperty().equals(property)) {
 				for (ContainedNamedElement cne : pa.getAppliesTos()) {
 					if (cne.getContainmentPathElements().size() == 1
 							&& cne.getContainmentPathElements().get(0).getNamedElement() == target) {
 						assocs.add(pa);
+		//				OsateDebug.osateDebug("[PropertyAcc] addLocalContained true" + this);
+
 						return !property.isList();
 					}
 				}
 			}
 		}
+		//OsateDebug.osateDebug("[PropertyAcc] addLocalContained false");
+
 		return false;
 	}
 
-	public List<PropertyAssociation> getAssociations() {
+	public List<PropertyAssociation> getAssociations()
+	{
+//		OsateDebug.osateDebug("[PropertyAcc] getAssociations()=" + assocs + ";this=" + this + ";property=" + property);
 		return assocs;
 	}
 

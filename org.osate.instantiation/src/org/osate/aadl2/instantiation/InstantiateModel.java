@@ -115,6 +115,7 @@ import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -334,13 +335,13 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		try {
+		try 
+		{
 			aadlResource.save(null);
 
 			try {
 				fillSystemInstance(root);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return null;
 			}
@@ -350,8 +351,9 @@ public class InstantiateModel {
 			monitor.subTask("Saving instance model");
 
 			aadlResource.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 			return null;
 		}
@@ -423,8 +425,13 @@ public class InstantiateModel {
 			return;
 		}
 
-		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
-				propertyDefinitionList, classifierCache, scProps, mode2som);
+		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch
+				(monitor, 
+				 errManager, 
+				 propertyDefinitionList, 
+				 classifierCache, 
+				 scProps, 
+				 mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			return;
@@ -720,9 +727,12 @@ public class InstantiateModel {
 		fi.setFeature(feature);
 		// must add before prototype resolution in fillFeatureInstance
 		ci.getFeatureInstances().add(fi);
-		if (feature instanceof DirectedFeature) {
+		if (feature instanceof DirectedFeature) 
+		{
 			fi.setDirection(((DirectedFeature) feature).getDirection());
-		} else {
+		}
+		else 
+		{
 			fi.setDirection(DirectionType.IN_OUT);
 		}
 		filloutFeatureInstance(fi, feature, inverse, index);
@@ -929,7 +939,10 @@ public class InstantiateModel {
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
-			if (setPA == null && patternPA == null) {
+			if (setPA == null && patternPA == null)
+			{
+				//OsateDebug.osateDebug("[InstantiateModel] processConnections");
+
 				LinkedList<Integer> srcDims = new LinkedList<Integer>();
 				LinkedList<Integer> dstDims = new LinkedList<Integer>();
 				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
@@ -1238,6 +1251,7 @@ public class InstantiateModel {
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
+
 	}
 
 	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
@@ -1343,10 +1357,12 @@ public class InstantiateModel {
 		addUsedProperties(root.getSystemImplementation(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			Element elem = it.next();
 
-			if (elem instanceof ComponentInstance) {
+			if (elem instanceof ComponentInstance)
+			{
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
 
@@ -1362,11 +1378,22 @@ public class InstantiateModel {
 					addUsedProperties(c, result);
 				}
 			}
+			else if (elem instanceof ConnectionInstance) {
+				ConnectionInstance ci = (ConnectionInstance) elem;
+				addUsedPropertyDefinitions(ci.getContainingClassifier(), result);
+
+				for (ConnectionReference cr : ci.getConnectionReferences())
+				{
+					addUsedPropertyDefinitions(cr.getConnection(), result);
+				}
+			}
 		}
 		return result;
 	}
 
-	private void addUsedProperties(Classifier cc, EList<Property> result) {
+	private void addUsedProperties(Classifier cc, EList<Property> result) 
+	{
+
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;
 
@@ -1379,10 +1406,9 @@ public class InstantiateModel {
 		while (cc != null)
 		{
 			addUsedPropertyDefinitions(cc, result);
-
-				cc = (Classifier) cc.getExtended();
-		
+			cc = (Classifier) cc.getExtended();
 		}
+		
 			
 	}
 
@@ -1395,11 +1421,19 @@ public class InstantiateModel {
 	 * @return List holding the used property definitions
 	 */
 	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+		//OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
+
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
+		//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
+
 			if (ao instanceof PropertyAssociation) {
+			//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
+
 				Property pd = ((PropertyAssociation) ao).getProperty();
+				//OsateDebug.osateDebug ("[InstantiateModel] pd=" + pd);
+
 				if (pd != null) {
 					//OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
 					result.add(pd);
@@ -1577,10 +1611,14 @@ public class InstantiateModel {
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
 	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) {
-		final SystemOperationMode som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-		for (ModeInstance mi : modeInstances) {
+		final SystemOperationMode som;
+		
+		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
+		for (ModeInstance mi : modeInstances) 
+		{
 			List<SystemOperationMode> soms = mode2som.get(mi);
-			if (soms == null) {
+			if (soms == null) 
+			{
 				soms = new ArrayList<SystemOperationMode>();
 				mode2som.put(mi, soms);
 			}
