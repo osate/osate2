@@ -526,6 +526,9 @@ public abstract class NamedElementImpl extends ElementImpl implements NamedEleme
 		}
 	}
 
+	
+	
+	
 	public boolean acceptsProperty(Property property) {
 
 		for (PropertyOwner appliesTo : property.getAppliesTos()) {

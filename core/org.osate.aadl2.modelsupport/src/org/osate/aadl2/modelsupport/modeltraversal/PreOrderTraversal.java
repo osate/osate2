@@ -52,12 +52,16 @@ final class PreOrderTraversal extends AbstractSimpleTraversal {
 		super(pm);
 	}
 	
-	public void visitRoot(final Element root) {
-		if (root != null) {
+	public void visitRoot(final Element root) 
+	{
+		if (root != null) 
+		{
 			processingMethod.processObject(root);
-			final EList<Element> list = root.getChildren();
-			for (Iterator<Element> it = list.iterator(); processingMethod.notCancelled() && it.hasNext();) {
-				this.visitRoot(it.next());
+			final int nChildren = root.getChildren().size();
+			
+			for (int i = 0 ; (processingMethod.notCancelled()) && (i < nChildren) ; i++)
+			{
+				this.visitRoot(root.getChildren().get(i));
 			}
 		}
 	}
