@@ -1,10 +1,14 @@
 package org.osate.aadl2.util;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.CallSpecification;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.RefinableElement;
+import org.osate.aadl2.SubprogramImplementation;
+import org.osate.aadl2.ThreadImplementation;
 
 public class Aadl2Util {
 
@@ -58,12 +62,43 @@ public class Aadl2Util {
 		return null;
 	}
 	
-	public static NamedElement findOwnedNamedElement(Classifier owner, String name){
-		for (NamedElement ne : owner.getOwnedMembers()) { 
+	public static NamedElement findOwnedNamedElement(Classifier owner, String name)
+	{
+		
+		for (Element e : owner.getOwnedElements())
+		{ 
+			if (! (e instanceof NamedElement))
+				continue;
+			NamedElement ne = (NamedElement)e;
 			String neName = Aadl2Util.getName(ne);
 			if (neName != null && neName.equalsIgnoreCase(name))
 				return ne;
 		}
+		
+		if (owner instanceof ThreadImplementation)
+		{
+			ThreadImplementation ti = (ThreadImplementation) owner;
+			for (CallSpecification cs : ti.getCallSpecifications())
+			{
+				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
+				{
+					return cs;
+				}
+			}
+		}
+		
+		if (owner instanceof SubprogramImplementation)
+		{
+			SubprogramImplementation si = (SubprogramImplementation) owner;
+			for (CallSpecification cs : si.getCallSpecifications())
+			{
+				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
+				{
+					return cs;
+				}
+			}
+		}
+		
 		return null;
 	}
 
