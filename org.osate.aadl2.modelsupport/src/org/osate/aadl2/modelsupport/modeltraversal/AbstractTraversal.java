@@ -87,9 +87,15 @@ abstract class AbstractTraversal {
 	 * @return The {@link IProcessingMethod#getResultList() result list} of the
 	 *         encapsulated processing method.
 	 */
-	public final EList<Element> visitList(final List<? extends Element> roots) {
-		for (final Iterator<? extends Element> i = roots.iterator(); processingMethod.notCancelled() && i.hasNext();) {
-			visitRoot(i.next());
+	public final EList<Element> visitList(final List<? extends Element> roots)
+	{
+		int i;
+		final int listSize;
+		
+		
+		listSize = roots.size();
+		for (i = 0; (processingMethod.notCancelled())  && i < listSize ; i++) {
+			visitRoot(roots.get(i));
 		}
 		return processingMethod.getResultList();
 	}

@@ -58,7 +58,7 @@ import org.osate.aadl2.util.Aadl2Switch;
  * 
  */
 public abstract class AadlProcessingSwitch extends ForAllElement {
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String copyright = "Copyright 2004-2013 by Carnegie Mellon University, all rights reserved";
 
 	public static final String DONE = AadlConstants.emptyString;
 
@@ -85,14 +85,16 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 		initSwitches();
 	}
 	
-	public AadlProcessingSwitch(final int defTraversal) {
+	public AadlProcessingSwitch(final int defTraversal) 
+	{
 		this(defTraversal, AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
 	
 	/**
 	 * Create an Aadl switch that delages to the given error manager.
 	 */
-	public AadlProcessingSwitch(final AnalysisErrorReporterManager errMgr) {
+	public AadlProcessingSwitch(final AnalysisErrorReporterManager errMgr) 
+	{
 		this(DEFAULT_DEFAULT_TRAVERSAL, errMgr);
 	}
 	
@@ -100,7 +102,8 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	 * Create an Aadl switch that uses
 	 * {@link AnalysisErrorReporterManager#NULL_ERROR_MANANGER}.
 	 */
-	public AadlProcessingSwitch() {
+	public AadlProcessingSwitch() 
+	{
 		this(AnalysisErrorReporterManager.NULL_ERROR_MANANGER);
 	}
 	
@@ -141,7 +144,8 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	 * @return Aadl2Switch
 	 */
 	
-	public final Aadl2Switch<String> getAadl2Switch() {
+	public final Aadl2Switch<String> getAadl2Switch() 
+	{
 		return aadl2Switch;
 	}
 	
@@ -150,27 +154,35 @@ public abstract class AadlProcessingSwitch extends ForAllElement {
 	 * 
 	 * @return InstanceSwitch
 	 */
-	public final InstanceSwitch<String> getInstanceSwitch() {
+	public final InstanceSwitch<String> getInstanceSwitch()
+	{
 		return instanceSwitch;
 	}
 
 	/**
 	 * Calls the package-specific switch
 	 */
-	public final void process(Element theElement) {
+	public final void process(final Element theElement)
+	{
+		final EClass theEClass;
 		/**
 		 * This checks to make sure we only invoke doSwitch with non-null
 		 * objects This is necessary as some feature retrieval methods may
 		 * return null
 		 */
-		if (theElement == null) {
+		if (theElement == null)
+		{
 			return;
 		}
-		EClass theEClass = theElement.eClass();
+		theEClass = theElement.eClass();
 		if (aadl2Switch != null && (theEClass.eContainer() == Aadl2Package.eINSTANCE||
-				theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause))
+									theElement instanceof AnnexLibrary || theElement instanceof AnnexSubclause))
+		{
 			aadl2Switch.doSwitch(theElement);
+		}
 		else if (instanceSwitch != null && theEClass.eContainer() == InstancePackage.eINSTANCE)
+		{
 			instanceSwitch.doSwitch(theElement);
+		}
 	}
 }

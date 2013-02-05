@@ -72,6 +72,7 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -797,6 +798,15 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (cname.equalsIgnoreCase("all")) return null;
 		}
 		// NOTE: checking whether the referenced package is imported is done by the validator.
+		if (context instanceof NamedElement){
+			// if we have a NamedElement (e.g., a renames) without a name and we are looking for the reference in own package 
+			// then stop. Otherwise we have a cycle.
+			if (((NamedElement)context).getName() == null){
+				if (packname == null || scope.getName().equalsIgnoreCase(packname)){
+					return null;
+				}
+			}
+		}
 		if (e == null && scope instanceof PackageSection){
 			// the reference is from inside a package section. Lookup by identifier with or without qualification
 			e = findNamedElementInAadlPackage(packname, cname, scope);
@@ -1852,7 +1862,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			.getUnitsType();
 		if (unitsType != null) {
 			return (UnitLiteral) unitsType
-					.findNamedElement(name);
+					.findLiteral(name);
 		}
 		return null;
 	}
@@ -1948,7 +1958,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 			if (unitsType != null) {
 				return (UnitLiteral) unitsType
-						.findNamedElement(name);
+						.findLiteral(name);
 			}
 		}
 		return null;
@@ -1956,7 +1966,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 	public static EnumerationLiteral findEnumerationLiteral(EnumerationType enumType, String name){
-		return (EnumerationLiteral) enumType.findNamedElement(name);
+		return (EnumerationLiteral) enumType.findLiteral(name);
 	}
 
 	public static EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
@@ -2024,7 +2034,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
 				EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)
-						.findNamedElement(name);
+						.findLiteral(name);
 				if (literal != null)
 					return Collections.singletonList((EObject) literal);
 			}

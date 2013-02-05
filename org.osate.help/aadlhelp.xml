@@ -30,6 +30,8 @@
     <topic label="JavaDoc of OSATE"  href="api/index.html">
         <link toc="javadoccontents.xml"/>
     </topic>
+    <topic href="html/faq.html" label="Frequently Asked Questions">
+    </topic>
     <topic href="html/about.html" label="Copyright, links &amp; contact">
     </topic>
 </toc>

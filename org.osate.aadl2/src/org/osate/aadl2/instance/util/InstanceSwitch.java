@@ -87,8 +87,10 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	@Override
-	protected T doSwitch(int classifierID, EObject theEObject) {
-		switch (classifierID) {
+	protected T doSwitch(final int classifierID, final EObject theEObject)
+	{
+		switch (classifierID) 
+		{
 		case InstancePackage.FEATURE_INSTANCE: {
 			FeatureInstance featureInstance = (FeatureInstance) theEObject;
 			T result = caseFeatureInstance(featureInstance);

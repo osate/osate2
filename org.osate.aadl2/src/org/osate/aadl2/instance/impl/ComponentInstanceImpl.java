@@ -740,10 +740,16 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 		for ( final PropertyOwner propOwner : property.getAppliesTos() )
 		{
-			//OsateDebug.osateDebug("   property owner=" + propOwner);
-
+			
 			if ( propOwner instanceof MetaclassReference )
 			{
+				//OsateDebug.osateDebug("[CompnentInstanceImpl]   property owner=" + propOwner);
+				if ((((MetaclassReference)propOwner).getMetaclassNames().size() > 0) &&
+				    ((MetaclassReference)propOwner).getMetaclassNames().get(0).equals("all"))
+				    {
+				    	return true;
+				    }
+					
 				String catLitteral = ( (MetaclassReference) propOwner ).getMetaclass().getName().toLowerCase();
 				
 				/*
@@ -770,15 +776,17 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				} else
 				if (catLitteral.equals("threadgroup"))
 				{
-					catLitteral = "subprogram group";
+					catLitteral = "thread group";
 				}
 				
 				final ComponentCategory categ = ComponentCategory.get (catLitteral);
-				
+		
 				if (getCategory().equals (categ)) 
 				{
 					return true;
 				}
+				//OsateDebug.osateDebug("   catLitteral =" + catLitteral);
+
 			}
 		}
 

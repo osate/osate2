@@ -69,6 +69,7 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -744,6 +745,8 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	public boolean isSetGeneralizations() {
 		return super.isSetGeneralizations() || eIsSet(Aadl2Package.COMPONENT_TYPE__OWNED_EXTENSION);
 	}
+	
+
 
 	/**
 	 * get list of all features of a component type, including ancestor features

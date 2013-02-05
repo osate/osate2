@@ -45,14 +45,17 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -410,8 +413,30 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#acceptsProperty(org.osate.aadl2.Property)
 	 */
 	@Override
-	public boolean acceptsProperty(Property property) {
-		return getConnection().acceptsProperty(property);
+	public boolean acceptsProperty(Property property)
+	{
+		final boolean result;
+		for ( final PropertyOwner propOwner : property.getAppliesTos() )
+		{
+			//OsateDebug.osateDebug("[ConnectionReferenceImpl]   property owner=" + propOwner);
+
+			if ( propOwner instanceof MetaclassReference )
+			{
+				if ((((MetaclassReference)propOwner).getMetaclassNames().size() > 0) &&
+				    ((MetaclassReference)propOwner).getMetaclassNames().get(0).equals("all"))
+				    {
+				//		OsateDebug.osateDebug("[ConnectionReferenceImpl]   accept property");
+
+				    	return true;
+				    }
+			}
+		}
+//		OsateDebug.osateDebug("[ConnectionReferenceImpl] acceptsProperty" + property);
+	//	OsateDebug.osateDebug("[ConnectionReferenceImpl] getConnection()=" + getConnection());
+
+		result = getConnection().acceptsProperty(property);
+		//OsateDebug.osateDebug("[ConnectionReferenceImpl] result=" + result);
+		return result;
 	}
 
 	/* (non-Javadoc)

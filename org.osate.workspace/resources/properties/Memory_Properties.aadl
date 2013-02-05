@@ -1,6 +1,5 @@
 --AADL2
---SAE Aerospace Standard AS5506A
---Proposed Draft (2008-11-08)
+--SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
 property set Memory_Properties is
@@ -43,7 +42,7 @@ property set Memory_Properties is
 		applies to (data, thread, thread group, process, system, subprogram, processor, device);
 	
 	Source_Data_Size: Size
-		applies to (data, subprogram, thread, thread group, process, system, processor, device);
+		applies to (data, data port, event data port, data access, subprogram, thread, thread group, process, system, processor, device);
 	
 	Source_Heap_Size: Size
 		applies to (thread, subprogram);

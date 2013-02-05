@@ -1493,7 +1493,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="MemoryPrototype" eSuperTypes="#//ComponentPrototype #//MemorySubcomponentType"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramClassifier" abstract="true"
       eSuperTypes="#//ComponentClassifier #//SubprogramSubcomponentType"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramType" eSuperTypes="#//ComponentType #//SubprogramClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramType" eSuperTypes="#//ComponentType #//SubprogramClassifier #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedEventDataPort" ordered="false"
         upperBound="-1" eType="#//EventDataPort" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>

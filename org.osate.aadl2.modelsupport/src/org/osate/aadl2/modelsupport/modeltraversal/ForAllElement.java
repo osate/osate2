@@ -173,7 +173,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * implementation of {@link #action(Element)} adds the visited model object
 	 * to the list.
 	 */
-	protected final EList<Element> resultList = new BasicEList<Element>();
+	protected final EList<Element> resultList = new BasicEList<Element>(200);
 
 	/** The default traversal method. */
 	private final AbstractTraversal defaultTraversalMethod;
@@ -268,10 +268,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #action(Element)
 	 * @see #suchThat(Element)
 	 */
-	protected void process(Element theElement) {
-		if (suchThat(theElement)) {
-			action(theElement);
-		}
+	protected void process(final Element theElement) {
+		action(theElement);
 	}
 	
 

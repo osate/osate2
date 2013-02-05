@@ -411,48 +411,38 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			EvaluatedProperty minVal = minimum.evaluate(ctx);
 			EvaluatedProperty deltaVal = null;
 
-			
 			maxNumberValue = null;
 			minNumberValue = null;
-			
-			
-			
+
 			/*
 			 * First, retrieve the maximum value.
 			 */
 			if (maxVal.size() != 1 || maxVal.first().isModal()) {
 				throw new InvalidModelException(this, "Range maximum is modal");
 			}
-			
+
 			/*
 			 * FIX JD
 			 * Fixes bug #129 : when the maxvalue is a constant, we try to resolve it.
 			 */
-			if (maxVal.first().getValue() instanceof NamedValue)
-			{
-				try
-				{
+			if (maxVal.first().getValue() instanceof NamedValue) {
+				try {
 					NamedValue nv = (NamedValue) maxVal.first().getValue();
 					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					maxNumberValue = (NumberValue) ((PropertyConstant)aadlInteger.eContainer()).getConstantValue();
-				}
-				catch (Exception e)
-				{
+					maxNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
+				} catch (Exception e) {
 					maxNumberValue = null;
 				}
 			}
-			
-			if (maxVal.first().getValue() instanceof NumberValue)
-			{
+
+			if (maxVal.first().getValue() instanceof NumberValue) {
 				maxNumberValue = (NumberValue) maxVal.first().getValue();
 			}
 
-			if (maxNumberValue == null)
-			{
+			if (maxNumberValue == null) {
 				throw new InvalidModelException(this, "Range maximum is not numeric");
 			}
-			
-			
+
 			/*
 			 * So now, retrieve the minimum value.
 			 */
@@ -460,30 +450,24 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 				throw new InvalidModelException(this, "Range minimum is modal");
 			}
 
-			if (minVal.first().getValue() instanceof NamedValue)
-			{
-				try
-				{
+			if (minVal.first().getValue() instanceof NamedValue) {
+				try {
 					NamedValue nv = (NamedValue) minVal.first().getValue();
 					AadlInteger aadlInteger = (AadlInteger) nv.getNamedValue().eContents().get(0);
-					minNumberValue = (NumberValue) ((PropertyConstant)aadlInteger.eContainer()).getConstantValue();
-				}
-				catch (Exception e)
-				{
+					minNumberValue = (NumberValue) ((PropertyConstant) aadlInteger.eContainer()).getConstantValue();
+				} catch (Exception e) {
 					minNumberValue = null;
 				}
 			}
-			
-			if (minVal.first().getValue() instanceof NumberValue)
-			{
+
+			if (minVal.first().getValue() instanceof NumberValue) {
 				minNumberValue = (NumberValue) minVal.first().getValue();
 			}
 
-			if (minNumberValue == null)
-			{
+			if (minNumberValue == null) {
 				throw new InvalidModelException(this, "Range minimum is not numeric");
 			}
-			
+
 			if (delta != null) {
 				deltaVal = delta.evaluate(ctx);
 				if (deltaVal.size() != 1 || deltaVal.first().isModal()) {
