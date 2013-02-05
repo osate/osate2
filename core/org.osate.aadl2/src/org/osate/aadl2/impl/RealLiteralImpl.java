@@ -116,7 +116,8 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		double oldValue = value;
 		value = newValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.REAL_LITERAL__VALUE, oldValue, value));
 	}
 
 	/**
@@ -246,7 +247,8 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 	public double getScaledValue(UnitLiteral target) {
 		final double value = getValue();
 		final UnitLiteral unit = getUnit();
-		final double factor = (unit == null) ? 1.0 : unit.getAbsoluteFactor(target);
+		final double factor = (unit == null) ? 1.0 : unit
+				.getAbsoluteFactor(target);
 		return value * factor;
 	}
 
@@ -257,7 +259,8 @@ public class RealLiteralImpl extends NumberValueImpl implements RealLiteral {
 		if (obj == null || getClass() != obj.getClass() || !super.equals(obj))
 			return false;
 		RealLiteralImpl other = (RealLiteralImpl) obj;
-		return Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
+		return Double.doubleToLongBits(value) == Double
+				.doubleToLongBits(other.value);
 	}
 
 } // RealLiteralImpl

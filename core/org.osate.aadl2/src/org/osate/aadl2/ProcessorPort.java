@@ -46,5 +46,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ProcessorPort extends NamedElement, ModeTransitionTrigger, AbstractConnectionEnd {
+public interface ProcessorPort extends NamedElement, ModeTransitionTrigger,
+		AbstractConnectionEnd {
 } // ProcessorPort

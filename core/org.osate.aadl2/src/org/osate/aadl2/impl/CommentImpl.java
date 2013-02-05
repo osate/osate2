@@ -112,7 +112,8 @@ public class CommentImpl extends ElementImpl implements Comment {
 		String oldBody = body;
 		body = newBody;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMMENT__BODY, oldBody, body));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMMENT__BODY, oldBody, body));
 	}
 
 	/**
@@ -168,7 +169,8 @@ public class CommentImpl extends ElementImpl implements Comment {
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.COMMENT__BODY:
-			return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT.equals(body);
+			return BODY_EDEFAULT == null ? body != null : !BODY_EDEFAULT
+					.equals(body);
 		}
 		return super.eIsSet(featureID);
 	}

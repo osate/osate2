@@ -1211,6 +1211,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseAccess(busAccess);
 			if (result == null)
+				result = caseBus(busAccess);
+			if (result == null)
 				result = caseFeature(busAccess);
 			if (result == null)
 				result = caseAccessConnectionEnd(busAccess);
@@ -1274,6 +1276,17 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.BUS: {
+			Bus bus = (Bus) theEObject;
+			T result = caseBus(bus);
+			if (result == null)
+				result = caseNamedElement(bus);
+			if (result == null)
+				result = caseElement(bus);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
 			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
 			T result = caseBusSubcomponentType(busSubcomponentType);
@@ -1293,22 +1306,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.BUS: {
-			Bus bus = (Bus) theEObject;
-			T result = caseBus(bus);
-			if (result == null)
-				result = caseNamedElement(bus);
-			if (result == null)
-				result = caseElement(bus);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.DATA_ACCESS: {
 			DataAccess dataAccess = (DataAccess) theEObject;
 			T result = caseDataAccess(dataAccess);
 			if (result == null)
 				result = caseAccess(dataAccess);
+			if (result == null)
+				result = caseData(dataAccess);
 			if (result == null)
 				result = caseFlowElement(dataAccess);
 			if (result == null)
@@ -1367,6 +1371,17 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.DATA: {
+			Data data = (Data) theEObject;
+			T result = caseData(data);
+			if (result == null)
+				result = caseNamedElement(data);
+			if (result == null)
+				result = caseElement(data);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.DATA_SUBCOMPONENT_TYPE: {
 			DataSubcomponentType dataSubcomponentType = (DataSubcomponentType) theEObject;
 			T result = caseDataSubcomponentType(dataSubcomponentType);
@@ -1386,17 +1401,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.DATA: {
-			Data data = (Data) theEObject;
-			T result = caseData(data);
-			if (result == null)
-				result = caseNamedElement(data);
-			if (result == null)
-				result = caseElement(data);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.DATA_PORT: {
 			DataPort dataPort = (DataPort) theEObject;
 			T result = caseDataPort(dataPort);
@@ -1404,6 +1408,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = casePort(dataPort);
 			if (result == null)
 				result = caseContext(dataPort);
+			if (result == null)
+				result = caseData(dataPort);
 			if (result == null)
 				result = caseParameterConnectionEnd(dataPort);
 			if (result == null)
@@ -1468,6 +1474,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = casePort(eventDataPort);
 			if (result == null)
 				result = caseContext(eventDataPort);
+			if (result == null)
+				result = caseData(eventDataPort);
 			if (result == null)
 				result = caseParameterConnectionEnd(eventDataPort);
 			if (result == null)
@@ -1564,11 +1572,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 			if (result == null)
 				result = caseAccess(subprogramAccess);
 			if (result == null)
-				result = caseCalledSubprogram(subprogramAccess);
+				result = caseSubprogram(subprogramAccess);
 			if (result == null)
 				result = caseFeature(subprogramAccess);
 			if (result == null)
 				result = caseAccessConnectionEnd(subprogramAccess);
+			if (result == null)
+				result = caseCalledSubprogram(subprogramAccess);
 			if (result == null)
 				result = caseStructuralFeature(subprogramAccess);
 			if (result == null)
@@ -1585,6 +1595,19 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(subprogramAccess);
 			if (result == null)
 				result = caseElement(subprogramAccess);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
+		case Aadl2Package.SUBPROGRAM: {
+			Subprogram subprogram = (Subprogram) theEObject;
+			T result = caseSubprogram(subprogram);
+			if (result == null)
+				result = caseNamedElement(subprogram);
+			if (result == null)
+				result = caseCalledSubprogram(subprogram);
+			if (result == null)
+				result = caseElement(subprogram);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -1610,24 +1633,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
-		case Aadl2Package.SUBPROGRAM: {
-			Subprogram subprogram = (Subprogram) theEObject;
-			T result = caseSubprogram(subprogram);
-			if (result == null)
-				result = caseNamedElement(subprogram);
-			if (result == null)
-				result = caseCalledSubprogram(subprogram);
-			if (result == null)
-				result = caseElement(subprogram);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS: {
 			SubprogramGroupAccess subprogramGroupAccess = (SubprogramGroupAccess) theEObject;
 			T result = caseSubprogramGroupAccess(subprogramGroupAccess);
 			if (result == null)
 				result = caseAccess(subprogramGroupAccess);
+			if (result == null)
+				result = caseSubprogramGroup(subprogramGroupAccess);
 			if (result == null)
 				result = caseCallContext(subprogramGroupAccess);
 			if (result == null)
@@ -1654,6 +1666,17 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = defaultCase(theEObject);
 			return result;
 		}
+		case Aadl2Package.SUBPROGRAM_GROUP: {
+			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
+			T result = caseSubprogramGroup(subprogramGroup);
+			if (result == null)
+				result = caseNamedElement(subprogramGroup);
+			if (result == null)
+				result = caseElement(subprogramGroup);
+			if (result == null)
+				result = defaultCase(theEObject);
+			return result;
+		}
 		case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE: {
 			SubprogramGroupSubcomponentType subprogramGroupSubcomponentType = (SubprogramGroupSubcomponentType) theEObject;
 			T result = caseSubprogramGroupSubcomponentType(subprogramGroupSubcomponentType);
@@ -1669,17 +1692,6 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseNamedElement(subprogramGroupSubcomponentType);
 			if (result == null)
 				result = caseElement(subprogramGroupSubcomponentType);
-			if (result == null)
-				result = defaultCase(theEObject);
-			return result;
-		}
-		case Aadl2Package.SUBPROGRAM_GROUP: {
-			SubprogramGroup subprogramGroup = (SubprogramGroup) theEObject;
-			T result = caseSubprogramGroup(subprogramGroup);
-			if (result == null)
-				result = caseNamedElement(subprogramGroup);
-			if (result == null)
-				result = caseElement(subprogramGroup);
 			if (result == null)
 				result = defaultCase(theEObject);
 			return result;
@@ -6212,7 +6224,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseComponentImplementationReference(ComponentImplementationReference object) {
+	public T caseComponentImplementationReference(
+			ComponentImplementationReference object) {
 		return null;
 	}
 
@@ -6677,7 +6690,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseFeatureGroupPrototypeBinding(FeatureGroupPrototypeBinding object) {
+	public T caseFeatureGroupPrototypeBinding(
+			FeatureGroupPrototypeBinding object) {
 		return null;
 	}
 
@@ -7682,7 +7696,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupSubcomponentType(SubprogramGroupSubcomponentType object) {
+	public T caseSubprogramGroupSubcomponentType(
+			SubprogramGroupSubcomponentType object) {
 		return null;
 	}
 
@@ -8372,7 +8387,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponent(VirtualProcessorSubcomponent object) {
+	public T caseVirtualProcessorSubcomponent(
+			VirtualProcessorSubcomponent object) {
 		return null;
 	}
 
@@ -8402,7 +8418,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType object) {
+	public T caseVirtualProcessorSubcomponentType(
+			VirtualProcessorSubcomponentType object) {
 		return null;
 	}
 
@@ -8837,7 +8854,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseVirtualProcessorImplementation(VirtualProcessorImplementation object) {
+	public T caseVirtualProcessorImplementation(
+			VirtualProcessorImplementation object) {
 		return null;
 	}
 
@@ -8882,7 +8900,8 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseSubprogramGroupImplementation(SubprogramGroupImplementation object) {
+	public T caseSubprogramGroupImplementation(
+			SubprogramGroupImplementation object) {
 		return null;
 	}
 

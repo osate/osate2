@@ -60,7 +60,8 @@ import org.osate.aadl2.ArrayableElement;
  *
  * @generated
  */
-public abstract class ArrayableElementImpl extends ElementImpl implements ArrayableElement {
+public abstract class ArrayableElementImpl extends ElementImpl implements
+		ArrayableElement {
 	/**
 	 * The cached value of the '{@link #getArrayDimensions() <em>Array Dimension</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -97,7 +98,8 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 */
 	public EList<ArrayDimension> getArrayDimensions() {
 		if (arrayDimensions == null) {
-			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(ArrayDimension.class, this,
+			arrayDimensions = new EObjectContainmentEList<ArrayDimension>(
+					ArrayDimension.class, this,
 					Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION);
 		}
 		return arrayDimensions;
@@ -109,7 +111,8 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * @generated
 	 */
 	public ArrayDimension createArrayDimension() {
-		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE.getArrayDimension());
+		ArrayDimension newArrayDimension = (ArrayDimension) create(Aadl2Package.eINSTANCE
+				.getArrayDimension());
 		getArrayDimensions().add(newArrayDimension);
 		return newArrayDimension;
 	}
@@ -120,10 +123,12 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
-			return ((InternalEList<?>) getArrayDimensions()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getArrayDimensions()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -153,7 +158,8 @@ public abstract class ArrayableElementImpl extends ElementImpl implements Arraya
 		switch (featureID) {
 		case Aadl2Package.ARRAYABLE_ELEMENT__ARRAY_DIMENSION:
 			getArrayDimensions().clear();
-			getArrayDimensions().addAll((Collection<? extends ArrayDimension>) newValue);
+			getArrayDimensions().addAll(
+					(Collection<? extends ArrayDimension>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);

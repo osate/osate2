@@ -47,7 +47,8 @@ import org.osate.aadl2.DataPrototype;
  *
  * @generated
  */
-public class DataPrototypeImpl extends ComponentPrototypeImpl implements DataPrototype {
+public class DataPrototypeImpl extends ComponentPrototypeImpl implements
+		DataPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -53,7 +53,8 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class CallContextImpl extends AObjectImpl implements CallContext {
+public abstract class CallContextImpl extends AObjectImpl implements
+		CallContext {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

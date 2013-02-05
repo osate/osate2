@@ -49,7 +49,8 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class AbstractSubcomponentTypeImpl extends AbstractImpl implements AbstractSubcomponentType {
+public abstract class AbstractSubcomponentTypeImpl extends AbstractImpl
+		implements AbstractSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

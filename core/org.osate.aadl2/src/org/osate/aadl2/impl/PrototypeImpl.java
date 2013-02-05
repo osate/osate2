@@ -62,7 +62,8 @@ import org.osate.aadl2.operations.PrototypeOperations;
  *
  * @generated
  */
-public abstract class PrototypeImpl extends StructuralFeatureImpl implements Prototype {
+public abstract class PrototypeImpl extends StructuralFeatureImpl implements
+		Prototype {
 
 	/**
 	 * The cached value of the '{@link #getRefined() <em>Refined</em>}' reference.
@@ -104,8 +105,9 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 			refined = (Prototype) eResolveProxy(oldRefined);
 			if (refined != oldRefined) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE__REFINED,
-							oldRefined, refined));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PROTOTYPE__REFINED, oldRefined,
+							refined));
 			}
 		}
 		return refined;
@@ -129,7 +131,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 		Prototype oldRefined = refined;
 		refined = newRefined;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROTOTYPE__REFINED, oldRefined, refined));
 	}
 
 	/**
@@ -137,8 +140,10 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean categoryConstraint(DiagnosticChain diagnostics, Map<Object, Object> context) {
-		return PrototypeOperations.categoryConstraint(this, diagnostics, context);
+	public boolean categoryConstraint(DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return PrototypeOperations.categoryConstraint(this, diagnostics,
+				context);
 	}
 
 	/**
@@ -233,7 +238,8 @@ public abstract class PrototypeImpl extends StructuralFeatureImpl implements Pro
 	 */
 	@Override
 	public boolean isSetRefinedElement() {
-		return super.isSetRefinedElement() || eIsSet(Aadl2Package.PROTOTYPE__REFINED);
+		return super.isSetRefinedElement()
+				|| eIsSet(Aadl2Package.PROTOTYPE__REFINED);
 	}
 
 } // PrototypeImpl

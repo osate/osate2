@@ -52,7 +52,8 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class CalledSubprogramImpl extends AObjectImpl implements CalledSubprogram {
+public abstract class CalledSubprogramImpl extends AObjectImpl implements
+		CalledSubprogram {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

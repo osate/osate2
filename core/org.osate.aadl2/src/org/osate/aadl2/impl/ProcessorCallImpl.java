@@ -54,7 +54,8 @@ import org.osate.aadl2.ProcessorCall;
  *
  * @generated
  */
-public class ProcessorCallImpl extends CallSpecificationImpl implements ProcessorCall {
+public class ProcessorCallImpl extends CallSpecificationImpl implements
+		ProcessorCall {
 	/**
 	 * The default value of the '{@link #getSubprogramAccessName() <em>Subprogram Access Name</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -112,7 +113,8 @@ public class ProcessorCallImpl extends CallSpecificationImpl implements Processo
 		String oldSubprogramAccessName = subprogramAccessName;
 		subprogramAccessName = newSubprogramAccessName;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME,
 					oldSubprogramAccessName, subprogramAccessName));
 	}
 
@@ -170,7 +172,8 @@ public class ProcessorCallImpl extends CallSpecificationImpl implements Processo
 		switch (featureID) {
 		case Aadl2Package.PROCESSOR_CALL__SUBPROGRAM_ACCESS_NAME:
 			return SUBPROGRAM_ACCESS_NAME_EDEFAULT == null ? subprogramAccessName != null
-					: !SUBPROGRAM_ACCESS_NAME_EDEFAULT.equals(subprogramAccessName);
+					: !SUBPROGRAM_ACCESS_NAME_EDEFAULT
+							.equals(subprogramAccessName);
 		}
 		return super.eIsSet(featureID);
 	}

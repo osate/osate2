@@ -91,7 +91,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 */
 	public static EList<ModeTransition> getInModeTransitions(ModalPath modalPath) {
 		// DONE: implement this method
-		EList<ModeTransition> inModeTransitions = new BasicInternalEList<ModeTransition>(ModeTransition.class);
+		EList<ModeTransition> inModeTransitions = new BasicInternalEList<ModeTransition>(
+				ModeTransition.class);
 		for (ModeFeature mf : modalPath.getInModeOrTransitions()) {
 			if (mf instanceof ModeTransition) {
 				inModeTransitions.add((ModeTransition) mf);
@@ -105,7 +106,8 @@ public class ModalPathOperations extends ModalElementOperations {
 	 * <!-- end-user-doc -->
 	 * @generated NOT
 	 */
-	public static EList<ModeTransition> getAllInModeTransitions(ModalPath modalPath) {
+	public static EList<ModeTransition> getAllInModeTransitions(
+			ModalPath modalPath) {
 		// DONE: implement this method
 		EList<ModeTransition> intransitions = null;
 		// inmodes will be an empty list (all modes) if we do not find a non-empty list
@@ -115,7 +117,8 @@ public class ModalPathOperations extends ModalElementOperations {
 			if (intransitions != null && !intransitions.isEmpty())
 				return intransitions;
 			if (modalPath instanceof RefinableElement)
-				modalPath = (ModalPath) ((RefinableElement) modalPath).getRefinedElement();
+				modalPath = (ModalPath) ((RefinableElement) modalPath)
+						.getRefinedElement();
 			else
 				modalPath = null;
 		}

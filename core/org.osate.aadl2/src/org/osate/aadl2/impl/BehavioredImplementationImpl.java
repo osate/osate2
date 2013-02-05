@@ -71,8 +71,8 @@ import org.osate.aadl2.operations.BehavioredImplementationOperations;
  *
  * @generated
  */
-public abstract class BehavioredImplementationImpl extends ComponentImplementationImpl implements
-		BehavioredImplementation {
+public abstract class BehavioredImplementationImpl extends
+		ComponentImplementationImpl implements BehavioredImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedSubprogramCallSequences() <em>Owned Subprogram Call Sequence</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -113,17 +113,22 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> members = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> members = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_Member());
 			if (members == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_Member(),
-						members = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getNamespace_Member(),
+						members = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class, this,
+								Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER,
+								MEMBER_ESUBSETS));
 			}
 			return members;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER, MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.BEHAVIORED_IMPLEMENTATION__MEMBER,
+				MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -134,7 +139,8 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] MEMBER_ESUBSETS = new int[] { Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER,
+	protected static final int[] MEMBER_ESUBSETS = new int[] {
+			Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__INHERITED_MEMBER,
 			Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION };
@@ -150,18 +156,27 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE,
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(
+								ClassifierFeature.class,
+								this,
+								Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE,
 								CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
-				Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<ClassifierFeature>(
+				ClassifierFeature.class, this,
+				Aadl2Package.BEHAVIORED_IMPLEMENTATION__CLASSIFIER_FEATURE,
+				CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -192,17 +207,25 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class,
+								this,
+								Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
@@ -242,7 +265,8 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	public EList<SubprogramCallSequence> getOwnedSubprogramCallSequences() {
 		if (ownedSubprogramCallSequences == null) {
 			ownedSubprogramCallSequences = new EObjectContainmentEList<SubprogramCallSequence>(
-					SubprogramCallSequence.class, this,
+					SubprogramCallSequence.class,
+					this,
 					Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE);
 		}
 		return ownedSubprogramCallSequences;
@@ -275,10 +299,12 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:
-			return ((InternalEList<?>) getOwnedSubprogramCallSequences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedSubprogramCallSequences())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -310,11 +336,13 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		switch (featureID) {
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION:
 			getCallSpecifications().clear();
-			getCallSpecifications().addAll((Collection<? extends CallSpecification>) newValue);
+			getCallSpecifications().addAll(
+					(Collection<? extends CallSpecification>) newValue);
 			return;
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:
 			getOwnedSubprogramCallSequences().clear();
-			getOwnedSubprogramCallSequences().addAll((Collection<? extends SubprogramCallSequence>) newValue);
+			getOwnedSubprogramCallSequences().addAll(
+					(Collection<? extends SubprogramCallSequence>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -349,7 +377,8 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION:
 			return !getCallSpecifications().isEmpty();
 		case Aadl2Package.BEHAVIORED_IMPLEMENTATION__OWNED_SUBPROGRAM_CALL_SEQUENCE:
-			return ownedSubprogramCallSequences != null && !ownedSubprogramCallSequences.isEmpty();
+			return ownedSubprogramCallSequences != null
+					&& !ownedSubprogramCallSequences.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -361,7 +390,8 @@ public abstract class BehavioredImplementationImpl extends ComponentImplementati
 	 */
 	@Override
 	public boolean isSetMembers() {
-		return super.isSetMembers() || eIsSet(Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION);
+		return super.isSetMembers()
+				|| eIsSet(Aadl2Package.BEHAVIORED_IMPLEMENTATION__CALL_SPECIFICATION);
 	}
 
 	/**

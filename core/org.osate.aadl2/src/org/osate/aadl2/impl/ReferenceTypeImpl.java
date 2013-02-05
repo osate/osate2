@@ -97,7 +97,8 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 */
 	public EList<MetaclassReference> getNamedElementReferences() {
 		if (namedElementReferences == null) {
-			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
+			namedElementReferences = new EObjectContainmentEList<MetaclassReference>(
+					MetaclassReference.class, this,
 					Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE);
 		}
 		return namedElementReferences;
@@ -121,10 +122,12 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
-			return ((InternalEList<?>) getNamedElementReferences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getNamedElementReferences())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -154,7 +157,8 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
 			getNamedElementReferences().clear();
-			getNamedElementReferences().addAll((Collection<? extends MetaclassReference>) newValue);
+			getNamedElementReferences().addAll(
+					(Collection<? extends MetaclassReference>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -184,7 +188,8 @@ public class ReferenceTypeImpl extends NonListTypeImpl implements ReferenceType 
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.REFERENCE_TYPE__NAMED_ELEMENT_REFERENCE:
-			return namedElementReferences != null && !namedElementReferences.isEmpty();
+			return namedElementReferences != null
+					&& !namedElementReferences.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

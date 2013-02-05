@@ -49,7 +49,8 @@ import org.osate.aadl2.operations.TypeOperations;
  *
  * @generated
  */
-public abstract class MemorySubcomponentTypeImpl extends MemoryImpl implements MemorySubcomponentType {
+public abstract class MemorySubcomponentTypeImpl extends MemoryImpl implements
+		MemorySubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ecore:EPackage xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadl2"
-    nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="aadl2" nsURI="http://aadl.info/AADL/2.0" nsPrefix="aadl2">
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="An element is a constituent of a model.&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements."/>
+      <details key="documentation" value="An element is a constituent of a model.&#xD;&#xA;An element is a constituent of a model. As such, it has the capability of owning other elements."/>
     </eAnnotations>
     <eOperations name="not_own_self" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
@@ -296,7 +294,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="PropertyOwner" abstract="true" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="Classifier" abstract="true" eSuperTypes="#//Namespace #//Type">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="A classifier is a classification of instances - it describes a set of instances that have features in common.&#xA;A classifier can specify a generalization hierarchy by referencing its general classifiers."/>
+      <details key="documentation" value="A classifier is a classification of instances - it describes a set of instances that have features in common.&#xD;&#xA;A classifier can specify a generalization hierarchy by referencing its general classifiers."/>
     </eAnnotations>
     <eOperations name="no_cycles_in_generalization" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean">
       <eAnnotations source="http://www.eclipse.org/uml2/1.1.0/GenModel">
@@ -416,8 +414,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies each feature defined in the classifier."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//Namespace/member"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Namespace/member"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="inheritedMember" ordered="false"
         upperBound="-1" eType="#//NamedElement" changeable="false" volatile="true"
@@ -433,8 +431,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the Generalization relationships for this Classifier. These Generalizations navigate to more general classifiers in the generalization hierarchy."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//Element/ownedElement"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Element/ownedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="general" ordered="false"
         upperBound="-1" eType="#//Classifier" changeable="false" volatile="true" transient="true"
@@ -510,8 +508,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Element/ownedElement #//Namespace/member"/>
       <eAnnotations source="http://www.topcased.org/documentation">
         <details key="documentation" value="A collection of NamedElements owned by the Namespace."/>
       </eAnnotations>
@@ -550,8 +548,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="References the general classifier in the Generalization relationship."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//DirectedRelationship/target"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//DirectedRelationship/target"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="specific" ordered="false"
         lowerBound="1" eType="#//Classifier" volatile="true" transient="true" derived="true"
@@ -573,8 +571,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the sources of the DirectedRelationship."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="target" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//Element" changeable="false" volatile="true"
@@ -582,8 +580,8 @@
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="Specifies the targets of the DirectedRelationship."/>
       </eAnnotations>
-      <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Relationship/relatedElement"/>
     </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Relationship" abstract="true" eSuperTypes="#//Element">
@@ -643,7 +641,7 @@
         eType="#//Classifier" changeable="false" volatile="true" transient="true"
         derived="true">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-        <details key="documentation" value="References the contexts that this element may be redefined from.&#xA;A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration."/>
+        <details key="documentation" value="References the contexts that this element may be redefined from.&#xD;&#xA;A refinable element can be refined by another element. Refinement is limited to classifier features, which can be refined by a classifier feature of the same name in an extended classifier. A refining element can add detail to an incomplete declaration."/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="refinedElement" ordered="false"
@@ -720,8 +718,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubcomponent" ordered="false"
         upperBound="-1" eType="#//Subcomponent" changeable="false" volatile="true"
         transient="true" derived="true">
-      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//ComponentImplementation" volatile="true" transient="true" derived="true">
@@ -734,8 +732,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedConnection" ordered="false"
         upperBound="-1" eType="#//Connection" changeable="false" volatile="true" transient="true"
         derived="true">
-      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedExtension" ordered="false"
         eType="#//ImplementationExtension" containment="true">
@@ -811,8 +809,8 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" ordered="false"
         upperBound="-1" eType="#//Feature" changeable="false" volatile="true" transient="true"
         derived="true">
-      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//ComponentType" volatile="true" transient="true" derived="true">
@@ -952,8 +950,8 @@
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedFeature" upperBound="-1"
         eType="#//Feature" changeable="false" volatile="true" transient="true" derived="true">
-      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
       <eAnnotations source="union"/>
+      <eAnnotations source="subsets" references="#//Classifier/classifierFeature #//Namespace/ownedMember"/>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="extended" ordered="false"
         eType="#//FeatureGroupType" volatile="true" transient="true" derived="true">
@@ -1012,7 +1010,7 @@
       <eAnnotations source="subsets" references="#//Generalization/general"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access">
+  <eClassifiers xsi:type="ecore:EClass" name="BusAccess" eSuperTypes="#//Access #//Bus">
     <eStructuralFeatures xsi:type="ecore:EReference" name="busFeatureClassifier" ordered="false"
         eType="#//BusSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
@@ -1037,10 +1035,10 @@
     <eLiterals name="subprogram" value="2"/>
     <eLiterals name="subprogramGroup" value="3"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
       eSuperTypes="#//Bus #//SubcomponentType #//FeatureClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Bus" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//Data #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
@@ -1049,10 +1047,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="ParameterConnectionEnd" abstract="true"
       eSuperTypes="#//ConnectionEnd"/>
   <eClassifiers xsi:type="ecore:EClass" name="PortConnectionEnd" abstract="true" eSuperTypes="#//ConnectionEnd"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="DataSubcomponentType" abstract="true"
       eSuperTypes="#//Data #//SubcomponentType #//FeatureClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Data" abstract="true" eSuperTypes="#//NamedElement"/>
-  <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="DataPort" eSuperTypes="#//Port #//Context #//Data #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
@@ -1068,7 +1066,7 @@
     <eLiterals name="event" value="1"/>
     <eLiterals name="eventData" value="2"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//ParameterConnectionEnd">
+  <eClassifiers xsi:type="ecore:EClass" name="EventDataPort" eSuperTypes="#//Port #//Context #//Data #//ParameterConnectionEnd">
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataFeatureClassifier"
         ordered="false" eType="#//DataSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
@@ -1081,24 +1079,24 @@
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//CalledSubprogram">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramAccess" eSuperTypes="#//Access #//Subprogram">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramFeatureClassifier"
         ordered="false" eType="#//SubprogramSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramSubcomponentType" abstract="true"
       eSuperTypes="#//SubcomponentType #//Subprogram #//FeatureClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Subprogram" abstract="true" eSuperTypes="#//NamedElement #//CalledSubprogram"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//CallContext">
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupAccess" eSuperTypes="#//Access #//SubprogramGroup #//CallContext">
     <eStructuralFeatures xsi:type="ecore:EReference" name="subprogramGroupFeatureClassifier"
         ordered="false" eType="#//SubprogramGroupSubcomponentType">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
     </eStructuralFeatures>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroupSubcomponentType" abstract="true"
       eSuperTypes="#//SubcomponentType #//SubprogramGroup #//FeatureClassifier"/>
-  <eClassifiers xsi:type="ecore:EClass" name="SubprogramGroup" abstract="true" eSuperTypes="#//NamedElement"/>
   <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featurePrototype" ordered="false"
         eType="#//FeaturePrototype"/>

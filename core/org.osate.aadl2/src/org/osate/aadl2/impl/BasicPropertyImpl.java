@@ -62,7 +62,8 @@ import org.osate.aadl2.Type;
  *
  * @generated
  */
-public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty {
+public class BasicPropertyImpl extends TypedElementImpl implements
+		BasicProperty {
 	/**
 	 * The cached value of the '{@link #getPropertyType() <em>Property Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -113,7 +114,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 			if (propertyType != oldPropertyType) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE, oldPropertyType, propertyType));
+							Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE,
+							oldPropertyType, propertyType));
 			}
 		}
 		return propertyType;
@@ -162,7 +164,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		PropertyType oldPropertyType = propertyType;
 		propertyType = newPropertyType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BASIC_PROPERTY__PROPERTY_TYPE,
 					oldPropertyType, propertyType));
 	}
 
@@ -201,12 +204,15 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedPropertyType(PropertyType newOwnedPropertyType, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedPropertyType(
+			PropertyType newOwnedPropertyType, NotificationChain msgs) {
 		PropertyType oldOwnedPropertyType = ownedPropertyType;
 		ownedPropertyType = newOwnedPropertyType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, oldOwnedPropertyType, newOwnedPropertyType);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
+					oldOwnedPropertyType, newOwnedPropertyType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -232,16 +238,25 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 		if (newOwnedPropertyType != ownedPropertyType) {
 			NotificationChain msgs = null;
 			if (ownedPropertyType != null)
-				msgs = ((InternalEObject) ownedPropertyType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedPropertyType)
+						.eInverseRemove(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
+								null, msgs);
 			if (newOwnedPropertyType != null)
-				msgs = ((InternalEObject) newOwnedPropertyType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedPropertyType)
+						.eInverseAdd(
+								this,
+								EOPPOSITE_FEATURE_BASE
+										- Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
+								null, msgs);
 			msgs = basicSetOwnedPropertyType(newOwnedPropertyType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE,
 					newOwnedPropertyType, newOwnedPropertyType));
 	}
 
@@ -262,7 +277,8 @@ public class BasicPropertyImpl extends TypedElementImpl implements BasicProperty
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.BASIC_PROPERTY__OWNED_PROPERTY_TYPE:
 			return basicSetOwnedPropertyType(null, msgs);
