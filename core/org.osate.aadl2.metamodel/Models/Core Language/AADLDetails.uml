@@ -2647,6 +2647,7 @@
         <generalization xmi:id="Features-BusAccess-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
+        <generalization xmi:id="_0Hkq82_iEeK4otgL7jFb4g" general="Components-Bus-Bus"/>
         <ownedAttribute xmi:id="Features-BusAccess-busClassifier" name="busFeatureClassifier" type="_9O0w4Kc3EeCYEIHXYlP5sg" association="Features-A_busAccess_busClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-BusAccess-busClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-BusAccess-busClassifier-_lowerValue"/>
