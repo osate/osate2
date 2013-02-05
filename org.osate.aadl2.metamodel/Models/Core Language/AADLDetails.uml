@@ -2637,6 +2637,8 @@
         <generalization xmi:id="_oPsH9B-jEd6oIu99HumgeA">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Flows-FlowElement"/>
         </generalization>
+        <generalization xmi:id="_XAXZUG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
+        <generalization xmi:id="_YWZ_MG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
         <ownedAttribute xmi:id="Features-DataAccess-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_dataAccess_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-DataAccess-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-DataAccess-dataClassifier-_lowerValue"/>
@@ -2659,6 +2661,7 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
         <generalization xmi:id="Features-SubprogramAccess-_generalization.1" general="Calls-CalledSubprogram"/>
+        <generalization xmi:id="_NEqlMG_kEeKYVI8fQ5nDcQ" general="Components-Subprogram-Subprogram"/>
         <ownedAttribute xmi:id="Features-SubprogramAccess-subprogramClassifier" name="subprogramFeatureClassifier" type="_5fL3IKfLEeCYEIHXYlP5sg" association="Features-A_subprogramAccess_subprogramClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramAccess-subprogramClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramAccess-subprogramClassifier-_lowerValue"/>
@@ -2673,6 +2676,8 @@
         <generalization xmi:id="Features-DataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
+        <generalization xmi:id="_jIjTIG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
+        <generalization xmi:id="_o22SsG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
         <ownedAttribute xmi:id="Features-DataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_dataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-DataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-DataPort-dataClassifier-_lowerValue"/>
@@ -2692,6 +2697,8 @@
         <generalization xmi:id="Features-EventDataPort-_generalization.2">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
         </generalization>
+        <generalization xmi:id="_lC7VIG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
+        <generalization xmi:id="_oS_XsG_kEeKYVI8fQ5nDcQ" general="Components-Data-Data"/>
         <ownedAttribute xmi:id="Features-EventDataPort-dataClassifier" name="dataFeatureClassifier" type="_5cLfQKfzEeCYEIHXYlP5sg" association="Features-A_eventDataPort_dataClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-EventDataPort-dataClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-EventDataPort-dataClassifier-_lowerValue"/>
@@ -2726,6 +2733,7 @@
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
         <generalization xmi:id="Features-SubprogramGroupAccess-_generalization.1" general="Calls-CallContext"/>
+        <generalization xmi:id="_ShHm0G_kEeKYVI8fQ5nDcQ" general="Components-SubprogramGroup-SubprogramGroup"/>
         <ownedAttribute xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier" name="subprogramGroupFeatureClassifier" type="_0HeJ0KdCEeCYEIHXYlP5sg" association="Features-A_subprogramGroupAccess_subprogramGroupClassifier">
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier-_upperValue" value="1"/>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-SubprogramGroupAccess-subprogramGroupClassifier-_lowerValue"/>
