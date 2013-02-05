@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface SubprogramAccess extends Access, CalledSubprogram {
+public interface SubprogramAccess extends Access, Subprogram {
 	/**
 	 * Returns the value of the '<em><b>Subprogram Feature Classifier</b></em>' reference.
 	 * <p>

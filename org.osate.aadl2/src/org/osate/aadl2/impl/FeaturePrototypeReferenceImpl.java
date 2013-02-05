@@ -60,7 +60,8 @@ import org.osate.aadl2.FeaturePrototypeReference;
  *
  * @generated
  */
-public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl implements FeaturePrototypeReference {
+public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl
+		implements FeaturePrototypeReference {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -128,7 +129,8 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__DIRECTION,
 					oldDirection, direction));
 	}
 
@@ -143,8 +145,11 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 			prototype = (FeaturePrototype) eResolveProxy(oldPrototype);
 			if (prototype != oldPrototype) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE, oldPrototype, prototype));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE,
+							oldPrototype, prototype));
 			}
 		}
 		return prototype;
@@ -168,7 +173,8 @@ public class FeaturePrototypeReferenceImpl extends FeaturePrototypeActualImpl im
 		FeaturePrototype oldPrototype = prototype;
 		prototype = newPrototype;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_PROTOTYPE_REFERENCE__PROTOTYPE,
 					oldPrototype, prototype));
 	}
 

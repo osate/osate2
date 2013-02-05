@@ -48,7 +48,8 @@ import org.osate.aadl2.MemoryClassifier;
  *
  * @generated
  */
-public abstract class MemoryClassifierImpl extends ComponentClassifierImpl implements MemoryClassifier {
+public abstract class MemoryClassifierImpl extends ComponentClassifierImpl
+		implements MemoryClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

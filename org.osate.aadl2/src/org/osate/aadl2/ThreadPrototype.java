@@ -44,5 +44,6 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface ThreadPrototype extends ComponentPrototype, ThreadSubcomponentType {
+public interface ThreadPrototype extends ComponentPrototype,
+		ThreadSubcomponentType {
 } // ThreadPrototype

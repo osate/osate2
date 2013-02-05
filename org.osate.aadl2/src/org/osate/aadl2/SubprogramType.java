@@ -58,7 +58,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface SubprogramType extends ComponentType, SubprogramClassifier, CallContext {
+public interface SubprogramType extends ComponentType, SubprogramClassifier,
+		CallContext {
 	/**
 	 * Returns the value of the '<em><b>Owned Event Data Port</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.EventDataPort}.

@@ -109,7 +109,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 			elementType = (PropertyType) eResolveProxy(oldElementType);
 			if (elementType != oldElementType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.LIST_TYPE__ELEMENT_TYPE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.LIST_TYPE__ELEMENT_TYPE,
 							oldElementType, elementType));
 			}
 		}
@@ -158,7 +159,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 		PropertyType oldElementType = elementType;
 		elementType = newElementType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.LIST_TYPE__ELEMENT_TYPE, oldElementType,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.LIST_TYPE__ELEMENT_TYPE, oldElementType,
 					elementType));
 	}
 
@@ -176,12 +178,15 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetOwnedElementType(PropertyType newOwnedElementType, NotificationChain msgs) {
+	public NotificationChain basicSetOwnedElementType(
+			PropertyType newOwnedElementType, NotificationChain msgs) {
 		PropertyType oldOwnedElementType = ownedElementType;
 		ownedElementType = newOwnedElementType;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, oldOwnedElementType, newOwnedElementType);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
+					oldOwnedElementType, newOwnedElementType);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -207,16 +212,21 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 		if (newOwnedElementType != ownedElementType) {
 			NotificationChain msgs = null;
 			if (ownedElementType != null)
-				msgs = ((InternalEObject) ownedElementType).eInverseRemove(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+				msgs = ((InternalEObject) ownedElementType).eInverseRemove(
+						this, EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
+						null, msgs);
 			if (newOwnedElementType != null)
-				msgs = ((InternalEObject) newOwnedElementType).eInverseAdd(this, EOPPOSITE_FEATURE_BASE
-						- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE, null, msgs);
+				msgs = ((InternalEObject) newOwnedElementType).eInverseAdd(
+						this, EOPPOSITE_FEATURE_BASE
+								- Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
+						null, msgs);
 			msgs = basicSetOwnedElementType(newOwnedElementType, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE,
 					newOwnedElementType, newOwnedElementType));
 	}
 
@@ -237,7 +247,8 @@ public class ListTypeImpl extends PropertyTypeImpl implements ListType {
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.LIST_TYPE__OWNED_ELEMENT_TYPE:
 			return basicSetOwnedElementType(null, msgs);

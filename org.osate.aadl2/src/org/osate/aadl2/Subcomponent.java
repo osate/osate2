@@ -61,7 +61,8 @@ import org.eclipse.emf.ecore.EClass;
  * @model abstract="true"
  * @generated
  */
-public interface Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
+public interface Subcomponent extends StructuralFeature, ModalElement, Context,
+		FlowElement, ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Subcomponent Type</b></em>' reference.
 	 * This feature is a derived union.

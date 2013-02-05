@@ -66,7 +66,8 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl implements FeatureGroupPrototypeActual {
+public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl
+		implements FeatureGroupPrototypeActual {
 	/**
 	 * The cached value of the '{@link #getBindings() <em>Binding</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -112,7 +113,8 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 */
 	public EList<PrototypeBinding> getBindings() {
 		if (bindings == null) {
-			bindings = new EObjectContainmentEList<PrototypeBinding>(PrototypeBinding.class, this,
+			bindings = new EObjectContainmentEList<PrototypeBinding>(
+					PrototypeBinding.class, this,
 					Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING);
 		}
 		return bindings;
@@ -140,8 +142,11 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 			featureType = (FeatureType) eResolveProxy(oldFeatureType);
 			if (featureType != oldFeatureType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE, oldFeatureType, featureType));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE,
+							oldFeatureType, featureType));
 			}
 		}
 		return featureType;
@@ -166,7 +171,8 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 		featureType = newFeatureType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE, oldFeatureType, featureType));
+					Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE,
+					oldFeatureType, featureType));
 	}
 
 	/**
@@ -175,10 +181,12 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
-			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getBindings()).basicRemove(otherEnd,
+					msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -212,7 +220,8 @@ public class FeatureGroupPrototypeActualImpl extends FeaturePrototypeActualImpl 
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__BINDING:
 			getBindings().clear();
-			getBindings().addAll((Collection<? extends PrototypeBinding>) newValue);
+			getBindings().addAll(
+					(Collection<? extends PrototypeBinding>) newValue);
 			return;
 		case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL__FEATURE_TYPE:
 			setFeatureType((FeatureType) newValue);

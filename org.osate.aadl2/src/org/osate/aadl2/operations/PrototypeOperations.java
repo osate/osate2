@@ -101,8 +101,8 @@ public class PrototypeOperations extends NamedElementOperations {
 	 * <!-- end-model-doc -->
 	 * @generated
 	 */
-	public static boolean categoryConstraint(Prototype prototype, DiagnosticChain diagnostics,
-			Map<Object, Object> context) {
+	public static boolean categoryConstraint(Prototype prototype,
+			DiagnosticChain diagnostics, Map<Object, Object> context) {
 		if (CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV == null) {
 			OCL.Helper helper = EOCL_ENV.createOCLHelper();
 			helper.setContext(Aadl2Package.eINSTANCE.getPrototype());
@@ -110,20 +110,29 @@ public class PrototypeOperations extends NamedElementOperations {
 				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV = helper
 						.createInvariant(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_EXP);
 			} catch (ParserException pe) {
-				throw new UnsupportedOperationException(pe.getLocalizedMessage());
+				throw new UnsupportedOperationException(
+						pe.getLocalizedMessage());
 			}
 		}
-		if (!EOCL_ENV.createQuery(CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(prototype)) {
+		if (!EOCL_ENV.createQuery(
+				CATEGORY_CONSTRAINT__DIAGNOSTIC_CHAIN_MAP__EOCL_INV).check(
+				prototype)) {
 			if (diagnostics != null) {
-				diagnostics.add(new BasicDiagnostic(Diagnostic.ERROR, Aadl2Validator.DIAGNOSTIC_SOURCE,
-						Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
-						org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
-								.getString(
-										"_UI_GenericInvariant_diagnostic",
-										new Object[] {
-												"categoryConstraint",
-												org.eclipse.emf.ecore.util.EObjectValidator.getObjectLabel(prototype,
-														context) }), new Object[] { prototype }));
+				diagnostics
+						.add(new BasicDiagnostic(
+								Diagnostic.ERROR,
+								Aadl2Validator.DIAGNOSTIC_SOURCE,
+								Aadl2Validator.PROTOTYPE__CATEGORY_CONSTRAINT,
+								org.eclipse.emf.ecore.plugin.EcorePlugin.INSTANCE
+										.getString(
+												"_UI_GenericInvariant_diagnostic",
+												new Object[] {
+														"categoryConstraint",
+														org.eclipse.emf.ecore.util.EObjectValidator
+																.getObjectLabel(
+																		prototype,
+																		context) }),
+								new Object[] { prototype }));
 			}
 			return false;
 		}

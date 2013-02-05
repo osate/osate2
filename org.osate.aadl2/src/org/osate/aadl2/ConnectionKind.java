@@ -181,8 +181,8 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] { ACCESS, FEATURE, FEATURE_GROUP,
-			PARAMETER, PORT, };
+	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] {
+			ACCESS, FEATURE, FEATURE_GROUP, PARAMETER, PORT, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Connection Kind</b></em>' enumerators.
@@ -190,7 +190,8 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ConnectionKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ConnectionKind> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified literal value.

@@ -47,7 +47,8 @@ import org.osate.aadl2.NonListType;
  *
  * @generated
  */
-public abstract class NonListTypeImpl extends PropertyTypeImpl implements NonListType {
+public abstract class NonListTypeImpl extends PropertyTypeImpl implements
+		NonListType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

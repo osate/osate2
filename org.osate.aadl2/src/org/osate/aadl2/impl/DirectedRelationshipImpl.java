@@ -59,7 +59,8 @@ import org.osate.aadl2.Element;
  *
  * @generated
  */
-public abstract class DirectedRelationshipImpl extends RelationshipImpl implements DirectedRelationship {
+public abstract class DirectedRelationshipImpl extends RelationshipImpl
+		implements DirectedRelationship {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -89,17 +90,21 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> sources = (EList<Element>) cache.get(eResource, this,
+			EList<Element> sources = (EList<Element>) cache.get(eResource,
+					this,
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Source());
 			if (sources == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Source(),
-						sources = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE, null));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getDirectedRelationship_Source(),
+						sources = new DerivedUnionEObjectEList<Element>(
+								Element.class, this,
+								Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
+								null));
 			}
 			return sources;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
-				null);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+				Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE, null);
 	}
 
 	/**
@@ -113,17 +118,25 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> relatedElements = (EList<Element>) cache.get(eResource, this,
+			EList<Element> relatedElements = (EList<Element>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getRelationship_RelatedElement());
 			if (relatedElements == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getRelationship_RelatedElement(),
-						relatedElements = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getRelationship_RelatedElement(),
+						relatedElements = new DerivedUnionEObjectEList<Element>(
+								Element.class,
+								this,
+								Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT,
+								RELATED_ELEMENT_ESUBSETS));
 			}
 			return relatedElements;
 		}
 		return new DerivedUnionEObjectEList<Element>(Element.class, this,
-				Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT, RELATED_ELEMENT_ESUBSETS);
+				Aadl2Package.DIRECTED_RELATIONSHIP__RELATED_ELEMENT,
+				RELATED_ELEMENT_ESUBSETS);
 	}
 
 	/**
@@ -134,7 +147,8 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 	 * @generated
 	 * @ordered
 	 */
-	protected static final int[] RELATED_ELEMENT_ESUBSETS = new int[] { Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
+	protected static final int[] RELATED_ELEMENT_ESUBSETS = new int[] {
+			Aadl2Package.DIRECTED_RELATIONSHIP__SOURCE,
 			Aadl2Package.DIRECTED_RELATIONSHIP__TARGET };
 
 	/**
@@ -147,17 +161,21 @@ public abstract class DirectedRelationshipImpl extends RelationshipImpl implemen
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Element> targets = (EList<Element>) cache.get(eResource, this,
+			EList<Element> targets = (EList<Element>) cache.get(eResource,
+					this,
 					Aadl2Package.eINSTANCE.getDirectedRelationship_Target());
 			if (targets == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getDirectedRelationship_Target(),
-						targets = new DerivedUnionEObjectEList<Element>(Element.class, this,
-								Aadl2Package.DIRECTED_RELATIONSHIP__TARGET, null));
+				cache.put(eResource, this, Aadl2Package.eINSTANCE
+						.getDirectedRelationship_Target(),
+						targets = new DerivedUnionEObjectEList<Element>(
+								Element.class, this,
+								Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
+								null));
 			}
 			return targets;
 		}
-		return new DerivedUnionEObjectEList<Element>(Element.class, this, Aadl2Package.DIRECTED_RELATIONSHIP__TARGET,
-				null);
+		return new DerivedUnionEObjectEList<Element>(Element.class, this,
+				Aadl2Package.DIRECTED_RELATIONSHIP__TARGET, null);
 	}
 
 	/**

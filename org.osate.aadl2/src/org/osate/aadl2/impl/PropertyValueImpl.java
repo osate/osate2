@@ -48,7 +48,8 @@ import org.osate.aadl2.PropertyValue;
  *
  * @generated
  */
-public abstract class PropertyValueImpl extends PropertyExpressionImpl implements PropertyValue {
+public abstract class PropertyValueImpl extends PropertyExpressionImpl
+		implements PropertyValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
