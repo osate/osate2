@@ -400,7 +400,7 @@ public class EMLinkingService extends PropertiesLinkingService {
 			if (ebs != null) return ebs;
 		}
 		// this is code to find the error event in the subclause event declaration itself
-		ComponentErrorBehavior ceb = EM2Util.getContainingComponentErrorBehavior(context);
+		ComponentErrorBehavior ceb = EM2Util.getContainingSubclauseComponentErrorBehavior(context);
 		if (ceb != null){
 			EList<ErrorBehaviorEvent> events = ceb.getEvents();
 			if (!events.isEmpty()){
