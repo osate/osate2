@@ -432,7 +432,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING:
-				if(context == grammarAccess.getErrorStateToModeMappingRule()) {
+				if(context == grammarAccess.getElementRule() ||
+				   context == grammarAccess.getErrorStateToModeMappingRule()) {
 					sequence_ErrorStateToModeMapping(context, (ErrorStateToModeMapping) semanticObject); 
 					return; 
 				}

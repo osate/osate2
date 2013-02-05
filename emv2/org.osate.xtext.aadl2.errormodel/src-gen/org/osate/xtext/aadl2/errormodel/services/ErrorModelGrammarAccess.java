@@ -192,6 +192,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cOrlessExpressionParserRuleCall_13 = (RuleCall)cAlternatives.eContents().get(13);
 		private final RuleCall cOutgoingPropagationConditionParserRuleCall_14 = (RuleCall)cAlternatives.eContents().get(14);
 		private final RuleCall cCompositeStateParserRuleCall_15 = (RuleCall)cAlternatives.eContents().get(15);
+		private final RuleCall cErrorStateToModeMappingParserRuleCall_16 = (RuleCall)cAlternatives.eContents().get(16);
 		
 		//Element returns aadl2::Element:
 		//
@@ -201,7 +202,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//	OutgoingPropagationCondition | CompositeState;
+		//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping;
 		public ParserRule getRule() { return rule; }
 
 		//ElementErrorType | TypeToken | TypeTransformation | TypeMapping | ObservablePropagationConnections |
@@ -210,7 +211,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//
 		//ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 		//
-		//OutgoingPropagationCondition | CompositeState
+		//OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ElementErrorType
@@ -260,6 +261,9 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 
 		//CompositeState
 		public RuleCall getCompositeStateParserRuleCall_15() { return cCompositeStateParserRuleCall_15; }
+
+		//ErrorStateToModeMapping
+		public RuleCall getErrorStateToModeMappingParserRuleCall_16() { return cErrorStateToModeMappingParserRuleCall_16; }
 	}
 
 	public class ErrorModelSubclauseElements extends AbstractParserRuleElementFinder {
@@ -3077,7 +3081,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		private final Keyword cOthersKeyword_2 = (Keyword)cAlternatives.eContents().get(2);
 		
-		//BranchValue:
+		//// store real literal as integer, ID as reference to property constant
+		// BranchValue:
 		//
 		//	REAL_LIT | ID | "others";
 		public ParserRule getRule() { return rule; }
@@ -4915,7 +4920,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	//
 	//	ComponentErrorBehavior | CompositeErrorBehavior | ConditionExpression | OrmoreExpression | OrlessExpression |
 	//
-	//	OutgoingPropagationCondition | CompositeState;
+	//	OutgoingPropagationCondition | CompositeState | ErrorStateToModeMapping;
 	public ElementElements getElementAccess() {
 		return (pElement != null) ? pElement : (pElement = new ElementElements());
 	}
@@ -5467,7 +5472,8 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		return getTransitionBranchAccess().getRule();
 	}
 
-	//BranchValue:
+	//// store real literal as integer, ID as reference to property constant
+	// BranchValue:
 	//
 	//	REAL_LIT | ID | "others";
 	public BranchValueElements getBranchValueAccess() {

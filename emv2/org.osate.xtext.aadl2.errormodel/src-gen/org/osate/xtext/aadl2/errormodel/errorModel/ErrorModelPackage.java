@@ -3363,13 +3363,31 @@ public interface ErrorModelPackage extends EPackage
   int ERROR_STATE_TO_MODE_MAPPING = 45;
 
   /**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int ERROR_STATE_TO_MODE_MAPPING__OWNED_ELEMENT = Aadl2Package.ELEMENT__OWNED_ELEMENT;
+
+  /**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+  int ERROR_STATE_TO_MODE_MAPPING__OWNED_COMMENT = Aadl2Package.ELEMENT__OWNED_COMMENT;
+
+  /**
 	 * The feature id for the '<em><b>Error State</b></em>' reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE = 0;
+  int ERROR_STATE_TO_MODE_MAPPING__ERROR_STATE = Aadl2Package.ELEMENT_FEATURE_COUNT + 0;
 
   /**
 	 * The feature id for the '<em><b>Mapped Modes</b></em>' reference list.
@@ -3378,7 +3396,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES = 1;
+  int ERROR_STATE_TO_MODE_MAPPING__MAPPED_MODES = Aadl2Package.ELEMENT_FEATURE_COUNT + 1;
 
   /**
 	 * The number of structural features of the '<em>Error State To Mode Mapping</em>' class.
@@ -3387,7 +3405,7 @@ public interface ErrorModelPackage extends EPackage
 	 * @generated
 	 * @ordered
 	 */
-  int ERROR_STATE_TO_MODE_MAPPING_FEATURE_COUNT = 2;
+  int ERROR_STATE_TO_MODE_MAPPING_FEATURE_COUNT = Aadl2Package.ELEMENT_FEATURE_COUNT + 2;
 
   /**
 	 * The meta object id for the '{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.CompositeErrorBehaviorImpl <em>Composite Error Behavior</em>}' class.

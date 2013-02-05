@@ -373,7 +373,18 @@ public class EM2Util {
 			container = container.eContainer();
 		return (ErrorModelSubclause) container;
 	}
+
 	
+	/**
+	 * get containing component error behavior specification
+	 * @param element
+	 * @return ComponentErrorBehavior or null
+	 */
+	public static ComponentErrorBehavior getContainingSubclauseComponentErrorBehavior(EObject element){
+		ErrorModelSubclause emsc = getContainingErrorAnnexSubclause(element);
+		return (ComponentErrorBehavior) emsc.getComponentBehavior();
+	}
+
 	/**
 	 * get containing component error behavior specification
 	 * @param element

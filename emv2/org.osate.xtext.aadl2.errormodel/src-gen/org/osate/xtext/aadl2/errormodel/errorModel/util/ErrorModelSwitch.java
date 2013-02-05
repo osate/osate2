@@ -443,6 +443,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
 			case ErrorModelPackage.ERROR_STATE_TO_MODE_MAPPING: {
 				ErrorStateToModeMapping errorStateToModeMapping = (ErrorStateToModeMapping)theEObject;
 				T result = caseErrorStateToModeMapping(errorStateToModeMapping);
+				if (result == null) result = caseElement(errorStateToModeMapping);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}

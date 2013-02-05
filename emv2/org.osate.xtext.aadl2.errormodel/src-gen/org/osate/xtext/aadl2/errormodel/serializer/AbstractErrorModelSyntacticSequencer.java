@@ -119,7 +119,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	
 	/**
 	 * Syntax:
-	 *     '+' | '*'
+	 *     '*' | '+'
 	 */
 	protected void emit_TypeToken_AsteriskKeyword_3_0_1_or_PlusSignKeyword_3_0_0(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

@@ -48,7 +48,7 @@ ElementErrorType|TypeToken
 |ConditionElement|ConnectionTransformation
 |	ComponentErrorBehavior | CompositeErrorBehavior
 |ConditionExpression|OrmoreExpression|OrlessExpression|OutgoingPropagationCondition
-|CompositeState	
+|CompositeState	|ErrorStateToModeMapping
 ;
 
 
@@ -302,7 +302,7 @@ ErrorBehaviorTransition returns ErrorBehaviorTransition:
 TransitionBranch returns TransitionBranch:  
 	((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)| mask?='mask') 'with' value=BranchValue
 ;
-
+// store real literal as integer, ID as reference to property constant
 BranchValue : 
   REAL_LIT | ID | 'others';
 

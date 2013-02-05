@@ -6,6 +6,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 
 /**
@@ -25,7 +26,7 @@ import org.osate.aadl2.Mode;
  * @model
  * @generated
  */
-public interface ErrorStateToModeMapping extends EObject
+public interface ErrorStateToModeMapping extends EObject, Element
 {
   /**
 	 * Returns the value of the '<em><b>Error State</b></em>' reference.
