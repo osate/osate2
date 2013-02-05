@@ -69,6 +69,7 @@ import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -793,6 +794,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
+		OsateDebug.osateDebug("[ConnectionImpl] acceptsProperty" + property);
+
 		for (ConnectionReference ref : getConnectionReferences()) {
 			Connection conn = ref.getConnection();
 			if (conn.acceptsProperty(property)) {

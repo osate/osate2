@@ -128,4 +128,6 @@ public interface IAadlProject extends IAadlElement {
 
 	/** Get all the model files in the project, both declarative and instance. */
 	EList<IFile> getAllModelFiles();
+	
+	public String getAadlProjectFile ();
 }

@@ -54,6 +54,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
@@ -66,6 +67,7 @@ import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -494,6 +496,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
 		for (PropertyAssociation pa : pas) {
+//			OsateDebug.osateDebug("pa" + pa);
 			vals.add(pa.evaluate(ctx));
 			if (!pa.isAppend())
 				break;
@@ -512,13 +515,17 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	public final void getPropertyValueInternal(EvaluationContext ctx, final PropertyAcc paa)
 			throws InvalidModelException {
 		InstanceObject io = ctx.getInstanceObject();
+//		OsateDebug.osateDebug("here1 " + io + paa);
 
 		/*
 		 * Only relevant for connection instances
 		 */
 		if (ctx.getSCProp() != null) {
 			if (paa.add(ctx.getSCProp()))
+			{
+
 				return;
+			}
 		}
 		/*
 		 * First see if the property is defined locally in the instance. Such
@@ -527,7 +534,8 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		 * setting of the property, or as cached results from earlier property
 		 * lookups.
 		 */
-		if (paa.addLocal(io)) {
+		if (paa.addLocal(io)) 
+		{
 			return;
 		}
 
@@ -553,8 +561,9 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		InstanceObject io = ctx.getInstanceObject();
 		List<? extends NamedElement> compDecls = io.getInstantiatedObjects();
 		// FIXME: compDecls == null for connection instances
+		//OsateDebug.osateDebug("[PropertyImpl] getPropertyValueFromDeclarativeModel" + compDecls);
+
 		if (compDecls == null) {
-			return;
 		}
 		// Here we assume compDecls is empty or has only one element
 		if (!compDecls.isEmpty()) {
@@ -564,13 +573,20 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			}
 			InstantiatedClassifier ic = ctx.getClassifierCache().get(io);
 			Classifier cl = (ic == null) ? null : ic.classifier;
+//			OsateDebug.osateDebug("compDecls" + compDecl);
+
 			if (compDecl instanceof Subcomponent) {
 				((SubcomponentImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof FeatureGroup) {
 				((FeatureGroupImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof Feature) {
 				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl);
-			} else {
+			} 
+			else if (compDecl instanceof PortConnection) {
+				((PortConnectionImpl) compDecl).getPropertyValue(this, pas);
+				
+			}
+			else {
 				compDecl.getPropertyValueInternal(this, pas, true);
 			}
 		}

@@ -84,12 +84,13 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
 		//final EList<Classifier> list = new BasicEList<Classifier>();
-		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>( Classifier.class, this, Aadl2Package.STRUCTURAL_FEATURE__FEATURING_CLASSIFIER );
-		
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
+				Aadl2Package.STRUCTURAL_FEATURE__FEATURING_CLASSIFIER);
+
 		final Classifier contClassifier = getContainingClassifier();
-		
-		if ( contClassifier != null ) {
-			list.add( contClassifier );
+
+		if (contClassifier != null) {
+			list.add(contClassifier);
 		}
 
 		return list;

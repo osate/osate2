@@ -47,7 +47,7 @@ property set SEI is
   -- time to execute one processor cycle
   -- Used to convert execution time into processor cycles
   -- default cycle time of a 1 GHz processor
-  cycle_time: Time => 1000 ps applies to (processor);
+  cycle_time: Time  applies to (processor);
   -- If reference_proc is specified that the specified processor is used as reference processor 
   -- instead of the above constant
   reference_processor: inherit classifier(processor) applies to (thread, thread group, process, system, device);
@@ -78,9 +78,9 @@ property set SEI is
   -- power supply by a component
   PowerSupply: aadlreal  units SEI::Power_Units applies to (bus access);
   -- capacity of a bus component for transfer of data
-  BandWidthCapacity: aadlreal  units SEI::Data_Volume_Units applies to (bus, system);
+  BandWidthCapacity: aadlreal  units Data_Volume_Units applies to (bus, system);
   -- demand for data transfer by a connection
-  BandWidthBudget: aadlreal  units SEI::Data_Volume_Units applies to (connection);
+  BandWidthBudget: aadlreal  units Data_Volume_Units applies to (connection);
   -- actual RAM requirement by application component
   -- This number may be supplied from a compiler when compiling the source
   -- This number is related to the Source_Code_Size and Source_Data_Size properties
@@ -93,7 +93,7 @@ property set SEI is
   -- Power units
   Power_Units: type units (mW, W => mW * 1000, KW => W * 1000);
   -- Data volume units : amount of data per second
-  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
+-- now defined in core  Data_Volume_Units: type units (bitsps, Bps => bitsps * 8, Kbps => Bps * 1000, Mbps => Kbps * 1000, Gbps => Mbps * 1000);
   
   Data_Rate : aadlreal applies to (port);
   

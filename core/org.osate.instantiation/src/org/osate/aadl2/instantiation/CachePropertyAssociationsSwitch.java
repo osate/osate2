@@ -54,6 +54,8 @@ import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.impl.EnumerationLiteralImpl;
+import org.osate.aadl2.impl.NamedValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -77,27 +79,30 @@ import org.osate.aadl2.util.OsateDebug;
  */
 class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	private List<Property> propertyFilter;
-//	private SystemInstance root;
 
 	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	final private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/*
 	 * The cache of contained property associations that apply to semantic
 	 * connections.
 	 */
-	private SCProperties scProps;
+	final private SCProperties scProps;
 
-	CachePropertyAssociationsSwitch(IProgressMonitor pm, AnalysisErrorReporterManager errManager, SystemInstance si,
-			List<Property> filter, HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
-			SCProperties scProps, HashMap<ModeInstance, List<SystemOperationMode>> mode2som) {
+	CachePropertyAssociationsSwitch
+			(final IProgressMonitor pm, 
+			 final AnalysisErrorReporterManager errManager, 
+			 final List<Property> filter, 
+			 final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			 final SCProperties scProps, 
+			 final HashMap<ModeInstance,List<SystemOperationMode>> mode2som) 
+	{
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		propertyFilter = filter;
-//		root = si;
 		this.classifierCache = classifierCache;
 		this.scProps = scProps;
 		this.mode2som = mode2som;
@@ -106,13 +111,19 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	protected void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
 			@Override
-			public String caseComponentInstance(ComponentInstance ci) {
-				if (ci instanceof SystemInstance) {
-					int size = ((SystemInstance) ci).getSystemImplementation().getOwnedPropertyAssociations().size();
+			public String caseComponentInstance(final ComponentInstance ci) 
+			{
+				final int size;
+				if (ci instanceof SystemInstance) 
+				{
+					size = ((SystemInstance) ci).getSystemImplementation().getOwnedPropertyAssociations().size();
 					monitor.subTask("Caching " + size + " property associations");
-				} else if (ci.getContainingComponentInstance() instanceof SystemInstance) {
+				}
+				else if (ci.getContainingComponentInstance() instanceof SystemInstance) 
+				{
 					monitor.subTask("Caching property associations in " + ci.getName());
 				}
+
 				cachePropertyAssociations(ci);
 				return DONE;
 			}
@@ -158,19 +169,25 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					List<EvaluatedProperty> value = property.evaluate(new EvaluationContext(io, classifierCache));
 					//OsateDebug.osateDebug ("   value=" + value);
 
-					if (!value.isEmpty()) {
+					if (!value.isEmpty()) 
+					{
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
 
 						io.removePropertyAssociations(property);
 						pa.setProperty(property);
 						fillPropertyValue(io, pa, value);
 					}
-				} catch (IllegalStateException e) {
+				} 
+				catch (IllegalStateException e) {
 					// circular dependency
 					// xxx: this is a misleading place to put the marker
+					System.out.println ("IllegalStateException raised in cachePropertyAssociations");
 					error(io, e.getMessage());
-				} catch (InvalidModelException e) {
-					
+				} 
+				catch (InvalidModelException e) 
+				{
+					System.out.println ("InvalidModelException raised in cachePropertyAssociations");
+
 					error(e.getElement(), e.getMessage());
 				}
 			}
@@ -181,21 +198,29 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 			checkIfCancelled();
 			if (cancelled())
+			{
 				break;
+			}
 		}
 	}
 
-	protected void cacheConnectionPropertyAssociations(ConnectionInstance conni) {
-		for (Property prop : propertyFilter) {
+	protected void cacheConnectionPropertyAssociations(final ConnectionInstance conni) 
+	{
+		for (Property prop : propertyFilter) 
+		{
 			PropertyAssociation setPA = null;
 
 			PropertyExpression defaultvalue = prop.getDefaultValue();
-			if (defaultvalue instanceof NamedValue){
+			/*
+			 * JD: comment this block since it seems useless
+			if (defaultvalue instanceof NamedValue)
+			{
 				AbstractNamedValue val = ((NamedValue)defaultvalue).getNamedValue();
 				if (val instanceof NamedElement){
 					
 				}
 			}
+			*/
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				// acceptance test of connref tests connection itself
 				if (connRef.acceptsProperty(prop)) {
@@ -206,30 +231,74 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 * corrects reference values to instance reference values.
 					 */
 					try {
-						List<EvaluatedProperty> value = prop.evaluate(new EvaluationContext(connRef, classifierCache,
-								scProps.retrieveSCProperty(conni, prop, connRef.getConnection())));
+						//OsateDebug.osateDebug("try" + prop);
+						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache,
+								scProps.retrieveSCProperty(conni, prop, connRef.getConnection()));
+						List<EvaluatedProperty> value = prop.evaluate(ctx);
+
 
 						if (!value.isEmpty()) {
+
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 							newPA.setProperty(prop);
 							fillPropertyValue(connRef, newPA, value);
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
-							if (setPA == null) {
-								conni.getOwnedPropertyAssociations().add(newPA);
+							if (setPA == null) 
+							{
+						//		OsateDebug.osateDebug("null" +  newPA);
+
 								setPA = newPA;
-							} else {
+							} 
+							else 
+							{
+						//		OsateDebug.osateDebug("here1" );
+
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m))){
-										//  this comparison return inequality even if the two proeprty values are the same. They are
-										// enumeration literals kept in a NameValue object and there are two isntances of the NemdValue object pointing to the same literal
+						//			OsateDebug.osateDebug("here2" );
+
+									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
+									{
+										//  this comparison return inequality even if the two property values are the same. They are
+										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the same literal
 										// The second issue is that evaluate may return the default value for the property, which may be different from the assigned value.
-										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue)) {
-											// TODO Fix
-//											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
-//													+ " not consistent along connection");
+										
+										/*
+										 * JD
+										 * Used to fix bug #158
+										 */
+										if ((newPA.valueInMode(m) instanceof NamedValueImpl) &&
+											(setPA.valueInMode(m) instanceof NamedValueImpl))
+										{
+											
+											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m); 
+											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m); 
+
+								//			OsateDebug.osateDebug("nvi1=" + nvi1);
+								//			OsateDebug.osateDebug("nvi2=" + nvi2);
+
+											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl) &&
+											    (nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
+											{
+												EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1.getNamedValue();
+												EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2.getNamedValue();
+												if (ei1.getName() == ei2.getName())
+												{
+													
+													continue;
+												}
+
+											}
+								//			OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] " + (((NamedValueImpl)newPA.valueInMode(m)).getNamedValue()));
+										}
+										
+										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue))
+										{
+											
+											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
+													+ " not consistent along connection");
 											break;
 										}
 									}
@@ -240,13 +309,19 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 						// circular dependency
 						// xxx: this is a misleading place to put the marker
 						error(conni, e.getMessage());
+						System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
+
 					} catch (InvalidModelException e) {
 						error(e.getElement(), e.getMessage());
+						System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
+
 					}
 				}
 				checkIfCancelled();
 				if (cancelled())
+				{
 					break;
+				}
 			}
 		}
 	}
@@ -254,17 +329,24 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
 		Iterator<EvaluatedProperty> valueIter = values.iterator();
 		EvaluatedProperty value = valueIter.next();
+		//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue on " + io);
+		for (MpvProxy proxy : value.getProxies()) 
+		{
+			//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue proxy= " + proxy);
+			//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue values= " + values);
 
-		for (MpvProxy proxy : value.getProxies()) {
 			ModalPropertyValue newVal = Aadl2Factory.eINSTANCE.createModalPropertyValue();
 			List<SystemOperationMode> inSOMs = new ArrayList<SystemOperationMode>();
 
 			newVal.setOwnedValue(EcoreUtil.copy(proxy.getValue()));
 			// process list appends
-			while (valueIter.hasNext()) {
+			while (valueIter.hasNext()) 
+			{
 				MpvProxy prx = valueIter.next().getProxies().get(0);
+				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue prx= " + prx);
 
-				if (prx.isModal()) {
+				if (prx.isModal()) 
+				{
 					throw new InvalidModelException(pa, "Trying to append to a modal list value");
 				}
 				PropertyExpression lexp = EcoreUtil.copy(prx.getValue());
@@ -272,40 +354,63 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 				((ListValue) newVal.getOwnedValue()).getOwnedListElements().addAll(0, elems);
 			}
-			if (!proxy.isModal()) {
+			if (!proxy.isModal()) 
+			{
+				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;pa=" + pa + "add=" + newVal);
+				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
+
 				pa.getOwnedValues().add(newVal);
-			} else {
+				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
+
+			} 
+			else 
+			{
 				List<Mode> modes = proxy.getModes();
 
-				for (Mode mode : modes) {
-					if (mode instanceof SystemOperationMode) {
-						inSOMs.add((SystemOperationMode) mode);
-					} else {
+				for (Mode mode : modes) 
+				{
+					//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] mode=" + mode);
 
-						if (io instanceof ConnectionReference) {
+					if (mode instanceof SystemOperationMode) 
+					{
+						inSOMs.add((SystemOperationMode) mode);
+					} 
+					else 
+					{
+
+						if (io instanceof ConnectionReference) 
+						{
 							List<SystemOperationMode> conniModes = ((ConnectionInstance) io.eContainer())
 									.getInSystemOperationModes();
-							if (conniModes.isEmpty()) {
+							if (conniModes.isEmpty()) 
+							{
 								conniModes = io.getSystemInstance().getSystemOperationModes();
 							}
 							List<ModeInstance> holderModes = ((ConnectionReference) io).getContext().getModeInstances();
 
-							for (ModeInstance mi : holderModes) {
-								if (mi.getMode() == mode) {
-									for (SystemOperationMode som : conniModes) {
-										if (som.getCurrentModes().contains(mi)) {
+							for (ModeInstance mi : holderModes) 
+							{
+								if (mi.getMode() == mode) 
+								{
+									for (SystemOperationMode som : conniModes) 
+									{
+										if (som.getCurrentModes().contains(mi)) 
+										{
 											inSOMs.add(som);
 										}
 									}
 									break;
 								}
 							}
-						} else {
+						} else 
+						{
 							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
 									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
 
-							for (ModeInstance mi : holderModes) {
-								if (mi.getMode() == mode) {
+							for (ModeInstance mi : holderModes) 
+							{
+								if (mi.getMode() == mode) 
+								{
 									inSOMs.addAll(mode2som.get(mi));
 									break;
 								}

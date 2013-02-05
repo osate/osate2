@@ -259,8 +259,9 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
 		// DB This should be an EStructuralFeature.Setting
-		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>( Classifier.class, this, Aadl2Package.CONNECTION__FEATURING_CLASSIFIER );
-//		BasicEList<Classifier> list = new BasicEList<Classifier>();
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(Classifier.class, this,
+				Aadl2Package.CONNECTION__FEATURING_CLASSIFIER);
+		//		BasicEList<Classifier> list = new BasicEList<Classifier>();
 		list.add(getContainingClassifier());
 		return list;
 	}

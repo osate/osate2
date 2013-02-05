@@ -196,9 +196,9 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 	 */
 	public EList<Mode> getInModes() {
 		// DONE: implement this method to return the 'In Mode' reference list
-//		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
+		//		EList<Mode> inModes = new BasicInternalEList<Mode>(Mode.class);
 		// DB This should be an EStructuralFeature.Setting
-		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>( Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE );
+		EList<Mode> inModes = new NonNotifyingEObjectEList<Mode>(Mode.class, this, Aadl2Package.SUBCOMPONENT__IN_MODE);
 		// XXX the resolving EList was notifying the Thread subcomponent of a
 		// change to In_Modes
 		// which recursively caused the thread subcomponent notify itself

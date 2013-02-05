@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="ASCII"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_VoQWUBsPEd6jfqy49TIEhQ">
-  <model href="AADL2.EMF.merged.uml#_0"/>
-  <diagrams xmi:id="_VoQWURsPEd6jfqy49TIEhQ" position="0,0" size="100,100" name="No name" viewport="0,0">
-    <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_VoQWUhsPEd6jfqy49TIEhQ" presentation="org.topcased.modeler.uml.classdiagram">
-      <element href="AADL2.EMF.merged.uml#_0"/>
-    </semanticModel>
-  </diagrams>
-</diagrams:Diagrams>

@@ -163,7 +163,8 @@ public final class MarkerAnalysisErrorReporter extends AbstractAnalysisErrorRepo
 			this(mt, null);
 		}
 		
-		public AnalysisErrorReporter getReporterFor(final Resource rsrc) {
+		public AnalysisErrorReporter getReporterFor(final Resource rsrc)
+		{
 			if (rsrc == null) {
 				throw new IllegalArgumentException("Cannot create a MarkerAnalysisErrorReporter when the Resource is null");
 			}
