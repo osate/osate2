@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_iSauoHA6EdyCUOsiX56NUw" activeDiagram="_ujOfcMuAEdyg4Zl36HDwZA">
+<diagrams:Diagrams xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.topcased.org/DI/1.0" xmlns:diagrams="http://www.topcased.org/Diagrams/1.0" xmi:id="_iSauoHA6EdyCUOsiX56NUw" activeDiagram="_X7_FcLbuEeCFTe7PfIxrcw">
   <model href="AADLDetails.uml#_0"/>
   <diagrams xmi:id="_iSauoXA6EdyCUOsiX56NUw" position="0,0" size="100,100" name="Packages" viewport="0,0">
     <property xmi:id="_iTdQcHA6EdyCUOsiX56NUw" key="pageFormatName" value="A4"/>
@@ -11699,7 +11699,7 @@
         </contained>
       </contained>
     </diagrams>
-    <diagrams xmi:id="_X7_FcLbuEeCFTe7PfIxrcw" position="0,0" size="100,100" name="Access Features" viewport="0,0">
+    <diagrams xmi:id="_X7_FcLbuEeCFTe7PfIxrcw" position="0,0" size="100,100" name="Access Features" viewport="0,24">
       <property xmi:id="_X7_FcbbuEeCFTe7PfIxrcw" key="pageFormatName" value="A4"/>
       <property xmi:id="_X7_FcrbuEeCFTe7PfIxrcw" key="diagramWidth" value="840"/>
       <property xmi:id="_X7_Fc7buEeCFTe7PfIxrcw" key="diagramHeight" value="1188"/>
@@ -11713,7 +11713,7 @@
         <element href="AADLDetails.uml#Features"/>
       </semanticModel>
       <contained xsi:type="di:GraphNode" xmi:id="_X7_sgLbuEeCFTe7PfIxrcw" position="41,125" size="80,-1">
-        <anchorage xmi:id="_X7_sgbbuEeCFTe7PfIxrcw" graphEdge="_X7_spLbuEeCFTe7PfIxrcw _X7_s5rbuEeCFTe7PfIxrcw"/>
+        <anchorage xmi:id="_X7_sgbbuEeCFTe7PfIxrcw" graphEdge="_X7_spLbuEeCFTe7PfIxrcw _X7_s5rbuEeCFTe7PfIxrcw _rHgSEW-1EeKNEravTpGuAw"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_X7_sgrbuEeCFTe7PfIxrcw" presentation="default">
           <element href="AADLDetails.uml#Features-BusAccess"/>
         </semanticModel>
@@ -11984,6 +11984,30 @@
           <element href="AADLDetails.uml#_XS8TALbvEeCFTe7PfIxrcw"/>
         </semanticModel>
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_XSJo0rbvEeCFTe7PfIxrcw" id="stereotypeEdgeObject"/>
+      </contained>
+      <contained xsi:type="di:GraphNode" xmi:id="_h67NwG-1EeKNEravTpGuAw" position="33,30" size="78,-1">
+        <anchorage xmi:id="_rHgSEG-1EeKNEravTpGuAw" graphEdge="_rHgSEW-1EeKNEravTpGuAw"/>
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_h67NwW-1EeKNEravTpGuAw" presentation="default">
+          <element href="AADLDetails.uml#Components-Bus-Bus"/>
+        </semanticModel>
+        <contained xsi:type="di:GraphNode" xmi:id="_h67Nwm-1EeKNEravTpGuAw">
+          <property xmi:id="_h67Nw2-1EeKNEravTpGuAw" key="eStructuralFeatureID" value="37"/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_h67NxG-1EeKNEravTpGuAw" presentation="default">
+            <element href="AADLDetails.uml#Components-Bus-Bus"/>
+          </semanticModel>
+        </contained>
+        <contained xsi:type="di:GraphNode" xmi:id="_h67NxW-1EeKNEravTpGuAw">
+          <property xmi:id="_h67Nxm-1EeKNEravTpGuAw" key="eStructuralFeatureID" value="47 50 "/>
+          <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_h67Nx2-1EeKNEravTpGuAw" presentation="default">
+            <element href="AADLDetails.uml#Components-Bus-Bus"/>
+          </semanticModel>
+        </contained>
+      </contained>
+      <contained xsi:type="di:GraphEdge" xmi:id="_rHgSEW-1EeKNEravTpGuAw" anchor="_X7_sgbbuEeCFTe7PfIxrcw _rHgSEG-1EeKNEravTpGuAw">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_rHgSEm-1EeKNEravTpGuAw" presentation="default"/>
+        <contained xsi:type="di:EdgeObjectOffset" xmi:id="_rHgSE2-1EeKNEravTpGuAw" id="stereotypeEdgeObject"/>
+        <waypoints>[0, 10, 9, 96]</waypoints>
+        <waypoints>[-9, 10, 0, 96]</waypoints>
       </contained>
     </diagrams>
   </subdiagrams>
