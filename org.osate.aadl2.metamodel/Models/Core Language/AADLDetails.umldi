@@ -11713,7 +11713,7 @@
         <element href="AADLDetails.uml#Features"/>
       </semanticModel>
       <contained xsi:type="di:GraphNode" xmi:id="_X7_sgLbuEeCFTe7PfIxrcw" position="41,125" size="80,-1">
-        <anchorage xmi:id="_X7_sgbbuEeCFTe7PfIxrcw" graphEdge="_X7_spLbuEeCFTe7PfIxrcw _X7_s5rbuEeCFTe7PfIxrcw _rHgSEW-1EeKNEravTpGuAw"/>
+        <anchorage xmi:id="_X7_sgbbuEeCFTe7PfIxrcw" graphEdge="_X7_spLbuEeCFTe7PfIxrcw _X7_s5rbuEeCFTe7PfIxrcw _0Hkq8G_iEeK4otgL7jFb4g"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_X7_sgrbuEeCFTe7PfIxrcw" presentation="default">
           <element href="AADLDetails.uml#Features-BusAccess"/>
         </semanticModel>
@@ -11986,7 +11986,7 @@
         <contained xsi:type="di:EdgeObjectOffset" xmi:id="_XSJo0rbvEeCFTe7PfIxrcw" id="stereotypeEdgeObject"/>
       </contained>
       <contained xsi:type="di:GraphNode" xmi:id="_h67NwG-1EeKNEravTpGuAw" position="33,30" size="78,-1">
-        <anchorage xmi:id="_rHgSEG-1EeKNEravTpGuAw" graphEdge="_rHgSEW-1EeKNEravTpGuAw"/>
+        <anchorage xmi:id="_0HekUG_iEeK4otgL7jFb4g" graphEdge="_0Hkq8G_iEeK4otgL7jFb4g"/>
         <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_h67NwW-1EeKNEravTpGuAw" presentation="default">
           <element href="AADLDetails.uml#Components-Bus-Bus"/>
         </semanticModel>
@@ -12003,11 +12003,11 @@
           </semanticModel>
         </contained>
       </contained>
-      <contained xsi:type="di:GraphEdge" xmi:id="_rHgSEW-1EeKNEravTpGuAw" anchor="_X7_sgbbuEeCFTe7PfIxrcw _rHgSEG-1EeKNEravTpGuAw">
-        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_rHgSEm-1EeKNEravTpGuAw" presentation="default"/>
-        <contained xsi:type="di:EdgeObjectOffset" xmi:id="_rHgSE2-1EeKNEravTpGuAw" id="stereotypeEdgeObject"/>
-        <waypoints>[0, 10, 9, 96]</waypoints>
-        <waypoints>[-9, 10, 0, 96]</waypoints>
+      <contained xsi:type="di:GraphEdge" xmi:id="_0Hkq8G_iEeK4otgL7jFb4g" anchor="_X7_sgbbuEeCFTe7PfIxrcw _0HekUG_iEeK4otgL7jFb4g">
+        <semanticModel xsi:type="di:EMFSemanticModelBridge" xmi:id="_0Hkq8W_iEeK4otgL7jFb4g" presentation="default">
+          <element href="AADLDetails.uml#_0Hkq82_iEeK4otgL7jFb4g"/>
+        </semanticModel>
+        <contained xsi:type="di:EdgeObjectOffset" xmi:id="_0Hkq8m_iEeK4otgL7jFb4g" id="stereotypeEdgeObject"/>
       </contained>
     </diagrams>
   </subdiagrams>
