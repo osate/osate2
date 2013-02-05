@@ -207,12 +207,12 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
-				OsateDebug.osateDebug ("   cpes=" + cpes);
+				//OsateDebug.osateDebug ("   cpes=" + cpes);
 
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-					OsateDebug.osateDebug ("   ios=" + ios);
+					//OsateDebug.osateDebug ("   ios=" + ios);
 					for (InstanceObject io : ios) {
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 

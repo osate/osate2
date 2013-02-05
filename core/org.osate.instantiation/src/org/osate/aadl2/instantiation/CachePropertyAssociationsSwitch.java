@@ -358,8 +358,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			{
 				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;pa=" + pa + "add=" + newVal);
 				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
-				EvaluatedProperty toto = values.get(0);
-				newVal.setOwnedValue(toto.first().getValue());
+
 				pa.getOwnedValues().add(newVal);
 				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
 
