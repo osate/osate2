@@ -857,10 +857,14 @@ public class PropertyUtils {
 	 public static PropertyExpression getSimplePropertyListValue(final NamedElement ph, final Property pd)
 			throws InvalidModelException, PropertyNotPresentException, PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException, PropertyIsListException {
- 		if (ph == null) {
+ 		
+		 PropertyExpression res;
+		 if (ph == null) {
 			throw new IllegalArgumentException("NamedElement ph cannot be null.");
 		}
-		PropertyExpression res = ph.getSimplePropertyValue(pd);
+
+		res = ph.getSimplePropertyValue(pd);
+	
 		if (res instanceof NamedValue){
 			AbstractNamedValue nv = ((NamedValue)res).getNamedValue();
 			if (nv instanceof Property){
