@@ -252,7 +252,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 * corrects reference values to instance reference values.
 					 */
 					try {
-						OsateDebug.osateDebug("try" + prop);
+						//OsateDebug.osateDebug("try" + prop);
 						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache,
 								scProps.retrieveSCProperty(conni, prop, connRef.getConnection()));
 						List<EvaluatedProperty> value = prop.evaluate(ctx);
@@ -280,7 +280,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
 									OsateDebug.osateDebug("here2" );
-
+								//	List<PropertyExpression> l = new ArrayList<PropertyExpression>();
+//l.add( newPA.valueInMode(m));
+//conni.setPropertyValue(prop, l);
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
 									{
 										//  this comparison return inequality even if the two property values are the same. They are
