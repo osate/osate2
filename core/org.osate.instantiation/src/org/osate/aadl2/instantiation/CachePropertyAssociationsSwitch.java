@@ -157,6 +157,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		
 		for (Property property : propertyFilter) {
 			//OsateDebug.osateDebug  ("   property=" + property);
+			//OsateDebug.osateDebug  ("   filter=" + propertyFilter);
+
 			if (io.acceptsProperty(property))
 			{
 				/*
@@ -206,6 +208,15 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected void cacheConnectionPropertyAssociations(final ConnectionInstance conni) 
 	{
+		int nConnRefs = 0; // The number of connection reference for a connection instance
+		/*
+		 *  The number of use of the property on the connection references.
+		 *  So, we can check that the property is defined on all connection
+		 *  references by checking that nConnRefsUseProperty == nConnRefs
+		 */
+		int nConnRefsUseProperty = 0; 
+		
+		
 		for (Property prop : propertyFilter) 
 		{
 			PropertyAssociation setPA = null;
@@ -221,8 +232,18 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				}
 			}
 			*/
-			for (ConnectionReference connRef : conni.getConnectionReferences()) {
+			nConnRefs = conni.getConnectionReferences().size();
+			nConnRefsUseProperty = 0;
+			for (ConnectionReference connRef : conni.getConnectionReferences())
+			{
 				// acceptance test of connref tests connection itself
+				
+				/*
+				 * In the following piece of code, we check that a property
+				 * is consistent all along the connection reference.
+				 * For example, we check that the timing property (immediate, delayed)
+				 * is consistent for each connection.
+				 */
 				if (connRef.acceptsProperty(prop)) {
 					/*
 					 * Just look up the property. The property doesn't yet have
@@ -231,14 +252,15 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 * corrects reference values to instance reference values.
 					 */
 					try {
-						//OsateDebug.osateDebug("try" + prop);
+						OsateDebug.osateDebug("try" + prop);
 						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache,
 								scProps.retrieveSCProperty(conni, prop, connRef.getConnection()));
 						List<EvaluatedProperty> value = prop.evaluate(ctx);
 
 
-						if (!value.isEmpty()) {
-
+						if (!value.isEmpty()) 
+						{
+							nConnRefsUseProperty++;
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 							newPA.setProperty(prop);
@@ -253,11 +275,11 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							} 
 							else 
 							{
-						//		OsateDebug.osateDebug("here1" );
+								OsateDebug.osateDebug("here1" );
 
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-						//			OsateDebug.osateDebug("here2" );
+									OsateDebug.osateDebug("here2" );
 
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
 									{
@@ -276,8 +298,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m); 
 											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m); 
 
-								//			OsateDebug.osateDebug("nvi1=" + nvi1);
-								//			OsateDebug.osateDebug("nvi2=" + nvi2);
+											OsateDebug.osateDebug("nvi1=" + nvi1);
+											OsateDebug.osateDebug("nvi2=" + nvi2);
 
 											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl) &&
 											    (nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
@@ -305,6 +327,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								}
 							}
 						}
+						else
+						{
+							OsateDebug.osateDebug("here warning");
+							/*
+							 * This else block means that the value is empty
+							 */
+
+						}
 					} catch (IllegalStateException e) {
 						// circular dependency
 						// xxx: this is a misleading place to put the marker
@@ -323,6 +353,19 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					break;
 				}
 			}
+			
+			/*
+			 * In the following, we check that the property was defined
+			 * on all connection references of the connection instance.
+			 * If not, we put a warning in the connection instance itself.
+			 */
+			if ( (setPA != null) && (nConnRefsUseProperty < nConnRefs))
+			{
+				warning(conni, "The property " + setPA.getProperty().getQualifiedName()
+						+ " should be defined on each connection reference");
+				break;
+			}
+			
 		}
 	}
 
