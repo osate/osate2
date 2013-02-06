@@ -794,7 +794,7 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
-		OsateDebug.osateDebug("[ConnectionImpl] acceptsProperty" + property);
+		//OsateDebug.osateDebug("[ConnectionInstanceImpl] acceptsProperty" + property);
 
 		for (ConnectionReference ref : getConnectionReferences()) {
 			Connection conn = ref.getConnection();
