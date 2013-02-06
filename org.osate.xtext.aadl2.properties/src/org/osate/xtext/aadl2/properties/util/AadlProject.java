@@ -1,7 +1,7 @@
 /*
  *
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -40,7 +40,7 @@
 package org.osate.xtext.aadl2.properties.util;
 
 /**
- * @author aarong
+ * @author aarong, julien
  */
 public final class AadlProject {
 	private AadlProject() {
@@ -113,6 +113,13 @@ public final class AadlProject {
 	public static final String MB_LITERAL = "MByte";
 	public static final String GB_LITERAL = "GByte";
 
+	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
+	public static final String BITSPS_LITERAL = "bitsps";
+	public static final String BPS_LITERAL = "BPS";
+	public static final String KBPS_LITERAL = "KBPS";
+	public static final String MBPS_LITERAL = "MBPS";
+	public static final String GBPS_LITERAL = "GBPS";
+	
 	public static final String TIME_UNITS = "Time_Units";
 	public static final String PS_LITERAL = "ps";
 	public static final String NS_LITERAL = "Ns";
