@@ -112,13 +112,13 @@ public final class AadlProject {
 	public static final String KB_LITERAL = "KByte";
 	public static final String MB_LITERAL = "MByte";
 	public static final String GB_LITERAL = "GByte";
-
+	
 	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
 	public static final String BITSPS_LITERAL = "bitsps";
-	public static final String BPS_LITERAL = "BPS";
-	public static final String KBPS_LITERAL = "KBPS";
-	public static final String MBPS_LITERAL = "MBPS";
-	public static final String GBPS_LITERAL = "GBPS";
+	public static final String BPS_LITERAL = "Bytesps";
+	public static final String KBPS_LITERAL = "KBytesps";
+	public static final String MBPS_LITERAL = "MBytesps";
+	public static final String GBPS_LITERAL = "GBytesps";
 	
 	public static final String TIME_UNITS = "Time_Units";
 	public static final String PS_LITERAL = "ps";
