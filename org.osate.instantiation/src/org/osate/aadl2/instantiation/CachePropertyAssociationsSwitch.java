@@ -275,14 +275,12 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							} 
 							else 
 							{
-								OsateDebug.osateDebug("here1" );
+								//OsateDebug.osateDebug("here1" );
 
 								// check consistency
 								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-									OsateDebug.osateDebug("here2" );
-								//	List<PropertyExpression> l = new ArrayList<PropertyExpression>();
-//l.add( newPA.valueInMode(m));
-//conni.setPropertyValue(prop, l);
+									//OsateDebug.osateDebug("here2" );
+						
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
 									{
 										//  this comparison return inequality even if the two property values are the same. They are
@@ -328,14 +326,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 									}
 								}
 							}
-						}
-						else
-						{
-							OsateDebug.osateDebug("here warning");
-							/*
-							 * This else block means that the value is empty
-							 */
-
 						}
 					} catch (IllegalStateException e) {
 						// circular dependency
