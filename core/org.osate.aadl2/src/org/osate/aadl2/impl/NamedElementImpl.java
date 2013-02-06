@@ -432,7 +432,16 @@ public abstract class NamedElementImpl extends ElementImpl implements
 			PropertyIsModalException, IllegalStateException,
 			IllegalArgumentException, PropertyDoesNotApplyToHolderException,
 			PropertyIsListException {
-		if (!property.isList()) {
+		
+		return getNonModalPropertyValue(property);
+		/*
+		 * FIX-JD
+		 * The following code has been commented because there is
+		 * no reason for not retrieving non-list values here.
+		 */
+		
+		/* 
+		 * if (!property.isList()) {
 			return getNonModalPropertyValue(property);
 		} else {
 			throw new PropertyIsListException(this, property,
@@ -440,7 +449,7 @@ public abstract class NamedElementImpl extends ElementImpl implements
 							+ "  This occurred when looking up Property "
 							+ property.getName() + " on NamedElement "
 							+ getName() + ".");
-		}
+		}*/
 	}
 
 	/**
