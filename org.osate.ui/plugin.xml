@@ -338,7 +338,8 @@
       </view>
    </extension>
    
-      <extension
+   <!--
+     <extension
          point="org.eclipse.ui.propertyPages">
       <page
             id="org.osate.ui.preferences.ProjectPropertyPage"
@@ -355,4 +356,5 @@
          </enabledWhen>
       </page>
    </extension>
+   -->
 </plugin>
