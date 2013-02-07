@@ -119,7 +119,13 @@ public class InstantiateHandler extends AbstractHandler {
 							sinst = InstantiateModel.buildInstanceModelFile(si);
 							if (sinst == null)
 							{
-								Dialog.showError("Model Instantiate", "Error when instantiating the model");
+								String message;
+								message = "Error when instantiating the model";
+								if (InstantiateModel.getErrorMessage() != null)
+								{
+									message = message + " - reason: " + InstantiateModel.getErrorMessage() + "\nRefer to the help content and FAQ for more information";
+								}
+								Dialog.showError("Model Instantiate", message);
 							}
 						}
 						catch (UnsupportedOperationException uoe)
@@ -186,8 +192,13 @@ public class InstantiateHandler extends AbstractHandler {
 												SystemInstance sinst = InstantiateModel.buildInstanceModelFile(si);
 												if (sinst == null)
 												{
-													Dialog.showError("Model Instantiate", "Error when instantiating the model");
-
+													String message;
+													message = "Error when instantiating the model";
+													if (InstantiateModel.getErrorMessage() != null)
+													{
+														message = message + " - reason: " + InstantiateModel.getErrorMessage() + "\nRefer to the help content and FAQ for more information";
+													}
+													Dialog.showError("Model Instantiate", message);
 												}
 											}
 											catch (UnsupportedOperationException uoe)
