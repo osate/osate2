@@ -174,6 +174,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 					if (!value.isEmpty()) 
 					{
+						//OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io + ";property=" + property + ";value=" + value);
+
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
 
 						io.removePropertyAssociations(property);
@@ -246,6 +248,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				 * is consistent for each connection.
 				 */
 				if (connRef.acceptsProperty(prop)) {
+
 					/*
 					 * Just look up the property. The property doesn't yet have
 					 * a local association, so lookup will get the value from
@@ -261,6 +264,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 						if (!value.isEmpty()) 
 						{
+							//OsateDebug.osateDebug ("[CachePropertyAssociation] connRef=" + connRef.getConnection().getName() + ";property=" + prop + ";value=" + value);
+
 							//OsateDebug.osateDebug("connref=" + connRef.getConnection() + "value=" +  value);
 
 							nConnRefsUseProperty++;
@@ -270,6 +275,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							fillPropertyValue(connRef, newPA, value);
 
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
+							
+							/*
+							 * JD bug 174
+							 * Also add the property to the connection reference
+							 * instance.
+							 */
+							connRef.getOwnedPropertyAssociations().add(newPA);
 
 							if (setPA == null) 
 							{
@@ -282,6 +294,13 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								newPA.setProperty(prop);
 								fillPropertyValue(connRef, newPA, value);
 //								OsateDebug.osateDebug("set value" + setPA.getOwnedValues());
+								
+								
+								/*
+								 * JD bug 174
+								 * Also add the property to the connection reference
+								 * instance.
+								 */
 								conni.getOwnedPropertyAssociations().add(newPA);
 							} 
 							else 
