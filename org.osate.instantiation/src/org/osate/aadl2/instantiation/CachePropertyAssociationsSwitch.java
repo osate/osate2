@@ -56,6 +56,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.EnumerationLiteralImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
+import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -260,18 +261,28 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 						if (!value.isEmpty()) 
 						{
+							//OsateDebug.osateDebug("connref=" + connRef.getConnection() + "value=" +  value);
+
 							nConnRefsUseProperty++;
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 							newPA.setProperty(prop);
 							fillPropertyValue(connRef, newPA, value);
+
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
 
 							if (setPA == null) 
 							{
-						//		OsateDebug.osateDebug("null" +  newPA);
+								//OsateDebug.osateDebug("null" +  newPA);
 
 								setPA = newPA;
+
+								newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+
+								newPA.setProperty(prop);
+								fillPropertyValue(connRef, newPA, value);
+//								OsateDebug.osateDebug("set value" + setPA.getOwnedValues());
+								conni.getOwnedPropertyAssociations().add(newPA);
 							} 
 							else 
 							{
@@ -298,8 +309,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m); 
 											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m); 
 
-											OsateDebug.osateDebug("nvi1=" + nvi1);
-											OsateDebug.osateDebug("nvi2=" + nvi2);
+											//OsateDebug.osateDebug("nvi1=" + nvi1);
+											//OsateDebug.osateDebug("nvi2=" + nvi2);
 
 											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl) &&
 											    (nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
@@ -307,11 +318,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 												EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1.getNamedValue();
 												EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2.getNamedValue();
 												if (ei1.getName() == ei2.getName())
-												{
-													
+												{		
 													continue;
 												}
-
 											}
 								//			OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] " + (((NamedValueImpl)newPA.valueInMode(m)).getNamedValue()));
 										}
@@ -342,6 +351,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				checkIfCancelled();
 				if (cancelled())
 				{
+					OsateDebug.osateDebug("cancel" );
+
 					break;
 				}
 			}
@@ -356,6 +367,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				warning(conni, "The property " + setPA.getProperty().getQualifiedName()
 						+ " should be defined on each connection reference");
 				break;
+			}
+			if (setPA != null)
+			{
 			}
 			
 		}
