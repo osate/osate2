@@ -169,6 +169,28 @@ public class InstantiateModel {
 	 */
 	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
+	/*
+	 * An error message that is filled by potential methods that
+	 * instantiate the system and raises an error. This message
+	 * is then show in the error dialog when an instantiation error
+	 * is raised.
+	 */
+	private static String errorMessage = null;
+	
+	/*
+	 * To keep under control the error messages and ease
+	 * debug, we encapsulate the error message string
+	 * and access it only through methods (setters and getters).
+	 */
+	public static void setErrorMessage (String s)
+	{
+		errorMessage = s;
+	}
+	public static String getErrorMessage()
+	{
+		return errorMessage;
+	}
+	
 	// Constructors
 
 	/*
@@ -226,7 +248,10 @@ public class InstantiateModel {
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
-
+		if (root == null)
+		{
+			errorMessage = instantiateModel.getErrorMessage();
+		}
 		return root;
 	}
 
@@ -342,24 +367,37 @@ public class InstantiateModel {
 			try {
 				fillSystemInstance(root);
 			} catch (Exception e) {
+				this.setErrorMessage (e.getMessage());
 				e.printStackTrace();
 				return null;
 			}
 			// We're done: Save the model.
 			// We don't respond to a cancel at this point
 
-			monitor.subTask("Saving instance model");
+			monitor.subTask ("Saving instance model");
 
 			aadlResource.save(null);
 		} 
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			setErrorMessage( e.getMessage() );
 			return null;
 		}
 		catch (NullPointerException npe)
 		{
 			npe.printStackTrace();
+			setErrorMessage( npe.getMessage() );
+
+			npe.getMessage();
+			return null;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			errorMessage = e.getMessage();
+
+			e.getMessage();
 			return null;
 		}
 		return root;
