@@ -128,4 +128,12 @@ public final class AadlProject {
 	public static final String SEC_LITERAL = "Sec";
 	public static final String MIN_LITERAL = "Min";
 	public static final String HR_LITERAL = "Hr";
+	
+	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
+	public static final String BITSPS_LITERAL = "bitsps";
+	public static final String BYTESPS_LITERAL = "Bytesps";
+	public static final String KBYTESPS_LITERAL = "KBytesps";
+	public static final String MBYTESPS_LITERAL = "MBytesps";
+	public static final String GBYTESPS_LITERAL = "GBytesps";
+
 }
