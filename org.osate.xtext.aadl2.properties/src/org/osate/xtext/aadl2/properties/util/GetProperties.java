@@ -382,13 +382,13 @@ public class GetProperties {
 
 	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_CAPACITY);
-			UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBYTESPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
 	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_BUDGET);
-			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
