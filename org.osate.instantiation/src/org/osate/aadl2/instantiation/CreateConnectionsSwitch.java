@@ -141,36 +141,19 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		this.classifierCache = classifierCache;
 	}
 
-	private boolean isOpposite (Feature feature, Connection connection) throws UnsupportedOperationException
+	private boolean isOpposite (Feature feature, Connection connection) 
 	{
-		boolean 		result;
 		List<Feature> 	features= feature.getAllFeatureRefinements();
-		if (feature == connection.getAllSource()){
-			result = features.contains(connection.getAllDestination());
-		} else {
+		if (features.contains(connection.getAllSource())){
+			return false;
+		} else if (connection.isBidirectional()&& features.contains(connection.getAllDestination())){
 			// we are going the other way on a bi-directional connection
-			result = features.contains(connection.getAllSource());
+			return true;
+		} else {
+			// we should not get here since the feature
 		}
 		
-//		System.out.println ("opposite=" + result);
-		
-		if (result == true)
-		{
-			
-			for (Feature f : features)
-			{
-				if (feature.getContainingClassifier () == f.getContainingClassifier())
-				{
-					throw new UnsupportedOperationException ("Connection between two components that inherit features is not supported");
-				}
-				//System.out.println ("feature container=" + feature.getContainingClassifier());
-				System.out.println ("feature2 container=" + f.getContainingClassifier());
-			}
-			
-			
-		}
-		
-		return result;
+		return false;
 	}
 		
 	
@@ -298,7 +281,6 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							// TODO-LW: check if this logic is correct
 							
 							boolean opposite = isOpposite (feature, conn);
-							//System.out.println ("opposite=" + opposite);
 //								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
 //									if (f instanceof FeatureGroup) {
 //										warning(featurei,
