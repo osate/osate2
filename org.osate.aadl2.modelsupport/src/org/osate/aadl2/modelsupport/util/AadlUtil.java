@@ -76,6 +76,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
@@ -1247,6 +1248,31 @@ public final class AadlUtil {
 			EList<EObject> rl = res.getContents();
 			if (!rl.isEmpty() && rl.get(0) instanceof Element)
 				return (Element) rl.get(0);
+		}
+		if (object instanceof IResource
+				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)) {
+			Resource res = OsateResourceUtil.getResource((IResource) object);
+			EList<EObject> rl = res.getContents();
+			
+			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource)
+			{
+				if ( (((LazyLinkingResource) rl.get(0)).getContents().size() > 0) && 
+					 (((LazyLinkingResource) rl.get(0)).getContents().get(0) instanceof Element))
+				{
+					theElement = (Element) ((LazyLinkingResource) rl.get(0)).getContents().get(0);
+					
+					return theElement;
+				}
+		
+			}
+			if (!rl.isEmpty() && rl.get(0) instanceof Element)
+			{
+		
+					theElement = (Element) rl.get(0);
+					
+					return theElement;
+				
+			}
 		}
 		if (object instanceof TreeSelection) {
 			for (Iterator iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {
