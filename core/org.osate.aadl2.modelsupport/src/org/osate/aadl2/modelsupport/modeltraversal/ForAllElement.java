@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright 2004-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -52,7 +52,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -105,7 +104,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * @author phf
  */
 public class ForAllElement implements IProcessingMethod {
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String copyright = "Copyright 2004-2013 by Carnegie Mellon University, all rights reserved";
 
 	/*
 	 * ============================================================= Constants
