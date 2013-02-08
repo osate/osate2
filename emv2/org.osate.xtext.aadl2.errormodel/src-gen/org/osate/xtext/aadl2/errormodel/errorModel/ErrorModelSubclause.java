@@ -4,8 +4,6 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.PropertyAssociation;
 
@@ -17,6 +15,8 @@ import org.osate.aadl2.PropertyAssociation;
  * <p>
  * The following features are supported:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseTypes <em>Use Types</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getPropagation <em>Propagation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getComponentBehavior <em>Component Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getCompositeBehavior <em>Composite Behavior</em>}</li>
@@ -30,8 +30,50 @@ import org.osate.aadl2.PropertyAssociation;
  * @model
  * @generated
  */
-public interface ErrorModelSubclause extends EObject, AnnexSubclause
+public interface ErrorModelSubclause extends AnnexSubclause, EBSMUseContext
 {
+  /**
+	 * Returns the value of the '<em><b>Use Types</b></em>' reference list.
+	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary}.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Use Types</em>' reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>Use Types</em>' reference list.
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_UseTypes()
+	 * @model
+	 * @generated
+	 */
+  EList<ErrorModelLibrary> getUseTypes();
+
+  /**
+	 * Returns the value of the '<em><b>Use Behavior</b></em>' reference.
+	 * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Use Behavior</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+	 * @return the value of the '<em>Use Behavior</em>' reference.
+	 * @see #setUseBehavior(ErrorBehaviorStateMachine)
+	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorModelSubclause_UseBehavior()
+	 * @model
+	 * @generated
+	 */
+  ErrorBehaviorStateMachine getUseBehavior();
+
+  /**
+	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause#getUseBehavior <em>Use Behavior</em>}' reference.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Use Behavior</em>' reference.
+	 * @see #getUseBehavior()
+	 * @generated
+	 */
+  void setUseBehavior(ErrorBehaviorStateMachine value);
+
   /**
 	 * Returns the value of the '<em><b>Propagation</b></em>' containment reference.
 	 * <!-- begin-user-doc -->

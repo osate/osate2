@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.osate.aadl2.impl.ElementImpl;
 
+import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.TransitionBranch;
@@ -76,24 +77,14 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
   protected boolean mask = MASK_EDEFAULT;
 
   /**
-	 * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+	 * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @see #getValue()
 	 * @generated
 	 * @ordered
 	 */
-  protected static final String VALUE_EDEFAULT = null;
-
-  /**
-	 * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getValue()
-	 * @generated
-	 * @ordered
-	 */
-  protected String value = VALUE_EDEFAULT;
+  protected BranchValue value;
 
   /**
 	 * <!-- begin-user-doc -->
@@ -231,7 +222,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public String getValue()
+  public BranchValue getValue()
   {
 		return value;
 	}
@@ -241,12 +232,35 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public void setValue(String newValue)
+  public NotificationChain basicSetValue(BranchValue newValue, NotificationChain msgs)
   {
-		String oldValue = value;
+		BranchValue oldValue = value;
 		value = newValue;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, oldValue, value));
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, oldValue, newValue);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
+		}
+		return msgs;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setValue(BranchValue newValue)
+  {
+		if (newValue != value) {
+			NotificationChain msgs = null;
+			if (value != null)
+				msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
+			if (newValue != null)
+				msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ErrorModelPackage.TRANSITION_BRANCH__VALUE, null, msgs);
+			msgs = basicSetValue(newValue, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.TRANSITION_BRANCH__VALUE, newValue, newValue));
 	}
 
   /**
@@ -260,6 +274,8 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
 		switch (featureID) {
 			case ErrorModelPackage.TRANSITION_BRANCH__TARGET_TOKEN:
 				return basicSetTargetToken(null, msgs);
+			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
+				return basicSetValue(null, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -305,7 +321,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
 				setMask((Boolean)newValue);
 				return;
 			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				setValue((String)newValue);
+				setValue((BranchValue)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -330,7 +346,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
 				setMask(MASK_EDEFAULT);
 				return;
 			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				setValue(VALUE_EDEFAULT);
+				setValue((BranchValue)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -352,7 +368,7 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
 			case ErrorModelPackage.TRANSITION_BRANCH__MASK:
 				return mask != MASK_EDEFAULT;
 			case ErrorModelPackage.TRANSITION_BRANCH__VALUE:
-				return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
+				return value != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -370,8 +386,6 @@ public class TransitionBranchImpl extends ElementImpl implements TransitionBranc
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (mask: ");
 		result.append(mask);
-		result.append(", value: ");
-		result.append(value);
 		result.append(')');
 		return result.toString();
 	}

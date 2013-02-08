@@ -54,8 +54,20 @@ public class EM2Util {
 	public static String ErrorModelAnnexName = "EMV2";
 
 	/**
+	 * get ErrorModelSubclause object that contains the element object.
+	 * @param element error annex element
+	 * @return ErrorModelSubclause
+	 */
+	public static ErrorModelSubclause getContainingErrorModelSubclause(EObject element) {
+		EObject container = element;
+		while (container != null && !(container instanceof ErrorModelSubclause))
+			container = container.eContainer();
+		return (ErrorModelSubclause) container;
+	}
+
+	/**
 	 * get error propagations object that contains the element object.
-	 * @param element declarative model element or error annex element
+	 * @param element  error annex element
 	 * @return ErrorPropagations
 	 */
 	public static ErrorPropagations getContainingErrorPropagations(EObject element) {
@@ -68,24 +80,21 @@ public class EM2Util {
 	
 
 	/**
-	 * get enclosing object within the error annex that is a property list holder..
+	 * get enclosing object within the error annex that is a property list holder.
 	 * @param element declarative model element or error annex element
-	 * @return ErrorPropagations, ComponentErrorBehavior, CompositeErrorBehavior, ErrorBehaviorStateMachine
+	 * @return ErrorModelLibrary, ErrorBehaviorStateMachine, ErrorModelSubclause
 	 */
 	public static EList<PropertyAssociation> getContainingPropertiesHolder(EObject element) {
 		EObject container = element;
-		while (container != null && !(container instanceof ErrorModelLibrary || container instanceof ErrorModelSubclause)){
-			if (container instanceof ErrorPropagations ){
-				return ((ErrorPropagations)container).getProperties();
+		while (container != null ){
+			if (container instanceof ErrorModelSubclause ){
+				return ((ErrorModelSubclause)container).getProperties();
+			}
+			if (container instanceof ErrorModelLibrary ){
+				return ((ErrorModelLibrary)container).getProperties();
 			}
 			if (container instanceof ErrorBehaviorStateMachine ){
 				return ((ErrorBehaviorStateMachine)container).getProperties();
-			}
-			if (container instanceof ComponentErrorBehavior ){
-				return ((ComponentErrorBehavior)container).getProperties();
-			}
-			if (container instanceof CompositeErrorBehavior){
-				return ((CompositeErrorBehavior)container).getProperties();
 			}
 			container = container.eContainer();
 		}
@@ -362,18 +371,6 @@ public class EM2Util {
 		return (TypeUseContext) container;
 	}
 	
-	/**
-	 * get containing error model subclause
-	 * @param element
-	 * @return ErrorModelSubclause or null
-	 */
-	public static ErrorModelSubclause getContainingErrorAnnexSubclause(EObject element){
-		EObject container = element;
-		while (container != null && !(container instanceof ErrorModelSubclause))
-			container = container.eContainer();
-		return (ErrorModelSubclause) container;
-	}
-
 	
 	/**
 	 * get containing component error behavior specification
@@ -381,8 +378,8 @@ public class EM2Util {
 	 * @return ComponentErrorBehavior or null
 	 */
 	public static ComponentErrorBehavior getContainingSubclauseComponentErrorBehavior(EObject element){
-		ErrorModelSubclause emsc = getContainingErrorAnnexSubclause(element);
-		return (ComponentErrorBehavior) emsc.getComponentBehavior();
+		ErrorModelSubclause emsc = getContainingErrorModelSubclause(element);
+		return emsc ==null?null:(ComponentErrorBehavior) emsc.getComponentBehavior();
 	}
 
 	/**
@@ -573,9 +570,7 @@ public class EM2Util {
 	 * @return ErrorBehaviorStateMachine
 	 */
 	public static ErrorBehaviorStateMachine getUseBehavior(EBSMUseContext context){
-		if (context instanceof ComponentErrorBehavior) return ((ComponentErrorBehavior)context).getUseBehavior();
-		if (context instanceof CompositeErrorBehavior) return ((CompositeErrorBehavior)context).getUseBehavior();
-		if (context instanceof ErrorPropagations) return ((ErrorPropagations)context).getUseBehavior();
+		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseBehavior();
 		return null;
 	}
 	
@@ -585,11 +580,9 @@ public class EM2Util {
 	 * @return EList<ErrorModelLibrary>
 	 */
 	public static EList<ErrorModelLibrary> getUseTypes(TypeUseContext context){
-		if (context instanceof ComponentErrorBehavior) return ((ComponentErrorBehavior)context).getUseTypes();
-		if (context instanceof CompositeErrorBehavior) return ((CompositeErrorBehavior)context).getUseTypes();
+		if (context instanceof ErrorModelSubclause) return ((ErrorModelSubclause)context).getUseTypes();
 		if (context instanceof TypeTransformationSet) return ((TypeTransformationSet)context).getUseTypes();
 		if (context instanceof TypeMappingSet) return ((TypeMappingSet)context).getUseTypes();
-		if (context instanceof ErrorPropagations) return ((ErrorPropagations)context).getUseTypes();
 		if (context instanceof ErrorBehaviorStateMachine) return ((ErrorBehaviorStateMachine)context).getUseTypes();
 		return null;
 	}
@@ -836,7 +829,7 @@ public class EM2Util {
 		return getErrorPropagations(ci.getComponentClassifier());
 	}
 
-	public static ErrorPropagations getErrorPropagations(ComponentClassifier cl){
+	public static ErrorPropagations getErrorPropagations(Classifier cl){
 		return EM2Util.getContainingClassifierErrorPropagations(cl);
 	}
 	
@@ -844,7 +837,7 @@ public class EM2Util {
 		return getComponentErrorBehavior(ci.getComponentClassifier());
 	}
 	
-	public static ComponentErrorBehavior getComponentErrorBehavior(ComponentClassifier cl){
+	public static ComponentErrorBehavior getComponentErrorBehavior(Classifier cl){
 		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
 		return emsc.getComponentBehavior();
 	}
@@ -853,7 +846,7 @@ public class EM2Util {
 		return getCompositeErrorBehavior(ci.getComponentClassifier());
 	}
 	
-	public static CompositeErrorBehavior getCompositeErrorBehavior(ComponentClassifier cl){
+	public static CompositeErrorBehavior getCompositeErrorBehavior(Classifier cl){
 		ErrorModelSubclause emsc = getErrorModelSubclause(cl);
 		return emsc.getCompositeBehavior();
 	}

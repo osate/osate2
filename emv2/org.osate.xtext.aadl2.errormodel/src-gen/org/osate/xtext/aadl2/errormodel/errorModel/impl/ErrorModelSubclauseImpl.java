@@ -15,6 +15,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.PropertyAssociation;
@@ -24,6 +25,8 @@ import org.osate.aadl2.impl.AnnexSubclauseImpl;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionTransformation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
@@ -36,6 +39,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnecti
  * <p>
  * The following features are implemented:
  * <ul>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseTypes <em>Use Types</em>}</li>
+ *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getPropagation <em>Propagation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getComponentBehavior <em>Component Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ErrorModelSubclauseImpl#getCompositeBehavior <em>Composite Behavior</em>}</li>
@@ -49,6 +54,26 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ObservablePropagationConnecti
  */
 public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements ErrorModelSubclause
 {
+  /**
+	 * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #getUseTypes()
+	 * @generated
+	 * @ordered
+	 */
+  protected EList<ErrorModelLibrary> useTypes;
+
+  /**
+	 * The cached value of the '{@link #getUseBehavior() <em>Use Behavior</em>}' reference.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @see #getUseBehavior()
+	 * @generated
+	 * @ordered
+	 */
+  protected ErrorBehaviorStateMachine useBehavior;
+
   /**
 	 * The cached value of the '{@link #getPropagation() <em>Propagation</em>}' containment reference.
 	 * <!-- begin-user-doc -->
@@ -128,6 +153,60 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   protected EClass eStaticClass()
   {
 		return ErrorModelPackage.Literals.ERROR_MODEL_SUBCLAUSE;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public EList<ErrorModelLibrary> getUseTypes()
+  {
+		if (useTypes == null) {
+			useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES);
+		}
+		return useTypes;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public ErrorBehaviorStateMachine getUseBehavior()
+  {
+		if (useBehavior != null && useBehavior.eIsProxy()) {
+			InternalEObject oldUseBehavior = (InternalEObject)useBehavior;
+			useBehavior = (ErrorBehaviorStateMachine)eResolveProxy(oldUseBehavior);
+			if (useBehavior != oldUseBehavior) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR, oldUseBehavior, useBehavior));
+			}
+		}
+		return useBehavior;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public ErrorBehaviorStateMachine basicGetUseBehavior()
+  {
+		return useBehavior;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public void setUseBehavior(ErrorBehaviorStateMachine newUseBehavior)
+  {
+		ErrorBehaviorStateMachine oldUseBehavior = useBehavior;
+		useBehavior = newUseBehavior;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR, oldUseBehavior, useBehavior));
 	}
 
   /**
@@ -407,6 +486,11 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
 		switch (featureID) {
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
+				return getUseTypes();
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
+				if (resolve) return getUseBehavior();
+				return basicGetUseBehavior();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION:
 				return getPropagation();
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:
@@ -433,6 +517,13 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   public void eSet(int featureID, Object newValue)
   {
 		switch (featureID) {
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
+				getUseTypes().clear();
+				getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
+				return;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
+				setUseBehavior((ErrorBehaviorStateMachine)newValue);
+				return;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION:
 				setPropagation((ErrorPropagations)newValue);
 				return;
@@ -465,6 +556,12 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   public void eUnset(int featureID)
   {
 		switch (featureID) {
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
+				getUseTypes().clear();
+				return;
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
+				setUseBehavior((ErrorBehaviorStateMachine)null);
+				return;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION:
 				setPropagation((ErrorPropagations)null);
 				return;
@@ -496,6 +593,10 @@ public class ErrorModelSubclauseImpl extends AnnexSubclauseImpl implements Error
   public boolean eIsSet(int featureID)
   {
 		switch (featureID) {
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_TYPES:
+				return useTypes != null && !useTypes.isEmpty();
+			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__USE_BEHAVIOR:
+				return useBehavior != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__PROPAGATION:
 				return propagation != null;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE__COMPONENT_BEHAVIOR:

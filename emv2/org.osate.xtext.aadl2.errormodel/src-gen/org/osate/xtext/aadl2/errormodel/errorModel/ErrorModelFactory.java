@@ -320,6 +320,15 @@ public interface ErrorModelFactory extends EFactory
   TransitionBranch createTransitionBranch();
 
   /**
+	 * Returns a new object of class '<em>Branch Value</em>'.
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Branch Value</em>'.
+	 * @generated
+	 */
+  BranchValue createBranchValue();
+
+  /**
 	 * Returns a new object of class '<em>Connection Transformation</em>'.
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

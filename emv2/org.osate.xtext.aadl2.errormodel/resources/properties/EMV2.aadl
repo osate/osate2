@@ -3,22 +3,22 @@
 property set EMV2
   is
   
-OccurrenceProbability : EMV2::OccurrenceProbabilityType
+OccurrenceDistribution : EMV2::DistributionSpecification
 	  applies to (all); -- (error propagation, error source, error behavior event)
 
 --needed to separate the property "Occurrence" from its type declaration
 --so other properties may have that type
-OccurrenceProbabilityType : type record (
+DistributionSpecification : type record (
 	ProbabilityValue : aadlreal;
 	Distribution : EMV2::DistributionFunction;);
 	
-DistributionFunction : type enumeration (Poisson,Fixed);
+DistributionFunction : type enumeration (Poisson,Fixed,Gauss);
   
 DurationType : type record (
-	TimeInterval : Time_Range;
+	Duration : Time_Range;
 	Distribution : EMV2::DistributionFunction;); 
 	  
-Duration : EMV2::DurationType applies to (all); -- (Repair Event, Recover Event);
+DurationDistribution : EMV2::DurationType applies to (all); -- (Repair Event, Recover Event);
 
 StateKind : EMV2::StateKindEnum
 	  applies to (all); -- (error behavior state);
@@ -36,11 +36,9 @@ Persistence : EMV2::PersistenceEnum
 PersistenceEnum: type enumeration (Permanent, Transient, Singleton);
 
 
-SeverityLevel : type aadlinteger;
+Severity : inherit aadlinteger applies to (all);
 
-
-LikelihoodLevel : type enumeration (A, B, C, D, E);
-
+Likelihood : inherit enumeration (A, B, C, D, E) applies to (all);
 
 Hazard: record
   (crossreference: aadlstring;
@@ -48,10 +46,11 @@ Hazard: record
   	phase : aadlstring;
   	environment : aadlstring;
   	description : aadlstring;
-  	severity : EMV2::SeverityLevel;
-  	likelihood : EMV2::LikelihoodLevel;
   	verificationmethod : aadlstring;
   	risk : aadlstring;
   	comment : aadlstring;) applies to (all);
+  	
+DetectionMechanism : aadlstring applies to (all); 
+
 
 end EMV2;

@@ -150,8 +150,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseErrorModelSubclause(
 			ErrorModelSubclause subclause) {
-		checkConsistentEBSMUse(subclause);
 	}
+	
 	@Check(CheckType.NORMAL)
 	public void caseErrorPropagations(
 			ErrorPropagations errorPropagations) {
@@ -223,40 +223,6 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 	}
 	
-	private void checkConsistentEBSMUse(ErrorModelSubclause subclause){
-		ErrorPropagations props = subclause.getPropagation();
-		ComponentErrorBehavior componentbehavior = subclause.getComponentBehavior();
-		CompositeErrorBehavior composite = subclause.getCompositeBehavior();
-		if (props != null){
-			ErrorBehaviorStateMachine propebsm = props.getUseBehavior();
-			if (componentbehavior != null){
-				ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
-				if (propebsm != null && compEBSM != null && !isSame(propebsm,compEBSM)){
-					error(subclause,
-							"Error propagation state machine "+propebsm.getName()+" is different from component error behavior state machine "+compEBSM.getName());
-				}
-			}
-			if (composite != null){
-				ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
-				if (propebsm != null && composite != null && !isSame(propebsm,compositeEBSM)){
-					error(subclause,
-							"Error propagation state machine "+propebsm.getName()+" is different from Composite error behavior state machine "+compositeEBSM.getName());
-				}
-			}
-		}
-		if (componentbehavior != null && composite != null){
-			ErrorBehaviorStateMachine compEBSM = componentbehavior.getUseBehavior();
-			ErrorBehaviorStateMachine compositeEBSM = composite.getUseBehavior();
-			if ( !isSame(compEBSM,compositeEBSM)){
-				error(subclause,
-						"Component error behavior state machine "+compEBSM.getName()+" is different from composite error behavior state machine "+compositeEBSM.getName());
-			}
-		}
-	}
-	
-	private boolean isSame(ErrorBehaviorStateMachine ebsm1, ErrorBehaviorStateMachine ebsm2){
-		return ebsm1 == ebsm2;
-	}
 	
 	
 	private void checkDirectionType(ErrorPropagation errorPropagation){

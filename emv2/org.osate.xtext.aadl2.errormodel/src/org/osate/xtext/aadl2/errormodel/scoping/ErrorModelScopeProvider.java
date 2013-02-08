@@ -28,6 +28,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
@@ -57,8 +58,8 @@ public class ErrorModelScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	public IScope scope_ErrorType(ErrorPropagation context,
 			EReference reference) {
-		ErrorPropagations owner = org.eclipse.xtext.EcoreUtil2.getContainerOfType(context,
-				ErrorPropagations.class);
+		ErrorModelSubclause owner = org.eclipse.xtext.EcoreUtil2.getContainerOfType(context,
+				ErrorModelSubclause.class);
 		BasicEList<ErrorTypes> result = new BasicEList<ErrorTypes>();
 		EList<ErrorModelLibrary> members = owner.getUseTypes();
 		for(ErrorModelLibrary member: members) {

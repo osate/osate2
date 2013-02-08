@@ -93,6 +93,7 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
 			case ErrorModelPackage.ERROR_BEHAVIOR_STATE: return createErrorBehaviorState();
 			case ErrorModelPackage.ERROR_BEHAVIOR_TRANSITION: return createErrorBehaviorTransition();
 			case ErrorModelPackage.TRANSITION_BRANCH: return createTransitionBranch();
+			case ErrorModelPackage.BRANCH_VALUE: return createBranchValue();
 			case ErrorModelPackage.CONNECTION_TRANSFORMATION: return createConnectionTransformation();
 			case ErrorModelPackage.EBSM_USE_CONTEXT: return createEBSMUseContext();
 			case ErrorModelPackage.TYPE_USE_CONTEXT: return createTypeUseContext();
@@ -479,6 +480,17 @@ public class ErrorModelFactoryImpl extends EFactoryImpl implements ErrorModelFac
   {
 		TransitionBranchImpl transitionBranch = new TransitionBranchImpl();
 		return transitionBranch;
+	}
+
+  /**
+	 * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+	 * @generated
+	 */
+  public BranchValue createBranchValue()
+  {
+		BranchValueImpl branchValue = new BranchValueImpl();
+		return branchValue;
 	}
 
   /**

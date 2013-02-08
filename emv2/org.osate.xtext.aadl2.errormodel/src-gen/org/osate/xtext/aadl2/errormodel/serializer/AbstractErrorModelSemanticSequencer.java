@@ -33,6 +33,7 @@ import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
@@ -254,20 +255,22 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 					return; 
 				}
 				else break;
+			case ErrorModelPackage.BRANCH_VALUE:
+				if(context == grammarAccess.getBranchValueRule()) {
+					sequence_BranchValue(context, (BranchValue) semanticObject); 
+					return; 
+				}
+				else break;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR:
 				if(context == grammarAccess.getComponentErrorBehaviorRule() ||
-				   context == grammarAccess.getEBSMUseContextRule() ||
-				   context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getTypeUseContextRule()) {
+				   context == grammarAccess.getElementRule()) {
 					sequence_ComponentErrorBehavior(context, (ComponentErrorBehavior) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.COMPOSITE_ERROR_BEHAVIOR:
 				if(context == grammarAccess.getCompositeErrorBehaviorRule() ||
-				   context == grammarAccess.getEBSMUseContextRule() ||
-				   context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getTypeUseContextRule()) {
+				   context == grammarAccess.getElementRule()) {
 					sequence_CompositeErrorBehavior(context, (CompositeErrorBehavior) semanticObject); 
 					return; 
 				}
@@ -384,8 +387,10 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
 				if(context == grammarAccess.getAnnexSubclauseRule() ||
+				   context == grammarAccess.getEBSMUseContextRule() ||
 				   context == grammarAccess.getErrorModelSubclauseRule() ||
-				   context == grammarAccess.getModalElementRule()) {
+				   context == grammarAccess.getModalElementRule() ||
+				   context == grammarAccess.getTypeUseContextRule()) {
 					sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
 					return; 
 				}
@@ -407,10 +412,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				}
 				else break;
 			case ErrorModelPackage.ERROR_PROPAGATIONS:
-				if(context == grammarAccess.getEBSMUseContextRule() ||
-				   context == grammarAccess.getErrorPropagationsRule() ||
-				   context == grammarAccess.getNamedElementRule() ||
-				   context == grammarAccess.getTypeUseContextRule()) {
+				if(context == grammarAccess.getErrorPropagationsRule() ||
+				   context == grammarAccess.getNamedElementRule()) {
 					sequence_ErrorPropagations(context, (ErrorPropagations) semanticObject); 
 					return; 
 				}
@@ -673,16 +676,22 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
+	 *     (realvalue=REAL_LIT | symboliclabel=[PropertyConstant|QEMREF] | others?='others')
+	 */
+	protected void sequence_BranchValue(EObject context, BranchValue semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (
-	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
 	 *         events+=ErrorBehaviorEvent* 
 	 *         transitions+=ErrorBehaviorTransition* 
 	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
 	 *         errorDetections+=ErrorDetection* 
-	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
-	 *         properties+=ContainedPropertyAssociation*
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping*
 	 *     )
 	 */
 	protected void sequence_ComponentErrorBehavior(EObject context, ComponentErrorBehavior semanticObject) {
@@ -692,12 +701,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         states+=CompositeState* 
-	 *         properties+=ContainedPropertyAssociation*
-	 *     )
+	 *     (states+=CompositeState*)
 	 */
 	protected void sequence_CompositeErrorBehavior(EObject context, CompositeErrorBehavior semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -880,6 +884,8 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	/**
 	 * Constraint:
 	 *     (
+	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
 	 *         propagation=ErrorPropagations? 
 	 *         componentBehavior=ComponentErrorBehavior? 
 	 *         compositeBehavior=CompositeErrorBehavior? 
@@ -924,13 +930,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         propagations+=ErrorPropagation* 
-	 *         flows+=ErrorFlow* 
-	 *         properties+=ContainedPropertyAssociation*
-	 *     )
+	 *     (propagations+=ErrorPropagation* flows+=ErrorFlow*)
 	 */
 	protected void sequence_ErrorPropagations(EObject context, ErrorPropagations semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

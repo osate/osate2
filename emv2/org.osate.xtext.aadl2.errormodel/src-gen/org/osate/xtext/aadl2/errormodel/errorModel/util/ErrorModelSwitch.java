@@ -86,7 +86,9 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				ErrorModelSubclause errorModelSubclause = (ErrorModelSubclause)theEObject;
 				T result = caseErrorModelSubclause(errorModelSubclause);
 				if (result == null) result = caseAnnexSubclause(errorModelSubclause);
+				if (result == null) result = caseEBSMUseContext(errorModelSubclause);
 				if (result == null) result = caseModalElement(errorModelSubclause);
+				if (result == null) result = caseTypeUseContext(errorModelSubclause);
 				if (result == null) result = caseNamedElement(errorModelSubclause);
 				if (result == null) result = caseElement(errorModelSubclause);
 				if (result == null) result = defaultCase(theEObject);
@@ -203,9 +205,7 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				ErrorPropagations errorPropagations = (ErrorPropagations)theEObject;
 				T result = caseErrorPropagations(errorPropagations);
 				if (result == null) result = caseNamedElement(errorPropagations);
-				if (result == null) result = caseEBSMUseContext(errorPropagations);
 				if (result == null) result = caseElement(errorPropagations);
-				if (result == null) result = caseTypeUseContext(errorPropagations);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -353,6 +353,12 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
+			case ErrorModelPackage.BRANCH_VALUE: {
+				BranchValue branchValue = (BranchValue)theEObject;
+				T result = caseBranchValue(branchValue);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
 			case ErrorModelPackage.CONNECTION_TRANSFORMATION: {
 				ConnectionTransformation connectionTransformation = (ConnectionTransformation)theEObject;
 				T result = caseConnectionTransformation(connectionTransformation);
@@ -377,8 +383,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				ComponentErrorBehavior componentErrorBehavior = (ComponentErrorBehavior)theEObject;
 				T result = caseComponentErrorBehavior(componentErrorBehavior);
 				if (result == null) result = caseElement(componentErrorBehavior);
-				if (result == null) result = caseEBSMUseContext(componentErrorBehavior);
-				if (result == null) result = caseTypeUseContext(componentErrorBehavior);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -451,8 +455,6 @@ public class ErrorModelSwitch<T> extends Switch<T>
 				CompositeErrorBehavior compositeErrorBehavior = (CompositeErrorBehavior)theEObject;
 				T result = caseCompositeErrorBehavior(compositeErrorBehavior);
 				if (result == null) result = caseElement(compositeErrorBehavior);
-				if (result == null) result = caseEBSMUseContext(compositeErrorBehavior);
-				if (result == null) result = caseTypeUseContext(compositeErrorBehavior);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -1029,6 +1031,22 @@ public class ErrorModelSwitch<T> extends Switch<T>
 	 * @generated
 	 */
   public T caseTransitionBranch(TransitionBranch object)
+  {
+		return null;
+	}
+
+  /**
+	 * Returns the result of interpreting the object as an instance of '<em>Branch Value</em>'.
+	 * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Branch Value</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+  public T caseBranchValue(BranchValue object)
   {
 		return null;
 	}

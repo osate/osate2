@@ -101,9 +101,20 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 	
 	protected ContainedNamedElement getHazardProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
-		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::hazard",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("ARP4761::hazard",ci,localContext,target,ts);
-		if (result==null)result = EM2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+		ContainedNamedElement result =  EM2Util.getProperty("EMV2::hazard",ci,localContext,target,ts);
+		return result;
+	}
+	protected ContainedNamedElement getSeverityProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::Severity",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("ARP4761::Severity",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("EMV2::Severity",ci,localContext,target,ts);
+		return result;
+	}
+	
+	protected ContainedNamedElement getLikelihoodProperty(ComponentInstance ci, NamedElement localContext,NamedElement target, TypeSet ts){
+		ContainedNamedElement result = EM2Util.getProperty("MILSTD882::Likelihood",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("ARP4761::Likelihood",ci,localContext,target,ts);
+		if (result==null)result = EM2Util.getProperty("EMV2::Likelihood",ci,localContext,target,ts);
 		return result;
 	}
 	
@@ -116,6 +127,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			ErrorPropagation ep = errorSource.getOutgoing();
 			ErrorBehaviorStateOrTypeSet fmr = errorSource.getFailureModeReference();
 			ContainedNamedElement PA = null;
+			ContainedNamedElement Sev = null;
+			ContainedNamedElement Like = null;
 			TypeSet ts = null;
 			ErrorBehaviorState failureMode = null;
 			NamedElement target =null;
@@ -126,6 +139,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				failureMode =  (ErrorBehaviorState) fmr;
 				ts = failureMode.getTypeSet();
 				PA = getHazardProperty(ci,errorSource,failureMode,ts);
+				Sev = getSeverityProperty(ci,errorSource,failureMode,ts);
+				Like = getLikelihoodProperty(ci,errorSource,failureMode,ts);
 				target = failureMode;
 				localContext = errorSource;
 			}
@@ -134,6 +149,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
 				PA = getHazardProperty(ci, null,ep,ts);
+				Sev = getSeverityProperty(ci, null,ep,ts);
+				Like = getLikelihoodProperty(ci, null,ep,ts);
 				target = ep;
 				localContext = null;
 			}
@@ -143,38 +160,66 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				if (ts == null) ts = ep.getTypeSet();
 				if (ts == null&& failureMode != null) ts = failureMode.getTypeSet();
 				PA = getHazardProperty(ci, null,errorSource,ts);
+				Sev = getSeverityProperty(ci, null,errorSource,ts);
+				Like = getLikelihoodProperty(ci, null,errorSource,ts);
 				target = errorSource;
 				localContext = null;
 			}
 			if (PA==null) return;
-			reportHazardProperty(ci, PA, target, ts, localContext,report);
+			reportHazardProperty(ci, PA, Sev, Like, target, ts, localContext,report);
 		}
 	}
-	protected void reportHazardProperty(ComponentInstance ci,ContainedNamedElement PAContainmentPath, NamedElement target, TypeSet ts, NamedElement localContext,WriteToFile report){
+	
+	
+	protected String getEnumNumericPropertyValue(ContainedNamedElement ContainmentPath){
+		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(ContainmentPath).getOwnedValues()) {
+			PropertyExpression val = modalPropertyValue.getOwnedValue();
+			if (val instanceof NamedValue){
+				AbstractNamedValue eval = ((NamedValue)val).getNamedValue();
+				if (eval instanceof EnumerationLiteral){
+					return ((EnumerationLiteral)eval).getName();
+
+				}else if (eval instanceof PropertyConstant){
+					return ((PropertyConstant)eval).getName();
+				}
+			} else if (val instanceof IntegerLiteral){
+				// empty string to force integer conversion to string
+				return ""+((IntegerLiteral)val).getValue();
+			}
+		}
+		
+		return "";
+	}
+	
+	protected void reportHazardProperty(ComponentInstance ci,ContainedNamedElement PAContainmentPath, 
+			ContainedNamedElement SevContainmentPath,ContainedNamedElement LikeContainmentPath,
+			NamedElement target, TypeSet ts, NamedElement localContext,WriteToFile report){
 		
 		ErrorType targetType = EM2Util.getContainmentErrorType(PAContainmentPath); // type as last element of hazard containment path
 		for (ModalPropertyValue modalPropertyValue : AadlUtil.getContainingPropertyAssociation(PAContainmentPath).getOwnedValues()) {
 			PropertyExpression val = modalPropertyValue.getOwnedValue();
 			if (val instanceof RecordValue){
+				String Severity = getEnumNumericPropertyValue(SevContainmentPath);
+				String Likelihood = getEnumNumericPropertyValue(LikeContainmentPath);
 				RecordValue rv = (RecordValue)val;
 				EList<BasicPropertyAssociation> fields = rv.getOwnedFieldValues();
 				// for all error types/aliases in type set or the element identified in the containment clause 
 				if (targetType==null){
 					if (ts != null){
 						for(TypeToken token: ts.getElementType()){
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
+							reportFHAEntry(report, fields, Severity, Likelihood, ci, EM2Util.getPrintName(target),EM2Util.getName(token));
 						}
 					} else {
 						// did not have a type set. Let's use fmr (state of type set as failure mode.
 						if (localContext == null){
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target),"");
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(target),"");
 						} else {
-							reportFHAEntry(report, fields, ci, EM2Util.getPrintName(localContext),EM2Util.getPrintName(target));
+							reportFHAEntry(report, fields, Severity, Likelihood,ci, EM2Util.getPrintName(localContext),EM2Util.getPrintName(target));
 						}
 					}
 				} else {
 					// property points to type
-					reportFHAEntry(report, fields, ci, EM2Util.getPrintName(target), EM2Util.getPrintName(targetType));
+					reportFHAEntry(report, fields,  Severity, Likelihood,ci,EM2Util.getPrintName(target), EM2Util.getPrintName(targetType));
 				}
 			}
 		}
@@ -189,7 +234,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				"Functional Failure (Hazard), Operational Phase, Environment, Effects of Hazard, Severity, Criticality, Verification, Comment");	
 	}
 	
-	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,ComponentInstance ci,
+	protected void reportFHAEntry(WriteToFile report,EList<BasicPropertyAssociation> fields,
+			String Severity, String Likelihood, ComponentInstance ci,
 			String failureModeName,  String typetext){
 		// component name & error propagation name/type
 		report.addOutput(ci.getName()+", "+(typetext.isEmpty()?"":typetext+" on ")+failureModeName);
@@ -210,10 +256,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportStringProperty(fields, "description", report);
 		// severity
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
+		addString(report,Severity);
+//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report);
 		// criticality
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report);
+		addString(report,Likelihood);
+//		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report);
 		// comment
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
@@ -225,6 +273,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	
 	protected void addComma(WriteToFile report){
 		report.addOutput(", ");
+	}
+	
+	protected void addString(WriteToFile report, String str){
+		report.addOutput(str);
 	}
 	
 	protected void reportStringProperty(EList<BasicPropertyAssociation> fields, String fieldName,WriteToFile report){

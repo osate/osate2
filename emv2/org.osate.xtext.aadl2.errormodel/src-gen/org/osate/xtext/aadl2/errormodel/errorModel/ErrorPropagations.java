@@ -4,8 +4,9 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EObject;
+
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PropertyAssociation;
 
 /**
  * <!-- begin-user-doc -->
@@ -15,11 +16,8 @@ import org.osate.aadl2.PropertyAssociation;
  * <p>
  * The following features are supported:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getUseTypes <em>Use Types</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getPropagations <em>Propagations</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getFlows <em>Flows</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -27,50 +25,8 @@ import org.osate.aadl2.PropertyAssociation;
  * @model
  * @generated
  */
-public interface ErrorPropagations extends NamedElement, EBSMUseContext
+public interface ErrorPropagations extends EObject, NamedElement
 {
-  /**
-	 * Returns the value of the '<em><b>Use Types</b></em>' reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary}.
-	 * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Use Types</em>' reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Types</em>' reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_UseTypes()
-	 * @model
-	 * @generated
-	 */
-  EList<ErrorModelLibrary> getUseTypes();
-
-  /**
-	 * Returns the value of the '<em><b>Use Behavior</b></em>' reference.
-	 * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Use Behavior</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-	 * @return the value of the '<em>Use Behavior</em>' reference.
-	 * @see #setUseBehavior(ErrorBehaviorStateMachine)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_UseBehavior()
-	 * @model
-	 * @generated
-	 */
-  ErrorBehaviorStateMachine getUseBehavior();
-
-  /**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagations#getUseBehavior <em>Use Behavior</em>}' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Use Behavior</em>' reference.
-	 * @see #getUseBehavior()
-	 * @generated
-	 */
-  void setUseBehavior(ErrorBehaviorStateMachine value);
-
   /**
 	 * Returns the value of the '<em><b>Propagations</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation}.
@@ -102,21 +58,5 @@ public interface ErrorPropagations extends NamedElement, EBSMUseContext
 	 * @generated
 	 */
   EList<ErrorFlow> getFlows();
-
-  /**
-	 * Returns the value of the '<em><b>Properties</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.aadl2.PropertyAssociation}.
-	 * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Properties</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-	 * @return the value of the '<em>Properties</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getErrorPropagations_Properties()
-	 * @model containment="true"
-	 * @generated
-	 */
-  EList<PropertyAssociation> getProperties();
 
 } // ErrorPropagations

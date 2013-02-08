@@ -54,6 +54,8 @@ ElementErrorType|TypeToken
 
 ErrorModelSubclause returns ErrorModelSubclause:
      {ErrorModelSubclause}//'{**' 
+   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
+   ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
 	    ( propagation=ErrorPropagations)?
 	    (componentBehavior=ComponentErrorBehavior)?
 		(compositeBehavior=CompositeErrorBehavior )?
@@ -118,7 +120,7 @@ TypeSetAlias returns TypeSet:
       ';';
       
 ElementErrorType returns TypeToken :
-	type+=[ErrorType|QEMREF] (('+'|'*') type+=[ErrorType|QEMREF])*
+	type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])*
 ;
 
 NoError returns TypeSet:
@@ -128,7 +130,7 @@ NoError returns TypeSet:
 
 TypeToken returns TypeToken:
 	{TypeToken}
-     '{' type+=[ErrorType|QEMREF] (('+'|'*') type+=[ErrorType|QEMREF])* '}'
+     '{' type+=[ErrorType|QEMREF] (('*') type+=[ErrorType|QEMREF])* '}'
 ;
 
 TypeTokenConstraint returns TypeSet:
@@ -181,13 +183,9 @@ ElementTypeMapping returns ElementTypeMapping:
 ErrorPropagations returns ErrorPropagations: 
    'error' 'propagations'
    {ErrorPropagations}
-   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-   ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
    (propagations+=ErrorPropagation)* 
-   ( => 'flows'
+   ( 'flows'
    (flows+=ErrorFlow)+)? 
-    ('properties'
- 	(properties+=ContainedPropertyAssociation )+)?
    'end' 'propagations' ';'
    ;
    
@@ -303,8 +301,9 @@ TransitionBranch returns TransitionBranch:
 	((target=[ErrorBehaviorState|ID] (targetToken=TypeToken )?)| mask?='mask') 'with' value=BranchValue
 ;
 // store real literal as integer, ID as reference to property constant
-BranchValue : 
-  REAL_LIT | ID | 'others';
+BranchValue returns BranchValue: 
+	{BranchValue}
+   ((realvalue = REAL_LIT) | (symboliclabel = [aadl2::PropertyConstant|QEMREF]) | (others?='others'));
 
 
 ConnectionTransformation returns ConnectionTransformation:
@@ -312,11 +311,11 @@ ConnectionTransformation returns ConnectionTransformation:
 ;
 
 EBSMUseContext returns EBSMUseContext:
-	ComponentErrorBehavior | CompositeErrorBehavior | ErrorPropagations 
+	ErrorModelSubclause 
 ;
 
 TypeUseContext returns TypeUseContext:
-	TypeTransformationSet | TypeMappingSet |  ErrorBehaviorStateMachine //| ErrorPropagations 
+	TypeTransformationSet | TypeMappingSet |  ErrorBehaviorStateMachine  
 	| EBSMUseContext
 ;
 
@@ -324,8 +323,6 @@ TypeUseContext returns TypeUseContext:
 ComponentErrorBehavior returns ComponentErrorBehavior: 
 	'component' 'error' 'behavior' 
 	{ComponentErrorBehavior}
-   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-   ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
    ('use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF] ';')?
   ( 'events' (events+=ErrorBehaviorEvent )+ )?
    (  'transitions' 
@@ -336,7 +333,6 @@ ComponentErrorBehavior returns ComponentErrorBehavior:
     ( errorDetections+=ErrorDetection )+ )?
    (  'mode' 'mappings'
     ( errorStateToModeMappings+=ErrorStateToModeMapping )+ )?
-  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
    'end' 'component' ';'
 ;  
  
@@ -417,12 +413,9 @@ InternalPort returns aadl2::InternalEvent:
 CompositeErrorBehavior returns CompositeErrorBehavior: 
 	'composite' 'error' 'behavior' 
 	{CompositeErrorBehavior}
-   ('use' 'types' useTypes+=[ErrorModelLibrary|QEMREF] (',' useTypes+=[ErrorModelLibrary|QEMREF] )* ';')?
-   ('use' 'behavior' useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' )?
    ( 'states' 
     ( states+=CompositeState )+ 
     )?
-  (  'properties' (properties+=ContainedPropertyAssociation )+ )?
    'end' 'composite' ';'
 ; 
 

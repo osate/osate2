@@ -15,19 +15,14 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
-
-import org.osate.aadl2.PropertyAssociation;
 
 import org.osate.aadl2.impl.ElementImpl;
 
 import org.osate.xtext.aadl2.errormodel.errorModel.ComponentErrorBehavior;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorStateToModeMapping;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
@@ -40,15 +35,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  * <p>
  * The following features are implemented:
  * <ul>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getUseTypes <em>Use Types</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getUseBehavior <em>Use Behavior</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getUseTransformation <em>Use Transformation</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getEvents <em>Events</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getTransitions <em>Transitions</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getOutgoingPropagationConditions <em>Outgoing Propagation Conditions</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getErrorDetections <em>Error Detections</em>}</li>
  *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getErrorStateToModeMappings <em>Error State To Mode Mappings</em>}</li>
- *   <li>{@link org.osate.xtext.aadl2.errormodel.errorModel.impl.ComponentErrorBehaviorImpl#getProperties <em>Properties</em>}</li>
  * </ul>
  * </p>
  *
@@ -56,26 +48,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
  */
 public class ComponentErrorBehaviorImpl extends ElementImpl implements ComponentErrorBehavior
 {
-  /**
-	 * The cached value of the '{@link #getUseTypes() <em>Use Types</em>}' reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getUseTypes()
-	 * @generated
-	 * @ordered
-	 */
-  protected EList<ErrorModelLibrary> useTypes;
-
-  /**
-	 * The cached value of the '{@link #getUseBehavior() <em>Use Behavior</em>}' reference.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getUseBehavior()
-	 * @generated
-	 * @ordered
-	 */
-  protected ErrorBehaviorStateMachine useBehavior;
-
   /**
 	 * The cached value of the '{@link #getUseTransformation() <em>Use Transformation</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -137,16 +109,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   protected EList<ErrorStateToModeMapping> errorStateToModeMappings;
 
   /**
-	 * The cached value of the '{@link #getProperties() <em>Properties</em>}' containment reference list.
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @see #getProperties()
-	 * @generated
-	 * @ordered
-	 */
-  protected EList<PropertyAssociation> properties;
-
-  /**
 	 * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
 	 * @generated
@@ -165,60 +127,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   protected EClass eStaticClass()
   {
 		return ErrorModelPackage.Literals.COMPONENT_ERROR_BEHAVIOR;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public EList<ErrorModelLibrary> getUseTypes()
-  {
-		if (useTypes == null) {
-			useTypes = new EObjectResolvingEList<ErrorModelLibrary>(ErrorModelLibrary.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TYPES);
-		}
-		return useTypes;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public ErrorBehaviorStateMachine getUseBehavior()
-  {
-		if (useBehavior != null && useBehavior.eIsProxy()) {
-			InternalEObject oldUseBehavior = (InternalEObject)useBehavior;
-			useBehavior = (ErrorBehaviorStateMachine)eResolveProxy(oldUseBehavior);
-			if (useBehavior != oldUseBehavior) {
-				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR, oldUseBehavior, useBehavior));
-			}
-		}
-		return useBehavior;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public ErrorBehaviorStateMachine basicGetUseBehavior()
-  {
-		return useBehavior;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
-  public void setUseBehavior(ErrorBehaviorStateMachine newUseBehavior)
-  {
-		ErrorBehaviorStateMachine oldUseBehavior = useBehavior;
-		useBehavior = newUseBehavior;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR, oldUseBehavior, useBehavior));
 	}
 
   /**
@@ -332,19 +240,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
    * <!-- end-user-doc -->
 	 * @generated
 	 */
-  public EList<PropertyAssociation> getProperties()
-  {
-		if (properties == null) {
-			properties = new EObjectContainmentEList<PropertyAssociation>(PropertyAssociation.class, this, ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES);
-		}
-		return properties;
-	}
-
-  /**
-	 * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-	 * @generated
-	 */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -359,8 +254,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				return ((InternalEList<?>)getErrorDetections()).basicRemove(otherEnd, msgs);
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
 				return ((InternalEList<?>)getErrorStateToModeMappings()).basicRemove(otherEnd, msgs);
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
-				return ((InternalEList<?>)getProperties()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -374,11 +267,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   public Object eGet(int featureID, boolean resolve, boolean coreType)
   {
 		switch (featureID) {
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TYPES:
-				return getUseTypes();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR:
-				if (resolve) return getUseBehavior();
-				return basicGetUseBehavior();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TRANSFORMATION:
 				if (resolve) return getUseTransformation();
 				return basicGetUseTransformation();
@@ -392,8 +280,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				return getErrorDetections();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
 				return getErrorStateToModeMappings();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
-				return getProperties();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -408,13 +294,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   public void eSet(int featureID, Object newValue)
   {
 		switch (featureID) {
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TYPES:
-				getUseTypes().clear();
-				getUseTypes().addAll((Collection<? extends ErrorModelLibrary>)newValue);
-				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR:
-				setUseBehavior((ErrorBehaviorStateMachine)newValue);
-				return;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TRANSFORMATION:
 				setUseTransformation((TypeTransformationSet)newValue);
 				return;
@@ -438,10 +317,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				getErrorStateToModeMappings().clear();
 				getErrorStateToModeMappings().addAll((Collection<? extends ErrorStateToModeMapping>)newValue);
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
-				getProperties().clear();
-				getProperties().addAll((Collection<? extends PropertyAssociation>)newValue);
-				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -455,12 +330,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   public void eUnset(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TYPES:
-				getUseTypes().clear();
-				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR:
-				setUseBehavior((ErrorBehaviorStateMachine)null);
-				return;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TRANSFORMATION:
 				setUseTransformation((TypeTransformationSet)null);
 				return;
@@ -479,9 +348,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
 				getErrorStateToModeMappings().clear();
 				return;
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
-				getProperties().clear();
-				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -495,10 +361,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
   public boolean eIsSet(int featureID)
   {
 		switch (featureID) {
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TYPES:
-				return useTypes != null && !useTypes.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_BEHAVIOR:
-				return useBehavior != null;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__USE_TRANSFORMATION:
 				return useTransformation != null;
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__EVENTS:
@@ -511,8 +373,6 @@ public class ComponentErrorBehaviorImpl extends ElementImpl implements Component
 				return errorDetections != null && !errorDetections.isEmpty();
 			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__ERROR_STATE_TO_MODE_MAPPINGS:
 				return errorStateToModeMappings != null && !errorStateToModeMappings.isEmpty();
-			case ErrorModelPackage.COMPONENT_ERROR_BEHAVIOR__PROPERTIES:
-				return properties != null && !properties.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

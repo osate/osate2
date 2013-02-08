@@ -4,19 +4,7 @@
 property set MILSTD882
   is
 
-SeverityLevel : type enumeration (Catastrophic, Critical, Marginal, Negligible);
-LikelihoodLevel : type enumeration (Frequent, Probable, Occasional, Remote, Improbable);
-
-Hazard: record
-  (crossreference: aadlstring;
-  	failure : aadlstring;
-  	phase : aadlstring;
-  	environment : aadlstring;
-  	description : aadlstring;
-  	severity : MILSTD882::SeverityLevel;
-  	likelihood : MILSTD882::LikelihoodLevel;
-  	verificationmethod : aadlstring;
-  	risk : aadlstring;
-  	comment : aadlstring;) applies to (all);
+Severity : inherit enumeration (Catastrophic, Critical, Marginal, Negligible) applies to (all);
+Likelihood : inherit enumeration (Frequent, Probable, Occasional, Remote, Improbable) applies to (all);
 
 end MILSTD882;
