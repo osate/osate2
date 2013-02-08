@@ -50,6 +50,13 @@ public class Aadl2Util {
 		return getRefinedName(ne, ne);
 	}
 	
+	/**
+	 * refined Elements do not have an assigned name, but they have a reference to the Element they refine.
+	 * One of them is the original with an actually assigned name
+	 * @param ne Element whose name we are trying to retrieve
+	 * @param root The start of the search. Used to detect cycles
+	 * @return
+	 */
 	public static String getRefinedName(NamedElement ne, NamedElement root){
 		if (ne instanceof RefinableElement){
 			RefinableElement re = (RefinableElement)ne;
@@ -62,9 +69,15 @@ public class Aadl2Util {
 		return null;
 	}
 	
+	/**
+	 * Find owned named elements. In the case of a thread implementation or subprogram implementation
+	 * also look up subprogram calls.
+	 * @param owner Classifier in which the lookup is performed
+	 * @param name name of Element to be found
+	 * @return NamedElement or null
+	 */
 	public static NamedElement findOwnedNamedElement(Classifier owner, String name)
 	{
-		
 		for (Element e : owner.getOwnedElements())
 		{ 
 			if (! (e instanceof NamedElement))
@@ -74,10 +87,20 @@ public class Aadl2Util {
 			if (neName != null && neName.equalsIgnoreCase(name))
 				return ne;
 		}
-		
 		if (owner instanceof ThreadImplementation)
 		{
 			ThreadImplementation ti = (ThreadImplementation) owner;
+			for (CallSpecification cs : ti.getCallSpecifications())
+			{
+				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
+				{
+					return cs;
+				}
+			}
+		} else
+		if (owner instanceof SubprogramImplementation)
+		{
+			SubprogramImplementation ti = (SubprogramImplementation) owner;
 			for (CallSpecification cs : ti.getCallSpecifications())
 			{
 				if (cs.getName() != null && cs.getName().equalsIgnoreCase(name))
