@@ -420,37 +420,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.NORMAL)
 	public void caseAadlPackage(AadlPackage pack) {
 		String findings;
-		NamedElement ne1;
-		NamedElement ne2;
-
-		
-//		/*
-//		 * Unique name validator, JD
-//		 * TODO: we may use the same code as for the property validation
-//		 * (see code below).
-//		 * 
-//		 * Fixes #141
-//		 */
-//		for (Element e : pack.getPublicSection().getOwnedElements())
-//		{
-//
-//			for (Element e2 : pack.getPublicSection().getOwnedElements())
-//			{
-//				if (( e instanceof NamedElement) &&
-//					( e2 instanceof NamedElement))
-//				{
-//					ne1 = (NamedElement)e;
-//					ne2 = (NamedElement)e2;
-//
-//					if ( (e != e2) && (ne1.getName().equalsIgnoreCase(ne2.getName())))
-//					{
-//						error(e, "Component " + ne1.getName()+" has duplicates");
-//
-//					}
-//				}
-//			}
-//				
-//		}
 
 		findings = hasDuplicatesAadlPackage(pack);
 		if (findings != null)
@@ -751,7 +720,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
 					if (Aadl2Util.isNull(outEnd)) return;
-					if (didReverse?!(connection.getAllSource().equals(outEnd.getFeature())
+					ConnectionEnd src = connection.getAllSource();
+					if (src instanceof Feature){
+					if (didReverse?!(AadlUtil.isSameOrRefines((Feature)src, outEnd.getFeature()) // connection.getAllSource().equals(outEnd.getFeature())
 							// both have context and they don't match
 							|| (!Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllSourceContext())&&
 									outEnd.getContext().equals(connection.getAllSourceContext()))
@@ -772,6 +743,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 										+ "' does not match the out flow feature '"
 										+ (outEnd.getContext() != null ? outEnd.getContext().getName() + '.' : "")
 										+ outEnd.getFeature().getName() + '\'');
+					}
 					}
 				} else {
 					if (flow.getOwnedFlowSegments().get(i + 1).getFlowElement() instanceof FlowSpecification) {
@@ -4275,32 +4247,43 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * check whether there are duplicate names
 	 */
 	public String hasDuplicatesAadlPackage(AadlPackage context) {
-		if (WorkspacePlugin.getDefault().getPluginPreferences().getBoolean(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG)){
 			// project dependency based global scope
 			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
 			if (!findings.isEmpty()) {
 				return getNames(findings);
 			}
 			return null;
-		} else {
-			// workspace is global namespace
-			String crossRefString = ((NamedElement) context).getName();
-			List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
-			EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
-			for (IEObjectDescription ieObjectDescription : plist) {
-				String s = ieObjectDescription.getQualifiedName().toString();
-				if (crossRefString.equalsIgnoreCase(s)) {
-					if (ieObjectDescription.getEObjectOrProxy() != context){
-						ielist.add(ieObjectDescription);
-					}
-				}
-			}
-			if( !ielist.isEmpty())  {
-				return getNames(ielist);
-			}
-		}
-		return null;
+//			// workspace is global namespace
+//			String crossRefString = ((NamedElement) context).getName();
+//			List <IEObjectDescription> ielist = new Stack<IEObjectDescription>();
+//			EList<IEObjectDescription> plist = EMFIndexRetrieval.getAllPackagesInWorkspace(context);
+//			for (IEObjectDescription ieObjectDescription : plist) {
+//				String s = ieObjectDescription.getQualifiedName().toString();
+//				if (crossRefString.equalsIgnoreCase(s)) {
+//					if (ieObjectDescription.getEObjectOrProxy() != context){
+//						ielist.add(ieObjectDescription);
+//					}
+//				}
+//			}
+//			if( !ielist.isEmpty())  {
+//				return getNames(ielist);
+//			}
+//		return null;
 	}
+
+
+	/**
+	 * check whether there are duplicate names
+	 */
+	public String hasDuplicatesPropertySet(PropertySet context) {
+			// project dependency based global scope
+			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
+			if (!findings.isEmpty()) {
+				return getNames(findings);
+			}
+			return null;
+	}
+
 	
 protected String getNames(List<IEObjectDescription> findings){
 	String res = "";
