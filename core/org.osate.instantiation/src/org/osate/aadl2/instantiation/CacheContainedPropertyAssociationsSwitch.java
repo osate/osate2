@@ -138,8 +138,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		};
 	}
 
-	protected void processContainedPropertyAssociations(FeatureInstance fi,
-			EList<PropertyAssociation> propertyAssociations) {
+	protected void processContainedPropertyAssociations
+		(final FeatureInstance fi, final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
