@@ -958,14 +958,43 @@ public final class AadlUtil {
 	 * return true if repl is the same classifier or an extension of the
 	 original
 	 * @param origin Classifier
-	 * @param repl Classifier
+	 * @param extension Classifier
 	 * @return boolean true if repl is an extension of origin
 	 */
-	public static boolean isSameOrExtends(Classifier origin, Classifier
-			repl){
-		while (origin != repl) {
-			repl = repl.getExtended();
-			if (repl == null) return false;
+	public static boolean isSameOrExtends(Classifier origin, Classifier extension){
+		while (origin != extension) {
+			extension = extension.getExtended();
+			if (extension == null) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * return true if repl is the same feature or a refinement of the
+	 original
+	 * @param origin Feature
+	 * @param refinement Feature
+	 * @return boolean true if repl is an extension of origin
+	 */
+	public static boolean isSameOrRefines(Feature origin, Feature refinement){
+		while (origin != refinement) {
+			refinement = refinement.getRefined();
+			if (refinement == null) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * return true if repl is the same Subcomponent or a refinement of the
+	 original
+	 * @param origin Subcomponent
+	 * @param refinement Subcomponent
+	 * @return boolean true if repl is an extension of origin
+	 */
+	public static boolean isSameOrRefines(Subcomponent origin, Subcomponent refinement){
+		while (origin != refinement) {
+			refinement = refinement.getRefined();
+			if (refinement == null) return false;
 		}
 		return true;
 	}
