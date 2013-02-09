@@ -429,6 +429,7 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 
 				    	return true;
 				    }
+
 			}
 		}
 //		OsateDebug.osateDebug("[ConnectionReferenceImpl] acceptsProperty" + property);
