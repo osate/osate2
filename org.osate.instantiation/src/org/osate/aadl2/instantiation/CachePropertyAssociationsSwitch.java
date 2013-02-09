@@ -157,11 +157,10 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		//OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io);
 		
 		for (Property property : propertyFilter) {
-			//OsateDebug.osateDebug  ("   property=" + property);
-			//OsateDebug.osateDebug  ("   filter=" + propertyFilter);
 
 			if (io.acceptsProperty(property))
 			{
+				
 				/*
 				 * Just look up the property. The property doesn't yet have a
 				 * local association, so lookup will get the value from the
@@ -222,6 +221,8 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 		
 		for (Property prop : propertyFilter) 
 		{
+			//OsateDebug.osateDebug  ("   filter=" + prop);
+
 			PropertyAssociation setPA = null;
 
 			PropertyExpression defaultvalue = prop.getDefaultValue();
@@ -248,6 +249,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				 * is consistent for each connection.
 				 */
 				if (connRef.acceptsProperty(prop)) {
+//					OsateDebug.osateDebug  ("   accepts=" + prop);
 
 					/*
 					 * Just look up the property. The property doesn't yet have
@@ -257,14 +259,14 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 */
 					try {
 						//OsateDebug.osateDebug("try" + prop);
-						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache,
-								scProps.retrieveSCProperty(conni, prop, connRef.getConnection()));
+						final PropertyAssociation propAssociation = scProps.retrieveSCProperty(conni, prop, connRef.getConnection());
+						
+						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache, propAssociation);
 						List<EvaluatedProperty> value = prop.evaluate(ctx);
-
 
 						if (!value.isEmpty()) 
 						{
-							//OsateDebug.osateDebug ("[CachePropertyAssociation] connRef=" + connRef.getConnection().getName() + ";property=" + prop + ";value=" + value);
+//							OsateDebug.osateDebug ("[CachePropertyAssociation] connRef=" + connRef.getConnection().getName() + ";property=" + prop + ";value=" + value);
 
 							//OsateDebug.osateDebug("connref=" + connRef.getConnection() + "value=" +  value);
 
@@ -370,6 +372,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 				checkIfCancelled();
 				if (cancelled())
 				{
+//
 					OsateDebug.osateDebug("cancel" );
 
 					break;
@@ -381,15 +384,22 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			 * on all connection references of the connection instance.
 			 * If not, we put a warning in the connection instance itself.
 			 */
-			if ( (setPA != null) && (nConnRefsUseProperty < nConnRefs))
-			{
-				warning(conni, "The property " + setPA.getProperty().getQualifiedName()
-						+ " should be defined on each connection reference");
-				break;
-			}
-			if (setPA != null)
-			{
-			}
+			
+			
+			/*
+			 * The following code has been commented since it can created also
+			 * some issues with the binding properties.
+			 * JD
+			 */
+			//if ( (setPA != null) && (nConnRefsUseProperty < nConnRefs))
+			//{
+				//warning(conni, "The property " + setPA.getProperty().getQualifiedName()
+			//		+ " should be defined on each connection reference");
+				//break;
+			//}
+			//if (setPA != null)
+		//	{
+		//	}
 			
 		}
 	}

@@ -212,8 +212,9 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-					//OsateDebug.osateDebug ("   ios=" + ios);
 					for (InstanceObject io : ios) {
+						//OsateDebug.osateDebug ("   io=" + io);
+
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 						newPA.setProperty(prop);
