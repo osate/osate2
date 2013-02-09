@@ -566,6 +566,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		 * during instantiation doesn't catch contained property values that may
 		 * be attached to an ancestor instance and that might be inherited by
 		 * this instance.
+		 * 
+		 * However, we avoid to call it for connection reference because in that
+		 * case, for a connection reference, we call that method on the contained
+		 * ConnectionInstance that returns the value of the potential other
+		 * contained references.
 		 */
 		if (isInherit() && ( ! (io instanceof ConnectionReference)))  {
 			io = (InstanceObject) io.eContainer();
