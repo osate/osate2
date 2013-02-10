@@ -60,6 +60,7 @@ import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.properties.EvaluatedProperty;
@@ -513,8 +514,11 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		for (PropertyAssociation pa : pas) {
 			//			OsateDebug.osateDebug("pa" + pa);
 			vals.add(pa.evaluate(ctx));
-			if (!pa.isAppend())
+			
+			if (( ! (ctx.getInstanceObject() instanceof ConnectionReference )) && (!pa.isAppend()))
+			{
 				break;
+			}
 		}
 		return vals;
 	}
@@ -553,6 +557,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 			return;
 		}
 
+		
 		getPropertyValueFromDeclarativeModel(ctx, paa);
 
 		/*
@@ -561,8 +566,13 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 		 * during instantiation doesn't catch contained property values that may
 		 * be attached to an ancestor instance and that might be inherited by
 		 * this instance.
+		 * 
+		 * However, we avoid to call it for connection reference because in that
+		 * case, for a connection reference, we call that method on the contained
+		 * ConnectionInstance that returns the value of the potential other
+		 * contained references.
 		 */
-		if (isInherit()) {
+		if (isInherit() && ( ! (io instanceof ConnectionReference)))  {
 			io = (InstanceObject) io.eContainer();
 			if (io != null) {
 				getPropertyValueInternal(
@@ -599,8 +609,7 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 				((FeatureImpl) compDecl).getPropertyValue(this, pas, cl);
 			} else if (compDecl instanceof PortConnection) {
 				((PortConnectionImpl) compDecl).getPropertyValue(this, pas);
-
-			} else {
+			}else {
 				compDecl.getPropertyValueInternal(this, pas, true);
 			}
 		}

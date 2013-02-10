@@ -138,8 +138,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		};
 	}
 
-	protected void processContainedPropertyAssociations(FeatureInstance fi,
-			EList<PropertyAssociation> propertyAssociations) {
+	protected void processContainedPropertyAssociations
+		(final FeatureInstance fi, final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
 			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
@@ -212,8 +212,9 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-					//OsateDebug.osateDebug ("   ios=" + ios);
 					for (InstanceObject io : ios) {
+						//OsateDebug.osateDebug ("   io=" + io);
+
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 						newPA.setProperty(prop);
