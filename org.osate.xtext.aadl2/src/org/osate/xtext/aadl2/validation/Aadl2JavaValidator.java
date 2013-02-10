@@ -347,6 +347,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseEndToEndFlow(EndToEndFlow flow) {
 		checkEndToEndFlowSegments(flow);
+		checkFlowConnectionEnds(flow);
 		checkNestedEndToEndFlows(flow);
 		checkEndToEndFlowModes(flow);
 	}
@@ -430,25 +431,33 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.NORMAL)
 	public void casePropertySet(PropertySet propSet) {
-		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet))
+		String findings;
+
+		findings = hasDuplicatesPropertySet(propSet);
+		if (findings != null)
 		{
-			if (propSet.getName().equals("AADL_Project"))
-			{
-				IAadlWorkspace workspace;
-				workspace = AadlWorkspace.getAadlWorkspace();
-				IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
-				for (int i = 0 ; i < aadlProjects.length ; i++)
-				{
-					IAadlProject aadlProject = aadlProjects[i];
-					if (aadlProject.getAadlProjectFile() != null)
-					{
-						return;
-					}		
-				}
-				
-			}
-			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
+			error(propSet, "Property set " + propSet.getName()+" has duplicates "+findings);
 		}
+//		
+//		if (((Aadl2GlobalScopeProvider)scopeProvider).hasDuplicates(propSet))
+//		{
+//			if (propSet.getName().equals("AADL_Project"))
+//			{
+//				IAadlWorkspace workspace;
+//				workspace = AadlWorkspace.getAadlWorkspace();
+//				IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
+//				for (int i = 0 ; i < aadlProjects.length ; i++)
+//				{
+//					IAadlProject aadlProject = aadlProjects[i];
+//					if (aadlProject.getAadlProjectFile() != null)
+//					{
+//						return;
+//					}		
+//				}
+//				
+//			}
+//			error(propSet, "Property set " + propSet.getName()+" has duplicates in this or dependent projects");
+//		}
 	}
 
 	@Check(CheckType.NORMAL)
@@ -673,25 +682,26 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkFlowConnectionEnds(FlowImplementation flow) {
 		if (Aadl2Util.isNull(flow.getSpecification())) return;
 		for (int i = 0; i < flow.getOwnedFlowSegments().size(); i++) {
+			ConnectionEnd ce = null;
+			Context cxt = null;
 			if (flow.getOwnedFlowSegments().get(i).getFlowElement() instanceof Connection) {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
-				boolean didReverse =false;
+				ce = connection.getAllSource();
+				cxt = connection.getAllSourceContext();
+				boolean didReverse = false;
 				if (i == 0) {
 					FlowEnd inEnd = flow.getSpecification().getAllInEnd();
 					if (Aadl2Util.isNull(inEnd)) return;
-					if (!connection.getAllSource().equals(inEnd.getFeature())
-							|| (inEnd.getContext() != null && !inEnd.getContext().equals(
-									connection.getAllSourceContext()))) {
+					if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(),ce,cxt)) {
 						if (connection.isBidirectional()){
-							if(!connection.getAllDestination().equals(inEnd.getFeature())
-									|| (inEnd.getContext() != null && !inEnd.getContext().equals(
-											connection.getAllDestinationContext()))){
+							didReverse = true;
+							ce = connection.getAllDestination();
+							cxt = connection.getAllDestinationContext();
+							if(!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(),ce,cxt)) {
 								error(flow.getOwnedFlowSegments().get(i), "The source of connection '" + connection.getName()
 										+ "' does not match the in flow feature '"
 										+ (inEnd.getContext() != null ? inEnd.getContext().getName() + '.' : "")
 										+ inEnd.getFeature().getName() + '\'');
-							} else {
-								didReverse = true;
 							}
 						}
 					}
@@ -701,58 +711,48 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								.get(i - 1).getFlowElement();
 						FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
 						if (Aadl2Util.isNull(outEnd)) return;
-						if (!(connection.getAllSource().equals(outEnd.getFeature())|| connection.getAllSource().equals(outEnd.getContext()))) {
+						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(),ce,cxt)) {
 							if (connection.isBidirectional()){
-								if(!(connection.getAllDestination().equals(outEnd.getFeature())||connection.getAllDestination().equals(outEnd.getContext()) )){
+								didReverse = true;
+								if(!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(),ce,cxt)){
 									error(flow.getOwnedFlowSegments().get(i),
 											"The source of connection '"
 													+ connection.getName()
 													+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
 													+ flow.getOwnedFlowSegments().get(i - 1).getContext().getName() + '.'
 													+ previousFlowSegment.getName() + '\'');
-								} else {
-									didReverse = true;
 								}
 							}
 						}
 					}
 				}
+				if (didReverse){
+					ce = connection.getAllSource();
+					cxt = connection.getAllSourceContext();
+				} else {
+					ce = connection.getAllDestination();
+					cxt = connection.getAllDestinationContext();
+				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
 					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
 					if (Aadl2Util.isNull(outEnd)) return;
-					ConnectionEnd src = connection.getAllSource();
-					if (src instanceof Feature){
-					if (didReverse?!(AadlUtil.isSameOrRefines((Feature)src, outEnd.getFeature()) // connection.getAllSource().equals(outEnd.getFeature())
-							// both have context and they don't match
-							|| (!Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllSourceContext())&&
-									outEnd.getContext().equals(connection.getAllSourceContext()))
-									// connection to fg.port and flow to fg
-							|| (Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllSourceContext()) 
-									&& outEnd.getFeature().equals(connection.getAllSourceContext()))
-							)
-						:!(connection.getAllDestination().equals(outEnd.getFeature())
-								// both have context and they don't match
-								|| (!Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllDestinationContext())&& 
-										outEnd.getContext().equals(connection.getAllDestinationContext()))
-										// connection to fg.port and flow to fg
-								|| (Aadl2Util.isNull(outEnd.getContext()) && !Aadl2Util.isNull(connection.getAllDestinationContext()) 
-										&& outEnd.getFeature().equals(connection.getAllDestinationContext()))
-									)) {
-						error(flow.getOwnedFlowSegments().get(i), 
-								"The destination of connection '" + connection.getName()
-										+ "' does not match the out flow feature '"
-										+ (outEnd.getContext() != null ? outEnd.getContext().getName() + '.' : "")
-										+ outEnd.getFeature().getName() + '\'');
-					}
+					if (ce instanceof Feature){
+						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(),ce,cxt)) {
+							error(flow.getOwnedFlowSegments().get(i), 
+									"The destination of connection '" + connection.getName()
+									+ "' does not match the out flow feature '"
+									+ (outEnd.getContext() != null ? outEnd.getContext().getName() + '.' : "")
+									+ outEnd.getFeature().getName() + '\'');
+						}
 					}
 				} else {
-					if (flow.getOwnedFlowSegments().get(i + 1).getFlowElement() instanceof FlowSpecification) {
-						FlowSpecification nextFlowSegment = (FlowSpecification) flow.getOwnedFlowSegments().get(i + 1)
-								.getFlowElement();
+					FlowElement felem = flow.getOwnedFlowSegments().get(i + 1).getFlowElement();
+					if (felem instanceof FlowSpecification) {
+						FlowSpecification nextFlowSegment = (FlowSpecification) felem;
 						FlowEnd inEnd = nextFlowSegment.getAllInEnd();
 						if (Aadl2Util.isNull(inEnd)) return;
-						if (didReverse?(!(connection.getAllSource().equals(inEnd.getFeature())|| connection.getAllSource().equals(inEnd.getContext())))
-								:(!(connection.getAllDestination().equals(inEnd.getFeature())|| connection.getAllDestination().equals(inEnd.getContext())) )) {
+						if (ce instanceof Feature){
+						if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(),ce,cxt)){
 							error(flow.getOwnedFlowSegments().get(i),
 									"The destination of connection '"
 											+ connection.getName()
@@ -760,11 +760,35 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 											+ flow.getOwnedFlowSegments().get(i + 1).getContext().getName() + '.'
 											+ nextFlowSegment.getName() + '\'');
 						}
+						}
 					}
 				}
 			}
 		}
 	}
+	
+	/**
+	 * see if the endpoints of the connection and the flow spec point to the same thing.
+	 * They may be refinements of the other. They may be features of feature groups on one or the other side.
+	 * @param fsFeature
+	 * @param fsContext
+	 * @param connEnd
+	 * @param connContext
+	 * @return
+	 */
+	private boolean isMatchingConnectionPoint(Feature fsFeature, Context fsContext, ConnectionEnd connEnd, Context connContext){
+		if (!(connEnd instanceof Feature)) return true;
+		Feature connFeature = (Feature) connEnd;
+		return AadlUtil.isSameOrRefines(fsFeature,connFeature) 
+		||AadlUtil.isSameOrRefines(connFeature, fsFeature)
+//		||(firstContext instanceof FeatureGroup && secondContext instanceof FeatureGroup&&
+//				(AadlUtil.isSameOrRefines(secondFeature,(Feature)firstContext )|| AadlUtil.isSameOrRefines((Feature)firstContext, secondFeature))		)
+		// the flow spec has a FG as context and a feature within. The connection can only point to FG.
+				||(fsFeature instanceof FeatureGroup && connContext instanceof FeatureGroup&&
+						(AadlUtil.isSameOrRefines((FeatureGroup)connContext,(Feature)fsFeature )|| AadlUtil.isSameOrRefines((Feature)fsFeature, (FeatureGroup)connContext)))
+		;
+	}
+
 	
 	/**
 	 * Checks legality rule 5 in section 10.2 (Flow Implementations) on page 189.
@@ -994,6 +1018,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					error(segment, "Illegal reference to connection '" + segment.getFlowElement().getName() + "'.  Expecting subcomponent flow or end-to-end flow reference.");
 				}
 				else if (i == 0) {
+					// first element of an ETEF
 					if (segment.getFlowElement() instanceof FlowSpecification) {
 						if (segment.getContext() == null) {
 							error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a flow specification in the local classifier's namespace.");
@@ -1005,6 +1030,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 				else if (i == flow.getOwnedEndToEndFlowSegments().size() - 1) {
+					// last element of ETEF
 					if (segment.getFlowElement() instanceof FlowSpecification) {
 						if (segment.getContext() == null) {
 							error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a flow specification in the local classifier's namespace.");
@@ -1016,6 +1042,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 				else {
+					// an intermediate ETEF
 					if (segment.getFlowElement() instanceof DataAccess && segment.getContext() == null) {
 						error(segment, "Illegal reference to '" + segment.getFlowElement().getName() + "'.  Cannot refer to a data access except for the first and last segment of an end-to-end flow.");
 					}
@@ -1036,6 +1063,68 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
+
+	private void checkFlowConnectionEnds(EndToEndFlow flow) {
+		int size = flow.getOwnedEndToEndFlowSegments().size();
+		for (int i = 0; i < size; i++) {
+			ConnectionEnd ce = null;
+			Context cxt = null;
+			if (flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement() instanceof Connection) {
+				// for connection (every even element) check that it matches up with the preceding flow specification
+				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
+				ce = connection.getAllSource();
+				cxt = connection.getAllSourceContext();
+				boolean didReverse = false;
+				if (i>0&&flow.getOwnedEndToEndFlowSegments().get(i - 1).getFlowElement() instanceof FlowSpecification) {
+					FlowSpecification previousFlowSegment = (FlowSpecification) flow.getOwnedEndToEndFlowSegments()
+							.get(i - 1).getFlowElement();
+					FlowEnd outEnd = previousFlowSegment.getAllOutEnd();
+					if (Aadl2Util.isNull(outEnd)) return;
+					if (! isMatchingConnectionPoint(outEnd.getFeature(),outEnd.getContext(),ce,cxt)) {
+						if (connection.isBidirectional()){
+							ce = connection.getAllDestination();
+							cxt = connection.getAllDestinationContext();
+							didReverse = true;
+							if(! isMatchingConnectionPoint(outEnd.getFeature(),outEnd.getContext(),ce,cxt)){
+								error(flow.getOwnedEndToEndFlowSegments().get(i),
+										"The source of connection '"
+												+ connection.getName()
+												+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
+												+ flow.getOwnedEndToEndFlowSegments().get(i - 1).getContext().getName() + '.'
+												+ previousFlowSegment.getName() + '\'');
+							}
+						}
+					}
+				}
+				if (didReverse){
+					ce = connection.getAllSource();
+					cxt = connection.getAllSourceContext();
+				} else {
+					ce = connection.getAllDestination();
+					cxt = connection.getAllDestinationContext();
+				}
+				if (i+1< size){
+					EndToEndFlowElement felem = flow.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement();
+					if (felem instanceof FlowSpecification) {
+						FlowSpecification nextFlowSegment = (FlowSpecification) felem;
+						FlowEnd inEnd = nextFlowSegment.getAllInEnd();
+						if (Aadl2Util.isNull(inEnd)) return;
+						if (ce instanceof Feature){
+							if (!isMatchingConnectionPoint(inEnd.getFeature(),inEnd.getContext(),ce,cxt)){
+								error(flow.getOwnedEndToEndFlowSegments().get(i),
+										"The destination of connection '"
+												+ connection.getName()
+												+ "' does not match the in flow feature of the succeeding subcomponent flow specification '"
+												+ flow.getOwnedEndToEndFlowSegments().get(i + 1).getContext().getName() + '.'
+												+ nextFlowSegment.getName() + '\'');
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 	
 	/**
 	 * Checks legality rule 4 in section 10.3 (End-To-End Flows) on page 191.
@@ -4275,10 +4364,25 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	/**
 	 * check whether there are duplicate names
 	 */
-	public String hasDuplicatesPropertySet(PropertySet context) {
+	public String hasDuplicatesPropertySet(PropertySet propSet) {
 			// project dependency based global scope
-			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(context);
+			List<IEObjectDescription> findings = ((Aadl2GlobalScopeProvider)scopeProvider).getDuplicates(propSet);
 			if (!findings.isEmpty()) {
+//				if (propSet.getName().equals("AADL_Project"))
+//				{
+//					IAadlWorkspace workspace;
+//					workspace = AadlWorkspace.getAadlWorkspace();
+//					IAadlProject[] aadlProjects = workspace.getOpenAadlProjects();
+//					for (int i = 0 ; i < aadlProjects.length ; i++)
+//					{
+//						IAadlProject aadlProject = aadlProjects[i];
+//						if (aadlProject.getAadlProjectFile() != null)
+//						{
+////							return;
+//						}		
+//					}
+//					
+//				}
 				return getNames(findings);
 			}
 			return null;
