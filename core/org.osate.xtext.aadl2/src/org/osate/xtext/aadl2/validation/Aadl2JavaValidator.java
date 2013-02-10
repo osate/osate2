@@ -1307,6 +1307,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								+ impl.getQualifiedName() + "' or in type '" + impl.getTypeName() + "'");
 			}
 		}
+		EList<FlowImplementation> fimpllist = impl.getAllFlowImplementations();
+		final Set<String> seen = new HashSet<String>();
+		for (FlowImplementation flowImplementation : fimpllist) {
+			if (flowImplementation.getInModeOrTransitions().isEmpty()){
+				// check of previously declared
+				FlowSpecification spec = flowImplementation.getSpecification();
+				if (!Aadl2Util.isNull(spec)){
+					if (!seen.add(spec.getName())){
+						error(flowImplementation,"Flow implementation "+spec.getName()+" declared more than once.");
+					}
+				}
+			}
+		}
 	}
 	
 

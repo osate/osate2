@@ -256,7 +256,7 @@ public final class AadlUtil {
 	 */
 	public static EList<NamedElement> findDoubleNamedElementsInList(List<?> el) {
 		EList<NamedElement> result = new BasicEList<NamedElement>();
-		final Set seen = new HashSet();
+		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
 			for (final Iterator i = el.iterator(); i.hasNext();) {
@@ -266,10 +266,8 @@ public final class AadlUtil {
 					 String name = lit.getName();
 					if (name != null && !name.isEmpty()) {
 						name = name.toLowerCase();
-						if (seen.contains(name)) {
+						if (!seen.add(name)) {
 							result.add(lit);
-						} else {
-							seen.add(name);
 						}
 					}
 				}
