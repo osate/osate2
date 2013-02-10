@@ -1459,21 +1459,21 @@ public class InstantiateModel {
 	 * @return List holding the used property definitions
 	 */
 	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
-		//OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
+//		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
 
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
-		//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
+			//OsateDebug.osateDebug ("[InstantiateModel]    ao=" + ao);
 
 			if (ao instanceof PropertyAssociation) {
 			//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
 
 				Property pd = ((PropertyAssociation) ao).getProperty();
-				//OsateDebug.osateDebug ("[InstantiateModel] pd=" + pd);
+				//OsateDebug.osateDebug ("[InstantiateModel]    pd=" + pd);
 
 				if (pd != null) {
-					//OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
+//					OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
 					result.add(pd);
 				}
 			}

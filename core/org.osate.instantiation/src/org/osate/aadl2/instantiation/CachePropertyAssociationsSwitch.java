@@ -45,18 +45,14 @@ import java.util.List;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.AbstractNamedValue;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.impl.EnumerationLiteralImpl;
 import org.osate.aadl2.impl.NamedValueImpl;
-import org.osate.aadl2.impl.PropertyValueImpl;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -72,13 +68,16 @@ import org.osate.aadl2.properties.EvaluatedProperty;
 import org.osate.aadl2.properties.EvaluatedProperty.MpvProxy;
 import org.osate.aadl2.properties.EvaluationContext;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
  * @author lwrage
  */
 class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
+
+	/*
+	 * PropertyFilter contains all properties used in the model.
+	 */
 	private List<Property> propertyFilter;
 
 	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
@@ -95,19 +94,19 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	final private SCProperties scProps;
 
 	CachePropertyAssociationsSwitch
-			(final IProgressMonitor pm, 
-			 final AnalysisErrorReporterManager errManager, 
-			 final List<Property> filter, 
-			 final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
-			 final SCProperties scProps, 
-			 final HashMap<ModeInstance,List<SystemOperationMode>> mode2som) 
-	{
+		   (final IProgressMonitor pm, 
+			final AnalysisErrorReporterManager errManager, 
+			final List<Property> filter, 
+			final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
+			final SCProperties scProps, 
+			final HashMap<ModeInstance,List<SystemOperationMode>> mode2som) 
+			{
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
 		propertyFilter = filter;
 		this.classifierCache = classifierCache;
 		this.scProps = scProps;
 		this.mode2som = mode2som;
-	}
+			}
 
 	protected void initSwitches() {
 		instanceSwitch = new InstanceSwitch<String>() {
@@ -156,126 +155,106 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	{
 		//OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io);
 		
-		for (Property property : propertyFilter) {
-			//OsateDebug.osateDebug  ("   property=" + property);
-			//OsateDebug.osateDebug  ("   filter=" + propertyFilter);
-
-			if (io.acceptsProperty(property))
+		try 
+		{
+			for (Property property : propertyFilter) 
 			{
-				/*
-				 * Just look up the property. The property doesn't yet have a
-				 * local association, so lookup will get the value from the
-				 * declarative model. Property lookup process now corrects
-				 * reference values to instance reference values.
-				 */
-				try {
-					List<EvaluatedProperty> value = property.evaluate(new EvaluationContext(io, classifierCache));
+				if (io.acceptsProperty(property))
+				{
+
+					/*
+					 * Just look up the property. The property doesn't yet have a
+					 * local association, so lookup will get the value from the
+					 * declarative model. Property lookup process now corrects
+					 * reference values to instance reference values.
+					 */
+
+					List<EvaluatedProperty> value =  property.evaluate(new EvaluationContext(io, classifierCache));
 					//OsateDebug.osateDebug ("   value=" + value);
 
 					if (!value.isEmpty()) 
 					{
 						//OsateDebug.osateDebug ("[CachePropertyAssociation] io=" + io + ";property=" + property + ";value=" + value);
-
 						PropertyAssociation pa = io.createOwnedPropertyAssociation();
 
 						io.removePropertyAssociations(property);
 						pa.setProperty(property);
 						fillPropertyValue(io, pa, value);
 					}
-				} 
-				catch (IllegalStateException e) {
-					// circular dependency
-					// xxx: this is a misleading place to put the marker
-					System.out.println ("IllegalStateException raised in cachePropertyAssociations");
-					error(io, e.getMessage());
-				} 
-				catch (InvalidModelException e) 
+				}
+				checkIfCancelled();
+				if (cancelled())
 				{
-					System.out.println ("InvalidModelException raised in cachePropertyAssociations");
-
-					error(e.getElement(), e.getMessage());
+					break;
 				}
 			}
-			else
-			{
-				//OsateDebug.osateDebug ("   prperty not accepted on " + io);
-
-			}
-			checkIfCancelled();
-			if (cancelled())
-			{
-				break;
-			}
+		}
+		catch (IllegalStateException e) {
+			// circular dependency
+			// xxx: this is a misleading place to put the marker
+			System.out.println ("IllegalStateException raised in cachePropertyAssociations");
+			error(io, e.getMessage());
+			return;
+		} 
+		catch (InvalidModelException e) 
+		{
+			System.out.println ("InvalidModelException raised in cachePropertyAssociations");
+			error(e.getElement(), e.getMessage());
+			return;
 		}
 	}
 
 	protected void cacheConnectionPropertyAssociations(final ConnectionInstance conni) 
 	{
-		int nConnRefs = 0; // The number of connection reference for a connection instance
-		/*
-		 *  The number of use of the property on the connection references.
-		 *  So, we can check that the property is defined on all connection
-		 *  references by checking that nConnRefsUseProperty == nConnRefs
-		 */
-		int nConnRefsUseProperty = 0; 
-		
-		
-		for (Property prop : propertyFilter) 
-		{
-			PropertyAssociation setPA = null;
+		PropertyAssociation setPA;
+		PropertyExpression defaultvalue;
+		List<EvaluatedProperty> propertyValue;
 
-			PropertyExpression defaultvalue = prop.getDefaultValue();
+		try 
+		{
 			/*
-			 * JD: comment this block since it seems useless
-			if (defaultvalue instanceof NamedValue)
+			 * propertyFilter contains all properties used by the system, so, we try to
+			 * use the one associated to the connection instance and their reference and
+			 * see if the user declares a specific value.
+			 */
+			for (Property prop : propertyFilter) 
 			{
-				AbstractNamedValue val = ((NamedValue)defaultvalue).getNamedValue();
-				if (val instanceof NamedElement){
-					
-				}
-			}
-			*/
-			nConnRefs = conni.getConnectionReferences().size();
-			nConnRefsUseProperty = 0;
-			for (ConnectionReference connRef : conni.getConnectionReferences())
-			{
-				// acceptance test of connref tests connection itself
+				setPA = null;
+
+				defaultvalue = prop.getDefaultValue();
 				
-				/*
-				 * In the following piece of code, we check that a property
-				 * is consistent all along the connection reference.
-				 * For example, we check that the timing property (immediate, delayed)
-				 * is consistent for each connection.
-				 */
-				if (connRef.acceptsProperty(prop)) {
+				for (final ConnectionReference connRef : conni.getConnectionReferences())
+				{
 
 					/*
-					 * Just look up the property. The property doesn't yet have
-					 * a local association, so lookup will get the value from
-					 * the declarative model. Property lookup process now
-					 * corrects reference values to instance reference values.
+					 * In the following piece of code, we check that a property
+					 * is consistent all along the connection reference.
+					 * For example, we check that the timing property (immediate, delayed)
+					 * is consistent for each connection.
 					 */
-					try {
-						//OsateDebug.osateDebug("try" + prop);
-						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache,
-								scProps.retrieveSCProperty(conni, prop, connRef.getConnection()));
-						List<EvaluatedProperty> value = prop.evaluate(ctx);
+					if (connRef.acceptsProperty(prop)) 
+					{
+						/*
+						 * Just look up the property. The property doesn't yet have
+						 * a local association, so lookup will get the value from
+						 * the declarative model. Property lookup process now
+						 * corrects reference values to instance reference values.
+						 */
 
+						final PropertyAssociation propAssociation = scProps.retrieveSCProperty(conni, prop, connRef.getConnection());
 
-						if (!value.isEmpty()) 
+						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache, propAssociation);
+						propertyValue = prop.evaluate(ctx);
+
+						if (!propertyValue.isEmpty()) 
 						{
-							//OsateDebug.osateDebug ("[CachePropertyAssociation] connRef=" + connRef.getConnection().getName() + ";property=" + prop + ";value=" + value);
-
-							//OsateDebug.osateDebug("connref=" + connRef.getConnection() + "value=" +  value);
-
-							nConnRefsUseProperty++;
 							PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 							newPA.setProperty(prop);
-							fillPropertyValue(connRef, newPA, value);
+							fillPropertyValue(connRef, newPA, propertyValue);
 
 							scProps.recordSCProperty(conni, prop, connRef.getConnection(), newPA);
-							
+
 							/*
 							 * JD bug 174
 							 * Also add the property to the connection reference
@@ -285,17 +264,11 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 							if (setPA == null) 
 							{
-								//OsateDebug.osateDebug("null" +  newPA);
-
 								setPA = newPA;
-
 								newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-
 								newPA.setProperty(prop);
-								fillPropertyValue(connRef, newPA, value);
-//								OsateDebug.osateDebug("set value" + setPA.getOwnedValues());
-								
-								
+								fillPropertyValue(connRef, newPA, propertyValue);
+
 								/*
 								 * JD bug 174
 								 * Also add the property to the connection reference
@@ -305,34 +278,29 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 							} 
 							else 
 							{
-								//OsateDebug.osateDebug("here1" );
-
 								// check consistency
-								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) {
-									//OsateDebug.osateDebug("here2" );
-						
+								for (Mode m : conni.getSystemInstance().getSystemOperationModes()) 
+								{
+
 									if (!newPA.valueInMode(m).equals(setPA.valueInMode(m)))
 									{
 										//  this comparison return inequality even if the two property values are the same. They are
 										// enumeration literals kept in a NameValue object and there are two instances of the NemdValue object pointing to the same literal
 										// The second issue is that evaluate may return the default value for the property, which may be different from the assigned value.
-										
+
 										/*
 										 * JD
 										 * Used to fix bug #158
 										 */
 										if ((newPA.valueInMode(m) instanceof NamedValueImpl) &&
-											(setPA.valueInMode(m) instanceof NamedValueImpl))
+												(setPA.valueInMode(m) instanceof NamedValueImpl))
 										{
-											
+
 											NamedValueImpl nvi1 = (NamedValueImpl) newPA.valueInMode(m); 
 											NamedValueImpl nvi2 = (NamedValueImpl) setPA.valueInMode(m); 
 
-											//OsateDebug.osateDebug("nvi1=" + nvi1);
-											//OsateDebug.osateDebug("nvi2=" + nvi2);
-
 											if ((nvi1.getNamedValue() instanceof EnumerationLiteralImpl) &&
-											    (nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
+													(nvi2.getNamedValue() instanceof EnumerationLiteralImpl))
 											{
 												EnumerationLiteralImpl ei1 = (EnumerationLiteralImpl) nvi1.getNamedValue();
 												EnumerationLiteralImpl ei2 = (EnumerationLiteralImpl) nvi2.getNamedValue();
@@ -341,12 +309,11 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 													continue;
 												}
 											}
-								//			OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] " + (((NamedValueImpl)newPA.valueInMode(m)).getNamedValue()));
 										}
-										
+
 										if (!newPA.valueInMode(m).equals(defaultvalue)&& !setPA.valueInMode(m).equals(defaultvalue))
 										{
-											
+
 											error(conni, "Value for property " + setPA.getProperty().getQualifiedName()
 													+ " not consistent along connection");
 											break;
@@ -355,53 +322,43 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								}
 							}
 						}
-					} catch (IllegalStateException e) {
-						// circular dependency
-						// xxx: this is a misleading place to put the marker
-						error(conni, e.getMessage());
-						System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
-
-					} catch (InvalidModelException e) {
-						error(e.getElement(), e.getMessage());
-						System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
-
 					}
 				}
 				checkIfCancelled();
 				if (cancelled())
 				{
-					OsateDebug.osateDebug("cancel" );
-
 					break;
 				}
+
 			}
-			
-			/*
-			 * In the following, we check that the property was defined
-			 * on all connection references of the connection instance.
-			 * If not, we put a warning in the connection instance itself.
-			 */
-			if ( (setPA != null) && (nConnRefsUseProperty < nConnRefs))
-			{
-				warning(conni, "The property " + setPA.getProperty().getQualifiedName()
-						+ " should be defined on each connection reference");
-				break;
-			}
-			if (setPA != null)
-			{
-			}
-			
+
+		} 
+		catch (IllegalStateException e) 
+		{
+			// circular dependency
+			// xxx: this is a misleading place to put the marker
+			error(conni, e.getMessage());
+			System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
+
+		} catch (InvalidModelException e) 
+		{
+			error(e.getElement(), e.getMessage());
+			System.out.println ("IllegalStateException raised in cacheConnectionPropertyAssociations");
+
 		}
 	}
 
-	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) {
-		Iterator<EvaluatedProperty> valueIter = values.iterator();
-		EvaluatedProperty value = valueIter.next();
-		//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue on " + io);
-		for (MpvProxy proxy : value.getProxies()) 
+	private void fillPropertyValue(InstanceObject io, PropertyAssociation pa, List<EvaluatedProperty> values) 
+	{
+		
+		PropertyExpression 			lexp;
+		List<PropertyExpression> 	elems;
+		final Iterator<EvaluatedProperty> valueIter 	= values.iterator();
+		final EvaluatedProperty value 					= valueIter.next();
+		final List<MpvProxy> proxies					= value.getProxies();
+		
+		for (MpvProxy proxy : proxies) 
 		{
-			//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue proxy= " + proxy);
-			//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue values= " + values);
 
 			ModalPropertyValue newVal = Aadl2Factory.eINSTANCE.createModalPropertyValue();
 			List<SystemOperationMode> inSOMs = new ArrayList<SystemOperationMode>();
@@ -411,25 +368,20 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			while (valueIter.hasNext()) 
 			{
 				MpvProxy prx = valueIter.next().getProxies().get(0);
-				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] fillPropertyValue prx= " + prx);
 
 				if (prx.isModal()) 
 				{
 					throw new InvalidModelException(pa, "Trying to append to a modal list value");
 				}
-				PropertyExpression lexp = EcoreUtil.copy(prx.getValue());
-				List<PropertyExpression> elems = ((ListValue) lexp).getOwnedListElements();
+				
+				 lexp = EcoreUtil.copy(prx.getValue());
+				 elems = ((ListValue) lexp).getOwnedListElements();
 
 				((ListValue) newVal.getOwnedValue()).getOwnedListElements().addAll(0, elems);
 			}
 			if (!proxy.isModal()) 
 			{
-				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;pa=" + pa + "add=" + newVal);
-				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
-
 				pa.getOwnedValues().add(newVal);
-				//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] not modal;paValues=" + pa.getOwnedValues());
-
 			} 
 			else 
 			{
@@ -437,8 +389,6 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 				for (Mode mode : modes) 
 				{
-					//OsateDebug.osateDebug("[CachePropertyAssociationsSwitch] mode=" + mode);
-
 					if (mode instanceof SystemOperationMode) 
 					{
 						inSOMs.add((SystemOperationMode) mode);
@@ -470,19 +420,20 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 									break;
 								}
 							}
-						} else 
+						} 
+						else 
 						{
 							List<ModeInstance> holderModes = (io instanceof ComponentInstance) ? ((ComponentInstance) io)
 									.getModeInstances() : io.getContainingComponentInstance().getModeInstances();
 
-							for (ModeInstance mi : holderModes) 
-							{
-								if (mi.getMode() == mode) 
-								{
-									inSOMs.addAll(mode2som.get(mi));
-									break;
-								}
-							}
+									for (ModeInstance mi : holderModes) 
+									{
+										if (mi.getMode() == mode) 
+										{
+											inSOMs.addAll(mode2som.get(mi));
+											break;
+										}
+									}
 						}
 					}
 				}
