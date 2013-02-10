@@ -4594,6 +4594,12 @@ protected String getNames(List<IEObjectDescription> findings){
 			}
 		}
 		else { //up or down hierarchy
+			boolean cxtFGIsInverse = false;
+			if (connection.getAllSourceContext() instanceof FeatureGroup){
+				cxtFGIsInverse = ((FeatureGroup)connection.getAllSourceContext()).isInverse();
+			} else if (connection.getAllSourceContext() instanceof FeatureGroup){
+				cxtFGIsInverse = ((FeatureGroup)connection.getAllDestinationContext()).isInverse();
+			}
 			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
 					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 				if (classifierMatchingRuleValue != null && ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
@@ -4605,7 +4611,7 @@ protected String getNames(List<IEObjectDescription> findings){
 							"' is not supported for feature group connections that connect up or down the containment hierarchy. Using rule '" + ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
 				if (sourceType == destinationType) {
-					if (source.isInverse() != destination.isInverse()) {
+					if (cxtFGIsInverse?source.isInverse() == destination.isInverse():source.isInverse() != destination.isInverse()) {
 						error(connection, "For connections that connect up or down the containment hierarchy, the feature group types of the source and destination must be identical." +
 								" They cannot be inverses of each other.");
 					}
