@@ -13,6 +13,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -24,6 +25,7 @@ import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.properties.PropertyIsModalException;
 import org.osate.aadl2.properties.PropertyNotPresentException;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -52,17 +54,47 @@ public class FlowLatencyUtil {
 			try {
 				List pvlist = GetProperties.getActualConnectionBinding(ph);
 				for ( Object pv: pvlist){
-				  InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
-				  if (ref instanceof ComponentInstance){
-				  reflist.add((ComponentInstance)ref);
-				  }
+					if(pv instanceof InstanceReferenceValue)
+					{
+						InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
+						if (ref instanceof ComponentInstance){
+							reflist.add((ComponentInstance)ref);
+						}
+					}
+					else
+					{
+						OsateDebug.osateDebug("Element " + ph + " should have a binding to a connection but has the wrong component associated ("+ pv +")");
+					}
 				}
-			} catch (InvalidModelException e) {
-			} catch (PropertyNotPresentException e) {
-			} catch (PropertyIsModalException e) {
-			} catch (PropertyDoesNotApplyToHolderException e) {
-			} catch (IllegalArgumentException e) {
-			} catch (IllegalStateException e) {
+			}
+			catch (InvalidModelException e)
+			{
+				e.printStackTrace();
+			}
+			catch (PropertyNotPresentException e)
+			{
+
+				e.printStackTrace();
+			} 
+			catch (PropertyIsModalException e)
+			{
+
+				e.printStackTrace();
+			} 
+			catch (PropertyDoesNotApplyToHolderException e)
+			{
+
+				e.printStackTrace();
+			}
+			catch (IllegalArgumentException e)
+			{
+
+				e.printStackTrace();
+			} 
+			catch (IllegalStateException e) 
+			{
+
+				e.printStackTrace();
 			}
 			ConnectionInstanceEnd cie = pci.getSource();
 			if (!(cie instanceof FeatureInstance)) 

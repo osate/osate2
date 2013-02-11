@@ -39,6 +39,8 @@
 */
 package org.osate.analysis.flows.actions;
 
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
@@ -95,6 +97,8 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelMo
 		monitor.done();		
 		flowLatencySwitch.saveCSVContent();
 	}
+
+
 
 
 }
