@@ -1645,8 +1645,7 @@ public class AadlBaTypeChecker
     
     result.setComponent((ComponentClassifier) enu.getBaName().getOsateRef()) ;
     result.setEnumLiteral((StringLiteral) enu.getLiteral().getOsateRef()) ;
-    result.setProperty((PropertyExpression) enu.getProperty().getOsateRef()) ;
-    
+        
     return result ;
   }
 

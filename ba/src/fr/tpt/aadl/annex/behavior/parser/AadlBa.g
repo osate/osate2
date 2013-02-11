@@ -419,10 +419,6 @@ SEMICOLON      : ';' ;
 DOUBLECOLON    : '::';
 HASH           : '#';
 
-ENUMERATOR     : 'enumerators' ;
-
-
-
 //  Grammar
 
 //---------------------------------------------------------
@@ -2301,7 +2297,6 @@ catch [RecognitionException ex] {
 // enumeration_literal ::= 
 //   { package_identifier :: }* component_type_identifier
 //   [ . component_implementation_identifier ]
-//   . enumerator_property_identifier
 //   # enumeration_literal_identifier
 behavior_enumeration_literal returns [Enumeration enumeration]
   @init {
@@ -2311,16 +2306,12 @@ behavior_enumeration_literal returns [Enumeration enumeration]
   (
      qualifiable_named_element[enumeration]
      
-     DOT id1=ENUMERATOR HASH id2=IDENT
+     HASH id2=IDENT
      {
        Identifier lit = _decl.createIdentifier() ;
        lit.setId(id2.getText());
        setLocationReference(lit, id2) ;
-       Identifier prop = _decl.createIdentifier() ;
-       prop.setId(id1.getText()) ;
-       setLocationReference(prop, id1) ;
-       
-       enumeration.setProperty(prop);
+              
        enumeration.setLiteral(lit);
        // enumeration's location reference is already set, see
        // qualifiable_named_element.       

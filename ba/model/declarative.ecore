@@ -49,8 +49,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Enumeration" eSuperTypes="#//QualifiedNamedElement">
     <eStructuralFeatures xsi:type="ecore:EReference" name="literal" lowerBound="1"
         eType="#//Identifier" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" lowerBound="1"
-        eType="#//Identifier" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Identifier" eSuperTypes="aadlba.ecore#//BehaviorState #//DeclarativeBehaviorElement">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType aadlba.ecore#//String"/>

@@ -1454,18 +1454,18 @@ public class AadlBaNameResolver
 	   {
 		   Classifier c = (Classifier) enu.getOsateRef() ;
 		  
-		   Identifier propertyName = enu.getProperty() ;
+		   String propertyName = "enumerators" ; // Waiting for a property value 
+		                                          // generic referencing syntax.
 		  
 		   EList<PropertyExpression> pel = 
-		               PropertyUtils.getPropertyExpression(c, propertyName.getId());
+		               PropertyUtils.getPropertyExpression(c, propertyName);
 		  
-		   Identifier wrongId = null ;
+		   String wrongId = null ;
 		  
 		   if(! pel.isEmpty())
 		   {
 			   ListValue lv = (ListValue) pel.get(0) ;
-			   propertyName.setOsateRef(lv) ;
-			  
+			   			  
 			   StringLiteral sl ;
 			   Identifier enumLiteral = enu.getLiteral();
 			  
@@ -1481,7 +1481,7 @@ public class AadlBaNameResolver
 			   }
 			  
 			   // Matching has failed. Set report variables.
-			   wrongId = enumLiteral ;
+			   wrongId = enumLiteral.getId() ;
 		   }
 		   else // Property enumerators is not found.
 		   {
@@ -1490,7 +1490,7 @@ public class AadlBaNameResolver
 		  
 		   // At this point, resolution has failed. Reports error and returns
 		   // false.
-		   reportNameError(wrongId, wrongId.getId()) ;
+		   reportNameError(enu, wrongId) ;
 		   result = false ;
 	   }
 

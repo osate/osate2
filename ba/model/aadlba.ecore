@@ -64,8 +64,6 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="BehaviorEnumerationLiteral" eSuperTypes="#//Literal">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="property" unique="false"
-        lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="enumLiteral" unique="false"
         lowerBound="1" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//StringLiteral"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="component" unique="false"

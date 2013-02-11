@@ -370,7 +370,7 @@ transitions
    -- enumeration tests --
    
  a -[]-> a {subMyEnum_A := subMyEnum_B} ;                                 
- a -[]-> a {subMyEnum_A := MyEnum.enumerators#monday} ;
+ a -[]-> a {subMyEnum_A := MyEnum#monday} ;
  
  
    -- Iterative variable tests --
@@ -398,8 +398,8 @@ transitions
 
 -- Enumeration literal  
  a -[]-> a {
-             localMyEnum := Dummy::Types::Days.v1.enumerators#monday ;
-             localDay := MyEnum.enumerators#monday ;
+             localMyEnum := Dummy::Types::Days.v1#monday ;
+             localDay := MyEnum#monday ;
              localMyEnum := localDay
            } ;
 
