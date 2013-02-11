@@ -4417,18 +4417,31 @@ protected String getNames(List<IEObjectDescription> findings){
 }
 
 
-	public boolean hasExtendCycles(Classifier cl) {
-		EList<NamedElement> cls = new BasicInternalEList<NamedElement>(NamedElement.class);
-		cls.add(cl);
-		while (cl.getExtended() != null) {
-			if (cls.contains(cl.getExtended())) {
-				return true;
-			}
-			cl = cl.getExtended();
-			cls.add(cl);
+public EList<Classifier> getSelfPlusAncestors(Classifier cl) {
+	EList<Classifier> cls = new BasicInternalEList<Classifier>(Classifier.class);
+	cls.add(cl);
+	while (cl.getExtended() != null) {
+		if (cls.contains(cl.getExtended())) {
+			return cls;
 		}
-		return false;
+		cl = cl.getExtended();
+		cls.add(cl);
 	}
+	return cls;
+}
+
+public boolean hasExtendCycles(Classifier cl) {
+	EList<Classifier> cls = new BasicInternalEList<Classifier>(Classifier.class);
+	cls.add(cl);
+	while (cl.getExtended() != null) {
+		if (cls.contains(cl.getExtended())) {
+			return true;
+		}
+		cl = cl.getExtended();
+		cls.add(cl);
+	}
+	return false;
+}
 	
 	public boolean sameDirection(DirectionType srcDirection,DirectionType destDirection){
 		return (srcDirection.incoming() && destDirection.incoming()) ||
@@ -4589,7 +4602,11 @@ protected String getNames(List<IEObjectDescription> findings){
 							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				}
 				if (!testIfFeatureGroupTypesAreInverses(source, sourceType, destination, destinationType)) {
-					error(connection, "The feature group types of '" + source.getName() + "' and '" + destination.getName() + "' are not inverse types.");
+					if (testIfFeatureGroupTypeExtensionsAreInverses(source, sourceType, destination, destinationType)){
+						warning(connection,"The feature group type of '" + source.getName() + "' and '" + destination.getName() + "' do not match, but their ancestors are inverse types.");
+					} else {
+						error(connection, "The feature group types of '" + source.getName() + "' and '" + destination.getName() + "' are not inverse types.");
+					}
 				}
 			}
 			else if (ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
@@ -4631,8 +4648,16 @@ protected String getNames(List<IEObjectDescription> findings){
 								" They cannot be inverses of each other.");
 					}
 				}
-				else
+				else {
+					if (isSameInExtends(sourceType, destinationType)){
+						if (cxtFGIsInverse?source.isInverse() == destination.isInverse():source.isInverse() != destination.isInverse()) {
+							error(connection, "Ancestor feature group types match, but feature group '" + source.getName() + "' and '" + destination.getName() + "' differ in inverse of.");
+						} else {
+							warning(connection,"The feature group type of '" + source.getName() + "' and '" + destination.getName() + "' do not match, but their ancestors do.");
+						}
+					}
 					error(connection, "The feature group types of the source and destination feature groups must be identical for connections that connect up or down the containment hierarchy.");
+				}
 			}
 			else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 				if (!testIfFeatureGroupTypesAreIdentical(source, sourceType, destination, destinationType) &&
@@ -4682,6 +4707,60 @@ protected String getNames(List<IEObjectDescription> findings){
 			return false;
 		return true;
 	}
+	
+	private boolean testIfFeatureGroupTypeExtensionsAreInverses(FeatureGroup source, FeatureGroupType sourceType, FeatureGroup destination, FeatureGroupType destinationType) {
+		// one is the ancestor of the other
+		// then the fg must have opposite inverses
+		if (AadlUtil.isSameOrExtends(sourceType, destinationType)||AadlUtil.isSameOrExtends(destinationType, sourceType)){
+			return (source.isInverse() && !destination.isInverse())||(!source.isInverse() && destination.isInverse());
+		}
+		if (isInverseOfInExtends(sourceType,destinationType)) {
+			// fg must be the same (both inverse or both not inverse)
+			return (source.isInverse() && destination.isInverse())||(!source.isInverse() && !destination.isInverse());
+		}
+		if (isSameInExtends(sourceType, sourceType)){
+			// they have a common FGT root
+			return (source.isInverse() && !destination.isInverse())||(!source.isInverse() && destination.isInverse());
+		}
+		return true;
+	}
+	
+	public boolean isInverseOfInExtends(FeatureGroupType srcpgt,FeatureGroupType dstpgt) {
+		EList<Classifier> srcancestors = getSelfPlusAncestors(srcpgt);
+		FeatureGroupType dstfgt = dstpgt;
+		while ( !Aadl2Util.isNull(dstfgt) ){
+			if (!Aadl2Util.isNull(dstfgt.getInverse()) ){
+				if(srcancestors.contains(dstfgt.getInverse())){
+					return true;
+				}
+			}
+			dstfgt = dstfgt.getExtended();
+		}
+		EList<Classifier> dstancestors = getSelfPlusAncestors(dstpgt);
+		FeatureGroupType srcfgt = srcpgt;
+		while ( !Aadl2Util.isNull(srcfgt) ){
+			if (!Aadl2Util.isNull(srcfgt.getInverse()) ){
+				if(dstancestors.contains(srcfgt.getInverse())){
+					return true;
+				}
+			}
+			srcfgt = srcfgt.getExtended();
+		}
+		return false;
+	}
+	
+	public boolean isSameInExtends(FeatureGroupType srcpgt,FeatureGroupType dstpgt) {
+		EList<Classifier> srcancestors = getSelfPlusAncestors(srcpgt);
+		FeatureGroupType dstfgt = dstpgt;
+		while ( !Aadl2Util.isNull(dstfgt) ){
+			if(srcancestors.contains(dstfgt)){
+				return true;
+			}
+			dstfgt = dstfgt.getExtended();
+		}
+		return false;
+	}
+
 	
 	private boolean testIfFeatureGroupTypesAreIdentical(FeatureGroup source, FeatureGroupType sourceType, FeatureGroup destination, FeatureGroupType destinationType) {
 		if (sourceType == destinationType) {
