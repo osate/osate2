@@ -56,8 +56,9 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 */
 	protected void addContextPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionReference_context_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_context_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -111,12 +115,15 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 */
 	protected void addConnectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionReference_connection_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_connection_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -127,12 +134,15 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionReference_source_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_source_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -143,12 +153,15 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionReference_destination_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionReference_destination_feature", "_UI_ConnectionReference_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -159,7 +172,8 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConnectionReference")); //$NON-NLS-1$
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ConnectionReference")); //$NON-NLS-1$
 	}
 
 	/**

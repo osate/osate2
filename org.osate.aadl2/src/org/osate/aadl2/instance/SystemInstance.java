@@ -121,7 +121,8 @@ public interface SystemInstance extends ComponentInstance {
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
-	List<SystemOperationMode> getSystemOperationModesFor(final List<ModeInstance> mis);
+	List<SystemOperationMode> getSystemOperationModesFor(
+			final List<ModeInstance> mis);
 
 	/**
 	 * Sets the current modes of the component instances contained in this
@@ -165,7 +166,8 @@ public interface SystemInstance extends ComponentInstance {
 	 *         <code>null</code> if no such connection exists in the current
 	 *         som.
 	 */
-	ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI);
+	ConnectionInstance findConnectionInstance(FeatureInstance srcFI,
+			FeatureInstance dstFI);
 
 	/**
 	 * Find all connection instances that pass through two declarative connections in 
@@ -178,7 +180,8 @@ public interface SystemInstance extends ComponentInstance {
 	 * @param second the connection that should occur after the first in the connection instance
 	 * @return the list of connection instances
 	 */
-	List<ConnectionInstance> findConnectionInstances(Connection first, Connection second);
+	List<ConnectionInstance> findConnectionInstances(Connection first,
+			Connection second);
 
 	/**
 	 * Get the system operation modes containing the given mode instance.

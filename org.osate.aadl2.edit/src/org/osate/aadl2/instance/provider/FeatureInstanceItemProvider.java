@@ -60,9 +60,10 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class FeatureInstanceItemProvider extends
+		ConnectionInstanceEndItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -102,12 +103,15 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addSrcFlowSpecPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_srcFlowSpec_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_srcFlowSpec_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__SRC_FLOW_SPEC, true, false, true, null, null, null));
+						InstancePackage.Literals.FEATURE_INSTANCE__SRC_FLOW_SPEC,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -118,12 +122,15 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addDstFlowSpecPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_dstFlowSpec_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_dstFlowSpec_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__DST_FLOW_SPEC, true, false, true, null, null, null));
+						InstancePackage.Literals.FEATURE_INSTANCE__DST_FLOW_SPEC,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -135,12 +142,14 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addCategoryPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_category_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_category_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__CATEGORY, true, false, false,
+						InstancePackage.Literals.FEATURE_INSTANCE__CATEGORY,
+						true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -153,12 +162,14 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addDirectionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_direction_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_direction_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__DIRECTION, true, false, false,
+						InstancePackage.Literals.FEATURE_INSTANCE__DIRECTION,
+						true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -170,12 +181,15 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	protected void addFeaturePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_feature_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_feature_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__FEATURE, true, false, true, null, null, null));
+						InstancePackage.Literals.FEATURE_INSTANCE__FEATURE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -187,12 +201,14 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	protected void addIndexPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_FeatureInstance_index_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_FeatureInstance_index_feature", "_UI_FeatureInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.FEATURE_INSTANCE__INDEX, true, false, false,
+						InstancePackage.Literals.FEATURE_INSTANCE__INDEX, true,
+						false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
 	}
 
@@ -205,10 +221,12 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(InstancePackage.Literals.FEATURE_INSTANCE__FEATURE_INSTANCE);
+			childrenFeatures
+					.add(InstancePackage.Literals.FEATURE_INSTANCE__FEATURE_INSTANCE);
 		}
 		return childrenFeatures;
 	}
@@ -234,7 +252,8 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeatureInstance")); //$NON-NLS-1$
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/FeatureInstance")); //$NON-NLS-1$
 	}
 
 	/**
@@ -269,10 +288,12 @@ public class FeatureInstanceItemProvider extends ConnectionInstanceEndItemProvid
 		case InstancePackage.FEATURE_INSTANCE__CATEGORY:
 		case InstancePackage.FEATURE_INSTANCE__DIRECTION:
 		case InstancePackage.FEATURE_INSTANCE__INDEX:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case InstancePackage.FEATURE_INSTANCE__FEATURE_INSTANCE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);

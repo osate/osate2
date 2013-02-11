@@ -262,5 +262,6 @@ public interface FeatureInstance extends ConnectionInstanceEnd, InstanceObject {
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
 	FeatureInstance findFeatureInstance(Feature feature);
 
-	Collection<FeatureInstance> findFeatureInstances(final EList<ContainmentPathElement> referencePath);
+	Collection<FeatureInstance> findFeatureInstances(
+			final EList<ContainmentPathElement> referencePath);
 } // FeatureInstance
