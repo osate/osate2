@@ -4673,7 +4673,8 @@ public boolean hasExtendCycles(Classifier cl) {
 				cxtFGIsInverse = ((FeatureGroup)connection.getAllDestinationContext()).isInverse();
 			}
 			if (classifierMatchingRuleValue == null || ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName()) ||
-					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
+					ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName()) || ModelingProperties.COMPLEMENT.equalsIgnoreCase(classifierMatchingRuleValue.getName())
+				) {
 				if (classifierMatchingRuleValue != null && ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
 					warning(connection, "The classifier matching rule '" + ModelingProperties.CONVERSION + "' is not supported for feature group connections. Using rule '" +
 							ModelingProperties.CLASSIFIER_MATCH + "' instead.");
@@ -4695,8 +4696,9 @@ public boolean hasExtendCycles(Classifier cl) {
 						} else {
 							warning(connection,"The feature group type of '" + source.getName() + "' and '" + destination.getName() + "' do not match, but their ancestors do.");
 						}
+					} else {
+						error(connection, "The feature group types of the source and destination feature groups must be identical for connections that connect up or down the containment hierarchy.");
 					}
-					error(connection, "The feature group types of the source and destination feature groups must be identical for connections that connect up or down the containment hierarchy.");
 				}
 			}
 			else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
