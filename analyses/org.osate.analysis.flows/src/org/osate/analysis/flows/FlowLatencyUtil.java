@@ -158,6 +158,12 @@ public class FlowLatencyUtil {
 						res = res + lat;
 					} else {
 						RecordValue ttl = GetProperties.getTransmissionTime(ref);
+						if (ttl == null)
+						{
+							OsateDebug.osateDebug("[FlowLatencyUtil] Must define Transmission_Time property on bus " + ref);
+							continue;
+						}
+						
 						RangeValue bpa = (RangeValue)PropertyUtils.getRecordFieldValue(ttl, "PerByte");
 						NumberValue nv = bpa.getMaximumValue();
 						double perunit =  nv.getScaledValue(GetProperties.getMSUnitLiteral(ref));
