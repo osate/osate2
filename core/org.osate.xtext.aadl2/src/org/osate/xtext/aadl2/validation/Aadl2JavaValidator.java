@@ -3362,18 +3362,52 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * @param flow
 	 */
 	private void checkFlowFeatureDirection(FlowSpecification flow) {
-		Feature inFeature = null;
-		if (flow.getInEnd() != null)
-			inFeature = flow.getInEnd().getFeature();
-
-		checkIncomingFeatureDirection(inFeature, flow, false,true);
-		
-		Feature outFeature = null;
-		if (flow.getOutEnd() != null)
-			outFeature = flow.getOutEnd().getFeature();
-
-		checkOutgoingFeatureDirection(outFeature, flow, false,true);
-
+		FlowEnd inEnd = flow.getInEnd();
+		if (inEnd != null){
+			Feature inFeature = inEnd.getFeature();
+			if (!Aadl2Util.isNull(inFeature)){
+				Context inCxt = inEnd.getContext();
+				boolean oppositeDirection = false;
+				if (inCxt instanceof FeatureGroup){
+					FeatureGroup fg = (FeatureGroup) inCxt;
+					if (fg.isInverse()){
+						oppositeDirection = ! oppositeDirection;
+					}
+					FeatureGroupType fgt = fg.getAllFeatureGroupType();
+					if (!Aadl2Util.isNull(fgt)){
+						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getAllFeatures().isEmpty()){
+							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
+							// feature in the inverse of FGT
+							oppositeDirection = ! oppositeDirection;
+						}
+					}
+				}
+				checkIncomingFeatureDirection(inFeature, flow, oppositeDirection,true);
+			}
+		}
+		FlowEnd outEnd = flow.getOutEnd();
+		if (outEnd != null){
+			Feature outFeature = outEnd.getFeature();
+			if (!Aadl2Util.isNull(outFeature)){
+				Context outCxt = outEnd.getContext();
+				boolean oppositeDirection = false;
+				if (outCxt instanceof FeatureGroup){
+					FeatureGroup fg = (FeatureGroup) outCxt;
+					if (fg.isInverse()){
+						oppositeDirection = ! oppositeDirection;
+					}
+					FeatureGroupType fgt = fg.getAllFeatureGroupType();
+					if (!Aadl2Util.isNull(fgt)){
+						if (!Aadl2Util.isNull(fgt.getInverse())&&fgt.getAllFeatures().isEmpty()){
+							// change direction since the FGT is an inverse and does not have features, i.e., the inEnd points to a
+							// feature in the inverse of FGT
+							oppositeDirection = ! oppositeDirection;
+						}
+					}
+				}
+				checkOutgoingFeatureDirection(outFeature, flow, oppositeDirection,true);
+			}
+		}
 	}
 	
 	private boolean checkIncomingFeatureDirection(Feature inFeature, FlowSpecification flow, boolean inverseOf, boolean report){
@@ -3419,6 +3453,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				}
 				if( fgt.getAllFeatures().isEmpty()) return true;
 				for (Feature f : fgt.getAllFeatures()) {
+					// check to see if there is at least one incoming feature in the feature group
 					if (checkIncomingFeatureDirection(f, flow,inInverseof?!inverseOf:inverseOf,false)){
 						return true;
 					}
