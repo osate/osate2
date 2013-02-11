@@ -562,9 +562,9 @@ public class EMLinkingService extends PropertiesLinkingService {
 			for (ErrorFlow ef : eps.getFlows()){
 				if (name.equalsIgnoreCase(ef.getName())) return ef;
 			}
+			eps = getExtendsErrorPropagations(eps);
 		}
-		ErrorPropagations exteps = getExtendsErrorPropagations(eps);
-		if (exteps != null) return findErrorFlow(exteps,name);
+		if (eps != null) return findErrorFlow(eps,name);
 		return null;
 	}
 
