@@ -783,11 +783,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Feature connFeature = (Feature) connEnd;
 		return AadlUtil.isSameOrRefines(fsFeature,connFeature) 
 		||AadlUtil.isSameOrRefines(connFeature, fsFeature)
-//		||(firstContext instanceof FeatureGroup && secondContext instanceof FeatureGroup&&
-//				(AadlUtil.isSameOrRefines(secondFeature,(Feature)firstContext )|| AadlUtil.isSameOrRefines((Feature)firstContext, secondFeature))		)
+		// flow spec points to feature within fg, connection points to fg
+		|| (fsContext instanceof FeatureGroup && connFeature instanceof FeatureGroup &&
+				(AadlUtil.isSameOrRefines((FeatureGroup)connFeature,(FeatureGroup)fsContext )|| AadlUtil.isSameOrRefines((FeatureGroup)fsContext, (FeatureGroup)connFeature)))
+		// both contexts are feature groups. Let's check for features lining up
+		||(fsContext instanceof FeatureGroup && connContext instanceof FeatureGroup&&
+				(AadlUtil.isSameOrRefines(fsFeature,connFeature )|| AadlUtil.isSameOrRefines(connFeature, fsFeature)))
 		// the flow spec has a FG as context and a feature within. The connection can only point to FG.
-				||(fsFeature instanceof FeatureGroup && connContext instanceof FeatureGroup&&
-						(AadlUtil.isSameOrRefines((FeatureGroup)connContext,(Feature)fsFeature )|| AadlUtil.isSameOrRefines((Feature)fsFeature, (FeatureGroup)connContext)))
+			||(fsFeature instanceof FeatureGroup && connContext instanceof FeatureGroup&&
+				(AadlUtil.isSameOrRefines((FeatureGroup)connContext,(Feature)fsFeature )|| AadlUtil.isSameOrRefines((Feature)fsFeature, (FeatureGroup)connContext)))
 		;
 	}
 
@@ -1086,7 +1090,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (connection.isBidirectional()){
 							ce = connection.getAllDestination();
 							cxt = connection.getAllDestinationContext();
-							didReverse = true;
 							if(! isMatchingConnectionPoint(outEnd.getFeature(),outEnd.getContext(),ce,cxt)){
 								error(flow.getOwnedEndToEndFlowSegments().get(i),
 										"The source of connection '"
@@ -1094,6 +1097,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 												+ "' does not match the out flow feature of the preceding subcomponent flow specification '"
 												+ flow.getOwnedEndToEndFlowSegments().get(i - 1).getContext().getName() + '.'
 												+ previousFlowSegment.getName() + '\'');
+							} else {
+								didReverse = true;
 							}
 						}
 					}
