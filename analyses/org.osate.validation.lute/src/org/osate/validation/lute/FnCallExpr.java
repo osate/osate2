@@ -399,11 +399,23 @@ public class FnCallExpr extends Expr {
 		}
 	}
 	
-	private Val getProperty(InstanceObject aadl, String propName) {
+	private Val getProperty(InstanceObject aadl, String propName) 
+	{
+		PropertyExpression expr;
 		Property property = EMFIndexRetrieval.getPropertyDefinitionInWorkspace(propName);
-		if (property == null) return null;
+		if (property == null)
+		{
+			return null;
+		}
 		try {
-			PropertyExpression expr = PropertyUtils.getSimplePropertyValue(aadl, property);
+			if (! property.isList())
+			{
+				expr = PropertyUtils.getSimplePropertyValue(aadl, property);
+			}
+			else
+			{
+				expr = PropertyUtils.getSimplePropertyListValue(aadl, property);
+			}
 			return AADLPropertyValueToValue(expr);
 		} catch (PropertyLookupException e) {
 			return null;

@@ -63,9 +63,15 @@
                class="org.osate.validation.lute.RunConsoleAction"
                menubarPath="menu.analyses/menu.lute/stuff.grp"
                enablesFor="1">
-				<enablement>
-					<objectClass name="org.eclipse.xtext.ui.editor.outline.impl.EObjectNode"/>
-				</enablement>
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                 <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
+               </or>
+            </enablement>
          </action>					
 
 
