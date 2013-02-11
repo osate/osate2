@@ -714,6 +714,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(),ce,cxt)) {
 							if (connection.isBidirectional()){
 								didReverse = true;
+								ce = connection.getAllDestination();
+								cxt = connection.getAllDestinationContext();
 								if(!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(),ce,cxt)){
 									error(flow.getOwnedFlowSegments().get(i),
 											"The source of connection '"
