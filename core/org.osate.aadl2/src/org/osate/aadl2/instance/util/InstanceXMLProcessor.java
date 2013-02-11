@@ -73,7 +73,8 @@ public class InstanceXMLProcessor extends XMLProcessor {
 		if (registrations == null) {
 			super.getRegistrations();
 			registrations.put(XML_EXTENSION, new InstanceResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new InstanceResourceFactoryImpl());
+			registrations
+					.put(STAR_EXTENSION, new InstanceResourceFactoryImpl());
 		}
 		return registrations;
 	}

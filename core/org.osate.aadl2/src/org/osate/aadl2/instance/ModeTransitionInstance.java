@@ -55,7 +55,8 @@ import org.osate.aadl2.ModeTransition;
  * @model
  * @generated
  */
-public interface ModeTransitionInstance extends ConnectionInstanceEnd, InstanceObject {
+public interface ModeTransitionInstance extends ConnectionInstanceEnd,
+		InstanceObject {
 	/**
 	 * Returns the value of the '<em><b>Destination</b></em>' reference.
 	 * It is bidirectional and its opposite is '{@link org.osate.aadl2.instance.ModeInstance#getDstModeTransitions <em>Dst Mode Transition</em>}'.

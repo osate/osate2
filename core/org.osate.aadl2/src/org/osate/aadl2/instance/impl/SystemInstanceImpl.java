@@ -81,7 +81,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemInstance {
+public class SystemInstanceImpl extends ComponentInstanceImpl implements
+		SystemInstance {
 	/**
 	 * The cached value of the '{@link #getSystemOperationModes()
 	 * <em>System Operation Mode</em>}' containment reference list. <!--
@@ -133,7 +134,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 */
 	public EList<SystemOperationMode> getSystemOperationModes() {
 		if (systemOperationModes == null) {
-			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(SystemOperationMode.class, this,
+			systemOperationModes = new EObjectContainmentEList<SystemOperationMode>(
+					SystemOperationMode.class, this,
 					InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
 		}
 		return systemOperationModes;
@@ -155,14 +157,17 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @generated
 	 */
 	public SystemImplementation getSystemImplementation() {
-		if (systemImplementation != null && ((EObject) systemImplementation).eIsProxy()) {
+		if (systemImplementation != null
+				&& ((EObject) systemImplementation).eIsProxy()) {
 			InternalEObject oldSystemImplementation = (InternalEObject) systemImplementation;
 			systemImplementation = (SystemImplementation) eResolveProxy(oldSystemImplementation);
 			if (systemImplementation != oldSystemImplementation) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
-							systemImplementation));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION,
+							oldSystemImplementation, systemImplementation));
 			}
 		}
 		return systemImplementation;
@@ -186,13 +191,14 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSystemImplementation(SystemImplementation newSystemImplementation) {
+	public void setSystemImplementation(
+			SystemImplementation newSystemImplementation) {
 		SystemImplementation oldSystemImplementation = systemImplementation;
 		systemImplementation = newSystemImplementation;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION, oldSystemImplementation,
-					systemImplementation));
+					InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION,
+					oldSystemImplementation, systemImplementation));
 	}
 
 	/**
@@ -200,10 +206,12 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
-			return ((InternalEList<?>) getSystemOperationModes()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getSystemOperationModes()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -235,7 +243,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
 			getSystemOperationModes().clear();
-			getSystemOperationModes().addAll((Collection<? extends SystemOperationMode>) newValue);
+			getSystemOperationModes().addAll(
+					(Collection<? extends SystemOperationMode>) newValue);
 			return;
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
 			setSystemImplementation((SystemImplementation) newValue);
@@ -269,7 +278,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE:
-			return systemOperationModes != null && !systemOperationModes.isEmpty();
+			return systemOperationModes != null
+					&& !systemOperationModes.isEmpty();
 		case InstancePackage.SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION:
 			return systemImplementation != null;
 		}
@@ -282,7 +292,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mis List of mode instances
 	 * @return SOM that match the ModeInstance list
 	 */
-	public List<SystemOperationMode> getSystemOperationModesFor(List<ModeInstance> mis) {
+	public List<SystemOperationMode> getSystemOperationModesFor(
+			List<ModeInstance> mis) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
 		for (SystemOperationMode som : getSystemOperationModes()) {
 			if (som.getCurrentModes().containsAll(mis))
@@ -293,7 +304,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 
 	public void setCurrentSystemOperationMode(SystemOperationMode som) {
 		clearCurrentSystemOperationMode();
-		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i.hasNext();) {
+		for (final Iterator<ModeInstance> i = som.getCurrentModes().iterator(); i
+				.hasNext();) {
 			final ModeInstance mi = i.next();
 			final ComponentInstance ci = (ComponentInstance) mi.eContainer();
 			ci.setCurrentMode(mi);
@@ -332,7 +344,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * You may want to call on AadlUtil.findConnectionInstance as it can handle any endpoint, not just
 	 * features on port connections.
 	 */
-	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI, FeatureInstance dstFI) {
+	public ConnectionInstance findConnectionInstance(FeatureInstance srcFI,
+			FeatureInstance dstFI) {
 		EList<ConnectionInstance> subcl = getAllConnectionInstances();
 		for (Iterator<ConnectionInstance> it = subcl.iterator(); it.hasNext();) {
 			ConnectionInstance conni = it.next();
@@ -359,7 +372,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * org.osate.aadl2.instance.SystemInstance#findConnectionInstance
 	 * (org.osate.aadl2.Connection, org.osate.aadl2.Connection)
 	 */
-	public List<ConnectionInstance> findConnectionInstances(Connection first, Connection second) {
+	public List<ConnectionInstance> findConnectionInstances(Connection first,
+			Connection second) {
 		List<ConnectionInstance> result = new LinkedList<ConnectionInstance>();
 
 		for (ConnectionInstance conni : getAllConnectionInstances()) {
@@ -390,7 +404,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param ffi The feature instance involved in the flow
 	 * @return true if connection goes through the ffi
 	 */
-	private boolean leadsOutof(ConnectionInstance conni, FeatureInstance cfi, FeatureInstance ffi) {
+	private boolean leadsOutof(ConnectionInstance conni, FeatureInstance cfi,
+			FeatureInstance ffi) {
 		if (cfi == ffi)
 			return true;
 		ComponentInstance flowci = ffi.getContainingComponentInstance();
@@ -414,9 +429,11 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 	 * @param mi Mode Instance
 	 * @return List of SOM that contains the mode instance
 	 */
-	public List<SystemOperationMode> getSystemOperationModesFor(final ModeInstance mi) {
+	public List<SystemOperationMode> getSystemOperationModesFor(
+			final ModeInstance mi) {
 		final List<SystemOperationMode> output = new ArrayList<SystemOperationMode>();
-		for (final Iterator<SystemOperationMode> i = getSystemOperationModes().iterator(); i.hasNext();) {
+		for (final Iterator<SystemOperationMode> i = getSystemOperationModes()
+				.iterator(); i.hasNext();) {
 			final SystemOperationMode som = i.next();
 			if (som.getCurrentModes().contains(mi))
 				output.add(som);
@@ -439,7 +456,8 @@ public class SystemInstanceImpl extends ComponentInstanceImpl implements SystemI
 					return som;
 			}
 			// Should only get here if the model is malformed.
-			throw new IllegalStateException("Couldn't find initial system operation mode");
+			throw new IllegalStateException(
+					"Couldn't find initial system operation mode");
 		}
 		return initialMode;
 	}

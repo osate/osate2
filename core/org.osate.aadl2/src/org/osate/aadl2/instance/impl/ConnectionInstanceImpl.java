@@ -90,7 +90,8 @@ import org.osate.aadl2.util.OsateDebug;
  *
  * @generated
  */
-public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements ConnectionInstance {
+public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements
+		ConnectionInstance {
 	/**
 	 * The cached value of the '{@link #getInSystemOperationModes() <em>In System Operation Mode</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -207,7 +208,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(
+					SystemOperationMode.class,
+					this,
 					InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -220,7 +223,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	public EList<ModeTransitionInstance> getInModeTransitions() {
 		if (inModeTransitions == null) {
-			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(ModeTransitionInstance.class, this,
+			inModeTransitions = new EObjectResolvingEList<ModeTransitionInstance>(
+					ModeTransitionInstance.class, this,
 					InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION);
 		}
 		return inModeTransitions;
@@ -244,8 +248,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		boolean oldComplete = complete;
 		complete = newComplete;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_INSTANCE__COMPLETE,
-					oldComplete, complete));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__COMPLETE, oldComplete,
+					complete));
 	}
 
 	/**
@@ -266,8 +271,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		ConnectionKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_INSTANCE__KIND, oldKind,
-					kind));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__KIND, oldKind, kind));
 	}
 
 	/**
@@ -282,7 +287,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_INSTANCE__DESTINATION, oldDestination, destination));
+							InstancePackage.CONNECTION_INSTANCE__DESTINATION,
+							oldDestination, destination));
 			}
 		}
 		return destination;
@@ -302,12 +308,15 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetDestination(ConnectionInstanceEnd newDestination, NotificationChain msgs) {
+	public NotificationChain basicSetDestination(
+			ConnectionInstanceEnd newDestination, NotificationChain msgs) {
 		ConnectionInstanceEnd oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_INSTANCE__DESTINATION, oldDestination, newDestination);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__DESTINATION,
+					oldDestination, newDestination);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -325,18 +334,23 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		if (newDestination != destination) {
 			NotificationChain msgs = null;
 			if (destination != null)
-				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) destination)
+						.eInverseRemove(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			if (newDestination != null)
-				msgs = ((InternalEObject) newDestination).eInverseAdd(this,
-						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) newDestination)
+						.eInverseAdd(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			msgs = basicSetDestination(newDestination, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_INSTANCE__DESTINATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__DESTINATION,
 					newDestination, newDestination));
 	}
 
@@ -347,7 +361,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 */
 	public EList<ConnectionReference> getConnectionReferences() {
 		if (connectionReferences == null) {
-			connectionReferences = new EObjectContainmentEList<ConnectionReference>(ConnectionReference.class, this,
+			connectionReferences = new EObjectContainmentEList<ConnectionReference>(
+					ConnectionReference.class, this,
 					InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		}
 		return connectionReferences;
@@ -376,7 +391,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			if (source != oldSource) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.CONNECTION_INSTANCE__SOURCE, oldSource, source));
+							InstancePackage.CONNECTION_INSTANCE__SOURCE,
+							oldSource, source));
 			}
 		}
 		return source;
@@ -396,12 +412,15 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NotificationChain basicSetSource(ConnectionInstanceEnd newSource, NotificationChain msgs) {
+	public NotificationChain basicSetSource(ConnectionInstanceEnd newSource,
+			NotificationChain msgs) {
 		ConnectionInstanceEnd oldSource = source;
 		source = newSource;
 		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET,
-					InstancePackage.CONNECTION_INSTANCE__SOURCE, oldSource, newSource);
+			ENotificationImpl notification = new ENotificationImpl(this,
+					Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__SOURCE, oldSource,
+					newSource);
 			if (msgs == null)
 				msgs = notification;
 			else
@@ -419,19 +438,24 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		if (newSource != source) {
 			NotificationChain msgs = null;
 			if (source != null)
-				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) source)
+						.eInverseRemove(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			if (newSource != null)
-				msgs = ((InternalEObject) newSource).eInverseAdd(this,
-						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) newSource)
+						.eInverseAdd(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			msgs = basicSetSource(newSource, msgs);
 			if (msgs != null)
 				msgs.dispatch();
 		} else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_INSTANCE__SOURCE,
-					newSource, newSource));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.CONNECTION_INSTANCE__SOURCE, newSource,
+					newSource));
 	}
 
 	/**
@@ -440,19 +464,24 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
 			if (destination != null)
-				msgs = ((InternalEObject) destination).eInverseRemove(this,
-						InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) destination)
+						.eInverseRemove(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			return basicSetDestination((ConnectionInstanceEnd) otherEnd, msgs);
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			if (source != null)
-				msgs = ((InternalEObject) source).eInverseRemove(this,
-						InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, ConnectionInstanceEnd.class,
-						msgs);
+				msgs = ((InternalEObject) source)
+						.eInverseRemove(
+								this,
+								InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+								ConnectionInstanceEnd.class, msgs);
 			return basicSetSource((ConnectionInstanceEnd) otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
@@ -464,12 +493,14 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
 			return basicSetDestination(null, msgs);
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
-			return ((InternalEList<?>) getConnectionReferences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getConnectionReferences()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			return basicSetSource(null, msgs);
 		}
@@ -517,11 +548,13 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			getInSystemOperationModes().clear();
-			getInSystemOperationModes().addAll((Collection<? extends SystemOperationMode>) newValue);
+			getInSystemOperationModes().addAll(
+					(Collection<? extends SystemOperationMode>) newValue);
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			getInModeTransitions().clear();
-			getInModeTransitions().addAll((Collection<? extends ModeTransitionInstance>) newValue);
+			getInModeTransitions().addAll(
+					(Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
 			setComplete((Boolean) newValue);
@@ -534,7 +567,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
 			getConnectionReferences().clear();
-			getConnectionReferences().addAll((Collection<? extends ConnectionReference>) newValue);
+			getConnectionReferences().addAll(
+					(Collection<? extends ConnectionReference>) newValue);
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			setSource((ConnectionInstanceEnd) newValue);
@@ -585,7 +619,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE:
-			return inSystemOperationModes != null && !inSystemOperationModes.isEmpty();
+			return inSystemOperationModes != null
+					&& !inSystemOperationModes.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE__IN_MODE_TRANSITION:
 			return inModeTransitions != null && !inModeTransitions.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
@@ -595,7 +630,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		case InstancePackage.CONNECTION_INSTANCE__DESTINATION:
 			return destination != null;
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
-			return connectionReferences != null && !connectionReferences.isEmpty();
+			return connectionReferences != null
+					&& !connectionReferences.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE__SOURCE:
 			return source != null;
 		}
@@ -742,7 +778,8 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		return Collections.unmodifiableList(conns);
 	}
 
-	public List<ModalPropertyValue> getConnectionPropertyValues(Property property) throws InvalidModelException {
+	public List<ModalPropertyValue> getConnectionPropertyValues(
+			Property property) throws InvalidModelException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -819,13 +856,15 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 			ComponentInstance ctxt = connRef.getContext();
 			final ConnectionEnd srcF = conn.getAllSource();
 			final Context srcCtxt = conn.getAllSourceContext();
-			final InstanceObject srcInstance = getInstantiatedEndPoint(ctxt, srcF, srcCtxt);
+			final InstanceObject srcInstance = getInstantiatedEndPoint(ctxt,
+					srcF, srcCtxt);
 			if (srcInstance != lastDest)
 				featureList.add(srcInstance);
 
 			final ConnectionEnd destF = conn.getAllDestination();
 			final Context destCtxt = conn.getAllDestinationContext();
-			final InstanceObject destInstance = getInstantiatedEndPoint(ctxt, destF, destCtxt);
+			final InstanceObject destInstance = getInstantiatedEndPoint(ctxt,
+					destF, destCtxt);
 			featureList.add(destInstance);
 			lastDest = destInstance;
 		}
@@ -838,28 +877,32 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	 * @param connEndPoint ConnectionEnd
 	 * @param connCtxt Context of th eendpoint
 	 */
-	public ConnectionInstanceEnd getInstantiatedEndPoint(final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
+	public ConnectionInstanceEnd getInstantiatedEndPoint(
+			final ComponentInstance ctxt, final ConnectionEnd connEndPoint,
 			final Context connCtxt) {
 		ConnectionInstanceEnd instance = null;
 		if (connCtxt == null) {
 			//lookup subcomponent using the connection src
-			instance = ctxt.findSubcomponentInstance((Subcomponent) connEndPoint);
+			instance = ctxt
+					.findSubcomponentInstance((Subcomponent) connEndPoint);
 		} else if (connCtxt instanceof ComponentImplementation) {
 			//lookup feature in the context using the connection src
 			instance = ctxt.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof Subcomponent) {
 			//lookup feature in the subcomponent
-			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt).findFeatureInstance(
-					(Feature) connEndPoint);
+			instance = ctxt.findSubcomponentInstance((Subcomponent) connCtxt)
+					.findFeatureInstance((Feature) connEndPoint);
 		} else if (connCtxt instanceof FeatureGroup) {
 			//feature in a feature group...
-			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt).findFeatureInstance((Feature) connEndPoint);
+			instance = ctxt.findFeatureInstance((FeatureGroup) connCtxt)
+					.findFeatureInstance((Feature) connEndPoint);
 		}
 		return instance;
 	}
 
 	public boolean isActive(SystemOperationMode som) {
-		if (getInSystemOperationModes().isEmpty() || getInSystemOperationModes().contains(som)) {
+		if (getInSystemOperationModes().isEmpty()
+				|| getInSystemOperationModes().contains(som)) {
 			return getContainingComponentInstance().isActive(som);
 		}
 		return false;

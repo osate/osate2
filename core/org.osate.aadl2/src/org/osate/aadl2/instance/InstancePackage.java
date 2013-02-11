@@ -88,7 +88,8 @@ public interface InstancePackage extends EPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	InstancePackage eINSTANCE = org.osate.aadl2.instance.impl.InstancePackageImpl.init();
+	InstancePackage eINSTANCE = org.osate.aadl2.instance.impl.InstancePackageImpl
+			.init();
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.InstanceObjectImpl <em>Object</em>}' class.
@@ -101,7 +102,7 @@ public interface InstancePackage extends EPackage {
 	int INSTANCE_OBJECT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -175,7 +176,7 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE_END = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -247,7 +248,7 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE_END_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -392,7 +393,7 @@ public interface InstancePackage extends EPackage {
 	int FLOW_ELEMENT_INSTANCE = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -456,7 +457,7 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_INSTANCE = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -583,7 +584,7 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_OPERATION_MODE = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -683,7 +684,7 @@ public interface InstancePackage extends EPackage {
 	int MODE_INSTANCE = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -801,7 +802,7 @@ public interface InstancePackage extends EPackage {
 	int MODE_TRANSITION_INSTANCE = 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -910,7 +911,7 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_REFERENCE = 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1010,7 +1011,7 @@ public interface InstancePackage extends EPackage {
 	int COMPONENT_INSTANCE = 9;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1191,7 +1192,7 @@ public interface InstancePackage extends EPackage {
 	int FLOW_SPECIFICATION_INSTANCE = 10;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1300,7 +1301,7 @@ public interface InstancePackage extends EPackage {
 	int END_TO_END_FLOW_INSTANCE = 11;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1400,7 +1401,7 @@ public interface InstancePackage extends EPackage {
 	int SYSTEM_INSTANCE = 12;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1599,7 +1600,7 @@ public interface InstancePackage extends EPackage {
 	int INSTANCE_REFERENCE_VALUE = 13;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2435,7 +2436,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE_INSTANCE__FEATURE = eINSTANCE.getFeatureInstance_Feature();
+		EReference FEATURE_INSTANCE__FEATURE = eINSTANCE
+				.getFeatureInstance_Feature();
 
 		/**
 		 * The meta object literal for the '<em><b>Index</b></em>' attribute feature.
@@ -2443,7 +2445,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_INSTANCE__INDEX = eINSTANCE.getFeatureInstance_Index();
+		EAttribute FEATURE_INSTANCE__INDEX = eINSTANCE
+				.getFeatureInstance_Index();
 
 		/**
 		 * The meta object literal for the '<em><b>Src Flow Spec</b></em>' reference list feature.
@@ -2451,7 +2454,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE_INSTANCE__SRC_FLOW_SPEC = eINSTANCE.getFeatureInstance_SrcFlowSpec();
+		EReference FEATURE_INSTANCE__SRC_FLOW_SPEC = eINSTANCE
+				.getFeatureInstance_SrcFlowSpec();
 
 		/**
 		 * The meta object literal for the '<em><b>Dst Flow Spec</b></em>' reference list feature.
@@ -2459,7 +2463,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE_INSTANCE__DST_FLOW_SPEC = eINSTANCE.getFeatureInstance_DstFlowSpec();
+		EReference FEATURE_INSTANCE__DST_FLOW_SPEC = eINSTANCE
+				.getFeatureInstance_DstFlowSpec();
 
 		/**
 		 * The meta object literal for the '<em><b>Feature Instance</b></em>' containment reference list feature.
@@ -2467,7 +2472,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FEATURE_INSTANCE__FEATURE_INSTANCE = eINSTANCE.getFeatureInstance_FeatureInstance();
+		EReference FEATURE_INSTANCE__FEATURE_INSTANCE = eINSTANCE
+				.getFeatureInstance_FeatureInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Category</b></em>' attribute feature.
@@ -2475,7 +2481,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_INSTANCE__CATEGORY = eINSTANCE.getFeatureInstance_Category();
+		EAttribute FEATURE_INSTANCE__CATEGORY = eINSTANCE
+				.getFeatureInstance_Category();
 
 		/**
 		 * The meta object literal for the '<em><b>Direction</b></em>' attribute feature.
@@ -2483,7 +2490,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute FEATURE_INSTANCE__DIRECTION = eINSTANCE.getFeatureInstance_Direction();
+		EAttribute FEATURE_INSTANCE__DIRECTION = eINSTANCE
+				.getFeatureInstance_Direction();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.InstanceObjectImpl <em>Object</em>}' class.
@@ -2548,7 +2556,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_INSTANCE__IN_MODE_TRANSITION = eINSTANCE.getConnectionInstance_InModeTransition();
+		EReference CONNECTION_INSTANCE__IN_MODE_TRANSITION = eINSTANCE
+				.getConnectionInstance_InModeTransition();
 
 		/**
 		 * The meta object literal for the '<em><b>Complete</b></em>' attribute feature.
@@ -2556,7 +2565,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONNECTION_INSTANCE__COMPLETE = eINSTANCE.getConnectionInstance_Complete();
+		EAttribute CONNECTION_INSTANCE__COMPLETE = eINSTANCE
+				.getConnectionInstance_Complete();
 
 		/**
 		 * The meta object literal for the '<em><b>Kind</b></em>' attribute feature.
@@ -2564,7 +2574,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute CONNECTION_INSTANCE__KIND = eINSTANCE.getConnectionInstance_Kind();
+		EAttribute CONNECTION_INSTANCE__KIND = eINSTANCE
+				.getConnectionInstance_Kind();
 
 		/**
 		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
@@ -2572,7 +2583,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_INSTANCE__DESTINATION = eINSTANCE.getConnectionInstance_Destination();
+		EReference CONNECTION_INSTANCE__DESTINATION = eINSTANCE
+				.getConnectionInstance_Destination();
 
 		/**
 		 * The meta object literal for the '<em><b>Connection Reference</b></em>' containment reference list feature.
@@ -2580,7 +2592,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_INSTANCE__CONNECTION_REFERENCE = eINSTANCE.getConnectionInstance_ConnectionReference();
+		EReference CONNECTION_INSTANCE__CONNECTION_REFERENCE = eINSTANCE
+				.getConnectionInstance_ConnectionReference();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
@@ -2588,7 +2601,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_INSTANCE__SOURCE = eINSTANCE.getConnectionInstance_Source();
+		EReference CONNECTION_INSTANCE__SOURCE = eINSTANCE
+				.getConnectionInstance_Source();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.FlowElementInstanceImpl <em>Flow Element Instance</em>}' class.
@@ -2616,7 +2630,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SYSTEM_OPERATION_MODE__CURRENT_MODE = eINSTANCE.getSystemOperationMode_CurrentMode();
+		EReference SYSTEM_OPERATION_MODE__CURRENT_MODE = eINSTANCE
+				.getSystemOperationMode_CurrentMode();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ModeInstanceImpl <em>Mode Instance</em>}' class.
@@ -2634,7 +2649,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODE_INSTANCE__SRC_MODE_TRANSITION = eINSTANCE.getModeInstance_SrcModeTransition();
+		EReference MODE_INSTANCE__SRC_MODE_TRANSITION = eINSTANCE
+				.getModeInstance_SrcModeTransition();
 
 		/**
 		 * The meta object literal for the '<em><b>Dst Mode Transition</b></em>' reference list feature.
@@ -2642,7 +2658,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODE_INSTANCE__DST_MODE_TRANSITION = eINSTANCE.getModeInstance_DstModeTransition();
+		EReference MODE_INSTANCE__DST_MODE_TRANSITION = eINSTANCE
+				.getModeInstance_DstModeTransition();
 
 		/**
 		 * The meta object literal for the '<em><b>Mode</b></em>' reference feature.
@@ -2692,7 +2709,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODE_TRANSITION_INSTANCE__DESTINATION = eINSTANCE.getModeTransitionInstance_Destination();
+		EReference MODE_TRANSITION_INSTANCE__DESTINATION = eINSTANCE
+				.getModeTransitionInstance_Destination();
 
 		/**
 		 * The meta object literal for the '<em><b>Mode Transition</b></em>' reference feature.
@@ -2700,7 +2718,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODE_TRANSITION_INSTANCE__MODE_TRANSITION = eINSTANCE.getModeTransitionInstance_ModeTransition();
+		EReference MODE_TRANSITION_INSTANCE__MODE_TRANSITION = eINSTANCE
+				.getModeTransitionInstance_ModeTransition();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
@@ -2708,7 +2727,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference MODE_TRANSITION_INSTANCE__SOURCE = eINSTANCE.getModeTransitionInstance_Source();
+		EReference MODE_TRANSITION_INSTANCE__SOURCE = eINSTANCE
+				.getModeTransitionInstance_Source();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl <em>Connection Reference</em>}' class.
@@ -2726,7 +2746,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_REFERENCE__CONTEXT = eINSTANCE.getConnectionReference_Context();
+		EReference CONNECTION_REFERENCE__CONTEXT = eINSTANCE
+				.getConnectionReference_Context();
 
 		/**
 		 * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
@@ -2734,7 +2755,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_REFERENCE__CONNECTION = eINSTANCE.getConnectionReference_Connection();
+		EReference CONNECTION_REFERENCE__CONNECTION = eINSTANCE
+				.getConnectionReference_Connection();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
@@ -2742,7 +2764,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_REFERENCE__SOURCE = eINSTANCE.getConnectionReference_Source();
+		EReference CONNECTION_REFERENCE__SOURCE = eINSTANCE
+				.getConnectionReference_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
@@ -2750,7 +2773,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference CONNECTION_REFERENCE__DESTINATION = eINSTANCE.getConnectionReference_Destination();
+		EReference CONNECTION_REFERENCE__DESTINATION = eINSTANCE
+				.getConnectionReference_Destination();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -2768,7 +2792,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__FEATURE_INSTANCE = eINSTANCE.getComponentInstance_FeatureInstance();
+		EReference COMPONENT_INSTANCE__FEATURE_INSTANCE = eINSTANCE
+				.getComponentInstance_FeatureInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Component Instance</b></em>' containment reference list feature.
@@ -2776,7 +2801,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__COMPONENT_INSTANCE = eINSTANCE.getComponentInstance_ComponentInstance();
+		EReference COMPONENT_INSTANCE__COMPONENT_INSTANCE = eINSTANCE
+				.getComponentInstance_ComponentInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Subcomponent</b></em>' reference feature.
@@ -2784,7 +2810,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__SUBCOMPONENT = eINSTANCE.getComponentInstance_Subcomponent();
+		EReference COMPONENT_INSTANCE__SUBCOMPONENT = eINSTANCE
+				.getComponentInstance_Subcomponent();
 
 		/**
 		 * The meta object literal for the '<em><b>Index</b></em>' attribute list feature.
@@ -2792,7 +2819,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COMPONENT_INSTANCE__INDEX = eINSTANCE.getComponentInstance_Index();
+		EAttribute COMPONENT_INSTANCE__INDEX = eINSTANCE
+				.getComponentInstance_Index();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl <em>Flow Specification Instance</em>}' class.
@@ -2802,7 +2830,8 @@ public interface InstancePackage extends EPackage {
 		 * @see org.osate.aadl2.instance.impl.InstancePackageImpl#getFlowSpecificationInstance()
 		 * @generated
 		 */
-		EClass FLOW_SPECIFICATION_INSTANCE = eINSTANCE.getFlowSpecificationInstance();
+		EClass FLOW_SPECIFICATION_INSTANCE = eINSTANCE
+				.getFlowSpecificationInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Source</b></em>' reference feature.
@@ -2810,7 +2839,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FLOW_SPECIFICATION_INSTANCE__SOURCE = eINSTANCE.getFlowSpecificationInstance_Source();
+		EReference FLOW_SPECIFICATION_INSTANCE__SOURCE = eINSTANCE
+				.getFlowSpecificationInstance_Source();
 
 		/**
 		 * The meta object literal for the '<em><b>Destination</b></em>' reference feature.
@@ -2818,7 +2848,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FLOW_SPECIFICATION_INSTANCE__DESTINATION = eINSTANCE.getFlowSpecificationInstance_Destination();
+		EReference FLOW_SPECIFICATION_INSTANCE__DESTINATION = eINSTANCE
+				.getFlowSpecificationInstance_Destination();
 
 		/**
 		 * The meta object literal for the '<em><b>Flow Specification</b></em>' reference feature.
@@ -2835,7 +2866,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference FLOW_SPECIFICATION_INSTANCE__IN_MODE = eINSTANCE.getFlowSpecificationInstance_InMode();
+		EReference FLOW_SPECIFICATION_INSTANCE__IN_MODE = eINSTANCE
+				.getFlowSpecificationInstance_InMode();
 
 		/**
 		 * The meta object literal for the '<em><b>In Mode Transition</b></em>' reference list feature.
@@ -2852,7 +2884,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__MODE_INSTANCE = eINSTANCE.getComponentInstance_ModeInstance();
+		EReference COMPONENT_INSTANCE__MODE_INSTANCE = eINSTANCE
+				.getComponentInstance_ModeInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Mode Transition Instance</b></em>' containment reference list feature.
@@ -2869,7 +2902,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute COMPONENT_INSTANCE__CATEGORY = eINSTANCE.getComponentInstance_Category();
+		EAttribute COMPONENT_INSTANCE__CATEGORY = eINSTANCE
+				.getComponentInstance_Category();
 
 		/**
 		 * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
@@ -2877,7 +2911,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__IN_MODE = eINSTANCE.getComponentInstance_InMode();
+		EReference COMPONENT_INSTANCE__IN_MODE = eINSTANCE
+				.getComponentInstance_InMode();
 
 		/**
 		 * The meta object literal for the '<em><b>Flow Specification</b></em>' containment reference list feature.
@@ -2885,7 +2920,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__FLOW_SPECIFICATION = eINSTANCE.getComponentInstance_FlowSpecification();
+		EReference COMPONENT_INSTANCE__FLOW_SPECIFICATION = eINSTANCE
+				.getComponentInstance_FlowSpecification();
 
 		/**
 		 * The meta object literal for the '<em><b>End To End Flow</b></em>' containment reference list feature.
@@ -2893,7 +2929,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__END_TO_END_FLOW = eINSTANCE.getComponentInstance_EndToEndFlow();
+		EReference COMPONENT_INSTANCE__END_TO_END_FLOW = eINSTANCE
+				.getComponentInstance_EndToEndFlow();
 
 		/**
 		 * The meta object literal for the '<em><b>Connection Instance</b></em>' containment reference list feature.
@@ -2901,7 +2938,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference COMPONENT_INSTANCE__CONNECTION_INSTANCE = eINSTANCE.getComponentInstance_ConnectionInstance();
+		EReference COMPONENT_INSTANCE__CONNECTION_INSTANCE = eINSTANCE
+				.getComponentInstance_ConnectionInstance();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.EndToEndFlowInstanceImpl <em>End To End Flow Instance</em>}' class.
@@ -2919,7 +2957,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = eINSTANCE.getEndToEndFlowInstance_FlowElement();
+		EReference END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT = eINSTANCE
+				.getEndToEndFlowInstance_FlowElement();
 
 		/**
 		 * The meta object literal for the '<em><b>In Mode</b></em>' reference list feature.
@@ -2927,7 +2966,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference END_TO_END_FLOW_INSTANCE__IN_MODE = eINSTANCE.getEndToEndFlowInstance_InMode();
+		EReference END_TO_END_FLOW_INSTANCE__IN_MODE = eINSTANCE
+				.getEndToEndFlowInstance_InMode();
 
 		/**
 		 * The meta object literal for the '<em><b>End To End Flow</b></em>' reference feature.
@@ -2935,7 +2975,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW = eINSTANCE.getEndToEndFlowInstance_EndToEndFlow();
+		EReference END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW = eINSTANCE
+				.getEndToEndFlowInstance_EndToEndFlow();
 
 		/**
 		 * The meta object literal for the '<em><b>In System Operation Mode</b></em>' reference list feature.
@@ -2962,7 +3003,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = eINSTANCE.getSystemInstance_SystemOperationMode();
+		EReference SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE = eINSTANCE
+				.getSystemInstance_SystemOperationMode();
 
 		/**
 		 * The meta object literal for the '<em><b>System Implementation</b></em>' reference feature.
@@ -2970,7 +3012,8 @@ public interface InstancePackage extends EPackage {
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = eINSTANCE.getSystemInstance_SystemImplementation();
+		EReference SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION = eINSTANCE
+				.getSystemInstance_SystemImplementation();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.InstanceReferenceValueImpl <em>Reference Value</em>}' class.

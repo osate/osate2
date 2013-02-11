@@ -60,7 +60,8 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
  *
  * @generated
  */
-public class InstanceReferenceValueImpl extends PropertyValueImpl implements InstanceReferenceValue {
+public class InstanceReferenceValueImpl extends PropertyValueImpl implements
+		InstanceReferenceValue {
 	/**
 	 * The cached value of the '{@link #getReferencedInstanceObject() <em>Referenced Instance Object</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -96,14 +97,18 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * @generated
 	 */
 	public InstanceObject getReferencedInstanceObject() {
-		if (referencedInstanceObject != null && referencedInstanceObject.eIsProxy()) {
+		if (referencedInstanceObject != null
+				&& referencedInstanceObject.eIsProxy()) {
 			InternalEObject oldReferencedInstanceObject = (InternalEObject) referencedInstanceObject;
 			referencedInstanceObject = (InstanceObject) eResolveProxy(oldReferencedInstanceObject);
 			if (referencedInstanceObject != oldReferencedInstanceObject) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT,
-							oldReferencedInstanceObject, referencedInstanceObject));
+							oldReferencedInstanceObject,
+							referencedInstanceObject));
 			}
 		}
 		return referencedInstanceObject;
@@ -123,13 +128,16 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setReferencedInstanceObject(InstanceObject newReferencedInstanceObject) {
+	public void setReferencedInstanceObject(
+			InstanceObject newReferencedInstanceObject) {
 		InstanceObject oldReferencedInstanceObject = referencedInstanceObject;
 		referencedInstanceObject = newReferencedInstanceObject;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT, oldReferencedInstanceObject,
-					referencedInstanceObject));
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
+					InstancePackage.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT,
+					oldReferencedInstanceObject, referencedInstanceObject));
 	}
 
 	/**
@@ -217,7 +225,8 @@ public class InstanceReferenceValueImpl extends PropertyValueImpl implements Ins
 	@Override
 	public boolean equals(Object other) {
 		return (other instanceof InstanceReferenceValue)
-				&& ((InstanceReferenceValue) other).getReferencedInstanceObject() == referencedInstanceObject;
+				&& ((InstanceReferenceValue) other)
+						.getReferencedInstanceObject() == referencedInstanceObject;
 	}
 
 } //InstanceReferenceValueImpl

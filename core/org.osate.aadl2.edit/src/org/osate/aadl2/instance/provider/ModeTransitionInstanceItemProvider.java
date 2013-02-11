@@ -56,9 +56,10 @@ import org.osate.aadl2.instance.ModeTransitionInstance;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ModeTransitionInstanceItemProvider extends
+		ConnectionInstanceEndItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,13 +97,14 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeTransitionInstance_destination_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_destination_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__DESTINATION, true, false, true, null, null,
-						null));
+						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__DESTINATION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -114,13 +116,14 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	protected void addModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeTransitionInstance_modeTransition_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_modeTransition_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__MODE_TRANSITION, true, false, true, null,
-						null, null));
+						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__MODE_TRANSITION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -131,12 +134,15 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeTransitionInstance_source_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeTransitionInstance_source_feature", "_UI_ModeTransitionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__SOURCE, true, false, true, null, null, null));
+						InstancePackage.Literals.MODE_TRANSITION_INSTANCE__SOURCE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -147,7 +153,10 @@ public class ModeTransitionInstanceItemProvider extends ConnectionInstanceEndIte
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeTransitionInstance")); //$NON-NLS-1$
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/ModeTransitionInstance")); //$NON-NLS-1$
 	}
 
 	/**

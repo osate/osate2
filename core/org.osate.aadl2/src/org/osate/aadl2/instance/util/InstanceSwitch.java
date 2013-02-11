@@ -16,6 +16,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -87,10 +88,8 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * @generated
 	 */
 	@Override
-	protected T doSwitch(final int classifierID, final EObject theEObject)
-	{
-		switch (classifierID) 
-		{
+	protected T doSwitch(int classifierID, EObject theEObject) {
+		switch (classifierID) {
 		case InstancePackage.FEATURE_INSTANCE: {
 			FeatureInstance featureInstance = (FeatureInstance) theEObject;
 			T result = caseFeatureInstance(featureInstance);
@@ -443,11 +442,10 @@ public class InstanceSwitch<T> extends Switch<T> {
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
 	 * @return the result of interpreting the object as an instance of '<em>Component Instance</em>'.
-	 * @throws InstantiationException 
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T caseComponentInstance(ComponentInstance object)  {
+	public T caseComponentInstance(ComponentInstance object) {
 		return null;
 	}
 
