@@ -56,14 +56,45 @@ public class FlowLatencyUtil {
 				for ( Object pv: pvlist){
 					if(pv instanceof InstanceReferenceValue)
 					{
+						OsateDebug.osateDebug("[FlowLatencyUtil] OK - InstanceReferenceValue Element " + ph + "  has the appropriate binding ("+ pv +")");
+
 						InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
 						if (ref instanceof ComponentInstance){
 							reflist.add((ComponentInstance)ref);
 						}
 					}
+					
+					/*
+					 * JD
+					 * If we have a reference value, it is relative to the declarative model and thus,
+					 * have to find the instance components accordingly.
+					 */
+					if (pv instanceof ReferenceValue)
+					{
+						List<InstanceObject> refs;
+						ReferenceValue rv;
+						
+						rv = (ReferenceValue) pv;
+						
+						OsateDebug.osateDebug("[FlowLatencyUtil] OK - ReferenceValue Element " + ph + "  has the appropriate binding ("+ pv +")");
+
+						refs = pci.getSystemInstance().findInstanceObjects(rv.getContainmentPathElements());
+						for (InstanceObject ref : refs)
+						{
+							if (ref instanceof ComponentInstance)
+							{
+								if (! reflist.contains(ref))
+								{
+									reflist.add((ComponentInstance)ref);
+								}
+							}
+						}
+
+					}
 					else
 					{
-						OsateDebug.osateDebug("Element " + ph + " should have a binding to a connection but has the wrong component associated ("+ pv +")");
+						OsateDebug.osateDebug("[FlowLatencyUtil] KO - Element " + ph + " should have a binding to a connection but has the wrong component associated ("+ pv +")");
+
 					}
 				}
 			}
