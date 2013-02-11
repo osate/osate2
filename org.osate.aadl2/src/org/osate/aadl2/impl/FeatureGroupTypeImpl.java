@@ -74,6 +74,7 @@ import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.Activator;
 
 /**
@@ -1238,7 +1239,7 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements
 		EList<Feature> local = getOwnedFeatures();
 		FeatureGroupType curPGT = this;
 		FeatureGroupType inversepgt = getInverse();
-		if (local.isEmpty() && inversepgt != null) {
+		if (local.isEmpty() && !Aadl2Util.isNull(inversepgt)) {
 			local = inversepgt.getOwnedFeatures();
 			curPGT = inversepgt;
 		}
