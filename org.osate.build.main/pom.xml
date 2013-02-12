@@ -56,8 +56,6 @@
     <module>../../plugins/org.osate.imv.propertydecorations</module>
     <module>../../plugins/org.osate.imv.ui</module>
     <module>../../plugins/org.osate.imv.aadldiagram</module>
-    <module>../../plugins/org.osate.validation</module>
-    <module>../../plugins/org.osate.validation.lute</module>
     <module>../../plugins/org.osate.analysis.binpacking</module>
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
