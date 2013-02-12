@@ -7,9 +7,9 @@ property set SEI is
   StreamMissRate: aadlreal  applies to (port);
   
   -- property to support weight analysis 
-  NetWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
-  GrossWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
-  WeightLimit: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device);
+  NetWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
+  GrossWeight: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
+  WeightLimit: aadlreal units SEI::WeightUnits applies to (system, processor, memory, bus, device, access connection);
   WeightUnits: type units (kg);
 
   -- properties used in architecturee consistency checker that ensures
