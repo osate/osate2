@@ -170,6 +170,7 @@ public class AadlBaRulesCheckersDriver
                                                        completeStates,
                                                        finalStates) ;
                result &= _legality.D_3_L3_Check(initialStates, completeStates) ;
+               result &= _legality.D_3_L4_Check(initialStates, finalStates) ;
 
             }// End of first if.
 

@@ -28,18 +28,27 @@ import java.util.List ;
 import java.util.Set ;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.EReference ;
 
+import org.osate.aadl2.Aadl2Package ;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DeviceClassifier;
 import org.osate.aadl2.EnumerationLiteral ;
+import org.osate.aadl2.MetaclassReference ;
 import org.osate.aadl2.NamedValue ;
+import org.osate.aadl2.PackageSection ;
+import org.osate.aadl2.Property ;
 import org.osate.aadl2.PropertyAssociation ;
+import org.osate.aadl2.PropertyOwner ;
+import org.osate.aadl2.PropertySet ;
 import org.osate.aadl2.SubprogramClassifier;
 import org.osate.aadl2.ThreadClassifier;
 import org.osate.aadl2.VirtualProcessorClassifier ;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.xtext.aadl2.properties.util.ThreadProperties ;
 import org.osate.xtext.aadl2.properties.util.TimingProperties ;
+import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService ;
 
 import fr.tpt.aadl.annex.behavior.aadlba.*;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils;
@@ -187,6 +196,171 @@ public class AadlBaLegalityRulesChecker
       return result ;
    }
    
+   /**
+    * Document: AADL Behavior Annex draft 
+    * Version : 0.94 
+    * Type : Legality rule
+    * Section : D.3 Behavior Specification 
+    * Object : Check legality rule D.3.(L4) 
+    * Keys : threads, components initialization finalization entrypoints initial
+    * final states
+    */
+   @SuppressWarnings("unchecked")
+   public boolean D_3_L4_Check (EList<BehaviorState> initialStates,
+				                EList<BehaviorState> finalStates)
+   {
+      boolean result = true ;
+      
+      // As the user can add component which have initialization and finalization
+      // entrypoints, fetches the component list.
+      
+      PackageSection[] contextsTab =AadlBaVisitors.getBaPackageSections(_ba);
+      
+      PropertiesLinkingService pls = new PropertiesLinkingService() ;
+      
+      EReference reference = Aadl2Package.eINSTANCE.getNamedValue_NamedValue();
+      
+      EObject ne=pls.findNamedElementInPredeclaredPropertySets(
+                             AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTY_NAME,
+                             contextsTab[0], reference);
+      if(ne==null)
+      {
+        PropertySet ps = pls.findPropertySet(contextsTab[0],
+                              AadlBaVisitors.INITIALIZE_ENTRYPOINT_PROPERTYSET);
+        if(ps!=null)
+          ne = ps.findNamedElement(AadlBaVisitors.
+                                      INITIALIZE_ENTRYPOINT_PROPERTY_NAME);
+      }
+      
+      ArrayList<Class<? extends org.osate.aadl2.Element>> klassl = 
+         new ArrayList<Class<? extends org.osate.aadl2.Element>>() ;
+      
+      Class<? extends org.osate.aadl2.Element> klass ;
+      
+      StringBuilder klassName = new StringBuilder();
+      
+      String firstChar ;
+      int firstCharIndex ;
+      
+      if (ne != null)
+      {
+    	  EList<PropertyOwner> pol = ((Property) ne).getAppliesTos() ; 
+    	  // For each component that the initialize entrypoint property is applied
+          // to, gets the component's name and transform into the corresponding
+          // class name and populates the class list.
+          for (PropertyOwner p : pol)
+          {
+             klassName.append(AadlBaVisitors.SEI_AADL2_PACKAGE_NAME);
+             klassName.append('.');
+             
+             firstCharIndex = klassName.length() ;
+             
+             klassName.append(((MetaclassReference) p).getMetaclass().getName()) ;
+             
+             firstChar = klassName.substring(firstCharIndex, firstCharIndex+1) ;
+             
+             // Transform the first char of the property name to upper case.
+             firstChar.toUpperCase() ;
+             
+             klassName.setCharAt(firstCharIndex, firstChar.charAt(0)) ;
+             
+             klassName.append(AadlBaVisitors.SEI_AADL2_CLASSIFIER_SUFFIX);
+             
+             try
+             {
+                klass = (Class<? extends org.osate.aadl2.Element>) 
+                            Class.forName(klassName.toString()) ;
+                
+                klassl.add(klass);
+             }
+             catch (java.lang.ClassNotFoundException e)
+             {
+                continue ;
+             }
+             finally
+             {
+                klassName.setLength(0) ;
+             }
+          }
+          
+          // Checks the rule for the given component list.
+          for(Class<? extends org.osate.aadl2.Element> tmp : klassl)
+          {
+             if(tmp.isAssignableFrom(_baParentContainer.getClass()))
+             {  
+                String reportElements = null ;
+                 
+                if(initialStates.size() > 1)
+                {
+                   result = false ;
+                   reportElements = AadlBaUtils.identifierListToString(initialStates,
+                                                                   LIST_SEPARATOR) ;
+                   this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                         + " can't have more than one initial state : " +
+                           reportElements +
+                             " : Behavior Annex D.3.(L4) legality rule failed") ;
+                }
+                else
+                   if(initialStates.size() == 0)
+                   {
+                      result = false ;
+                      this.reportLegalityWarning(_ba, _baParentContainer.
+                                                              getQualifiedName()
+                            + " has no initial state : " +
+                              "Behavior Annex D.3.(L4) legality rule failed") ;
+                   }
+                 
+                if(finalStates.size() == 0)
+                {
+                   result = false ;
+                   this.reportLegalityWarning(_ba,
+                      _baParentContainer.getQualifiedName() + 
+                         " has no final state : Behavior Annex D.3.(L4)"+
+                            " legality rules failed") ;
+                }
+                 
+                return result ; 
+             }
+          }
+      }
+      else
+      {
+    	  String reportElements = null ;
+          
+          if(initialStates.size() > 1)
+          {
+             result = false ;
+             reportElements = AadlBaUtils.identifierListToString(initialStates,
+                                                             LIST_SEPARATOR) ;
+             this.reportLegalityError(_ba, _baParentContainer.getQualifiedName()
+                   + " can't have more than one initial state : " +
+                     reportElements +
+                       " : Behavior Annex D.3.(L4) legality rule failed") ;
+          }
+          else
+             if(initialStates.size() == 0)
+             {
+                result = false ;
+                this.reportLegalityWarning(_ba, _baParentContainer.getQualifiedName()
+                      + " has no initial state : " +
+                        "Behavior Annex D.3.(L4) legality rule failed") ;
+             }
+           
+          if(finalStates.size() == 0)
+          {
+             result = false ;
+             this.reportLegalityWarning(_ba,
+                _baParentContainer.getQualifiedName() + 
+                   " has no final state : Behavior Annex D.3.(L4)"+
+                      " legality rules failed") ;
+          }
+           
+          return result ;
+      }
+      
+      return result ;
+   }
+
    /**
     * Document: AADL Behavior Annex draft 
     * Version : 0.94 
@@ -715,5 +889,11 @@ public class AadlBaLegalityRulesChecker
    private void reportLegalityError(BehaviorElement obj, String msg)
    {
       _errManager.error(obj, msg + ".") ;
+   }
+   
+   // TODO Provide column number.
+   private void reportLegalityWarning(BehaviorElement obj, String msg)
+   {
+      _errManager.warning(obj, msg + ".") ;
    }
 }
