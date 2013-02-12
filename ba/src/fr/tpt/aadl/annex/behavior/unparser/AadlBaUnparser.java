@@ -284,8 +284,6 @@ public class AadlBaUnparser
       public String caseBehaviorEnumerationLiteral(BehaviorEnumerationLiteral object)
       {
         aadlbaText.addOutput(object.getComponent().getName()) ;
-        aadlbaText.addOutput(".") ;
-        aadlbaText.addOutput("enumerators") ;
         aadlbaText.addOutput("#") ;
         aadlbaText.addOutput(object.getEnumLiteral().getValue()) ;
         return DONE ;
