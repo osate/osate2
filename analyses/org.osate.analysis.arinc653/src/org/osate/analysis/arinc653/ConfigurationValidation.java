@@ -60,8 +60,9 @@ import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgr
 import org.osate.aadl2.util.Aadl2Switch;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.helpers.SchedulingSlotsHelper;
-import org.osate.validation.*;
-import org.osate.validation.lute.utils.*;
+import org.osate.analysis.lute.utils.Invoke;
+import org.osate.analysis.lute.utils.Logger;
+import org.osate.analysis.lute.utils.*;
 
 
 public class ConfigurationValidation extends AadlProcessingSwitchWithProgress

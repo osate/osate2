@@ -45,10 +45,10 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.analysis.arinc653.Activator;
 import org.osate.analysis.arinc653.ConfigurationValidation;
+import org.osate.analysis.lute.utils.Invoke;
+import org.osate.analysis.lute.utils.Logger;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osate.validation.Logger;
-import org.osate.validation.lute.utils.Invoke;
 import org.osgi.framework.Bundle;
 
 
