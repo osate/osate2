@@ -139,7 +139,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				
 				final double totalLatency = doETEF(etef); 
 				double val = 0;
-					val = FlowLatencyUtil.eInstance.getMyLatency(etef);
+					val = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(etef);
 				if (val > 0)
 				{
 					if (totalLatency > val) {
@@ -185,8 +185,8 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	}
 	
 	private String isSynchronousLabel(){
-		if (isSynchronous) return " (Synchronous)";
-		return " (ASynchronous)";
+		if (isSynchronous) return " (Synchronous)   ";
+		return " (ASynchronous) ";
 	}
 
 	protected  double doETEF(final EndToEndFlowInstance etef){
@@ -220,7 +220,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// If we are analyzing an end to end flow, then we treat the first
 		// subcomponent-flow pair specially to prime the latency computation.
-			myLatencyETE = FlowLatencyUtil.eInstance.getMyLatency(etef);
+			myLatencyETE = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(etef);
 
 			fe = it.next();
 			ci = fe.getContainingComponentInstance();
@@ -230,7 +230,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			// Get the latency from the flow specification
 			FlowSpecificationInstance fefs = (FlowSpecificationInstance)fe;
 			double FlowSpecificationLatency;
-			FlowSpecificationLatency = FlowLatencyUtil.eInstance.getMyLatency(fefs);
+			FlowSpecificationLatency = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(fefs);
 			double dv = 0.0;
 
 
@@ -401,7 +401,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				fefs = (FlowSpecificationInstance)fe;
 				double fsLatency;
-				fsLatency = FlowLatencyUtil.eInstance.getMyLatency(fefs);
+				fsLatency = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(fefs);
 				if (fsLatency == 0 ){
 					warning(fefs,"Flow spec latency used in flow latency calculation is zero");
 				}
@@ -445,7 +445,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @return double latency value
 	 */
 	protected double getConnectionLatency(NamedElement conn){
-		return FlowLatencyUtil.eInstance.getMyLatency(conn);
+		return FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(conn);
 	}
 
 
