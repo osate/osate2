@@ -107,6 +107,13 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          install-size="0"
          version="0.0.0"
          unpack="false"/>
+         
+   <plugin
+         id="org.osate.analysis.lute"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
    <plugin
          id="org.osate.analysis.arinc653"
@@ -143,18 +150,6 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          version="0.0.0"
          unpack="false"/>
 
-   <plugin
-         id="org.osate.validation"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
-   <plugin
-         id="org.osate.validation.lute"
-         download-size="0"
-         install-size="0"
-         version="0.0.0"
-         unpack="false"/>
 
 </feature>
