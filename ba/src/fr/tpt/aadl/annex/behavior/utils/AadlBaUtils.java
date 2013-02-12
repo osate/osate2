@@ -1807,7 +1807,7 @@ public class AadlBaUtils {
           el instanceof DataAccessPrototypeHolder ||
           el instanceof FeaturePrototypeHolder)
     {
-      return Aadl2Utils.getAccessRight(el.getElement()) ;
+      return Aadl2Utils.getAccessRight((DataAccess)el.getElement()) ;
     }
     else
     {
