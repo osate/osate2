@@ -804,7 +804,9 @@ public class AadlBaUnparser
                 object.getLogicalOperators().iterator() ;
           while(itRel.hasNext())
           {
-            aadlbaText.addOutput(" " + itOp.next().getLiteral() + " ") ;
+            LogicalOperator lo = itOp.next();
+            if(lo!=LogicalOperator.NONE)
+              aadlbaText.addOutput(" " + lo.getLiteral() + " ") ;
             process(itRel.next()) ;
           }
         }
@@ -820,8 +822,9 @@ public class AadlBaUnparser
         process(object.getFirstExpression()) ;
         if(object.getSecondExpression() != null)
         {
-          aadlbaText.addOutput(" " +
-                object.getRelationalOperator().getLiteral() + " ") ;
+          if(object.getRelationalOperator()!=RelationalOperator.NONE)
+            aadlbaText.addOutput(" " +
+                  object.getRelationalOperator().getLiteral() + " ") ;
           process(object.getSecondExpression()) ;
         }
         return DONE ;
@@ -833,7 +836,7 @@ public class AadlBaUnparser
       public String caseSimpleExpression(SimpleExpression object)
       {
         //FIXME : TODO : update location reference
-        if(object.isSetUnaryAddingOperator())
+        if(object.isSetUnaryAddingOperator() && object.getUnaryAddingOperator()!=UnaryAddingOperator.NONE)
           aadlbaText.addOutput(object.getUnaryAddingOperator()
                 .getLiteral()) ;
 
@@ -847,7 +850,9 @@ public class AadlBaUnparser
                 object.getBinaryAddingOperators().iterator() ;
           while(itTerm.hasNext())
           {
-            aadlbaText.addOutput(" " + itOp.next().getLiteral() + " ") ;
+            BinaryAddingOperator bao = itOp.next(); 
+            if(bao!=BinaryAddingOperator.NONE)
+              aadlbaText.addOutput(" " + bao.getLiteral() + " ") ;
             process(itTerm.next()) ;
           }
         }
@@ -871,7 +876,9 @@ public class AadlBaUnparser
                 object.getMultiplyingOperators().iterator() ;
           while(itFact.hasNext())
           {
-            aadlbaText.addOutput(" " + itOp.next().getLiteral() + " ") ;
+            MultiplyingOperator mo = itOp.next();
+            if(mo!=MultiplyingOperator.NONE)
+              aadlbaText.addOutput(" " + mo.getLiteral() + " ") ;
             process(itFact.next()) ;
           }
         }
@@ -889,11 +896,18 @@ public class AadlBaUnparser
         {
           Enumerator e = null ;
           if(object.isSetUnaryNumericOperator())
+          {
             e = object.getUnaryNumericOperator() ;
+            if(e!=UnaryNumericOperator.NONE)
+              aadlbaText.addOutput(e.getLiteral() + " ") ;
+          }
           else if(object.isSetUnaryBooleanOperator())
+          {
             e = object.getUnaryBooleanOperator() ;
-
-          aadlbaText.addOutput(e.getLiteral() + " ") ;
+            if(e!=UnaryBooleanOperator.NONE)
+              aadlbaText.addOutput(e.getLiteral() + " ") ;
+          }
+          
         }
 
         if(object.getFirstValue() instanceof ValueExpression)
@@ -909,8 +923,10 @@ public class AadlBaUnparser
 
         if(object.isSetBinaryNumericOperator())
         {
-          aadlbaText.addOutput(" " +
-                object.getBinaryNumericOperator().getLiteral() + " ") ;
+          BinaryNumericOperator bno = object.getBinaryNumericOperator();
+          if(bno!=BinaryNumericOperator.NONE)
+            aadlbaText.addOutput(" " +
+                  bno.getLiteral() + " ") ;
           if(object.getSecondValue() instanceof ValueExpression)
           {
             aadlbaText.addOutput("(") ;
