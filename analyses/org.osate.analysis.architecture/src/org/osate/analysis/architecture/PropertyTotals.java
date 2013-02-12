@@ -45,6 +45,7 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
@@ -78,15 +79,23 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	}
 	
 	private double doCalcWeight(ComponentInstance ci, boolean needWeight, String indent){
-		EList cil = ci.getComponentInstances();
 		double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
 		double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
-		for(Iterator it = cil.iterator(); it.hasNext();){
-			ComponentInstance subi = (ComponentInstance)it.next();
+		EList<ComponentInstance> cil = ci.getComponentInstances();
+		for (ComponentInstance subi : cil) {
 			weight += doCalcWeight(subi,(needWeight&&(gross == 0.0||net > 0.0)),indent+" ");
 				sublimit += GetProperties.getWeightLimit(subi,  0.0);
+		}
+		EList<ConnectionInstance> connl = ci.getConnectionInstances();
+		for (ConnectionInstance connectionInstance : connl) {
+			double res = GetProperties.getNetWeight(connectionInstance, 0.0);
+			if (res == 0.0){
+				res = GetProperties.getGrossWeight(connectionInstance, 0.0);
+			}
+			weight += res;
+			sublimit += GetProperties.getWeightLimit(connectionInstance,  0.0);
 		}
 		if (weight == 0.0 && cil.isEmpty()){
 			if (gross == 0 && net > 0){
