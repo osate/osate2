@@ -358,7 +358,7 @@ public class ConnectionLatencyAnalysis extends AadlProcessingSwitchWithProgress 
 						//	System.out.println ("[ConnectionLatency] Device dest " + deviceDestination);
 
 
-						busLatency = GetProperties.getLatencyinMS (connectionBus);
+						busLatency = GetProperties.getLatencyinMilliSec (connectionBus);
 					}
 					catch (Exception e)
 					{
