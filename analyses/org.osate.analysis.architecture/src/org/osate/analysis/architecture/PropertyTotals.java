@@ -47,6 +47,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.contribution.sei.names.SEI;
@@ -75,26 +76,38 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	}
 	
 	public final double calcWeight(ComponentInstance ci){
-		return doCalcWeight(ci, true,"");
+    	csvlog = new WriteToFile("WeightAnalysis", ci);
+		String header = "Element,type,net weight, net/gross\n\r";
+    	csvlog(header);
+		double total = doCalcWeight(ci, true,"");
+		saveCSVContent();
+		return total;
+		
 	}
 	
 	private double doCalcWeight(ComponentInstance ci, boolean needWeight, String indent){
+
 		double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
 		double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
+		logWeight(getPrintName(ci), ci.getCategory().getName() , net>0.0?net:gross,net>0.0);
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
-			weight += doCalcWeight(subi,(needWeight&&(gross == 0.0||net > 0.0)),indent+" ");
-				sublimit += GetProperties.getWeightLimit(subi,  0.0);
+			double subweight = doCalcWeight(subi,(needWeight&&(gross == 0.0||net > 0.0)),indent+" ");
+			weight += subweight;
+			sublimit += GetProperties.getWeightLimit(subi,  0.0);
 		}
 		EList<ConnectionInstance> connl = ci.getConnectionInstances();
 		for (ConnectionInstance connectionInstance : connl) {
-			double res = GetProperties.getNetWeight(connectionInstance, 0.0);
-			if (res == 0.0){
-				res = GetProperties.getGrossWeight(connectionInstance, 0.0);
+			double netconn = GetProperties.getNetWeight(connectionInstance, 0.0);
+				double grossconn = GetProperties.getGrossWeight(connectionInstance, 0.0);
+			weight += netconn>0?netconn:grossconn;
+			logWeight(connectionInstance.getName(), "Connection " , netconn>0?netconn:grossconn,netconn>0);
+			if (netconn>0||grossconn>0){
+				ResultMsg = indent+String.format(connectionInstance.getName()+": Weight of access connection %.3f kg",netconn>0?netconn:grossconn);
+				info(connectionInstance,ResultMsg);
 			}
-			weight += res;
 			sublimit += GetProperties.getWeightLimit(connectionInstance,  0.0);
 		}
 		if (weight == 0.0 && cil.isEmpty()){
@@ -166,4 +179,23 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 	public String getModelResult() {
 		return ResultMsg;
 	}
+	
+	
+	private void csvlog(String s){
+		csvlog.addOutputNewline(s);
+	}
+	
+	private void logWeight(String ownerStr,  String elementType, 
+			double elementWeight, boolean net) {
+		if (elementWeight > 0 )
+		csvlog( ownerStr +","+elementType+","+elementWeight+", "+(net?"net":"gross"));
+	}
+	
+	
+	public void saveCSVContent(){
+		csvlog.saveToFile();
+	}
+	private WriteToFile csvlog ;
+
+
 }
