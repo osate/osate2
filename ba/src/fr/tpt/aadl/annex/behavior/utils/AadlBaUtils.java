@@ -871,7 +871,7 @@ public class AadlBaUtils {
    * @exception DimensionException in any case of array dimension overflow. 
    */
   public static TypeHolder getTypeHolder(Element el,
-                                           ComponentClassifier parentContainer)
+                                         ComponentClassifier parentContainer)
                                                       throws DimensionException
   {
     TypeHolder result = null ;
@@ -1005,7 +1005,7 @@ public class AadlBaUtils {
     {
       String errorMsg = "getTypeHolder : " + el.getClass().getSimpleName()
           + " is not supported yet at line " +
-          el.getLocationReference().getLine() + "." ;
+          Aadl2Utils.getLocationReference(el).getLine() + "." ;
       System.err.println(errorMsg) ;
       throw new UnsupportedOperationException(errorMsg) ;
     }
@@ -1458,7 +1458,7 @@ public class AadlBaUtils {
 
     String errorMsg = "getFeatureType : " + el.getClass().getSimpleName()+ 
         " is not supported yet at line " +
-        el.getLocationReference().getLine() +
+        Aadl2Utils.getLocationReference(el).getLine() +
         "." ;
     System.err.println(errorMsg) ;
     throw new UnsupportedOperationException(errorMsg) ;

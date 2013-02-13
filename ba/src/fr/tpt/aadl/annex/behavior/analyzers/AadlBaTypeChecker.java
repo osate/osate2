@@ -1324,7 +1324,7 @@ public class AadlBaTypeChecker
           
           
           StructUnionElement sue = _fact.createStructUnionElement() ;
-          sue.setLocationReference(dc.getLocationReference()) ;
+          sue.setLocationReference(Aadl2Utils.getLocationReference(dc)) ;
           sue.setDataClassifier(dc) ;
           sue.setName(id.getId()) ;
           

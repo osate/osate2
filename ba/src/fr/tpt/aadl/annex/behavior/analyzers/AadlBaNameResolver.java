@@ -21,9 +21,7 @@
 
 package fr.tpt.aadl.annex.behavior.analyzers;
 
-import java.util.HashSet ;
 import java.util.ListIterator ;
-import java.util.Set ;
 
 import org.eclipse.emf.common.util.BasicEList ;
 import org.eclipse.emf.common.util.EList ;
@@ -58,6 +56,7 @@ import fr.tpt.aadl.annex.behavior.declarative.*;
 
 import fr.tpt.aadl.annex.behavior.utils.AadlBaUtils ;
 import fr.tpt.aadl.annex.behavior.utils.AadlBaVisitors ;
+import fr.tpt.aadl.utils.Aadl2Utils ;
 import fr.tpt.aadl.utils.Aadl2Visitors ;
 import fr.tpt.aadl.utils.PropertyUtils ;
 import fr.tpt.aadl.utils.names.DataModelProperties ;
@@ -139,9 +138,41 @@ public class AadlBaNameResolver
       EList<BehaviorState> lstates = _ba.getStates() ;
       EList<BehaviorTransition> ltrans = _ba.getTransitions() ;
       
-      Set<String> svars = new HashSet<String>() ;
-      Set<String> sstates = new HashSet<String>() ;
-      Set<String> strans = new HashSet<String>(ltrans.size()) ;
+      for (int i = 0 ; i < lvars.size() - 1 ; i++)
+      {
+        for(int j = i+1 ; j < lvars.size() ; j++)
+        {
+          if(lvars.get(i).getName().equalsIgnoreCase(lvars.get(j).getName()))
+          {
+            reportDuplicateNameError(lvars.get(j), lvars.get(i)) ;
+            result = false ;
+          }
+        }
+      }
+      
+      for (int i = 0 ; i < lstates.size() - 1 ; i++)
+      {
+        for(int j = i+1 ; j < lstates.size() ; j++)
+        {
+          if(lstates.get(i).getName().equalsIgnoreCase(lstates.get(j).getName()))
+          {
+            reportDuplicateNameError(lstates.get(j), lstates.get(i)) ;
+            result = false ;
+          }
+        }
+      }
+      
+      for (int i = 0 ; i < ltrans.size() - 1 ; i++)
+      {
+        for(int j = i+1 ; j < ltrans.size() ; j++)
+        {
+          if(ltrans.get(i).getName().equalsIgnoreCase(ltrans.get(j).getName()))
+          {
+            reportDuplicateNameError(ltrans.get(j), ltrans.get(i)) ;
+            result = false ;
+          }
+        }
+      }
 
       for(BehaviorVariable v : lvars)
       {
@@ -153,8 +184,7 @@ public class AadlBaNameResolver
           
            if(bsName.equalsIgnoreCase(bvName))
            {
-              _errManager.error(s, "conflict with " + bvName + 
-                    " at line " + v.getLocationReference().getLine()) ;
+              reportDuplicateNameError(s, v) ;
               result = false ;
            }
         }
@@ -165,17 +195,10 @@ public class AadlBaNameResolver
            
            if(btName != null && btName.equalsIgnoreCase(bvName))
            {
-              _errManager.error(t, "conflict with " + bvName +
-                  " at line " + v.getLocationReference().getLine()) ;
+              reportDuplicateNameError(t, v) ;
               result = false ;
            }
         }
-        
-        if(! svars.add(bvName))
-        {
-           _errManager.error(v, "duplicate name for1 " + bvName) ;
-           result = false ;
-        } 
       }
 
       for(BehaviorState s : lstates)
@@ -188,25 +211,9 @@ public class AadlBaNameResolver
             
             if(btName != null && btName.equalsIgnoreCase(bsName))
             {
-               _errManager.error(t, "conflict with " + bsName
-                     + " at line " + s.getLocationReference().getLine()) ;
+               reportDuplicateNameError(t, s) ;
                result = false ;
             }
-         }
-         if(!sstates.add(bsName))
-         {
-            _errManager.error(s, "duplicate name for " + bsName) ;
-            result = false ;
-         }
-      }
-
-      for(BehaviorTransition t : ltrans)
-      {
-         String btName = t.getName() ;
-         if(btName != null && !(strans.add(btName)))
-         {
-            _errManager.error(t, "duplicate name for " + btName) ;
-            result = false ;
          }
       }
       
@@ -1157,6 +1164,16 @@ public class AadlBaNameResolver
       return result ;
    }
    
+   private void reportDuplicateNameError(BehaviorElement be, NamedElement ne)
+   {
+     String neName = ne.getName() ;
+     
+     _errManager.error(be, "duplicate name error: " + neName + " at line " +
+           be.getLocationReference().getLine() + " conflict with the element" +
+             " with the same name located at line " + 
+                Aadl2Utils.getLocationReference(ne).getLine()) ;
+   }
+   
    /**
     * Check behavior annex's sub component uniqueness within behavior annex's
     * parent component scope. Conflicts are reported.
@@ -1187,10 +1204,11 @@ public class AadlBaNameResolver
          {
            String bvName = v.getName() ; 
            
-           if(bvName.equalsIgnoreCase(ne.getName()))
+           String neName = ne.getName() ;
+           
+           if(bvName.equalsIgnoreCase(neName))
            {
-              _errManager.error(v, "conflict with " + ne.getName()
-                    + " at line " + ne.getLocationReference().getLine()) ;
+              reportDuplicateNameError(v, ne) ;
               result = false ;
            }
          }
@@ -1211,7 +1229,7 @@ public class AadlBaNameResolver
                     _errManager.error(s, "Behavior state " + bsName + 
                           " must be declared complete in order to represent " + 
                                  "mode " + ne.getName() + " located at line " + 
-                                           ne.getLocationReference().getLine());
+                                 Aadl2Utils.getLocationReference(ne).getLine());
                                                                 result = false ;
                   }
                   else
@@ -1221,8 +1239,7 @@ public class AadlBaNameResolver
                }
                else
                {
-                  _errManager.error(s, "conflict with " + ne.getName()
-                        + " at line " + ne.getLocationReference().getLine());
+                  reportDuplicateNameError(s, ne) ;
                   result = false ;
                }
             }
@@ -1233,8 +1250,7 @@ public class AadlBaNameResolver
             String btName = t.getName() ;
             if(btName != null && btName.equalsIgnoreCase(ne.getName()))
             {
-               _errManager.error(t, "conflict with " + ne.getName()
-                     + " at line " + ne.getLocationReference().getLine()) ;
+               reportDuplicateNameError(t, ne) ;
                result = false ;
             }
          }
