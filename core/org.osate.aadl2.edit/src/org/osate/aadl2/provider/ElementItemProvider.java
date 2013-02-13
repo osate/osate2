@@ -60,8 +60,9 @@ import org.osate.aadl2.Element;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ElementItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ElementItemProvider extends ItemProviderAdapter implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,10 +97,12 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getElement_OwnedComment());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getElement_OwnedComment());
 		}
 		return childrenFeatures;
 	}
@@ -141,7 +144,8 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 
 		switch (notification.getFeatureID(Element.class)) {
 		case Aadl2Package.ELEMENT__OWNED_COMMENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -155,10 +159,12 @@ public class ElementItemProvider extends ItemProviderAdapter implements IEditing
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getElement_OwnedComment(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getElement_OwnedComment(),
 				Aadl2Factory.eINSTANCE.createComment()));
 	}
 

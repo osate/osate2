@@ -48,7 +48,8 @@ import org.osate.aadl2.ProcessClassifier;
  *
  * @generated
  */
-public abstract class ProcessClassifierImpl extends ComponentClassifierImpl implements ProcessClassifier {
+public abstract class ProcessClassifierImpl extends ComponentClassifierImpl
+		implements ProcessClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class ProcessClassifierImpl extends ComponentClassifierImpl impl
 		return Aadl2Package.eINSTANCE.getProcessClassifier();
 	}
 
-} //ProcessClassifierImpl
+} // ProcessClassifierImpl

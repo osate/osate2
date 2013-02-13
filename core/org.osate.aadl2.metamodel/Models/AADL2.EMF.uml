@@ -6,11 +6,19 @@
     </packageMerge>
     <packagedElement xmi:type="uml:Class" xmi:id="Element" name="Element" isAbstract="true">
       <ownedAttribute xmi:id="Element-ownedElement" name="ownedElement" isDerived="true" aggregation="composite"/>
-      <ownedAttribute xmi:id="Element-owner" name="owner" isDerived="true"/>
+      <ownedOperation xmi:id="Element-getOwner" name="getOwner">
+        <ownedParameter xmi:id="Element-getOwner-_ownedParameter.0" type="Element" direction="return"/>
+      </ownedOperation>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="RefinableElement" name="RefinableElement" isAbstract="true">
+      <ownedAttribute xmi:id="RefinableElement-refinedElement" name="refinedElement" isDerived="true"/>
+      <ownedAttribute xmi:id="RefinableElement-refinementContext" name="refinementContext" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="NamedElement" name="NamedElement" isAbstract="true">
       <ownedAttribute xmi:id="NamedElement-qualifiedName" name="qualifiedName" isDerived="true"/>
-      <ownedAttribute xmi:id="NamedElement-namespace" name="namespace" isDerived="true"/>
+      <ownedOperation xmi:id="NamedElement-getNamespace" name="getNamespace">
+        <ownedParameter xmi:id="NamedElement-getNamespace-_ownedParameter.0" type="Namespace" direction="return"/>
+      </ownedOperation>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Namespace" name="Namespace" isAbstract="true">
       <ownedAttribute xmi:id="Namespace-ownedMember" name="ownedMember" isDerived="true" aggregation="composite"/>
@@ -19,7 +27,7 @@
     <packagedElement xmi:type="uml:Class" xmi:id="Classifier" name="Classifier" isAbstract="true">
       <ownedAttribute xmi:id="Classifier-classifierFeature" name="classifierFeature" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-inheritedMember" name="inheritedMember" isDerived="true"/>
-      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="Classifier-generalization" name="generalization" isDerived="true"/>
       <ownedAttribute xmi:id="Classifier-general" name="general" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ClassifierFeature" name="ClassifierFeature" isAbstract="true">
@@ -42,207 +50,7 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Package" name="Package"/>
     <packagedElement xmi:type="uml:Class" xmi:id="PackageSection" name="PackageSection" isAbstract="true">
-      <ownedComment xmi:id="PackageSection-_ownedComment.0">
-        <body>Minimal skeleton for introducing feature map</body>
-      </ownedComment>
-      <ownedAttribute xmi:id="PackageSection-imports" name="imports">
-        <eAnnotations xmi:id="PackageSection-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="PackageSection-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="packageSection"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PackageSection-imports-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PackageSection-imports-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-importedPackage" name="importedPackage" isDerived="true">
-        <eAnnotations xmi:id="PackageSection-importedPackage-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-importedPackage-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#imports"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-importedPropertySet" name="importedPropertySet" isDerived="true">
-        <eAnnotations xmi:id="PackageSection-importedPropertySet-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-importedPropertySet-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#imports"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-aliases" name="aliases">
-        <eAnnotations xmi:id="PackageSection-aliases-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-aliases-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="PackageSection-aliases-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="packageSection"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PackageSection-aliases-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PackageSection-aliases-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedPackageRename" name="ownedPackageRename" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedPackageRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedPackageRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#aliases"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedComponentTypeRename" name="ownedComponentTypeRename" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedComponentTypeRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedComponentTypeRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#aliases"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedFeatureGroupTypeRename" name="ownedFeatureGroupTypeRename" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedFeatureGroupTypeRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedFeatureGroupTypeRename-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#aliases"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-declarations" name="declarations">
-        <eAnnotations xmi:id="PackageSection-declarations-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-declarations-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="PackageSection-declarations-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="packageSection"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PackageSection-declarations-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PackageSection-declarations-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedAbstractType" name="ownedAbstractType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedAbstractType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedAbstractType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedAbstractImplementation" name="ownedAbstractImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedAbstractImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedAbstractImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedBusType" name="ownedBusType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedBusType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedBusType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedBusImplementation" name="ownedBusImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedBusImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedBusImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedDataType" name="ownedDataType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedDataType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedDataType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedDataImplementation" name="ownedDataImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedDataImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedDataImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedDeviceType" name="ownedDeviceType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedDeviceType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedDeviceType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedDeviceImplementation" name="ownedDeviceImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedDeviceImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedDeviceImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedMemoryType" name="ownedMemoryType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedMemoryType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedMemoryType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedMemoryImplementation" name="ownedMemoryImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedMemoryImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedMemoryImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedProcessType" name="ownedProcessType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedProcessType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedProcessType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedProcessImplementation" name="ownedProcessImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedProcessImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedProcessImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedProcessorType" name="ownedProcessorType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedProcessorType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedProcessorType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedProcessorImplementation" name="ownedProcessorImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedProcessorImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedProcessorImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedThreadGroupType" name="ownedThreadGroupType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedThreadGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedThreadGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedThreadGroupImplementation" name="ownedThreadGroupImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedThreadGroupImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedThreadGroupImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedThreadType" name="ownedThreadType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedThreadType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedThreadType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedThreadImplementation" name="ownedThreadImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedThreadImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedThreadImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSubprogramType" name="ownedSubprogramType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSubprogramType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSubprogramType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSubprogramImplementation" name="ownedSubprogramImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSubprogramImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSubprogramImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSubprogramGroupType" name="ownedSubprogramGroupType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSubprogramGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSubprogramGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSubprogramGroupImplementation" name="ownedSubprogramGroupImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSubprogramGroupImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSubprogramGroupImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSystemType" name="ownedSystemType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSystemType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSystemType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedSystemImplementation" name="ownedSystemImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedSystemImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedSystemImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedVirtualBusType" name="ownedVirtualBusType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedVirtualBusType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedVirtualBusType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedVirtualBusImplementation" name="ownedVirtualBusImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedVirtualBusImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedVirtualBusImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedVirtualProcessorType" name="ownedVirtualProcessorType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedVirtualProcessorType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedVirtualProcessorType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedVirtualProcessorImplementation" name="ownedVirtualProcessorImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedVirtualProcessorImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedVirtualProcessorImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedFeatureGroupType" name="ownedFeatureGroupType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PackageSection-ownedFeatureGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PackageSection-ownedFeatureGroupType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="packageSection#declarations"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PackageSection-ownedClassifier" name="ownedClassifier" isDerived="true" aggregation="composite"/>
+      <ownedAttribute xmi:id="PackageSection-name" name="name" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="PublicPackageSection" name="PublicPackageSection">
       <ownedAttribute xmi:id="PublicPackageSection-privateSection" name="privateSection" isDerived="true"/>
@@ -250,918 +58,116 @@
     <packagedElement xmi:type="uml:Class" xmi:id="PrivatePackageSection" name="PrivatePackageSection">
       <ownedAttribute xmi:id="PrivatePackageSection-publicSection" name="publicSection" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="PropertySet" name="PropertySet">
-      <ownedAttribute xmi:id="PropertySet-imports" name="imports">
-        <eAnnotations xmi:id="PropertySet-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="PropertySet-imports-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="propertySet"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySet-imports-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySet-imports-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-importedPackage" name="importedPackage" isDerived="true">
-        <eAnnotations xmi:id="PropertySet-importedPackage-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-importedPackage-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="propertySet#imports"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-importedPropertySet" name="importedPropertySet" isDerived="true">
-        <eAnnotations xmi:id="PropertySet-importedPropertySet-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-importedPropertySet-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="propertySet#imports"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-contents" name="contents">
-        <eAnnotations xmi:id="PropertySet-contents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-contents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="PropertySet-contents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="propertySet"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="PropertySet-contents-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="PropertySet-contents-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-ownedPropertyType" name="ownedPropertyType" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PropertySet-ownedPropertyType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-ownedPropertyType-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="propertySet#contents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-ownedProperty" name="ownedProperty" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PropertySet-ownedProperty-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-ownedProperty-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="propertySet#contents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="PropertySet-ownedPropertyConstant" name="ownedPropertyConstant" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="PropertySet-ownedPropertyConstant-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="PropertySet-ownedPropertyConstant-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="propertySet#contents"/>
-        </eAnnotations>
-      </ownedAttribute>
+    <packagedElement xmi:type="uml:Class" xmi:id="Access" name="Access" isAbstract="true">
+      <ownedAttribute xmi:id="Access-category" name="category" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Port" name="Port" isAbstract="true">
+      <ownedAttribute xmi:id="Port-category" name="category" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroup" name="FeatureGroup">
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupType" name="featureGroupType"/>
+      <ownedAttribute xmi:id="FeatureGroup-featureGroupPrototype" name="featureGroupPrototype"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="FeatureGroupType" name="FeatureGroupType">
-      <ownedAttribute xmi:id="FeatureGroupType-feature" name="feature">
-        <eAnnotations xmi:id="FeatureGroupType-feature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-feature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="FeatureGroupType-feature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="featureGroupType"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="FeatureGroupType-feature-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="FeatureGroupType-feature-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedAbstractFeature" name="ownedAbstractFeature" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedAbstractFeature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedAbstractFeature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedFeatureGroup" name="ownedFeatureGroup" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedFeatureGroup-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedFeatureGroup-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedParameter" name="ownedParameter" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedParameter-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedParameter-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="FeatureGroupType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="FeatureGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="FeatureGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="featureGroupType#feature"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="FeatureGroupType-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="FeatureGroupType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentType" name="ComponentType" isAbstract="true">
-      <ownedAttribute xmi:id="ComponentType-features" name="features">
-        <eAnnotations xmi:id="ComponentType-features-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentType-features-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="ComponentType-features-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="type"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentType-features-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentType-features-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentType-ownedFeatureGroup" name="ownedFeatureGroup" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentType-ownedFeatureGroup-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentType-ownedFeatureGroup-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentType-ownedAbstractFeature" name="ownedAbstractFeature" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentType-ownedAbstractFeature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentType-ownedAbstractFeature-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="ComponentType-ownedFeature" name="ownedFeature" isDerived="true" aggregation="composite"/>
       <ownedAttribute xmi:id="ComponentType-extended" name="extended" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Feature" name="Feature" isAbstract="true">
       <ownedAttribute xmi:id="Feature-classifier" name="classifier" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-prototype" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="Feature-featureClassifier" name="featureClassifier" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ComponentImplementation" name="ComponentImplementation" isAbstract="true">
       <ownedAttribute xmi:id="ComponentImplementation-type" name="type" isDerived="true"/>
       <ownedAttribute xmi:id="ComponentImplementation-ownedSubcomponent" name="ownedSubcomponent" isDerived="true" aggregation="composite"/>
       <ownedAttribute xmi:id="ComponentImplementation-extended" name="extended" isDerived="true"/>
       <ownedAttribute xmi:id="ComponentImplementation-ownedConnection" name="ownedConnection" isDerived="true" aggregation="composite"/>
-      <ownedAttribute xmi:id="ComponentImplementation-subcomponents" name="subcomponents">
-        <eAnnotations xmi:id="ComponentImplementation-subcomponents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-subcomponents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="ComponentImplementation-subcomponents-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="implementation"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentImplementation-subcomponents-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentImplementation-subcomponents-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedAbstractSubcomponent" name="ownedAbstractSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedAbstractSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedAbstractSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-connections" name="connections">
-        <eAnnotations xmi:id="ComponentImplementation-connections-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-connections-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="ComponentImplementation-connections-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="implementation"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentImplementation-connections-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentImplementation-connections-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedAccessConnection" name="ownedAccessConnection" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedAccessConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedAccessConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#connections"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedFeatureConnection" name="ownedFeatureConnection" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedFeatureConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedFeatureConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#connections"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedFeatureGroupConnection" name="ownedFeatureGroupConnection" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedFeatureGroupConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedFeatureGroupConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#connections"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedParameterConnection" name="ownedParameterConnection" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedParameterConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedParameterConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#connections"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedPortConnection" name="ownedPortConnection" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedPortConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedPortConnection-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#connections"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-flows" name="flows">
-        <eAnnotations xmi:id="ComponentImplementation-flows-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-flows-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="ComponentImplementation-flows-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="implementation"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ComponentImplementation-flows-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ComponentImplementation-flows-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedFlowImplementation" name="ownedFlowImplementation" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedFlowImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedFlowImplementation-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#flows"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ComponentImplementation-ownedEndToEndFlow" name="ownedEndToEndFlow" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ComponentImplementation-ownedEndToEndFlow-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ComponentImplementation-ownedEndToEndFlow-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#flows"/>
-        </eAnnotations>
-      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="Subcomponent" name="Subcomponent" isAbstract="true">
       <ownedAttribute xmi:id="Subcomponent-classifier" name="classifier" isDerived="true"/>
-      <ownedAttribute xmi:id="Subcomponent-abstractClassifier" name="abstractClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement" isAbstract="true">
-      <ownedAttribute xmi:id="ModalElement-modesAndTransitions" name="modesAndTransitions">
-        <eAnnotations xmi:id="ModalElement-modesAndTransitions-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ModalElement-modesAndTransitions-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="kind" value="group"/>
-          <details xmi:id="ModalElement-modesAndTransitions-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.1" key="namespace" value="modalElement"/>
-        </eAnnotations>
-        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_METAMODELS/Ecore.metamodel.uml#EFeatureMapEntry"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-modesAndTransitions-_upperValue" value="*"/>
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalElement-modesAndTransitions-_lowerValue"/>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ModalElement-inMode" name="inMode" isDerived="true">
-        <eAnnotations xmi:id="ModalElement-inMode-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ModalElement-inMode-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="modalElement#modesAndTransitions"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath" isAbstract="true">
-      <ownedAttribute xmi:id="ModalPath-inTransition" name="inTransition" isDerived="true">
-        <eAnnotations xmi:id="ModalPath-inTransition-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ModalPath-inTransition-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="modalElement#modesAndTransitions"/>
-        </eAnnotations>
-      </ownedAttribute>
+      <ownedAttribute xmi:id="Subcomponent-prototype" name="prototype" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-subcomponentType" name="subcomponentType" isDerived="true"/>
+      <ownedAttribute xmi:id="Subcomponent-inMode" name="inMode" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BehavioredImplementation" name="BehavioredImplementation" isAbstract="true">
       <ownedAttribute xmi:id="BehavioredImplementation-callSpecification" name="callSpecification" isDerived="true"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="Connection" name="Connection">
-      <ownedAttribute xmi:id="Connection-kind" name="kind" isDerived="true"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalPath" name="ModalPath">
+      <ownedAttribute xmi:id="ModalPath-inMode" name="inMode" isDerived="true"/>
+      <ownedOperation xmi:id="ModalPath-getInModes" name="getInModes">
+        <ownedParameter xmi:id="ModalPath-getInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModes-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModes-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="ModalPath-getInModeTransitions" name="getInModeTransitions">
+        <ownedParameter xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0" name="" type="Mode.1" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalPath-getInModeTransitions-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
+      <ownedOperation xmi:id="_jDszMNckEeGChpddaBFCtg" name="getAllInModeTransitions">
+        <ownedParameter xmi:id="_jDszMdckEeGChpddaBFCtg" name="" type="Mode.1" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jDszMtckEeGChpddaBFCtg" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jDszM9ckEeGChpddaBFCtg"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="AbstractType" name="AbstractType">
-      <ownedAttribute xmi:id="AbstractType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
+    <packagedElement xmi:type="uml:Class" xmi:id="ModalElement" name="ModalElement">
+      <ownedOperation xmi:id="ModalElement-getAllInModes" name="getAllInModes">
+        <ownedParameter xmi:id="ModalElement-getAllInModes-_ownedParameter.0" name="" type="Mode" direction="return">
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_upperValue" value="*"/>
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="ModalElement-getAllInModes-_ownedParameter.0-_lowerValue"/>
+        </ownedParameter>
+      </ownedOperation>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="BusType" name="BusType">
-      <ownedAttribute xmi:id="BusType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="BusType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="BusType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DataType" name="DataType">
-      <ownedAttribute xmi:id="DataType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DataType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DataType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DataType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DataType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DataType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DeviceType" name="DeviceType">
-      <ownedAttribute xmi:id="DeviceType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DeviceType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DeviceType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DeviceType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DeviceType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DeviceType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="MemoryType" name="MemoryType">
-      <ownedAttribute xmi:id="MemoryType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="MemoryType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="MemoryType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessType" name="ProcessType">
-      <ownedAttribute xmi:id="ProcessType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessorType" name="ProcessorType">
-      <ownedAttribute xmi:id="ProcessorType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramType" name="SubprogramType">
-      <ownedAttribute xmi:id="SubprogramType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramType-ownedParameter" name="ownedParameter" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedParameter-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedParameter-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramGroupType" name="SubprogramGroupType">
-      <ownedAttribute xmi:id="SubprogramGroupType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SubprogramGroupType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SystemType" name="SystemType">
-      <ownedAttribute xmi:id="SystemType-ownedBusAccess" name="ownedBusAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedBusAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadType" name="ThreadType">
-      <ownedAttribute xmi:id="ThreadType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadGroupType" name="ThreadGroupType">
-      <ownedAttribute xmi:id="ThreadGroupType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupType-ownedDataAccess" name="ownedDataAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedDataAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualBusType" name="VirtualBusType"/>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorType" name="VirtualProcessorType">
-      <ownedAttribute xmi:id="VirtualProcessorType-ownedDataPort" name="ownedDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorType-ownedDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="VirtualProcessorType-ownedEventDataPort" name="ownedEventDataPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorType-ownedEventDataPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="VirtualProcessorType-ownedEventPort" name="ownedEventPort" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorType-ownedEventPort-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="VirtualProcessorType-ownedSubprogramAccess" name="ownedSubprogramAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorType-ownedSubprogramAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="VirtualProcessorType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorType-ownedSubprogramGroupAccess-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="type#features"/>
-        </eAnnotations>
-      </ownedAttribute>
-    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Mode" name="Mode"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="Mode.1" name="ModeTransition"/>
     <packagedElement xmi:type="uml:Class" xmi:id="AbstractImplementation" name="AbstractImplementation">
-      <ownedAttribute xmi:id="AbstractImplementation-ownedBusSubcomponent" name="ownedBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedDeviceSubcomponent" name="ownedDeviceSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedDeviceSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedDeviceSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedMemorySubcomponent" name="ownedMemorySubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedProcessSubcomponent" name="ownedProcessSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedProcessSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedProcessSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedProcessorSubcomponent" name="ownedProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedSystemSubcomponent" name="ownedSystemSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedSystemSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedSystemSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedSubprogramGroupSubcomponent" name="ownedSubprogramGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedThreadSubcomponent" name="ownedThreadSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedThreadGroupSubcomponent" name="ownedThreadGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="AbstractImplementation-ownedVirtualProcessorSubcomponent" name="ownedVirtualProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="AbstractImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="AbstractImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="AbstractImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="BusImplementation" name="BusImplementation">
-      <ownedAttribute xmi:id="BusImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="BusImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="BusImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="BusImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DataImplementation" name="DataImplementation">
-      <ownedAttribute xmi:id="DataImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DataImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DataImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="DataImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DataImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DataImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="DataImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="DeviceImplementation" name="DeviceImplementation">
-      <ownedAttribute xmi:id="DeviceImplementation-ownedBusSubcomponent" name="ownedBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="DeviceImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="DeviceImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="DeviceImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="MemoryImplementation" name="MemoryImplementation">
-      <ownedAttribute xmi:id="MemoryImplementation-ownedBusSubcomponent" name="ownedBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="MemoryImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="MemoryImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="MemoryImplementation-ownedMemorySubcomponent" name="ownedMemorySubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="MemoryImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="MemoryImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="MemoryImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ProcessImplementation" name="ProcessImplementation">
-      <ownedAttribute xmi:id="ProcessImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessImplementation-ownedSubprogramGroupSubcomponent" name="ownedSubprogramGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessImplementation-ownedThreadSubcomponent" name="ownedThreadSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessImplementation-ownedThreadGroupSubcomponent" name="ownedThreadGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="ProcessImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ProcessorImplementation" name="ProcessorImplementation">
-      <ownedAttribute xmi:id="ProcessorImplementation-ownedBusSubcomponent" name="ownedBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorImplementation-ownedMemorySubcomponent" name="ownedMemorySubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ProcessorImplementation-ownedVirtualProcessorSubcomponent" name="ownedVirtualProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ProcessorImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ProcessorImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="ProcessorImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramImplementation" name="SubprogramImplementation">
-      <ownedAttribute xmi:id="SubprogramImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="SubprogramImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SubprogramGroupImplementation" name="SubprogramGroupImplementation">
-      <ownedAttribute xmi:id="SubprogramGroupImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SubprogramGroupImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SubprogramGroupImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="SubprogramGroupImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="SystemImplementation" name="SystemImplementation">
-      <ownedAttribute xmi:id="SystemImplementation-ownedBusSubcomponent" name="ownedBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedDeviceSubcomponent" name="ownedDeviceSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedDeviceSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedDeviceSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedMemorySubcomponent" name="ownedMemorySubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedMemorySubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedProcessSubcomponent" name="ownedProcessSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedProcessSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedProcessSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedProcessorSubcomponent" name="ownedProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedSubprogramGroupSubcomponent" name="ownedSubprogramGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedSystemSubcomponent" name="ownedSystemSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedSystemSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedSystemSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="SystemImplementation-ownedVirtualProcessorSubcomponent" name="ownedVirtualProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="SystemImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="SystemImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="SystemImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ThreadImplementation" name="ThreadImplementation">
-      <ownedAttribute xmi:id="ThreadImplementation-ownedSubprogramGroupSubcomponent" name="ownedSubprogramGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="ThreadImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="ThreadGroupImplementation" name="ThreadGroupImplementation">
-      <ownedAttribute xmi:id="ThreadGroupImplementation-ownedDataSubcomponent" name="ownedDataSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupImplementation-ownedDataSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupImplementation-ownedThreadSubcomponent" name="ownedThreadSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupImplementation-ownedThreadSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupImplementation-ownedThreadGroupSubcomponent" name="ownedThreadGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupImplementation-ownedThreadGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupImplementation-ownedSubprogramSubcomponent" name="ownedSubprogramSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupImplementation-ownedSubprogramSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="ThreadGroupImplementation-ownedSubprogramGroupSubcomponent" name="ownedSubprogramGroupSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="ThreadGroupImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="ThreadGroupImplementation-ownedSubprogramGroupSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="ThreadGroupImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualBusImplementation" name="VirtualBusImplementation">
-      <ownedAttribute xmi:id="VirtualBusImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualBusImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualBusImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="VirtualBusImplementation-type" name="type" isDerived="true"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorImplementation" name="VirtualProcessorImplementation">
-      <ownedAttribute xmi:id="VirtualProcessorImplementation-ownedVirtualBusSubcomponent" name="ownedVirtualBusSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorImplementation-ownedVirtualBusSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
-      <ownedAttribute xmi:id="VirtualProcessorImplementation-ownedVirtualProcessorSubcomponent" name="ownedVirtualProcessorSubcomponent" isDerived="true" aggregation="composite">
-        <eAnnotations xmi:id="VirtualProcessorImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData" source="http:///org/eclipse/emf/ecore/util/ExtendedMetaData">
-          <details xmi:id="VirtualProcessorImplementation-ownedVirtualProcessorSubcomponent-_http2F2F2Forg2Feclipse2Femf2Fecore2Futil2FExtendedMetaData-_details.0" key="group" value="implementation#subcomponents"/>
-        </eAnnotations>
-      </ownedAttribute>
       <ownedAttribute xmi:id="VirtualProcessorImplementation-type" name="type" isDerived="true"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="BusSubcomponent" name="BusSubcomponent">
-      <ownedAttribute xmi:id="BusSubcomponent-busClassifier" name="busClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DataSubcomponent" name="DataSubcomponent">
-      <ownedAttribute xmi:id="DataSubcomponent-dataClassifier" name="dataClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="DeviceSubcomponent" name="DeviceSubcomponent">
-      <ownedAttribute xmi:id="DeviceSubcomponent-deviceClassifier" name="deviceClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="MemorySubcomponent" name="MemorySubcomponent">
-      <ownedAttribute xmi:id="MemorySubcomponent-memoryClassifier" name="memoryClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessSubcomponent" name="ProcessSubcomponent">
-      <ownedAttribute xmi:id="ProcessSubcomponent-processClassifier" name="processClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ProcessorSubcomponent" name="ProcessorSubcomponent">
-      <ownedAttribute xmi:id="ProcessorSubcomponent-processorClassifier" name="processorClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SystemSubcomponent" name="SystemSubcomponent">
-      <ownedAttribute xmi:id="SystemSubcomponent-systemClassifier" name="systemClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramSubcomponent" name="SubprogramSubcomponent">
-      <ownedAttribute xmi:id="SubprogramSubcomponent-subprogramClassifier" name="subprogramClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="SubprogramGroupSubcomponent" name="SubprogramGroupSubcomponent">
-      <ownedAttribute xmi:id="SubprogramGroupSubcomponent-subprogramGroupClassifier" name="subprogramGroupClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadSubcomponent" name="ThreadSubcomponent">
-      <ownedAttribute xmi:id="ThreadSubcomponent-threadClassifier" name="threadClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="ThreadGroupSubcomponent" name="ThreadGroupSubcomponent">
-      <ownedAttribute xmi:id="ThreadGroupSubcomponent-threadGroupClassifier" name="threadGroupClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualBusSubcomponent" name="VirtualBusSubcomponent">
-      <ownedAttribute xmi:id="VirtualBusSubcomponent-virtualBusClassifier" name="virtualBusClassifier"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="VirtualProcessorSubcomponent" name="VirtualProcessorSubcomponent">
-      <ownedAttribute xmi:id="VirtualProcessorSubcomponent-virtualProcessorClassifier" name="virtualProcessorClassifier"/>
     </packagedElement>
     <packagedElement xmi:type="uml:PrimitiveType" xmi:id="Boolean" name="Boolean">
       <eAnnotations xmi:id="Boolean-_http2F2Fwww.topcased.org2Fdocumentation" source="http://www.topcased.org/documentation">
@@ -1183,6 +189,14 @@
         <details xmi:id="Real-_http2F2Fwww.topcased.org2Fdocumentation-_details.0" key="documentation" value="A real is a primitive type representing real numeric values."/>
       </eAnnotations>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="Property" name="Property">
+      <ownedAttribute xmi:id="Property-appliesToClassifier" name="appliesToClassifier" isDerived="true"/>
+      <ownedAttribute xmi:id="Property-appliesToMetaclass" name="appliesToMetaclass" isDerived="true"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_6-RT4GWYEeKn5rvcPbyT8w" name="SubprogramType">
+      <generalization xmi:id="_Rj2BUGWTEeKn5rvcPbyT8w" general="_w5Xn0GWVEeKn5rvcPbyT8w"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_w5Xn0GWVEeKn5rvcPbyT8w" name="CallContext"/>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="pathmap://UML_PROFILES/Ecore.profile.uml#_B7dOIMEREduRdatXodjBjA"/>
@@ -1201,168 +215,10 @@
   <Ecore:EDataType xmi:id="_W2_wICNjEd2QgNjfZP9I5g" instanceClassName="double" base_PrimitiveType="Real"/>
   <Ecore:EDataType xmi:id="_ny3oAJ60Edy3O8JSiftxsg" instanceClassName="java.lang.String" base_PrimitiveType="String"/>
   <Ecore:EPackage xmi:id="_BVoJQE28Ed2wX9l8Zwaacg" base_Package="_0" packageName="aadl2" nsPrefix="aadl2" nsURI="http://aadl.info/AADL/2.0" basePackage="org.osate" prefix="Aadl2"/>
-  <Ecore:EReference xmi:id="_H32fAE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedAbstractType"/>
-  <Ecore:EReference xmi:id="_H4mF4E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedAbstractImplementation"/>
-  <Ecore:EReference xmi:id="_H4vP0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedBusType"/>
-  <Ecore:EReference xmi:id="_H4vP0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedBusImplementation"/>
-  <Ecore:EReference xmi:id="_H4vP0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedDataType"/>
-  <Ecore:EReference xmi:id="_H4vP009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedDataImplementation"/>
-  <Ecore:EReference xmi:id="_H45A0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedDeviceType"/>
-  <Ecore:EReference xmi:id="_H45A0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedDeviceImplementation"/>
-  <Ecore:EReference xmi:id="_H45A0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedMemoryType"/>
-  <Ecore:EReference xmi:id="_H45A009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedMemoryImplementation"/>
-  <Ecore:EReference xmi:id="_H45A1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedProcessType"/>
-  <Ecore:EReference xmi:id="_H45A1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedProcessImplementation"/>
-  <Ecore:EReference xmi:id="_H5Cx0E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedProcessorType"/>
-  <Ecore:EReference xmi:id="_H5Cx0U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedProcessorImplementation"/>
-  <Ecore:EReference xmi:id="_H5Cx0k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedThreadGroupType"/>
-  <Ecore:EReference xmi:id="_H5Cx009PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedThreadGroupImplementation"/>
-  <Ecore:EReference xmi:id="_H5Cx1E9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedThreadType"/>
-  <Ecore:EReference xmi:id="_H5Cx1U9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedThreadImplementation"/>
-  <Ecore:EReference xmi:id="_H5Cx1k9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSubprogramType"/>
-  <Ecore:EReference xmi:id="_H5L7wE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSubprogramImplementation"/>
-  <Ecore:EReference xmi:id="_H5L7wU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSubprogramGroupType"/>
-  <Ecore:EReference xmi:id="_H5L7wk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSubprogramGroupImplementation"/>
-  <Ecore:EReference xmi:id="_H5L7w09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSystemType"/>
-  <Ecore:EReference xmi:id="_H5L7xE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedSystemImplementation"/>
-  <Ecore:EReference xmi:id="_H5L7xU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedVirtualBusType"/>
-  <Ecore:EReference xmi:id="_H5L7xk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedVirtualBusImplementation"/>
-  <Ecore:EReference xmi:id="_H5VswE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedVirtualProcessorType"/>
-  <Ecore:EReference xmi:id="_H5VswU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedVirtualProcessorImplementation"/>
-  <Ecore:EReference xmi:id="_H5Vswk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedFeatureGroupType"/>
-  <Ecore:EReference xmi:id="_H5Vsw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedFeatureGroup"/>
-  <Ecore:EReference xmi:id="_H5VsxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedAbstractSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5VsxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H5fdwE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H5fdwU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H5fdwk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H5fdw09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H5fdxE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H5fdxU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H5fdxk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5fdx09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5fdyE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedDeviceSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5onsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedMemorySubcomponent"/>
-  <Ecore:EReference xmi:id="_H5onsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedProcessSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5onsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5ons09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedSystemSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5ontE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5ontU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedSubprogramGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5ontk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedThreadSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5ont09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedThreadGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5onuE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5yYsE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="AbstractImplementation-ownedVirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5yYsU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="BusType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H5yYsk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="BusImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5yYs09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DataType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H5yYtE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DataType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H5yYtU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DataImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5yYtk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DataImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H5yYt09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H57ioE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H57ioU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H57iok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H57io09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H57ipE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H57ipU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="DeviceImplementation-ownedBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H57ipk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="MemoryType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H57ip09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-ownedBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H57iqE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-ownedMemorySubcomponent"/>
-  <Ecore:EReference xmi:id="_H6FToE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H6FToU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H6FTok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H6FTo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H6FTpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H6FTpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H6FTpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6FTp09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6PEoE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-ownedSubprogramGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6PEoU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-ownedThreadSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6PEok9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-ownedThreadGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6PEo09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H6PEpE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H6PEpU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H6PEpk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H6YOkE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H6YOkU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H6YOkk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorImplementation-ownedBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6YOk09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorImplementation-ownedMemorySubcomponent"/>
-  <Ecore:EReference xmi:id="_H6YOlE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6YOlU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ProcessorImplementation-ownedVirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H606gE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H606gU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H606gk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedParameter"/>
-  <Ecore:EReference xmi:id="_H606g09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H606hE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H606hU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H606hk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6-rgE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramGroupType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H6-rgU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramGroupType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H6-rgk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SubprogramGroupImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H6-rg09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H6-rhE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H6-rhU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H6-rhk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H6-rh09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H6-riE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H7H1cE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H7H1cU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1ck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1c09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedDeviceSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1dE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedMemorySubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1dU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedProcessSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1dk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1d09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7H1eE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedSubprogramGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7RmcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedSystemSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7RmcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7Rmck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="SystemImplementation-ownedVirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7Rmc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H7RmdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H7RmdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H7Rmdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H7Rmd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H7bXcE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H7bXcU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadImplementation-ownedSubprogramGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7bXck9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7bXc09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7bXdE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H7bXdU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H7bXdk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H7bXd09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H7khYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H7khYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H7khYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupImplementation-ownedDataSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupImplementation-ownedThreadSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupImplementation-ownedThreadGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupImplementation-ownedSubprogramSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="ThreadGroupImplementation-ownedSubprogramGroupSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualBusImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7khaE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H7uSYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H7uSYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H7uSYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H7uSY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H7uSZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorImplementation-ownedVirtualBusSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7uSZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="VirtualProcessorImplementation-ownedVirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_H7uSZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedBusAccess"/>
-  <Ecore:EReference xmi:id="_H7uSZ09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedDataAccess"/>
-  <Ecore:EReference xmi:id="_H74DYE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedDataPort"/>
-  <Ecore:EReference xmi:id="_H74DYU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedEventDataPort"/>
-  <Ecore:EReference xmi:id="_H74DYk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedEventPort"/>
-  <Ecore:EReference xmi:id="_H74DY09PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeatureGroup"/>
-  <Ecore:EReference xmi:id="_H74DZE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedParameter"/>
-  <Ecore:EReference xmi:id="_H74DZU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedSubprogramAccess"/>
-  <Ecore:EReference xmi:id="_H74DZk9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedSubprogramGroupAccess"/>
-  <Ecore:EReference xmi:id="_H8BNUE9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PropertySet-ownedProperty"/>
-  <Ecore:EReference xmi:id="_H8BNUU9PEd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PropertySet-ownedPropertyConstant"/>
-  <Ecore:EReference xmi:id="_EjgugE9REd2F5ejekak9SQ" isTransient="true" isVolatile="true" base_Property="PropertySet-ownedPropertyType"/>
   <Ecore:EReference xmi:id="_BDZNYFl7Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-package"/>
   <Ecore:EReference xmi:id="_hQEeUFl9Ed2rAYnnAX19tA" isTransient="true" isVolatile="true" base_Property="GlobalNamespace-propertySet"/>
   <Ecore:EReference xmi:id="_wVAMkFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-ownedElement"/>
-  <Ecore:EReference xmi:id="_wVAMkVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Element-owner"/>
   <Ecore:EAttribute xmi:id="_wVAMklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-qualifiedName"/>
-  <Ecore:EReference xmi:id="_wVAMk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="NamedElement-namespace"/>
   <Ecore:EReference xmi:id="_wVAMlFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-ownedMember"/>
   <Ecore:EReference xmi:id="_wVAMlVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Namespace-member"/>
   <Ecore:EReference xmi:id="_wVJ9kFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-classifierFeature"/>
@@ -1370,17 +226,13 @@
   <Ecore:EReference xmi:id="_wVJ9klm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-generalization"/>
   <Ecore:EReference xmi:id="_wVJ9k1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Classifier-general"/>
   <Ecore:EReference xmi:id="_wVJ9lFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ClassifierFeature-featuringClassifier"/>
-  <Ecore:EReference xmi:id="_wVJ9lVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
-  <Ecore:EReference xmi:id="_wVJ9llm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVJ9l1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Relationship-relatedElement"/>
   <Ecore:EReference xmi:id="_wVJ9mFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-source"/>
   <Ecore:EReference xmi:id="_wVTukFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="DirectedRelationship-target"/>
   <Ecore:EReference xmi:id="_wVTukVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-specific"/>
   <Ecore:EReference xmi:id="_wVTuklm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="Generalization-general"/>
-  <Ecore:EReference xmi:id="_wVTuk1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true"/>
   <Ecore:EReference xmi:id="_wVTulFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PublicPackageSection-privateSection"/>
   <Ecore:EReference xmi:id="_wVTulVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PrivatePackageSection-publicSection"/>
-  <Ecore:EReference xmi:id="_wVc4gFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedClassifier"/>
   <Ecore:EReference xmi:id="_wVc4gVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedFeature"/>
   <Ecore:EReference xmi:id="_wVc4glm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentType-extended"/>
   <Ecore:EReference xmi:id="_wVc4g1m-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-type"/>
@@ -1388,7 +240,6 @@
   <Ecore:EReference xmi:id="_wVc4hVm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-extended"/>
   <Ecore:EReference xmi:id="_wVc4hlm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedConnection"/>
   <Ecore:EReference xmi:id="_wV5kcFm-Ed2QnLBH48kgww" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-extended"/>
-  <Ecore:EAttribute xmi:id="_-CnqUFpGEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="Connection-kind"/>
   <Ecore:EReference xmi:id="_8tGW8FpIEd2kwugqS-aPYQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedFeature"/>
   <Standard:Metamodel xmi:id="_NE82sVprEd2djcltMkYjuA" base_Model="_0"/>
   <Standard:Metaclass xmi:id="_NFPxoFprEd2djcltMkYjuA" base_Class="Element"/>
@@ -1396,47 +247,28 @@
   <Standard:Metaclass xmi:id="_NFPxolprEd2djcltMkYjuA" base_Class="Namespace"/>
   <Standard:Metaclass xmi:id="_NFPxo1prEd2djcltMkYjuA" base_Class="Classifier"/>
   <Standard:Metaclass xmi:id="_NFPxpFprEd2djcltMkYjuA" base_Class="ClassifierFeature"/>
-  <Standard:Metaclass xmi:id="_NFPxpVprEd2djcltMkYjuA"/>
   <Standard:Metaclass xmi:id="_NFPxplprEd2djcltMkYjuA" base_Class="Relationship"/>
   <Standard:Metaclass xmi:id="_NFPxp1prEd2djcltMkYjuA" base_Class="DirectedRelationship"/>
   <Standard:Metaclass xmi:id="_NFPxqFprEd2djcltMkYjuA" base_Class="Generalization"/>
-  <Standard:Metaclass xmi:id="_NFPxqVprEd2djcltMkYjuA"/>
-  <Standard:Metaclass xmi:id="_NFPxqlprEd2djcltMkYjuA" base_Class="Connection"/>
   <Standard:Metaclass xmi:id="_NFPxq1prEd2djcltMkYjuA" base_Class="PublicPackageSection"/>
   <Standard:Metaclass xmi:id="_NFPxrFprEd2djcltMkYjuA" base_Class="PrivatePackageSection"/>
-  <Standard:Metaclass xmi:id="_NFPxrVprEd2djcltMkYjuA" base_Class="PackageSection"/>
   <Standard:Metaclass xmi:id="_NFiskFprEd2djcltMkYjuA" base_Class="ComponentType"/>
   <Standard:Metaclass xmi:id="_NFiskVprEd2djcltMkYjuA" base_Class="ComponentImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisklprEd2djcltMkYjuA" base_Class="AbstractType"/>
   <Standard:Metaclass xmi:id="_NFisk1prEd2djcltMkYjuA" base_Class="AbstractImplementation"/>
-  <Standard:Metaclass xmi:id="_NFislFprEd2djcltMkYjuA" base_Class="BusType"/>
   <Standard:Metaclass xmi:id="_NFislVprEd2djcltMkYjuA" base_Class="BusImplementation"/>
-  <Standard:Metaclass xmi:id="_NFisllprEd2djcltMkYjuA" base_Class="DataType"/>
   <Standard:Metaclass xmi:id="_NFisl1prEd2djcltMkYjuA" base_Class="DataImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdkFprEd2djcltMkYjuA" base_Class="DeviceType"/>
   <Standard:Metaclass xmi:id="_NFsdkVprEd2djcltMkYjuA" base_Class="DeviceImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdklprEd2djcltMkYjuA" base_Class="MemoryType"/>
   <Standard:Metaclass xmi:id="_NFsdk1prEd2djcltMkYjuA" base_Class="MemoryImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdlFprEd2djcltMkYjuA" base_Class="ProcessType"/>
   <Standard:Metaclass xmi:id="_NFsdlVprEd2djcltMkYjuA" base_Class="ProcessImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdllprEd2djcltMkYjuA" base_Class="ProcessorType"/>
   <Standard:Metaclass xmi:id="_NFsdl1prEd2djcltMkYjuA" base_Class="ProcessorImplementation"/>
-  <Standard:Metaclass xmi:id="_NFsdmFprEd2djcltMkYjuA" base_Class="SubprogramType"/>
   <Standard:Metaclass xmi:id="_NF1ngFprEd2djcltMkYjuA" base_Class="SubprogramImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ngVprEd2djcltMkYjuA" base_Class="SubprogramGroupType"/>
   <Standard:Metaclass xmi:id="_NF1nglprEd2djcltMkYjuA" base_Class="SubprogramGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1ng1prEd2djcltMkYjuA" base_Class="SystemType"/>
   <Standard:Metaclass xmi:id="_NF1nhFprEd2djcltMkYjuA" base_Class="SystemImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nhVprEd2djcltMkYjuA" base_Class="ThreadType"/>
   <Standard:Metaclass xmi:id="_NF1nhlprEd2djcltMkYjuA" base_Class="ThreadImplementation"/>
-  <Standard:Metaclass xmi:id="_NF1nh1prEd2djcltMkYjuA" base_Class="ThreadGroupType"/>
   <Standard:Metaclass xmi:id="_NF_YgFprEd2djcltMkYjuA" base_Class="ThreadGroupImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_YgVprEd2djcltMkYjuA" base_Class="VirtualBusType"/>
   <Standard:Metaclass xmi:id="_NF_YglprEd2djcltMkYjuA" base_Class="VirtualBusImplementation"/>
-  <Standard:Metaclass xmi:id="_NF_Yg1prEd2djcltMkYjuA" base_Class="VirtualProcessorType"/>
   <Standard:Metaclass xmi:id="_NF_YhFprEd2djcltMkYjuA" base_Class="VirtualProcessorImplementation"/>
   <Standard:Metaclass xmi:id="_NF_YhVprEd2djcltMkYjuA" base_Class="FeatureGroupType"/>
-  <Standard:Metaclass xmi:id="_NF_YhlprEd2djcltMkYjuA" base_Class="PropertySet"/>
   <Standard:Metaclass xmi:id="_NF_Yh1prEd2djcltMkYjuA" base_Class="GlobalNamespace"/>
   <Ecore:EReference xmi:id="_cKPCQF11Ed2aqP4X3Bnz6w" isTransient="true" isVolatile="true" base_Property="BehavioredImplementation-callSpecification"/>
   <Standard:Metaclass xmi:id="_k5LIUF11Ed2aqP4X3Bnz6w" base_Class="BehavioredImplementation"/>
@@ -1454,58 +286,40 @@
   <Ecore:EReference xmi:id="_1OB-cF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="ProcessImplementation-type"/>
   <Ecore:EReference xmi:id="_9xDvcF2XEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="MemoryImplementation-type"/>
   <Ecore:EReference xmi:id="_Bjll4F2YEd2P55CRvsZ8Rw" isTransient="true" isVolatile="true" base_Property="DeviceImplementation-type"/>
-  <Ecore:EReference xmi:id="_u27UcF_yEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedAccessConnection"/>
-  <Ecore:EReference xmi:id="_Dclw4F_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedParameterConnection"/>
-  <Ecore:EReference xmi:id="_FaWeEF_zEd2sjtVCXhtQ3w" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedPortConnection"/>
   <Ecore:EClass xmi:id="__CwukGhxEd21g9MLLnbMJw" xmlName="Package" base_Class="Package" className="AadlPackage"/>
   <Standard:Metaclass xmi:id="_KGjzMGhyEd21g9MLLnbMJw" base_Class="Package"/>
-  <Standard:Metaclass xmi:id="_DPzkMHOeEd2C5ocZYg6E4Q" base_Class="BusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8HOeEd2C5ocZYg6E4Q" base_Class="DataSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8XOeEd2C5ocZYg6E4Q" base_Class="DeviceSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci8nOeEd2C5ocZYg6E4Q" base_Class="MemorySubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci83OeEd2C5ocZYg6E4Q" base_Class="ProcessSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9HOeEd2C5ocZYg6E4Q" base_Class="ProcessorSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9XOeEd2C5ocZYg6E4Q" base_Class="SystemSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci9nOeEd2C5ocZYg6E4Q" base_Class="SubprogramSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci93OeEd2C5ocZYg6E4Q" base_Class="SubprogramGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-HOeEd2C5ocZYg6E4Q" base_Class="ThreadSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-XOeEd2C5ocZYg6E4Q" base_Class="ThreadGroupSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-nOeEd2C5ocZYg6E4Q" base_Class="VirtualBusSubcomponent"/>
-  <Standard:Metaclass xmi:id="_DRci-3OeEd2C5ocZYg6E4Q" base_Class="VirtualProcessorSubcomponent"/>
-  <Ecore:EReference xmi:id="_KjsokHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="BusSubcomponent-busClassifier"/>
-  <Ecore:EReference xmi:id="_RosVUHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="DataSubcomponent-dataClassifier"/>
-  <Ecore:EReference xmi:id="_SlVjwHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="DeviceSubcomponent-deviceClassifier"/>
-  <Ecore:EReference xmi:id="_Tfv9kHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="MemorySubcomponent-memoryClassifier"/>
-  <Ecore:EReference xmi:id="_XY5ZYHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ProcessSubcomponent-processClassifier"/>
-  <Ecore:EReference xmi:id="_YQxckHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ProcessorSubcomponent-processorClassifier"/>
-  <Ecore:EReference xmi:id="_ZDmAoHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SystemSubcomponent-systemClassifier"/>
-  <Ecore:EReference xmi:id="_bC17kHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="VirtualProcessorSubcomponent-virtualProcessorClassifier"/>
-  <Ecore:EReference xmi:id="_cA--0HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="VirtualBusSubcomponent-virtualBusClassifier"/>
-  <Ecore:EReference xmi:id="_dCsTcHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ThreadGroupSubcomponent-threadGroupClassifier"/>
-  <Ecore:EReference xmi:id="_dyFJAHOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="ThreadSubcomponent-threadClassifier"/>
-  <Ecore:EReference xmi:id="_efYT4HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SubprogramGroupSubcomponent-subprogramGroupClassifier"/>
-  <Ecore:EReference xmi:id="_ffdQ0HOeEd2C5ocZYg6E4Q" isVolatile="true" base_Property="SubprogramSubcomponent-subprogramClassifier"/>
-  <Ecore:EReference xmi:id="_uo2KQNBCEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PackageSection-importedPackage"/>
-  <Ecore:EReference xmi:id="_v2oMANBCEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PackageSection-importedPropertySet"/>
-  <Ecore:EReference xmi:id="_BvJswNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedPackageRename"/>
-  <Ecore:EReference xmi:id="_CsPnINBDEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedComponentTypeRename"/>
-  <Ecore:EReference xmi:id="_DwWIcNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PackageSection-ownedFeatureGroupTypeRename"/>
-  <Ecore:EReference xmi:id="_eDY-cNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PropertySet-importedPackage"/>
-  <Ecore:EReference xmi:id="_e316MNBDEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="PropertySet-importedPropertySet"/>
-  <Ecore:EReference xmi:id="_UybwoNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedFlowImplementation"/>
-  <Ecore:EReference xmi:id="_WY9CgNBoEd20Gob2I471FQ" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedEndToEndFlow"/>
-  <Ecore:EReference xmi:id="_TqA3UNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedFeatureConnection"/>
-  <Ecore:EReference xmi:id="_Uu2_gNEpEd2TrpDReilpeg" isTransient="true" isVolatile="true" base_Property="ComponentImplementation-ownedFeatureGroupConnection"/>
-  <Ecore:EReference xmi:id="_bOON8NwREd29XoSWahFoew" isTransient="true" isVolatile="true" base_Property="ModalPath-inTransition"/>
-  <Standard:Metaclass xmi:id="_fgi-wNwREd29XoSWahFoew" base_Class="ModalPath"/>
-  <Ecore:EReference xmi:id="_uAYh0NzUEd2vSrysotXGgg" isTransient="true" isVolatile="true" base_Property="ModalElement-inMode"/>
-  <Standard:Metaclass xmi:id="_6bewkNzUEd2vSrysotXGgg" base_Class="ModalElement"/>
-  <Standard:Metaclass xmi:id="_6bewkdzUEd2vSrysotXGgg"/>
-  <Ecore:EReference xmi:id="_dIpWgPFKEd2IiKl_nM_xpg" isTransient="true" isVolatile="true" base_Property="ComponentType-ownedAbstractFeature"/>
   <Ecore:EReference xmi:id="_feeQ4P3sEd2Ro5zjTxEQsg" isTransient="true" isVolatile="true" base_Property="Feature-classifier"/>
   <Standard:Metaclass xmi:id="_lVhj0P3sEd2Ro5zjTxEQsg" base_Class="Feature"/>
   <Standard:Metaclass xmi:id="_4SVHAFHpEd6aXqaq3cmRZw" base_Class="Subcomponent"/>
   <Ecore:EReference xmi:id="_Bm0xMFHqEd6aXqaq3cmRZw" isTransient="true" isVolatile="true" base_Property="Subcomponent-classifier"/>
-  <Ecore:EReference xmi:id="_Yku3kFIPEd6K9OqcVNDX_A" isVolatile="true" base_Property="Subcomponent-abstractClassifier"/>
-  <Ecore:EReference xmi:id="_FSqTkHhnEd6AFYIFq8D4AQ" isTransient="true" isVolatile="true" base_Property="FeatureGroupType-ownedAbstractFeature"/>
+  <Standard:Metaclass xmi:id="_2zZsQHAmEeCG1uAXqBr-RA" base_Class="ModalElement"/>
+  <Standard:Metaclass xmi:id="_j4BVcHAoEeCG1uAXqBr-RA" base_Class="Mode"/>
+  <Ecore:EReference xmi:id="_q4X6wKf3EeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-prototype"/>
+  <Ecore:EReference xmi:id="_fexyAKgHEeCYEIHXYlP5sg" isTransient="true" isVolatile="true" base_Property="Subcomponent-subcomponentType"/>
+  <Standard:Metaclass xmi:id="_usN9ALIBEeCWmNkTdM4SSg" base_Class="FeatureGroup"/>
+  <Ecore:EReference xmi:id="_4Z0qwLIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupType"/>
+  <Ecore:EReference xmi:id="_5j1m0LIBEeCWmNkTdM4SSg" isTransient="true" isVolatile="true" base_Property="FeatureGroup-featureGroupPrototype"/>
+  <Ecore:EReference xmi:id="_-PSPELO-EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-prototype"/>
+  <Ecore:EReference xmi:id="_AIRJ8LO_EeCzMYz5ww7glA" isTransient="true" isVolatile="true" base_Property="Feature-featureClassifier"/>
+  <Standard:Metaclass xmi:id="_p5XCELbPEeCFTe7PfIxrcw" base_Class="ModalPath"/>
+  <Ecore:EReference xmi:id="_sb-IwLbPEeCFTe7PfIxrcw" isTransient="true" isVolatile="true" base_Property="ModalPath-inMode"/>
+  <Ecore:EReference xmi:id="_8dymkLbPEeCFTe7PfIxrcw"/>
+  <Ecore:EReference xmi:id="_2pccALcUEeCm2_IbD3l0tA" isTransient="true" isVolatile="true" base_Property="Subcomponent-inMode"/>
+  <Standard:Metaclass xmi:id="_gqSIsP5zEeCNbuO0Qm4fmQ" base_Class="Property"/>
+  <Ecore:EReference xmi:id="_vn4JYP5zEeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Property-appliesToClassifier"/>
+  <Ecore:EReference xmi:id="_3z8L4P5zEeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Property-appliesToMetaclass"/>
+  <Standard:Metaclass xmi:id="_HSZd8P50EeCNbuO0Qm4fmQ" base_Class="RefinableElement"/>
+  <Ecore:EReference xmi:id="_Zqt5EP50EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="RefinableElement-refinedElement"/>
+  <Ecore:EReference xmi:id="_a3ToAP50EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="RefinableElement-refinementContext"/>
+  <Ecore:EAttribute xmi:id="_G8QZYP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="PackageSection-name"/>
+  <Ecore:EAttribute xmi:id="_hw3EUP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Access-category"/>
+  <Ecore:EAttribute xmi:id="_iqUb4P51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true" base_Property="Port-category"/>
+  <Standard:Metaclass xmi:id="_viirgP51EeCNbuO0Qm4fmQ" base_Class="PackageSection"/>
+  <Standard:Metaclass xmi:id="_vijSkP51EeCNbuO0Qm4fmQ" base_Class="Access"/>
+  <Standard:Metaclass xmi:id="_vijSkf51EeCNbuO0Qm4fmQ" base_Class="Port"/>
+  <Ecore:EAttribute xmi:id="_9K2UQP51EeCNbuO0Qm4fmQ" isTransient="true" isVolatile="true"/>
+  <Standard:Metaclass xmi:id="_EAU-UP52EeCNbuO0Qm4fmQ"/>
+  <Standard:Metaclass xmi:id="_6S69wNciEeGChpddaBFCtg" base_Class="Mode.1"/>
+  <Standard:Metaclass xmi:id="_4FrdgGWVEeKn5rvcPbyT8w" base_Class="_w5Xn0GWVEeKn5rvcPbyT8w"/>
+  <Standard:Metaclass xmi:id="_BcO10GWZEeKn5rvcPbyT8w" base_Class="_6-RT4GWYEeKn5rvcPbyT8w"/>
 </xmi:XMI>

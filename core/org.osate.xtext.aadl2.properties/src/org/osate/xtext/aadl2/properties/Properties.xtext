@@ -48,7 +48,11 @@ ContainmentPath returns aadl2::ContainedNamedElement:
 	{aadl2::ContainedNamedElement}
 	containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
+//	( 'annex' containmentPathElement+=AnnexPath )?
 ;
+
+//AnnexPath returns aadl2::ContainmentPathElement:
+//	 namedElement=[aadl2::NamedElement|IDANNEXTEXT];
 
 ModalPropertyValue returns aadl2::ModalPropertyValue:
 	ownedValue=PropertyExpression 
@@ -71,7 +75,7 @@ PropertyValue returns aadl2::ModalPropertyValue:
 	;
 
 PropertyExpression returns aadl2::PropertyExpression:
-	OldRecordTerm |
+//	OldRecordTerm |
 	  RecordTerm | ReferenceTerm | ComponentClassifierTerm
 	 | ComputedTerm | StringTerm |  NumericRangeTerm
 	| RealTerm | IntegerTerm 
@@ -96,6 +100,10 @@ ReferenceTerm returns aadl2::ReferenceValue:
   'reference' '(' 	
   containmentPathElement+=ContainmentPathElement
 	( '.' containmentPathElement+=ContainmentPathElement)*
+//	( 'annex' ID '{**' 
+//	containmentPathElement+=ContainmentPathElement
+//	( '.' containmentPathElement+=ContainmentPathElement)*
+//	'**}')?
   ')'
   ;
 
@@ -125,9 +133,10 @@ ComponentClassifierTerm returns aadl2::ClassifierValue:
 
 
 ListTerm returns aadl2::ListValue:
+	{aadl2::ListValue}
    '(' 	
-   ownedListElement+=(PropertyExpression)
-   (',' ownedListElement+=(PropertyExpression))*
+   (ownedListElement+=(PropertyExpression)
+   (',' ownedListElement+=(PropertyExpression))*)?
   ')'
   ;
 
@@ -142,8 +151,8 @@ FieldPropertyAssociation returns aadl2::BasicPropertyAssociation:
 ContainmentPathElement returns aadl2::ContainmentPathElement:
 	((namedElement=[aadl2::NamedElement|ID]
 	 (arrayRange+=ArrayRange)?
-	 ) |
-	 'annex' namedElement=[aadl2::NamedElement|ANNEXREF]
+	 ) 
+//	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]
 	)
 ;
 
@@ -255,6 +264,10 @@ QCREF:
 	
 STAR : '*';
 
+//terminal IDANNEXTEXT: ID ANNEXTEXT;
+
+terminal ANNEXTEXT:
+	'{**'->'**}';
 
 
 terminal STRING	: 

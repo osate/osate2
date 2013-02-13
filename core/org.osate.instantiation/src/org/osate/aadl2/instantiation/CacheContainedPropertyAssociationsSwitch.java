@@ -69,6 +69,8 @@ import org.osate.aadl2.instance.util.InstanceUtil.InstantiatedClassifier;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
 import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * TODO: Add comment
@@ -127,7 +129,8 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 			public String caseFeatureInstance(final FeatureInstance fi) {
 				if (fi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					FeatureGroupType fgType = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
-					processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
+					if (fgType != null)
+						processContainedPropertyAssociations(fi, fgType.getAllPropertyAssociations());
 					processContainedPropertyAssociations(fi, fi.getFeature().getOwnedPropertyAssociations());
 				}
 				return DONE;
@@ -135,11 +138,11 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 		};
 	}
 
-	protected void processContainedPropertyAssociations(FeatureInstance fi,
-			EList<PropertyAssociation> propertyAssociations) {
+	protected void processContainedPropertyAssociations
+		(final FeatureInstance fi, final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
 			Property prop = pa.getProperty();
-			if (prop == null || prop.getType() == null) {
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
 				continue;
 			}
@@ -192,18 +195,26 @@ class CacheContainedPropertyAssociationsSwitch extends AadlProcessingSwitchWithP
 	private void processContainedPropertyAssociations(final ComponentInstance modeContext, final ComponentInstance ci,
 			final EList<PropertyAssociation> propertyAssociations) {
 		for (PropertyAssociation pa : propertyAssociations) {
+			//OsateDebug.osateDebug  ("[CacheContainedProperty] Process contained property association" + pa);
 			Property prop = pa.getProperty();
-			if (prop == null || prop.getType() == null) {
+			if (Aadl2Util.isNull(prop) || Aadl2Util.isNull(prop.getType())) {
 				// PA is missing the prop def, skip to the next one
+//				OsateDebug.osateDebug  ("   skip");
+
 				continue;
 			}
+			//OsateDebug.osateDebug  ("   appliesto=" + pa.getAppliesTos());
+
 			for (ContainedNamedElement cne : pa.getAppliesTos()) {
 				final EList<ContainmentPathElement> cpes = cne.getContainmentPathElements();
+				//OsateDebug.osateDebug ("   cpes=" + cpes);
+
 				if (cpes != null && !cpes.isEmpty()) {
 					final NamedElement last = cpes.get(cpes.size() - 1).getNamedElement();
 					final List<InstanceObject> ios = ci.findInstanceObjects(cpes);
-
 					for (InstanceObject io : ios) {
+						//OsateDebug.osateDebug ("   io=" + io);
+
 						PropertyAssociation newPA = Aadl2Factory.eINSTANCE.createPropertyAssociation();
 
 						newPA.setProperty(prop);

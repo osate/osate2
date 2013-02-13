@@ -53,9 +53,10 @@ import org.osate.aadl2.AbstractPrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class AbstractPrototypeItemProvider extends ComponentPrototypeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class AbstractPrototypeItemProvider extends
+		ComponentPrototypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -89,7 +90,8 @@ public class AbstractPrototypeItemProvider extends ComponentPrototypeItemProvide
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/AbstractPrototype"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/AbstractPrototype"));
 	}
 
 	/**
@@ -126,7 +128,8 @@ public class AbstractPrototypeItemProvider extends ComponentPrototypeItemProvide
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

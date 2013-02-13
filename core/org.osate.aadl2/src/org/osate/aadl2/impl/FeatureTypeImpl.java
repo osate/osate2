@@ -51,7 +51,8 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class FeatureTypeImpl extends AObjectImpl implements FeatureType {
+public abstract class FeatureTypeImpl extends AObjectImpl implements
+		FeatureType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,4 +95,4 @@ public abstract class FeatureTypeImpl extends AObjectImpl implements FeatureType
 		return CacheAdapter.getCacheAdapter(this);
 	}
 
-} //FeatureTypeImpl
+} // FeatureTypeImpl

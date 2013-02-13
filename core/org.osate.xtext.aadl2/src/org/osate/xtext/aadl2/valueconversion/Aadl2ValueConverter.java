@@ -34,12 +34,11 @@
  */
 package org.osate.xtext.aadl2.valueconversion;
 
-import java.util.Iterator;
-
 import org.eclipse.xtext.conversion.IValueConverter;
 import org.eclipse.xtext.conversion.ValueConverter;
 import org.eclipse.xtext.nodemodel.ILeafNode;
 import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.impl.HiddenLeafNode;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ComponentCategory;
@@ -58,10 +57,12 @@ public class Aadl2ValueConverter extends PropertiesValueConverter {
             	ILeafNode l2 = null;
             	ILeafNode l3 = null;
         		Iterable<ILeafNode> n =  node.getParent().getLeafNodes();
-        		  for (Iterator<ILeafNode> i = n.iterator(); i.hasNext(); ){
-        		      l3 = l2;
-        		      l2= l1;
-        			  l1 = (ILeafNode)i.next();
+        		  for (ILeafNode currentNode : n){
+        			  if (!(currentNode instanceof HiddenLeafNode)) {
+	        		      l3 = l2;
+	        		      l2= l1;
+	        		      l1 = currentNode;
+        			  }
         		  }
         		  if (l3 != null) return l3.getText().replaceAll(" ","")+"."+string;
 //				int i;

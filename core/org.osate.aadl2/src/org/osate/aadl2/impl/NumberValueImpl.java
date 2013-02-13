@@ -43,6 +43,7 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
+import org.osate.aadl2.UnitsType;
 
 /**
  * <!-- begin-user-doc -->
@@ -57,7 +58,8 @@ import org.osate.aadl2.UnitLiteral;
  *
  * @generated
  */
-public abstract class NumberValueImpl extends PropertyValueImpl implements NumberValue {
+public abstract class NumberValueImpl extends PropertyValueImpl implements
+		NumberValue {
 	/**
 	 * The cached value of the '{@link #getUnit() <em>Unit</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,8 +100,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 			unit = (UnitLiteral) eResolveProxy(oldUnit);
 			if (unit != oldUnit) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit,
-							unit));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 			}
 		}
 		return unit;
@@ -123,7 +125,8 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		UnitLiteral oldUnit = unit;
 		unit = newUnit;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NUMBER_VALUE__UNIT, oldUnit, unit));
 	}
 
 	/**
@@ -203,4 +206,22 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		return true;
 	}
 
-} //NumberValueImpl
+	/* DB Added for OCL
+	 * (non-Javadoc)
+	 * @see org.osate.aadl2.NumberValue#getScaledValue(java.lang.String)
+	 */
+	@Override
+	public double getScaledValue(String target) {
+		final UnitLiteral currentUnit = getUnit();
+		final UnitLiteral targetUnit;
+
+		if (currentUnit == null) {
+			targetUnit = null;
+		} else {
+			targetUnit = ((UnitsType) currentUnit.eContainer())
+					.findLiteral(target);
+		}
+
+		return getScaledValue(targetUnit);
+	}
+} // NumberValueImpl

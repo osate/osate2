@@ -47,8 +47,8 @@ import org.osate.aadl2.VirtualProcessorSubcomponentType;
  *
  * @generated
  */
-public abstract class VirtualProcessorSubcomponentTypeImpl extends SubcomponentTypeImpl implements
-		VirtualProcessorSubcomponentType {
+public abstract class VirtualProcessorSubcomponentTypeImpl extends
+		SubcomponentTypeImpl implements VirtualProcessorSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +68,4 @@ public abstract class VirtualProcessorSubcomponentTypeImpl extends SubcomponentT
 		return Aadl2Package.eINSTANCE.getVirtualProcessorSubcomponentType();
 	}
 
-} //VirtualProcessorSubcomponentTypeImpl
+} // VirtualProcessorSubcomponentTypeImpl

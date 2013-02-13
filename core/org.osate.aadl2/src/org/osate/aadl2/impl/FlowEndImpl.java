@@ -109,8 +109,8 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 			context = (Context) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__CONTEXT,
-							oldContext, context));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FLOW_END__CONTEXT, oldContext, context));
 			}
 		}
 		return context;
@@ -134,7 +134,8 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__CONTEXT, oldContext, context));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_END__CONTEXT, oldContext, context));
 	}
 
 	/**
@@ -148,8 +149,8 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 			feature = (Feature) eResolveProxy(oldFeature);
 			if (feature != oldFeature) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.FLOW_END__FEATURE,
-							oldFeature, feature));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.FLOW_END__FEATURE, oldFeature, feature));
 			}
 		}
 		return feature;
@@ -173,7 +174,8 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 		Feature oldFeature = feature;
 		feature = newFeature;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_END__FEATURE, oldFeature, feature));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_END__FEATURE, oldFeature, feature));
 	}
 
 	/**
@@ -248,4 +250,4 @@ public class FlowEndImpl extends ElementImpl implements FlowEnd {
 		return super.eIsSet(featureID);
 	}
 
-} //FlowEndImpl
+} // FlowEndImpl

@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>AADL Properties in the Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="ProcessingAADLProperties.html">5. Processing AADL Properties</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   5.3 AADL Properties in the Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="AnOverviewofAADLProperties.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ImplementingtheSecurityLevelPlug-in.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic73"></a>
+          <span class=outlineNumberFirst>5.3 </span><span class=topicLineFirst>AADL Properties in the Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Package <b>edu.cmu.sei.aadl.model.properties</b>
+contains the meta model classes related to
+properties. Figure 23 shows the class <b>PropertyHolder</b> which is the super class for all model
+classes representing AADL elements that can be associated with property values. This class
+contains a single attribute  properties that refers to the property associations declared
+in that
+element (see Figure 24). This class also contains the methods for looking up and setting
+property values. These methods are described in Section 5.7  Advanced Property
+Associations.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic73NotesImage3.jpg" align="bottom" width="575" height="79" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 23: The <b>PropertyHolder</b>
+class and its descendents.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic73NotesImage6.jpg" align="bottom" width="570" height="297" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 24: Classes <b>PropertyDeclaration</b>
+and <b>PropertyAssociation</b>.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic73NotesImage7.jpg" align="bottom" width="293" height="762" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 25: Classes for representing
+non-Boolean property values.</span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic73NotesImage8.jpg" align="bottom" width="572" height="423" border="0" alt="graphic" /></div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 26: Classes for representing
+Boolean property values. Also shown is the <b>PropertyReference</b> class.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A
+property declaration is represented by the <b>PropertyDefinition</b> class, shown in Figure 24.
+When writing a plug-in, you generally do not have to directly manipulate the attributes of
+<b>PropertyDefinition</b>s; rather you simply need to obtain the <b>PropertyDefinition</b> object for
+the
+property whose values you are interested in looking up. Methods for retrieving specific
+<b>PropertyDefinition</b> objects are described below. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Also
+shown in Figure 24 is the <b>PropertyAssociation</b> class which models the assignment of a
+particular value to a particular property for a particular component. You should never have to
+directly manipulate <b>PropertyAssociation</b> objects when writing a plug-in. The property value
+lookup methods, described in Section 5.8.4  Getting Property Values, interpret these objects,
+and the property value setting methods, described in Section 5.8.5  Modifying Property
+Associations, change their values or create new instances as necessary.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL
+property expressions are represented using <b>PropertyValue</b> objects. In most cases, a
+<b>PropertyValue</b> object will not point to an elaborate structure; see Figure 25. AADL,
+however, does allow Boolean arithmetic, and <b>BooleanValue</b> object can be part of a tree
+describing a Boolean predicate; see Figure 26. AADL also allows a property value to be a
+reference to the value of another property or to a property constant, which adds some
+complexity to the model: consider the <b>BooleanOrPropertyReference</b>,
+<b>NumberOrPropertyReference</b>, <b>PropertyReference</b>, and <b>ReferencedProperty</b> classes. If
+you are only interested in retrieving property values, you can avoid the complexity of property
+expressions because the property lookup process also takes care of evaluating property
+references and Boolean expressions. When creating new property associations via the
+property setting methods, however, you must provide new <b>PropertyValue</b> objects to be
+attached to the meta model. A tree containing <b>BooleanValue</b> or <b>PropertyReference</b>
+objects
+could be created for this purpose. It is the responsibility of the creator of these objects to
+make sure that they result in legal AADL property expressions.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+general, when retrieving property values in a plug-in you know which property you are
+interested in, and therefore, the <b>PropertyType</b> of the property, and the specific subclass of
+<b>PropertyValue</b> that its values will be.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic74"></a>
+          <span class=outlineNumber>5.3.1 </span><span class=topicLine>Properties and the Instance Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">A <b>PropertyAssociation</b>
+is considered to be a contained property association if it has a non-
+empty  appliesTo attribute. OSATE&#146;s property-related methods ignore such
+<b>PropertyAssociation</b> objects when invoked on components making up the declarative model
+because they declare information relevant to the instance model only. These property
+associations are interpreted when a system instance is instantiated into an instance model.
+During this process, the contents of the  appliesTo attribute are used to identify the particular
+<b>InstanceObject</b> that represents the instance component to which the property association
+applies. A new <b>PropertyAssociation</b> object is then attached to that object&#146;s  properties
+attribute describing the property association.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The  derived attribute of <b>PropertyAssociation</b> is only meaningful when the
+<b>PropertyAssociation</b> is part of an instance model. It indicates that the property association
+is
+derived from a property association in the declarative model. These property associations are
+redundant, because they duplicate associations that the property lookup algorithm would find
+by deferring to the declarative model (see Section 5.2.5  Property Lookup). But by
+being
+made explicit in the instance model they short-circuit the lookup process and remove the need
+for examining the declarative model. This is useful because OSATE does not load a model
+until it is actually used, and thus by copying all the property associations into the instance model
+we can in many cases prevent the declarative model from being loaded during an analysis of the
+instance model. By default, the system instantiation process used by OSATE  caches
+the
+values of all properties explicitly used in the declarative model.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">There
+are two special cases in the instance model representation relating to properties:</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When representing reference
+values in the instance model, the class
+<b>edu.cmu.sei.aadl.model.instance.InstanceReferenceValue</b> is used instead of its
+more generic super class <b>ReferenceValue</b>. This is because in declarative models only
+a component path that represents a notional component instance can be provided, but
+in an instance model, a reference to the actual component instance can be provided.
+Specifically, the <b>InstanceReferenceValue</b> has an attribute
+ referencedInstanceObject that points to an <b>InstanceObject</b> instance.</span></font><span></span></li>
+</ul>
+</ul>
+<blockquote>
+<div align="left" style="margin-left=13mm; margin-right=0mm; text-indent=0mm"><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">The property lookup process takes care of translating <b>ReferenceValue</b>s
+into
+<b>InstanceReferenceValue</b>s as needed. When writing an analysis, this distinction must
+be kept in mind depending on whether the analysis operates over a declarative or
+instance model.</span></font><span></span></div>
+</blockquote>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The  in modes
+attribute of <b>PropertyAssociation</b>s in an instance model refers to
+<b>SystemOperationMode</b> objects instead of <b>Mode</b> objects. These objects are
+described in more detail in the section on system operation modes. Again, the
+property lookup and model instantiation processes takes care of making this
+translation, but this distinction is reflected in what kind of objects are expected when
+looking up or setting modal properties values; see Sections 5.8.4  Getting Property
+Values and 5.8.5  Modifying Property Associations.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

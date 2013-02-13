@@ -66,7 +66,8 @@ import org.osate.aadl2.ModeTransitionTrigger;
  *
  * @generated
  */
-public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransition {
+public class ModeTransitionImpl extends ModeFeatureImpl implements
+		ModeTransition {
 	/**
 	 * The cached value of the '{@link #getSource() <em>Source</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -127,8 +128,9 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			source = (Mode) eResolveProxy(oldSource);
 			if (source != oldSource) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.MODE_TRANSITION__SOURCE,
-							oldSource, source));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.MODE_TRANSITION__SOURCE, oldSource,
+							source));
 			}
 		}
 		return source;
@@ -152,8 +154,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 		Mode oldSource = source;
 		source = newSource;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_TRANSITION__SOURCE, oldSource,
-					source));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.MODE_TRANSITION__SOURCE, oldSource, source));
 	}
 
 	/**
@@ -168,7 +170,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			if (destination != oldDestination) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.MODE_TRANSITION__DESTINATION, oldDestination, destination));
+							Aadl2Package.MODE_TRANSITION__DESTINATION,
+							oldDestination, destination));
 			}
 		}
 		return destination;
@@ -192,8 +195,9 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 		Mode oldDestination = destination;
 		destination = newDestination;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.MODE_TRANSITION__DESTINATION,
-					oldDestination, destination));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.MODE_TRANSITION__DESTINATION, oldDestination,
+					destination));
 	}
 
 	/**
@@ -203,7 +207,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 */
 	public EList<ModeTransitionTrigger> getOwnedTriggers() {
 		if (ownedTriggers == null) {
-			ownedTriggers = new EObjectContainmentEList<ModeTransitionTrigger>(ModeTransitionTrigger.class, this,
+			ownedTriggers = new EObjectContainmentEList<ModeTransitionTrigger>(
+					ModeTransitionTrigger.class, this,
 					Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER);
 		}
 		return ownedTriggers;
@@ -226,10 +231,12 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
-			return ((InternalEList<?>) getOwnedTriggers()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedTriggers()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -273,7 +280,8 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 			return;
 		case Aadl2Package.MODE_TRANSITION__OWNED_TRIGGER:
 			getOwnedTriggers().clear();
-			getOwnedTriggers().addAll((Collection<? extends ModeTransitionTrigger>) newValue);
+			getOwnedTriggers().addAll(
+					(Collection<? extends ModeTransitionTrigger>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -317,4 +325,4 @@ public class ModeTransitionImpl extends ModeFeatureImpl implements ModeTransitio
 		}
 		return super.eIsSet(featureID);
 	}
-} //ModeTransitionImpl
+} // ModeTransitionImpl

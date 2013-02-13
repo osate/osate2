@@ -48,7 +48,8 @@ import org.osate.aadl2.MemoryClassifier;
  *
  * @generated
  */
-public abstract class MemoryClassifierImpl extends ComponentClassifierImpl implements MemoryClassifier {
+public abstract class MemoryClassifierImpl extends ComponentClassifierImpl
+		implements MemoryClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class MemoryClassifierImpl extends ComponentClassifierImpl imple
 		return Aadl2Package.eINSTANCE.getMemoryClassifier();
 	}
 
-} //MemoryClassifierImpl
+} // MemoryClassifierImpl

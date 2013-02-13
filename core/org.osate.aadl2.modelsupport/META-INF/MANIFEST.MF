@@ -20,3 +20,4 @@ Export-Package: org.osate.aadl2.modelsupport,
  org.osate.aadl2.modelsupport.util
 Bundle-Vendor: CMU-SEI
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Import-Package: org.eclipse.emf.transaction

@@ -1,0 +1,615 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Gathering Model Statistics</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="AFirstPlug-in.ModelStatistics.html">3. A First Plug-in: Model Statistics</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   3.2 Gathering Model Statistics
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="CreatingaNewPlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="DrivingthePlug-in.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic11"></a>
+          <span class=outlineNumberFirst>3.2 </span><span class=topicLineFirst>Gathering Model Statistics</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+gather the model&#146;s statistics, we must traverse the AADL specification or system instance
+and count the occurrences of the various model elements. We create a subclass of
+<b>AadlProcessingSwitch</b> for this purpose. This class </span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Provides model traversal
+methods (inherited from <b>ForAllAObject</b>).</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Leverages the EMF  switch
+class concept to allow the specification of processing
+methods for each class of object in the AADL model.</span></font><span></span></li>
+</ul>
+</ul>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">To
+compute our model statistics, we are going to create a new subclass, <b>ModelStatistics</b>, that
+defines our particular statistics gathering functionality. But first we must take a closer look
+at
+class <b>AadlProcessingSwitch</b>.</span></font><span></span></div>
+<div align="left"><font face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">Refer
+to Javadoc of ForAllAObject and AadlProcessingSwitch.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic12"></a>
+          <span class=outlineNumber>3.2.1 </span><span class=topicLine>Subclassing AadlProcessingSwitch</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+OSATE framework package <b>edu.cmu.sei.aadl.model.util</b> includes an abstract class
+<b>ForAllAObject</b> that defines methods for traversing AADL models but that leaves the method
+of processing abstract. Traversal methods include, for example, top-down and bottom-up
+traversals, as well as method to process lists of model objects. The traversal methods can
+operate on both declarative and instance models; in the case of instance models, the traversal
+can be scoped to the full model or only a modal subset. The particular modal subset is
+determined by the system operational mode (SOM) iteration mechanism </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">(see xxx)</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. The
+traversal methods abstract away the declarative/instance/modal distinctions by using the method
+<b>AObject.getChildren</b>, which encapsulates how the children of a model element are
+determined. Traversals invoke the processing method <b>process(AObject)</b>. The default
+implementation of <b>process</b> implements functionality for filtering model elements </span></font><font
+face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">(see xxx)</span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> via
+the <b>suchThat</b> method.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Class <b>AadlProcessingSwitch</b>,
+also in <b>edu.cmu.sei.aadl.model.util</b>, is a subclass of
+<b>ForAllAObject</b> that overrides the <b>process</b> method to leverage the EMF  switch
+class
+concept to define a processing method for all abstract and concrete classes in the AADL meta
+model </span></font><font face="Arial Narrow" color="#ff0000" size="3"><span style="font-size:12pt">(see
+EMF book page xxx)</span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.
+Specifically, for each AADL meta model package, there is
+an EMF  switch class that contains a  case method for each class declared in the
+package.
+The AADL meta model is described using seven EMF packages: <b>core</b>, <b>component</b>,
+<b>connection</b>, <b>feature</b>, <b>flow</b>, <b>instance</b>, and <b>property</b>. Thus there
+are seven switch classes for
+AADL models. For example, the AADL component types are modeled by classes in the EMF
+Ecore package <b>component</b>. Thus there is a class <b>ComponentSwitch</b>, in Java package
+<b>edu.cmu.sei.aadl.model.component.util</b> with methods <b>caseBusType(BusType)</b>,
+<b>caseComponentClassifier(ComponentClassifier)</b>, <b>caseDataImpl(DataImpl)</b>, etc. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When
+a switch class instance is invoked on a model object using <b>doSwitch(EObject)</b>, control
+flows to the appropriate  case method based on the class of the object. The  switch
+class
+respects the class hierarchy, and invokes the most specific  case method first, falling through
+to case methods for super classes as long as <b>null</b> is returned. The final  case
+method is
+<b>defaultCase(EObject)</b>. For example, when given a <b>SystemType</b> instance, <b>doSwitch</b> invokes
+the methods, <b>caseSystemType</b>, <b>caseComponentType</b>, <b>caseSystemClassifier</b>,
+<b>caseComponentClassifier</b>, <b>caseClassifier</b>, <b>casePropertyHolder</b>, <b>caseNamedElement</b>,
+<b>caseAObject</b>, and <b>defaultCase</b>, in order, until one of them returns a non-<b>null</b> value.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+default implementation of each  case method does nothing and returns <b>null</b>. This
+ensures
+that the default behavior is for control to flow to the first ancestor  case that defines
+a non-
+trivial processing method. The constants <b>AadlProcessingSwitch.NOT_DONE</b> and
+<b>AadlProcessingSwitch.DONE</b> provide symbolic names for <b>null</b> and a canonical non-<b>null</b>
+value, respectively, to be used as return values from  case methods.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">As
+there is a  switch class for each Ecore package making up the AADL meta model, the
+<b>AadlProcessingSwitch.process(AObject)</b> method is implemented by delegating to an
+instance of the appropriate  switch class based on the class of the given model object.
+The
+class declares a field for each  switch class, e.g., <b>componentSwitch</b>, <b>flowSwitch</b>,
+<b>propertySwitch</b>, etc. Subclasses customize the processing by overriding the method
+<b>initSwitches</b> to assign instances of analysis specific subclasses of  switch classes
+to these
+fields.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Finally,
+a note on using instances of ForAllAObject and its subclasses. Instances of the class
+maintain state during traversals (see Section 4.3  AADL Model Traversal Support).
+Therefore, a new instance should always be created for each traversal. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic13"></a>
+          <span class=outlineNumber>3.2.2 </span><span class=topicLine>The ModelStatistics Code</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class <b>ModelStatistics</b>extends <b>AadlProcessingSwitch</b> and declares fields to count the
+number of occurrences of component types, component implementations, flow specifications,
+thread instances, process instances, etc. These fields are incremented as a side effect of the
+model traversal process that it defines. To gather the statistics for a particular model, the
+analysis creates a new instance of <b>ModelStatistics</b>, and then invokes a traversal. For this
+simple analysis it does not matter whether a pre-order or a post-order traversal is used. But
+some analyses might only work correctly if a specific traversal method is used. Thus it is a
+good idea to document in the class&#8217;s Javadoc which traversal method is expected to be used.
+Analysis results are retrieved using additional methods defined in <b>ModelStatistics</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+class <b>ModelStatistics</b>is shown below. The actual behavior of the model traversal is
+declared in the implementation of the method <b>initSwitches</b>, which initializes the switch fields
+declared in the super class <b>AadlProcessingSwitch</b>. In particular,</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We provide specific instantiations
+of <b>CoreSwitch</b>, <b>FlowSwitch</b>, and
+<b>InstanceSwitch</b>. It is convenient to provide the switches using Java anonymous
+classes.</span></font><span></span></li>
+<li style="margin-left=5mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We only override those &#8220;case&#8221; methods that are specifically interesting to our analysis:</span></font><span>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+</span>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>CoreSwitch.caseComponentType</b></span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>CoreSwitch.caseComponentImpl</b></span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>FlowSwitch.caseFlowSpec</b></span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>FlowSwitch.caseEndToEndFlow</b></span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>InstanceSwitch.caseComponentInstance</b></span></font><span></span></li>
+<li style="margin-left=13mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  font-weight= bold;  color= #010101;  "><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"><b>InstanceSwitch.caseConnectionInstance</b></span></font><span></span></li>
+</ul>
+</li>
+</ul>
+<div align="left" style="margin-left=8mm; margin-right=0mm; text-indent=0mm"><br/></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the implementation below, we implement the method <b>CoreSwitch.caseComponentType</b>
+which is called by the switch for each element that is a subtype of <b>ComponentType</b>.
+<b>ComponentType</b> is actually an abstract class in the Ecore model and is the parent class for
+each specific component type. In our implementation, we further test the model element against
+the specific type <b>DataType</b>. We later discuss an alternative implementation approach that
+avoids this testing inside of <b>ComponentType</b>.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+AADL instance model uses <b>ComponentInstance</b> objects to model all categories of
+instantiated components. Thus the <b>InstanceSwitch</b>cannot distinguish among the different
+categories of instantiated components. Instead we use a Java <b>switch</b> statement within
+<b>caseComponentInstance</b> to make this distinction:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> switch (obj.getCategory().getValue())
+{ ... }</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The <b>ComponentInstance.getCategory</b>
+method returns an instance of <b>ComponentCategory</b>
+that indicates the component&#8217;s category. <b>ComponentCategory</b> implements the EMF
+enumeration pattern,</span></font><span> </span><font face="Arial Narrow" color="#ff0000" size="3"><span
+style="font-size:12pt">[see XXX]</span></font><font face="Times New Roman" color="#010101" size="3"><span
+style="font-size:12pt">. In particular, enumerations provide a canonical object as well
+as a canonical integer value for each element in the enumeration. The integer value for a
+particular enumeration element is retrieved using <b>getValue</b>.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>package edu.cmu.sei.osate.statistics;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.component.DataType;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.core.ComponentImpl;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.core.ComponentType;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.core.util.CoreSwitch;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.flow.EndToEndFlow;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.flow.FlowSpec;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.flow.util.FlowSwitch;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.instance.ComponentInstance;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.instance.ConnectionInstance;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.instance.util.InstanceSwitch;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.property.ComponentCategory;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>import edu.cmu.sei.aadl.model.util.AadlProcessingSwitch;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>public class ModelStatistics extends
+AadlProcessingSwitch {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> /* Counters to keep track
+of occurrences of different</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> * objects in the model.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int typeCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int componentTypeCount
+= 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int compImplCount =
+0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int threadCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int processCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int processorCount =
+0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int busCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int deviceCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int memoryCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int componentCount =
+0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int connectionCount
+= 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int flowCount = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> private int endToEndFlowCount
+= 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public ModelStatistics() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> super();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected final void initSwitches()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> /*
+We overwrite the case method for a class in the meta model</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+* specific switches.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // The core switch
+handles items from the Core package</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> coreSwitch = new
+CoreSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+/* We want to count all component type declarations.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+* Thus, we count instances of the abstract ComponentType class.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseComponentType(ComponentType obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>typeCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// Only count those that are not DataType</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+if (!(obj instanceof DataType)) componentTypeCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseComponentImpl(ComponentImpl ci) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>compImplCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // We want to
+count flows, thus, we redefine the FlowSwitch</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> flowSwitch = new
+FlowSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseFlowSpec(FlowSpec obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>flowCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseEndToEndFlow(EndToEndFlow obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>endToEndFlowCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> // We want to
+count instance model objects.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> instanceSwitch =
+new InstanceSwitch() {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseComponentInstance(ComponentInstance obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>componentCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+/* We want to count category specific instances. We retrieve</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*
+the category and branch on its numeric representation.</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>*/</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+switch (obj.getCategory().getValue()) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.THREAD:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>threadCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.PROCESS:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>processCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.PROCESSOR:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>processorCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.MEMORY:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>memoryCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.BUS:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>busCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+case ComponentCategory.DEVICE:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>deviceCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>return
+DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseConnectionInstance(ConnectionInstance ci) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>connectionCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public String getModelResult()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return &quot;Model
+Statistics: &quot; + componentTypeCount</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
++ &quot; component type declarations, &quot; + compImplCount</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
++ &quot; component implementation declarations, &quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
++ (typeCount - componentTypeCount)</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
++ &quot; data type declarations. &quot;;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public String getFlowResult()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return &quot;Flow
+Statistics: &quot; + flowCount + &quot; flow specifications, &quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
++ endToEndFlowCount + &quot; end-to-end flows. &quot;;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public String getApplicationResult()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (componentCount
+&gt; 0) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return
+&quot;Application statistics: &quot; + threadCount + &quot; threads, &quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>+
+processCount + &quot; processes, &quot; + connectionCount</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>+
+&quot; semantic connections. &quot;;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return null;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public String getExecutionPlatformResult()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (componentCount
+&gt; 0) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return
+&quot;Execution platform statistics: &quot; + processorCount</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>+
+&quot; processors, &quot; + memoryCount + &quot; memory units, &quot;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>+
+busCount + &quot; buses, &quot; + deviceCount + &quot; devices.&quot;;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> return null;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic14"></a>
+          <span class=outlineNumber>3.2.3 </span><span class=topicLine>An Alternative Use of Switches</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the method <b>caseComponentType</b>, above, we only increment <b>componentTypeCount</b>
+when the model object is not a <b>DataType</b>. Rather than test the types in a conditional, we
+could have achieved the same effect by overriding <b>caseComponentType</b> to only increment
+<b>typeCount</b> while also overriding the case methods for all the specific component type
+classes&#151;in <b>ComponentSwitch</b>&#151;except <b>DataType</b> to increment the <b>componentTypeCount</b>
+field and return <b>NOT_DONE</b>. For example:</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>coreSwitch=newCoreSwitch(){ <br/>
+publicObjectcaseComponentType(ComponentTypeobj){ <br/>
+typeCount++; <br/>
+returnDONE; <br/>
+} </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> componentSwitch
+= new ComponentSwitch() { </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseSystemType(SystemType obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+componentTypeCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// We want to fall through to caseComponentType</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return NOT_DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public
+Object caseBusType(BusType obj) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+componentTypeCount++;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+// We want to fall through to caseComponentType</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+return NOT_DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> //
+Repeat for all component types except DataType</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> };</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+chose not to follow this implementation approach, however, because in addition to being
+more verbose, it also makes the intent of the processing less clear.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

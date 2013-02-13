@@ -47,7 +47,8 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public abstract class SubcomponentTypeImpl extends TypeImpl implements SubcomponentType {
+public abstract class SubcomponentTypeImpl extends TypeImpl implements
+		SubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public abstract class SubcomponentTypeImpl extends TypeImpl implements Subcompon
 		return Aadl2Package.eINSTANCE.getSubcomponentType();
 	}
 
-} //SubcomponentTypeImpl
+} // SubcomponentTypeImpl

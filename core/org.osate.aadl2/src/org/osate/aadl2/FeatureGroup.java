@@ -54,7 +54,8 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConnectionEnd, CallContext {
+public interface FeatureGroup extends DirectedFeature, Context,
+		FeatureGroupConnectionEnd, CallContext {
 	/**
 	 * Returns the value of the '<em><b>Inverse</b></em>' attribute.
 	 * <!-- begin-user-doc -->

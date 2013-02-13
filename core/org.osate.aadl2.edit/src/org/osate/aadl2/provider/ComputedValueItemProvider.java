@@ -59,8 +59,9 @@ import org.osate.aadl2.ComputedValue;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ComputedValueItemProvider extends PropertyValueItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ComputedValueItemProvider extends PropertyValueItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,12 +96,15 @@ public class ComputedValueItemProvider extends PropertyValueItemProvider impleme
 	 */
 	protected void addFunctionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_ComputedValue_function_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_ComputedValue_function_feature",
-						"_UI_ComputedValue_type"), Aadl2Package.eINSTANCE.getComputedValue_Function(), true, false,
-				false, ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_ComputedValue_function_feature",
+						"_UI_ComputedValue_type"), Aadl2Package.eINSTANCE
+						.getComputedValue_Function(), true, false, false,
+				ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -111,7 +115,8 @@ public class ComputedValueItemProvider extends PropertyValueItemProvider impleme
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ComputedValue"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ComputedValue"));
 	}
 
 	/**
@@ -140,7 +145,8 @@ public class ComputedValueItemProvider extends PropertyValueItemProvider impleme
 
 		switch (notification.getFeatureID(ComputedValue.class)) {
 		case Aadl2Package.COMPUTED_VALUE__FUNCTION:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -154,7 +160,8 @@ public class ComputedValueItemProvider extends PropertyValueItemProvider impleme
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

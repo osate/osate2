@@ -1,7 +1,7 @@
 package org.osate.xtext.aadl2.properties.serializer;
 
+import com.google.inject.Inject;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -11,10 +11,8 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 import org.osate.xtext.aadl2.properties.services.PropertiesGrammarAccess;
 
-import com.google.inject.Inject;
-
-@SuppressWarnings("restriction")
-public class AbstractPropertiesSyntacticSequencer extends AbstractSyntacticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractPropertiesSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected PropertiesGrammarAccess grammarAccess;
 	

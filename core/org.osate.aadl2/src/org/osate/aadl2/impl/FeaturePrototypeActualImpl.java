@@ -49,7 +49,8 @@ import org.osate.aadl2.FeaturePrototypeActual;
  *
  * @generated
  */
-public abstract class FeaturePrototypeActualImpl extends ElementImpl implements FeaturePrototypeActual {
+public abstract class FeaturePrototypeActualImpl extends ElementImpl implements
+		FeaturePrototypeActual {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +70,4 @@ public abstract class FeaturePrototypeActualImpl extends ElementImpl implements 
 		return Aadl2Package.eINSTANCE.getFeaturePrototypeActual();
 	}
 
-} //FeaturePrototypeActualImpl
+} // FeaturePrototypeActualImpl

@@ -143,6 +143,16 @@ public class AadlWorkspace extends AadlElement implements IAadlWorkspace {
 		}
 		return aadlProjects;
 	}
+	
+	public IAadlProject getFirstOpenAadlProject ()
+	{
+		IAadlProject[] projects = this.getOpenAadlProjects();
+		if (projects.length > 0)
+		{
+			return projects[0];
+		}
+		return null;
+	}
 
 	/*
 	 * (non-Javadoc)

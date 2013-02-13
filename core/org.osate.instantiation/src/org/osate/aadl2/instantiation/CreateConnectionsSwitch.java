@@ -141,6 +141,22 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		this.classifierCache = classifierCache;
 	}
 
+	private boolean isOpposite (Feature feature, Connection connection) 
+	{
+		List<Feature> 	features= feature.getAllFeatureRefinements();
+		if (features.contains(connection.getAllSource())){
+			return false;
+		} else if (connection.isBidirectional()&& features.contains(connection.getAllDestination())){
+			// we are going the other way on a bi-directional connection
+			return true;
+		} else {
+			// we should not get here since the feature
+		}
+		
+		return false;
+	}
+		
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -149,25 +165,36 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * ()
 	 */
 	@Override
-	protected void initSwitches() {
-		instanceSwitch = new InstanceSwitch<String>() {
+	protected void initSwitches() 
+	{
+		instanceSwitch = new InstanceSwitch<String>() 
+		{
 			boolean inArray = false;
 			String prefix = "";
 
-			public String caseComponentInstance(final ComponentInstance ci) {
-				if (!(ci instanceof SystemInstance)) {
-					if (!inArray) {
-						for (Long index : ci.getIndices()) {
-							if (index > 1) {
+			public String caseComponentInstance(final ComponentInstance ci) throws UnsupportedOperationException 
+			{
+				if (!(ci instanceof SystemInstance)) 
+				{
+					if (!inArray) 
+					{
+						for (Long index : ci.getIndices()) 
+						{
+							if (index > 1) 
+							{
 								inArray = true;
 								prefix = ci.getContainingComponentInstance().getInstanceObjectPath() + "."
 										+ ci.getName();
 							}
 						}
-					} else {
+					} 
+					else 
+					{
 						inArray = ci.getInstanceObjectPath().startsWith(prefix);
 					}
-					if (!inArray) {
+					
+					if (!inArray) 
+					{
 						// process first component of innermost array only
 						instantiateConnections(ci);
 					}
@@ -182,46 +209,56 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * 
 	 * @param ci The component that is the ultimate source; this should be a
 	 *            thread, processor or device
+	 * @throws InstantiationException 
 	 */
 	// TODO-LW: handle access to subprograms and subprogram groups
 	// TODO-LW: connections inside threads (mode conn, access)
 	// TODO-LW: warning if connection incomplete
-	private void instantiateConnections(final ComponentInstance ci) {
+	private void instantiateConnections(final ComponentInstance ci) throws UnsupportedOperationException 
+	{
 		ComponentCategory cat = ci.getCategory();
 		Subcomponent sub = ci.getSubcomponent();
 		ComponentInstance parentci = ci.getContainingComponentInstance();
-		List<Connection> parentConns = InstanceUtil.getComponentImplementation(parentci, 0, classifierCache)
-				.getAllConnections();
+		List<Connection> parentConns = 
+				InstanceUtil.getComponentImplementation(parentci, 0, classifierCache).getAllConnections();
 
-		if (parentci instanceof SystemInstance) {
+		if (parentci instanceof SystemInstance) 
+		{
 			monitor.subTask("Creating connections in " + ci.getName());
 		}
 
-		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
+		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP)
+		{
 			// connection instance may start at a shared component
-			for (Connection conn : filterStartingConnections(parentConns, sub)) {
+			for (Connection conn : filterStartingConnections(parentConns, sub))
+			{
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
 
 				appendSegment(ConnectionInfo.newConnectionInfo(ci), conn, parentci, opposite);
-				if (monitor.isCanceled()) {
+				if (monitor.isCanceled()) 
+				{
 					return;
 				}
 			}
-		} else {
+		} 
+		else 
+		{
 			// connection instance may start at a feature
 			List<Connection> outsideSubConns = filterOutgoingConnections(parentConns, sub);
 			ComponentImplementation cimpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 			@SuppressWarnings("unchecked")
 			List<Connection> insideSubConns = cimpl != null ? cimpl.getAllConnections() : Collections.EMPTY_LIST;
-			boolean hasOutgoingFeatureSubcomponents = AadlUtil.hasOutgoingFeatureSubcomponents(ci
-					.getComponentInstances());
+			boolean hasOutgoingFeatureSubcomponents = 
+					AadlUtil.hasOutgoingFeatureSubcomponents(ci.getComponentInstances());
 
-			for (FeatureInstance featurei : ci.getFeatureInstances()) {
+			for (FeatureInstance featurei : ci.getFeatureInstances()) 
+			{
 				final boolean inFeatureGroup = !featurei.getFeatureInstances().isEmpty();
 				Feature feature = featurei.getFeature();
 				// TODO warning if subcomponents with outgoing features exist
 				if (inFeatureGroup ? featurei.getDirection() != DirectionType.IN
-						: featurei.getDirection() != DirectionType.IN) {
+						: featurei.getDirection() != DirectionType.IN) 
+				{
 					List<Connection> outgoingConns = filterOutgoingConnections(outsideSubConns, feature, sub);
 					boolean connectedInside = false;
 					boolean destinationFromInside = false;
@@ -236,12 +273,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// first see if mode transitions are triggered by a
 					// doModeTransitionConnections(ci, featurei);
 
-					for (Connection conn : outgoingConns) {
+					for (Connection conn : outgoingConns) 
+					{
 						// conn is first segment if it can't continue inside the subcomponent
-						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) {
+						if (!(destinationFromInside || conn.isBidirectional() && connectedInside)) 
+						{
 							// TODO-LW: check if this logic is correct
-							final boolean opposite = feature.getAllFeatureRefinements().contains(
-									conn.getAllDestination());
+							
+							boolean opposite = isOpposite (feature, conn);
 //								if (outcomingConns.isEmpty() && !outgoingConns.isEmpty()) {
 //									if (f instanceof FeatureGroup) {
 //										warning(featurei,
@@ -259,7 +298,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 //								}
 
 							appendSegment(ConnectionInfo.newConnectionInfo(featurei), conn, parentci, opposite);
-							if (monitor.isCanceled()) {
+							if (monitor.isCanceled()) 
+							{
 								return;
 							}
 						}
@@ -281,7 +321,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	// TODO-LW: set 'complete' in conn info
 	private void appendSegment(ConnectionInfo connInfo, final Connection newSegment, final ComponentInstance ci,
-			final boolean goOpposite) {
+			final boolean goOpposite) 
+	{
 		final boolean didModeTransitionConnection = doModeTransitionConnections(ci, connInfo, newSegment);
 		final ConnectionEnd fromEnd = goOpposite ? newSegment.getAllDestination() : newSegment.getAllSource();
 		final Context fromCtx = goOpposite ? newSegment.getAllDestinationContext() : newSegment.getAllSourceContext();
@@ -297,6 +338,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		int poppedIdx = -1;
 		int downedIdx = -1;
 
+		
 		if (toCtx instanceof Subcomponent && toCi == null) {
 			if (!(toCtx instanceof SubprogramSubcomponent)) {
 				error(ci, "Instantiation error: no component instance for subcomponent " + toCtx.getName());
@@ -431,7 +473,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				// going up hierarchy, connection goes to a feature in the component
 				// implementation
 				if (ci instanceof SystemInstance) {
-					finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+					if (toCtx instanceof FeatureGroup){
+						// XXX: PHF: going up into an element of a feature group
+						// should we go to the FG or to the feature?
+						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance((FeatureGroup)toCtx));
+					} else {
+						finalizeConnectionInstance(ci, connInfo, ci.findFeatureInstance(toFeature));
+					}
 				} else {
 					if (toCtx instanceof FeatureGroup) {
 						toFeature = (FeatureGroup) toCtx;

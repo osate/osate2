@@ -68,4 +68,4 @@ public class AadlRealImpl extends NumberTypeImpl implements AadlReal {
 		return Aadl2Package.eINSTANCE.getAadlReal();
 	}
 
-} //AadlRealImpl
+} // AadlRealImpl

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<genmodel:GenModel xmi:version="2.0"
-    xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" copyrightText="&lt;copyright>&#xD;&#xA;Copyright  2011 by Carnegie Mellon University, all rights reserved.&#xD;&#xA;&#xD;&#xA;Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth&#xD;&#xA;at http://www.eclipse.org/org/documents/epl-v10.html.&#xD;&#xA;&#xD;&#xA;NO WARRANTY&#xD;&#xA;&#xD;&#xA;ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY&#xD;&#xA;CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.&#xD;&#xA;CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,&#xD;&#xA;BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,&#xD;&#xA;NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR&#xD;&#xA;CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,&#xD;&#xA;REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT&#xD;&#xA;MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE&#xD;&#xA;APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.&#xD;&#xA;&#xD;&#xA;Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,&#xD;&#xA;employees, and agents from all claims or demands made against them (and any related losses, expenses, or&#xD;&#xA;attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful&#xD;&#xA;misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or&#xD;&#xA;assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of&#xD;&#xA;product liability, personal injury, death, damage to property, or violation of any laws or regulations.&#xD;&#xA;&#xD;&#xA;Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department&#xD;&#xA;of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced&#xD;&#xA;under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these&#xD;&#xA;documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license&#xD;&#xA;under the contract clause at 252.227.7013.&#xD;&#xA;&lt;/copyright>&#xD;&#xA;"
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" 
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" 
+    copyrightText="&lt;copyright>&#xD;&#xA;Copyright  2011 by Carnegie Mellon University, all rights reserved.&#xD;&#xA;&#xD;&#xA;Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth&#xD;&#xA;at http://www.eclipse.org/org/documents/epl-v10.html.&#xD;&#xA;&#xD;&#xA;NO WARRANTY&#xD;&#xA;&#xD;&#xA;ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY&#xD;&#xA;CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE ''DELIVERABLES'') ARE ON AN ''AS-IS'' BASIS.&#xD;&#xA;CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,&#xD;&#xA;BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,&#xD;&#xA;NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR&#xD;&#xA;CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,&#xD;&#xA;REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT&#xD;&#xA;MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE&#xD;&#xA;APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.&#xD;&#xA;&#xD;&#xA;Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,&#xD;&#xA;employees, and agents from all claims or demands made against them (and any related losses, expenses, or&#xD;&#xA;attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful&#xD;&#xA;misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or&#xD;&#xA;assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of&#xD;&#xA;product liability, personal injury, death, damage to property, or violation of any laws or regulations.&#xD;&#xA;&#xD;&#xA;Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department&#xD;&#xA;of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced&#xD;&#xA;under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these&#xD;&#xA;documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license&#xD;&#xA;under the contract clause at 252.227.7013.&#xD;&#xA;&lt;/copyright>&#xD;&#xA;"
     modelDirectory="/org.osate.aadl2/src" creationSubmenus="true" editorDirectory=""
     modelPluginID="org.osate.aadl2" templateDirectory="/JET/templates" runtimeJar="true"
     dynamicTemplates="true" redirection="" modelName="Aadl2" modelPluginClass="" editPluginClass="org.osate.aadl2.provider.Aadl2EditPlugin"
@@ -15,7 +15,7 @@
     >
   <genPackages xsi:type="genmodel:GenPackage" prefix="Aadl2" basePackage="org.osate"
       resource="XMI" disposableProviderFactory="true" loadInitialization="true" literalsInterface="false"
-      contentTypeIdentifier="" ecorePackage="platform:/resource/org.osate.aadl2/model/aadl2.ecore#/" >
+      contentTypeIdentifier="" ecorePackage="aadl2.ecore#/">
     <genEnums xsi:type="genmodel:GenEnum" typeSafeEnumCompatible="false" ecoreEnum="aadl2.ecore#//FlowKind">
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//FlowKind/source"/>
       <genEnumLiterals xsi:type="genmodel:GenEnumLiteral" ecoreEnumLiteral="aadl2.ecore#//FlowKind/path"/>
@@ -324,28 +324,28 @@
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedSubcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/extended"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFlowImplementation"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="false" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedExtension"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedRealization"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
-          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedEndToEndFlow"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" notify="false" createChild="false"
           ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAbstractSubcomponent"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
-          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedAccessConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedParameterConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedPortConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureConnection"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" createChild="true"
+          ecoreFeature="ecore:EReference aadl2.ecore#//ComponentImplementation/ownedFeatureGroupConnection"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noSubcomponents"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noConnections"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//ComponentImplementation/noCalls"/>
@@ -410,11 +410,14 @@
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowSpecification/InEnd"/>
     </genClasses>
+    <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowFeature"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Flow"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//ModalPath">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//ModalPath/inModeOrTransition"/>
       <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModes"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getInModeTransitions"/>
+      <genOperations xsi:type="genmodel:GenOperation" ecoreOperation="aadl2.ecore#//ModalPath/getAllInModeTransitions"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//FlowElement"/>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EndToEndFlowElement"/>
@@ -484,7 +487,8 @@
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Access">
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/kind"/>
-      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/category"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//Access/category"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//AccessConnectionEnd"/>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//BusSubcomponentType"/>
@@ -502,7 +506,8 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//DataPort/dataFeatureClassifier"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" image="false" ecoreClass="aadl2.ecore#//Port">
-      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false" ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="Readonly" createChild="false"
+          ecoreFeature="ecore:EAttribute aadl2.ecore#//Port/category"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//EventDataPort">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

@@ -47,7 +47,8 @@ import org.osate.aadl2.AbstractPrototype;
  *
  * @generated
  */
-public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements AbstractPrototype {
+public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements
+		AbstractPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public class AbstractPrototypeImpl extends ComponentPrototypeImpl implements Abs
 		return Aadl2Package.eINSTANCE.getAbstractPrototype();
 	}
 
-} //AbstractPrototypeImpl
+} // AbstractPrototypeImpl

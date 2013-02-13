@@ -382,13 +382,13 @@ public class GetProperties {
 
 	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthCapacity = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_CAPACITY);
-			UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBYTESPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
 	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
 			Property BandWidthBudget = lookupPropertyDefinition(ne,SEI._NAME, SEI.BANDWIDTH_BUDGET);
-			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, SEI.KBPS_LITERAL);
+			UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
 			return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
@@ -427,7 +427,7 @@ public class GetProperties {
 	public static double getCycleTimeinUS(final NamedElement ne) {
 		Property cycleTime = lookupPropertyDefinition(ne,SEI._NAME, SEI.CYCLE_TIME);
 		UnitLiteral microSecond = findUnitLiteral(cycleTime, AadlProject.US_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, DEFAULT_CYCLE_TIME_IN_US);
+		return PropertyUtils.getScaledNumberValue(ne, cycleTime, microSecond, 0.0);
 	}
 
 	public static double getCycleTimeinMS(final NamedElement ne) {
@@ -645,8 +645,8 @@ public class GetProperties {
 
 	public static double getPeriodinMS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.PERIOD);
-		UnitLiteral microSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, period, microSecond, 0.0);
+		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
 
 	public static double getPeriodinNS(final NamedElement ne) {
@@ -657,7 +657,13 @@ public class GetProperties {
 
 	public static double getActualLatencyinMS(final NamedElement ne) {
 		Property actualLatency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.ACTUAL_LATENCY);
-		UnitLiteral microSecond = findUnitLiteral(actualLatency, AadlProject.MS_LITERAL);
+		UnitLiteral milliSecond = findUnitLiteral(actualLatency, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, actualLatency, milliSecond, 0.0);
+	}
+
+	public static double getActualLatencyinMicroSec(final NamedElement ne) {
+		Property actualLatency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.ACTUAL_LATENCY);
+		UnitLiteral microSecond = findUnitLiteral(actualLatency, AadlProject.US_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, actualLatency, microSecond, 0.0);
 	}
 
@@ -678,8 +684,8 @@ public class GetProperties {
 
 	public static double getDeadlineinMS(final NamedElement ne) {
 		Property deadline = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.DEADLINE);
-		UnitLiteral microSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
-		return PropertyUtils.getScaledNumberValue(ne, deadline, microSecond, 0.0);
+		UnitLiteral milliSecond = findUnitLiteral(deadline, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, deadline, milliSecond, 0.0);
 	}
 
 	public static double getDeadlineinNS(final NamedElement ne) {
@@ -690,8 +696,8 @@ public class GetProperties {
 
 	public static double getComputeExecutionTimeinMS(final NamedElement ne) {
 		Property computeExecutionTime = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.COMPUTE_EXECUTION_TIME);
-		UnitLiteral microSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
-		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, microSecond, 0.0);
+		UnitLiteral milliSecond = findUnitLiteral(computeExecutionTime, AadlProject.MS_LITERAL);
+		double time = PropertyUtils.getScaledRangeMaximum(ne, computeExecutionTime, milliSecond, 0.0);
 		if (ne instanceof ComponentInstance) {
 			double scale = getProcessorScalingFactor((ComponentInstance) ne);
 			return time * scale;
@@ -779,8 +785,8 @@ public class GetProperties {
 
 	public static double getPartitionLatencyinMS(final NamedElement ne, final double defaultValue) {
 			Property partitionLatency = lookupPropertyDefinition(ne,SEI._NAME, SEI.PARTITION_LATENCY);
-			UnitLiteral microSecond = findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
-			return PropertyUtils.getScaledNumberValue(ne, partitionLatency, microSecond, defaultValue);
+			UnitLiteral milliSecond = findUnitLiteral(partitionLatency, AadlProject.MS_LITERAL);
+			return PropertyUtils.getScaledNumberValue(ne, partitionLatency, milliSecond, defaultValue);
 	}
 
 	public static boolean getIsPartition(final NamedElement ne) {
@@ -792,18 +798,33 @@ public class GetProperties {
 		}
 	}
 
-	public static double getLatencyinMS(final NamedElement ne) {
+	public static double getLatencyinMilliSec(final NamedElement ne) {
 			Property Latency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			return PropertyUtils.getScaledRangeMaximum(ne, Latency, milliSecond,0.0);
+	}
+
+	public static double getLatencyinMicroSec(final NamedElement ne) {
+			Property Latency = lookupPropertyDefinition(ne,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.US_LITERAL);
 			return PropertyUtils.getScaledRangeMaximum(ne, Latency, microSecond,0.0);
 	}
 
-	public static double getAccessLatencyinMS(final ComponentInstance HWcomp, final ComponentInstance bus) {
+	public static double getAccessLatencyinMilliSec(final ComponentInstance HWcomp, final ComponentInstance bus) {
 		ConnectionInstance aci = ConnectionBindingUtil.getBusAccessConnection(HWcomp, bus);
 		if (aci == null)
 			return 0.0;
 			Property Latency = lookupPropertyDefinition(aci,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
-			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			UnitLiteral milliSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.MS_LITERAL);
+			return PropertyUtils.getScaledRangeMaximum(aci, Latency, milliSecond,0.0);
+	}
+
+	public static double getAccessLatencyinMicroSec(final ComponentInstance HWcomp, final ComponentInstance bus) {
+		ConnectionInstance aci = ConnectionBindingUtil.getBusAccessConnection(HWcomp, bus);
+		if (aci == null)
+			return 0.0;
+			Property Latency = lookupPropertyDefinition(aci,CommunicationProperties._NAME, CommunicationProperties.LATENCY);
+			UnitLiteral microSecond = PropertiesLinkingService.findUnitLiteral(Latency, AadlProject.US_LITERAL);
 			return PropertyUtils.getScaledRangeMaximum(aci, Latency, microSecond,0.0);
 	}
 
@@ -900,5 +921,22 @@ public class GetProperties {
 		Property timing = lookupPropertyDefinition(pc,CommunicationProperties._NAME, CommunicationProperties.TIMING);
 		return findEnumerationLiteral(timing, CommunicationProperties.IMMEDIATE);
 	}
+	
+
+	public static double getNetWeight(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.NETWEIGHT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
+	public static double getGrossWeight(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.GROSSWEIGHT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
+	public static double getWeightLimit(final NamedElement ne, final double defaultValue) {
+		Property netWeight = lookupPropertyDefinition(ne,SEI._NAME, SEI.WEIGHTLIMIT);
+		return PropertyUtils.getRealValue(ne, netWeight, 0.0);
+	}
+
 
 }

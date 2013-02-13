@@ -42,19 +42,39 @@ public class ModelLoadingAdapter  implements IAdapterFactory {
                 final IFile file = (IFile)adaptableObject;
                 String ext = file.getFileExtension();
                 if (ext == null ) return null;
-                if (ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2")){
+                if (ext.toLowerCase().equals("aadl")||ext.toLowerCase().equals("aadl2"))
+                {
+                	ModelUnit model;
                     XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
                     String sp = file.getFullPath().toString();
                     Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
-                    ModelUnit model = (ModelUnit) resource.getContents().get(0);
+                    if (resource.getContents().size() > 1)
+                    {
+                    	model = (ModelUnit) resource.getContents().get(0);
+                    }
+                    else
+                    {
+                    	model = null;
+                    }
                     return model;
-                } else if (ext.toLowerCase().equals("aaxl2")){
+                } else if (ext.toLowerCase().equals("aaxl2"))
+                {
+                	SystemInstance model;
                     XtextResourceSet resourceSet = OsateResourceUtil.getResourceSet();
                     String sp = file.getFullPath().toString();
                     Resource resource = resourceSet.getResource(URI.createPlatformResourceURI(sp,false),true);
-                    SystemInstance model = (SystemInstance) resource.getContents().get(0);
+                    
+                    if (resource.getContents().size() > 1)
+                    {
+                    	model = (SystemInstance) resource.getContents().get(0);
+                    }
+                    else
+                    {
+                    	model = null;
+                    }
                     return model;
-                }
+                 }
+                
             }
         }
  

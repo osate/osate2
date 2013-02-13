@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?NLS TYPE="org.eclipse.help.toc"?>
+<toc label="OSATE Plugin Development" href="html/plugindev/index.html#Topic1">
+  <topic label="Reader’s Notes" href="html/plugindev/ReadersNotes.html#Topic2">
+  </topic>
+  <topic label="Setting Up OSATE" href="html/plugindev/SettingUpOSATE.html#Topic3">
+    <topic label="Get the Components" href="html/plugindev/GettheComponents.html#Topic4">
+    </topic>
+    <topic label="Install Eclipse" href="html/plugindev/InstallEclipse.html#Topic5">
+    </topic>
+    <topic label="Verify the Installation" href="html/plugindev/VerifytheInstallation.html#Topic6">
+    </topic>
+  </topic>
+  <topic label="A First Plug-in: Model Statistics" href="html/plugindev/AFirstPlug-in.ModelStatistics.html#Topic7">
+    <topic label="Creating a New Plug-in" href="html/plugindev/CreatingaNewPlug-in.html#Topic8">
+      <topic label="Creating a Plug-in Project" href="html/plugindev/CreatingaNewPlug-in.html#Topic9">
+      </topic>
+      <topic label="Setting the Plug-in’s Dependencies" href="html/plugindev/CreatingaNewPlug-in.html#Topic10">
+      </topic>
+    </topic>
+    <topic label="Gathering Model Statistics" href="html/plugindev/GatheringModelStatistics.html#Topic11">
+      <topic label="Subclassing AadlProcessingSwitch" href="html/plugindev/GatheringModelStatistics.html#Topic12">
+      </topic>
+      <topic label="The ModelStatistics Code" href="html/plugindev/GatheringModelStatistics.html#Topic13">
+      </topic>
+      <topic label="An Alternative Use of Switches" href="html/plugindev/GatheringModelStatistics.html#Topic14">
+      </topic>
+    </topic>
+    <topic label="Driving the Plug-in" href="html/plugindev/DrivingthePlug-in.html#Topic15">
+      <topic label="Eclipse Actions" href="html/plugindev/DrivingthePlug-in.html#Topic16">
+      </topic>
+      <topic label="The Action Code" href="html/plugindev/DrivingthePlug-in.html#Topic17">
+      </topic>
+    </topic>
+    <topic label="Creating an Icon for the Plug-in" href="html/plugindev/CreatinganIconforthePlug-in.html#Topic18">
+    </topic>
+    <topic label="Describing the Action in the plugin.xml File" href="html/plugindev/DescribingtheActionintheplugin.xmlFile.html#Topic19">
+      <topic label="The Complete plugin.xml File" href="html/plugindev/DescribingtheActionintheplugin.xmlFile.html#Topic20">
+      </topic>
+    </topic>
+    <topic label="Executing the Model Statistics Plug-in" href="html/plugindev/ExecutingtheModelStatisticsPlug-in.html#Topic21">
+      <topic label="Model Statistics in Action" href="html/plugindev/ExecutingtheModelStatisticsPlug-in.html#Topic22">
+      </topic>
+    </topic>
+    <topic label="Summary of Concepts" href="html/plugindev/SummaryofConcepts.html#Topic23">
+      <topic label="Eclipse" href="html/plugindev/SummaryofConcepts.html#Topic24">
+      </topic>
+      <topic label="Meta Model" href="html/plugindev/SummaryofConcepts.html#Topic25">
+      </topic>
+      <topic label="OSATE API" href="html/plugindev/SummaryofConcepts.html#Topic26">
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Processing of AADL Models" href="html/plugindev/ProcessingofAADLModels.html#Topic27">
+    <topic label="Meta Model Defined AADL Models" href="html/plugindev/MetaModelDefinedAADLModels.html#Topic28">
+    </topic>
+    <topic label="Notes on Accessing Models" href="html/plugindev/NotesonAccessingModels.html#Topic29">
+      <topic label="An API for Accessing AADL Models" href="html/plugindev/NotesonAccessingModels.html#Topic30">
+      </topic>
+      <topic label="Eliding Model Structure" href="html/plugindev/NotesonAccessingModels.html#Topic31">
+      </topic>
+      <topic label="AADL Inheritance Semantics" href="html/plugindev/NotesonAccessingModels.html#Topic32">
+      </topic>
+      <topic label="Specialized Reference Associations" href="html/plugindev/NotesonAccessingModels.html#Topic33">
+      </topic>
+      <topic label="Unifying “Either-Or” Associations" href="html/plugindev/NotesonAccessingModels.html#Topic34">
+      </topic>
+      <topic label="Specific Instances of the Getter Method Patterns" href="html/plugindev/NotesonAccessingModels.html#Topic35">
+        <topic label="Package edu.cmu.sei.aadl.model.core" href="html/plugindev/NotesonAccessingModels.html#Topic36">
+        </topic>
+        <topic label="Package edu.cmu.sei.aadl.model.feature" href="html/plugindev/NotesonAccessingModels.html#Topic37">
+        </topic>
+        <topic label="Package edu.cmu.sei.aadl.model.flow" href="html/plugindev/NotesonAccessingModels.html#Topic38">
+        </topic>
+        <topic label="Package edu.cmu.sei.aadl.model.instance" href="html/plugindev/NotesonAccessingModels.html#Topic39">
+        </topic>
+        <topic label="Package edu.cmu.sei.aadl.model.property" href="html/plugindev/NotesonAccessingModels.html#Topic40">
+        </topic>
+      </topic>
+    </topic>
+    <topic label="AADL Model Traversal Support" href="html/plugindev/AADLModelTraversalSupport.html#Topic41">
+      <topic label="Basic Traversal Support for AADL Model Processing" href="html/plugindev/AADLModelTraversalSupport.html#Topic42">
+        <topic label="Default Processing of Visited Model Objects" href="html/plugindev/AADLModelTraversalSupport.html#Topic43">
+        </topic>
+        <topic label="Filtered Processing of Visited Model Objects" href="html/plugindev/AADLModelTraversalSupport.html#Topic44">
+        </topic>
+        <topic label="User-Defined Processing Action for AADL Model Objects" href="html/plugindev/AADLModelTraversalSupport.html#Topic45">
+        </topic>
+        <topic label="Redefined Processing Method for AADL Model Objects" href="html/plugindev/AADLModelTraversalSupport.html#Topic46">
+        </topic>
+        <topic label="List-Based Processing Methods" href="html/plugindev/AADLModelTraversalSupport.html#Topic47">
+          <topic label="QuickSort" href="html/plugindev/AADLModelTraversalSupport.html#Topic48">
+          </topic>
+          <topic label="processEList" href="html/plugindev/AADLModelTraversalSupport.html#Topic49">
+          </topic>
+        </topic>
+      </topic>
+      <topic label="Traversal Methods" href="html/plugindev/AADLModelTraversalSupport.html#Topic50">
+        <topic label="Prefix and Postfix Order Traversal of Declarative and Instance Models" href="html/plugindev/AADLModelTraversalSupport.html#Topic51">
+        </topic>
+        <topic label="Declaration–Use Order Traversal in Declarative AADL Models" href="html/plugindev/AADLModelTraversalSupport.html#Topic52">
+        </topic>
+        <topic label="Instance Model Traversal" href="html/plugindev/AADLModelTraversalSupport.html#Topic53">
+        </topic>
+        <topic label="Traversal and Multi-File Support" href="html/plugindev/AADLModelTraversalSupport.html#Topic54">
+        </topic>
+      </topic>
+      <topic label="An Example: Priority Inversion Checking" href="html/plugindev/AADLModelTraversalSupport.html#Topic55">
+      </topic>
+      <topic label="Meta-Model Class Based AADL Model Processing" href="html/plugindev/AADLModelTraversalSupport.html#Topic56">
+        <topic label="Traversal-Driven Switch Processing" href="html/plugindev/AADLModelTraversalSupport.html#Topic57">
+          <topic label="Redefinition of Case Methods" href="html/plugindev/AADLModelTraversalSupport.html#Topic58">
+          </topic>
+          <topic label="Invocation of the Processing Switch" href="html/plugindev/AADLModelTraversalSupport.html#Topic59">
+          </topic>
+        </topic>
+        <topic label="Content-Driven Switch Processing" href="html/plugindev/AADLModelTraversalSupport.html#Topic60">
+          <topic label="Controlling the Invocation of the Super Class Case Method" href="html/plugindev/AADLModelTraversalSupport.html#Topic61">
+          </topic>
+          <topic label="Controlling the Processing Order" href="html/plugindev/AADLModelTraversalSupport.html#Topic62">
+          </topic>
+          <topic label="Processing of Referenced Model Objects" href="html/plugindev/AADLModelTraversalSupport.html#Topic63">
+          </topic>
+        </topic>
+      </topic>
+    </topic>
+    <topic label="AADL Model Manipulation Support" href="html/plugindev/AADLModelManipulationSupport.html#Topic64">
+    </topic>
+  </topic>
+  <topic label="Processing AADL Properties" href="html/plugindev/ProcessingAADLProperties.html#Topic65">
+    <topic label="The Security Level Plug-in" href="html/plugindev/TheSecurityLevelPlug-in.html#Topic66">
+    </topic>
+    <topic label="An Overview of AADL Properties" href="html/plugindev/AnOverviewofAADLProperties.html#Topic67">
+      <topic label="AADL Property Types" href="html/plugindev/AnOverviewofAADLProperties.html#Topic68">
+      </topic>
+      <topic label="AADL Property Declarations" href="html/plugindev/AnOverviewofAADLProperties.html#Topic69">
+      </topic>
+      <topic label="Basic AADL Property Associations" href="html/plugindev/AnOverviewofAADLProperties.html#Topic70">
+      </topic>
+      <topic label="The “SecurityLevel” Property" href="html/plugindev/AnOverviewofAADLProperties.html#Topic71">
+      </topic>
+      <topic label="Property Lookup" href="html/plugindev/AnOverviewofAADLProperties.html#Topic72">
+      </topic>
+    </topic>
+    <topic label="AADL Properties in the Meta Model" href="html/plugindev/AADLPropertiesintheMetaModel.html#Topic73">
+      <topic label="Properties and the Instance Model" href="html/plugindev/AADLPropertiesintheMetaModel.html#Topic74">
+      </topic>
+    </topic>
+    <topic label="Implementing the Security Level Plug-in" href="html/plugindev/ImplementingtheSecurityLevelPlug-in.html#Topic75">
+      <topic label="Getting the Property Declaration and Driving the Analysis" href="html/plugindev/ImplementingtheSecurityLevelPlug-in.html#Topic76">
+      </topic>
+      <topic label="Class ComponentSecuritySwitch" href="html/plugindev/ImplementingtheSecurityLevelPlug-in.html#Topic77">
+      </topic>
+      <topic label="Class ConnectionSecuritySwitch" href="html/plugindev/ImplementingtheSecurityLevelPlug-in.html#Topic78">
+      </topic>
+    </topic>
+    <topic label="Getting Simple Property Values" href="html/plugindev/GettingSimplePropertyValues.html#Topic79">
+    </topic>
+    <topic label="Manipulating Property Values" href="html/plugindev/ManipulatingPropertyValues.html#Topic80">
+      <topic label="Copying PropertyValues" href="html/plugindev/ManipulatingPropertyValues.html#Topic81">
+      </topic>
+      <topic label="Unparsing Property Values" href="html/plugindev/ManipulatingPropertyValues.html#Topic82">
+      </topic>
+      <topic label="Using Range Values" href="html/plugindev/ManipulatingPropertyValues.html#Topic83">
+      </topic>
+      <topic label="Getting Type Literals" href="html/plugindev/ManipulatingPropertyValues.html#Topic84">
+      </topic>
+      <topic label="Scaling Number Values" href="html/plugindev/ManipulatingPropertyValues.html#Topic85">
+      </topic>
+      <topic label="Setting Number Values" href="html/plugindev/ManipulatingPropertyValues.html#Topic86">
+      </topic>
+    </topic>
+    <topic label="Advanced Property Associations" href="html/plugindev/AdvancedPropertyAssociations.html#Topic87">
+      <topic label="Modal Property Associations" href="html/plugindev/AdvancedPropertyAssociations.html#Topic88">
+      </topic>
+      <topic label="Nonexistent Property Values" href="html/plugindev/AdvancedPropertyAssociations.html#Topic89">
+      </topic>
+      <topic label="Modes and Property References" href="html/plugindev/AdvancedPropertyAssociations.html#Topic90">
+      </topic>
+    </topic>
+    <topic label="OSATE Properties API" href="html/plugindev/OSATEPropertiesAPI.html#Topic91">
+      <topic label="Using Predeclared Properties" href="html/plugindev/OSATEPropertiesAPI.html#Topic92">
+      </topic>
+      <topic label="Getting PropertyDefinition Objects" href="html/plugindev/OSATEPropertiesAPI.html#Topic93">
+      </topic>
+      <topic label="Testing “Applies to”" href="html/plugindev/OSATEPropertiesAPI.html#Topic94">
+      </topic>
+      <topic label="Getting Property Values" href="html/plugindev/OSATEPropertiesAPI.html#Topic95">
+        <topic label="Modal Property Lookup" href="html/plugindev/OSATEPropertiesAPI.html#Topic96">
+        </topic>
+      </topic>
+      <topic label="Modifying Property Associations" href="html/plugindev/OSATEPropertiesAPI.html#Topic97">
+        <topic label="Setting Property Associations" href="html/plugindev/OSATEPropertiesAPI.html#Topic98">
+        </topic>
+        <topic label="Removing Property Associations" href="html/plugindev/OSATEPropertiesAPI.html#Topic99">
+        </topic>
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Working with Flows" href="html/plugindev/WorkingwithFlows.html#Topic100">
+    <topic label="Flow Specifications and Flow Instances" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic101">
+      <topic label="Flow Specification Declarations" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic102">
+      </topic>
+      <topic label="Flow Implementation Declarations" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic103">
+      </topic>
+      <topic label="End-To-End Flow Declarations" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic104">
+      </topic>
+      <topic label="End-To-End Flow Instances" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic105">
+      </topic>
+      <topic label="Textual Flow Declaration Examples" href="html/plugindev/FlowSpecificationsandFlowInstances.html#Topic106">
+      </topic>
+    </topic>
+    <topic label="Flows in the AADL Meta Model" href="html/plugindev/FlowsintheAADLMetaModel.html#Topic107">
+      <topic label="Flow Specification Declarations" href="html/plugindev/FlowsintheAADLMetaModel.html#Topic108">
+      </topic>
+      <topic label="Flow Implementations and End-To-End-Flows" href="html/plugindev/FlowsintheAADLMetaModel.html#Topic109">
+      </topic>
+      <topic label="End-To-End Instance Flows" href="html/plugindev/FlowsintheAADLMetaModel.html#Topic110">
+      </topic>
+    </topic>
+    <topic label="The Flow Analysis Plug-in" href="html/plugindev/TheFlowAnalysisPlug-in.html#Topic111">
+      <topic label="Meeting Flow Requirements" href="html/plugindev/TheFlowAnalysisPlug-in.html#Topic112">
+      </topic>
+      <topic label="Handling of Missing Latency Properties" href="html/plugindev/TheFlowAnalysisPlug-in.html#Topic113">
+      </topic>
+      <topic label="Propagation of Flow Latency Information" href="html/plugindev/TheFlowAnalysisPlug-in.html#Topic114">
+      </topic>
+      <topic label="Reusing the Analysis for Instance Models" href="html/plugindev/TheFlowAnalysisPlug-in.html#Topic115">
+      </topic>
+    </topic>
+    <topic label="Specification-Based End-To-End Flow Analysis" href="html/plugindev/Specification-BasedEnd-To-EndFlowAnalysi.html#Topic116">
+      <topic label="The Display System Model Scenario" href="html/plugindev/Specification-BasedEnd-To-EndFlowAnalysi.html#Topic117">
+      </topic>
+      <topic label="The Partition Latency Analysis" href="html/plugindev/Specification-BasedEnd-To-EndFlowAnalysi.html#Topic118">
+      </topic>
+      <topic label="Partition Latency Analysis Refinement" href="html/plugindev/Specification-BasedEnd-To-EndFlowAnalysi.html#Topic119">
+      </topic>
+    </topic>
+    <topic label="Latency Analysis with Instance Models" href="html/plugindev/LatencyAnalysiswithInstanceModels.html#Topic120">
+    </topic>
+  </topic>
+  <topic label="Managing the Results of an OSATE Plug-in" href="html/plugindev/ManagingtheResultsofanOSATEPlug-in.html#Topic121">
+    <topic label="Comparison of Result Management Mechanisms" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic122">
+      <topic label="Use of Eclipse Markers" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic123">
+      </topic>
+      <topic label="Use of SWT Dialog box" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic124">
+      </topic>
+      <topic label="Use of AADL Properties" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic125">
+      </topic>
+      <topic label="Use of Adapters on AADL Models" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic126">
+      </topic>
+      <topic label="Use of the File System" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic127">
+      </topic>
+      <topic label="Use of Meta Model-Based XML Documents" href="html/plugindev/ComparisonofResultManagementMechanisms.html#Topic128">
+      </topic>
+    </topic>
+  </topic>
+  <topic label="Persistent Markers with AADL Models" href="html/plugindev/PersistentMarkerswithAADLModels.html#Topic129">
+    <topic label="OSATE Marker Types" href="html/plugindev/OSATEMarkerTypes.html#Topic130">
+    </topic>
+    <topic label="ErrorReporter" href="html/plugindev/ErrorReporter.html#Topic131">
+    </topic>
+    <topic label="Plug-in Actions and Reporting" href="html/plugindev/Plug-inActionsandReporting.html#Topic132">
+    </topic>
+    <topic label="User Defined Reporters" href="html/plugindev/UserDefinedReporters.html#Topic133">
+    </topic>
+    <topic label="How to define new Marker types" href="html/plugindev/HowtodefinenewMarkertypes.html#Topic134">
+    </topic>
+  </topic>
+  <topic label="Packages Provided by the OSATE Plug-ins" href="html/plugindev/PackagesProvidedbytheOSATEPlug-ins.html#Topic135">
+  </topic>
+
+</toc>

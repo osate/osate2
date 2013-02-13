@@ -51,7 +51,8 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class ArraySizePropertyImpl extends AObjectImpl implements ArraySizeProperty {
+public abstract class ArraySizePropertyImpl extends AObjectImpl implements
+		ArraySizeProperty {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,4 +95,4 @@ public abstract class ArraySizePropertyImpl extends AObjectImpl implements Array
 		return CacheAdapter.getCacheAdapter(this);
 	}
 
-} //ArraySizePropertyImpl
+} // ArraySizePropertyImpl

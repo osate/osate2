@@ -48,7 +48,8 @@ import org.osate.aadl2.ConnectionEnd;
  *
  * @generated
  */
-public abstract class ConnectionEndImpl extends NamedElementImpl implements ConnectionEnd {
+public abstract class ConnectionEndImpl extends NamedElementImpl implements
+		ConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class ConnectionEndImpl extends NamedElementImpl implements Conn
 		return Aadl2Package.eINSTANCE.getConnectionEnd();
 	}
 
-} //ConnectionEndImpl
+} // ConnectionEndImpl

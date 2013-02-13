@@ -130,7 +130,8 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		AccessType oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ACCESS__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ACCESS__KIND, oldKind, kind));
 	}
 
 	/**
@@ -229,4 +230,4 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 		return result.toString();
 	}
 
-} //AccessImpl
+} // AccessImpl

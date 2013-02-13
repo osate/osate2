@@ -100,15 +100,17 @@ public enum ConnectionKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	MODE_TRANSITION_CONNECTION(4, "modeTransitionConnection", "modeTransitionConnection"), /**
-																							* The '<em><b>Feature Group Connection</b></em>' literal object.
-																							* <!-- begin-user-doc -->
-																							* <!-- end-user-doc -->
-																							* @see #FEATURE_GROUP_CONNECTION_VALUE
-																							* @generated
-																							* @ordered
-																							*/
-	FEATURE_GROUP_CONNECTION(5, "featureGroupConnection", "featureGroupConnection"); //$NON-NLS-1$ //$NON-NLS-2$
+	MODE_TRANSITION_CONNECTION(4, "modeTransitionConnection",
+			"modeTransitionConnection"), /**
+											 * The '<em><b>Feature Group Connection</b></em>' literal object.
+											 * <!-- begin-user-doc -->
+											 * <!-- end-user-doc -->
+											 * @see #FEATURE_GROUP_CONNECTION_VALUE
+											 * @generated
+											 * @ordered
+											 */
+	FEATURE_GROUP_CONNECTION(5,
+			"featureGroupConnection", "featureGroupConnection"); //$NON-NLS-1$ //$NON-NLS-2$
 
 	/**
 	 * The '<em><b>Feature Connection</b></em>' literal value.
@@ -206,8 +208,10 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] { FEATURE_CONNECTION, ACCESS_CONNECTION,
-			PARAMETER_CONNECTION, PORT_CONNECTION, MODE_TRANSITION_CONNECTION, FEATURE_GROUP_CONNECTION, };
+	private static final ConnectionKind[] VALUES_ARRAY = new ConnectionKind[] {
+			FEATURE_CONNECTION, ACCESS_CONNECTION, PARAMETER_CONNECTION,
+			PORT_CONNECTION, MODE_TRANSITION_CONNECTION,
+			FEATURE_GROUP_CONNECTION, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Connection Kind</b></em>' enumerators.
@@ -215,7 +219,8 @@ public enum ConnectionKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ConnectionKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ConnectionKind> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Connection Kind</b></em>' literal with the specified literal value.

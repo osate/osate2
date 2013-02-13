@@ -68,4 +68,4 @@ public abstract class DeviceImpl extends NamedElementImpl implements Device {
 		return Aadl2Package.eINSTANCE.getDevice();
 	}
 
-} //DeviceImpl
+} // DeviceImpl

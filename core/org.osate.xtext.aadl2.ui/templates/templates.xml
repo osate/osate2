@@ -1,7 +1,15 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AadlPackage" deleted="false" description="Package" enabled="true" name="Package">package ${name}&#13;
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><templates>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AadlPackage" deleted="false" description="Package" enabled="true" name="Package" id="Package">package ${name}&#13;
 public&#13;
 ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="Abstract Implementation">abstract implementation ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AnnexSubclause" deleted="false" description="Annex Subclause" enabled="true" name="AnnexSubclause" id="AnnexSubclause">annex ${name} {**&#13;
+${cursor}&#13;
+**} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AnnexLibrary" deleted="false" description="Annex Library" enabled="true" name="AnnexLibrary" id="AnnexLibrary">annex ${name} {**&#13;
+${cursor}&#13;
+**} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractImplementation" deleted="false" description="Abstract Implementation" enabled="true" name="AbstractImplementation" id="AbstractImplementation">abstract implementation ${name}&#13;
 subcomponents&#13;
   ${cursor}&#13;
 connections&#13;
@@ -12,7 +20,8 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractType" deleted="false" description="Abstract Type" enabled="true" name="AbstractType">abstract ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.AbstractType" deleted="false" description="Abstract Type" enabled="true" name="AbstractType" id="AbstractType">abstract ${name}&#13;
 features&#13;
   ${cursor}&#13;
 flows&#13;
@@ -21,7 +30,8 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.BusType" deleted="false" description="Bus Type" enabled="true" name="BusType">bus ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.BusType" deleted="false" description="Bus Type" enabled="true" name="BusType" id="BusType">bus ${name}&#13;
 features&#13;
   ${cursor}&#13;
 flows&#13;
@@ -30,9 +40,11 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType">data ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataPort" deleted="false" description="Data Port" enabled="true" name="DataPort" id="DataPort">${name} : ${direction:Enum('DirectionType')} data port ${dataClassifier:CrossReference('DataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DataType" deleted="false" description="Data Type" enabled="true" name="DataType" id="DataType">data ${name}&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DeviceType" deleted="false" description="Device Type" enabled="true" name="DeviceType">device ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.DeviceType" deleted="false" description="Device Type" enabled="true" name="DeviceType" id="DeviceType">device ${name}&#13;
 features&#13;
   ${cursor}&#13;
 flows&#13;
@@ -41,39 +53,96 @@ modes&#13;
   none;&#13;
 properties&#13;
   none;&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventDataPort" deleted="false" description="Event Data Port" enabled="true" name="EventDataPort">${name} : ${direction:Enum('DirectionType')} event data port ${dataClassifier:CrossReference('EventDataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventPort" deleted="false" description="Event Port" enabled="true" name="EventPort">${name} : ${direction:Enum('DirectionType')} event port  ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.MemoryType" deleted="false" description="Memory Type" enabled="true" name="MemoryType">memory ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventDataPort" deleted="false" description="Event Data Port" enabled="true" name="EventDataPort" id="EventDataPort">${name} : ${direction:Enum('DirectionType')} event data port ${dataClassifier:CrossReference('EventDataPort.dataClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.EventPort" deleted="false" description="Event Port" enabled="true" name="EventPort" id="EventPort">${name} : ${direction:Enum('DirectionType')} event port  ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.MemoryType" deleted="false" description="Memory Type" enabled="true" name="MemoryType" id="MemoryType">memory ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessorSubcomponent" deleted="false" description="Processor Subcomponent" enabled="true" name="processorsubcomponent"> ${name} : processor ${processorClassifier:CrossReference('ProcessorSubcomponent.processorClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessorType" deleted="false" description="Processor Type" enabled="true" name="ProcessorType">processor ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessorSubcomponent" deleted="false" description="Processor Subcomponent" enabled="true" name="processorsubcomponent" id="processorsubcomponent"> ${name} : processor ${processorClassifier:CrossReference('ProcessorSubcomponent.processorClassifier')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessorType" deleted="false" description="Processor Type" enabled="true" name="ProcessorType" id="ProcessorType">processor ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessType" deleted="false" description="Process Type" enabled="true" name="ProcessType">process ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessType" deleted="false" description="Process Type" enabled="true" name="ProcessType" id="ProcessType">process ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.PropertySet" deleted="false" description="Property Set" enabled="true" name="PropertySet">property set ${name} is&#13;
-${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SubprogramGroupType" deleted="false" description="SubprogramGroup Type" enabled="true" name="SubprogramGroupType">subprogram group ${name}&#13;
-features&#13;
-  ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SubprogramType" deleted="false" description="Subprogram Type" enabled="true" name="SubprogramType">subprogram ${name}&#13;
-features&#13;
-  ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemImplementation" deleted="false" description="System Implementation" enabled="true" name="System Implementation">system implementation ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ProcessImplementation" deleted="false" description="Process Implementation" enabled="true" name="ProcessImplementation" id="ProcessImplementation">process implementation ${name}&#13;
 subcomponents&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemSubcomponent" deleted="false" description="System Subcomponent" enabled="true" name="systemsubcomponent"> ${name} : system ${systemSubcomponentType:CrossReference('SystemSubcomponent.systemSubcomponentType')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemType" deleted="false" description="System Type" enabled="true" name="SystemType">system ${name}&#13;
+connections&#13;
+  none;&#13;
+flows&#13;
+  none;&#13;
+modes&#13;
+  none;&#13;
+properties&#13;
+  none;&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.PropertySet" deleted="false" description="Property Set" enabled="true" name="PropertySet" id="PropertySet">property set ${name} is&#13;
+${cursor}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SubprogramGroupType" deleted="false" description="SubprogramGroup Type" enabled="true" name="SubprogramGroupType" id="SubprogramGroupType">subprogram group ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadGroupType" deleted="false" description="Thread Group Type" enabled="true" name="ThreadGroupType">thread group ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SubprogramType" deleted="false" description="Subprogram Type" enabled="true" name="SubprogramType" id="SubprogramType">subprogram ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadType" deleted="false" description="Thread Type" enabled="true" name="ThreadType">thread ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemImplementation" deleted="false" description="System Implementation" enabled="true" name="SystemImplementation" id="SystemImplementation">system implementation ${name}&#13;
+subcomponents&#13;
+  ${cursor}&#13;
+connections&#13;
+  none;&#13;
+flows&#13;
+  none;&#13;
+modes&#13;
+  none;&#13;
+properties&#13;
+  none;&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemSubcomponent" deleted="false" description="System Subcomponent" enabled="true" name="systemsubcomponent" id="systemsubcomponent"> ${name} : system ${systemSubcomponentType:CrossReference('SystemSubcomponent.systemSubcomponentType')} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.SystemType" deleted="false" description="System Type" enabled="true" name="SystemType" id="SystemType">system ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.VirtualBusType" deleted="false" description="VirtualBus Type" enabled="true" name="VirtualBusType">virtual bus ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadGroupType" deleted="false" description="Thread Group Type" enabled="true" name="ThreadGroupType" id="ThreadGroupType">thread group ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template><template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.VirtualProcessorType" deleted="false" description="VirtualProcessor Type" enabled="true" name="VirtualProcessorType">virtual processor ${name}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadGroupImplementation" deleted="false" description="Thread Group Implementation" enabled="true" name="ThreadGroupImplementation" id="ThreadGroupImplementation">thread group implementation ${name}&#13;
+subcomponents&#13;
+  ${cursor}&#13;
+connections&#13;
+  none;&#13;
+flows&#13;
+  none;&#13;
+modes&#13;
+  none;&#13;
+properties&#13;
+  none;&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadType" deleted="false" description="Thread Type" enabled="true" name="ThreadType" id="ThreadType">thread ${name}&#13;
 features&#13;
   ${cursor}&#13;
-end ${name} ;</template></templates>
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.ThreadImplementation" deleted="false" description="Thread Implementation" enabled="true" name="ThreadImplementation" id="ThreadImplementation">thread implementation ${name}&#13;
+subcomponents&#13;
+  ${cursor}&#13;
+connections&#13;
+  none;&#13;
+flows&#13;
+  none;&#13;
+modes&#13;
+  none;&#13;
+properties&#13;
+  none;&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.VirtualBusType" deleted="false" description="VirtualBus Type" enabled="true" name="VirtualBusType" id="VirtualBusType">virtual bus ${name}&#13;
+features&#13;
+  ${cursor}&#13;
+end ${name} ;</template>
+<template autoinsert="true" context="org.osate.xtext.aadl2.Aadl2.VirtualProcessorType" deleted="false" description="VirtualProcessor Type" enabled="true" name="VirtualProcessorType" id="VirtualProcessorType">virtual processor ${name}&#13;
+features&#13;
+  ${cursor}&#13;
+end ${name} ;</template>
+</templates>

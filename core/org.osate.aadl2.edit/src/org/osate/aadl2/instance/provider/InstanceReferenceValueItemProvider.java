@@ -58,9 +58,10 @@ import org.osate.aadl2.provider.PropertyValueItemProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstanceReferenceValueItemProvider extends PropertyValueItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class InstanceReferenceValueItemProvider extends
+		PropertyValueItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,13 +97,14 @@ public class InstanceReferenceValueItemProvider extends PropertyValueItemProvide
 	protected void addReferencedInstanceObjectPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_InstanceReferenceValue_referencedInstanceObject_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_InstanceReferenceValue_referencedInstanceObject_feature", "_UI_InstanceReferenceValue_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT, true, false,
-						true, null, null, null));
+						InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -113,7 +115,10 @@ public class InstanceReferenceValueItemProvider extends PropertyValueItemProvide
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/InstanceReferenceValue")); //$NON-NLS-1$
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/InstanceReferenceValue")); //$NON-NLS-1$
 	}
 
 	/**

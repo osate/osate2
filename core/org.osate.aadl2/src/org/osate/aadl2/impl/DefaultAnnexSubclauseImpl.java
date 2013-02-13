@@ -54,7 +54,8 @@ import org.osate.aadl2.DefaultAnnexSubclause;
  *
  * @generated
  */
-public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements DefaultAnnexSubclause {
+public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements
+		DefaultAnnexSubclause {
 	/**
 	 * The default value of the '{@link #getSourceText() <em>Source Text</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -112,7 +113,8 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 		String oldSourceText = sourceText;
 		sourceText = newSourceText;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT,
 					oldSourceText, sourceText));
 	}
 
@@ -169,7 +171,8 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEFAULT_ANNEX_SUBCLAUSE__SOURCE_TEXT:
-			return SOURCE_TEXT_EDEFAULT == null ? sourceText != null : !SOURCE_TEXT_EDEFAULT.equals(sourceText);
+			return SOURCE_TEXT_EDEFAULT == null ? sourceText != null
+					: !SOURCE_TEXT_EDEFAULT.equals(sourceText);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -191,4 +194,4 @@ public class DefaultAnnexSubclauseImpl extends AnnexSubclauseImpl implements Def
 		return result.toString();
 	}
 
-} //DefaultAnnexSubclauseImpl
+} // DefaultAnnexSubclauseImpl

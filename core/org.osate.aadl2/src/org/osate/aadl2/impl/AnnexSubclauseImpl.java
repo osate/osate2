@@ -48,7 +48,8 @@ import org.osate.aadl2.AnnexSubclause;
  *
  * @generated
  */
-public abstract class AnnexSubclauseImpl extends ModalElementImpl implements AnnexSubclause {
+public abstract class AnnexSubclauseImpl extends ModalElementImpl implements
+		AnnexSubclause {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class AnnexSubclauseImpl extends ModalElementImpl implements Ann
 		return Aadl2Package.eINSTANCE.getAnnexSubclause();
 	}
 
-} //AnnexSubclauseImpl
+} // AnnexSubclauseImpl

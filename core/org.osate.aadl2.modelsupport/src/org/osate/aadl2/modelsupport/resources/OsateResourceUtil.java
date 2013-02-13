@@ -42,6 +42,7 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -92,13 +93,26 @@ public class OsateResourceUtil {
     		}
     	}
 //        PredeclaredProperties.initPluginContributedAadl();
-        if (fResourceSetProvider == null)
-        	fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
+    	if(Platform.isRunning())
+    	{
+    		if (fResourceSetProvider == null)
+    			fResourceSetProvider = injector.getInstance(IResourceSetProvider.class);
 
-        if (resourceSet == null) 
-        	resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);//project);
+    		if (resourceSet == null) 
+    			resourceSet = (XtextResourceSet) fResourceSetProvider.get(null);//project);
+    	}
+    	else
+    	{
+    		if (resourceSet == null) 
+    			resourceSet = injector
+    				.getInstance(XtextResourceSet.class) ;
+    	}
         return resourceSet;
    	
+    }
+    
+    public static void setResourceSet(XtextResourceSet rs){
+    	resourceSet=rs;
     }
     
     public static XtextResourceSet createResourceSet(){
@@ -142,6 +156,7 @@ public class OsateResourceUtil {
 	public static IResource convertToIResource(Resource res) {
 		if (res == null)
 			return null;
+		
 		URI uri = res.getURI();
 		if (uri != null) {
 			return getOsateIFile(uri);
@@ -159,6 +174,7 @@ public class OsateResourceUtil {
 	 *                protocol.
 	 */
 	public static IFile getOsateIFile(final URI resourceURI) {
+		
 		/*
 		 * I don't really understand why this method does what it does, but the
 		 * point seems to be to take a URI for a Resource that resembles
@@ -173,22 +189,11 @@ public class OsateResourceUtil {
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace()
 				.getRoot();
 		if (resourceURI.scheme() != null
-				&& resourceURI.scheme().equalsIgnoreCase("platform")) {
-			// Get the segments. See if the first is "resource"
-			final String[] segments = resourceURI.segments();
-			final StringBuffer path = new StringBuffer();
-
-			if (segments.length >= 1) {
-				final int firstSegment = segments[0].equals("resource") ? 1 : 0;
-				final int lastIdx = segments.length - 1;
-				for (int i = firstSegment; i < (lastIdx); i++) {
-					path.append(segments[i]);
-					path.append('/');
-				}
-				if (lastIdx >= 0)
-					path.append(segments[lastIdx]);
-			}
-			return myWorkspaceRoot.getFile(new Path(null, path.toString()));
+				&& resourceURI.scheme().equalsIgnoreCase("platform")) 
+		{
+			// FIXME JD
+			// Fixes bug 162, see https://github.com/osate/osate2-core/issues/162
+			return myWorkspaceRoot.getFile(new Path(null, resourceURI.toPlatformString(true)));
 		} else if (resourceURI.isFile()) {
 			return  myWorkspaceRoot.getFile(new Path(resourceURI.toFileString())); //ForLocation
 		} else {

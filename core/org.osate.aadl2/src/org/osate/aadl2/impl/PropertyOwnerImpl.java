@@ -49,7 +49,8 @@ import org.osate.aadl2.PropertyOwner;
  *
  * @generated
  */
-public abstract class PropertyOwnerImpl extends ElementImpl implements PropertyOwner {
+public abstract class PropertyOwnerImpl extends ElementImpl implements
+		PropertyOwner {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +70,4 @@ public abstract class PropertyOwnerImpl extends ElementImpl implements PropertyO
 		return Aadl2Package.eINSTANCE.getPropertyOwner();
 	}
 
-} //PropertyOwnerImpl
+} // PropertyOwnerImpl

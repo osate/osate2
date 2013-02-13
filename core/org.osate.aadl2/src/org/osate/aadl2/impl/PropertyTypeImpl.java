@@ -68,4 +68,4 @@ public abstract class PropertyTypeImpl extends TypeImpl implements PropertyType 
 		return Aadl2Package.eINSTANCE.getPropertyType();
 	}
 
-} //PropertyTypeImpl
+} // PropertyTypeImpl

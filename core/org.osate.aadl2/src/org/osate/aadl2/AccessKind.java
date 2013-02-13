@@ -290,4 +290,4 @@ public enum AccessKind implements Enumerator {
 		return literal;
 	}
 
-} //AccessKind
+} // AccessKind

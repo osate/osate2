@@ -76,6 +76,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.TreeSelection;
+import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractConnectionEnd;
@@ -255,19 +256,18 @@ public final class AadlUtil {
 	 */
 	public static EList<NamedElement> findDoubleNamedElementsInList(List<?> el) {
 		EList<NamedElement> result = new BasicEList<NamedElement>();
-		final Set seen = new HashSet();
+		final Set<String> seen = new HashSet<String>();
 
 		if (el != null) {
 			for (final Iterator i = el.iterator(); i.hasNext();) {
 				final Object obj = i.next();
 				if (obj instanceof NamedElement) {
 					final NamedElement lit = (NamedElement) obj;
-					final String name = lit.getName().toLowerCase();
+					 String name = lit.getName();
 					if (name != null && !name.isEmpty()) {
-						if (seen.contains(name)) {
+						name = name.toLowerCase();
+						if (!seen.add(name)) {
 							result.add(lit);
-						} else {
-							seen.add(name);
 						}
 					}
 				}
@@ -844,109 +844,158 @@ public final class AadlUtil {
 		return source == dest;
 	}
 
-	// TODO: [SUBCOMPONENTS] Uncomment when
-	// ComponentImplementation.getSubcomponents() is created.
-	// /**
-	// * checks for legal classifier substitution.
-	// * The standard allows a type to be refined into one of its
-	// implementations.
-	// * It is also acceptable to replace a type extension if its sole purpose
-	// is to make the name visible in another package and/or to add property
-	// values
-	// * In the future we can allow implementation replacement and type
-	// substitution by refined types or extended types
-	// * origin or replacement may be null.
-	// * @param origin Classifier
-	// * @param replacement Classifier
-	// * @return true if the classifier can be substituted
-	// */
-	// public static boolean isokClassifierSubstitution(Classifier origin,
-	// Classifier replacement) {
-	// if (origin == null || replacement == null) return true;
-	// if (replacement instanceof ComponentType && origin instanceof
-	// ComponentType) {
-	// /* Don't have to refine, could leave the type alone. Refinement
-	// * statement might be changing property values or modes.
-	// */
-	// // ??? Do we allow replacement to be a subtype??
-	// return isokTypeSubstitution((ComponentType) origin, (ComponentType)
-	// replacement);
-	//			
-	// }
-	// if (replacement instanceof ComponentImplementation && origin instanceof
-	// ComponentType){
-	// ComponentType reptype = ((ComponentImplementation)replacement).getType();
-	// // an implementation has been added to a type
-	// if (isokTypeSubstitution((ComponentType)origin,reptype)) return true;
-	// } else if (replacement instanceof ComponentImplementation && origin
-	// instanceof ComponentImplementation){
-	// // implementations must be the same
-	// if( origin == replacement ) return true;
-	// if (AadlUtil.isSameOrExtends(origin, replacement)){
-	// EList osubl = ((ComponentImplementation)origin).getXAllSubcomponent();
-	// EList rsubl =
-	// ((ComponentImplementation)replacement).getXAllSubcomponent();
-	// if (osubl.size() == rsubl.size()) return true;
-	// }
-	// // replacement of implementation for same type or type with refined
-	// properties is ok
-	// if (isokTypeSubstitution(((ComponentImplementation)origin).getType(),
-	// ((ComponentImplementation)replacement).getType())){
-	// return true;
-	// }
-	// }
-	// return false;
-	// }
+	/**
+	 * checks for legal classifier substitution.
+	 * The standard allows a type to be refined into one of its
+	 implementations.
+	 * It is also acceptable to replace a type extension if its sole purpose
+	 is to make the name visible in another package and/or to add property
+	 values
+	 * In the future we can allow implementation replacement and type
+	 substitution by refined types or extended types
+	 * origin or replacement may be null.
+	 * @param origin Classifier
+	 * @param replacement Classifier
+	 * @return true if the classifier can be substituted
+	 */
+	public static boolean isokClassifierSubstitutionMatch(Classifier origin,
+			Classifier replacement) {
+		if (origin == null || replacement == null) return true;
+		if (replacement instanceof ComponentType && origin instanceof
+				ComponentType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			// ??? Do we allow replacement to be a subtype??
+			return isokTypeClassifierMatch((ComponentType) origin, (ComponentType)
+					replacement);
 
-	// TODO [ASKLUTZ] Rewrite after Joe asks Lutz about
-	// ComponentType.getXFeatures(boolean) and FeatureGroup.isRefined().
-	// /**
-	// * checks for legal type substitution.
-	// * It is acceptable to replace a type extension if its sole purpose is to
-	// make the name visible in another package and/or to add property values
-	// * In the future we can allow type substitution by refined types or
-	// extended types
-	// * origin or replacement may be null.
-	// * @param origin Component type
-	// * @param reptype type Component type
-	// * @return true if the Component type can be substituted
-	// */
-	// public static boolean isokTypeSubstitution(ComponentType origin,
-	// ComponentType reptype) {
-	// if (reptype == origin|| reptype == null) return true;
-	// // an extension for the purpose of making name visible in another package
-	// or refinement with only property associations
-	// ComponentType repancestor = (ComponentType) reptype.getExtended();
-	// if (repancestor == origin){
-	// if (reptype.getXFeatures(false) == null ||
-	// reptype.getXFeature().isEmpty()) return true;
-	// EList fl = reptype.getXFeature();
-	// for (Iterator it = fl.iterator(); it.hasNext();){
-	// Feature f = (Feature)it.next();
-	// if (! (f instanceof FeatureGroup)) return false;
-	// if (!f.isRefined()) return false;
-	// }
-	// return true;
-	// }
-	// return false;
-	// }
+		}
+		if (replacement instanceof ComponentImplementation && origin instanceof
+				ComponentType){
+			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+			// an implementation has been added to a type
+			if (isokTypeClassifierMatch((ComponentType)origin,reptype)) return true;
+		} else if (replacement instanceof ComponentImplementation && origin
+				instanceof ComponentImplementation){
+			// implementations must be for the same type
+			ComponentType origtype = ((ComponentImplementation)origin).getType();
+			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+			if( isokTypeClassifierMatch(origtype,reptype) ) return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * checks for legal classifier substitution.
+	 * The standard allows a type to be refined into one of its
+	 implementations.
+	 * It is also acceptable to replace a type extension if its sole purpose
+	 is to make the name visible in another package and/or to add property
+	 values
+	 * In the future we can allow implementation replacement and type
+	 substitution by refined types or extended types
+	 * origin or replacement may be null.
+	 * @param origin Classifier
+	 * @param replacement Classifier
+	 * @return true if the classifier can be substituted
+	 */
+	public static boolean isokClassifierSubstitutionTypeExtension(Classifier origin,
+			Classifier replacement) {
+		if (origin == null || replacement == null) return true;
+		if (replacement instanceof ComponentType && origin instanceof
+				ComponentType) {
+			/* Don't have to refine, could leave the type alone. Refinement
+			 * statement might be changing property values or modes.
+			 */
+			return isSameOrExtends((ComponentType) origin, (ComponentType)
+					replacement);
 
-	// TODO: [MODEL] Uncomment after Classifier.getExtended() is created.
-	// /**
-	// * return true if repl is the same classifier or an extension of the
-	// original
-	// * @param origin Classifier
-	// * @param repl Classifier
-	// * @return boolean true if repl is an extension of origin
-	// */
-	// public static boolean isSameOrExtends(Classifier origin, Classifier
-	// repl){
-	// while (origin != repl) {
-	// repl = repl.getXExtend();
-	// if (repl == null) return false;
-	// }
-	// return true;
-	// }
+		}
+		if (replacement instanceof ComponentImplementation && origin instanceof
+				ComponentType){
+			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+			// an implementation has been added to a type
+			return isSameOrExtends((ComponentType)origin,reptype);
+		} else if (replacement instanceof ComponentImplementation && origin
+				instanceof ComponentImplementation){
+			// implementations must be for the same type
+			ComponentType origtype = ((ComponentImplementation)origin).getType();
+			ComponentType reptype = ((ComponentImplementation)replacement).getType();
+			return isSameOrExtends(origtype,reptype) ;
+		}
+		return false;
+	}
+
+
+	/**
+	 * checks for legal type substitution.
+	 * It is acceptable to replace a type extension if its sole purpose is to
+	 make the name visible in another package and/or to add property values
+	 * In the future we can allow type substitution by refined types or
+	 extended types
+	 * origin or replacement may be null.
+	 * @param origin Component type
+	 * @param reptype type Component type
+	 * @return true if the Component type can be substituted
+	 */
+	public static boolean isokTypeClassifierMatch(ComponentType origin,
+			ComponentType reptype) {
+		if (reptype == origin|| reptype == null) return true;
+		// an extension for the purpose of making name visible in another package
+		//or refinement with only property associations
+		ComponentType repancestor = (ComponentType) reptype.getExtended();
+		if (repancestor == origin){
+			if (reptype.getOwnedFeatures() == null ||
+					reptype.getOwnedFeatures().isEmpty()) return true;
+		}
+		return false;
+	}
+
+	/**
+	 * return true if repl is the same classifier or an extension of the
+	 original
+	 * @param origin Classifier
+	 * @param extension Classifier
+	 * @return boolean true if repl is an extension of origin
+	 */
+	public static boolean isSameOrExtends(Classifier origin, Classifier extension){
+		while (origin != extension) {
+			extension = extension.getExtended();
+			if (extension == null) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * return true if repl is the same feature or a refinement of the
+	 original
+	 * @param origin Feature
+	 * @param refinement Feature
+	 * @return boolean true if repl is an extension of origin
+	 */
+	public static boolean isSameOrRefines(Feature origin, Feature refinement){
+		while (origin != refinement) {
+			refinement = refinement.getRefined();
+			if (refinement == null) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * return true if repl is the same Subcomponent or a refinement of the
+	 original
+	 * @param origin Subcomponent
+	 * @param refinement Subcomponent
+	 * @return boolean true if repl is an extension of origin
+	 */
+	public static boolean isSameOrRefines(Subcomponent origin, Subcomponent refinement){
+		while (origin != refinement) {
+			refinement = refinement.getRefined();
+			if (refinement == null) return false;
+		}
+		return true;
+	}
 
 	/**
 	 * extract the set of feature group connections from the list of connections
@@ -1224,8 +1273,33 @@ public final class AadlUtil {
 				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.INSTANCE_FILE_EXT)) {
 			Resource res = OsateResourceUtil.getResource((IResource) object);
 			EList<EObject> rl = res.getContents();
-			if (rl.isEmpty() && rl.get(0) instanceof Element)
+			if (!rl.isEmpty() && rl.get(0) instanceof Element)
 				return (Element) rl.get(0);
+		}
+		if (object instanceof IResource
+				&& ((IResource) object).getFileExtension().equalsIgnoreCase(WorkspacePlugin.SOURCE_FILE_EXT)) {
+			Resource res = OsateResourceUtil.getResource((IResource) object);
+			EList<EObject> rl = res.getContents();
+			
+			if (!rl.isEmpty() && rl.get(0) instanceof LazyLinkingResource)
+			{
+				if ( (((LazyLinkingResource) rl.get(0)).getContents().size() > 0) && 
+					 (((LazyLinkingResource) rl.get(0)).getContents().get(0) instanceof Element))
+				{
+					theElement = (Element) ((LazyLinkingResource) rl.get(0)).getContents().get(0);
+					
+					return theElement;
+				}
+		
+			}
+			if (!rl.isEmpty() && rl.get(0) instanceof Element)
+			{
+		
+					theElement = (Element) rl.get(0);
+					
+					return theElement;
+				
+			}
 		}
 		if (object instanceof TreeSelection) {
 			for (Iterator iterator = ((TreeSelection) object).iterator(); iterator.hasNext();) {

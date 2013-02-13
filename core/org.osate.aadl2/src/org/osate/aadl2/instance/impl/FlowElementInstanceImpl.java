@@ -48,7 +48,8 @@ import org.osate.aadl2.instance.InstancePackage;
  *
  * @generated
  */
-public abstract class FlowElementInstanceImpl extends InstanceObjectImpl implements FlowElementInstance {
+public abstract class FlowElementInstanceImpl extends InstanceObjectImpl
+		implements FlowElementInstance {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

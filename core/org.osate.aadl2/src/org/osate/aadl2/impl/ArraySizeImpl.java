@@ -125,7 +125,8 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 		long oldSize = size;
 		size = newSize;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_SIZE__SIZE, oldSize, size));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ARRAY_SIZE__SIZE, oldSize, size));
 	}
 
 	/**
@@ -139,7 +140,8 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 			sizeProperty = (ArraySizeProperty) eResolveProxy(oldSizeProperty);
 			if (sizeProperty != oldSizeProperty) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY,
 							oldSizeProperty, sizeProperty));
 			}
 		}
@@ -164,8 +166,9 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 		ArraySizeProperty oldSizeProperty = sizeProperty;
 		sizeProperty = newSizeProperty;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY,
-					oldSizeProperty, sizeProperty));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.ARRAY_SIZE__SIZE_PROPERTY, oldSizeProperty,
+					sizeProperty));
 	}
 
 	/**
@@ -255,4 +258,4 @@ public class ArraySizeImpl extends ElementImpl implements ArraySize {
 		return result.toString();
 	}
 
-} //ArraySizeImpl
+} // ArraySizeImpl

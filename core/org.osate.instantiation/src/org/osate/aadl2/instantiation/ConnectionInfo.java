@@ -24,6 +24,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceFactory;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * This class represents intermediate states during the creation of a
@@ -169,6 +170,7 @@ class ConnectionInfo {
 		if (!across) {
 			return null;
 		}
+		//OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
 		destinations.add(dst);
@@ -178,7 +180,8 @@ class ConnectionInfo {
 		Iterator<ComponentInstance> ctxIter = contexts.iterator();
 		Iterator<ConnectionInstanceEnd> srcIter = sources.iterator();
 		Iterator<ConnectionInstanceEnd> dstIter = destinations.iterator();
-		while (connIter.hasNext()) {
+		while (connIter.hasNext()) 
+		{
 			ConnectionReference connRef = conni.createConnectionReference();
 
 			connRef.setConnection(connIter.next());

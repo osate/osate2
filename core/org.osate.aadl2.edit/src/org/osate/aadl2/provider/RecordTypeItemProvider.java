@@ -58,8 +58,9 @@ import org.osate.aadl2.RecordType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class RecordTypeItemProvider extends NamespaceItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class RecordTypeItemProvider extends NamespaceItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,10 +95,12 @@ public class RecordTypeItemProvider extends NamespaceItemProvider implements IEd
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getRecordType_OwnedField());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getRecordType_OwnedField());
 		}
 		return childrenFeatures;
 	}
@@ -123,7 +126,8 @@ public class RecordTypeItemProvider extends NamespaceItemProvider implements IEd
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/RecordType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/RecordType"));
 	}
 
 	/**
@@ -152,7 +156,8 @@ public class RecordTypeItemProvider extends NamespaceItemProvider implements IEd
 
 		switch (notification.getFeatureID(RecordType.class)) {
 		case Aadl2Package.RECORD_TYPE__OWNED_FIELD:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -166,16 +171,20 @@ public class RecordTypeItemProvider extends NamespaceItemProvider implements IEd
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
 				Aadl2Factory.eINSTANCE.createBasicProperty()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
 				Aadl2Factory.eINSTANCE.createProperty()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getRecordType_OwnedField(),
 				Aadl2Factory.eINSTANCE.createRecordField()));
 	}
 

@@ -77,4 +77,4 @@ public class EventPortImpl extends PortImpl implements EventPort {
 		return PortCategory.EVENT;
 	}
 
-} //EventPortImpl
+} // EventPortImpl

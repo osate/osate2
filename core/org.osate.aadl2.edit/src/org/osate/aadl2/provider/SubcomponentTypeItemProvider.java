@@ -53,8 +53,9 @@ import org.osate.aadl2.SubcomponentType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubcomponentTypeItemProvider extends TypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubcomponentTypeItemProvider extends TypeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -88,7 +89,8 @@ public class SubcomponentTypeItemProvider extends TypeItemProvider implements IE
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubcomponentType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/SubcomponentType"));
 	}
 
 	/**
@@ -125,7 +127,8 @@ public class SubcomponentTypeItemProvider extends TypeItemProvider implements IE
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

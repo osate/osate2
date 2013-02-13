@@ -1,0 +1,541 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Specification-Based End-To-End Flow Analysis</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="WorkingwithFlows.html">6. Working with Flows</a>
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   6.4 Specification-Based End-To-End Flow Analysis
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheFlowAnalysisPlug-in.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="LatencyAnalysiswithInstanceModels.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic116"></a>
+          <span class=outlineNumberFirst>6.4 </span><span class=topicLineFirst>Specification-Based End-To-End Flow Analysis</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+objective of this analysis plug-in is to demonstrate the ability to perform quantitative
+analysis with precise results on low-fidelity architecture models. The particular use scenario
+for
+this plug-in is an avionics display system for which we are trying to determine an upper bound
+on the arrival rate of certain events. The particular event stream we are interested in is the
+request for different page content by the pilot by selecting a different page from the multi-
+function display menu. The request is issued by the pilot pushing a virtual button on the display
+for the menu entry of interest. The application logic is designed such that a new request can
+only be issued once the requested page has been shown. Therefore, by determining the
+minimum latency for changing the page content we can bound the arrival rate of such page
+requests.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic117"></a>
+          <span class=outlineNumber>6.4.1 </span><span class=topicLine>The Display System Model Scenario</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We
+can perform this analysis on a model of the avionics system that only represents
+subsystems. Figure 37 illustrates the relevant subsystems and the end-to-end flow specification
+in terms of port group connections and subsystem flow specifications. The end-to-end flow
+start with the Cockpit display goes through several subsystems to the flight director and returns
+the resulting new page along the reverse path. We used port groups to indicate that possibly
+multiple port connections may exist between two subsystems. From a flow specification
+perspective the details of such connections are irrelevant.</span></font><span></span></div>
+<div align="center"><br/>
+</div>
+<div align="center"><font face="Arial Narrow" color="#010101"><span>Figure 37: A Subsystem End-To-End
+Flow</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+corresponding textual AADL model is shown below defining the avionics display system
+implementation that contains the subsystems and the end-to-end flow specification. Note the
+Latency property on the end-to-end flow.</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>system implementation Flight_System.impl</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> subcomponents</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_Display: device
+Display.MFD;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_DM: system Display_Manager.impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PCM: system Page_Content_Manager.impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FM: system Flight_Manager.impl;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FD: system Flight_Director.impl;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> connections</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> menu_cmd_to_DM: data
+port Pilot_Display.Menu_Cmd_Pushed -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_DM.Menu_selection_from_Display;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> menu_cmd_to_PCM: event
+data port Pilot_DM.New_Page_Request_To_PCM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PCM.New_Page_Request_From_DM;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> menu_cmd_to_FM: event
+data port PCM.New_Page_Request_To_FM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FM.New_Page_Request_From_PCM;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> menu_cmd_to_FD: event
+data port FM.New_Page_Request_To_FD -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FD.New_Page_Request_From_FM;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> page_to_FM: event data
+port FD.New_Page_Content_To_FM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FM.New_Page_Content_from_FD;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> page_to_PCM: event data
+port FM.New_Page_Content_To_PCM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PCM.New_Page_Content_from_FM;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> page_to_DM: event data
+port PCM.New_Page_Content_To_DM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_DM.New_Page_Content_from_PCM;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> page_to_Display: data
+port Pilot_DM.New_Page_Image_To_Display -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_Display.Page_To_Show;</span></font><span></span></div>
+<div align="left"><br/></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> flows</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> get_new_page: end to
+end flow </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> pilot_Display.Menu_Entry_Selected
+-&gt; menu_cmd_to_DM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_DM.cmd_request
+-&gt; menu_cmd_to_PCM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PCM.cmd_request
+-&gt; menu_cmd_to_FM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FM.cmd_request
+-&gt; menu_cmd_to_FD -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FD.process_page_request
+-&gt; page_to_FM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> FM.show_page
+-&gt; page_to_PCM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> PCM.show_page
+-&gt; page_to_DM -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_DM.show_page
+-&gt; page_to_Display -&gt;</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Pilot_Display.Show_Page</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> { latency
+=&gt; 300 ms; };</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end Flight_System.impl;</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+this particular design each subsystem is implemented as a partition in a time partitioned
+system. This means that each partition and the threads contained in its execute once per minor
+frame, i.e., once per partition period. As a result, each time the flow crosses a partition
+boundary a frame delay latency is added corresponding to the partition period. To model this
+fact we introduce a new property that can be associated with systems called
+</span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>Partition_Latency</b></span></font><font
+face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt"> and give it a default
+value of </span></font><font face="Times New Roman" color="#0000ff" size="3"><span style="font-size:12pt"><b>50
+ms</b></span></font><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">.
+By assigning a default value we do
+not have to explicitly specify a partition period value for each subsystem. </span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>property set SEI is</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span> Partition_Latency: Time =&gt; 50
+ms applies to ( system );</span></font><span></span></div>
+<div align="left"><font face="Courier" color="#0000ff"><span>end SEI;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic118"></a>
+          <span class=outlineNumber>6.4.2 </span><span class=topicLine>The Partition Latency Analysis</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+partition latency analysis operates as follows. It first takes into account that the display
+device has some latency in processing the button push. This processing is modeled as flow
+latency in the display device. Then we take into account each time the flow crosses from one
+partition to another. Finally, the last subcomponent listed in the flow is the display device
+and
+we account for the time it takes to refresh the display itself.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+partition latency analysis plug-in is similar to the flow specification validation plug-in. In this
+case we redefine the <b>caseEndToEndFlow</b> method to process a sequence of flow elements.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">First
+we handle the display device by setting its latency as the initial result value (or to zero if no
+latency value exists).</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> public Object caseEndToEndFlow(EndToEndFlow
+etef) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> EList fel = etef.getFlowElement();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double result =
+0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> Subcomponent sc
+= null;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (fel.isEmpty())
+return DONE;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> Iterator it = fel.iterator();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> FlowElement fe
+= (FlowElement)it.next();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> sc = fe.getFlowContext();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> FlowSpec fefs
+= fe.getFlowSpec();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> IntegerValue
+fefspv = (IntegerValue) fefs.getSimplePropertyValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> PredeclaredProperties.LATENCY);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> double latency
+= 0;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (fefspv !=
+null) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> result
+= fefspv.getScaledValue(PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> }</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Then
+we are iterating over the remaining flow elements to add any latency due to the
+connection and the partition crossing latencies. This is done by adding the partition latency
+property value for every subsequent system subcomponent we encounter. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> while (it.hasNext()){</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> fe = (FlowElement)it.next();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (fe.isSubcomponentFlowSpecReference())
+{</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> sc
+= fe.getFlowContext();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> pl
+= (IntegerValue) sc.getSimplePropertyValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+CheckFlowLatency.partitionLatency);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if
+(pl != null) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+partlatency = ((IntegerValue) pl).getScaledValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+result = result + partlatency;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+reportInfo(sc, sc.getComponentType().getCategory().getName() +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot; subcomponent has no partiton latency&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+property definition for the partition latency has been initialized in the
+<b>initPropertyReferences</b> method. This improves the efficiency of the analysis since the
+property definition does not have to be repeatedly looked up from string names. </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> protected void initPropertyReferences()
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> partitionLatency
+=</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> lookupPropertyDefinition(&quot;SEI&quot;,
+&quot;Partition_Latency&quot;);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Once
+the end-to-end latency is determined it is compared to the latency or expected latency
+specified for the end-to-end flow.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PropertyValue epv =</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> etef.getSimplePropertyValue(PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (epv == null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> epv = etef.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PredeclaredProperties.EXPECTED_LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (epv != null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> double val = ((IntegerValue)
+epv).getScaledValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(etef,&quot;Expected
+end-to-end flow latency is &quot; + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> AadlUtil.usValueToMS(val)
++ &quot; ms&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (result &gt;
+val) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportError(etef,&quot;End-to-end
+flow latency &quot; + </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+AadlUtil.usValueToMS(result) +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot; ms exceeds specified latency &quot; +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+AadlUtil.usValueToMS(val) + &quot; us&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic119"></a>
+          <span class=outlineNumber>6.4.3 </span><span class=topicLine>Partition Latency Analysis Refinement</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+latency calculated in the above plug-in provides a lower bound on the end-to-end latency.
+This partition latency analysis can be refined in the following way. We can take into account
+any flow specification latency that may have been specified for each subsystem. If that flow
+specification latency exceeds the partition latency of the succeeding partition it increases the
+latency to the next frame. Flow specification latency may be larger than a partition period
+because the flow within a subsystem may involve multiple threads and the threads may
+communicate through a delayed connection or the thread executes at a period larger than a
+partition, thus, spans multiple partition periods.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The
+high-lighted portions of the code segment shown below accomplish this. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the first high-lighted section we add any communication latency to the accumulated
+computational latency.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the second section we have encountered a partition and we need to determine the latency to
+be added due to partition. If the partition latency is greater than the computational latency from
+previous components then the partition latency is added; if the computational latency is larger
+and the partition latency is non-zero then we round up to the next frame of the partition; and if
+the partition latency is zero, then we add the computational latency.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the third high-lighted section we determine the flow specification latency for the current
+subcomponent.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the fourth high-lighted section, we determine the computational latency contributed by the
+current subcomponent as a partition to be passed on for the next subcomponent. The larger of
+the flow specification latency the partition latency is passed on.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the fifth high-lighted section we determine the computational latency contributed by the
+current subcomponent if it is not a partition. In this case the larger of its flow specification
+latency or partition latency is added to the computational latency from the previous
+subcomponent.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In
+the final highlighted section we add any computational latency not accounted for before as
+the last step of calculating the end-to-end latency.</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (conn != null)
+{</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> PropertyValue
+cpv = conn.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PredeclaredProperties.LATENCY);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (cpv
+!= null) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+double val = ((IntegerValue) cpv).getScaledValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+PredeclaredProperties.MICROSEC);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+prevlatency = prevlatency + val;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> sc = fe.getFlowContext();</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> pl = (IntegerValue)
+sc.getSimplePropertyValue(</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> CheckFlowLatency.partitionLatency);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> partlatency = 0;</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (pl != null)
+{</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> partlatency
+= ((IntegerValue) pl).getScaledValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> result
+= result +</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+(partlatency &gt;= prevlatency ? partlatency :</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+(partlatency == 0 ? prevlatency : </b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+(((int) prevlatency/partlatency) + 1) * partlatency));</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> } </b>else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> reportInfo(sc,
+sc.getComponentType().getCategory().getName() +</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>
+&quot; subcomponent has no partiton latency&quot;);</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> </span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> fefs = fe.getFlowSpec();</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> fefspv = (IntegerValue)
+fefs.getSimplePropertyValue(</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> PredeclaredProperties.LATENCY);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> latency = 0;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> if (fefspv !=
+null) {</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> latency
+= fefspv.getScaledValue(PredeclaredProperties.MICROSEC);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> } </b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> if (partlatency
+!= 0) {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b> prevlatency
+= (latency &gt; partlatency) ? latency : partlatency;</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> } else {</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> <b>prevlatency
+= prevlatency +</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>
+((latency &gt; partlatency) ? latency : partlatency);</b></span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span> }</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>}</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span>/* account for partition feeding a
+non-partition at the end */</span></font><span></span></div>
+<div align="left"><font face="Courier New" color="#010101"><span><b>result = result + prevlatency;</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

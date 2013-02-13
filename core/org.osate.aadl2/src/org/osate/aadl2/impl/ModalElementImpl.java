@@ -95,7 +95,8 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 	 */
 	public EList<Mode> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<Mode>(Mode.class, this, Aadl2Package.MODAL_ELEMENT__IN_MODE);
+			inModes = new EObjectResolvingEList<Mode>(Mode.class, this,
+					Aadl2Package.MODAL_ELEMENT__IN_MODE);
 		}
 		return inModes;
 	}
@@ -169,4 +170,4 @@ public class ModalElementImpl extends NamedElementImpl implements ModalElement {
 		return super.eIsSet(featureID);
 	}
 
-} //ModalElementImpl
+} // ModalElementImpl

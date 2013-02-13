@@ -69,4 +69,4 @@ public abstract class FlowImpl extends NamedElementImpl implements Flow {
 		return Aadl2Package.eINSTANCE.getFlow();
 	}
 
-} //FlowImpl
+} // FlowImpl

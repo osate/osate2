@@ -58,8 +58,9 @@ import org.osate.aadl2.instance.ModeInstance;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ModeInstanceItemProvider extends InstanceObjectItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class ModeInstanceItemProvider extends InstanceObjectItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -100,13 +101,14 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	protected void addSrcModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_srcModeTransition_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_srcModeTransition_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__SRC_MODE_TRANSITION, true, false, true, null, null,
-						null));
+						InstancePackage.Literals.MODE_INSTANCE__SRC_MODE_TRANSITION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -118,13 +120,14 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	protected void addDstModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_dstModeTransition_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_dstModeTransition_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__DST_MODE_TRANSITION, true, false, true, null, null,
-						null));
+						InstancePackage.Literals.MODE_INSTANCE__DST_MODE_TRANSITION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -136,12 +139,14 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	protected void addInitialPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_initial_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_initial_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__INITIAL, true, false, false,
+						InstancePackage.Literals.MODE_INSTANCE__INITIAL, true,
+						false, false,
 						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -153,12 +158,15 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	 */
 	protected void addModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_mode_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_mode_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__MODE, true, false, true, null, null, null));
+						InstancePackage.Literals.MODE_INSTANCE__MODE, true,
+						false, true, null, null, null));
 	}
 
 	/**
@@ -170,12 +178,14 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	protected void addDerivedPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_derived_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_derived_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__DERIVED, true, false, false,
+						InstancePackage.Literals.MODE_INSTANCE__DERIVED, true,
+						false, false,
 						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -187,12 +197,15 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	 */
 	protected void addParentPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ModeInstance_parent_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ModeInstance_parent_feature", "_UI_ModeInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.MODE_INSTANCE__PARENT, true, false, true, null, null, null));
+						InstancePackage.Literals.MODE_INSTANCE__PARENT, true,
+						false, true, null, null, null));
 	}
 
 	/**
@@ -203,7 +216,8 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ModeInstance")); //$NON-NLS-1$
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ModeInstance")); //$NON-NLS-1$
 	}
 
 	/**
@@ -233,7 +247,8 @@ public class ModeInstanceItemProvider extends InstanceObjectItemProvider impleme
 		switch (notification.getFeatureID(ModeInstance.class)) {
 		case InstancePackage.MODE_INSTANCE__INITIAL:
 		case InstancePackage.MODE_INSTANCE__DERIVED:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		}
 		super.notifyChanged(notification);

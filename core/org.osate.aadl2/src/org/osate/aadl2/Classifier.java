@@ -349,7 +349,8 @@ public interface Classifier extends Namespace, Type {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allParents()->includes(self)'"
 	 * @generated
 	 */
-	boolean no_cycles_in_generalization(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean no_cycles_in_generalization(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -362,7 +363,8 @@ public interface Classifier extends Namespace, Type {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='self.parents()->forAll(c | self.maySpecializeType(c))'"
 	 * @generated
 	 */
-	boolean specialize_type(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean specialize_type(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -475,14 +477,16 @@ public interface Classifier extends Namespace, Type {
 	 * A extends B extends C extends D extends A, and the method is invoked
 	 * on classifier C, then the returned list will be [C, D, A, B].
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
+	// work.
 	EList<Classifier> getAllExtendPlusSelf();
 
 	/**
 	 * returns the reference to the classifier being extended
 	 * @return classifier
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
+	// work.
 	Classifier getExtended();
 
 	/**

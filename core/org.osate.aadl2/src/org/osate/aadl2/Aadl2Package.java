@@ -100,7 +100,7 @@ public interface Aadl2Package extends EPackage {
 	int ELEMENT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -137,7 +137,7 @@ public interface Aadl2Package extends EPackage {
 	int COMMENT = 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -183,7 +183,7 @@ public interface Aadl2Package extends EPackage {
 	int NAMED_ELEMENT = 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -247,7 +247,7 @@ public interface Aadl2Package extends EPackage {
 	int TYPE = 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -311,7 +311,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_ASSOCIATION = 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -402,7 +402,7 @@ public interface Aadl2Package extends EPackage {
 	int TYPED_ELEMENT = 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -475,7 +475,7 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY = 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -566,7 +566,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY = 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -711,7 +711,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_TYPE = 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -1302,7 +1302,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBus()
 	 * @generated
 	 */
-	int BUS = 69;
+	int BUS = 68;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.BusSubcomponentTypeImpl <em>Bus Subcomponent Type</em>}' class.
@@ -1312,7 +1312,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getBusSubcomponentType()
 	 * @generated
 	 */
-	int BUS_SUBCOMPONENT_TYPE = 68;
+	int BUS_SUBCOMPONENT_TYPE = 69;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataAccessImpl <em>Data Access</em>}' class.
@@ -1382,7 +1382,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getData()
 	 * @generated
 	 */
-	int DATA = 74;
+	int DATA = 73;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataSubcomponentTypeImpl <em>Data Subcomponent Type</em>}' class.
@@ -1392,7 +1392,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getDataSubcomponentType()
 	 * @generated
 	 */
-	int DATA_SUBCOMPONENT_TYPE = 73;
+	int DATA_SUBCOMPONENT_TYPE = 74;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.DataPortImpl <em>Data Port</em>}' class.
@@ -1472,7 +1472,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE = 81;
+	int SUBPROGRAM_SUBCOMPONENT_TYPE = 82;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramImpl <em>Subprogram</em>}' class.
@@ -1482,7 +1482,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogram()
 	 * @generated
 	 */
-	int SUBPROGRAM = 82;
+	int SUBPROGRAM = 81;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupAccessImpl <em>Subprogram Group Access</em>}' class.
@@ -1512,7 +1512,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroupSubcomponentType()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 84;
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE = 85;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.SubprogramGroupImpl <em>Subprogram Group</em>}' class.
@@ -1522,7 +1522,7 @@ public interface Aadl2Package extends EPackage {
 	 * @see org.osate.aadl2.impl.Aadl2PackageImpl#getSubprogramGroup()
 	 * @generated
 	 */
-	int SUBPROGRAM_GROUP = 85;
+	int SUBPROGRAM_GROUP = 84;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.impl.AbstractFeatureImpl <em>Abstract Feature</em>}' class.
@@ -2923,7 +2923,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_SIZE_PROPERTY_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2950,7 +2950,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_EXPRESSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -2977,7 +2977,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_OWNER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3022,7 +3022,7 @@ public interface Aadl2Package extends EPackage {
 	int METACLASS_REFERENCE_FEATURE_COUNT = PROPERTY_OWNER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3067,7 +3067,7 @@ public interface Aadl2Package extends EPackage {
 	int NAMESPACE__OWNED_PROPERTY_ASSOCIATION = NAMED_ELEMENT__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3094,7 +3094,7 @@ public interface Aadl2Package extends EPackage {
 	int NAMESPACE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3139,7 +3139,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3256,7 +3256,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 10;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3319,7 +3319,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_FEATURE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3355,7 +3355,7 @@ public interface Aadl2Package extends EPackage {
 	int RELATIONSHIP_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3409,7 +3409,7 @@ public interface Aadl2Package extends EPackage {
 	int DIRECTED_RELATIONSHIP_FEATURE_COUNT = RELATIONSHIP_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3481,7 +3481,7 @@ public interface Aadl2Package extends EPackage {
 	int GENERALIZATION_FEATURE_COUNT = DIRECTED_RELATIONSHIP_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3544,7 +3544,7 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3607,7 +3607,7 @@ public interface Aadl2Package extends EPackage {
 	int ANNEX_SUBCLAUSE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3670,7 +3670,7 @@ public interface Aadl2Package extends EPackage {
 	int MODE_FEATURE_FEATURE_COUNT = CLASSIFIER_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3751,7 +3751,7 @@ public interface Aadl2Package extends EPackage {
 	int MODE_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3823,7 +3823,7 @@ public interface Aadl2Package extends EPackage {
 	int REFINABLE_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -3904,7 +3904,7 @@ public interface Aadl2Package extends EPackage {
 	int STRUCTURAL_FEATURE_FEATURE_COUNT = REFINABLE_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4023,7 +4023,7 @@ public interface Aadl2Package extends EPackage {
 	int CALLED_SUBPROGRAM_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4059,7 +4059,7 @@ public interface Aadl2Package extends EPackage {
 	int PROTOTYPE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4095,7 +4095,7 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINED_NAMED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4140,7 +4140,7 @@ public interface Aadl2Package extends EPackage {
 	int CONTAINMENT_PATH_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4185,7 +4185,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_RANGE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4257,7 +4257,7 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_PROPERTY_VALUE_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4330,7 +4330,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_DIMENSION = 34;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4366,7 +4366,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_DIMENSION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4411,7 +4411,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAY_SIZE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4447,7 +4447,7 @@ public interface Aadl2Package extends EPackage {
 	int ARRAYABLE_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4492,7 +4492,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION_REFERENCE_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4537,7 +4537,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4690,7 +4690,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_CLASSIFIER_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4735,7 +4735,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4888,7 +4888,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__TYPE = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -4915,7 +4915,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_CLASSIFIER_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5041,7 +5041,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 17;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5104,7 +5104,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_CLASSIFIER_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5194,7 +5194,7 @@ public interface Aadl2Package extends EPackage {
 	int MODE_TRANSITION_FEATURE_COUNT = MODE_FEATURE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5221,7 +5221,7 @@ public interface Aadl2Package extends EPackage {
 	int MODE_TRANSITION_TRIGGER_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5266,7 +5266,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5410,7 +5410,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE__NO_MODES = COMPONENT_CLASSIFIER__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5482,7 +5482,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5608,7 +5608,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5662,7 +5662,7 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTION_END_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5716,7 +5716,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5834,7 +5834,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_FEATURE = 50;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -5915,7 +5915,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_FEATURE_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6050,7 +6050,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_SPECIFICATION_FEATURE_COUNT = FLOW_FEATURE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6104,7 +6104,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6176,7 +6176,7 @@ public interface Aadl2Package extends EPackage {
 	int MODAL_PATH_FEATURE_COUNT = MODAL_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6230,7 +6230,7 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW_ELEMENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6284,7 +6284,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_ELEMENT_FEATURE_COUNT = END_TO_END_FLOW_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6329,7 +6329,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_END_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6383,7 +6383,7 @@ public interface Aadl2Package extends EPackage {
 	int CONTEXT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6464,7 +6464,7 @@ public interface Aadl2Package extends EPackage {
 	int TYPE_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6599,7 +6599,7 @@ public interface Aadl2Package extends EPackage {
 	int DIRECTED_FEATURE_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6779,7 +6779,7 @@ public interface Aadl2Package extends EPackage {
 	int CALL_CONTEXT_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6842,7 +6842,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_TYPE_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6887,7 +6887,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE__OWNED_PROPERTY_ASSOCIATION = CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -6995,7 +6995,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE__NO_PROPERTIES = CLASSIFIER__NO_PROPERTIES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7130,7 +7130,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE_FEATURE_COUNT = CLASSIFIER_FEATURE_COUNT + 14;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7211,7 +7211,7 @@ public interface Aadl2Package extends EPackage {
 	int GROUP_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7355,7 +7355,7 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_FEATURE_COUNT = FEATURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7508,7 +7508,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7562,7 +7562,7 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7616,7 +7616,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7670,7 +7670,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = BUS_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7823,7 +7823,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7877,7 +7877,7 @@ public interface Aadl2Package extends EPackage {
 	int PARAMETER_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7931,7 +7931,7 @@ public interface Aadl2Package extends EPackage {
 	int PORT_CONNECTION_END_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -7985,7 +7985,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8039,7 +8039,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT_TYPE_FEATURE_COUNT = DATA_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8183,7 +8183,7 @@ public interface Aadl2Package extends EPackage {
 	int PORT_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8336,7 +8336,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8489,7 +8489,7 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_DATA_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8633,7 +8633,7 @@ public interface Aadl2Package extends EPackage {
 	int EVENT_PORT_FEATURE_COUNT = PORT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8777,7 +8777,7 @@ public interface Aadl2Package extends EPackage {
 	int PARAMETER_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -8930,61 +8930,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9038,7 +8984,61 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9191,61 +9191,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_ACCESS_FEATURE_COUNT = ACCESS_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
-
-	/**
-	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
-
-	/**
-	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
-
-	/**
-	 * The number of structural features of the '<em>Subprogram Group Subcomponent Type</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
-
-	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9299,7 +9245,61 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_ELEMENT = SUBCOMPONENT_TYPE__OWNED_ELEMENT;
+
+	/**
+	 * The feature id for the '<em><b>Owned Comment</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_COMMENT = SUBCOMPONENT_TYPE__OWNED_COMMENT;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__NAME = SUBCOMPONENT_TYPE__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Qualified Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__QUALIFIED_NAME = SUBCOMPONENT_TYPE__QUALIFIED_NAME;
+
+	/**
+	 * The feature id for the '<em><b>Owned Property Association</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION = SUBCOMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
+
+	/**
+	 * The number of structural features of the '<em>Subprogram Group Subcomponent Type</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SUBPROGRAM_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
+
+	/**
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9443,7 +9443,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE_FEATURE_COUNT = DIRECTED_FEATURE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9551,7 +9551,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9650,7 +9650,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_PROTOTYPE_FEATURE_COUNT = PROTOTYPE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9821,7 +9821,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBCOMPONENT_FEATURE_COUNT = STRUCTURAL_FEATURE_FEATURE_COUNT + 10;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9866,7 +9866,7 @@ public interface Aadl2Package extends EPackage {
 	int MODE_BINDING_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -9974,7 +9974,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10019,7 +10019,7 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10163,7 +10163,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_CONNECTION_END_FEATURE_COUNT = 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10244,7 +10244,7 @@ public interface Aadl2Package extends EPackage {
 	int IMPLEMENTATION_EXTENSION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10325,7 +10325,7 @@ public interface Aadl2Package extends EPackage {
 	int REALIZATION_FEATURE_COUNT = GENERALIZATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10442,7 +10442,7 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW_FEATURE_COUNT = FLOW_FEATURE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10487,7 +10487,7 @@ public interface Aadl2Package extends EPackage {
 	int END_TO_END_FLOW_SEGMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10667,7 +10667,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10721,7 +10721,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10775,7 +10775,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_SUBCOMPONENT_TYPE_FEATURE_COUNT = ABSTRACT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -10919,7 +10919,7 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11054,7 +11054,7 @@ public interface Aadl2Package extends EPackage {
 	int PARAMETER_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11189,7 +11189,7 @@ public interface Aadl2Package extends EPackage {
 	int PORT_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11324,7 +11324,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11459,7 +11459,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_CONNECTION_FEATURE_COUNT = CONNECTION_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11504,7 +11504,7 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11567,7 +11567,7 @@ public interface Aadl2Package extends EPackage {
 	int ELEMENT_NAME_FEATURE_COUNT = CONNECTION_END_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11621,7 +11621,7 @@ public interface Aadl2Package extends EPackage {
 	int ANNEX_LIBRARY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11684,7 +11684,7 @@ public interface Aadl2Package extends EPackage {
 	int DEFAULT_ANNEX_LIBRARY_FEATURE_COUNT = ANNEX_LIBRARY_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11756,7 +11756,7 @@ public interface Aadl2Package extends EPackage {
 	int DEFAULT_ANNEX_SUBCLAUSE_FEATURE_COUNT = ANNEX_SUBCLAUSE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11801,7 +11801,7 @@ public interface Aadl2Package extends EPackage {
 	int TRIGGER_PORT_FEATURE_COUNT = MODE_TRANSITION_TRIGGER_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11846,7 +11846,7 @@ public interface Aadl2Package extends EPackage {
 	int PACKAGE_SECTION__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11945,7 +11945,7 @@ public interface Aadl2Package extends EPackage {
 	int PACKAGE_SECTION_FEATURE_COUNT = NAMESPACE_FEATURE_COUNT + 8;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -11990,7 +11990,7 @@ public interface Aadl2Package extends EPackage {
 	int PUBLIC_PACKAGE_SECTION__OWNED_PROPERTY_ASSOCIATION = PACKAGE_SECTION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12098,7 +12098,7 @@ public interface Aadl2Package extends EPackage {
 	int PUBLIC_PACKAGE_SECTION_FEATURE_COUNT = PACKAGE_SECTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12170,7 +12170,7 @@ public interface Aadl2Package extends EPackage {
 	int PACKAGE_RENAME_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12224,7 +12224,7 @@ public interface Aadl2Package extends EPackage {
 	int MODEL_UNIT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12314,7 +12314,7 @@ public interface Aadl2Package extends EPackage {
 	int AADL_PACKAGE_FEATURE_COUNT = MODEL_UNIT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12359,7 +12359,7 @@ public interface Aadl2Package extends EPackage {
 	int PRIVATE_PACKAGE_SECTION__OWNED_PROPERTY_ASSOCIATION = PACKAGE_SECTION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12467,7 +12467,7 @@ public interface Aadl2Package extends EPackage {
 	int PRIVATE_PACKAGE_SECTION_FEATURE_COUNT = PACKAGE_SECTION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12539,7 +12539,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_TYPE_RENAME_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12602,7 +12602,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_TYPE_RENAME_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12647,7 +12647,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12701,7 +12701,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPONENT_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12746,7 +12746,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12773,7 +12773,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12818,7 +12818,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_GROUP_PROTOTYPE_ACTUAL_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12863,7 +12863,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE_BINDING_FEATURE_COUNT = PROTOTYPE_BINDING_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12917,7 +12917,7 @@ public interface Aadl2Package extends EPackage {
 	int ACCESS_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -12971,7 +12971,7 @@ public interface Aadl2Package extends EPackage {
 	int PORT_SPECIFICATION_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13016,7 +13016,7 @@ public interface Aadl2Package extends EPackage {
 	int FEATURE_PROTOTYPE_REFERENCE_FEATURE_COUNT = FEATURE_PROTOTYPE_ACTUAL_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13097,7 +13097,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CALL_SEQUENCE_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13160,7 +13160,7 @@ public interface Aadl2Package extends EPackage {
 	int CALL_SPECIFICATION_FEATURE_COUNT = BEHAVIORAL_FEATURE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13232,7 +13232,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13277,7 +13277,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13430,7 +13430,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13457,7 +13457,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13601,7 +13601,7 @@ public interface Aadl2Package extends EPackage {
 	int BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13682,7 +13682,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CALL_FEATURE_COUNT = CALL_SPECIFICATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13727,7 +13727,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -13871,7 +13871,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14006,7 +14006,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14051,7 +14051,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14204,7 +14204,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14258,7 +14258,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14312,7 +14312,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14366,7 +14366,7 @@ public interface Aadl2Package extends EPackage {
 	int VITUAL_BUS_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14420,7 +14420,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14474,7 +14474,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14528,7 +14528,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14582,7 +14582,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14636,7 +14636,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14690,7 +14690,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT_TYPE_FEATURE_COUNT = SUBCOMPONENT_TYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14744,7 +14744,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14798,7 +14798,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14852,7 +14852,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT_TYPE_FEATURE_COUNT = PROCESS_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14906,7 +14906,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -14960,7 +14960,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT_TYPE_FEATURE_COUNT = MEMORY_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15014,7 +15014,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15068,7 +15068,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT_TYPE_FEATURE_COUNT = DEVICE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15122,7 +15122,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15176,7 +15176,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT_TYPE_FEATURE_COUNT = PROCESSOR_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15221,7 +15221,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = BEHAVIORED_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15374,7 +15374,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__TYPE = BEHAVIORED_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15401,7 +15401,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = BEHAVIORED_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15662,7 +15662,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 13;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -15842,7 +15842,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16022,7 +16022,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16202,7 +16202,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16382,7 +16382,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16562,7 +16562,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16742,7 +16742,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -16922,7 +16922,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17102,7 +17102,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17282,7 +17282,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17462,7 +17462,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17642,7 +17642,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -17822,7 +17822,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18002,7 +18002,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_SUBCOMPONENT_FEATURE_COUNT = SUBCOMPONENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18110,7 +18110,7 @@ public interface Aadl2Package extends EPackage {
 	int ABSTRACT_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18155,7 +18155,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18308,7 +18308,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18353,7 +18353,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18497,7 +18497,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18605,7 +18605,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18650,7 +18650,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18803,7 +18803,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18830,7 +18830,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -18965,7 +18965,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19073,7 +19073,7 @@ public interface Aadl2Package extends EPackage {
 	int BUS_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19118,7 +19118,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19271,7 +19271,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19316,7 +19316,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19460,7 +19460,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19550,7 +19550,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19595,7 +19595,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19748,7 +19748,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19775,7 +19775,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -19919,7 +19919,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20027,7 +20027,7 @@ public interface Aadl2Package extends EPackage {
 	int DATA_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20072,7 +20072,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20225,7 +20225,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20270,7 +20270,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20414,7 +20414,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20540,7 +20540,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20585,7 +20585,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20738,7 +20738,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20765,7 +20765,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -20918,7 +20918,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21026,7 +21026,7 @@ public interface Aadl2Package extends EPackage {
 	int DEVICE_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21071,7 +21071,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21224,7 +21224,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21269,7 +21269,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21413,7 +21413,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21521,7 +21521,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21566,7 +21566,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21719,7 +21719,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21746,7 +21746,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21890,7 +21890,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -21998,7 +21998,7 @@ public interface Aadl2Package extends EPackage {
 	int MEMORY_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22043,7 +22043,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22196,7 +22196,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22241,7 +22241,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22385,7 +22385,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22511,7 +22511,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22556,7 +22556,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = BEHAVIORED_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22709,7 +22709,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__TYPE = BEHAVIORED_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22736,7 +22736,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = BEHAVIORED_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -22898,7 +22898,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23006,7 +23006,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23051,7 +23051,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23204,7 +23204,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23249,7 +23249,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23393,7 +23393,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23483,7 +23483,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23528,7 +23528,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23681,7 +23681,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23708,7 +23708,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23861,7 +23861,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -23969,7 +23969,7 @@ public interface Aadl2Package extends EPackage {
 	int SUBPROGRAM_GROUP_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24014,7 +24014,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24167,7 +24167,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24212,7 +24212,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24356,7 +24356,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24491,7 +24491,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 7;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24536,7 +24536,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24689,7 +24689,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24716,7 +24716,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -24941,7 +24941,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 11;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25049,7 +25049,7 @@ public interface Aadl2Package extends EPackage {
 	int SYSTEM_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25094,7 +25094,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25247,7 +25247,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25292,7 +25292,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25436,7 +25436,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25562,7 +25562,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25607,7 +25607,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25760,7 +25760,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25787,7 +25787,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -25949,7 +25949,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26057,7 +26057,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26102,7 +26102,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26255,7 +26255,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26300,7 +26300,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26444,7 +26444,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26570,7 +26570,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26615,7 +26615,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26768,7 +26768,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26795,7 +26795,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -26966,7 +26966,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27074,7 +27074,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESS_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27119,7 +27119,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27272,7 +27272,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27317,7 +27317,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27461,7 +27461,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27587,7 +27587,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27632,7 +27632,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = BEHAVIORED_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27785,7 +27785,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__TYPE = BEHAVIORED_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27812,7 +27812,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = BEHAVIORED_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -27983,7 +27983,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_IMPLEMENTATION_FEATURE_COUNT = BEHAVIORED_IMPLEMENTATION_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28091,7 +28091,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28136,7 +28136,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28289,7 +28289,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28334,7 +28334,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28478,7 +28478,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28604,7 +28604,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 6;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28649,7 +28649,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28802,7 +28802,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -28829,7 +28829,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29000,7 +29000,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29108,7 +29108,7 @@ public interface Aadl2Package extends EPackage {
 	int THREAD_GROUP_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29153,7 +29153,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29306,7 +29306,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29351,7 +29351,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29495,7 +29495,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29594,7 +29594,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 3;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29639,7 +29639,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29792,7 +29792,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29819,7 +29819,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -29954,7 +29954,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30062,7 +30062,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_BUS_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30107,7 +30107,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION = COMPONENT_CLASSIFIER__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30260,7 +30260,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_CLASSIFIER_FEATURE_COUNT = COMPONENT_CLASSIFIER_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30305,7 +30305,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_TYPE__OWNED_PROPERTY_ASSOCIATION = COMPONENT_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30449,7 +30449,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_TYPE__NO_MODES = COMPONENT_TYPE__NO_MODES;
 
 	/**
-	 * The feature id for the '<em><b>Owned Feature</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Feature</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30566,7 +30566,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_TYPE_FEATURE_COUNT = COMPONENT_TYPE_FEATURE_COUNT + 5;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30611,7 +30611,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION = COMPONENT_IMPLEMENTATION__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30764,7 +30764,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__TYPE = COMPONENT_IMPLEMENTATION__TYPE;
 
 	/**
-	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Subcomponent</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30791,7 +30791,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION = COMPONENT_IMPLEMENTATION__OWNED_FLOW_IMPLEMENTATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Connection</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Connection</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -30935,7 +30935,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_IMPLEMENTATION_FEATURE_COUNT = COMPONENT_IMPLEMENTATION_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31043,7 +31043,7 @@ public interface Aadl2Package extends EPackage {
 	int VIRTUAL_PROCESSOR_PROTOTYPE_FEATURE_COUNT = COMPONENT_PROTOTYPE_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31088,7 +31088,7 @@ public interface Aadl2Package extends EPackage {
 	int BASIC_PROPERTY_ASSOCIATION_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31208,7 +31208,7 @@ public interface Aadl2Package extends EPackage {
 	int UNIT_LITERAL = 227;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31255,7 +31255,7 @@ public interface Aadl2Package extends EPackage {
 	int STRING_LITERAL = 224;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31291,7 +31291,7 @@ public interface Aadl2Package extends EPackage {
 	int STRING_LITERAL_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31327,7 +31327,7 @@ public interface Aadl2Package extends EPackage {
 	int NUMBER_VALUE_FEATURE_COUNT = PROPERTY_VALUE_FEATURE_COUNT + 1;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31381,7 +31381,7 @@ public interface Aadl2Package extends EPackage {
 	int ENUMERATION_LITERAL_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31463,7 +31463,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_VALUE = 229;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31509,7 +31509,7 @@ public interface Aadl2Package extends EPackage {
 	int REFERENCE_VALUE = 230;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31555,7 +31555,7 @@ public interface Aadl2Package extends EPackage {
 	int BOOLEAN_LITERAL = 231;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31601,7 +31601,7 @@ public interface Aadl2Package extends EPackage {
 	int RANGE_VALUE = 232;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31665,7 +31665,7 @@ public interface Aadl2Package extends EPackage {
 	int INTEGER_LITERAL = 233;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31729,7 +31729,7 @@ public interface Aadl2Package extends EPackage {
 	int REAL_LITERAL = 234;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31784,7 +31784,7 @@ public interface Aadl2Package extends EPackage {
 	int OPERATION = 235;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31839,7 +31839,7 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_VALUE = 236;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31885,7 +31885,7 @@ public interface Aadl2Package extends EPackage {
 	int COMPUTED_VALUE = 237;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31931,7 +31931,7 @@ public interface Aadl2Package extends EPackage {
 	int LIST_VALUE = 238;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -31977,7 +31977,7 @@ public interface Aadl2Package extends EPackage {
 	int NAMED_VALUE = 239;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32023,7 +32023,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_SET = 240;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32068,7 +32068,7 @@ public interface Aadl2Package extends EPackage {
 	int PROPERTY_SET__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32141,7 +32141,7 @@ public interface Aadl2Package extends EPackage {
 	int GLOBAL_NAMESPACE = 241;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32186,7 +32186,7 @@ public interface Aadl2Package extends EPackage {
 	int GLOBAL_NAMESPACE__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32241,7 +32241,7 @@ public interface Aadl2Package extends EPackage {
 	int NON_LIST_TYPE = 242;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32305,7 +32305,7 @@ public interface Aadl2Package extends EPackage {
 	int AADL_BOOLEAN = 243;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32369,7 +32369,7 @@ public interface Aadl2Package extends EPackage {
 	int AADL_STRING = 244;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32433,7 +32433,7 @@ public interface Aadl2Package extends EPackage {
 	int NUMBER_TYPE = 246;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32524,7 +32524,7 @@ public interface Aadl2Package extends EPackage {
 	int AADL_INTEGER = 245;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32615,7 +32615,7 @@ public interface Aadl2Package extends EPackage {
 	int ENUMERATION_TYPE = 248;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32660,7 +32660,7 @@ public interface Aadl2Package extends EPackage {
 	int ENUMERATION_TYPE__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32706,7 +32706,7 @@ public interface Aadl2Package extends EPackage {
 	int UNITS_TYPE = 247;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32751,7 +32751,7 @@ public interface Aadl2Package extends EPackage {
 	int UNITS_TYPE__OWNED_PROPERTY_ASSOCIATION = ENUMERATION_TYPE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32797,7 +32797,7 @@ public interface Aadl2Package extends EPackage {
 	int NUMERIC_RANGE = 249;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32852,7 +32852,7 @@ public interface Aadl2Package extends EPackage {
 	int AADL_REAL = 250;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -32943,7 +32943,7 @@ public interface Aadl2Package extends EPackage {
 	int CLASSIFIER_TYPE = 251;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33016,7 +33016,7 @@ public interface Aadl2Package extends EPackage {
 	int RANGE_TYPE = 252;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33098,7 +33098,7 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_TYPE = 253;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33143,7 +33143,7 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_TYPE__OWNED_PROPERTY_ASSOCIATION = NAMESPACE__OWNED_PROPERTY_ASSOCIATION;
 
 	/**
-	 * The feature id for the '<em><b>Owned Member</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Member</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33189,7 +33189,7 @@ public interface Aadl2Package extends EPackage {
 	int RECORD_FIELD = 254;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33280,7 +33280,7 @@ public interface Aadl2Package extends EPackage {
 	int REFERENCE_TYPE = 255;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33353,7 +33353,7 @@ public interface Aadl2Package extends EPackage {
 	int LIST_TYPE = 256;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33425,7 +33425,7 @@ public interface Aadl2Package extends EPackage {
 	int LIST_TYPE_FEATURE_COUNT = PROPERTY_TYPE_FEATURE_COUNT + 2;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33479,7 +33479,7 @@ public interface Aadl2Package extends EPackage {
 	int PROCESSOR_PORT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33533,7 +33533,7 @@ public interface Aadl2Package extends EPackage {
 	int INTERNAL_EVENT_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
-	 * The feature id for the '<em><b>Owned Element</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
@@ -33724,10 +33724,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getElement();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.Element#getOwnedElements <em>Owned Element</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.Element#getOwnedElements <em>Owned Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Element</em>'.
+	 * @return the meta object for the reference list '<em>Owned Element</em>'.
 	 * @see org.osate.aadl2.Element#getOwnedElements()
 	 * @see #getElement()
 	 * @generated
@@ -34217,10 +34217,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getNamespace();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.Namespace#getOwnedMembers <em>Owned Member</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.Namespace#getOwnedMembers <em>Owned Member</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Member</em>'.
+	 * @return the meta object for the reference list '<em>Owned Member</em>'.
 	 * @see org.osate.aadl2.Namespace#getOwnedMembers()
 	 * @see #getNamespace()
 	 * @generated
@@ -34755,10 +34755,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getComponentImplementation_Type();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents <em>Owned Subcomponent</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents <em>Owned Subcomponent</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Subcomponent</em>'.
+	 * @return the meta object for the reference list '<em>Owned Subcomponent</em>'.
 	 * @see org.osate.aadl2.ComponentImplementation#getOwnedSubcomponents()
 	 * @see #getComponentImplementation()
 	 * @generated
@@ -34788,10 +34788,10 @@ public interface Aadl2Package extends EPackage {
 	EReference getComponentImplementation_OwnedFlowImplementation();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections <em>Owned Connection</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ComponentImplementation#getOwnedConnections <em>Owned Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Connection</em>'.
+	 * @return the meta object for the reference list '<em>Owned Connection</em>'.
 	 * @see org.osate.aadl2.ComponentImplementation#getOwnedConnections()
 	 * @see #getComponentImplementation()
 	 * @generated
@@ -35246,10 +35246,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getComponentType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.ComponentType#getOwnedFeatures <em>Owned Feature</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.ComponentType#getOwnedFeatures <em>Owned Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Feature</em>'.
+	 * @return the meta object for the reference list '<em>Owned Feature</em>'.
 	 * @see org.osate.aadl2.ComponentType#getOwnedFeatures()
 	 * @see #getComponentType()
 	 * @generated
@@ -35512,10 +35512,10 @@ public interface Aadl2Package extends EPackage {
 	EClass getFeatureGroupType();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures <em>Owned Feature</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.FeatureGroupType#getOwnedFeatures <em>Owned Feature</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Owned Feature</em>'.
+	 * @return the meta object for the reference list '<em>Owned Feature</em>'.
 	 * @see org.osate.aadl2.FeatureGroupType#getOwnedFeatures()
 	 * @see #getFeatureGroupType()
 	 * @generated
@@ -40813,4 +40813,4 @@ public interface Aadl2Package extends EPackage {
 	 */
 	Aadl2Factory getAadl2Factory();
 
-} //Aadl2Package
+} // Aadl2Package

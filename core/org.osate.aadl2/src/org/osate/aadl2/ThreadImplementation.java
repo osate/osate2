@@ -55,7 +55,8 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface ThreadImplementation extends BehavioredImplementation, ThreadClassifier {
+public interface ThreadImplementation extends BehavioredImplementation,
+		ThreadClassifier {
 	/**
 	 * Returns the value of the '<em><b>Owned Subprogram Group Subcomponent</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.SubprogramGroupSubcomponent}.

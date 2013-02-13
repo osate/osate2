@@ -58,9 +58,10 @@ import org.osate.aadl2.SubprogramImplementation;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramImplementationItemProvider extends BehavioredImplementationItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramImplementationItemProvider extends
+		BehavioredImplementationItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,10 +96,12 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getSubprogramImplementation_OwnedSubprogramSubcomponent());
 		}
 		return childrenFeatures;
 	}
@@ -124,7 +127,10 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramImplementation"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/SubprogramImplementation"));
 	}
 
 	/**
@@ -153,7 +159,8 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 
 		switch (notification.getFeatureID(SubprogramImplementation.class)) {
 		case Aadl2Package.SUBPROGRAM_IMPLEMENTATION__OWNED_SUBPROGRAM_SUBCOMPONENT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -167,11 +174,12 @@ public class SubprogramImplementationItemProvider extends BehavioredImplementati
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(
-				Aadl2Package.eINSTANCE.getSubprogramImplementation_OwnedSubprogramSubcomponent(),
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE
+				.getSubprogramImplementation_OwnedSubprogramSubcomponent(),
 				Aadl2Factory.eINSTANCE.createSubprogramSubcomponent()));
 	}
 

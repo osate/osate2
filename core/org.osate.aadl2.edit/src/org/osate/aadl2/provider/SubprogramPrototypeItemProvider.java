@@ -53,9 +53,10 @@ import org.osate.aadl2.SubprogramPrototype;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramPrototypeItemProvider extends ComponentPrototypeItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class SubprogramPrototypeItemProvider extends
+		ComponentPrototypeItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -89,7 +90,8 @@ public class SubprogramPrototypeItemProvider extends ComponentPrototypeItemProvi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramPrototype"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/SubprogramPrototype"));
 	}
 
 	/**
@@ -126,7 +128,8 @@ public class SubprogramPrototypeItemProvider extends ComponentPrototypeItemProvi
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

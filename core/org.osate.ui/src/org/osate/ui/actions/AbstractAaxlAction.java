@@ -71,6 +71,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -231,7 +232,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 			final String ps, final String name) {
 		final Property pd = 
 				GetProperties.lookupPropertyDefinition(context,ps, name);
-		if (pd == null) notFound.add(PROP_DEF + ps + COLON_COLON + name);
+		if (Aadl2Util.isNull(pd)) notFound.add(PROP_DEF + ps + COLON_COLON + name);
 		return pd;
 	}
 

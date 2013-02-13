@@ -61,7 +61,8 @@ import org.eclipse.emf.ecore.EClass;
  * @model abstract="true"
  * @generated
  */
-public interface Subcomponent extends StructuralFeature, ModalElement, Context, FlowElement, ArrayableElement {
+public interface Subcomponent extends StructuralFeature, ModalElement, Context,
+		FlowElement, ArrayableElement {
 	/**
 	 * Returns the value of the '<em><b>Subcomponent Type</b></em>' reference.
 	 * This feature is a derived union.
@@ -268,7 +269,8 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * 
 	 * @return Component implementation
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
+	// work.
 	ComponentImplementation getComponentImplementation();
 
 	/**
@@ -285,7 +287,8 @@ public interface Subcomponent extends StructuralFeature, ModalElement, Context, 
 	 * Return the subcomponent and any of the subcomponents it refines
 	 * @return EList of subcomponent
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup work.
+	// XXX: [AADL 1 -> AADL 2] Added to make instantiation and property lookup
+	// work.
 	EList<Subcomponent> getAllSubcomponentRefinements();
 
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.

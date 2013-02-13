@@ -45,9 +45,15 @@ import org.osate.annexsupport.AnnexRegistry;
 import org.osate.annexsupport.AnnexTextPositionResolver;
 import org.osate.annexsupport.AnnexUnparser;
 import org.osate.annexsupport.AnnexUnparserRegistry;
+import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
+
+import com.google.inject.Inject;
 
 public class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 	
+
+	@Inject
+	private Aadl2GrammarAccess grammarAccess;
 
 	AnnexUnparserRegistry unparserregistry ;
 	

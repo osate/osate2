@@ -60,9 +60,10 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ConnectionInstanceItemProvider extends
+		FlowElementInstanceItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -103,13 +104,14 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	protected void addInSystemOperationModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_inSystemOperationMode_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inSystemOperationMode_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE, true, false, true,
-						null, null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -121,13 +123,14 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	protected void addInModeTransitionPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_inModeTransition_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_inModeTransition_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITION, true, false, true, null,
-						null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE__IN_MODE_TRANSITION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -139,12 +142,14 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	protected void addCompletePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_complete_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_complete_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__COMPLETE, true, false, false,
+						InstancePackage.Literals.CONNECTION_INSTANCE__COMPLETE,
+						true, false, false,
 						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
@@ -157,12 +162,14 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	protected void addKindPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_kind_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_kind_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__KIND, true, false, false,
+						InstancePackage.Literals.CONNECTION_INSTANCE__KIND,
+						true, false, false,
 						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
 	}
 
@@ -174,12 +181,15 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addDestinationPropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_destination_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_destination_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__DESTINATION, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE__DESTINATION,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -190,12 +200,15 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	protected void addSourcePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				.add(createItemPropertyDescriptor(
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstance_source_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstance_source_feature", "_UI_ConnectionInstance_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE__SOURCE, true, false, true, null, null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE__SOURCE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -207,10 +220,12 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(InstancePackage.Literals.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
+			childrenFeatures
+					.add(InstancePackage.Literals.CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		}
 		return childrenFeatures;
 	}
@@ -236,7 +251,8 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/ConnectionInstance")); //$NON-NLS-1$
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/ConnectionInstance")); //$NON-NLS-1$
 	}
 
 	/**
@@ -266,10 +282,12 @@ public class ConnectionInstanceItemProvider extends FlowElementInstanceItemProvi
 		switch (notification.getFeatureID(ConnectionInstance.class)) {
 		case InstancePackage.CONNECTION_INSTANCE__COMPLETE:
 		case InstancePackage.CONNECTION_INSTANCE__KIND:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), false, true));
 			return;
 		case InstancePackage.CONNECTION_INSTANCE__CONNECTION_REFERENCE:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);

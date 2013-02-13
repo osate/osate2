@@ -47,7 +47,8 @@ import org.osate.aadl2.ThreadSubcomponentType;
  *
  * @generated
  */
-public abstract class ThreadSubcomponentTypeImpl extends SubcomponentTypeImpl implements ThreadSubcomponentType {
+public abstract class ThreadSubcomponentTypeImpl extends SubcomponentTypeImpl
+		implements ThreadSubcomponentType {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public abstract class ThreadSubcomponentTypeImpl extends SubcomponentTypeImpl im
 		return Aadl2Package.eINSTANCE.getThreadSubcomponentType();
 	}
 
-} //ThreadSubcomponentTypeImpl
+} // ThreadSubcomponentTypeImpl

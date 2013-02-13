@@ -48,7 +48,8 @@ import org.osate.aadl2.SystemClassifier;
  *
  * @generated
  */
-public abstract class SystemClassifierImpl extends ComponentClassifierImpl implements SystemClassifier {
+public abstract class SystemClassifierImpl extends ComponentClassifierImpl
+		implements SystemClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class SystemClassifierImpl extends ComponentClassifierImpl imple
 		return Aadl2Package.eINSTANCE.getSystemClassifier();
 	}
 
-} //SystemClassifierImpl
+} // SystemClassifierImpl

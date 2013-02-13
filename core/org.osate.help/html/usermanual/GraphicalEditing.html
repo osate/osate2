@@ -1,0 +1,208 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Graphical Editing</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLGraphicalEditor.html">8. The AADL Graphical Editor</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   8.2 Graphical Editing
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="FromAADLTexttoaGraphicalAADLDiagram.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="AnalysisofDeclarativeAADLModelsandAADLIn.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic59"></a>
+          <span class=outlineNumberFirst>8.2 </span><span class=topicLineFirst>Graphical Editing</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The graphical editor has a palette with all the language constructs that are graphically 
+supported.  New model objects are created by selecting an item on the palette and placing it in 
+the diagram by placing the mouse at the desired location and clicking once.  Implementations 
+are associated with their component type through the <i>Implements</i> relation.  Names of the 
+model objects can be edited by double clicking on them or by editing them through the 
+properties view (see below).</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">In the instance diagram of a component implementation subcomponents and connections can 
+be added.  When a subcomponent is added a dialog box prompts the user to select an existing 
+classifier or it will automatically create a new component classifier with a user-supplied name.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Ports can be placed into component types, component implementations, and into 
+subcomponents.  In all cases the port is actually created in the component type and shown with 
+all implementations and subcomponents.  If the shown ports are thought out of date a <i>Refresh 
+Features</i> command in the context menu for the selected component will update the features 
+being displayed.  The default direction of features can be changed by selecting the drop-down 
+menu on the right of the feature entry in the palette.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The graphical editor also has an outline view that shows an overview of the diagram for quick 
+viewing of different parts of the diagram and an object model navigator. When selecting a 
+model object in the model navigator commands that are acceptable for that model object are 
+available.  The user can create objects in the model without adding them to the diagram, and 
+can invoke analysis actions available through OSATE analysis plug-ins.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The graphical editor also has a context menu in the diagram.  When the graphical symbol of a 
+model object is selected, through the context menu the user can delete the graphical symbol of 
+a model object in the diagram without deleting the model object, or delete both the graphical 
+symbol and the model object.  The user can also view properties of the selected object, such 
+as the direction of a port, view and edit AADL Properties associated with the selected model 
+object (Show AADL Property Values), and navigate to the location of the selected model 
+object in the AADL text editor (Goto Source Text) or the AADL object editor (Goto Aaxl 
+Model).  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">AADL property viewing and editing is done through the OSATE AADL properties viewer and 
+editor (see section 7.7 for details).  This editor allows the user to change and add property 
+values through context menu commands in the AADL Properties View.  When a property is 
+associated to a model element such as a subcomponent, the user is given the choice of 
+associating it to the selected component or to its classifier.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The Topcased editor supports a documentation view through which comments on model object 
+can be added and edited. </span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic60"></a>
+          <span class=outlineNumber>8.2.1 </span><span class=topicLine>From the Graphical Editor to the Text Editor</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE/Topcased automatically updates the text file when the user performs a save in the 
+graphical editor or when the user navigates to the AADL text using the Goto Source Text 
+command.</span></font><span></span></div>
+<div align="left"><img src="NotesImages/Topic60NotesImage2.jpg" align="bottom" width="573" height="430" border="0" alt="graphic" /></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

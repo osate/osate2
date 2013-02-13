@@ -51,7 +51,8 @@ import org.osate.aadl2.parsesupport.AObjectImpl;
  *
  * @generated
  */
-public abstract class AbstractNamedValueImpl extends AObjectImpl implements AbstractNamedValue {
+public abstract class AbstractNamedValueImpl extends AObjectImpl implements
+		AbstractNamedValue {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -94,4 +95,4 @@ public abstract class AbstractNamedValueImpl extends AObjectImpl implements Abst
 		return CacheAdapter.getCacheAdapter(this);
 	}
 
-} //AbstractNamedValueImpl
+} // AbstractNamedValueImpl

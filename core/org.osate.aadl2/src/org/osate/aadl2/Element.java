@@ -66,7 +66,7 @@ import org.osate.aadl2.parsesupport.AObject;
  */
 public interface Element extends AObject {
 	/**
-	 * Returns the value of the '<em><b>Owned Element</b></em>' containment reference list.
+	 * Returns the value of the '<em><b>Owned Element</b></em>' reference list.
 	 * The list contents are of type {@link org.osate.aadl2.Element}.
 	 * This feature is a derived union.
 	 * <!-- begin-user-doc -->
@@ -74,9 +74,9 @@ public interface Element extends AObject {
 	 * <!-- begin-model-doc -->
 	 * The Elements owned by this element.
 	 * <!-- end-model-doc -->
-	 * @return the value of the '<em>Owned Element</em>' containment reference list.
+	 * @return the value of the '<em>Owned Element</em>' reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getElement_OwnedElement()
-	 * @model containment="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
+	 * @model transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 *        annotation="http://www.topcased.org/documentation documentation='The Elements owned by this element.'"
 	 * @generated
 	 */
@@ -125,7 +125,8 @@ public interface Element extends AObject {
 	 * @model annotation="http://www.eclipse.org/uml2/1.1.0/GenModel body='not self.allOwnedElements()->includes(self)'"
 	 * @generated
 	 */
-	boolean not_own_self(DiagnosticChain diagnostics, Map<Object, Object> context);
+	boolean not_own_self(DiagnosticChain diagnostics,
+			Map<Object, Object> context);
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -60,7 +60,8 @@ import org.osate.aadl2.MetaclassReference;
  *
  * @generated
  */
-public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierType {
+public class ClassifierTypeImpl extends NonListTypeImpl implements
+		ClassifierType {
 	/**
 	 * The cached value of the '{@link #getClassifierReferences() <em>Classifier Reference</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -97,7 +98,8 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 */
 	public EList<MetaclassReference> getClassifierReferences() {
 		if (classifierReferences == null) {
-			classifierReferences = new EObjectContainmentEList<MetaclassReference>(MetaclassReference.class, this,
+			classifierReferences = new EObjectContainmentEList<MetaclassReference>(
+					MetaclassReference.class, this,
 					Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE);
 		}
 		return classifierReferences;
@@ -121,10 +123,12 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
-			return ((InternalEList<?>) getClassifierReferences()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getClassifierReferences()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -154,7 +158,8 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
 			getClassifierReferences().clear();
-			getClassifierReferences().addAll((Collection<? extends MetaclassReference>) newValue);
+			getClassifierReferences().addAll(
+					(Collection<? extends MetaclassReference>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -184,9 +189,10 @@ public class ClassifierTypeImpl extends NonListTypeImpl implements ClassifierTyp
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.CLASSIFIER_TYPE__CLASSIFIER_REFERENCE:
-			return classifierReferences != null && !classifierReferences.isEmpty();
+			return classifierReferences != null
+					&& !classifierReferences.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
 
-} //ClassifierTypeImpl
+} // ClassifierTypeImpl

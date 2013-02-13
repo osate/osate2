@@ -58,8 +58,9 @@ import org.osate.aadl2.VirtualBusType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -94,12 +95,16 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider implem
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedDataPort());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventDataPort());
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getVirtualBusType_OwnedDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getVirtualBusType_OwnedEventDataPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getVirtualBusType_OwnedEventPort());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +130,8 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider implem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/VirtualBusType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/VirtualBusType"));
 	}
 
 	/**
@@ -156,7 +162,8 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider implem
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -170,16 +177,20 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedDataPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getVirtualBusType_OwnedDataPort(),
 				Aadl2Factory.eINSTANCE.createDataPort()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventDataPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventDataPort(),
 				Aadl2Factory.eINSTANCE.createEventDataPort()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventPort(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventPort(),
 				Aadl2Factory.eINSTANCE.createEventPort()));
 	}
 

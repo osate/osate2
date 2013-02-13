@@ -131,8 +131,8 @@ public enum ElementNameKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final ElementNameKind[] VALUES_ARRAY = new ElementNameKind[] { INTERNAL_EVENT, PROCESSOR_PORT,
-			PROCESSOR_SUBPROGRAM, };
+	private static final ElementNameKind[] VALUES_ARRAY = new ElementNameKind[] {
+			INTERNAL_EVENT, PROCESSOR_PORT, PROCESSOR_SUBPROGRAM, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Element Name Kind</b></em>' enumerators.
@@ -140,7 +140,8 @@ public enum ElementNameKind implements Enumerator {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final List<ElementNameKind> VALUES = Collections.unmodifiableList(Arrays.asList(VALUES_ARRAY));
+	public static final List<ElementNameKind> VALUES = Collections
+			.unmodifiableList(Arrays.asList(VALUES_ARRAY));
 
 	/**
 	 * Returns the '<em><b>Element Name Kind</b></em>' literal with the specified literal value.
@@ -263,4 +264,4 @@ public enum ElementNameKind implements Enumerator {
 		return literal;
 	}
 
-} //ElementNameKind
+} // ElementNameKind

@@ -56,9 +56,10 @@ import org.osate.aadl2.instance.InstancePackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class ConnectionInstanceEndItemProvider extends
+		InstanceObjectItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -95,13 +96,14 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 	protected void addSrcConnectionInstancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstanceEnd_srcConnectionInstance_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstanceEnd_srcConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE, true, false, true,
-						null, null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -113,13 +115,14 @@ public class ConnectionInstanceEndItemProvider extends InstanceObjectItemProvide
 	protected void addDstConnectionInstancePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_ConnectionInstanceEnd_dstConnectionInstance_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_ConnectionInstanceEnd_dstConnectionInstance_feature", "_UI_ConnectionInstanceEnd_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE, true, false, true,
-						null, null, null));
+						InstancePackage.Literals.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+						true, false, true, null, null, null));
 	}
 
 	/**

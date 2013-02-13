@@ -59,8 +59,9 @@ import org.osate.aadl2.provider.ModeItemProvider;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SystemOperationModeItemProvider extends ModeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SystemOperationModeItemProvider extends ModeItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,13 +97,14 @@ public class SystemOperationModeItemProvider extends ModeItemProvider implements
 	protected void addCurrentModePropertyDescriptor(Object object) {
 		itemPropertyDescriptors
 				.add(createItemPropertyDescriptor(
-						((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						((ComposeableAdapterFactory) adapterFactory)
+								.getRootAdapterFactory(),
 						getResourceLocator(),
 						getString("_UI_SystemOperationMode_currentMode_feature"), //$NON-NLS-1$
 						getString(
 								"_UI_PropertyDescriptor_description", "_UI_SystemOperationMode_currentMode_feature", "_UI_SystemOperationMode_type"), //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-						InstancePackage.Literals.SYSTEM_OPERATION_MODE__CURRENT_MODE, true, false, true, null, null,
-						null));
+						InstancePackage.Literals.SYSTEM_OPERATION_MODE__CURRENT_MODE,
+						true, false, true, null, null, null));
 	}
 
 	/**
@@ -113,7 +115,8 @@ public class SystemOperationModeItemProvider extends ModeItemProvider implements
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SystemOperationMode")); //$NON-NLS-1$
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/SystemOperationMode")); //$NON-NLS-1$
 	}
 
 	/**

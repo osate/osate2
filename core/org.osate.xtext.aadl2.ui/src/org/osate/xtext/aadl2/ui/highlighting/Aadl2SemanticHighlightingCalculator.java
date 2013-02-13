@@ -116,11 +116,11 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 			@Override
 			public void addPosition(int offset, int length, String... id) {
 				if(offset < 0) {
-					throw new RuntimeException("Offset is less than 0");
+					return;//throw new RuntimeException("Offset is less than 0");
 				}
 				
 				if(offset > annexSource.getSourceText().length()) {
-					throw new RuntimeException("Offset is greater than source text length");
+					return;//throw new RuntimeException("Offset is greater than source text length");
 				}
 				
 				// Calculate the absolute offset
@@ -155,6 +155,8 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 			if (ge instanceof Keyword)
 			{
 				String keywordValue = ((Keyword) ge).getValue();
+				int tnoffset = node.getTotalOffset();
+				int noffset = node.getOffset();
 				int offset = node.getOffset()-annexParseResult.getAnnexOffset();
 				if(offset < 0 && keywordValue.equalsIgnoreCase(ANNEXTEXTKEYWORD))
 					continue;
@@ -167,6 +169,8 @@ public class Aadl2SemanticHighlightingCalculator implements ISemanticHighlightin
 			} else if (ge instanceof TerminalRule) {
 				if (((TerminalRule)ge).getName().equalsIgnoreCase("SL_COMMENT")){
 					// adjust for added whitespace in front of annex text
+					int tnoffset = node.getTotalOffset();
+					int noffset = node.getOffset();
 					acceptor.addPosition(node.getOffset()-annexParseResult.getAnnexOffset(), node.getLength(), 
 							AnnexHighlighterPositionAcceptor.COMMENT_ID);
 				} else if (((TerminalRule)ge).getName().equalsIgnoreCase("STRING")){

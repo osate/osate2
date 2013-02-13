@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface BusAccess extends Access {
+public interface BusAccess extends Access, Bus {
 	/**
 	 * Returns the value of the '<em><b>Bus Feature Classifier</b></em>' reference.
 	 * <p>
