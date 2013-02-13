@@ -43,6 +43,7 @@ import java.util.Iterator;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -94,9 +95,12 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 		logWeight(getPrintName(ci), ci.getCategory().getName() , net>0.0?net:gross,net>0.0);
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
-			double subweight = doCalcWeight(subi,(needWeight&&(gross == 0.0||net > 0.0)),indent+" ");
-			weight += subweight;
-			sublimit += GetProperties.getWeightLimit(subi,  0.0);
+			ComponentCategory subcat = subi.getCategory();
+			if(!(subcat.equals(ComponentCategory.PROCESS)||subcat.equals(ComponentCategory.VIRTUAL_BUS)||subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))){
+				double subweight = doCalcWeight(subi,(needWeight&&(gross == 0.0||net > 0.0)),indent+" ");
+				weight += subweight;
+				sublimit += GetProperties.getWeightLimit(subi,  0.0);
+			}
 		}
 		EList<ConnectionInstance> connl = ci.getConnectionInstances();
 		for (ConnectionInstance connectionInstance : connl) {
@@ -155,7 +159,7 @@ public /* final */ class PropertyTotals extends AadlProcessingSwitchWithProgress
 				ResultMsg = indent+String.format(String.format(getPrintName(ci)+": Sum of weights / Gross weight %.3f kg (no limit specified", weight));
 				info(ci,ResultMsg);
 			} else if (needWeight){
-				ResultMsg = indent+getPrintName(ci)+": no weight total or grossweight";
+				ResultMsg = indent+getPrintName(ci)+": no net weight plus subcomomponent weight, or no grossweight";
 				warning(ci,ResultMsg);
 			}
 		}
