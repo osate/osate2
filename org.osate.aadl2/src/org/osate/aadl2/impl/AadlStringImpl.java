@@ -68,4 +68,4 @@ public class AadlStringImpl extends NonListTypeImpl implements AadlString {
 		return Aadl2Package.eINSTANCE.getAadlString();
 	}
 
-} //AadlStringImpl
+} // AadlStringImpl

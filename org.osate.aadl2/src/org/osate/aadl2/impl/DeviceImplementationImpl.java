@@ -40,6 +40,7 @@ import java.util.Collection;
 import org.eclipse.emf.common.notify.NotificationChain;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
@@ -73,7 +74,8 @@ import org.osate.aadl2.VirtualBusSubcomponent;
  *
  * @generated
  */
-public class DeviceImplementationImpl extends ComponentImplementationImpl implements DeviceImplementation {
+public class DeviceImplementationImpl extends ComponentImplementationImpl
+		implements DeviceImplementation {
 	/**
 	 * The cached value of the '{@link #getOwnedBusSubcomponents() <em>Owned Bus Subcomponent</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -133,21 +135,30 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent());
+			EList<Subcomponent> ownedSubcomponents = (EList<Subcomponent>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getComponentImplementation_OwnedSubcomponent());
 			if (ownedSubcomponents == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getComponentImplementation_OwnedSubcomponent(),
-						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-								Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getComponentImplementation_OwnedSubcomponent(),
+						ownedSubcomponents = new DerivedUnionEObjectEList<Subcomponent>(
+								Subcomponent.class,
+								this,
+								Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+								OWNED_SUBCOMPONENT_ESUBSETS));
 			}
 			return ownedSubcomponents;
 		}
-		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class, this,
-				Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT, OWNED_SUBCOMPONENT_ESUBSETS);
+		return new DerivedUnionEObjectEList<Subcomponent>(Subcomponent.class,
+				this, Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_SUBCOMPONENT,
+				OWNED_SUBCOMPONENT_ESUBSETS);
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedSubcomponents() <em>Owned Subcomponent</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedSubcomponents()
@@ -167,7 +178,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<BusSubcomponent> getOwnedBusSubcomponents() {
 		if (ownedBusSubcomponents == null) {
-			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(BusSubcomponent.class, this,
+			ownedBusSubcomponents = new EObjectContainmentEList<BusSubcomponent>(
+					BusSubcomponent.class, this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT);
 		}
 		return ownedBusSubcomponents;
@@ -179,7 +191,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	public BusSubcomponent createOwnedBusSubcomponent() {
-		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE.getBusSubcomponent());
+		BusSubcomponent newOwnedBusSubcomponent = (BusSubcomponent) create(Aadl2Package.eINSTANCE
+				.getBusSubcomponent());
 		getOwnedBusSubcomponents().add(newOwnedBusSubcomponent);
 		return newOwnedBusSubcomponent;
 	}
@@ -191,7 +204,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	public EList<DataSubcomponent> getOwnedDataSubcomponents() {
 		if (ownedDataSubcomponents == null) {
-			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(DataSubcomponent.class, this,
+			ownedDataSubcomponents = new EObjectContainmentEList<DataSubcomponent>(
+					DataSubcomponent.class, this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT);
 		}
 		return ownedDataSubcomponents;
@@ -217,7 +231,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	public EList<VirtualBusSubcomponent> getOwnedVirtualBusSubcomponents() {
 		if (ownedVirtualBusSubcomponents == null) {
 			ownedVirtualBusSubcomponents = new EObjectContainmentEList<VirtualBusSubcomponent>(
-					VirtualBusSubcomponent.class, this,
+					VirtualBusSubcomponent.class,
+					this,
 					Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 		}
 		return ownedVirtualBusSubcomponents;
@@ -283,14 +298,18 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedBusSubcomponents()).basicRemove(
+					otherEnd, msgs);
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedDataSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedDataSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedVirtualBusSubcomponents())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -324,15 +343,18 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
 			getOwnedBusSubcomponents().clear();
-			getOwnedBusSubcomponents().addAll((Collection<? extends BusSubcomponent>) newValue);
+			getOwnedBusSubcomponents().addAll(
+					(Collection<? extends BusSubcomponent>) newValue);
 			return;
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
 			getOwnedDataSubcomponents().clear();
-			getOwnedDataSubcomponents().addAll((Collection<? extends DataSubcomponent>) newValue);
+			getOwnedDataSubcomponents().addAll(
+					(Collection<? extends DataSubcomponent>) newValue);
 			return;
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
 			getOwnedVirtualBusSubcomponents().clear();
-			getOwnedVirtualBusSubcomponents().addAll((Collection<? extends VirtualBusSubcomponent>) newValue);
+			getOwnedVirtualBusSubcomponents().addAll(
+					(Collection<? extends VirtualBusSubcomponent>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -368,11 +390,14 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT:
-			return ownedBusSubcomponents != null && !ownedBusSubcomponents.isEmpty();
+			return ownedBusSubcomponents != null
+					&& !ownedBusSubcomponents.isEmpty();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT:
-			return ownedDataSubcomponents != null && !ownedDataSubcomponents.isEmpty();
+			return ownedDataSubcomponents != null
+					&& !ownedDataSubcomponents.isEmpty();
 		case Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT:
-			return ownedVirtualBusSubcomponents != null && !ownedVirtualBusSubcomponents.isEmpty();
+			return ownedVirtualBusSubcomponents != null
+					&& !ownedVirtualBusSubcomponents.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -384,7 +409,8 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	 */
 	@Override
 	public boolean isSetOwnedSubcomponents() {
-		return super.isSetOwnedSubcomponents() || eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
+		return super.isSetOwnedSubcomponents()
+				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_BUS_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_DATA_SUBCOMPONENT)
 				|| eIsSet(Aadl2Package.DEVICE_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
 	}
@@ -392,4 +418,4 @@ public class DeviceImplementationImpl extends ComponentImplementationImpl implem
 	public ComponentCategory getCategory() {
 		return ComponentCategory.DEVICE;
 	}
-} //DeviceImplementationImpl
+} // DeviceImplementationImpl

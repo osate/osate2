@@ -47,7 +47,8 @@ import org.osate.aadl2.ThreadGroupPrototype;
  *
  * @generated
  */
-public class ThreadGroupPrototypeImpl extends ComponentPrototypeImpl implements ThreadGroupPrototype {
+public class ThreadGroupPrototypeImpl extends ComponentPrototypeImpl implements
+		ThreadGroupPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public class ThreadGroupPrototypeImpl extends ComponentPrototypeImpl implements 
 		return Aadl2Package.eINSTANCE.getThreadGroupPrototype();
 	}
 
-} //ThreadGroupPrototypeImpl
+} // ThreadGroupPrototypeImpl

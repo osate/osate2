@@ -41,6 +41,7 @@ import org.apache.log4j.Logger;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
@@ -55,6 +56,7 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 
     public void earlyStartup(){
     	new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
+		PredeclaredProperties.initPluginContributedAadl();
     };
     
 
@@ -91,7 +93,8 @@ public class MyPropertiesActivator extends PropertiesActivator implements org.ec
 	protected void registerInjectorFor(String language) throws Exception {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
-		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+						language));
+//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 
 }

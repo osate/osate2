@@ -59,9 +59,10 @@ import org.osate.aadl2.FeaturePrototypeBinding;
  * <!-- end-user-doc -->
  * @generated
  */
-public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemProvider implements
-		IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider,
-		IItemPropertySource {
+public class FeaturePrototypeBindingItemProvider extends
+		PrototypeBindingItemProvider implements IEditingDomainItemProvider,
+		IStructuredItemContentProvider, ITreeItemContentProvider,
+		IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -96,10 +97,12 @@ public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemPro
 	 * @generated
 	 */
 	@Override
-	public Collection<? extends EStructuralFeature> getChildrenFeatures(Object object) {
+	public Collection<? extends EStructuralFeature> getChildrenFeatures(
+			Object object) {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
-			childrenFeatures.add(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual());
+			childrenFeatures.add(Aadl2Package.eINSTANCE
+					.getFeaturePrototypeBinding_Actual());
 		}
 		return childrenFeatures;
 	}
@@ -125,7 +128,10 @@ public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemPro
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/FeaturePrototypeBinding"));
+		return overlayImage(
+				object,
+				getResourceLocator().getImage(
+						"full/obj16/FeaturePrototypeBinding"));
 	}
 
 	/**
@@ -152,7 +158,8 @@ public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemPro
 
 		switch (notification.getFeatureID(FeaturePrototypeBinding.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE_BINDING__ACTUAL:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
+			fireNotifyChanged(new ViewerNotification(notification,
+					notification.getNotifier(), true, false));
 			return;
 		}
 		super.notifyChanged(notification);
@@ -166,19 +173,24 @@ public class FeaturePrototypeBindingItemProvider extends PrototypeBindingItemPro
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createFeatureGroupPrototypeActual()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createAccessSpecification()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createPortSpecification()));
 
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
+		newChildDescriptors.add(createChildParameter(
+				Aadl2Package.eINSTANCE.getFeaturePrototypeBinding_Actual(),
 				Aadl2Factory.eINSTANCE.createFeaturePrototypeReference()));
 	}
 

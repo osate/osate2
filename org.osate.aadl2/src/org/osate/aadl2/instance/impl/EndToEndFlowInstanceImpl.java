@@ -71,7 +71,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *
  * @generated
  */
-public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements EndToEndFlowInstance {
+public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
+		EndToEndFlowInstance {
 	/**
 	 * The cached value of the '{@link #getFlowElements() <em>Flow Element</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -143,7 +144,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 */
 	public EList<FlowElementInstance> getFlowElements() {
 		if (flowElements == null) {
-			flowElements = new EObjectResolvingEList<FlowElementInstance>(FlowElementInstance.class, this,
+			flowElements = new EObjectResolvingEList<FlowElementInstance>(
+					FlowElementInstance.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT) {
 				private static final long serialVersionUID = 1L;
 
@@ -170,8 +172,11 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			endToEndFlow = (EndToEndFlow) eResolveProxy(oldEndToEndFlow);
 			if (endToEndFlow != oldEndToEndFlow) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW, oldEndToEndFlow, endToEndFlow));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW,
+							oldEndToEndFlow, endToEndFlow));
 			}
 		}
 		return endToEndFlow;
@@ -196,7 +201,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		endToEndFlow = newEndToEndFlow;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW, oldEndToEndFlow, endToEndFlow));
+					InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW,
+					oldEndToEndFlow, endToEndFlow));
 	}
 
 	/**
@@ -206,7 +212,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 */
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<ModeInstance>(
+					ModeInstance.class, this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -219,7 +226,9 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 	 */
 	public EList<SystemOperationMode> getInSystemOperationModes() {
 		if (inSystemOperationModes == null) {
-			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(SystemOperationMode.class, this,
+			inSystemOperationModes = new EObjectResolvingEList<SystemOperationMode>(
+					SystemOperationMode.class,
+					this,
 					InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
 		}
 		return inSystemOperationModes;
@@ -258,7 +267,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		switch (featureID) {
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT:
 			getFlowElements().clear();
-			getFlowElements().addAll((Collection<? extends FlowElementInstance>) newValue);
+			getFlowElements().addAll(
+					(Collection<? extends FlowElementInstance>) newValue);
 			return;
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			getInModes().clear();
@@ -266,7 +276,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			return;
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
 			getInSystemOperationModes().clear();
-			getInSystemOperationModes().addAll((Collection<? extends SystemOperationMode>) newValue);
+			getInSystemOperationModes().addAll(
+					(Collection<? extends SystemOperationMode>) newValue);
 			return;
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW:
 			setEndToEndFlow((EndToEndFlow) newValue);
@@ -312,7 +323,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_MODE:
 			return inModes != null && !inModes.isEmpty();
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE:
-			return inSystemOperationModes != null && !inSystemOperationModes.isEmpty();
+			return inSystemOperationModes != null
+					&& !inSystemOperationModes.isEmpty();
 		case InstancePackage.END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW:
 			return endToEndFlow != null;
 		}
@@ -336,7 +348,8 @@ public class EndToEndFlowInstanceImpl extends FlowElementInstanceImpl implements
 			//			 * these mode instances.
 			//			 */
 			List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
-			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
+			for (SystemOperationMode som : getSystemInstance()
+					.getSystemOperationModes()) {
 				for (ModeInstance mi : som.getCurrentModes()) {
 					if (inModes.contains(mi)) {
 						processedModes.add(som);

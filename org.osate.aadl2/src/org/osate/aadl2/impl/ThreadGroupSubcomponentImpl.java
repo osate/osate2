@@ -60,7 +60,8 @@ import org.osate.aadl2.ThreadGroupSubcomponentType;
  *
  * @generated
  */
-public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements ThreadGroupSubcomponent {
+public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements
+		ThreadGroupSubcomponent {
 	/**
 	 * The cached value of the '{@link #getThreadGroupSubcomponentType() <em>Thread Group Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null
+				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -121,14 +123,18 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * @generated
 	 */
 	public ThreadGroupSubcomponentType getThreadGroupSubcomponentType() {
-		if (threadGroupSubcomponentType != null && ((EObject) threadGroupSubcomponentType).eIsProxy()) {
+		if (threadGroupSubcomponentType != null
+				&& ((EObject) threadGroupSubcomponentType).eIsProxy()) {
 			InternalEObject oldThreadGroupSubcomponentType = (InternalEObject) threadGroupSubcomponentType;
 			threadGroupSubcomponentType = (ThreadGroupSubcomponentType) eResolveProxy(oldThreadGroupSubcomponentType);
 			if (threadGroupSubcomponentType != oldThreadGroupSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE,
-							oldThreadGroupSubcomponentType, threadGroupSubcomponentType));
+							oldThreadGroupSubcomponentType,
+							threadGroupSubcomponentType));
 			}
 		}
 		return threadGroupSubcomponentType;
@@ -148,11 +154,14 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setThreadGroupSubcomponentType(ThreadGroupSubcomponentType newThreadGroupSubcomponentType) {
+	public void setThreadGroupSubcomponentType(
+			ThreadGroupSubcomponentType newThreadGroupSubcomponentType) {
 		ThreadGroupSubcomponentType oldThreadGroupSubcomponentType = threadGroupSubcomponentType;
 		threadGroupSubcomponentType = newThreadGroupSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
 					Aadl2Package.THREAD_GROUP_SUBCOMPONENT__THREAD_GROUP_SUBCOMPONENT_TYPE,
 					oldThreadGroupSubcomponentType, threadGroupSubcomponentType));
 	}
@@ -231,4 +240,4 @@ public class ThreadGroupSubcomponentImpl extends SubcomponentImpl implements Thr
 	public ComponentCategory getCategory() {
 		return ComponentCategory.THREAD_GROUP;
 	}
-} //ThreadGroupSubcomponentImpl
+} // ThreadGroupSubcomponentImpl

@@ -51,7 +51,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface DataPort extends Port, Context, ParameterConnectionEnd {
+public interface DataPort extends Port, Context, Data, ParameterConnectionEnd {
 	/**
 	 * Returns the value of the '<em><b>Data Feature Classifier</b></em>' reference.
 	 * <p>

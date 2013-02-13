@@ -73,7 +73,8 @@ import org.osate.aadl2.NamedElement;
  *
  * @generated
  */
-public abstract class ComponentClassifierImpl extends ClassifierImpl implements ComponentClassifier {
+public abstract class ComponentClassifierImpl extends ClassifierImpl implements
+		ComponentClassifier {
 	/**
 	 * The cached value of the '{@link #getOwnedModes() <em>Owned Mode</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -160,18 +161,27 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache.get(eResource, this,
-					Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			EList<ClassifierFeature> classifierFeatures = (EList<ClassifierFeature>) cache
+					.get(eResource, this, Aadl2Package.eINSTANCE
+							.getClassifier_ClassifierFeature());
 			if (classifierFeatures == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature(),
-						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class,
-								this, Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE,
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE
+								.getClassifier_ClassifierFeature(),
+						classifierFeatures = new DerivedUnionEObjectEList<ClassifierFeature>(
+								ClassifierFeature.class,
+								this,
+								Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE,
 								CLASSIFIER_FEATURE_ESUBSETS));
 			}
 			return classifierFeatures;
 		}
-		return new DerivedUnionEObjectEList<ClassifierFeature>(ClassifierFeature.class, this,
-				Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE, CLASSIFIER_FEATURE_ESUBSETS);
+		return new DerivedUnionEObjectEList<ClassifierFeature>(
+				ClassifierFeature.class, this,
+				Aadl2Package.COMPONENT_CLASSIFIER__CLASSIFIER_FEATURE,
+				CLASSIFIER_FEATURE_ESUBSETS);
 	}
 
 	/**
@@ -183,7 +193,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * @ordered
 	 */
 	protected static final int[] CLASSIFIER_FEATURE_ESUBSETS = new int[] {
-			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE, Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION };
+			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE,
+			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -196,21 +207,29 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		if (cache != null) {
 			Resource eResource = eResource();
 			@SuppressWarnings("unchecked")
-			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(eResource, this,
+			EList<NamedElement> ownedMembers = (EList<NamedElement>) cache.get(
+					eResource, this,
 					Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			if (ownedMembers == null) {
-				cache.put(eResource, this, Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
-						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-								Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS));
+				cache.put(
+						eResource,
+						this,
+						Aadl2Package.eINSTANCE.getNamespace_OwnedMember(),
+						ownedMembers = new DerivedUnionEObjectEList<NamedElement>(
+								NamedElement.class,
+								this,
+								Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER,
+								OWNED_MEMBER_ESUBSETS));
 			}
 			return ownedMembers;
 		}
-		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class, this,
-				Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER, OWNED_MEMBER_ESUBSETS);
+		return new DerivedUnionEObjectEList<NamedElement>(NamedElement.class,
+				this, Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MEMBER,
+				OWNED_MEMBER_ESUBSETS);
 	}
 
 	/**
-	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' containment reference list.
+	 * The array of subset feature identifiers for the '{@link #getOwnedMembers() <em>Owned Member</em>}' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #getOwnedMembers()
@@ -219,7 +238,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	protected static final int[] OWNED_MEMBER_ESUBSETS = new int[] {
 			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_ANNEX_SUBCLAUSE,
-			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROTOTYPE, Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE,
+			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_PROTOTYPE,
+			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE,
 			Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION };
 
 	/**
@@ -253,7 +273,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	public EList<ModeTransition> getOwnedModeTransitions() {
 		if (ownedModeTransitions == null) {
-			ownedModeTransitions = new EObjectContainmentEList<ModeTransition>(ModeTransition.class, this,
+			ownedModeTransitions = new EObjectContainmentEList<ModeTransition>(
+					ModeTransition.class, this,
 					Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
 		}
 		return ownedModeTransitions;
@@ -265,7 +286,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * @generated
 	 */
 	public ModeTransition createOwnedModeTransition() {
-		ModeTransition newOwnedModeTransition = (ModeTransition) create(Aadl2Package.eINSTANCE.getModeTransition());
+		ModeTransition newOwnedModeTransition = (ModeTransition) create(Aadl2Package.eINSTANCE
+				.getModeTransition());
 		getOwnedModeTransitions().add(newOwnedModeTransition);
 		return newOwnedModeTransition;
 	}
@@ -288,8 +310,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		boolean oldNoFlows = noFlows;
 		noFlows = newNoFlows;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS,
-					oldNoFlows, noFlows));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS, oldNoFlows,
+					noFlows));
 	}
 
 	/**
@@ -310,8 +333,9 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		boolean oldNoModes = noModes;
 		noModes = newNoModes;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES,
-					oldNoModes, noModes));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES, oldNoModes,
+					noModes));
 	}
 
 	/**
@@ -320,12 +344,15 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
-			return ((InternalEList<?>) getOwnedModes()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedModes()).basicRemove(otherEnd,
+					msgs);
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
-			return ((InternalEList<?>) getOwnedModeTransitions()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedModeTransitions()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -365,7 +392,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
 			getOwnedModeTransitions().clear();
-			getOwnedModeTransitions().addAll((Collection<? extends ModeTransition>) newValue);
+			getOwnedModeTransitions().addAll(
+					(Collection<? extends ModeTransition>) newValue);
 			return;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			setNoFlows((Boolean) newValue);
@@ -412,7 +440,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE:
 			return ownedModes != null && !ownedModes.isEmpty();
 		case Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION:
-			return ownedModeTransitions != null && !ownedModeTransitions.isEmpty();
+			return ownedModeTransitions != null
+					&& !ownedModeTransitions.isEmpty();
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_FLOWS:
 			return noFlows != NO_FLOWS_EDEFAULT;
 		case Aadl2Package.COMPONENT_CLASSIFIER__NO_MODES:
@@ -447,7 +476,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	@Override
 	public boolean isSetClassifierFeatures() {
-		return super.isSetClassifierFeatures() || eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
+		return super.isSetClassifierFeatures()
+				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
 				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
 	}
 
@@ -458,7 +488,8 @@ public abstract class ComponentClassifierImpl extends ClassifierImpl implements 
 	 */
 	@Override
 	public boolean isSetOwnedMembers() {
-		return super.isSetOwnedMembers() || eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
+		return super.isSetOwnedMembers()
+				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE)
 				|| eIsSet(Aadl2Package.COMPONENT_CLASSIFIER__OWNED_MODE_TRANSITION);
 	}
-} //ComponentClassifierImpl
+} // ComponentClassifierImpl

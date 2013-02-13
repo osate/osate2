@@ -6,7 +6,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
 import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.AbstractSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
 import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
@@ -165,37 +164,11 @@ import org.osate.aadl2.VirtualProcessorType;
 import org.osate.xtext.aadl2.properties.serializer.PropertiesSemanticSequencer;
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess;
 
-@SuppressWarnings("restriction")
-public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
+@SuppressWarnings("all")
+public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticSequencer {
 
 	@Inject
-	protected Aadl2GrammarAccess grammarAccess;
-	
-	@Inject
-	protected ISemanticSequencerDiagnosticProvider diagnosticProvider;
-	
-	@Inject
-	protected ITransientValueService transientValues;
-	
-	@Inject
-	@GenericSequencer
-	protected Provider<ISemanticSequencer> genericSequencerProvider;
-	
-	protected ISemanticSequencer genericSequencer;
-	
-	@Inject
-	protected Provider<PropertiesSemanticSequencer> superSequencerProvider;
-	 
-	protected PropertiesSemanticSequencer superSequencer; 
-	
-	@Override
-	public void init(ISemanticSequencer sequencer, ISemanticSequenceAcceptor sequenceAcceptor, Acceptor errorAcceptor) {
-		super.init(sequencer, sequenceAcceptor, errorAcceptor);
-		this.genericSequencer = genericSequencerProvider.get();
-		this.genericSequencer.init(sequencer, sequenceAcceptor, errorAcceptor);
-		this.superSequencer = superSequencerProvider.get();
-		this.superSequencer.init(sequencer, sequenceAcceptor, errorAcceptor); 
-	}
+	private Aadl2GrammarAccess grammarAccess;
 	
 	public void createSequence(EObject context, EObject semanticObject) {
 		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
@@ -207,7 +180,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else if(context == grammarAccess.getUnnamedBooleanTypeRule() ||
 				   context == grammarAccess.getUnnamedPropertyTypeRule()) {
-					sequence_UnnamedPropertyType(context, (AadlBoolean) semanticObject); 
+					sequence_UnnamedBooleanType(context, (AadlBoolean) semanticObject); 
 					return; 
 				}
 				else break;
@@ -250,7 +223,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else if(context == grammarAccess.getUnnamedPropertyTypeRule() ||
 				   context == grammarAccess.getUnnamedStringTypeRule()) {
-					sequence_UnnamedPropertyType(context, (AadlString) semanticObject); 
+					sequence_UnnamedStringType(context, (AadlString) semanticObject); 
 					return; 
 				}
 				else break;
@@ -274,7 +247,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (AbstractPrototype) semanticObject); 
+					sequence_AbstractPrototype_Prototype(context, (AbstractPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -362,7 +335,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (BusPrototype) semanticObject); 
+					sequence_BusPrototype_Prototype(context, (BusPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -485,7 +458,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (DataPrototype) semanticObject); 
+					sequence_DataPrototype_Prototype(context, (DataPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -531,7 +504,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (DevicePrototype) semanticObject); 
+					sequence_DevicePrototype_Prototype(context, (DevicePrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -619,7 +592,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (FeatureGroupPrototype) semanticObject); 
+					sequence_FeatureGroupPrototype_Prototype(context, (FeatureGroupPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -655,7 +628,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (FeaturePrototype) semanticObject); 
+					sequence_FeaturePrototype_Prototype(context, (FeaturePrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -680,7 +653,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.FLOW_IMPLEMENTATION:
 				if(context == grammarAccess.getFlowImplementationRule()) {
-					sequence_FlowImplementation(context, (FlowImplementation) semanticObject); 
+					sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(context, (FlowImplementation) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getFlowPathImplRule()) {
@@ -707,7 +680,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else break;
 			case Aadl2Package.FLOW_SPECIFICATION:
-				if(context == grammarAccess.getFlowPathSpecRule()) {
+				if(context == grammarAccess.getFlowSpecificationRule()) {
+					sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(context, (FlowSpecification) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getFlowPathSpecRule()) {
 					sequence_FlowPathSpec(context, (FlowSpecification) semanticObject); 
 					return; 
 				}
@@ -721,10 +698,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				}
 				else if(context == grammarAccess.getFlowSpecRefinementRule()) {
 					sequence_FlowSpecRefinement(context, (FlowSpecification) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getFlowSpecificationRule()) {
-					sequence_FlowSpecification(context, (FlowSpecification) semanticObject); 
 					return; 
 				}
 				else break;
@@ -791,7 +764,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (MemoryPrototype) semanticObject); 
+					sequence_MemoryPrototype_Prototype(context, (MemoryPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -940,7 +913,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (ProcessPrototype) semanticObject); 
+					sequence_ProcessPrototype_Prototype(context, (ProcessPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -987,7 +960,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					return; 
 				}
 				else if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (ProcessorPrototype) semanticObject); 
+					sequence_ProcessorPrototype_Prototype(context, (ProcessorPrototype) semanticObject); 
 					return; 
 				}
 				else break;
@@ -1109,11 +1082,8 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule()) {
-					sequence_PropertyExpression(context, (RecordValue) semanticObject); 
-					return; 
-				}
 				else if(context == grammarAccess.getConstantPropertyExpressionRule() ||
+				   context == grammarAccess.getPropertyExpressionRule() ||
 				   context == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
@@ -1180,7 +1150,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (SubprogramGroupPrototype) semanticObject); 
+					sequence_Prototype_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getSubprogramGroupPrototypeRule()) {
@@ -1212,7 +1182,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SUBPROGRAM_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (SubprogramPrototype) semanticObject); 
+					sequence_Prototype_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getSubprogramPrototypeRule()) {
@@ -1244,7 +1214,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.SYSTEM_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (SystemPrototype) semanticObject); 
+					sequence_Prototype_SystemPrototype(context, (SystemPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getSystemPrototypeRule()) {
@@ -1276,7 +1246,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.THREAD_GROUP_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (ThreadGroupPrototype) semanticObject); 
+					sequence_Prototype_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getThreadGroupPrototypeRule()) {
@@ -1308,7 +1278,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.THREAD_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (ThreadPrototype) semanticObject); 
+					sequence_Prototype_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getThreadPrototypeRule()) {
@@ -1375,7 +1345,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (VirtualBusPrototype) semanticObject); 
+					sequence_Prototype_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getVirtualBusPrototypeRule()) {
@@ -1407,7 +1377,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 				else break;
 			case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
 				if(context == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype(context, (VirtualProcessorPrototype) semanticObject); 
+					sequence_Prototype_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
 					return; 
 				}
 				else if(context == grammarAccess.getVirtualProcessorPrototypeRule()) {
@@ -1522,6 +1492,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_AbstractPrototype_Prototype(EObject context, AbstractPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         (name=ID | refined=[SystemSubcomponent|REFINEDNAME]) 
 	 *         (abstractSubcomponentType=[AbstractSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
@@ -1613,37 +1597,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
-	 */
-	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     size=INTVALUE
 	 */
 	protected void sequence_ArraySize(EObject context, ArraySize semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
-	 */
-	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (value?='true'?)
-	 */
-	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1695,6 +1652,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
 	 */
 	protected void sequence_BusPrototype(EObject context, BusPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_BusPrototype_Prototype(EObject context, BusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -1764,7 +1735,11 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID calledSubprogram=[CalledSubprogram|QCREF] ownedPropertyAssociation+=PropertyAssociation*)
+	 *     (
+	 *         name=ID 
+	 *         ((context=[CallContext|PNAME] calledSubprogram=[CalledSubprogram|ID]) | calledSubprogram=[CalledSubprogram|PNAME]) 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_CallSpecification(EObject context, SubprogramCall semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -1777,15 +1752,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_ClassifierType(EObject context, ClassifierType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     classifier=[ComponentClassifier|QCREF]
-	 */
-	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1818,15 +1784,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     function=ID
-	 */
-	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (context=[Context|ID]? connectionEnd=[ConnectionEnd|ID])
 	 */
 	protected void sequence_ConnectedElement(EObject context, ConnectedElement semanticObject) {
@@ -1840,50 +1797,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_ConnectionFlow(EObject context, FlowSegment semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     namedValue=[PropertyConstant|QPREF]
-	 */
-	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         property=[Property|QPREF] 
-	 *         append?='+=>'? 
-	 *         constant?='constant'? 
-	 *         ownedValue+=OptionalModalPropertyValue 
-	 *         ownedValue+=OptionalModalPropertyValue* 
-	 *         (appliesTo+=ContainmentPath appliesTo+=ContainmentPath*)? 
-	 *         inBinding+=[Classifier|QCREF]?
-	 *     )
-	 */
-	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ((namedElement=[NamedElement|ID] arrayRange+=ArrayRange?) | namedElement=[NamedElement|ANNEXREF])
-	 */
-	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 */
-	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -1956,6 +1869,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_DataPrototype_Prototype(EObject context, DataPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         (name=ID | refined=[DataSubcomponent|REFINEDNAME]) 
 	 *         (dataSubcomponentType=[DataSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
@@ -2008,7 +1935,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (name=ID sourceText=ANNEXTEXT)
+	 *     (name=ID sourceText=ANNEXTEXT (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
 	protected void sequence_DefaultAnnexSubclause(EObject context, DefaultAnnexSubclause semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2057,6 +1984,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
 	 */
 	protected void sequence_DevicePrototype(EObject context, DevicePrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_DevicePrototype_Prototype(EObject context, DevicePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2259,6 +2200,19 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         (name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) 
+	 *         constrainingFeatureGroupType=[FeatureGroupType|QCREF]? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_FeatureGroupPrototype_Prototype(EObject context, FeatureGroupPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         name=ID 
 	 *         (ownedExtension=GroupExtension (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (noPrototypes?='none' | ownedPrototype+=Prototype+)? 
@@ -2327,10 +2281,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
+	 *     (
+	 *         (name=ID | refined=[FeaturePrototype|REFINEDNAME]) 
+	 *         direction=InOutDirection? 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
-	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_FeaturePrototype_Prototype(EObject context, FeaturePrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2359,7 +2318,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
 	 */
-	protected void sequence_FlowImplementation(EObject context, FlowImplementation semanticObject) {
+	protected void sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2373,6 +2332,24 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_FlowPathImpl(EObject context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             (name=ID kind=FlowSource outEnd=FlowEnd) | 
+	 *             (name=ID kind=FlowSink InEnd=FlowEnd) | 
+	 *             (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd) | 
+	 *             (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
+	 *         ) 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
+	 */
+	protected void sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(EObject context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2433,24 +2410,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (
-	 *             (name=ID kind=FlowSource outEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowSink InEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd) | 
-	 *             (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
-	 *         ) 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
-	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
-	 *     )
-	 */
-	protected void sequence_FlowSpecification(EObject context, FlowSpecification semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     extended=[FeatureGroupType|QCREF]
 	 */
 	protected void sequence_GroupExtension(EObject context, GroupExtension semanticObject) {
@@ -2490,15 +2449,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
-	 */
-	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
 	 */
 	protected void sequence_IntegerType(EObject context, AadlInteger semanticObject) {
@@ -2517,28 +2467,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)
-	 */
-	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (elementType=[PropertyType|QPREF] | ownedElementType=UnnamedPropertyType)
 	 */
 	protected void sequence_ListType(EObject context, ListType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     namedValue=[AbstractNamedValue|QPREF]
-	 */
-	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2573,6 +2505,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
 	 */
 	protected void sequence_MemoryPrototype(EObject context, MemoryPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_MemoryPrototype_Prototype(EObject context, MemoryPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -2624,15 +2570,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
-	 */
-	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (parentMode=[Mode|ID] derivedMode=[Mode|ID]?)
 	 */
 	protected void sequence_ModeRef(EObject context, ModeBinding semanticObject) {
@@ -2662,33 +2599,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_Mode(EObject context, Mode semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
-	 */
-	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     ownedFieldValue+=FieldPropertyAssociation+
-	 */
-	protected void sequence_OldRecordTerm(EObject context, RecordValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
-	 */
-	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -2820,6 +2730,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_ProcessPrototype_Prototype(EObject context, ProcessPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         (name=ID | refined=[ProcessSubcomponent|REFINEDNAME]) 
 	 *         (processSubcomponentType=[ProcessSubcomponentType|QCREF] (ownedPrototypeBinding+=PrototypeBinding ownedPrototypeBinding+=PrototypeBinding*)?)? 
 	 *         (
@@ -2924,6 +2848,20 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	/**
 	 * Constraint:
 	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
+	 */
+	protected void sequence_ProcessorPrototype_Prototype(EObject context, ProcessorPrototype semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
 	 *         (name=ID | refined=[ProcessorSubcomponent|REFINEDNAME]) 
 	 *         (
 	 *             processorSubcomponentType=[ProcessorSubcomponentType|QCREF] 
@@ -2983,22 +2921,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         property=[Property|QPREF] 
-	 *         append?='+=>'? 
-	 *         constant?='constant'? 
-	 *         ownedValue+=OptionalModalPropertyValue 
-	 *         ownedValue+=OptionalModalPropertyValue* 
-	 *         inBinding+=[Classifier|QCREF]?
-	 *     )
-	 */
-	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID (propertyType=[PropertyType|QPREF] | ownedPropertyType=UnnamedPropertyType) constantValue=ConstantPropertyExpression)
 	 */
 	protected void sequence_PropertyConstant(EObject context, PropertyConstant semanticObject) {
@@ -3023,15 +2945,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (ownedFieldValue+=FieldPropertyAssociation+ | ownedFieldValue+=FieldPropertyAssociation+)
-	 */
-	protected void sequence_PropertyExpression(EObject context, RecordValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         (importedUnit+=[PropertySet|ID] importedUnit+=[PropertySet|ID]*)* 
@@ -3045,15 +2958,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ownedValue=PropertyExpression
-	 */
-	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (
 	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
 	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
@@ -3061,7 +2965,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, AbstractPrototype semanticObject) {
+	protected void sequence_Prototype_SubprogramGroupPrototype(EObject context, SubprogramGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3075,7 +2979,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, BusPrototype semanticObject) {
+	protected void sequence_Prototype_SubprogramPrototype(EObject context, SubprogramPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3089,7 +2993,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, DataPrototype semanticObject) {
+	protected void sequence_Prototype_SystemPrototype(EObject context, SystemPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3103,34 +3007,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, DevicePrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) 
-	 *         constrainingFeatureGroupType=[FeatureGroupType|QCREF]? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, FeatureGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[FeaturePrototype|REFINEDNAME]) 
-	 *         direction=InOutDirection? 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, FeaturePrototype semanticObject) {
+	protected void sequence_Prototype_ThreadGroupPrototype(EObject context, ThreadGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3144,7 +3021,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, MemoryPrototype semanticObject) {
+	protected void sequence_Prototype_ThreadPrototype(EObject context, ThreadPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3158,7 +3035,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, ProcessPrototype semanticObject) {
+	protected void sequence_Prototype_VirtualBusPrototype(EObject context, VirtualBusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3172,105 +3049,7 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_Prototype(EObject context, ProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, SubprogramGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, SubprogramPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, SystemPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, ThreadGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, ThreadPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, VirtualBusPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype(EObject context, VirtualProcessorPrototype semanticObject) {
+	protected void sequence_Prototype_VirtualProcessorPrototype(EObject context, VirtualProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -3343,15 +3122,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
-	 */
-	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID range=RealRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
 	 */
 	protected void sequence_RealType(EObject context, AadlReal semanticObject) {
@@ -3379,28 +3149,10 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     ownedFieldValue+=FieldPropertyAssociation+
-	 */
-	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (name=ID ownedField+=RecordField+)
 	 */
 	protected void sequence_RecordType(EObject context, RecordType semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (containmentPathElement+=ContainmentPathElement containmentPathElement+=ContainmentPathElement*)
-	 */
-	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -3428,24 +3180,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 */
 	protected void sequence_RequiresMode(EObject context, Mode semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
-	 */
-	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     value=NoQuoteString
-	 */
-	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
-		superSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
 	
@@ -4031,6 +3765,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	
 	/**
 	 * Constraint:
+	 *     {AadlBoolean}
+	 */
+	protected void sequence_UnnamedBooleanType(EObject context, AadlBoolean semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     ((classifierReference+=QMReference classifierReference+=QMReference*)?)
 	 */
 	protected void sequence_UnnamedClassifierType(EObject context, ClassifierType semanticObject) {
@@ -4052,24 +3795,6 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     (range=IntegerRange? (ownedUnitsType=UnnamedUnitsType | unitsType=[UnitsType|QPREF])?)
 	 */
 	protected void sequence_UnnamedIntegerType(EObject context, AadlInteger semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {AadlBoolean}
-	 */
-	protected void sequence_UnnamedPropertyType(EObject context, AadlBoolean semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     {AadlString}
-	 */
-	protected void sequence_UnnamedPropertyType(EObject context, AadlString semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	
@@ -4106,6 +3831,15 @@ public class AbstractAadl2SemanticSequencer extends AbstractSemanticSequencer {
 	 *     ((namedElementReference+=QMReference namedElementReference+=QMReference*)?)
 	 */
 	protected void sequence_UnnamedReferenceType(EObject context, ReferenceType semanticObject) {
+		genericSequencer.createSequence(context, (EObject)semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     {AadlString}
+	 */
+	protected void sequence_UnnamedStringType(EObject context, AadlString semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
 	}
 	

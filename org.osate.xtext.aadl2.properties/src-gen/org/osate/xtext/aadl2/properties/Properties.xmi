@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ASCII"?>
-<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.osate.xtext.aadl2.properties.Properties" definesHiddenTokens="true" hiddenTokens="//@rules.46 //@rules.32">
+<xtext:Grammar xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:xtext="http://www.eclipse.org/2008/Xtext" name="org.osate.xtext.aadl2.properties.Properties" definesHiddenTokens="true" hiddenTokens="//@rules.47 //@rules.32">
   <metamodelDeclarations xsi:type="xtext:ReferencedMetamodel" alias="aadl2">
     <ePackage href="http://aadl.info/AADL/2.0#/"/>
   </metamodelDeclarations>
@@ -182,7 +182,7 @@
           <type metamodel="//@metamodelDeclarations.0">
             <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Group" cardinality="*">
@@ -192,7 +192,7 @@
             <type metamodel="//@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
           </terminal>
         </elements>
       </elements>
@@ -216,7 +216,7 @@
             <type metamodel="//@metamodelDeclarations.0">
               <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
             </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
           </terminal>
         </elements>
         <elements xsi:type="xtext:Group" cardinality="*">
@@ -226,7 +226,7 @@
               <type metamodel="//@metamodelDeclarations.0">
                 <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//Mode"/>
               </type>
-              <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+              <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
             </terminal>
           </elements>
         </elements>
@@ -247,7 +247,6 @@
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//PropertyExpression"/>
     </type>
     <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.14"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.13"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.12"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.16"/>
@@ -356,7 +355,7 @@
       <elements xsi:type="xtext:Keyword" value="compute"/>
       <elements xsi:type="xtext:Keyword" value="("/>
       <elements xsi:type="xtext:Assignment" feature="function" operator="=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
     </alternatives>
@@ -384,14 +383,21 @@
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ListValue"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:Keyword" value="("/>
-      <elements xsi:type="xtext:Assignment" feature="ownedListElement" operator="+=">
-        <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+      <elements xsi:type="xtext:Action">
+        <type metamodel="//@metamodelDeclarations.0">
+          <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ListValue"/>
+        </type>
       </elements>
-      <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:Keyword" value=","/>
+      <elements xsi:type="xtext:Keyword" value="("/>
+      <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Assignment" feature="ownedListElement" operator="+=">
           <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+        </elements>
+        <elements xsi:type="xtext:Group" cardinality="*">
+          <elements xsi:type="xtext:Keyword" value=","/>
+          <elements xsi:type="xtext:Assignment" feature="ownedListElement" operator="+=">
+            <terminal xsi:type="xtext:RuleCall" rule="//@rules.8"/>
+          </elements>
         </elements>
       </elements>
       <elements xsi:type="xtext:Keyword" value=")"/>
@@ -407,7 +413,7 @@
           <type metamodel="//@metamodelDeclarations.0">
             <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//BasicProperty"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         </terminal>
       </elements>
       <elements xsi:type="xtext:Keyword" value="=>"/>
@@ -421,30 +427,17 @@
     <type metamodel="//@metamodelDeclarations.0">
       <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//ContainmentPathElement"/>
     </type>
-    <alternatives xsi:type="xtext:Alternatives">
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Assignment" feature="namedElement" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="//@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
-          </terminal>
-        </elements>
-        <elements xsi:type="xtext:Assignment" cardinality="?" feature="arrayRange" operator="+=">
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
-        </elements>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Assignment" feature="namedElement" operator="=">
+        <terminal xsi:type="xtext:CrossReference">
+          <type metamodel="//@metamodelDeclarations.0">
+            <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
+          </type>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
+        </terminal>
       </elements>
-      <elements xsi:type="xtext:Group">
-        <elements xsi:type="xtext:Keyword" value="annex"/>
-        <elements xsi:type="xtext:Assignment" feature="namedElement" operator="=">
-          <terminal xsi:type="xtext:CrossReference">
-            <type metamodel="//@metamodelDeclarations.0">
-              <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//NamedElement"/>
-            </type>
-            <terminal xsi:type="xtext:RuleCall" rule="//@rules.20"/>
-          </terminal>
-        </elements>
+      <elements xsi:type="xtext:Assignment" cardinality="?" feature="arrayRange" operator="+=">
+        <terminal xsi:type="xtext:RuleCall" rule="//@rules.24"/>
       </elements>
     </alternatives>
   </rules>
@@ -456,7 +449,7 @@
       <elements xsi:type="xtext:Keyword" value="{"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       <elements xsi:type="xtext:RuleCall" rule="//@rules.43"/>
       <elements xsi:type="xtext:Keyword" value="}"/>
@@ -483,7 +476,7 @@
     <type metamodel="//@metamodelDeclarations.1">
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
-    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.44"/>
+    <alternatives xsi:type="xtext:RuleCall" rule="//@rules.45"/>
   </rules>
   <rules xsi:type="xtext:ParserRule" name="ArrayRange">
     <type metamodel="//@metamodelDeclarations.0">
@@ -534,7 +527,7 @@
           <type metamodel="//@metamodelDeclarations.0">
             <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//UnitLiteral"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         </terminal>
       </elements>
     </alternatives>
@@ -564,7 +557,7 @@
           <type metamodel="//@metamodelDeclarations.0">
             <classifier xsi:type="ecore:EClass" href="http://aadl.info/AADL/2.0#//UnitLiteral"/>
           </type>
-          <terminal xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+          <terminal xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         </terminal>
       </elements>
     </alternatives>
@@ -752,10 +745,10 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Group">
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="::"/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       </elements>
     </alternatives>
   </rules>
@@ -765,13 +758,13 @@
     </type>
     <alternatives xsi:type="xtext:Group">
       <elements xsi:type="xtext:Group" cardinality="*">
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
         <elements xsi:type="xtext:Keyword" value="::"/>
       </elements>
-      <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+      <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       <elements xsi:type="xtext:Group" cardinality="?">
         <elements xsi:type="xtext:Keyword" value="."/>
-        <elements xsi:type="xtext:RuleCall" rule="//@rules.45"/>
+        <elements xsi:type="xtext:RuleCall" rule="//@rules.46"/>
       </elements>
     </alternatives>
   </rules>
@@ -780,6 +773,17 @@
       <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </type>
     <alternatives xsi:type="xtext:Keyword" value="*"/>
+  </rules>
+  <rules xsi:type="xtext:TerminalRule" name="ANNEXTEXT">
+    <type metamodel="//@metamodelDeclarations.1">
+      <classifier xsi:type="ecore:EDataType" href="http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </type>
+    <alternatives xsi:type="xtext:Group">
+      <elements xsi:type="xtext:Keyword" value="{**"/>
+      <elements xsi:type="xtext:UntilToken">
+        <terminal xsi:type="xtext:Keyword" value="**}"/>
+      </elements>
+    </alternatives>
   </rules>
   <rules xsi:type="xtext:TerminalRule" name="STRING">
     <type metamodel="//@metamodelDeclarations.1">

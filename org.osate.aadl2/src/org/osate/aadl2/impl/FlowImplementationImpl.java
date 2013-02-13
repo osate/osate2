@@ -39,7 +39,6 @@ import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -55,6 +54,7 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -72,7 +72,8 @@ import org.osate.aadl2.FlowSpecification;
  *
  * @generated
  */
-public class FlowImplementationImpl extends ModalPathImpl implements FlowImplementation {
+public class FlowImplementationImpl extends ModalPathImpl implements
+		FlowImplementation {
 
 	/**
 	 * The default value of the '{@link #getKind() <em>Kind</em>}' attribute.
@@ -139,7 +140,10 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		BasicEList<Classifier> list = new BasicEList<Classifier>();
+		//BasicEList<Classifier> list = new BasicEList<Classifier>();
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(
+				Classifier.class, this,
+				Aadl2Package.FLOW_IMPLEMENTATION__FEATURING_CLASSIFIER);
 		list.add(getContainingClassifier());
 		return list;
 	}
@@ -156,7 +160,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			if (specification != oldSpecification) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION, oldSpecification, specification));
+							Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
+							oldSpecification, specification));
 			}
 		}
 		return specification;
@@ -180,7 +185,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		FlowSpecification oldSpecification = specification;
 		specification = newSpecification;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_IMPLEMENTATION__SPECIFICATION,
 					oldSpecification, specification));
 	}
 
@@ -191,7 +197,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 */
 	public EList<FlowSegment> getOwnedFlowSegments() {
 		if (ownedFlowSegments == null) {
-			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(FlowSegment.class, this,
+			ownedFlowSegments = new EObjectContainmentEList<FlowSegment>(
+					FlowSegment.class, this,
 					Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
 		}
 		return ownedFlowSegments;
@@ -203,7 +210,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	public FlowSegment createOwnedFlowSegment() {
-		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE.getFlowSegment());
+		FlowSegment newOwnedFlowSegment = (FlowSegment) create(Aadl2Package.eINSTANCE
+				.getFlowSegment());
 		getOwnedFlowSegments().add(newOwnedFlowSegment);
 		return newOwnedFlowSegment;
 	}
@@ -214,10 +222,12 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
-			return ((InternalEList<?>) getOwnedFlowSegments()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getOwnedFlowSegments()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -240,7 +250,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		FlowKind oldKind = kind;
 		kind = newKind == null ? KIND_EDEFAULT : newKind;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FLOW_IMPLEMENTATION__KIND, oldKind, kind));
 	}
 
 	/**
@@ -282,7 +293,8 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
 			getOwnedFlowSegments().clear();
-			getOwnedFlowSegments().addAll((Collection<? extends FlowSegment>) newValue);
+			getOwnedFlowSegments().addAll(
+					(Collection<? extends FlowSegment>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -393,4 +405,4 @@ public class FlowImplementationImpl extends ModalPathImpl implements FlowImpleme
 		result.append(')');
 		return result.toString();
 	}
-} //FlowImplementationImpl
+} // FlowImplementationImpl

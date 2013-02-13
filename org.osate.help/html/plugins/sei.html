@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+	<LINK REL="STYLESHEET" HREF="../book.css" CHARSET="ISO-8859-1" TYPE="text/css">
+	<title>OSATE plug-in: SEI validation plug-ins</title>
+</head>
+
+<body>
+<H2>OSATE plug-in: SEI validation plug-ins</H2>
+
+<h3>Statistics plug-in</h3>
+<p>
+This plug-in aims at making statistics on your model: number of components,
+categories of components, etc. This plug-in is more a support
+for new plug-in developer and start with an established code base
+they can re-use
+</p>
+
+<h3>Flow Latency Analysis</h3>
+<p>
+This plug-in performs a latency analysis of your connection flows.
+More information about this plug-in can be also found in the
+<a href="http://www.sei.cmu.edu/reports/07tn010.pdf" target="blank">following technical report</a>.
+In order to work correctly, you must model a system with flow and define 
+the property <em>Transmission_Time</em> on <em>bus</em> components.
+You can see the definition of such a property above:
+</p>
+<pre>
+bus mybus
+properties
+   Transmission_Time => [ Fixed => 0 ms .. 10ms;
+                          PerByte => 0 ms .. 10 ms; ];
+end mybus; 
+</pre>
+
+<p>
+You must also define the <em>SEI::BandWidthBudget</em> property,
+like that:
+</p>
+<pre>
+SEI::BandWidthBudget => 1.0 KBytesps; 
+</pre>
+
+<p>
+Also, when declaring <strong>flows</strong>, you must declare
+the <em>latency</em> property, like the following:
+</p>
+<pre>
+process myprocess
+features
+   pout: out data port;
+   busAccess: requires bus access mybus;
+flows
+   myflow_src: flow source pout {latency => 1 ns .. 2 ns; } ; 
+end myprocess;
+</pre>
+
+<p>
+Once your model is done, you can execute the analysis from the menu on the
+instance model. To do so, select the root node of the instance
+model and click on <em>Analysis</em> and then <em>Check Flow Latency</em>.
+Once the plug-in finished, a report is generated in a directory called <em>reports</em>,
+it can be opened with a spreadsheet such as LibreOffice or Microsoft Excel.
+</p>
+
+
+<h3>Security Plug-In</h3>
+<p>
+The security plug-in make an evaluation of the system according to
+the security levels of each process and its mode. For that, the
+model must define the properties <em>SEI::SecurityLevel</em>
+on appropriate components. The
+</p>
+
+</body>
+</html>

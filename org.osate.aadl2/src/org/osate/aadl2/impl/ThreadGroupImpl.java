@@ -47,7 +47,8 @@ import org.osate.aadl2.Aadl2Package;
  *
  * @generated
  */
-public abstract class ThreadGroupImpl extends NamedElementImpl implements org.osate.aadl2.ThreadGroup {
+public abstract class ThreadGroupImpl extends NamedElementImpl implements
+		org.osate.aadl2.ThreadGroup {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public abstract class ThreadGroupImpl extends NamedElementImpl implements org.os
 		return Aadl2Package.eINSTANCE.getThreadGroup();
 	}
 
-} //ThreadGroupImpl
+} // ThreadGroupImpl

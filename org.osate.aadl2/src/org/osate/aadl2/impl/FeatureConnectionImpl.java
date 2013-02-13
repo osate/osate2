@@ -49,7 +49,8 @@ import org.osate.aadl2.FeatureConnection;
  *
  * @generated
  */
-public class FeatureConnectionImpl extends ConnectionImpl implements FeatureConnection {
+public class FeatureConnectionImpl extends ConnectionImpl implements
+		FeatureConnection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -69,4 +70,4 @@ public class FeatureConnectionImpl extends ConnectionImpl implements FeatureConn
 		return Aadl2Package.eINSTANCE.getFeatureConnection();
 	}
 
-} //FeatureConnectionImpl
+} // FeatureConnectionImpl

@@ -54,8 +54,9 @@ import org.osate.aadl2.SubprogramType;
  * <!-- end-user-doc -->
  * @generated
  */
-public class SubprogramTypeItemProvider extends ComponentTypeItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class SubprogramTypeItemProvider extends ComponentTypeItemProvider
+		implements IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -89,7 +90,8 @@ public class SubprogramTypeItemProvider extends ComponentTypeItemProvider implem
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/SubprogramType"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/SubprogramType"));
 	}
 
 	/**
@@ -126,7 +128,8 @@ public class SubprogramTypeItemProvider extends ComponentTypeItemProvider implem
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

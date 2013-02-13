@@ -68,4 +68,4 @@ public abstract class AbstractImpl extends NamedElementImpl implements Abstract 
 		return Aadl2Package.eINSTANCE.getAbstract();
 	}
 
-} //AbstractImpl
+} // AbstractImpl

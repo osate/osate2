@@ -60,6 +60,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.properties.InvalidModelException;
 import org.osate.aadl2.properties.PropertyAcc;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc --> An implementation of the model object '
@@ -69,7 +70,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public abstract class InstanceObjectImpl extends NamedElementImpl implements InstanceObject {
+public abstract class InstanceObjectImpl extends NamedElementImpl implements
+		InstanceObject {
 	/*
 	 * <!-- begin-user-doc --> <!-- end-user-doc -->
 	 * 
@@ -136,7 +138,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		if (this instanceof SystemInstance) {
 			return getName();
 		}
-		final String path = ((InstanceObject) eContainer).getInstanceObjectPath();
+		final String path = ((InstanceObject) eContainer)
+				.getInstanceObjectPath();
 		final String localname = getPathName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
@@ -155,14 +158,16 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 		if (this instanceof SystemInstance) {
 			return "";
 		}
-		final String path = ((InstanceObject) eContainer).getComponentInstancePath();
+		final String path = ((InstanceObject) eContainer)
+				.getComponentInstancePath();
 		final String localname = getPathName();
 
 		return path.length() == 0 ? localname : path + "." + localname;
 	}
 
-	public final void getPropertyValueInternal(final Property property, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property property,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		/*
 		 * First see if the property is defined locally in the instance. Such
 		 * local property associations arise from component property
@@ -219,7 +224,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 *             retrieved because the model is incomplete or otherwise
 	 *             invalid.
 	 */
-	protected void getPropertyValueFromDeclarativeModel(final Property property, final PropertyAcc pas)
+	protected void getPropertyValueFromDeclarativeModel(
+			final Property property, final PropertyAcc pas)
 			throws InvalidModelException {
 		//apv.pushCurrentComponent(getContainingComponentInstanceOrSelf());
 		try {
@@ -269,6 +275,8 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	 */
 	@Override
 	public boolean acceptsProperty(Property property) {
+		//OsateDebug.osateDebug ("[InstanceObjectImpl] property=" + property);
+
 		for (NamedElement ne : getInstantiatedObjects()) {
 			if (!ne.acceptsProperty(property))
 				return false;
@@ -285,9 +293,10 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 			public Iterator<ConnectionInstance> iterator() {
 				return new Iterator<ConnectionInstance>() {
 					ConnectionInstance next;
-					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target : target
-							.getContainingComponentInstance();
-					Iterator<ConnectionInstance> iter = head.getConnectionInstances().iterator();
+					ComponentInstance head = target instanceof ComponentInstance ? (ComponentInstance) target
+							: target.getContainingComponentInstance();
+					Iterator<ConnectionInstance> iter = head
+							.getConnectionInstances().iterator();
 
 					private boolean advance() {
 						next = null;
@@ -348,14 +357,17 @@ public abstract class InstanceObjectImpl extends NamedElementImpl implements Ins
 	/* (non-Javadoc)
 	 * @see org.osate.aadl2.instance.InstanceObject#findInstanceObjects(org.eclipse.emf.common.util.EList)
 	 */
-	public List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath) {
+	public List<InstanceObject> findInstanceObjects(
+			EList<ContainmentPathElement> referencePath) {
 		List<InstanceObject> result = new LinkedList<InstanceObject>();
 
 		findInstanceObjectsHelper(referencePath.listIterator(), result);
 		return result;
 	}
 
-	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
+	protected boolean findInstanceObjectsHelper(
+			ListIterator<ContainmentPathElement> pathIter,
+			List<InstanceObject> ios) {
 		boolean result = false;
 
 		if (!pathIter.hasNext()) {

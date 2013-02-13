@@ -128,10 +128,6 @@ public class WorkspacePlugin extends AbstractUIPlugin {
 	 */
 	public static final String EXPAND_DEFAULT_FLAG = "expandXMLDefaults";
 
-	/**
-	 * Name of preference for standard AADL property set file
-	 */
-	public static final String PROJECT_DEPENDENT_SCOPE_FLAG = "projectDependentScope";
 
 	public static final String AUTO_REINSTANTIATE = "autoReinstantiate";
 

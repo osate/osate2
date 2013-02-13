@@ -115,6 +115,7 @@ import org.osate.aadl2.TriggerPort;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
@@ -133,6 +134,8 @@ import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.modelsupport.modeltraversal.TraverseWorkspace;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 import org.osate.workspace.WorkspacePlugin;
 
 /**
@@ -147,7 +150,6 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-
 	private final AnalysisErrorReporterManager errManager;
 	private final IProgressMonitor monitor;
 
@@ -167,6 +169,28 @@ public class InstantiateModel {
 	 */
 	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
+	/*
+	 * An error message that is filled by potential methods that
+	 * instantiate the system and raises an error. This message
+	 * is then show in the error dialog when an instantiation error
+	 * is raised.
+	 */
+	private static String errorMessage = null;
+	
+	/*
+	 * To keep under control the error messages and ease
+	 * debug, we encapsulate the error message string
+	 * and access it only through methods (setters and getters).
+	 */
+	public static void setErrorMessage (String s)
+	{
+		errorMessage = s;
+	}
+	public static String getErrorMessage()
+	{
+		return errorMessage;
+	}
+	
 	// Constructors
 
 	/*
@@ -177,8 +201,9 @@ public class InstantiateModel {
 	 * @param pm
 	 * 
 	 * @param errMgr
-	 */
-	public InstantiateModel(final IProgressMonitor pm) {
+	 */ 
+	public InstantiateModel(final IProgressMonitor pm)
+	{
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
@@ -186,7 +211,8 @@ public class InstantiateModel {
 		monitor = pm;
 	}
 
-	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) {
+	public InstantiateModel(final IProgressMonitor pm, final AnalysisErrorReporterManager errMgr) 
+	{
 		classifierCache = new HashMap<InstanceObject, InstantiatedClassifier>();
 		mode2som = new HashMap<ModeInstance, List<SystemOperationMode>>();
 		errManager = errMgr;
@@ -206,7 +232,8 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) {
+	public static SystemInstance buildInstanceModelFile(final SystemImplementation si) throws Exception 
+	{
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
 		SystemImplementation isi = si;
@@ -221,6 +248,10 @@ public class InstantiateModel {
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(isi, aadlResource);
+		if (root == null)
+		{
+			errorMessage = instantiateModel.getErrorMessage();
+		}
 		return root;
 	}
 
@@ -234,7 +265,7 @@ public class InstantiateModel {
 	 * 
 	 * @return SystemInstance or <code>null</code> if cancelled.
 	 */
-	public static SystemInstance rebuildInstanceModelFile(final Resource res) {
+	public static SystemInstance rebuildInstanceModelFile(final Resource res) throws Exception {
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		SystemImplementation si = target.getSystemImplementation();
 		URI uri = EcoreUtil.getURI(si);
@@ -245,13 +276,14 @@ public class InstantiateModel {
 				new AnalysisErrorReporterManager(new MarkerAnalysisErrorReporter.Factory(
 						AadlConstants.INSTANTIATION_OBJECT_MARKER)));
 		SystemInstance root = instantiateModel.createSystemInstance(si, res);
+
 		return root;
 	}
 
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles() {
+	public static void rebuildAllInstanceModelFiles() throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		for (IFile iFile : files) {
 			Resource res = OsateResourceUtil.getResource((IResource) iFile);
@@ -274,9 +306,17 @@ public class InstantiateModel {
 	 * @param si
 	 * @param aadlResource
 	 * @return
+	 * @throws RollbackException 
+	 * @throws InterruptedException 
 	 */
 	@SuppressWarnings("unchecked")
-	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) {
+	public SystemInstance createSystemInstance(final SystemImplementation si, final Resource aadlResource) throws Exception
+	{
+		List<SystemInstance> resultList;
+		SystemInstance result;
+		
+		result = null;
+		
 		final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 				.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 		// We execute this command on the command stack because otherwise, we will not
@@ -293,16 +333,11 @@ public class InstantiateModel {
 			}
 		};
 
-		try {
-			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return ((List<SystemInstance>) cmd.getResult()).get(0);
+		((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+		resultList = (List<SystemInstance>)cmd.getResult();
+		result = resultList.get(0);	
+
+		return result;
 	}
 
 	/*
@@ -325,23 +360,45 @@ public class InstantiateModel {
 		aadlResource.getContents().add(root);
 		// Needed to save the root object because we may attach warnings to the
 		// IResource as we build it.
-		try {
+		try 
+		{
 			aadlResource.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+
+			try {
+				fillSystemInstance(root);
+			} catch (Exception e) {
+				this.setErrorMessage (e.getMessage());
+				e.printStackTrace();
+				return null;
+			}
+			// We're done: Save the model.
+			// We don't respond to a cancel at this point
+
+			monitor.subTask ("Saving instance model");
+
+			aadlResource.save(null);
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
+			setErrorMessage( e.getMessage() );
+			return null;
 		}
-		fillSystemInstance(root);
-		// We're done: Save the model.
-		// We don't respond to a cancel at this point
+		catch (NullPointerException npe)
+		{
+			npe.printStackTrace();
+			setErrorMessage( npe.getMessage() );
 
-		monitor.subTask("Saving instance model");
-
-		try {
-			aadlResource.save(null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			npe.getMessage();
+			return null;
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
+			errorMessage = e.getMessage();
+
+			e.getMessage();
+			return null;
 		}
 		return root;
 	}
@@ -406,8 +463,13 @@ public class InstantiateModel {
 			return;
 		}
 
-		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch(monitor, errManager, root,
-				propertyDefinitionList, classifierCache, scProps, mode2som);
+		final CachePropertyAssociationsSwitch cpas = new CachePropertyAssociationsSwitch
+				(monitor, 
+				 errManager, 
+				 propertyDefinitionList, 
+				 classifierCache, 
+				 scProps, 
+				 mode2som);
 		cpas.processPreOrderAll(root);
 		if (monitor.isCanceled()) {
 			return;
@@ -612,13 +674,16 @@ public class InstantiateModel {
 		final ComponentInstance newInstance = InstanceFactory.eINSTANCE.createComponentInstance();
 		final ComponentClassifier cc;
 		final InstantiatedClassifier ic;
-
 		newInstance.setSubcomponent(sub);
 		newInstance.setCategory(sub.getCategory());
 		newInstance.setName(sub.getName());
 		newInstance.getIndices().addAll(indexStack);
 		newInstance.getIndices().add(new Long(index));
 		parent.getComponentInstances().add(newInstance);
+		//OsateDebug.osateDebug ("instantiate sub " + sub.getName());
+		//OsateDebug.osateDebug ("   stack " + indexStack);
+		//OsateDebug.osateDebug ("   index " + index);
+		//OsateDebug.osateDebug ("   modalelem " + mm);
 
 		ic = getInstantiatedClassifier(newInstance, 0);
 		if (ic == null) {
@@ -700,9 +765,12 @@ public class InstantiateModel {
 		fi.setFeature(feature);
 		// must add before prototype resolution in fillFeatureInstance
 		ci.getFeatureInstances().add(fi);
-		if (feature instanceof DirectedFeature) {
+		if (feature instanceof DirectedFeature) 
+		{
 			fi.setDirection(((DirectedFeature) feature).getDirection());
-		} else {
+		}
+		else 
+		{
 			fi.setDirection(DirectionType.IN_OUT);
 		}
 		filloutFeatureInstance(fi, feature, inverse, index);
@@ -812,7 +880,8 @@ public class InstantiateModel {
 		if (feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup) feature;
 			FeatureType ft = ((FeatureGroup) feature).getFeatureType();
-
+			if (Aadl2Util.isNull(ft)) return;
+			
 			inverse ^= fg.isInverse();
 
 			while (ft instanceof FeatureGroupPrototype) {
@@ -908,7 +977,10 @@ public class InstantiateModel {
 			PropertyAssociation setPA = getPA(conni, "Connection_Set");
 			PropertyAssociation patternPA = getPA(conni, "Connection_Pattern");
 
-			if (setPA == null && patternPA == null) {
+			if (setPA == null && patternPA == null)
+			{
+				//OsateDebug.osateDebug("[InstantiateModel] processConnections");
+
 				LinkedList<Integer> srcDims = new LinkedList<Integer>();
 				LinkedList<Integer> dstDims = new LinkedList<Integer>();
 				LinkedList<Integer> srcSizes = new LinkedList<Integer>();
@@ -1217,6 +1289,7 @@ public class InstantiateModel {
 		newConn.setSource((ConnectionInstanceEnd) src);
 		newConn.setDestination((ConnectionInstanceEnd) dst);
 		newConn.setName(sb.toString());
+
 	}
 
 	private InstanceObject findInstanceObject(ComponentInstance container, List<String> names, List<Integer> dims,
@@ -1322,31 +1395,43 @@ public class InstantiateModel {
 		addUsedProperties(root.getSystemImplementation(), result);
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		// collect topdown component impl. do it and its type to find PA
-		while (it.hasNext()) {
+		while (it.hasNext())
+		{
 			Element elem = it.next();
 
-			if (elem instanceof ComponentInstance) {
+			if (elem instanceof ComponentInstance)
+			{
 				InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier((ComponentInstance) elem, 0,
 						classifierCache);
 
 				addUsedProperties(ic.classifier, result);
 			} else if (elem instanceof FeatureInstance) {
 				FeatureInstance fi = (FeatureInstance) elem;
-
 				if (fi.getFeature() instanceof FeatureGroup) {
-					InstantiatedClassifier ic = InstanceUtil.getInstantiatedClassifier(fi, 0, classifierCache);
-					addUsedProperties(ic.classifier, result);
+					FeatureGroupType fgt = InstanceUtil.getFeatureGroupType(fi, 0, classifierCache);
+					addUsedProperties(fgt, result);
 				} else {
 					Classifier c = fi.getFeature().getClassifier();
 					
 					addUsedProperties(c, result);
 				}
 			}
+			else if (elem instanceof ConnectionInstance) {
+				ConnectionInstance ci = (ConnectionInstance) elem;
+				addUsedPropertyDefinitions(ci.getContainingClassifier(), result);
+
+				for (ConnectionReference cr : ci.getConnectionReferences())
+				{
+					addUsedPropertyDefinitions(cr.getConnection(), result);
+				}
+			}
 		}
 		return result;
 	}
 
-	private void addUsedProperties(Classifier cc, EList<Property> result) {
+	private void addUsedProperties(Classifier cc, EList<Property> result) 
+	{
+
 		if (cc instanceof ComponentImplementation) {
 			ComponentImplementation impl = (ComponentImplementation) cc;
 
@@ -1356,10 +1441,13 @@ public class InstantiateModel {
 			}
 			cc = ((ComponentImplementation) cc).getType();
 		}
-		while (cc != null) {
+		while (cc != null)
+		{
 			addUsedPropertyDefinitions(cc, result);
-			cc = (ComponentClassifier) cc.getExtended();
+			cc = (Classifier) cc.getExtended();
 		}
+		
+			
 	}
 
 	/**
@@ -1371,12 +1459,21 @@ public class InstantiateModel {
 	 * @return List holding the used property definitions
 	 */
 	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+//		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
+
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
 		while (it.hasNext()) {
 			EObject ao = it.next();
+			//OsateDebug.osateDebug ("[InstantiateModel]    ao=" + ao);
+
 			if (ao instanceof PropertyAssociation) {
+			//	OsateDebug.osateDebug ("[InstantiateModel] ao=" + ao);
+
 				Property pd = ((PropertyAssociation) ao).getProperty();
+				//OsateDebug.osateDebug ("[InstantiateModel]    pd=" + pd);
+
 				if (pd != null) {
+//					OsateDebug.osateDebug ("[InstanceModel] AddUsedProperty " + pd + " to " + root);
 					result.add(pd);
 				}
 			}
@@ -1552,10 +1649,14 @@ public class InstantiateModel {
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
 	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) {
-		final SystemOperationMode som = InstanceFactory.eINSTANCE.createSystemOperationMode();
-		for (ModeInstance mi : modeInstances) {
+		final SystemOperationMode som;
+		
+		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
+		for (ModeInstance mi : modeInstances) 
+		{
 			List<SystemOperationMode> soms = mode2som.get(mi);
-			if (soms == null) {
+			if (soms == null) 
+			{
 				soms = new ArrayList<SystemOperationMode>();
 				mode2som.put(mi, soms);
 			}

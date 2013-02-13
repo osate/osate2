@@ -35,6 +35,7 @@
     <module>../org.osate.core.feature</module>
     <module>../org.osate.core.source.feature</module>
     <module>../org.osate.instantiation</module>
+    <module>../org.osate.help</module>
     <module>../org.osate.pluginsupport</module>
     <module>../org.osate.reporter</module>
     <module>../org.osate.ui</module>
@@ -43,17 +44,35 @@
     <module>../org.osate.xtext.aadl2</module>
     <module>../org.osate.xtext.aadl2.properties</module>
     <module>../org.osate.xtext.aadl2.properties.ui</module>
-    <module>../org.osate.xtext.aadl2.propertyset</module>
-    <module>../org.osate.xtext.aadl2.propertyset.ui</module>
     <module>../org.osate.xtext.aadl2.ui</module>
+    
     <module>../../plugins/org.osate.analysis.architecture</module>
     <module>../../plugins/org.osate.analysis.flows</module>
     <module>../../plugins/org.osate.analysis.resource.budgets</module>
     <module>../../plugins/org.osate.analysis.resource.management</module>
     <module>../../plugins/org.osate.analysis.security</module>
+    <module>../../plugins/org.osate.analysis.arinc653</module>
+    <module>../../plugins/org.osate.analysis.lute</module>
+    <module>../../plugins/org.osate.imv.osate</module>
+    <module>../../plugins/org.osate.imv.propertydecorations</module>
+    <module>../../plugins/org.osate.imv.ui</module>
+    <module>../../plugins/org.osate.imv.aadldiagram</module>
     <module>../../plugins/org.osate.analysis.binpacking</module>
     <module>../../plugins/org.osate.plugins.feature</module>
     <module>../../plugins/org.osate.plugins.source.feature</module>
+    
+    <module>../../error-model2/org.osate.aadl2.errormodel.analysis</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel.feature</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel.ui</module>
+    <module>../../error-model2/org.osate.xtext.aadl2.errormodel</module>
+    
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.edit</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.feature</module>
+    <module>../../error-model1/edu.cmu.sei.aadl.errorannex.parser</module>
+    <module>../../error-model1/edu.laas.aadl.aadl2gspn</module>
+    <module>../../error-model1/edu.laas.aadl.dependency</module>
+    <module>../../error-model1/edu.laas.aadl.gspn.model</module>
   </modules>
 
   <build>
@@ -89,7 +108,7 @@
               <groupId>org.osate</groupId>
               <artifactId>org.osate.build.target</artifactId>
               <version>2.0.0-SNAPSHOT</version>
-              <classifier>indigo</classifier>
+              <classifier>juno</classifier>
             </artifact>
           </target>
           <ignoreTychoRepositories>true</ignoreTychoRepositories>

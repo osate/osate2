@@ -48,7 +48,8 @@ import org.osate.aadl2.ModeFeature;
  *
  * @generated
  */
-public abstract class ModeFeatureImpl extends ClassifierFeatureImpl implements ModeFeature {
+public abstract class ModeFeatureImpl extends ClassifierFeatureImpl implements
+		ModeFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class ModeFeatureImpl extends ClassifierFeatureImpl implements M
 		return Aadl2Package.eINSTANCE.getModeFeature();
 	}
 
-} //ModeFeatureImpl
+} // ModeFeatureImpl

@@ -1,0 +1,451 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Instance Package of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheAADLMetaModelinEcore.html">7. The AADL Meta Model in Ecore</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   7.7 The Instance Package of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="ThePropertyPackageoftheAADLMetaModel.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="TheXMISpecificationforAADL.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic35"></a>
+          <span class=outlineNumberFirst>7.7 </span><span class=topicLineFirst>The Instance Package of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font size="1"><span style="font-size:9pt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;ecore:EPackage xmi:version=&quot;2.0&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:xmi=&quot;http://www.omg.org/XMI&quot; 
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; xmlns:ecore=&quot;http://www.eclipse.org/emf/2002/Ecore&quot; 
+name=&quot;instance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; nsURI=&quot;http:///AADL/instance&quot; 
+nsPrefix=&quot;instance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;FeatureInstance&quot; eSuperTypes=&quot;#//InstanceObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;feature&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass core.ecore#//Feature&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;srcPortConnection&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PortConnectionInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//PortConnectionInstance/src&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dstPortConnection&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//PortConnectionInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//PortConnectionInstance/dst&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;srcModeTransitionConnection&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ModeTransitionConnectionInstance&quot; transient=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ModeTransitionConnectionInstance/src&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;featureInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FeatureInstance&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;category&quot; eType=&quot;#//FeatureCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dstAccessConnection&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//AccessConnectionInstance&quot; transient=&quot;true&quot; resolveProxies=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//AccessConnectionInstance/dst&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;srcFlowSpec&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FlowSpecInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//FlowSpecInstance/src&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dstFlowSpec&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FlowSpecInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//FlowSpecInstance/dst&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ConnectionInstance&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;#//FlowElementInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;connection&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EClass core.ecore#//Connection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inSystemOperationMode&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//SystemOperationMode&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;connectionContext&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ComponentInstance&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inModeTransitions&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeTransitionInstance&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ComponentInstance&quot; eSuperTypes=&quot;#//InstanceObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;featureInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FeatureInstance&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;componentInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ComponentInstance&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;subcomponent&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass core.ecore#//Subcomponent&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;srcAccessConnection&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//AccessConnectionInstance&quot; transient=&quot;true&quot; 
+eOpposite=&quot;#//AccessConnectionInstance/src&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;modeInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeInstance&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;modeTransitionInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ModeTransitionInstance&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;category&quot; eType=&quot;ecore:EEnum 
+property.ecore#//ComponentCategory&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inModes&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeInstance&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;flowSpecInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FlowSpecInstance&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;endToEndFlowInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//EndToEndFlowInstance&quot; containment=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemInstance&quot; eSuperTypes=&quot;#//ComponentInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;systemImpl&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass component.ecore#//SystemImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;connectionInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ConnectionInstance&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;systemOperationMode&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemOperationMode&quot; containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;InstanceObject&quot; abstract=&quot;true&quot; 
+eSuperTypes=&quot;core.ecore#//PropertyHolder&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;PortConnectionInstance&quot; 
+eSuperTypes=&quot;#//ConnectionInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;src&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/srcPortConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dst&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/dstPortConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;timing&quot; unique=&quot;false&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+lowerBound=&quot;1&quot; eType=&quot;ecore:EEnum connection.ecore#//ConnectionTiming&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;AccessConnectionInstance&quot; 
+eSuperTypes=&quot;#//ConnectionInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;src&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//ComponentInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ComponentInstance/srcAccessConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dst&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/dstAccessConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ModeTransitionConnectionInstance&quot; 
+eSuperTypes=&quot;#//ConnectionInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;src&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/srcModeTransitionConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dst&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//ModeTransitionInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ModeTransitionInstance/dstModeTransitionConnection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ModeInstance&quot; eSuperTypes=&quot;#//InstanceObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;srcModeTransition&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeTransitionInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//ModeTransitionInstance/src&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dstModeTransition&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeTransitionInstance&quot; transient=&quot;true&quot; eOpposite=&quot;#//ModeTransitionInstance/dst&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;mode&quot; lowerBound=&quot;1&quot; 
+eType=&quot;ecore:EClass core.ecore#//Mode&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EAttribute&quot; name=&quot;state&quot; unique=&quot;false&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EEnum core.ecore#//ModeState&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;ModeTransitionInstance&quot; 
+eSuperTypes=&quot;#//InstanceObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dstModeTransitionConnection&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//ModeTransitionConnectionInstance&quot; transient=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ModeTransitionConnectionInstance/dst&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;src&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//ModeInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ModeInstance/srcModeTransition&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dst&quot; lowerBound=&quot;1&quot; 
+eType=&quot;#//ModeInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//ModeInstance/dstModeTransition&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;modeTransition&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass core.ecore#//ModeTransition&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;InstanceReferenceValue&quot; 
+eSuperTypes=&quot;property.ecore#//ReferenceValue&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;referencedInstanceObject&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+lowerBound=&quot;1&quot; eType=&quot;#//InstanceObject&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemInstanceConfiguration&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;containedPropertyAssociation&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;ecore:EClass property.ecore#//PropertyAssociation&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+containment=&quot;true&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;systemOperationMode&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemOperationMode&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;systemInstance&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//SystemInstance&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;SystemOperationMode&quot; 
+eSuperTypes=&quot;core.ecore#//Mode&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;currentMode&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeInstance&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EEnum&quot; 
+name=&quot;FeatureCategory&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;data&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;event&quot; 
+value=&quot;1&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;parameter&quot; 
+value=&quot;3&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;subprogram&quot; 
+value=&quot;8&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;eventdata&quot; 
+value=&quot;2&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;busaccess&quot; 
+value=&quot;4&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;dataaccess&quot; 
+value=&quot;5&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;portgroup&quot; 
+value=&quot;6&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eLiterals name=&quot;serversubprogram&quot; 
+value=&quot;7&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;FlowSpecInstance&quot; 
+eSuperTypes=&quot;#//FlowElementInstance&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;flowSpec&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass flow.ecore#//FlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;src&quot; eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/srcFlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;dst&quot; eType=&quot;#//FeatureInstance&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eOpposite=&quot;#//FeatureInstance/dstFlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;EndToEndFlowInstance&quot; 
+eSuperTypes=&quot;#//InstanceObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;endToEndFlow&quot; lowerBound=&quot;1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;ecore:EClass flow.ecore#//EndToEndFlow&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;flowElementInstance&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//FlowElementInstance&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inModes&quot; upperBound=&quot;-1&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+eType=&quot;#//ModeInstance&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160; &lt;eStructuralFeatures 
+xsi:type=&quot;ecore:EReference&quot; name=&quot;inSystemOperationMode&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160; 
+upperBound=&quot;-1&quot; eType=&quot;#//SystemOperationMode&quot; resolveProxies=&quot;false&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;/eClassifiers&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160; &lt;eClassifiers xsi:type=&quot;ecore:EClass&quot; 
+name=&quot;FlowElementInstance&quot; abstract=&quot;true&quot;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160; eSuperTypes=&quot;#//InstanceObject&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;/ecore:EPackage&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

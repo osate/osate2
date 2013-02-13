@@ -1,0 +1,426 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>Starting Up OSATE for the First Time</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="UseoftheAADLToolEnvironment(OSATE).html">4. Use of the AADL Tool Environment (OSATE)</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   4.1 Starting Up OSATE for the First Time
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="UseoftheAADLToolEnvironment(OSATE).html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ManagingAADLModelswithEclipseProjects.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic16"></a>
+          <span class=outlineNumberFirst>4.1 </span><span class=topicLineFirst>Starting Up OSATE for the First Time</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">OSATE is invoked by double clicking on the shortcut for the executable, or on the 
+“eclipse.exe” icon in the installation root folder. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">When you start up Eclipse/OSATE for the first time you will be prompted to select a folder as 
+your workspace.  By default this will be a folder called “workspace” in the installation root 
+folder of Eclipse/OSATE.  You will want to change that to a folder you have created that is 
+separate from the installation root folder or any of its subfolders.  This workspace folder can be 
+created anywhere on your hard disk with a name of your choice, e.g., “AadlProject1WS”. You 
+can use the convention of placing the workspace folders in a folder called “OSATE 
+Workspaces”.  By keeping the workspace separate from the Eclipse installation root folder 
+area, you can delete the installation root folder for a clean re-installation without loosing your 
+workspaces/projects.  Keeping the workspace separate also allows you to have the 
+workspace backed up without backing up the installation itself.  For more on OSATE 
+workspaces see section 4.1.6.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">After OSATE comes up you may see a welcome panel.  If you close this panel you will see the 
+OSATE window divided into four areas; see Figure 3.  The top left is used by the “Navigator” 
+or “Package Explorer”.  You can create a new project through the “File” menu “New” -&gt; 
+“Project..” and then select “Aadl Wizards” -&gt; “Aadl Project”.  This will create an AADL 
+specific project and open the Aadl perspective.  You can also switch to the Aadl Perspective 
+through “Window”-&gt;”Open perspective”-&gt;”Other…”-&gt;”AADL”.  For more details see 
+section 4.2.1</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL perspective uses the “Aadl Navigator” instead of the “Navigator”.  This navigator 
+decorates files with errors and hides files starting with “.” (.settings and .project) and aaxl files 
+for which there are syntax errors in the corresponding AADL text file.  The AADL perspective 
+also opens the Properties View, Problem View, and AADL Property Value View.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The AADL Navigator allows you the browse the OSATE workspace and open files (called 
+resources in Eclipse) by double clicking on them or by opening them through their context 
+menu.  The top right area is used by editors when files in the Aadl Navigator are opened.  If 
+multiple files are opened, their windows are shown in tabbed panels.  An editor window can be 
+placed next to another editor window by dragging it on its tab. The bottom left is used by the 
+“Outline” view, a panel that shows an outline of the editor content.  The bottom right is used to 
+show a number of views in tabbed window panels.  </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic16NotesImage2.jpg" align="bottom" width="573" height="430" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 3: The Eclipse/OSATE main window, showing the &quot;Aadl Navigator,&quot; &quot;Outline,&quot; and &quot;Problems&quot; 
+views, along with two open editors and the &quot;Show View&quot; dialog box.</b></span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The following subsections describe useful Eclipse views that can be activated, if not already 
+visible, by going to the menu “Window &gt; Show view”.  Some of the views are found under 
+“Other…”.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic17"></a>
+          <span class=outlineNumber>4.1.1 </span><span class=topicLine>The “Problems” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Problems”.  Figure 4 shows a 
+close-up of the view.  This view is shows errors, warnings, and status information messages 
+that are attached to files through the Eclipse marker mechanism.  OSATE uses these markers 
+to report syntax and semantic problems in AADL models as well as record results of executing 
+analysis plug-ins.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">We have defined two AADL-specific root marker types as subclasses of Eclipse problem 
+markers: “AADL Text Marker” to report problems on textual AADL files, and the “AADL 
+Object Model Marker” to report problems on AADL model files in XML.  The AADL parser, 
+semantic checker, and analyses define subtypes of these marker types. This allows the user to 
+select the analysis results they are interested in by changing the settings in the filter for the 
+Problem view.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Make sure these OSATE marker types, and those marker types for which they are parent 
+types, are enabled in the “Problems” view “Filter” dialog, which can be invoked as shown in 
+Figure 4. In the “Filter” dialog box, shown in Figure 5, make sure the two marker types are 
+checked. You may also want to select “On selected resource and its children.”  This will show 
+those problem markers for the selected file, folder, or project and its children only. </span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic17NotesImage2.jpg" align="bottom" width="576" height="158" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 4: A close-up of the &quot;Problems&quot; view also showing how to open the filters dialog box.</b></span></font><span></span></div>
+<div align="center"><img src="NotesImages/Topic17NotesImage4.jpg" align="bottom" width="332" height="504" border="0" alt="graphic" /></div>
+<div align="center"><font face="Times New Roman" color="#010101"><span><b>Figure 5: Checking AADL-related marker types in the &quot;Show items of type&quot; list in the &quot;Problems&quot; view 
+&quot;Filters&quot; dialog box</b></span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic18"></a>
+          <span class=outlineNumber>4.1.2 </span><span class=topicLine>The “AADL Property Values” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Other” and then selecting “AADL 
+&gt; AADL Property values”. This view displays AADL property values for elements of your 
+AADL object model when viewing in the AADL Object Model editor.  New in OSATE 1.1: 
+You can also edit the property associations of the model object using this view. You do so 
+through the context menu in the AADL Property Values pane.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic19"></a>
+          <span class=outlineNumber>4.1.3 </span><span class=topicLine>The “Properties” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Properties”, or by selecting 
+“Window &gt; Show View &gt; Other” and then selecting “Basic &gt; Properties”. This view displays 
+and allows you to edit attributes and references of the elements of your AADL object model. 
+For more detail see “AADL Object Editor”.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic20"></a>
+          <span class=outlineNumber>4.1.4 </span><span class=topicLine>The “Tasks” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Tasks”, or by selecting “Window &gt; 
+Show View &gt; Other” and then selecting “Basic &gt; Tasks”. This view maintains a list of tasks to 
+be done.  The context menu of this view allows you to add and manage the status of tasks. 
+When developing OSATE plug-ins this view also displays a list of “to-do” tasks that are 
+recorded in the plug-in Java code as comments starting with the word “TODO”.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic21"></a>
+          <span class=outlineNumber>4.1.5 </span><span class=topicLine>The “Aadl Navigator” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Aadl Navigator”, or by selecting 
+“Window &gt; Show View &gt; Other” and then selecting “AADL &gt; Aadl Navigator”. This view 
+shows the progress during an automatic build (see also section 4.6).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic22"></a>
+          <span class=outlineNumber>4.1.6 </span><span class=topicLine>The “Progress” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">This view is opened by selecting “Window &gt; Show View &gt; Progress”, or by selecting 
+“Window &gt; Show View &gt; Other” and then selecting “Basic &gt; Progress”. This view shows the 
+progress during an automatic build (see also section 4.6).</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic23"></a>
+          <span class=outlineNumber>4.1.7 </span><span class=topicLine>The “Error log” View</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The SDK version of Osate/Eclipse offers a view for the error log.  The error log is kept as 
+“.log” in the .metadata folder in your workspace and can be viewed through the file system. 
+The error log view allows you to view the error log  within Osate/Eclipse. The error log 
+contains error messages about null pointer exceptions and other internal errors in Osate.  This 
+information allows us to track down problems with the tool set.</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

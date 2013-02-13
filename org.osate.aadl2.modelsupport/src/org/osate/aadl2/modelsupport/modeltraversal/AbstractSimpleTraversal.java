@@ -1,5 +1,5 @@
 /* <copyright>
- * Copyright  2004-2006 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -34,18 +34,22 @@
  *
  * @version $Id: AbstractSimpleTraversal.java,v 1.5 2010-03-29 19:17:54 jseibel Exp $
  */
+
 package org.osate.aadl2.modelsupport.modeltraversal;
 
 import java.util.HashSet;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.ModelUnit;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 
 abstract class AbstractSimpleTraversal extends AbstractTraversal {
@@ -67,13 +71,33 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 */
 	public final EList<Element> visitWorkspace() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlandInstanceFilesInWorkspace();
-		for (IFile file : files){
-			Element target = (Element)Platform.getAdapterManager().getAdapter(file, Element.class);
-			if (target != null){
-				visitRoot(target);
+		for (final IFile file : files)
+		{
+			/*
+			 * JD fix for bug 
+			 * This part of the code was taken from SaveAsTextHandler.java
+			 * from package org.osate.xtext.aadl2.ui.handlers. It seems
+			 * that we can retrieve all packages using that method using
+			 * the XText framework. The code is reused in other methods
+			 * in this package also.
+			 */
+			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+			domain.getCommandStack().execute(new RecordingCommand(domain) {
+				protected void doExecute() {
+					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)file), true);
+					Element target = (Element)res.getContents().get(0);
+					
+					visitRoot(target);
+
+				}
+			});
+
+			if (processingMethod.cancelled())
+				break;
 			}
-			if (processingMethod.cancelled()) break;
-		}
+		
 		return processingMethod.getResultList();
 	}
 
@@ -90,12 +114,26 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 	 */
 	public final EList<Element> visitWorkspaceDeclarativeModels() {
 		HashSet<IFile> files = TraverseWorkspace.getAadlFilesInWorkspace();
-		for (IFile file : files){
-			Element target = (Element)Platform.getAdapterManager().getAdapter(file, ModelUnit.class);
-			if (target != null){
-				visitRoot(target);
-			}
-			if (processingMethod.cancelled()) break;
+		for (final IFile file : files){
+			
+			/*
+			 * JD fix for bug 169. For justification, see comments before.
+			 */
+			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+			domain.getCommandStack().execute(new RecordingCommand(domain) {
+				protected void doExecute() {
+					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					Resource res = rs.getResource(OsateResourceUtil.getResourceURI((IResource)file), true);
+					Element target = (Element)res.getContents().get(0);
+					
+					visitRoot(target);
+
+				}
+			});
+
+			if (processingMethod.cancelled())
+				break;
 		}
 		return processingMethod.getResultList();
 	}

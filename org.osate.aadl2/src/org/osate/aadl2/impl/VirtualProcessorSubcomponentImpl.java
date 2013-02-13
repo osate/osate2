@@ -60,7 +60,8 @@ import org.osate.aadl2.VirtualProcessorSubcomponentType;
  *
  * @generated
  */
-public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implements VirtualProcessorSubcomponent {
+public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl
+		implements VirtualProcessorSubcomponent {
 	/**
 	 * The cached value of the '{@link #getVirtualProcessorSubcomponentType() <em>Virtual Processor Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null
+				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -121,14 +123,18 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * @generated
 	 */
 	public VirtualProcessorSubcomponentType getVirtualProcessorSubcomponentType() {
-		if (virtualProcessorSubcomponentType != null && ((EObject) virtualProcessorSubcomponentType).eIsProxy()) {
+		if (virtualProcessorSubcomponentType != null
+				&& ((EObject) virtualProcessorSubcomponentType).eIsProxy()) {
 			InternalEObject oldVirtualProcessorSubcomponentType = (InternalEObject) virtualProcessorSubcomponentType;
 			virtualProcessorSubcomponentType = (VirtualProcessorSubcomponentType) eResolveProxy(oldVirtualProcessorSubcomponentType);
 			if (virtualProcessorSubcomponentType != oldVirtualProcessorSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE,
-							oldVirtualProcessorSubcomponentType, virtualProcessorSubcomponentType));
+							oldVirtualProcessorSubcomponentType,
+							virtualProcessorSubcomponentType));
 			}
 		}
 		return virtualProcessorSubcomponentType;
@@ -148,13 +154,17 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setVirtualProcessorSubcomponentType(VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
+	public void setVirtualProcessorSubcomponentType(
+			VirtualProcessorSubcomponentType newVirtualProcessorSubcomponentType) {
 		VirtualProcessorSubcomponentType oldVirtualProcessorSubcomponentType = virtualProcessorSubcomponentType;
 		virtualProcessorSubcomponentType = newVirtualProcessorSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
 					Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT__VIRTUAL_PROCESSOR_SUBCOMPONENT_TYPE,
-					oldVirtualProcessorSubcomponentType, virtualProcessorSubcomponentType));
+					oldVirtualProcessorSubcomponentType,
+					virtualProcessorSubcomponentType));
 	}
 
 	/**
@@ -231,4 +241,4 @@ public class VirtualProcessorSubcomponentImpl extends SubcomponentImpl implement
 	public ComponentCategory getCategory() {
 		return ComponentCategory.VIRTUAL_PROCESSOR;
 	}
-} //VirtualProcessorSubcomponentImpl
+} // VirtualProcessorSubcomponentImpl

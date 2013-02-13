@@ -48,7 +48,8 @@ import org.osate.aadl2.CallSpecification;
  *
  * @generated
  */
-public abstract class CallSpecificationImpl extends BehavioralFeatureImpl implements CallSpecification {
+public abstract class CallSpecificationImpl extends BehavioralFeatureImpl
+		implements CallSpecification {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class CallSpecificationImpl extends BehavioralFeatureImpl implem
 		return Aadl2Package.eINSTANCE.getCallSpecification();
 	}
 
-} //CallSpecificationImpl
+} // CallSpecificationImpl

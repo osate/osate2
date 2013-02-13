@@ -1,7 +1,7 @@
 instructions.configure=\
-  addRepository(type:0,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/updates/2.0);\
-  addRepository(type:1,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/updates/2.0);\
-  addRepository(type:0,name:Indigo,enabled:true,location:http${#58}//download.eclipse.org/releases/indigo);\
-  addRepository(type:1,name:Indigo,enabled:true,location:http${#58}//download.eclipse.org/releases/indigo);\
-  addRepository(type:0,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/3.7);\
-  addRepository(type:1,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/3.7);
+  addRepository(type:0,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/testing/update-site);\
+  addRepository(type:1,name:OSATE,enabled:true,location:http${#58}//aadl.info/aadl/osate/testing/update-site);\
+  addRepository(type:0,name:Indigo,enabled:true,location:http${#58}//download.eclipse.org/releases/juno);\
+  addRepository(type:1,name:Indigo,enabled:true,location:http${#58}//download.eclipse.org/releases/juno);\
+  addRepository(type:0,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.2);\
+  addRepository(type:1,name:The Eclipse Project Updates,enabled:true,location:http${#58}//download.eclipse.org/eclipse/updates/4.2);

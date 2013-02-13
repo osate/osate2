@@ -53,11 +53,7 @@ import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.resource.IEObjectDescription;
-import org.eclipse.xtext.resource.IReferenceDescription;
-import org.eclipse.xtext.resource.IResourceDescription;
-import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.scoping.IScope;
-import org.eclipse.xtext.ui.util.WorkspaceClasspathUriResolver;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractType;
@@ -76,6 +72,7 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
@@ -155,8 +152,6 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.workspace.WorkspacePlugin;
-import org.osate.xtext.aadl2.properties.util.EMFIndexRetrieval;
 import org.osate.xtext.aadl2.properties.util.PSNode;
 
 import com.google.inject.Inject;
@@ -164,18 +159,21 @@ import com.google.inject.Inject;
 
 public class PropertiesLinkingService extends DefaultLinkingService {
 
+	
+	@Inject
+	private IQualifiedNameConverter qualifiedNameConverter;
 
 	private static PropertiesLinkingService eInstance = null;
 
 	public PropertiesLinkingService(){
 		super();
 	}
-
 	
 	@Deprecated
 	public static PropertiesLinkingService getPropertiesLinkingService(){
 		if (eInstance == null) {
-			PredeclaredProperties.initPluginContributedAadl();
+			if(Platform.isRunning())
+				PredeclaredProperties.initPluginContributedAadl();
 			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(PredeclaredProperties.PLUGIN_RESOURCES_DIRECTORY_NAME+"/AADL_Project.aadl"));
 			eInstance = (PropertiesLinkingService)((LazyLinkingResource)rsrc).getLinkingService();
 		}
@@ -203,36 +201,76 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	private static PSNode psNode = new PSNode();
 
-	public  EObject getIndexedObject(EObject context,
-			EReference reference, String crossRefString) {
-		if(//! Platform.isRunning() || 
-				WorkspacePlugin.getDefault().getPluginPreferences().getBoolean(WorkspacePlugin.PROJECT_DEPENDENT_SCOPE_FLAG)){
-			psNode.setText(crossRefString);
-			List<EObject> el;
-			try {
-				el = super.getLinkedObjects(context, reference, psNode);
-			} catch (Exception e) {
-				return null;
-			}
-			EObject res = (el.isEmpty()?null: el.get(0));
-			if (res != null&&res.eIsProxy()){
-				res = EcoreUtil.resolve(res,context);
-				if (res.eIsProxy()) return null;
-			}
-			return res;
-		}
-		else
-		{
-			// XXX phf: lookup in global index without regard to project dependencies
-			EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
-			return res;
-		}
+   public EObject getIndexedObject(EObject context,
+   EReference reference, String crossRefString) {
+   psNode.setText(crossRefString);
+   EObject res = null;
+   try {
+   List<EObject> el;
+   el = super.getLinkedObjects(context, reference, psNode);
+   res = (el.isEmpty()?null: el.get(0));
+   if (res != null&&res.eIsProxy()){
+   res = EcoreUtil.resolve(res,context);
+   if (res.eIsProxy()) return null;
+   }
+   } catch (Exception e) {
+   //e.printStackTrace();
+   }
+   return res;
+   // XXX phf: lookup in global index without regard to project dependencies
+   // EObject res = EMFIndexRetrieval.getEObjectOfType(context,reference.getEReferenceType(), crossRefString);
+   // return res;
 
+   }
+
+
+   /**
+   * copy of a method from within Xtext. Needed to change getSingleElement to getElements to see if we have doubles
+   * in different files and the same project or in different projects.
+   * @param context
+   * @param reference
+   * @param crossRefString
+   * @return
+   */
+   public Iterable<IEObjectDescription> getIndexedObjects(EObject context,
+   EReference reference, String crossRefString) {
+   // List<EObject> el;
+   try {
+
+   if (crossRefString != null && !crossRefString.equals("")) {
+
+   final IScope scope = getScope(context, reference);
+   QualifiedName qualifiedLinkName = qualifiedNameConverter.toQualifiedName(crossRefString);
+   Iterable<IEObjectDescription> eObjectDescriptions = scope.getElements(qualifiedLinkName);
+   return eObjectDescriptions;
+   }
+   // el = super.getLinkedObjects(context, reference, psNode);
+   } catch (Exception e) {
+   return null;
+   }
+   // EObject res = (el.isEmpty()?null: el.get(0));
+   // if (res != null&&res.eIsProxy()){
+   // res = EcoreUtil.resolve(res,context);
+   // if (res.eIsProxy()) return null;
+   // }
+   return null;
+   }
+	
+	private NamedElement getContainedNamedElement(NamedElement r, String segment) {
+		for(EObject e:r.getOwnedElements())
+		{
+			if(e instanceof NamedElement)
+			{
+				NamedElement ne = (NamedElement) e;
+				if(ne.getName().equalsIgnoreCase(segment))
+					return ne;
+			}
+		}
+		return null;
 	}
 	
 
 
-	
 	@Override
 	public String getCrossRefNodeAsString(INode node)
 			throws IllegalNodeException {
@@ -360,15 +398,18 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 		}else if( Aadl2Package.eINSTANCE.getAbstractNamedValue() == requiredType ){
 			// AbstractNamedValue: constant reference, property definition reference, unit literal, enumeration literal
 			if (context instanceof NamedValue){
-				List<EObject> res = findPropertyConstant(context, reference, name);
-				if (res.isEmpty()){
-					res = findPropertyDefinitionAsList(context, reference, name);
-				}
-				if (res.isEmpty() && name.indexOf("::")==-1){
+				List<EObject> res = Collections.EMPTY_LIST;
+				if ( name.indexOf("::")==-1){
 					// names without qualifier. Must be enum/unit literal
 					res = findEnumLiteralAsList(context, reference, name);
 					if (res.isEmpty())
 						res = findUnitLiteralAsList(context, reference, name);
+				}
+				if (res.isEmpty()){
+					res = findPropertyConstant(context, reference, name);
+				}
+				if (res.isEmpty()){
+					res = findPropertyDefinitionAsList(context, reference, name);
 				}
 				return res;
 			}
@@ -757,6 +798,15 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (cname.equalsIgnoreCase("all")) return null;
 		}
 		// NOTE: checking whether the referenced package is imported is done by the validator.
+		if (context instanceof NamedElement){
+			// if we have a NamedElement (e.g., a renames) without a name and we are looking for the reference in own package 
+			// then stop. Otherwise we have a cycle.
+			if (((NamedElement)context).getName() == null){
+				if (packname == null || scope.getName().equalsIgnoreCase(packname)){
+					return null;
+				}
+			}
+		}
 		if (e == null && scope instanceof PackageSection){
 			// the reference is from inside a package section. Lookup by identifier with or without qualification
 			e = findNamedElementInAadlPackage(packname, cname, scope);
@@ -1020,23 +1070,52 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 	}
 
 	public ConnectionEnd findAccessConnectionEnd(AccessConnection conn,
-			Context cxt, String name) {
-		if (cxt == null) {
-			NamedElement searchResult = AadlUtil.getContainingClassifier(conn)
-					.findNamedElement(name);
+			Context cxt, String name) 
+	{
+
+		if (cxt == null) 
+		{
+			NamedElement searchResult = AadlUtil.getContainingClassifier(conn).findNamedElement(name);
 			if (searchResult instanceof AccessConnectionEnd)
+			{
 				return (AccessConnectionEnd) searchResult;
+			}
 		} else if (cxt instanceof Subcomponent) {
 			Subcomponent subcomponent = (Subcomponent) cxt;
 			while (subcomponent.getClassifier() == null
 					&& subcomponent.getPrototype() == null
 					&& subcomponent.getRefined() != null)
+			{
 				subcomponent = subcomponent.getRefined();
-			if (subcomponent.getClassifier() != null) {
-				NamedElement searchResult = subcomponent.getClassifier()
-						.findNamedElement(name);
-				if (searchResult instanceof Access)
+			}
+			
+			if (subcomponent.getClassifier() != null) 
+			{
+				NamedElement searchResult;
+				
+				searchResult = null;
+				for (Feature f : subcomponent.getAllFeatures())
+				{
+					if (f.getName().equalsIgnoreCase(name))
+					{
+						searchResult = f;
+					}
+				}
+				/*
+				 * FIX JD: old code that triggered a bug, see #121
+				 * Instead of searching the name using findNamedElement that
+				 * searches in the whole package, we search in the component features.
+				 * 
+				 * Related to bug report #121
+				 * 
+				 * NamedElement searchResult = subcomponent.getClassifier().findNamedElement(name);
+				 */
+				if ((searchResult != null) &&
+				    (searchResult instanceof Access))
+				{
+					Access a = (Access) searchResult;
 					return (Access) searchResult;
+				}
 			} else if (subcomponent.getPrototype() != null) {
 				ComponentClassifier classifier = findClassifierForComponentPrototype(
 						AadlUtil.getContainingClassifier(conn),
@@ -1783,7 +1862,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			.getUnitsType();
 		if (unitsType != null) {
 			return (UnitLiteral) unitsType
-					.findNamedElement(name);
+					.findLiteral(name);
 		}
 		return null;
 	}
@@ -1879,7 +1958,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			}
 			if (unitsType != null) {
 				return (UnitLiteral) unitsType
-						.findNamedElement(name);
+						.findLiteral(name);
 			}
 		}
 		return null;
@@ -1887,7 +1966,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 
 	public static EnumerationLiteral findEnumerationLiteral(EnumerationType enumType, String name){
-		return (EnumerationLiteral) enumType.findNamedElement(name);
+		return (EnumerationLiteral) enumType.findLiteral(name);
 	}
 
 	public static EnumerationLiteral findEnumerationLiteral(NamedValue nv, String name){
@@ -1955,7 +2034,7 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 			if (propertyType != null
 					&& propertyType instanceof EnumerationType) {
 				EnumerationLiteral literal = (EnumerationLiteral) ((EnumerationType) propertyType)
-						.findNamedElement(name);
+						.findLiteral(name);
 				if (literal != null)
 					return Collections.singletonList((EObject) literal);
 			}

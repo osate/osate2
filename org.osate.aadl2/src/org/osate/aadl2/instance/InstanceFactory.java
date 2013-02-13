@@ -52,7 +52,8 @@ public interface InstanceFactory extends EFactory {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	InstanceFactory eINSTANCE = org.osate.aadl2.instance.impl.InstanceFactoryImpl.init();
+	InstanceFactory eINSTANCE = org.osate.aadl2.instance.impl.InstanceFactoryImpl
+			.init();
 
 	/**
 	 * Returns a new object of class '<em>Feature Instance</em>'.

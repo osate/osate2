@@ -55,17 +55,21 @@ import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 
 	protected void _createChildren(DocumentRootNode parentNode,	ModelUnit aadlModel) {
-		if (aadlModel instanceof AadlPackage) {
-			for (Element element : aadlModel.getChildren()) {
+		if (aadlModel instanceof AadlPackage) 
+		{
+			for (Element element : aadlModel.getChildren()) 
+			{
 				createNode(parentNode, element);
 			}
-		} else {
+		} 
+		else 
+		{
 			createNode(parentNode, aadlModel);
 		}
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, Element modelElement) {
-		for (EObject childElement : modelElement.eContents())
+		for (EObject childElement : modelElement.getChildren())
 			createNode(parentNode, childElement);
 	}
 
@@ -77,7 +81,7 @@ public class Aadl2OutlineTreeProvider extends DefaultOutlineTreeProvider {
 	}
 
 	protected void _createChildren(IOutlineNode parentNode, SystemInstance sysInstance) {
-		if (sysInstance.eContents().isEmpty()){
+		if (sysInstance.getOwnedElements().isEmpty()){
 			final InstantiateModel instantiateModel =
 			new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(

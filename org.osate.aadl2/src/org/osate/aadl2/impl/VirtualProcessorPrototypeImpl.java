@@ -47,7 +47,8 @@ import org.osate.aadl2.VirtualProcessorPrototype;
  *
  * @generated
  */
-public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implements VirtualProcessorPrototype {
+public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl
+		implements VirtualProcessorPrototype {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -67,4 +68,4 @@ public class VirtualProcessorPrototypeImpl extends ComponentPrototypeImpl implem
 		return Aadl2Package.eINSTANCE.getVirtualProcessorPrototype();
 	}
 
-} //VirtualProcessorPrototypeImpl
+} // VirtualProcessorPrototypeImpl

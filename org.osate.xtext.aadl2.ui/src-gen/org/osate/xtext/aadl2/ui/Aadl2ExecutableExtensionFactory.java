@@ -8,6 +8,8 @@ import org.osgi.framework.Bundle;
 
 import com.google.inject.Injector;
 
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+
 /**
  * This class was generated. Customizations should only happen in a newly
  * introduced subclass. 
@@ -16,12 +18,12 @@ public class Aadl2ExecutableExtensionFactory extends AbstractGuiceAwareExecutabl
 
 	@Override
 	protected Bundle getBundle() {
-		return org.osate.xtext.aadl2.ui.internal.Aadl2Activator.getInstance().getBundle();
+		return Aadl2Activator.getInstance().getBundle();
 	}
 	
 	@Override
 	protected Injector getInjector() {
-		return org.osate.xtext.aadl2.ui.internal.Aadl2Activator.getInstance().getInjector("org.osate.xtext.aadl2.Aadl2");
+		return Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2);
 	}
 	
 }

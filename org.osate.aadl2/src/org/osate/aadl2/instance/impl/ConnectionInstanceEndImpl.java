@@ -62,7 +62,8 @@ import org.osate.aadl2.instance.InstancePackage;
  *
  * @generated
  */
-public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl implements ConnectionInstanceEnd {
+public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl
+		implements ConnectionInstanceEnd {
 	/**
 	 * The cached value of the '{@link #getSrcConnectionInstances() <em>Src Connection Instance</em>}' reference list.
 	 * <!-- begin-user-doc -->
@@ -108,8 +109,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 */
 	public EList<ConnectionInstance> getSrcConnectionInstances() {
 		if (srcConnectionInstances == null) {
-			srcConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(ConnectionInstance.class,
-					this, InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
+			srcConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(
+					ConnectionInstance.class,
+					this,
+					InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__SOURCE);
 		}
 		return srcConnectionInstances;
@@ -122,8 +125,10 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 */
 	public EList<ConnectionInstance> getDstConnectionInstances() {
 		if (dstConnectionInstances == null) {
-			dstConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(ConnectionInstance.class,
-					this, InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
+			dstConnectionInstances = new EObjectWithInverseResolvingEList<ConnectionInstance>(
+					ConnectionInstance.class,
+					this,
+					InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE,
 					InstancePackage.CONNECTION_INSTANCE__DESTINATION);
 		}
 		return dstConnectionInstances;
@@ -136,14 +141,15 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public NotificationChain eInverseAdd(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseAdd(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcConnectionInstances()).basicAdd(otherEnd,
-					msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getSrcConnectionInstances())
+					.basicAdd(otherEnd, msgs);
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
-			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstConnectionInstances()).basicAdd(otherEnd,
-					msgs);
+			return ((InternalEList<InternalEObject>) (InternalEList<?>) getDstConnectionInstances())
+					.basicAdd(otherEnd, msgs);
 		}
 		return super.eInverseAdd(otherEnd, featureID, msgs);
 	}
@@ -154,12 +160,15 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
-			return ((InternalEList<?>) getSrcConnectionInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getSrcConnectionInstances())
+					.basicRemove(otherEnd, msgs);
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
-			return ((InternalEList<?>) getDstConnectionInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getDstConnectionInstances())
+					.basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -191,11 +200,13 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
 			getSrcConnectionInstances().clear();
-			getSrcConnectionInstances().addAll((Collection<? extends ConnectionInstance>) newValue);
+			getSrcConnectionInstances().addAll(
+					(Collection<? extends ConnectionInstance>) newValue);
 			return;
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
 			getDstConnectionInstances().clear();
-			getDstConnectionInstances().addAll((Collection<? extends ConnectionInstance>) newValue);
+			getDstConnectionInstances().addAll(
+					(Collection<? extends ConnectionInstance>) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -228,9 +239,11 @@ public abstract class ConnectionInstanceEndImpl extends InstanceObjectImpl imple
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE:
-			return srcConnectionInstances != null && !srcConnectionInstances.isEmpty();
+			return srcConnectionInstances != null
+					&& !srcConnectionInstances.isEmpty();
 		case InstancePackage.CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE:
-			return dstConnectionInstances != null && !dstConnectionInstances.isEmpty();
+			return dstConnectionInstances != null
+					&& !dstConnectionInstances.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

@@ -68,4 +68,4 @@ public class Aadl2ResourceImpl extends XMIResourceImpl {
 	protected boolean useUUIDs() {
 		return true;
 	}
-} //Aadl2ResourceImpl
+} // Aadl2ResourceImpl

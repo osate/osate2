@@ -60,7 +60,8 @@ import org.osate.aadl2.FeaturePrototype;
  *
  * @generated
  */
-public class FeaturePrototypeImpl extends PrototypeImpl implements FeaturePrototype {
+public class FeaturePrototypeImpl extends PrototypeImpl implements
+		FeaturePrototype {
 	/**
 	 * The default value of the '{@link #getDirection() <em>Direction</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -128,8 +129,9 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 		DirectionType oldDirection = direction;
 		direction = newDirection == null ? DIRECTION_EDEFAULT : newDirection;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.FEATURE_PROTOTYPE__DIRECTION,
-					oldDirection, direction));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.FEATURE_PROTOTYPE__DIRECTION, oldDirection,
+					direction));
 	}
 
 	/**
@@ -138,14 +140,17 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * @generated
 	 */
 	public ComponentClassifier getConstrainingClassifier() {
-		if (constrainingClassifier != null && ((EObject) constrainingClassifier).eIsProxy()) {
+		if (constrainingClassifier != null
+				&& ((EObject) constrainingClassifier).eIsProxy()) {
 			InternalEObject oldConstrainingClassifier = (InternalEObject) constrainingClassifier;
 			constrainingClassifier = (ComponentClassifier) eResolveProxy(oldConstrainingClassifier);
 			if (constrainingClassifier != oldConstrainingClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
-							constrainingClassifier));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER,
+							oldConstrainingClassifier, constrainingClassifier));
 			}
 		}
 		return constrainingClassifier;
@@ -165,13 +170,14 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setConstrainingClassifier(ComponentClassifier newConstrainingClassifier) {
+	public void setConstrainingClassifier(
+			ComponentClassifier newConstrainingClassifier) {
 		ComponentClassifier oldConstrainingClassifier = constrainingClassifier;
 		constrainingClassifier = newConstrainingClassifier;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER, oldConstrainingClassifier,
-					constrainingClassifier));
+					Aadl2Package.FEATURE_PROTOTYPE__CONSTRAINING_CLASSIFIER,
+					oldConstrainingClassifier, constrainingClassifier));
 	}
 
 	/**
@@ -261,4 +267,4 @@ public class FeaturePrototypeImpl extends PrototypeImpl implements FeatureProtot
 		return result.toString();
 	}
 
-} //FeaturePrototypeImpl
+} // FeaturePrototypeImpl

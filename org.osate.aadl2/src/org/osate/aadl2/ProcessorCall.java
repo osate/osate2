@@ -63,7 +63,7 @@ public interface ProcessorCall extends CallSpecification {
 	 * @return the value of the '<em>Subprogram Access Name</em>' attribute.
 	 * @see #setSubprogramAccessName(String)
 	 * @see org.osate.aadl2.Aadl2Package#getProcessorCall_SubprogramAccessName()
-	 * @model required="true" ordered="false"
+	 * @model dataType="org.osate.aadl2.String" required="true" ordered="false"
 	 * @generated
 	 */
 	String getSubprogramAccessName();

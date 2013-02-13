@@ -1,0 +1,397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>The Flow XMI Specification of the AADL Meta Model</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="TheXMISpecificationforAADL.html">8. The XMI Specification for AADL</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   8.5 The Flow XMI Specification of the AADL Meta Model
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="TheFeatureXMISpecificationoftheAADLMetaM.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="ThePropertyXMISpecificationoftheAADLMeta.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic41"></a>
+          <span class=outlineNumberFirst>8.5 </span><span class=topicLineFirst>The Flow XMI Specification of the AADL Meta Model</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font size="1"><span style="font-size:9pt">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;xsd:schema targetNamespace=&quot;http:///AADL/flow&quot; 
+xmlns:xsd=&quot;http://www.w3.org/2001/XMLSchema&quot; 
+xmlns:xmi=&quot;http://www.omg.org/XMI&quot; xmlns:flow=&quot;http:///AADL/flow&quot; xmlns:feature=&quot;http:///AADL/feature&quot; 
+xmlns:core=&quot;http:///AADL/core&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http:///AADL/feature&quot; schemaLocation=&quot;feature.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http:///AADL/core&quot; schemaLocation=&quot;core.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:import 
+namespace=&quot;http://www.omg.org/XMI&quot; schemaLocation=&quot;XMI.xsd&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:PropertyHolder&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;flow:FlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSpec&quot; type=&quot;flow:FlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;Flows&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;contents&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;Flows&quot; type=&quot;flow:Flows&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowSequence&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowImpl&quot; type=&quot;flow:FlowImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSpecs&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;contents&quot; type=&quot;xsd:string&quot; nillable=&quot;true&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSpecs&quot; type=&quot;flow:FlowSpecs&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;EndToEndFlow&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowSequence&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;EndToEndFlow&quot; type=&quot;flow:EndToEndFlow&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowPoint&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+ref=&quot;xmi:Extension&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+ref=&quot;xmi:id&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attributeGroup 
+ref=&quot;xmi:ObjectAttribs&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowPoint&quot; type=&quot;flow:FlowPoint&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSourceSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dst&quot; type=&quot;flow:FlowPoint&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dstContext&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dst&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dstContext&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSourceSpec&quot; type=&quot;flow:FlowSourceSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSinkSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;src&quot; type=&quot;flow:FlowPoint&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;srcContext&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;src&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;srcContext&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSinkSpec&quot; type=&quot;flow:FlowSinkSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowPathSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowSpec&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;src&quot; type=&quot;flow:FlowPoint&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dst&quot; type=&quot;flow:FlowPoint&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;srcContext&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;dstContext&quot; type=&quot;feature:PortGroup&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;src&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dst&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;srcContext&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;dstContext&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowPathSpec&quot; type=&quot;flow:FlowPathSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSourceImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;implement&quot; type=&quot;flow:FlowSourceSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;implement&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSourceImpl&quot; type=&quot;flow:FlowSourceImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSinkImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;implement&quot; type=&quot;flow:FlowSinkSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;implement&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSinkImpl&quot; type=&quot;flow:FlowSinkImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowPathImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;flow:FlowImpl&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;implement&quot; type=&quot;flow:FlowPathSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;implement&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowPathImpl&quot; type=&quot;flow:FlowPathImpl&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowElement&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:AObject&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;flowSpec&quot; type=&quot;flow:FlowSpec&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;connection&quot; type=&quot;core:Connection&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;flowContext&quot; type=&quot;core:Subcomponent&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;flowSpec&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;connection&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;flowContext&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowElement&quot; type=&quot;flow:FlowElement&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexType 
+name=&quot;FlowSequence&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:extension 
+base=&quot;core:ModeMember&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:choice 
+minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;flowElement&quot; type=&quot;flow:FlowElement&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;refines&quot; type=&quot;flow:FlowSequence&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:choice&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:attribute 
+name=&quot;refines&quot; type=&quot;xsd:string&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:extension&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexContent&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;/xsd:complexType&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&#160;&#160;&#160;&#160;&#160;&#160;&lt;xsd:element 
+name=&quot;FlowSequence&quot; type=&quot;flow:FlowSequence&quot;/&gt;</span></font><span></span></div>
+<div align="left"><font size="1"><span style="font-size:9pt">&lt;/xsd:schema&gt;</span></font><span></span></div></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

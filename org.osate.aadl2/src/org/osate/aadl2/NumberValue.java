@@ -117,4 +117,5 @@ public interface NumberValue extends PropertyValue {
 	 */
 	public double getScaledValue(UnitLiteral target);
 
+	public double getScaledValue(String target);
 } // NumberValue

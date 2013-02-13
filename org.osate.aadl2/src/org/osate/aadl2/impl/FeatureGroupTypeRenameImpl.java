@@ -57,7 +57,8 @@ import org.osate.aadl2.FeatureGroupTypeRename;
  *
  * @generated
  */
-public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements FeatureGroupTypeRename {
+public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements
+		FeatureGroupTypeRename {
 	/**
 	 * The cached value of the '{@link #getRenamedFeatureGroupType() <em>Renamed Feature Group Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -92,13 +93,16 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public FeatureGroupType getRenamedFeatureGroupType() {
-		if (renamedFeatureGroupType != null && ((EObject) renamedFeatureGroupType).eIsProxy()) {
+	public FeatureGroupType getRenamedFeatureGroupType() throws AssertionError {
+		if (renamedFeatureGroupType != null
+				&& ((EObject) renamedFeatureGroupType).eIsProxy()) {
 			InternalEObject oldRenamedFeatureGroupType = (InternalEObject) renamedFeatureGroupType;
 			renamedFeatureGroupType = (FeatureGroupType) eResolveProxy(oldRenamedFeatureGroupType);
 			if (renamedFeatureGroupType != oldRenamedFeatureGroupType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE,
 							oldRenamedFeatureGroupType, renamedFeatureGroupType));
 			}
@@ -120,13 +124,16 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRenamedFeatureGroupType(FeatureGroupType newRenamedFeatureGroupType) {
+	public void setRenamedFeatureGroupType(
+			FeatureGroupType newRenamedFeatureGroupType) {
 		FeatureGroupType oldRenamedFeatureGroupType = renamedFeatureGroupType;
 		renamedFeatureGroupType = newRenamedFeatureGroupType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE, oldRenamedFeatureGroupType,
-					renamedFeatureGroupType));
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
+					Aadl2Package.FEATURE_GROUP_TYPE_RENAME__RENAMED_FEATURE_GROUP_TYPE,
+					oldRenamedFeatureGroupType, renamedFeatureGroupType));
 	}
 
 	/**
@@ -189,4 +196,4 @@ public class FeatureGroupTypeRenameImpl extends NamedElementImpl implements Feat
 		return super.eIsSet(featureID);
 	}
 
-} //FeatureGroupTypeRenameImpl
+} // FeatureGroupTypeRenameImpl

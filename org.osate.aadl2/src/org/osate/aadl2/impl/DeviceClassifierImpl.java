@@ -48,7 +48,8 @@ import org.osate.aadl2.DeviceClassifier;
  *
  * @generated
  */
-public abstract class DeviceClassifierImpl extends ComponentClassifierImpl implements DeviceClassifier {
+public abstract class DeviceClassifierImpl extends ComponentClassifierImpl
+		implements DeviceClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class DeviceClassifierImpl extends ComponentClassifierImpl imple
 		return Aadl2Package.eINSTANCE.getDeviceClassifier();
 	}
 
-} //DeviceClassifierImpl
+} // DeviceClassifierImpl

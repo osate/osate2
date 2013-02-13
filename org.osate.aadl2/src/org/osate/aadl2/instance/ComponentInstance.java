@@ -73,7 +73,8 @@ import org.osate.aadl2.Subcomponent;
  * @model
  * @generated
  */
-public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementInstance {
+public interface ComponentInstance extends ConnectionInstanceEnd,
+		FlowElementInstance {
 	/**
 	 * Returns the value of the '<em><b>Feature Instance</b></em>' containment reference list.
 	 * The list contents are of type {@link org.osate.aadl2.instance.FeatureInstance}.
@@ -148,7 +149,7 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @return the value of the '<em>Subcomponent</em>' reference.
 	 * @see #setSubcomponent(Subcomponent)
 	 * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance_Subcomponent()
-	 * @model required="true" ordered="false"
+	 * @model ordered="false"
 	 * @generated
 	 */
 	Subcomponent getSubcomponent();

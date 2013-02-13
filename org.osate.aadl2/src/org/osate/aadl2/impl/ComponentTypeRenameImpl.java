@@ -59,7 +59,8 @@ import org.osate.aadl2.ComponentTypeRename;
  *
  * @generated
  */
-public class ComponentTypeRenameImpl extends NamedElementImpl implements ComponentTypeRename {
+public class ComponentTypeRenameImpl extends NamedElementImpl implements
+		ComponentTypeRename {
 	/**
 	 * The default value of the '{@link #getCategory() <em>Category</em>}' attribute.
 	 * <!-- begin-user-doc -->
@@ -127,8 +128,9 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY,
-					oldCategory, category));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.COMPONENT_TYPE_RENAME__CATEGORY, oldCategory,
+					category));
 	}
 
 	/**
@@ -137,14 +139,17 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 	 * @generated
 	 */
 	public ComponentType getRenamedComponentType() {
-		if (renamedComponentType != null && ((EObject) renamedComponentType).eIsProxy()) {
+		if (renamedComponentType != null
+				&& ((EObject) renamedComponentType).eIsProxy()) {
 			InternalEObject oldRenamedComponentType = (InternalEObject) renamedComponentType;
 			renamedComponentType = (ComponentType) eResolveProxy(oldRenamedComponentType);
 			if (renamedComponentType != oldRenamedComponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
-							renamedComponentType));
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
+							Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE,
+							oldRenamedComponentType, renamedComponentType));
 			}
 		}
 		return renamedComponentType;
@@ -169,8 +174,8 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 		renamedComponentType = newRenamedComponentType;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE, oldRenamedComponentType,
-					renamedComponentType));
+					Aadl2Package.COMPONENT_TYPE_RENAME__RENAMED_COMPONENT_TYPE,
+					oldRenamedComponentType, renamedComponentType));
 	}
 
 	/**
@@ -260,4 +265,4 @@ public class ComponentTypeRenameImpl extends NamedElementImpl implements Compone
 		return result.toString();
 	}
 
-} //ComponentTypeRenameImpl
+} // ComponentTypeRenameImpl

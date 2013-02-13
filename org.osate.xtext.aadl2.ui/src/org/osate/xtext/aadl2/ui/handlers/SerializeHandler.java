@@ -35,17 +35,21 @@
 package org.osate.xtext.aadl2.ui.handlers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.Preferences;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.text.ITextSelection;
@@ -69,6 +73,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2ResourceFactoryImpl;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
+import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.unparsing.AadlUnparser;
 
 import com.google.inject.Inject;
@@ -142,7 +147,16 @@ public class SerializeHandler extends AbstractHandler {
 									aaxlresource.getContents().add(eobject);
 									rss.getResources().add(aaxlresource);
 									try {
-										aaxlresource.save(null);
+										Preferences prefs = WorkspacePlugin.getDefault().getPluginPreferences();
+										Boolean expandFlag = prefs.getBoolean(WorkspacePlugin.EXPAND_DEFAULT_FLAG);
+										Map options = new HashMap();
+										options.put(XMLResource.OPTION_ENCODING, "UTF-8");
+										options.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+										if (expandFlag) {
+											options.put(XMLResource.OPTION_KEEP_DEFAULT_CONTENT, Boolean.TRUE);
+										}
+
+										aaxlresource.save(options);
 									} catch (IOException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();

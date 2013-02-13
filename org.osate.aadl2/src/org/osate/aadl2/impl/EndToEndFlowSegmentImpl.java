@@ -58,7 +58,8 @@ import org.osate.aadl2.EndToEndFlowSegment;
  *
  * @generated
  */
-public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlowSegment {
+public class EndToEndFlowSegmentImpl extends ElementImpl implements
+		EndToEndFlowSegment {
 	/**
 	 * The cached value of the '{@link #getFlowElement() <em>Flow Element</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -110,7 +111,8 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 			if (flowElement != oldFlowElement) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT, oldFlowElement, flowElement));
+							Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT,
+							oldFlowElement, flowElement));
 			}
 		}
 		return flowElement;
@@ -134,7 +136,8 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 		EndToEndFlowElement oldFlowElement = flowElement;
 		flowElement = newFlowElement;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.END_TO_END_FLOW_SEGMENT__FLOW_ELEMENT,
 					oldFlowElement, flowElement));
 	}
 
@@ -150,7 +153,8 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 			if (context != oldContext) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT, oldContext, context));
+							Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT,
+							oldContext, context));
 			}
 		}
 		return context;
@@ -174,8 +178,9 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 		Context oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT,
-					oldContext, context));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.END_TO_END_FLOW_SEGMENT__CONTEXT, oldContext,
+					context));
 	}
 
 	/**
@@ -250,4 +255,4 @@ public class EndToEndFlowSegmentImpl extends ElementImpl implements EndToEndFlow
 		return super.eIsSet(featureID);
 	}
 
-} //EndToEndFlowSegmentImpl
+} // EndToEndFlowSegmentImpl

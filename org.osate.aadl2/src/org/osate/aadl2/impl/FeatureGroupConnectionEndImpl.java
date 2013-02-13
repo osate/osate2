@@ -48,7 +48,8 @@ import org.osate.aadl2.FeatureGroupConnectionEnd;
  *
  * @generated
  */
-public abstract class FeatureGroupConnectionEndImpl extends ConnectionEndImpl implements FeatureGroupConnectionEnd {
+public abstract class FeatureGroupConnectionEndImpl extends ConnectionEndImpl
+		implements FeatureGroupConnectionEnd {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class FeatureGroupConnectionEndImpl extends ConnectionEndImpl im
 		return Aadl2Package.eINSTANCE.getFeatureGroupConnectionEnd();
 	}
 
-} //FeatureGroupConnectionEndImpl
+} // FeatureGroupConnectionEndImpl

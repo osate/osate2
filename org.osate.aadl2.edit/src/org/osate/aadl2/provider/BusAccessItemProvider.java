@@ -56,8 +56,9 @@ import org.osate.aadl2.BusAccess;
  * <!-- end-user-doc -->
  * @generated
  */
-public class BusAccessItemProvider extends AccessItemProvider implements IEditingDomainItemProvider,
-		IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+public class BusAccessItemProvider extends AccessItemProvider implements
+		IEditingDomainItemProvider, IStructuredItemContentProvider,
+		ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
 	/**
 	 * This constructs an instance from a factory and a notifier.
 	 * <!-- begin-user-doc -->
@@ -92,11 +93,14 @@ public class BusAccessItemProvider extends AccessItemProvider implements IEditin
 	 */
 	protected void addBusFeatureClassifierPropertyDescriptor(Object object) {
 		itemPropertyDescriptors.add(createItemPropertyDescriptor(
-				((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+				((ComposeableAdapterFactory) adapterFactory)
+						.getRootAdapterFactory(),
 				getResourceLocator(),
 				getString("_UI_BusAccess_busFeatureClassifier_feature"),
-				getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_busFeatureClassifier_feature",
-						"_UI_BusAccess_type"), Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier(), true, false,
+				getString("_UI_PropertyDescriptor_description",
+						"_UI_BusAccess_busFeatureClassifier_feature",
+						"_UI_BusAccess_type"), Aadl2Package.eINSTANCE
+						.getBusAccess_BusFeatureClassifier(), true, false,
 				true, null, null, null));
 	}
 
@@ -108,7 +112,8 @@ public class BusAccessItemProvider extends AccessItemProvider implements IEditin
 	 */
 	@Override
 	public Object getImage(Object object) {
-		return overlayImage(object, getResourceLocator().getImage("full/obj16/BusAccess"));
+		return overlayImage(object,
+				getResourceLocator().getImage("full/obj16/BusAccess"));
 	}
 
 	/**
@@ -120,8 +125,8 @@ public class BusAccessItemProvider extends AccessItemProvider implements IEditin
 	@Override
 	public String getText(Object object) {
 		String label = ((BusAccess) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_BusAccess_type") : getString("_UI_BusAccess_type")
-				+ " " + label;
+		return label == null || label.length() == 0 ? getString("_UI_BusAccess_type")
+				: getString("_UI_BusAccess_type") + " " + label;
 	}
 
 	/**
@@ -145,7 +150,8 @@ public class BusAccessItemProvider extends AccessItemProvider implements IEditin
 	 * @generated
 	 */
 	@Override
-	protected void collectNewChildDescriptors(Collection<Object> newChildDescriptors, Object object) {
+	protected void collectNewChildDescriptors(
+			Collection<Object> newChildDescriptors, Object object) {
 		super.collectNewChildDescriptors(newChildDescriptors, object);
 	}
 

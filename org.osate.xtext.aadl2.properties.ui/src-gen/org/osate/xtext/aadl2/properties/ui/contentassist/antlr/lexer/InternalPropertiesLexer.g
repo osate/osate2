@@ -16,25 +16,23 @@ import org.eclipse.xtext.ui.editor.contentassist.antlr.internal.Lexer;
 
 
 
-KEYWORD_29 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
+KEYWORD_28 : ('C'|'c')('L'|'l')('A'|'a')('S'|'s')('S'|'s')('I'|'i')('F'|'f')('I'|'i')('E'|'e')('R'|'r');
 
-KEYWORD_28 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
+KEYWORD_27 : ('R'|'r')('E'|'e')('F'|'f')('E'|'e')('R'|'r')('E'|'e')('N'|'n')('C'|'c')('E'|'e');
 
-KEYWORD_27 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
+KEYWORD_26 : ('C'|'c')('O'|'o')('N'|'n')('S'|'s')('T'|'t')('A'|'a')('N'|'n')('T'|'t');
 
-KEYWORD_24 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
+KEYWORD_23 : ('A'|'a')('P'|'p')('P'|'p')('L'|'l')('I'|'i')('E'|'e')('S'|'s');
 
-KEYWORD_25 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
+KEYWORD_24 : ('B'|'b')('I'|'i')('N'|'n')('D'|'d')('I'|'i')('N'|'n')('G'|'g');
 
-KEYWORD_26 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
+KEYWORD_25 : ('C'|'c')('O'|'o')('M'|'m')('P'|'p')('U'|'u')('T'|'t')('E'|'e');
 
-KEYWORD_20 : ('A'|'a')('N'|'n')('N'|'n')('E'|'e')('X'|'x');
+KEYWORD_20 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
 
-KEYWORD_21 : ('D'|'d')('E'|'e')('L'|'l')('T'|'t')('A'|'a');
+KEYWORD_21 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
 
-KEYWORD_22 : ('F'|'f')('A'|'a')('L'|'l')('S'|'s')('E'|'e');
-
-KEYWORD_23 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
+KEYWORD_22 : ('M'|'m')('O'|'o')('D'|'d')('E'|'e')('S'|'s');
 
 KEYWORD_19 : ('T'|'t')('R'|'r')('U'|'u')('E'|'e');
 
@@ -91,6 +89,8 @@ fragment RULE_DIGIT : '0'..'9';
 fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
+
+RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 

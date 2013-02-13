@@ -1,0 +1,177 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+   <title>End-To-End Flow Latency Analysis on Instance Models</title>
+   <link href="Res/styles/shared.css" rel="stylesheet" type="text/css">
+   <link href="Res/styles/DynamicOutline.css" rel="stylesheet" type="text/css">
+</head>
+<body id="page" >
+
+<!-- BEGIN PAGE BODY-->
+
+
+<table id="pageBody">
+ <col class="main">
+ <col class="right">
+
+<!-- BEGIN BREADCRUMBS-->
+<tr id="breadcrumbsAndPageNavigation">
+  <td class="breadcrumbs" valign="top">
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="index.html">Home</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS ITEM-->
+<span class="breadcrumb">
+   <a href="FlowLatencyAnalysis(2).html">10. Flow Latency Analysis</a> 
+   <span class="separator">&gt;</span>
+</span>
+<!-- END NAVIGATION BREADCRUMBS ITEM-->
+<!-- BEGIN NAVIGATION BREADCRUMBS HERE-->
+<span class="breadcrumb">
+   10.2 End-To-End Flow Latency Analysis on Instance Models
+</span>
+<!-- END NAVIGATION BREADCRUMBS HERE-->
+
+  </td>
+  <td class="pageNavigation" valign="top">
+<!-- START PAGE NAVIGATION NEXT IN SEQUENCE IMAGES -->
+<span class="commands">
+    <span class="command">
+        <img src="Res/images/previous_button.gif" alt=""> <a href="FullyandPartiallySpecifiedInstanceModels.html">
+        <span class="label">Previous</span></a>
+    </span>
+&nbsp;&nbsp;
+    <span class="command">
+        <a href="End-To-EndFlowLatencyAnalysisonDeclarati.html">
+        <span class="label">Next</span></a> <img src="Res/images/next_button.gif" alt="">
+    </span>
+</span>
+<!-- END PAGE NAVIGATION NEXT IN SEQUENCE IMAGES  -->
+
+  </td>
+  <td class="right" valign="top">
+  </td>
+</tr>
+<!-- END BREADCRUMBS-->
+
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topicDivider">
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+
+<!--BEGIN PAGE BODY ITEM-->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <table>
+      <tr class="topicHeader">
+        <td class="topicImageColumn">
+
+        </td>
+        <td class="topicLineColumn">
+          <a name="Topic77"></a>
+          <span class=outlineNumberFirst>10.2 </span><span class=topicLineFirst>End-To-End Flow Latency Analysis on Instance Models</span>
+          <span class="topicIcons">
+
+          </span>
+        </td>
+      </tr>
+    </table>
+
+<!-- phf:Comand: Expand("BoxPartMap.mmbas") -->
+     <div class="topicTextNotes"><div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Latency takes two forms: latency due to processing, and latency due to sampling.  </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Processing latency is due to computation in a thread or processing by a device.  This latency is 
+either determined by the latency property associated with the flow specification of the thread or 
+device, or by the deadline for a thread.  Processing latency is also incurred during 
+communication across a connection and is reflected in the latency property associated with a 
+connection. </span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Sampling latency is due to a thread or device executing periodically independent of the arrival 
+of elements of a data stream.  For data port connections, this applies to periodic threads with 
+delayed connections, and for aperiodic or stochastic threads.  Immediate data port connections 
+result in processing latency only, since the destination thread execution is delayed until the 
+source thread has completed.  Sampling latency may also be incurred if a bus periodically 
+transfers data.</span></font><span></span></div>
+<div align="left"><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">The current flow latency analysis plug-in implements the following algorithm for determining the 
+end-to-end flow latency.</span></font><span></span></div>
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<ul style="margin-top: 0pt; margin-bottom: 0pt">
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For the first flow element – a FlowSpecInstance – processing latency is determined by 
+the latency property on the flow spec, or if not present by the deadline of a thread or 
+device.  This is followed by accumulating the latency of alternating connection instances 
+and flow specification instances.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Connection latency is determined by the latency property of the connection instance 
+and is added to the processing latency.</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">For successive flow specification instances, latency is determined as follows:</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If the component has a partitionLatency property its value is used in calculating 
+sampling latency; </span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If the component is a periodic thread with an incoming delayed data port or a event or 
+event data connection, then the thread period is used a sampling latency;</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If sampling occurs, the accumulated processing latency is rounded up to the next 
+multiple of the sampling latency; this value is then added to the total flow latency and 
+the accumulated processing latency reset to zero;</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">If no sampling occurs, or after the total latency has been increased due to sampling, 
+then the accumulated processing latency is increased by the latency property value of 
+the flow specification, or if not present by the deadline of the thread or device;</span></font><span></span></li>
+<li style="margin-left=-3mm; margin-right=0mm; padding-left=0mm; font-family= Times New Roman;  font-size= 12pt;  color= #010101;  "><font face="Times New Roman" color="#010101" size="3"><span style="font-size:12pt">Once all flow elements are processed, the accumulated processing latency value is 
+added to the total latency.</span></font><span></span></li>
+</ul>
+</ul></div>
+
+
+
+
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!--END PAGE BODY ITEM-->
+
+
+<!-- BEGIN TOP BUTTON -->
+<tr class="topic">
+  <td class="main" valign="top" colspan="2">
+    <div class="body">
+      <div class="topCommand">
+        <span class="commands">
+      <span class="command">
+            <img src="Res/images/top_button.gif" alt="">
+          <a href="javascript:scroll(0,0)">
+             <span class="label">Top</span>
+              </a>
+    </span>
+       </span>
+      </div>
+    </div>
+  </td>
+  <td class="right" valign="top">
+<!--right body column empty-->
+  </td>
+</tr>
+<!-- END TOP BUTTON -->
+
+</table>
+
+<!-- BEGIN SIDE NAVIGATION WRAPPER-->
+    </td>
+  </tr>
+</table>
+<!-- END SIDE NAVIGATION WRAPPER-->
+
+<!-- END PAGE BODY-->
+
+
+</body>
+</html>
+

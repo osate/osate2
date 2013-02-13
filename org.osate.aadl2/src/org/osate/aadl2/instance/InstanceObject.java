@@ -70,10 +70,10 @@ public interface InstanceObject extends EObject, NamedElement {
 	ComponentInstance getComponentInstance();
 
 	/**
-	* find the enclosing SystemInstance
-	* 
-	* @return SytstemInstance object
-	*/
+	 * find the enclosing SystemInstance
+	 * 
+	 * @return SytstemInstance object
+	 */
 	SystemInstance getSystemInstance();
 
 	/**
@@ -122,7 +122,8 @@ public interface InstanceObject extends EObject, NamedElement {
 	 * @param referencePath the search path for contained instance objects
 	 * @return the list of matching instance objects
 	 */
-	List<InstanceObject> findInstanceObjects(EList<ContainmentPathElement> referencePath);
+	List<InstanceObject> findInstanceObjects(
+			EList<ContainmentPathElement> referencePath);
 
 	boolean matchesIndex(List<ArrayRange> ranges);
 

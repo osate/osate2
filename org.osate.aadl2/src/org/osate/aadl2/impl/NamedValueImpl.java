@@ -97,7 +97,8 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 			namedValue = (AbstractNamedValue) eResolveProxy(oldNamedValue);
 			if (namedValue != oldNamedValue) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.NAMED_VALUE__NAMED_VALUE,
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.NAMED_VALUE__NAMED_VALUE,
 							oldNamedValue, namedValue));
 			}
 		}
@@ -122,7 +123,8 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		AbstractNamedValue oldNamedValue = namedValue;
 		namedValue = newNamedValue;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.NAMED_VALUE__NAMED_VALUE, oldNamedValue,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.NAMED_VALUE__NAMED_VALUE, oldNamedValue,
 					namedValue));
 	}
 
@@ -186,4 +188,4 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 		return super.eIsSet(featureID);
 	}
 
-} //NamedValueImpl
+} // NamedValueImpl

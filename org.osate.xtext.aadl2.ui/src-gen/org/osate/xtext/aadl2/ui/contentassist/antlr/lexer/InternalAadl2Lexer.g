@@ -210,8 +210,6 @@ KEYWORD_13 : '}';
 
 
 
-RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
-
 RULE_SL_COMMENT : '--' ~(('\n'|'\r'))* ('\r'? '\n')?;
 
 fragment RULE_EXPONENT : ('e'|'E') ('+'|'-')? RULE_DIGIT+;
@@ -227,6 +225,8 @@ fragment RULE_DIGIT : '0'..'9';
 fragment RULE_EXTENDED_DIGIT : ('0'..'9'|'a'..'f'|'A'..'F');
 
 fragment RULE_BASED_INTEGER : RULE_EXTENDED_DIGIT ('_'? RULE_EXTENDED_DIGIT)*;
+
+RULE_ANNEXTEXT : '{**' ( options {greedy=false;} : . )*'**}';
 
 RULE_STRING : ('"' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'"')))* '"'|'\'' ('\\' ('b'|'t'|'n'|'f'|'r'|'u'|'"'|'\''|'\\')|~(('\\'|'\'')))* '\'');
 

@@ -48,7 +48,8 @@ import org.osate.aadl2.VirtualBusClassifier;
  *
  * @generated
  */
-public abstract class VirtualBusClassifierImpl extends ComponentClassifierImpl implements VirtualBusClassifier {
+public abstract class VirtualBusClassifierImpl extends ComponentClassifierImpl
+		implements VirtualBusClassifier {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class VirtualBusClassifierImpl extends ComponentClassifierImpl i
 		return Aadl2Package.eINSTANCE.getVirtualBusClassifier();
 	}
 
-} //VirtualBusClassifierImpl
+} // VirtualBusClassifierImpl

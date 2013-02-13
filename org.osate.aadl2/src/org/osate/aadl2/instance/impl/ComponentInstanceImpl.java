@@ -62,10 +62,12 @@ import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.MetaclassReference;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyOwner;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -79,6 +81,7 @@ import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.ModeTransitionInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.aadl2.util.OsateDebug;
 
 /**
  * <!-- begin-user-doc -->
@@ -103,7 +106,8 @@ import org.osate.aadl2.util.Aadl2Util;
  *
  * @generated
  */
-public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements ComponentInstance {
+public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements
+		ComponentInstance {
 	/**
 	 * The cached value of the '{@link #getFeatureInstances() <em>Feature Instance</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
@@ -258,7 +262,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<FeatureInstance> getFeatureInstances() {
 		if (featureInstances == null) {
-			featureInstances = new EObjectContainmentEList<FeatureInstance>(FeatureInstance.class, this,
+			featureInstances = new EObjectContainmentEList<FeatureInstance>(
+					FeatureInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE);
 		}
 		return featureInstances;
@@ -282,7 +287,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<ComponentInstance> getComponentInstances() {
 		if (componentInstances == null) {
-			componentInstances = new EObjectContainmentEList<ComponentInstance>(ComponentInstance.class, this,
+			componentInstances = new EObjectContainmentEList<ComponentInstance>(
+					ComponentInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__COMPONENT_INSTANCE);
 		}
 		return componentInstances;
@@ -320,7 +326,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			if (subcomponent != oldSubcomponent) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT, oldSubcomponent, subcomponent));
+							InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT,
+							oldSubcomponent, subcomponent));
 			}
 		}
 		return subcomponent;
@@ -344,7 +351,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		Subcomponent oldSubcomponent = subcomponent;
 		subcomponent = newSubcomponent;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT,
 					oldSubcomponent, subcomponent));
 	}
 
@@ -355,7 +363,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<Long> getIndices() {
 		if (indices == null) {
-			indices = new EDataTypeEList<Long>(Long.class, this, InstancePackage.COMPONENT_INSTANCE__INDEX);
+			indices = new EDataTypeEList<Long>(Long.class, this,
+					InstancePackage.COMPONENT_INSTANCE__INDEX);
 		}
 		return indices;
 	}
@@ -367,7 +376,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<ModeInstance> getModeInstances() {
 		if (modeInstances == null) {
-			modeInstances = new EObjectContainmentEList<ModeInstance>(ModeInstance.class, this,
+			modeInstances = new EObjectContainmentEList<ModeInstance>(
+					ModeInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__MODE_INSTANCE);
 		}
 		return modeInstances;
@@ -391,8 +401,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<ModeTransitionInstance> getModeTransitionInstances() {
 		if (modeTransitionInstances == null) {
-			modeTransitionInstances = new EObjectContainmentEList<ModeTransitionInstance>(ModeTransitionInstance.class,
-					this, InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
+			modeTransitionInstances = new EObjectContainmentEList<ModeTransitionInstance>(
+					ModeTransitionInstance.class,
+					this,
+					InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
 		}
 		return modeTransitionInstances;
 	}
@@ -426,8 +438,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		ComponentCategory oldCategory = category;
 		category = newCategory == null ? CATEGORY_EDEFAULT : newCategory;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.COMPONENT_INSTANCE__CATEGORY,
-					oldCategory, category));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					InstancePackage.COMPONENT_INSTANCE__CATEGORY, oldCategory,
+					category));
 	}
 
 	/**
@@ -437,7 +450,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<ModeInstance> getInModes() {
 		if (inModes == null) {
-			inModes = new EObjectResolvingEList<ModeInstance>(ModeInstance.class, this,
+			inModes = new EObjectResolvingEList<ModeInstance>(
+					ModeInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__IN_MODE);
 		}
 		return inModes;
@@ -451,7 +465,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EList<FlowSpecificationInstance> getFlowSpecifications() {
 		if (flowSpecifications == null) {
 			flowSpecifications = new EObjectContainmentEList<FlowSpecificationInstance>(
-					FlowSpecificationInstance.class, this, InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION);
+					FlowSpecificationInstance.class, this,
+					InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION);
 		}
 		return flowSpecifications;
 	}
@@ -474,7 +489,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<EndToEndFlowInstance> getEndToEndFlows() {
 		if (endToEndFlows == null) {
-			endToEndFlows = new EObjectContainmentEList<EndToEndFlowInstance>(EndToEndFlowInstance.class, this,
+			endToEndFlows = new EObjectContainmentEList<EndToEndFlowInstance>(
+					EndToEndFlowInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW);
 		}
 		return endToEndFlows;
@@ -498,7 +514,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public EList<ConnectionInstance> getConnectionInstances() {
 		if (connectionInstances == null) {
-			connectionInstances = new EObjectContainmentEList<ConnectionInstance>(ConnectionInstance.class, this,
+			connectionInstances = new EObjectContainmentEList<ConnectionInstance>(
+					ConnectionInstance.class, this,
 					InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE);
 		}
 		return connectionInstances;
@@ -521,22 +538,30 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @generated
 	 */
 	@Override
-	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
+	public NotificationChain eInverseRemove(InternalEObject otherEnd,
+			int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
-			return ((InternalEList<?>) getFeatureInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getFeatureInstances()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__COMPONENT_INSTANCE:
-			return ((InternalEList<?>) getComponentInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getComponentInstances()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__MODE_INSTANCE:
-			return ((InternalEList<?>) getModeInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getModeInstances()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE:
-			return ((InternalEList<?>) getModeTransitionInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getModeTransitionInstances())
+					.basicRemove(otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
-			return ((InternalEList<?>) getFlowSpecifications()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getFlowSpecifications()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW:
-			return ((InternalEList<?>) getEndToEndFlows()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getEndToEndFlows()).basicRemove(
+					otherEnd, msgs);
 		case InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE:
-			return ((InternalEList<?>) getConnectionInstances()).basicRemove(otherEnd, msgs);
+			return ((InternalEList<?>) getConnectionInstances()).basicRemove(
+					otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -588,19 +613,23 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		switch (featureID) {
 		case InstancePackage.COMPONENT_INSTANCE__FEATURE_INSTANCE:
 			getFeatureInstances().clear();
-			getFeatureInstances().addAll((Collection<? extends FeatureInstance>) newValue);
+			getFeatureInstances().addAll(
+					(Collection<? extends FeatureInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__COMPONENT_INSTANCE:
 			getComponentInstances().clear();
-			getComponentInstances().addAll((Collection<? extends ComponentInstance>) newValue);
+			getComponentInstances().addAll(
+					(Collection<? extends ComponentInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__MODE_INSTANCE:
 			getModeInstances().clear();
-			getModeInstances().addAll((Collection<? extends ModeInstance>) newValue);
+			getModeInstances().addAll(
+					(Collection<? extends ModeInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE:
 			getModeTransitionInstances().clear();
-			getModeTransitionInstances().addAll((Collection<? extends ModeTransitionInstance>) newValue);
+			getModeTransitionInstances().addAll(
+					(Collection<? extends ModeTransitionInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			setCategory((ComponentCategory) newValue);
@@ -611,15 +640,18 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__FLOW_SPECIFICATION:
 			getFlowSpecifications().clear();
-			getFlowSpecifications().addAll((Collection<? extends FlowSpecificationInstance>) newValue);
+			getFlowSpecifications().addAll(
+					(Collection<? extends FlowSpecificationInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW:
 			getEndToEndFlows().clear();
-			getEndToEndFlows().addAll((Collection<? extends EndToEndFlowInstance>) newValue);
+			getEndToEndFlows().addAll(
+					(Collection<? extends EndToEndFlowInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE:
 			getConnectionInstances().clear();
-			getConnectionInstances().addAll((Collection<? extends ConnectionInstance>) newValue);
+			getConnectionInstances().addAll(
+					(Collection<? extends ConnectionInstance>) newValue);
 			return;
 		case InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT:
 			setSubcomponent((Subcomponent) newValue);
@@ -692,7 +724,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		case InstancePackage.COMPONENT_INSTANCE__MODE_INSTANCE:
 			return modeInstances != null && !modeInstances.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE:
-			return modeTransitionInstances != null && !modeTransitionInstances.isEmpty();
+			return modeTransitionInstances != null
+					&& !modeTransitionInstances.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__CATEGORY:
 			return category != CATEGORY_EDEFAULT;
 		case InstancePackage.COMPONENT_INSTANCE__IN_MODE:
@@ -702,7 +735,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		case InstancePackage.COMPONENT_INSTANCE__END_TO_END_FLOW:
 			return endToEndFlows != null && !endToEndFlows.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__CONNECTION_INSTANCE:
-			return connectionInstances != null && !connectionInstances.isEmpty();
+			return connectionInstances != null
+					&& !connectionInstances.isEmpty();
 		case InstancePackage.COMPONENT_INSTANCE__SUBCOMPONENT:
 			return subcomponent != null;
 		case InstancePackage.COMPONENT_INSTANCE__INDEX:
@@ -730,9 +764,58 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		return result.toString();
 	}
 
-	@Override
 	public boolean acceptsProperty(Property property) {
-		return true;
+		//OsateDebug.osateDebug("[CompnentInstanceImpl] property=" + property);
+
+		for (final PropertyOwner propOwner : property.getAppliesTos()) {
+
+			if (propOwner instanceof MetaclassReference) {
+				//OsateDebug.osateDebug("[CompnentInstanceImpl]   property owner=" + propOwner);
+				if ((((MetaclassReference) propOwner).getMetaclassNames()
+						.size() > 0)
+						&& ((MetaclassReference) propOwner).getMetaclassNames()
+								.get(0).equals("all")) {
+					return true;
+				}
+
+				String catLitteral = ((MetaclassReference) propOwner)
+						.getMetaclass().getName().toLowerCase();
+
+				/*
+				 * JD: fixes for bug #126
+				 * The following line has been added to fix bug #126
+				 * When getting the literal value of the category from the meta model,
+				 * we get the literal "virtualprocessor" or "virtualbus" because
+				 * it is splitted into two words. On the other hand, the ComponentCategory
+				 * class use a space between the two. For these reason, we
+				 * force the category litteral when finding virtualprocessor
+				 * or virtualbus.
+				 */
+				if (catLitteral.equals("virtualprocessor")) {
+					catLitteral = "virtual processor";
+				} else if (catLitteral.equals("virtualbus")) {
+					catLitteral = "virtual bus";
+				} else if (catLitteral.equals("subprogramgroup")) {
+					catLitteral = "subprogram group";
+				} else if (catLitteral.equals("threadgroup")) {
+					catLitteral = "thread group";
+				}
+
+				final ComponentCategory categ = ComponentCategory
+						.get(catLitteral);
+
+				if (getCategory().equals(categ)) {
+					return true;
+				}
+				//OsateDebug.osateDebug("   catLitteral =" + catLitteral);
+
+			}
+		}
+
+		final ComponentClassifier cc = getComponentClassifier();
+
+		return (cc == null) ? false : cc.checkAppliesToClassifier(property);
+
 	}
 
 	/**
@@ -742,7 +825,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 */
 	public ModeTransitionInstance findModeTransitionInstance(ModeTransition mt) {
 		EList<ModeTransitionInstance> subcil = getModeTransitionInstances();
-		for (Iterator<ModeTransitionInstance> it = subcil.iterator(); it.hasNext();) {
+		for (Iterator<ModeTransitionInstance> it = subcil.iterator(); it
+				.hasNext();) {
 			ModeTransitionInstance mi = it.next();
 			if (mi.getModeTransition() == mt)
 				return mi;
@@ -779,7 +863,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		for (Iterator<ComponentInstance> it = subcil.iterator(); it.hasNext();) {
 			ComponentInstance ci = it.next();
 			// XXX: Do we need to do this for modes and end-to-end flows too???
-			EList<Subcomponent> scl = ci.getSubcomponent().getAllSubcomponentRefinements();
+			EList<Subcomponent> scl = ci.getSubcomponent()
+					.getAllSubcomponentRefinements();
 			if (scl.contains(sc))
 				return ci;
 		}
@@ -818,11 +903,13 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param flowspec flowspec whose instance is to be found
 	 * @return flowspec instance with the specified flowspec, or null
 	 */
-	public FlowSpecificationInstance findFlowSpecInstance(FlowSpecification flowspec) {
+	public FlowSpecificationInstance findFlowSpecInstance(
+			FlowSpecification flowspec) {
 		if (flowspec == null)
 			return null;
 		EList<FlowSpecificationInstance> subcil = getFlowSpecifications();
-		for (Iterator<FlowSpecificationInstance> it = subcil.iterator(); it.hasNext();) {
+		for (Iterator<FlowSpecificationInstance> it = subcil.iterator(); it
+				.hasNext();) {
 			FlowSpecificationInstance fi = it.next();
 			if (fi.getFlowSpecification() == flowspec)
 				return fi;
@@ -839,7 +926,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			// Get all SOMs that contain one of the mode instances in inModes
 			final List<SystemOperationMode> processedModes = new ArrayList<SystemOperationMode>();
 
-			for (SystemOperationMode som : getSystemInstance().getSystemOperationModes()) {
+			for (SystemOperationMode som : getSystemInstance()
+					.getSystemOperationModes()) {
 				for (ModeInstance mi : som.getCurrentModes()) {
 					if (inModes.contains(mi)) {
 						processedModes.add(som);
@@ -859,10 +947,12 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EList<ConnectionInstance> findConnectionInstance(Connection conn) {
 		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
 
-		for (ConnectionInstance conni : getSystemInstance().allConnectionInstances()) {
+		for (ConnectionInstance conni : getSystemInstance()
+				.allConnectionInstances()) {
 			for (ConnectionReference connRef : conni.getConnectionReferences()) {
 				if (isSameOrRefined(connRef.getConnection(), conn)
-						&& ((this == connRef.getContext()) || connRef.getContext() == null)) {
+						&& ((this == connRef.getContext()) || connRef
+								.getContext() == null)) {
 					result.add(conni);
 					break;
 				}
@@ -880,7 +970,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		if (ete == null)
 			return null;
 		EList<EndToEndFlowInstance> subcil = getEndToEndFlows();
-		for (Iterator<EndToEndFlowInstance> it = subcil.iterator(); it.hasNext();) {
+		for (Iterator<EndToEndFlowInstance> it = subcil.iterator(); it
+				.hasNext();) {
 			EndToEndFlowInstance fi = it.next();
 			if (fi.getEndToEndFlow() == ete)
 				return fi;
@@ -894,7 +985,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @param secondconn Connection
 	 * @return boolean true if same or refined
 	 */
-	private static boolean isSameOrRefined(Connection firstconn, Connection secondconn) {
+	private static boolean isSameOrRefined(Connection firstconn,
+			Connection secondconn) {
 		if (firstconn == secondconn)
 			return true;
 		Connection cfi = firstconn;
@@ -972,7 +1064,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @see org.osate.aadl2.instance.impl.InstanceObjectImpl#findInstanceObjectsHelper(java.util.ListIterator, java.util.List)
 	 */
 	@Override
-	protected boolean findInstanceObjectsHelper(ListIterator<ContainmentPathElement> pathIter, List<InstanceObject> ios) {
+	protected boolean findInstanceObjectsHelper(
+			ListIterator<ContainmentPathElement> pathIter,
+			List<InstanceObject> ios) {
 		boolean result = super.findInstanceObjectsHelper(pathIter, ios);
 
 		if (!result && pathIter.hasNext()) {
@@ -1001,8 +1095,10 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			int i = 0;
 			for (ArrayRange r : ranges) {
 				if (r.getLowerBound() > 0 || r.getUpperBound() > 0) {
-					if (indices.get(i) < (r.getLowerBound() > 0 ? r.getLowerBound() : r.getUpperBound())
-							|| indices.get(i) > (r.getUpperBound() > 0 ? r.getUpperBound() : r.getLowerBound())) {
+					if (indices.get(i) < (r.getLowerBound() > 0 ? r
+							.getLowerBound() : r.getUpperBound())
+							|| indices.get(i) > (r.getUpperBound() > 0 ? r
+									.getUpperBound() : r.getLowerBound())) {
 						return false;
 					}
 				}

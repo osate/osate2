@@ -67,7 +67,8 @@ import org.osate.aadl2.instance.SystemOperationMode;
  * <!-- end-user-doc -->
  * @generated
  */
-public class InstancePackageImpl extends EPackageImpl implements InstancePackage {
+public class InstancePackageImpl extends EPackageImpl implements
+		InstancePackage {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -220,10 +221,12 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 */
 	public static InstancePackage init() {
 		if (isInited)
-			return (InstancePackage) EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
+			return (InstancePackage) EPackage.Registry.INSTANCE
+					.getEPackage(InstancePackage.eNS_URI);
 
 		// Obtain or create and register package
-		InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE.get(eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
+		InstancePackageImpl theInstancePackage = (InstancePackageImpl) (EPackage.Registry.INSTANCE
+				.get(eNS_URI) instanceof InstancePackageImpl ? EPackage.Registry.INSTANCE
 				.get(eNS_URI) : new InstancePackageImpl());
 
 		isInited = true;
@@ -241,7 +244,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		theInstancePackage.freeze();
 
 		// Update the registry and return the package
-		EPackage.Registry.INSTANCE.put(InstancePackage.eNS_URI, theInstancePackage);
+		EPackage.Registry.INSTANCE.put(InstancePackage.eNS_URI,
+				theInstancePackage);
 		return theInstancePackage;
 	}
 
@@ -260,7 +264,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFeatureInstance_Feature() {
-		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(5);
+		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(
+				5);
 	}
 
 	/**
@@ -269,7 +274,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getFeatureInstance_Index() {
-		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(6);
+		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(
+				6);
 	}
 
 	/**
@@ -278,7 +284,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFeatureInstance_SrcFlowSpec() {
-		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(
+				0);
 	}
 
 	/**
@@ -287,7 +294,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFeatureInstance_DstFlowSpec() {
-		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(
+				1);
 	}
 
 	/**
@@ -296,7 +304,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFeatureInstance_FeatureInstance() {
-		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) featureInstanceEClass.getEStructuralFeatures().get(
+				2);
 	}
 
 	/**
@@ -305,7 +314,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getFeatureInstance_Category() {
-		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(
+				3);
 	}
 
 	/**
@@ -314,7 +324,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getFeatureInstance_Direction() {
-		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(4);
+		return (EAttribute) featureInstanceEClass.getEStructuralFeatures().get(
+				4);
 	}
 
 	/**
@@ -341,7 +352,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstanceEnd_SrcConnectionInstance() {
-		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(0);
+		return (EReference) connectionInstanceEndEClass
+				.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -350,7 +362,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstanceEnd_DstConnectionInstance() {
-		return (EReference) connectionInstanceEndEClass.getEStructuralFeatures().get(1);
+		return (EReference) connectionInstanceEndEClass
+				.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -368,7 +381,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstance_InSystemOperationMode() {
-		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -377,7 +391,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstance_InModeTransition() {
-		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
+				.get(1);
 	}
 
 	/**
@@ -386,7 +401,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getConnectionInstance_Complete() {
-		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures().get(2);
+		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures()
+				.get(2);
 	}
 
 	/**
@@ -395,7 +411,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getConnectionInstance_Kind() {
-		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures().get(3);
+		return (EAttribute) connectionInstanceEClass.getEStructuralFeatures()
+				.get(3);
 	}
 
 	/**
@@ -404,7 +421,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstance_Destination() {
-		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(4);
+		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
+				.get(4);
 	}
 
 	/**
@@ -413,7 +431,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstance_ConnectionReference() {
-		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(5);
+		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
+				.get(5);
 	}
 
 	/**
@@ -422,7 +441,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionInstance_Source() {
-		return (EReference) connectionInstanceEClass.getEStructuralFeatures().get(6);
+		return (EReference) connectionInstanceEClass.getEStructuralFeatures()
+				.get(6);
 	}
 
 	/**
@@ -449,7 +469,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getSystemOperationMode_CurrentMode() {
-		return (EReference) systemOperationModeEClass.getEStructuralFeatures().get(0);
+		return (EReference) systemOperationModeEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -530,7 +551,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getModeTransitionInstance_Destination() {
-		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) modeTransitionInstanceEClass
+				.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -539,7 +561,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getModeTransitionInstance_ModeTransition() {
-		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) modeTransitionInstanceEClass
+				.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -548,7 +571,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getModeTransitionInstance_Source() {
-		return (EReference) modeTransitionInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) modeTransitionInstanceEClass
+				.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -566,7 +590,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionReference_Context() {
-		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(0);
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -575,7 +600,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionReference_Connection() {
-		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(1);
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures()
+				.get(1);
 	}
 
 	/**
@@ -584,7 +610,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionReference_Source() {
-		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(2);
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures()
+				.get(2);
 	}
 
 	/**
@@ -593,7 +620,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getConnectionReference_Destination() {
-		return (EReference) connectionReferenceEClass.getEStructuralFeatures().get(3);
+		return (EReference) connectionReferenceEClass.getEStructuralFeatures()
+				.get(3);
 	}
 
 	/**
@@ -611,7 +639,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_FeatureInstance() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -620,7 +649,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_ComponentInstance() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(1);
 	}
 
 	/**
@@ -629,7 +659,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_Subcomponent() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(9);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(9);
 	}
 
 	/**
@@ -638,7 +669,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getComponentInstance_Index() {
-		return (EAttribute) componentInstanceEClass.getEStructuralFeatures().get(10);
+		return (EAttribute) componentInstanceEClass.getEStructuralFeatures()
+				.get(10);
 	}
 
 	/**
@@ -656,7 +688,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFlowSpecificationInstance_Source() {
-		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) flowSpecificationInstanceEClass
+				.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -665,7 +698,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFlowSpecificationInstance_Destination() {
-		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) flowSpecificationInstanceEClass
+				.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -674,7 +708,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFlowSpecificationInstance_FlowSpecification() {
-		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) flowSpecificationInstanceEClass
+				.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -683,7 +718,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFlowSpecificationInstance_InMode() {
-		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(3);
+		return (EReference) flowSpecificationInstanceEClass
+				.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -692,7 +728,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getFlowSpecificationInstance_InModeTransition() {
-		return (EReference) flowSpecificationInstanceEClass.getEStructuralFeatures().get(4);
+		return (EReference) flowSpecificationInstanceEClass
+				.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -701,7 +738,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_ModeInstance() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(2);
 	}
 
 	/**
@@ -710,7 +748,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_ModeTransitionInstance() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(3);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(3);
 	}
 
 	/**
@@ -719,7 +758,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EAttribute getComponentInstance_Category() {
-		return (EAttribute) componentInstanceEClass.getEStructuralFeatures().get(4);
+		return (EAttribute) componentInstanceEClass.getEStructuralFeatures()
+				.get(4);
 	}
 
 	/**
@@ -728,7 +768,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_InMode() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(5);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(5);
 	}
 
 	/**
@@ -737,7 +778,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_FlowSpecification() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(6);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(6);
 	}
 
 	/**
@@ -746,7 +788,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_EndToEndFlow() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(7);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(7);
 	}
 
 	/**
@@ -755,7 +798,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getComponentInstance_ConnectionInstance() {
-		return (EReference) componentInstanceEClass.getEStructuralFeatures().get(8);
+		return (EReference) componentInstanceEClass.getEStructuralFeatures()
+				.get(8);
 	}
 
 	/**
@@ -773,7 +817,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getEndToEndFlowInstance_FlowElement() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -782,7 +827,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getEndToEndFlowInstance_InMode() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures()
+				.get(1);
 	}
 
 	/**
@@ -791,7 +837,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getEndToEndFlowInstance_EndToEndFlow() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(3);
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures()
+				.get(3);
 	}
 
 	/**
@@ -800,7 +847,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getEndToEndFlowInstance_InSystemOperationMode() {
-		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures().get(2);
+		return (EReference) endToEndFlowInstanceEClass.getEStructuralFeatures()
+				.get(2);
 	}
 
 	/**
@@ -818,7 +866,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getSystemInstance_SystemOperationMode() {
-		return (EReference) systemInstanceEClass.getEStructuralFeatures().get(0);
+		return (EReference) systemInstanceEClass.getEStructuralFeatures()
+				.get(0);
 	}
 
 	/**
@@ -827,7 +876,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getSystemInstance_SystemImplementation() {
-		return (EReference) systemInstanceEClass.getEStructuralFeatures().get(1);
+		return (EReference) systemInstanceEClass.getEStructuralFeatures()
+				.get(1);
 	}
 
 	/**
@@ -845,7 +895,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	public EReference getInstanceReferenceValue_ReferencedInstanceObject() {
-		return (EReference) instanceReferenceValueEClass.getEStructuralFeatures().get(0);
+		return (EReference) instanceReferenceValueEClass
+				.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -898,7 +949,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		featureInstanceEClass = createEClass(FEATURE_INSTANCE);
 		createEReference(featureInstanceEClass, FEATURE_INSTANCE__SRC_FLOW_SPEC);
 		createEReference(featureInstanceEClass, FEATURE_INSTANCE__DST_FLOW_SPEC);
-		createEReference(featureInstanceEClass, FEATURE_INSTANCE__FEATURE_INSTANCE);
+		createEReference(featureInstanceEClass,
+				FEATURE_INSTANCE__FEATURE_INSTANCE);
 		createEAttribute(featureInstanceEClass, FEATURE_INSTANCE__CATEGORY);
 		createEAttribute(featureInstanceEClass, FEATURE_INSTANCE__DIRECTION);
 		createEReference(featureInstanceEClass, FEATURE_INSTANCE__FEATURE);
@@ -907,22 +959,30 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		instanceObjectEClass = createEClass(INSTANCE_OBJECT);
 
 		connectionInstanceEndEClass = createEClass(CONNECTION_INSTANCE_END);
-		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE);
-		createEReference(connectionInstanceEndEClass, CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE);
+		createEReference(connectionInstanceEndEClass,
+				CONNECTION_INSTANCE_END__SRC_CONNECTION_INSTANCE);
+		createEReference(connectionInstanceEndEClass,
+				CONNECTION_INSTANCE_END__DST_CONNECTION_INSTANCE);
 
 		connectionInstanceEClass = createEClass(CONNECTION_INSTANCE);
-		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
-		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__IN_MODE_TRANSITION);
-		createEAttribute(connectionInstanceEClass, CONNECTION_INSTANCE__COMPLETE);
+		createEReference(connectionInstanceEClass,
+				CONNECTION_INSTANCE__IN_SYSTEM_OPERATION_MODE);
+		createEReference(connectionInstanceEClass,
+				CONNECTION_INSTANCE__IN_MODE_TRANSITION);
+		createEAttribute(connectionInstanceEClass,
+				CONNECTION_INSTANCE__COMPLETE);
 		createEAttribute(connectionInstanceEClass, CONNECTION_INSTANCE__KIND);
-		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__DESTINATION);
-		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__CONNECTION_REFERENCE);
+		createEReference(connectionInstanceEClass,
+				CONNECTION_INSTANCE__DESTINATION);
+		createEReference(connectionInstanceEClass,
+				CONNECTION_INSTANCE__CONNECTION_REFERENCE);
 		createEReference(connectionInstanceEClass, CONNECTION_INSTANCE__SOURCE);
 
 		flowElementInstanceEClass = createEClass(FLOW_ELEMENT_INSTANCE);
 
 		systemOperationModeEClass = createEClass(SYSTEM_OPERATION_MODE);
-		createEReference(systemOperationModeEClass, SYSTEM_OPERATION_MODE__CURRENT_MODE);
+		createEReference(systemOperationModeEClass,
+				SYSTEM_OPERATION_MODE__CURRENT_MODE);
 
 		modeInstanceEClass = createEClass(MODE_INSTANCE);
 		createEReference(modeInstanceEClass, MODE_INSTANCE__SRC_MODE_TRANSITION);
@@ -933,48 +993,75 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEReference(modeInstanceEClass, MODE_INSTANCE__PARENT);
 
 		modeTransitionInstanceEClass = createEClass(MODE_TRANSITION_INSTANCE);
-		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__DESTINATION);
-		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__MODE_TRANSITION);
-		createEReference(modeTransitionInstanceEClass, MODE_TRANSITION_INSTANCE__SOURCE);
+		createEReference(modeTransitionInstanceEClass,
+				MODE_TRANSITION_INSTANCE__DESTINATION);
+		createEReference(modeTransitionInstanceEClass,
+				MODE_TRANSITION_INSTANCE__MODE_TRANSITION);
+		createEReference(modeTransitionInstanceEClass,
+				MODE_TRANSITION_INSTANCE__SOURCE);
 
 		connectionReferenceEClass = createEClass(CONNECTION_REFERENCE);
-		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__CONTEXT);
-		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__CONNECTION);
-		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__SOURCE);
-		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__DESTINATION);
+		createEReference(connectionReferenceEClass,
+				CONNECTION_REFERENCE__CONTEXT);
+		createEReference(connectionReferenceEClass,
+				CONNECTION_REFERENCE__CONNECTION);
+		createEReference(connectionReferenceEClass,
+				CONNECTION_REFERENCE__SOURCE);
+		createEReference(connectionReferenceEClass,
+				CONNECTION_REFERENCE__DESTINATION);
 
 		componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__FEATURE_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__COMPONENT_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__MODE_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__FEATURE_INSTANCE);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__COMPONENT_INSTANCE);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__MODE_INSTANCE);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__MODE_TRANSITION_INSTANCE);
 		createEAttribute(componentInstanceEClass, COMPONENT_INSTANCE__CATEGORY);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__IN_MODE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__FLOW_SPECIFICATION);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__END_TO_END_FLOW);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__CONNECTION_INSTANCE);
-		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__SUBCOMPONENT);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__FLOW_SPECIFICATION);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__END_TO_END_FLOW);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__CONNECTION_INSTANCE);
+		createEReference(componentInstanceEClass,
+				COMPONENT_INSTANCE__SUBCOMPONENT);
 		createEAttribute(componentInstanceEClass, COMPONENT_INSTANCE__INDEX);
 
 		flowSpecificationInstanceEClass = createEClass(FLOW_SPECIFICATION_INSTANCE);
-		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__SOURCE);
-		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__DESTINATION);
-		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION);
-		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__IN_MODE);
-		createEReference(flowSpecificationInstanceEClass, FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
+		createEReference(flowSpecificationInstanceEClass,
+				FLOW_SPECIFICATION_INSTANCE__SOURCE);
+		createEReference(flowSpecificationInstanceEClass,
+				FLOW_SPECIFICATION_INSTANCE__DESTINATION);
+		createEReference(flowSpecificationInstanceEClass,
+				FLOW_SPECIFICATION_INSTANCE__FLOW_SPECIFICATION);
+		createEReference(flowSpecificationInstanceEClass,
+				FLOW_SPECIFICATION_INSTANCE__IN_MODE);
+		createEReference(flowSpecificationInstanceEClass,
+				FLOW_SPECIFICATION_INSTANCE__IN_MODE_TRANSITION);
 
 		endToEndFlowInstanceEClass = createEClass(END_TO_END_FLOW_INSTANCE);
-		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT);
-		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__IN_MODE);
-		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
-		createEReference(endToEndFlowInstanceEClass, END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW);
+		createEReference(endToEndFlowInstanceEClass,
+				END_TO_END_FLOW_INSTANCE__FLOW_ELEMENT);
+		createEReference(endToEndFlowInstanceEClass,
+				END_TO_END_FLOW_INSTANCE__IN_MODE);
+		createEReference(endToEndFlowInstanceEClass,
+				END_TO_END_FLOW_INSTANCE__IN_SYSTEM_OPERATION_MODE);
+		createEReference(endToEndFlowInstanceEClass,
+				END_TO_END_FLOW_INSTANCE__END_TO_END_FLOW);
 
 		systemInstanceEClass = createEClass(SYSTEM_INSTANCE);
-		createEReference(systemInstanceEClass, SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
-		createEReference(systemInstanceEClass, SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION);
+		createEReference(systemInstanceEClass,
+				SYSTEM_INSTANCE__SYSTEM_OPERATION_MODE);
+		createEReference(systemInstanceEClass,
+				SYSTEM_INSTANCE__SYSTEM_IMPLEMENTATION);
 
 		instanceReferenceValueEClass = createEClass(INSTANCE_REFERENCE_VALUE);
-		createEReference(instanceReferenceValueEClass, INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT);
+		createEReference(instanceReferenceValueEClass,
+				INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT);
 
 		// Create enums
 		connectionKindEEnum = createEEnum(CONNECTION_KIND);
@@ -1006,33 +1093,50 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		setNsURI(eNS_URI);
 
 		// Obtain other dependent packages
-		Aadl2Package theAadl2Package = (Aadl2Package) EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
+		Aadl2Package theAadl2Package = (Aadl2Package) EPackage.Registry.INSTANCE
+				.getEPackage(Aadl2Package.eNS_URI);
 
 		// Create type parameters
 
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		featureInstanceEClass.getESuperTypes().add(this.getConnectionInstanceEnd());
+		featureInstanceEClass.getESuperTypes().add(
+				this.getConnectionInstanceEnd());
 		featureInstanceEClass.getESuperTypes().add(this.getInstanceObject());
-		instanceObjectEClass.getESuperTypes().add(theAadl2Package.getNamedElement());
-		connectionInstanceEndEClass.getESuperTypes().add(this.getInstanceObject());
-		connectionInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
-		flowElementInstanceEClass.getESuperTypes().add(this.getInstanceObject());
-		systemOperationModeEClass.getESuperTypes().add(theAadl2Package.getMode());
+		instanceObjectEClass.getESuperTypes().add(
+				theAadl2Package.getNamedElement());
+		connectionInstanceEndEClass.getESuperTypes().add(
+				this.getInstanceObject());
+		connectionInstanceEClass.getESuperTypes().add(
+				this.getFlowElementInstance());
+		flowElementInstanceEClass.getESuperTypes()
+				.add(this.getInstanceObject());
+		systemOperationModeEClass.getESuperTypes().add(
+				theAadl2Package.getMode());
 		modeInstanceEClass.getESuperTypes().add(this.getInstanceObject());
-		modeTransitionInstanceEClass.getESuperTypes().add(this.getConnectionInstanceEnd());
-		modeTransitionInstanceEClass.getESuperTypes().add(this.getInstanceObject());
-		connectionReferenceEClass.getESuperTypes().add(this.getInstanceObject());
-		componentInstanceEClass.getESuperTypes().add(this.getConnectionInstanceEnd());
-		componentInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
-		flowSpecificationInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
-		endToEndFlowInstanceEClass.getESuperTypes().add(this.getFlowElementInstance());
+		modeTransitionInstanceEClass.getESuperTypes().add(
+				this.getConnectionInstanceEnd());
+		modeTransitionInstanceEClass.getESuperTypes().add(
+				this.getInstanceObject());
+		connectionReferenceEClass.getESuperTypes()
+				.add(this.getInstanceObject());
+		componentInstanceEClass.getESuperTypes().add(
+				this.getConnectionInstanceEnd());
+		componentInstanceEClass.getESuperTypes().add(
+				this.getFlowElementInstance());
+		flowSpecificationInstanceEClass.getESuperTypes().add(
+				this.getFlowElementInstance());
+		endToEndFlowInstanceEClass.getESuperTypes().add(
+				this.getFlowElementInstance());
 		systemInstanceEClass.getESuperTypes().add(this.getComponentInstance());
-		instanceReferenceValueEClass.getESuperTypes().add(theAadl2Package.getPropertyValue());
+		instanceReferenceValueEClass.getESuperTypes().add(
+				theAadl2Package.getPropertyValue());
 
 		// Initialize classes and features; add operations and parameters
-		initEClass(featureInstanceEClass, FeatureInstance.class,
+		initEClass(
+				featureInstanceEClass,
+				FeatureInstance.class,
 				"FeatureInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getFeatureInstance_SrcFlowSpec(),
@@ -1067,10 +1171,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				theAadl2Package.getInteger(),
 				"index", null, 0, 1, FeatureInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(instanceObjectEClass, InstanceObject.class,
+		initEClass(
+				instanceObjectEClass,
+				InstanceObject.class,
 				"InstanceObject", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(connectionInstanceEndEClass, ConnectionInstanceEnd.class,
+		initEClass(
+				connectionInstanceEndEClass,
+				ConnectionInstanceEnd.class,
 				"ConnectionInstanceEnd", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getConnectionInstanceEnd_SrcConnectionInstance(),
@@ -1083,7 +1191,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				this.getConnectionInstance_Destination(),
 				"dstConnectionInstance", null, 0, -1, ConnectionInstanceEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(connectionInstanceEClass, ConnectionInstance.class,
+		initEClass(
+				connectionInstanceEClass,
+				ConnectionInstance.class,
 				"ConnectionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getConnectionInstance_InSystemOperationMode(),
@@ -1119,10 +1229,14 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				this.getConnectionInstanceEnd_SrcConnectionInstance(),
 				"source", null, 1, 1, ConnectionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(flowElementInstanceEClass, FlowElementInstance.class,
+		initEClass(
+				flowElementInstanceEClass,
+				FlowElementInstance.class,
 				"FlowElementInstance", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 
-		initEClass(systemOperationModeEClass, SystemOperationMode.class,
+		initEClass(
+				systemOperationModeEClass,
+				SystemOperationMode.class,
 				"SystemOperationMode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getSystemOperationMode_CurrentMode(),
@@ -1130,7 +1244,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"currentMode", null, 0, -1, SystemOperationMode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(modeInstanceEClass, ModeInstance.class,
+		initEClass(
+				modeInstanceEClass,
+				ModeInstance.class,
 				"ModeInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getModeInstance_SrcModeTransition(),
@@ -1161,7 +1277,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"parent", null, 0, -1, ModeInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(modeTransitionInstanceEClass, ModeTransitionInstance.class,
+		initEClass(
+				modeTransitionInstanceEClass,
+				ModeTransitionInstance.class,
 				"ModeTransitionInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getModeTransitionInstance_Destination(),
@@ -1179,7 +1297,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				this.getModeInstance_SrcModeTransition(),
 				"source", null, 1, 1, ModeTransitionInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(connectionReferenceEClass, ConnectionReference.class,
+		initEClass(
+				connectionReferenceEClass,
+				ConnectionReference.class,
 				"ConnectionReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getConnectionReference_Context(),
@@ -1202,7 +1322,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"destination", null, 1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(componentInstanceEClass, ComponentInstance.class,
+		initEClass(
+				componentInstanceEClass,
+				ComponentInstance.class,
 				"ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getComponentInstance_FeatureInstance(),
@@ -1252,13 +1374,15 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				getComponentInstance_Subcomponent(),
 				theAadl2Package.getSubcomponent(),
 				null,
-				"subcomponent", null, 1, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
+				"subcomponent", null, 0, 1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 		initEAttribute(
 				getComponentInstance_Index(),
 				theAadl2Package.getInteger(),
 				"index", null, 0, -1, ComponentInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(flowSpecificationInstanceEClass, FlowSpecificationInstance.class,
+		initEClass(
+				flowSpecificationInstanceEClass,
+				FlowSpecificationInstance.class,
 				"FlowSpecificationInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getFlowSpecificationInstance_Source(),
@@ -1286,7 +1410,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"inModeTransition", null, 0, -1, FlowSpecificationInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(endToEndFlowInstanceEClass, EndToEndFlowInstance.class,
+		initEClass(
+				endToEndFlowInstanceEClass,
+				EndToEndFlowInstance.class,
 				"EndToEndFlowInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getEndToEndFlowInstance_FlowElement(),
@@ -1309,7 +1435,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"endToEndFlow", null, 1, 1, EndToEndFlowInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(systemInstanceEClass, SystemInstance.class,
+		initEClass(
+				systemInstanceEClass,
+				SystemInstance.class,
 				"SystemInstance", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getSystemInstance_SystemOperationMode(),
@@ -1322,7 +1450,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 				null,
 				"systemImplementation", null, 1, 1, SystemInstance.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED); //$NON-NLS-1$
 
-		initEClass(instanceReferenceValueEClass, InstanceReferenceValue.class,
+		initEClass(
+				instanceReferenceValueEClass,
+				InstanceReferenceValue.class,
 				"InstanceReferenceValue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS); //$NON-NLS-1$
 		initEReference(
 				getInstanceReferenceValue_ReferencedInstanceObject(),
@@ -1334,12 +1464,16 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEEnum(connectionKindEEnum, ConnectionKind.class, "ConnectionKind"); //$NON-NLS-1$
 		addEEnumLiteral(connectionKindEEnum, ConnectionKind.FEATURE_CONNECTION);
 		addEEnumLiteral(connectionKindEEnum, ConnectionKind.ACCESS_CONNECTION);
-		addEEnumLiteral(connectionKindEEnum, ConnectionKind.PARAMETER_CONNECTION);
+		addEEnumLiteral(connectionKindEEnum,
+				ConnectionKind.PARAMETER_CONNECTION);
 		addEEnumLiteral(connectionKindEEnum, ConnectionKind.PORT_CONNECTION);
-		addEEnumLiteral(connectionKindEEnum, ConnectionKind.MODE_TRANSITION_CONNECTION);
-		addEEnumLiteral(connectionKindEEnum, ConnectionKind.FEATURE_GROUP_CONNECTION);
+		addEEnumLiteral(connectionKindEEnum,
+				ConnectionKind.MODE_TRANSITION_CONNECTION);
+		addEEnumLiteral(connectionKindEEnum,
+				ConnectionKind.FEATURE_GROUP_CONNECTION);
 
-		initEEnum(featureCategoryEEnum, FeatureCategory.class, "FeatureCategory"); //$NON-NLS-1$
+		initEEnum(featureCategoryEEnum, FeatureCategory.class,
+				"FeatureCategory"); //$NON-NLS-1$
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.DATA_PORT);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.EVENT_PORT);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.EVENT_DATA_PORT);
@@ -1347,7 +1481,8 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.BUS_ACCESS);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.DATA_ACCESS);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.SUBPROGRAM_ACCESS);
-		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.SUBPROGRAM_GROUP_ACCESS);
+		addEEnumLiteral(featureCategoryEEnum,
+				FeatureCategory.SUBPROGRAM_GROUP_ACCESS);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.FEATURE_GROUP);
 		addEEnumLiteral(featureCategoryEEnum, FeatureCategory.ABSTRACT_FEATURE);
 

@@ -148,19 +148,19 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	static class ETEInfo implements Cloneable {
 		List<Connection> preConns;
 		EndToEndFlowInstance etei;
-		List<Connection> postConns = new LinkedList<Connection>();
+		List<Connection> postConns = new ArrayList<Connection>();
 
 		/**
 		 * @param etei
 		 */
 		public ETEInfo(EndToEndFlowInstance etei) {
-			preConns = new LinkedList<Connection>();
+			preConns = new ArrayList<Connection>();
 			this.etei = etei;
 		}
 
 		public ETEInfo(List<Connection> preConns, EndToEndFlowInstance etei) {
-			this.preConns = preConns;
-			this.etei = etei;
+			this.preConns 	= preConns;
+			this.etei 		= etei;
 		}
 	}
 
@@ -250,10 +250,15 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		ml.clear();
 	}
 
-	protected void processETE(ComponentInstance ci, EndToEndFlowInstance etei, EndToEndFlow ete) {
+	protected void processETE (final ComponentInstance ci, 
+							   final EndToEndFlowInstance etei,
+							   final EndToEndFlow ete)
+	{
 		FlowIterator iter = new FlowIterator(ete);
+		
 		// TODO-LW: is this loop necessary?
-		while (iter.hasNext()) {
+		while (iter.hasNext()) 
+		{
 			EndToEndFlowSegment fe = (EndToEndFlowSegment) iter.next();
 
 			processETESegment(ci, etei, fe, iter, ete);
@@ -270,34 +275,63 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
-			NamedElement errorElement) {
-		Element fe = fs instanceof FlowSegment ? ((FlowSegment) fs).getFlowElement() : ((EndToEndFlowSegment) fs)
-				.getFlowElement();
-		if (fe instanceof Connection) {
-			if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
+	protected void processETESegment	(final ComponentInstance ci, 
+										 final EndToEndFlowInstance etei, 
+										 final Element fs, 
+										 final FlowIterator iter,
+										 final NamedElement errorElement) 
+	{
+		final Element fe;
+
+		if (fs instanceof FlowSegment)
+		{
+			fe = ((FlowSegment) fs).getFlowElement();
+		}
+		else
+		{
+			fe = ((EndToEndFlowSegment) fs).getFlowElement();
+		}
+		
+		if (fe instanceof Connection) 
+		{
+			if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) 
+			{
 				myInfo.preConns.add((Connection) fe);
-			} else {
+			} 
+			else 
+			{
 				connections.add((Connection) fe);
 			}
-		} else {
-			if (fe instanceof FlowSpecification) {
-				Subcomponent sc = (Subcomponent) (fs instanceof FlowSegment ? ((FlowSegment) fs).getContext()
+		} 
+		else 
+		{
+			if (fe instanceof FlowSpecification) 
+			{
+				final Subcomponent sc = (Subcomponent) (fs instanceof FlowSegment ? ((FlowSegment) fs).getContext()
 						: ((EndToEndFlowSegment) fs).getContext());
-				ComponentInstance sci = ci.findSubcomponentInstance(sc);
-				if (sci != null) {
+				final ComponentInstance sci = ci.findSubcomponentInstance(sc);
+				if (sci != null)
+				{
 					processSubcomponentFlow(sci, etei, (FlowSpecification) fe, iter);
-				} else {
+				} 
+				else 
+				{
 					error(errorElement, "Incomplete End-to-end flow instance " + etei.getName()
 							+ ": Could not find component instance for subcomponent " + sc.getName()
 							+ " in flow implementation " + errorElement.getName());
 				}
-			} else if (fe instanceof Subcomponent) {
+			} 
+			else if (fe instanceof Subcomponent) 
+			{
 				ComponentInstance sci = ci.findSubcomponentInstance((Subcomponent) fe);
 				processFlowStep(sci, etei, fe, iter);
-			} else if (fe instanceof DataAccess) {
+			} 
+			else if (fe instanceof DataAccess) 
+			{
 				processDataAccess(ci, etei, (DataAccess) fe, iter);
-			} else if (fe instanceof EndToEndFlow) {
+			} 
+			else if (fe instanceof EndToEndFlow) 
+			{
 				processEndToEndFlow(ci, etei, (EndToEndFlow) fe, iter);
 			}
 		}
@@ -312,16 +346,19 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param etei the end to end flow instance
 	 * @param fs the flow specification to be processed
 	 */
-	protected void processSubcomponentFlow(ComponentInstance ci, EndToEndFlowInstance etei, FlowSpecification fs,
+	protected void processSubcomponentFlow(final ComponentInstance ci,  EndToEndFlowInstance etei, final FlowSpecification fs,
 			FlowIterator iter) {
-		Subcomponent subComp = ci.getSubcomponent();
-		ComponentImplementation subImpl = subComp.getComponentImplementation();
-		EList<FlowImplementation> flowImpls = new BasicEList<FlowImplementation>();
+		final Subcomponent subComp = ci.getSubcomponent();
+		final ComponentImplementation subImpl = subComp.getComponentImplementation();
+		final EList<FlowImplementation> flowImpls = new BasicEList<FlowImplementation>(10);
 
 		// Collect flow impls for this flow spec
-		if (subImpl != null) {
-			for (FlowImplementation fl : subImpl.getAllFlowImplementations()) {
-				if (fl.getSpecification() == fs) {
+		if (subImpl != null) 
+		{
+			for (FlowImplementation fl : subImpl.getAllFlowImplementations())
+			{
+				if (fl.getSpecification() == fs) 
+				{
 					flowImpls.add(fl);
 				}
 			}

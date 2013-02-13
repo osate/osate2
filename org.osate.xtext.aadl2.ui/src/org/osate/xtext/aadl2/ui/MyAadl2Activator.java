@@ -39,6 +39,7 @@ import static com.google.inject.Guice.createInjector;
 import static com.google.inject.util.Modules.override;
 
 import org.apache.log4j.Logger;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.core.OsateCorePlugin;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 import org.osgi.framework.BundleContext;
@@ -67,7 +68,8 @@ public class MyAadl2Activator extends Aadl2Activator {
 	protected void registerInjectorFor(String language) throws Exception {
 		OsateCorePlugin.getDefault().registerInjectorFor(language, 
 				createInjector(
-		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
+						language));
+//		  override(override(getRuntimeModule(language)).with(getSharedStateModule())).with(getUiModule(language))));
 	}
 	
 	

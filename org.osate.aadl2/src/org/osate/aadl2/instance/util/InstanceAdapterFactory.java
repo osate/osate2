@@ -17,6 +17,7 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyValue;
+import org.osate.aadl2.instance.*;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -139,7 +140,8 @@ public class InstanceAdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseFlowSpecificationInstance(FlowSpecificationInstance object) {
+		public Adapter caseFlowSpecificationInstance(
+				FlowSpecificationInstance object) {
 			return createFlowSpecificationInstanceAdapter();
 		}
 

@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright 2004-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -52,7 +52,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -105,7 +104,7 @@ import org.osate.aadl2.modelsupport.util.AadlUtil;
  * @author phf
  */
 public class ForAllElement implements IProcessingMethod {
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	public static final String copyright = "Copyright 2004-2013 by Carnegie Mellon University, all rights reserved";
 
 	/*
 	 * ============================================================= Constants
@@ -173,7 +172,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * implementation of {@link #action(Element)} adds the visited model object
 	 * to the list.
 	 */
-	protected final EList<Element> resultList = new BasicEList<Element>();
+	protected final EList<Element> resultList = new BasicEList<Element>(200);
 
 	/** The default traversal method. */
 	private final AbstractTraversal defaultTraversalMethod;
@@ -268,10 +267,8 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #action(Element)
 	 * @see #suchThat(Element)
 	 */
-	protected void process(Element theElement) {
-		if (suchThat(theElement)) {
-			action(theElement);
-		}
+	protected void process(final Element theElement) {
+		action(theElement);
 	}
 	
 

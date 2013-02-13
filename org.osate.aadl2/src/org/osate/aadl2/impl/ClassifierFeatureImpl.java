@@ -35,12 +35,12 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -55,7 +55,8 @@ import org.osate.aadl2.ClassifierFeature;
  *
  * @generated
  */
-public abstract class ClassifierFeatureImpl extends NamedElementImpl implements ClassifierFeature {
+public abstract class ClassifierFeatureImpl extends NamedElementImpl implements
+		ClassifierFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -81,8 +82,18 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		BasicEList<Classifier> list = new BasicEList<Classifier>();
-		list.add(getContainingClassifier());
+		// DB This should be an EStructuralFeature.Setting
+		//		final EList<Classifier> list = new BasicEList<Classifier>();
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(
+				Classifier.class, this,
+				Aadl2Package.CLASSIFIER_FEATURE__FEATURING_CLASSIFIER);
+
+		final Classifier contClassifier = getContainingClassifier();
+
+		if (contClassifier != null) {
+			list.add(contClassifier);
+		}
+
 		return list;
 	}
 
@@ -114,4 +125,4 @@ public abstract class ClassifierFeatureImpl extends NamedElementImpl implements 
 		return super.eIsSet(featureID);
 	}
 
-} //ClassifierFeatureImpl
+} // ClassifierFeatureImpl

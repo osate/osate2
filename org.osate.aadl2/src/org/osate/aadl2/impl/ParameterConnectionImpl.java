@@ -48,7 +48,8 @@ import org.osate.aadl2.ParameterConnection;
  *
  * @generated
  */
-public class ParameterConnectionImpl extends ConnectionImpl implements ParameterConnection {
+public class ParameterConnectionImpl extends ConnectionImpl implements
+		ParameterConnection {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public class ParameterConnectionImpl extends ConnectionImpl implements Parameter
 		return Aadl2Package.eINSTANCE.getParameterConnection();
 	}
 
-} //ParameterConnectionImpl
+} // ParameterConnectionImpl

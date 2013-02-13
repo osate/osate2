@@ -1,6 +1,5 @@
 --AADL2
---SAE Aerospace Standard AS5506A
---Proposed Draft (2008-11-08)
+--SAE Aerospace Standard AS5506B
 --Appendix A: Predeclared Property Sets
 
 property set Thread_Properties is

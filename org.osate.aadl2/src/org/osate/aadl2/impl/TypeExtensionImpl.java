@@ -59,7 +59,8 @@ import org.osate.aadl2.TypeExtension;
  *
  * @generated
  */
-public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtension {
+public class TypeExtensionImpl extends GeneralizationImpl implements
+		TypeExtension {
 	/**
 	 * The cached value of the '{@link #getExtended() <em>Extended</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -125,8 +126,9 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 			extended = (ComponentType) eResolveProxy(oldExtended);
 			if (extended != oldExtended) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.TYPE_EXTENSION__EXTENDED,
-							oldExtended, extended));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.TYPE_EXTENSION__EXTENDED, oldExtended,
+							extended));
 			}
 		}
 		return extended;
@@ -150,7 +152,8 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 		ComponentType oldExtended = extended;
 		extended = newExtended;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.TYPE_EXTENSION__EXTENDED, oldExtended,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.TYPE_EXTENSION__EXTENDED, oldExtended,
 					extended));
 	}
 
@@ -221,6 +224,7 @@ public class TypeExtensionImpl extends GeneralizationImpl implements TypeExtensi
 	 */
 	@Override
 	public boolean isSetGeneral() {
-		return super.isSetGeneral() || eIsSet(Aadl2Package.TYPE_EXTENSION__EXTENDED);
+		return super.isSetGeneral()
+				|| eIsSet(Aadl2Package.TYPE_EXTENSION__EXTENDED);
 	}
-} //TypeExtensionImpl
+} // TypeExtensionImpl

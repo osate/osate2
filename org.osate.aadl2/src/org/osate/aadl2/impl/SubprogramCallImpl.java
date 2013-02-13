@@ -65,7 +65,8 @@ import org.osate.aadl2.properties.PropertyAcc;
  *
  * @generated
  */
-public class SubprogramCallImpl extends CallSpecificationImpl implements SubprogramCall {
+public class SubprogramCallImpl extends CallSpecificationImpl implements
+		SubprogramCall {
 	/**
 	 * The cached value of the '{@link #getCalledSubprogram() <em>Called Subprogram</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -117,7 +118,8 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 			if (calledSubprogram != oldCalledSubprogram) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
-							Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM, oldCalledSubprogram, calledSubprogram));
+							Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM,
+							oldCalledSubprogram, calledSubprogram));
 			}
 		}
 		return calledSubprogram;
@@ -141,7 +143,8 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		CalledSubprogram oldCalledSubprogram = calledSubprogram;
 		calledSubprogram = newCalledSubprogram;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM,
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBPROGRAM_CALL__CALLED_SUBPROGRAM,
 					oldCalledSubprogram, calledSubprogram));
 	}
 
@@ -156,8 +159,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 			context = (CallContext) eResolveProxy(oldContext);
 			if (context != oldContext) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.SUBPROGRAM_CALL__CONTEXT,
-							oldContext, context));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.SUBPROGRAM_CALL__CONTEXT, oldContext,
+							context));
 			}
 		}
 		return context;
@@ -181,8 +185,8 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		CallContext oldContext = context;
 		context = newContext;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.SUBPROGRAM_CALL__CONTEXT, oldContext,
-					context));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.SUBPROGRAM_CALL__CONTEXT, oldContext, context));
 	}
 
 	/**
@@ -276,8 +280,9 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 	 * (org.osate.aadl2.Property,
 	 * org.osate.aadl2.properties.AadlPropertyValue, boolean)
 	 */
-	public final void getPropertyValueInternal(final Property prop, final PropertyAcc pas,
-			final boolean fromInstanceSlaveCall) throws InvalidModelException {
+	public final void getPropertyValueInternal(final Property prop,
+			final PropertyAcc pas, final boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
 		final ComponentImplementation owner = (ComponentImplementation) getContainingClassifier();
 
 		// local contained value
@@ -292,9 +297,11 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 
 		// get values from called subprogram
 		if (calledSubprogram instanceof Classifier) {
-			((Classifier) calledSubprogram).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			((Classifier) calledSubprogram).getPropertyValueInternal(prop, pas,
+					fromInstanceSlaveCall);
 		} else if (calledSubprogram instanceof Feature) {
-			((Feature) calledSubprogram).getPropertyValueInternal(prop, pas, fromInstanceSlaveCall);
+			((Feature) calledSubprogram).getPropertyValueInternal(prop, pas,
+					fromInstanceSlaveCall);
 		}
 
 		// get values from container
@@ -303,4 +310,4 @@ public class SubprogramCallImpl extends CallSpecificationImpl implements Subprog
 		}
 	}
 
-} //SubprogramCallImpl
+} // SubprogramCallImpl

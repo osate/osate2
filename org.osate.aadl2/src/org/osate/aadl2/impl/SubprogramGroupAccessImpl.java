@@ -59,7 +59,8 @@ import org.osate.aadl2.SubprogramGroupSubcomponentType;
  *
  * @generated
  */
-public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramGroupAccess {
+public class SubprogramGroupAccessImpl extends AccessImpl implements
+		SubprogramGroupAccess {
 	/**
 	 * The cached value of the '{@link #getSubprogramGroupFeatureClassifier() <em>Subprogram Group Feature Classifier</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -97,7 +98,8 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	@Override
 	public FeatureClassifier getFeatureClassifier() {
 		FeatureClassifier featureClassifier = basicGetFeatureClassifier();
-		return featureClassifier != null && ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
+		return featureClassifier != null
+				&& ((EObject) featureClassifier).eIsProxy() ? (FeatureClassifier) eResolveProxy((InternalEObject) featureClassifier)
 				: featureClassifier;
 	}
 
@@ -120,14 +122,18 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * @generated
 	 */
 	public SubprogramGroupSubcomponentType getSubprogramGroupFeatureClassifier() {
-		if (subprogramGroupFeatureClassifier != null && ((EObject) subprogramGroupFeatureClassifier).eIsProxy()) {
+		if (subprogramGroupFeatureClassifier != null
+				&& ((EObject) subprogramGroupFeatureClassifier).eIsProxy()) {
 			InternalEObject oldSubprogramGroupFeatureClassifier = (InternalEObject) subprogramGroupFeatureClassifier;
 			subprogramGroupFeatureClassifier = (SubprogramGroupSubcomponentType) eResolveProxy(oldSubprogramGroupFeatureClassifier);
 			if (subprogramGroupFeatureClassifier != oldSubprogramGroupFeatureClassifier) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
-							oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
+							oldSubprogramGroupFeatureClassifier,
+							subprogramGroupFeatureClassifier));
 			}
 		}
 		return subprogramGroupFeatureClassifier;
@@ -147,13 +153,17 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setSubprogramGroupFeatureClassifier(SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
+	public void setSubprogramGroupFeatureClassifier(
+			SubprogramGroupSubcomponentType newSubprogramGroupFeatureClassifier) {
 		SubprogramGroupSubcomponentType oldSubprogramGroupFeatureClassifier = subprogramGroupFeatureClassifier;
 		subprogramGroupFeatureClassifier = newSubprogramGroupFeatureClassifier;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
 					Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER,
-					oldSubprogramGroupFeatureClassifier, subprogramGroupFeatureClassifier));
+					oldSubprogramGroupFeatureClassifier,
+					subprogramGroupFeatureClassifier));
 	}
 
 	/**
@@ -227,4 +237,4 @@ public class SubprogramGroupAccessImpl extends AccessImpl implements SubprogramG
 				|| eIsSet(Aadl2Package.SUBPROGRAM_GROUP_ACCESS__SUBPROGRAM_GROUP_FEATURE_CLASSIFIER);
 	}
 
-} //SubprogramGroupAccessImpl
+} // SubprogramGroupAccessImpl

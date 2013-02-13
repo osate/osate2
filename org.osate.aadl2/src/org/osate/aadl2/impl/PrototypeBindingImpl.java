@@ -57,7 +57,8 @@ import org.osate.aadl2.PrototypeBinding;
  *
  * @generated
  */
-public abstract class PrototypeBindingImpl extends ElementImpl implements PrototypeBinding {
+public abstract class PrototypeBindingImpl extends ElementImpl implements
+		PrototypeBinding {
 	/**
 	 * The cached value of the '{@link #getFormal() <em>Formal</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,8 +99,9 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 			formal = (Prototype) eResolveProxy(oldFormal);
 			if (formal != oldFormal) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, Aadl2Package.PROTOTYPE_BINDING__FORMAL,
-							oldFormal, formal));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							Aadl2Package.PROTOTYPE_BINDING__FORMAL, oldFormal,
+							formal));
 			}
 		}
 		return formal;
@@ -123,8 +125,8 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 		Prototype oldFormal = formal;
 		formal = newFormal;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.PROTOTYPE_BINDING__FORMAL, oldFormal,
-					formal));
+			eNotify(new ENotificationImpl(this, Notification.SET,
+					Aadl2Package.PROTOTYPE_BINDING__FORMAL, oldFormal, formal));
 	}
 
 	/**
@@ -187,4 +189,4 @@ public abstract class PrototypeBindingImpl extends ElementImpl implements Protot
 		return super.eIsSet(featureID);
 	}
 
-} //PrototypeBindingImpl
+} // PrototypeBindingImpl

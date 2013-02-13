@@ -35,13 +35,13 @@
  */
 package org.osate.aadl2.impl;
 
-import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ClassifierFeature;
 import org.osate.aadl2.StructuralFeature;
+import org.osate.aadl2.util.NonNotifyingEObjectEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -56,7 +56,8 @@ import org.osate.aadl2.StructuralFeature;
  *
  * @generated
  */
-public abstract class StructuralFeatureImpl extends RefinableElementImpl implements StructuralFeature {
+public abstract class StructuralFeatureImpl extends RefinableElementImpl
+		implements StructuralFeature {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -82,8 +83,18 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 	 * @generated NOT
 	 */
 	public EList<Classifier> getFeaturingClassifiers() {
-		BasicEList<Classifier> list = new BasicEList<Classifier>();
-		list.add(getContainingClassifier());
+		// DB This should be an EStructuralFeature.Setting
+		//final EList<Classifier> list = new BasicEList<Classifier>();
+		final EList<Classifier> list = new NonNotifyingEObjectEList<Classifier>(
+				Classifier.class, this,
+				Aadl2Package.STRUCTURAL_FEATURE__FEATURING_CLASSIFIER);
+
+		final Classifier contClassifier = getContainingClassifier();
+
+		if (contClassifier != null) {
+			list.add(contClassifier);
+		}
+
 		return list;
 	}
 
@@ -151,4 +162,4 @@ public abstract class StructuralFeatureImpl extends RefinableElementImpl impleme
 		return super.eDerivedStructuralFeatureID(baseFeatureID, baseClass);
 	}
 
-} //StructuralFeatureImpl
+} // StructuralFeatureImpl

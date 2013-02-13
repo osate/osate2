@@ -60,7 +60,8 @@ import org.osate.aadl2.SubcomponentType;
  *
  * @generated
  */
-public class AbstractSubcomponentImpl extends SubcomponentImpl implements AbstractSubcomponent {
+public class AbstractSubcomponentImpl extends SubcomponentImpl implements
+		AbstractSubcomponent {
 	/**
 	 * The cached value of the '{@link #getAbstractSubcomponentType() <em>Abstract Subcomponent Type</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -98,7 +99,8 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	@Override
 	public SubcomponentType getSubcomponentType() {
 		SubcomponentType subcomponentType = basicGetSubcomponentType();
-		return subcomponentType != null && ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
+		return subcomponentType != null
+				&& ((EObject) subcomponentType).eIsProxy() ? (SubcomponentType) eResolveProxy((InternalEObject) subcomponentType)
 				: subcomponentType;
 	}
 
@@ -121,14 +123,18 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * @generated
 	 */
 	public AbstractSubcomponentType getAbstractSubcomponentType() {
-		if (abstractSubcomponentType != null && ((EObject) abstractSubcomponentType).eIsProxy()) {
+		if (abstractSubcomponentType != null
+				&& ((EObject) abstractSubcomponentType).eIsProxy()) {
 			InternalEObject oldAbstractSubcomponentType = (InternalEObject) abstractSubcomponentType;
 			abstractSubcomponentType = (AbstractSubcomponentType) eResolveProxy(oldAbstractSubcomponentType);
 			if (abstractSubcomponentType != oldAbstractSubcomponentType) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+					eNotify(new ENotificationImpl(
+							this,
+							Notification.RESOLVE,
 							Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE,
-							oldAbstractSubcomponentType, abstractSubcomponentType));
+							oldAbstractSubcomponentType,
+							abstractSubcomponentType));
 			}
 		}
 		return abstractSubcomponentType;
@@ -148,13 +154,16 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setAbstractSubcomponentType(AbstractSubcomponentType newAbstractSubcomponentType) {
+	public void setAbstractSubcomponentType(
+			AbstractSubcomponentType newAbstractSubcomponentType) {
 		AbstractSubcomponentType oldAbstractSubcomponentType = abstractSubcomponentType;
 		abstractSubcomponentType = newAbstractSubcomponentType;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET,
-					Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE, oldAbstractSubcomponentType,
-					abstractSubcomponentType));
+			eNotify(new ENotificationImpl(
+					this,
+					Notification.SET,
+					Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE,
+					oldAbstractSubcomponentType, abstractSubcomponentType));
 	}
 
 	/**
@@ -224,10 +233,11 @@ public class AbstractSubcomponentImpl extends SubcomponentImpl implements Abstra
 	 */
 	@Override
 	public boolean isSetSubcomponentType() {
-		return super.isSetSubcomponentType() || eIsSet(Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE);
+		return super.isSetSubcomponentType()
+				|| eIsSet(Aadl2Package.ABSTRACT_SUBCOMPONENT__ABSTRACT_SUBCOMPONENT_TYPE);
 	}
 
 	public ComponentCategory getCategory() {
 		return ComponentCategory.ABSTRACT;
 	}
-} //AbstractSubcomponentImpl
+} // AbstractSubcomponentImpl

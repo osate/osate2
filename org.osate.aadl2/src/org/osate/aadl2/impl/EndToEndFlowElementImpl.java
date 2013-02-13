@@ -48,7 +48,8 @@ import org.osate.aadl2.EndToEndFlowElement;
  *
  * @generated
  */
-public abstract class EndToEndFlowElementImpl extends NamedElementImpl implements EndToEndFlowElement {
+public abstract class EndToEndFlowElementImpl extends NamedElementImpl
+		implements EndToEndFlowElement {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,4 +69,4 @@ public abstract class EndToEndFlowElementImpl extends NamedElementImpl implement
 		return Aadl2Package.eINSTANCE.getEndToEndFlowElement();
 	}
 
-} //EndToEndFlowElementImpl
+} // EndToEndFlowElementImpl
