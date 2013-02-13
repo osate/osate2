@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2013-02-11 10:41:35
+// $ANTLR 3.4 AadlBa.g 2013-02-13 18:12:48
 
   /**
  * AADL-BA-FrontEnd
@@ -200,7 +200,7 @@ public class AadlBaLexer extends Lexer {
               description="Mismatched of inverse of a set";
             } 
             description += " at line " + e.line + " col " + e.charPositionInLine ;
-            errReporter.error(this.getFilename(), e.line - _lineOffset, description);
+            errReporter.error(this.getFilename(), e.line, description);
       }
       
       public String getFilename(){

@@ -180,7 +180,7 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line - _lineOffset, description);
+        errReporter.error(this.getFilename(), e.line, description);
   }
 
   private void reportError(String msg, Token locationRef)
@@ -198,7 +198,7 @@ options {
        locationRef = input.get(index) ;
      }
      
-     line = locationRef.getLine() - _lineOffset ;
+     line = locationRef.getLine() ;
      col = locationRef.getCharPositionInLine() + 1 ; // Zero index based.
      
      msg += " at line " + line + ", col " + col ; 
@@ -332,7 +332,7 @@ options {
           description="Mismatched of inverse of a set";
         } 
         description += " at line " + e.line + " col " + e.charPositionInLine ;
-        errReporter.error(this.getFilename(), e.line - _lineOffset, description);
+        errReporter.error(this.getFilename(), e.line, description);
   }
   
   public String getFilename(){

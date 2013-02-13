@@ -1,4 +1,4 @@
-// $ANTLR 3.4 AadlBa.g 2013-02-11 10:41:34
+// $ANTLR 3.4 AadlBa.g 2013-02-13 18:12:47
  
   package fr.tpt.aadl.annex.behavior.parser;
   
@@ -258,7 +258,7 @@ public class AadlBaParser extends Parser {
               description="Mismatched of inverse of a set";
             } 
             description += " at line " + e.line + " col " + e.charPositionInLine ;
-            errReporter.error(this.getFilename(), e.line - _lineOffset, description);
+            errReporter.error(this.getFilename(), e.line, description);
       }
 
       private void reportError(String msg, Token locationRef)
@@ -276,7 +276,7 @@ public class AadlBaParser extends Parser {
            locationRef = input.get(index) ;
          }
          
-         line = locationRef.getLine() - _lineOffset ;
+         line = locationRef.getLine() ;
          col = locationRef.getCharPositionInLine() + 1 ; // Zero index based.
          
          msg += " at line " + line + ", col " + col ; 
