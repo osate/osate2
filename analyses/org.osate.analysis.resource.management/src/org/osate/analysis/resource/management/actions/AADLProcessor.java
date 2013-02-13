@@ -49,7 +49,7 @@ public final class AADLProcessor extends Processor {
 	 */
 	private AADLProcessor(final ComponentInstance proc, final Scheduler sched,
 			final double cyclesPerSecond) {
-		super(proc.getName(), sched, cyclesPerSecond, new NetInterface[]{new NetInterface(new AADLBus(1000.0))});
+		super(proc.getName(), sched, cyclesPerSecond, new NetInterface[]{new NetInterface(new AADLBus())});
 		setSemanticObject(proc);
 
 		// Not worrying about site architecture

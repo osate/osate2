@@ -16,24 +16,24 @@ import EAnalysis.BinPacking.Link;
 public class AADLBus extends Link {
 
 	public static final double DEFAULT_TRANSMISSION_TIME = 10.0e-6;
-
+	
 	public AADLBus(){
-		super(new CapacityComparator(),new EDFScheduler(new BandwidthComparator()), 1000);
+		super(new CapacityComparator(), new EDFScheduler(new BandwidthComparator()), 1/DEFAULT_TRANSMISSION_TIME);
 	}
 	
-	public AADLBus(double cyclesPerSec){
-		super(new CapacityComparator(), new EDFScheduler(new BandwidthComparator()), cyclesPerSec);
+	public AADLBus(double bytesPerSec){
+		super(new CapacityComparator(), new EDFScheduler(new BandwidthComparator()), bytesPerSec);
 	}
 	
 	public static AADLBus createInstance(ComponentInstance bi){
-		double bitsPerSec=0;		
-		bitsPerSec = 1.0/getTransmissionTime(bi);
-		AADLBus bus = new AADLBus(bitsPerSec);
+		double bytesPerSec=0;		
+		bytesPerSec = 1.0/getTransmissionTimePerByte(bi);
+		AADLBus bus = new AADLBus(bytesPerSec);
 		bus.setSemanticObject(bi);
 		return bus;
 	}
 	
-	private static double getTransmissionTime(final ComponentInstance proc) {
+	private static double getTransmissionTimePerByte(final ComponentInstance proc) {
 		RecordValue rv = GetProperties.getTransmissionTime(proc);
 		if (rv == null) return DEFAULT_TRANSMISSION_TIME;
 		RangeValue bpa = (RangeValue)PropertyUtils.getRecordFieldValue(rv, "PerByte");

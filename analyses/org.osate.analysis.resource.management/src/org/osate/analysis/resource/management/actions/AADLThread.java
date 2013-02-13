@@ -40,7 +40,7 @@ public final class AADLThread extends SoftwareNode {
 		double maxComputeTime;
 		try
 		{
-			maxComputeTime = GetProperties.getComputeExecutionTimeinSec(thread);
+			maxComputeTime = GetProperties.getActualComputeExecutionTimeinSec(thread);
 		}
 		catch (PropertyNotPresentException e)
 		{
@@ -57,7 +57,7 @@ public final class AADLThread extends SoftwareNode {
 			}
 		}
 	
-		final long cycles = (long) (maxComputeTime / GetProperties.getReferenceCycleTimeinSec(thread));
+		final long cycles = (long) ((maxComputeTime * GetProperties.getProcessorScalingFactor(thread))/GetProperties.getCycleTimeinSec(thread));
 	
 		return new AADLThread(thread, cycles, period, deadline);
 	}

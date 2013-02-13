@@ -149,7 +149,7 @@ public class RuntimeProcessWalker  {
   	double exectimeval;
   	try
   	{
-  		exectimeval = GetProperties.getComputeExecutionTimeinMS(elt);
+  		exectimeval = GetProperties.getActualComputeExecutionTimeinMS(elt);
   	}
   	catch (PropertyNotPresentException e)
   	{
