@@ -38,162 +38,171 @@ public class FlowLatencyUtil {
 	
 	public static FlowLatencyUtil eInstance = new FlowLatencyUtil();
 	
-	public double getMyLatencyinMicroSec(final NamedElement ph){
+	/**
+	 * retrieve the latency property value
+	 * @param ph property holder
+	 * @return double value in MicroSec
+	 */
+	public double getLatencyinMicroSec(final NamedElement ph){
+			return GetProperties.getLatencyinMicroSec(ph);
+	}
+
+	
+	/**
+	 * compute the latency from the entities the connection is bound to
+	 * @param pci connection instance
+	 * @return
+	 */
+	public double computeConnectionLatencyinMicroSec(final ConnectionInstance pci){
 		double res = 0.0;
-//		if (ph instanceof ConnectionInstance){
-//			ConnectionInstance pci = (ConnectionInstance)ph;
-//			FeatureInstance pio = (FeatureInstance)pci.getSource();
-//			double DataSize = 0;
-//			ComponentClassifier type = pio.getFeature().getAllClassifier();
-//			if (type == null){
-//				DataSize = 1;
-//			}else {
-//				DataSize = GetProperties.getSourceDataSizeInBytes(type);
-//			}
-//			List<ComponentInstance> reflist = new BasicEList<ComponentInstance>();
-//			try {
-//				List pvlist = GetProperties.getActualConnectionBinding(ph);
-//				for ( Object pv: pvlist){
-//					if(pv instanceof InstanceReferenceValue)
-//					{
-//
-//						InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
-//						if (ref instanceof ComponentInstance){
-//							reflist.add((ComponentInstance)ref);
-//						}
-//					}
-//					
-//					/*
-//					 * JD
-//					 * If we have a reference value, it is relative to the declarative model and thus,
-//					 * have to find the instance components accordingly.
-//					 */
-//					if (pv instanceof ReferenceValue)
-//					{
-//						List<InstanceObject> refs;
-//						ReferenceValue rv;
-//						
-//						rv = (ReferenceValue) pv;
-//
-//						refs = pci.getSystemInstance().findInstanceObjects(rv.getContainmentPathElements());
-//						for (InstanceObject ref : refs)
-//						{
-//							if (ref instanceof ComponentInstance)
-//							{
-//								if (! reflist.contains(ref))
-//								{
-//									reflist.add((ComponentInstance)ref);
-//								}
-//							}
-//						}
-//
-//					}
-//				}
-//			}
-//			catch (InvalidModelException e)
-//			{
-//				e.printStackTrace();
-//			}
-//			catch (PropertyNotPresentException e)
-//			{
-//
-//				e.printStackTrace();
-//			} 
-//			catch (PropertyIsModalException e)
-//			{
-//
-//				e.printStackTrace();
-//			} 
-//			catch (PropertyDoesNotApplyToHolderException e)
-//			{
-//
-//				e.printStackTrace();
-//			}
-//			catch (IllegalArgumentException e)
-//			{
-//
-//				e.printStackTrace();
-//			} 
-//			catch (IllegalStateException e) 
-//			{
-//
-//				e.printStackTrace();
-//			}
-//			ConnectionInstanceEnd cie = pci.getSource();
-//			if (!(cie instanceof FeatureInstance)) 
-//				return 0.0;
-//			FeatureInstance fi = (FeatureInstance)cie;
-//			ComponentInstance srcHW = getHardwareComponent(fi);
-//			cie = pci.getDestination();
-//			if (!(cie instanceof FeatureInstance)) 
-//				return 0.0;
-//			fi = (FeatureInstance)cie;
-//			ComponentInstance dstHW = getHardwareComponent(fi);
-//			if (reflist.isEmpty()&& srcHW != dstHW){
-//				// trying to derive connection bindings
-//				List rl = connectedByBus(srcHW, dstHW);
-//				if (rl != null) reflist = rl;
-//			}
-//			// keep track of previous component in chain to find access connection
-//			ComponentInstance prevComp = srcHW;
-//			for ( ComponentInstance ref: reflist){
-//				if (ref.getCategory() == ComponentCategory.BUS){
-//					// add any latency associated with the access connection
-//					double lat = 0.0;
-//					if (prevComp != null) GetProperties.getAccessLatencyinMS(prevComp,ref);
-//					if (lat > 0.0){
-//						res = res + lat;
-//					} 
-//					// add bus-based latency
-//					lat = GetProperties.getLatencyinMS(ref);
-//					if (lat > 0.0){
-//						res = res + lat;
-//					} else {
-//						RecordValue ttl = GetProperties.getTransmissionTime(ref);
-//						if (ttl == null)
-//						{
-//							continue;
-//						}
-//						
-//						RangeValue bpa = (RangeValue)PropertyUtils.getRecordFieldValue(ttl, "PerByte");
-//						NumberValue nv = bpa.getMaximumValue();
-//						double perunit =  nv.getScaledValue(GetProperties.getMSUnitLiteral(ref));
-//						 bpa = (RangeValue)PropertyUtils.getRecordFieldValue(ttl, "Fixed");
-//						 nv = bpa.getMaximumValue();
-//						double fixed = nv.getScaledValue(GetProperties.getMSUnitLiteral(ref));
-//						res = res + fixed + DataSize * perunit;
-//					}
-//				} else if (ref.getCategory() == ComponentCategory.DEVICE){
-//					// add device-based latency
-//					// add bus-based latency
-//					double lat = GetProperties.getLatencyinMS(ref);
-//					if (lat > 0.0){
-//						res = res + lat;
-//					} 
-//				} else if (ref.getCategory() == ComponentCategory.PROCESSOR){
-//					// add processor-based latency
-//					double lat = GetProperties.getLatencyinMS(ref);
-//					if (lat > 0.0){
-//						res = res + lat;
-//					} 
-//				}
-//				prevComp = ref;
-//			}
-//			// add last access connection latency
-//			if (prevComp != srcHW && srcHW != dstHW){
-//				double lat = 0.0;
-//				if (dstHW != null)  GetProperties.getAccessLatencyinMS(dstHW,prevComp);
-//				if (lat > 0.0){
-//					res = res + lat;
-//				} 
-//			}
-//		}
-		if (res == 0.0){
-			res = GetProperties.getLatencyinMicroSec(ph);
+		// get data size of sending port. If it has no classifier assume size 1 byte
+		FeatureInstance pio = (FeatureInstance)pci.getSource();
+		double DataSize = 0.0;
+		ComponentClassifier type = pio.getFeature().getAllClassifier();
+		if (type != null){
+			// will do it for a single port or all ports in a feature group type
+			DataSize = GetProperties.getSourceDataSizeInBytes(type);
+		}
+		List<ComponentInstance> reflist = new BasicEList<ComponentInstance>();
+		try {
+			List pvlist = GetProperties.getActualConnectionBinding(pci);
+			for ( Object pv: pvlist){
+				if(pv instanceof InstanceReferenceValue)
+				{
+
+					InstanceObject ref = ((InstanceReferenceValue) pv).getReferencedInstanceObject();
+					if (ref instanceof ComponentInstance){
+						reflist.add((ComponentInstance)ref);
+					}
+				}
+
+				/*
+				 * JD
+				 * If we have a reference value, it is relative to the declarative model and thus,
+				 * have to find the instance components accordingly.
+				 */
+				if (pv instanceof ReferenceValue)
+				{
+					List<InstanceObject> refs;
+					ReferenceValue rv;
+
+					rv = (ReferenceValue) pv;
+
+					refs = pci.getSystemInstance().findInstanceObjects(rv.getContainmentPathElements());
+					for (InstanceObject ref : refs)
+					{
+						if (ref instanceof ComponentInstance)
+						{
+							if (! reflist.contains(ref))
+							{
+								reflist.add((ComponentInstance)ref);
+							}
+						}
+					}
+
+				}
+			}
+		}
+		catch (InvalidModelException e)
+		{
+			e.printStackTrace();
+		}
+		catch (PropertyNotPresentException e)
+		{
+
+			e.printStackTrace();
+		} 
+		catch (PropertyIsModalException e)
+		{
+
+			e.printStackTrace();
+		} 
+		catch (PropertyDoesNotApplyToHolderException e)
+		{
+
+			e.printStackTrace();
+		}
+		catch (IllegalArgumentException e)
+		{
+
+			e.printStackTrace();
+		} 
+		catch (IllegalStateException e) 
+		{
+
+			e.printStackTrace();
+		}
+		ConnectionInstanceEnd cie = pci.getSource();
+		if (!(cie instanceof FeatureInstance)) 
+			return 0.0;
+		FeatureInstance fi = (FeatureInstance)cie;
+		ComponentInstance srcHW = getHardwareComponent(fi);
+		cie = pci.getDestination();
+		if (!(cie instanceof FeatureInstance)) 
+			return 0.0;
+		fi = (FeatureInstance)cie;
+		ComponentInstance dstHW = getHardwareComponent(fi);
+		if (reflist.isEmpty()&& srcHW != dstHW){
+			// trying to derive connection bindings if no explicit binding was specified
+			List rl = connectedByBus(srcHW, dstHW);
+			if (rl != null) reflist = rl;
+		}
+		// keep track of previous component in chain to find access connection
+		ComponentInstance prevComp = srcHW;
+		for ( ComponentInstance ref: reflist){
+			double lat = 0.0;
+			// add any latency associated with the access connection
+			if (ref.getCategory() == ComponentCategory.BUS) {
+				lat = GetProperties.getAccessLatencyinMicroSec(prevComp,ref);
+			} else {
+				lat = GetProperties.getAccessLatencyinMicroSec(ref,prevComp);
+			}
+			if (lat > 0.0){
+				res = res + lat;
+			} 
+			if (ref.getCategory() == ComponentCategory.BUS){
+				// add bus-based latency
+				RecordValue ttl = GetProperties.getTransmissionTime(ref);
+				if (ttl != null && DataSize > 0.0){
+					RangeValue bpa = (RangeValue)PropertyUtils.getRecordFieldValue(ttl, "PerByte");
+					NumberValue nv = bpa.getMaximumValue();
+					double perunit =  nv.getScaledValue(GetProperties.getUSUnitLiteral(ref));
+					bpa = (RangeValue)PropertyUtils.getRecordFieldValue(ttl, "Fixed");
+					nv = bpa.getMaximumValue();
+					double fixed = nv.getScaledValue(GetProperties.getUSUnitLiteral(ref));
+					res = res + fixed + DataSize * perunit;
+				} else {
+					lat = GetProperties.getLatencyinMicroSec(ref);
+					if (lat > 0.0){
+						res = res + lat;
+					}
+				}
+			} else if (ref.getCategory() == ComponentCategory.DEVICE){
+				// add device-based latency
+				lat = GetProperties.getLatencyinMicroSec(ref);
+				if (lat > 0.0){
+					res = res + lat;
+				} 
+			} else if (ref.getCategory() == ComponentCategory.PROCESSOR){
+				// add processor-based latency
+				lat = GetProperties.getLatencyinMicroSec(ref);
+				if (lat > 0.0){
+					res = res + lat;
+				} 
+			}
+			prevComp = ref;
+		}
+		// add last access connection latency
+		if (prevComp != srcHW && srcHW != dstHW){
+			double lat = 0.0;
+			if (dstHW != null)  GetProperties.getAccessLatencyinMicroSec(dstHW,prevComp);
+			if (lat > 0.0){
+				res = res + lat;
+			} 
 		}
 		return res;
 	}
-	
+
 	public static ComponentInstance getHardwareComponent(FeatureInstance fi){
 		ComponentInstance ci = fi.getContainingComponentInstance();
 		if (ci.getCategory() == ComponentCategory.DEVICE){

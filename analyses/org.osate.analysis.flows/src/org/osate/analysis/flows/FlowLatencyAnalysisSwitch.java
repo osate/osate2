@@ -139,7 +139,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				
 				final double totalLatency = doETEF(etef); 
 				double val = 0;
-					val = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(etef);
+					val = FlowLatencyUtil.eInstance.getLatencyinMicroSec(etef);
 				if (val > 0)
 				{
 					if (totalLatency > val) {
@@ -220,7 +220,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 
 		// If we are analyzing an end to end flow, then we treat the first
 		// subcomponent-flow pair specially to prime the latency computation.
-			myLatencyETE = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(etef);
+			myLatencyETE = FlowLatencyUtil.eInstance.getLatencyinMicroSec(etef);
 
 			fe = it.next();
 			ci = fe.getContainingComponentInstance();
@@ -230,7 +230,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 			// Get the latency from the flow specification
 			FlowSpecificationInstance fefs = (FlowSpecificationInstance)fe;
 			double FlowSpecificationLatency;
-			FlowSpecificationLatency = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(fefs);
+			FlowSpecificationLatency = FlowLatencyUtil.eInstance.getLatencyinMicroSec(fefs);
 			double dv = 0.0;
 
 
@@ -401,7 +401,7 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 				 */
 				fefs = (FlowSpecificationInstance)fe;
 				double fsLatency;
-				fsLatency = FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(fefs);
+				fsLatency = FlowLatencyUtil.eInstance.getLatencyinMicroSec(fefs);
 				if (fsLatency == 0 ){
 					warning(fefs,"Flow spec latency used in flow latency calculation is zero");
 				}
@@ -444,8 +444,12 @@ public class FlowLatencyAnalysisSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param conn Connection declaration or connection instance
 	 * @return double latency value
 	 */
-	protected double getConnectionLatency(NamedElement conn){
-		return FlowLatencyUtil.eInstance.getMyLatencyinMicroSec(conn);
+	protected double getConnectionLatency(ConnectionInstance conn){
+		double res = FlowLatencyUtil.eInstance.computeConnectionLatencyinMicroSec(conn);
+		if (res == 0.0){
+			FlowLatencyUtil.eInstance.getLatencyinMicroSec(conn);
+		}
+		return res;
 	}
 
 
