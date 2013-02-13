@@ -45,6 +45,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -124,6 +125,19 @@ public class DoBoundResourceAnalysisLogic {
 	 * @param curProcessor Component Instance of processor
 	 */
 	protected void checkProcessorLoad(ComponentInstance curProcessor, String somName) {
+		// check about cycletime and MIPS capacity consistency
+		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor,0.0);
+		// get cycle time and compare with MIPS capacity
+		double cycleMIPS = GetProperties.getCycletimeasMIPS(curProcessor);
+		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(curProcessor);
+		if (cycleMIPS > 0.0) {
+			if (MIPScapacity > 0.0) {
+				if (Math.abs(MIPScapacity - cycleMIPS) > 1) {
+					errorSummary(curProcessor, null, "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " and cycle time in MIPS "
+							+ GetProperties.toStringScaled(cycleMIPS, mipsliteral) + " specified inconsistently. Please remove one.");
+				}
+			}
+		}
 		SystemInstance root = curProcessor.getSystemInstance();
 		final ComponentInstance currentProcessor = curProcessor;
 		EList boundComponents = new ForAllElement() {
@@ -148,15 +162,15 @@ public class DoBoundResourceAnalysisLogic {
 				// one of the children has a budget, which was accounted for
 				break;
 			}
-			double actualmips = GetProperties.getActualMIPS(bci);
+			double actualmips = GetProperties.getActualThreadMIPS(bci);
 			double budget = GetProperties.getMIPSBudgetInMIPS(bci, 0.0);
 			if (actualmips > 0) {
 				if (budget > 0 && actualmips > budget) {
-					warningSummary(bci, somName, "Execution time (in MIPS) " + actualmips + " exceeds MIPS budget "
-							+ budget + " on processor " + curProcessor.getComponentInstancePath());
+					warningSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " exceeds MIPS budget "
+							+ GetProperties.toStringScaled(budget, mipsliteral) + " on processor " + curProcessor.getComponentInstancePath());
 				} else if (budget > 0 && actualmips < budget) {
-					infoSummary(bci, somName, "Execution time (in MIPS) " + actualmips + " is less than MIPS budget "
-							+ budget + " on processor " + curProcessor.getComponentInstancePath());
+					infoSummary(bci, somName, "Execution time (in MIPS) " + GetProperties.toStringScaled(actualmips, mipsliteral) + " is less than MIPS budget "
+							+ GetProperties.toStringScaled(budget, mipsliteral) + " on processor " + curProcessor.getComponentInstancePath());
 				}
 				// add ancestors to coverage list
 				while ((bci = bci.getContainingComponentInstance()) != null) {
@@ -176,35 +190,14 @@ public class DoBoundResourceAnalysisLogic {
 				}
 			}
 		}
-		double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor, 0.0);
-		// get cycle time and compare with MIPS capacity
-		double cycleMIPS = GetProperties.getCycletimeasMIPS(curProcessor);
-		boolean cyclebased = true;
-		if (cycleMIPS == 0.0) {
-			if (MIPScapacity == 0.0) {
-				errorSummary(curProcessor, somName, "Processor " + curProcessor.getComponentInstancePath()
-						+ " has no MIPS capacity or Cycle Time");
-				return;
-			} else {
-				cycleMIPS = MIPScapacity;
-				cyclebased = false;
-			}
-		} else {
-			if (MIPScapacity > 0.0) {
-				if (Math.abs(MIPScapacity - cycleMIPS) > (MIPScapacity / 20)) {
-					warningSummary(curProcessor, somName, "MIPS capacity " + MIPScapacity + " and cycle time in MIPS "
-							+ cycleMIPS + " differ by more than 5%");
-				}
-			}
-		}
-		if (totalMIPS > cycleMIPS) {
-			errorSummary(curProcessor, somName, "Total MIPS " + totalMIPS + " of bound tasks exceeds MIPS capacity "
-					+ cycleMIPS + " of " + curProcessor.getComponentInstancePath());
+		if (totalMIPS > MIPScapacity) {
+			errorSummary(curProcessor, somName, "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks exceeds MIPS capacity "
+					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of " + curProcessor.getComponentInstancePath());
 		} else if (totalMIPS == 0.0) {
 			warningSummary(curProcessor, somName, "Bound app's have no MIPS budget.");
 		} else {
-			infoSummary(curProcessor, somName, "Total MIPS " + totalMIPS + " of bound tasks within "
-					+ (cyclebased ? "cycletime-based " : " ") + "MIPS capacity " + cycleMIPS + " of "
+			infoSummary(curProcessor, somName, "Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
+					+  "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
 					+ curProcessor.getComponentInstancePath());
 		}
 	}

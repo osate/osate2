@@ -103,15 +103,15 @@ public class DoResourceBudgetLogic {
 	private void checkProcessorMIPS(EList ilist) {
 		for (Iterator it = ilist.iterator(); it.hasNext();) {
 			ComponentInstance curProcessor = (ComponentInstance) it.next();
-			double MIPScapacity = GetProperties.getMIPSCapacityInMIPS(curProcessor, 0.0);
+			double MIPScapacity = GetProperties.getActualProcessorMIPS(curProcessor);
 			// get cycle time and compare with MIPS capacity
 			double cycleMIPS = GetProperties.getCycletimeasMIPS(curProcessor);
 
 			if (cycleMIPS > 0.0) {
 				if (MIPScapacity > 0.0) {
-					if (Math.abs(MIPScapacity - cycleMIPS) > (MIPScapacity / 20)) {
-						warningSummary(curProcessor, null, "MIPS capacity " + MIPScapacity + " and cycle time in MIPS "
-								+ cycleMIPS + " differ by more than 5%");
+					if (Math.abs(MIPScapacity - cycleMIPS) > 1) {
+						errorSummary(curProcessor, null, "MIPS capacity " + MIPScapacity + " and cycle time in MIPS "
+								+ cycleMIPS + " specified inconsistently. Please remove one.");
 					}
 				}
 			}
@@ -120,10 +120,10 @@ public class DoResourceBudgetLogic {
 	
 	private enum ResourceKind {MIPS, RAM, ROM};
 	
-	private double getCapacity(NamedElement ne,ResourceKind kind){
+	private double getCapacity(ComponentInstance ne,ResourceKind kind){
 		switch(kind){
 		case MIPS: 
-			return GetProperties.getMIPSCapacityInMIPS(ne, 0.0);
+			return GetProperties.getActualProcessorMIPS(ne);
 		case RAM: 
 			return GetProperties.getRAMCapacityInKB(ne, 0.0);
 		case ROM: 
@@ -157,7 +157,7 @@ public class DoResourceBudgetLogic {
 	private double sumCapacity(EList ilist, ResourceKind rk, String resourceName, boolean required) {
 		double total = 0.0;
 		for (Iterator it = ilist.iterator(); it.hasNext();) {
-			InstanceObject io = (InstanceObject) it.next();
+			ComponentInstance io = (ComponentInstance) it.next();
 			double capacity = getCapacity(io, rk);
 			total += capacity;
 			resources++;
@@ -221,7 +221,7 @@ public class DoResourceBudgetLogic {
 		double budget = getBudget(ci, rk);
 		String resourceName = ci.getCategory().getName();
 		if (rk == ResourceKind.MIPS && ci.getCategory() == ComponentCategory.THREAD) {
-			double actualmips = GetProperties.getActualMIPS(ci);
+			double actualmips = GetProperties.getActualThreadMIPS(ci);
 			if (actualmips == 0.0) {
 				total = budget;
 			} else {
@@ -230,9 +230,6 @@ public class DoResourceBudgetLogic {
 					errManager.info(ci, resourceName + " " + ci.getInstanceObjectPath() + " execution time (in MIPS) " + actualmips +" greater than budget "+budget);
 				}
 			}
-		}
-		if (HWOnly && budget == 0) {
-			return -1;
 		}
 		if (budget == 0 && total == 0 && required) {
 			if (!(ci.getCategory() == ComponentCategory.DEVICE)) {

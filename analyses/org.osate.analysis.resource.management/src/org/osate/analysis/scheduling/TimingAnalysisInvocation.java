@@ -6,12 +6,12 @@ package org.osate.analysis.scheduling;
 
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 
 
 
 public class TimingAnalysisInvocation {
-	public static boolean conducted = false;
 	
 	/**
 	 * This method drives scheduling analysis for a particular processor
@@ -23,6 +23,7 @@ public class TimingAnalysisInvocation {
 			final ComponentInstance processor) {
 		if (processor.getCategory() != ComponentCategory.PROCESSOR)
 			return false;
+		if (csvlog == null) csvlog = new WriteToFile("SchedulingAnalysis", processor);
 		RuntimeProcessWalker walker = new RuntimeProcessWalker( errMgr);
 		walker.cleanProcessHolder() ;
 		walker.setCurrentProcessor(processor);
@@ -32,4 +33,20 @@ public class TimingAnalysisInvocation {
 		boolean result = walker.timingSchedualabilityAnalysis();
 		return result;
 	}
+	
+	private static WriteToFile csvlog = null;
+	
+	
+	public static void csvlog(String s){
+		if (csvlog != null)
+		csvlog.addOutputNewline(s);
+	}
+	
+	public static void saveCSVContent(){
+		if (csvlog != null)
+		csvlog.saveToFile();
+		csvlog = null;
+	}
+	
+	
 }

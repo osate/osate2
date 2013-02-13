@@ -90,13 +90,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 				@Override
 				public void process(Element obj) {
 					ComponentInstance ci = (ComponentInstance) obj;
-					boolean schedulable =
 						TimingAnalysisInvocation.timingSchedulabilityAnalysis(this.getErrorManager(), ci);
-					if (schedulable) {
-						info(ci, ci.getInstanceObjectPath() + " is schedulable");
-					} else {
-						info(ci, ci.getInstanceObjectPath() + " is not schedulable");
-					}
 					return;
 				}
 			};
@@ -105,6 +99,7 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 		} catch (InvalidModelException e) {
 			error(e.getElement(), e.getMessage());
 		}
+		TimingAnalysisInvocation.saveCSVContent();
 		monitor.done();
 	}
 }

@@ -53,6 +53,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.QuickSort;
+import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -243,51 +244,44 @@ public class RuntimeProcessWalker  {
                              (RuntimeProcess)runTimeComponents.get(i);
         analysis.addProcessToList(curComponent, curComponent.getARCID());
     }
-
+    
     boolean result = analysis.schedulabilityAnalysis();
 
-    //before return, generate the file output as the analysis result!
-    FileOutputStream outputFileStream =null;
 	StringBuffer buf = new StringBuffer();
-	try {
-		   outputFileStream = new FileOutputStream("TimingAnalysis"+"-"+
-		  	                                             getCurrentProcessor());
+	int totaltime = 0;
+    for (int i=0; i<runTimeComponents.size(); i++) {
+        RuntimeProcess curComponent =
+                            (RuntimeProcess)runTimeComponents.get(i);
+        totaltime += curComponent.getExecutionTime()*1000/curComponent.getPeriod();
     }
-    catch (IOException ioExc){ }
-
-    buf.append("timing table for run time processes bounded to processor: " +
-         getCurrentProcessor() +"." + "\n"
-         + " listed parameters are in sequal:  " + "\n"
-         + " period, deadline, execution time, phase offset, priority, max response time, schedulability "
-         + " ATTENTION: the response time is counted from the starting of transcation, instead of from the offset!"
-         +"\n" +"\n" );
+    
+    if (result){
+    	errManager.info(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is schedulable with utilization "+totaltime/10+"%");
+    } else {
+    	errManager.info(getCurrentProcessor(), "Processor "+getCurrentProcessor().getInstanceObjectPath()+" is not schedulable with utilization "+totaltime/10+"%");
+    }
+    
+    buf.append("Utilization "+totaltime/10+"% for processor: " +
+         getCurrentProcessor().getInstanceObjectPath()  + "\n"
+         + "thread name, period, deadline, execution time, phase offset, priority, max response time, schedulability "
+          +"\n" +"\n" );
 
     for (int i=0; i<runTimeComponents.size(); i++) {
          RuntimeProcess curComponent =
                              (RuntimeProcess)runTimeComponents.get(i);
-         if (curComponent.getARCName()!= null) {
-            buf.append(curComponent.getComponentName() + "(in ARC " + curComponent.getARCName() +"):" +"\t");
-         }
-         else{
-            buf.append(curComponent.getComponentName() +":" + "\t");
-         }
-         buf.append( curComponent.getPeriod()+"\t" + curComponent.getDeadline() + "\t"
-		                      + curComponent.getExecutionTime() + "\t" + curComponent.getPhaseOffset() + "\t"
-		                      + curComponent.getPriority() + "\t" + curComponent.getMaxResponseTime()
-		                      +"\t" + curComponent.getSchedulability() +"\t" +"\n" );
-
+//         if (curComponent.getARCName()!= null) {
+//            buf.append(curComponent.getComponentName() + "(in ARC " + curComponent.getARCName() +"):" +"\t");
+//         }
+//         else{
+            buf.append(curComponent.getComponentName() +", " );
+//         }
+         buf.append( curComponent.getPeriod()+", " + curComponent.getDeadline() + ", "
+		                      + curComponent.getExecutionTime() + ", " + curComponent.getPhaseOffset() + ", "
+		                      + curComponent.getPriority() + ", " + curComponent.getMaxResponseTime()
+		                      +", " + curComponent.getSchedulability() +"\n" );
     }
-
-    System.out.println(buf.toString());
-
-    if (outputFileStream != null && buf.length() > 0) {
-        try {
-                outputFileStream.write(buf.toString().getBytes());
-                outputFileStream.close();
-        }
-        catch (IOException ioExc) {
-        }
-    }
+    buf.append("\n\n");
+    TimingAnalysisInvocation.csvlog(buf.toString());
 
 	//clean the ARC vector holder.
     analysis.cleanARCList();
@@ -296,5 +290,7 @@ public class RuntimeProcessWalker  {
 
 
   }
+  
+
 
   }
