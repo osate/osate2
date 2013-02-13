@@ -27,6 +27,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.xtext.nodemodel.ICompositeNode ;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.AccessConnection;
@@ -36,6 +37,7 @@ import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DirectionType;
+import org.osate.aadl2.Element ;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.NamedElement;
@@ -44,6 +46,7 @@ import org.osate.aadl2.Parameter;
 import org.osate.aadl2.ParameterConnection;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.SubprogramCall;
+import org.osate.aadl2.parsesupport.LocationReference ;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class Aadl2Utils
@@ -153,25 +156,6 @@ public class Aadl2Utils
     public int compare(Feature arg0,
                        Feature arg1)
     {
-      if(arg0.getLocationReference() != null &&
-            arg1.getLocationReference() != null)
-      {
-        if(arg0.getLocationReference().getLine() < arg1.getLocationReference()
-              .getLine())
-        {
-          return -1 ;
-        }
-
-        if(arg0.getLocationReference().getLine() > arg1.getLocationReference()
-              .getLine())
-        {
-          return 1 ;
-        }
-
-        return 0 ;
-      }
-
-       
       Feature ancestor0 = arg0.getRefined() != null ? arg0.getRefined() : arg0;
       Feature ancestor1 = arg1.getRefined() != null ? arg1.getRefined() : arg1;
       
@@ -374,5 +358,31 @@ public class Aadl2Utils
     {
       return false ;
     }
+  }
+  
+  /**
+   * Return the location reference of the given Element object. 
+   * 
+   * @param e the given Element
+   * @return a LocationReference object
+   */
+  public static LocationReference getLocationReference(Element e)
+  {
+    LocationReference result = null ;
+    
+    result = e.getLocationReference() ;
+    
+    if(result == null)
+    {
+      ICompositeNode node = NodeModelUtils.findActualNodeFor(e);
+      
+      result = new LocationReference() ;
+      result.setFilename(e.eResource().getURI().lastSegment()) ;
+      result.setOffset(node.getOffset()) ;
+      result.setLength(node.getLength()) ;
+      result.setLine(node.getStartLine()) ;      
+    }
+
+    return result ;
   }
 }
