@@ -14,7 +14,6 @@ public final class SEI {
 	public static final String PRIORITY = "Priority";
 	public static final String PARTITION_LATENCY = "Partition_Latency";
 	public static final String IS_PARTITION = "Is_Partition";
-	public static final String REFERENCE_CYCLE_TIME = "reference_cycle_time";
 	public static final String CYCLE_TIME = "cycle_time";
 	public static final String MIPS_CAPACITY = "MIPSCapacity";
 	public static final String MIPS_BUDGET = "MIPSBudget";
@@ -45,13 +44,6 @@ public final class SEI {
 	public static final String MW_LITERAL = "mW";
 	public static final String W_LITERAL = "W";
 	public static final String KW_LITERAL = "KW";
-// now located in AADLProject
-//	public static final String DATA_VOLUME_UNITS = "Data_Volume_Units";
-//	public static final String BITSPS_LITERAL = "bitsps";
-//	public static final String BPS_LITERAL = "BPS";
-//	public static final String KBPS_LITERAL = "KBPS";
-//	public static final String MBPS_LITERAL = "MBPS";
-//	public static final String GBPS_LITERAL = "GBPS";
 	
 	public static final String NSLOC = "nsloc";
 	public static final String VDID_INSPECT = "vdid_inspect";
