@@ -48,11 +48,6 @@ property set SEI is
   -- Used to convert execution time into processor cycles
   -- default cycle time of a 1 GHz processor
   cycle_time: Time  applies to (processor);
-  -- If reference_proc is specified that the specified processor is used as reference processor 
-  -- instead of the above constant
-  reference_processor: inherit classifier(processor) applies to (thread, thread group, process, system, device);
-  -- processor speed scaling factor. default is assumed to be 1.
-  speed_scaling_factor : aadlreal applies to (processor, system);
   -- conversion factor from cycle time to instruction time (default is assumed to be 1
   cycles_per_instruction : aadlreal applies to (processor, system);
 
