@@ -393,24 +393,15 @@ public class GetProperties {
 	}
 
 	public static ComponentClassifier getReferenceProcessor(final NamedElement ne) {
-		PropertyExpression pv = null;
-		;
-		Property referenceProcessor = lookupPropertyDefinition(ne,SEI._NAME, SEI.REFERENCE_PROCESSOR);
-		try {
-			pv = ne.getSimplePropertyValue(referenceProcessor);
-		} catch (Exception e) {
-		}
-		if (pv == null){
-			referenceProcessor = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.REFERENCE_PROCESSOR);
+			Property referenceProcessor = lookupPropertyDefinition(ne,TimingProperties._NAME, TimingProperties.REFERENCE_PROCESSOR);
+			if (referenceProcessor == null) return null;
 			try {
-				pv = ne.getSimplePropertyValue(referenceProcessor);
+				PropertyExpression pv = ne.getSimplePropertyValue(referenceProcessor);
+				if (pv != null)
+					return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
 			} catch (Exception e) {
 			}
-		}
-		if (pv == null)
 			return null;
-		return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
-
 	}
 	
 	// We have added the reference time unit for the cycle time to the name
@@ -562,7 +553,7 @@ public class GetProperties {
 		}
 		double procCycleTime = getCycleTimeinUS(processor);
 		double refCycleTime = getReferenceCycleTimeinUS(thread);
-		if (refCycleTime == 0.0)
+		if (procCycleTime == 0.0)
 			return 1.0;
 		return procCycleTime / refCycleTime;
 	}
@@ -573,8 +564,6 @@ public class GetProperties {
 		try {
 			res = PropertyUtils.getRealValue(processor, sf);
 		} catch (Exception e) {
-			sf = lookupPropertyDefinition(processor,SEI._NAME, SEI.SPEED_SCALING_FACTOR);
-			res = PropertyUtils.getRealValue(processor, sf, 0.0);
 		}
 		return res;
 	}

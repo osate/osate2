@@ -16,8 +16,6 @@ public final class SEI {
 	public static final String IS_PARTITION = "Is_Partition";
 	public static final String REFERENCE_CYCLE_TIME = "reference_cycle_time";
 	public static final String CYCLE_TIME = "cycle_time";
-	public static final String SPEED_SCALING_FACTOR = "speed_scaling_factor";
-	public static final String REFERENCE_PROCESSOR = "reference_processor";
 	public static final String MIPS_CAPACITY = "MIPSCapacity";
 	public static final String MIPS_BUDGET = "MIPSBudget";
 	public static final String RAM_CAPACITY = "RAMCapacity";
